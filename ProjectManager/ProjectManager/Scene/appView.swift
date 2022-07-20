@@ -10,8 +10,8 @@ import RealmSwift
 
 struct AppView: View {
   @State private var isShowDetailView = false
-  @ObservedObject var viewModel: AppViewModel
-  var todoRealm = TodoRealm()
+  @ObservedObject private var viewModel: AppViewModel
+  private var todoRealm = TodoRealm()
   
   init(viewModel: AppViewModel) {
     let navigationBarApperance = UINavigationBarAppearance()
@@ -41,9 +41,8 @@ struct AppView: View {
                      status: .done,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) }
         )
-                  
+        
       }
-      
       .background(Color(UIColor.systemGray4))
       .navigationTitle("Project Manager")
       .navigationBarTitleDisplayMode(.inline)
@@ -59,12 +58,5 @@ struct AppView: View {
       }
     }
     .navigationViewStyle(.stack)
-    .onAppear {
-      
-      let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-      print(documentsDirectory)
-
-    }
   }
-    
 }

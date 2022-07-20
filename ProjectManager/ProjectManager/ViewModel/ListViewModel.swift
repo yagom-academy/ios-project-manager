@@ -12,11 +12,11 @@ class ListViewModel: ObservableObject {
   var todoService: TodoService
   @Published var todoList: [Todo]
   
-  lazy var editViewModel = EditViewModel() { [self] todo in
+  lazy var editViewModel = EditViewModel(update: { [self] todo in
     todoService.update(todo: todo)
     todoList = todoService.read()
-  }
-  
+  })
+ 
   init(todoService: TodoService, todoList: [Todo]) {
     self.todoService = todoService
     self.todoList = todoList
@@ -28,7 +28,7 @@ class ListViewModel: ObservableObject {
   
   func delete(set: IndexSet, status: Status) {
     let filteredtodoList = self.todoService.read(by: status)
-
+    
     guard let index = set.first else { return }
     
     let id = filteredtodoList[index].id
