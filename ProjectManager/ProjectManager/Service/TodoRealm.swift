@@ -13,9 +13,9 @@ class TodoRealm: Object {
   @Persisted var title: String
   @Persisted var content: String
   @Persisted var date: Date
-  @Persisted var status: String
+  @Persisted var status: Status
   
-  convenience init(id: UUID = UUID(), title: String, content: String, date: Date = Date(), status: String = "TODO") {
+  convenience init(id: UUID = UUID(), title: String, content: String, date: Date = Date(), status: Status = .todo) {
     self.init()
     self.id = id
     self.title = title
@@ -23,4 +23,10 @@ class TodoRealm: Object {
     self.date = date
     self.status = status
   }
+}
+
+enum Status: String, PersistableEnum {
+  case todo = "TODO"
+  case doing = "DOING"
+  case done = "DONE"
 }

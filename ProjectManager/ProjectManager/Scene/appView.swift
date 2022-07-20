@@ -60,8 +60,11 @@ struct AppView: View {
     }
     .navigationViewStyle(.stack)
     .onAppear {
-      guard let realm = try? Realm() else { return }
-      print(Realm.Configuration.defaultConfiguration.fileURL)
+      
+      let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+      print(documentsDirectory)
+
     }
   }
+    
 }

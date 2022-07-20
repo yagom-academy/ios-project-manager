@@ -16,11 +16,11 @@ class ListViewModel: ObservableObject {
     self.todoService = todoService
   }
   
-  func read(by status: Todo.Status) -> [Todo] {
+  func read(by status: Status) -> [Todo] {
     todoService.read(by: status)
   }
   
-  func delete(set: IndexSet, status: Todo.Status) {
+  func delete(set: IndexSet, status: Status) {
     let filteredtodoList = self.todoService.read(by: status)
 
     guard let index = set.first else { return }

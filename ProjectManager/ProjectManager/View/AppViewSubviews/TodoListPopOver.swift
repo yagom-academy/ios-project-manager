@@ -10,9 +10,9 @@ import SwiftUI
 struct TodoListPopOver: View {
   @Binding var isShow: Bool
   let todo: Todo
-  private let updata: (Todo.Status, Todo) -> Void
+  private let updata: (Status, Todo) -> Void
   
-  init(isShow: Binding<Bool>, todo: Todo, updata: @escaping (Todo.Status, Todo) -> Void) {
+  init(isShow: Binding<Bool>, todo: Todo, updata: @escaping (Status, Todo) -> Void) {
     self._isShow = isShow
     self.todo = todo
     self.updata = updata
@@ -39,10 +39,10 @@ struct TodoListPopOver: View {
 struct MoveButton: View {
   @Binding var isShow: Bool
   let todo: Todo
-  let status: Todo.Status
-  private let updata: (Todo.Status, Todo) -> Void
+  let status: Status
+  private let updata: (Status, Todo) -> Void
   
-  init(isShow: Binding<Bool>, todo: Todo, status: Todo.Status, updata: @escaping (Todo.Status, Todo) -> Void) {
+  init(isShow: Binding<Bool>, todo: Todo, status: Status, updata: @escaping (Status, Todo) -> Void) {
     self._isShow = isShow
     self.todo = todo
     self.status = status

@@ -25,11 +25,11 @@ class AppViewModel: ObservableObject {
     return todoService.read()
   }
   
-  func read(by status: Todo.Status) -> [Todo] {
+  func read(by status: Status) -> [Todo] {
     todoService.read(by: status)
   }
   
-  func changeStatus(status: Todo.Status, todo: Todo) {
+  func changeStatus(status: Status, todo: Todo) {
     let updateTodo = Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: status)
     todoService.update(todo: updateTodo)
   }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HeaderView: View {
-  @State var title: Todo.Status
+  @State var title: Status
   let listCount: Int
   
   var body: some View {

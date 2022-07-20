@@ -9,13 +9,13 @@ import SwiftUI
 struct TodoListView: View {
   @ObservedObject var viewModel: ListViewModel
   @ObservedObject var todoSerVice: TodoService
-  private let status: Todo.Status
-  private let updata: (Todo.Status, Todo) -> Void
+  private let status: Status
+  private let updata: (Status, Todo) -> Void
 
   init(viewModel: ListViewModel,
        todoService: TodoService,
-       status: Todo.Status,
-       updata: @escaping (Todo.Status, Todo) -> Void
+       status: Status,
+       updata: @escaping (Status, Todo) -> Void
   ) {
     self.viewModel = viewModel
     self.todoSerVice = todoService
@@ -57,9 +57,9 @@ struct ListCellView: View {
   // 뷰 모델이 필요함. 셀 만을 위한 MV 가 필요한가?
   // 뷰 모델이
   let todo: Todo
-  private let updata: (Todo.Status, Todo) -> Void
+  private let updata: (Status, Todo) -> Void
   
-  init(todo: Todo, viewModel: ListViewModel, updata: @escaping (Todo.Status, Todo) -> Void) {
+  init(todo: Todo, viewModel: ListViewModel, updata: @escaping (Status, Todo) -> Void) {
     self.todo = todo
     self.updata = updata
     self.viewModel = viewModel
