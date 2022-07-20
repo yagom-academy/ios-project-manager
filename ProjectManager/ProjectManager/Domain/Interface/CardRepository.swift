@@ -8,9 +8,9 @@
 import RxSwift
 
 protocol CardRepository {
-  func createCard(_ card: Card) -> Observable<Never>
+  func createCard(_ card: Card) -> Observable<Void>
   func fetchCard(id: String) -> Observable<Card>
   func fetchCards() -> Observable<[Card]>
-  func updateCard(_ card: Card) -> Observable<Never>
-  func deleteCard(_ card: Card) -> Observable<Never>
+  func updateCard(_ card: Card) -> Observable<Void>
+  func deleteCard(_ card: Card) -> Observable<Void>
 }

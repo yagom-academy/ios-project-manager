@@ -8,10 +8,12 @@
 import Foundation
 
 import RxRelay
+import RxSwift
 
 protocol CardUseCase {
   var cards: BehaviorRelay<[Card]> { get }
   
+  func fetchCards()
   func createNewCard(_ card: Card)
   func updateSelectedCard(_ card: Card)
   func deleteSelectedCard(_ card: Card)
@@ -20,6 +22,7 @@ protocol CardUseCase {
 
 final class DefaultCardUseCase: CardUseCase {
   private let repository: CardRepository
+  private let disposeBag = DisposeBag()
   
   let cards = BehaviorRelay<[Card]>(value: Card.sample)
   
@@ -27,17 +30,36 @@ final class DefaultCardUseCase: CardUseCase {
     self.repository = repository
   }
   
+  func fetchCards() {
+    repository.fetchCards()
+      .withUnretained(self)
+      .flatMap { wself, _ in wself.repository.fetchCards() }
+      .bind(to: cards)
+      .disposed(by: disposeBag)
+  }
+  
   func createNewCard(_ card: Card) {
-    cards.accept(cards.value + [card])
+    repository.createCard(card)
+      .withUnretained(self)
+      .flatMap { wself, _ in wself.repository.fetchCards() }
+      .bind(to: cards)
+      .disposed(by: disposeBag)
   }
   
   func updateSelectedCard(_ card: Card) {
-    let originCards = cards.value.filter { $0.id != card.id }
-    cards.accept(originCards + [card])
+    repository.updateCard(card)
+      .withUnretained(self)
+      .flatMap { wself, _ in wself.repository.fetchCards() }
+      .bind(to: cards)
+      .disposed(by: disposeBag)
   }
   
   func deleteSelectedCard(_ card: Card) {
-    cards.accept(cards.value.filter { $0.id != card.id })
+    repository.deleteCard(card)
+      .withUnretained(self)
+      .flatMap { wself, _ in wself.repository.fetchCards() }
+      .bind(to: cards)
+      .disposed(by: disposeBag)
   }
   
   func moveDifferentSection(_ card: Card, to index: Int) {

@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 
 protocol CardListViewModelInput {
+  func fetchCards()
   func toCardListViewModelItem(card: Card) -> CardListViewModelItem
   func deleteSelectedCard(_ card: Card)
   func moveDifferentSection(_ card: Card, to index: Int)
@@ -67,6 +68,10 @@ final class CardListViewModel: CardListViewModelable {
       deadlineDateString: setDeadlineDateToString(card.deadlineDate),
       isOverdue: isOverdue(card: card)
     )
+  }
+  
+  func fetchCards() {
+    useCase.fetchCards()
   }
   
   func deleteSelectedCard(_ card: Card) {

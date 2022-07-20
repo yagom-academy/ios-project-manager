@@ -20,16 +20,16 @@ final class DefaultCardCoreDataService: CardCoreDataService {
     self.storage = storage
   }
   
-  func create(card: Card) -> Observable<Never> {
-    return Completable.create { [weak self] observer in
+  func create(card: Card) -> Observable<Void> {
+    return Single.create { [weak self] observer in
       guard let self = self else {
-        observer(.error(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
         return Disposables.create()
       }
       guard let entity = NSEntityDescription.entity(
         forEntityName: Settings.cardEntityName,
         in: self.storage.context) else {
-        observer(.error(CardCoreDataServiceError.createCardEntityFailure))
+        observer(.failure(CardCoreDataServiceError.createCardEntityFailure))
         return Disposables.create()
       }
       
@@ -41,7 +41,7 @@ final class DefaultCardCoreDataService: CardCoreDataService {
       object.setValue(card.cardType.rawValue, forKey: "cardType")
       
       self.storage.saveContext()
-      observer(.completed)
+      observer(.success(()))
       
       return Disposables.create()
     }.asObservable()
@@ -82,10 +82,10 @@ final class DefaultCardCoreDataService: CardCoreDataService {
     }.asObservable()
   }
   
-  func update(card: Card) -> Observable<Never> {
-    return Completable.create { [weak self] observer in
+  func update(card: Card) -> Observable<Void> {
+    return Single.create { [weak self] observer in
       guard let self = self else {
-        observer(.error(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
         return Disposables.create()
       }
       
@@ -99,18 +99,18 @@ final class DefaultCardCoreDataService: CardCoreDataService {
         object.setValue(card.cardType.rawValue, forKey: "cardType")
 
         self.storage.saveContext()
-        observer(.completed)
+        observer(.success(()))
         return Disposables.create()
       }
-      observer(.error(CardCoreDataServiceError.updateCardEntityFailure))
+      observer(.failure(CardCoreDataServiceError.updateCardEntityFailure))
       return Disposables.create()
     }.asObservable()
   }
 
-  func delete(id: String) -> Observable<Never> {
-    return Completable.create { [weak self] observer in
+  func delete(id: String) -> Observable<Void> {
+    return Single.create { [weak self] observer in
       guard let self = self else {
-        observer(.error(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
         return Disposables.create()
       }
       
@@ -120,18 +120,18 @@ final class DefaultCardCoreDataService: CardCoreDataService {
       if let object = try? self.storage.context.fetch(request).first {
         self.storage.context.delete(object)
         self.storage.saveContext()
-        observer(.completed)
+        observer(.success(()))
         return Disposables.create()
       }
-      observer(.error(CardCoreDataServiceError.deleteCardEntityFailure))
+      observer(.failure(CardCoreDataServiceError.deleteCardEntityFailure))
       return Disposables.create()
     }.asObservable()
   }
   
-  func deleteAll() -> Observable<Never> {
-    return Completable.create { [weak self] observer in
+  func deleteAll() -> Observable<Void> {
+    return Single.create { [weak self] observer in
       guard let self = self else {
-        observer(.error(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
         return Disposables.create()
       }
       
@@ -139,9 +139,9 @@ final class DefaultCardCoreDataService: CardCoreDataService {
       
       do {
         try self.storage.context.execute(deleteRequest)
-        observer(.completed)
+        observer(.success(()))
       } catch {
-        observer(.error(CardCoreDataServiceError.deleteAllFailure))
+        observer(.failure(CardCoreDataServiceError.deleteAllFailure))
       }
       return Disposables.create()
     }.asObservable()

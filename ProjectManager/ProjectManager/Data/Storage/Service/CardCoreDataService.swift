@@ -8,11 +8,11 @@
 import RxSwift
 
 protocol CardCoreDataService {
-  func create(card: Card) -> Observable<Never>
+  func create(card: Card) -> Observable<Void>
   func fetchOne(id: String) -> Observable<CardEntity>
   func fetchAll() -> Observable<[CardEntity]>
-  func update(card: Card) -> Observable<Never>
-  func delete(id: String) -> Observable<Never>
-  func deleteAll() -> Observable<Never>
+  func update(card: Card) -> Observable<Void>
+  func delete(id: String) -> Observable<Void>
+  func deleteAll() -> Observable<Void>
   func count() -> Observable<Int>
 }

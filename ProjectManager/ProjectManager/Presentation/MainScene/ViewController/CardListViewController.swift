@@ -88,6 +88,7 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSectionsItems() {
+    viewModel.fetchCards()
     viewModel.todoCards
       .drive(todoSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,

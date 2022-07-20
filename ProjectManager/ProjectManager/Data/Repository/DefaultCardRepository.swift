@@ -14,7 +14,7 @@ final class DefaultCardRepository: CardRepository {
     self.service = service
   }
   
-  func createCard(_ card: Card) -> Observable<Never> {
+  func createCard(_ card: Card) -> Observable<Void> {
     return service.create(card: card)
   }
   
@@ -28,11 +28,11 @@ final class DefaultCardRepository: CardRepository {
       .map { $0.map { $0.toDomain() } }
   }
   
-  func updateCard(_ card: Card) -> Observable<Never> {
+  func updateCard(_ card: Card) -> Observable<Void> {
     return service.update(card: card)
   }
   
-  func deleteCard(_ card: Card) -> Observable<Never> {
+  func deleteCard(_ card: Card) -> Observable<Void> {
     return service.delete(id: card.id)
   }
 }
