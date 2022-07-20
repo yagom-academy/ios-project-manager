@@ -5,10 +5,12 @@
 //  Created by Lingo on 2022/07/19.
 //
 
+import RxSwift
+
 protocol CardRepository {
-  func createCard(_ card: Card)
-  func fetchCard(id: String) -> Card?
-  func fetchCards() -> [Card]
-  func updateCard(_ card: Card)
-  func deleteCard(_ card: Card)
+  func createCard(_ card: Card) -> Observable<Never>
+  func fetchCard(id: String) -> Observable<Card>
+  func fetchCards() -> Observable<[Card]>
+  func updateCard(_ card: Card) -> Observable<Never>
+  func deleteCard(_ card: Card) -> Observable<Never>
 }

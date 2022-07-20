@@ -32,6 +32,7 @@
 		B0DC54282886C186004F74CD /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54272886C186004F74CD /* CardRepository.swift */; };
 		B0DC542A2886C190004F74CD /* DefaultCardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54292886C190004F74CD /* DefaultCardRepository.swift */; };
 		B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */; };
+		B0DC542F2887AA6E004F74CD /* CardCoreDataServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */; };
 		B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF5B17287522E000A503A9 /* CardSectionView.swift */; };
 		B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AB287C11B300672D87 /* Coordinator.swift */; };
 		B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AE287C125600672D87 /* AppCoordinator.swift */; };
@@ -65,6 +66,7 @@
 		B0DC54272886C186004F74CD /* CardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRepository.swift; sourceTree = "<group>"; };
 		B0DC54292886C190004F74CD /* DefaultCardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardRepository.swift; sourceTree = "<group>"; };
 		B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardEntity+Mapping.swift"; sourceTree = "<group>"; };
+		B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCoreDataServiceError.swift; sourceTree = "<group>"; };
 		B0EF5B17287522E000A503A9 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
 		B0F615AB287C11B300672D87 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B0F615AE287C125600672D87 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -222,19 +224,20 @@
 			isa = PBXGroup;
 			children = (
 				B0DC54252886C0D6004F74CD /* Repository */,
-				B0DC541F28869FE9004F74CD /* Storages */,
+				B0DC541F28869FE9004F74CD /* Storage */,
 			);
 			path = Data;
 			sourceTree = "<group>";
 		};
-		B0DC541F28869FE9004F74CD /* Storages */ = {
+		B0DC541F28869FE9004F74CD /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				B0DC542B2886C66B004F74CD /* Mapping */,
+				B0DC542B2886C66B004F74CD /* DataMapping */,
 				B0DC54202886A00D004F74CD /* CoreDataStorage.swift */,
+				B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */,
 				B0DC54222886A7DD004F74CD /* DefaultCardCoreDataService.swift */,
 			);
-			path = Storages;
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		B0DC54252886C0D6004F74CD /* Repository */ = {
@@ -253,12 +256,12 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
-		B0DC542B2886C66B004F74CD /* Mapping */ = {
+		B0DC542B2886C66B004F74CD /* DataMapping */ = {
 			isa = PBXGroup;
 			children = (
 				B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */,
 			);
-			path = Mapping;
+			path = DataMapping;
 			sourceTree = "<group>";
 		};
 		B0F615AA287C11A700672D87 /* Protocol */ = {
@@ -400,6 +403,7 @@
 				B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */,
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
 				B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */,
+				B0DC542F2887AA6E004F74CD /* CardCoreDataServiceError.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
 				B0640CC4287F17CA00E684E6 /* PopOverable.swift in Sources */,
