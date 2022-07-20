@@ -24,4 +24,8 @@ extension DefaultTodoListRepository: TodoListRepository {
     func save(to data: TodoModel) {
         storage.save(to: data)
     }
+    
+    func delete(index: Int) {
+        storage.delete(index: index)
+    }
 }

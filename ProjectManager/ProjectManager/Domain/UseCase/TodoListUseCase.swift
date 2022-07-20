@@ -11,7 +11,9 @@ import RxSwift
 protocol TodoListUseCase {
     func readItems() -> BehaviorSubject<[TodoModel]>
     func saveItem(to data: TodoModel)
+    func deleteItem(id: UUID)
     func checkDeadline(time: Date) -> Bool
+    func moveState(from state: State) -> (first: State, second: State)
 }
 
 final class DefaultTodoListUseCase: TodoListUseCase {
@@ -32,7 +34,25 @@ extension DefaultTodoListUseCase {
         repository.save(to: data)
     }
     
+    func deleteItem(id: UUID) {
+        guard let index = try? repository.read().value()
+            .firstIndex(where: { $0.id == id }) else { return }
+        
+        repository.delete(index: index)
+    }
+    
     func checkDeadline(time: Date) -> Bool {
         return time + 24 * 60 * 60 < Date()
+    }
+
+    func moveState(from state: State) -> (first: State, second: State) {
+        switch state {
+        case .todo:
+            return (.doing, .done)
+        case .doing:
+            return (.todo, .done)
+        case .done:
+            return (.todo, .doing)
+        }
     }
 }

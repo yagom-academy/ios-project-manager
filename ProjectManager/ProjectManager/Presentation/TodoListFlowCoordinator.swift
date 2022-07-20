@@ -10,6 +10,7 @@ import UIKit
 protocol TodoListFlowCoordinatorDependencies {
     func makeTodoListViewController(actions: TodoListViewModelActions) -> TodoListViewController
     func makeTodoEditViewController(actions: TodoEditViewModelActions, item: TodoModel?) -> TodoEditViewController
+    func makeTodoMoveViewController(actions: TodoMoveViewModelActions, item: TodoModel) -> TodoMoveViewController
 }
 
 final class TodoListFlowCoordinator {
@@ -17,6 +18,7 @@ final class TodoListFlowCoordinator {
     private let dependencies: TodoListFlowCoordinatorDependencies
     private weak var todoListViewController: TodoListViewController?
     private weak var todoEditViewController: TodoEditViewController?
+    private weak var todoMoveViewController: TodoMoveViewController?
     
     init(navigationController: UINavigationController, dependencies: TodoListFlowCoordinatorDependencies) {
         self.navigationController = navigationController
@@ -26,7 +28,8 @@ final class TodoListFlowCoordinator {
 
 extension TodoListFlowCoordinator {
     func start() {
-        let actions = TodoListViewModelActions(presentEditViewController: presentEditViewController)
+        let actions = TodoListViewModelActions(presentEditViewController: presentEditViewController,
+                                               popoverMoveViewController: popoverMoveViewController)
         
         let viewController = dependencies.makeTodoListViewController(actions: actions)
         
@@ -45,5 +48,23 @@ extension TodoListFlowCoordinator {
     
     private func dismissEditViewController() {
         todoEditViewController?.dismiss(animated: true)
+    }
+    
+    private func popoverMoveViewController(cell: UITableViewCell?, item: TodoModel) {
+        let actions = TodoMoveViewModelActions(dismiss: dismissMoveViewController)
+        
+        let viewController = dependencies.makeTodoMoveViewController(actions: actions, item: item)
+        viewController.modalPresentationStyle = .popover
+        viewController.preferredContentSize = CGSize(width: 300, height: 130)
+        viewController.popoverPresentationController?.sourceView = cell
+        viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? .zero
+        viewController.popoverPresentationController?.permittedArrowDirections = .up
+        todoListViewController?.present(viewController, animated: true)
+        
+        todoMoveViewController = viewController
+    }
+    
+    private func dismissMoveViewController() {
+        todoMoveViewController?.dismiss(animated: true)
     }
 }

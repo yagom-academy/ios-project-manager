@@ -68,13 +68,6 @@ extension TodoListViewController {
             .drive(mainView.todo.headerView.rx.countText)
             .disposed(by: bag)
         
-        Observable.zip(mainView.todo.tableView.rx.modelSelected(TodoCellContent.self),
-                                 mainView.todo.tableView.rx.itemSelected)
-        .bind(onNext: { [weak self] (item, indexPath) in
-            self?.mainView.todo.tableView.deselectRow(at: indexPath, animated: true)
-            self?.viewModel.cellSelected(id: item.id)
-        }).disposed(by: bag)
-        
         //MARK: - DoingList
         viewModel.doingList
             .bind(to: mainView.doing.tableView.rx.items(cellIdentifier: TodoListCell.identifier,
@@ -85,14 +78,7 @@ extension TodoListViewController {
         viewModel.doingListCount
             .drive(mainView.doing.headerView.rx.countText)
             .disposed(by: bag)
-        
-        Observable.zip(mainView.doing.tableView.rx.modelSelected(TodoCellContent.self),
-                                 mainView.doing.tableView.rx.itemSelected)
-        .bind(onNext: { [weak self] (item, indexPath) in
-            self?.mainView.doing.tableView.deselectRow(at: indexPath, animated: true)
-            self?.viewModel.cellSelected(id: item.id)
-        }).disposed(by: bag)
-        
+
         //MARK: - DoneList
         viewModel.doneList
             .bind(to: mainView.done.tableView.rx.items(cellIdentifier: TodoListCell.identifier,
@@ -104,18 +90,38 @@ extension TodoListViewController {
             .drive(mainView.done.headerView.rx.countText)
             .disposed(by: bag)
         
-        Observable.zip(mainView.done.tableView.rx.modelSelected(TodoCellContent.self),
-                                 mainView.done.tableView.rx.itemSelected)
-        .bind(onNext: { [weak self] (item, indexPath) in
-            self?.mainView.done.tableView.deselectRow(at: indexPath, animated: true)
-            self?.viewModel.cellSelected(id: item.id)
-        }).disposed(by: bag)
-        
-        //MARK: - Button
+        //MARK: - Event
         plusButton.rx.tap
             .bind { [weak self] in
                 self?.viewModel.plusButtonDidTap()
             }.disposed(by: bag)
+        
+        Observable
+            .of(mainView.todo.tableView.rx.listLongPress(TodoCellContent.self),
+                mainView.doing.tableView.rx.listLongPress(TodoCellContent.self),
+                mainView.done.tableView.rx.listLongPress(TodoCellContent.self))
+            .merge()
+            .bind { [weak self] (cell, item) in
+                self?.viewModel.cellLongPress(cell: cell as? TodoListCell, id: item.id)
+            }.disposed(by: bag)
+        
+        Observable
+            .of(mainView.todo.tableView.rx.listItemSelected(TodoCellContent.self),
+                mainView.doing.tableView.rx.listItemSelected(TodoCellContent.self),
+                mainView.done.tableView.rx.listItemSelected(TodoCellContent.self))
+            .merge()
+            .bind { [weak self] (indexPath, item) in
+                self?.mainView.tableViewdeselectRow(indexPath: indexPath)
+                self?.viewModel.cellSelected(id: item.id)
+            }.disposed(by: bag)
+        
+        Observable
+            .of(mainView.todo.tableView.rx.modelDeleted(TodoCellContent.self),
+                mainView.doing.tableView.rx.modelDeleted(TodoCellContent.self),
+                mainView.done.tableView.rx.modelDeleted(TodoCellContent.self))
+            .merge()
+            .bind { [weak self] item in
+                self?.viewModel.cellDeleteButtonDidTap(item: item)
+            }.disposed(by: bag)
     }
 }
-

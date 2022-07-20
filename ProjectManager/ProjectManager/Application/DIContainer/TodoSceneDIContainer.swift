@@ -24,12 +24,20 @@ final class TodoSceneDIContainer {
         return DefaultTodoListUseCase(repository: makeTodoListRepository())
     }
     
+    private func makeTodoMoveViewModel(actions: TodoMoveViewModelActions, item: TodoModel) -> TodoMoveViewModel {
+        return DefaultTodoMoveViewModel(useCase: makeTodoListUseCase(), actions: actions, item: item)
+    }
+    
     private func makeTodoListRepository() -> DefaultTodoListRepository {
         return DefaultTodoListRepository(storage: storage)
     }
 }
 
 extension TodoSceneDIContainer: TodoListFlowCoordinatorDependencies {
+    func makeTodoMoveViewController(actions: TodoMoveViewModelActions, item: TodoModel) -> TodoMoveViewController {
+        return TodoMoveViewController(viewModel: makeTodoMoveViewModel(actions: actions, item: item))
+    }
+    
     func makeTodoListViewController(actions: TodoListViewModelActions) -> TodoListViewController {
         return TodoListViewController(viewModel: makeTodoListViewModel(actions: actions))
     }

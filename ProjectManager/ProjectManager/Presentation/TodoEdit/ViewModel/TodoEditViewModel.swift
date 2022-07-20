@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 struct TodoEditViewModelActions {
     let dismiss: () -> Void
@@ -18,21 +19,26 @@ protocol TodoEditViewModelInput {
     func inputitle(title: String?)
     func inputDeadline(deadline: Date)
     func inputBody(body: String?)
+    func editButtonDidTap()
 }
 
 protocol TodoEditViewModelOutput {
     var setUpView: Observable<TodoModel?> { get }
-    var isItemNil: Observable<Bool> { get }
+    var setCreateMode: Observable<Bool> { get }
+    var setEditMode: Observable<Bool> { get }
 }
 
 protocol TodoEditViewModel: TodoEditViewModelInput, TodoEditViewModelOutput {}
 
-final class DefaultTodoEditViewModel: TodoEditViewModel {
+
+final class DefaultTodoEditViewModel {
     private let useCase: TodoListUseCase
     
     private var actions: TodoEditViewModelActions?
     
     private var item: TodoModel?
+
+    private var isEditMode = BehaviorRelay(value: false)
     
     init(useCase: TodoListUseCase, actions: TodoEditViewModelActions, item: TodoModel?) {
         self.useCase = useCase
@@ -40,15 +46,20 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
         self.item = item
     }
     
+    private func makeEmptyTodoItem() {
+        guard item == nil else { return }
+        item = TodoModel()
+    }
+}
+
+extension DefaultTodoEditViewModel: TodoEditViewModel {
+   
+    //MARK: - Output
     var setUpView: Observable<TodoModel?> {
-        if let item = item {
-            return Observable.just(item)
-        } else {
-            return Observable.just(nil)
-        }
+        return Observable.just(item)
     }
     
-    var isItemNil: Observable<Bool> {
+    var setCreateMode: Observable<Bool> {
         setUpView.map { item in
             if item == nil {
                 return true
@@ -58,6 +69,12 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
         }
     }
     
+    var setEditMode: Observable<Bool> {
+        isEditMode
+            .asObservable()
+    }
+    
+    //MARK: - Input
     func cancelButtonDidTap() {
         actions?.dismiss()
     }
@@ -71,8 +88,16 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
         actions?.dismiss()
     }
     
+
+    func editButtonDidTap() {
+        isEditMode.accept(!isEditMode.value)
+    }
+    
     func inputitle(title: String?) {
-        if title?.isEmpty == true { return }
+        if title?.isEmpty == true {
+            item?.title = title
+            return
+        }
         makeEmptyTodoItem()
         item?.title = title
     }
@@ -82,13 +107,11 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     func inputBody(body: String?) {
-        if body?.isEmpty == true { return }
+        if body?.isEmpty == true {
+            item?.body = body
+            return
+        }
         makeEmptyTodoItem()
         item?.body = body
-    }
-    
-    private func makeEmptyTodoItem() {
-        guard item == nil else { return }
-        item = TodoModel(title: nil, body: nil, deadlineAt: Date())
     }
 }

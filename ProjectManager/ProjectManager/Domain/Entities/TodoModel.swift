@@ -20,7 +20,11 @@ struct TodoModel: Equatable {
     var state: State
     let id: UUID
     
-    init(title: String?, body: String?, deadlineAt: Date, state: State = .todo, id: UUID = UUID()) {
+    init(title: String? = nil,
+         body: String? = nil,
+         deadlineAt: Date = Date(),
+         state: State = .todo,
+         id: UUID = UUID()) {
         self.title = title
         self.body = body
         self.deadlineAt = deadlineAt

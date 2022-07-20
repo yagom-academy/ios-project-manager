@@ -10,8 +10,6 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-
-
 final class TodoEditViewController: UIViewController {
     private enum Constant {
         static let edit = "Edit"
@@ -65,8 +63,8 @@ extension TodoEditViewController {
         navigationBar.items = [navigationItem]
     }
     
-    private func configureLeftBarButtonItem(createMode: Bool) {
-        if createMode {
+    private func configureLeftBarButtonItem(isCreateMode: Bool) {
+        if isCreateMode {
             navigationItem.leftBarButtonItem = cancelButton
         } else {
             navigationItem.leftBarButtonItem = editButton
@@ -83,10 +81,16 @@ extension TodoEditViewController {
                 self?.mainView.setupView(by: $0)
             }.disposed(by: bag)
         
-        viewModel.isItemNil
+        viewModel.setCreateMode
             .bind { [weak self] in
                 self?.mainView.changeEnabled($0)
-                self?.configureLeftBarButtonItem(createMode: $0)
+                self?.configureLeftBarButtonItem(isCreateMode: $0)
+            }.disposed(by: bag)
+        
+        viewModel.setEditMode
+            .bind { [weak self] in
+                self?.mainView.changeEnabled($0)
+                self?.editButton.title = $0 ? Constant.eidting : Constant.edit
             }.disposed(by: bag)
         
         cancelButton.rx.tap
@@ -102,12 +106,8 @@ extension TodoEditViewController {
             }.disposed(by: bag)
         
         editButton.rx.tap
-            .withUnretained(self)
-            .map { (self, _) in
-                self.editButton.title == Constant.edit
-            }.bind { [weak self] in
-                self?.mainView.changeEnabled($0)
-                self?.editButton.title = $0 ? Constant.eidting : Constant.edit
+            .bind { [weak self] in
+                self?.viewModel.editButtonDidTap()
             }.disposed(by: bag)
         
         mainView.rx.titleText
