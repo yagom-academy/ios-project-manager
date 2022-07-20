@@ -7,6 +7,8 @@
 
 import Foundation
 import RxRelay
+import Firebase
+import FirebaseCore
 
 protocol PopoverViewModelEvent {
     func moveButtonTapped(_ task: Task, to taskType: TaskType)
@@ -22,12 +24,22 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
     var error: PublishRelay<DatabaseError> = .init()
     
     private let realmManager = RealmManager()
+    private let reference = Database.database().reference()
     
     func moveButtonTapped(_ task: Task, to taskType: TaskType) {
         changeTaskType(task, taskType: taskType)
     }
 
     private func changeTaskType(_ task: Task, taskType: TaskType) {
+        var toBePosted: [String: Any] = [
+            "title": task.title,
+            "body": task.body,
+            "date": task.date,
+            "taskType": taskType.value,
+            "id": task.id
+        ]
+        self.reference.child(task.id).updateChildValues(toBePosted)
+        
         do {
             try realmManager.change(task: task, targetType: taskType)
             dismiss.accept(())

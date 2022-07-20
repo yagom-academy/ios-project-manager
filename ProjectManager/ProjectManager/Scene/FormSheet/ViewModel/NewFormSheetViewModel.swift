@@ -8,6 +8,8 @@
 import Foundation
 import RxSwift
 import RxRelay
+import Firebase
+import FirebaseCore
 
 protocol NewFormSheetViewModelEvent {
     func doneButtonTapped()
@@ -30,6 +32,7 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
     
     private let realmManager = RealmManager()
     private let uuid = UUID().uuidString
+    private let reference = Database.database().reference() as DatabaseReference
     
     func doneButtonTapped() {
         registerNewTask()
@@ -43,6 +46,17 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
             taskType: .todo,
             id: uuid
         )
+        
+        let toBePosted: [String: Any] = [
+            "title": title.value,
+            "body": body.value,
+            "date": date.value,
+            "taskType": TaskType.todo.value,
+            "id": uuid
+        ]
+        
+        let itemReference = self.reference.child(uuid)
+        itemReference.setValue(toBePosted)
         
         do {
             try realmManager.create(task: newTask)
