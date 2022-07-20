@@ -29,7 +29,7 @@ final class DefaultCardCoreDataService: CardCoreDataService {
       guard let entity = NSEntityDescription.entity(
         forEntityName: Settings.cardEntityName,
         in: self.storage.context) else {
-        observer(.error(CardCoreDataServiceError.fetchEntityDescripitonFailure))
+        observer(.error(CardCoreDataServiceError.createCardEntityFailure))
         return Disposables.create()
       }
       
@@ -41,6 +41,8 @@ final class DefaultCardCoreDataService: CardCoreDataService {
       object.setValue(card.cardType.rawValue, forKey: "cardType")
       
       self.storage.saveContext()
+      observer(.completed)
+      
       return Disposables.create()
     }.asObservable()
   }

@@ -34,6 +34,7 @@
 		B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */; };
 		B0DC542F2887AA6E004F74CD /* CardCoreDataServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */; };
 		B0DC54332887AB96004F74CD /* CardCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54322887AB96004F74CD /* CardCoreDataService.swift */; };
+		B0DC54362887C341004F74CD /* CoreDataStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54352887C341004F74CD /* CoreDataStorageError.swift */; };
 		B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF5B17287522E000A503A9 /* CardSectionView.swift */; };
 		B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AB287C11B300672D87 /* Coordinator.swift */; };
 		B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AE287C125600672D87 /* AppCoordinator.swift */; };
@@ -69,6 +70,7 @@
 		B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardEntity+Mapping.swift"; sourceTree = "<group>"; };
 		B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCoreDataServiceError.swift; sourceTree = "<group>"; };
 		B0DC54322887AB96004F74CD /* CardCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCoreDataService.swift; sourceTree = "<group>"; };
+		B0DC54352887C341004F74CD /* CoreDataStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageError.swift; sourceTree = "<group>"; };
 		B0EF5B17287522E000A503A9 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
 		B0F615AB287C11B300672D87 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B0F615AE287C125600672D87 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -181,8 +183,8 @@
 		B06FD23728854EB1003CED8E /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				B0DC54262886C117004F74CD /* Interface */,
 				B01DCDC728732AC000AFF91A /* Entity */,
+				B0DC54262886C117004F74CD /* Interface */,
 				B06FD23928854ECA003CED8E /* UseCase */,
 			);
 			path = Domain;
@@ -225,8 +227,8 @@
 		B0DC541D28869F36004F74CD /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				B0DC54252886C0D6004F74CD /* Repository */,
 				B0DC541F28869FE9004F74CD /* Storage */,
+				B0DC54252886C0D6004F74CD /* Repository */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -235,8 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				B0DC542B2886C66B004F74CD /* DataMapping */,
+				B0DC54342887BC62004F74CD /* Persistence */,
 				B0DC54312887AB61004F74CD /* Service */,
-				B0DC54202886A00D004F74CD /* CoreDataStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -273,6 +275,15 @@
 				B0DC54222886A7DD004F74CD /* DefaultCardCoreDataService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		B0DC54342887BC62004F74CD /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC54202886A00D004F74CD /* CoreDataStorage.swift */,
+				B0DC54352887C341004F74CD /* CoreDataStorageError.swift */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		B0F615AA287C11A700672D87 /* Protocol */ = {
@@ -403,6 +414,7 @@
 				B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */,
 				B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */,
 				B0F615B2287C12E300672D87 /* DefaultCardCoordinator.swift in Sources */,
+				B0DC54362887C341004F74CD /* CoreDataStorageError.swift in Sources */,
 				B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */,
 				B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */,
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,

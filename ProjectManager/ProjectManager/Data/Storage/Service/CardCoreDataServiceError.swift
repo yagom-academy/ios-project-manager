@@ -6,11 +6,11 @@
 //
 
 enum CardCoreDataServiceError: Error {
-  case fetchEntityDescripitonFailure
-  case invalidCardCoreData
+  case createCardEntityFailure
   case fetchCardEntityFailure
   case fetchAllFailure
   case updateCardEntityFailure
   case deleteCardEntityFailure
   case deleteAllFailure
+  case invalidCardCoreData
 }

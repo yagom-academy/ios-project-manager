@@ -12,17 +12,12 @@ final class CoreDataStorage {
     static let localDataBaseName = "LocalDB"
   }
   
-  private enum Message {
-    static let loadPersistentStoreFailureMessage = "영구 저장소를 불러오는데 실패했습니다."
-    static let saveContextFailureMessage = "영구 저장소에 저장하는데 실패했습니다."
-  }
-  
   static let shared = CoreDataStorage()
   
   private lazy var container: NSPersistentContainer = {
     let container = NSPersistentContainer(name: Settings.localDataBaseName)
     container.loadPersistentStores { description, error in
-      if let error = error { assertionFailure(Message.loadPersistentStoreFailureMessage) }
+      if let error = error { assertionFailure(CoreDataStorageError.loadPersistentStoreFailure.description) }
     }
     return container
   }()
@@ -34,9 +29,9 @@ final class CoreDataStorage {
   func saveContext() {
     if context.hasChanges {
       do {
-        try context.save()
+        try context.save();
       } catch {
-        assertionFailure(Message.saveContextFailureMessage)
+        assertionFailure(CoreDataStorageError.saveContextFailure(error).description)
       }
     }
   }
