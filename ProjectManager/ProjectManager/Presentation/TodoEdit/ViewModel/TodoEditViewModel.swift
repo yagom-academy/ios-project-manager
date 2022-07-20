@@ -38,7 +38,7 @@ final class DefaultTodoEditViewModel {
     
     private var item: TodoModel?
 
-    var isEditMode = BehaviorRelay(value: false)
+    private var isEditMode = BehaviorRelay(value: false)
     
     init(useCase: TodoListUseCase, actions: TodoEditViewModelActions, item: TodoModel?) {
         self.useCase = useCase
