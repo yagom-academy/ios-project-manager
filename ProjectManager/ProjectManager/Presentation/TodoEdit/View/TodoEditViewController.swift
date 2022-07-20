@@ -87,6 +87,12 @@ extension TodoEditViewController {
                 self?.configureLeftBarButtonItem(isCreateMode: $0)
             }.disposed(by: bag)
         
+        viewModel.setEditMode
+            .bind { [weak self] in
+                self?.mainView.changeEnabled($0)
+                self?.editButton.title = $0 ? Constant.eidting : Constant.edit
+            }.disposed(by: bag)
+        
         cancelButton.rx.tap
             .withUnretained(self)
             .bind { (self, _) in
@@ -100,12 +106,8 @@ extension TodoEditViewController {
             }.disposed(by: bag)
         
         editButton.rx.tap
-            .withUnretained(self)
-            .map { (self, _) in
-                self.viewModel.editButtonDidTap()
-            }.bind { [weak self] in
-                self?.mainView.changeEnabled($0)
-                self?.editButton.title = $0 ? Constant.eidting : Constant.edit
+            .bind { [weak self] in
+                self?.viewModel.editButtonDidTap()
             }.disposed(by: bag)
         
         mainView.rx.titleText

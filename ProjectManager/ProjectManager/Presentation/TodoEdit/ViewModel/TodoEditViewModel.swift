@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 struct TodoEditViewModelActions {
     let dismiss: () -> Void
@@ -19,12 +20,13 @@ protocol TodoEditViewModelInput {
     func inputitle(title: String?)
     func inputDeadline(deadline: Date)
     func inputBody(body: String?)
-    func editButtonDidTap() -> Bool
+    func editButtonDidTap()
 }
 
 protocol TodoEditViewModelOutput {
     var setUpView: Observable<TodoModel?> { get }
     var setCreateMode: Observable<Bool> { get }
+    var setEditMode: Observable<Bool> { get }
 }
 
 protocol TodoEditViewModel: TodoEditViewModelInput, TodoEditViewModelOutput {}
@@ -34,7 +36,7 @@ final class DefaultTodoEditViewModel {
     private let useCase: TodoListUseCase
     private let actions: TodoEditViewModelActions?
     private var item: TodoModel?
-    private var isEditMode: Bool = false
+    var isEditMode = BehaviorRelay(value: false)
     private let bag = DisposeBag()
     
     init(useCase: TodoListUseCase, actions: TodoEditViewModelActions, item: TodoModel?) {
@@ -66,6 +68,11 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
         }
     }
     
+    var setEditMode: Observable<Bool> {
+        isEditMode
+            .asObservable()
+    }
+    
     //MARK: - Input
     func cancelButtonDidTap() {
         actions?.dismiss()
@@ -85,9 +92,9 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
             }.disposed(by: bag)
     }
     
-    func editButtonDidTap() -> Bool {
-        isEditMode = !isEditMode
-        return isEditMode
+
+    func editButtonDidTap() {
+        isEditMode.accept(!isEditMode.value)
     }
     
     func inputitle(title: String?) {
