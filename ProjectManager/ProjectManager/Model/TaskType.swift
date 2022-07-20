@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-enum TaskType: String, PersistableEnum {
+enum TaskType: String, PersistableEnum, Encodable {
     case todo
     case doing
     case done

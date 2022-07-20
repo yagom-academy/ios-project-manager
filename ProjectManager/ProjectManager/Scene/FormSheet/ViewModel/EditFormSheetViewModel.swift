@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxRelay
+import Firebase
 
 protocol EditFormSheetViewModelEvent {
     func editButtonTapped(task: Task)
@@ -28,6 +29,7 @@ final class EditFormSheetViewModel: EditFormSheetViewModelEvent, EditFormSheetVi
     var dismiss: PublishRelay<Void> = .init()
     var error: PublishRelay<DatabaseError> = .init()
     
+    private let reference = Database.database().reference()
     private let realmManager = RealmManager()
 
     func editButtonTapped(task: Task) {
@@ -42,6 +44,8 @@ final class EditFormSheetViewModel: EditFormSheetViewModelEvent, EditFormSheetVi
             taskType: task.taskType,
             id: task.id
         )
+        
+        reference.child(task.id).updateChildValues(editableTask.toDictionary())
         
         do {
             try realmManager.update(task: editableTask)
