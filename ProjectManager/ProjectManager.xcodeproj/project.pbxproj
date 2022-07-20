@@ -28,6 +28,7 @@
 		B092618C28882DEA000BB636 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B092618B28882DEA000BB636 /* GoogleService-Info.plist */; };
 		B0BC246E28882F04007DFE5E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B0BC246D28882F04007DFE5E /* FirebaseAnalyticsSwift */; };
 		B0BC247028882F04007DFE5E /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B0BC246F28882F04007DFE5E /* FirebaseDatabaseSwift */; };
+		B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2474288835A9007DFE5E /* Endpoint.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
 		B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54202886A00D004F74CD /* CoreDataStorage.swift */; };
@@ -65,6 +66,7 @@
 		B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardUseCase.swift; sourceTree = "<group>"; };
 		B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		B092618B28882DEA000BB636 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B0BC2474288835A9007DFE5E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
 		B0DC54202886A00D004F74CD /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
@@ -213,6 +215,22 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
+		B0BC247128883511007DFE5E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B0BC247328883562007DFE5E /* Infrastructure */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		B0BC247328883562007DFE5E /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				B0BC2474288835A9007DFE5E /* Endpoint.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
 		B0DA23EC287AD62700576D5E /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DC541F28869FE9004F74CD /* Storage */,
+				B0BC247128883511007DFE5E /* Network */,
 				B0DC54252886C0D6004F74CD /* Repository */,
 			);
 			path = Data;
@@ -440,6 +459,7 @@
 				B0DC54332887AB96004F74CD /* CardCoreDataService.swift in Sources */,
 				B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */,
 				B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */,
+				B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */,
 				B0DC54232886A7DD004F74CD /* DefaultCardCoreDataService.swift in Sources */,
 				B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */,
 				B0DC54282886C186004F74CD /* CardRepository.swift in Sources */,
