@@ -47,6 +47,12 @@ final class DefaultTodoMoveViewModel {
             return "Move to DONE"
         }
     }
+    
+    private func changeItemState(to state: State) {
+        var newItem = item
+        newItem.state = state
+        useCase.saveItem(to: newItem)
+    }
 }
 
 extension DefaultTodoMoveViewModel: TodoMoveViewModel {
@@ -62,26 +68,14 @@ extension DefaultTodoMoveViewModel: TodoMoveViewModel {
     
     //MARK: - Input
     func firstButtonDidTap() {
-        var newItem = item
-        newItem.state = useCase.moveState(from: item.state).first
-        useCase.saveItem(to: newItem)
-            .subscribe { [weak self] in
-                self?.actions?.dismiss()
-            } onError: { [weak self] _ in
-                self?.actions?.dismiss()
-                self?.actions?.showErrorAlert("수정 오류 발생")
-            }.disposed(by: bag)
+        let newState = useCase.moveState(from: item.state).first
+        changeItemState(to: newState)
+        actions?.dismiss()
     }
     
     func secondButtonDidTap() {
-        var newItem = item
-        newItem.state = useCase.moveState(from: item.state).second
-        useCase.saveItem(to: newItem)
-            .subscribe { [weak self] in
-                self?.actions?.dismiss()
-            } onError: { [weak self] _ in
-                self?.actions?.dismiss()
-                self?.actions?.showErrorAlert("수정 오류 발생")
-            }.disposed(by: bag)
+        let newState = useCase.moveState(from: item.state).second
+        changeItemState(to: newState)
+        actions?.dismiss()
     }
 }
