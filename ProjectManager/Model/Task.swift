@@ -8,10 +8,16 @@
 import Foundation
 
 struct Task: Identifiable, Equatable {
-    var id = UUID()
+    let id = UUID()
     var title: String
     var date: Date
     var body: String
+    
+    init(title: String, date: Date, body: String) {
+        self.title = title
+        self.date = date
+        self.body = body
+    }
 }
 
 enum TaskType {
