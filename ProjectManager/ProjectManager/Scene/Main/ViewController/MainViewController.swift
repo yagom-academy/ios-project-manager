@@ -37,7 +37,27 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
     
     private func configureNavigationItems() {
-        title = Constants.title
+        let titleLabel = UILabel().then {
+            $0.text = Constants.title
+            $0.font = .preferredFont(forTextStyle: .headline)
+        }
+        
+        let networkIcon = UIView(frame: .zero).then {
+            $0.backgroundColor = .red
+            $0.layer.cornerRadius = 5
+        }
+
+        let baseStackView = UIStackView(arrangedSubviews: [titleLabel, networkIcon]).then {
+            $0.axis = .horizontal
+            $0.alignment = .center
+            $0.spacing = 5
+        }
+        
+        navigationItem.titleView = baseStackView
+        networkIcon.snp.makeConstraints {
+            $0.height.width.equalTo(titleLabel.snp.height).offset(-10)
+        }
+        
         let plusButton = UIBarButtonItem(
             image: UIImage(systemName: Constants.plus),
             style: .plain,
@@ -45,6 +65,8 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
             action: #selector(showNewFormSheetView)
         )
         navigationItem.rightBarButtonItem = plusButton
+
+        
     }
     
     private func bind() {
