@@ -8,7 +8,6 @@ import SwiftUI
 
 struct TodoListView: View {
   @ObservedObject var viewModel: ListViewModel
-  @ObservedObject var todoSerVice: TodoService
   private let status: Status
   private let updata: (Status, Todo) -> Void
 
@@ -18,7 +17,6 @@ struct TodoListView: View {
        updata: @escaping (Status, Todo) -> Void
   ) {
     self.viewModel = viewModel
-    self.todoSerVice = todoService
     self.status = status
     self.updata = updata
   }
@@ -52,10 +50,8 @@ struct TodoListView: View {
 struct ListCellView: View {
   @State var isLongPressing = false
   @State var isShowEditView = false
-//  @ObservedObject var todoService: TodoService
   @ObservedObject var viewModel: ListViewModel
-  // 뷰 모델이 필요함. 셀 만을 위한 MV 가 필요한가?
-  // 뷰 모델이
+
   let todo: Todo
   private let updata: (Status, Todo) -> Void
   

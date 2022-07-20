@@ -6,18 +6,21 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ListViewModel: ObservableObject {
-  @Published var todoService: TodoService
+  var todoService: TodoService
+  @Published var todoList: [Todo]
   
   lazy var editViewModel = EditViewModel(todoService: todoService)
   
-  init(todoService: TodoService) {
+  init(todoService: TodoService, todoList: [Todo]) {
     self.todoService = todoService
+    self.todoList = todoList
   }
   
   func read(by status: Status) -> [Todo] {
-    todoService.read(by: status)
+    return todoService.read(by: status)
   }
   
   func delete(set: IndexSet, status: Status) {
@@ -28,6 +31,7 @@ class ListViewModel: ObservableObject {
     let id = filteredtodoList[index].id
     
     todoService.delete(id: id)
+    todoList = todoService.read()
   }
   
 }

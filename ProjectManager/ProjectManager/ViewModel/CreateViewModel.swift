@@ -8,13 +8,16 @@
 import Foundation
 
 class CreateViewModel: ObservableObject {
-  @Published var todoService: TodoService
+  var todoService: TodoService
+  @Published var todoList: [Todo]
   
-  init(todoService: TodoService) {
+  init(todoService: TodoService, todoList: [Todo]) {
     self.todoService = todoService
+    self.todoList = todoList
   }
   
   func creat(todo: Todo) {
     todoService.creat(todo: todo)
+    todoList = todoService.read()
   }
 }
