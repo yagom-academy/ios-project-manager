@@ -9,8 +9,6 @@ import Foundation
 import RealmSwift
 
 class TodoService: ObservableObject {
-  @Published private var todoList: [Todo] = []
-  
   func creat(todo: Todo) {
     let realmData = TodoRealm()
     realmData.title = todo.title
@@ -25,8 +23,6 @@ class TodoService: ObservableObject {
     try? realm.write {
       realm.add(realmData)
     }
-    
-    todoList = self.read()
   }
   
   func read() -> [Todo] {
@@ -52,46 +48,40 @@ class TodoService: ObservableObject {
     return filteredTodo
   }
   
-  func update(todo: Todo) {
+  func updateStatus(status: Status, todo: Todo) {
+    
     guard let realm = try? Realm() else { return }
-    let asd = realm.objects(TodoRealm.self).filter { realm in
-      realm.id == todo.id
-    }
-
-    guard let qweqwe = asd.first else {
+    guard let selectedTodo = realm.objects(TodoRealm.self).filter({ $0.id == todo.id }).first else {
       return
     }
     
     try? realm.write {
-      qweqwe.content = todo.content
-      qweqwe.title = todo.title
-      qweqwe.date = todo.date
-      qweqwe.status = todo.status
+      selectedTodo.status = status
+    }
+  }
+  
+  func update(todo: Todo) {
+    guard let realm = try? Realm() else { return }
+    guard let selectedTodo = realm.objects(TodoRealm.self).filter({ $0.id == todo.id }).first else {
+      return
     }
     
-    guard let index = todoList.firstIndex(where: { $0.id == todo.id }) else { return }
-    todoList[index].content = todo.content
-    todoList[index].title = todo.title
-    todoList[index].date  = todo.date
-    todoList[index].status = todo.status
-    
-    todoList = self.read()
+    try? realm.write {
+      selectedTodo.content = todo.content
+      selectedTodo.title = todo.title
+      selectedTodo.date = todo.date
+      selectedTodo.status = todo.status
+    }
   }
   
   func delete(id: UUID) {
     guard let realm = try? Realm() else { return }
     try? realm.write {
       
-      let asd = realm.objects(TodoRealm.self).filter { realm in
+      let selectedTodo = realm.objects(TodoRealm.self).filter { realm in
         realm.id == id
       }
-      realm.delete(asd)
+      realm.delete(selectedTodo)
     }
-    
-    todoList.removeAll { todo in
-      todo.id == id
-    }
-    
-    todoList = self.read()
   }
 }

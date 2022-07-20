@@ -8,11 +8,9 @@
 import Foundation
 
 class CreateViewModel: ObservableObject {
-  var todoService: TodoService
   var create: (Todo) -> Void
   
-  init(todoService: TodoService, create: @escaping (Todo) -> Void) {
-    self.todoService = todoService
+  init(create: @escaping (Todo) -> Void) {
     self.create = create
   }
 }

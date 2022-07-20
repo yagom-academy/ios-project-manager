@@ -24,9 +24,3 @@ class TodoRealm: Object {
     self.status = status
   }
 }
-
-enum Status: String, PersistableEnum {
-  case todo = "TODO"
-  case doing = "DOING"
-  case done = "DONE"
-}

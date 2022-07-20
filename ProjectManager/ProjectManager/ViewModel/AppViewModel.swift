@@ -13,23 +13,18 @@ class AppViewModel: ObservableObject {
   @Published private var todoList: [Todo] = []
   
   lazy var listViewModel = ListViewModel(todoService: todoService, todoList: todoList)
-  lazy var createViewModel = CreateViewModel(todoService: todoService) { [self] todo in
+  lazy var createViewModel = CreateViewModel(create: { [self] todo in
     self.todoService.creat(todo: todo)
     todoList = todoService.read()
-//    todoList.append(todo)
-  }
+  })
   
-  init(todoService: TodoService) {
-    self.todoService = todoService
+  init() {
     todoList = todoService.read()
   }
   
   func changeStatus(status: Status, todo: Todo) {
-    let updateTodo = Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: status)
-    todoService.update(todo: updateTodo)
+    todoService.updateStatus(status: status, todo: todo)
     
     todoList = todoService.read()
-//    guard let index = todoList.firstIndex(where: { $0.id == todo.id }) else { return }
-//    todoList[index].status = todo.status
   }
 }

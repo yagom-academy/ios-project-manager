@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8641DC15287D1C4E0079D3EE /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641DC14287D1C4E0079D3EE /* TodoService.swift */; };
 		864DD598287327F500023287 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864DD597287327F500023287 /* AppView.swift */; };
+		866CD7102887BAC000662D3A /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866CD70F2887BAC000662D3A /* State.swift */; };
 		86855C342873C608002090E1 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C332873C608002090E1 /* Realm */; };
 		86855C362873C608002090E1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C352873C608002090E1 /* RealmSwift */; };
 		86B5211B28758AD5003B83C9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5211A28758AD5003B83C9 /* Todo.swift */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		8641DC14287D1C4E0079D3EE /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
 		864DD597287327F500023287 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		866CD70F2887BAC000662D3A /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		86B5211A28758AD5003B83C9 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		86B5211D287597E7003B83C9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		86B5211F2875B8DF003B83C9 /* TodoListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListHeader.swift; sourceTree = "<group>"; };
@@ -89,6 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				86B5211A28758AD5003B83C9 /* Todo.swift */,
+				DA6B678628868311009B13BF /* TodoRealm.swift */,
+				866CD70F2887BAC000662D3A /* State.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -160,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				8641DC14287D1C4E0079D3EE /* TodoService.swift */,
-				DA6B678628868311009B13BF /* TodoRealm.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				DA657CE128758FE5002DB030 /* TodoListCell.swift in Sources */,
 				DA657CE328759BB6002DB030 /* TodoList.swift in Sources */,
 				DA657CE52875C77D002DB030 /* EditView.swift in Sources */,
+				866CD7102887BAC000662D3A /* State.swift in Sources */,
 				864DD598287327F500023287 /* AppView.swift in Sources */,
 				DAA805B1287D1154001CF270 /* CreateView.swift in Sources */,
 				DAA805BA287D6D08001CF270 /* TodoListPopOver.swift in Sources */,
