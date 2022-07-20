@@ -14,7 +14,7 @@ struct ListItem {
     var type: ListType = .todo
     let id: String
     
-    var changedItem: ListItemModel {
+    var convertedItem: ListItemModel {
         let itemModel = ListItemModel()
         itemModel.title = self.title
         itemModel.body = self.body

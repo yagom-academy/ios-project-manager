@@ -18,7 +18,7 @@ final class ListItemModel: Object {
         return "id"
     }
     
-    var changedItem: ListItem {
+    var convertedItem: ListItem {
         return ListItem(title: self.title,
                         body: self.body,
                         deadline: self.deadline,

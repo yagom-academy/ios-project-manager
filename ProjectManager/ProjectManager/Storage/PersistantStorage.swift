@@ -34,7 +34,7 @@ final class PersistantStorage: Object {
     func readList(_ type: ListType) -> [ListItem] {
         
         let list: [ListItem] = selectListModel(type)
-            .compactMap { $0.changedItem }
+            .compactMap { $0.convertedItem }
             .sorted { $0.deadline < $1.deadline }
         return list
     }

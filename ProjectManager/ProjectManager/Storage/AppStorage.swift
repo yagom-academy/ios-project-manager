@@ -37,7 +37,7 @@ final class AppStorage: Storegeable {
     }
     
     func creatItem(listItem: ListItem) {
-        listModel.createItem(listItem.changedItem)
+        listModel.createItem(listItem.convertedItem)
         todoList.accept(listModel.readList(.todo))
     }
     
