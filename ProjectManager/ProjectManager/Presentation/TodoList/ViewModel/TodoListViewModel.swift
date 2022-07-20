@@ -105,14 +105,13 @@ extension DefaultTodoListViewModel: TodoListViewModel {
         let item = try? todoLists.value()
             .first { $0.id == id }
         actions?.presentEditViewController(item)
-        
     }
     
     func cellLongPress(cell: TodoListCell?, id: UUID) {
         if let item = try? todoLists.value()
             .first(where: { $0.id == id }) {
                 actions?.popoverMoveViewController(cell, item)
-            }
+        }
     }
     
     func cellDeleteButtonDidTap(item: TodoCellContent) {
