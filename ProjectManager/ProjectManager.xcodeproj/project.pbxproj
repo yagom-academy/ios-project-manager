@@ -31,6 +31,8 @@
 		B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2474288835A9007DFE5E /* Endpoint.swift */; };
 		B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247628883A90007DFE5E /* HTTPMethod.swift */; };
 		B0BC247A28883B7E007DFE5E /* EndpointError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247928883B7E007DFE5E /* EndpointError.swift */; };
+		B0BC247E28883F9F007DFE5E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247D28883F9F007DFE5E /* NetworkService.swift */; };
+		B0BC248028883FB1007DFE5E /* DefaultNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
 		B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54202886A00D004F74CD /* CoreDataStorage.swift */; };
@@ -71,6 +73,8 @@
 		B0BC2474288835A9007DFE5E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B0BC247628883A90007DFE5E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		B0BC247928883B7E007DFE5E /* EndpointError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointError.swift; sourceTree = "<group>"; };
+		B0BC247D28883F9F007DFE5E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetworkService.swift; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
 		B0DC54202886A00D004F74CD /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				B0BC247328883562007DFE5E /* Infrastructure */,
+				B0BC247C28883F83007DFE5E /* Service */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -235,6 +240,15 @@
 				B0BC247628883A90007DFE5E /* HTTPMethod.swift */,
 			);
 			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		B0BC247C28883F83007DFE5E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B0BC247D28883F9F007DFE5E /* NetworkService.swift */,
+				B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		B0DA23EC287AD62700576D5E /* Util */ = {
@@ -469,12 +483,14 @@
 				B0DC54232886A7DD004F74CD /* DefaultCardCoreDataService.swift in Sources */,
 				B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */,
 				B0DC54282886C186004F74CD /* CardRepository.swift in Sources */,
+				B0BC248028883FB1007DFE5E /* DefaultNetworkService.swift in Sources */,
 				B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */,
 				B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */,
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
 				B0BC247A28883B7E007DFE5E /* EndpointError.swift in Sources */,
 				B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */,
 				B0DC542F2887AA6E004F74CD /* CardCoreDataServiceError.swift in Sources */,
+				B0BC247E28883F9F007DFE5E /* NetworkService.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
 				B0640CC4287F17CA00E684E6 /* PopOverable.swift in Sources */,
