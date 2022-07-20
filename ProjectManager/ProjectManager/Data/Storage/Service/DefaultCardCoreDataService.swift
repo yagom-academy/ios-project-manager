@@ -9,16 +9,6 @@ import CoreData
 
 import RxSwift
 
-protocol CardCoreDataService {
-  func create(card: Card) -> Observable<Never>
-  func fetchOne(id: String) -> Observable<CardEntity>
-  func fetchAll() -> Observable<[CardEntity]>
-  func update(card: Card) -> Observable<Never>
-  func delete(id: String) -> Observable<Never>
-  func deleteAll() -> Observable<Never>
-  func count() -> Observable<Int>
-}
-
 final class DefaultCardCoreDataService: CardCoreDataService {
   private enum Settings {
     static let cardEntityName = "CardEntity"
