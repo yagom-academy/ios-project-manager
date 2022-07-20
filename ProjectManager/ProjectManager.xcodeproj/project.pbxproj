@@ -30,6 +30,7 @@
 		B0BC247028882F04007DFE5E /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B0BC246F28882F04007DFE5E /* FirebaseDatabaseSwift */; };
 		B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2474288835A9007DFE5E /* Endpoint.swift */; };
 		B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247628883A90007DFE5E /* HTTPMethod.swift */; };
+		B0BC247A28883B7E007DFE5E /* EndpointError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247928883B7E007DFE5E /* EndpointError.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
 		B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54202886A00D004F74CD /* CoreDataStorage.swift */; };
@@ -69,6 +70,7 @@
 		B092618B28882DEA000BB636 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0BC2474288835A9007DFE5E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B0BC247628883A90007DFE5E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		B0BC247928883B7E007DFE5E /* EndpointError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointError.swift; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
 		B0DC54202886A00D004F74CD /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				B0BC2474288835A9007DFE5E /* Endpoint.swift */,
+				B0BC247928883B7E007DFE5E /* EndpointError.swift */,
 				B0BC247628883A90007DFE5E /* HTTPMethod.swift */,
 			);
 			path = Infrastructure;
@@ -469,6 +472,7 @@
 				B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */,
 				B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */,
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
+				B0BC247A28883B7E007DFE5E /* EndpointError.swift in Sources */,
 				B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */,
 				B0DC542F2887AA6E004F74CD /* CardCoreDataServiceError.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
