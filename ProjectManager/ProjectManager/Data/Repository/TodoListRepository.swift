@@ -36,16 +36,16 @@ extension TodoListRepository: TodoListRepositorible {
         return todoLocalStorage.delete(item)
     }
     
-    func synchronize() {
-        if let value = UserDefaults.standard.object(forKey: "user") {
+    func synchronizeDatabase() {
+        if UserDefaults.standard.object(forKey: "user") != nil {
             todoRemoteStorage.backup(todoLocalStorage.read().value)
         } else {
             todoRemoteStorage.read()
-                .sink { completion in
+                .sink { _ in
                     
                 } receiveValue: { [weak self] items in
                     items.forEach { item in
-                        self?.todoLocalStorage.create(item)
+                        _ = self?.todoLocalStorage.create(item)
                     }
                 }
                 .store(in: &cancelBag)

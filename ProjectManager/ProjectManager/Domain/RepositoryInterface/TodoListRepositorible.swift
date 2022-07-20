@@ -13,5 +13,5 @@ protocol TodoListRepositorible {
     func read() -> CurrentValueSubject<[Todo], Never>
     func update(_ item: Todo) -> AnyPublisher<Void, StorageError>
     func delete(item: Todo) -> AnyPublisher<Void, StorageError>
-    func synchronize()
+    func synchronizeDatabase()
 }

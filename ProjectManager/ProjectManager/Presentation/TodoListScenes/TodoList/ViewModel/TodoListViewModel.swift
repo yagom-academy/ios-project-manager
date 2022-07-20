@@ -74,7 +74,7 @@ extension TodoListViewModel {
     // MARK: - Input
     
     func viewDidLoad() {
-        todoUseCase.synchronize()
+        todoUseCase.synchronizeDatabase()
     }
     
     func didTapAddButton() {
