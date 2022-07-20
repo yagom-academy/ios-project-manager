@@ -31,7 +31,7 @@ struct EditView: View {
           }
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
-              viewModel.update(todo: todo)
+              viewModel.update(todo)
               isShow = false
             }
           }

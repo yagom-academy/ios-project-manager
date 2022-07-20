@@ -9,15 +9,10 @@ import Foundation
 
 class CreateViewModel: ObservableObject {
   var todoService: TodoService
-  @Published var todoList: [Todo]
+  var create: (Todo) -> Void
   
-  init(todoService: TodoService, todoList: [Todo]) {
+  init(todoService: TodoService, create: @escaping (Todo) -> Void) {
     self.todoService = todoService
-    self.todoList = todoList
-  }
-  
-  func creat(todo: Todo) {
-    todoService.creat(todo: todo)
-    todoList = todoService.read()
+    self.create = create
   }
 }

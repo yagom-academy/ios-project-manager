@@ -73,7 +73,7 @@ struct ListCellView: View {
         EditView(
           todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
           isShow: $isShowEditView,
-          viewModel: EditViewModel(todoService: viewModel.todoService))
+          viewModel: viewModel.editViewModel)
       }
       .popover(isPresented: $isLongPressing) {
         TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)

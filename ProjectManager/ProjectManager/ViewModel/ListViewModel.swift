@@ -12,7 +12,14 @@ class ListViewModel: ObservableObject {
   var todoService: TodoService
   @Published var todoList: [Todo]
   
-  lazy var editViewModel = EditViewModel(todoService: todoService)
+  lazy var editViewModel = EditViewModel(todoService: todoService) { [self] todo in
+    todoService.update(todo: todo)
+    todoList = todoService.read()
+//    guard let index = todoList.firstIndex(where: { $0.id == todo.id }) else { return }
+//        todoList[index].content = todo.content
+//        todoList[index].title = todo.title
+//        todoList[index].date  = todo.date
+  }
   
   init(todoService: TodoService, todoList: [Todo]) {
     self.todoService = todoService
@@ -31,6 +38,7 @@ class ListViewModel: ObservableObject {
     let id = filteredtodoList[index].id
     
     todoService.delete(id: id)
+    
     todoList = todoService.read()
   }
   

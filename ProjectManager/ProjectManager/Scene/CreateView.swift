@@ -23,7 +23,7 @@ struct CreateView: View {
           }
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
-              viewModel.creat(todo: todo)
+              viewModel.create(todo)
               isShow = false
             }
           }

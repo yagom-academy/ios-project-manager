@@ -9,12 +9,13 @@ import Foundation
 
 class EditViewModel: ObservableObject {
   @Published var todoService: TodoService
+  var update: (Todo) -> Void
   
-  init(todoService: TodoService) {
+  init(todoService: TodoService, update: @escaping (Todo) -> Void) {
     self.todoService = todoService
+    self.update = update
   }
-  
-  func update(todo: Todo) {
-    todoService.update(todo: todo)
-  }
+//  func update(todo: Todo) {
+//    todoService.update(todo: todo)
+//  }
 }
