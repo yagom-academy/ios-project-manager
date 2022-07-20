@@ -1,5 +1,5 @@
 //
-//  ListModel.swift
+//  PersistantStorage.swift
 //  ProjectManager
 //
 //  Created by 두기 on 2022/07/20.
@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-final class ListModel: Object {
+final class PersistantStorage: Object {
     private let todoList = List<ListItemModel>()
     private let doingList = List<ListItemModel>()
     private let doneList = List<ListItemModel>()
@@ -17,7 +17,7 @@ final class ListModel: Object {
             return List<ListItemModel>()
         }
         
-        guard let listModel = realm.objects(ListModel.self).first else {
+        guard let listModel = realm.objects(PersistantStorage.self).first else {
             return List<ListItemModel>()
         }
         
@@ -44,8 +44,8 @@ final class ListModel: Object {
             return
         }
         
-        if realm.objects(ListModel.self).isEmpty {
-            let listModel = ListModel()
+        if realm.objects(PersistantStorage.self).isEmpty {
+            let listModel = PersistantStorage()
             listModel.todoList.append(item)
             
             try? realm.write {

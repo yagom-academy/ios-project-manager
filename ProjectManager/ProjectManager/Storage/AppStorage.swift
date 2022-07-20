@@ -1,12 +1,11 @@
 //
-//  Storage.swift
+//  AppStorage.swift
 //  ProjectManager
 //
 //  Created by 두기 on 2022/07/20.
 //
 
 import RxRelay
-import RealmSwift
 
 protocol Storegeable {
     var todoList: BehaviorRelay<[ListItem]> { get }
@@ -19,8 +18,8 @@ protocol Storegeable {
     func changeItemType(index: Int, type: ListType, destination: ListType)
 }
 
-final class Storage: Storegeable {
-    private let listModel = ListModel()
+final class AppStorage: Storegeable {
+    private let listModel = PersistantStorage()
     
     lazy var todoList = BehaviorRelay<[ListItem]>(value: listModel.readList(.todo))
     lazy var doingList = BehaviorRelay<[ListItem]>(value: listModel.readList(.doing))

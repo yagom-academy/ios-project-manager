@@ -20,8 +20,8 @@
 		ACC1F0E928827C7900216C15 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC1F0E828827C7900216C15 /* EditViewModel.swift */; };
 		ACCBF0F02877CACA00FEC0F3 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCBF0EF2877CACA00FEC0F3 /* DateConverter.swift */; };
 		ACD9CB2D28749F6400B0A6CF /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9CB2C28749F6400B0A6CF /* HeaderView.swift */; };
-		ACDD285C2886FEFC0083356A /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285B2886FEFC0083356A /* Storage.swift */; };
-		ACDD285E2887178F0083356A /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285D2887178F0083356A /* ListModel.swift */; };
+		ACDD285C2886FEFC0083356A /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285B2886FEFC0083356A /* AppStorage.swift */; };
+		ACDD285E2887178F0083356A /* PersistantStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285D2887178F0083356A /* PersistantStorage.swift */; };
 		ACDD2860288717D60083356A /* ListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285F288717D60083356A /* ListItemModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -46,8 +46,8 @@
 		ACC1F0E828827C7900216C15 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		ACCBF0EF2877CACA00FEC0F3 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		ACD9CB2C28749F6400B0A6CF /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		ACDD285B2886FEFC0083356A /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		ACDD285D2887178F0083356A /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
+		ACDD285B2886FEFC0083356A /* AppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorage.swift; sourceTree = "<group>"; };
+		ACDD285D2887178F0083356A /* PersistantStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistantStorage.swift; sourceTree = "<group>"; };
 		ACDD285F288717D60083356A /* ListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +128,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		ACCF73D62887A09F005CAD87 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				ACDD285B2886FEFC0083356A /* AppStorage.swift */,
+				ACDD285D2887178F0083356A /* PersistantStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		AD292BB59AC61129A810B952 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,9 +173,8 @@
 				ACA39AD7287DF79900AE4964 /* Utils */,
 				AC54B79E2875463700092D83 /* Model */,
 				AC54B79D2875458400092D83 /* Scene */,
+				ACCF73D62887A09F005CAD87 /* Storage */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				ACDD285B2886FEFC0083356A /* Storage.swift */,
-				ACDD285D2887178F0083356A /* ListModel.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
@@ -302,7 +310,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				ACA39AD1287DE50200AE4964 /* EditViewController.swift in Sources */,
-				ACDD285E2887178F0083356A /* ListModel.swift in Sources */,
+				ACDD285E2887178F0083356A /* PersistantStorage.swift in Sources */,
 				ACDD2860288717D60083356A /* ListItemModel.swift in Sources */,
 				ACA39ACD287DE05200AE4964 /* Container.swift in Sources */,
 				AC9C57C3287A8CC100BA7F7D /* UITableView + Extension.swift in Sources */,
@@ -310,7 +318,7 @@
 				ACD9CB2D28749F6400B0A6CF /* HeaderView.swift in Sources */,
 				AC54B7A2287549F800092D83 /* ListTableViewCell.swift in Sources */,
 				ACA39AD5287DEC1700AE4964 /* AddViewModel.swift in Sources */,
-				ACDD285C2886FEFC0083356A /* Storage.swift in Sources */,
+				ACDD285C2886FEFC0083356A /* AppStorage.swift in Sources */,
 				AC54B7A7287563D900092D83 /* AddViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
