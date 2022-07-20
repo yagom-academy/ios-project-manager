@@ -19,7 +19,9 @@ struct TodoView: View {
                             CellView(contentViewModel: contentViewModel, cellIndex: index, taskType: .todo)
                         }
                     }
-                    .onDelete(perform: delete)
+                    .onDelete { offset in
+                        contentViewModel.todoTasks.remove(atOffsets: offset)
+                    }
                 }
             }
             .listStyle(.grouped)
@@ -39,10 +41,6 @@ struct TodoView: View {
                     .font(.title2)
             }
         }.foregroundColor(.black)
-    }
-    
-    func delete(at offset: IndexSet) {
-        contentViewModel.todoTasks.remove(atOffsets: offset)
     }
 }
 

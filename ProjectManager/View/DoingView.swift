@@ -19,7 +19,9 @@ struct DoingView: View {
                             CellView(contentViewModel: contentViewModel, cellIndex: index, taskType: .doing)
                         }
                     }
-                    .onDelete(perform: delete)
+                    .onDelete { offset in
+                        contentViewModel.doingTasks.remove(atOffsets: offset)
+                    }
                 }
             }
             .listStyle(.grouped)
@@ -39,10 +41,6 @@ struct DoingView: View {
                     .font(.title2)
             }
         }.foregroundColor(.black)
-    }
-    
-    func delete(at offset: IndexSet) {
-        contentViewModel.doingTasks.remove(atOffsets: offset)
     }
 }
 
