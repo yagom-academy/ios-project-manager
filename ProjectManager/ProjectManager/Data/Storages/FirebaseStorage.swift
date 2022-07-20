@@ -26,7 +26,7 @@ final class FirebaseStorage: RemoteStorageable {
     }
     
     func backup(_ items: [Todo]) {
-        deleteAll().sink { completion in
+        deleteAll().sink { _ in
             
         } receiveValue: { _ in
             items.forEach {
@@ -50,19 +50,36 @@ final class FirebaseStorage: RemoteStorageable {
                 return
             }
             
-            let value = snapshot?.value as? [String: Any]
-            let items = value?.map { item -> Todo in
-                let value = item.value as? [String: Any]
+            guard let value = snapshot?.value as? [String: Any] else {
+                self.firebaseSubject.send(completion: .failure(.readFail))
+                return
+            }
+            
+            let items = value.compactMap { item -> Todo? in
+                guard let item = item.value as? [String: Any] else {
+                    return nil
+                }
+                
+                guard let title = item["title"] as? String,
+                      let content = item["content"] as? String,
+                      let deadline = item["deadline"] as? Double,
+                      let processTypeValue = item["processType"] as? String,
+                      let processType = ProcessType(rawValue: processTypeValue),
+                      let id = item["id"] as? String
+                else {
+                    return nil
+                }
+                
                 return Todo(
-                    title: value?["title"] as! String,
-                    content: value?["content"] as! String,
-                    deadline: Date(timeIntervalSinceReferenceDate: value?["deadline"] as! Double),
-                    processType: .todo,
-                    id: value?["id"] as! String
+                    title: title,
+                    content: content,
+                    deadline: Date(timeIntervalSinceReferenceDate: deadline),
+                    processType: processType,
+                    id: id
                 )
             }
             
-            self.firebaseSubject.send(items ?? [])
+            self.firebaseSubject.send(items)
         }
     }
     
