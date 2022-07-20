@@ -34,6 +34,8 @@
 		B0BC247E28883F9F007DFE5E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247D28883F9F007DFE5E /* NetworkService.swift */; };
 		B0BC248028883FB1007DFE5E /* DefaultNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */; };
 		B0BC248228884185007DFE5E /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248128884185007DFE5E /* NetworkServiceError.swift */; };
+		B0BC2484288846C7007DFE5E /* DefaultRealTimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2483288846C7007DFE5E /* DefaultRealTimeRepository.swift */; };
+		B0BC2486288846E6007DFE5E /* RealTimeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2485288846E6007DFE5E /* RealTimeRepository.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
 		B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54202886A00D004F74CD /* CoreDataStorage.swift */; };
@@ -77,6 +79,8 @@
 		B0BC247D28883F9F007DFE5E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetworkService.swift; sourceTree = "<group>"; };
 		B0BC248128884185007DFE5E /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
+		B0BC2483288846C7007DFE5E /* DefaultRealTimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealTimeRepository.swift; sourceTree = "<group>"; };
+		B0BC2485288846E6007DFE5E /* RealTimeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeRepository.swift; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
 		B0DC54202886A00D004F74CD /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DC54292886C190004F74CD /* DefaultCardRepository.swift */,
+				B0BC2483288846C7007DFE5E /* DefaultRealTimeRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DC54272886C186004F74CD /* CardRepository.swift */,
+				B0BC2485288846E6007DFE5E /* RealTimeRepository.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -490,6 +496,7 @@
 				B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */,
 				B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */,
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
+				B0BC2486288846E6007DFE5E /* RealTimeRepository.swift in Sources */,
 				B0BC247A28883B7E007DFE5E /* EndpointError.swift in Sources */,
 				B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */,
 				B0DC542F2887AA6E004F74CD /* CardCoreDataServiceError.swift in Sources */,
@@ -504,6 +511,7 @@
 				B0BC248228884185007DFE5E /* NetworkServiceError.swift in Sources */,
 				B0DC542A2886C190004F74CD /* DefaultCardRepository.swift in Sources */,
 				B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */,
+				B0BC2484288846C7007DFE5E /* DefaultRealTimeRepository.swift in Sources */,
 				B01748BF287744DF00EE15B0 /* CardEditView.swift in Sources */,
 				B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */,
 				B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */,
