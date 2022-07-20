@@ -14,8 +14,8 @@ class TaskViewModel: ObservableObject {
     @Published var date: Date = Date()
     @Published var body: String = ""
     
-    func addTask() {
-        task = Task(title: self.title, date: self.date, body: self.body)
+    func addTask(title: String, date: Date, body: String) {
+        task = Task(title: title, date: date, body: body)
         if let finalTask = task {
             taskArray.append(finalTask)
         }

@@ -15,7 +15,7 @@ class ContentViewModel: ObservableObject {
     @Published var doneTasks: [Task] = []
     
     func appendData() {
-        data.addTask()
+        data.addTask(title: data.title, date: data.date, body: data.body)
         if let task = data.taskArray.last {
             todoTasks.append(task)
         }
