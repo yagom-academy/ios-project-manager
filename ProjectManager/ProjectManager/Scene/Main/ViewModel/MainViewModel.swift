@@ -8,6 +8,7 @@
 import Foundation
 import RxRelay
 import RxSwift
+import Firebase
 
 protocol MainViewModelEvent {
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType)
@@ -26,6 +27,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var error: PublishRelay<DatabaseError> = .init()
     
+    private let reference = Database.database().reference()
     private let realmManager = RealmManager()
     
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType) {
@@ -53,6 +55,8 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     
     private func deleteData(task: Task) {
         let type = task.taskType
+        
+        reference.child(task.id).removeValue()
         
         do {
             try realmManager.delete(task: task)

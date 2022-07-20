@@ -8,7 +8,6 @@
 import Foundation
 import RxRelay
 import Firebase
-import FirebaseCore
 
 protocol PopoverViewModelEvent {
     func moveButtonTapped(_ task: Task, to taskType: TaskType)
@@ -31,12 +30,8 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
     }
 
     private func changeTaskType(_ task: Task, taskType: TaskType) {
-        var toBePosted: [String: Any] = [
-            "title": task.title,
-            "body": task.body,
-            "date": task.date,
-            "taskType": taskType.value,
-            "id": task.id
+        let toBePosted: [String: Any] = [
+            "taskType": taskType.value
         ]
         self.reference.child(task.id).updateChildValues(toBePosted)
         
