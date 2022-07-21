@@ -7,24 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		032D3D11287D629800A32E57 /* ProjectUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032D3D10287D629800A32E57 /* ProjectUseCase.swift */; };
+		032D3D14287D64EB00A32E57 /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032D3D13287D64EB00A32E57 /* ProjectRepository.swift */; };
+		033294B2287C713800EE7CBE /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033294B1287C713800EE7CBE /* PopOverViewController.swift */; };
+		033294B4287C717700EE7CBE /* PopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033294B3287C717700EE7CBE /* PopOverView.swift */; };
+		0334E70028767E7100222EB7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E6FF28767E7100222EB7 /* DetailViewController.swift */; };
+		0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70128767EBB00222EB7 /* DetailViewModel.swift */; };
+		0334E70628770E3D00222EB7 /* MockStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockStorageManager.swift */; };
 		03AB73D62873043000B0C980 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 03AB73D52873043000B0C980 /* .swiftlint.yml */; };
+		03AB73DB2873290400B0C980 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DA2873290400B0C980 /* MainViewController.swift */; };
+		03AB73DD2873292900B0C980 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DC2873292900B0C980 /* MainView.swift */; };
+		03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73E0287331BB00B0C980 /* ProjectTableView.swift */; };
+		0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04B287C7C5600438285 /* DateFormatter.swift */; };
+		0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04E287C815300438285 /* PopOverViewModel.swift */; };
+		0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EB72873330100E15093 /* ProjectCell.swift */; };
+		0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EBB287476B300E15093 /* RegistrationViewController.swift */; };
+		0EA67EBE2874789700E15093 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EBD2874789700E15093 /* ModalView.swift */; };
+		0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC528751ECC00E15093 /* MainViewModel.swift */; };
+		0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC828752A0F00E15093 /* ProjectContent.swift */; };
+		0EA67ED0287674D000E15093 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67ECF287674D000E15093 /* ProjectListView.swift */; };
+		0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67ED128772C0200E15093 /* RegistrationViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		FAEDDC229AC8F5407D9684E2 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70E19F85975BF5AEC875C5 /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		032D3D10287D629800A32E57 /* ProjectUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUseCase.swift; sourceTree = "<group>"; };
+		032D3D13287D64EB00A32E57 /* ProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepository.swift; sourceTree = "<group>"; };
+		033294B1287C713800EE7CBE /* PopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
+		033294B3287C717700EE7CBE /* PopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverView.swift; sourceTree = "<group>"; };
+		0334E6FF28767E7100222EB7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0334E70128767EBB00222EB7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		0334E70528770E3D00222EB7 /* MockStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorageManager.swift; sourceTree = "<group>"; };
 		03AB73D52873043000B0C980 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		03AB73DA2873290400B0C980 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		03AB73DC2873292900B0C980 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		03AB73E0287331BB00B0C980 /* ProjectTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableView.swift; sourceTree = "<group>"; };
+		0E34F04B287C7C5600438285 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		0E34F04E287C815300438285 /* PopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewModel.swift; sourceTree = "<group>"; };
+		0EA67EB72873330100E15093 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
+		0EA67EBB287476B300E15093 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		0EA67EBD2874789700E15093 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		0EA67EC528751ECC00E15093 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		0EA67EC828752A0F00E15093 /* ProjectContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectContent.swift; sourceTree = "<group>"; };
+		0EA67ECF287674D000E15093 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
+		0EA67ED128772C0200E15093 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		1F70E19F85975BF5AEC875C5 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		398DAEAB83EA2395CF261AE9 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		4819746BAEB061C8DCAEBAE0 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -42,11 +78,154 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		032D3D12287D64AF00A32E57 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				032D3D13287D64EB00A32E57 /* ProjectRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		033294B5287C71C700EE7CBE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0EA67ED128772C0200E15093 /* RegistrationViewModel.swift */,
+				0334E70128767EBB00222EB7 /* DetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		033294B6287C720700EE7CBE /* PopOver */ = {
+			isa = PBXGroup;
+			children = (
+				033294B7287C721500EE7CBE /* View */,
+				0E34F04D287C814100438285 /* ViewModel */,
+			);
+			path = PopOver;
+			sourceTree = "<group>";
+		};
+		033294B7287C721500EE7CBE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				033294B1287C713800EE7CBE /* PopOverViewController.swift */,
+				033294B3287C717700EE7CBE /* PopOverView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0334E70428770E1400222EB7 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				0334E70528770E3D00222EB7 /* MockStorageManager.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		03AB73D72873289000B0C980 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				03AB73D8287328B500B0C980 /* View */,
+				0EA67EBF28751D5B00E15093 /* ViewModel */,
+				033294B6287C720700EE7CBE /* PopOver */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		03AB73D8287328B500B0C980 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				03AB73DA2873290400B0C980 /* MainViewController.swift */,
+				03AB73DC2873292900B0C980 /* MainView.swift */,
+				03AB73E0287331BB00B0C980 /* ProjectTableView.swift */,
+				0EA67ECF287674D000E15093 /* ProjectListView.swift */,
+				0EA67EB72873330100E15093 /* ProjectCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0E34F047287C7C0800438285 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0E34F04A287C7C2000438285 /* Extension */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		0E34F04A287C7C2000438285 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0E34F04B287C7C5600438285 /* DateFormatter.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		0E34F04D287C814100438285 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0E34F04E287C815300438285 /* PopOverViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0EA67EB92874768500E15093 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				0EA67EBA2874769800E15093 /* View */,
+				033294B5287C71C700EE7CBE /* ViewModel */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		0EA67EBA2874769800E15093 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0EA67EBB287476B300E15093 /* RegistrationViewController.swift */,
+				0334E6FF28767E7100222EB7 /* DetailViewController.swift */,
+				0EA67EBD2874789700E15093 /* ModalView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0EA67EBF28751D5B00E15093 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0EA67EC528751ECC00E15093 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0EA67EC328751DE600E15093 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				0EA67EC428751DF900E15093 /* Entity */,
+				032D3D12287D64AF00A32E57 /* Repository */,
+				0EA67EC7287529F300E15093 /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		0EA67EC428751DF900E15093 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				0EA67EC828752A0F00E15093 /* ProjectContent.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		0EA67EC7287529F300E15093 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				032D3D10287D629800A32E57 /* ProjectUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
 		0ED5C2BB2873236A00B8DD67 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				03AB73D72873289000B0C980 /* Main */,
+				0EA67EB92874768500E15093 /* Detail */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -99,7 +278,10 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				0E34F047287C7C0800438285 /* Common */,
 				0ED5C2BC2873239600B8DD67 /* Application */,
+				0334E70428770E1400222EB7 /* Data */,
+				0EA67EC328751DE600E15093 /* Domain */,
 				0ED5C2BB2873236A00B8DD67 /* Presentation */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -239,9 +421,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				0334E70028767E7100222EB7 /* DetailViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				0EA67EBE2874789700E15093 /* ModalView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,
+				0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */,
+				03AB73DD2873292900B0C980 /* MainView.swift in Sources */,
+				0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */,
+				0EA67ED0287674D000E15093 /* ProjectListView.swift in Sources */,
+				033294B2287C713800EE7CBE /* PopOverViewController.swift in Sources */,
+				0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */,
+				0334E70628770E3D00222EB7 /* MockStorageManager.swift in Sources */,
+				03AB73DB2873290400B0C980 /* MainViewController.swift in Sources */,
+				0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */,
+				032D3D14287D64EB00A32E57 /* ProjectRepository.swift in Sources */,
+				033294B4287C717700EE7CBE /* PopOverView.swift in Sources */,
+				0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */,
+				0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */,
+				032D3D11287D629800A32E57 /* ProjectUseCase.swift in Sources */,
+				03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */,
+				0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
