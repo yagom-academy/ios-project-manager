@@ -6,6 +6,7 @@
 //
 
 import FirebaseDatabase
+import Reachability
 
 final class NetworkManager {
     private let projectsReference = Database.database().reference(withPath: "projects")

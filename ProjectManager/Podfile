@@ -13,4 +13,5 @@ target 'ProjectManager' do
   pod 'RxDataSources'
   pod 'RxGesture'
   pod 'FirebaseDatabase'
+  pod 'ReachabilitySwift'
 end
