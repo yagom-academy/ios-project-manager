@@ -15,6 +15,7 @@ final class CardListViewController: UIViewController {
   private enum UISettings {
     static let navigationTitle = "Project Manager"
     static let cardAdditionButtonImage = "plus"
+    static let historyButtonTitle = "History"
     static let intervalBetweenTableViews = 20.0
   }
   
@@ -22,6 +23,9 @@ final class CardListViewController: UIViewController {
   private let doingSectionView = CardSectionView(sectionType: .doing)
   private let doneSectionView = CardSectionView(sectionType: .done)
   
+  private let historyButton = UIBarButtonItem().then {
+    $0.title = UISettings.historyButtonTitle
+  }
   private let cardAdditionButton = UIBarButtonItem().then {
     $0.image = UIImage(systemName: UISettings.cardAdditionButtonImage)
   }
@@ -192,6 +196,7 @@ extension CardListViewController {
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
     navigationItem.rightBarButtonItem = cardAdditionButton
+    navigationItem.leftBarButtonItem = historyButton
   }
   
   private func configureTableViews() {
