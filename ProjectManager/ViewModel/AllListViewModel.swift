@@ -8,7 +8,4 @@
 import Foundation
 
 class AllListViewModel: ViewModelType {
-//    @Published var todoTasks: [Task] = []
-//    @Published var doingTasks: [Task] = []
-//    @Published var doneTasks: [Task] = []
 }
