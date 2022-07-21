@@ -11,9 +11,9 @@ import RxCocoa
 import RxSwift
 
 final class DetailViewModel {
-    private var database: Database
+    private var database: DatabaseManagerProtocol
     
-    init(database: Database) {
+    init(database: DatabaseManagerProtocol) {
         self.database = database
     }
     

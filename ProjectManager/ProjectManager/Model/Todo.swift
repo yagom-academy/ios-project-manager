@@ -32,8 +32,8 @@ struct Todo {
         self.date = date
     }
     
-    func convertRealmTodo() -> RealmTodo {
-        return RealmTodo(
+    func convertRealmTodo() -> TodoDTO {
+        return TodoDTO(
             todoListItemStatus: self.todoListItemStatus,
             identifier: self.identifier,
             title: self.title,

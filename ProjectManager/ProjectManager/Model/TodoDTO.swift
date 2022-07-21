@@ -1,5 +1,5 @@
 //
-//  RealmTodo.swift
+//  TodoDTO.swift
 //  ProjectManager
 //
 //  Created by 김동욱 on 2022/07/18.
@@ -9,7 +9,7 @@ import Foundation
 
 import RealmSwift
 
-final class RealmTodo: Object {
+final class TodoDTO: Object {
     @Persisted var todoListItemStatus: String
     @Persisted var identifier: UUID
     @Persisted var title: String
