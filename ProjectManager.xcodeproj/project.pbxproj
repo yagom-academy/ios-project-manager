@@ -29,6 +29,7 @@
 		B3CA0B7E287D0FE90047E1D1 /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B7D287D0FE90047E1D1 /* Date+extension.swift */; };
 		B3CA0B80287D48AF0047E1D1 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B7F287D48AF0047E1D1 /* CellView.swift */; };
 		B3EA5F12287481F6000713F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */; };
+		DA6A312D2889C081008AFA28 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A312C2889C081008AFA28 /* HeaderView.swift */; };
 		DA79E414287525C3000192CC /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E413287525C3000192CC /* ListRowView.swift */; };
 		DA79E41A28755DC6000192CC /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41928755DC6000192CC /* NavigationBarModifier.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		B3CA0B7F287D48AF0047E1D1 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA6A312C2889C081008AFA28 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		DA79E413287525C3000192CC /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
 		DA79E41928755DC6000192CC /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -184,6 +186,7 @@
 				B3BDBB4E287FA64C0072933E /* RegisterElementView.swift */,
 				B3B28F4228756B1000A3CB57 /* EditView.swift */,
 				B335136A287579DF00BF3495 /* EditElementView.swift */,
+				DA6A312C2889C081008AFA28 /* HeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				B3CA0B80287D48AF0047E1D1 /* CellView.swift in Sources */,
 				B32142BF2887DECF00F8CBE9 /* CellViewModel.swift in Sources */,
 				B3B28F4328756B1000A3CB57 /* EditView.swift in Sources */,
+				DA6A312D2889C081008AFA28 /* HeaderView.swift in Sources */,
 				B3CA0B79287D09ED0047E1D1 /* TaskManagementService.swift in Sources */,
 				B3BDBB4F287FA64C0072933E /* RegisterElementView.swift in Sources */,
 				B3BDBB51287FA82E0072933E /* RegisterView.swift in Sources */,

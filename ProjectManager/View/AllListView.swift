@@ -2,7 +2,7 @@
 //  AllListView.swift
 //  ProjectManager
 //
-//  Created by marisol on 2022/07/20.
+//  Created by OneTool, marisol on 2022/07/20.
 //
 
 import SwiftUI
@@ -15,7 +15,7 @@ struct AllListView: View {
             // TODO
             VStack(alignment: .leading) {
                 List {
-                    Section(header: headerView){
+                    Section(header: HeaderView(allListViewModel: allListViewModel, type: .todo)){
                         ForEach(allListViewModel.service.tasks.filter({ $0.type == .todo })) { task in
                             if let index = allListViewModel.service.tasks.firstIndex(of: task) {
                                 CellView(cellViewModel: CellViewModel(withService: allListViewModel.service, task: task), cellIndex: index)
@@ -32,7 +32,7 @@ struct AllListView: View {
             // DOING
             VStack(alignment: .leading) {
                 List {
-                    Section(header: headerView){
+                    Section(header: HeaderView(allListViewModel: allListViewModel, type: .doing)){
                         ForEach(allListViewModel.service.tasks.filter({ $0.type == .doing })) { task in
                             if let index = allListViewModel.service.tasks.firstIndex(of: task) {
                                 CellView(cellViewModel: CellViewModel(withService: allListViewModel.service, task: task), cellIndex: index)
@@ -49,7 +49,7 @@ struct AllListView: View {
             // DONE
             VStack(alignment: .leading) {
                 List {
-                    Section(header: headerView){
+                    Section(header: HeaderView(allListViewModel: allListViewModel, type: .done)){
                         ForEach(allListViewModel.service.tasks.filter({ $0.type == .done })) { task in
                             if let index = allListViewModel.service.tasks.firstIndex(of: task) {
                                 CellView(cellViewModel: CellViewModel(withService: allListViewModel.service, task: task), cellIndex: index)
@@ -64,25 +64,12 @@ struct AllListView: View {
             }
         }
     }
-    
-    var headerView: some View {
-        HStack {
-            Text(TaskType.todo.title)
-                .font(.largeTitle)
-                .foregroundColor(.black)
-            ZStack {
-            Circle()
-                .frame(width: 25, height: 25)
-                Text(String(allListViewModel.service.tasks.count))
-                    .foregroundColor(.white)
-                    .font(.title2)
-            }
-        }.foregroundColor(.black)
-    }
 }
 
-//struct AllListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AllListView()
-//    }
-//}
+
+
+struct AllListView_Previews: PreviewProvider {
+    static var previews: some View {
+        AllListView(allListViewModel: AllListViewModel(withService: TaskManagementService()))
+    }
+}
