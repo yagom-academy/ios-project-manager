@@ -45,18 +45,7 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
             taskType: .todo,
             id: uuid
         )
-        
-        let toBePosted: [String: Any] = [
-            "title": title.value,
-            "body": body.value,
-            "date": date.value,
-            "taskType": TaskType.todo.rawValue,
-            "id": uuid
-        ]
-        
-        let itemReference = self.reference.child(uuid)
-        itemReference.setValue(toBePosted)
-        
+
         do {
             try realmManager.create(task: newTask)
             dismiss.accept(())

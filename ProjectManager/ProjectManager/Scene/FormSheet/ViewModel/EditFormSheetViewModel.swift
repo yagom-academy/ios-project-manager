@@ -45,8 +45,6 @@ final class EditFormSheetViewModel: EditFormSheetViewModelEvent, EditFormSheetVi
             id: task.id
         )
         
-        reference.child(task.id).updateChildValues(editableTask.toDictionary())
-        
         do {
             try realmManager.update(task: editableTask)
             dismiss.accept(())

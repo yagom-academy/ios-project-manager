@@ -33,7 +33,6 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
         let toBePosted: [String: Any] = [
             "taskType": taskType.rawValue
         ]
-        self.reference.child(task.id).updateChildValues(toBePosted)
         
         do {
             try realmManager.change(task: task, targetType: taskType)
