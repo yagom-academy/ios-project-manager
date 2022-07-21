@@ -40,6 +40,7 @@
 		B0BC248A28884B29007DFE5E /* DefaultRealtimeDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseService.swift */; };
 		B0BC248E28884BD4007DFE5E /* RealtimeDatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248D28884BD4007DFE5E /* RealtimeDatabaseError.swift */; };
 		B0C043402888F3B300FABDD4 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0433F2888F3B300FABDD4 /* History.swift */; };
+		B0C043422888FA6E00FABDD4 /* CardHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C043412888FA6E00FABDD4 /* CardHistoryViewController.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
 		B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54202886A00D004F74CD /* CoreDataStorage.swift */; };
@@ -89,6 +90,7 @@
 		B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealtimeDatabaseService.swift; sourceTree = "<group>"; };
 		B0BC248D28884BD4007DFE5E /* RealtimeDatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseError.swift; sourceTree = "<group>"; };
 		B0C0433F2888F3B300FABDD4 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		B0C043412888FA6E00FABDD4 /* CardHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewController.swift; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
 		B0DC54202886A00D004F74CD /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */,
 				B01748BC287732C300EE15B0 /* CardDetailViewController.swift */,
 				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
+				B0C043412888FA6E00FABDD4 /* CardHistoryViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
 				B0640CC4287F17CA00E684E6 /* PopOverable.swift in Sources */,
 				B009119828781F44007074E5 /* CardListViewModelItem.swift in Sources */,
+				B0C043422888FA6E00FABDD4 /* CardHistoryViewController.swift in Sources */,
 				B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */,
 				B06FD23428854A96003CED8E /* CardDetailViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
