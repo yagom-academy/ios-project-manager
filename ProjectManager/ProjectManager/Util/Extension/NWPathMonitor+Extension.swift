@@ -16,7 +16,9 @@ extension Reactive where Base == NWPathMonitor {
     return Observable.create { [weak base] observer in
       base?.pathUpdateHandler = observer.onNext
       base?.start(queue: .global(qos: .background))
-      return Disposables.create()
+      return Disposables.create {
+        base?.cancel()
+      }
     }
   }
 }
