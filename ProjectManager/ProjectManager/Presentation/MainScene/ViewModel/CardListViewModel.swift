@@ -21,6 +21,7 @@ protocol CardListViewModelOutput {
   var todoCards: Driver<[Card]> { get }
   var doingCards: Driver<[Card]> { get }
   var doneCards: Driver<[Card]> { get }
+  var histories: BehaviorRelay<[History]> { get }
 }
 
 protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput {}
@@ -31,6 +32,7 @@ final class CardListViewModel: CardListViewModelable {
   let todoCards: Driver<[Card]>
   let doingCards: Driver<[Card]>
   let doneCards: Driver<[Card]>
+  let histories: BehaviorRelay<[History]>
   
   // MARK: - Init
   
@@ -56,6 +58,8 @@ final class CardListViewModel: CardListViewModelable {
       .map { $0.sorted { $0.deadlineDate > $1.deadlineDate } }
       .distinctUntilChanged { $0 == $1 }
       .asDriver(onErrorJustReturn: [])
+    
+    histories = useCase.histories
   }
   
   // MARK: - Input
