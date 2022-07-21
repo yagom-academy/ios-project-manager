@@ -26,7 +26,9 @@ final class DefaultTodoListRepository {
         guard items.count == 0 else { return }
         backUpStorage.allRead()
             .subscribe { [weak self] items in
-                self?.storage.read().onNext(items)
+                items.forEach { [weak self] item in
+                    self?.storage.save(to: item)
+                }
             } onFailure: { [weak self] _ in
                 self?.storage.errorObserver.accept(TodoError.backUpError)
             }.disposed(by: bag)

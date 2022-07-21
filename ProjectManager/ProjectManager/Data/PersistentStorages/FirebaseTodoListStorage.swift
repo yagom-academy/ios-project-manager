@@ -46,7 +46,10 @@ extension FirebaseTodoListStorage: RemoteBackUpStorage {
                     return
                 }
                 
-                let data = snapshot?.value as! [String: [String: Any]]
+                guard let data = snapshot?.value as? [String: [String: Any]] else {
+                    single(.success([]))
+                    return
+                }
                 data.forEach { (_ , value: [String : Any]) in
                     let item = TodoFirebaseEntity(value: value).toTodoModel()
                     items.append(item)
