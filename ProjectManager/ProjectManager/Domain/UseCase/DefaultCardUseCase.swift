@@ -12,6 +12,7 @@ import RxSwift
 
 protocol CardUseCase {
   var cards: BehaviorRelay<[Card]> { get }
+  var histories: BehaviorRelay<[History]> { get }
   
   func fetchCards()
   func createNewCard(_ card: Card)
@@ -25,6 +26,7 @@ final class DefaultCardUseCase: CardUseCase {
   private let disposeBag = DisposeBag()
   
   let cards = BehaviorRelay<[Card]>(value: Card.sample)
+  let histories = BehaviorRelay<[History]>(value: [])
   
   init(repository: CardRepository) {
     self.repository = repository
@@ -41,7 +43,11 @@ final class DefaultCardUseCase: CardUseCase {
   func createNewCard(_ card: Card) {
     repository.createCard(card)
       .withUnretained(self)
-      .flatMap { wself, _ in wself.repository.fetchCards() }
+      .flatMap { wself, _ -> Observable<[Card]> in
+        let history = History(actionType: .create(card), actionTime: Date())
+        wself.histories.accept(wself.histories.value + [history])
+        return wself.repository.fetchCards()
+      }
       .bind(to: cards)
       .disposed(by: disposeBag)
   }
@@ -49,7 +55,11 @@ final class DefaultCardUseCase: CardUseCase {
   func updateSelectedCard(_ card: Card) {
     repository.updateCard(card)
       .withUnretained(self)
-      .flatMap { wself, _ in wself.repository.fetchCards() }
+      .flatMap { wself, _ -> Observable<[Card]> in
+        let history = History(actionType: .update(card), actionTime: Date())
+        wself.histories.accept(wself.histories.value + [history])
+        return wself.repository.fetchCards()
+      }
       .bind(to: cards)
       .disposed(by: disposeBag)
   }
@@ -57,7 +67,11 @@ final class DefaultCardUseCase: CardUseCase {
   func deleteSelectedCard(_ card: Card) {
     repository.deleteCard(card)
       .withUnretained(self)
-      .flatMap { wself, _ in wself.repository.fetchCards() }
+      .flatMap { wself, _ -> Observable<[Card]> in
+        let history = History(actionType: .delete(card), actionTime: Date())
+        wself.histories.accept(wself.histories.value + [history])
+        return wself.repository.fetchCards()
+      }
       .bind(to: cards)
       .disposed(by: disposeBag)
   }
@@ -66,5 +80,7 @@ final class DefaultCardUseCase: CardUseCase {
     var newCard = card
     newCard.cardType = card.cardType.distinguishMenuType[index]
     self.updateSelectedCard(newCard)
+    let history = History(actionType: .move(card, newCard.cardType), actionTime: Date())
+    histories.accept(histories.value + [history])
   }
 }

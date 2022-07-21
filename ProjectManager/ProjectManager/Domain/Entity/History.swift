@@ -13,21 +13,21 @@ struct History {
 }
 
 enum HistoryActionType: CustomStringConvertible {
-  case create(String)
-  case update(String, CardType)
-  case delete(String, CardType)
-  case move(String, CardType, CardType)
+  case create(Card)
+  case update(Card)
+  case delete(Card)
+  case move(Card, CardType)
   
   var description: String {
     switch self {
     case let .create(title):
       return "Created: '\(title)'"
-    case let .update(title, from):
-      return "Updated: '\(title)' from \(from.description)"
-    case let .delete(title, from):
-      return "Deleted: '\(title)' from \(from.description)"
-    case let .move(title, from, to):
-      return "Moved: '\(title)' from \(from.description) to \(to.description)"
+    case let .update(card):
+      return "Updated: '\(card.title)' from \(card.cardType.description)"
+    case let .delete(card):
+      return "Deleted: '\(card.title)' from \(card.cardType.description)"
+    case let .move(card, to):
+      return "Moved: '\(card.title)' from \(card.cardType.description) to \(to.description)"
     }
   }
 }
