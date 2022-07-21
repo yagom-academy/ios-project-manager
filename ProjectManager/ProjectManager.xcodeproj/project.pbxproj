@@ -217,6 +217,22 @@
 			path = MainScene;
 			sourceTree = "<group>";
 		};
+		B0524DAD288995CD00F9A28D /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		B0524DAE288995D100F9A28D /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC54322887AB96004F74CD /* CardCoreDataService.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		B06FD23728854EB1003CED8E /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,8 +381,8 @@
 		B0DC54312887AB61004F74CD /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				B0DC54322887AB96004F74CD /* CardCoreDataService.swift */,
-				B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */,
+				B0524DAD288995CD00F9A28D /* Error */,
+				B0524DAE288995D100F9A28D /* Protocol */,
 				B0DC54222886A7DD004F74CD /* DefaultCardCoreDataService.swift */,
 			);
 			path = Service;
