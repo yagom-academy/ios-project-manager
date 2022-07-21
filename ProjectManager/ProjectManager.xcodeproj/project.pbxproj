@@ -29,6 +29,7 @@
 		E1BF89992889646A00D77841 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF89982889646A00D77841 /* String+Extension.swift */; };
 		E1BF899D2889691D00D77841 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF899C2889691D00D77841 /* FirebaseManager.swift */; };
 		E1BF899F288969EB00D77841 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF899E288969EB00D77841 /* Encodable+Extension.swift */; };
+		E1BF89A728896D2D00D77841 /* FirebaseManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF89A628896D2D00D77841 /* FirebaseManagerTest.swift */; };
 		E1C26DCB28746D1500A37983 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DCA28746D1500A37983 /* RealmManager.swift */; };
 		E1C26DD32874720200A37983 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DD22874720200A37983 /* ProjectManagerTests.swift */; };
 		E1CCBDD1287EC10400348378 /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCBDD0287EC10400348378 /* TaskInfo.swift */; };
@@ -38,6 +39,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E1BF89A828896D2D00D77841 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7431EFA25F51E1D0094C4CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C7431F0125F51E1D0094C4CF;
+			remoteInfo = ProjectManager;
+		};
 		E1C26DD42874720200A37983 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C7431EFA25F51E1D0094C4CF /* Project object */;
@@ -73,6 +81,8 @@
 		E1BF89982889646A00D77841 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E1BF899C2889691D00D77841 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		E1BF899E288969EB00D77841 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
+		E1BF89A428896D2D00D77841 /* FirebaseManagerTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FirebaseManagerTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1BF89A628896D2D00D77841 /* FirebaseManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManagerTest.swift; sourceTree = "<group>"; };
 		E1C26DCA28746D1500A37983 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		E1C26DD02874720200A37983 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C26DD22874720200A37983 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
@@ -92,6 +102,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				422D9997D8C794C92966E296 /* Pods_ProjectManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1BF89A128896D2D00D77841 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +217,7 @@
 			children = (
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				E1C26DD12874720200A37983 /* ProjectManagerTests */,
+				E1BF89A528896D2D00D77841 /* FirebaseManagerTest */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 				552AF73B47F5D3A8D03264B7 /* Pods */,
 				15E5A62F20B2EA7CEA1614AD /* Frameworks */,
@@ -211,6 +229,7 @@
 			children = (
 				C7431F0225F51E1D0094C4CF /* ProjectManager.app */,
 				E1C26DD02874720200A37983 /* ProjectManagerTests.xctest */,
+				E1BF89A428896D2D00D77841 /* FirebaseManagerTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,6 +249,14 @@
 				E1BF8994288961F900D77841 /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		E1BF89A528896D2D00D77841 /* FirebaseManagerTest */ = {
+			isa = PBXGroup;
+			children = (
+				E1BF89A628896D2D00D77841 /* FirebaseManagerTest.swift */,
+			);
+			path = FirebaseManagerTest;
 			sourceTree = "<group>";
 		};
 		E1C26DC728745E8600A37983 /* DataType */ = {
@@ -282,6 +309,24 @@
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E1BF89A328896D2D00D77841 /* FirebaseManagerTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1BF89AA28896D2D00D77841 /* Build configuration list for PBXNativeTarget "FirebaseManagerTest" */;
+			buildPhases = (
+				E1BF89A028896D2D00D77841 /* Sources */,
+				E1BF89A128896D2D00D77841 /* Frameworks */,
+				E1BF89A228896D2D00D77841 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1BF89A928896D2D00D77841 /* PBXTargetDependency */,
+			);
+			name = FirebaseManagerTest;
+			productName = FirebaseManagerTest;
+			productReference = E1BF89A428896D2D00D77841 /* FirebaseManagerTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E1C26DCF2874720200A37983 /* ProjectManagerTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E1C26DD62874720200A37983 /* Build configuration list for PBXNativeTarget "ProjectManagerTests" */;
@@ -312,6 +357,10 @@
 					C7431F0125F51E1D0094C4CF = {
 						CreatedOnToolsVersion = 12.4;
 					};
+					E1BF89A328896D2D00D77841 = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = C7431F0125F51E1D0094C4CF;
+					};
 					E1C26DCF2874720200A37983 = {
 						CreatedOnToolsVersion = 13.3.1;
 						TestTargetID = C7431F0125F51E1D0094C4CF;
@@ -333,6 +382,7 @@
 			targets = (
 				C7431F0125F51E1D0094C4CF /* ProjectManager */,
 				E1C26DCF2874720200A37983 /* ProjectManagerTests */,
+				E1BF89A328896D2D00D77841 /* FirebaseManagerTest */,
 			);
 		};
 /* End PBXProject section */
@@ -345,6 +395,13 @@
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				E1BF8995288961F900D77841 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1BF89A228896D2D00D77841 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +504,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1BF89A028896D2D00D77841 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1BF89A728896D2D00D77841 /* FirebaseManagerTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E1C26DCC2874720200A37983 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -458,6 +523,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E1BF89A928896D2D00D77841 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C7431F0125F51E1D0094C4CF /* ProjectManager */;
+			targetProxy = E1BF89A828896D2D00D77841 /* PBXContainerItemProxy */;
+		};
 		E1C26DD52874720200A37983 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C7431F0125F51E1D0094C4CF /* ProjectManager */;
@@ -637,6 +707,44 @@
 			};
 			name = Release;
 		};
+		E1BF89AB28896D2D00D77841 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = thread.FirebaseManagerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/ProjectManager";
+			};
+			name = Debug;
+		};
+		E1BF89AC28896D2D00D77841 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = thread.FirebaseManagerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/ProjectManager";
+			};
+			name = Release;
+		};
 		E1C26DD72874720200A37983 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -692,6 +800,15 @@
 			buildConfigurations = (
 				C7431F1725F51E1E0094C4CF /* Debug */,
 				C7431F1825F51E1E0094C4CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1BF89AA28896D2D00D77841 /* Build configuration list for PBXNativeTarget "FirebaseManagerTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1BF89AB28896D2D00D77841 /* Debug */,
+				E1BF89AC28896D2D00D77841 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
