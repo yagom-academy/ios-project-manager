@@ -7,16 +7,18 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 protocol TodoListUseCase {
     func readItems() -> BehaviorSubject<[TodoModel]>
-    func saveItem(to data: TodoModel) -> Completable
-    func deleteItem(id: UUID) -> Completable
+    func saveItem(to data: TodoModel)
+    func deleteItem(id: UUID)
     func checkDeadline(time: Date) -> Bool
     func moveState(from state: State) -> (first: State, second: State)
+    var errorObserver: PublishRelay<TodoError> { get }
 }
 
-final class DefaultTodoListUseCase: TodoListUseCase {
+final class DefaultTodoListUseCase {
     private let repository: TodoListRepository
     
     init(repository: TodoListRepository) {
@@ -24,22 +26,27 @@ final class DefaultTodoListUseCase: TodoListUseCase {
     }
 }
 
-extension DefaultTodoListUseCase {
+extension DefaultTodoListUseCase: TodoListUseCase {
+    var errorObserver: PublishRelay<TodoError> {
+        repository.errorObserver
+    }
 
     func readItems() -> BehaviorSubject<[TodoModel]> {
         return repository.read()
     }
     
-    func saveItem(to data: TodoModel) -> Completable {
-        return repository.save(to: data)
+    func saveItem(to data: TodoModel) {
+        repository.save(to: data)
     }
     
-    func deleteItem(id: UUID) -> Completable {
+    func deleteItem(id: UUID) {
         guard let index = try? repository.read().value()
             .firstIndex(where: { $0.id == id }) else {
-            return Completable.empty() }
+            errorObserver.accept(TodoError.unknownItem)
+            return
+        }
         
-        return repository.delete(index: index)
+        repository.delete(index: index)
     }
     
     func checkDeadline(time: Date) -> Bool {

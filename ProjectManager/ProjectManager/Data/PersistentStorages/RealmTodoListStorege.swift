@@ -8,11 +8,19 @@
 import Foundation
 import RxSwift
 import RealmSwift
+import RxRelay
+
+enum TodoError: String, Error {
+    case saveError = "저장 중 오류가 발생했습니다."
+    case deleteError = "삭제 중 오류가 발생했습니다."
+    case unknownItem = "해당 컨텐츠를 찾지 못했습니다."
+}
 
 protocol TodoListStorege {
     func read() -> BehaviorSubject<[TodoModel]>
-    func save(to data: TodoModel) -> Completable
-    func delete(index: Int) -> Completable
+    func save(to data: TodoModel)
+    func delete(index: Int)
+    var errorObserver: PublishRelay<TodoError> { get }
 }
 
 final class RealmTodoListStorege {
@@ -20,7 +28,8 @@ final class RealmTodoListStorege {
     
     private var storege: BehaviorSubject<[TodoModel]>
     private let items: Results<TodoEntity>?
-    
+    let errorObserver: PublishRelay<TodoError> = PublishRelay()
+
     init() {
         items = realm?.objects(TodoEntity.self)
 
@@ -33,40 +42,31 @@ extension RealmTodoListStorege: TodoListStorege {
         return storege
     }
     
-    func save(to data: TodoModel) -> Completable {
-        return Completable.create { [weak self] completable in
-            do {
-                try self?.realm?.write({
-                    guard let items = self?.items else { return }
-                    if let item = items.first(where: { $0.id == data.id }) {
-                        item.updateEntity(entity: data)
-                    } else {
-                        self?.realm?.add(TodoEntity(entity: data))
-                    }
-                    self?.storege.onNext(items.map { $0.toTodoModel() })
-                })
-                completable(.completed)
-                return Disposables.create()
-            } catch {
-                completable(.error(error))
-                return Disposables.create()
-            }
+    func save(to data: TodoModel) {
+        do {
+            try realm?.write({
+                guard let items = items else { return }
+                if let item = items.first(where: { $0.id == data.id }) {
+                    item.updateEntity(entity: data)
+                } else {
+                    realm?.add(TodoEntity(entity: data))
+                }
+                storege.onNext(items.map { $0.toTodoModel() })
+            })
+        } catch {
+            errorObserver.accept(TodoError.saveError)
         }
     }
     
-    func delete(index: Int) -> Completable {
-        return Completable.create { [weak self] completable in
-            do {
-                try self?.realm?.write({
-                    guard let items = self?.items else { return }
-                    self?.realm?.delete(items[index])
-                    self?.storege.onNext(items.map { $0.toTodoModel() })
-                })
-                completable(.completed)
-            } catch {
-                completable(.error(error))
-            }
-            return Disposables.create()
+    func delete(index: Int) {
+        do {
+            try realm?.write({
+                guard let items = items else { return }
+                realm?.delete(items[index])
+                storege.onNext(items.map { $0.toTodoModel() })
+            })
+        } catch {
+            errorObserver.accept(TodoError.deleteError)
         }
     }
 }

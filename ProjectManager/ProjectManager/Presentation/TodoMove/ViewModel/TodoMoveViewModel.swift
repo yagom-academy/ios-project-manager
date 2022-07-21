@@ -29,7 +29,6 @@ final class DefaultTodoMoveViewModel {
     private let useCase: TodoListUseCase
     private let actions: TodoMoveViewModelActions?
     private let item: TodoModel
-    private let bag = DisposeBag()
     
     init(useCase: TodoListUseCase, actions: TodoMoveViewModelActions, item: TodoModel) {
         self.useCase = useCase
@@ -52,9 +51,6 @@ final class DefaultTodoMoveViewModel {
         var newItem = item
         newItem.state = state
         useCase.saveItem(to: newItem)
-            .subscribe(onError: { [weak self] _ in
-                self?.actions?.showErrorAlert("저장 오류 발생")
-            }).disposed(by: bag)
     }
 }
 
@@ -72,13 +68,13 @@ extension DefaultTodoMoveViewModel: TodoMoveViewModel {
     //MARK: - Input
     func firstButtonDidTap() {
         let newState = useCase.moveState(from: item.state).first
-        changeItemState(to: newState)
         actions?.dismiss()
+        changeItemState(to: newState)
     }
     
     func secondButtonDidTap() {
         let newState = useCase.moveState(from: item.state).second
-        changeItemState(to: newState)
         actions?.dismiss()
+        changeItemState(to: newState)
     }
 }

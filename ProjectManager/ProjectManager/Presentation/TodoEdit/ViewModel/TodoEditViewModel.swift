@@ -26,7 +26,7 @@ protocol TodoEditViewModelInput {
 protocol TodoEditViewModelOutput {
     var setUpView: Observable<TodoModel?> { get }
     var setCreateMode: Observable<Bool> { get }
-    var isEditMode: BehaviorRelay<Bool> { get }
+    var setEditMode: PublishRelay<Bool> { get }
 }
 
 protocol TodoEditViewModel: TodoEditViewModelInput, TodoEditViewModelOutput {}
@@ -36,8 +36,8 @@ final class DefaultTodoEditViewModel {
     private let useCase: TodoListUseCase
     private let actions: TodoEditViewModelActions?
     private var item: TodoModel?
-    var isEditMode = BehaviorRelay(value: false)
-    private let bag = DisposeBag()
+    private var isEditMode = false
+    var setEditMode = PublishRelay<Bool>()
     
     init(useCase: TodoListUseCase, actions: TodoEditViewModelActions, item: TodoModel?) {
         self.useCase = useCase
@@ -78,18 +78,13 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
             actions?.dismiss()
             return
         }
+        actions?.dismiss()
         useCase.saveItem(to: item)
-            .subscribe { [weak self] in
-                self?.actions?.dismiss()
-            } onError: { [weak self] _ in
-                self?.actions?.dismiss()
-                self?.actions?.showErrorAlert("저장 오류 발생")
-            }.disposed(by: bag)
     }
     
-
     func editButtonDidTap() {
-        isEditMode.accept(!isEditMode.value)
+        isEditMode = !isEditMode
+        setEditMode.accept(isEditMode)
     }
     
     func inputitle(title: String?) {

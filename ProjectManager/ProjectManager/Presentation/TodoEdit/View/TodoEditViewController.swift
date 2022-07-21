@@ -87,7 +87,7 @@ extension TodoEditViewController {
                 self?.configureLeftBarButtonItem(isCreateMode: $0)
             }.disposed(by: bag)
         
-        viewModel.isEditMode
+        viewModel.setEditMode
             .bind { [weak self] in
                 self?.mainView.changeEnabled($0)
                 self?.editButton.title = $0 ? Constant.eidting : Constant.edit

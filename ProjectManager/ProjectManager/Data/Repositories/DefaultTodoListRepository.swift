@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 final class DefaultTodoListRepository {
     private let storage: TodoListStorege
@@ -17,15 +18,19 @@ final class DefaultTodoListRepository {
 }
 
 extension DefaultTodoListRepository: TodoListRepository {
+    var errorObserver: PublishRelay<TodoError> {
+        return storage.errorObserver
+    }
+    
     func read() -> BehaviorSubject<[TodoModel]> {
         return storage.read()
     }
     
-    func save(to data: TodoModel) -> Completable {
-       return storage.save(to: data)
+    func save(to data: TodoModel) {
+        storage.save(to: data)
     }
     
-    func delete(index: Int) -> Completable {
-        return storage.delete(index: index)
+    func delete(index: Int) {
+        storage.delete(index: index)
     }
 }

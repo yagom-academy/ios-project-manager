@@ -29,6 +29,7 @@ protocol TodoListViewModelOutput {
     var todoListCount: Driver<String> { get }
     var doingListCount: Driver<String> { get }
     var doneListCount: Driver<String> { get }
+    var errorMessage: Observable<String> { get }
 }
 
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
@@ -37,7 +38,6 @@ final class DefaultTodoListViewModel {
     private let useCase: TodoListUseCase
     private let actions: TodoListViewModelActions?
     private let todoLists: BehaviorSubject<[TodoModel]>
-    private let bag = DisposeBag()
     
     init(useCase: TodoListUseCase, actions: TodoListViewModelActions) {
         self.useCase = useCase
@@ -96,6 +96,13 @@ extension DefaultTodoListViewModel: TodoListViewModel {
             .asDriver(onErrorJustReturn: "0")
     }
     
+    var errorMessage: Observable<String> {
+        useCase.errorObserver
+            .map { error in
+                error.rawValue
+            }
+    }
+    
     //MARK: - Input
     func plusButtonDidTap() {
         actions?.presentEditViewController(nil)
@@ -116,8 +123,5 @@ extension DefaultTodoListViewModel: TodoListViewModel {
     
     func cellDeleteButtonDidTap(item: TodoCellContent) {
         useCase.deleteItem(id: item.id)
-            .subscribe(onError: { [weak self] _ in
-                self?.actions?.showErrorAlert("삭제 오류 발생")
-            }).disposed(by: bag)
     }
 }

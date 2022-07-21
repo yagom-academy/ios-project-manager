@@ -123,5 +123,16 @@ extension TodoListViewController {
             .bind { [weak self] item in
                 self?.viewModel.cellDeleteButtonDidTap(item: item)
             }.disposed(by: bag)
+        
+        viewModel.errorMessage
+            .bind { [weak self] message in
+                self?.showErrorAlert(message: message)
+            }.disposed(by: bag)
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alertController = UIAlertController(title: "에러", message: message, preferredStyle: .alert)
+        alertController.addAction(.init(title: "확인", style: .default))
+        self.present(alertController, animated: true, completion: nil)
     }
 }
