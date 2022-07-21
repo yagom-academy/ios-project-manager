@@ -31,4 +31,14 @@ struct Todo {
         self.description = description
         self.date = date
     }
+    
+    func convertRealmTodo() -> TodoDTO {
+        return TodoDTO(
+            todoListItemStatus: self.todoListItemStatus,
+            identifier: self.identifier,
+            title: self.title,
+            body: self.description,
+            date: self.date
+        )
+    }
 }

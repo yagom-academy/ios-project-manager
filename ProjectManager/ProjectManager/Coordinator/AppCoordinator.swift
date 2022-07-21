@@ -16,7 +16,7 @@ protocol Coordinator: AnyObject {
 final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
     private var detailViewController: DetailViewController?
-    private let database = TempDatabase()
+    private let database = DatabaseManager()
     
     func start() {
         self.showListView()

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		3000D70C287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */; };
 		3000D717287D56B400EA7A03 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D716287D56B400EA7A03 /* DetailViewModel.swift */; };
-		300D1E4528818AAA0051DBB0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300D1E4428818AAA0051DBB0 /* Database.swift */; };
+		300D1E4528818AAA0051DBB0 /* TempDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300D1E4428818AAA0051DBB0 /* TempDatabase.swift */; };
 		3043996128810EE800D154C7 /* ColorPalete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3043996028810EE800D154C7 /* ColorPalete.swift */; };
 		307DFCDA288059120030873F /* Reactive+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DFCD9288059120030873F /* Reactive+Sugar.swift */; };
 		3088777C2875CD7800057592 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3088777B2875CD7800057592 /* ListView.swift */; };
@@ -17,6 +17,8 @@
 		308FF0C02878205700301DCF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FF0BF2878205700301DCF /* DetailViewController.swift */; };
 		30B02F8C2873E3F40029579F /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B02F8B2873E3F40029579F /* TodoListViewModel.swift */; };
 		30B02F9028747FF40029579F /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B02F8F28747FF40029579F /* TodoListCell.swift */; };
+		30FCF72228854AE2007D9557 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCF72128854AE2007D9557 /* RealmDatabase.swift */; };
+		30FCF72428854C5D007D9557 /* TodoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCF72328854C5D007D9557 /* TodoDTO.swift */; };
 		643719A22872B0DF00F78AAA /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A12872B0DF00F78AAA /* RxCocoa */; };
 		643719A42872B0DF00F78AAA /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A32872B0DF00F78AAA /* RxRelay */; };
 		643719A62872B0DF00F78AAA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A52872B0DF00F78AAA /* RxSwift */; };
@@ -29,6 +31,7 @@
 		64371AC9287B129200F78AAA /* Date+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC8287B129200F78AAA /* Date+Sugar.swift */; };
 		64371AE9287C570D00F78AAA /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AE8287C570C00F78AAA /* AppCoordinator.swift */; };
 		64371B03287EEB1500F78AAA /* TempData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371B02287EEB1500F78AAA /* TempData.swift */; };
+		6458E17E288943DE0077CD07 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458E17D288943DE0077CD07 /* DatabaseManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */; };
@@ -52,7 +55,7 @@
 /* Begin PBXFileReference section */
 		3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Sugar.swift"; sourceTree = "<group>"; };
 		3000D716287D56B400EA7A03 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
-		300D1E4428818AAA0051DBB0 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		300D1E4428818AAA0051DBB0 /* TempDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempDatabase.swift; sourceTree = "<group>"; };
 		3043996028810EE800D154C7 /* ColorPalete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalete.swift; sourceTree = "<group>"; };
 		307DFCD9288059120030873F /* Reactive+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Sugar.swift"; sourceTree = "<group>"; };
 		3088777B2875CD7800057592 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -60,6 +63,8 @@
 		308FF0BF2878205700301DCF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		30B02F8B2873E3F40029579F /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		30B02F8F28747FF40029579F /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
+		30FCF72128854AE2007D9557 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
+		30FCF72328854C5D007D9557 /* TodoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDTO.swift; sourceTree = "<group>"; };
 		643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		643719DF2873E02F00F78AAA /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		64371A4F2874940300F78AAA /* StackView+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Sugar.swift"; sourceTree = "<group>"; };
@@ -67,6 +72,7 @@
 		64371AC8287B129200F78AAA /* Date+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Sugar.swift"; sourceTree = "<group>"; };
 		64371AE8287C570C00F78AAA /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		64371B02287EEB1500F78AAA /* TempData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempData.swift; sourceTree = "<group>"; };
+		6458E17D288943DE0077CD07 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,7 +102,9 @@
 			isa = PBXGroup;
 			children = (
 				64371B02287EEB1500F78AAA /* TempData.swift */,
-				300D1E4428818AAA0051DBB0 /* Database.swift */,
+				300D1E4428818AAA0051DBB0 /* TempDatabase.swift */,
+				30FCF72128854AE2007D9557 /* RealmDatabase.swift */,
+				6458E17D288943DE0077CD07 /* DatabaseManager.swift */,
 			);
 			path = DataStorage;
 			sourceTree = "<group>";
@@ -189,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				643719DF2873E02F00F78AAA /* Todo.swift */,
+				30FCF72328854C5D007D9557 /* TodoDTO.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -341,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30FCF72228854AE2007D9557 /* RealmDatabase.swift in Sources */,
 				3000D70C287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift in Sources */,
 				64371AC9287B129200F78AAA /* Date+Sugar.swift in Sources */,
 				3043996128810EE800D154C7 /* ColorPalete.swift in Sources */,
@@ -352,13 +362,15 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				64371B03287EEB1500F78AAA /* TempData.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				6458E17E288943DE0077CD07 /* DatabaseManager.swift in Sources */,
+				30FCF72428854C5D007D9557 /* TodoDTO.swift in Sources */,
 				64371A502874940300F78AAA /* StackView+Sugar.swift in Sources */,
 				308FF0C02878205700301DCF /* DetailViewController.swift in Sources */,
 				64371AE9287C570D00F78AAA /* AppCoordinator.swift in Sources */,
 				643719E02873E02F00F78AAA /* Todo.swift in Sources */,
 				3000D717287D56B400EA7A03 /* DetailViewModel.swift in Sources */,
 				3088779E2876D0CF00057592 /* TodoListItemStatus.swift in Sources */,
-				300D1E4528818AAA0051DBB0 /* Database.swift in Sources */,
+				300D1E4528818AAA0051DBB0 /* TempDatabase.swift in Sources */,
 				307DFCDA288059120030873F /* Reactive+Sugar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

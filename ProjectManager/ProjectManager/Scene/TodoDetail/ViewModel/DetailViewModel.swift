@@ -11,9 +11,9 @@ import RxCocoa
 import RxSwift
 
 final class DetailViewModel {
-    private var database: Database
+    private var database: DatabaseManagerProtocol
     
-    init(database: Database) {
+    init(database: DatabaseManagerProtocol) {
         self.database = database
     }
     
@@ -30,7 +30,7 @@ final class DetailViewModel {
             self.database.update(selectedTodo: todo)
             completion()
         } else {
-            self.database.create(todoList: [todo])
+            self.database.create(todoData: todo)
             completion()
         }
     }
