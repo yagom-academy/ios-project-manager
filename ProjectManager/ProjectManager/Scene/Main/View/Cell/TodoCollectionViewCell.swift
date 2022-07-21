@@ -83,7 +83,7 @@ final class TodoCollectionViewCell: SwipeCollectionViewCell, Identifiable {
     if todo.date.timeIntervalSinceNow < Date.now.timeIntervalSinceNow {
       dateLabel.textColor = .systemRed
     }
-    dateLabel.text = todo.date.nowDate()
+    dateLabel.text = Date.nowDate(todo.date)
   }
   
   override func prepareForReuse() {
