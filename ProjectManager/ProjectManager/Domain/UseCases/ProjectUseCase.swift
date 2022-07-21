@@ -9,7 +9,7 @@ import RxRelay
 
 struct ProjectUseCase {
     #if DEBUG
-        private let repository = ProjectRepository(storageManager: MockStorageManager.shared)
+        private let repository = ProjectRepository(storageManager: MockRepository.shared)
     #else
         private let repository = ProjectRepository(storageManager: PersistentStorageManager.shared)
     #endif

@@ -8,15 +8,15 @@
 import RxSwift
 import RxRelay
 
-final class MockStorageManager {
-    static let shared = MockStorageManager()
+final class MockRepository {
+    static let shared = MockRepository()
     
     private init() { }
     
     private var projectEntities = BehaviorRelay<[ProjectContent]>(value: [])
 }
 
-extension MockStorageManager: Storagable {
+extension MockRepository: Storagable {
     func create(projectContent: ProjectContent) {
         var currentProject = read().value
         currentProject.append(projectContent)

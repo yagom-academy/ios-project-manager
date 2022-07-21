@@ -13,7 +13,7 @@
 		033294B4287C717700EE7CBE /* PopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033294B3287C717700EE7CBE /* PopOverView.swift */; };
 		0334E70028767E7100222EB7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E6FF28767E7100222EB7 /* DetailViewController.swift */; };
 		0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70128767EBB00222EB7 /* DetailViewModel.swift */; };
-		0334E70628770E3D00222EB7 /* MockStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockStorageManager.swift */; };
+		0334E70628770E3D00222EB7 /* MockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockRepository.swift */; };
 		03498B682886737300D8CB3F /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03498B662886737300D8CB3F /* Project.xcdatamodeld */; };
 		03498B73288676B500D8CB3F /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03498B72288676B500D8CB3F /* PersistentManager.swift */; };
 		03498B762886DF3A00D8CB3F /* ProjectDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03498B752886DF3A00D8CB3F /* ProjectDTO.swift */; };
@@ -23,7 +23,7 @@
 		03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73E0287331BB00B0C980 /* ProjectTableView.swift */; };
 		0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04B287C7C5600438285 /* DateFormatter.swift */; };
 		0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04E287C815300438285 /* PopOverViewModel.swift */; };
-		0E8130E9288693FA003EC6C7 /* PersistentStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130E8288693FA003EC6C7 /* PersistentStorageManager.swift */; };
+		0E8130E9288693FA003EC6C7 /* PersistentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */; };
 		0E8130EC2886A1F3003EC6C7 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */; };
 		0E8130ED2886A1F3003EC6C7 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */; };
 		0E8130EF2886E2E5003EC6C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8130EE2886E2E5003EC6C7 /* GoogleService-Info.plist */; };
@@ -49,7 +49,7 @@
 		033294B3287C717700EE7CBE /* PopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverView.swift; sourceTree = "<group>"; };
 		0334E6FF28767E7100222EB7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0334E70128767EBB00222EB7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
-		0334E70528770E3D00222EB7 /* MockStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorageManager.swift; sourceTree = "<group>"; };
+		0334E70528770E3D00222EB7 /* MockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRepository.swift; sourceTree = "<group>"; };
 		03498B672886737300D8CB3F /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		03498B72288676B500D8CB3F /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		03498B752886DF3A00D8CB3F /* ProjectDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDTO.swift; sourceTree = "<group>"; };
@@ -59,7 +59,7 @@
 		03AB73E0287331BB00B0C980 /* ProjectTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableView.swift; sourceTree = "<group>"; };
 		0E34F04B287C7C5600438285 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		0E34F04E287C815300438285 /* PopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewModel.swift; sourceTree = "<group>"; };
-		0E8130E8288693FA003EC6C7 /* PersistentStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorageManager.swift; sourceTree = "<group>"; };
+		0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRepository.swift; sourceTree = "<group>"; };
 		0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0E8130EE2886E2E5003EC6C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -199,8 +199,8 @@
 		0E8130E728869383003EC6C7 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				0334E70528770E3D00222EB7 /* MockStorageManager.swift */,
-				0E8130E8288693FA003EC6C7 /* PersistentStorageManager.swift */,
+				0334E70528770E3D00222EB7 /* MockRepository.swift */,
+				0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */,
 				03498B752886DF3A00D8CB3F /* ProjectDTO.swift */,
 			);
 			path = Repository;
@@ -475,7 +475,7 @@
 				0E8130ED2886A1F3003EC6C7 /* Project+CoreDataProperties.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				0EA67EBE2874789700E15093 /* ModalView.swift in Sources */,
-				0E8130E9288693FA003EC6C7 /* PersistentStorageManager.swift in Sources */,
+				0E8130E9288693FA003EC6C7 /* PersistentRepository.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,
 				0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */,
@@ -484,7 +484,7 @@
 				0EA67ED0287674D000E15093 /* ProjectListView.swift in Sources */,
 				033294B2287C713800EE7CBE /* PopOverViewController.swift in Sources */,
 				0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */,
-				0334E70628770E3D00222EB7 /* MockStorageManager.swift in Sources */,
+				0334E70628770E3D00222EB7 /* MockRepository.swift in Sources */,
 				03AB73DB2873290400B0C980 /* MainViewController.swift in Sources */,
 				03498B762886DF3A00D8CB3F /* ProjectDTO.swift in Sources */,
 				0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */,

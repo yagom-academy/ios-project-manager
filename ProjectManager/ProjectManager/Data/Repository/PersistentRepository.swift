@@ -8,8 +8,8 @@
 import RxSwift
 import RxRelay
 
-final class PersistentStorageManager {
-    static let shared = PersistentStorageManager()
+final class PersistentRepository {
+    static let shared = PersistentRepository()
     private let persistentManager = PersistentManager()
     
     private init() { }
@@ -24,7 +24,7 @@ final class PersistentStorageManager {
     }
 }
 
-extension PersistentStorageManager: Storagable {
+extension PersistentRepository: Storagable {
     func create(projectContent: ProjectContent) {
         createCoreDate(newProjectContent: projectContent)
         createProjectEntities(newProjectContent: projectContent)
@@ -49,7 +49,7 @@ extension PersistentStorageManager: Storagable {
     }
 }
 
-extension PersistentStorageManager {
+extension PersistentRepository {
     private func createCoreDate(newProjectContent: ProjectContent) {
         guard let newProject = parse(from: newProjectContent) else {
             return
@@ -100,7 +100,7 @@ extension PersistentStorageManager {
     }
 }
 
-extension PersistentStorageManager {
+extension PersistentRepository {
     func parse(from project: Project) -> ProjectContent? {
         guard let id = project.id,
               let status = ProjectStatus.convert(statusString: project.status),
