@@ -23,7 +23,7 @@ class Task: Object, FirebaseDatable {
     
     @Persisted(primaryKey: true) var id: String
     @Persisted var title: String?
-    @Persisted private var dateInfo: String
+    @Persisted private(set) var dateInfo: String
     @Persisted var body: String?
     @Persisted var type: String?
     
