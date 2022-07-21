@@ -10,12 +10,12 @@ import Foundation
 import RealmSwift
 
 final class RealmDatabase {
-    private var realm: Realm?
+    private let realm: Realm?
     
     init() {
         self.realm = try? Realm()
     }
-
+    
     func create(todoData: Todo) {
         try? realm?.write {
             realm?.add(todoData.convertRealmTodo())
@@ -30,28 +30,25 @@ final class RealmDatabase {
     }
     
     func update(selectedTodo: Todo) {
-        let item = realm?.objects(TodoDTO.self)
-            .filter({ $0.identifier == selectedTodo.identifier })
-            .first
-        
-        if item != nil {
-            try? realm?.write({
-                item?.todoListItemStatus = selectedTodo.todoListItemStatus.displayName
-                item?.identifier = selectedTodo.identifier
-                item?.title = selectedTodo.title
-                item?.body = selectedTodo.description
-                item?.date = selectedTodo.date
-            })
-        }
+        try? realm?.write({
+            realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
+        })
     }
     
     func delete(todoID: UUID) {
-        guard let item = realm?.objects(TodoDTO.self).filter({ $0.identifier == todoID }).first else {
+        guard let item = realm?.object(ofType: RealmTodo.self, forPrimaryKey: todoID) else {
             return
         }
         
         try? realm?.write({
             realm?.delete(item)
+        })
+    }
+    
+    func add(todoData: [Todo]) {
+        let todoDataCollection = todoData.map { $0.convertRealmTodo() }
+        try? realm?.write({
+            realm?.add(todoDataCollection, update: .all)
         })
     }
 }

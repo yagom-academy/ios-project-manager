@@ -34,7 +34,7 @@ final class DatabaseManager: DatabaseManagerProtocol {
         
         self.todoListBehaviorRelay.accept(self.todoListBehaviorRelay.value + [todoData])
     }
-    
+
     func read() {
         self.todoListBehaviorRelay.accept(self.realm.read())
     }
