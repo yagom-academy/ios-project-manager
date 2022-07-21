@@ -29,7 +29,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     
     private let reference = Database.database().reference()
     private let realmManager = RealmManager()
-    var firebaseData = [Task]()
+    
     
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType) {
         let task: Task
@@ -45,18 +45,38 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     func viewDidLoad() {
-        let realmData = realmManager.fetchAllTasks()
-        
-        reference.observeSingleEvent(of: .value) { snapshot in
+        var realmData = realmManager.fetchAllTasks()
+        var firebaseData = [Task]()
+        reference.observeSingleEvent(of: .value) { [weak self] snapshot in
             guard let snapData = snapshot.value as? [String: [String: Any]] else { return }
             guard let data = try? JSONSerialization.data(withJSONObject: Array(snapData.values), options: []) else { return }
             do {
                 let decoder = JSONDecoder()
-                self.firebaseData = try decoder.decode([Task].self, from: data)
+                firebaseData = try decoder.decode([Task].self, from: data)
+                
+                guard let dataOutOfSync = self?.dataOutOfSync(from: firebaseData, with: realmData) else {
+                    return
+                }
+                realmData.forEach {
+                    let taskForUpdate = Task(
+                        title: $0.title,
+                        body: $0.body,
+                        date: $0.date,
+                        taskType: $0.taskType,
+                        id: $0.id
+                    ).toDictionary()
+
+                    self?.reference.child($0.id).setValue(taskForUpdate)
+                }
+                dataOutOfSync.forEach {
+                    self?.reference.child($0.id).removeValue()
+                }
+                
             } catch let error {
                 print("\(error.localizedDescription)")
             }
         }
+        
         fetchData()
     }
     
@@ -66,11 +86,22 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         fetchDone()
     }
     
+    func dataOutOfSync(from firebaseData: [Task], with realmData: [Task]) -> [Task] {
+        var ids = [String]()
+        realmData.forEach {
+            ids.append($0.id)
+        }
+        
+        let data = firebaseData.filter {
+            !ids.contains($0.id)
+        }
+        
+        return data
+    }
+    
     private func deleteData(task: Task) {
         let type = task.taskType
-        
-        reference.child(task.id).removeValue()
-        
+                
         do {
             try realmManager.delete(task: task)
         } catch {
