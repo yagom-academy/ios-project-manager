@@ -8,9 +8,9 @@
 import Foundation
 
 extension Date {
-  func nowDate() -> String {
+  static func nowDate(_ date: Date) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "YY. MM. dd."
-    return dateFormatter.string(from: self)
+    return dateFormatter.string(from: date)
   }
 }
