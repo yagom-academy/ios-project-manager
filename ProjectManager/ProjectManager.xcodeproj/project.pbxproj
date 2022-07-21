@@ -163,8 +163,8 @@
 			children = (
 				B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */,
 				B01748BC287732C300EE15B0 /* CardDetailViewController.swift */,
-				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
 				B0C043412888FA6E00FABDD4 /* CardHistoryViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -191,9 +191,9 @@
 			children = (
 				B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */,
 				B06FD23328854A96003CED8E /* CardDetailViewModel.swift */,
+				B0524DA928895CA100F9A28D /* CardHistoryViewModelItem.swift */,
 				B01DCDD22873485000AFF91A /* CardListViewModel.swift */,
 				B009119728781F44007074E5 /* CardListViewModelItem.swift */,
-				B0524DA928895CA100F9A28D /* CardHistoryViewModelItem.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -202,9 +202,9 @@
 			isa = PBXGroup;
 			children = (
 				B01748BE287744DF00EE15B0 /* CardEditView.swift */,
+				B0C043432888FAC600FABDD4 /* CardHistoryTableViewCell.swift */,
 				B032CDA52873DAC00087383E /* CardListHeaderView.swift */,
 				B032CDA22873BFB20087383E /* CardListTableViewCell.swift */,
-				B0C043432888FAC600FABDD4 /* CardHistoryTableViewCell.swift */,
 				B0EF5B17287522E000A503A9 /* CardSectionView.swift */,
 			);
 			path = View;
