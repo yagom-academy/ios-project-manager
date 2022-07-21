@@ -68,12 +68,24 @@ final class MainViewController: UIViewController {
             return
         }
         
+        guard let loadButton = navigationItem.rightBarButtonItems?[1] else {
+            return
+        }
+        
         addButton.rx.tap
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
                 self?.presentRegistrationView()
             })
             .disposed(by: disposeBag)
+        
+        loadButton.rx.tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.loadNetworkData()
+            })
+            .disposed(by: disposeBag)
+        
     }
     
     private func presentRegistrationView() {
