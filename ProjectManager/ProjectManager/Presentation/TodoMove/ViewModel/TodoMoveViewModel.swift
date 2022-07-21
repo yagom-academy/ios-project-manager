@@ -52,6 +52,9 @@ final class DefaultTodoMoveViewModel {
         var newItem = item
         newItem.state = state
         useCase.saveItem(to: newItem)
+            .subscribe(onError: { [weak self] _ in
+                self?.actions?.showErrorAlert("저장 오류 발생")
+            }).disposed(by: bag)
     }
 }
 

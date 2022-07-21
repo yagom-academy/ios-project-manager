@@ -26,7 +26,7 @@ protocol TodoEditViewModelInput {
 protocol TodoEditViewModelOutput {
     var setUpView: Observable<TodoModel?> { get }
     var setCreateMode: Observable<Bool> { get }
-    var setEditMode: Observable<Bool> { get }
+    var isEditMode: BehaviorRelay<Bool> { get }
 }
 
 protocol TodoEditViewModel: TodoEditViewModelInput, TodoEditViewModelOutput {}
@@ -68,11 +68,6 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
         }
     }
     
-    var setEditMode: Observable<Bool> {
-        isEditMode
-            .asObservable()
-    }
-    
     //MARK: - Input
     func cancelButtonDidTap() {
         actions?.dismiss()
@@ -88,7 +83,7 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
                 self?.actions?.dismiss()
             } onError: { [weak self] _ in
                 self?.actions?.dismiss()
-                self?.actions?.showErrorAlert("저장 오류")
+                self?.actions?.showErrorAlert("저장 오류 발생")
             }.disposed(by: bag)
     }
     

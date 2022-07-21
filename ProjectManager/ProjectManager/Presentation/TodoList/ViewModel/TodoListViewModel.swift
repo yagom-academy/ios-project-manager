@@ -117,7 +117,7 @@ extension DefaultTodoListViewModel: TodoListViewModel {
     func cellDeleteButtonDidTap(item: TodoCellContent) {
         useCase.deleteItem(id: item.id)
             .subscribe(onError: { [weak self] _ in
-                self?.actions?.showErrorAlert("삭제 오류")
+                self?.actions?.showErrorAlert("삭제 오류 발생")
             }).disposed(by: bag)
     }
 }
