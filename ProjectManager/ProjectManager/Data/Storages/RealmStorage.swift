@@ -9,11 +9,24 @@ import Combine
 
 import RealmSwift
 
-enum StorageError: Error {
+enum StorageError: LocalizedError {
     case createFail
     case updateFail
     case deleteFail
     case readFail
+    
+    var errorDescription: String? {
+        switch self {
+        case .createFail:
+            return "데이터를 생성하지 못했습니다."
+        case .updateFail:
+            return "데이터를 업데이트하지 못했습니다."
+        case .deleteFail:
+            return "데이터를 삭제하지 못했습니다."
+        case .readFail:
+            return "데이터를 불러오지 못했습니다."
+        }
+    }
 }
 
 protocol LocalStorageable: AnyObject {
