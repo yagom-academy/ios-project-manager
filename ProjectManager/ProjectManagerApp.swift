@@ -24,9 +24,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct ProjectManagerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @StateObject var service = TaskManagementService()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView(contentViewModel: ContentViewModel())
+            ContentView(contentViewModel: ContentViewModel(withService: service))
         }
     }
 }

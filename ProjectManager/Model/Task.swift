@@ -12,11 +12,13 @@ struct Task: Identifiable, Equatable {
     var title: String
     var date: Date
     var body: String
+    var type: TaskType
     
-    init(title: String, date: Date, body: String) {
+    init(title: String, date: Date, body: String, type: TaskType) {
         self.title = title
         self.date = date
         self.body = body
+        self.type = type
     }
 }
 
