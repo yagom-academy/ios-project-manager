@@ -20,14 +20,14 @@
 		B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA22873BFB20087383E /* CardListTableViewCell.swift */; };
 		B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA52873DAC00087383E /* CardListHeaderView.swift */; };
 		B032CDA82873F3610087383E /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA72873F3610087383E /* AppAppearance.swift */; };
+		B0524DA42889063C00F9A28D /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B0524DA32889063C00F9A28D /* FirebaseDatabaseSwift */; };
+		B0524DAA28895CA100F9A28D /* CardHistoryViewModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0524DA928895CA100F9A28D /* CardHistoryViewModelItem.swift */; };
 		B0640CC4287F17CA00E684E6 /* PopOverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0640CC3287F17CA00E684E6 /* PopOverable.swift */; };
 		B06FD23428854A96003CED8E /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23328854A96003CED8E /* CardDetailViewModel.swift */; };
 		B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */; };
 		B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */; };
 		B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */; };
 		B092618C28882DEA000BB636 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B092618B28882DEA000BB636 /* GoogleService-Info.plist */; };
-		B0BC246E28882F04007DFE5E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B0BC246D28882F04007DFE5E /* FirebaseAnalyticsSwift */; };
-		B0BC247028882F04007DFE5E /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B0BC246F28882F04007DFE5E /* FirebaseDatabaseSwift */; };
 		B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2474288835A9007DFE5E /* Endpoint.swift */; };
 		B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247628883A90007DFE5E /* HTTPMethod.swift */; };
 		B0BC247A28883B7E007DFE5E /* EndpointError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247928883B7E007DFE5E /* EndpointError.swift */; };
@@ -73,6 +73,7 @@
 		B032CDA22873BFB20087383E /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
 		B032CDA52873DAC00087383E /* CardListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListHeaderView.swift; sourceTree = "<group>"; };
 		B032CDA72873F3610087383E /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
+		B0524DA928895CA100F9A28D /* CardHistoryViewModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewModelItem.swift; sourceTree = "<group>"; };
 		B0640CC3287F17CA00E684E6 /* PopOverable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverable.swift; sourceTree = "<group>"; };
 		B06FD23328854A96003CED8E /* CardDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewModel.swift; sourceTree = "<group>"; };
 		B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdditionViewModel.swift; sourceTree = "<group>"; };
@@ -121,12 +122,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0BC247028882F04007DFE5E /* FirebaseDatabaseSwift in Frameworks */,
+				B0524DA42889063C00F9A28D /* FirebaseDatabaseSwift in Frameworks */,
 				B01DCDC3287329B800AFF91A /* RxSwift in Frameworks */,
 				B01DCDC1287329B800AFF91A /* RxRelay in Frameworks */,
 				B01DCDBF287329B800AFF91A /* RxCocoa in Frameworks */,
 				B01DCDCC28732D8B00AFF91A /* Then in Frameworks */,
-				B0BC246E28882F04007DFE5E /* FirebaseAnalyticsSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +191,7 @@
 				B06FD23328854A96003CED8E /* CardDetailViewModel.swift */,
 				B01DCDD22873485000AFF91A /* CardListViewModel.swift */,
 				B009119728781F44007074E5 /* CardListViewModelItem.swift */,
+				B0524DA928895CA100F9A28D /* CardHistoryViewModelItem.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -450,8 +451,7 @@
 				B01DCDC0287329B800AFF91A /* RxRelay */,
 				B01DCDC2287329B800AFF91A /* RxSwift */,
 				B01DCDCB28732D8B00AFF91A /* Then */,
-				B0BC246D28882F04007DFE5E /* FirebaseAnalyticsSwift */,
-				B0BC246F28882F04007DFE5E /* FirebaseDatabaseSwift */,
+				B0524DA32889063C00F9A28D /* FirebaseDatabaseSwift */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -483,7 +483,7 @@
 			packageReferences = (
 				B01DCDBD287329B800AFF91A /* XCRemoteSwiftPackageReference "RxSwift" */,
 				B01DCDCA28732D8B00AFF91A /* XCRemoteSwiftPackageReference "Then" */,
-				B0BC246C28882F04007DFE5E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B0524DA22889063C00F9A28D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -556,6 +556,7 @@
 				B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */,
 				B01DCDC928732AC900AFF91A /* Card.swift in Sources */,
 				B0BC248A28884B29007DFE5E /* DefaultRealtimeDatabaseService.swift in Sources */,
+				B0524DAA28895CA100F9A28D /* CardHistoryViewModelItem.swift in Sources */,
 				B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -768,7 +769,7 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		B0BC246C28882F04007DFE5E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		B0524DA22889063C00F9A28D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -799,14 +800,9 @@
 			package = B01DCDCA28732D8B00AFF91A /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
 		};
-		B0BC246D28882F04007DFE5E /* FirebaseAnalyticsSwift */ = {
+		B0524DA32889063C00F9A28D /* FirebaseDatabaseSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B0BC246C28882F04007DFE5E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsSwift;
-		};
-		B0BC246F28882F04007DFE5E /* FirebaseDatabaseSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B0BC246C28882F04007DFE5E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = B0524DA22889063C00F9A28D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabaseSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -8,26 +8,27 @@
 import Foundation
 
 struct History {
+  let card: Card
   let actionType: HistoryActionType
   let actionTime: Date
 }
 
 enum HistoryActionType: CustomStringConvertible {
-  case create(Card)
-  case update(Card)
-  case delete(Card)
-  case move(Card, CardType)
+  case create
+  case update
+  case delete
+  case move(CardType)
   
   var description: String {
     switch self {
-    case let .create(title):
-      return "Created: '\(title)'"
-    case let .update(card):
-      return "Updated: '\(card.title)' from \(card.cardType.description)"
-    case let .delete(card):
-      return "Deleted: '\(card.title)' from \(card.cardType.description)"
-    case let .move(card, to):
-      return "Moved: '\(card.title)' from \(card.cardType.description) to \(to.description)"
+    case .create:
+      return "CREATED"
+    case .update:
+      return "UPDATED"
+    case .delete:
+      return "DELETED"
+    case .move(_):
+      return "MOVED"
     }
   }
 }
