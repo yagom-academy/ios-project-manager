@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class TodoRealm: Object {
-  @Persisted(primaryKey: false) var id: UUID
+  @Persisted(primaryKey: true) var id: UUID
   @Persisted var title: String
   @Persisted var content: String
   @Persisted var date: Date
