@@ -5,6 +5,7 @@
 //  Created by Lingo on 2022/07/04.
 //
 
+import Network
 import UIKit
 
 import RxCocoa
@@ -16,6 +17,8 @@ final class CardListViewController: UIViewController {
     static let navigationTitle = "Project Manager"
     static let cardAdditionButtonImage = "plus"
     static let historyButtonTitle = "History"
+    static let wifiConnectedImageName = "wifi"
+    static let wifiDisConnectedImageName = "wifi.slash"
     static let intervalBetweenTableViews = 20.0
   }
   
@@ -23,6 +26,7 @@ final class CardListViewController: UIViewController {
   private let doingSectionView = CardSectionView(sectionType: .doing)
   private let doneSectionView = CardSectionView(sectionType: .done)
   
+  private let wifiIndicator = UIBarButtonItem()
   private let historyButton = UIBarButtonItem().then {
     $0.title = UISettings.historyButtonTitle
   }
@@ -36,6 +40,7 @@ final class CardListViewController: UIViewController {
     $0.translatesAutoresizingMaskIntoConstraints = false
   }
   
+  private let monitor = NWPathMonitor()
   private let disposeBag = DisposeBag()
   private let viewModel: CardListViewModelable
   private weak var coordinator: CardCoordinator?
@@ -83,6 +88,15 @@ final class CardListViewController: UIViewController {
       .bind(onNext: { wself, histories in
         CardHistoryViewController.presentHistoryPopover(wself, with: histories, on: wself.historyButton)
       })
+      .disposed(by: disposeBag)
+    
+    monitor.rx.pathUpdated
+      .map { $0.status == .satisfied
+        ? UIImage(systemName: UISettings.wifiConnectedImageName)
+        : UIImage(systemName: UISettings.wifiDisConnectedImageName)
+      }
+      .observe(on: MainScheduler.instance)
+      .bind(to: wifiIndicator.rx.image)
       .disposed(by: disposeBag)
   }
   
@@ -207,8 +221,8 @@ final class CardListViewController: UIViewController {
 extension CardListViewController {
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
-    navigationItem.rightBarButtonItem = cardAdditionButton
     navigationItem.leftBarButtonItem = historyButton
+    navigationItem.rightBarButtonItems = [cardAdditionButton, wifiIndicator]
   }
   
   private func configureTableViews() {
