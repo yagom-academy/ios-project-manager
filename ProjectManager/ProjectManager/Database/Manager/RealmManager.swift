@@ -10,7 +10,7 @@ import RealmSwift
 
 protocol RealmManagerable {
     func create<T: Object>(_ data: T) throws
-    func read<T: Object>(_ nsPredicate: NSPredicate) -> T?
+    func read<T: Object>(_ nsPredicate: NSPredicate) -> [T]
     func readAll<T: Object>() -> [T]
     func update<T: Object>(data: T, updateHandler: ((T) -> Void)) throws
     func delete<T: Object>(_ data: T) throws
@@ -18,10 +18,20 @@ protocol RealmManagerable {
 }
 
 final class RealmManager: RealmManagerable {
+    private(set) static var shared: RealmManagerable?
     private let realm: Realm
     
-    init(realm: Realm) {
+    private init(realm: Realm) {
         self.realm = realm
+    }
+    
+    static func configure(realm: Realm? = nil) {
+        if let realm = realm {
+            RealmManager.shared = RealmManager(realm: realm)
+        } else {
+            guard let newRealm = try? Realm() else { return }
+            RealmManager.shared = RealmManager(realm: newRealm)
+        }
     }
     
     func create<T: Object>(_ data: T) throws {
@@ -30,10 +40,9 @@ final class RealmManager: RealmManagerable {
         }
     }
     
-    func read<T: Object>(_ nsPredicate: NSPredicate) -> T? {
-        return realm.objects(T.self)
-                    .filter(nsPredicate)
-                    .first
+    func read<T: Object>(_ nsPredicate: NSPredicate) -> [T] {
+        let results = realm.objects(T.self).filter(nsPredicate)
+        return Array(results)
     }
     
     func readAll<T: Object>() -> [T] {

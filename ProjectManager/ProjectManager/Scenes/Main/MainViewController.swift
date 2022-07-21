@@ -13,6 +13,8 @@ class MainViewController: UIViewController {
     private let mainView = MainView()
     private var dataSources: [TaskType: DataSource] = [:]
     
+    private let taskManager = try? TaskManager()
+    
     override func loadView() {
         view = mainView
     }
@@ -141,6 +143,7 @@ extension MainViewController {
             guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
             copySnapshot.deleteItems([beforeTask])
             dataSource?.apply(copySnapshot)
+            try? taskManager?.delete(task: beforeTask)
         }
     }
     
@@ -150,6 +153,7 @@ extension MainViewController {
         var copySnapshot = snapshot
         copySnapshot.appendItems([task])
         dataSource?.apply(copySnapshot)
+        try? taskManager?.create(task: task)
     }
     
     private func makePopover(taskInfo: TaskInfo, point: CGPoint) {
@@ -202,6 +206,7 @@ extension MainViewController {
     
     private func makeDataSource(type: TaskType) -> DataSource? {
         guard let tableView = mainView.retrieveTableView(taskType: type) else { return nil }
+    
         let dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
                                                      for: indexPath) as? TaskCell
@@ -209,7 +214,10 @@ extension MainViewController {
             return cell
         })
         var snapshot = Snapshot()
+        guard let tasks = taskManager?.read(type: type) else { return nil }
+        
         snapshot.appendSections([0])
+        snapshot.appendItems(tasks)
         dataSource.apply(snapshot)
         return dataSource
     }
