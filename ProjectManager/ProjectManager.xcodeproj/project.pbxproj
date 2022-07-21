@@ -35,8 +35,6 @@
 		B0BC247E28883F9F007DFE5E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247D28883F9F007DFE5E /* NetworkService.swift */; };
 		B0BC248028883FB1007DFE5E /* DefaultNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */; };
 		B0BC248228884185007DFE5E /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248128884185007DFE5E /* NetworkServiceError.swift */; };
-		B0BC2484288846C7007DFE5E /* DefaultRealtimeDatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2483288846C7007DFE5E /* DefaultRealtimeDatabaseRepository.swift */; };
-		B0BC2486288846E6007DFE5E /* RealtimeDatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2485288846E6007DFE5E /* RealtimeDatabaseRepository.swift */; };
 		B0BC248828884B0D007DFE5E /* RealtimeDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248728884B0D007DFE5E /* RealtimeDatabaseService.swift */; };
 		B0BC248A28884B29007DFE5E /* DefaultRealtimeDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseService.swift */; };
 		B0BC248E28884BD4007DFE5E /* RealtimeDatabaseServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248D28884BD4007DFE5E /* RealtimeDatabaseServiceError.swift */; };
@@ -88,8 +86,6 @@
 		B0BC247D28883F9F007DFE5E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetworkService.swift; sourceTree = "<group>"; };
 		B0BC248128884185007DFE5E /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
-		B0BC2483288846C7007DFE5E /* DefaultRealtimeDatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealtimeDatabaseRepository.swift; sourceTree = "<group>"; };
-		B0BC2485288846E6007DFE5E /* RealtimeDatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseRepository.swift; sourceTree = "<group>"; };
 		B0BC248728884B0D007DFE5E /* RealtimeDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseService.swift; sourceTree = "<group>"; };
 		B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealtimeDatabaseService.swift; sourceTree = "<group>"; };
 		B0BC248D28884BD4007DFE5E /* RealtimeDatabaseServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseServiceError.swift; sourceTree = "<group>"; };
@@ -346,7 +342,6 @@
 			isa = PBXGroup;
 			children = (
 				B0DC54292886C190004F74CD /* DefaultCardRepository.swift */,
-				B0BC2483288846C7007DFE5E /* DefaultRealtimeDatabaseRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -355,7 +350,6 @@
 			isa = PBXGroup;
 			children = (
 				B0DC54272886C186004F74CD /* CardRepository.swift */,
-				B0BC2485288846E6007DFE5E /* RealtimeDatabaseRepository.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -536,7 +530,6 @@
 				B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */,
 				B0BC248828884B0D007DFE5E /* RealtimeDatabaseService.swift in Sources */,
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
-				B0BC2486288846E6007DFE5E /* RealtimeDatabaseRepository.swift in Sources */,
 				B0BC247A28883B7E007DFE5E /* EndpointError.swift in Sources */,
 				B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */,
 				B0DC542F2887AA6E004F74CD /* CardCoreDataServiceError.swift in Sources */,
@@ -554,7 +547,6 @@
 				B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */,
 				B0C043402888F3B300FABDD4 /* History.swift in Sources */,
 				B0C043442888FAC600FABDD4 /* CardHistoryTableViewCell.swift in Sources */,
-				B0BC2484288846C7007DFE5E /* DefaultRealtimeDatabaseRepository.swift in Sources */,
 				B01748BF287744DF00EE15B0 /* CardEditView.swift in Sources */,
 				B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */,
 				B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */,

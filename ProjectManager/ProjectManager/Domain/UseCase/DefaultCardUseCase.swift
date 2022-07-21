@@ -34,8 +34,6 @@ final class DefaultCardUseCase: CardUseCase {
   
   func fetchCards() {
     repository.fetchCards()
-      .withUnretained(self)
-      .flatMap { wself, _ in wself.repository.fetchCards() }
       .bind(to: cards)
       .disposed(by: disposeBag)
   }
