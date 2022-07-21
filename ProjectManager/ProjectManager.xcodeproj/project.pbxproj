@@ -41,6 +41,7 @@
 		B0BC248E28884BD4007DFE5E /* RealtimeDatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248D28884BD4007DFE5E /* RealtimeDatabaseError.swift */; };
 		B0C043402888F3B300FABDD4 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0433F2888F3B300FABDD4 /* History.swift */; };
 		B0C043422888FA6E00FABDD4 /* CardHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C043412888FA6E00FABDD4 /* CardHistoryViewController.swift */; };
+		B0C043442888FAC600FABDD4 /* CardHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C043432888FAC600FABDD4 /* CardHistoryTableViewCell.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
 		B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54202886A00D004F74CD /* CoreDataStorage.swift */; };
@@ -91,6 +92,7 @@
 		B0BC248D28884BD4007DFE5E /* RealtimeDatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseError.swift; sourceTree = "<group>"; };
 		B0C0433F2888F3B300FABDD4 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		B0C043412888FA6E00FABDD4 /* CardHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewController.swift; sourceTree = "<group>"; };
+		B0C043432888FAC600FABDD4 /* CardHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
 		B0DC54202886A00D004F74CD /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				B01748BE287744DF00EE15B0 /* CardEditView.swift */,
 				B032CDA52873DAC00087383E /* CardListHeaderView.swift */,
 				B032CDA22873BFB20087383E /* CardListTableViewCell.swift */,
+				B0C043432888FAC600FABDD4 /* CardHistoryTableViewCell.swift */,
 				B0EF5B17287522E000A503A9 /* CardSectionView.swift */,
 			);
 			path = View;
@@ -546,6 +549,7 @@
 				B0DC542A2886C190004F74CD /* DefaultCardRepository.swift in Sources */,
 				B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */,
 				B0C043402888F3B300FABDD4 /* History.swift in Sources */,
+				B0C043442888FAC600FABDD4 /* CardHistoryTableViewCell.swift in Sources */,
 				B0BC2484288846C7007DFE5E /* DefaultRealtimeDatabaseRepository.swift in Sources */,
 				B01748BF287744DF00EE15B0 /* CardEditView.swift in Sources */,
 				B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */,
