@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Equatable {
+struct Card: Codable, Equatable {
   private(set) var id = UUID().uuidString
   var title: String
   var description: String
@@ -15,7 +15,7 @@ struct Card: Equatable {
   var cardType: CardType = .todo
 }
 
-enum CardType: Int16, CustomStringConvertible {
+enum CardType: Int16, Codable, CustomStringConvertible {
   case todo = 0
   case doing = 1
   case done = 2
