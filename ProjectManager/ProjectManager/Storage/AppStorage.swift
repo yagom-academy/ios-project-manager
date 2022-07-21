@@ -19,11 +19,11 @@ protocol Storegeable {
 }
 
 final class AppStorage: Storegeable {
-    private let listModel = PersistantStorage()
+    private let localStorage = LocalStorage()
     
-    lazy var todoList = BehaviorRelay<[ListItem]>(value: listModel.readList(.todo))
-    lazy var doingList = BehaviorRelay<[ListItem]>(value: listModel.readList(.doing))
-    lazy var doneList = BehaviorRelay<[ListItem]>(value: listModel.readList(.done))
+    lazy var todoList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.todo))
+    lazy var doingList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.doing))
+    lazy var doneList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.done))
     
     private func selectList(_ type: ListType) -> BehaviorRelay<[ListItem]> {
         switch type {
@@ -37,8 +37,8 @@ final class AppStorage: Storegeable {
     }
     
     func creatItem(listItem: ListItem) {
-        listModel.createItem(listItem.convertedItem)
-        todoList.accept(listModel.readList(.todo))
+        localStorage.createItem(listItem.convertedItem)
+        todoList.accept(localStorage.readList(.todo))
     }
     
     func selectItem(index: Int, type: ListType) -> ListItem {
@@ -46,29 +46,29 @@ final class AppStorage: Storegeable {
     }
     
     func updateItem(listItem: ListItem) {
-        listModel.updateItem(listItem)
+        localStorage.updateItem(listItem)
         
-        let newList = listModel.readList(listItem.type)
+        let newList = localStorage.readList(listItem.type)
         selectList(listItem.type).accept(newList)
     }
     
     func deleteItem(index: Int, type: ListType) {
         let item = selectItem(index: index, type: type)
-        listModel.deleteItem(item)
+        localStorage.deleteItem(item)
         
-        let newList = listModel.readList(type)
+        let newList = localStorage.readList(type)
         
         selectList(type).accept(newList)
     }
     
     func changeItemType(index: Int, type: ListType, destination: ListType) {
         var item = selectItem(index: index, type: type)
-        listModel.deleteItem(item)
-        let deletedList = listModel.readList(type)
+        localStorage.deleteItem(item)
+        let deletedList = localStorage.readList(type)
         
         item.type = destination
         creatItem(listItem: item)
-        let addedList = listModel.readList(destination)
+        let addedList = localStorage.readList(destination)
         
         selectList(type).accept(deletedList)
         selectList(destination).accept(addedList)

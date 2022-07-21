@@ -21,7 +21,7 @@
 		ACCBF0F02877CACA00FEC0F3 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCBF0EF2877CACA00FEC0F3 /* DateConverter.swift */; };
 		ACD9CB2D28749F6400B0A6CF /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD9CB2C28749F6400B0A6CF /* HeaderView.swift */; };
 		ACDD285C2886FEFC0083356A /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285B2886FEFC0083356A /* AppStorage.swift */; };
-		ACDD285E2887178F0083356A /* PersistantStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285D2887178F0083356A /* PersistantStorage.swift */; };
+		ACDD285E2887178F0083356A /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285D2887178F0083356A /* LocalStorage.swift */; };
 		ACDD2860288717D60083356A /* ListItemDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285F288717D60083356A /* ListItemDTO.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -47,7 +47,7 @@
 		ACCBF0EF2877CACA00FEC0F3 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		ACD9CB2C28749F6400B0A6CF /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		ACDD285B2886FEFC0083356A /* AppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorage.swift; sourceTree = "<group>"; };
-		ACDD285D2887178F0083356A /* PersistantStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistantStorage.swift; sourceTree = "<group>"; };
+		ACDD285D2887178F0083356A /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		ACDD285F288717D60083356A /* ListItemDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemDTO.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				ACDD285B2886FEFC0083356A /* AppStorage.swift */,
-				ACDD285D2887178F0083356A /* PersistantStorage.swift */,
+				ACDD285D2887178F0083356A /* LocalStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -310,7 +310,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				ACA39AD1287DE50200AE4964 /* EditViewController.swift in Sources */,
-				ACDD285E2887178F0083356A /* PersistantStorage.swift in Sources */,
+				ACDD285E2887178F0083356A /* LocalStorage.swift in Sources */,
 				ACDD2860288717D60083356A /* ListItemDTO.swift in Sources */,
 				ACA39ACD287DE05200AE4964 /* Container.swift in Sources */,
 				AC9C57C3287A8CC100BA7F7D /* UITableView + Extension.swift in Sources */,
