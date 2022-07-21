@@ -6,6 +6,9 @@ target 'ProjectManager' do
   use_frameworks!
   pod 'RealmSwift'
   pod 'SwiftLint'
+  pod 'FirebaseAuth'
+  pod 'FirebaseDatabase'
+  pod 'FirebaseDatabaseSwift'
   # Pods for ProjectManager
 
 end
