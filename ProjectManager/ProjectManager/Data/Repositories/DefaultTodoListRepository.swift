@@ -10,9 +10,9 @@ import RxSwift
 import RxRelay
 
 final class DefaultTodoListRepository {
-    private let storage: TodoListStorege
+    private let storage: TodoListStorage
     
-    init(storage: TodoListStorege) {
+    init(storage: TodoListStorage) {
         self.storage = storage
     }
 }

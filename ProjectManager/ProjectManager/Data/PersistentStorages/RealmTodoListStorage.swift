@@ -16,30 +16,33 @@ enum TodoError: String, Error {
     case unknownItem = "해당 컨텐츠를 찾지 못했습니다."
 }
 
-protocol TodoListStorege {
-    func read() -> BehaviorSubject<[TodoModel]>
-    func save(to data: TodoModel)
-    func delete(index: Int)
+protocol StorageError {
     var errorObserver: PublishRelay<TodoError> { get }
 }
 
-final class RealmTodoListStorege {
+protocol TodoListStorage: StorageError {
+    func read() -> BehaviorSubject<[TodoModel]>
+    func save(to data: TodoModel)
+    func delete(index: Int)
+}
+
+final class RealmTodoListStorage {
     private let realm = try? Realm()
     
-    private var storege: BehaviorSubject<[TodoModel]>
+    private var storage: BehaviorSubject<[TodoModel]>
     private let items: Results<TodoEntity>?
     let errorObserver: PublishRelay<TodoError> = PublishRelay()
 
     init() {
         items = realm?.objects(TodoEntity.self)
 
-        self.storege = .init(value: items?.map { $0.toTodoModel() } ?? [])
+        self.storage = .init(value: items?.map { $0.toTodoModel() } ?? [])
     }
 }
 
-extension RealmTodoListStorege: TodoListStorege {
+extension RealmTodoListStorage: TodoListStorage {
     func read() -> BehaviorSubject<[TodoModel]> {
-        return storege
+        return storage
     }
     
     func save(to data: TodoModel) {
@@ -51,7 +54,7 @@ extension RealmTodoListStorege: TodoListStorege {
                 } else {
                     realm?.add(TodoEntity(entity: data))
                 }
-                storege.onNext(items.map { $0.toTodoModel() })
+                storage.onNext(items.map { $0.toTodoModel() })
             })
         } catch {
             errorObserver.accept(TodoError.saveError)
@@ -63,7 +66,7 @@ extension RealmTodoListStorege: TodoListStorege {
             try realm?.write({
                 guard let items = items else { return }
                 realm?.delete(items[index])
-                storege.onNext(items.map { $0.toTodoModel() })
+                storage.onNext(items.map { $0.toTodoModel() })
             })
         } catch {
             errorObserver.accept(TodoError.deleteError)
