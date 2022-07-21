@@ -38,4 +38,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             sessionRole: connectingSceneSession.role
         )
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        var synchronizeManager = SynchronizeManager(realmManager: RealmManager())
+        synchronizeManager.synchronizeDatabase { result in
+            switch result {
+            case .success:
+                print("동기화")
+                return
+            case .failure(let error):
+                print(error.localizedDescription)
+                return
+            }
+        }
+        
+    }
 }

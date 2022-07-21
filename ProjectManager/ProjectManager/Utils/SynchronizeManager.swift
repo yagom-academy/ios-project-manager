@@ -10,10 +10,10 @@ import Firebase
 
 struct SynchronizeManager {
     
-    private let realmManager = RealmManager()
+    let realmManager: RealmManager
     private let reference = Database.database().reference()
     
-    func synchronizeDatabase() {
+    func synchronizeDatabase(completion: @escaping (Result<Void, Error>) -> Void) {
         let realmData = realmManager.fetchAllTasks()
         var firebaseData = [Task]()
         
@@ -24,11 +24,14 @@ struct SynchronizeManager {
                 let data = try JSONSerialization.data(withJSONObject: Array(snapData.values), options: [])
                 let decoder = JSONDecoder()
                 firebaseData = try decoder.decode([Task].self, from: data)
+                
                 let dataOutOfSync = self.dataOutOfSync(from: firebaseData, with: realmData)
                 updateRemoteDatabase(localData: realmData)
                 removeFromRemoteDatabase(tasks: dataOutOfSync)
+                
+                completion(.success(()))
             } catch let error {
-                print("\(error.localizedDescription)")
+                completion(.failure(error))
             }
         }
     }

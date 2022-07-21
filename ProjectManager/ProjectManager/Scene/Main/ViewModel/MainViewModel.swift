@@ -26,7 +26,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var error: PublishRelay<DatabaseError> = .init()
 
-    private let synchronizeManager = SynchronizeManager()
+    private lazy var synchronizeManager = SynchronizeManager(realmManager: realmManager)
     private let realmManager = RealmManager()
     
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType) {
@@ -43,8 +43,17 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     func viewDidLoad() {
-        synchronizeManager.synchronizeDatabase()
-        fetchData()
+        synchronizeManager.synchronizeDatabase { [weak self] result in
+            switch result {
+            case .success():
+                self?.fetchData()
+                return
+            case .failure(let error):
+                print(error.localizedDescription)
+                return
+            }
+            
+        }
     }
     
     func fetchData() {
