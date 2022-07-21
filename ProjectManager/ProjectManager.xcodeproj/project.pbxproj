@@ -17,6 +17,7 @@
 		03498B682886737300D8CB3F /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03498B662886737300D8CB3F /* Project.xcdatamodeld */; };
 		03498B73288676B500D8CB3F /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03498B72288676B500D8CB3F /* PersistentManager.swift */; };
 		03498B762886DF3A00D8CB3F /* ProjectDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03498B752886DF3A00D8CB3F /* ProjectDTO.swift */; };
+		0384DA6B288996DE00C30AC9 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0384DA6A288996DE00C30AC9 /* AlertController.swift */; };
 		03AB73D62873043000B0C980 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 03AB73D52873043000B0C980 /* .swiftlint.yml */; };
 		03AB73DB2873290400B0C980 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DA2873290400B0C980 /* MainViewController.swift */; };
 		03AB73DD2873292900B0C980 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DC2873292900B0C980 /* MainView.swift */; };
@@ -55,6 +56,7 @@
 		03498B672886737300D8CB3F /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		03498B72288676B500D8CB3F /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		03498B752886DF3A00D8CB3F /* ProjectDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDTO.swift; sourceTree = "<group>"; };
+		0384DA6A288996DE00C30AC9 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		03AB73D52873043000B0C980 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		03AB73DA2873290400B0C980 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		03AB73DC2873292900B0C980 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -154,12 +156,21 @@
 			path = PersistentStorage;
 			sourceTree = "<group>";
 		};
+		0384DA69288996B800C30AC9 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				0384DA6A288996DE00C30AC9 /* AlertController.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		03AB73D72873289000B0C980 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				03AB73D8287328B500B0C980 /* View */,
 				0EA67EBF28751D5B00E15093 /* ViewModel */,
 				033294B6287C720700EE7CBE /* PopOver */,
+				0384DA69288996B800C30AC9 /* Alert */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -493,6 +504,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,
 				0E02C72E28896C0600522622 /* NetworkRepository.swift in Sources */,
+				0384DA6B288996DE00C30AC9 /* AlertController.swift in Sources */,
 				0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */,
 				03AB73DD2873292900B0C980 /* MainView.swift in Sources */,
 				0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */,
