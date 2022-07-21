@@ -30,7 +30,7 @@ extension NetworkManager {
     
     func read(completion: @escaping (Result<[ProjectDTO], NetworkError>) -> Void) {
         projectsReference.getData(completion: { error, snapshot in
-            guard error == nil,
+            guard error != nil,
                   let projects = snapshot?.value as? [ProjectDTO] else {
                 completion(.failure(.loadFailure))
                 return
