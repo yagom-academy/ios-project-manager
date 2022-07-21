@@ -19,10 +19,6 @@ final class TodoListViewController: UIViewController {
   typealias DataSource = UICollectionViewDiffableDataSource<Int, Todo>
   typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Todo>
   
-  private var todoDataSource: DataSource?
-  private var doingDataSource: DataSource?
-  private var doneDataSource: DataSource?
-  
   private var bag = Set<AnyCancellable>()
   
   private let todoView = TodoListView(headerName: HeaderName.todo)
@@ -54,8 +50,8 @@ final class TodoListViewController: UIViewController {
     viewModel.toList
       .sink { [weak self] items in
         guard let self = self,
-              let todoDataSource = self.todoDataSource else { return }
-        self.applySnapShot(items, dataSource: todoDataSource)
+              let todoDataSource = self.viewModel.todoDataSource else { return }
+        self.viewModel.applySnapShot(items, dataSource: todoDataSource)
         self.todoView.updateListCount(items.count)
       }
       .store(in: &bag)
@@ -63,8 +59,8 @@ final class TodoListViewController: UIViewController {
     viewModel.doingList
       .sink { [weak self] items in
         guard let self = self,
-              let doingDataSource = self.doingDataSource else { return }
-        self.applySnapShot(items, dataSource: doingDataSource)
+              let doingDataSource = self.viewModel.doingDataSource else { return }
+        self.viewModel.applySnapShot(items, dataSource: doingDataSource)
         self.doingView.updateListCount(items.count)
       }
       .store(in: &bag)
@@ -72,24 +68,17 @@ final class TodoListViewController: UIViewController {
     viewModel.doneList
       .sink { [weak self] items in
         guard let self = self,
-              let doneDataSource = self.doneDataSource else { return }
-        self.applySnapShot(items, dataSource: doneDataSource)
+              let doneDataSource = self.viewModel.doneDataSource else { return }
+        self.viewModel.applySnapShot(items, dataSource: doneDataSource)
         self.doneView.updateListCount(items.count)
       }
       .store(in: &bag)
   }
   
   private func setDataSource() {
-    todoDataSource = makeDataSource(todoView.todoCollectionView)
-    doingDataSource = makeDataSource(doingView.todoCollectionView)
-    doneDataSource = makeDataSource(doneView.todoCollectionView)
-  }
-  
-  private func applySnapShot(_ items: [Todo], dataSource: DataSource) {
-    var snapshot = SnapShot()
-    snapshot.appendSections([0])
-    snapshot.appendItems(items)
-    dataSource.apply(snapshot)
+    viewModel.todoDataSource = makeDataSource(todoView.todoCollectionView)
+    viewModel.doingDataSource = makeDataSource(doingView.todoCollectionView)
+    viewModel.doneDataSource = makeDataSource(doneView.todoCollectionView)
   }
   
   private func makeDataSource(_ collectionView: UICollectionView) -> DataSource {

@@ -5,10 +5,17 @@
 
 import Foundation
 import Combine
+import UIKit
 
 final class TodoViewModel {
+  typealias DataSource = UICollectionViewDiffableDataSource<Int, Todo>
+  typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Todo>
   
   private let storage: StorageType
+  
+  var todoDataSource: DataSource?
+  var doingDataSource: DataSource?
+  var doneDataSource: DataSource?
   
   init(storage: StorageType) {
     self.storage = storage
@@ -18,7 +25,7 @@ final class TodoViewModel {
   func deleActionDidTap(_ todo: Todo) {
     storage.delete(todo)
   }
-  //
+
   func popoverButtonDidTap(_ todo: Todo, to state: State) {
     let todo = Todo(
       id: todo.id,
@@ -29,6 +36,13 @@ final class TodoViewModel {
     )
     
     storage.update(todo)
+  }
+  
+  func applySnapShot(_ items: [Todo], dataSource: DataSource) {
+    var snapshot = SnapShot()
+    snapshot.appendSections([0])
+    snapshot.appendItems(items)
+    dataSource.apply(snapshot)
   }
   // MARK: - Output
   
