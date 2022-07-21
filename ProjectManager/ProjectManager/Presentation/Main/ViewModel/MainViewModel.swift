@@ -38,4 +38,8 @@ struct MainViewModel {
             .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
     }
+    
+    func loadNetworkData() {
+        ProjectUseCase().load()
+    }
 }
