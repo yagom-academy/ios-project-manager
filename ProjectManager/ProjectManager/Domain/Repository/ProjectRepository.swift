@@ -31,6 +31,10 @@ extension ProjectRepository {
         storageManager.create(projectContent: projectContent)
     }
     
+    func create(projectContents: [ProjectContent]) {
+        storageManager.create(projectContents: projectContents)
+    }
+    
     func read() -> BehaviorRelay<[ProjectContent]> {
         return storageManager.read()
     }
@@ -45,5 +49,9 @@ extension ProjectRepository {
     
     func delete(projectContentID: UUID?) {
         storageManager.delete(projectContentID: projectContentID)
+    }
+    
+    func deleteAll() {
+        storageManager.deleteAll()
     }
 }
