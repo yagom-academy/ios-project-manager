@@ -19,7 +19,7 @@ protocol Storagable {
 }
 
 struct ProjectRepository {
-    let storageManager: Storagable
+    private let storageManager: Storagable
 
     init(storageManager: Storagable) {
         self.storageManager = storageManager
