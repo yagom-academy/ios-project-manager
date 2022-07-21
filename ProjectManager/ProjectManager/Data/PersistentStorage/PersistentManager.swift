@@ -30,6 +30,12 @@ extension PersistentManager {
         saveToContext(project)
     }
     
+    func create(projects: [ProjectDTO]) {
+        projects.forEach {
+            saveToContext($0)
+        }
+    }
+    
     func read() -> [Project] {
         guard let projects = fetchProjects() else {
             return []
@@ -66,6 +72,16 @@ extension PersistentManager {
         
         guard let _ = try? context.save() else {
             return
+        }
+    }
+    
+    func deleteAll() {
+        guard let projects = fetchProjects() else {
+            return
+        }
+        
+        projects.forEach {
+            context.delete($0)
         }
     }
 }

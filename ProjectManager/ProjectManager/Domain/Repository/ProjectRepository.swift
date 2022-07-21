@@ -10,10 +10,12 @@ import RxRelay
 
 protocol Storagable {
     func create(projectContent: ProjectContent)
+    func create(projectContents: [ProjectContent])
     func read() -> BehaviorRelay<[ProjectContent]>
     func read(id: UUID?) -> ProjectContent?
     func update(projectContent: ProjectContent)
     func delete(projectContentID: UUID?)
+    func deleteAll()
 }
 
 struct ProjectRepository {

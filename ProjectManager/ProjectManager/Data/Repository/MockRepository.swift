@@ -23,6 +23,10 @@ extension MockRepository: Storagable {
         projectEntities.accept(currentProject)
     }
     
+    func create(projectContents: [ProjectContent]) {
+        projectEntities.accept(projectContents)
+    }
+    
     func read() -> BehaviorRelay<[ProjectContent]> {
         return projectEntities
     }
@@ -51,5 +55,9 @@ extension MockRepository: Storagable {
             projectsToDelete.remove(at: indexToDelete)
             projectEntities.accept(projectsToDelete)
         }
+    }
+    
+    func deleteAll() {
+        projectEntities.accept([])
     }
 }

@@ -30,6 +30,11 @@ extension PersistentRepository: Storagable {
         createProjectEntities(newProjectContent: projectContent)
     }
     
+    func create(projectContents: [ProjectContent]) {
+        createCoreDate(newProjectContents: projectContents)
+        createProjectEntities(newProjectContents: projectContents)
+    }
+    
     func read() -> BehaviorRelay<[ProjectContent]> {
         return projectEntities
     }
@@ -47,6 +52,11 @@ extension PersistentRepository: Storagable {
         deleteCoreDate(projectContentID: projectContentID)
         deleteProjectEntities(projectContentID: projectContentID)
     }
+    
+    func deleteAll() {
+        deleteAllCoreDate()
+        deleteAllProjectEntities()
+    }
 }
 
 extension PersistentRepository {
@@ -63,6 +73,18 @@ extension PersistentRepository {
         
         projectContents.append(newProjectContent)
         projectEntities.accept(projectContents)
+    }
+    
+    private func createCoreDate(newProjectContents: [ProjectContent]) {
+        let newProjects = newProjectContents.compactMap {
+            parse(from: $0)
+        }
+        
+        persistentManager.create(projects: newProjects)
+    }
+    
+    private func createProjectEntities(newProjectContents: [ProjectContent]) {
+        projectEntities.accept(newProjectContents)
     }
     
     private func updateCoreDate(newProjectContent: ProjectContent) {
@@ -97,6 +119,14 @@ extension PersistentRepository {
             projectsToDelete.remove(at: indexToDelete)
             projectEntities.accept(projectsToDelete)
         }
+    }
+    
+    private func deleteAllCoreDate() {
+        persistentManager.deleteAll()
+    }
+    
+    private func deleteAllProjectEntities() {
+        projectEntities.accept([])
     }
 }
 
