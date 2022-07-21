@@ -5,10 +5,11 @@
 //  Created by 이시원 on 2022/07/08.
 //
 
-import UIKit
+import Foundation
 
 final class TodoSceneDIContainer {
     private let storage = RealmTodoListStorage()
+    private let backUpStorage = FirebaseTodoListStorage()
 
     private func makeTodoListViewModel(actions: TodoListViewModelActions) -> DefaultTodoListViewModel {
         return DefaultTodoListViewModel(useCase: makeTodoListUseCase(), actions: actions)
@@ -29,7 +30,7 @@ final class TodoSceneDIContainer {
     }
     
     private func makeTodoListRepository() -> DefaultTodoListRepository {
-        return DefaultTodoListRepository(storage: storage)
+        return DefaultTodoListRepository(storage: storage, backUpStorage: backUpStorage)
     }
 }
 
