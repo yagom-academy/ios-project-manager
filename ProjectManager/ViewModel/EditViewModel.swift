@@ -21,8 +21,8 @@ class EditViewModel: ViewModelType {
             return
         }
         
-        service.tasks[index].title = self.title
-        service.tasks[index].body = self.body
-        service.tasks[index].date = self.date
+        service.tasks[index].title = service.tasks[index].title
+        service.tasks[index].body = service.tasks[index].body
+        service.tasks[index].date = service.tasks[index].date
     }
 }
