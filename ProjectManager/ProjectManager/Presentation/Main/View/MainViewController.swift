@@ -33,11 +33,33 @@ final class MainViewController: UIViewController {
     
     private func setUpNavigationItem() {
         navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        let addButton = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: nil,
             action: nil
         )
+        
+        let networkConditionImage = UIImage(systemName: "wifi")?.withTintColor(
+            .systemBlue,
+            renderingMode: .alwaysOriginal
+        )
+        
+        let networkConditionItem = UIBarButtonItem(
+            image: networkConditionImage,
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        networkConditionItem.isEnabled = false
+        
+        let loadButton = UIBarButtonItem(
+            image: UIImage(systemName: "icloud.and.arrow.down"),
+            style: .done,
+            target: nil,
+            action: nil
+        )
+        
+        navigationItem.rightBarButtonItems = [addButton, loadButton, networkConditionItem]
         didTapAddButton()
     }
     
