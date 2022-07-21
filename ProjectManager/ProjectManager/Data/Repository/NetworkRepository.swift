@@ -9,6 +9,16 @@ import Foundation
 
 final class NetworkRepository {
     let networkManager = NetworkManager()
+}
+
+extension NetworkRepository {
+    func update(repository: ProjectRepository) {
+        let projects = repository.read().value.compactMap {
+            parse(from: $0)
+        }
+        
+        networkManager.update(projects: projects)
+    }
     
     func read(repository: ProjectRepository) {
         networkManager.read { [weak self] data in
