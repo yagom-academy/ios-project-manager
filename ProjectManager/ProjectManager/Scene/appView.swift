@@ -9,9 +9,7 @@ import SwiftUI
 import RealmSwift
 
 struct AppView: View {
-  @State private var isShowDetailView = false
   @ObservedObject private var viewModel: AppViewModel
-  private var todoRealm = TodoRealm()
   
   init(viewModel: AppViewModel) {
     let navigationBarApperance = UINavigationBarAppearance()
@@ -29,13 +27,13 @@ struct AppView: View {
                      status: .todo,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) }
         )
-                    
+        
         TodoListView(viewModel: viewModel.listViewModel,
                      todoService: viewModel.todoService,
                      status: .doing,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) }
         )
-                
+        
         TodoListView(viewModel: viewModel.listViewModel,
                      todoService: viewModel.todoService,
                      status: .done,
@@ -48,13 +46,15 @@ struct AppView: View {
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         Button(action: {
-          isShowDetailView.toggle()
+          viewModel.plusButtonTapped()
         }, label: {
           Image(systemName: "plus")
         })
       }
-      .sheet(isPresented: $isShowDetailView) {
-        CreateView(isShow: $isShowDetailView, viewModel: viewModel.createViewModel)
+      .sheet(isPresented: $viewModel.isTappedPlusButton ) {
+        EmptyView()
+
+        // CreateView(isShow: $isasdasdasd, viewModel: viewModel.createViewModel)
       }
     }
     .navigationViewStyle(.stack)

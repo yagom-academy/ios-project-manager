@@ -17,9 +17,9 @@ class ListViewModel: ObservableObject {
     todoList = todoService.read()
   })
  
-  init(todoService: TodoService, todoList: [Todo]) {
+  init(todoService: TodoService) {
     self.todoService = todoService
-    self.todoList = todoList
+    self.todoList = todoService.read()
   }
   
   func read(by status: Status) -> [Todo] {
