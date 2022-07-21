@@ -68,9 +68,15 @@ extension NetworkManager {
         })
     }
 
-    func update(project: ProjectDTO) {
+    func update(projects: [ProjectDTO]) {
+        projectsReference.updateChildValues(["user": projects])
     }
 
     func delete(projectContentID: UUID?) {
+        guard let id = projectContentID?.uuidString else {
+            return
+        }
+
+        projectsReference.child(id).removeValue()
     }
 }
