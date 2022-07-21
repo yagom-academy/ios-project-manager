@@ -92,10 +92,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B397C23628770478003E2FEC /* ViewModel */ = {
+		B32C993128899ABD00C1F891 /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				B3CA0B78287D09ED0047E1D1 /* TaskManagementService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		B397C23628770478003E2FEC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B32C992F28899AAB00C1F891 /* ViewModelType.swift */,
 				B32142B82887D7F300F8CBE9 /* ContentViewModel.swift */,
 				B32142BC2887DCBB00F8CBE9 /* AllListViewModel.swift */,
 				B32142BE2887DECF00F8CBE9 /* CellViewModel.swift */,
@@ -133,6 +141,7 @@
 				DA79E41F28756508000192CC /* Model */,
 				DA79E4202875650D000192CC /* View */,
 				B397C23628770478003E2FEC /* ViewModel */,
+				B32C993128899ABD00C1F891 /* Service */,
 				B3CA0B7C287D0FD60047E1D1 /* Extension */,
 				B39F102F2873DDC300475AE4 /* Preview Content */,
 			);
