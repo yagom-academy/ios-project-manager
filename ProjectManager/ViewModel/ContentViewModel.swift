@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-class ContentViewModel: ObservableObject {
-    @State var isShowingSheet = false
+class ContentViewModel: ViewModelType {
+    @Published var isShowingSheet = false
     
     func toggleShowingSheet() {
         isShowingSheet.toggle()

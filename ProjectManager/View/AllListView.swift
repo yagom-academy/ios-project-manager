@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AllListView: View {
-    @ObservedObject var allListViewModel = AllListViewModel()
+    @ObservedObject var allListViewModel: AllListViewModel
     
     var body: some View {
         HStack {
@@ -16,13 +16,13 @@ struct AllListView: View {
             VStack(alignment: .leading) {
                 List {
                     Section(header: headerView){
-                        ForEach(allListViewModel.todoTasks) { task in
-                            if let index = allListViewModel.todoTasks.firstIndex(of: task) {
-                                CellView(cellIndex: index, taskType: .todo)
+                        ForEach(allListViewModel.service.tasks.filter({ $0.type == .todo })) { task in
+                            if let index = allListViewModel.service.tasks.firstIndex(of: task) {
+                                CellView(cellViewModel: CellViewModel(withService: allListViewModel.service, task: task), cellIndex: index)
                             }
                         }
                         .onDelete { offset in
-                            allListViewModel.todoTasks.remove(atOffsets: offset)
+                            allListViewModel.service.tasks.remove(atOffsets: offset)
                         }
                     }
                 }
@@ -33,13 +33,13 @@ struct AllListView: View {
             VStack(alignment: .leading) {
                 List {
                     Section(header: headerView){
-                        ForEach(allListViewModel.doingTasks) { task in
-                            if let index = allListViewModel.todoTasks.firstIndex(of: task) {
-                                CellView( cellIndex: index, taskType: .doing)
+                        ForEach(allListViewModel.service.tasks.filter({ $0.type == .doing })) { task in
+                            if let index = allListViewModel.service.tasks.firstIndex(of: task) {
+                                CellView(cellViewModel: CellViewModel(withService: allListViewModel.service, task: task), cellIndex: index)
                             }
                         }
                         .onDelete { offset in
-                            allListViewModel.doingTasks.remove(atOffsets: offset)
+                            allListViewModel.service.tasks.remove(atOffsets: offset)
                         }
                     }
                 }
@@ -50,13 +50,13 @@ struct AllListView: View {
             VStack(alignment: .leading) {
                 List {
                     Section(header: headerView){
-                        ForEach(allListViewModel.doneTasks) { task in
-                            if let index = allListViewModel.todoTasks.firstIndex(of: task) {
-                                CellView(cellIndex: index, taskType: .done)
+                        ForEach(allListViewModel.service.tasks.filter({ $0.type == .done })) { task in
+                            if let index = allListViewModel.service.tasks.firstIndex(of: task) {
+                                CellView(cellViewModel: CellViewModel(withService: allListViewModel.service, task: task), cellIndex: index)
                             }
                         }
                         .onDelete { offset in
-                            allListViewModel.doneTasks.remove(atOffsets: offset)
+                            allListViewModel.service.tasks.remove(atOffsets: offset)
                         }
                     }
                 }
@@ -73,7 +73,7 @@ struct AllListView: View {
             ZStack {
             Circle()
                 .frame(width: 25, height: 25)
-                Text(String(allListViewModel.todoTasks.count))
+                Text(String(allListViewModel.service.tasks.count))
                     .foregroundColor(.white)
                     .font(.title2)
             }

@@ -19,7 +19,7 @@ struct RegisterElementView: View {
     
     var body: some View {
         VStack {
-            TextField("Title", text: $registerViewModel.taskManagementService.taskViewModel.title)
+            TextField("Title", text: $registerViewModel.title)
                 .foregroundColor(Color.gray)
                 .padding(.all)
                 .border(Color(UIColor.separator))
@@ -28,13 +28,13 @@ struct RegisterElementView: View {
                 .font(.title2)
                 
             DatePicker("",
-                       selection: $registerViewModel.taskManagementService.taskViewModel.date,
+                       selection: $registerViewModel.date,
                        in: dateRange,
                        displayedComponents: [.date])
                 .datePickerStyle(.wheel)
                 .labelsHidden()
             
-            TextEditor(text: $registerViewModel.taskManagementService.taskViewModel.body)
+            TextEditor(text: $registerViewModel.body)
                 .foregroundColor(Color.gray)
                 .lineSpacing(5)
                 .frame(minWidth: 0,
@@ -46,9 +46,9 @@ struct RegisterElementView: View {
                 .padding(.leading)
                 .padding(.trailing)
         }.onDisappear {
-            registerViewModel.taskManagementService.taskViewModel.title = ""
-            registerViewModel.taskManagementService.taskViewModel.date = Date()
-            registerViewModel.taskManagementService.taskViewModel.body = ""
+            registerViewModel.title = ""
+            registerViewModel.date = Date()
+            registerViewModel.body = ""
         }
     }
 }

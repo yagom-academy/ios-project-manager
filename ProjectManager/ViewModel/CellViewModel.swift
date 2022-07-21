@@ -7,10 +7,15 @@
 
 import SwiftUI
 
-class CellViewModel: ObservableObject {
-    @ObservedObject var allListViewModel = AllListViewModel()
-    @State var isShowingSheet = false
-    @State var isShowingPopover = false
+class CellViewModel: ViewModelType {
+    @Published var isShowingSheet = false
+    @Published var isShowingPopover = false
+    @Published var task: Task
+    
+    init(withService: TaskManagementService, task: Task) {
+        self.task = task
+        super.init(withService: withService)
+    }
     
     func toggleShowingSheet() {
         isShowingSheet.toggle()

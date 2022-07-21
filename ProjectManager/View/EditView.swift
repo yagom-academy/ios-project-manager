@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct EditView: View {
-    @Environment(\.dismiss) var dismiss
-    @ObservedObject var editViewModel = EditViewModel()
+    @ObservedObject var editViewModel: EditViewModel
     var cellIndex: Int
     
     var body: some View {
@@ -21,15 +20,15 @@ struct EditView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        dismiss()
+                        
                     }) {
                         Text("Cancel")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        editViewModel.appendTask()
-                        dismiss()
+                        editViewModel.editTask(task: editViewModel.service.tasks[cellIndex])
+                        
                     }) {
                         Text("Done")
                     }

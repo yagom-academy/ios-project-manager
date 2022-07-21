@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-class RegisterViewModel: ObservableObject {
-    var taskManagementService = TaskManagementService()
+class RegisterViewModel: ViewModelType {
+    @Published var title: String = ""
+    @Published var body: String = ""
+    @Published var date: Date = Date()
     
     func appendTask() {
-        taskManagementService.appendData()
+        self.service.tasks.append(Task(title: title, date: date, body: body, type: .todo))
     }
 }

@@ -7,10 +7,22 @@
 
 import SwiftUI
 
-class EditViewModel: ObservableObject {
-    var taskManagementService = TaskManagementService()
+class EditViewModel: ViewModelType {
+    @Published var title: String = ""
+    @Published var body: String = ""
+    @Published var date: Date = Date()
     
-    func appendTask() {
-        taskManagementService.appendData()
+    func editTask(task: Task) {
+        guard let item = self.service.tasks.filter ({ $0 == task }).first else {
+            return
+        }
+        
+        guard let index = service.tasks.firstIndex(of: item) else {
+            return
+        }
+        
+        service.tasks[index].title = self.title
+        service.tasks[index].body = self.body
+        service.tasks[index].date = self.date
     }
 }

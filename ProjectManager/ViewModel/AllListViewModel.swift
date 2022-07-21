@@ -7,8 +7,8 @@
 
 import Foundation
 
-class AllListViewModel: ObservableObject {
-    @Published var todoTasks: [Task] = []
-    @Published var doingTasks: [Task] = []
-    @Published var doneTasks: [Task] = []
+class AllListViewModel: ViewModelType {
+//    @Published var todoTasks: [Task] = []
+//    @Published var doingTasks: [Task] = []
+//    @Published var doneTasks: [Task] = []
 }

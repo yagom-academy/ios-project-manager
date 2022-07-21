@@ -20,7 +20,7 @@ struct EditElementView: View {
     
     var body: some View {
         VStack {
-            TextField("Title", text: $editViewModel.taskManagementService.taskViewModel.taskArray[cellIndex].title)
+            TextField("Title", text: $editViewModel.service.tasks[cellIndex].title)
                 .foregroundColor(Color.gray)
                 .padding(.all)
                 .border(Color(UIColor.separator))
@@ -29,13 +29,13 @@ struct EditElementView: View {
                 .font(.title2)
                 
             DatePicker("",
-                       selection: $editViewModel.taskManagementService.taskViewModel.taskArray[cellIndex].date,
+                       selection: $editViewModel.service.tasks[cellIndex].date,
                        in: dateRange,
                        displayedComponents: [.date])
                 .datePickerStyle(.wheel)
                 .labelsHidden()
             
-            TextEditor(text: $editViewModel.taskManagementService.taskViewModel.taskArray[cellIndex].body)
+            TextEditor(text: $editViewModel.service.tasks[cellIndex].body)
                 .foregroundColor(Color.gray)
                 .lineSpacing(5)
                 .frame(minWidth: 0,

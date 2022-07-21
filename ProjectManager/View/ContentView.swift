@@ -12,7 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            AllListView()
+            AllListView(allListViewModel: AllListViewModel(withService: contentViewModel.service))
             .background(.gray)
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
@@ -25,7 +25,7 @@ struct ContentView: View {
                         Image(systemName: "plus")
                             .imageScale(.large)
                     }.sheet(isPresented: $contentViewModel.isShowingSheet) {
-                        RegisterView()
+                        RegisterView(registerViewModel: RegisterViewModel(withService: contentViewModel.service))
                     }
                 }
             }

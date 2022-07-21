@@ -8,21 +8,20 @@
 import SwiftUI
 
 struct CellView: View {
-    @ObservedObject var cellViewModel = CellViewModel()
+    @ObservedObject var cellViewModel:CellViewModel
     var cellIndex: Int
-    var taskType: TaskType
     
     var body: some View {
         Button {
             cellViewModel.toggleShowingSheet()
         } label: {
-            switch taskType {
+            switch cellViewModel.task.type {
             case .todo:
-                ListRowView(taskArray: cellViewModel.allListViewModel.todoTasks, cellIndex: cellIndex, taskType: .todo)
+                ListRowView(taskArray: cellViewModel.service.tasks, cellIndex: cellIndex, taskType: .todo)
             case .doing:
-                ListRowView(taskArray: cellViewModel.allListViewModel.doingTasks, cellIndex: cellIndex, taskType: .doing)
+                ListRowView(taskArray: cellViewModel.service.tasks, cellIndex: cellIndex, taskType: .doing)
             case .done:
-                ListRowView(taskArray: cellViewModel.allListViewModel.doneTasks, cellIndex: cellIndex, taskType: .done)
+                ListRowView(taskArray: cellViewModel.service.tasks, cellIndex: cellIndex, taskType: .done)
             }
         }
         .onLongPressGesture(minimumDuration: 1) {
@@ -30,17 +29,16 @@ struct CellView: View {
         }
         .popover(isPresented: $cellViewModel.isShowingPopover,
                  arrowEdge: .bottom) {
-            PopoverButton(taskType: taskType,
-                          cellIndex: cellIndex)
+            PopoverButton(popoverButtonViewModel: PopoverButtonViewModel(withService: cellViewModel.service), taskType: cellViewModel.task.type ,cellIndex: cellIndex)
         }
                  .sheet(isPresented: $cellViewModel.isShowingSheet) {
-                     EditView(cellIndex: cellIndex)
+                     EditView(editViewModel: EditViewModel(withService: cellViewModel.service), cellIndex: cellIndex)
                  }
     }
 }
 
 struct PopoverButton: View {
-    var popoverButtonViewModel = PopoverButtonViewModel()
+    var popoverButtonViewModel: PopoverButtonViewModel
     var taskType: TaskType
     var cellIndex: Int
     
@@ -49,7 +47,7 @@ struct PopoverButton: View {
         case .todo:
             Form {
                 Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.allListViewModel.todoTasks[cellIndex],
+                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
                                               from: taskType,
                                               to: .doing)
                     
@@ -57,7 +55,7 @@ struct PopoverButton: View {
                     Text("Move to DOING")
                 }
                 Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.allListViewModel.todoTasks[cellIndex],
+                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
                                               from: taskType,
                                               to: .done)
                     
@@ -70,14 +68,14 @@ struct PopoverButton: View {
         case .doing:
             Form {
                 Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.allListViewModel.doingTasks[cellIndex],
+                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
                                               from: taskType,
                                               to: .todo)
                 }) {
                     Text("Move to TODO")
                 }
                 Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.allListViewModel.doingTasks[cellIndex],
+                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
                                               from: taskType,
                                               to: .done)
                 }) {
@@ -89,14 +87,14 @@ struct PopoverButton: View {
         case .done:
             Form {
                 Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.allListViewModel.doneTasks[cellIndex],
+                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
                                               from: taskType,
                                               to: .todo)
                 }) {
                     Text("Move to TODO")
                 }
                 Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.allListViewModel.doneTasks[cellIndex],
+                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
                                               from: taskType,
                                               to: .doing)
                 }) {

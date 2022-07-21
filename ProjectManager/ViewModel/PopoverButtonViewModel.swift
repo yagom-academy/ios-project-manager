@@ -8,32 +8,19 @@
 import Foundation
 import SwiftUI
 
-class PopoverButtonViewModel: ObservableObject {
-    @ObservedObject var allListViewModel = AllListViewModel()
-    
+class PopoverButtonViewModel: ViewModelType {
     func moveData(_ task: Task, from: TaskType, to: TaskType) {
-        switch from {
-        case .todo:
-            if let taskToDelete = allListViewModel.todoTasks.firstIndex(of: task) {
-                allListViewModel.todoTasks.remove(at: taskToDelete)
-            }
-        case .doing:
-            if let taskToDelete = allListViewModel.doingTasks.firstIndex(of: task) {
-                allListViewModel.doingTasks.remove(at: taskToDelete)
-            }
-        case .done:
-            if let taskToDelete = allListViewModel.doneTasks.firstIndex(of: task) {
-                allListViewModel.doneTasks.remove(at: taskToDelete)
-            }
+        guard let item = service.tasks.filter({ $0 == task }).first else {
+            return
         }
         
-        switch to {
-        case .todo:
-            allListViewModel.todoTasks.append(task)
-        case .doing:
-            allListViewModel.doingTasks.append(task)
-        case .done:
-            allListViewModel.doneTasks.append(task)
+        guard let index = service.tasks.firstIndex(of: item) else {
+            return
         }
+        
+        var newItem = item
+        newItem.type = to
+        service.tasks.remove(at: index)
+        service.tasks.append(newItem)
     }
 }
