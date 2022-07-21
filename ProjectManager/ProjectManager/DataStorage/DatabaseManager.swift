@@ -10,7 +10,8 @@ import Foundation
 import RxRelay
 
 protocol DatabaseManagerProtocol {
-    var todoListBehaviorRelay: BehaviorRelay<[Todo]> { get set }
+    var todoListBehaviorRelay: BehaviorRelay<[Todo]> { get }
+    var networkStateBehaviorRelay: BehaviorRelay<Bool> { get }
     
     func create(todoData: Todo)
     func read()
@@ -20,12 +21,20 @@ protocol DatabaseManagerProtocol {
 
 final class DatabaseManager: DatabaseManagerProtocol {
     var todoListBehaviorRelay = BehaviorRelay<[Todo]>(value: [])
+    var networkStateBehaviorRelay = BehaviorRelay<Bool>(value: false)
 
-    let realm = RealmDatabase()
-    let firebase = FirebaseDatabase()
+    private let realm = RealmDatabase()
+    private let firebase = FirebaseDatabase()
     
     init() {
+        self.networkState()
         self.read()
+    }
+    
+    private func networkState() {
+        self.firebase.isConnected { networkState in
+            self.networkStateBehaviorRelay.accept(networkState)
+        }
     }
     
     func create(todoData: Todo) {

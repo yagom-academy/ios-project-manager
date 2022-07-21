@@ -15,6 +15,7 @@ final class TodoListViewModel {
     let todoViewData: Driver<[Todo]>
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
+    let networkState: Driver<String>
     private var dataBase: DatabaseManagerProtocol
     
     init(dataBase: DatabaseManagerProtocol) {
@@ -34,6 +35,10 @@ final class TodoListViewModel {
             .map { $0.filter { $0.todoListItemStatus == .done } }
             .map { $0.sorted{ $0.date < $1.date } }
             .asDriver(onErrorJustReturn: [])
+  
+        self.networkState = dataBase.networkStateBehaviorRelay
+            .map { $0 == true ? "wifi" : "wifi.slash" }
+            .asDriver(onErrorJustReturn: "")
     }
     
     func cellSelectEvent(

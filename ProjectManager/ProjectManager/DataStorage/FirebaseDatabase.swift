@@ -16,6 +16,20 @@ final class FirebaseDatabase {
         self.firebase = Database.database().reference()
     }
     
+    func isConnected(completion: @escaping (Bool) -> Void) {
+        var isConnected: Bool = false
+        
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+          if snapshot.value as? Bool ?? false {
+              isConnected = true
+          } else {
+              isConnected = false
+          }
+            completion(isConnected)
+        })
+    }
+    
     func create(todoData: Todo) {
         let todoListReference = self.firebase?
             .child("TodoList/\(todoData.identifier.uuidString)")
