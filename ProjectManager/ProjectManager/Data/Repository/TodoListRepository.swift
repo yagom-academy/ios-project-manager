@@ -37,7 +37,7 @@ extension TodoListRepository: TodoListRepositorible {
     }
     
     func synchronizeDatabase() {
-        if UserDefaults.standard.object(forKey: "user") != nil {
+        if UserDefaults.standard.object(forKey: "isFirstLogin") != nil {
             todoRemoteStorage.backup(todoLocalStorage.read().value)
         } else {
             todoRemoteStorage.read()
@@ -51,6 +51,6 @@ extension TodoListRepository: TodoListRepositorible {
                 .store(in: &cancelBag)
         }
         
-        UserDefaults.standard.set(true, forKey: "user")
+        UserDefaults.standard.set(true, forKey: "isFirstLogin")
     }
 }
