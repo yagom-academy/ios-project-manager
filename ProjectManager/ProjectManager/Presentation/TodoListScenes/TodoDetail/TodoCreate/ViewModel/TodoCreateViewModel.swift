@@ -51,17 +51,16 @@ extension TodoCreateViewModel {
         }
         
         let todoItem = Todo(title: title, content: content, deadline: deadline)
-        todoUseCase.create(todoItem)
-            .sink(
-                receiveCompletion: {
-                    guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
-                }, receiveValue: {}
-            )
-            .store(in: &cancelBag)
+        createTodoItem(todoItem)
         
         let historyItem = TodoHistory(title: "[생성] \(todoItem.title)", createdAt: Date())
-        historyUseCase.create(historyItem)
+        createHistoryItem(historyItem)
+        
+        dismissView.send(())
+    }
+    
+    private func createTodoItem(_ item: Todo) {
+        todoUseCase.create(item)
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
@@ -69,7 +68,16 @@ extension TodoCreateViewModel {
                 }, receiveValue: {}
             )
             .store(in: &cancelBag)
-        
-        dismissView.send(())
+    }
+    
+    private func createHistoryItem(_ item: TodoHistory) {
+        historyUseCase.create(item)
+            .sink(
+                receiveCompletion: {
+                    guard case .failure(let error) = $0 else { return}
+                    self.showErrorAlert.send(error.localizedDescription)
+                }, receiveValue: {}
+            )
+            .store(in: &cancelBag)
     }
 }

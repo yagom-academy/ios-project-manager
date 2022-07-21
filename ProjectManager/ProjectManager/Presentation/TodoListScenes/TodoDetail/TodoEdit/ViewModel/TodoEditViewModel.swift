@@ -29,7 +29,7 @@ final class TodoEditViewModel: TodoEditViewModelable {
     // MARK: - Output
     
     var item: Just<Todo> {
-        return Just(todoListModel)
+        return Just(todo)
     }
     
     let isEdited = PassthroughSubject<Void, Never>()
@@ -37,7 +37,7 @@ final class TodoEditViewModel: TodoEditViewModelable {
     let dismissView = PassthroughSubject<Void, Never>()
     let showErrorAlert = PassthroughSubject<String, Never>()
     
-    private let todoListModel: Todo
+    private let todo: Todo
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
     private var cancelBag = Set<AnyCancellable>()
@@ -45,7 +45,7 @@ final class TodoEditViewModel: TodoEditViewModelable {
     init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable, todoListModel: Todo) {
         self.todoUseCase = todoUseCase
         self.historyUseCase = historyUseCase
-        self.todoListModel = todoListModel
+        self.todo = todoListModel
     }
 }
 
@@ -65,15 +65,23 @@ extension TodoEditViewModel {
             return
         }
         
-        todoUseCase.update(
-            Todo(
-                title: title,
-                content: content,
-                deadline: deadline,
-                processType: todoListModel.processType,
-                id: todoListModel.id
-            )
+        let todoItem = Todo(
+            title: title,
+            content: content,
+            deadline: deadline,
+            processType: todo.processType,
+            id: todo.id
         )
+        updateTodoItem(todoItem)
+        
+        let historyItem = TodoHistory(title: "[수정] \(title)", createdAt: Date())
+        createHistoryItem(historyItem)
+
+        dismissView.send(())
+    }
+    
+    private func updateTodoItem(_ item: Todo) {
+        todoUseCase.update(item)
         .sink(
             receiveCompletion: {
                 guard case .failure(let error) = $0 else { return}
@@ -81,10 +89,10 @@ extension TodoEditViewModel {
             }, receiveValue: {}
         )
         .store(in: &cancelBag)
-        
-        let historyItem = TodoHistory(title: "[수정] \(title)", createdAt: Date())
-        
-        historyUseCase.create(historyItem)
+    }
+    
+    private func createHistoryItem(_ item: TodoHistory) {
+        historyUseCase.create(item)
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
@@ -92,8 +100,6 @@ extension TodoEditViewModel {
                 }, receiveValue: {}
             )
             .store(in: &cancelBag)
-        
-        dismissView.send(())
     }
     
     func didTapEditButton() {

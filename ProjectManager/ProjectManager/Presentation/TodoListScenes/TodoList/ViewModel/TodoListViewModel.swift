@@ -88,6 +88,42 @@ extension TodoListViewModel {
 
 extension TodoListViewModel: TodoViewModelInput {
     func deleteItem(_ item: Todo) {
+        deleteTodoItem(item)
+        
+        let historyItem = TodoHistory(title: "[삭제] \(item.title)", createdAt: Date())
+        createHistoryItem(historyItem)
+    }
+    
+    func didTapCell(_ item: Todo) {
+        showEditView.send(item)
+    }
+    
+    func didTapFirstContextMenu(_ item: Todo) {
+        updateTodoItem(item)
+        
+        let historyItem = TodoHistory(title: "[수정] \(item.title)", createdAt: Date())
+        createHistoryItem(historyItem)
+    }
+    
+    func didTapSecondContextMenu(_ item: Todo) {
+        updateTodoItem(item)
+        
+        let historyItem = TodoHistory(title: "[수정] \(item.title)", createdAt: Date())
+        createHistoryItem(historyItem)
+    }
+    
+    private func updateTodoItem(_ item: Todo) {
+        todoUseCase.update(item)
+        .sink(
+            receiveCompletion: {
+                guard case .failure(let error) = $0 else { return}
+                self.showErrorAlert.send(error.localizedDescription)
+            }, receiveValue: {}
+        )
+        .store(in: &cancelBag)
+    }
+    
+    private func deleteTodoItem(_ item: Todo) {
         todoUseCase.delete(item: item)
             .sink(
                 receiveCompletion: {
@@ -96,55 +132,10 @@ extension TodoListViewModel: TodoViewModelInput {
                 }, receiveValue: {}
             )
             .store(in: &cancelBag)
-        
-        let historyItem = TodoHistory(title: "[삭제] \(item.title)", createdAt: Date())
-        historyUseCase.create(historyItem)
-            .sink(
-                receiveCompletion: {
-                    guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
-                }, receiveValue: {}
-            )
-            .store(in: &cancelBag)
     }
     
-    func didTapCell(_ item: Todo) {
-        showEditView.send(item)
-    }
-    
-    func didTapFirstContextMenu(_ item: Todo) {
-        todoUseCase.update(item)
-            .sink(
-                receiveCompletion: {
-                    guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
-                }, receiveValue: {}
-            )
-            .store(in: &cancelBag)
-        
-        let historyItem = TodoHistory(title: "[수정] \(item.title)", createdAt: Date())
-        historyUseCase.create(historyItem)
-            .sink(
-                receiveCompletion: {
-                    guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
-                }, receiveValue: {}
-            )
-            .store(in: &cancelBag)
-    }
-    
-    func didTapSecondContextMenu(_ item: Todo) {
-        todoUseCase.update(item)
-            .sink(
-                receiveCompletion: {
-                    guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
-                }, receiveValue: {}
-            )
-            .store(in: &cancelBag)
-        
-        let historyItem = TodoHistory(title: "[수정] \(item.title)", createdAt: Date())
-        historyUseCase.create(historyItem)
+    private func createHistoryItem(_ item: TodoHistory) {
+        historyUseCase.create(item)
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}

@@ -8,6 +8,13 @@
 import UIKit
 
 final class TodoHistoryTableViewCell: UITableViewCell {
+    private let dateformatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = .current
+        formatter.dateFormat = "yyyy. M. d. HH:MM:SS a"
+        return formatter
+    }()
+    
     private let historyStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -54,6 +61,6 @@ final class TodoHistoryTableViewCell: UITableViewCell {
 
     func setupData(with item: TodoHistory) {
         self.titleLabel.text = item.title
-        self.createAtLabel.text = item.createdAt.description(with: .current)
+        self.createAtLabel.text = dateformatter.string(from: item.createdAt)
     }
 }
