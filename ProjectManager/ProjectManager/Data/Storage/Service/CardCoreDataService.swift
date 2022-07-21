@@ -9,6 +9,7 @@ import RxSwift
 
 protocol CardCoreDataService {
   func create(card: Card) -> Observable<Void>
+  func create(cards: [Card]) -> Observable<[Card]>
   func fetchOne(id: String) -> Observable<CardEntity>
   func fetchAll() -> Observable<[CardEntity]>
   func update(card: Card) -> Observable<Void>

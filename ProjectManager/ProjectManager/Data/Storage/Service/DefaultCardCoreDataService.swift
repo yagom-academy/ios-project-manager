@@ -47,6 +47,35 @@ final class DefaultCardCoreDataService: CardCoreDataService {
     }.asObservable()
   }
   
+  func create(cards: [Card]) -> Observable<[Card]> {
+    return Single.create { [weak self] observer in
+      guard let self = self else {
+        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
+        return Disposables.create()
+      }
+      
+      guard let entity = NSEntityDescription.entity(
+        forEntityName: Settings.cardEntityName,
+        in: self.storage.context) else {
+        observer(.failure(CardCoreDataServiceError.createCardEntityFailure))
+        return Disposables.create()
+      }
+      
+      cards.forEach { card in
+        let object = NSManagedObject(entity: entity, insertInto: self.storage.context)
+        object.setValue(card.id, forKey: "id")
+        object.setValue(card.title, forKey: "title")
+        object.setValue(card.description, forKey: "body")
+        object.setValue(card.deadlineDate, forKey: "deadlineDate")
+        object.setValue(card.cardType.rawValue, forKey: "cardType")
+      }
+      self.storage.saveContext()
+      observer(.success(cards))
+      
+      return Disposables.create()
+    }.asObservable()
+  }
+  
   func fetchOne(id: String) -> Observable<CardEntity> {
     return Single<CardEntity>.create { [weak self] observer in
       guard let self = self else {
