@@ -37,7 +37,7 @@ final class CardListViewModel: CardListViewModelable {
   
   // MARK: - Init
   
-  private let useCase: CardUseCase
+  private weak var useCase: CardUseCase?
   
   init(useCase: CardUseCase) {
     self.useCase = useCase
@@ -87,15 +87,15 @@ final class CardListViewModel: CardListViewModelable {
   }
   
   func fetchCards() {
-    useCase.fetchCards()
+    useCase?.fetchCards()
   }
   
   func deleteSelectedCard(_ card: Card) {
-    useCase.deleteSelectedCard(card)
+    useCase?.deleteSelectedCard(card)
   }
   
   func moveDifferentSection(_ card: Card, to index: Int) {
-    useCase.moveDifferentSection(card, to: index)
+    useCase?.moveDifferentSection(card, to: index)
   }
 }
 

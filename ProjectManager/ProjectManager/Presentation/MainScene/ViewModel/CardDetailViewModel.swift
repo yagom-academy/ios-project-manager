@@ -20,7 +20,7 @@ protocol CardDetailViewModelable: CardDetailViewModelInput, CardDetailViewModelO
 final class CardDetailViewModel: CardDetailViewModelable {
   // MARK: - Init
   
-  private let useCase: CardUseCase
+  private weak var useCase: CardUseCase?
   
   init(useCase: CardUseCase) {
     self.useCase = useCase
@@ -29,6 +29,6 @@ final class CardDetailViewModel: CardDetailViewModelable {
   // MARK: - Input
   
   func updateSelectedCard(_ card: Card) {
-    useCase.updateSelectedCard(card)
+    useCase?.updateSelectedCard(card)
   }
 }

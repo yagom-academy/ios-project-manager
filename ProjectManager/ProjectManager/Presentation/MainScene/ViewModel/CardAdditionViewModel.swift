@@ -20,7 +20,7 @@ protocol CardAdditionViewModelable: CardAdditionViewModelInput, CardAdditionView
 final class CardAdditionViewModel: CardAdditionViewModelable {
   // MARK: - Init
   
-  private let useCase: CardUseCase
+  private weak var useCase: CardUseCase?
   
   init(useCase: CardUseCase) {
     self.useCase = useCase
@@ -29,6 +29,6 @@ final class CardAdditionViewModel: CardAdditionViewModelable {
   // MARK: - Input
   
   func createNewCard(_ card: Card) {
-    useCase.createNewCard(card)
+    useCase?.createNewCard(card)
   }
 }

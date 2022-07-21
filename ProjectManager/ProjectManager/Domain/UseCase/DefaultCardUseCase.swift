@@ -10,7 +10,7 @@ import Foundation
 import RxRelay
 import RxSwift
 
-protocol CardUseCase {
+protocol CardUseCase: AnyObject {
   var cards: BehaviorRelay<[Card]> { get }
   var histories: BehaviorRelay<[History]> { get }
   
