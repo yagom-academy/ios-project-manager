@@ -9,7 +9,7 @@ import FirebaseDatabase
 import Reachability
 
 final class NetworkManager {
-    private let projectsReference = Database.database().reference(withPath: "projects")
+    private let projectsReference = Database.database().reference(withPath: "user")
 }
 
 enum NetworkError: Error {
