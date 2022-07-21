@@ -13,32 +13,32 @@ struct RegisterView: View {
     var body: some View {
         NavigationView {
             RegisterElementView(registerViewModel: registerViewModel)
-            .navigationTitle("TODO")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarColor(.systemGray5)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                    }) {
-                        Text("Cancel")
+                .navigationTitle(TaskType.todo.title)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarColor(.systemGray5)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                        }) {
+                            Text("Cancel")
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            registerViewModel.appendTask()
+                        }) {
+                            Text("Done")
+                        }
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        registerViewModel.appendTask()
-                    }) {
-                        Text("Done")
-                    }
-                }
-            }
         }
         .navigationViewStyle(.stack)
     }
 }
 
-//struct RegisterView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RegisterView(contentViewModel: SomeViewModel())
-//            .previewInterfaceOrientation(.landscapeLeft)
-//    }
-//}
+struct RegisterView_Previews: PreviewProvider {
+    static var previews: some View {
+        RegisterView(registerViewModel: RegisterViewModel(withService: TaskManagementService()))
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
+}

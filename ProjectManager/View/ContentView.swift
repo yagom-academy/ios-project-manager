@@ -13,30 +13,30 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             AllListView(allListViewModel: AllListViewModel(withService: contentViewModel.service))
-            .background(.gray)
-            .navigationTitle("Project Manager")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarColor(.systemGray5)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        contentViewModel.toggleShowingSheet()
-                    }) {
-                        Image(systemName: "plus")
-                            .imageScale(.large)
-                    }.sheet(isPresented: $contentViewModel.isShowingSheet) {
-                        RegisterView(registerViewModel: RegisterViewModel(withService: contentViewModel.service))
+                .background(.gray)
+                .navigationTitle("Project Manager")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarColor(.systemGray5)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            contentViewModel.toggleShowingSheet()
+                        }) {
+                            Image(systemName: "plus")
+                                .imageScale(.large)
+                        }.sheet(isPresented: $contentViewModel.isShowingSheet) {
+                            RegisterView(registerViewModel: RegisterViewModel(withService: contentViewModel.service))
+                        }
                     }
                 }
-            }
         }
         .navigationViewStyle(.stack)
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView(contentViewModel: SomeViewModel())
-//            .previewInterfaceOrientation(.landscapeLeft)
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(contentViewModel: ContentViewModel(withService: TaskManagementService()))
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
+}

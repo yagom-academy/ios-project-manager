@@ -2,10 +2,9 @@
 //  PopoverButtonViewModel.swift
 //  ProjectManager
 //
-//  Created by marisol on 2022/07/20.
+//  Created by OneTool, marisol on 2022/07/20.
 //
 
-import Foundation
 import SwiftUI
 
 class PopoverButtonViewModel: ViewModelType {

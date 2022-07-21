@@ -9,18 +9,19 @@ import SwiftUI
 
 struct EditView: View {
     @ObservedObject var editViewModel: EditViewModel
+    
     var cellIndex: Int
     
     var body: some View {
         NavigationView {
-            EditElementView(editViewModel: editViewModel, cellIndex: cellIndex)
-            .navigationTitle("TODO")
+            EditElementView(editViewModel: editViewModel,
+                            cellIndex: cellIndex)
+            .navigationTitle(TaskType.todo.title)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        
                     }) {
                         Text("Cancel")
                     }
@@ -28,7 +29,6 @@ struct EditView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         editViewModel.editTask(task: editViewModel.service.tasks[cellIndex])
-                        
                     }) {
                         Text("Done")
                     }
@@ -39,9 +39,9 @@ struct EditView: View {
     }
 }
 
-//struct EditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditView(contentViewModel: SomeViewModel(), cellIndex: 0)
-//.previewInterfaceOrientation(.landscapeLeft)
-//    }
-//}
+struct EditView_Previews: PreviewProvider {
+    static var previews: some View {
+        EditView(editViewModel: EditViewModel(withService: TaskManagementService()), cellIndex: 0)
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
+}

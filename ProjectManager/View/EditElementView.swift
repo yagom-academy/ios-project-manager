@@ -10,7 +10,7 @@ import SwiftUI
 struct EditElementView: View {
     @State var editViewModel: EditViewModel
     var cellIndex: Int
-
+    
     var dateRange: ClosedRange<Date> {
         let min = Calendar.current.date(byAdding: .year, value: -1, to: Date()) ?? Date()
         let max = Calendar.current.date(byAdding: .year, value: 1, to: Date().addingTimeInterval(60*60*24*365)) ?? Date()
@@ -27,13 +27,13 @@ struct EditElementView: View {
                 .padding(.leading)
                 .padding(.trailing)
                 .font(.title2)
-                
+            
             DatePicker("",
                        selection: $editViewModel.service.tasks[cellIndex].date,
                        in: dateRange,
                        displayedComponents: [.date])
-                .datePickerStyle(.wheel)
-                .labelsHidden()
+            .datePickerStyle(.wheel)
+            .labelsHidden()
             
             TextEditor(text: $editViewModel.service.tasks[cellIndex].body)
                 .foregroundColor(Color.gray)
@@ -50,9 +50,9 @@ struct EditElementView: View {
     }
 }
 
-//struct RegisterElementsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditElementView(taskViewModel: TaskViewModel(), cellIndex: 0)
-//.previewInterfaceOrientation(.landscapeLeft)
-//    }
-//}
+struct RegisterElementsView_Previews: PreviewProvider {
+    static var previews: some View {
+        EditElementView(editViewModel: EditViewModel(withService: TaskManagementService()), cellIndex: 0)
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
+}

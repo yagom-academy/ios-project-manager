@@ -13,13 +13,13 @@ struct ListRowView: View {
     var taskType: TaskType
     
     var body: some View {
-            VStack(alignment: .leading) {
-                Text(taskArray[cellIndex].title)
-                    .foregroundColor(.black)
-                Text(taskArray[cellIndex].body)
-                    .foregroundColor(.gray)
-                checkOverdate()
-            }
+        VStack(alignment: .leading) {
+            Text(taskArray[cellIndex].title)
+                .foregroundColor(.black)
+            Text(taskArray[cellIndex].body)
+                .foregroundColor(.gray)
+            checkOverdate()
+        }
     }
     
     func checkOverdate() -> some View {
@@ -33,8 +33,9 @@ struct ListRowView: View {
     }
 }
 
-//struct ListRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ListRowView(taskArray: SomeViewModel().todoTasks, cellIndex: 0, taskType: .todo).previewLayout(.sizeThatFits)
-//    }
-//}
+struct ListRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        ListRowView(taskArray: [], cellIndex: 0, taskType: TaskType.todo)
+            .previewLayout(.sizeThatFits)
+    }
+}

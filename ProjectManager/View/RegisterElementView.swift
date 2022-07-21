@@ -26,13 +26,13 @@ struct RegisterElementView: View {
                 .padding(.leading)
                 .padding(.trailing)
                 .font(.title2)
-                
+            
             DatePicker("",
                        selection: $registerViewModel.date,
                        in: dateRange,
                        displayedComponents: [.date])
-                .datePickerStyle(.wheel)
-                .labelsHidden()
+            .datePickerStyle(.wheel)
+            .labelsHidden()
             
             TextEditor(text: $registerViewModel.body)
                 .foregroundColor(Color.gray)
@@ -53,9 +53,9 @@ struct RegisterElementView: View {
     }
 }
 
-//struct RegisterElementView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RegisterElementView(taskViewModel: TaskViewModel())
-//.previewInterfaceOrientation(.landscapeLeft)
-//    }
-//}
+struct RegisterElementView_Previews: PreviewProvider {
+    static var previews: some View {
+        RegisterElementView(registerViewModel: RegisterViewModel(withService: TaskManagementService()))
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
+}
