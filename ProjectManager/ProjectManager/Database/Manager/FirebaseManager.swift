@@ -27,7 +27,7 @@ final class FirebaseManager: FirebaseManagerAble {
     }
     
     func create<T: FirebaseDatable>(_ data: T) throws {
-        guard let encodedValues = (data as? Encodable)?.toDictionary else {
+        guard let encodedValues = data.toDictionary else {
             return
         }
         

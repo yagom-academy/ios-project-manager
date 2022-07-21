@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-protocol FirebaseDatable: Decodable {
+protocol FirebaseDatable: Codable {
     var detailPath: [String] { get }
     static var path: [String] { get }
 }
@@ -36,7 +36,8 @@ class Task: Object, FirebaseDatable {
         }
     }
     
-    convenience init(title: String?, date: Date, body: String?, type: TaskType = .todo) {
+    convenience init(id: String = UUID().uuidString, title: String?, date: Date, body: String?,
+                     type: TaskType = .todo) {
         self.init()
         self.id = id
         self.title = title
