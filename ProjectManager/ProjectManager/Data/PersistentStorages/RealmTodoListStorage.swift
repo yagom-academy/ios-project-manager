@@ -31,11 +31,11 @@ final class RealmTodoListStorage {
     private let realm = try? Realm()
     
     private var storage: BehaviorSubject<[TodoModel]>
-    private let items: Results<TodoEntity>?
+    private let items: Results<TodoRealmEntity>?
     let errorObserver: PublishRelay<TodoError> = PublishRelay()
 
     init() {
-        items = realm?.objects(TodoEntity.self)
+        items = realm?.objects(TodoRealmEntity.self)
 
         self.storage = .init(value: items?.map { $0.toTodoModel() } ?? [])
     }
@@ -53,7 +53,7 @@ extension RealmTodoListStorage: TodoListStorage {
                 if let item = items.first(where: { $0.id == data.id }) {
                     item.updateEntity(entity: data)
                 } else {
-                    realm?.add(TodoEntity(entity: data))
+                    realm?.add(TodoRealmEntity(entity: data))
                 }
                 storage.onNext(items.map { $0.toTodoModel() })
             })

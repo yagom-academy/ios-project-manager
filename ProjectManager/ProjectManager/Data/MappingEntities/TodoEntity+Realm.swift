@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class TodoEntity: Object {
+final class TodoRealmEntity: Object {
     @Persisted private var title: String?
     @Persisted private var body: String?
     @Persisted private var deadlineAt: Date
