@@ -8,11 +8,19 @@
 import Foundation
 
 extension Date {
+    static let dateFormatter = DateFormatter()
+    
     var formattedString: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.locale = .current
-        return dateFormatter.string(from: self)
+        Date.dateFormatter.dateStyle = .medium
+        Date.dateFormatter.locale = .current
+        return Date.dateFormatter.string(from: self)
     }
+    
+    var isoDateString: String {
+        Date.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        Date.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        return Date.dateFormatter.string(from: self)
+    }
+    
     static let today = Date()
 }

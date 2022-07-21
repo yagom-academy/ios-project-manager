@@ -26,10 +26,10 @@
 		E17E7E552878535000BD1CCA /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17E7E542878535000BD1CCA /* CircleLabel.swift */; };
 		E1BBADB0287DC2D100FCFE76 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BBADAF287DC2D000FCFE76 /* UITableView+Extension.swift */; };
 		E1BF8995288961F900D77841 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1BF8994288961F900D77841 /* GoogleService-Info.plist */; };
+		E1BF89992889646A00D77841 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF89982889646A00D77841 /* String+Extension.swift */; };
 		E1C26DCB28746D1500A37983 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DCA28746D1500A37983 /* RealmManager.swift */; };
 		E1C26DD32874720200A37983 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DD22874720200A37983 /* ProjectManagerTests.swift */; };
 		E1CCBDD1287EC10400348378 /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCBDD0287EC10400348378 /* TaskInfo.swift */; };
-		E1D0945E28756B380084308A /* TaskLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0945D28756B380084308A /* TaskLocation.swift */; };
 		E1D0946028756D8A0084308A /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0945F28756D8A0084308A /* TaskType.swift */; };
 		E1D094632875716A0084308A /* DetailModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D094622875716A0084308A /* DetailModalView.swift */; };
 		E1D094652875A1C10084308A /* DetailModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D094642875A1C10084308A /* DetailModalViewController.swift */; };
@@ -68,6 +68,7 @@
 		E17E7E542878535000BD1CCA /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		E1BBADAF287DC2D000FCFE76 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		E1BF8994288961F900D77841 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E1BF89982889646A00D77841 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E1C26DCA28746D1500A37983 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		E1C26DD02874720200A37983 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C26DD22874720200A37983 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
@@ -75,7 +76,6 @@
 		E1C26DDD2874769600A37983 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C26DE0287476F700A37983 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1CCBDD0287EC10400348378 /* TaskInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfo.swift; sourceTree = "<group>"; };
-		E1D0945D28756B380084308A /* TaskLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocation.swift; sourceTree = "<group>"; };
 		E1D0945F28756D8A0084308A /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
 		E1D094622875716A0084308A /* DetailModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModalView.swift; sourceTree = "<group>"; };
 		E1D094642875A1C10084308A /* DetailModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModalViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +138,7 @@
 				672F3C862875644C00CA92D4 /* Date+Extension.swift */,
 				671B23892877C29D00D0EAB2 /* UIView+Extension.swift */,
 				E1BBADAF287DC2D000FCFE76 /* UITableView+Extension.swift */,
+				E1BF89982889646A00D77841 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -229,7 +230,6 @@
 			isa = PBXGroup;
 			children = (
 				67A743AE28746C83004D1A5B /* Task.swift */,
-				E1D0945D28756B380084308A /* TaskLocation.swift */,
 				E1D0945F28756D8A0084308A /* TaskType.swift */,
 				E1CCBDD0287EC10400348378 /* TaskInfo.swift */,
 			);
@@ -416,11 +416,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				E1BF89992889646A00D77841 /* String+Extension.swift in Sources */,
 				E1D094652875A1C10084308A /* DetailModalViewController.swift in Sources */,
 				E1BBADB0287DC2D100FCFE76 /* UITableView+Extension.swift in Sources */,
 				671B238A2877C29D00D0EAB2 /* UIView+Extension.swift in Sources */,
 				672F3C7F2875592E00CA92D4 /* MainView.swift in Sources */,
-				E1D0945E28756B380084308A /* TaskLocation.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				67FF0F10287D472B001DD1F3 /* PopoverView.swift in Sources */,
 				67A743AD28746229004D1A5B /* TaskManager.swift in Sources */,
