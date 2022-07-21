@@ -25,7 +25,7 @@ final class DefaultCardUseCase: CardUseCase {
   private let repository: CardRepository
   private let disposeBag = DisposeBag()
   
-  let cards = BehaviorRelay<[Card]>(value: Card.sample)
+  let cards = BehaviorRelay<[Card]>(value: [])
   let histories = BehaviorRelay<[History]>(value: [])
   
   init(repository: CardRepository) {
