@@ -32,7 +32,7 @@ final class TaskHeaderView: UIView {
     init(taskType: TaskType) {
         super.init(frame: .zero)
         backgroundColor = .systemGray6
-        titleLabel.text = taskType.value
+        titleLabel.text = taskType.rawValue
         setupSubViews()
         setupUILayout()
     }

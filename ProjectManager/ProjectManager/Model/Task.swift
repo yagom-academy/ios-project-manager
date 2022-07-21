@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class Task: Object, Encodable {
+final class Task: Object, Codable {
     @Persisted var title: String
     @Persisted var body: String
     @Persisted var date: Double

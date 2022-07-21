@@ -31,7 +31,7 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
 
     private func changeTaskType(_ task: Task, taskType: TaskType) {
         let toBePosted: [String: Any] = [
-            "taskType": taskType.value
+            "taskType": taskType.rawValue
         ]
         self.reference.child(task.id).updateChildValues(toBePosted)
         

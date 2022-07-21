@@ -65,8 +65,6 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
             action: #selector(showNewFormSheetView)
         )
         navigationItem.rightBarButtonItem = plusButton
-
-        
     }
     
     private func bind() {

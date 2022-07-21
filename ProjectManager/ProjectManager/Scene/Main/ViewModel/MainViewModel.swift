@@ -29,6 +29,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     
     private let reference = Database.database().reference()
     private let realmManager = RealmManager()
+    var firebaseData = [Task]()
     
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType) {
         let task: Task
@@ -44,6 +45,18 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     func viewDidLoad() {
+        let realmData = realmManager.fetchAllTasks()
+        
+        reference.observeSingleEvent(of: .value) { snapshot in
+            guard let snapData = snapshot.value as? [String: [String: Any]] else { return }
+            guard let data = try? JSONSerialization.data(withJSONObject: Array(snapData.values), options: []) else { return }
+            do {
+                let decoder = JSONDecoder()
+                self.firebaseData = try decoder.decode([Task].self, from: data)
+            } catch let error {
+                print("\(error.localizedDescription)")
+            }
+        }
         fetchData()
     }
     

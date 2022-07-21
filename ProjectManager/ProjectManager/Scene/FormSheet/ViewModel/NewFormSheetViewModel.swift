@@ -50,7 +50,7 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
             "title": title.value,
             "body": body.value,
             "date": date.value,
-            "taskType": TaskType.todo.value,
+            "taskType": TaskType.todo.rawValue,
             "id": uuid
         ]
         

@@ -5,11 +5,13 @@
 // 
 
 import UIKit
+import Firebase
 import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private let realmManager = RealmManager()
     var window: UIWindow?
     
     func application(
@@ -37,5 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             name: "Default Configuration",
             sessionRole: connectingSceneSession.role
         )
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        print(realmManager.fetchAllTasks())
     }
 }
