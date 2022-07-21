@@ -18,10 +18,10 @@ struct SynchronizeManager {
         var firebaseData = [Task]()
         
         reference.observeSingleEvent(of: .value) { snapshot in
-            guard let snapData = snapshot.value as? [String: [String: Any]] else { return }
-            guard let data = try? JSONSerialization.data(withJSONObject: Array(snapData.values), options: []) else { return }
+            let snapData = snapshot.value as? [String: [String: Any]] ?? [:]
             
             do {
+                let data = try JSONSerialization.data(withJSONObject: Array(snapData.values), options: [])
                 let decoder = JSONDecoder()
                 firebaseData = try decoder.decode([Task].self, from: data)
                 let dataOutOfSync = self.dataOutOfSync(from: firebaseData, with: realmData)
