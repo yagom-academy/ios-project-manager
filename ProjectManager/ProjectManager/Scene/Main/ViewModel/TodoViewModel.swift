@@ -33,26 +33,21 @@ final class TodoViewModel {
   // MARK: - Output
   
   var toList: AnyPublisher<[Todo], Never> {
-    return storage.read()
-      .map { items in
-        return items.filter { $0.state == .todo }
-      }
-      .eraseToAnyPublisher()
+    return readData(by: .todo)
   }
   
   var doingList: AnyPublisher<[Todo], Never> {
-    return storage.read()
-      .map { items in
-        return items.filter { $0.state == .doing }
-      }
-      .eraseToAnyPublisher()
+    return readData(by: .doing)
   }
   
   var doneList: AnyPublisher<[Todo], Never> {
-    return storage.read()
-      .map { items in
-        return items.filter { $0.state == .done }
-      }
-      .eraseToAnyPublisher()
+    return readData(by: .done)
+  }
+  
+  private func readData(by state: State) -> AnyPublisher<[Todo], Never> {
+    return storage.read().map { items in
+      return items.filter { $0.state == state }
+    }
+    .eraseToAnyPublisher()
   }
 }
