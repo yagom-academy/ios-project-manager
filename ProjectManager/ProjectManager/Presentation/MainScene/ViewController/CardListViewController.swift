@@ -72,6 +72,18 @@ final class CardListViewController: UIViewController {
         self.coordinator?.toAddition()
       })
       .disposed(by: disposeBag)
+    
+    historyButton.rx.tap
+      .withLatestFrom(viewModel.histories)
+      .withUnretained(self)
+      .map { wself, histories in
+        histories.map { wself.viewModel.toCardHistoryViewModelItem(history: $0)}
+      }
+      .withUnretained(self)
+      .bind(onNext: { wself, histories in
+        CardHistoryViewController.presentHistoryPopover(wself, with: histories, on: wself.historyButton)
+      })
+      .disposed(by: disposeBag)
   }
   
   private func bindSectionsHeader() {

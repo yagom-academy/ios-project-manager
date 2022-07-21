@@ -13,6 +13,7 @@ import RxSwift
 protocol CardListViewModelInput {
   func fetchCards()
   func toCardListViewModelItem(card: Card) -> CardListViewModelItem
+  func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem
   func deleteSelectedCard(_ card: Card)
   func moveDifferentSection(_ card: Card, to index: Int)
 }
@@ -21,7 +22,7 @@ protocol CardListViewModelOutput {
   var todoCards: Driver<[Card]> { get }
   var doingCards: Driver<[Card]> { get }
   var doneCards: Driver<[Card]> { get }
-  var histories: BehaviorRelay<[History]> { get }
+  var histories: Driver<[History]> { get }
 }
 
 protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput {}
@@ -32,7 +33,7 @@ final class CardListViewModel: CardListViewModelable {
   let todoCards: Driver<[Card]>
   let doingCards: Driver<[Card]>
   let doneCards: Driver<[Card]>
-  let histories: BehaviorRelay<[History]>
+  let histories: Driver<[History]>
   
   // MARK: - Init
   
@@ -60,6 +61,8 @@ final class CardListViewModel: CardListViewModelable {
       .asDriver(onErrorJustReturn: [])
     
     histories = useCase.histories
+      .map { $0.sorted { $0.actionTime > $1.actionTime } }
+      .asDriver(onErrorJustReturn: [])
   }
   
   // MARK: - Input
@@ -71,6 +74,15 @@ final class CardListViewModel: CardListViewModelable {
       description: card.description,
       deadlineDateString: setDeadlineDateToString(card.deadlineDate),
       isOverdue: isOverdue(card: card)
+    )
+  }
+  
+  func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem {
+    return CardHistoryViewModelItem(
+      card: history.card,
+      actionType: history.actionType,
+      actionTimeString: setDeadlineDateToString(history.actionTime),
+      informationString: setInformationString(history)
     )
   }
   
@@ -104,5 +116,12 @@ extension CardListViewModel {
   
   private func isOverdue(card: Card) -> Bool {
     return (card.cardType == .todo || card.cardType == .doing) && Date() > card.deadlineDate
+  }
+  
+  private func setInformationString(_ history: History) -> String {
+    if case .move(let destinationCardType) = history.actionType {
+       return "\(history.card.cardType.description) ➡️ \(destinationCardType.description)"
+    }
+    return "\(history.card.cardType.description)"
   }
 }

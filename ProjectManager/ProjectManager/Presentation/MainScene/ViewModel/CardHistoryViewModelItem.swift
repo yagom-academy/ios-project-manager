@@ -11,4 +11,5 @@ struct CardHistoryViewModelItem {
   let card: Card
   let actionType: HistoryActionType
   let actionTimeString: String
+  let informationString: String
 }

@@ -9,17 +9,11 @@ import UIKit
 
 import RxSwift
 
-protocol PopOverable where Self: UIAlertController {
-  static func presentPopOver(
-    _ viewController: UIViewController?,
-    with configuration: AlertConfiguration,
-    on sourceView: UIView
-  ) -> Observable<Int>
-}
+protocol PopOverable {}
 
 // MARK: - Extensions
 
-extension PopOverable {
+extension PopOverable where Self: UIAlertController {
   static func presentPopOver(
     _ viewController: UIViewController?,
     with configuration: AlertConfiguration,
@@ -50,5 +44,22 @@ extension PopOverable {
         alert.dismiss(animated: true)
       }
     }.asObservable()
+  }
+}
+
+extension PopOverable where Self: CardHistoryViewController {
+  static func presentHistoryPopover(
+    _ viewController: UIViewController?,
+    with histories: [CardHistoryViewModelItem],
+    on barButtonItem: UIBarButtonItem
+  ) {
+    let cardHistoryViewController = CardHistoryViewController()
+    
+    cardHistoryViewController.histories.accept(histories)
+    cardHistoryViewController.modalPresentationStyle = .popover
+    cardHistoryViewController.popoverPresentationController?.permittedArrowDirections = .up
+    cardHistoryViewController.popoverPresentationController?.barButtonItem = barButtonItem
+    
+    viewController?.present(cardHistoryViewController, animated: true)
   }
 }
