@@ -8,10 +8,12 @@
 import RxRelay
 
 struct ProjectUseCase {
+    private let networkRepository = NetworkRepository()
+    
     #if DEBUG
         private let repository = ProjectRepository(storageManager: MockRepository.shared)
     #else
-        private let repository = ProjectRepository(storageManager: PersistentStorageManager.shared)
+        private let repository = ProjectRepository(storageManager: PersistentRepository.shared)
     #endif
     
     func create(projectContent: ProjectContent) {
@@ -32,5 +34,9 @@ struct ProjectUseCase {
     
     func delete(projectContentID: UUID?) {
         repository.delete(projectContentID: projectContentID)
+    }
+    
+    func load() {
+        networkRepository.read(repository: repository)
     }
 }
