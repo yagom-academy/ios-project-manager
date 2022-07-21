@@ -15,6 +15,7 @@
 		B32142C12887E04E00F8CBE9 /* PopoverButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142C02887E04E00F8CBE9 /* PopoverButtonViewModel.swift */; };
 		B32142C32887E18900F8CBE9 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142C22887E18900F8CBE9 /* EditViewModel.swift */; };
 		B32142C52887E6EB00F8CBE9 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142C42887E6EB00F8CBE9 /* RegisterViewModel.swift */; };
+		B32C993028899AAC00C1F891 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C992F28899AAB00C1F891 /* ViewModelType.swift */; };
 		B335136B287579DF00BF3495 /* EditElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B335136A287579DF00BF3495 /* EditElementView.swift */; };
 		B397C23528770473003E2FEC /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397C23428770473003E2FEC /* TaskViewModel.swift */; };
 		B39F102A2873DDC100475AE4 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F10292873DDC100475AE4 /* ProjectManagerApp.swift */; };
@@ -30,10 +31,7 @@
 		B3CA0B80287D48AF0047E1D1 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B7F287D48AF0047E1D1 /* CellView.swift */; };
 		B3EA5F12287481F6000713F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */; };
 		DA79E414287525C3000192CC /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E413287525C3000192CC /* ListRowView.swift */; };
-		DA79E41628752ABE000192CC /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41528752ABE000192CC /* TodoView.swift */; };
 		DA79E41A28755DC6000192CC /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41928755DC6000192CC /* NavigationBarModifier.swift */; };
-		DA79E41C28756193000192CC /* DoingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41B28756193000192CC /* DoingView.swift */; };
-		DA79E41E287561A1000192CC /* DoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41D287561A1000192CC /* DoneView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +44,7 @@
 		B32142C02887E04E00F8CBE9 /* PopoverButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverButtonViewModel.swift; sourceTree = "<group>"; };
 		B32142C22887E18900F8CBE9 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		B32142C42887E6EB00F8CBE9 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		B32C992F28899AAB00C1F891 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		B335136A287579DF00BF3495 /* EditElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditElementView.swift; sourceTree = "<group>"; };
 		B397C23428770473003E2FEC /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		B39F10262873DDC100475AE4 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,10 +62,7 @@
 		B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA79E413287525C3000192CC /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
-		DA79E41528752ABE000192CC /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		DA79E41928755DC6000192CC /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
-		DA79E41B28756193000192CC /* DoingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingView.swift; sourceTree = "<group>"; };
-		DA79E41D287561A1000192CC /* DoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,9 +172,6 @@
 			children = (
 				B39F102B2873DDC100475AE4 /* ContentView.swift */,
 				B32142BA2887DAF200F8CBE9 /* AllListView.swift */,
-				DA79E41528752ABE000192CC /* TodoView.swift */,
-				DA79E41B28756193000192CC /* DoingView.swift */,
-				DA79E41D287561A1000192CC /* DoneView.swift */,
 				B3CA0B7F287D48AF0047E1D1 /* CellView.swift */,
 				DA79E413287525C3000192CC /* ListRowView.swift */,
 				B3BDBB50287FA82E0072933E /* RegisterView.swift */,
@@ -313,17 +306,14 @@
 				B39F102A2873DDC100475AE4 /* ProjectManagerApp.swift in Sources */,
 				B32142BD2887DCBB00F8CBE9 /* AllListViewModel.swift in Sources */,
 				B32142C32887E18900F8CBE9 /* EditViewModel.swift in Sources */,
-				DA79E41E287561A1000192CC /* DoneView.swift in Sources */,
 				B3CA0B7B287D0A620047E1D1 /* Task.swift in Sources */,
 				B3CA0B80287D48AF0047E1D1 /* CellView.swift in Sources */,
 				B32142BF2887DECF00F8CBE9 /* CellViewModel.swift in Sources */,
-				B397C23528770473003E2FEC /* TaskViewModel.swift in Sources */,
-				DA79E41628752ABE000192CC /* TodoView.swift in Sources */,
 				B3B28F4328756B1000A3CB57 /* EditView.swift in Sources */,
 				B3CA0B79287D09ED0047E1D1 /* TaskManagementService.swift in Sources */,
 				B3BDBB4F287FA64C0072933E /* RegisterElementView.swift in Sources */,
-				DA79E41C28756193000192CC /* DoingView.swift in Sources */,
 				B3BDBB51287FA82E0072933E /* RegisterView.swift in Sources */,
+				B32C993028899AAC00C1F891 /* ViewModelType.swift in Sources */,
 				B335136B287579DF00BF3495 /* EditElementView.swift in Sources */,
 				DA79E414287525C3000192CC /* ListRowView.swift in Sources */,
 				B32142C52887E6EB00F8CBE9 /* RegisterViewModel.swift in Sources */,
