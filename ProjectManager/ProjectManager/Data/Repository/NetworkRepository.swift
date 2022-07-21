@@ -53,4 +53,18 @@ extension NetworkRepository {
             body: body
         )
     }
+    
+    func parse(from projectContent: ProjectContent) -> ProjectDTO? {
+        guard let deadline = DateFormatter().formatted(string: projectContent.deadline) else {
+            return nil
+        }
+        
+        return ProjectDTO(
+            id: projectContent.id,
+            status: projectContent.status.string,
+            title: projectContent.title,
+            deadline: deadline,
+            body: projectContent.body
+        )
+    }
 }
