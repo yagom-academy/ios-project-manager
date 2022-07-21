@@ -19,9 +19,9 @@ final class TodoListViewController: UIViewController {
   typealias DataSource = UICollectionViewDiffableDataSource<Int, Todo>
   typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Todo>
   
-  private var todoDataSource: DataSource!
-  private var doingDataSource: DataSource!
-  private var doneDataSource: DataSource!
+  private var todoDataSource: DataSource?
+  private var doingDataSource: DataSource?
+  private var doneDataSource: DataSource?
   
   private var bag = Set<AnyCancellable>()
   
@@ -53,22 +53,28 @@ final class TodoListViewController: UIViewController {
   private func bind() {
     viewModel.toList
       .sink { [weak self] items in
-        self?.applySnapShot(items, dataSource: self!.todoDataSource)
-        self?.todoView.updateListCount(items.count)
+        guard let self = self,
+              let todoDataSource = self.todoDataSource else { return }
+        self.applySnapShot(items, dataSource: todoDataSource)
+        self.todoView.updateListCount(items.count)
       }
       .store(in: &bag)
     
     viewModel.doingList
       .sink { [weak self] items in
-        self?.applySnapShot(items, dataSource: self!.doingDataSource)
-        self?.doingView.updateListCount(items.count)
+        guard let self = self,
+              let doingDataSource = self.doingDataSource else { return }
+        self.applySnapShot(items, dataSource: doingDataSource)
+        self.doingView.updateListCount(items.count)
       }
       .store(in: &bag)
     
     viewModel.doneList
       .sink { [weak self] items in
-        self?.applySnapShot(items, dataSource: self!.doneDataSource)
-        self?.doneView.updateListCount(items.count)
+        guard let self = self,
+              let doneDataSource = self.doneDataSource else { return }
+        self.applySnapShot(items, dataSource: doneDataSource)
+        self.doneView.updateListCount(items.count)
       }
       .store(in: &bag)
   }
