@@ -6,7 +6,6 @@
 //
 
 import FirebaseDatabase
-import Reachability
 
 enum NetworkError: Error {
     case loadFailure
@@ -31,12 +30,8 @@ extension NetworkManager {
     
     func read(completion: @escaping (Result<[ProjectDTO], NetworkError>) -> Void) {
         projectsReference.getData(completion: { error, snapshot in
-            guard error == nil else {
-                completion(.failure(.loadFailure))
-                return
-            }
-            
-            guard let projects = snapshot?.value as? [ProjectDTO] else {
+            guard error == nil,
+                  let projects = snapshot?.value as? [ProjectDTO] else {
                 completion(.failure(.loadFailure))
                 return
             }
