@@ -39,4 +39,8 @@ struct ProjectUseCase {
     func load() {
         networkRepository.read(repository: repository)
     }
+    
+    func backUp() {
+        networkRepository.update(repository: repository)
+    }
 }
