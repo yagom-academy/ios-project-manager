@@ -11,7 +11,7 @@ import FirebaseCore
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    private let realmManager = RealmManager()
+    private let synchronizeManager = SynchronizeManager()
     var window: UIWindow?
     
     func application(
@@ -42,6 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        print(realmManager.fetchAllTasks())
+        synchronizeManager.synchronizeDatabase()
     }
 }

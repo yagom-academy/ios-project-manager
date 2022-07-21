@@ -40,6 +40,7 @@
 		9CACE12D28755BE20010E4F0 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE12C28755BE20010E4F0 /* Then.swift */; };
 		9CACE13228755FDF0010E4F0 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */; };
 		9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE134287566F30010E4F0 /* UIFont+extension.swift */; };
+		9CBB9AC2288997120037B024 /* SynchronizeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB9AC1288997120037B024 /* SynchronizeManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -74,6 +75,7 @@
 		9CACE12C28755BE20010E4F0 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		9CACE134287566F30010E4F0 /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
+		9CBB9AC1288997120037B024 /* SynchronizeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizeManager.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			children = (
 				4EB595F2287D543D006C8303 /* AppConstants.swift */,
 				9C8BC0D828786ECF003EF525 /* RealmManager.swift */,
+				9CBB9AC1288997120037B024 /* SynchronizeManager.swift */,
 				9CACE12C28755BE20010E4F0 /* Then.swift */,
 				9CACE133287566D40010E4F0 /* Extension */,
 			);
@@ -449,6 +452,7 @@
 				4EB3FFC228756FDD0001DBC0 /* Task.swift in Sources */,
 				9CACA2BE28804CEB0024E923 /* UIViewController+extension.swift in Sources */,
 				9CACE12D28755BE20010E4F0 /* Then.swift in Sources */,
+				9CBB9AC2288997120037B024 /* SynchronizeManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				4EB89251287C68B1008DE9B8 /* PopoverViewModel.swift in Sources */,
 				4EB3FFCF287580FD0001DBC0 /* NewFormSheetViewController.swift in Sources */,
