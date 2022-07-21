@@ -45,6 +45,17 @@
 		947EEF63287EA106009746C9 /* TodoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947EEF62287EA106009746C9 /* TodoCellViewModel.swift */; };
 		A10EA52F287D59E500F3F9B5 /* TodoSceneFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EA52E287D59E500F3F9B5 /* TodoSceneFactory.swift */; };
 		A148151B288820D7000059D9 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148151A288820D7000059D9 /* AlertBuilder.swift */; };
+		A148151D28890984000059D9 /* MockTodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148151C28890984000059D9 /* MockTodoListViewModel.swift */; };
+		A148151F28890A25000059D9 /* TodoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148151E28890A25000059D9 /* TodoViewModelTests.swift */; };
+		A148152128890C34000059D9 /* MockTodoListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148152028890C34000059D9 /* MockTodoListRepository.swift */; };
+		A148152428890D23000059D9 /* TodoListUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148152328890D23000059D9 /* TodoListUseCaseTests.swift */; };
+		A148152628890E5F000059D9 /* MockRealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148152528890E5F000059D9 /* MockRealmStorage.swift */; };
+		A148152928890EBE000059D9 /* TodoListRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148152828890EBE000059D9 /* TodoListRepositoryTests.swift */; };
+		A148152B28890F06000059D9 /* MockFirebaseStrorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148152A28890F06000059D9 /* MockFirebaseStrorage.swift */; };
+		A148152D28891068000059D9 /* MockTodoHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148152C28891068000059D9 /* MockTodoHistoryRepository.swift */; };
+		A148152F288910C7000059D9 /* MockHistoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148152E288910C7000059D9 /* MockHistoryStorage.swift */; };
+		A14815312889110A000059D9 /* TodoHistoryUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14815302889110A000059D9 /* TodoHistoryUseCaseTests.swift */; };
+		A148153328891195000059D9 /* TodoHistoryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148153228891195000059D9 /* TodoHistoryRepositoryTests.swift */; };
 		A18206A0287E7D4E003CCCF8 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182069F287E7D4E003CCCF8 /* TodoView.swift */; };
 		A184970428755D1100C82AA0 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A184970328755D1100C82AA0 /* Todo.swift */; };
 		A1849707287561CE00C82AA0 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1849706287561CE00C82AA0 /* TodoTableViewCell.swift */; };
@@ -112,6 +123,17 @@
 		947EEF62287EA106009746C9 /* TodoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCellViewModel.swift; sourceTree = "<group>"; };
 		A10EA52E287D59E500F3F9B5 /* TodoSceneFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSceneFactory.swift; sourceTree = "<group>"; };
 		A148151A288820D7000059D9 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
+		A148151C28890984000059D9 /* MockTodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTodoListViewModel.swift; sourceTree = "<group>"; };
+		A148151E28890A25000059D9 /* TodoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModelTests.swift; sourceTree = "<group>"; };
+		A148152028890C34000059D9 /* MockTodoListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTodoListRepository.swift; sourceTree = "<group>"; };
+		A148152328890D23000059D9 /* TodoListUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUseCaseTests.swift; sourceTree = "<group>"; };
+		A148152528890E5F000059D9 /* MockRealmStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRealmStorage.swift; sourceTree = "<group>"; };
+		A148152828890EBE000059D9 /* TodoListRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRepositoryTests.swift; sourceTree = "<group>"; };
+		A148152A28890F06000059D9 /* MockFirebaseStrorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFirebaseStrorage.swift; sourceTree = "<group>"; };
+		A148152C28891068000059D9 /* MockTodoHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTodoHistoryRepository.swift; sourceTree = "<group>"; };
+		A148152E288910C7000059D9 /* MockHistoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHistoryStorage.swift; sourceTree = "<group>"; };
+		A14815302889110A000059D9 /* TodoHistoryUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistoryUseCaseTests.swift; sourceTree = "<group>"; };
+		A148153228891195000059D9 /* TodoHistoryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistoryRepositoryTests.swift; sourceTree = "<group>"; };
 		A182069F287E7D4E003CCCF8 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		A184970328755D1100C82AA0 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		A1849706287561CE00C82AA0 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
@@ -411,6 +433,60 @@
 			path = SceneFactory;
 			sourceTree = "<group>";
 		};
+		A148152228890C42000059D9 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A148152328890D23000059D9 /* TodoListUseCaseTests.swift */,
+				A14815302889110A000059D9 /* TodoHistoryUseCaseTests.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		A148152728890EA8000059D9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A148152828890EBE000059D9 /* TodoListRepositoryTests.swift */,
+				A148153228891195000059D9 /* TodoHistoryRepositoryTests.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		A148153428891222000059D9 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				94272A0A28883E7E0010BC10 /* StubHistoryUseCase.swift */,
+				94272A0828883C710010BC10 /* StubTodoUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		A148153528891235000059D9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A148151C28890984000059D9 /* MockTodoListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A14815362889123E000059D9 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				A148152028890C34000059D9 /* MockTodoListRepository.swift */,
+				A148152C28891068000059D9 /* MockTodoHistoryRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		A148153728891248000059D9 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				A148152528890E5F000059D9 /* MockRealmStorage.swift */,
+				A148152A28890F06000059D9 /* MockFirebaseStrorage.swift */,
+				A148152E288910C7000059D9 /* MockHistoryStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		A184970228755D0100C82AA0 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,8 +535,10 @@
 		A1FCB0622878508C00A2FBD6 /* ProjectManagerTests */ = {
 			isa = PBXGroup;
 			children = (
-				A1FCB06D2878557E00A2FBD6 /* Fake */,
+				A1FCB06D2878557E00A2FBD6 /* TestDouble */,
 				A1FCB06A2878509A00A2FBD6 /* Presentation */,
+				A148152228890C42000059D9 /* Domain */,
+				A148152728890EA8000059D9 /* Data */,
 			);
 			path = ProjectManagerTests;
 			sourceTree = "<group>";
@@ -471,17 +549,20 @@
 				A1FCB06B287850FF00A2FBD6 /* TodoListViewModelTests.swift */,
 				A1FCB0742878640100A2FBD6 /* TodoEditViewModelTests.swift */,
 				A1C07E3D287EEBD9002FFF7C /* TodoCreateViewModelTests.swift */,
+				A148151E28890A25000059D9 /* TodoViewModelTests.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		A1FCB06D2878557E00A2FBD6 /* Fake */ = {
+		A1FCB06D2878557E00A2FBD6 /* TestDouble */ = {
 			isa = PBXGroup;
 			children = (
-				94272A0A28883E7E0010BC10 /* StubHistoryUseCase.swift */,
-				94272A0828883C710010BC10 /* StubTodoUseCase.swift */,
+				A148153528891235000059D9 /* ViewModel */,
+				A148153428891222000059D9 /* UseCase */,
+				A14815362889123E000059D9 /* Repository */,
+				A148153728891248000059D9 /* Storage */,
 			);
-			path = Fake;
+			path = TestDouble;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -692,11 +773,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A148152428890D23000059D9 /* TodoListUseCaseTests.swift in Sources */,
 				A1FCB06C287850FF00A2FBD6 /* TodoListViewModelTests.swift in Sources */,
 				94272A0928883C720010BC10 /* StubTodoUseCase.swift in Sources */,
+				A148152628890E5F000059D9 /* MockRealmStorage.swift in Sources */,
+				A148151D28890984000059D9 /* MockTodoListViewModel.swift in Sources */,
+				A148152D28891068000059D9 /* MockTodoHistoryRepository.swift in Sources */,
+				A148152128890C34000059D9 /* MockTodoListRepository.swift in Sources */,
 				A1FCB0752878640100A2FBD6 /* TodoEditViewModelTests.swift in Sources */,
+				A148152F288910C7000059D9 /* MockHistoryStorage.swift in Sources */,
 				94272A0B28883E7E0010BC10 /* StubHistoryUseCase.swift in Sources */,
+				A148151F28890A25000059D9 /* TodoViewModelTests.swift in Sources */,
 				A1C07E3E287EEBD9002FFF7C /* TodoCreateViewModelTests.swift in Sources */,
+				A148153328891195000059D9 /* TodoHistoryRepositoryTests.swift in Sources */,
+				A14815312889110A000059D9 /* TodoHistoryUseCaseTests.swift in Sources */,
+				A148152928890EBE000059D9 /* TodoListRepositoryTests.swift in Sources */,
+				A148152B28890F06000059D9 /* MockFirebaseStrorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
