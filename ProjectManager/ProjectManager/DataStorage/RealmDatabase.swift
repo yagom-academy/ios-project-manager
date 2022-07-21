@@ -36,7 +36,7 @@ final class RealmDatabase {
     }
     
     func delete(todoID: UUID) {
-        guard let item = realm?.object(ofType: RealmTodo.self, forPrimaryKey: todoID) else {
+        guard let item = realm?.object(ofType: TodoDTO.self, forPrimaryKey: todoID) else {
             return
         }
         
