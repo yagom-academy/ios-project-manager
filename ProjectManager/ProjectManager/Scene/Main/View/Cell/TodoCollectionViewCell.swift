@@ -8,7 +8,7 @@
 import UIKit
 import SwipeCellKit
 
-final class TodoCollectionViewCell: SwipeCollectionViewCell, Identifiable {
+final class TodoCollectionViewCell: SwipeCollectionViewCell, Identifierable {
   private let mainStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.axis = .vertical

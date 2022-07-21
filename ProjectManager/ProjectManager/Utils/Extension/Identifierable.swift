@@ -5,11 +5,11 @@
 //  Created by LIMGAUI on 2022/07/15.
 //
 
-protocol Identifiable {
+protocol Identifierable {
   static var identifier: String { get }
 }
 
-extension Identifiable {
+extension Identifierable {
   static var identifier: String {
     return String(describing: self)
   }

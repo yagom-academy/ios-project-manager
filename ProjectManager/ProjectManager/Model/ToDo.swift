@@ -7,7 +7,7 @@
 import Foundation
 import RealmSwift
 
-struct Todo: Hashable, Identifiable {
+struct Todo: Hashable, Identifierable {
   var id: String = UUID().uuidString
   var title: String
   var content: String
