@@ -19,12 +19,14 @@
 		ABC54F8D287D873200280F43 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F8C287D873200280F43 /* State.swift */; };
 		ABC54F90287D87AB00280F43 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */; };
 		ABCEA1B128810484009C32DC /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B028810484009C32DC /* EditViewModel.swift */; };
-		ABCEA1B3288139E5009C32DC /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B2288139E5009C32DC /* Identifiable.swift */; };
+		ABCEA1B3288139E5009C32DC /* Identifierable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B2288139E5009C32DC /* Identifierable.swift */; };
 		ABCEA1B528814DD4009C32DC /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B428814DD4009C32DC /* Collection.swift */; };
 		ABCEA1B72881662C009C32DC /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B62881662C009C32DC /* Constant.swift */; };
 		ABDB96332875DC7B002D6602 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96322875DC7B002D6602 /* Date.swift */; };
 		ABDB96372875E477002D6602 /* TodoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96362875E477002D6602 /* TodoCollectionViewCell.swift */; };
 		ABDB96392875E6C3002D6602 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96382875E6C3002D6602 /* UIStackView.swift */; };
+		ABDD9CBF2886836900705D34 /* FireBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDD9CBE2886836800705D34 /* FireBaseService.swift */; };
+		ABDD9CC12886843600705D34 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABDD9CC02886843600705D34 /* GoogleService-Info.plist */; };
 		ABE5D6B228797F350065F216 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5D6B128797F350065F216 /* TodoListView.swift */; };
 		ABE5D6BC2879D9BB0065F216 /* WriteTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5D6BB2879D9BB0065F216 /* WriteTodoViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -49,7 +51,7 @@
 		ABC54F8C287D873200280F43 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		ABCEA1B028810484009C32DC /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
-		ABCEA1B2288139E5009C32DC /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		ABCEA1B2288139E5009C32DC /* Identifierable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifierable.swift; sourceTree = "<group>"; };
 		ABCEA1B428814DD4009C32DC /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		ABCEA1B62881662C009C32DC /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		ABDB96322875DC7B002D6602 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -57,6 +59,8 @@
 		ABDB96382875E6C3002D6602 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		ABDC1E982873BB2200091C71 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABDC1E992873BB8800091C71 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		ABDD9CBE2886836800705D34 /* FireBaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseService.swift; sourceTree = "<group>"; };
+		ABDD9CC02886843600705D34 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ABE5D6B128797F350065F216 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
 		ABE5D6BB2879D9BB0065F216 /* WriteTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTodoViewController.swift; sourceTree = "<group>"; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -170,7 +174,7 @@
 			children = (
 				ABDB96322875DC7B002D6602 /* Date.swift */,
 				ABDB96382875E6C3002D6602 /* UIStackView.swift */,
-				ABCEA1B2288139E5009C32DC /* Identifiable.swift */,
+				ABCEA1B2288139E5009C32DC /* Identifierable.swift */,
 				ABCEA1B428814DD4009C32DC /* Collection.swift */,
 			);
 			path = Extension;
@@ -215,10 +219,19 @@
 		ABDC1E922873AE9E00091C71 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				ABDD9CC02886843600705D34 /* GoogleService-Info.plist */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		ABDD9CBD2886835B00705D34 /* FireBase */ = {
+			isa = PBXGroup;
+			children = (
+				ABDD9CBE2886836800705D34 /* FireBaseService.swift */,
+			);
+			path = FireBase;
 			sourceTree = "<group>";
 		};
 		ABE5D6B028797F190065F216 /* View */ = {
@@ -235,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				AB9AE8B728839F510050EA99 /* Storage.swift */,
+				ABDD9CBD2886835B00705D34 /* FireBase */,
 				AB9AE8B92883A0B80050EA99 /* Realm */,
 			);
 			path = DB;
@@ -344,6 +358,7 @@
 			files = (
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
+				ABDD9CC12886843600705D34 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,13 +460,14 @@
 				AB9AE8BE28854FE00050EA99 /* RealmError.swift in Sources */,
 				ABCEA1B528814DD4009C32DC /* Collection.swift in Sources */,
 				AB2E845428764B78002E4593 /* TodoListViewController.swift in Sources */,
-				ABCEA1B3288139E5009C32DC /* Identifiable.swift in Sources */,
+				ABCEA1B3288139E5009C32DC /* Identifierable.swift in Sources */,
 				AB9AE8B828839F510050EA99 /* Storage.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				ABCEA1B128810484009C32DC /* EditViewModel.swift in Sources */,
 				ABCEA1B72881662C009C32DC /* Constant.swift in Sources */,
 				ABC54F8B287D654200280F43 /* TodoModel.swift in Sources */,
 				ABC54F87287D637900280F43 /* RealmService.swift in Sources */,
+				ABDD9CBF2886836900705D34 /* FireBaseService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
