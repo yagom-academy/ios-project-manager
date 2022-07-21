@@ -25,8 +25,8 @@ final class DefaultRealtimeDatabaseService: RealtimeDatabaseService {
           return
         }
         
-        guard let dic = snapshot?.value as? [String: Any],
-              let data = try? JSONSerialization.data(withJSONObject: dic.map({ $1 })),
+        guard let value = snapshot?.value as? [String: Any],
+              let data = try? JSONSerialization.data(withJSONObject: value.map { $1 }),
               let cards = try? JSONDecoder().decode([Card].self, from: data)
         else {
           observer(.failure(RealtimeDatabaseServiceError.decodingFailure))
@@ -38,7 +38,7 @@ final class DefaultRealtimeDatabaseService: RealtimeDatabaseService {
     }.asObservable()
   }
   
-  func write(cards: [Card]) -> Observable<Void> {
+  func write(cards: [Card]) -> Observable<[Card]> {
     return Single.create { [weak self] observer in
       var container = [String: Any]()
 
@@ -52,7 +52,7 @@ final class DefaultRealtimeDatabaseService: RealtimeDatabaseService {
         }
       }
       self?.database.setValue(container)
-      observer(.success(()))
+      observer(.success(cards))
       
       return Disposables.create()
     }.asObservable()

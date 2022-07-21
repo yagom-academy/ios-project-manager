@@ -11,5 +11,5 @@ import RxSwift
 
 protocol RealtimeDatabaseService {
   func fetch() -> Observable<[Card]>
-  func write(cards: [Card]) -> Observable<Void>
+  func write(cards: [Card]) -> Observable<[Card]>
 }
