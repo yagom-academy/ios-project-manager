@@ -13,17 +13,15 @@ class AppViewModel: ObservableObject {
   @Published private var todoList: [Todo]
   @Published var isTappedPlusButton: Bool
   var listViewModel: ListViewModel
-//  var createViewModel: CreateViewModel
+  lazy var createViewModel: CreateViewModel = CreateViewModel(todoService: todoService) { [self] in
+    self.isTappedPlusButton = false
+  }
   
   init(todoService: TodoService = TodoService()) {
-    
     self.todoService = todoService
     self.todoList = todoService.read()
     self.isTappedPlusButton = false
     self.listViewModel = ListViewModel(todoService: todoService)
-//    self.createViewModel = CreateViewModel(create: { [self] todo in
-//      self.todoService.creat(todo: todo)
-//      todoList = todoService.read() })
   }
   func changeStatus(status: Status, todo: Todo) {
     todoService.updateStatus(status: status, todo: todo)

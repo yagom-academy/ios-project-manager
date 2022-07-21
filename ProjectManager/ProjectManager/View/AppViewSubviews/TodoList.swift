@@ -21,8 +21,8 @@ struct TodoListView: View {
     self.updata = updata
   }
   
-  var body: some View {
     
+  var body: some View {
     VStack(spacing: 0) {
       HeaderView(title: status, listCount: viewModel.read(by: status).count)
       

@@ -52,9 +52,7 @@ struct AppView: View {
         })
       }
       .sheet(isPresented: $viewModel.isTappedPlusButton ) {
-        EmptyView()
-
-        // CreateView(isShow: $isasdasdasd, viewModel: viewModel.createViewModel)
+         CreateView(viewModel: viewModel.createViewModel)
       }
     }
     .navigationViewStyle(.stack)

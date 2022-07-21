@@ -8,23 +8,20 @@
 import SwiftUI
 
 struct CreateView: View {
-  @State var todo = Todo(title: "", content: "")
-  @Binding var isShow: Bool
   @ObservedObject var viewModel: CreateViewModel
   
   var body: some View {
     NavigationView {
-      DetailView(todo: $todo)
+      DetailView(todo: $viewModel.todo)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Button("Calcel") {
-              isShow = false
+              viewModel.cancelButtonTapped()
             }
           }
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
-              viewModel.create(todo)
-              isShow = false
+              viewModel.doneButtonTapped()
             }
           }
         }

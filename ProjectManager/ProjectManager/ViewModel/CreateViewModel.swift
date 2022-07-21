@@ -6,11 +6,31 @@
 //
 
 import Foundation
+import SwiftUI
 
 class CreateViewModel: ObservableObject {
-  var create: (Todo) -> Void
+  var todoService: TodoService
+  @Published var todo: Todo
+  var isClosed: () -> Void
   
-  init(create: @escaping (Todo) -> Void) {
-    self.create = create
+  init(todoService: TodoService, todo: Todo = Todo(title: "", content: ""),
+       isClosed: @escaping () -> Void) {
+    self.todoService = todoService
+    self.todo = todo
+    self.isClosed = isClosed
+  }
+  
+  func cancelButtonTapped() {
+    saveTodo()
+    isClosed()
+  }
+  
+  func doneButtonTapped() {
+    saveTodo()
+    isClosed()
+  }
+  
+  private func saveTodo() {
+    todoService.creat(todo: todo)
   }
 }
