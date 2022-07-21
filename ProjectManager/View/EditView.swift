@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditView: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var editViewModel: EditViewModel
     
     var cellIndex: Int
@@ -22,6 +23,7 @@ struct EditView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
+                        presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("Cancel")
                     }
@@ -29,6 +31,7 @@ struct EditView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         editViewModel.editTask(task: editViewModel.service.tasks[cellIndex])
+                        presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("Done")
                     }

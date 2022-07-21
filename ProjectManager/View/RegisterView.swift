@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var registerViewModel: RegisterViewModel
     
     var body: some View {
@@ -19,6 +20,7 @@ struct RegisterView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {
+                            presentationMode.wrappedValue.dismiss()
                         }) {
                             Text("Cancel")
                         }
@@ -26,6 +28,7 @@ struct RegisterView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
                             registerViewModel.appendTask()
+                            presentationMode.wrappedValue.dismiss()
                         }) {
                             Text("Done")
                         }
