@@ -53,7 +53,7 @@ final class HistoryCell: UITableViewCell {
     }
     
     func setupContents(history: History) {
-        actionLabel.text = history.action
+        actionLabel.text = history.content
         timeLabel.text = history.timeDescription()
     }
 }

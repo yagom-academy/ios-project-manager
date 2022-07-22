@@ -7,8 +7,8 @@
 
 import UIKit
 
-
-class HistoryViewController: UITableViewController {
+final class HistoryViewController: UITableViewController {
+    
     var histories: [History] = []
     
     override func viewDidLoad() {
@@ -17,14 +17,19 @@ class HistoryViewController: UITableViewController {
         navigationItem.hidesBackButton = true
         tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.identifier)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(test(notification:)), name: Notification.Name("Append"), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(test(notification:)),
+            name: Notification.Name("History"),
+            object: nil
+        )
     }
     
     @objc func test(notification: Notification) {
-        if let dic = notification.userInfo as? [String: Any],
-           let title = dic["title"] as? String,
-           let time = dic["time"] as? Double {
-            let history = History(action: title, time: time)
+        if let received = notification.userInfo as? [String: Any],
+           let content = received["content"] as? String,
+           let time = received["time"] as? Double {
+            let history = History(content: content, time: time)
             self.histories.append(history)
             self.tableView.reloadData()
         }
@@ -47,4 +52,3 @@ class HistoryViewController: UITableViewController {
         return cell
     }
 }
-

@@ -126,8 +126,8 @@
 			children = (
 				4EB3FFC128756FDD0001DBC0 /* Task.swift */,
 				4EB3FFC528757C800001DBC0 /* TaskType.swift */,
-				4EA80EEF28802F020054737E /* DatabaseError.swift */,
 				4E447A00288A7188001D99A7 /* History.swift */,
+				4EA80EEF28802F020054737E /* DatabaseError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

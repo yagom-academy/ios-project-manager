@@ -49,10 +49,10 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
         do {
             try realmManager.create(task: newTask)
             
-            let historyTitle = "Added '\(title.value)'"
-            let historyTime = date.value
-            let dic: [String: Any] = ["title": historyTitle, "time": historyTime]
-            NotificationCenter.default.post(name: NSNotification.Name("Append"), object: nil, userInfo: dic)
+            let content = "Added '\(title.value)'"
+            let time = date.value
+            let history: [String: Any] = ["content": content, "time": time]
+            NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
             
             dismiss.accept(())
         } catch {
