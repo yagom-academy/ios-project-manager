@@ -3,6 +3,7 @@ disabled_rules:
 - leading_whitespace
 - trailing_whitespace
 - force_try
+- identifier_name 
 
 included:
 - anonymous_argument_in_multiline_closure

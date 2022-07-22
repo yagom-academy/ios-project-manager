@@ -63,7 +63,7 @@ final class FirebaseManager: FirebaseManagerAble {
     }
     
     func update<T: FirebaseDatable>(updatedData: T) throws {
-        guard let encodedValues = (updatedData as? Encodable)?.toDictionary else {
+        guard let encodedValues = updatedData.toDictionary else {
             return
         }
         
