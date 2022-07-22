@@ -7,7 +7,14 @@
 
 import RealmSwift
 
-final class LocalStorage: Object {
+protocol LocalStorageable {
+    func readList(_ type: ListType) -> [ListItem]
+    func createItem(_ item: ListItemDTO)
+    func updateItem(_ item: ListItem)
+    func deleteItem(_ item: ListItem)
+}
+
+final class LocalStorage: Object, LocalStorageable {
     private let todoList = List<ListItemDTO>()
     private let doingList = List<ListItemDTO>()
     private let doneList = List<ListItemDTO>()
