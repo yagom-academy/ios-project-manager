@@ -8,7 +8,10 @@
 import Foundation
 
 extension Date {
-    func convertToString() -> String? {
-        return Formatter.date.string(for: self)
+    func convertToString() -> String {
+        guard let dateString = Formatter.date.string(for: self) else {
+            return ""
+        }
+        return dateString
     }
 }

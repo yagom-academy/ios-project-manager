@@ -10,8 +10,8 @@ import Foundation
 import RealmSwift
 
 final class TodoDTO: Object {
+    @Persisted (primaryKey: true) var identifier: UUID
     @Persisted var todoListItemStatus: String
-    @Persisted var identifier: UUID
     @Persisted var title: String
     @Persisted var body: String
     @Persisted var date: Date
