@@ -35,14 +35,17 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
         do {
             try realmManager.change(task: task, targetType: taskType)
             
-            let content = "Moved '\(task.title)' from \(beforeType.rawValue) to \(taskType.rawValue)"
-            let time = Date().timeIntervalSince1970
-            let history: [String: Any] = ["content": content, "time": time]
-            NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
-            
+            sendNotificationForHistory(task.title, from: beforeType, to: task.taskType)
             dismiss.accept(())
         } catch {
             self.error.accept(DatabaseError.changeError)
         }
+    }
+    
+    private func sendNotificationForHistory(_ title: String, from beforeType: TaskType, to afterType: TaskType) {
+        let content = "Moved '\(title)' from \(beforeType.rawValue) to \(afterType.rawValue)"
+        let time = Date().timeIntervalSince1970
+        let history: [String: Any] = ["content": content, "time": time]
+        NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
     }
 }
