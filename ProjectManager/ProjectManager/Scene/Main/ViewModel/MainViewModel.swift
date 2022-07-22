@@ -8,6 +8,7 @@
 import Foundation
 import RxRelay
 import RxSwift
+import Network
 
 protocol MainViewModelEvent {
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType)
@@ -17,6 +18,7 @@ protocol MainViewModelState {
     var todos: BehaviorRelay<[Task]> { get }
     var doings: BehaviorRelay<[Task]> { get }
     var dones: BehaviorRelay<[Task]> { get }
+    var network: BehaviorRelay<Bool> { get }
 }
 
 final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservable {
@@ -24,10 +26,12 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
+    var network: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var error: PublishRelay<DatabaseError> = .init()
 
     private lazy var synchronizeManager = SynchronizeManager(realmManager: realmManager)
     private let realmManager = RealmManager()
+    private let monitor = NWPathMonitor()
     
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType) {
         let task: Task
@@ -43,16 +47,40 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     func viewDidLoad() {
+        startMonitoring()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let networkState = self?.network.value else { return }
+            print(networkState)
+            if networkState {
+                self?.syncronize()
+            } else {
+                self?.fetchData()
+            }
+        }
+    }
+    
+    func startMonitoring() {
+        let queue = DispatchQueue(label: "network", attributes: .concurrent)
+        monitor.start(queue: queue)
+        monitor.pathUpdateHandler = { [weak self] path in
+            if path.status == .satisfied {
+                self?.network.accept(true)
+            } else {
+                self?.network.accept(false)
+            }
+        }
+    }
+    
+    func syncronize() {
         synchronizeManager.synchronizeDatabase { [weak self] result in
             switch result {
-            case .success():
+            case .success:
                 self?.fetchData()
                 return
             case .failure(let error):
                 print(error.localizedDescription)
                 return
             }
-            
         }
     }
     

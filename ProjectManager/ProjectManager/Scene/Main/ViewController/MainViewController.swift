@@ -71,6 +71,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
     
     private func bind() {
+        bindNetworkIconState()
         bindcellItems()
         bindHeaderViewLabels()
         bindItemsSelected()
@@ -140,6 +141,19 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
 // MARK: - bind Funciton
 
 extension MainViewController {
+    
+    private func bindNetworkIconState() {
+        viewModel.network
+            .map { bool in
+                if bool {
+                    return UIColor.systemGreen
+                } else {
+                    return UIColor.systemRed
+                }
+            }
+            .bind(to: (navigationItem.titleView?.subviews[1].rx.backgroundColor)!)
+            .disposed(by: disposeBag)
+    }
     
     private func bindcellItems() {
         viewModel.todos
