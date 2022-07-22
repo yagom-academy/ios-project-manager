@@ -21,11 +21,13 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.projects = realmService.readAll(projectType: Project.self)
     self.initializeNavigationBar()
     self.initializeCollectionView()
-    self.reloadDataWhenChangedRealmData()
+    self.realmService.reloadDataWhenChangedRealmData(
+      [todoCollectionView, doingCollectionView, doneCollectionView]
+    )
   }
 
   override func viewWillDisappear(_ animated: Bool) {
-    self.notificationToken?.invalidate()
+    self.realmService.invalidateNotificationToken()
   }
 
   private func initializeNavigationBar() {
@@ -42,16 +44,6 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.todoCollectionView.collectionViewLayout = listCompositionLayout()
     self.doingCollectionView.collectionViewLayout = listCompositionLayout()
     self.doneCollectionView.collectionViewLayout = listCompositionLayout()
-  }
-
-  private func reloadDataWhenChangedRealmData() {
-    let realm = try? Realm()
-
-    self.notificationToken = realm?.observe { (_, _) in
-      self.todoCollectionView.reloadData()
-      self.doingCollectionView.reloadData()
-      self.doneCollectionView.reloadData()
-    }
   }
 
   @IBAction func addProjectButton(_ sender: UIBarButtonItem) {

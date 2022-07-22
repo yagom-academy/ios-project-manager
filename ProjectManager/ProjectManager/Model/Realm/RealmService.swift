@@ -9,6 +9,19 @@ import RealmSwift
 
 final class RealmService {
   private let realm = try? Realm()
+  private var notificationToken: NotificationToken?
+
+  func invalidateNotificationToken() {
+    self.notificationToken?.invalidate()
+  }
+
+  func reloadDataWhenChangedRealmData(_ collecionViews: [UICollectionView]) {
+    self.notificationToken = realm?.observe { (_, _) in
+      collecionViews.forEach {
+        $0.reloadData()
+      }
+    }
+  }
 
   func create<T: Object>(project: T) {
     do {
