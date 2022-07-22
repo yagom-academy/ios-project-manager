@@ -8,15 +8,11 @@
 import RealmSwift
 
 final class ListItemDTO: Object {
-    @objc dynamic var title: String = ""
-    @objc dynamic var body: String = ""
-    @objc dynamic var deadline: Date = Date()
-    @objc dynamic var type: String = ""
-    @objc dynamic var id: String = ""
-    
-    override class func primaryKey() -> String? {
-        return "id"
-    }
+    @Persisted var title: String = ""
+    @Persisted var body: String = ""
+    @Persisted var deadline: Date = Date()
+    @Persisted var type: String = ""
+    @Persisted(primaryKey: true) var id: String = ""
     
     var convertedItem: ListItem {
         return ListItem(title: self.title,
