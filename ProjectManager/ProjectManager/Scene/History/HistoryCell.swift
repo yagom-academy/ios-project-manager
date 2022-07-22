@@ -13,19 +13,19 @@ final class HistoryCell: UITableViewCell {
         return String(describing: self)
     }
     
-    let baseStackView = UIStackView().then {
+    private let baseStackView = UIStackView().then {
         $0.distribution = .fillEqually
         $0.axis = .vertical
         $0.spacing = 5
         
     }
     
-    let actionLabel = UILabel().then {
+    private let actionLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .title3)
         $0.numberOfLines = 2
     }
     
-    let timeLabel = UILabel().then {
+    private let timeLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .body)
         $0.textColor = .systemGray2
     }

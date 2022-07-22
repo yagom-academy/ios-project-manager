@@ -9,7 +9,7 @@ import UIKit
 
 final class HistoryViewController: UITableViewController {
     
-    var histories: [History] = []
+    private var histories: [History] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,13 +19,13 @@ final class HistoryViewController: UITableViewController {
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(test(notification:)),
+            selector: #selector(appendHistoryData(notification:)),
             name: Notification.Name("History"),
             object: nil
         )
     }
     
-    @objc func test(notification: Notification) {
+    @objc private func appendHistoryData(notification: Notification) {
         if let received = notification.userInfo as? [String: Any],
            let content = received["content"] as? String,
            let time = received["time"] as? Double {
