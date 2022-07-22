@@ -106,18 +106,14 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     ) as? ProjectManagerCollectionViewCell else {
       return UICollectionViewCell()
     }
+    guard let projectCategory = fetchProejctCategory(from: collectionView) else { return cell }
+    guard let todolist = realmService.filter(projectCategory: projectCategory) else { return cell }
 
-    if collectionView == todoCollectionView {
-      self.allocate(to: cell, projectCategory: .todo, indexPath: indexPath)
-    }
-
-    if collectionView == doingCollectionView {
-      self.allocate(to: cell, projectCategory: .doing, indexPath: indexPath)
-    }
-
-    if collectionView == doneCollectionView {
-      self.allocate(to: cell, projectCategory: .done, indexPath: indexPath)
-    }
+    cell.configure(
+      title: todolist[indexPath.row].title,
+      body: todolist[indexPath.row].body ?? "",
+      date: todolist[indexPath.row].date
+    )
 
     return cell
   }
@@ -135,24 +131,6 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     guard let itemCount = todoList?.count else { return .zero }
 
     return itemCount
-  }
-
-  private func allocate(
-    to cell: ProjectManagerCollectionViewCell,
-    projectCategory: ProjectCategory,
-    indexPath: IndexPath
-  ) {
-    let todolist = projects?.filter {
-      $0.projectCategory == projectCategory.description
-    }
-
-    guard let todolist = todolist else { return }
-
-    cell.configure(
-      title: todolist[indexPath.row].title,
-      body: todolist[indexPath.row].body ?? "",
-      date: todolist[indexPath.row].date
-    )
   }
 }
 
