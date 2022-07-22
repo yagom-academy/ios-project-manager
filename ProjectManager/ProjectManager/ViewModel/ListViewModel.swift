@@ -11,19 +11,21 @@ import SwiftUI
 class ListViewModel: ObservableObject {
   var todoService: TodoService
   let status: Status
-  var listCount: Int
+  @Published var listCount: Int
   @Published var todoList: [Todo]
+  var update: (Status, Todo) -> Void
   
   lazy var editViewModel = EditViewModel(update: { [self] todo in
     todoService.update(todo: todo)
     todoList = todoService.read(by: status)
   })
  
-  init(todoService: TodoService, status: Status) {
+  init(todoService: TodoService, status: Status, update: @escaping (Status, Todo) -> Void) {
     self.todoService = todoService
     self.status = status
     self.todoList = todoService.read(by: status)
     self.listCount = todoService.read(by: status).count
+    self.update = update
   }
   
   func delete(set: IndexSet) {
@@ -35,7 +37,7 @@ class ListViewModel: ObservableObject {
     
     todoService.delete(id: id)
     
-    todoList = todoService.read(by: status)
+    self.refrash()
   }
 
   func closeButtonTapped() {
@@ -43,11 +45,12 @@ class ListViewModel: ObservableObject {
   }
   
   func updata(status: Status, todo: Todo) {
-    todoService.updateStatus(status: status, todo: todo)
-    todoList = todoService.read(by: status)
+    self.update(status, todo)
+    listCount = todoService.read(by: status).count
   }
 
   func refrash() {
     todoList = todoService.read(by: status)
+    listCount = todoService.read(by: status).count
   }
 }
