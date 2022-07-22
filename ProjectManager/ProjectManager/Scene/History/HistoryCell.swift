@@ -22,6 +22,7 @@ final class HistoryCell: UITableViewCell {
     
     let actionLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .title3)
+        $0.numberOfLines = 2
     }
     
     let timeLabel = UILabel().then {
@@ -53,6 +54,6 @@ final class HistoryCell: UITableViewCell {
     
     func setupContents(history: History) {
         actionLabel.text = history.action
-        timeLabel.text = String(history.time)
+        timeLabel.text = history.timeDescription()
     }
 }
