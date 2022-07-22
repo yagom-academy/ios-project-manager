@@ -13,7 +13,7 @@ final class ProjectManagerCollectionViewCell: UICollectionViewCell {
   @IBOutlet private weak var dateLabel: UILabel!
 
   func configure(title: String, body: String, date: Date) {
-    let dateText = Formatter.changeToString(from: date)
+    let dateText = date.changeToString()
     self.titleLabel.text = title
     self.bodyLabel.text = body
     self.dateLabel.text = dateText
@@ -25,4 +25,6 @@ final class ProjectManagerCollectionViewCell: UICollectionViewCell {
       self.dateLabel.textColor = .red
     }
   }
+  
+  
 }
