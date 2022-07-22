@@ -9,9 +9,9 @@ import RealmSwift
 
 protocol LocalStorageable {
     func readList(_ type: ListType) -> [ListItem]
-    func createItem(_ item: ListItemDTO)
-    func updateItem(_ item: ListItem)
-    func deleteItem(_ item: ListItem)
+    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void)
+    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void)
+    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void)
 }
 
 final class LocalStorage: Object, LocalStorageable {
@@ -46,26 +46,29 @@ final class LocalStorage: Object, LocalStorageable {
         return list
     }
     
-    func createItem(_ item: ListItemDTO) {
+    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void) {
         guard let realm = try? Realm() else {
             return
         }
         
         if realm.objects(LocalStorage.self).isEmpty {
             let listModel = LocalStorage()
-            listModel.todoList.append(item)
+            listModel.todoList.append(item.convertedItem)
             
             try? realm.write {
                 realm.add(listModel)
+                
+                completion(.success(readList(item.type)))
             }
         } else {
             try? realm.write {
-                selectListModel(ListType(rawValue: item.type) ?? .todo).append(item)
+                selectListModel(item.type).append(item.convertedItem)
+                completion(.success(readList(item.type)))
             }
         }
     }
     
-    func updateItem(_ item: ListItem) {
+    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void) {
         guard let realm = try? Realm() else {
             return
         }
@@ -77,10 +80,11 @@ final class LocalStorage: Object, LocalStorageable {
             itemModel?.title = item.title
             itemModel?.deadline = item.deadline
             itemModel?.body = item.body
+            completion(.success(readList(item.type)))
         }
     }
     
-    func deleteItem(_ item: ListItem) {
+    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void) {
         guard let realm = try? Realm() else {
             return
         }
@@ -92,6 +96,7 @@ final class LocalStorage: Object, LocalStorageable {
         
         try? realm.write {
             realm.delete(itemModel)
+            completion(.success(readList(item.type)))
         }
     }
 }
