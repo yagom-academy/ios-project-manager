@@ -53,6 +53,7 @@
 - Swift Package Manager와 CoCoaPods의 차이 
 
 **Dynamic FrameWork**
+
 <img src = https://i.imgur.com/syk2WY7.png, width = "80%">
 - 동시에 여러 프레임워크 혹은 프로그램에서 공유하여 사용하기 때문에 메모리를 효율적으로 사용
 - 동적으로 연결되어 있으므로, 전체 빌드를 다시 하지 않아도 새로운 프레임워크 사용이 가능
