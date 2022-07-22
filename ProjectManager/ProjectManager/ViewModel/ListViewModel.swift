@@ -10,23 +10,25 @@ import SwiftUI
 
 class ListViewModel: ObservableObject {
   var todoService: TodoService
+  let status: Status
+  var listCount: Int
   @Published var todoList: [Todo]
+  @Published var isLongPressing = false
+  @Published var isShowEditView = false
   
   lazy var editViewModel = EditViewModel(update: { [self] todo in
     todoService.update(todo: todo)
-    todoList = todoService.read()
+    todoList = todoService.read(by: status)
   })
  
-  init(todoService: TodoService) {
+  init(todoService: TodoService, status: Status) {
     self.todoService = todoService
-    self.todoList = todoService.read()
+    self.status = status
+    self.todoList = todoService.read(by: status)
+    self.listCount = todoService.read(by: status).count
   }
   
-  func read(by status: Status) -> [Todo] {
-    return todoService.read(by: status)
-  }
-  
-  func delete(set: IndexSet, status: Status) {
+  func delete(set: IndexSet) {
     let filteredtodoList = self.todoService.read(by: status)
     
     guard let index = set.first else { return }
@@ -35,6 +37,21 @@ class ListViewModel: ObservableObject {
     
     todoService.delete(id: id)
     
-    todoList = todoService.read()
+    todoList = todoService.read(by: status)
+  }
+  
+  func cellButtonTapped() {
+    isShowEditView = true
+  }
+  
+  func cellButtonLongPressed() {
+    isLongPressing.toggle()
+  }
+  
+  func closeButtonTapped() {
+    isShowEditView = false
+    isLongPressing = false
+    
+    todoList = todoService.read(by: status)
   }
 }

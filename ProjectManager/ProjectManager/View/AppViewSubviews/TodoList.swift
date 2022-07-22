@@ -8,33 +8,24 @@ import SwiftUI
 
 struct TodoListView: View {
   @ObservedObject var viewModel: ListViewModel
-  private let status: Status
-  private let updata: (Status, Todo) -> Void
-
-  init(viewModel: ListViewModel,
-       todoService: TodoService,
-       status: Status,
-       updata: @escaping (Status, Todo) -> Void
-  ) {
+  
+  init(viewModel: ListViewModel) {
     self.viewModel = viewModel
-    self.status = status
-    self.updata = updata
   }
   
-    
   var body: some View {
     VStack(spacing: 0) {
-      HeaderView(title: status, listCount: viewModel.read(by: status).count)
+      HeaderView(title: viewModel.status, listCount: viewModel.listCount)
       
       ZStack {
         Color(UIColor.systemGray5)
         List {
-          ForEach(viewModel.read(by: status)) { todo in
-            ListCellView(todo: todo, viewModel: viewModel, updata: updata)
+          ForEach(viewModel.todoList) { todo in
+            ListCellView(todo: todo, viewModel: viewModel)
               .listRowSeparator(.hidden)
           }
           .onDelete { index in
-            viewModel.delete(set: index, status: status)
+            viewModel.delete(set: index)
           }
         }
         .padding(.horizontal, -24)
@@ -48,35 +39,31 @@ struct TodoListView: View {
 }
 
 struct ListCellView: View {
-  @State var isLongPressing = false
-  @State var isShowEditView = false
   @ObservedObject var viewModel: ListViewModel
-
   let todo: Todo
-  private let updata: (Status, Todo) -> Void
   
-  init(todo: Todo, viewModel: ListViewModel, updata: @escaping (Status, Todo) -> Void) {
+  init(todo: Todo, viewModel: ListViewModel) {
     self.todo = todo
-    self.updata = updata
     self.viewModel = viewModel
   }
   
   var body: some View {
     TodoListCell(todo)
       .onTapGesture(perform: {
-        isShowEditView = true
+        viewModel.cellButtonTapped()
       })
       .onLongPressGesture(perform: {
-        self.isLongPressing = true
+        viewModel.cellButtonLongPressed()
       })
-      .sheet(isPresented: $isShowEditView) {
-        EditView(
-          todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
-          isShow: $isShowEditView,
-          viewModel: viewModel.editViewModel)
-      }
-      .popover(isPresented: $isLongPressing) {
-        TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)
+      .sheet(isPresented: $viewModel.isShowEditView) {
+        EmptyView()
+//        EditView(todo: todo, viewModel: viewModel.editViewModel) {
+//          viewModel.closeButtonTapped()
+//        }
+        .popover(isPresented: $viewModel.isLongPressing) {
+          EmptyView()
+          //        TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)
+        }
       }
   }
 }

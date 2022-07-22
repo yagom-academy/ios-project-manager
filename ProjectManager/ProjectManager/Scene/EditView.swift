@@ -10,14 +10,14 @@ import SwiftUI
 struct EditView: View {
   @State private var nonEditable: Bool = true
   @State var todo: Todo = Todo(title: "", content: "")
-  @Binding var isShow: Bool
   @ObservedObject var viewModel: EditViewModel
+  var isClosed: () -> Void
   
-  init(todo: Todo, isShow: Binding<Bool>, viewModel: EditViewModel) {
-    self._isShow = isShow
-    self.viewModel = viewModel
-    self.todo = todo
-  }
+//  init(todo: Todo, viewModel: EditViewModel, isClosed: @escaping () -> Void) {
+//    self.viewModel = viewModel
+//    self.isClosed = isClosed
+//    self.todo = todo
+//  }
   
   var body: some View {
     NavigationView {
@@ -29,7 +29,7 @@ struct EditView: View {
               if nonEditable == true {
                 nonEditable = false
               } else {
-                isShow = false
+                isClosed()
               }
             } label: {
               nonEditable ? Text("Edit") : Text("Calcel")
@@ -38,7 +38,7 @@ struct EditView: View {
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
               viewModel.update(todo)
-              isShow = false
+              isClosed()
             }
           }
         }
