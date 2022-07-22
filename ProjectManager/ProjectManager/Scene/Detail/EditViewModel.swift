@@ -12,7 +12,7 @@ protocol EditViewModelable: EditViewModelOutput, EditViewModelInput {}
 protocol EditViewModelOutput {
     var list: ListItem { get }
     var isEditable: BehaviorRelay<Bool> { get }
-    var dismiss: BehaviorRelay<Void> { get }
+    var dismiss: PublishRelay<Void> { get }
 }
 
 protocol EditViewModelInput {
@@ -29,7 +29,7 @@ final class EditViewModel: EditViewModelable {
     //out
     var list: ListItem
     var isEditable = BehaviorRelay<Bool>(value: false)
-    var dismiss = BehaviorRelay<Void>(value: ())
+    var dismiss = PublishRelay<Void>()
     
     init(storage: AppStoregeable, item: ListItem) {
         self.storage = storage

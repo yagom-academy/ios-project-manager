@@ -12,7 +12,7 @@ protocol AddViewModelable: AddViewModelOutput, AddViewModelInput {}
 
 protocol AddViewModelOutput {
     var list: ListItem { get }
-    var dismiss: BehaviorRelay<Void> { get }
+    var dismiss: PublishRelay<Void> { get }
 }
 
 protocol AddViewModelInput {
@@ -27,7 +27,7 @@ final class AddViewModel: AddViewModelable {
     private let storage: AppStoregeable
     
     var list: ListItem
-    var dismiss = BehaviorRelay<Void>(value: ())
+    var dismiss = PublishRelay<Void>()
     
     init(storage: AppStoregeable) {
         self.storage = storage
