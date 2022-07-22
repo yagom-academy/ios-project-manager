@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct ProjectDTO {
-    let id: UUID
+struct ProjectDTO: Codable {
+    let id: String
     let status: String
     let title: String
-    let deadline: Date
+    let deadline: String
     let body: String
 }

@@ -21,14 +21,10 @@ extension NetworkRepository {
     }
     
     func read(repository: ProjectRepository) {
-        networkManager.read { [weak self] data in
-            switch data {
-            case .failure:
-                break
-            case .success(let projects):
-                self?.synchronize(with: projects, to: repository)
+        networkManager.read()
+            .subscribe { [weak self] in
+                self?.synchronize(with: $0, to: repository)
             }
-        }
     }
     
     private func synchronize(
@@ -46,13 +42,13 @@ extension NetworkRepository {
 
 extension NetworkRepository {
     func parse(from project: ProjectDTO) -> ProjectContent? {
-        guard let status = ProjectStatus.convert(statusString: project.status) else {
+        guard let status = ProjectStatus.convert(statusString: project.status),
+              let id = UUID(uuidString: project.id),
+              let deadline = DateFormatter().formatted(string: project.deadline) else {
             return nil
         }
         
-        let id = project.id
         let title = project.title
-        let deadline = project.deadline
         let body = project.body
         
         return ProjectContent(
@@ -64,16 +60,12 @@ extension NetworkRepository {
         )
     }
     
-    func parse(from projectContent: ProjectContent) -> ProjectDTO? {
-        guard let deadline = DateFormatter().formatted(string: projectContent.deadline) else {
-            return nil
-        }
-        
+    func parse(from projectContent: ProjectContent) -> ProjectDTO? {        
         return ProjectDTO(
-            id: projectContent.id,
+            id: projectContent.id.uuidString,
             status: projectContent.status.string,
             title: projectContent.title,
-            deadline: deadline,
+            deadline: projectContent.deadline,
             body: projectContent.body
         )
     }

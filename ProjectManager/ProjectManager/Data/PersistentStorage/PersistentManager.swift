@@ -51,11 +51,15 @@ extension PersistentManager {
     }
 
     func update(project: ProjectDTO) {
-        let oldProject = fetchProject(id: project.id.uuidString)
+        let oldProject = fetchProject(id: project.id)
+        
+        guard let formattedDeadline = DateFormatter().formatted(string: project.deadline) else {
+            return
+        }
         
         oldProject?.setValue(project.title, forKey: "title")
         oldProject?.setValue(project.status, forKey: "status")
-        oldProject?.setValue(project.deadline, forKey: "deadline")
+        oldProject?.setValue(formattedDeadline, forKey: "deadline")
         oldProject?.setValue(project.body, forKey: "body")
         
         guard let _ = try? context.save() else {
@@ -94,10 +98,14 @@ extension PersistentManager {
         
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
         
+        guard let formattedDeadline = DateFormatter().formatted(string: project.deadline) else {
+            return
+        }
+        
         managedObject.setValue(project.id, forKey: "id")
         managedObject.setValue(project.title, forKey: "title")
         managedObject.setValue(project.status, forKey: "status")
-        managedObject.setValue(project.deadline, forKey: "deadline")
+        managedObject.setValue(formattedDeadline, forKey: "deadline")
         managedObject.setValue(project.body, forKey: "body")
         
         guard let _ = try? context.save() else {

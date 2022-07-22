@@ -150,15 +150,11 @@ extension PersistentRepository {
     }
     
     func parse(from projectContent: ProjectContent) -> ProjectDTO? {
-        guard let deadline = DateFormatter().formatted(string: projectContent.deadline) else {
-            return nil
-        }
-        
         return ProjectDTO(
-            id: projectContent.id,
+            id: projectContent.id.uuidString,
             status: projectContent.status.string,
             title: projectContent.title,
-            deadline: deadline,
+            deadline: projectContent.deadline,
             body: projectContent.body
         )
     }

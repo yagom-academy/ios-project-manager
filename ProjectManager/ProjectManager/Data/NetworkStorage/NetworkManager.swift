@@ -6,6 +6,7 @@
 //
 
 import FirebaseDatabase
+import RxSwift
 
 enum NetworkError: Error {
     case loadFailure
@@ -17,7 +18,7 @@ final class NetworkManager {
 
 extension NetworkManager {
     func create(project: ProjectDTO) {
-        let projectItem = projectsReference.child(project.id.uuidString)
+        let projectItem = projectsReference.child(project.id)
         let values: [String: Any] = [
             "status": project.status,
             "title": project.title,
@@ -28,50 +29,36 @@ extension NetworkManager {
         projectItem.setValue(values)
     }
     
-    func read(completion: @escaping (Result<[ProjectDTO], NetworkError>) -> Void) {
-        projectsReference.getData(completion: { error, snapshot in
-            guard error != nil,
-                  let projects = snapshot?.value as? [ProjectDTO] else {
-                completion(.failure(.loadFailure))
-                return
+    func read() -> Observable<[ProjectDTO]> {
+        
+        return Observable.create { emitter in
+            
+            Database.database().reference(withPath: "user").getData { error, snapshot in
+                if let error = error {
+                    return
+                }
+                
+                guard let value = snapshot?.value as? [String: Any],
+                      let data = try? JSONSerialization.data(withJSONObject: value.map { $1 }),
+                      let projects = try? JSONDecoder().decode([ProjectDTO].self, from: data) else {
+                    
+                    return
+                }
+                
+                emitter.onNext(projects)
             }
             
-            completion(.success(projects))
-        })
+            return Disposables.create()
+        }
     }
     
-    func read(
-        id: UUID?,
-        completion: @escaping (Result<ProjectDTO, NetworkError>) -> Void
-    ) {
-        guard let id = id?.uuidString else {
-            return
+    func update(projects: [ProjectDTO]) {
+        var dic: [String: [String: String]] = [:]
+        
+        projects.forEach {
+            dic[$0.id] = ["id": $0.id, "status": $0.status, "title": $0.title, "deadline": $0.deadline, "body": $0.body]
         }
         
-        projectsReference.child(id).getData(completion: { error, snapshot in
-            guard error == nil else {
-                completion(.failure(.loadFailure))
-                return
-            }
-            
-            guard let project = snapshot?.value as? ProjectDTO else {
-                completion(.failure(.loadFailure))
-                return
-            }
-            
-            completion(.success(project))
-        })
-    }
-
-    func update(projects: [ProjectDTO]) {
-        projectsReference.updateChildValues(["user": projects])
-    }
-
-    func delete(projectContentID: UUID?) {
-        guard let id = projectContentID?.uuidString else {
-            return
-        }
-
-        projectsReference.child(id).removeValue()
+        Database.database().reference().child("user").setValue(dic)
     }
 }
