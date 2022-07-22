@@ -48,20 +48,12 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     
     func viewDidLoad() {
         startMonitoring()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let networkState = self?.network.value else { return }
-            print(networkState)
-            if networkState {
-                self?.syncronize()
-            } else {
-                self?.fetchData()
-            }
-        }
+        fetchData()
     }
     
     func startMonitoring() {
-        let queue = DispatchQueue(label: "network", attributes: .concurrent)
-        monitor.start(queue: queue)
+        let monitoringQueue = DispatchQueue(label: "network", attributes: .concurrent)
+        monitor.start(queue: monitoringQueue)
         monitor.pathUpdateHandler = { [weak self] path in
             if path.status == .satisfied {
                 self?.network.accept(true)

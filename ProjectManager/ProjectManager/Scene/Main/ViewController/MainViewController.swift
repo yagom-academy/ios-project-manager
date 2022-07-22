@@ -43,7 +43,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         }
         
         let networkIcon = UIView(frame: .zero).then {
-            $0.backgroundColor = .red
+            $0.backgroundColor = .systemRed
             $0.layer.cornerRadius = 5
         }
 
@@ -141,16 +141,23 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
 extension MainViewController {
     
     private func bindNetworkIconState() {
+        guard let networkIcon = navigationItem.titleView?.subviews[1] else {
+            return
+        }
         viewModel.network
-            .map { bool in
+            .map { [weak self] bool in
                 if bool {
+                    DispatchQueue.main.async {
+                        self?.viewModel.syncronize()
+                    }
                     return UIColor.systemGreen
                 } else {
                     return UIColor.systemRed
                 }
             }
-            .bind(to: (navigationItem.titleView?.subviews[1].rx.backgroundColor)!)
+            .bind(to: networkIcon.rx.backgroundColor)
             .disposed(by: disposeBag)
+        
     }
     
     private func bindcellItems() {
