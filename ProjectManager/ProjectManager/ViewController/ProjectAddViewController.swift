@@ -61,8 +61,9 @@ final class ProjectAddViewController: UIViewController {
   }
 
   @IBAction func cancelButton(_ sender: UIBarButtonItem) {
-    guard let uuid = uuid else { return }
     if self.projectLeftBarButtonItem.title == "Edit" {
+      guard let uuid = uuid else { return }
+
       realmService?.update(
         uuid: uuid,
         title: projectTitleTextField.text ?? "",
