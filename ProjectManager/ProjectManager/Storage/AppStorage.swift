@@ -18,13 +18,19 @@ protocol AppStoregeable {
     func changeItemType(index: Int, type: ListType, destination: ListType)
 }
 
-    private let localStorage = LocalStorage()
 final class AppStorage: AppStoregeable {
+    private let localStorage: LocalStorageable
     
-    lazy var todoList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.todo))
-    lazy var doingList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.doing))
-    lazy var doneList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.done))
+    let todoList: BehaviorRelay<[ListItem]>
+    let doingList: BehaviorRelay<[ListItem]>
+    let doneList: BehaviorRelay<[ListItem]>
     
+    init(_ localStorage: LocalStorageable) {
+        self.localStorage = localStorage
+        self.todoList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.todo))
+        self.doingList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.doing))
+        self.doneList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.done))
+    }
     private func selectList(_ type: ListType) -> BehaviorRelay<[ListItem]> {
         switch type {
         case .todo:
