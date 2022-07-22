@@ -13,6 +13,7 @@ protocol EditViewModelOutput {
     var list: ListItem { get }
     var isEditable: BehaviorRelay<Bool> { get }
     var dismiss: PublishRelay<Void> { get }
+    var showErrorAlert: PublishRelay<String> { get }
 }
 
 protocol EditViewModelInput {
@@ -30,6 +31,7 @@ final class EditViewModel: EditViewModelable {
     var list: ListItem
     var isEditable = BehaviorRelay<Bool>(value: false)
     var dismiss = PublishRelay<Void>()
+    var showErrorAlert = PublishRelay<String>()
     
     init(storage: AppStoregeable, item: ListItem) {
         self.storage = storage
@@ -58,7 +60,14 @@ final class EditViewModel: EditViewModelable {
     }
     
     func touchDoneButton() {
-        storage.updateItem(listItem: list)
-        dismiss.accept(())
+        do {
+        try storage.updateItem(listItem: list)
+            dismiss.accept(())
+        } catch {
+            guard let error = error as? LocalStorageError else {
+                return
+            }
+            showErrorAlert.accept(error.errorDescription)
+        }
     }
 }

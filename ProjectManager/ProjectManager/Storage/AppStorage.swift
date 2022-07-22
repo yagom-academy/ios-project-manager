@@ -11,11 +11,11 @@ protocol AppStoregeable {
     var todoList: BehaviorRelay<[ListItem]> { get }
     var doingList: BehaviorRelay<[ListItem]> { get }
     var doneList: BehaviorRelay<[ListItem]> { get }
-    func creatItem(listItem: ListItem)
-    func updateItem(listItem: ListItem)
+    func creatItem(listItem: ListItem) throws
+    func updateItem(listItem: ListItem) throws
     func selectItem(index: Int, type: ListType) -> ListItem
-    func deleteItem(index: Int, type: ListType)
-    func changeItemType(index: Int, type: ListType, destination: ListType)
+    func deleteItem(index: Int, type: ListType) throws
+    func changeItemType(index: Int, type: ListType, destination: ListType) throws
 }
 
 final class AppStorage: AppStoregeable {
@@ -42,14 +42,20 @@ final class AppStorage: AppStoregeable {
         }
     }
     
-    func creatItem(listItem: ListItem) {
+    func creatItem(listItem: ListItem) throws {
+        var createError: LocalStorageError?
+        
         localStorage.createItem(listItem) { [weak self] result in
             switch result {
             case .success(let list):
                 self?.selectList(listItem.type).accept(list)
-            case .failure(_):
-                print("에러")
+            case .failure(let error):
+                createError = error
             }
+        }
+        
+        if createError != nil {
+            throw LocalStorageError.creatError
         }
     }
     
@@ -57,34 +63,56 @@ final class AppStorage: AppStoregeable {
         return selectList(type).value[index]
     }
     
-    func updateItem(listItem: ListItem) {
+    func updateItem(listItem: ListItem) throws {
+        var updateError: LocalStorageError?
+        
         localStorage.updateItem(listItem) { [weak self] result in
             switch result {
             case .success(let list):
                 self?.selectList(listItem.type).accept(list)
-            case .failure(_):
-                print("에러")
+            case .failure(let error):
+                updateError = error
             }
+        }
+        
+        if updateError != nil {
+            throw LocalStorageError.updateError
         }
     }
     
-    func deleteItem(index: Int, type: ListType) {
+    func deleteItem(index: Int, type: ListType) throws {
         let item = selectItem(index: index, type: type)
+        var deleteError: LocalStorageError?
+        
         localStorage.deleteItem(item) { [weak self] result in
             switch result {
             case .success(let list):
                 self?.selectList(item.type).accept(list)
-            case .failure(_):
-                print("에러")
+            case .failure(let error):
+                deleteError = error
             }
+        }
+        
+        if deleteError != nil {
+            throw LocalStorageError.deleteError
         }
     }
     
-    func changeItemType(index: Int, type: ListType, destination: ListType) {
+    func changeItemType(index: Int, type: ListType, destination: ListType) throws {
         var item = selectItem(index: index, type: type)
-        deleteItem(index: index, type: type)
+        
+        do {
+            try deleteItem(index: index, type: type)
+        } catch {
+            throw LocalStorageError.updateError
+        }
+        
         
         item.type = destination
-        creatItem(listItem: item)
+        do {
+            try creatItem(listItem: item)
+        } catch {
+            throw LocalStorageError.updateError
+        }
     }
 }

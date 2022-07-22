@@ -20,6 +20,7 @@ protocol MainViewModelOutput {
     
     var showAddView: PublishRelay<Void> { get }
     var showEditView: PublishRelay<ListItem> { get }
+    var showErrorAlert: PublishRelay<String> { get }
 }
 
 protocol MainViewModelInput {
@@ -58,6 +59,7 @@ final class MainViewModel: MainViewModelInOut {
     
     var showAddView = PublishRelay<Void>()
     var showEditView = PublishRelay<ListItem>()
+    var showErrorAlert = PublishRelay<String>()
 }
 
 //MARK: - input
@@ -76,10 +78,26 @@ extension MainViewModel {
     }
     
     func deleteCell(index: Int, type: ListType) {
-        storage.deleteItem(index: index, type: type)
+        do {
+            try storage.deleteItem(index: index, type: type)
+        } catch {
+            guard let error = error as? LocalStorageError else {
+                return
+            }
+            
+            showErrorAlert.accept(error.errorDescription)
+        }
     }
     
     func changeItemType(index: Int, type: ListType, to destination: ListType) {
-        storage.changeItemType(index: index, type: type, destination: destination)
+        do {
+            try storage.changeItemType(index: index, type: type, destination: destination)
+        } catch {
+            guard let error = error as? LocalStorageError else {
+                return
+            }
+            
+            showErrorAlert.accept(error.errorDescription)
+        }
     }
 }

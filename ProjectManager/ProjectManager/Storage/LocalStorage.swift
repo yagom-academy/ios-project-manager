@@ -9,9 +9,9 @@ import RealmSwift
 
 protocol LocalStorageable {
     func readList(_ type: ListType) -> [ListItem]
-    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void)
-    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void)
-    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void)
+    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void)
+    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void)
+    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void)
 }
 
 final class LocalStorage: Object, LocalStorageable {
@@ -46,7 +46,7 @@ final class LocalStorage: Object, LocalStorageable {
         return list
     }
     
-    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void) {
+    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void) {
         guard let realm = try? Realm() else {
             return
         }
@@ -76,7 +76,7 @@ final class LocalStorage: Object, LocalStorageable {
         }
     }
     
-    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void) {
+    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void) {
         guard let realm = try? Realm() else {
             return
         }
@@ -96,7 +96,7 @@ final class LocalStorage: Object, LocalStorageable {
         }
     }
     
-    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], Error>) -> Void) {
+    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void) {
         guard let realm = try? Realm() else {
             return
         }

@@ -45,11 +45,6 @@ final class EditViewController: UIViewController {
         })
         .disposed(by: disposebag)
         
-        viewModel.dismiss.bind(onNext: { [weak self] in
-            self?.dismiss(animated: true)
-        })
-        .disposed(by: disposebag)
-        
         detailView.leftButton.rx.tap
             .bind(onNext: { [weak self] in
                 self?.viewModel.touchLeftButton()
@@ -82,5 +77,15 @@ final class EditViewController: UIViewController {
                 self?.viewModel.touchDoneButton()
             })
             .disposed(by: disposebag)
+        
+        viewModel.dismiss.bind(onNext: { [weak self] in
+            self?.dismiss(animated: true)
+        })
+        .disposed(by: disposebag)
+        
+        viewModel.showErrorAlert.bind(onNext: {[weak self] in
+            self?.showErrorAlert(messege: $0)
+        })
+        .disposed(by: disposebag)
     }
 }
