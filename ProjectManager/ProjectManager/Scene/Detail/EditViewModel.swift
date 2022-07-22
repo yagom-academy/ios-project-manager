@@ -24,14 +24,14 @@ protocol EditViewModelInput {
 }
 
 final class EditViewModel: EditViewModelable {
-    private let storage: Storegeable
+    private let storage: AppStoregeable
     
     //out
     var list: ListItem
     var isEditable = BehaviorRelay<Bool>(value: false)
     var dismiss = BehaviorRelay<Void>(value: ())
     
-    init(storage: Storegeable, item: ListItem) {
+    init(storage: AppStoregeable, item: ListItem) {
         self.storage = storage
         self.list = item
     }

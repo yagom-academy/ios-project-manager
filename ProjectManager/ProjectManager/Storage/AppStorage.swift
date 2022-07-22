@@ -7,7 +7,7 @@
 
 import RxRelay
 
-protocol Storegeable {
+protocol AppStoregeable {
     var todoList: BehaviorRelay<[ListItem]> { get }
     var doingList: BehaviorRelay<[ListItem]> { get }
     var doneList: BehaviorRelay<[ListItem]> { get }
@@ -18,8 +18,8 @@ protocol Storegeable {
     func changeItemType(index: Int, type: ListType, destination: ListType)
 }
 
-final class AppStorage: Storegeable {
     private let localStorage = LocalStorage()
+final class AppStorage: AppStoregeable {
     
     lazy var todoList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.todo))
     lazy var doingList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.doing))

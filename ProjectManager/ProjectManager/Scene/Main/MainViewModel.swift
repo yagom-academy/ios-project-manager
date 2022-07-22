@@ -30,14 +30,14 @@ protocol MainViewModelInput {
 }
 
 final class MainViewModel: MainViewModelInOut {
-    private var storage: Storegeable
+    private var storage: AppStoregeable
 
 //MARK: - output
     let todoList: Driver<[ListItem]>
     let doingList: Driver<[ListItem]>
     let doneList: Driver<[ListItem]>
     
-    init(storage: Storegeable) {
+    init(storage: AppStoregeable) {
         self.storage = storage
         
         todoList = storage.todoList.asDriver(onErrorJustReturn: [])

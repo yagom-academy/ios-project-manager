@@ -24,12 +24,12 @@ protocol AddViewModelInput {
 }
 
 final class AddViewModel: AddViewModelable {
-    private let storage: Storegeable
+    private let storage: AppStoregeable
     
     var list: ListItem
     var dismiss = BehaviorRelay<Void>(value: ())
     
-    init(storage: Storegeable) {
+    init(storage: AppStoregeable) {
         self.storage = storage
         self.list = ListItem(title: "", body: "", deadline: Date(), id: UUID().uuidString)
     }
