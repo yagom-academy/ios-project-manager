@@ -9,8 +9,8 @@ import UIKit
 
 extension UIView {
   func shadow(
-    borderWidth: CGFloat,
-    borderColor: CGColor,
+    borderWidth: CGFloat = 1,
+    borderColor: CGColor = UIColor.systemGray5.cgColor,
     shadowColor: CGColor,
     shadowOffset: CGSize,
     shadowOpacity: Float

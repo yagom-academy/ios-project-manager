@@ -40,15 +40,11 @@ final class ProjectAddViewController: UIViewController {
     )
     self.projectTitleTextField.leftViewMode = .always
     self.projectTitleTextField.shadow(
-      borderWidth: 1,
-      borderColor: UIColor.systemGray5.cgColor,
       shadowColor: UIColor.black.cgColor,
       shadowOffset: CGSize(width: -1, height: 4),
       shadowOpacity: 0.3
     )
     self.projectBodyTextView.shadow(
-      borderWidth: 1,
-      borderColor: UIColor.systemGray5.cgColor,
       shadowColor: UIColor.black.cgColor,
       shadowOffset: CGSize(width: -1, height: 4),
       shadowOpacity: 0.3

@@ -25,6 +25,4 @@ final class ProjectManagerCollectionViewCell: UICollectionViewCell {
       self.dateLabel.textColor = .red
     }
   }
-  
-  
 }
