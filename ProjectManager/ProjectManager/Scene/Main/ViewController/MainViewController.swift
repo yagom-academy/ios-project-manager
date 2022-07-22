@@ -64,9 +64,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
             target: self,
             action: #selector(showNewFormSheetView)
         )
-        
-        let historyButton = UIBarButtonItem(title: "History", style: .plain, target: self, action: nil)
-        navigationItem.leftBarButtonItem = historyButton
+
         navigationItem.rightBarButtonItem = plusButton
     }
     

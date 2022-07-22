@@ -91,10 +91,17 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     private func deleteData(task: Task) {
+        let title = task.title
         let type = task.taskType
                 
         do {
             try realmManager.delete(task: task)
+            
+            let historyTitle = "Removed '\(title)' from \(type)"
+            let historyTime = Date().timeIntervalSince1970
+            let dic: [String: Any] = ["title": historyTitle, "time": historyTime]
+            NotificationCenter.default.post(name: NSNotification.Name("Append"), object: nil, userInfo: dic)
+            
         } catch {
             self.error.accept(DatabaseError.deleteError)
         }

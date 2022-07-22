@@ -30,12 +30,16 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
     }
 
     private func changeTaskType(_ task: Task, taskType: TaskType) {
-        let toBePosted: [String: Any] = [
-            "taskType": taskType.rawValue
-        ]
+        let beforeType = task.taskType
         
         do {
             try realmManager.change(task: task, targetType: taskType)
+            
+            let historyTitle = "Moved '\(task.title)' from \(beforeType.rawValue) to \(taskType.rawValue)"
+            let historyTime = Date().timeIntervalSince1970
+            let dic: [String: Any] = ["title": historyTitle, "time": historyTime]
+            NotificationCenter.default.post(name: NSNotification.Name("Append"), object: nil, userInfo: dic)
+            
             dismiss.accept(())
         } catch {
             self.error.accept(DatabaseError.changeError)
