@@ -15,6 +15,8 @@ protocol LocalStorageManagerable {
 }
 
 final class LocalStorageManager: LocalStorageManagerable {
+    private let realm = try? Realm()
+    
     private func selectListModel(_ type: ListType) -> List<ListItemDTO> {
         guard let realm = try? Realm() else {
             return List<ListItemDTO>()
@@ -42,7 +44,7 @@ final class LocalStorageManager: LocalStorageManagerable {
     }
     
     func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void) {
-        guard let realm = try? Realm() else {
+        guard let realm = realm else {
             return
         }
         
@@ -72,15 +74,11 @@ final class LocalStorageManager: LocalStorageManagerable {
     }
     
     func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void) {
-        guard let realm = try? Realm() else {
-            return
-        }
-        
         let itemModel = selectListModel(item.type)
             .filter(NSPredicate(format: "id = %@", item.id)).first
         
         do {
-            try realm.write {
+            try realm?.write {
                 itemModel?.title = item.title
                 itemModel?.deadline = item.deadline
                 itemModel?.body = item.body
@@ -92,18 +90,14 @@ final class LocalStorageManager: LocalStorageManagerable {
     }
     
     func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void) {
-        guard let realm = try? Realm() else {
-            return
-        }
-        
         guard let itemModel = selectListModel(item.type)
             .filter(NSPredicate(format: "id = %@", item.id)).first else {
             return
         }
         
         do {
-            try realm.write {
-                realm.delete(itemModel)
+            try realm?.write {
+                realm?.delete(itemModel)
                 completion(.success(readList(item.type)))
             }
         } catch {
