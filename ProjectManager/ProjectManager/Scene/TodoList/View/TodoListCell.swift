@@ -8,10 +8,6 @@
 import UIKit
 
 final class TodoListCell: UITableViewCell {
-    static var identifier: String {
-        return String(describing: Self.self)
-    }
-    
     private let contentsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

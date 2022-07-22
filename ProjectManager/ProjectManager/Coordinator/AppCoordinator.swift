@@ -66,21 +66,12 @@ final class AppCoordinator: Coordinator {
             return
         }
         
-        let popover: UIAlertController = {
-            let alertController = UIAlertController(
-                title: "nil",
-                message: "nil2",
-                preferredStyle: .actionSheet
-            )
-            alertController.modalPresentationStyle = .popover
-            alertController.popoverPresentationController?.permittedArrowDirections = .up
-            alertController.popoverPresentationController?.barButtonItem = historyButton
-            alertController.popoverPresentationController?.sourceRect = CGRect(origin: CGPoint(x: historyButton.width / 2, y: 0), size: .zero)
-            
-            return alertController
-        }()
-        
-        self.navigationController.present(popover, animated: true)
+        let historyViewModel = HistoryViewModel(database: self.database)
+        let historyView = HistoryViewController(viewModel: historyViewModel)
+        historyView.modalPresentationStyle = .popover
+        historyView.popoverPresentationController?.barButtonItem = historyButton
+
+        self.navigationController.present(historyView, animated: true)
     }
     
     func showPopover(
