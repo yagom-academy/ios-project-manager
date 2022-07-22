@@ -133,6 +133,7 @@ extension MainViewController {
     private func syncButtonClick(_ sender: Any) {
         try? taskManager?.sync { [weak self] in
             self?.setUpDataSource()
+            self?.mainView.refreshCount()
         }
     }
     
