@@ -16,32 +16,35 @@ final class RealmDatabase {
         self.realm = try? Realm()
     }
     
-    func create(todoData: Todo) {
+    func create(todoData: Todo, completion: @escaping (Todo) -> Void) {
         try? realm?.write {
             realm?.add(todoData.convertRealmTodo())
+            completion(todoData)
         }
     }
     
-    func read() -> [Todo] {
+    func read(completion: @escaping ([Todo]) -> Void) {
         var todoArray: [Todo] = []
-        realm?.objects(TodoDTO.self).forEach { todoArray.append($0.convertTodo()) }
-        
-        return todoArray
+        self.realm?.objects(TodoDTO.self)
+            .forEach { todoArray.append($0.convertTodo()) }
+        completion(todoArray)
     }
     
-    func update(selectedTodo: Todo) {
+    func update(selectedTodo: Todo, completion: @escaping (Todo) -> Void) {
         try? realm?.write({
             realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
+            completion(selectedTodo)
         })
     }
     
-    func delete(todoID: UUID) {
+    func delete(todoID: UUID, completion: @escaping (UUID) -> Void) {
         guard let item = realm?.object(ofType: TodoDTO.self, forPrimaryKey: todoID) else {
             return
         }
         
         try? realm?.write({
             realm?.delete(item)
+            completion(todoID)
         })
     }
     

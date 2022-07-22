@@ -59,7 +59,7 @@ extension Todo: Serializable {
         ]
     }
     
-    init?(dictionary: [String : Any]) {
+    init?(dictionary: [String : Any]) {        
         guard let status = dictionary["todoListItemStatus"] as? String,
               let uuid = dictionary["identifier"] as? String,
               let title = dictionary["title"] as? String,

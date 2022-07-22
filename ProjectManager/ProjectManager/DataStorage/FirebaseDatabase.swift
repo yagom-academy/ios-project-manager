@@ -10,16 +10,17 @@ import Foundation
 import Firebase
 
 final class FirebaseDatabase {
+    private let database = Database.database()
     private let firebase: DatabaseReference?
     
     init() {
-        self.firebase = Database.database().reference()
+        self.firebase = self.database.reference()
     }
     
     func isConnected(completion: @escaping (Bool) -> Void) {
         var isConnected: Bool = false
         
-        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        let connectedRef = self.database.reference(withPath: ".info/connected")
         connectedRef.observe(.value, with: { snapshot in
           if snapshot.value as? Bool ?? false {
               isConnected = true
@@ -28,6 +29,13 @@ final class FirebaseDatabase {
           }
             completion(isConnected)
         })
+    }
+    
+    func sync(todoData: [Todo]) {
+        todoData.forEach {
+            let todoListReference = self.firebase?.child("TodoList/\($0.identifier.uuidString)")
+            todoListReference?.setValue($0.dictionary)
+        }
     }
     
     func create(todoData: Todo) {
@@ -64,10 +72,12 @@ final class FirebaseDatabase {
     }
     
     func update(selectedTodo: Todo) {
-        
+        self.firebase?.child("TodoList/\(selectedTodo.identifier)")
+            .updateChildValues(selectedTodo.dictionary)
     }
     
     func delete(todoID: UUID) {
-        
+        self.firebase?.child("TodoList").child("\(todoID)")
+            .removeValue()
     }
 }
