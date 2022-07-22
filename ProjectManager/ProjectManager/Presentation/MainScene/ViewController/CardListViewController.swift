@@ -119,6 +119,9 @@ final class CardListViewController: UIViewController {
   
   private func bindSectionsItems() {
     viewModel.fetchCards()
+      .bind(onNext: { _ in })
+      .disposed(by: disposeBag)
+    
     viewModel.todoCards
       .drive(todoSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
@@ -191,9 +194,11 @@ final class CardListViewController: UIViewController {
       doingSectionView.tableView.rx.modelDeleted(Card.self).asObservable(),
       doneSectionView.tableView.rx.modelDeleted(Card.self).asObservable()
     )
-    .bind(onNext: { [weak self] card in
-      self?.viewModel.deleteSelectedCard(card)
-    })
+    .withUnretained(self)
+    .flatMap { wself, card -> Observable<Void> in
+      return wself.viewModel.deleteSelectedCard(card)
+    }
+    .bind(onNext: { _ in })
     .disposed(by: disposeBag)
   }
   
@@ -209,9 +214,11 @@ final class CardListViewController: UIViewController {
         UIAlertController.presentPopOver(self, with: .init(card: card), on: cell)
       )
     }
-    .bind(onNext: { [weak self] card, index in
-      self?.viewModel.moveDifferentSection(card, to: index)
-    })
+    .withUnretained(self)
+    .flatMap { wself, items -> Observable<Void> in
+      return wself.viewModel.moveDifferentSection(items.0, to: items.1)
+    }
+    .bind(onNext: { _ in })
     .disposed(by: disposeBag)
   }
 }

@@ -46,12 +46,13 @@ final class CardAdditionViewController: UIViewController {
       .disposed(by: disposeBag)
     
     cardEditView.rightBarButton.rx.tap
+      .compactMap { [weak self] _ in self?.createNewCard() }
+      .withUnretained(self)
+      .flatMap { wself, card -> Observable<Void> in
+        return wself.viewModel.createNewCard(card)
+      }
       .bind(onNext: { [weak self] in
-        guard let self = self else { return }
-        guard let card = self.createNewCard() else { return }
-        
-        self.viewModel.createNewCard(card)
-        self.dismiss(animated: true)
+        self?.dismiss(animated: true)
       })
       .disposed(by: disposeBag)
   }

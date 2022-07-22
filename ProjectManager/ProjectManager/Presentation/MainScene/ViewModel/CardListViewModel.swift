@@ -11,11 +11,11 @@ import RxCocoa
 import RxSwift
 
 protocol CardListViewModelInput {
-  func fetchCards()
+  func fetchCards() -> Observable<Void>
   func toCardListViewModelItem(card: Card) -> CardListViewModelItem
   func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem
-  func deleteSelectedCard(_ card: Card)
-  func moveDifferentSection(_ card: Card, to index: Int)
+  func deleteSelectedCard(_ card: Card) -> Observable<Void>
+  func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void>
 }
 
 protocol CardListViewModelOutput {
@@ -86,16 +86,16 @@ final class CardListViewModel: CardListViewModelable {
     )
   }
   
-  func fetchCards() {
-    useCase?.fetchCards()
+  func fetchCards() -> Observable<Void> {
+    useCase?.fetchCards() ?? .empty()
   }
   
-  func deleteSelectedCard(_ card: Card) {
-    useCase?.deleteSelectedCard(card)
+  func deleteSelectedCard(_ card: Card) -> Observable<Void> {
+    return useCase?.deleteSelectedCard(card) ?? .empty()
   }
   
-  func moveDifferentSection(_ card: Card, to index: Int) {
-    useCase?.moveDifferentSection(card, to: index)
+  func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void> {
+    return useCase?.moveDifferentSection(card, to: index) ?? .empty()
   }
 }
 

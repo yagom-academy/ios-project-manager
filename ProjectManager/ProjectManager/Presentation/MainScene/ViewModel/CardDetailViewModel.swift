@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol CardDetailViewModelInput {
-  func updateSelectedCard(_ card: Card)
+  func updateSelectedCard(_ card: Card) -> Observable<Void>
 }
 
 protocol CardDetailViewModelOutput {}
@@ -28,7 +28,7 @@ final class CardDetailViewModel: CardDetailViewModelable {
   
   // MARK: - Input
   
-  func updateSelectedCard(_ card: Card) {
-    useCase?.updateSelectedCard(card)
+  func updateSelectedCard(_ card: Card) -> Observable<Void> {
+    return useCase?.updateSelectedCard(card) ?? .empty()
   }
 }

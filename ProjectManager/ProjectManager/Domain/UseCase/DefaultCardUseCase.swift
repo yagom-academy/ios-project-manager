@@ -14,11 +14,11 @@ protocol CardUseCase: AnyObject {
   var cards: BehaviorRelay<[Card]> { get }
   var histories: BehaviorRelay<[History]> { get }
   
-  func fetchCards()
-  func createNewCard(_ card: Card)
-  func updateSelectedCard(_ card: Card)
-  func deleteSelectedCard(_ card: Card)
-  func moveDifferentSection(_ card: Card, to index: Int)
+  func fetchCards() -> Observable<Void>
+  func createNewCard(_ card: Card) -> Observable<Void>
+  func updateSelectedCard(_ card: Card) -> Observable<Void>
+  func deleteSelectedCard(_ card: Card) -> Observable<Void>
+  func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void>
 }
 
 final class DefaultCardUseCase: CardUseCase {
@@ -32,60 +32,70 @@ final class DefaultCardUseCase: CardUseCase {
     self.repository = repository
   }
   
-  func fetchCards() {
-    repository.fetchCards()
-      .bind(to: cards)
-      .disposed(by: disposeBag)
+  func fetchCards() -> Observable<Void> {
+    return repository.fetchCards()
+      .flatMap { [weak self] cards -> Observable<Void> in
+        self?.cards.accept(cards)
+        return Observable<Void>.just(())
+      }
   }
   
-  func createNewCard(_ card: Card) {
-    repository.createCard(card)
+  func createNewCard(_ card: Card) -> Observable<Void> {
+    return repository.createCard(card)
       .withUnretained(self)
       .flatMap { wself, _ -> Observable<[Card]> in
         let history = History(card: card, actionType: .create, actionTime: Date())
         wself.histories.accept(wself.histories.value + [history])
         return wself.repository.fetchCards()
       }
-      .bind(to: cards)
-      .disposed(by: disposeBag)
+      .flatMap { [weak self] cards -> Observable<Void> in
+        self?.cards.accept(cards)
+        return Observable.just(())
+      }
   }
   
-  func updateSelectedCard(_ card: Card) {
-    repository.updateCard(card)
+  func updateSelectedCard(_ card: Card) -> Observable<Void> {
+    return repository.updateCard(card)
       .withUnretained(self)
       .flatMap { wself, _ -> Observable<[Card]> in
         let history = History(card: card, actionType: .update, actionTime: Date())
         wself.histories.accept(wself.histories.value + [history])
         return wself.repository.fetchCards()
       }
-      .bind(to: cards)
-      .disposed(by: disposeBag)
+      .flatMap { [weak self] cards -> Observable<Void> in
+        self?.cards.accept(cards)
+        return Observable.just(())
+      }
   }
   
-  func deleteSelectedCard(_ card: Card) {
-    repository.deleteCard(card)
+  func deleteSelectedCard(_ card: Card) -> Observable<Void> {
+    return repository.deleteCard(card)
       .withUnretained(self)
       .flatMap { wself, _ -> Observable<[Card]> in
         let history = History(card: card, actionType: .delete, actionTime: Date())
         wself.histories.accept(wself.histories.value + [history])
         return wself.repository.fetchCards()
       }
-      .bind(to: cards)
-      .disposed(by: disposeBag)
+      .flatMap { [weak self] cards -> Observable<Void> in
+        self?.cards.accept(cards)
+        return Observable.just(())
+      }
   }
   
-  func moveDifferentSection(_ card: Card, to index: Int) {
+  func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void> {
     var newCard = card
     newCard.cardType = card.cardType.distinguishMenuType[index]
     
-    repository.updateCard(newCard)
+    return repository.updateCard(newCard)
       .withUnretained(self)
       .flatMap { wself, _ -> Observable<[Card]> in
         let history = History(card: card, actionType: .move(newCard.cardType), actionTime: Date())
         wself.histories.accept(wself.histories.value + [history])
         return wself.repository.fetchCards()
       }
-      .bind(to: cards)
-      .disposed(by: disposeBag)
+      .flatMap { [weak self] cards -> Observable<Void> in
+        self?.cards.accept(cards)
+        return Observable.just(())
+      }
   }
 }

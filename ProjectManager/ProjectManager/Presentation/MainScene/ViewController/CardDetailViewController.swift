@@ -51,13 +51,10 @@ final class CardDetailViewController: UIViewController {
       .disposed(by: disposeBag)
     
     cardEditView.rightBarButton.rx.tap
-      .bind(onNext: { [weak self] in
-        guard let self = self else { return }
-        guard let card = self.updateSelectedCard() else { return }
-        
-        self.viewModel.updateSelectedCard(card)
-        self.dismiss(animated: true)
-      })
+      .compactMap { [weak self] _ in self?.updateSelectedCard() }
+      .withUnretained(self)
+      .flatMap { wself, card in wself.viewModel.updateSelectedCard(card) }
+      .bind(onNext: { [weak self] _ in self?.dismiss(animated: true) })
       .disposed(by: disposeBag)
   }
   

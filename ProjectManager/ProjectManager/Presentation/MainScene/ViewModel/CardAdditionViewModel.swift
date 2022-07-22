@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol CardAdditionViewModelInput {
-  func createNewCard(_ card: Card)
+  func createNewCard(_ card: Card) -> Observable<Void>
 }
 
 protocol CardAdditionViewModelOutput {}
@@ -28,7 +28,7 @@ final class CardAdditionViewModel: CardAdditionViewModelable {
   
   // MARK: - Input
   
-  func createNewCard(_ card: Card) {
-    useCase?.createNewCard(card)
+  func createNewCard(_ card: Card) -> Observable<Void> {
+    return useCase?.createNewCard(card) ?? .empty()
   }
 }
