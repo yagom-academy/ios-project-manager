@@ -107,12 +107,12 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
       return UICollectionViewCell()
     }
     guard let projectCategory = fetchProejctCategory(from: collectionView) else { return cell }
-    guard let todolist = realmService.filter(projectCategory: projectCategory) else { return cell }
+    guard let projectList = realmService.filter(projectCategory: projectCategory) else { return cell }
 
     cell.configure(
-      title: todolist[indexPath.row].title,
-      body: todolist[indexPath.row].body ?? "",
-      date: todolist[indexPath.row].date
+      title: projectList[indexPath.row].title,
+      body: projectList[indexPath.row].body ?? "",
+      date: projectList[indexPath.row].date
     )
 
     return cell
@@ -125,12 +125,9 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
   }
 
   private func fetchItemCount(from projectCategory: ProjectCategory) -> Int {
-    let todoList = projects?.filter {
-      $0.projectCategory == projectCategory.description
-    }
-    guard let itemCount = todoList?.count else { return .zero }
+    guard let projectList = realmService.filter(projectCategory: projectCategory) else { return .zero}
 
-    return itemCount
+    return projectList.count
   }
 }
 
@@ -144,12 +141,12 @@ extension ProjectManagerHomeViewController: UICollectionViewDelegate {
   }
 
   private func presentProjectEditView(projectCategory: ProjectCategory, indexPath: IndexPath) {
-    guard let todolist = realmService.filter(projectCategory: projectCategory) else { return }
+    guard let projectList = realmService.filter(projectCategory: projectCategory) else { return }
     guard let projectAddViewController = storyboard?.instantiateViewController(
       identifier: "\(ProjectAddViewController.self)",
       creator: { coder in ProjectAddViewController(
         realmService: self.realmService,
-        uuid: todolist[indexPath.row].uuid,
+        uuid: projectList[indexPath.row].uuid,
         coder: coder
       ) }
     ) else { return }
