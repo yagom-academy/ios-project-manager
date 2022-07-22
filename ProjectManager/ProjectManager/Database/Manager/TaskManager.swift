@@ -55,4 +55,16 @@ final class TaskManager {
     func deleteAll() throws {
         try realmManager.deleteAll()
     }
+    
+    func sync(complete: @escaping () -> Void) throws {
+        let firebaseDataCompletion: ([Task]) -> Void = { tasks in
+            try? self.realmManager.deleteAll()
+            tasks.forEach { task in
+                try? self.realmManager.update(updatedData: task)
+            }
+            complete()
+        }
+        
+        firebaseManager.readAll(completion: firebaseDataCompletion)
+    }
 }

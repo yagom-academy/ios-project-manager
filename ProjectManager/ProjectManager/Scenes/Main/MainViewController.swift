@@ -108,6 +108,10 @@ extension MainViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(addButtonClick(_:)) )
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down.fill"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(syncButtonClick(_:)))
     }
 }
 
@@ -123,6 +127,13 @@ extension MainViewController {
         detailView.setButtonDelegate(detailModalViewController)
         detailModalViewController.modalPresentationStyle = .formSheet
         self.present(detailModalViewController, animated: true)
+    }
+    
+    @objc
+    private func syncButtonClick(_ sender: Any) {
+        try? taskManager?.sync { [weak self] in
+            self?.setUpDataSource()
+        }
     }
     
     @objc
@@ -224,12 +235,19 @@ extension MainViewController {
             cell?.setUpLabel(task: item)
             return cell
         })
+        guard let snapshot = makeSnapshot(type: type) else { return nil }
+        
+        dataSource.apply(snapshot)
+        return dataSource
+    }
+    
+    private func makeSnapshot(type: TaskType) -> Snapshot? {
         var snapshot = Snapshot()
         guard let tasks = taskManager?.read(type: type) else { return nil }
         
         snapshot.appendSections([0])
         snapshot.appendItems(tasks)
-        dataSource.apply(snapshot)
-        return dataSource
+        
+        return snapshot
     }
 }
