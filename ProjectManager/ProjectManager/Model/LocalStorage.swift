@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class LocalStorage: Object {
+final class LocalStorage: Object {
     let todoList = List<ListItemDTO>()
     let doingList = List<ListItemDTO>()
     let doneList = List<ListItemDTO>()
