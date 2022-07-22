@@ -5,14 +5,14 @@
 //  Created by 두기 on 2022/07/13.
 //
 
-import Foundation
 import RxRelay
 
 protocol AddViewModelable: AddViewModelOutput, AddViewModelInput {}
 
 protocol AddViewModelOutput {
     var list: ListItem { get }
-    var dismiss: BehaviorRelay<Void> { get }
+    var dismiss: PublishRelay<Void> { get }
+    var showErrorAlert: PublishRelay<String> { get }
 }
 
 protocol AddViewModelInput {
@@ -24,14 +24,15 @@ protocol AddViewModelInput {
 }
 
 final class AddViewModel: AddViewModelable {
-    private let storage: Storegeable
+    private let storage: AppStoregeable
     
     var list: ListItem
-    var dismiss = BehaviorRelay<Void>(value: ())
+    var dismiss = PublishRelay<Void>()
+    var showErrorAlert = PublishRelay<String>()
     
-    init(storage: Storegeable) {
+    init(storage: AppStoregeable) {
         self.storage = storage
-        self.list = ListItem(title: "", body: "", deadline: Date())
+        self.list = ListItem(title: "", body: "", deadline: Date(), id: UUID().uuidString)
     }
     
     func changeTitle(_ text: String?) {
@@ -51,7 +52,14 @@ final class AddViewModel: AddViewModelable {
     }
     
     func touchDoneButton() {
-        storage.creatList(listItem: list)
-        dismiss.accept(())
+        do {
+        try storage.creatItem(listItem: list)
+            dismiss.accept(())
+        } catch {
+            guard let error = error as? StorageError else {
+                return
+            }
+            showErrorAlert.accept(error.errorDescription)
+        }
     }
 }

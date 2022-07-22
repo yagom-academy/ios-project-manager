@@ -69,6 +69,11 @@ final class MainViewController: UIViewController {
             self.present(self.container.makeAddViewController(), animated: true)
         })
         .disposed(by: disposebag)
+        
+        viewModel.showErrorAlert.bind(onNext: { [weak self] in
+            self?.showErrorAlert(messege: $0)
+        })
+        .disposed(by: disposebag)
     }
     
     private func bindTableView() {
@@ -141,14 +146,14 @@ final class MainViewController: UIViewController {
         
         let firstAction = UIAlertAction(title: type.firstDirection.title,
                                         style: .default) { [weak self] _ in
-            self?.viewModel.changeListType(index: index,
+            self?.viewModel.changeItemType(index: index,
                                            type: type,
                                            to: type.firstDirection.type)
         }
         
         let secondAction = UIAlertAction(title: type.secondDirection.title,
                                          style: .default) { [weak self] _ in
-            self?.viewModel.changeListType(index: index,
+            self?.viewModel.changeItemType(index: index,
                                            type: type,
                                            to: type.secondDirection.type)
         }

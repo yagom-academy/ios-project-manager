@@ -73,5 +73,11 @@ final class AddViewController: UIViewController {
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)
+        
+        viewModel.showErrorAlert
+            .bind(onNext: { [weak self] in
+                self?.showErrorAlert(messege: $0)
+            })
+            .disposed(by: disposebag)
     }
 }

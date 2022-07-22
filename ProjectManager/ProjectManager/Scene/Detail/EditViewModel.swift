@@ -5,14 +5,15 @@
 //  Created by 최최성균 on 2022/07/16.
 //
 
-import Foundation
 import RxRelay
+
 protocol EditViewModelable: EditViewModelOutput, EditViewModelInput {}
 
 protocol EditViewModelOutput {
     var list: ListItem { get }
     var isEditable: BehaviorRelay<Bool> { get }
-    var dismiss: BehaviorRelay<Void> { get }
+    var dismiss: PublishRelay<Void> { get }
+    var showErrorAlert: PublishRelay<String> { get }
 }
 
 protocol EditViewModelInput {
@@ -24,14 +25,15 @@ protocol EditViewModelInput {
 }
 
 final class EditViewModel: EditViewModelable {
-    private let storage: Storegeable
+    private let storage: AppStoregeable
     
     //out
     var list: ListItem
     var isEditable = BehaviorRelay<Bool>(value: false)
-    var dismiss = BehaviorRelay<Void>(value: ())
+    var dismiss = PublishRelay<Void>()
+    var showErrorAlert = PublishRelay<String>()
     
-    init(storage: Storegeable, item: ListItem) {
+    init(storage: AppStoregeable, item: ListItem) {
         self.storage = storage
         self.list = item
     }
@@ -58,7 +60,14 @@ final class EditViewModel: EditViewModelable {
     }
     
     func touchDoneButton() {
-        storage.updateList(listItem: list)
-        dismiss.accept(())
+        do {
+        try storage.updateItem(listItem: list)
+            dismiss.accept(())
+        } catch {
+            guard let error = error as? StorageError else {
+                return
+            }
+            showErrorAlert.accept(error.errorDescription)
+        }
     }
 }

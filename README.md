@@ -1,5 +1,3 @@
-# 프로젝트 관리 앱 README
-
 # 🗒프로젝트 관리 앱(To Do List)
 > 프로젝트 기간 2022-07-04 ~ 2022-07-15
 
@@ -13,21 +11,24 @@
 |<img src="https://i.imgur.com/WhqnkEB.gif" width="350" height="230"/>|<img src="https://i.imgur.com/6rnvT2M.gif" width="350" height="230"/>|
 |이동|삭제|
 |<img src="https://i.imgur.com/QmVBxdd.gif" width="350" height="230"/>|<img src="https://i.imgur.com/y2HHGq2.gif" width="350" height="230"/>|
-
+|로컬저장소|원격저장소|
+|<img src="https://user-images.githubusercontent.com/82325822/180371884-de5660f6-63b4-4d07-95d6-fe84a560929d.gif" width="350" height="230"/>|추가 예정|
 
 ## 기능 구현
+- title, deadline, body로 구성된 Todo List 작성
 - Rx를 이용해 데이터 화면에 표시
+- Realm을 통해 로컬 저장소에 저장해 어플이 종료되도 작성된 List 유지
 
 ## 개발환경 및 라이브러리
 - [![swift](https://img.shields.io/badge/swift-5.6-orange)]()
 - [![xcode](https://img.shields.io/badge/Xcode-13.2-blue)]()
 - [![xcode](https://img.shields.io/badge/RxSwift-6.5-hotpink)]()
 - [![xcode](https://img.shields.io/badge/SnapKit-5.6-skyblue)]()
+- [![swift](https://img.shields.io/badge/Realm-10.28.2-pink)]()
 - [![xcode](https://img.shields.io/badge/SwiftLint-red)]()
+***
 
-## 저장소 선택
-아직 구현단계는 아니지만 추후 구현하게 될 저장소에 대해 아래와 같은 고민을 하였음
-
+# 📌  저장소 선택
 ### 로컬 저장소
 일단 로컬 저장소는 `CoreData`와 `Realm` 둘 사이에서 고민을 하다 `Realm`으로 선택을 하게 되었는데 
 가장 큰 이유는 세 가지임
@@ -50,7 +51,7 @@
 
 
 ## Trouble Shooting
-### 1. 뷰컨트롤러에 구성 vs 뷰 생성후 뷰컨트롤러에서 사용
+### 📌 1. 뷰컨트롤러에 구성 vs 뷰 생성후 뷰컨트롤러에서 사용
 mvvm 패턴을 구현함에 있어 viewcontroller도 뷰의 역할을 하도록 하려고 했는데 지금 
 `MainView`처럼 뷰컨트롤러에서 뷰구성을 다 하는게 좋을지 
 아니면 `DetailView`처럼 뷰를 만들고 그 뷰를 뷰컨트롤러에서 가져와 쓰면서 추가적으로 구성을 해야하는 경우가 있다면 그럴때만 뷰컨트롤러에서 만들면 좋을지
@@ -58,11 +59,11 @@ mvvm 패턴을 구현함에 있어 viewcontroller도 뷰의 역할을 하도록 
 
 이 부분을 가장 고민을 많이 했는데 아직 어떤게 더 좋을 지 기준이 서지 않아 해결 필요
 
-### MockStorage
+### 📌 2. MockStorage
 ![](https://i.imgur.com/adnJzRz.png)
 아직은 로컬 및 원격 저장소를 구현하기 전이기에 Storageable이라는 프로토콜을 만들어 해당 프로토콜을 준수하는 객체가 저장소가 될 수 있도록(실제 저장소가 생기면 바꿔치기만 할 수 있도록) 구현
 
-### 저장소 공유
+### 📌 3. 저장소 공유
 MainViewController에서는 read, delete를 DetailViewController에서는 create, update를 하기에 저장소는 공유가 되어야 하는데 세가지 방법 중 고민함
 
 1. detailview를 present할 때 MainViewModel을 주입시킨다
@@ -75,18 +76,37 @@ MainViewController에서는 read, delete를 DetailViewController에서는 create
 
 ![](https://i.imgur.com/rz7mZOU.png)
 
-### input/ output
+### 📌 4. input/ output
 
-![](https://i.imgur.com/9mieDDw.png)
+![](https://i.imgur.com/xsAgDge.png)
 
-input은 viewmodel이 이벤트를 받아 해야할 행동
-output은 viewmodel이 view로 전달하는 데이터 
-정도로 이해를 하고 사용함(추후 더 공부 필요)
+input은 view가 보내는 이벤트를 받는 메서드
+output은 viewmodel이 view로 전달하는 데이터
+
+view의 이벤트에 따라 적절한 output을 연결시키는 것이 중요!
+
+### 📌 5. 저장소에 ListItem 배열 하나 vs 각 타입별로 세 개의 배열
+한 배열로 데이터 관리를 하면 관리는 편해지나 불필요한 정렬이 생김(ex. todoList만 업데이트 했는데 doingList, doneList까지 한번에 받아와 다시 화면에 배치하거나 정렬하는 등...)
+
+그래서 각각의 타입마다 배열을 만들어주었으며 이 때 생기는 중복코드를 제거하기 위해 각 타입에 맞는 배열을 반환해주는 메서드 생성
+
+
+#### 로컬 저장소
+![](https://i.imgur.com/atloxdb.png)
+
+![](https://i.imgur.com/2tUT0RE.png)
+
+
+#### 앱에서 직접적으로 사용되는 Relay
+![](https://i.imgur.com/WG376pT.png)
+
+![](https://i.imgur.com/FTySTO7.png)
 
 
 ## 배운 개념
 - RxSwift
 - MVVM
+- Realm
 
 ## 커밋 룰
 Commit message

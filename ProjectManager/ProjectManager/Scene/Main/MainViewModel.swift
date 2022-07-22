@@ -20,24 +20,25 @@ protocol MainViewModelOutput {
     
     var showAddView: PublishRelay<Void> { get }
     var showEditView: PublishRelay<ListItem> { get }
+    var showErrorAlert: PublishRelay<String> { get }
 }
 
 protocol MainViewModelInput {
     func touchAddButton()
     func touchCell(index: Int, type: ListType)
     func deleteCell(index: Int, type: ListType)
-    func changeListType(index: Int, type: ListType, to: ListType)
+    func changeItemType(index: Int, type: ListType, to: ListType)
 }
 
 final class MainViewModel: MainViewModelInOut {
-    private var storage: Storegeable
+    private var storage: AppStoregeable
 
 //MARK: - output
     let todoList: Driver<[ListItem]>
     let doingList: Driver<[ListItem]>
     let doneList: Driver<[ListItem]>
     
-    init(storage: Storegeable) {
+    init(storage: AppStoregeable) {
         self.storage = storage
         
         todoList = storage.todoList.asDriver(onErrorJustReturn: [])
@@ -58,6 +59,7 @@ final class MainViewModel: MainViewModelInOut {
     
     var showAddView = PublishRelay<Void>()
     var showEditView = PublishRelay<ListItem>()
+    var showErrorAlert = PublishRelay<String>()
 }
 
 //MARK: - input
@@ -76,10 +78,26 @@ extension MainViewModel {
     }
     
     func deleteCell(index: Int, type: ListType) {
-        storage.deleteList(index: index, type: type)
+        do {
+            try storage.deleteItem(index: index, type: type)
+        } catch {
+            guard let error = error as? StorageError else {
+                return
+            }
+            
+            showErrorAlert.accept(error.errorDescription)
+        }
     }
     
-    func changeListType(index: Int, type: ListType, to destination: ListType) {
-        storage.changeListType(index: index, type: type, destination: destination)
+    func changeItemType(index: Int, type: ListType, to destination: ListType) {
+        do {
+            try storage.changeItemType(index: index, type: type, destination: destination)
+        } catch {
+            guard let error = error as? StorageError else {
+                return
+            }
+            
+            showErrorAlert.accept(error.errorDescription)
+        }
     }
 }
