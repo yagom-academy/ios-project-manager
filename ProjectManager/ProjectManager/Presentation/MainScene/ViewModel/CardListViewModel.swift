@@ -72,7 +72,7 @@ final class CardListViewModel: CardListViewModelable {
       id: card.id,
       title: card.title,
       description: card.description,
-      deadlineDateString: setDeadlineDateToString(card.deadlineDate),
+      deadlineDateString: setDateToString(card.deadlineDate),
       isOverdue: isOverdue(card: card)
     )
   }
@@ -81,7 +81,7 @@ final class CardListViewModel: CardListViewModelable {
     return CardHistoryViewModelItem(
       card: history.card,
       actionType: history.actionType,
-      actionTimeString: setDeadlineDateToString(history.actionTime),
+      actionTimeString: setDateToString(history.actionTime),
       informationString: setInformationString(history)
     )
   }
@@ -102,7 +102,7 @@ final class CardListViewModel: CardListViewModelable {
 // MARK: - Private
 
 extension CardListViewModel {
-  private func setDeadlineDateToString(_ date: Date) -> String {
+  private func setDateToString(_ date: Date) -> String {
     let formatter = DateFormatter()
     formatter.dateStyle = .full
     formatter.locale = setPreferredLocale()
