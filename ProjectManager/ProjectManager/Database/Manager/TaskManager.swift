@@ -11,20 +11,21 @@ enum RealmError: Error {
     case initializationError
 }
 
+// 호출 순서 주의: realm에서 먼저 생성 시 오류 발생
 final class TaskManager {
-    private let realmManager: RealmManagerable
     private let firebaseManager: FirebaseManager
+    private let realmManager: RealmManagerable
     
     init(realmManager: RealmManagerable? = RealmManager.shared,
          firebaseManager: FirebaseManager = FirebaseManager()) throws {
         guard let realmManager = realmManager else { throw RealmError.initializationError }
-        self.realmManager = realmManager
         self.firebaseManager = firebaseManager
+        self.realmManager = realmManager
     }
     
     func create(task: Task) throws {
-        try realmManager.create(task)
         try firebaseManager.create(task)
+        try realmManager.create(task)
     }
     
     func read(id: String) -> Task? {
@@ -41,14 +42,14 @@ final class TaskManager {
         return realmManager.readAll()
     }
     
-    func update(task: Task, updateHandler: (Task) -> Void) throws {
-        try realmManager.update(data: task, updateHandler: updateHandler)
+    func update(task: Task) throws {
         try firebaseManager.update(updatedData: task)
+        try realmManager.update(updatedData: task)
     }
     
     func delete(task: Task) throws {
-        try realmManager.delete(task)
         try firebaseManager.delete(task)
+        try realmManager.delete(task)
     }
     
     func deleteAll() throws {

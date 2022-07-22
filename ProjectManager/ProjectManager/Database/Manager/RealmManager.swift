@@ -12,7 +12,7 @@ protocol RealmManagerable {
     func create<T: Object>(_ data: T) throws
     func read<T: Object>(_ nsPredicate: NSPredicate) -> [T]
     func readAll<T: Object>() -> [T]
-    func update<T: Object>(data: T, updateHandler: ((T) -> Void)) throws
+    func update<T: Object>(updatedData: T) throws
     func delete<T: Object>(_ data: T) throws
     func deleteAll() throws
 }
@@ -50,9 +50,9 @@ final class RealmManager: RealmManagerable {
         return Array(data)
     }
     
-    func update<T: Object>(data: T, updateHandler: ((T) -> Void)) throws {
+    func update<T: Object>(updatedData: T) throws {
         try realm.write({
-            updateHandler(data)
+            realm.add(updatedData, update: .modified)
         })
     }
     

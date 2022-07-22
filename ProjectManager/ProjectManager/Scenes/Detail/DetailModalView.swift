@@ -155,6 +155,14 @@ extension DetailModalView {
         datePicker.isHidden = false
         bottomConstraint = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
     }
+    
+    func makeTask(id: String) -> Task {
+        let title = titleTextField.text
+        let body = bodyTextView.text
+        let date = datePicker.date
+        
+        return Task(id: id, title: title, date: date, body: body)
+    }
 }
 
 // MARK: setUp

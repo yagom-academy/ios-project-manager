@@ -50,7 +50,7 @@ extension MainViewController: UITableViewDelegate {
                 style: .destructive,
                 action: {
                     guard let taskInfo = self.makeTaskInfo(tableView: tableView, indexPath: indexPath) else { return }
-                    self.deleteData(taskInfo: taskInfo)
+                    self.deleteTask(taskInfo: taskInfo)
                 })
             .build()
     }
@@ -61,7 +61,8 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: DetailViewControllerDelegate {
     func addTask(_ task: Task) {
-        addData(task: task, type: .todo)
+        addCell(task: task, type: .todo)
+        try? taskManager?.create(task: task)
         mainView.refreshCount()
     }
     
@@ -74,6 +75,7 @@ extension MainViewController: DetailViewControllerDelegate {
             copySnapshot.insertItems([task], afterItem: beforeTask)
             copySnapshot.deleteItems([beforeTask])
             dataSource?.apply(copySnapshot)
+            try? taskManager?.update(task: task)
         }
     }
 }
@@ -82,9 +84,13 @@ extension MainViewController: DetailViewControllerDelegate {
 
 extension MainViewController: PopoverViewControllerDelegate {
     func move(from taskInfo: TaskInfo, to type: TaskType) {
-        deleteData(taskInfo: taskInfo)
-        addData(task: taskInfo.task, type: type)
+        addCell(task: taskInfo.task, type: type)
+        deleteCell(taskInfo: taskInfo)
         mainView.refreshCount()
+        
+        let task = taskInfo.task
+        let updatedTask = Task(id: task.id, title: task.title, date: task.date, body: task.body, type: type)
+        try? taskManager?.update(task: updatedTask)
     }
 }
 
@@ -94,6 +100,7 @@ extension MainViewController {
     private func setUp() {
         setNavigationBar()
         setTableView()
+        mainView.refreshCount()
     }
     
     private func setNavigationBar() {
@@ -136,24 +143,28 @@ extension MainViewController {
         }
     }
     
-    private func deleteData(taskInfo: TaskInfo) {
+    private func deleteTask(taskInfo: TaskInfo) {
+        deleteCell(taskInfo: taskInfo)
+        try? taskManager?.delete(task: taskInfo.task)
+        mainView.refreshCount()
+    }
+    
+    private func deleteCell(taskInfo: TaskInfo) {
         let dataSource = dataSources[taskInfo.type]
         if let snapshot = dataSource?.snapshot() {
             var copySnapshot = snapshot
             guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
             copySnapshot.deleteItems([beforeTask])
             dataSource?.apply(copySnapshot)
-            try? taskManager?.delete(task: beforeTask)
         }
     }
     
-    private func addData(task: Task, type: TaskType) {
+    private func addCell(task: Task, type: TaskType) {
         let dataSource = dataSources[type]
         guard let snapshot = dataSource?.snapshot(), snapshot.numberOfSections > 0 else { return }
         var copySnapshot = snapshot
         copySnapshot.appendItems([task])
         dataSource?.apply(copySnapshot)
-        try? taskManager?.create(task: task)
     }
     
     private func makePopover(taskInfo: TaskInfo, point: CGPoint) {

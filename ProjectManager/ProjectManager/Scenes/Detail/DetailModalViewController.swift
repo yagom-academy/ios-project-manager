@@ -54,7 +54,8 @@ extension DetailModalViewController: ButtonActionDelegate {
             guard let taskInfo = taskInfo else {
                 return
             }
-            let updatedTaskInfo = TaskInfo(task: modalView.task, type: taskInfo.type, indexPath: taskInfo.indexPath)
+            let updatedTask = modalView.makeTask(id: taskInfo.task.id)
+            let updatedTaskInfo = TaskInfo(task: updatedTask, type: taskInfo.type, indexPath: taskInfo.indexPath)
             delegate?.updateTask(by: updatedTaskInfo)
         case .add:
             delegate?.addTask(modalView.task)
