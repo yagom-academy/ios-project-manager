@@ -64,7 +64,7 @@ final class EditViewModel: EditViewModelable {
         try storage.updateItem(listItem: list)
             dismiss.accept(())
         } catch {
-            guard let error = error as? LocalStorageError else {
+            guard let error = error as? StorageError else {
                 return
             }
             showErrorAlert.accept(error.errorDescription)

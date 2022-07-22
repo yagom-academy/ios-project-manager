@@ -81,7 +81,7 @@ extension MainViewModel {
         do {
             try storage.deleteItem(index: index, type: type)
         } catch {
-            guard let error = error as? LocalStorageError else {
+            guard let error = error as? StorageError else {
                 return
             }
             
@@ -93,7 +93,7 @@ extension MainViewModel {
         do {
             try storage.changeItemType(index: index, type: type, destination: destination)
         } catch {
-            guard let error = error as? LocalStorageError else {
+            guard let error = error as? StorageError else {
                 return
             }
             

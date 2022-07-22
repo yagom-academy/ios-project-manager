@@ -43,7 +43,7 @@ final class AppStorage: AppStoregeable {
     }
     
     func creatItem(listItem: ListItem) throws {
-        var createError: LocalStorageError?
+        var createError: StorageError?
         
         localStorage.createItem(listItem) { [weak self] result in
             switch result {
@@ -55,7 +55,7 @@ final class AppStorage: AppStoregeable {
         }
         
         if createError != nil {
-            throw LocalStorageError.creatError
+            throw StorageError.creatError
         }
     }
     
@@ -64,7 +64,7 @@ final class AppStorage: AppStoregeable {
     }
     
     func updateItem(listItem: ListItem) throws {
-        var updateError: LocalStorageError?
+        var updateError: StorageError?
         
         localStorage.updateItem(listItem) { [weak self] result in
             switch result {
@@ -76,13 +76,13 @@ final class AppStorage: AppStoregeable {
         }
         
         if updateError != nil {
-            throw LocalStorageError.updateError
+            throw StorageError.updateError
         }
     }
     
     func deleteItem(index: Int, type: ListType) throws {
         let item = selectItem(index: index, type: type)
-        var deleteError: LocalStorageError?
+        var deleteError: StorageError?
         
         localStorage.deleteItem(item) { [weak self] result in
             switch result {
@@ -94,7 +94,7 @@ final class AppStorage: AppStoregeable {
         }
         
         if deleteError != nil {
-            throw LocalStorageError.deleteError
+            throw StorageError.deleteError
         }
     }
     
@@ -104,7 +104,7 @@ final class AppStorage: AppStoregeable {
         do {
             try deleteItem(index: index, type: type)
         } catch {
-            throw LocalStorageError.updateError
+            throw StorageError.updateError
         }
         
         
@@ -112,7 +112,7 @@ final class AppStorage: AppStoregeable {
         do {
             try creatItem(listItem: item)
         } catch {
-            throw LocalStorageError.updateError
+            throw StorageError.updateError
         }
     }
 }

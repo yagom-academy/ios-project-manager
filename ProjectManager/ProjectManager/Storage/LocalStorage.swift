@@ -9,9 +9,9 @@ import RealmSwift
 
 protocol LocalStorageable {
     func readList(_ type: ListType) -> [ListItem]
-    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void)
-    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void)
-    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void)
+    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void)
+    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void)
+    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void)
 }
 
 final class LocalStorage: Object, LocalStorageable {
@@ -46,7 +46,7 @@ final class LocalStorage: Object, LocalStorageable {
         return list
     }
     
-    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void) {
+    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void) {
         guard let realm = try? Realm() else {
             return
         }
@@ -62,7 +62,7 @@ final class LocalStorage: Object, LocalStorageable {
                     completion(.success(readList(item.type)))
                 }
             } catch {
-                completion(.failure(LocalStorageError.creatError))
+                completion(.failure(StorageError.creatError))
             }
         } else {
             do {
@@ -71,12 +71,12 @@ final class LocalStorage: Object, LocalStorageable {
                     completion(.success(readList(item.type)))
                 }
             } catch {
-                completion(.failure(LocalStorageError.creatError))
+                completion(.failure(StorageError.creatError))
             }
         }
     }
     
-    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void) {
+    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void) {
         guard let realm = try? Realm() else {
             return
         }
@@ -92,11 +92,11 @@ final class LocalStorage: Object, LocalStorageable {
                 completion(.success(readList(item.type)))
             }
         } catch {
-            completion(.failure(LocalStorageError.updateError))
+            completion(.failure(StorageError.updateError))
         }
     }
     
-    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], LocalStorageError>) -> Void) {
+    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void) {
         guard let realm = try? Realm() else {
             return
         }
@@ -112,7 +112,7 @@ final class LocalStorage: Object, LocalStorageable {
                 completion(.success(readList(item.type)))
             }
         } catch {
-            completion(.failure(LocalStorageError.deleteError))
+            completion(.failure(StorageError.deleteError))
         }
     }
 }
