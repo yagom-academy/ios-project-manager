@@ -55,15 +55,23 @@ final class LocalStorage: Object, LocalStorageable {
             let listModel = LocalStorage()
             listModel.todoList.append(item.convertedItem)
             
-            try? realm.write {
-                realm.add(listModel)
-                
-                completion(.success(readList(item.type)))
+            do {
+                try realm.write {
+                    realm.add(listModel)
+                    
+                    completion(.success(readList(item.type)))
+                }
+            } catch {
+                completion(.failure(LocalStorageError.creatError))
             }
         } else {
-            try? realm.write {
-                selectListModel(item.type).append(item.convertedItem)
-                completion(.success(readList(item.type)))
+            do {
+                try realm.write {
+                    selectListModel(item.type).append(item.convertedItem)
+                    completion(.success(readList(item.type)))
+                }
+            } catch {
+                completion(.failure(LocalStorageError.creatError))
             }
         }
     }
@@ -76,11 +84,15 @@ final class LocalStorage: Object, LocalStorageable {
         let itemModel = selectListModel(item.type)
             .filter(NSPredicate(format: "id = %@", item.id)).first
         
-        try? realm.write {
-            itemModel?.title = item.title
-            itemModel?.deadline = item.deadline
-            itemModel?.body = item.body
-            completion(.success(readList(item.type)))
+        do {
+            try realm.write {
+                itemModel?.title = item.title
+                itemModel?.deadline = item.deadline
+                itemModel?.body = item.body
+                completion(.success(readList(item.type)))
+            }
+        } catch {
+            completion(.failure(LocalStorageError.updateError))
         }
     }
     
@@ -94,9 +106,13 @@ final class LocalStorage: Object, LocalStorageable {
             return
         }
         
-        try? realm.write {
-            realm.delete(itemModel)
-            completion(.success(readList(item.type)))
+        do {
+            try realm.write {
+                realm.delete(itemModel)
+                completion(.success(readList(item.type)))
+            }
+        } catch {
+            completion(.failure(LocalStorageError.deleteError))
         }
     }
 }

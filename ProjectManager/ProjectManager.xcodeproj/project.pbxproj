@@ -13,6 +13,7 @@
 		AC54B7A2287549F800092D83 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B7A1287549F800092D83 /* ListTableViewCell.swift */; };
 		AC54B7A5287557BF00092D83 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B7A4287557BF00092D83 /* MainViewModel.swift */; };
 		AC54B7A7287563D900092D83 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B7A6287563D900092D83 /* AddViewController.swift */; };
+		AC601418288A3C13005CA2F4 /* LocalStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC601417288A3C13005CA2F4 /* LocalStorageError.swift */; };
 		AC9C57C3287A8CC100BA7F7D /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9C57C2287A8CC100BA7F7D /* UITableView + Extension.swift */; };
 		ACA39ACD287DE05200AE4964 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA39ACC287DE05200AE4964 /* Container.swift */; };
 		ACA39AD1287DE50200AE4964 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA39AD0287DE50200AE4964 /* EditViewController.swift */; };
@@ -39,6 +40,7 @@
 		AC54B7A1287549F800092D83 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		AC54B7A4287557BF00092D83 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		AC54B7A6287563D900092D83 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		AC601417288A3C13005CA2F4 /* LocalStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageError.swift; sourceTree = "<group>"; };
 		AC9C57C2287A8CC100BA7F7D /* UITableView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extension.swift"; sourceTree = "<group>"; };
 		ACA39ACC287DE05200AE4964 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		ACA39AD0287DE50200AE4964 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			children = (
 				ACDD285B2886FEFC0083356A /* AppStorage.swift */,
 				ACDD285D2887178F0083356A /* LocalStorage.swift */,
+				AC601417288A3C13005CA2F4 /* LocalStorageError.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				AC15AB932876E2BC004B5E8A /* DetailView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				ACCBF0F02877CACA00FEC0F3 /* DateConverter.swift in Sources */,
+				AC601418288A3C13005CA2F4 /* LocalStorageError.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				ACA39AD1287DE50200AE4964 /* EditViewController.swift in Sources */,
