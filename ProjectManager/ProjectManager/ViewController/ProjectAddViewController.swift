@@ -75,7 +75,7 @@ final class ProjectAddViewController: UIViewController {
   }
 
   @IBAction func doneButton(_ sender: UIBarButtonItem) {
-    if projectTitleTextField.text?.isEmpty == true { return }
+    guard projectTitleTextField.text?.isEmpty == false else { return }
 
     let project = Project(
       uuid: UUID().uuidString,
