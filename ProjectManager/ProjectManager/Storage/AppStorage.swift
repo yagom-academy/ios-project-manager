@@ -19,13 +19,13 @@ protocol AppStoregeable {
 }
 
 final class AppStorage: AppStoregeable {
-    private let localStorage: LocalStorageable
+    private let localStorage: LocalStorageManagerable
     
     let todoList: BehaviorRelay<[ListItem]>
     let doingList: BehaviorRelay<[ListItem]>
     let doneList: BehaviorRelay<[ListItem]>
     
-    init(_ localStorage: LocalStorageable) {
+    init(_ localStorage: LocalStorageManagerable) {
         self.localStorage = localStorage
         self.todoList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.todo))
         self.doingList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.doing))

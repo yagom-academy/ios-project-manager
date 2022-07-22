@@ -7,18 +7,14 @@
 
 import RealmSwift
 
-protocol LocalStorageable {
+protocol LocalStorageManagerable {
     func readList(_ type: ListType) -> [ListItem]
     func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void)
     func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void)
     func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void)
 }
 
-final class LocalStorage: Object, LocalStorageable {
-    private let todoList = List<ListItemDTO>()
-    private let doingList = List<ListItemDTO>()
-    private let doneList = List<ListItemDTO>()
-    
+final class LocalStorageManager: LocalStorageManagerable {
     private func selectListModel(_ type: ListType) -> List<ListItemDTO> {
         guard let realm = try? Realm() else {
             return List<ListItemDTO>()
