@@ -5,8 +5,8 @@
 //  Created by 최최성균 on 2022/07/16.
 //
 
-import Foundation
 import RxRelay
+
 protocol EditViewModelable: EditViewModelOutput, EditViewModelInput {}
 
 protocol EditViewModelOutput {

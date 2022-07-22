@@ -5,7 +5,6 @@
 //  Created by 두기 on 2022/07/13.
 //
 
-import Foundation
 import RxRelay
 
 protocol AddViewModelable: AddViewModelOutput, AddViewModelInput {}
