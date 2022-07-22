@@ -15,6 +15,7 @@ final class ProjectManagerHomeViewController: UIViewController {
   private let realmService = RealmService()
   private var projects: Results<Project>?
   private var notificationToken: NotificationToken?
+  private var projectCategory: [UICollectionView: ProjectCategory]?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,6 +25,11 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.realmService.reloadDataWhenChangedRealmData(
       [todoCollectionView, doingCollectionView, doneCollectionView]
     )
+    self.projectCategory = [
+      self.todoCollectionView: .todo,
+      self.doingCollectionView: .doing,
+      self.doneCollectionView: .done
+    ]
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -85,19 +91,9 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     _ collectionView: UICollectionView,
     numberOfItemsInSection section: Int
   ) -> Int {
-    if collectionView == todoCollectionView {
-      return fetchItemCount(from: .todo)
-    }
+    guard let proejctCategory = self.fetchProejctCategory(from: collectionView) else { return .zero }
 
-    if collectionView == doingCollectionView {
-      return fetchItemCount(from: .doing)
-    }
-
-    if collectionView == doneCollectionView {
-      return fetchItemCount(from: .done)
-    }
-
-    return 0
+    return fetchItemCount(from: proejctCategory)
   }
 
   func collectionView(
@@ -124,6 +120,12 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     }
 
     return cell
+  }
+
+  private func fetchProejctCategory(from collectionView: UICollectionView) -> ProjectCategory? {
+    let projectCategory = projectCategory?[collectionView]
+
+    return projectCategory
   }
 
   private func fetchItemCount(from projectCategory: ProjectCategory) -> Int {
