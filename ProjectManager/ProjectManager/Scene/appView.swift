@@ -41,5 +41,10 @@ struct AppView: View {
       }
     }
     .navigationViewStyle(.stack)
+    .onChange(of: viewModel.todoList) { _ in
+      viewModel.todoListViewModel.refrash()
+      viewModel.doingListViewModel.refrash()
+      viewModel.doneListViewModel.refrash()
+    }
   }
 }

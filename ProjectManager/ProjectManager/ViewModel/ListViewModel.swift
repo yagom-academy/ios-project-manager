@@ -44,8 +44,10 @@ class ListViewModel: ObservableObject {
   
   func updata(status: Status, todo: Todo) {
     todoService.updateStatus(status: status, todo: todo)
-    
-//    todoList = todoService.read(by: status)
+    todoList = todoService.read(by: status)
+  }
 
+  func refrash() {
+    todoList = todoService.read(by: status)
   }
 }

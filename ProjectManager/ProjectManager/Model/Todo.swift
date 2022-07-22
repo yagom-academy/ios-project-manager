@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Todo: Identifiable {
+struct Todo: Identifiable, Equatable {
   let id: UUID
   var title: String
   var content: String

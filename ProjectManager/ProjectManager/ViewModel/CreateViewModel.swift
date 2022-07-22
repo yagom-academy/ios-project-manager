@@ -26,12 +26,13 @@ class CreateViewModel: ObservableObject {
   }
   
   func cancelButtonTapped() {
-    saveTodo()
+    todo = Todo(title: "", content: "")
     isClosed()
   }
   
   func doneButtonTapped() {
     saveTodo()
+    todo = Todo(title: "", content: "")
     isClosed()
   }
   

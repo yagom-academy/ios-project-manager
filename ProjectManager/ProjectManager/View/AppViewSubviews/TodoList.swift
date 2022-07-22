@@ -39,7 +39,7 @@ struct TodoListView: View {
 }
 
 struct ListCellView: View {
-  @State var isLongPressing: Bool = true
+  @State var isLongPressing: Bool = false
   @State var isShowEditView: Bool = false
   let todo: Todo
   @ObservedObject var viewModel: ListViewModel
@@ -60,13 +60,11 @@ struct ListCellView: View {
         isLongPressing.toggle()
       })
       .sheet(isPresented: $isShowEditView) {
-        
         EditView(todo: todo, viewModel: viewModel.editViewModel) {
           viewModel.closeButtonTapped()
         }
       }
       .popover(isPresented: $isLongPressing) {
-        
         TodoListPopOver(isShow: $isLongPressing, todo: todo) { status, todo in
           viewModel.updata(status: status, todo: todo)
         }

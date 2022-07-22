@@ -10,13 +10,12 @@ import SwiftUI
 
 class AppViewModel: ObservableObject {
   var todoService: TodoService
-  @Published private var todoList: [Todo]
+  @Published var todoList: [Todo]
   @Published var isTappedPlusButton: Bool
   var todoListViewModel: ListViewModel
   var doingListViewModel: ListViewModel
   var doneListViewModel: ListViewModel
   lazy var createViewModel: CreateViewModel = CreateViewModel(todoService: todoService) { [self] in
-    
     self.isTappedPlusButton = false
     self.todoList = todoService.read()
   }
