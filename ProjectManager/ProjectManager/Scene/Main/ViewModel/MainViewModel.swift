@@ -105,7 +105,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     private func sendNotificationForHistory(_ title: String, from type: TaskType) {
-        let content = "Removed '\(title)' from \(type)"
+        let content = "Removed '\(title)' from \(type.rawValue)"
         let time = Date().timeIntervalSince1970
         let history: [String: Any] = ["content": content, "time": time]
         NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
