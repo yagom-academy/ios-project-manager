@@ -17,8 +17,8 @@ final class RealmDatabase {
     }
     
     func create(todoData: Todo, completion: @escaping (Todo) -> Void) {
-        try? realm?.write {
-            realm?.add(todoData.convertRealmTodo())
+        try? self.realm?.write {
+            self.realm?.add(todoData.convertRealmTodo())
             completion(todoData)
         }
     }
@@ -31,27 +31,27 @@ final class RealmDatabase {
     }
     
     func update(selectedTodo: Todo, completion: @escaping (Todo) -> Void) {
-        try? realm?.write({
-            realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
+        try? self.realm?.write({
+            self.realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
             completion(selectedTodo)
         })
     }
     
     func delete(todoID: UUID, completion: @escaping (UUID) -> Void) {
-        guard let item = realm?.object(ofType: TodoDTO.self, forPrimaryKey: todoID) else {
+        guard let item = self.realm?.object(ofType: TodoDTO.self, forPrimaryKey: todoID) else {
             return
         }
         
-        try? realm?.write({
-            realm?.delete(item)
+        try? self.realm?.write({
+            self.realm?.delete(item)
             completion(todoID)
         })
     }
     
     func add(todoData: [Todo]) {
         let todoDataCollection = todoData.map { $0.convertRealmTodo() }
-        try? realm?.write({
-            realm?.add(todoDataCollection, update: .all)
+        try? self.realm?.write({
+            self.realm?.add(todoDataCollection, update: .all)
         })
     }
 }

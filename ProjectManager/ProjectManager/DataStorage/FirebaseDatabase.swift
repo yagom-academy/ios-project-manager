@@ -18,16 +18,13 @@ final class FirebaseDatabase {
     }
     
     func isConnected(completion: @escaping (Bool) -> Void) {
-        var isConnected: Bool = false
-        
-        let connectedRef = self.database.reference(withPath: ".info/connected")
-        connectedRef.observe(.value, with: { snapshot in
+        let isConnected = self.database.reference(withPath: ".info/connected")
+        isConnected.observe(.value, with: { snapshot in
           if snapshot.value as? Bool ?? false {
-              isConnected = true
+              completion(true)
           } else {
-              isConnected = false
+              completion(false)
           }
-            completion(isConnected)
         })
     }
     
@@ -52,20 +49,20 @@ final class FirebaseDatabase {
                 return
             }
             
-            guard let folder = snapshot?.value as? [String: Any] else {
+            guard let todoLists = snapshot?.value as? [String: Any] else {
                 return
             }
             
-            folder.forEach { (key, value) in
+            todoLists.forEach { (key, value) in
                 guard let todoDictionary = value as? [String : Any] else {
                     return
                 }
 
-                guard let todo = Todo(dictionary: todoDictionary) else {
+                guard let todoData = Todo(dictionary: todoDictionary) else {
                     return
                 }
 
-                todoArray.append(todo)
+                todoArray.append(todoData)
             }
             completion(todoArray)
         })

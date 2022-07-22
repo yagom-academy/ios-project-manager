@@ -41,7 +41,7 @@ final class TodoListViewController: UIViewController {
         action: nil
     )
     
-    private var networkBarButton = UIBarButtonItem(
+    private let networkBarButton = UIBarButtonItem(
         image: UIImage(systemName: "wifi.slash"),
         style: .plain,
         target: nil,
