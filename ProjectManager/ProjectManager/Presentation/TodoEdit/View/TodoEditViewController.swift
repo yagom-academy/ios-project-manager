@@ -10,6 +10,10 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+protocol TodoEditViewControllerDependencies: AnyObject {
+    func dismissEditViewController()
+}
+
 final class TodoEditViewController: UIViewController {
     private enum Constant {
         static let edit = "Edit"
@@ -19,6 +23,7 @@ final class TodoEditViewController: UIViewController {
     
     private let mainView = TodoEditView()
     private let viewModel: TodoEditViewModel
+    private weak var coordinator: TodoEditViewControllerDependencies?
     private let bag = DisposeBag()
     
     private let navigationBar = UINavigationBar()
@@ -33,8 +38,9 @@ final class TodoEditViewController: UIViewController {
         bind()
     }
     
-    init(viewModel: TodoEditViewModel) {
+    init(viewModel: TodoEditViewModel, coordinator: TodoEditViewControllerDependencies) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -96,12 +102,13 @@ extension TodoEditViewController {
         cancelButton.rx.tap
             .withUnretained(self)
             .bind { (self, _) in
-                self.viewModel.cancelButtonDidTap()
+                self.coordinator?.dismissEditViewController()
             }.disposed(by: bag)
         
         doneButton.rx.tap
             .withUnretained(self)
             .bind { (self, _) in
+                self.coordinator?.dismissEditViewController()
                 self.viewModel.doneButtonDidTap()
             }.disposed(by: bag)
         

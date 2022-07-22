@@ -9,13 +9,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-struct TodoEditViewModelActions {
-    let dismiss: () -> Void
-    let showErrorAlert: (_ message: String) -> Void
-}
-
 protocol TodoEditViewModelInput {
-    func cancelButtonDidTap()
     func doneButtonDidTap()
     func inputitle(title: String?)
     func inputDeadline(deadline: Date)
@@ -31,17 +25,14 @@ protocol TodoEditViewModelOutput {
 
 protocol TodoEditViewModel: TodoEditViewModelInput, TodoEditViewModelOutput {}
 
-
 final class DefaultTodoEditViewModel {
     private let useCase: TodoListUseCase
-    private let actions: TodoEditViewModelActions?
     private var item: TodoModel?
     private var isEditMode = false
     var setEditMode = PublishRelay<Bool>()
     
-    init(useCase: TodoListUseCase, actions: TodoEditViewModelActions, item: TodoModel?) {
+    init(useCase: TodoListUseCase, item: TodoModel?) {
         self.useCase = useCase
-        self.actions = actions
         self.item = item
     }
     
@@ -69,16 +60,10 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     //MARK: - Input
-    func cancelButtonDidTap() {
-        actions?.dismiss()
-    }
-    
     func doneButtonDidTap() {
         guard let item = item else {
-            actions?.dismiss()
             return
         }
-        actions?.dismiss()
         useCase.saveItem(to: item)
     }
     

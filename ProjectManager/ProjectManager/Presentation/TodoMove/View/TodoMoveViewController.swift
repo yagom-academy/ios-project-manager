@@ -9,8 +9,13 @@ import UIKit
 import SnapKit
 import RxSwift
 
+protocol TodoMoveViewControllerDependencies: AnyObject {
+    func dismissMoveViewController()
+}
+
 final class TodoMoveViewController: UIViewController {
     private let viewModel: TodoMoveViewModel
+    private weak var coordinator: TodoMoveViewControllerDependencies?
     private let bag = DisposeBag()
     
     private let firstButton: UIButton = {
@@ -37,8 +42,9 @@ final class TodoMoveViewController: UIViewController {
         return stackView
     }()
     
-    init(viewModel: TodoMoveViewModel) {
+    init(viewModel: TodoMoveViewModel, coordinator: TodoMoveViewControllerDependencies) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -75,11 +81,13 @@ extension TodoMoveViewController {
         
         firstButton.rx.tap
             .bind { [weak self] in
+                self?.coordinator?.dismissMoveViewController()
                 self?.viewModel.firstButtonDidTap()
             }.disposed(by: bag)
         
         secondButton.rx.tap
             .bind { [weak self] in
+                self?.coordinator?.dismissMoveViewController()
                 self?.viewModel.secondButtonDidTap()
             }.disposed(by: bag)
     }

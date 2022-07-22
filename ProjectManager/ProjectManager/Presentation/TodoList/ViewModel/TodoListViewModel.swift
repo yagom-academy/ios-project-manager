@@ -9,16 +9,9 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct TodoListViewModelActions {
-    let presentEditViewController: (_ item: TodoModel?) -> Void
-    let popoverMoveViewController: (_ cell: TodoListCell?, _ item: TodoModel) -> Void
-    let showErrorAlert: (_ message: String) -> Void
-}
-
 protocol TodoListViewModelInput {
-    func plusButtonDidTap()
-    func cellSelected(id: UUID)
-    func cellLongPress(cell: TodoListCell?, id: UUID)
+    func cellSelected(id: UUID) -> TodoModel?
+    func cellLongPress(id: UUID) -> TodoModel?
     func cellDeleteButtonDidTap(item: TodoCellContent)
 }
 
@@ -36,12 +29,10 @@ protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 final class DefaultTodoListViewModel {
     private let useCase: TodoListUseCase
-    private let actions: TodoListViewModelActions?
     private let todoLists: BehaviorSubject<[TodoModel]>
     
-    init(useCase: TodoListUseCase, actions: TodoListViewModelActions) {
+    init(useCase: TodoListUseCase) {
         self.useCase = useCase
-        self.actions = actions
         
         todoLists = useCase.readItems()
     }
@@ -104,21 +95,15 @@ extension DefaultTodoListViewModel: TodoListViewModel {
     }
     
     //MARK: - Input
-    func plusButtonDidTap() {
-        actions?.presentEditViewController(nil)
-    }
     
-    func cellSelected(id: UUID) {
-        let item = try? todoLists.value()
+    func cellSelected(id: UUID) -> TodoModel? {
+        return try? todoLists.value()
             .first { $0.id == id }
-        actions?.presentEditViewController(item)
     }
     
-    func cellLongPress(cell: TodoListCell?, id: UUID) {
-        if let item = try? todoLists.value()
-            .first(where: { $0.id == id }) {
-                actions?.popoverMoveViewController(cell, item)
-        }
+    func cellLongPress(id: UUID) -> TodoModel? {
+        return try? todoLists.value()
+            .first(where: { $0.id == id })
     }
     
     func cellDeleteButtonDidTap(item: TodoCellContent) {

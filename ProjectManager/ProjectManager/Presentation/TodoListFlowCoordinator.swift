@@ -8,9 +8,11 @@
 import UIKit
 
 protocol TodoListFlowCoordinatorDependencies {
-    func makeTodoListViewController(actions: TodoListViewModelActions) -> TodoListViewController
-    func makeTodoEditViewController(actions: TodoEditViewModelActions, item: TodoModel?) -> TodoEditViewController
-    func makeTodoMoveViewController(actions: TodoMoveViewModelActions, item: TodoModel) -> TodoMoveViewController
+    func makeTodoListViewController(coordinator: TodoListFlowCoordinator) -> TodoListViewController
+    func makeTodoEditViewController(item: TodoModel?,
+                                    coordinator: TodoEditViewControllerDependencies) -> TodoEditViewController
+    func makeTodoMoveViewController(item: TodoModel,
+                                    coordinator: TodoMoveViewControllerDependencies) -> TodoMoveViewController
 }
 
 final class TodoListFlowCoordinator {
@@ -28,35 +30,23 @@ final class TodoListFlowCoordinator {
 
 extension TodoListFlowCoordinator {
     func start() {
-        let actions = TodoListViewModelActions(presentEditViewController: presentEditViewController,
-                                               popoverMoveViewController: popoverMoveViewController,
-                                               showErrorAlert: showErrorAlert)
-        
-        let viewController = dependencies.makeTodoListViewController(actions: actions)
+        let viewController = dependencies.makeTodoListViewController(coordinator: self)
         
         navigationController?.pushViewController(viewController, animated: true)
         todoListViewController = viewController
     }
-    
-    private func presentEditViewController(item: TodoModel?) {
-        let actions = TodoEditViewModelActions(dismiss: dismissEditViewController,
-                                               showErrorAlert: showErrorAlert)
-        
-        let viewController = dependencies.makeTodoEditViewController(actions: actions, item: item)
+}
+
+extension TodoListFlowCoordinator: TodoListViewControllerDependencies {
+    func presentEditViewController(item: TodoModel?) {
+        let viewController = dependencies.makeTodoEditViewController(item: item, coordinator: self)
         viewController.modalPresentationStyle = .formSheet
         todoListViewController?.present(viewController, animated: true)
         todoEditViewController = viewController
     }
     
-    private func dismissEditViewController() {
-        todoEditViewController?.dismiss(animated: true)
-    }
-    
-    private func popoverMoveViewController(cell: UITableViewCell?, item: TodoModel) {
-        let actions = TodoMoveViewModelActions(dismiss: dismissMoveViewController,
-                                               showErrorAlert: showErrorAlert)
-        
-        let viewController = dependencies.makeTodoMoveViewController(actions: actions, item: item)
+    func popoverMoveViewController(cell: UITableViewCell?, item: TodoModel) {
+        let viewController = dependencies.makeTodoMoveViewController(item: item, coordinator:  self)
         viewController.modalPresentationStyle = .popover
         viewController.preferredContentSize = CGSize(width: 300, height: 130)
         viewController.popoverPresentationController?.sourceView = cell
@@ -67,13 +57,21 @@ extension TodoListFlowCoordinator {
         todoMoveViewController = viewController
     }
     
-    private func dismissMoveViewController() {
-        todoMoveViewController?.dismiss(animated: true)
-    }
-    
-    private func showErrorAlert(message: String) {
+    func showErrorAlert(message: String) {
         let alertController = UIAlertController(title: "에러", message: message, preferredStyle: .alert)
         alertController.addAction(.init(title: "확인", style: .default))
         todoListViewController?.present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension TodoListFlowCoordinator: TodoEditViewControllerDependencies {
+    func dismissEditViewController() {
+        todoEditViewController?.dismiss(animated: true)
+    }
+}
+
+extension TodoListFlowCoordinator: TodoMoveViewControllerDependencies {
+    func dismissMoveViewController() {
+        todoMoveViewController?.dismiss(animated: true)
     }
 }

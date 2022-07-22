@@ -9,6 +9,12 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+protocol TodoListViewControllerDependencies: AnyObject {
+    func presentEditViewController(item: TodoModel?)
+    func popoverMoveViewController(cell: UITableViewCell?, item: TodoModel)
+    func showErrorAlert(message: String)
+}
+
 final class TodoListViewController: UIViewController {
     private enum Constant {
         static let navigationBarTitle = "Project Manager"
@@ -18,6 +24,7 @@ final class TodoListViewController: UIViewController {
     
     private let mainView = TodoListView()
     private let viewModel: TodoListViewModel
+    private weak var coordinator: TodoListViewControllerDependencies?
     
     private let bag = DisposeBag()
   
@@ -28,8 +35,9 @@ final class TodoListViewController: UIViewController {
         bind()
     }
     
-    init(viewModel: TodoListViewModel) {
+    init(viewModel: TodoListViewModel, coordinator: TodoListViewControllerDependencies?) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -93,7 +101,7 @@ extension TodoListViewController {
         //MARK: - Event
         plusButton.rx.tap
             .bind { [weak self] in
-                self?.viewModel.plusButtonDidTap()
+                self?.coordinator?.presentEditViewController(item: nil)
             }.disposed(by: bag)
         
         Observable
@@ -102,7 +110,8 @@ extension TodoListViewController {
                 mainView.done.tableView.rx.listLongPress(TodoCellContent.self))
             .merge()
             .bind { [weak self] (cell, item) in
-                self?.viewModel.cellLongPress(cell: cell as? TodoListCell, id: item.id)
+                guard let item = self?.viewModel.cellLongPress(id: item.id) else { return }
+                self?.coordinator?.popoverMoveViewController(cell: cell, item: item)
             }.disposed(by: bag)
         
         Observable
@@ -112,7 +121,8 @@ extension TodoListViewController {
             .merge()
             .bind { [weak self] (indexPath, item) in
                 self?.mainView.tableViewdeselectRow(indexPath: indexPath)
-                self?.viewModel.cellSelected(id: item.id)
+                let item = self?.viewModel.cellSelected(id: item.id)
+                self?.coordinator?.presentEditViewController(item: item)
             }.disposed(by: bag)
         
         Observable
@@ -126,13 +136,7 @@ extension TodoListViewController {
         
         viewModel.errorMessage
             .bind { [weak self] message in
-                self?.showErrorAlert(message: message)
+                self?.coordinator?.showErrorAlert(message: message)
             }.disposed(by: bag)
-    }
-    
-    private func showErrorAlert(message: String) {
-        let alertController = UIAlertController(title: "에러", message: message, preferredStyle: .alert)
-        alertController.addAction(.init(title: "확인", style: .default))
-        self.present(alertController, animated: true, completion: nil)
     }
 }

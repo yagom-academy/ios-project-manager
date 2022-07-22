@@ -9,11 +9,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct TodoMoveViewModelActions {
-    let dismiss: () -> Void
-    let showErrorAlert: (_ message: String) -> Void
-}
-
 protocol TodoMoveViewModelInput {
     func firstButtonDidTap()
     func secondButtonDidTap()
@@ -27,12 +22,10 @@ protocol TodoMoveViewModel: TodoMoveViewModelInput, TodoMoveViewModelOutput {}
 
 final class DefaultTodoMoveViewModel {
     private let useCase: TodoListUseCase
-    private let actions: TodoMoveViewModelActions?
     private let item: TodoModel
     
-    init(useCase: TodoListUseCase, actions: TodoMoveViewModelActions, item: TodoModel) {
+    init(useCase: TodoListUseCase, item: TodoModel) {
         self.useCase = useCase
-        self.actions = actions
         self.item = item
     }
     
@@ -68,13 +61,11 @@ extension DefaultTodoMoveViewModel: TodoMoveViewModel {
     //MARK: - Input
     func firstButtonDidTap() {
         let newState = useCase.moveState(from: item.state).first
-        actions?.dismiss()
         changeItemState(to: newState)
     }
     
     func secondButtonDidTap() {
         let newState = useCase.moveState(from: item.state).second
-        actions?.dismiss()
         changeItemState(to: newState)
     }
 }

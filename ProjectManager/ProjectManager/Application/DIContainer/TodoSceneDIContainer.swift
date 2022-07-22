@@ -11,13 +11,12 @@ final class TodoSceneDIContainer {
     private let storage = RealmTodoListStorage()
     private let backUpStorage = FirebaseTodoListStorage()
 
-    private func makeTodoListViewModel(actions: TodoListViewModelActions) -> DefaultTodoListViewModel {
-        return DefaultTodoListViewModel(useCase: makeTodoListUseCase(), actions: actions)
+    private func makeTodoListViewModel() -> DefaultTodoListViewModel {
+        return DefaultTodoListViewModel(useCase: makeTodoListUseCase())
     }
     
-    private func makeTodoEditViewModel(actions: TodoEditViewModelActions, item: TodoModel?) -> DefaultTodoEditViewModel {
+    private func makeTodoEditViewModel(item: TodoModel?) -> DefaultTodoEditViewModel {
         return DefaultTodoEditViewModel(useCase: makeTodoListUseCase(),
-                                        actions: actions,
                                         item: item)
     }
     
@@ -25,8 +24,8 @@ final class TodoSceneDIContainer {
         return DefaultTodoListUseCase(repository: makeTodoListRepository())
     }
     
-    private func makeTodoMoveViewModel(actions: TodoMoveViewModelActions, item: TodoModel) -> TodoMoveViewModel {
-        return DefaultTodoMoveViewModel(useCase: makeTodoListUseCase(), actions: actions, item: item)
+    private func makeTodoMoveViewModel(item: TodoModel) -> TodoMoveViewModel {
+        return DefaultTodoMoveViewModel(useCase: makeTodoListUseCase(), item: item)
     }
     
     private func makeTodoListRepository() -> DefaultTodoListRepository {
@@ -35,16 +34,18 @@ final class TodoSceneDIContainer {
 }
 
 extension TodoSceneDIContainer: TodoListFlowCoordinatorDependencies {
-    func makeTodoMoveViewController(actions: TodoMoveViewModelActions, item: TodoModel) -> TodoMoveViewController {
-        return TodoMoveViewController(viewModel: makeTodoMoveViewModel(actions: actions, item: item))
+    func makeTodoMoveViewController(item: TodoModel,
+                                    coordinator: TodoMoveViewControllerDependencies) -> TodoMoveViewController {
+        return TodoMoveViewController(viewModel: makeTodoMoveViewModel(item: item), coordinator: coordinator)
     }
     
-    func makeTodoListViewController(actions: TodoListViewModelActions) -> TodoListViewController {
-        return TodoListViewController(viewModel: makeTodoListViewModel(actions: actions))
+    func makeTodoListViewController(coordinator: TodoListFlowCoordinator) -> TodoListViewController {
+        return TodoListViewController(viewModel: makeTodoListViewModel(), coordinator: coordinator)
     }
 
-    func makeTodoEditViewController(actions: TodoEditViewModelActions, item: TodoModel?) -> TodoEditViewController {
-        return TodoEditViewController(viewModel: makeTodoEditViewModel(actions: actions, item: item))
+    func makeTodoEditViewController(item: TodoModel?,
+                                    coordinator: TodoEditViewControllerDependencies) -> TodoEditViewController {
+        return TodoEditViewController(viewModel: makeTodoEditViewModel(item: item), coordinator: coordinator)
 
     }
 }
