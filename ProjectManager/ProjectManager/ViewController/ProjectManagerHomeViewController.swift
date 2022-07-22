@@ -138,23 +138,13 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
 
 extension ProjectManagerHomeViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    if collectionView == todoCollectionView {
-      presentProjectEditView(projectCategory: .todo, indexPath: indexPath)
-    }
+    guard let projectCategory = fetchProejctCategory(from: collectionView) else { return }
 
-    if collectionView == doingCollectionView {
-      presentProjectEditView(projectCategory: .doing, indexPath: indexPath)
-    }
-
-    if collectionView == doneCollectionView {
-      presentProjectEditView(projectCategory: .done, indexPath: indexPath)
-    }
+    self.presentProjectEditView(projectCategory: projectCategory, indexPath: indexPath)
   }
 
   private func presentProjectEditView(projectCategory: ProjectCategory, indexPath: IndexPath) {
-    let todolist = projects?.filter { $0.projectCategory == projectCategory.description }
-    guard let todolist = todolist else { return }
-
+    guard let todolist = realmService.filter(projectCategory: projectCategory) else { return }
     guard let projectAddViewController = storyboard?.instantiateViewController(
       identifier: "\(ProjectAddViewController.self)",
       creator: { coder in ProjectAddViewController(
