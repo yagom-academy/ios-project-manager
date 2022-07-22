@@ -102,7 +102,11 @@ extension PersistentManager {
             return
         }
         
-        managedObject.setValue(project.id, forKey: "id")
+        guard let id = UUID(uuidString: project.id) else {
+            return
+        }
+        
+        managedObject.setValue(id, forKey: "id")
         managedObject.setValue(project.title, forKey: "title")
         managedObject.setValue(project.status, forKey: "status")
         managedObject.setValue(formattedDeadline, forKey: "deadline")
