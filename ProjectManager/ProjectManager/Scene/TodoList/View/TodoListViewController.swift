@@ -47,6 +47,13 @@ final class TodoListViewController: UIViewController {
         target: nil,
         action: nil
     )
+    
+    private let historyBarButton = UIBarButtonItem(
+        title: "History",
+        style: .plain,
+        target: nil,
+        action: nil
+    )
 
     init(todoViewModel: TodoListViewModel, coordinator: AppCoordinator) {
         self.todoView = ListView(todoListItemStatus: .todo, listViewModel: todoViewModel, coordinator: coordinator)
@@ -89,6 +96,7 @@ final class TodoListViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         self.title = Const.projectManager
         self.navigationItem.rightBarButtonItems = [self.rightBarButton, self.networkBarButton]
+        self.navigationItem.leftBarButtonItem = self.historyBarButton
     }
     
     private func bind() {
@@ -101,6 +109,12 @@ final class TodoListViewController: UIViewController {
         self.viewModel.networkState
             .map { UIImage(systemName: $0) }
             .drive(self.networkBarButton.rx.image)
+            .disposed(by: self.disposeBag)
+        
+        self.historyBarButton.rx.tap.asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.coordinator?.showHistory(historyButton: self?.historyBarButton)
+            })
             .disposed(by: self.disposeBag)
     }
 }

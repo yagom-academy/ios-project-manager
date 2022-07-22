@@ -61,6 +61,28 @@ final class AppCoordinator: Coordinator {
         self.detailViewController?.dismiss(animated: true)
     }
     
+    func showHistory(historyButton: UIBarButtonItem?) {
+        guard let historyButton = historyButton else {
+            return
+        }
+        
+        let popover: UIAlertController = {
+            let alertController = UIAlertController(
+                title: "nil",
+                message: "nil2",
+                preferredStyle: .actionSheet
+            )
+            alertController.modalPresentationStyle = .popover
+            alertController.popoverPresentationController?.permittedArrowDirections = .up
+            alertController.popoverPresentationController?.barButtonItem = historyButton
+            alertController.popoverPresentationController?.sourceRect = CGRect(origin: CGPoint(x: historyButton.width / 2, y: 0), size: .zero)
+            
+            return alertController
+        }()
+        
+        self.navigationController.present(popover, animated: true)
+    }
+    
     func showPopover(
         sourceView: UIView,
         firstTitle: String,
