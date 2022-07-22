@@ -16,6 +16,7 @@ final class TaskCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
         
         return stackView
     }()
@@ -25,12 +26,14 @@ final class TaskCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
+        label.numberOfLines = 3
         return label
     }()
     
@@ -46,7 +49,6 @@ final class TaskCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(baseStackView)
         configureLayout()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -68,8 +70,8 @@ final class TaskCell: UITableViewCell {
         NSLayoutConstraint.activate([
             baseStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             baseStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            baseStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            baseStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+            baseStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            baseStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
     
@@ -80,8 +82,8 @@ final class TaskCell: UITableViewCell {
         setDateLabelColor(date: task.date)
     }
     
-    func setDateLabelColor(date: Date) {
-        let result = date.compare(Date())
+    private func setDateLabelColor(date: Date) {
+        let result = date.compare(Date.today)
         switch result {
         case .orderedAscending:
             dateLabel.textColor = .red

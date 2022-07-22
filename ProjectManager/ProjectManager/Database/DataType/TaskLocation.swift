@@ -11,7 +11,7 @@ class TaskLocation: Object {
     @Persisted var location: String
     @Persisted var row: Int
 
-    convenience init(location: TaskCase, row: Int) {
+    convenience init(location: TaskType, row: Int) {
         self.init()
         self.location = location.rawValue
         self.row = row
