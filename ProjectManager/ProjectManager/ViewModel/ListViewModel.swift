@@ -13,8 +13,6 @@ class ListViewModel: ObservableObject {
   let status: Status
   var listCount: Int
   @Published var todoList: [Todo]
-  @Published var isLongPressing = false
-  @Published var isShowEditView = false
   
   lazy var editViewModel = EditViewModel(update: { [self] todo in
     todoService.update(todo: todo)
@@ -39,19 +37,15 @@ class ListViewModel: ObservableObject {
     
     todoList = todoService.read(by: status)
   }
-  
-  func cellButtonTapped() {
-    isShowEditView = true
-  }
-  
-  func cellButtonLongPressed() {
-    isLongPressing.toggle()
-  }
-  
+
   func closeButtonTapped() {
-    isShowEditView = false
-    isLongPressing = false
-    
     todoList = todoService.read(by: status)
+  }
+  
+  func updata(status: Status, todo: Todo) {
+    todoService.updateStatus(status: status, todo: todo)
+    
+//    todoList = todoService.read(by: status)
+
   }
 }

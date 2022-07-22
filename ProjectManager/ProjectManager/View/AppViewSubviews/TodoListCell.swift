@@ -45,7 +45,7 @@ struct TodoListCell: View {
       }
     }
   }
-  
+    
   private func configure() {
     isOverDate = todo.date < Date() && todo.status != .done
   }

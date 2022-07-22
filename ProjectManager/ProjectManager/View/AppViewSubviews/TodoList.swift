@@ -39,30 +39,36 @@ struct TodoListView: View {
 }
 
 struct ListCellView: View {
-  @ObservedObject var viewModel: ListViewModel
+  @State var isLongPressing: Bool = true
+  @State var isShowEditView: Bool = false
   let todo: Todo
+  @ObservedObject var viewModel: ListViewModel
   
-  init(todo: Todo, viewModel: ListViewModel) {
+  init(todo: Todo, viewModel: ListViewModel, isLongPressing: Bool = false, isShowEditView: Bool = false) {
     self.todo = todo
     self.viewModel = viewModel
+    self.isLongPressing = isLongPressing
+    self.isShowEditView = isShowEditView
   }
   
   var body: some View {
     TodoListCell(todo)
       .onTapGesture(perform: {
-        viewModel.cellButtonTapped()
+        isShowEditView.toggle()
       })
       .onLongPressGesture(perform: {
-        viewModel.cellButtonLongPressed()
+        isLongPressing.toggle()
       })
-      .sheet(isPresented: $viewModel.isShowEditView) {
-        EmptyView()
-//        EditView(todo: todo, viewModel: viewModel.editViewModel) {
-//          viewModel.closeButtonTapped()
-//        }
-        .popover(isPresented: $viewModel.isLongPressing) {
-          EmptyView()
-          //        TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)
+      .sheet(isPresented: $isShowEditView) {
+        
+        EditView(todo: todo, viewModel: viewModel.editViewModel) {
+          viewModel.closeButtonTapped()
+        }
+      }
+      .popover(isPresented: $isLongPressing) {
+        
+        TodoListPopOver(isShow: $isLongPressing, todo: todo) { status, todo in
+          viewModel.updata(status: status, todo: todo)
         }
       }
   }

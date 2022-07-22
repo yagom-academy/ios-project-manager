@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TodoListPopOver: View {
+
   @Binding var isShow: Bool
   let todo: Todo
   private let updata: (Status, Todo) -> Void

@@ -12,12 +12,17 @@ class CreateViewModel: ObservableObject {
   var todoService: TodoService
   @Published var todo: Todo
   var isClosed: () -> Void
+//  var create: (Todo) -> Void
   
-  init(todoService: TodoService, todo: Todo = Todo(title: "", content: ""),
-       isClosed: @escaping () -> Void) {
+  init(todoService: TodoService,
+       todo: Todo = Todo(title: "", content: ""),
+       isClosed: @escaping () -> Void
+//       create: @escaping (Todo) -> Void
+  ) {
     self.todoService = todoService
     self.todo = todo
     self.isClosed = isClosed
+//    self.create = create
   }
   
   func cancelButtonTapped() {

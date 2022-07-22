@@ -16,7 +16,9 @@ class AppViewModel: ObservableObject {
   var doingListViewModel: ListViewModel
   var doneListViewModel: ListViewModel
   lazy var createViewModel: CreateViewModel = CreateViewModel(todoService: todoService) { [self] in
+    
     self.isTappedPlusButton = false
+    self.todoList = todoService.read()
   }
   
   init(todoService: TodoService = TodoService()) {
