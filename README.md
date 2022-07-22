@@ -1,7 +1,7 @@
 # 프로젝트 매니저 README
 
 # 📑 프로젝트 관리 앱
-> 프로젝트 기간: 2022-07-04 ~ 2022-07-15
+> 프로젝트 기간: 2022-07-04 ~ 2022-07-29
 > 
 > 팀원: [malrang](https://github.com/malrang-malrang), [Eddy](https://github.com/kimkyunghun3)
 > 
@@ -20,6 +20,10 @@
     - [STEP 2-2](https://github.com/yagom-academy/ios-project-manager/pull/134)
     - [STEP 2-3](https://github.com/yagom-academy/ios-project-manager/pull/140)
     - [STEP 2-4, 2-5](https://github.com/yagom-academy/ios-project-manager/pull/146)
+    - [STEP 2-6, 2-7](https://github.com/yagom-academy/ios-project-manager/pull/150)
+- STEP 3
+    - [STEP 3-1](https://github.com/yagom-academy/ios-project-manager/pull/152)
+    - [STEP 3-2](https://github.com/yagom-academy/ios-project-manager/pull/158)
 
 ## 🛠 개발환경 및 라이브러리
 - [![swift](https://img.shields.io/badge/swift-5.0-orange)]()
@@ -52,6 +56,15 @@
 [STEP 2-3, 2-4, 2-5]
 - TodoList 생성, 편집, 삭제 기능 구현
 - Popover를 통해 TodoList를 Todo, Doing, Done 이동
+
+[STEP 2-6, 2-7]
+- longPressGesture시 Popover창이 띄워지며 메뉴에 따라 원하는 Status로 가도록 구현
+- 할일 목록 기한 초과시 DateLabel(TODO, DOING Status에서만)의 색상 변경 구현
+ 
+[STEP 3-1, 3-2]
+- 로컬 디스크인 Realm를 활용해 데이터를 저장, 삭제, 편집 기능 구현
+- 리모트 디스크인 Firebase에 데이터 저장, 삭제, 편집 및 로컬 디스크와 동기화 기능 구현
+- 네트워크 연결 유무에 따라 유저에게 알려주는 와이파이 image 구현
 
 ## 🤔 고민한점, 트러블 슈팅
 
@@ -92,7 +105,7 @@
 
 ## [STEP 2-1, 2-2]
 ### 3개의 다른 todoListItemStatus 가진 TableView 구현
-![](https://i.imgur.com/7VpWBN7.png)
+<img src="https://i.imgur.com/7VpWBN7.png" width="700" height="350">
 
 ProjectManager Project 의 기능은 Todo(해야할일)를 등록하고, todo(해야할일), doing(하고있는일), done(완료된일) 3가지 상태로 분류하여 UI에 표시해주는 기능을 갖게된다.
 
@@ -155,3 +168,102 @@ tableView의 cell을 tap할경우와 navigationBar의 + 버튼을 tap할경우 D
 <img src="https://i.imgur.com/VJDXp4y.png" width="401">
 
 AppCoordinator를 구현함으로써 화면을 전환하는 기능의 중복코드 문제를 개선할수 있었고 추상화를 통해 View는 화면을 어떻게 보여줄것인지만을 정의할수있게 되었다.
+
+## [STEP 2-6, 2-7]
+### Reactive longPress ControlEvent 구현
+tableView의 Cell을 longPress 할경우 Popover view를 보여주는 기능을 구현하기위해 tableView에 longPress Gesture를 추가 해주어야 했다.
+
+RxSwift 라이브러리를 사용하고 있기에 RxGesture 라이브러리를 추가 하여 longPress ControlEvent 를 사용할수도 있었지만 RxGesture라이브러리의 longPress Gesture를 사용하더라도 longPress한 Cell의 데이터를 활용하기 위해서는 세부 로직을 구현해주어야하는 문제가 발생했다.
+
+그렇다면 RxGesture 라이브러리를 추가하는것이 아닌 이번 프로젝트에서 좀더 쉽게 활용할 수 있도록 Reactive를 extension 하여 longPress ControlEvent를 구현하였다.
+
+```swift
+extension Reactive where Base: UITableView {
+    func modelLongPressed<T>(_ modelType: T.Type) -> ControlEvent<(UITableViewCell, T)> {
+        let longPressGesture = UILongPressGestureRecognizer(target: nil, action: nil)
+        
+        base.addGestureRecognizer(longPressGesture)
+        let source = longPressGesture.rx.event
+            .filter { $0.state == .began }
+            .map { base.indexPathForRow(at: $0.location(in: base)) }
+            .flatMap { [weak tableView = base as UITableView] indexPath -> Observable<(UITableViewCell, T)> in
+                guard let tableView = tableView,
+                      let indexPath = indexPath,
+                      let cell = tableView.cellForRow(at: indexPath) else { return Observable.empty() }
+                return Observable.zip(
+                    Observable.just(cell),
+                    Observable.just(try tableView.rx.model(at: indexPath))
+                )
+            }
+        return ControlEvent(events: source)
+    }
+}
+```
+RxSwift tableView.rx의 modelselected, modelDeleted와 유사하게 사용할수 있도록 네이밍에 model을 키워드를 추가해주었다.
+
+tableView의 modelLongPressed 이벤트가 감지될경우 어떤위치의 Cell인지 알수있도록 하고 어떤 데이터를 가지고 있는지 알수 있도록 외부에 전달 하도록 구현했다.
+
+하지만 위와같이 구현했을때 기존에 구현해 두었던 tableView의 tap 이벤트가 감지되지 않는 문제가 발생했다.
+tap, modelLongPressed 둘중 어떤 이벤트를 감지할지 알수 없게 된것이다.
+문제를 해결하기 위해 ControlEvent에 우선순위를 설정할수 있을까? 고민하였고 modelLongPressed 이벤트 내부의 UILongPressGestureRecognizer 속성중 minimumPressDuration 을 활용하여 문제를 해결했다.
+
+```swift
+ let longPressGesture: UILongPressGestureRecognizer = {
+            let gesture = UILongPressGestureRecognizer(target: nil, action: nil)
+            gesture.minimumPressDuration = 0.5
+            return gesture
+        }()
+```
+0.5초 이상 longPress 했을 경우에 인식되도록 수정하였다.
+
+## [STEP 3-1, 3-2]
+### DataManager를 활용하여 추상화 구현
+DataManager에서 Local Database, Remote Database를 관리할 수 있도록 구현한다.
+
+<img src ="https://i.imgur.com/Lm8A4EW.png" width="400">
+
+DataManager를 사용하면 새로운 Database가 오더라도 이곳에서 관리하고 CRUD를 실행시키면 되기 때문에 최소한의 변경으로 구현이 가능해진다.
+
+프토로콜을 통해 필요 기능들을 정의해두고 구현을 내부에서 해주는 방식으로 추상화했다.
+```swift
+protocol DatabaseManagerProtocol {
+    var todoListBehaviorRelay: BehaviorRelay<[Todo]> { get }
+    var networkStateBehaviorRelay: BehaviorRelay<Bool> { get }
+    
+    func create(todoData: Todo)
+    func read()
+    func update(selectedTodo: Todo)
+    func delete(todoID: UUID)
+}
+
+final class DatabaseManager: DatabaseManagerProtocol {
+        // 실제 구현이 이루어지는 곳
+    private let realm = RealmDatabase()
+    private let firebase = FirebaseDatabase()
+}
+```
+
+### 로컬 디스크와 리모트 디스크 동기화 기능 구현
+로컬 디스크에 저장된 데이터를 리모트 디스크에 동기화 하는 기능을 추가하기위해 고민 하였고
+잘못 구현할 경우 로컬 디스크 혹은 리모트 디스크의 데이터가 소실될 위험이 있을것이라 생각했다.
+
+데이터가 소실되지 않도록 동기화 기능을 구현하기위해 로컬 디스크, 리모트 디스크 둘중 어떤것을 프로젝트의 메인 디스크로 사용할것인지 고민하고 네트워크가 연결되지 않는 상황을 고려하여 로컬디스크를 메인 디스크로 사용하도록 했다.
+
+로컬 디스크의 데이터를 리모트 디스크와 동기화 기능을 수행하는 시점은 아래와 같다.
+
+- 앱 실행 시 리모트 디스크와 동기화하도록 한다.
+- 앱 실행 중에 로컬 디스크 CRUD 기능 동작 시 리모트 디스크와 실시간 동기화하도록 한다.
+
+동기화 기능은 아래와 같은 방식으로 이루어진다.
+RealmDatabase에서 데이터를 생성 하게 되면 Completion를 통해 firebase에서도 데이터를 생성하며 실시간으로 생성이 되도록 한다.
+이처럼 CRUD를 구현하여 동기화 기능이 동작하도록 한다.
+
+```swift
+func create(todoData: Todo) {
+    self.realm.create(todoData: todoData) { todoData in
+        self.firebase.create(todoData: todoData)
+    }
+
+    self.todoListBehaviorRelay.accept(self.todoListBehaviorRelay.value + [todoData])
+}
+```
