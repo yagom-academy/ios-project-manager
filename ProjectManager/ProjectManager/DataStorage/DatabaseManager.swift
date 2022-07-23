@@ -32,42 +32,42 @@ final class DatabaseManager: DatabaseManagerProtocol {
     }
     
     private func networkState() {
-        self.firebase.isConnected { networkState in
-            self.networkStateBehaviorRelay.accept(networkState)
+        self.firebase.isConnected { [weak self] networkState in
+            self?.networkStateBehaviorRelay.accept(networkState)
         }
     }
     
     func create(todoData: Todo) {
-        self.realm.create(todoData: todoData) { todoData in
-            self.firebase.create(todoData: todoData)
+        self.realm.create(todoData: todoData) { [weak self] todoData in
+            self?.firebase.create(todoData: todoData)
         }
         
         self.todoListBehaviorRelay.accept(self.todoListBehaviorRelay.value + [todoData])
     }
 
     func read() {
-        self.realm.read { todoData in
-            self.firebase.sync(todoData: todoData)
-            self.todoListBehaviorRelay.accept(todoData)
+        self.realm.read { [weak self] todoData in
+            self?.firebase.sync(todoData: todoData)
+            self?.todoListBehaviorRelay.accept(todoData)
         }
     }
 
     func update(selectedTodo: Todo) {
-        self.realm.update(selectedTodo: selectedTodo) { selectedTodo in
-            self.firebase.update(selectedTodo: selectedTodo)
+        self.realm.update(selectedTodo: selectedTodo) { [weak self] selectedTodo in
+            self?.firebase.update(selectedTodo: selectedTodo)
         }
         
-        var todoArray = self.todoListBehaviorRelay.value
-        if let index = todoArray.firstIndex(where: { $0.identifier == selectedTodo.identifier }) {
-            todoArray[index] = selectedTodo
+        var todoList = self.todoListBehaviorRelay.value
+        if let index = todoList.firstIndex(where: { $0.identifier == selectedTodo.identifier }) {
+            todoList[index] = selectedTodo
         }
 
-        self.todoListBehaviorRelay.accept(todoArray)
+        self.todoListBehaviorRelay.accept(todoList)
     }
     
     func delete(todoID: UUID) {
-        self.realm.delete(todoID: todoID) { uuid in
-            self.firebase.delete(todoID: uuid)
+        self.realm.delete(todoID: todoID) { [weak self] uuid in
+            self?.firebase.delete(todoID: uuid)
         }
         
         let items = self.todoListBehaviorRelay.value.filter { $0.identifier != todoID }
@@ -75,8 +75,8 @@ final class DatabaseManager: DatabaseManagerProtocol {
     }
     
     func backup() {
-        self.firebase.read { todo in
-            self.realm.add(todoData: todo)
+        self.firebase.read { [weak self] todo in
+            self?.realm.add(todoData: todo)
         }
     }
 }

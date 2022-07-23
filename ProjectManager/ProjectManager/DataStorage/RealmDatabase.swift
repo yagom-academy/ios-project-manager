@@ -17,22 +17,22 @@ final class RealmDatabase {
     }
     
     func create(todoData: Todo, completion: @escaping (Todo) -> Void) {
-        try? self.realm?.write {
-            self.realm?.add(todoData.convertRealmTodo())
+        try? self.realm?.write { [weak self] in
+            self?.realm?.add(todoData.convertRealmTodo())
             completion(todoData)
         }
     }
     
     func read(completion: @escaping ([Todo]) -> Void) {
-        var todoArray: [Todo] = []
+        var todoList: [Todo] = []
         self.realm?.objects(TodoDTO.self)
-            .forEach { todoArray.append($0.convertTodo()) }
-        completion(todoArray)
+            .forEach { todoList.append($0.convertTodo()) }
+        completion(todoList)
     }
     
     func update(selectedTodo: Todo, completion: @escaping (Todo) -> Void) {
-        try? self.realm?.write({
-            self.realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
+        try? self.realm?.write({ [weak self] in
+            self?.realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
             completion(selectedTodo)
         })
     }
@@ -42,16 +42,16 @@ final class RealmDatabase {
             return
         }
         
-        try? self.realm?.write({
-            self.realm?.delete(item)
+        try? self.realm?.write({ [weak self] in
+            self?.realm?.delete(item)
             completion(todoID)
         })
     }
     
     func add(todoData: [Todo]) {
         let todoDataCollection = todoData.map { $0.convertRealmTodo() }
-        try? self.realm?.write({
-            self.realm?.add(todoDataCollection, update: .all)
+        try? self.realm?.write({ [weak self] in
+            self?.realm?.add(todoDataCollection, update: .all)
         })
     }
 }
