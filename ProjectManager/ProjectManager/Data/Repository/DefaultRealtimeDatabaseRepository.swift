@@ -1,5 +1,5 @@
 //
-//  DefaultRealtimeDatabaseService.swift
+//  DefaultRealtimeDatabaseRepository.swift
 //  ProjectManager
 //
 //  Created by Lingo on 2022/07/20.
@@ -10,18 +10,25 @@ import Foundation
 import FirebaseDatabase
 import RxSwift
 
-final class DefaultRealtimeDatabaseService: RealtimeDatabaseService {
-  private let database: DatabaseReference
+protocol DatabaseReferable {
+  func getData(completion block: @escaping (Error?, DataSnapshot?) -> Void)
+  func setValue(_ value: Any?)
+}
+
+extension DatabaseReference: DatabaseReferable {}
+
+final class DefaultRealtimeDatabaseRepository: RealtimeDatabaseRepository {
+  private let database: DatabaseReferable
   
-  init(database: DatabaseReference = Database.database().reference()) {
+  init(database: DatabaseReferable = Database.database().reference()) {
     self.database = database
   }
   
-  func fetch() -> Observable<[Card]> {
+  func fetchAll() -> Observable<[Card]> {
     return Single.create { [weak self] observer in
       self?.database.getData { error, snapshot in
         guard error == nil else {
-          observer(.failure(RealtimeDatabaseServiceError.errorIsOccurred(error)))
+          observer(.failure(RealtimeDatabaseRepositoryError.errorIsOccurred(error)))
           return
         }
         
@@ -29,7 +36,7 @@ final class DefaultRealtimeDatabaseService: RealtimeDatabaseService {
               let data = try? JSONSerialization.data(withJSONObject: value.map { $1 }),
               let cards = try? JSONDecoder().decode([Card].self, from: data)
         else {
-          observer(.failure(RealtimeDatabaseServiceError.decodingFailure))
+          observer(.failure(RealtimeDatabaseRepositoryError.decodingFailure))
           return
         }
         observer(.success(cards))
@@ -38,7 +45,7 @@ final class DefaultRealtimeDatabaseService: RealtimeDatabaseService {
     }.asObservable()
   }
   
-  func write(cards: [Card]) -> Observable<[Card]> {
+  func create(_ cards: [Card]) -> Observable<[Card]> {
     return Single.create { [weak self] observer in
       var container = [String: Any]()
 
@@ -47,7 +54,7 @@ final class DefaultRealtimeDatabaseService: RealtimeDatabaseService {
            let encodedCard = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
           container[card.id] = encodedCard
         } else {
-          observer(.failure(RealtimeDatabaseServiceError.writeToRealtimeDatabaseFailure))
+          observer(.failure(RealtimeDatabaseRepositoryError.writeToRealtimeDatabaseFailure))
           return Disposables.create()
         }
       }

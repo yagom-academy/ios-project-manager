@@ -29,6 +29,7 @@
 		B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */; };
 		B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */; };
 		B07673A1288C54BA0068EF6B /* CoreDataStoragable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07673A0288C54BA0068EF6B /* CoreDataStoragable.swift */; };
+		B07673A8288C5E340068EF6B /* DatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07673A7288C5E340068EF6B /* DatabaseRepository.swift */; };
 		B092618C28882DEA000BB636 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B092618B28882DEA000BB636 /* GoogleService-Info.plist */; };
 		B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2474288835A9007DFE5E /* Endpoint.swift */; };
 		B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247628883A90007DFE5E /* HTTPMethod.swift */; };
@@ -36,21 +37,19 @@
 		B0BC247E28883F9F007DFE5E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247D28883F9F007DFE5E /* NetworkService.swift */; };
 		B0BC248028883FB1007DFE5E /* DefaultNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */; };
 		B0BC248228884185007DFE5E /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248128884185007DFE5E /* NetworkServiceError.swift */; };
-		B0BC248828884B0D007DFE5E /* RealtimeDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248728884B0D007DFE5E /* RealtimeDatabaseService.swift */; };
-		B0BC248A28884B29007DFE5E /* DefaultRealtimeDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseService.swift */; };
-		B0BC248E28884BD4007DFE5E /* RealtimeDatabaseServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248D28884BD4007DFE5E /* RealtimeDatabaseServiceError.swift */; };
+		B0BC248828884B0D007DFE5E /* RealtimeDatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248728884B0D007DFE5E /* RealtimeDatabaseRepository.swift */; };
+		B0BC248A28884B29007DFE5E /* DefaultRealtimeDatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseRepository.swift */; };
+		B0BC248E28884BD4007DFE5E /* RealtimeDatabaseRepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC248D28884BD4007DFE5E /* RealtimeDatabaseRepositoryError.swift */; };
 		B0C043402888F3B300FABDD4 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0433F2888F3B300FABDD4 /* History.swift */; };
 		B0C043422888FA6E00FABDD4 /* CardHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C043412888FA6E00FABDD4 /* CardHistoryViewController.swift */; };
 		B0C043442888FAC600FABDD4 /* CardHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C043432888FAC600FABDD4 /* CardHistoryTableViewCell.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
 		B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54202886A00D004F74CD /* CoreDataStorage.swift */; };
-		B0DC54232886A7DD004F74CD /* DefaultCardCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54222886A7DD004F74CD /* DefaultCardCoreDataService.swift */; };
-		B0DC54282886C186004F74CD /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54272886C186004F74CD /* CardRepository.swift */; };
-		B0DC542A2886C190004F74CD /* DefaultCardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54292886C190004F74CD /* DefaultCardRepository.swift */; };
+		B0DC54232886A7DD004F74CD /* DefaultLocalDatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54222886A7DD004F74CD /* DefaultLocalDatabaseRepository.swift */; };
+		B0DC54282886C186004F74CD /* LocalDatabaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54272886C186004F74CD /* LocalDatabaseRepository.swift */; };
 		B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */; };
-		B0DC542F2887AA6E004F74CD /* CardCoreDataServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */; };
-		B0DC54332887AB96004F74CD /* CardCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54322887AB96004F74CD /* CardCoreDataService.swift */; };
+		B0DC542F2887AA6E004F74CD /* LocalDatabaseRepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC542E2887AA6E004F74CD /* LocalDatabaseRepositoryError.swift */; };
 		B0DC54362887C341004F74CD /* CoreDataStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54352887C341004F74CD /* CoreDataStorageError.swift */; };
 		B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF5B17287522E000A503A9 /* CardSectionView.swift */; };
 		B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AB287C11B300672D87 /* Coordinator.swift */; };
@@ -81,6 +80,7 @@
 		B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardUseCase.swift; sourceTree = "<group>"; };
 		B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		B07673A0288C54BA0068EF6B /* CoreDataStoragable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStoragable.swift; sourceTree = "<group>"; };
+		B07673A7288C5E340068EF6B /* DatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepository.swift; sourceTree = "<group>"; };
 		B092618B28882DEA000BB636 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0BC2474288835A9007DFE5E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B0BC247628883A90007DFE5E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -88,21 +88,19 @@
 		B0BC247D28883F9F007DFE5E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetworkService.swift; sourceTree = "<group>"; };
 		B0BC248128884185007DFE5E /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
-		B0BC248728884B0D007DFE5E /* RealtimeDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseService.swift; sourceTree = "<group>"; };
-		B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealtimeDatabaseService.swift; sourceTree = "<group>"; };
-		B0BC248D28884BD4007DFE5E /* RealtimeDatabaseServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseServiceError.swift; sourceTree = "<group>"; };
+		B0BC248728884B0D007DFE5E /* RealtimeDatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseRepository.swift; sourceTree = "<group>"; };
+		B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealtimeDatabaseRepository.swift; sourceTree = "<group>"; };
+		B0BC248D28884BD4007DFE5E /* RealtimeDatabaseRepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeDatabaseRepositoryError.swift; sourceTree = "<group>"; };
 		B0C0433F2888F3B300FABDD4 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		B0C043412888FA6E00FABDD4 /* CardHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewController.swift; sourceTree = "<group>"; };
 		B0C043432888FAC600FABDD4 /* CardHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
 		B0DC54202886A00D004F74CD /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
-		B0DC54222886A7DD004F74CD /* DefaultCardCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardCoreDataService.swift; sourceTree = "<group>"; };
-		B0DC54272886C186004F74CD /* CardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRepository.swift; sourceTree = "<group>"; };
-		B0DC54292886C190004F74CD /* DefaultCardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardRepository.swift; sourceTree = "<group>"; };
+		B0DC54222886A7DD004F74CD /* DefaultLocalDatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocalDatabaseRepository.swift; sourceTree = "<group>"; };
+		B0DC54272886C186004F74CD /* LocalDatabaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseRepository.swift; sourceTree = "<group>"; };
 		B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardEntity+Mapping.swift"; sourceTree = "<group>"; };
-		B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCoreDataServiceError.swift; sourceTree = "<group>"; };
-		B0DC54322887AB96004F74CD /* CardCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCoreDataService.swift; sourceTree = "<group>"; };
+		B0DC542E2887AA6E004F74CD /* LocalDatabaseRepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseRepositoryError.swift; sourceTree = "<group>"; };
 		B0DC54352887C341004F74CD /* CoreDataStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageError.swift; sourceTree = "<group>"; };
 		B0EF5B17287522E000A503A9 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
 		B0F615AB287C11B300672D87 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -219,22 +217,6 @@
 			path = MainScene;
 			sourceTree = "<group>";
 		};
-		B0524DAD288995CD00F9A28D /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				B0DC542E2887AA6E004F74CD /* CardCoreDataServiceError.swift */,
-			);
-			path = Error;
-			sourceTree = "<group>";
-		};
-		B0524DAE288995D100F9A28D /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				B0DC54322887AB96004F74CD /* CardCoreDataService.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
 		B06FD23728854EB1003CED8E /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +233,15 @@
 				B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */,
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		B07673A9288C5F6E0068EF6B /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC542E2887AA6E004F74CD /* LocalDatabaseRepositoryError.swift */,
+				B0BC248D28884BD4007DFE5E /* RealtimeDatabaseRepositoryError.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		B092618A28882DDC000BB636 /* Firebase */ = {
@@ -283,30 +274,11 @@
 		B0BC247C28883F83007DFE5E /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				B0BC248C28884BB5007DFE5E /* Error */,
-				B0BC248B28884BA7007DFE5E /* Protocol */,
+				B0BC247D28883F9F007DFE5E /* NetworkService.swift */,
+				B0BC248128884185007DFE5E /* NetworkServiceError.swift */,
 				B0BC247F28883FB1007DFE5E /* DefaultNetworkService.swift */,
-				B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseService.swift */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		B0BC248B28884BA7007DFE5E /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				B0BC247D28883F9F007DFE5E /* NetworkService.swift */,
-				B0BC248728884B0D007DFE5E /* RealtimeDatabaseService.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		B0BC248C28884BB5007DFE5E /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				B0BC248128884185007DFE5E /* NetworkServiceError.swift */,
-				B0BC248D28884BD4007DFE5E /* RealtimeDatabaseServiceError.swift */,
-			);
-			path = Error;
 			sourceTree = "<group>";
 		};
 		B0DA23EC287AD62700576D5E /* Util */ = {
@@ -350,8 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DC542B2886C66B004F74CD /* DataMapping */,
-				B0DC54342887BC62004F74CD /* CoreDataStorage */,
-				B0DC54312887AB61004F74CD /* Service */,
+				B0DC54342887BC62004F74CD /* Persistence */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -359,7 +330,9 @@
 		B0DC54252886C0D6004F74CD /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				B0DC54292886C190004F74CD /* DefaultCardRepository.swift */,
+				B07673A9288C5F6E0068EF6B /* Error */,
+				B0DC54222886A7DD004F74CD /* DefaultLocalDatabaseRepository.swift */,
+				B0BC248928884B29007DFE5E /* DefaultRealtimeDatabaseRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -367,7 +340,9 @@
 		B0DC54262886C117004F74CD /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				B0DC54272886C186004F74CD /* CardRepository.swift */,
+				B07673A7288C5E340068EF6B /* DatabaseRepository.swift */,
+				B0DC54272886C186004F74CD /* LocalDatabaseRepository.swift */,
+				B0BC248728884B0D007DFE5E /* RealtimeDatabaseRepository.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -380,24 +355,14 @@
 			path = DataMapping;
 			sourceTree = "<group>";
 		};
-		B0DC54312887AB61004F74CD /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				B0524DAD288995CD00F9A28D /* Error */,
-				B0524DAE288995D100F9A28D /* Protocol */,
-				B0DC54222886A7DD004F74CD /* DefaultCardCoreDataService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		B0DC54342887BC62004F74CD /* CoreDataStorage */ = {
+		B0DC54342887BC62004F74CD /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				B07673A0288C54BA0068EF6B /* CoreDataStoragable.swift */,
 				B0DC54202886A00D004F74CD /* CoreDataStorage.swift */,
 				B0DC54352887C341004F74CD /* CoreDataStorageError.swift */,
 			);
-			path = CoreDataStorage;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		B0F615AA287C11A700672D87 /* Protocol */ = {
@@ -530,29 +495,29 @@
 			files = (
 				B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */,
 				B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */,
-				B0BC248E28884BD4007DFE5E /* RealtimeDatabaseServiceError.swift in Sources */,
+				B0BC248E28884BD4007DFE5E /* RealtimeDatabaseRepositoryError.swift in Sources */,
 				B0F615B2287C12E300672D87 /* DefaultCardCoordinator.swift in Sources */,
 				B0DC54362887C341004F74CD /* CoreDataStorageError.swift in Sources */,
 				B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */,
 				B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */,
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
-				B0DC54332887AB96004F74CD /* CardCoreDataService.swift in Sources */,
 				B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */,
+				B07673A8288C5E340068EF6B /* DatabaseRepository.swift in Sources */,
 				B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */,
 				B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */,
-				B0DC54232886A7DD004F74CD /* DefaultCardCoreDataService.swift in Sources */,
+				B0DC54232886A7DD004F74CD /* DefaultLocalDatabaseRepository.swift in Sources */,
 				B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */,
 				B07673A1288C54BA0068EF6B /* CoreDataStoragable.swift in Sources */,
-				B0DC54282886C186004F74CD /* CardRepository.swift in Sources */,
+				B0DC54282886C186004F74CD /* LocalDatabaseRepository.swift in Sources */,
 				B0BC248028883FB1007DFE5E /* DefaultNetworkService.swift in Sources */,
 				B0524DAC2889686900F9A28D /* NWPathMonitor+Extension.swift in Sources */,
 				B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */,
 				B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */,
-				B0BC248828884B0D007DFE5E /* RealtimeDatabaseService.swift in Sources */,
+				B0BC248828884B0D007DFE5E /* RealtimeDatabaseRepository.swift in Sources */,
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
 				B0BC247A28883B7E007DFE5E /* EndpointError.swift in Sources */,
 				B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */,
-				B0DC542F2887AA6E004F74CD /* CardCoreDataServiceError.swift in Sources */,
+				B0DC542F2887AA6E004F74CD /* LocalDatabaseRepositoryError.swift in Sources */,
 				B0BC247E28883F9F007DFE5E /* NetworkService.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
@@ -563,7 +528,6 @@
 				B06FD23428854A96003CED8E /* CardDetailViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				B0BC248228884185007DFE5E /* NetworkServiceError.swift in Sources */,
-				B0DC542A2886C190004F74CD /* DefaultCardRepository.swift in Sources */,
 				B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */,
 				B0C043402888F3B300FABDD4 /* History.swift in Sources */,
 				B0C043442888FAC600FABDD4 /* CardHistoryTableViewCell.swift in Sources */,
@@ -571,7 +535,7 @@
 				B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */,
 				B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */,
 				B01DCDC928732AC900AFF91A /* Card.swift in Sources */,
-				B0BC248A28884B29007DFE5E /* DefaultRealtimeDatabaseService.swift in Sources */,
+				B0BC248A28884B29007DFE5E /* DefaultRealtimeDatabaseRepository.swift in Sources */,
 				B0524DAA28895CA100F9A28D /* CardHistoryViewModelItem.swift in Sources */,
 				B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */,
 			);

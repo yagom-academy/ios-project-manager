@@ -17,10 +17,8 @@ final class DefaultCardCoordinator: CardCoordinator {
   var childCoordinators: [Coordinator] = []
   
   private let useCase = DefaultCardUseCase(
-    repository: DefaultCardRepository(
-      localCoreDataService: DefaultCardCoreDataService(storage: CoreDataStorage.standard),
-      realtimeDatabaseService: DefaultRealtimeDatabaseService()
-    )
+    localDatabaseRepository: DefaultLocalDatabaseRepository(storage: CoreDataStorage.standard),
+    realtimeDatabaseRepository: DefaultRealtimeDatabaseRepository()
   )
   
   init(navigationController: UINavigationController) {

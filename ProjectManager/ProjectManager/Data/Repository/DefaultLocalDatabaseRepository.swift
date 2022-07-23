@@ -1,5 +1,5 @@
 //
-//  DefaultCardCoreDataService.swift
+//  DefaultLocalDatabaseRepository.swift
 //  ProjectManager
 //
 //  Created by Lingo on 2022/07/19.
@@ -9,7 +9,7 @@ import CoreData
 
 import RxSwift
 
-final class DefaultCardCoreDataService: CardCoreDataService {
+final class DefaultLocalDatabaseRepository: LocalDatabaseRepository {
   private enum Settings {
     static let cardEntityName = "CardEntity"
   }
@@ -20,15 +20,15 @@ final class DefaultCardCoreDataService: CardCoreDataService {
     self.storage = storage
   }
   
-  func create(card: Card) -> Observable<Void> {
+  func create(_ card: Card) -> Observable<Void> {
     return Single.create { [weak self] observer in
       guard let self = self else {
-        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(LocalDatabaseRepositoryError.invalidCardCoreData))
         return Disposables.create()
       }
       
       guard let object = self.storage.createObject(for: Settings.cardEntityName) as? CardEntity else {
-        observer(.failure(CardCoreDataServiceError.createCardEntityFailure))
+        observer(.failure(LocalDatabaseRepositoryError.createCardEntityFailure))
         return Disposables.create()
       }
       
@@ -41,17 +41,17 @@ final class DefaultCardCoreDataService: CardCoreDataService {
       if self.storage.saveContext() {
         observer(.success(()))
       } else {
-        observer(.failure(CardCoreDataServiceError.createCardEntityFailure))
+        observer(.failure(LocalDatabaseRepositoryError.createCardEntityFailure))
       }
       
       return Disposables.create()
     }.asObservable()
   }
   
-  func create(cards: [Card]) -> Observable<[Card]> {
+  func create(_ cards: [Card]) -> Observable<[Card]> {
     return Single.create { [weak self] observer in
       guard let self = self else {
-        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(LocalDatabaseRepositoryError.invalidCardCoreData))
         return Disposables.create()
       }
       
@@ -68,56 +68,56 @@ final class DefaultCardCoreDataService: CardCoreDataService {
       if self.storage.saveContext() {
         observer(.success(cards))
       } else {
-        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(LocalDatabaseRepositoryError.invalidCardCoreData))
       }
       
       return Disposables.create()
     }.asObservable()
   }
   
-  func fetchOne(id: String) -> Observable<CardEntity> {
-    return Single<CardEntity>.create { [weak self] observer in
+  func fetchOne(id: String) -> Observable<Card> {
+    return Single<Card>.create { [weak self] observer in
       guard let self = self else {
-        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(LocalDatabaseRepositoryError.invalidCardCoreData))
         return Disposables.create()
       }
       
       if let object = self.storage.fetchObject(for: Settings.cardEntityName, id: id) as? CardEntity {
-        observer(.success(object))
+        observer(.success(object.toDomain()))
         return Disposables.create()
       }
-      observer(.failure(CardCoreDataServiceError.fetchCardEntityFailure))
+      observer(.failure(LocalDatabaseRepositoryError.fetchCardEntityFailure))
       
       return Disposables.create()
     }.asObservable()
   }
   
-  func fetchAll() -> Observable<[CardEntity]> {
-    return Single<[CardEntity]>.create { [weak self] observer in
+  func fetchAll() -> Observable<[Card]> {
+    return Single<[Card]>.create { [weak self] observer in
       guard let self = self else {
-        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(LocalDatabaseRepositoryError.invalidCardCoreData))
         return Disposables.create()
       }
       
       if let objects = self.storage.fetchObjects(for: Settings.cardEntityName) as? [CardEntity] {
-        observer(.success(objects))
+        observer(.success(objects.map { $0.toDomain() }))
         return Disposables.create()
       }
-      observer(.failure(CardCoreDataServiceError.fetchAllFailure))
+      observer(.failure(LocalDatabaseRepositoryError.fetchAllFailure))
       
       return Disposables.create()
     }.asObservable()
   }
   
-  func update(card: Card) -> Observable<Void> {
+  func update(_ card: Card) -> Observable<Void> {
     return Single.create { [weak self] observer in
       guard let self = self else {
-        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(LocalDatabaseRepositoryError.invalidCardCoreData))
         return Disposables.create()
       }
       
       guard let object = self.storage.fetchObject(for: Settings.cardEntityName, id: card.id) as? CardEntity else {
-        observer(.failure(CardCoreDataServiceError.updateCardEntityFailure))
+        observer(.failure(LocalDatabaseRepositoryError.updateCardEntityFailure))
         return Disposables.create()
       }
       
@@ -130,24 +130,24 @@ final class DefaultCardCoreDataService: CardCoreDataService {
       if self.storage.saveContext() {
         observer(.success(()))
       } else {
-        observer(.failure(CardCoreDataServiceError.updateCardEntityFailure))
+        observer(.failure(LocalDatabaseRepositoryError.updateCardEntityFailure))
       }
       
       return Disposables.create()
     }.asObservable()
   }
 
-  func delete(id: String) -> Observable<Void> {
+  func delete(_ card: Card) -> Observable<Void> {
     return Single.create { [weak self] observer in
       guard let self = self else {
-        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(LocalDatabaseRepositoryError.invalidCardCoreData))
         return Disposables.create()
       }
       
-      if self.storage.deleteObjectWithSave(for: Settings.cardEntityName, id: id) {
+      if self.storage.deleteObjectWithSave(for: Settings.cardEntityName, id: card.id) {
         observer(.success(()))
       } else {
-        observer(.failure(CardCoreDataServiceError.deleteCardEntityFailure))
+        observer(.failure(LocalDatabaseRepositoryError.deleteCardEntityFailure))
       }
       
       return Disposables.create()
@@ -157,14 +157,14 @@ final class DefaultCardCoreDataService: CardCoreDataService {
   func deleteAll() -> Observable<Void> {
     return Single.create { [weak self] observer in
       guard let self = self else {
-        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
+        observer(.failure(LocalDatabaseRepositoryError.invalidCardCoreData))
         return Disposables.create()
       }
       
       if self.storage.deleteObjects(for: Settings.cardEntityName) {
         observer(.success(()))
       } else {
-        observer(.failure(CardCoreDataServiceError.deleteAllFailure))
+        observer(.failure(LocalDatabaseRepositoryError.deleteAllFailure))
       }
       return Disposables.create()
     }.asObservable()
