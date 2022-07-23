@@ -43,11 +43,6 @@ struct Todo {
     }
 }
 
-protocol Serializable {
-    var dictionary: [String: Any] { get }
-    init?(dictionary: [String: Any])
-}
-
 extension Todo: Serializable {
     var dictionary: [String: Any] {
         return [

@@ -34,6 +34,7 @@
 		64371AE9287C570D00F78AAA /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AE8287C570C00F78AAA /* AppCoordinator.swift */; };
 		64371B03287EEB1500F78AAA /* TempData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371B02287EEB1500F78AAA /* TempData.swift */; };
 		64B1AAA52889A120009CA506 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B1AAA42889A120009CA506 /* DatabaseManager.swift */; };
+		64E7AD38288C0E28008A424B /* Todo+Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E7AD37288C0E28008A424B /* Todo+Serializable.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */; };
@@ -78,6 +79,7 @@
 		64371B02287EEB1500F78AAA /* TempData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempData.swift; sourceTree = "<group>"; };
 		6458E17D288943DE0077CD07 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		64B1AAA42889A120009CA506 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		64E7AD37288C0E28008A424B /* Todo+Serializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+Serializable.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */,
 				307DFCD9288059120030873F /* Reactive+Sugar.swift */,
 				3043996028810EE800D154C7 /* ColorPalete.swift */,
+				64E7AD37288C0E28008A424B /* Todo+Serializable.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				3088777C2875CD7800057592 /* ListView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				64E7AD38288C0E28008A424B /* Todo+Serializable.swift in Sources */,
 				64371B03287EEB1500F78AAA /* TempData.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				30FCF72428854C5D007D9557 /* TodoDTO.swift in Sources */,
