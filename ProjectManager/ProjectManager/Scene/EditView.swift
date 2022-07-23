@@ -11,13 +11,6 @@ struct EditView: View {
   @State private var nonEditable: Bool = true
   @State var todo: Todo = Todo(title: "", content: "")
   @ObservedObject var viewModel: EditViewModel
-  var isClosed: () -> Void
-  
-//  init(todo: Todo, viewModel: EditViewModel, isClosed: @escaping () -> Void) {
-//    self.viewModel = viewModel
-//    self.isClosed = isClosed
-//    self.todo = todo
-//  }
   
   var body: some View {
     NavigationView {
@@ -29,7 +22,8 @@ struct EditView: View {
               if nonEditable == true {
                 nonEditable = false
               } else {
-                isClosed()
+                viewModel.update(todo)
+                
               }
             } label: {
               nonEditable ? Text("Edit") : Text("Calcel")
@@ -38,7 +32,6 @@ struct EditView: View {
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
               viewModel.update(todo)
-              isClosed()
             }
           }
         }

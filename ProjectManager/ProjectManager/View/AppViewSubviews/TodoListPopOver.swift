@@ -8,13 +8,10 @@
 import SwiftUI
 
 struct TodoListPopOver: View {
-
-  @Binding var isShow: Bool
   let todo: Todo
   private let updata: (Status, Todo) -> Void
   
-  init(isShow: Binding<Bool>, todo: Todo, updata: @escaping (Status, Todo) -> Void) {
-    self._isShow = isShow
+  init(todo: Todo, updata: @escaping (Status, Todo) -> Void) {
     self.todo = todo
     self.updata = updata
   }
@@ -23,14 +20,14 @@ struct TodoListPopOver: View {
     VStack {
       switch todo.status {
       case .todo:
-        MoveButton(isShow: $isShow, todo: todo, status: .doing, updata: updata)
-        MoveButton(isShow: $isShow, todo: todo, status: .done, updata: updata)
+        MoveButton(todo: todo, status: .doing, updata: updata)
+        MoveButton(todo: todo, status: .done, updata: updata)
       case .doing:
-        MoveButton(isShow: $isShow, todo: todo, status: .todo, updata: updata)
-        MoveButton(isShow: $isShow, todo: todo, status: .done, updata: updata)
+        MoveButton(todo: todo, status: .todo, updata: updata)
+        MoveButton(todo: todo, status: .done, updata: updata)
       case .done:
-        MoveButton(isShow: $isShow, todo: todo, status: .todo, updata: updata)
-        MoveButton(isShow: $isShow, todo: todo, status: .doing, updata: updata)
+        MoveButton(todo: todo, status: .todo, updata: updata)
+        MoveButton(todo: todo, status: .doing, updata: updata)
       }
     }
     .padding()
@@ -38,13 +35,11 @@ struct TodoListPopOver: View {
 }
 
 struct MoveButton: View {
-  @Binding var isShow: Bool
   let todo: Todo
   let status: Status
   private let updata: (Status, Todo) -> Void
   
-  init(isShow: Binding<Bool>, todo: Todo, status: Status, updata: @escaping (Status, Todo) -> Void) {
-    self._isShow = isShow
+  init(todo: Todo, status: Status, updata: @escaping (Status, Todo) -> Void) {
     self.todo = todo
     self.status = status
     self.updata = updata
@@ -53,7 +48,6 @@ struct MoveButton: View {
   var body: some View {
     Button("MOVE to \(status.rawValue)") {
       updata(status, todo)
-      isShow = false
     }
     .buttonStyle(GrayBasicButtonStyle())
   }

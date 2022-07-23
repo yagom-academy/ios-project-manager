@@ -21,7 +21,7 @@ struct TodoListView: View {
         Color(UIColor.systemGray5)
         List {
           ForEach(viewModel.todoList) { todo in
-            ListCellView(todo: todo, viewModel: viewModel)
+            ListCellView(viewModel: viewModel.makeCellViewModel(todo: todo))
               .listRowSeparator(.hidden)
           }
           .onDelete { index in
@@ -33,40 +33,37 @@ struct TodoListView: View {
         .onAppear {
           UITableView.appearance().backgroundColor = .clear
         }
+        .refreshable {
+          viewModel.refrash()
+        }
       }
     }
   }
 }
 
 struct ListCellView: View {
-  @State var isLongPressing: Bool = false
-  @State var isShowEditView: Bool = false
-  let todo: Todo
-  @ObservedObject var viewModel: ListViewModel
+  @ObservedObject var viewModel: ListCellViewModel
   
-  init(todo: Todo, viewModel: ListViewModel, isLongPressing: Bool = false, isShowEditView: Bool = false) {
-    self.todo = todo
+  init(viewModel: ListCellViewModel,
+       isLongPressing: Bool = false,
+       isShowEditView: Bool = false) {
     self.viewModel = viewModel
-    self.isLongPressing = isLongPressing
-    self.isShowEditView = isShowEditView
   }
   
   var body: some View {
-    TodoListCell(todo)
+    TodoListCell(viewModel.todo)
       .onTapGesture(perform: {
-        isShowEditView.toggle()
+        viewModel.isTapped()
       })
       .onLongPressGesture(perform: {
-        isLongPressing.toggle()
+        viewModel.isLongPressed()
       })
-      .sheet(isPresented: $isShowEditView) {
-        EditView(todo: todo, viewModel: viewModel.editViewModel) {
-          viewModel.closeButtonTapped()
-        }
+      .sheet(isPresented: $viewModel.isShowEditView) {
+        EditView(todo: viewModel.todo, viewModel: viewModel.editViewModel)
       }
-      .popover(isPresented: $isLongPressing) {
-        TodoListPopOver(isShow: $isLongPressing, todo: todo) { status, todo in
-          viewModel.updata(status: status, todo: todo)
+      .popover(isPresented: $viewModel.isShowModal) {
+        TodoListPopOver(todo: viewModel.todo) { status, todo in
+          viewModel.closedModalView(status: status, element: todo)
         }
       }
   }

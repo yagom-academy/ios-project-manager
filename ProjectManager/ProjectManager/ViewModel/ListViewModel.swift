@@ -14,11 +14,6 @@ class ListViewModel: ObservableObject {
   @Published var listCount: Int
   @Published var todoList: [Todo]
   var update: (Status, Todo) -> Void
-  
-  lazy var editViewModel = EditViewModel(update: { [self] todo in
-    todoService.update(todo: todo)
-    todoList = todoService.read(by: status)
-  })
  
   init(todoService: TodoService, status: Status, update: @escaping (Status, Todo) -> Void) {
     self.todoService = todoService
@@ -52,5 +47,9 @@ class ListViewModel: ObservableObject {
   func refrash() {
     todoList = todoService.read(by: status)
     listCount = todoService.read(by: status).count
+  }
+  
+  func makeCellViewModel(todo: Todo) -> ListCellViewModel {
+    return ListCellViewModel(todoService: todoService, todo: todo)
   }
 }

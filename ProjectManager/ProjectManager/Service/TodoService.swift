@@ -48,6 +48,12 @@ class TodoService: ObservableObject {
     return filteredTodo
   }
   
+  func read(by todo: Todo) -> Todo {
+    let todos = read()
+    let filteredTodo = todos.filter { $0.id == todo.id }[0]
+    return filteredTodo
+  }
+  
   func updateStatus(status: Status, todo: Todo) {
     
     guard let realm = try? Realm() else { return }
