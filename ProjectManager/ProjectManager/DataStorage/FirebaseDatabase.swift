@@ -43,7 +43,7 @@ final class FirebaseDatabase {
     }
     
     func read(completion: @escaping ([Todo]) -> Void) {
-        var todoArray: [Todo] = []
+        var todoList: [Todo] = []
         self.firebase?.child("TodoList").getData(completion: { error, snapshot in
             guard error == nil else {
                 return
@@ -62,9 +62,9 @@ final class FirebaseDatabase {
                     return
                 }
 
-                todoArray.append(todoData)
+                todoList.append(todoData)
             }
-            completion(todoArray)
+            completion(todoList)
         })
     }
     

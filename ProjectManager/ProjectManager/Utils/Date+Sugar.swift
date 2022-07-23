@@ -9,9 +9,7 @@ import Foundation
 
 extension Date {
     func convertToString() -> String {
-        guard let dateString = Formatter.date.string(for: self) else {
-            return ""
-        }
+        guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString
     }
 }

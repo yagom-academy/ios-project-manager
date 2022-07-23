@@ -11,6 +11,11 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
+fileprivate enum NetworkState {
+    static let connected = "wifi"
+    static let nonConncted = "wifi.slash"
+}
+
 final class TodoListViewModel {
     let todoViewData: Driver<[Todo]>
     let doingViewData: Driver<[Todo]>
@@ -37,7 +42,7 @@ final class TodoListViewModel {
             .asDriver(onErrorJustReturn: [])
   
         self.networkState = dataBase.networkStateBehaviorRelay
-            .map { $0 == true ? "wifi" : "wifi.slash" }
+            .map { $0 == true ? NetworkState.connected : NetworkState.nonConncted }
             .asDriver(onErrorJustReturn: "")
     }
     
