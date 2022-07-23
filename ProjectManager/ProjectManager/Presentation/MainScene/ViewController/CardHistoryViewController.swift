@@ -21,9 +21,10 @@ final class CardHistoryViewController: UIViewController, PopOverable {
   }
   
   private let disposeBag = DisposeBag()
-  let histories = BehaviorRelay<[CardHistoryViewModelItem]>(value: [])
+  private let histories = BehaviorRelay<[CardHistoryViewModelItem]>(value: [])
   
-  init() {
+  init(histories: [CardHistoryViewModelItem]) {
+    self.histories.accept(histories)
     super.init(nibName: nil, bundle: nil)
     configureSubviews()
     configureLayouts()

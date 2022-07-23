@@ -53,9 +53,8 @@ extension PopOverable where Self: CardHistoryViewController {
     with histories: [CardHistoryViewModelItem],
     on barButtonItem: UIBarButtonItem
   ) {
-    let cardHistoryViewController = CardHistoryViewController()
+    let cardHistoryViewController = CardHistoryViewController(histories: histories)
     
-    cardHistoryViewController.histories.accept(histories)
     cardHistoryViewController.modalPresentationStyle = .popover
     cardHistoryViewController.popoverPresentationController?.permittedArrowDirections = .up
     cardHistoryViewController.popoverPresentationController?.barButtonItem = barButtonItem
