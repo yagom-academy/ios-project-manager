@@ -14,33 +14,42 @@ final class DefaultTodoListRepository {
     private unowned let backUpStorage: RemoteBackUpStorage
     private let bag = DisposeBag()
     
+    private var isUser: Bool {
+        if UserDefaults.standard.bool(forKey: "isUser") {
+            return true
+        } else {
+            UserDefaults.standard.set(true, forKey: "isUser")
+            return false
+        }
+    }
+    
     init(storage: TodoListStorage, backUpStorage: RemoteBackUpStorage) {
         self.storage = storage
         self.backUpStorage = backUpStorage
         upLoad()
-        backUP()
+        backUp()
     }
     
     private func upLoad() {
-        guard let items = try? storage.read().value() else { return }
-        guard items.count == 0 else { return }
-        backUpStorage.allRead()
-            .subscribe { [weak self] items in
-                items.forEach { [weak self] item in
-                    self?.storage.save(to: item)
-                }
-            } onFailure: { [weak self] _ in
-                self?.storage.errorObserver.accept(TodoError.backUpError)
-            }.disposed(by: bag)
+        guard isUser else {
+            backUpStorage.allRead()
+                .subscribe { [weak self] items in
+                    items.forEach { [weak self] item in
+                        self?.storage.save(to: item)
+                    }
+                } onFailure: { [weak self] _ in
+                    self?.storage.errorObserver.accept(TodoError.backUpError)
+                }.disposed(by: bag)
+            return
+        }
     }
     
-    private func backUP() {
+    private func backUp() {
         NotificationCenter.default.rx.notification(UIApplication.didEnterBackgroundNotification)
             .bind { [weak self] _ in
                 guard let items = try? self?.storage.read().value() else { return }
                 self?.backUpStorage.backUp(items: items)
             }.disposed(by: bag)
-        
     }
 }
 
