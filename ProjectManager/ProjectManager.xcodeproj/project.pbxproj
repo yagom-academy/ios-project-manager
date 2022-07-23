@@ -28,6 +28,7 @@
 		B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */; };
 		B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */; };
 		B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */; };
+		B07673A1288C54BA0068EF6B /* CoreDataStoragable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07673A0288C54BA0068EF6B /* CoreDataStoragable.swift */; };
 		B092618C28882DEA000BB636 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B092618B28882DEA000BB636 /* GoogleService-Info.plist */; };
 		B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC2474288835A9007DFE5E /* Endpoint.swift */; };
 		B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BC247628883A90007DFE5E /* HTTPMethod.swift */; };
@@ -79,6 +80,7 @@
 		B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdditionViewModel.swift; sourceTree = "<group>"; };
 		B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardUseCase.swift; sourceTree = "<group>"; };
 		B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		B07673A0288C54BA0068EF6B /* CoreDataStoragable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStoragable.swift; sourceTree = "<group>"; };
 		B092618B28882DEA000BB636 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0BC2474288835A9007DFE5E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B0BC247628883A90007DFE5E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -348,7 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DC542B2886C66B004F74CD /* DataMapping */,
-				B0DC54342887BC62004F74CD /* Persistence */,
+				B0DC54342887BC62004F74CD /* CoreDataStorage */,
 				B0DC54312887AB61004F74CD /* Service */,
 			);
 			path = Storage;
@@ -388,13 +390,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		B0DC54342887BC62004F74CD /* Persistence */ = {
+		B0DC54342887BC62004F74CD /* CoreDataStorage */ = {
 			isa = PBXGroup;
 			children = (
+				B07673A0288C54BA0068EF6B /* CoreDataStoragable.swift */,
 				B0DC54202886A00D004F74CD /* CoreDataStorage.swift */,
 				B0DC54352887C341004F74CD /* CoreDataStorageError.swift */,
 			);
-			path = Persistence;
+			path = CoreDataStorage;
 			sourceTree = "<group>";
 		};
 		B0F615AA287C11A700672D87 /* Protocol */ = {
@@ -539,6 +542,7 @@
 				B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */,
 				B0DC54232886A7DD004F74CD /* DefaultCardCoreDataService.swift in Sources */,
 				B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */,
+				B07673A1288C54BA0068EF6B /* CoreDataStoragable.swift in Sources */,
 				B0DC54282886C186004F74CD /* CardRepository.swift in Sources */,
 				B0BC248028883FB1007DFE5E /* DefaultNetworkService.swift in Sources */,
 				B0524DAC2889686900F9A28D /* NWPathMonitor+Extension.swift in Sources */,

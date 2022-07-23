@@ -18,7 +18,7 @@ final class DefaultCardCoordinator: CardCoordinator {
   
   private let useCase = DefaultCardUseCase(
     repository: DefaultCardRepository(
-      localCoreDataService: DefaultCardCoreDataService(),
+      localCoreDataService: DefaultCardCoreDataService(storage: CoreDataStorage.standard),
       realtimeDatabaseService: DefaultRealtimeDatabaseService()
     )
   )

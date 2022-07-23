@@ -14,9 +14,9 @@ final class DefaultCardCoreDataService: CardCoreDataService {
     static let cardEntityName = "CardEntity"
   }
   
-  private let storage: CoreDataStorage
+  private let storage: CoreDataStoragable
   
-  init(storage: CoreDataStorage = .shared) {
+  init(storage: CoreDataStoragable) {
     self.storage = storage
   }
   
@@ -26,22 +26,23 @@ final class DefaultCardCoreDataService: CardCoreDataService {
         observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
         return Disposables.create()
       }
-      guard let entity = NSEntityDescription.entity(
-        forEntityName: Settings.cardEntityName,
-        in: self.storage.context) else {
+      
+      guard let object = self.storage.createObject(for: Settings.cardEntityName) as? CardEntity else {
         observer(.failure(CardCoreDataServiceError.createCardEntityFailure))
         return Disposables.create()
       }
       
-      let object = NSManagedObject(entity: entity, insertInto: self.storage.context)
-      object.setValue(card.id, forKey: "id")
-      object.setValue(card.title, forKey: "title")
-      object.setValue(card.description, forKey: "body")
-      object.setValue(card.deadlineDate, forKey: "deadlineDate")
-      object.setValue(card.cardType.rawValue, forKey: "cardType")
+      object.id = card.id
+      object.title = card.title
+      object.body = card.description
+      object.deadlineDate = card.deadlineDate
+      object.cardType = card.cardType.rawValue
       
-      self.storage.saveContext()
-      observer(.success(()))
+      if self.storage.saveContext() {
+        observer(.success(()))
+      } else {
+        observer(.failure(CardCoreDataServiceError.createCardEntityFailure))
+      }
       
       return Disposables.create()
     }.asObservable()
@@ -54,23 +55,21 @@ final class DefaultCardCoreDataService: CardCoreDataService {
         return Disposables.create()
       }
       
-      guard let entity = NSEntityDescription.entity(
-        forEntityName: Settings.cardEntityName,
-        in: self.storage.context) else {
-        observer(.failure(CardCoreDataServiceError.createCardEntityFailure))
-        return Disposables.create()
+      cards.forEach { card in
+        guard let object = self.storage.createObject(for: Settings.cardEntityName) as? CardEntity else { return }
+        
+        object.id = card.id
+        object.title = card.title
+        object.body = card.description
+        object.deadlineDate = card.deadlineDate
+        object.cardType = card.cardType.rawValue
       }
       
-      cards.forEach { card in
-        let object = NSManagedObject(entity: entity, insertInto: self.storage.context)
-        object.setValue(card.id, forKey: "id")
-        object.setValue(card.title, forKey: "title")
-        object.setValue(card.description, forKey: "body")
-        object.setValue(card.deadlineDate, forKey: "deadlineDate")
-        object.setValue(card.cardType.rawValue, forKey: "cardType")
+      if self.storage.saveContext() {
+        observer(.success(cards))
+      } else {
+        observer(.failure(CardCoreDataServiceError.invalidCardCoreData))
       }
-      self.storage.saveContext()
-      observer(.success(cards))
       
       return Disposables.create()
     }.asObservable()
@@ -83,14 +82,12 @@ final class DefaultCardCoreDataService: CardCoreDataService {
         return Disposables.create()
       }
       
-      let request = CardEntity.fetchRequest()
-      request.predicate = NSPredicate(format: "id = %@", id)
-      
-      if let object = try? self.storage.context.fetch(request).first {
+      if let object = self.storage.fetchObject(for: Settings.cardEntityName, id: id) as? CardEntity {
         observer(.success(object))
         return Disposables.create()
       }
       observer(.failure(CardCoreDataServiceError.fetchCardEntityFailure))
+      
       return Disposables.create()
     }.asObservable()
   }
@@ -102,11 +99,12 @@ final class DefaultCardCoreDataService: CardCoreDataService {
         return Disposables.create()
       }
       
-      if let objects = try? self.storage.context.fetch(CardEntity.fetchRequest()) {
+      if let objects = self.storage.fetchObjects(for: Settings.cardEntityName) as? [CardEntity] {
         observer(.success(objects))
         return Disposables.create()
       }
       observer(.failure(CardCoreDataServiceError.fetchAllFailure))
+      
       return Disposables.create()
     }.asObservable()
   }
@@ -118,20 +116,23 @@ final class DefaultCardCoreDataService: CardCoreDataService {
         return Disposables.create()
       }
       
-      let request = CardEntity.fetchRequest()
-      request.predicate = NSPredicate(format: "id = %@", card.id)
-
-      if let object = try? self.storage.context.fetch(request).first {
-        object.setValue(card.title, forKey: "title")
-        object.setValue(card.description, forKey: "body")
-        object.setValue(card.deadlineDate, forKey: "deadlineDate")
-        object.setValue(card.cardType.rawValue, forKey: "cardType")
-
-        self.storage.saveContext()
-        observer(.success(()))
+      guard let object = self.storage.fetchObject(for: Settings.cardEntityName, id: card.id) as? CardEntity else {
+        observer(.failure(CardCoreDataServiceError.updateCardEntityFailure))
         return Disposables.create()
       }
-      observer(.failure(CardCoreDataServiceError.updateCardEntityFailure))
+      
+      object.id = card.id
+      object.title = card.title
+      object.body = card.description
+      object.deadlineDate = card.deadlineDate
+      object.cardType = card.cardType.rawValue
+
+      if self.storage.saveContext() {
+        observer(.success(()))
+      } else {
+        observer(.failure(CardCoreDataServiceError.updateCardEntityFailure))
+      }
+      
       return Disposables.create()
     }.asObservable()
   }
@@ -143,16 +144,12 @@ final class DefaultCardCoreDataService: CardCoreDataService {
         return Disposables.create()
       }
       
-      let request = CardEntity.fetchRequest()
-      request.predicate = NSPredicate(format: "id = %@", id)
-
-      if let object = try? self.storage.context.fetch(request).first {
-        self.storage.context.delete(object)
-        self.storage.saveContext()
+      if self.storage.deleteObjectWithSave(for: Settings.cardEntityName, id: id) {
         observer(.success(()))
-        return Disposables.create()
+      } else {
+        observer(.failure(CardCoreDataServiceError.deleteCardEntityFailure))
       }
-      observer(.failure(CardCoreDataServiceError.deleteCardEntityFailure))
+      
       return Disposables.create()
     }.asObservable()
   }
@@ -164,12 +161,9 @@ final class DefaultCardCoreDataService: CardCoreDataService {
         return Disposables.create()
       }
       
-      let deleteRequest = NSBatchDeleteRequest(fetchRequest: CardEntity.fetchRequest())
-      
-      do {
-        try self.storage.context.execute(deleteRequest)
+      if self.storage.deleteObjects(for: Settings.cardEntityName) {
         observer(.success(()))
-      } catch {
+      } else {
         observer(.failure(CardCoreDataServiceError.deleteAllFailure))
       }
       return Disposables.create()
