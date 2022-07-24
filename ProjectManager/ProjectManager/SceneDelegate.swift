@@ -14,10 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              willConnectTo session: UISceneSession,
              options connectionOptions: UIScene.ConnectionOptions) {
     
-    if let windowSecene = (scene as? UIWindowScene) {     
+    if let windowSecene = (scene as? UIWindowScene) {
+      
       let contentView = AppView(viewModel: AppViewModel())
       window = UIWindow(windowScene: windowSecene)
-      window?.rootViewController = UIHostingController(rootView: contentView)
+      let asd = UIHostingController(rootView: contentView)
+      window?.rootViewController = asd
       window?.makeKeyAndVisible()
     }
   }

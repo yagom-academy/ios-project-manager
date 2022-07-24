@@ -10,6 +10,7 @@ import SwiftUI
 
 class AppViewModel: ObservableObject {
   var todoService: TodoService
+  let navigationTitle: String
   @Published var todoList: [Todo]
   @Published var isTappedPlusButton: Bool
   
@@ -27,8 +28,9 @@ class AppViewModel: ObservableObject {
     self.todoList = todoService.read()
   }
   
-  init(todoService: TodoService = TodoService()) {
+  init(todoService: TodoService = TodoService(), navigationTitle: String = "Project Manager") {
     self.todoService = todoService
+    self.navigationTitle = navigationTitle
     self.todoList = todoService.read()
     self.isTappedPlusButton = false
   }

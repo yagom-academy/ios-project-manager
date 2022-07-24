@@ -27,7 +27,7 @@ struct AppView: View {
         ListView(viewModel: viewModel.doneListViewModel)
       }
       .background(Color(UIColor.systemGray4))
-      .navigationTitle("Project Manager")
+      .navigationTitle(viewModel.navigationTitle)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         Button(action: {

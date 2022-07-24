@@ -49,7 +49,7 @@ class ListViewModel: ObservableObject {
     listCount = todoService.read(by: status).count
   }
   
-  func makeCellViewModel(todo: Todo) -> ListCellViewModel {
-    return ListCellViewModel(todoService: todoService, todo: todo, changeStatus: update)
+  func makeCellViewModel(todo: Todo) -> CellOperationViewModel {
+    return CellOperationViewModel(todoService: todoService, todo: todo, changeStatus: update)
   }
 }

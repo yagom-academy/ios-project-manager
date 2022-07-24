@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct CellOperationView: View {
-  @ObservedObject var viewModel: ListCellViewModel
+  @ObservedObject var viewModel: CellOperationViewModel
   
-  init(viewModel: ListCellViewModel) {
+  init(viewModel: CellOperationViewModel) {
     self.viewModel = viewModel
   }
   

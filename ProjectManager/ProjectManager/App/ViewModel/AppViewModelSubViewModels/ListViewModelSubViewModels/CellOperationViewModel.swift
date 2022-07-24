@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class ListCellViewModel: ObservableObject {
+class CellOperationViewModel: ObservableObject {
   var todoService: TodoService
   @Published var todo: Todo
   @Published var isShowModal = false

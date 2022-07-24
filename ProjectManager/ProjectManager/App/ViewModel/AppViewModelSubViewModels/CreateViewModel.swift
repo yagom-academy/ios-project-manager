@@ -10,7 +10,7 @@ import SwiftUI
 
 class CreateViewModel: ObservableObject {
   var todoService: TodoService
-  @Published var todo: Todo
+  var todo: Todo
   var isClosed: () -> Void
   
   init(todoService: TodoService,
@@ -23,13 +23,15 @@ class CreateViewModel: ObservableObject {
   }
   
   func cancelButtonTapped() {
-    todo = Todo(title: "", content: "")
+    todo.title = ""
+    todo.content = ""
     isClosed()
   }
   
   func doneButtonTapped() {
     saveTodo()
-    todo = Todo(title: "", content: "")
+    todo.title = ""
+    todo.content = ""
     isClosed()
   }
   
