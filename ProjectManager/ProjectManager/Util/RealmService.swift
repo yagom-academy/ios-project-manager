@@ -59,6 +59,19 @@ final class RealmService {
     }
   }
 
+  func updateProjectCategory(uuid: String, moveCategory: String) {
+    let predicate = NSPredicate(format: "uuid == %@", uuid)
+    guard let project = realm?.objects(Project.self).filter(predicate).first else { return }
+
+    do {
+      try realm?.write {
+        project.projectCategory = moveCategory
+      }
+    } catch {
+      print(error)
+    }
+  }
+
   func delete<T: Object>(project: T) {
     do {
       try realm?.write {
