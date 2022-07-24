@@ -182,10 +182,18 @@ extension ProjectManagerHomeViewController {
     guard let indexPath = collectionView.indexPathForItem(at: touchedLocation) else { return }
     guard let cell = collectionView.cellForItem(at: indexPath) else { return }
 
-    self.presentMoveMenuAlert(view: cell.contentView, projectCategory: projectCategory)
+    self.presentMoveMenuAlert(
+      view: cell.contentView,
+      projectCategory: projectCategory,
+      indexPath: indexPath
+    )
   }
 
-  private func presentMoveMenuAlert(view: UIView, projectCategory: ProjectCategory) {
+  private func presentMoveMenuAlert(
+    view: UIView,
+    projectCategory: ProjectCategory,
+    indexPath: IndexPath
+  ) {
     let moveMenuAlertController = UIAlertController(
       title: nil,
       message: nil,
@@ -203,14 +211,38 @@ extension ProjectManagerHomeViewController {
     let firstMenuAction = UIAlertAction(
       title: "Move to \(projectCategory.moveCategoryMenu.first)",
       style: .default
-    )
+    ) { _ in
+      self.moveProjectCategory(
+        current: projectCategory,
+        to: projectCategory.moveCategoryMenu.first,
+        indexPath: indexPath)
+    }
+
     let secondMenuAction = UIAlertAction(
       title: "Move to \(projectCategory.moveCategoryMenu.second)",
       style: .default
-    )
+    ) { _ in
+      self.moveProjectCategory(
+        current: projectCategory,
+        to: projectCategory.moveCategoryMenu.second,
+        indexPath: indexPath)
+    }
 
     moveMenuAlertController.addAction(firstMenuAction)
     moveMenuAlertController.addAction(secondMenuAction)
     self.present(moveMenuAlertController, animated: true)
+  }
+
+  private func moveProjectCategory(
+    current: ProjectCategory,
+    to moveCategory: String,
+    indexPath: IndexPath
+  ) {
+    guard let filteringProjects = realmService.filter(projectCategory: current) else { return }
+
+    realmService.updateProjectCategory(
+      uuid: filteringProjects[indexPath.row].uuid,
+      moveCategory: moveCategory
+    )
   }
 }
