@@ -20,7 +20,7 @@ enum ProjectCategory {
       return "DONE"
     }
   }
-  
+
   var moveCategoryMenu: (first: String, second: String) {
     switch self {
     case .todo:

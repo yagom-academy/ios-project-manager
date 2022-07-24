@@ -60,6 +60,12 @@ final class ProjectManagerHomeViewController: UIViewController {
 
     self.present(projectAddVC, animated: true)
   }
+
+  @IBAction func longPressTodoCollectionView(_ sender: UILongPressGestureRecognizer) {}
+
+  @IBAction func longPressDoingCollectionView(_ sender: UILongPressGestureRecognizer) {}
+
+  @IBAction func longPressDoneCollectionView(_ sender: UILongPressGestureRecognizer) {}
 }
 
 // MARK: - UICollectionViewCompositionalLayout
