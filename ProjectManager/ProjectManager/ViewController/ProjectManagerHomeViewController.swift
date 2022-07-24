@@ -14,7 +14,7 @@ final class ProjectManagerHomeViewController: UIViewController {
   @IBOutlet weak var todoCountLabel: UILabel!
   @IBOutlet weak var doingCountLabel: UILabel!
   @IBOutlet weak var doneCountLabel: UILabel!
-  
+
   private let realmService = RealmService()
   private var projects: Results<Project>?
   private var notificationToken: NotificationToken?
@@ -107,8 +107,11 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     numberOfItemsInSection section: Int
   ) -> Int {
     guard let proejctCategory = self.fetchProejctCategory(from: collectionView) else { return .zero }
+    let itemCount = fetchItemCount(from: proejctCategory)
 
-    return fetchItemCount(from: proejctCategory)
+    self.configureCountLabel(projectCategory: proejctCategory, itemCount: itemCount)
+
+    return itemCount
   }
 
   func collectionView(
@@ -143,6 +146,17 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     guard let projectList = realmService.filter(projectCategory: projectCategory) else { return .zero}
 
     return projectList.count
+  }
+
+  private func configureCountLabel(projectCategory: ProjectCategory, itemCount: Int) {
+    switch projectCategory {
+    case .todo:
+      self.todoCountLabel.text = "\(itemCount)"
+    case .doing:
+      self.doingCountLabel.text = "\(itemCount)"
+    case .done:
+      self.doneCountLabel.text = "\(itemCount)"
+    }
   }
 }
 
