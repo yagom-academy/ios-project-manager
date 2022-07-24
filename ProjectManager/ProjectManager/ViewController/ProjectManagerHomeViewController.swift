@@ -11,7 +11,10 @@ final class ProjectManagerHomeViewController: UIViewController {
   @IBOutlet private weak var todoCollectionView: UICollectionView!
   @IBOutlet private weak var doingCollectionView: UICollectionView!
   @IBOutlet private weak var doneCollectionView: UICollectionView!
-
+  @IBOutlet weak var todoCountLabel: UILabel!
+  @IBOutlet weak var doingCountLabel: UILabel!
+  @IBOutlet weak var doneCountLabel: UILabel!
+  
   private let realmService = RealmService()
   private var projects: Results<Project>?
   private var notificationToken: NotificationToken?
