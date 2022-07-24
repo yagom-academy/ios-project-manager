@@ -59,7 +59,7 @@ struct ListCellView: View {
         viewModel.isLongPressed()
       })
       .sheet(isPresented: $viewModel.isShowEditView) {
-        EditView(todo: viewModel.todo, viewModel: viewModel.editViewModel)
+        EditView(viewModel: viewModel.editViewModel)
       }
       .popover(isPresented: $viewModel.isShowModal) {
         TodoListPopOver(todo: viewModel.todo) { status, todo in

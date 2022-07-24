@@ -14,10 +14,10 @@ class ListCellViewModel: ObservableObject {
   @Published var isShowModal = false
   @Published var isShowEditView = false
   
-  lazy var editViewModel = EditViewModel { todos in
+  lazy var editViewModel = EditViewModel(todo: todo) { todos in
     self.closedEditView(element: todos)
   }
-  
+
   init(todoService: TodoService, todo: Todo) {
     self.todoService = todoService
     self.todo = todo
