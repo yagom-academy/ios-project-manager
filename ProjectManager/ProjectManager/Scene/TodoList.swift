@@ -44,9 +44,7 @@ struct TodoListView: View {
 struct ListCellView: View {
   @ObservedObject var viewModel: ListCellViewModel
   
-  init(viewModel: ListCellViewModel,
-       isLongPressing: Bool = false,
-       isShowEditView: Bool = false) {
+  init(viewModel: ListCellViewModel) {
     self.viewModel = viewModel
   }
   
@@ -62,9 +60,7 @@ struct ListCellView: View {
         EditView(viewModel: viewModel.editViewModel)
       }
       .popover(isPresented: $viewModel.isShowModal) {
-        TodoListPopOver(todo: viewModel.todo) { status, todo in
-          viewModel.closedModalView(status: status, element: todo)
-        }
+        TodoListPopOver(viewModel: viewModel.popViewModel)
       }
   }
 }

@@ -8,26 +8,24 @@
 import SwiftUI
 
 struct TodoListPopOver: View {
-  let todo: Todo
-  private let updata: (Status, Todo) -> Void
+  @ObservedObject var viewModel: PopViewModel
   
-  init(todo: Todo, updata: @escaping (Status, Todo) -> Void) {
-    self.todo = todo
-    self.updata = updata
+  init(viewModel: PopViewModel) {
+    self.viewModel = viewModel
   }
   
   var body: some View {
     VStack {
-      switch todo.status {
+      switch viewModel.todo.status {
       case .todo:
-        MoveButton(todo: todo, status: .doing, updata: updata)
-        MoveButton(todo: todo, status: .done, updata: updata)
+        MoveButton(viewModel: viewModel, todo: viewModel.todo, status: .doing)
+        MoveButton(viewModel: viewModel, todo: viewModel.todo, status: .done)
       case .doing:
-        MoveButton(todo: todo, status: .todo, updata: updata)
-        MoveButton(todo: todo, status: .done, updata: updata)
+        MoveButton(viewModel: viewModel, todo: viewModel.todo, status: .todo)
+        MoveButton(viewModel: viewModel, todo: viewModel.todo, status: .done)
       case .done:
-        MoveButton(todo: todo, status: .todo, updata: updata)
-        MoveButton(todo: todo, status: .doing, updata: updata)
+        MoveButton(viewModel: viewModel, todo: viewModel.todo, status: .todo)
+        MoveButton(viewModel: viewModel, todo: viewModel.todo, status: .doing)
       }
     }
     .padding()
@@ -35,19 +33,20 @@ struct TodoListPopOver: View {
 }
 
 struct MoveButton: View {
+  @ObservedObject var viewModel: PopViewModel
   let todo: Todo
   let status: Status
-  private let updata: (Status, Todo) -> Void
   
-  init(todo: Todo, status: Status, updata: @escaping (Status, Todo) -> Void) {
+  init(viewModel: PopViewModel, todo: Todo, status: Status) {
     self.todo = todo
+    self.viewModel = viewModel
     self.status = status
-    self.updata = updata
+  
   }
   
   var body: some View {
     Button("MOVE to \(status.rawValue)") {
-      updata(status, todo)
+      viewModel.updata(status, todo)
     }
     .buttonStyle(GrayBasicButtonStyle())
   }

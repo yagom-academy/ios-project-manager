@@ -50,6 +50,6 @@ class ListViewModel: ObservableObject {
   }
   
   func makeCellViewModel(todo: Todo) -> ListCellViewModel {
-    return ListCellViewModel(todoService: todoService, todo: todo)
+    return ListCellViewModel(todoService: todoService, todo: todo, changeStatus: update)
   }
 }
