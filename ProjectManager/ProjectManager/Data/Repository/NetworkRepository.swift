@@ -6,9 +6,14 @@
 //
 
 import Foundation
+import RxSwift
 
 final class NetworkRepository {
+    static let shared = NetworkRepository()
+    
     let networkManager = NetworkManager()
+    
+    private init() { }
 }
 
 extension NetworkRepository {
@@ -20,11 +25,11 @@ extension NetworkRepository {
         networkManager.update(projects: projects)
     }
     
-    func read(repository: ProjectRepository) {
-        networkManager.read()
-            .subscribe { [weak self] in
-                self?.synchronize(with: $0, to: repository)
-            }
+    func read(repository: ProjectRepository) -> Disposable {
+        return networkManager.read()
+            .subscribe(onNext: {[weak self] data in
+                self?.synchronize(with: data, to: repository)
+            })
     }
     
     private func synchronize(

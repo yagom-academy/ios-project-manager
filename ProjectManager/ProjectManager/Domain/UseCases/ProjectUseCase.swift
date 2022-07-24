@@ -5,11 +5,10 @@
 //  Created by Tiana, mmim on 2022/07/12.
 //
 
+import RxSwift
 import RxRelay
 
 struct ProjectUseCase {
-    private let networkRepository = NetworkRepository()
-    
     #if DEBUG
         private let repository = ProjectRepository(storageManager: MockRepository.shared)
     #else
@@ -36,11 +35,11 @@ struct ProjectUseCase {
         repository.delete(projectContentID: projectContentID)
     }
     
-    func load() {
-        networkRepository.read(repository: repository)
+    func load() -> Disposable {
+        return NetworkRepository.shared.read(repository: repository)
     }
     
     func backUp() {
-        networkRepository.update(repository: repository)
+        NetworkRepository.shared.update(repository: repository)
     }
 }

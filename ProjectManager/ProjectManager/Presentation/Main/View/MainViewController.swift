@@ -82,7 +82,12 @@ final class MainViewController: UIViewController {
         loadButton.rx.tap
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
-                self?.viewModel.loadNetworkData()
+                guard let self = self else {
+                    return
+                }
+                
+                self.viewModel.sync()
+                    .disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
         

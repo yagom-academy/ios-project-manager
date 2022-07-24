@@ -5,6 +5,7 @@
 //  Created by Tiana, mmim on 2022/07/06.
 //
 
+import RxSwift
 import RxCocoa
 import RxGesture
 
@@ -39,7 +40,7 @@ struct MainViewModel {
             .asDriver(onErrorJustReturn: [])
     }
     
-    func loadNetworkData() {
-        ProjectUseCase().load()
+    func sync() -> Disposable {
+        return ProjectUseCase().load()
     }
 }
