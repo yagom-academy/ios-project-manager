@@ -31,10 +31,51 @@ final class TodoListViewController: UIViewController {
     let stackView = UIStackView()
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.backgroundColor = .systemGray
+    stackView.axis = .vertical
+    return stackView
+  }()
+  
+  private let todoListStackView: UIStackView = {
+    let stackView = UIStackView()
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.backgroundColor = .systemGray
     stackView.axis = .horizontal
     stackView.distribution = .fillEqually
     stackView.spacing = 10
     return stackView
+  }()
+  
+  private let bottomView: UIView = {
+    let stackView = UIView()
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.backgroundColor = .systemBackground
+    return stackView
+  }()
+  
+  private lazy var undoButton: UIButton = {
+    let button = UIButton()
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.setTitle("Undo", for: .normal)
+    button.setTitleColor(UIColor.systemGray, for: UIControl.State.normal)
+    button.addTarget(
+      self,
+      action: #selector(undo),
+      for: .touchUpInside
+    )
+    return button
+  }()
+  
+  private lazy var redoButton: UIButton = {
+    let button = UIButton()
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.setTitle("Redo", for: .normal)
+    button.setTitleColor(UIColor.systemGray, for: UIControl.State.normal)
+    button.addTarget(
+      self,
+      action: #selector(redo),
+      for: .touchUpInside
+    )
+    return button
   }()
   
   override func viewDidLoad() {
@@ -45,6 +86,9 @@ final class TodoListViewController: UIViewController {
     bind()
     setUpNotification()
   }
+  
+  @objc private func undo() { print("\(#function)") }
+  @objc private func redo() { print("\(#function)") }
   
   private func bind() {
     viewModel.toList
@@ -111,7 +155,17 @@ final class TodoListViewController: UIViewController {
       systemItem: .add,
       primaryAction: UIAction(handler: { _ in
         self.moveWriteViewControllerDidTap()
-      }))
+      })
+    )
+    
+    navigationItem.leftBarButtonItem = UIBarButtonItem(
+      title: "History",
+      primaryAction: UIAction(handler: { _ in
+        
+      })
+    )
+    
+    navigationItem.title = "Project Manager"
   }
   
   private func configureUI() {
@@ -119,13 +173,26 @@ final class TodoListViewController: UIViewController {
     
     view.backgroundColor = .systemGray5
     view.addSubview(mainStackView)
-    mainStackView.addArrangedSubviews([todoView, doingView, doneView])
+    mainStackView.addArrangedSubviews([todoListStackView, bottomView])
+    todoListStackView.addArrangedSubviews([todoView, doingView, doneView])
+    bottomView.addSubview(redoButton)
+    bottomView.addSubview(undoButton)
     
     NSLayoutConstraint.activate([
       mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
       mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+      mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      
+      bottomView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.05),
+      
+      redoButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -10),
+      redoButton.topAnchor.constraint(equalTo: bottomView.topAnchor),
+      redoButton.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor),
+      
+      undoButton.trailingAnchor.constraint(equalTo: redoButton.leadingAnchor, constant: -10),
+      undoButton.topAnchor.constraint(equalTo: bottomView.topAnchor),
+      undoButton.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor)
     ])
   }
   

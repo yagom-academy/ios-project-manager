@@ -43,8 +43,7 @@ final class FireBaseService: StorageType {
         }
         
         guard let content = value["content"] as? String,
-              let date = value["date"] as? String,
-              let dateNumber = Double(date),
+              let date = value["date"] as? Double,
               let id = value["id"] as? String,
               let stateString = value["state"] as? String,
               let state = State(rawValue: stateString),
@@ -56,7 +55,7 @@ final class FireBaseService: StorageType {
           id: id,
           title: title,
           content: content,
-          date: Date.init(timeIntervalSinceReferenceDate: dateNumber),
+          date: Date(timeIntervalSinceReferenceDate: date),
           state: state
         )
       }
