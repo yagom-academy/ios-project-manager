@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PopViewModel: ObservableObject {
+class PopoverViewModel: ObservableObject {
   let todo: Todo
   let updata: (Status, Todo) -> Void
   

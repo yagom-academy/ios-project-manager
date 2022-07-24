@@ -18,8 +18,10 @@ class ListCellViewModel: ObservableObject {
   lazy var editViewModel = EditViewModel(todo: todo) { todos in
     self.closedEditView(element: todos)
   }
+
+  lazy var popViewModel = PopoverViewModel(todo: todo, updata: changeStatus)
   
-  lazy var popViewModel = PopViewModel(todo: todo, updata: changeStatus)
+  lazy var todoListCellViewModel = CellViewModel(todo: todo)
   
   init(todoService: TodoService, todo: Todo, changeStatus: @escaping (Status, Todo) -> Void) {
     self.todoService = todoService
@@ -27,11 +29,11 @@ class ListCellViewModel: ObservableObject {
     self.changeStatus = changeStatus
   }
   
-  func isTapped() {
+  func pressedCell() {
     isShowEditView = true
   }
   
-  func isLongPressed() {
+  func LongPressed() {
     isShowModal = true
   }
   

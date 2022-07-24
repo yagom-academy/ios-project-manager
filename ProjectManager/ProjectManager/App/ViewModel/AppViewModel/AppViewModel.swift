@@ -12,6 +12,7 @@ class AppViewModel: ObservableObject {
   var todoService: TodoService
   @Published var todoList: [Todo]
   @Published var isTappedPlusButton: Bool
+  
   lazy var todoListViewModel = ListViewModel(todoService: todoService,
                                              status: .todo,
                                              update: self.changeStatus)

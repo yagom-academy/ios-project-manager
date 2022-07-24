@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct TodoListCell: View {
-  @State var isOverDate = false
-  let todo: Todo
+struct CellView: View {
+  @ObservedObject var viewModel: CellViewModel
   
-  init(_ todo: Todo) {
-    self.todo = todo
+  init(viewModel: CellViewModel) {
+    self.viewModel = viewModel
   }
   
   var body: some View {
@@ -23,30 +22,26 @@ struct TodoListCell: View {
       
       HStack {
         VStack(alignment: .leading) {
-            Text(todo.title)
+          Text(viewModel.todo.title)
               .font(.title)
               .lineLimit(1)
               .truncationMode(.tail)
-            Text(todo.content)
+            Text(viewModel.todo.content)
               .font(.body)
               .foregroundColor(.gray)
               .lineLimit(3)
               .truncationMode(.tail)
-            Text(todo.date.toString())
+            Text(viewModel.todo.date.toString())
               .font(.body)
               .lineLimit(1)
-              .foregroundColor(isOverDate ? .red : .black )
+              .foregroundColor(viewModel.isOverDate ? .red : .black )
         }
         .padding()
         .onAppear {
-          configure()
+          viewModel.confirmDate()
         }
         Spacer()
       }
     }
-  }
-    
-  private func configure() {
-    isOverDate = todo.date < Date() && todo.status != .done
   }
 }

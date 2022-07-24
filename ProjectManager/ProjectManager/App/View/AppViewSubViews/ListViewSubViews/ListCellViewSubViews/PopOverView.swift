@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct TodoListPopOver: View {
-  @ObservedObject var viewModel: PopViewModel
+struct PopOverView: View {
+  @ObservedObject var viewModel: PopoverViewModel
   
-  init(viewModel: PopViewModel) {
+  init(viewModel: PopoverViewModel) {
     self.viewModel = viewModel
   }
   
@@ -33,11 +33,11 @@ struct TodoListPopOver: View {
 }
 
 struct MoveButton: View {
-  @ObservedObject var viewModel: PopViewModel
+  @ObservedObject var viewModel: PopoverViewModel
   let todo: Todo
   let status: Status
   
-  init(viewModel: PopViewModel, todo: Todo, status: Status) {
+  init(viewModel: PopoverViewModel, todo: Todo, status: Status) {
     self.todo = todo
     self.viewModel = viewModel
     self.status = status

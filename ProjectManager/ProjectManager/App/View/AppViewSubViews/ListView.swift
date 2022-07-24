@@ -6,7 +6,7 @@
 
 import SwiftUI
 
-struct TodoListView: View {
+struct ListView: View {
   @ObservedObject var viewModel: ListViewModel
   
   init(viewModel: ListViewModel) {
@@ -21,7 +21,7 @@ struct TodoListView: View {
         Color(UIColor.systemGray5)
         List {
           ForEach(viewModel.todoList) { todo in
-            ListCellView(viewModel: viewModel.makeCellViewModel(todo: todo))
+            CellOperationView(viewModel: viewModel.makeCellViewModel(todo: todo))
               .listRowSeparator(.hidden)
           }
           .onDelete { index in
@@ -33,34 +33,7 @@ struct TodoListView: View {
         .onAppear {
           UITableView.appearance().backgroundColor = .clear
         }
-        .refreshable {
-          viewModel.refrash()
-        }
       }
     }
-  }
-}
-
-struct ListCellView: View {
-  @ObservedObject var viewModel: ListCellViewModel
-  
-  init(viewModel: ListCellViewModel) {
-    self.viewModel = viewModel
-  }
-  
-  var body: some View {
-    TodoListCell(viewModel.todo)
-      .onTapGesture(perform: {
-        viewModel.isTapped()
-      })
-      .onLongPressGesture(perform: {
-        viewModel.isLongPressed()
-      })
-      .sheet(isPresented: $viewModel.isShowEditView) {
-        EditView(viewModel: viewModel.editViewModel)
-      }
-      .popover(isPresented: $viewModel.isShowModal) {
-        TodoListPopOver(viewModel: viewModel.popViewModel)
-      }
   }
 }
