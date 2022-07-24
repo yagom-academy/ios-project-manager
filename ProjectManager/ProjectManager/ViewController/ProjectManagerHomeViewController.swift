@@ -61,11 +61,17 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.present(projectAddVC, animated: true)
   }
 
-  @IBAction func longPressTodoCollectionView(_ sender: UILongPressGestureRecognizer) {}
+  @IBAction func longPressTodoCollectionView(_ sender: UILongPressGestureRecognizer) {
+    self.handleLongPress(todoCollectionView, projectCategory: .todo, gestureRecognizer: sender)
+  }
 
-  @IBAction func longPressDoingCollectionView(_ sender: UILongPressGestureRecognizer) {}
+  @IBAction func longPressDoingCollectionView(_ sender: UILongPressGestureRecognizer) {
+    self.handleLongPress(doingCollectionView, projectCategory: .doing, gestureRecognizer: sender)
+  }
 
-  @IBAction func longPressDoneCollectionView(_ sender: UILongPressGestureRecognizer) {}
+  @IBAction func longPressDoneCollectionView(_ sender: UILongPressGestureRecognizer) {
+    self.handleLongPress(doneCollectionView, projectCategory: .done, gestureRecognizer: sender)
+  }
 }
 
 // MARK: - UICollectionViewCompositionalLayout
@@ -154,9 +160,57 @@ extension ProjectManagerHomeViewController: UICollectionViewDelegate {
         realmService: self.realmService,
         uuid: projectList[indexPath.row].uuid,
         coder: coder
-      ) }
+      )}
     ) else { return }
 
     navigationController?.present(projectAddViewController, animated: true)
+  }
+}
+
+// MARK: - UILongPressGestureRecognizer
+
+extension ProjectManagerHomeViewController {
+  private func handleLongPress(
+    _ collectionView: UICollectionView,
+    projectCategory: ProjectCategory,
+    gestureRecognizer: UILongPressGestureRecognizer
+  ) {
+    guard gestureRecognizer.state == .began else { return }
+
+    let touchedLocation = gestureRecognizer.location(in: collectionView)
+
+    guard let indexPath = collectionView.indexPathForItem(at: touchedLocation) else { return }
+    guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+
+    self.presentMoveMenuAlert(view: cell.contentView, projectCategory: projectCategory)
+  }
+
+  private func presentMoveMenuAlert(view: UIView, projectCategory: ProjectCategory) {
+    let moveMenuAlertController = UIAlertController(
+      title: nil,
+      message: nil,
+      preferredStyle: .actionSheet
+    )
+
+    moveMenuAlertController.modalPresentationStyle = .popover
+    moveMenuAlertController.popoverPresentationController?.permittedArrowDirections = .up
+    moveMenuAlertController.popoverPresentationController?.sourceView = view
+    moveMenuAlertController.popoverPresentationController?.sourceRect = CGRect(
+      origin: view.center,
+      size: .zero
+    )
+
+    let firstMenuAction = UIAlertAction(
+      title: "Move to \(projectCategory.moveCategoryMenu.first)",
+      style: .default
+    )
+    let secondMenuAction = UIAlertAction(
+      title: "Move to \(projectCategory.moveCategoryMenu.second)",
+      style: .default
+    )
+
+    moveMenuAlertController.addAction(firstMenuAction)
+    moveMenuAlertController.addAction(secondMenuAction)
+    self.present(moveMenuAlertController, animated: true)
   }
 }
