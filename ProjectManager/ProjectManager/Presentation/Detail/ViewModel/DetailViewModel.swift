@@ -12,6 +12,10 @@ struct DetailViewModel {
         self.content = content
     }
     
+    func read() -> ProjectContent? {
+        return ProjectUseCase().read(id: content.id)
+    }
+    
     func update(_ content: ProjectContent) {
         ProjectUseCase().update(projectContent: content)
     }

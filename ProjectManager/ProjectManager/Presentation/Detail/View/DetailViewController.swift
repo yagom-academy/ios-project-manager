@@ -71,8 +71,23 @@ final class DetailViewController: UIViewController {
             action: nil
         )
         
-        didTapEditButton()
+        didTapCancelButton()
         didTapSaveButton()
+    }
+    
+    private func didTapCancelButton() {
+        navigationItem.leftBarButtonItem?.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                guard let self = self,
+                      let project = self.viewModel.read() else {
+                    return
+                }
+                self.modalView.compose(content: project)
+                self.modalView.isUserInteractionEnabled(false)
+                self.setUpDetailNavigationItem()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func didTapEditButton() {
