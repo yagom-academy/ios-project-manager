@@ -7,7 +7,8 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    private let container = Container(storage: AppStorage(LocalStorageManager()))
+    private let container = Container(storage: AppStorage(localStorage: LocalStorageManager(),
+                                                          networkStorage: NetworkStorageManager()))
     var window: UIWindow?
 
 

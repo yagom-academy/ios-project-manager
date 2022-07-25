@@ -20,13 +20,15 @@ protocol AppStoregeable {
 
 final class AppStorage: AppStoregeable {
     private let localStorage: LocalStorageManagerable
+    private let networkStorage: NetworkStorageManagerable
     
     let todoList: BehaviorRelay<[ListItem]>
     let doingList: BehaviorRelay<[ListItem]>
     let doneList: BehaviorRelay<[ListItem]>
     
-    init(_ localStorage: LocalStorageManagerable) {
+    init(localStorage: LocalStorageManagerable, networkStorage: NetworkStorageManagerable) {
         self.localStorage = localStorage
+        self.networkStorage = networkStorage
         self.todoList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.todo))
         self.doingList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.doing))
         self.doneList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.done))
@@ -46,6 +48,7 @@ final class AppStorage: AppStoregeable {
         do {
             let list = try localStorage.createItem(listItem)
             selectList(listItem.type).accept(list)
+            
         } catch {
             throw StorageError.creatError
         }
