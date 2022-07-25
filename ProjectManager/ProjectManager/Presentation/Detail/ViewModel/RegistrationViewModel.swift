@@ -16,5 +16,16 @@ struct RegistrationViewModel {
         )
         
         ProjectUseCase().create(projectContent: newProject)
+        registrateHistory(projectContent: newProject)
+    }
+    
+    private func registrateHistory(projectContent: ProjectContent) {
+        let historyEntity = HistoryEntity(
+            editedType: .register,
+            title: projectContent.title,
+            date: Date().timeIntervalSince1970
+        )
+        
+        ProjectUseCase().createHistory(historyEntity: historyEntity)
     }
 }
