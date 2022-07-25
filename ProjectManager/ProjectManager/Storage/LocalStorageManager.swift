@@ -102,6 +102,7 @@ final class LocalStorageManager: LocalStorageManagerable {
             try realm?.write {
                 realm?.delete(itemModel)
             }
+            networkStorageManager.deleteItem(item.convertedItem)
         } catch {
             throw StorageError.deleteError
         }

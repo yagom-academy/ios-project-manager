@@ -11,7 +11,7 @@ protocol NetworkStorageManagerable {
     func create(_ item: ListItemDTO)
     func read()
     func updateItem(_ item: ListItemDTO)
-    func delete()
+    func deleteItem(_ item: ListItemDTO)
 }
 
 struct NetworkStorageManager: NetworkStorageManagerable {
@@ -46,7 +46,7 @@ struct NetworkStorageManager: NetworkStorageManagerable {
         database.reference().child(item.type).child(item.id).updateChildValues(object)
     }
     
-    func delete() {
-        
+    func deleteItem(_ item: ListItemDTO) {
+        database.reference().child(item.type).child(item.id).removeValue()
     }
 }
