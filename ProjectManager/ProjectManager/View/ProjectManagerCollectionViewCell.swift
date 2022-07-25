@@ -7,10 +7,17 @@
 
 import UIKit
 
-final class ProjectManagerCollectionViewCell: UICollectionViewCell {
+final class ProjectManagerCollectionViewCell: UICollectionViewListCell {
   @IBOutlet private weak var titleLabel: UILabel!
   @IBOutlet private weak var bodyLabel: UILabel!
   @IBOutlet private weak var dateLabel: UILabel!
+
+  override func updateConstraints() {
+    super.updateConstraints()
+
+    self.separatorLayoutGuide.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor)
+      .isActive = true
+  }
 
   func configure(title: String, body: String, date: Date) {
     let dateText = date.changeToString()
