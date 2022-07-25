@@ -11,14 +11,12 @@ final class ProjectManagerHomeViewController: UIViewController {
   @IBOutlet private weak var todoCollectionView: UICollectionView!
   @IBOutlet private weak var doingCollectionView: UICollectionView!
   @IBOutlet private weak var doneCollectionView: UICollectionView!
-  @IBOutlet weak var todoCountLabel: UILabel!
-  @IBOutlet weak var doingCountLabel: UILabel!
-  @IBOutlet weak var doneCountLabel: UILabel!
+  @IBOutlet private weak var todoCountLabel: UILabel!
+  @IBOutlet private weak var doingCountLabel: UILabel!
+  @IBOutlet private weak var doneCountLabel: UILabel!
 
   private let realmService = RealmService()
   private var projects: Results<Project>?
-  private var notificationToken: NotificationToken?
-  private var projectCategory: [UICollectionView: ProjectCategory]?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,11 +27,6 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.realmService.reloadDataWhenChangedRealmData(
       [todoCollectionView, doingCollectionView, doneCollectionView]
     )
-    self.projectCategory = [
-      self.todoCollectionView: .todo,
-      self.doingCollectionView: .doing,
-      self.doneCollectionView: .done
-    ]
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -45,15 +38,11 @@ final class ProjectManagerHomeViewController: UIViewController {
   }
 
   private func initializeCollectionView() {
-    self.todoCollectionView.dataSource = self
-    self.doingCollectionView.dataSource = self
-    self.doneCollectionView.dataSource = self
-    self.todoCollectionView.delegate = self
-    self.doingCollectionView.delegate = self
-    self.doneCollectionView.delegate = self
-    self.todoCollectionView.collectionViewLayout = listCompositionLayout()
-    self.doingCollectionView.collectionViewLayout = listCompositionLayout()
-    self.doneCollectionView.collectionViewLayout = listCompositionLayout()
+    [todoCollectionView, doingCollectionView, doneCollectionView].forEach {
+      $0?.dataSource = self
+      $0?.delegate = self
+      $0?.collectionViewLayout = listCompositionLayout()
+    }
   }
 
   private func setCountLabelCornerRadius() {
@@ -63,7 +52,7 @@ final class ProjectManagerHomeViewController: UIViewController {
     }
   }
 
-  @IBAction func addProjectButton(_ sender: UIBarButtonItem) {
+  @IBAction private func addProjectButton(_ sender: UIBarButtonItem) {
     guard let projectAddVC = storyboard?.instantiateViewController(
       identifier: "\(ProjectAddViewController.self)",
       creator: { coder in ProjectAddViewController(realmService: self.realmService, coder: coder) }
@@ -72,15 +61,15 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.present(projectAddVC, animated: true)
   }
 
-  @IBAction func longPressTodoCollectionView(_ sender: UILongPressGestureRecognizer) {
+  @IBAction private func longPressTodoCollectionView(_ sender: UILongPressGestureRecognizer) {
     self.handleLongPress(todoCollectionView, projectCategory: .todo, gestureRecognizer: sender)
   }
 
-  @IBAction func longPressDoingCollectionView(_ sender: UILongPressGestureRecognizer) {
+  @IBAction private func longPressDoingCollectionView(_ sender: UILongPressGestureRecognizer) {
     self.handleLongPress(doingCollectionView, projectCategory: .doing, gestureRecognizer: sender)
   }
 
-  @IBAction func longPressDoneCollectionView(_ sender: UILongPressGestureRecognizer) {
+  @IBAction private func longPressDoneCollectionView(_ sender: UILongPressGestureRecognizer) {
     self.handleLongPress(doneCollectionView, projectCategory: .done, gestureRecognizer: sender)
   }
 }
@@ -134,9 +123,13 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
   }
 
   private func fetchProejctCategory(from collectionView: UICollectionView) -> ProjectCategory? {
-    let projectCategory = projectCategory?[collectionView]
+    let projectCategory: [UICollectionView: ProjectCategory] = [
+      self.todoCollectionView: .todo,
+      self.doingCollectionView: .doing,
+      self.doneCollectionView: .done
+    ]
 
-    return projectCategory
+    return projectCategory[collectionView]
   }
 
   private func fetchItemCount(from projectCategory: ProjectCategory) -> Int {

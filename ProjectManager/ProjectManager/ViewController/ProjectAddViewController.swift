@@ -60,7 +60,7 @@ final class ProjectAddViewController: UIViewController {
     self.projectBodyTextView.text = project.body
   }
 
-  @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+  @IBAction private func cancelButton(_ sender: UIBarButtonItem) {
     if self.projectLeftBarButtonItem.title == "Edit" {
       guard let uuid = uuid else { return }
 
@@ -75,7 +75,7 @@ final class ProjectAddViewController: UIViewController {
     self.dismiss(animated: true)
   }
 
-  @IBAction func doneButton(_ sender: UIBarButtonItem) {
+  @IBAction private func doneButton(_ sender: UIBarButtonItem) {
     guard projectTitleTextField.text?.isEmpty == false else { return }
 
     let project = Project(
