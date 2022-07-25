@@ -71,6 +71,13 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="57" height="77.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8A-ZQ-qVy">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="57" height="5"/>
+                                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="5" id="pF7-rM-b4T"/>
+                                                                    </constraints>
+                                                                </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ue9-Dh-NBX">
                                                                     <rect key="frame" x="10" y="10" width="37" height="57.5"/>
                                                                     <subviews>
@@ -97,9 +104,12 @@
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="A8A-ZQ-qVy" secondAttribute="trailing" id="6vN-kC-Ghs"/>
+                                                                <constraint firstItem="A8A-ZQ-qVy" firstAttribute="leading" secondItem="FKa-IQ-Ay2" secondAttribute="leading" id="CqO-u5-1Tj"/>
                                                                 <constraint firstItem="ue9-Dh-NBX" firstAttribute="top" secondItem="FKa-IQ-Ay2" secondAttribute="top" constant="10" id="FkD-dg-vSQ"/>
                                                                 <constraint firstAttribute="bottom" secondItem="ue9-Dh-NBX" secondAttribute="bottom" constant="10" id="bpy-8k-mFs"/>
                                                                 <constraint firstItem="ue9-Dh-NBX" firstAttribute="leading" secondItem="FKa-IQ-Ay2" secondAttribute="leading" constant="10" id="gbm-Xz-ZrE"/>
+                                                                <constraint firstItem="A8A-ZQ-qVy" firstAttribute="top" secondItem="FKa-IQ-Ay2" secondAttribute="top" id="idi-v3-fzM"/>
                                                                 <constraint firstAttribute="trailing" secondItem="ue9-Dh-NBX" secondAttribute="trailing" constant="10" id="pzo-ET-aM9"/>
                                                             </constraints>
                                                         </collectionViewCellContentView>
@@ -168,6 +178,13 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="57" height="77.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pM9-Q7-8xR">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="57" height="5"/>
+                                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="5" id="uxu-xk-GUZ"/>
+                                                                    </constraints>
+                                                                </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6vO-5K-rCH">
                                                                     <rect key="frame" x="10" y="10" width="37" height="57.5"/>
                                                                     <subviews>
@@ -196,8 +213,11 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="6vO-5K-rCH" secondAttribute="trailing" constant="10" id="8BU-iW-PAO"/>
                                                                 <constraint firstItem="6vO-5K-rCH" firstAttribute="top" secondItem="5rV-qK-J4w" secondAttribute="top" constant="10" id="H7E-wq-EXC"/>
+                                                                <constraint firstAttribute="trailing" secondItem="pM9-Q7-8xR" secondAttribute="trailing" id="aGl-6Q-zwe"/>
+                                                                <constraint firstItem="pM9-Q7-8xR" firstAttribute="top" secondItem="5rV-qK-J4w" secondAttribute="top" id="fR8-n9-lpL"/>
                                                                 <constraint firstItem="6vO-5K-rCH" firstAttribute="leading" secondItem="5rV-qK-J4w" secondAttribute="leading" constant="10" id="sJa-O1-m9g"/>
                                                                 <constraint firstAttribute="bottom" secondItem="6vO-5K-rCH" secondAttribute="bottom" constant="10" id="u7P-xJ-JIW"/>
+                                                                <constraint firstItem="pM9-Q7-8xR" firstAttribute="leading" secondItem="5rV-qK-J4w" secondAttribute="leading" id="vt4-oX-M4n"/>
                                                             </constraints>
                                                         </collectionViewCellContentView>
                                                         <connections>
@@ -265,6 +285,13 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="57" height="77.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s6p-Kh-91i">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="57" height="5"/>
+                                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="5" id="Zgc-K2-iwQ"/>
+                                                                    </constraints>
+                                                                </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="k0K-fp-tsv">
                                                                     <rect key="frame" x="10" y="10" width="37" height="57.5"/>
                                                                     <subviews>
@@ -292,6 +319,9 @@
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="bottom" secondItem="k0K-fp-tsv" secondAttribute="bottom" constant="10" id="0Tj-Ww-pG8"/>
+                                                                <constraint firstItem="s6p-Kh-91i" firstAttribute="top" secondItem="jQF-1K-0Dx" secondAttribute="top" id="6mp-F0-y6a"/>
+                                                                <constraint firstItem="s6p-Kh-91i" firstAttribute="leading" secondItem="jQF-1K-0Dx" secondAttribute="leading" id="8zK-rn-t0a"/>
+                                                                <constraint firstAttribute="trailing" secondItem="s6p-Kh-91i" secondAttribute="trailing" id="BwT-W7-02G"/>
                                                                 <constraint firstItem="k0K-fp-tsv" firstAttribute="top" secondItem="jQF-1K-0Dx" secondAttribute="top" constant="10" id="RTO-Dz-pAb"/>
                                                                 <constraint firstAttribute="trailing" secondItem="k0K-fp-tsv" secondAttribute="trailing" constant="10" id="j7u-Et-z9W"/>
                                                                 <constraint firstItem="k0K-fp-tsv" firstAttribute="leading" secondItem="jQF-1K-0Dx" secondAttribute="leading" constant="10" id="qee-KZ-Itk"/>
