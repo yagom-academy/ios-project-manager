@@ -40,18 +40,18 @@ final class TodoEditViewController: UIViewController, Alertable {
         viewModel.state
             .sink { [weak self] state in
                 switch state {
-                case .item(let item):
+                case .itemEvent(let item):
                     self?.todoDetailView.titleTextField.text = item.title
                     self?.todoDetailView.datePicker.date = item.deadline
                     self?.todoDetailView.contentTextView.text = item.content
-                case .viewTitle(let title):
+                case .viewTitleEvent(let title):
                     self?.title = title
                 case .isEdited:
                     self?.setupNavigationLeftBarButtonItem()
                     self?.todoDetailView.setupUserInteractionEnabled(true)
-                case .dismissView:
+                case .dismissEvent:
                     self?.coordiantor?.dismiss()
-                case .showErrorAlert(let message):
+                case .errorEvent(let message):
                     self?.showErrorAlertWithConfirmButton(message)
                 }
             }.store(in: &cancellableBag)

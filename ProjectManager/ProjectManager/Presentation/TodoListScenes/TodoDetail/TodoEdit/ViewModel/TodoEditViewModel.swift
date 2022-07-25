@@ -25,11 +25,11 @@ final class TodoEditViewModel: TodoEditViewModelable {
     // MARK: - Output
     
     enum State {
-        case item(item: Todo)
-        case viewTitle(title: String)
+        case itemEvent(item: Todo)
+        case viewTitleEvent(title: String)
         case isEdited
-        case dismissView
-        case showErrorAlert(message: String)
+        case dismissEvent
+        case errorEvent(message: String)
     }
     
     let state = PassthroughSubject<State, Never>()
@@ -51,8 +51,8 @@ extension TodoEditViewModel {
     // MARK: - Input
     
     func viewDidLoad() {
-        state.send(.viewTitle(title: "TODO"))
-        state.send(.item(item: todo))
+        state.send(.viewTitleEvent(title: "TODO"))
+        state.send(.itemEvent(item: todo))
     }
     
     func didTapDoneButton(title: String?, content: String?, deadline: Date?) {
@@ -79,7 +79,7 @@ extension TodoEditViewModel {
         let historyItem = TodoHistory(title: "[수정] \(title)", createdAt: Date())
         createHistoryItem(historyItem)
 
-        state.send(.dismissView)
+        state.send(.dismissEvent)
     }
     
     private func updateTodoItem(_ item: Todo) {
@@ -87,7 +87,7 @@ extension TodoEditViewModel {
         .sink(
             receiveCompletion: {
                 guard case .failure(let error) = $0 else { return}
-                self.state.send(.showErrorAlert(message: error.localizedDescription))
+                self.state.send(.errorEvent(message: error.localizedDescription))
             }, receiveValue: {}
         )
         .store(in: &cancellableBag)
@@ -98,7 +98,7 @@ extension TodoEditViewModel {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.state.send(.showErrorAlert(message: error.localizedDescription))
+                    self.state.send(.errorEvent(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)

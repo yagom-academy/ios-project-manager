@@ -23,11 +23,11 @@ final class TodoCellViewModel: TodoCellViewModelable {
     // MARK: - Output
     
     enum State {
-        case todoTitle(title: String)
-        case todoContent(content: String)
-        case todoDeadline(deadline: String)
-        case expired
-        case notExpired
+        case todoTitleEvent(title: String)
+        case todoContentEvent(content: String)
+        case todoDeadlineEvent(deadline: String)
+        case expiredEvent
+        case notExpiredEvent
     }
     
     let state = PassthroughSubject<State, Never>()
@@ -46,9 +46,9 @@ final class TodoCellViewModel: TodoCellViewModelable {
     
     private func setDateLabelColor() {
         if Date() > endOfTheDay(for: todo.deadline) ?? Date() {
-            state.send(.expired)
+            state.send(.expiredEvent)
         } else {
-            state.send(.notExpired)
+            state.send(.notExpiredEvent)
         }
     }
     
@@ -68,9 +68,9 @@ extension TodoCellViewModel {
     // MARK: - Input
     
     func cellDidBind() {
-        self.state.send(.todoTitle(title: todo.title))
-        self.state.send(.todoContent(content: todo.content))
-        self.state.send(.todoDeadline(deadline: dateformatter.string(from: todo.deadline)))
+        self.state.send(.todoTitleEvent(title: todo.title))
+        self.state.send(.todoContentEvent(content: todo.content))
+        self.state.send(.todoDeadlineEvent(deadline: dateformatter.string(from: todo.deadline)))
         
         setDateLabelColor()
     }

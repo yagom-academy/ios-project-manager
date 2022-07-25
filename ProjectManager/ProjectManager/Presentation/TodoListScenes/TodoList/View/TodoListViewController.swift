@@ -45,18 +45,18 @@ final class TodoListViewController: UIViewController, Alertable {
         viewModel.state
             .sink { [weak self] state in
                 switch state {
-                case .viewTitle(let title):
+                case .viewTitleEvent(let title):
                     self?.title = title
-                case .showErrorAlert(let message):
+                case .errorEvent(let message):
                     self?.showErrorAlertWithConfirmButton(message)
-                case .showEditView(let item):
+                case .showEditViewEvent(let item):
                     self?.coordinator?.showDetailViewController(item)
-                case .showHistoryView:
+                case .showHistoryViewEvent:
                     guard let sourceView = self?.navigationItem.leftBarButtonItem else {
                         return
                     }
                     self?.coordinator?.showHistoryViewController(sourceView: sourceView)
-                case .showCreateView:
+                case .showCreateViewEvent:
                     self?.coordinator?.showCreateViewController()
                 }
             }

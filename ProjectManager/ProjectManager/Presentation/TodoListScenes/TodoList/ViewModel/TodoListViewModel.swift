@@ -48,11 +48,11 @@ final class TodoListViewModel: TodoListViewModelable {
     }
 
     enum State {
-        case viewTitle(title: String)
-        case showErrorAlert(message: String)
-        case showEditView(item: Todo)
-        case showHistoryView
-        case showCreateView
+        case viewTitleEvent(title: String)
+        case errorEvent(message: String)
+        case showEditViewEvent(item: Todo)
+        case showHistoryViewEvent
+        case showCreateViewEvent
     }
     
     let state = PassthroughSubject<State, Never>()
@@ -72,16 +72,16 @@ extension TodoListViewModel {
     // MARK: - Input
     
     func viewDidLoad() {
-        state.send(.viewTitle(title: "Project Manager"))
+        state.send(.viewTitleEvent(title: "Project Manager"))
         todoUseCase.synchronizeDatabase()
     }
     
     func didTapAddButton() {
-        state.send(.showCreateView)
+        state.send(.showCreateViewEvent)
     }
     
     func didTapHistoryButton() {
-        state.send(.showHistoryView)
+        state.send(.showHistoryViewEvent)
     }
 }
 
@@ -94,7 +94,7 @@ extension TodoListViewModel: TodoViewModelInput {
     }
     
     func didTapCell(_ item: Todo) {
-        state.send(.showEditView(item: item))
+        state.send(.showEditViewEvent(item: item))
     }
     
     func didTapFirstContextMenu(_ item: Todo) {
@@ -116,7 +116,7 @@ extension TodoListViewModel: TodoViewModelInput {
         .sink(
             receiveCompletion: {
                 guard case .failure(let error) = $0 else { return}
-                self.state.send(.showErrorAlert(message: error.localizedDescription))
+                self.state.send(.errorEvent(message: error.localizedDescription))
             }, receiveValue: {}
         )
         .store(in: &cancellableBag)
@@ -127,7 +127,7 @@ extension TodoListViewModel: TodoViewModelInput {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.state.send(.showErrorAlert(message: error.localizedDescription))
+                    self.state.send(.errorEvent(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)
@@ -138,7 +138,7 @@ extension TodoListViewModel: TodoViewModelInput {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.state.send(.showErrorAlert(message: error.localizedDescription))
+                    self.state.send(.errorEvent(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)

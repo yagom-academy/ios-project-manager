@@ -24,8 +24,8 @@ final class TodoCreateViewModel: TodoCreateViewModelable {
     // MARK: - Output
     
     enum State {
-        case dismissView
-        case showErrorAlert(message: String)
+        case dismissEvent
+        case errorEvent(message: String)
     }
     
     let state = PassthroughSubject<State, Never>()
@@ -45,7 +45,7 @@ extension TodoCreateViewModel {
     // MARK: - Input
     
     func didTapCancelButton() {
-        state.send(.dismissView)
+        state.send(.dismissEvent)
     }
     
     func didTapDoneButton(_ title: String?, _ content: String?, _ deadline: Date?) {
@@ -59,7 +59,7 @@ extension TodoCreateViewModel {
         let historyItem = TodoHistory(title: "[생성] \(todoItem.title)", createdAt: Date())
         createHistoryItem(historyItem)
         
-        state.send(.dismissView)
+        state.send(.dismissEvent)
     }
     
     private func createTodoItem(_ item: Todo) {
@@ -67,7 +67,7 @@ extension TodoCreateViewModel {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.state.send(.showErrorAlert(message: error.localizedDescription))
+                    self.state.send(.errorEvent(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)
@@ -78,7 +78,7 @@ extension TodoCreateViewModel {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.state.send(.showErrorAlert(message: error.localizedDescription))
+                    self.state.send(.errorEvent(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)

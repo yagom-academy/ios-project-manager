@@ -65,15 +65,15 @@ final class TodoTableViewCell: UITableViewCell {
             .print()
             .sink { [weak self] state in
                 switch state {
-                case .todoTitle(let title):
+                case .todoTitleEvent(let title):
                     self?.titleLabel.text = title
-                case .todoContent(let content):
+                case .todoContentEvent(let content):
                     self?.contentLabel.text = content
-                case .todoDeadline(let deadline):
+                case .todoDeadlineEvent(let deadline):
                     self?.deadlineLabel.text = deadline
-                case .expired:
+                case .expiredEvent:
                     self?.deadlineLabel.textColor = .systemRed
-                case .notExpired:
+                case .notExpiredEvent:
                     self?.deadlineLabel.textColor = .label
                 }
             }.store(in: &cancellableBag)

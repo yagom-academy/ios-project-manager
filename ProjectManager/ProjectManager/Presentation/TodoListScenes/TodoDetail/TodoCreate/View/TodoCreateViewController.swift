@@ -36,9 +36,9 @@ final class TodoCreateViewController: UIViewController, Alertable {
         viewModel.state
             .sink { [weak self] state in
                 switch state {
-                case .dismissView:
+                case .dismissEvent:
                     self?.coordinator?.dismiss()
-                case .showErrorAlert(message: let message):
+                case .errorEvent(message: let message):
                     self?.showErrorAlertWithConfirmButton(message)
                 }
             }.store(in: &cancellableBag)
