@@ -84,6 +84,7 @@ final class LocalStorageManager: LocalStorageManagerable {
                 itemModel?.deadline = item.deadline
                 itemModel?.body = item.body
             }
+            networkStorageManager.updateItem(item.convertedItem)
         } catch {
             throw StorageError.updateError
         }
