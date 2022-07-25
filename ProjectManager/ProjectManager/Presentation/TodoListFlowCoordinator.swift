@@ -13,7 +13,7 @@ protocol TodoListFlowCoordinatorDependencies {
                                     coordinator: TodoEditViewControllerDependencies) -> TodoEditViewController
     func makeTodoMoveViewController(item: TodoModel,
                                     coordinator: TodoMoveViewControllerDependencies) -> TodoMoveViewController
-    func makeTodoHistoryViewController(coordinator: TodoHistoryViewControllerDependencies) -> TodoHistoryViewController
+    func makeHistoryViewController(coordinator: HistoryViewControllerDependencies) -> HistoryViewController
 }
 
 final class TodoListFlowCoordinator {

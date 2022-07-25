@@ -8,14 +8,14 @@
 import UIKit
 import SnapKit
 
-protocol TodoHistoryViewControllerDependencies: AnyObject {
+protocol HistoryViewControllerDependencies: AnyObject {
     func dismissHistoryViewController()
 }
 
-class TodoHistoryViewController: UIViewController {
+class HistoryViewController: UIViewController {
     
-    private let viewModel: TodoHistoryViewModel
-    private weak var coordinator: TodoHistoryViewControllerDependencies?
+    private let viewModel: HistoryViewModel
+    private weak var coordinator: HistoryViewControllerDependencies?
 
     private let historyTableView: UITableView = {
         let tableView = UITableView()
@@ -28,7 +28,7 @@ class TodoHistoryViewController: UIViewController {
         configureView()
     }
     
-    init(viewModel: TodoHistoryViewModel, coordinator: TodoHistoryViewControllerDependencies) {
+    init(viewModel: HistoryViewModel, coordinator: HistoryViewControllerDependencies) {
         self.viewModel = viewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -40,7 +40,7 @@ class TodoHistoryViewController: UIViewController {
 }
 
 //MARK: - View Setting
-extension TodoHistoryViewController {
+extension HistoryViewController {
     private func configureView() {
         
         

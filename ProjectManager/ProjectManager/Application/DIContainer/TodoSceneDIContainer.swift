@@ -24,7 +24,7 @@ final class TodoSceneDIContainer {
         return DefaultTodoMoveViewModel(useCase: makeTodoListUseCase(), item: item)
     }
     
-    private func makeTodoHistoryViewModel() -> TodoHistoryViewModel {
+    private func makeHistoryViewModel() -> HistoryViewModel {
         return DefaultTodoHistoryViewModel(useCase: makeTodoListUseCase())
     }
     
@@ -56,8 +56,8 @@ extension TodoSceneDIContainer: TodoListFlowCoordinatorDependencies {
 
     }
     
-    func makeTodoHistoryViewController(coordinator: TodoHistoryViewControllerDependencies) -> TodoHistoryViewController {
-        return TodoHistoryViewController(viewModel: makeTodoHistoryViewModel(),
+    func makeHistoryViewController(coordinator: HistoryViewControllerDependencies) -> HistoryViewController {
+        return HistoryViewController(viewModel: makeHistoryViewModel(),
                                          coordinator: coordinator)
     }
 }

@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol TodoHistoryViewModelOutput {
+protocol HistoryViewModelOutput {
     
 }
 
-protocol TodoHistoryViewModel: TodoHistoryViewModelOutput {}
+protocol HistoryViewModel: HistoryViewModelOutput {}
 
-final class DefaultTodoHistoryViewModel: TodoHistoryViewModel {
+final class DefaultTodoHistoryViewModel: HistoryViewModel {
     private let useCase: TodoListUseCase
     
     init(useCase: TodoListUseCase) {
