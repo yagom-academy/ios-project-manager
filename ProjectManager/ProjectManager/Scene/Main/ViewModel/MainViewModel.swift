@@ -18,7 +18,7 @@ protocol MainViewModelState {
     var todos: BehaviorRelay<[Task]> { get }
     var doings: BehaviorRelay<[Task]> { get }
     var dones: BehaviorRelay<[Task]> { get }
-    var network: BehaviorRelay<Bool> { get }
+    var online: BehaviorRelay<Bool> { get }
 }
 
 final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservable {
@@ -26,7 +26,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
-    var network: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var online: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var error: PublishRelay<DatabaseError> = .init()
 
     private lazy var synchronizeManager = SynchronizeManager(realmManager: realmManager)
@@ -48,17 +48,18 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     
     func viewDidLoad() {
         startMonitoring()
-        fetchData()
     }
     
-    func startMonitoring() {
+    private func startMonitoring() {
         let monitoringQueue = DispatchQueue(label: "network", attributes: .concurrent)
         monitor.start(queue: monitoringQueue)
         monitor.pathUpdateHandler = { [weak self] path in
             if path.status == .satisfied {
-                self?.network.accept(true)
+                self?.online.accept(true)
+                self?.syncronize()
             } else {
-                self?.network.accept(false)
+                self?.online.accept(false)
+                self?.fetchData()
             }
         }
     }

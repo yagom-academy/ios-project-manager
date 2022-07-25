@@ -144,7 +144,7 @@ extension MainViewController {
         guard let networkIcon = navigationItem.titleView?.subviews[1] else {
             return
         }
-        viewModel.network
+        viewModel.online
             .map { online in
                 if online {
                     return UIColor.systemGreen
