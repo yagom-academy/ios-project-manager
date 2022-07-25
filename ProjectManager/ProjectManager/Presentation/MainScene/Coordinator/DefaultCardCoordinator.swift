@@ -7,6 +7,8 @@
 
 import UIKit
 
+import FirebaseDatabase
+
 protocol CardCoordinator: Coordinator {
   func toAddition()
   func toDetail(of card: Card)
@@ -18,7 +20,7 @@ final class DefaultCardCoordinator: CardCoordinator {
   
   private let useCase = DefaultCardUseCase(
     localDatabaseRepository: DefaultLocalDatabaseRepository(storage: CoreDataStorage.standard),
-    realtimeDatabaseRepository: DefaultRealtimeDatabaseRepository()
+    realtimeDatabaseRepository: DefaultRealtimeDatabaseRepository(service: Database.database().reference())
   )
   
   init(navigationController: UINavigationController) {

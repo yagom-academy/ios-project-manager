@@ -10,23 +10,16 @@ import Foundation
 import FirebaseDatabase
 import RxSwift
 
-protocol DatabaseReferable {
-  func getData(completion block: @escaping (Error?, DataSnapshot?) -> Void)
-  func setValue(_ value: Any?)
-}
-
-extension DatabaseReference: DatabaseReferable {}
-
 final class DefaultRealtimeDatabaseRepository: RealtimeDatabaseRepository {
-  private let database: DatabaseReferable
+  private let service: FirebaseDatabaseService
   
-  init(database: DatabaseReferable = Database.database().reference()) {
-    self.database = database
+  init(service: FirebaseDatabaseService) {
+    self.service = service
   }
   
   func fetchAll() -> Observable<[Card]> {
     return Single.create { [weak self] observer in
-      self?.database.getData { error, snapshot in
+      self?.service.getData { error, snapshot in
         guard error == nil else {
           observer(.failure(RealtimeDatabaseRepositoryError.errorIsOccurred(error)))
           return
@@ -58,7 +51,7 @@ final class DefaultRealtimeDatabaseRepository: RealtimeDatabaseRepository {
           return Disposables.create()
         }
       }
-      self?.database.setValue(container)
+      self?.service.setValue(container)
       observer(.success(cards))
       
       return Disposables.create()
