@@ -14,7 +14,8 @@ struct ProjectUseCase {
     #else
         private let repository = ProjectRepository(storageManager: PersistentRepository.shared)
     #endif
-    
+    private let historyRepository = HistoryRepository(storageManager: MockHistoryRepository.shared)
+
     func create(projectContent: ProjectContent) {
         repository.create(projectContent: projectContent)
     }
@@ -41,5 +42,13 @@ struct ProjectUseCase {
     
     func backUp() {
         NetworkRepository.shared.update(repository: repository)
+    }
+    
+    func createHistory(historyEntity: HistoryEntity) {
+        historyRepository.create(historyEntity: historyEntity)
+    }
+    
+    func readHistory() -> [HistoryEntity] {
+        return historyRepository.read()
     }
 }
