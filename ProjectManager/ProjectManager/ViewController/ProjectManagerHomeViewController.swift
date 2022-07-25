@@ -81,19 +81,8 @@ final class ProjectManagerHomeViewController: UIViewController {
 
 extension ProjectManagerHomeViewController {
   private func listCompositionLayout() -> UICollectionViewCompositionalLayout {
-    let itemSize = NSCollectionLayoutSize(
-      widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
-      heightDimension: NSCollectionLayoutDimension.estimated(1)
-    )
-    let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-    let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitem: item, count: 1)
-
-    let section = NSCollectionLayoutSection(group: group)
-    section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0)
-    section.interGroupSpacing = 10
-
-    let layout = UICollectionViewCompositionalLayout(section: section)
+    let listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
+    let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
 
     return layout
   }
