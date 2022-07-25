@@ -20,6 +20,11 @@ struct RealmManager {
         }
     }
     
+    func fetchAllTasks() -> [Task] {
+        guard let result = realmInstance?.objects(Task.self) else { return [] }
+        return Array(result)
+    }
+    
     func fetchTasks(type: TaskType) -> [Task] {
         let result = realmInstance?.objects(Task.self).where {
             $0.taskType == type

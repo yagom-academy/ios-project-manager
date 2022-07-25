@@ -34,7 +34,7 @@ final class EditFormSheetViewController: UIViewController {
     }
     
     private func configureNavigationBarItems() {
-        title = task?.taskType.value
+        title = task?.taskType.rawValue
         
         let doneButton = UIBarButtonItem(
             title: Constants.done,

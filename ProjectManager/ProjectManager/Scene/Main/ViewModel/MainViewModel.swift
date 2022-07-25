@@ -8,6 +8,7 @@
 import Foundation
 import RxRelay
 import RxSwift
+import Network
 
 protocol MainViewModelEvent {
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType)
@@ -17,6 +18,7 @@ protocol MainViewModelState {
     var todos: BehaviorRelay<[Task]> { get }
     var doings: BehaviorRelay<[Task]> { get }
     var dones: BehaviorRelay<[Task]> { get }
+    var online: BehaviorRelay<Bool> { get }
 }
 
 final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservable {
@@ -24,9 +26,12 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
+    var online: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var error: PublishRelay<DatabaseError> = .init()
-    
+
+    private lazy var synchronizeManager = SynchronizeManager(realmManager: realmManager)
     private let realmManager = RealmManager()
+    private let monitor = NWPathMonitor()
     
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType) {
         let task: Task
@@ -42,7 +47,34 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     func viewDidLoad() {
-        fetchData()
+        startMonitoring()
+    }
+    
+    private func startMonitoring() {
+        let monitoringQueue = DispatchQueue(label: "network", attributes: .concurrent)
+        monitor.start(queue: monitoringQueue)
+        monitor.pathUpdateHandler = { [weak self] path in
+            if path.status == .satisfied {
+                self?.online.accept(true)
+                self?.syncronize()
+            } else {
+                self?.online.accept(false)
+                self?.fetchData()
+            }
+        }
+    }
+    
+    func syncronize() {
+        synchronizeManager.synchronizeDatabase { [weak self] result in
+            switch result {
+            case .success:
+                self?.fetchData()
+                return
+            case .failure(let error):
+                print(error.localizedDescription)
+                return
+            }
+        }
     }
     
     func fetchData() {
@@ -52,10 +84,13 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     private func deleteData(task: Task) {
+        let title = task.title
         let type = task.taskType
-        
+                
         do {
             try realmManager.delete(task: task)
+            sendNotificationForHistory(title, from: type)
+            
         } catch {
             self.error.accept(DatabaseError.deleteError)
         }
@@ -68,6 +103,13 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         case .done:
             fetchDone()
         }
+    }
+    
+    private func sendNotificationForHistory(_ title: String, from type: TaskType) {
+        let content = "Removed '\(title)' from \(type.rawValue)"
+        let time = Date().timeIntervalSince1970
+        let history: [String: Any] = ["content": content, "time": time]
+        NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
     }
         
     private func fetchToDo() {

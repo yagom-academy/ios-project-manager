@@ -5,9 +5,10 @@
 //  Created by Donnie, Grumpy on 2022/07/06.
 //
 
+import Foundation
 import RealmSwift
 
-final class Task: Object {
+final class Task: Object, Codable {
     @Persisted var title: String
     @Persisted var body: String
     @Persisted var date: Double
@@ -27,5 +28,15 @@ final class Task: Object {
         self.date = date
         self.taskType = taskType
         self.id = id
+    }
+    
+    func toDictionary() -> [String: Any] {
+        do {
+            let data = try JSONEncoder().encode(self)
+            guard let jsonData = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return [:] }
+            return jsonData
+        } catch {
+            return [:]
+        }
     }
 }

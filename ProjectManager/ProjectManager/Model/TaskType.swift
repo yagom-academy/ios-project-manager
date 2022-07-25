@@ -7,19 +7,8 @@
 
 import RealmSwift
 
-enum TaskType: String, PersistableEnum {
-    case todo
-    case doing
-    case done
-    
-    var value: String {
-        switch self {
-        case .todo:
-            return "TODO"
-        case .doing:
-            return "DOING"
-        case .done:
-            return "DONE"
-        }
-    }
+enum TaskType: String, PersistableEnum, Codable {
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
 }

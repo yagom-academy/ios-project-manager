@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxRelay
+import Firebase
 
 protocol NewFormSheetViewModelEvent {
     func doneButtonTapped()
@@ -30,6 +31,7 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
     
     private let realmManager = RealmManager()
     private let uuid = UUID().uuidString
+    private let reference = Database.database().reference()
     
     func doneButtonTapped() {
         registerNewTask()
@@ -43,12 +45,21 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
             taskType: .todo,
             id: uuid
         )
-        
+
         do {
             try realmManager.create(task: newTask)
+
+            sendNotificationForHistory(newTask.title)
             dismiss.accept(())
         } catch {
             self.error.accept(DatabaseError.createError)
         }
+    }
+    
+    private func sendNotificationForHistory(_ title: String) {
+        let content = "Added '\(title)'."
+        let time = date.value
+        let history: [String: Any] = ["content": content, "time": time]
+        NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
     }
 }
