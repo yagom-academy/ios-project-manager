@@ -8,8 +8,6 @@
 import UIKit
 
 final class ModalView: UIView {
-//    private var bottomConstraint: NSLayoutConstraint?
-    
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
         drawBorder(view: textField, color: .systemGray3)
