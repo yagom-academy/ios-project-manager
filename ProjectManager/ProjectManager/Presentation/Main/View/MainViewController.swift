@@ -22,6 +22,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         bind()
+        NetworkCondition.sharedInstance.delegate = self
     }
     
     private func bind() {
@@ -232,5 +233,15 @@ final class MainViewController: UIViewController {
         next.modalPresentationStyle = .formSheet
         
         self.present(next, animated: true)
+    }
+}
+
+extension MainViewController: NetworkConditionDelegate {
+    func applyNetworkEnable() {
+        navigationController?.navigationItem.rightBarButtonItems?[2].image = UIImage(systemName: "wifi")
+    }
+    
+    func applyNetworkUnable() {
+        navigationController?.navigationItem.rightBarButtonItems?[2].image = UIImage(systemName: "wifi.slash")
     }
 }
