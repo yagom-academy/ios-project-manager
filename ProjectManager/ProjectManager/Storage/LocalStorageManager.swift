@@ -9,9 +9,9 @@ import RealmSwift
 
 protocol LocalStorageManagerable {
     func readList(_ type: ListType) -> [ListItem]
-    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void)
-    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void)
-    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void)
+    func createItem(_ item: ListItem) throws -> [ListItem]
+    func updateItem(_ item: ListItem) throws -> [ListItem]
+    func deleteItem(_ item: ListItem) throws -> [ListItem]
 }
 
 final class LocalStorageManager: LocalStorageManagerable {
@@ -43,37 +43,32 @@ final class LocalStorageManager: LocalStorageManagerable {
         return list
     }
     
-    func createItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void) {
+    func createItem(_ item: ListItem) throws -> [ListItem] {
         guard let realm = realm else {
-            return
+            return []
         }
         
-        if realm.objects(LocalStorage.self).isEmpty {
-            let listModel = LocalStorage()
-            listModel.todoList.append(item.convertedItem)
-            
-            do {
+        do {
+            if realm.objects(LocalStorage.self).isEmpty {
+                let listModel = LocalStorage()
+                listModel.todoList.append(item.convertedItem)
+                
                 try realm.write {
                     realm.add(listModel)
-                    
-                    completion(.success(readList(item.type)))
                 }
-            } catch {
-                completion(.failure(StorageError.creatError))
-            }
-        } else {
-            do {
+            } else {
                 try realm.write {
                     selectListModel(item.type).append(item.convertedItem)
-                    completion(.success(readList(item.type)))
                 }
-            } catch {
-                completion(.failure(StorageError.creatError))
             }
+        } catch {
+            throw StorageError.creatError
         }
+        
+        return readList(item.type)
     }
     
-    func updateItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void) {
+    func updateItem(_ item: ListItem) throws -> [ListItem] {
         let itemModel = selectListModel(item.type)
             .filter(NSPredicate(format: "id = %@", item.id)).first
         
@@ -82,26 +77,28 @@ final class LocalStorageManager: LocalStorageManagerable {
                 itemModel?.title = item.title
                 itemModel?.deadline = item.deadline
                 itemModel?.body = item.body
-                completion(.success(readList(item.type)))
             }
         } catch {
-            completion(.failure(StorageError.updateError))
+            throw StorageError.updateError
         }
+        
+        return readList(item.type)
     }
     
-    func deleteItem(_ item: ListItem, _ completion: @escaping (Result<[ListItem], StorageError>) -> Void) {
+    func deleteItem(_ item: ListItem) throws -> [ListItem] {
         guard let itemModel = selectListModel(item.type)
             .filter(NSPredicate(format: "id = %@", item.id)).first else {
-            return
+            return []
         }
         
         do {
             try realm?.write {
                 realm?.delete(itemModel)
-                completion(.success(readList(item.type)))
             }
         } catch {
-            completion(.failure(StorageError.deleteError))
+            throw StorageError.deleteError
         }
+        
+        return readList(item.type)
     }
 }

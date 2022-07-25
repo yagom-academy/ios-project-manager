@@ -43,18 +43,10 @@ final class AppStorage: AppStoregeable {
     }
     
     func creatItem(listItem: ListItem) throws {
-        var createError: StorageError?
-        
-        localStorage.createItem(listItem) { [weak self] result in
-            switch result {
-            case .success(let list):
-                self?.selectList(listItem.type).accept(list)
-            case .failure(let error):
-                createError = error
-            }
-        }
-        
-        if createError != nil {
+        do {
+            let list = try localStorage.createItem(listItem)
+            selectList(listItem.type).accept(list)
+        } catch {
             throw StorageError.creatError
         }
     }
@@ -64,36 +56,21 @@ final class AppStorage: AppStoregeable {
     }
     
     func updateItem(listItem: ListItem) throws {
-        var updateError: StorageError?
-        
-        localStorage.updateItem(listItem) { [weak self] result in
-            switch result {
-            case .success(let list):
-                self?.selectList(listItem.type).accept(list)
-            case .failure(let error):
-                updateError = error
-            }
-        }
-        
-        if updateError != nil {
+        do {
+            let list = try localStorage.updateItem(listItem)
+            selectList(listItem.type).accept(list)
+        } catch {
             throw StorageError.updateError
         }
     }
     
     func deleteItem(index: Int, type: ListType) throws {
         let item = selectItem(index: index, type: type)
-        var deleteError: StorageError?
         
-        localStorage.deleteItem(item) { [weak self] result in
-            switch result {
-            case .success(let list):
-                self?.selectList(item.type).accept(list)
-            case .failure(let error):
-                deleteError = error
-            }
-        }
-        
-        if deleteError != nil {
+        do {
+            let list = try localStorage.deleteItem(item)
+            selectList(item.type).accept(list)
+        } catch {
             throw StorageError.deleteError
         }
     }
