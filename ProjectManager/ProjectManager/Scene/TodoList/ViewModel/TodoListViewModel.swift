@@ -40,10 +40,10 @@ final class TodoListViewModel {
             .map { $0.filter { $0.todoListItemStatus == .done } }
             .map { $0.sorted{ $0.date < $1.date } }
             .asDriver(onErrorJustReturn: [])
-  
-        self.networkState = dataBase.networkStateBehaviorRelay
-            .map { $0 == true ? NetworkState.connected : NetworkState.nonConncted }
-            .asDriver(onErrorJustReturn: "")
+        
+        self.networkState = self.dataBase.isConnected()
+                    .map { $0 == true ? NetworkState.connected : NetworkState.nonConncted }
+                    .asDriver(onErrorJustReturn: "")
     }
     
     func cellSelectEvent(

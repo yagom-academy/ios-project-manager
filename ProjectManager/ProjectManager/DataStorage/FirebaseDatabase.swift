@@ -5,9 +5,8 @@
 //  Created by 김동욱 on 2022/07/19.
 //
 
-import Foundation
-
 import Firebase
+import RxSwift
 
 final class FirebaseDatabase {
     private let database = Database.database()
@@ -17,16 +16,19 @@ final class FirebaseDatabase {
         self.firebase = self.database.reference()
     }
     
-    func isConnected(completion: @escaping (Bool) -> Void) {
-        let isConnected = self.database.reference(withPath: ".info/connected")
-        isConnected.observe(.value, with: { snapshot in
-          if snapshot.value as? Bool ?? false {
-              completion(true)
-          } else {
-              completion(false)
-          }
-        })
-    }
+    func isConnected() -> Observable<Bool> {
+           return Observable.create { observer in
+               let isConnected = self.database.reference(withPath: ".info/connected")
+               isConnected.observe(.value, with: { snapshot in
+                 if snapshot.value as? Bool ?? false {
+                     observer.onNext(true)
+                 } else {
+                     observer.onNext(false)
+                 }
+               })
+               return Disposables.create()
+           }
+       }
     
     func sync(todoData: [Todo]) {
         todoData.forEach {

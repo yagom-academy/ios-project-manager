@@ -7,16 +7,17 @@
 
 import Foundation
 
+import RxSwift
 import RxRelay
 
 protocol DatabaseManagerProtocol {
     var todoListBehaviorRelay: BehaviorRelay<[Todo]> { get }
-    var networkStateBehaviorRelay: BehaviorRelay<Bool> { get }
     
     func create(todoData: Todo)
     func read()
     func update(selectedTodo: Todo)
     func delete(todoID: UUID)
+    func isConnected() -> Observable<Bool>
 }
 
 final class DatabaseManager: DatabaseManagerProtocol {
@@ -27,15 +28,12 @@ final class DatabaseManager: DatabaseManagerProtocol {
     private let firebase = FirebaseDatabase()
     
     init() {
-        self.networkState()
         self.read()
     }
     
-    private func networkState() {
-        self.firebase.isConnected { [weak self] networkState in
-            self?.networkStateBehaviorRelay.accept(networkState)
+    func isConnected() -> Observable<Bool> {
+            return self.firebase.isConnected()
         }
-    }
     
     func create(todoData: Todo) {
         self.realm.create(todoData: todoData) { [weak self] todoData in
