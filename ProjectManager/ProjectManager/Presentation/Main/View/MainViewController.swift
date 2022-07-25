@@ -22,7 +22,6 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         bind()
-        NetworkCondition.sharedInstance.delegate = self
     }
     
     private func bind() {
@@ -62,6 +61,8 @@ final class MainViewController: UIViewController {
         
         navigationItem.rightBarButtonItems = [addButton, loadButton, networkConditionItem]
         didTapAddButton()
+        
+        NetworkCondition.sharedInstance.delegate = self
     }
     
     private func didTapAddButton() {
@@ -238,10 +239,16 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: NetworkConditionDelegate {
     func applyNetworkEnable() {
-        navigationController?.navigationItem.rightBarButtonItems?[2].image = UIImage(systemName: "wifi")
+        navigationItem.rightBarButtonItems?[2].image = UIImage(systemName: "wifi")?.withTintColor(
+            .systemBlue,
+            renderingMode: .alwaysOriginal
+        )
     }
     
     func applyNetworkUnable() {
-        navigationController?.navigationItem.rightBarButtonItems?[2].image = UIImage(systemName: "wifi.slash")
+        navigationItem.rightBarButtonItems?[2].image = UIImage(systemName: "wifi.slash")?.withTintColor(
+            .systemRed,
+            renderingMode: .alwaysOriginal
+        )
     }
 }
