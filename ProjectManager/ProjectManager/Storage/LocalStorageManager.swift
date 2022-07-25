@@ -66,6 +66,7 @@ final class LocalStorageManager: LocalStorageManagerable {
                     selectListModel(item.type).append(item.convertedItem)
                 }
             }
+            networkStorageManager.create(item.convertedItem)
         } catch {
             throw StorageError.creatError
         }
