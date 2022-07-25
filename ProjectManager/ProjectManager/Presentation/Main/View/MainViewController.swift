@@ -77,13 +77,13 @@ final class MainViewController: UIViewController {
         historyButton.rx.tap
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
-                self?.presentHistoryPopOver()
+                self?.presentHistoryPopOver(source: historyButton)
             })
             .disposed(by: disposeBag)
     }
     
-    private func presentHistoryPopOver() {
-        let historyViewController = HistoryViewController()
+    private func presentHistoryPopOver(source: UIBarButtonItem) {
+        let historyViewController = HistoryViewController(source: source)
         
         present(historyViewController, animated: true)
     }
