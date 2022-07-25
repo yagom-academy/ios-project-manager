@@ -9,9 +9,11 @@ import Foundation
 
 final class WriteViewModel {
   private let storage: StorageType
+  private var originator: Originatable
   
-  init(storage: StorageType = FireBaseService.shared) {
+  init(storage: StorageType = FireBaseService.shared, originator: Originatable = Originator.shared) {
     self.storage = storage
+    self.originator = originator
   }
   
   // MARK: - Input

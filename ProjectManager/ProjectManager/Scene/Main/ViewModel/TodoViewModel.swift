@@ -12,13 +12,18 @@ final class TodoViewModel {
   typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Todo>
   
   private let storage: StorageType
+  private var originator: Originatable
   
   var todoDataSource: DataSource?
   var doingDataSource: DataSource?
   var doneDataSource: DataSource?
   
-  init(storage: StorageType) {
+  init(
+    storage: StorageType = FireBaseService.shared,
+    originator: Originatable = Originator.shared
+  ) {
     self.storage = storage
+    self.originator = originator
   }
   // MARK: - Input
 

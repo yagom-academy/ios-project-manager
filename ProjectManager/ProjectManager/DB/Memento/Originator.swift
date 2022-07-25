@@ -16,11 +16,14 @@ protocol Originatable {
   mutating func redo()
 }
 
-struct Originator: Originatable {
+class Originator: Originatable {
+  static let shared = Originator()
+  private init() {}
+  
   var memento: Memento?
   var history = History()
   
-  mutating func createMemento(_ memento: Memento) {
+  func createMemento(_ memento: Memento) {
     self.memento?.make(memento.memento)
     
     guard let unwrappedMemento = self.memento else {
@@ -30,11 +33,11 @@ struct Originator: Originatable {
     history.save(unwrappedMemento)
   }
   
-  mutating func undo() {
+  func undo() {
     history.undo()
   }
   
-  mutating func redo() {
+  func redo() {
     history.redo()
   }
 }

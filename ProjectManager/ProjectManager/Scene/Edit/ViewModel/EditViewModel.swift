@@ -10,12 +10,14 @@ import Combine
 
 final class EditViewModel: NSObject {
   private let storage: StorageType
+  private var originator: Originatable
   
   // MARK: - Output
   let item: Todo
   
-  init(storage: StorageType = FireBaseService.shared, item: Todo) {
+  init(storage: StorageType = FireBaseService.shared, originator: Originatable = Originator.shared, item: Todo) {
     self.storage = storage
+    self.originator = originator
     self.item = item
   }
   

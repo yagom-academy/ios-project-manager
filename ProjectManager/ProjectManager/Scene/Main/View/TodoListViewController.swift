@@ -21,11 +21,11 @@ final class TodoListViewController: UIViewController {
   
   private var bag = Set<AnyCancellable>()
   
+  private let viewModel = TodoViewModel()
+  
   private let todoView = TodoListView(headerName: HeaderName.todo)
   private let doingView = TodoListView(headerName: HeaderName.doing)
   private let doneView = TodoListView(headerName: HeaderName.done)
-  
-  private let viewModel = TodoViewModel(storage: FireBaseService.shared)
   
   private let mainStackView: UIStackView = {
     let stackView = UIStackView()
