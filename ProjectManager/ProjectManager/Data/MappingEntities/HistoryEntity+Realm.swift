@@ -13,7 +13,7 @@ class HistoryRealmEntity: Object {
     @Persisted var title: String
     @Persisted var beforeState: String?
     @Persisted var afterState: String?
-    @Persisted(primaryKey: true) var id: UUID
+    @Persisted var createAt: Date
     
     convenience init(entity: History) {
         self.init()
@@ -21,14 +21,13 @@ class HistoryRealmEntity: Object {
         self.title = entity.title
         self.beforeState = entity.beforeState?.rawValue
         self.afterState = entity.afterState?.rawValue
-        self.id = entity.id
+        self.createAt = entity.createAt
     }
     
     func toHistory() -> History {
         return History(changes: Changes(rawValue: changes) ?? .added,
                        title: title,
                        beforeState: State(rawValue: beforeState ?? ""),
-                       afterState: State(rawValue: afterState ?? ""),
-                       id: id)
+                       afterState: State(rawValue: afterState ?? ""))
     }
 }

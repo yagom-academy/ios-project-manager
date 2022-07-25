@@ -59,5 +59,4 @@ extension RealmHistoryStorage: HistoryStorage {
             errorObserver.accept(TodoError.historySyncError)
         }
     }
-    
 }
