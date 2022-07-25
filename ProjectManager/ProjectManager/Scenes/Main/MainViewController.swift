@@ -15,6 +15,14 @@ class MainViewController: UIViewController {
     
     private let taskManager = try? TaskManager()
     
+    private let navigationAddButton = UIBarButtonItem(barButtonSystemItem: .add,
+                                                      target: MainViewController.self,
+                                                        action: #selector(addButtonClick(_:)) )
+    private let navigationSyncButton = UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down.fill"),
+                                     style: .plain,
+                                                       target: MainViewController.self,
+                                     action: #selector(syncButtonClick(_:)))
+    
     override func loadView() {
         view = mainView
     }
@@ -101,17 +109,13 @@ extension MainViewController {
         setNavigationBar()
         setTableView()
         mainView.refreshCount()
+        taskManager?.setNetworkConnectionDelegate(delegate: self)
     }
     
     private func setNavigationBar() {
         navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self,
-                                                            action: #selector(addButtonClick(_:)) )
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down.fill"),
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(syncButtonClick(_:)))
+        navigationItem.rightBarButtonItem = navigationAddButton
+        navigationItem.leftBarButtonItem = navigationSyncButton
     }
 }
 
@@ -250,5 +254,21 @@ extension MainViewController {
         snapshot.appendItems(tasks)
         
         return snapshot
+    }
+}
+
+// MARK: NetworkConnectionDelegate
+
+extension MainViewController: NetworkConnectionDelegate {
+    func offline() {
+        DispatchQueue.main.async {
+            self.navigationSyncButton.isEnabled = false
+        }
+    }
+    
+    func online() {
+        DispatchQueue.main.async {
+            self.navigationSyncButton.isEnabled = true
+        }
     }
 }

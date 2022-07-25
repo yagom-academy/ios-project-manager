@@ -67,4 +67,8 @@ final class TaskManager {
         
         firebaseManager.readAll(completion: firebaseDataCompletion)
     }
+    
+    func setNetworkConnectionDelegate(delegate: NetworkConnectionDelegate) {
+        firebaseManager.networkConnectionDelegate = delegate
+    }
 }

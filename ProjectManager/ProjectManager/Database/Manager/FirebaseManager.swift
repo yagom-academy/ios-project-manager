@@ -17,13 +17,27 @@ protocol FirebaseManagerAble {
     func delete<T: FirebaseDatable>(_ data: T) throws
 }
 
+protocol NetworkConnectionDelegate: AnyObject {
+    func offline()
+    func online()
+}
+
 //: DatabaseManagerable
 final class FirebaseManager: FirebaseManagerAble {
     
     private var database: DatabaseReference
+    weak var networkConnectionDelegate: NetworkConnectionDelegate?
     
     init(firebaseReference: DatabaseReference = Database.database().reference()) {
         self.database = firebaseReference
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if snapshot.value as? Bool ?? false {
+                self.networkConnectionDelegate?.online()
+            } else {
+                self.networkConnectionDelegate?.offline()
+            }
+        })
     }
     
     func create<T: FirebaseDatable>(_ data: T) throws {
