@@ -7,10 +7,17 @@
 
 import Reachability
 
+protocol NetworkConditionDelegate: AnyObject {
+    func applyNetworkEnable()
+    func applyNetworkUnable()
+}
+
 final class NetworkCondition {
     static let sharedInstance: NetworkCondition = {
         return NetworkCondition()
     }()
+    
+    weak var delegate: NetworkConditionDelegate?
     
     private let reachability: Reachability?
     
@@ -31,12 +38,22 @@ final class NetworkCondition {
 }
 
 extension NetworkCondition {
-    @objc func networkStatusChanged(_ notification: Notification) { }
+    @objc func networkStatusChanged(_ notification: Notification) {
+        guard let reachability = notification.object as? Reachability else {
+            return
+        }
+        switch reachability.connection {
+        case .wifi, .cellular:
+            delegate?.applyNetworkEnable()
+        default:
+            delegate?.applyNetworkUnable()
+        }
+    }
     
     static func stopNotifier() {
         guard let reachability = NetworkCondition.sharedInstance.reachability,
               let _ = try? reachability.startNotifier() else {
-            return
-        }
+                  return
+              }
     }
 }
