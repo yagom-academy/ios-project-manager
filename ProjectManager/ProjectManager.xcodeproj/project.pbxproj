@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AB2E845428764B78002E4593 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845328764B78002E4593 /* TodoListViewController.swift */; };
 		AB2E845728765291002E4593 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845628765291002E4593 /* ToDo.swift */; };
+		AB4BB992288E84F000F1603B /* Originator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BB991288E84F000F1603B /* Originator.swift */; };
+		AB4BB994288E852000F1603B /* Memento.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BB993288E852000F1603B /* Memento.swift */; };
+		AB4BB997288E958000F1603B /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BB996288E958000F1603B /* History.swift */; };
 		AB8FA539287C5D7B00C99110 /* WriteTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */; };
 		AB9AE8B828839F510050EA99 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8B728839F510050EA99 /* Storage.swift */; };
 		AB9AE8BB2883DAE00050EA99 /* WriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */; };
@@ -41,6 +44,9 @@
 		9A0AC1F6351308DEBA229D99 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		AB2E845328764B78002E4593 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		AB2E845628765291002E4593 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		AB4BB991288E84F000F1603B /* Originator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Originator.swift; sourceTree = "<group>"; };
+		AB4BB993288E852000F1603B /* Memento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memento.swift; sourceTree = "<group>"; };
+		AB4BB996288E958000F1603B /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTodoView.swift; sourceTree = "<group>"; };
 		AB9AE8B728839F510050EA99 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewModel.swift; sourceTree = "<group>"; };
@@ -105,6 +111,16 @@
 				ABC54F8C287D873200280F43 /* State.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		AB4BB990288E84D600F1603B /* Memento */ = {
+			isa = PBXGroup;
+			children = (
+				AB4BB991288E84F000F1603B /* Originator.swift */,
+				AB4BB993288E852000F1603B /* Memento.swift */,
+				AB4BB996288E958000F1603B /* History.swift */,
+			);
+			path = Memento;
 			sourceTree = "<group>";
 		};
 		AB8FA537287C5D7200C99110 /* View */ = {
@@ -247,6 +263,7 @@
 		ABE5D6B42879C10D0065F216 /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				AB4BB990288E84D600F1603B /* Memento */,
 				AB9AE8B728839F510050EA99 /* Storage.swift */,
 				ABDD9CBD2886835B00705D34 /* FireBase */,
 				AB9AE8B92883A0B80050EA99 /* Realm */,
@@ -325,7 +342,7 @@
 		C7431EFA25F51E1D0094C4CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					C7431F0125F51E1D0094C4CF = {
@@ -454,8 +471,11 @@
 				AB9AE8BB2883DAE00050EA99 /* WriteViewModel.swift in Sources */,
 				ABDB96372875E477002D6602 /* TodoCollectionViewCell.swift in Sources */,
 				ABC54F8D287D873200280F43 /* State.swift in Sources */,
+				AB4BB992288E84F000F1603B /* Originator.swift in Sources */,
+				AB4BB997288E958000F1603B /* History.swift in Sources */,
 				ABAECAE1287AE864009DA449 /* EditTodoViewController.swift in Sources */,
 				ABC54F90287D87AB00280F43 /* TodoViewModel.swift in Sources */,
+				AB4BB994288E852000F1603B /* Memento.swift in Sources */,
 				ABE5D6BC2879D9BB0065F216 /* WriteTodoViewController.swift in Sources */,
 				AB9AE8BE28854FE00050EA99 /* RealmError.swift in Sources */,
 				ABCEA1B528814DD4009C32DC /* Collection.swift in Sources */,
