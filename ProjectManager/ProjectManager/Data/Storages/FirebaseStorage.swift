@@ -12,7 +12,7 @@ import FirebaseDatabase
 
 protocol RemoteStorageable: AnyObject {
     func backup(_ items: [Todo])
-    func read() -> CurrentValueSubject<[Todo], StorageError>
+    func todosPublisher() -> CurrentValueSubject<[Todo], StorageError>
 }
 
 final class FirebaseStorage: RemoteStorageable {
@@ -48,7 +48,7 @@ final class FirebaseStorage: RemoteStorageable {
         .store(in: &cancellableBag)
     }
     
-    func read() -> CurrentValueSubject<[Todo], StorageError> {
+    func todosPublisher() -> CurrentValueSubject<[Todo], StorageError> {
         return firebaseSubject
     }
     

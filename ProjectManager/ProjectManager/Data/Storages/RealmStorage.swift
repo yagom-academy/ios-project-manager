@@ -31,7 +31,7 @@ enum StorageError: LocalizedError {
 
 protocol LocalStorageable: AnyObject {
     func create(_ item: Todo) -> AnyPublisher<Void, StorageError>
-    func read() -> CurrentValueSubject<[Todo], Never>
+    func todosPublisher() -> CurrentValueSubject<[Todo], Never>
     func update(_ item: Todo) -> AnyPublisher<Void, StorageError>
     func delete(_ item: Todo) -> AnyPublisher<Void, StorageError>
 }
@@ -51,7 +51,7 @@ final class RealmStorage: LocalStorageable {
         }
     }
         
-    func read() -> CurrentValueSubject<[Todo], Never> {
+    func todosPublisher() -> CurrentValueSubject<[Todo], Never> {
         return realmSubject
     }
     

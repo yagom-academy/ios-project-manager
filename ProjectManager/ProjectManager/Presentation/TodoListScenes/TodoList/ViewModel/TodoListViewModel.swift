@@ -40,11 +40,11 @@ final class TodoListViewModel: TodoListViewModelable {
     }
     
     var todoItems: AnyPublisher<[Todo], Never> {
-        return todoUseCase.read().eraseToAnyPublisher()
+        return todoUseCase.todosPublisher().eraseToAnyPublisher()
     }
     
     var historyItems: AnyPublisher<[TodoHistory], Never> {
-        return historyUseCase.read().eraseToAnyPublisher()
+        return historyUseCase.todoHistoriesPublisher().eraseToAnyPublisher()
     }
 
     enum State {

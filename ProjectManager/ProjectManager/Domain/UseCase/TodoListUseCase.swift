@@ -10,7 +10,7 @@ import Combine
 
 protocol TodoListUseCaseable {
     func create(_ item: Todo) -> AnyPublisher<Void, StorageError>
-    func read() -> CurrentValueSubject<[Todo], Never>
+    func todosPublisher() -> CurrentValueSubject<[Todo], Never>
     func update(_ item: Todo) -> AnyPublisher<Void, StorageError>
     func delete(item: Todo) -> AnyPublisher<Void, StorageError>
     func synchronizeDatabase()
@@ -27,8 +27,8 @@ final class TodoListUseCase: TodoListUseCaseable {
         return repository.create(item)
     }
     
-    func read() -> CurrentValueSubject<[Todo], Never> {
-        return repository.read()
+    func todosPublisher() -> CurrentValueSubject<[Todo], Never> {
+        return repository.todosPublisher()
     }
     
     func update(_ item: Todo) -> AnyPublisher<Void, StorageError> {
