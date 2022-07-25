@@ -49,10 +49,11 @@ extension NetworkRepository {
     func parse(from project: ProjectDTO) -> ProjectContent? {
         guard let status = ProjectStatus.convert(statusString: project.status),
               let id = UUID(uuidString: project.id),
-              let deadline = DateFormatter().formatted(string: project.deadline) else {
-            return nil
-        }
+              let unixTime = Double(project.deadline) else {
+                  return nil
+              }
         
+        let deadline = Date(timeIntervalSince1970: unixTime)
         let title = project.title
         let body = project.body
         
@@ -65,12 +66,18 @@ extension NetworkRepository {
         )
     }
     
-    func parse(from projectContent: ProjectContent) -> ProjectDTO? {        
+    func parse(from projectContent: ProjectContent) -> ProjectDTO? {
+        guard let date = DateFormatter().formatted(string: projectContent.deadline) else {
+            return nil
+        }
+        
+        let timeInterval = "\(date.timeIntervalSince1970)"
+        
         return ProjectDTO(
             id: projectContent.id.uuidString,
             status: projectContent.status.string,
             title: projectContent.title,
-            deadline: projectContent.deadline,
+            deadline: timeInterval,
             body: projectContent.body
         )
     }
