@@ -2,7 +2,7 @@
 //  PopViewModel.swift
 //  ProjectManager
 //
-//  Created by song on 2022/07/24.
+//  Created by Red and Taeangel on 2022/07/24.
 //
 
 import Foundation

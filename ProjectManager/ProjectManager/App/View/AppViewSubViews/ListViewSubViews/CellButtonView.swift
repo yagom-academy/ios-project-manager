@@ -2,34 +2,35 @@
 //  CellView11.swift
 //  ProjectManager
 //
-//  Created by song on 2022/07/24.
+//  Created by Red and Taeangel on 2022/07/24.
 //
 
 import SwiftUI
 
-struct CellOperationView: View {
-  @ObservedObject var viewModel: CellOperationViewModel
+struct CellButtonView: View {
+  @ObservedObject var viewModel: CellButtonViewModel
   
-  init(viewModel: CellOperationViewModel) {
+  init(viewModel: CellButtonViewModel) {
     self.viewModel = viewModel
   }
   
   var body: some View {
-    CellView(viewModel: viewModel.todoListCellViewModel)
+    CellContentView(viewModel: viewModel.cellContentViewModel)
       .onTapGesture(perform: {
-        viewModel.pressedCell()
+        viewModel.cellTapped()
       })
       .onLongPressGesture(perform: {
-        viewModel.LongPressed()
+        viewModel.cellLongTapped()
       })
       .sheet(isPresented: $viewModel.isShowEditView) {
         EditView(viewModel: viewModel.editViewModel)
       }
-      .popover(isPresented: $viewModel.isShowModal) {
+      .popover(isPresented: $viewModel.isShowPopover) {
         PopOverView(viewModel: viewModel.popViewModel)
       }
       .onChange(of: viewModel.todo) { todo in
-        viewModel.todoListCellViewModel.todo = todo
+        viewModel.cellContentViewModel.todo = todo
       }
+      
   }
 }

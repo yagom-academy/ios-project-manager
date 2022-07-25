@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct CellView: View {
-  @ObservedObject var viewModel: CellViewModel
+struct CellContentView: View {
+  @ObservedObject var viewModel: CellContentViewModel
   
-  init(viewModel: CellViewModel) {
+  init(viewModel: CellContentViewModel) {
     self.viewModel = viewModel
   }
   
@@ -37,9 +37,6 @@ struct CellView: View {
               .foregroundColor(viewModel.isOverDate ? .red : .black )
         }
         .padding()
-        .onAppear {
-          viewModel.confirmDate()
-        }
         Spacer()
       }
     }

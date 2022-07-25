@@ -17,19 +17,14 @@ struct EditView: View {
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Button {
-              if viewModel.nonEditable == true {
-                viewModel.nonEditable = false
-              } else {
-                viewModel.update(viewModel.todo)
-                
-              }
+              viewModel.editButtonTapped()
             } label: {
-              viewModel.nonEditable ? Text("Edit") : Text("Calcel")
+              viewModel.nonEditable ? Text("Edit") : Text("Cancel")
             }
           }
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
-              viewModel.update(viewModel.todo)
+              viewModel.doneButtonTapped(viewModel.todo)
             }
           }
         }

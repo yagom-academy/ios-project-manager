@@ -15,7 +15,7 @@ struct CreateView: View {
       DetailView(todo: $viewModel.todo)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
-            Button("Calcel") {
+            Button("Cancel") {
               viewModel.cancelButtonTapped()
             }
           }

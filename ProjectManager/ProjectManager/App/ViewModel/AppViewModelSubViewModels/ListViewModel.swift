@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class ListViewModel: ObservableObject {
-  var todoService: TodoService
+  let todoService: TodoService
   let status: Status
   @Published var listCount: Int
   @Published var todoList: [Todo]
@@ -49,7 +49,7 @@ class ListViewModel: ObservableObject {
     listCount = todoService.read(by: status).count
   }
   
-  func makeCellViewModel(todo: Todo) -> CellOperationViewModel {
-    return CellOperationViewModel(todoService: todoService, todo: todo, changeStatus: update)
+  func makeCellViewModel(todo: Todo) -> CellButtonViewModel {
+    return CellButtonViewModel(todoService: todoService, todo: todo, changeStatus: update)
   }
 }

@@ -21,7 +21,7 @@ struct ListView: View {
         Color(UIColor.systemGray5)
         List {
           ForEach(viewModel.todoList) { todo in
-            CellOperationView(viewModel: viewModel.makeCellViewModel(todo: todo))
+            CellButtonView(viewModel: viewModel.makeCellViewModel(todo: todo))
               .listRowSeparator(.hidden)
           }
           .onDelete { index in

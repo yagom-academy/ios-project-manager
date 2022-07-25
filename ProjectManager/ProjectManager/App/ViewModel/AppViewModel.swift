@@ -9,30 +9,27 @@ import Foundation
 import SwiftUI
 
 class AppViewModel: ObservableObject {
-  var todoService: TodoService
+  let todoService: TodoService
   let navigationTitle: String
   @Published var todoList: [Todo]
-  @Published var isTappedPlusButton: Bool
+  @Published var isShowCreateView: Bool
   
-  lazy var todoListViewModel = ListViewModel(todoService: todoService,
-                                             status: .todo,
-                                             update: self.changeStatus)
-  lazy var doingListViewModel = ListViewModel(todoService: todoService,
-                                              status: .doing,
-                                              update: self.changeStatus)
-  lazy var doneListViewModel = ListViewModel(todoService: todoService,
-                                             status: .done,
-                                             update: self.changeStatus)
-  lazy var createViewModel: CreateViewModel = CreateViewModel(todoService: todoService) { [self] in
-    self.isTappedPlusButton = false
-    self.todoList = todoService.read()
+  var todoListViewModel: ListViewModel {
+    return ListViewModel(todoService: todoService, status: .todo, update: self.changeStatus) }
+  var doingListViewModel: ListViewModel {
+    return ListViewModel(todoService: todoService, status: .doing, update: self.changeStatus) }
+  var doneListViewModel: ListViewModel {
+    return ListViewModel(todoService: todoService, status: .done, update: self.changeStatus) }
+  
+  var createViewModel: CreateViewModel {
+    return  CreateViewModel(todoService: todoService, todoList: todoList) { self.isShowCreateView = false }
   }
   
   init(todoService: TodoService = TodoService(), navigationTitle: String = "Project Manager") {
     self.todoService = todoService
     self.navigationTitle = navigationTitle
     self.todoList = todoService.read()
-    self.isTappedPlusButton = false
+    self.isShowCreateView = false
   }
   
   func changeStatus(status: Status, todo: Todo) {
@@ -41,6 +38,6 @@ class AppViewModel: ObservableObject {
   }
   
   func plusButtonTapped() {
-    isTappedPlusButton = true
+    isShowCreateView = true
   }
 }

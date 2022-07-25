@@ -41,7 +41,6 @@ struct MoveButton: View {
     self.todo = todo
     self.viewModel = viewModel
     self.status = status
-  
   }
   
   var body: some View {

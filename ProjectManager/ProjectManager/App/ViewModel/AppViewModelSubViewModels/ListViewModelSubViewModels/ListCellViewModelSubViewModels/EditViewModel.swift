@@ -8,13 +8,21 @@
 import Foundation
 
 class EditViewModel: ObservableObject {
-  var update: (Todo) -> Void
+  var doneButtonTapped: (Todo) -> Void
   @Published var nonEditable: Bool
   @Published var todo: Todo
   
   init(todo: Todo, nonEditable: Bool = true, update: @escaping (Todo) -> Void) {
-    self.update = update
+    self.doneButtonTapped = update
     self.todo = todo
     self.nonEditable = nonEditable
+  }
+  
+  func editButtonTapped() {
+    if nonEditable == true {
+      nonEditable = false
+    } else {
+      doneButtonTapped(todo)
+    }
   }
 }

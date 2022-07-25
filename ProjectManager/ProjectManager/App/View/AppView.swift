@@ -4,13 +4,13 @@
 //
 //  Created by Red and Taeangel on 2022/07/04.
 //
-
+  
 import SwiftUI
 import RealmSwift
 
 struct AppView: View {
   @ObservedObject private var viewModel: AppViewModel
-  
+
   init(viewModel: AppViewModel) {
     let navigationBarApperance = UINavigationBarAppearance()
     navigationBarApperance.backgroundColor = UIColor.systemGray6
@@ -36,15 +36,10 @@ struct AppView: View {
           Image(systemName: "plus")
         })
       }
-      .sheet(isPresented: $viewModel.isTappedPlusButton ) {
-         CreateView(viewModel: viewModel.createViewModel)
+      .sheet(isPresented: $viewModel.isShowCreateView) {
+        CreateView(viewModel: viewModel.createViewModel)
       }
     }
     .navigationViewStyle(.stack)
-    .onChange(of: viewModel.todoList) { _ in
-      viewModel.todoListViewModel.refrash()
-      viewModel.doingListViewModel.refrash()
-      viewModel.doneListViewModel.refrash()
-    }
   }
 }
