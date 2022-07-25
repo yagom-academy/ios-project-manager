@@ -14,8 +14,12 @@ struct SynchronizeManager {
     private let reference = Database.database().reference()
     
     func synchronizeDatabase(completion: @escaping (Result<Void, Error>) -> Void) {
-        let realmData = realmManager.fetchAllTasks()
+        var realmData = [Task]()
         var firebaseData = [Task]()
+                
+        DispatchQueue.main.async {
+            realmData = realmManager.fetchAllTasks()
+        }
         
         reference.observeSingleEvent(of: .value) { snapshot in
             let snapData = snapshot.value as? [String: [String: Any]] ?? [:]
