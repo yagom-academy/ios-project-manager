@@ -25,6 +25,7 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.projects = realmService.readAll(projectType: Project.self)
     self.initializeNavigationBar()
     self.initializeCollectionView()
+    self.setCountLabelCornerRadius()
     self.realmService.reloadDataWhenChangedRealmData(
       [todoCollectionView, doingCollectionView, doneCollectionView]
     )
@@ -53,6 +54,13 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.todoCollectionView.collectionViewLayout = listCompositionLayout()
     self.doingCollectionView.collectionViewLayout = listCompositionLayout()
     self.doneCollectionView.collectionViewLayout = listCompositionLayout()
+  }
+
+  private func setCountLabelCornerRadius() {
+    [todoCountLabel, doingCountLabel, doneCountLabel].forEach {
+      $0?.layer.cornerRadius = 12
+      $0?.layer.masksToBounds = true
+    }
   }
 
   @IBAction func addProjectButton(_ sender: UIBarButtonItem) {
