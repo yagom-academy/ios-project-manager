@@ -17,7 +17,7 @@ final class ProjectCell: UITableViewCell {
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
@@ -55,7 +55,7 @@ final class ProjectCell: UITableViewCell {
         contentView.addSubview(baseStackView)
         
         baseStackView.addArrangedSubview(titleLabel)
-        baseStackView.addArrangedSubview(descriptionLabel)
+        baseStackView.addArrangedSubview(bodyLabel)
         baseStackView.addArrangedSubview(deadlineLabel)
     }
     
@@ -75,7 +75,7 @@ final class ProjectCell: UITableViewCell {
         
         contentID = content.id
         titleLabel.text = content.title
-        descriptionLabel.text = content.body
+        bodyLabel.text = content.body
         deadlineLabel.text = content.deadline
         
         if formattedDate < Date() {

@@ -27,7 +27,7 @@ final class ModalView: UIView {
         return datePicker
     }()
     
-    lazy var descriptionTextView: UITextView = {
+    lazy var bodyTextView: UITextView = {
         let textView = UITextView()
         drawBorder(view: textView, color: .systemGray3)
         textView.font = .preferredFont(forTextStyle: .title3)
@@ -80,7 +80,7 @@ final class ModalView: UIView {
         
         baseStackView.addArrangedSubview(titleTextField)
         baseStackView.addArrangedSubview(datePicker)
-        baseStackView.addArrangedSubview(descriptionTextView)
+        baseStackView.addArrangedSubview(bodyTextView)
     }
     
     private func setUpLayout() {
@@ -104,7 +104,7 @@ final class ModalView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            descriptionTextView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.57)
+            bodyTextView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.57)
         ])
     }
     
@@ -114,13 +114,13 @@ final class ModalView: UIView {
         }
         titleTextField.text = content.title
         datePicker.date = formattedDate
-        descriptionTextView.text = content.body
+        bodyTextView.text = content.body
     }
     
     func isUserInteractionEnabled(_ isEnable: Bool) {
         titleTextField.isUserInteractionEnabled = isEnable
         datePicker.isUserInteractionEnabled = isEnable
-        descriptionTextView.isEditable = isEnable
+        bodyTextView.isEditable = isEnable
     }
     
     func change(_ content: ProjectContent) -> ProjectContent {
@@ -128,7 +128,7 @@ final class ModalView: UIView {
         newContent.editContent(
             title: titleTextField.text,
             deadline: datePicker.date,
-            body: descriptionTextView.text
+            body: bodyTextView.text
         )
         
         return newContent

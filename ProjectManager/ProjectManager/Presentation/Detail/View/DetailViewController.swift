@@ -31,7 +31,7 @@ final class DetailViewController: UIViewController {
         
         setUpModalView()
         setUpDetailNavigationItem()
-        modalView.descriptionTextView.delegate = self
+        modalView.bodyTextView.delegate = self
     }
     
     private func setUpModalView() {

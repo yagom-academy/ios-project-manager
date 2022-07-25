@@ -79,7 +79,7 @@ final class RegistrationViewController: UIViewController {
     
     private func saveProjectContent() {
         guard let title = modalView.titleTextField.text,
-              let body = modalView.descriptionTextView.text else {
+              let body = modalView.bodyTextView.text else {
                   return
               }
         let date = modalView.datePicker.date
@@ -109,7 +109,7 @@ extension RegistrationViewController {
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
-              modalView.descriptionTextView.isFirstResponder == true
+              modalView.bodyTextView.isFirstResponder == true
         else {
             return
         }
