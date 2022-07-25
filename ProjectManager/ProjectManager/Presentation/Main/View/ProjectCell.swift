@@ -52,6 +52,9 @@ final class ProjectCell: UITableViewCell {
     }
     
     private func setUpCell() {
+        backgroundColor = .systemGray5
+        contentView.backgroundColor = .systemBackground
+        
         contentView.addSubview(baseStackView)
         
         baseStackView.addArrangedSubview(titleLabel)
@@ -86,5 +89,18 @@ final class ProjectCell: UITableViewCell {
     override func prepareForReuse() {
         deadlineLabel.textColor = .black
         contentID = nil
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.frame = contentView.frame.inset(
+            by: UIEdgeInsets(
+                top: 0,
+                left: 0,
+                bottom: 10,
+                right: 0
+            )
+        )
     }
 }
