@@ -18,11 +18,13 @@ struct History {
     let title: String
     let beforeState: State?
     let afterState: State?
+    let id: UUID
     
-    init(changes: Changes, title: String, beforeState: State? = nil, afterState: State? = nil) {
+    init(changes: Changes, title: String, beforeState: State? = nil, afterState: State? = nil, id: UUID) {
         self.changes = changes
         self.title = title
         self.beforeState = beforeState
         self.afterState = afterState
+        self.id = id
     }
 }

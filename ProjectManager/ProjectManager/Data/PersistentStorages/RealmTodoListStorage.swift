@@ -15,6 +15,7 @@ enum TodoError: String, Error {
     case deleteError = "삭제 중 오류가 발생했습니다."
     case unknownItem = "해당 컨텐츠를 찾지 못했습니다."
     case backUpError = "데이터를 읽어오지 못했습니다."
+    case historySyncError = "History와 동기화하지 못했습니다."
 }
 
 protocol StorageError {
