@@ -25,7 +25,7 @@
 		B0524DAC2889686900F9A28D /* NWPathMonitor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0524DAB2889686900F9A28D /* NWPathMonitor+Extension.swift */; };
 		B0640CC4287F17CA00E684E6 /* PopOverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0640CC3287F17CA00E684E6 /* PopOverable.swift */; };
 		B067DB80288E8581000CB9C4 /* FirebaseDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067DB7F288E8581000CB9C4 /* FirebaseDatabaseService.swift */; };
-		B067DB82288EAD7E000CB9C4 /* CardToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067DB81288EAD7E000CB9C4 /* CardToastView.swift */; };
+		B067DB82288EAD7E000CB9C4 /* CardToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067DB81288EAD7E000CB9C4 /* CardToastLabel.swift */; };
 		B06FD23428854A96003CED8E /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23328854A96003CED8E /* CardDetailViewModel.swift */; };
 		B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */; };
 		B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */; };
@@ -78,7 +78,7 @@
 		B0524DAB2889686900F9A28D /* NWPathMonitor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NWPathMonitor+Extension.swift"; sourceTree = "<group>"; };
 		B0640CC3287F17CA00E684E6 /* PopOverable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverable.swift; sourceTree = "<group>"; };
 		B067DB7F288E8581000CB9C4 /* FirebaseDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseService.swift; sourceTree = "<group>"; };
-		B067DB81288EAD7E000CB9C4 /* CardToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardToastView.swift; sourceTree = "<group>"; };
+		B067DB81288EAD7E000CB9C4 /* CardToastLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardToastLabel.swift; sourceTree = "<group>"; };
 		B06FD23328854A96003CED8E /* CardDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewModel.swift; sourceTree = "<group>"; };
 		B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdditionViewModel.swift; sourceTree = "<group>"; };
 		B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardUseCase.swift; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 				B032CDA52873DAC00087383E /* CardListHeaderView.swift */,
 				B032CDA22873BFB20087383E /* CardListTableViewCell.swift */,
 				B0EF5B17287522E000A503A9 /* CardSectionView.swift */,
-				B067DB81288EAD7E000CB9C4 /* CardToastView.swift */,
+				B067DB81288EAD7E000CB9C4 /* CardToastLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -531,7 +531,7 @@
 				B0640CC4287F17CA00E684E6 /* PopOverable.swift in Sources */,
 				B009119828781F44007074E5 /* CardListViewModelItem.swift in Sources */,
 				B0C043422888FA6E00FABDD4 /* CardHistoryViewController.swift in Sources */,
-				B067DB82288EAD7E000CB9C4 /* CardToastView.swift in Sources */,
+				B067DB82288EAD7E000CB9C4 /* CardToastLabel.swift in Sources */,
 				B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */,
 				B06FD23428854A96003CED8E /* CardDetailViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

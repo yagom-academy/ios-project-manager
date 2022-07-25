@@ -19,6 +19,7 @@ final class CardListViewController: UIViewController {
     static let historyButtonTitle = "History"
     static let wifiConnectedImageName = "wifi"
     static let wifiDisConnectedImageName = "wifi.slash"
+    static let syncCompletionMessage = "동기화가 완료되었습니다"
     static let intervalBetweenTableViews = 20.0
   }
   
@@ -119,7 +120,8 @@ final class CardListViewController: UIViewController {
   
   private func bindSectionsItems() {
     viewModel.fetchCards()
-      .bind(onNext: { _ in })
+      .map { UISettings.syncCompletionMessage }
+      .bind(onNext: showToastLabel(_:))
       .disposed(by: disposeBag)
     
     viewModel.todoCards
@@ -226,6 +228,12 @@ final class CardListViewController: UIViewController {
 // MARK: - UI Configuration
 
 extension CardListViewController {
+  private func showToastLabel(_ text: String) {
+    let toast = CardToastLabel(configuration: .init(), text: text)
+    view.addSubview(toast)
+    toast.show()
+  }
+  
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
     navigationItem.leftBarButtonItem = historyButton
