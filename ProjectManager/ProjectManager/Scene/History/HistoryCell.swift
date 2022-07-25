@@ -17,7 +17,6 @@ final class HistoryCell: UITableViewCell {
         $0.distribution = .fillEqually
         $0.axis = .vertical
         $0.spacing = 5
-        
     }
     
     private let actionLabel = UILabel().then {

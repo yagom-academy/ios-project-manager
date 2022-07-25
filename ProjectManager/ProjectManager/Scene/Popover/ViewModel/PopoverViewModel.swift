@@ -23,7 +23,6 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
     var error: PublishRelay<DatabaseError> = .init()
     
     private let realmManager = RealmManager()
-    private let reference = Database.database().reference()
     
     func moveButtonTapped(_ task: Task, to taskType: TaskType) {
         changeTaskType(task, taskType: taskType)
