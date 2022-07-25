@@ -33,6 +33,7 @@ final class HistoryViewController: UIViewController {
     private func setUpView() {
         self.view.addSubview(self.tableView)
         self.view.backgroundColor = .systemGray5
+        self.dynamicContentsSize()
     }
     
     private func setUpTableView() {
@@ -42,17 +43,16 @@ final class HistoryViewController: UIViewController {
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10),
+            self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
             self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10),
             self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10)
         ])
     }
     
-    private func dynamicContentsSize(row: Int) {
-            let totalHeight = row * 44
-            self.preferredContentSize = CGSize(width: 300, height: totalHeight)
-        }
+    private func dynamicContentsSize() {
+        self.preferredContentSize = CGSize(width: 500, height: 700)
+    }
     
     func bind() {
         self.viewModel.historyData
@@ -61,10 +61,9 @@ final class HistoryViewController: UIViewController {
                 guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: HistoryCell.identifier,
                     for: IndexPath(row: row, section: .zero)) as? HistoryCell else {
-                        return UITableViewCell()
-                    }
+                    return UITableViewCell()
+                }
                 cell.configure(element)
-                self.dynamicContentsSize(row: row)
                 
                 return cell
             }
