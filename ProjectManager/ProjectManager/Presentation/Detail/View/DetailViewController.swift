@@ -75,6 +75,25 @@ final class DetailViewController: UIViewController {
         didTapSaveButton()
     }
     
+    private func didTapEditButton() {
+        navigationItem.leftBarButtonItem?.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                self?.modalView.isUserInteractionEnabled(true)
+                self?.setUpEditNavigationItem()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func didTapDoneButton() {
+        navigationItem.rightBarButtonItem?.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     private func didTapCancelButton() {
         navigationItem.leftBarButtonItem?.rx.tap
             .asDriver()
@@ -90,16 +109,6 @@ final class DetailViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func didTapEditButton() {
-        navigationItem.leftBarButtonItem?.rx.tap
-            .asDriver()
-            .drive { [weak self] _ in
-                self?.modalView.isUserInteractionEnabled(true)
-                self?.setUpEditNavigationItem()
-            }
-            .disposed(by: disposeBag)
-    }
-    
     private func didTapSaveButton() {
         navigationItem.rightBarButtonItem?.rx.tap
             .asDriver()
@@ -111,15 +120,6 @@ final class DetailViewController: UIViewController {
                 self.viewModel.update(newContent)
                 self.modalView.isUserInteractionEnabled(false)
                 self.setUpDetailNavigationItem()
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    private func didTapDoneButton() {
-        navigationItem.rightBarButtonItem?.rx.tap
-            .asDriver()
-            .drive { [weak self] _ in
-                self?.dismiss(animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
     }
