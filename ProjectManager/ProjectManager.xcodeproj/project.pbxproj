@@ -22,6 +22,7 @@
 		03AB73DB2873290400B0C980 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DA2873290400B0C980 /* MainViewController.swift */; };
 		03AB73DD2873292900B0C980 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DC2873292900B0C980 /* MainView.swift */; };
 		03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73E0287331BB00B0C980 /* ProjectTableView.swift */; };
+		03F0EF8F288EDAF300FBC7EB /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF8E288EDAF300FBC7EB /* HistoryViewController.swift */; };
 		03F0EF91288EDB5200FBC7EB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF90288EDB5200FBC7EB /* HistoryView.swift */; };
 		03F0EF93288EDCC200FBC7EB /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF92288EDCC200FBC7EB /* HistoryCell.swift */; };
 		0E02C72E28896C0600522622 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E02C72D28896C0600522622 /* NetworkRepository.swift */; };
@@ -63,6 +64,7 @@
 		03AB73DA2873290400B0C980 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		03AB73DC2873292900B0C980 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		03AB73E0287331BB00B0C980 /* ProjectTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableView.swift; sourceTree = "<group>"; };
+		03F0EF8E288EDAF300FBC7EB /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		03F0EF90288EDB5200FBC7EB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		03F0EF92288EDCC200FBC7EB /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		0E02C72D28896C0600522622 /* NetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			children = (
 				033294B1287C713800EE7CBE /* PopOverViewController.swift */,
 				033294B3287C717700EE7CBE /* PopOverView.swift */,
+				03F0EF8E288EDAF300FBC7EB /* HistoryViewController.swift */,
 				03F0EF90288EDB5200FBC7EB /* HistoryView.swift */,
 				03F0EF92288EDCC200FBC7EB /* HistoryCell.swift */,
 			);
@@ -508,6 +511,7 @@
 				0EA67EBE2874789700E15093 /* ModalView.swift in Sources */,
 				0E8130E9288693FA003EC6C7 /* PersistentRepository.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				03F0EF8F288EDAF300FBC7EB /* HistoryViewController.swift in Sources */,
 				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,
 				0E02C72E28896C0600522622 /* NetworkRepository.swift in Sources */,
 				0384DA6B288996DE00C30AC9 /* AlertController.swift in Sources */,
