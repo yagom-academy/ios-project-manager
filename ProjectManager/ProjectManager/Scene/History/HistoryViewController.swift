@@ -38,13 +38,14 @@ final class HistoryViewController: UITableViewController {
     }
     
     @objc private func appendHistoryData(notification: Notification) {
-        if let received = notification.userInfo as? [String: Any],
-           let content = received["content"] as? String,
-           let time = received["time"] as? Double {
-            let history = History(content: content, time: time)
-            self.histories.append(history)
-            self.tableView.reloadData()
-        }
+        guard let received = notification.userInfo as? [String: Any],
+              let content = received["content"] as? String,
+              let time = received["time"] as? Double else {
+                  return
+              }
+        let history = History(content: content, time: time)
+        self.histories.append(history)
+        self.tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
