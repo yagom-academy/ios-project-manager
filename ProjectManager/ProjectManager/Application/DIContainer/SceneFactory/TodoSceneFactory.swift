@@ -12,6 +12,7 @@ final class TodoSceneFactory {
     private unowned let remoteStorage: RemoteStorageable
     private unowned let historyStorage: HistoryStorageable
     private unowned var parentViewModel: TodoListViewModel?
+    private let isFirstLogin = UserDefaults.standard.bool(forKey: "isFirstLogin")
     
     init(dependency: TodoSceneDIContainer.Dependencies) {
         self.todoStorage = dependency.todoStorage
@@ -96,7 +97,11 @@ final class TodoSceneFactory {
     // MARK: - Repository
     
     private func makeTodoListRepository() -> TodoListRepositorible {
-        return TodoListRepository(todoLocalStorage: todoStorage, todoRemoteStorage: remoteStorage)
+        return TodoListRepository(
+            todoLocalStorage: todoStorage,
+            todoRemoteStorage: remoteStorage,
+            isFirstLogin: isFirstLogin
+        )
     }
     
     private func makeTodoHistoryRepository() -> TodoHistoryRepositorible {

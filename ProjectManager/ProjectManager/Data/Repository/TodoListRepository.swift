@@ -11,11 +11,15 @@ import Combine
 final class TodoListRepository {
     private unowned let todoLocalStorage: LocalStorageable
     private unowned let todoRemoteStorage: RemoteStorageable
+    private let isFirstLogin: Bool
     private var cancellableBag = Set<AnyCancellable>()
     
-    init(todoLocalStorage: LocalStorageable, todoRemoteStorage: RemoteStorageable) {
+    init(todoLocalStorage: LocalStorageable, todoRemoteStorage: RemoteStorageable,
+         isFirstLogin: Bool
+    ) {
         self.todoLocalStorage = todoLocalStorage
         self.todoRemoteStorage = todoRemoteStorage
+        self.isFirstLogin = isFirstLogin
     }
 }
 
@@ -37,7 +41,7 @@ extension TodoListRepository: TodoListRepositorible {
     }
     
     func synchronizeDatabase() {
-        if UserDefaults.standard.object(forKey: "isFirstLogin") != nil {
+        if isFirstLogin {
             todoRemoteStorage.backup(todoLocalStorage.read().value)
         } else {
             todoRemoteStorage.read()
@@ -49,8 +53,8 @@ extension TodoListRepository: TodoListRepositorible {
                     }
                 }
                 .store(in: &cancellableBag)
+            
+            UserDefaults.standard.set(true, forKey: "isFirstLogin")
         }
-        
-        UserDefaults.standard.set(true, forKey: "isFirstLogin")
     }
 }
