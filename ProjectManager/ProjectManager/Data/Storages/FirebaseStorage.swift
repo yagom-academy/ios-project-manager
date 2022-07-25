@@ -28,7 +28,7 @@ final class FirebaseStorage: RemoteStorageable {
     
     private lazy var databaseReference = Database.database(url: Constants.databaseURL).reference()
     private let firebaseSubject = CurrentValueSubject<[Todo], StorageError>([])
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     
     init() {
         readAll()
@@ -45,7 +45,7 @@ final class FirebaseStorage: RemoteStorageable {
                     .setValue($0.toDictionary() as NSDictionary)
             }
         }
-        .store(in: &cancelBag)
+        .store(in: &cancellableBag)
     }
     
     func read() -> CurrentValueSubject<[Todo], StorageError> {

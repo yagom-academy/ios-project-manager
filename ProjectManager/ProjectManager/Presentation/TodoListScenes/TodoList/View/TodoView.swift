@@ -16,7 +16,7 @@ final class TodoView: UIView {
     private let headerView: TodoHeaderView
     private let viewModel: TodoViewModelable
     
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     private var dataSource: DataSource?
         
     private let stackView: UIStackView = {
@@ -59,7 +59,7 @@ final class TodoView: UIView {
                 self?.applySnapshot(items: items)
                 self?.headerView.setupHeaderTodoCountLabel(with: items.count)
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
     
     private func addSubviews() {

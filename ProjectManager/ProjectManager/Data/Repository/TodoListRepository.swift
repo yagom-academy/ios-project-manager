@@ -11,7 +11,7 @@ import Combine
 final class TodoListRepository {
     private unowned let todoLocalStorage: LocalStorageable
     private unowned let todoRemoteStorage: RemoteStorageable
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     
     init(todoLocalStorage: LocalStorageable, todoRemoteStorage: RemoteStorageable) {
         self.todoLocalStorage = todoLocalStorage
@@ -48,7 +48,7 @@ extension TodoListRepository: TodoListRepositorible {
                         _ = self?.todoLocalStorage.create(item)
                     }
                 }
-                .store(in: &cancelBag)
+                .store(in: &cancellableBag)
         }
         
         UserDefaults.standard.set(true, forKey: "isFirstLogin")

@@ -40,7 +40,7 @@ final class TodoEditViewModel: TodoEditViewModelable {
     private let todo: Todo
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     
     init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable, todoListModel: Todo) {
         self.todoUseCase = todoUseCase
@@ -88,7 +88,7 @@ extension TodoEditViewModel {
                 self.showErrorAlert.send(error.localizedDescription)
             }, receiveValue: {}
         )
-        .store(in: &cancelBag)
+        .store(in: &cancellableBag)
     }
     
     private func createHistoryItem(_ item: TodoHistory) {
@@ -99,7 +99,7 @@ extension TodoEditViewModel {
                     self.showErrorAlert.send(error.localizedDescription)
                 }, receiveValue: {}
             )
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
     
     func didTapEditButton() {

@@ -16,7 +16,7 @@ final class TodoListViewController: UIViewController, Alertable {
     private lazy var todoListView = factory.makeTodoListView()
     private let viewModel: TodoListViewModelable
     
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     
     init(viewModel: TodoListViewModelable, factory: TodoSceneFactory) {
         self.viewModel = viewModel
@@ -46,38 +46,38 @@ final class TodoListViewController: UIViewController, Alertable {
             .sink { [weak self] title in
                 self?.title = title
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.showErrorAlert
             .sink { [weak self] errorMessage in
                 self?.showErrorAlertWithConfirmButton(errorMessage)
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.isNetworkConnected
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 self?.todoListView.networkStatusImageView.image = UIImage(systemName: status)
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.showCreateView
             .sink { [weak self] _ in
                 self?.coordinator?.showCreateViewController()
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.showEditView
             .sink { [weak self] item in
                 self?.coordinator?.showDetailViewController(item)
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.showHistoryView
             .sink { [weak self] _ in
                 self?.coordinator?.showHistoryViewController(sourceView: self!.navigationItem.leftBarButtonItem!)
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
     
     private func addSubviews() {

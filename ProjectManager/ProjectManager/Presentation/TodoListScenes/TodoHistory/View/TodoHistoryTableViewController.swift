@@ -15,7 +15,7 @@ final class TodoHistoryTableViewController: UITableViewController {
     weak var coordinator: TodoHistoryViewCoordinator?
     private let viewModel: TodoHistoryTableViewModelable
     
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     private var dataSource: DataSource?
     
     init(_ viewModel: TodoHistoryTableViewModelable) {
@@ -44,7 +44,7 @@ final class TodoHistoryTableViewController: UITableViewController {
             .sink { [weak self] items in
                 self?.applySnapshot(items)
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
     
     private func registerTableViewCell() {

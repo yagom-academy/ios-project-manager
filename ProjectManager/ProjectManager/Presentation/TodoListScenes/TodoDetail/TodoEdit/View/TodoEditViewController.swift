@@ -13,7 +13,7 @@ final class TodoEditViewController: UIViewController, Alertable {
     private let todoDetailView = TodoDetailView()
     private let viewModel: TodoEditViewModelable
     
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     
     init(viewModel: TodoEditViewModelable) {
         self.viewModel = viewModel
@@ -42,32 +42,32 @@ final class TodoEditViewController: UIViewController, Alertable {
                 self?.todoDetailView.datePicker.date = item.deadline
                 self?.todoDetailView.contentTextView.text = item.content
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.title
             .sink { [weak self] title in
                 self?.title = title
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.dismissView
             .sink { [weak self] _  in
                 self?.coordiantor?.dismiss()
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.isEdited
             .sink { [weak self] _ in
                 self?.setupNavigationLeftBarButtonItem()
                 self?.todoDetailView.setupUserInteractionEnabled(true)
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.showErrorAlert
             .sink { [weak self] errorMessage in
                 self?.showErrorAlertWithConfirmButton(errorMessage)
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
     
     private func setup() {

@@ -15,7 +15,7 @@ final class TodoCreateViewController: UIViewController, Alertable {
     private let todoCreateView = TodoDetailView()
     private let viewModel: TodoCreateViewModelable
 
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     
     init(viewModel: TodoCreateViewModelable) {
         self.viewModel = viewModel
@@ -37,13 +37,13 @@ final class TodoCreateViewController: UIViewController, Alertable {
             .sink { [weak self] in
                 self?.coordinator?.dismiss()
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.showErrorAlert
             .sink { [weak self] errorMessage in
                 self?.showErrorAlertWithConfirmButton(errorMessage)
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
     
     private func setup() {

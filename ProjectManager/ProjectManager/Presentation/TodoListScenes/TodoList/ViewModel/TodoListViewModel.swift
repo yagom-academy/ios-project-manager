@@ -61,7 +61,7 @@ final class TodoListViewModel: TodoListViewModelable {
     
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     
     init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable) {
         self.todoUseCase = todoUseCase
@@ -120,7 +120,7 @@ extension TodoListViewModel: TodoViewModelInput {
                 self.showErrorAlert.send(error.localizedDescription)
             }, receiveValue: {}
         )
-        .store(in: &cancelBag)
+        .store(in: &cancellableBag)
     }
     
     private func deleteTodoItem(_ item: Todo) {
@@ -131,7 +131,7 @@ extension TodoListViewModel: TodoViewModelInput {
                     self.showErrorAlert.send(error.localizedDescription)
                 }, receiveValue: {}
             )
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
     
     private func createHistoryItem(_ item: TodoHistory) {
@@ -142,6 +142,6 @@ extension TodoListViewModel: TodoViewModelInput {
                     self.showErrorAlert.send(error.localizedDescription)
                 }, receiveValue: {}
             )
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
     }
 }

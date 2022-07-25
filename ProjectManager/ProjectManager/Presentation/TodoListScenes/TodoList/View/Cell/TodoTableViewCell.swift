@@ -12,7 +12,7 @@ import SnapKit
 
 final class TodoTableViewCell: UITableViewCell {
     private var viewModel: TodoCellViewModelable?
-    private var cancelBag = Set<AnyCancellable>()
+    private var cancellableBag = Set<AnyCancellable>()
     
     private let todoStackView: UIStackView = {
         let stackView = UIStackView()
@@ -65,31 +65,31 @@ final class TodoTableViewCell: UITableViewCell {
             .sink { [weak self] title in
                 self?.titleLabel.text = title
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.todoContent
             .sink { [weak self] content in
                 self?.contentLabel.text = content
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.todoDeadline
             .sink { [weak self] deadline in
                 self?.deadlineLabel.text = deadline
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.expired
             .sink { [weak self] _ in
                 self?.deadlineLabel.textColor = .systemRed
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.notExpired
             .sink { [weak self] _ in
                 self?.deadlineLabel.textColor = .label
             }
-            .store(in: &cancelBag)
+            .store(in: &cancellableBag)
         
         viewModel.cellDidBind()
     }
