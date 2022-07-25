@@ -102,15 +102,30 @@ final class MainViewController: UIViewController {
         
         loadButton.rx.tap
             .asObservable()
-            .subscribe(onNext: { [weak self] _ in
+            .withUnretained(self)
+            .subscribe(onNext: { (self, _) in
+                let alertController = self.presentAlert()
+                
+                self.present(alertController, animated: true, completion: nil)
+                
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func presentAlert() -> UIAlertController {
+        return AlertController(
+            over: self,
+            title: "서버 데이터를 사용자 기기로 동기화할까요?",
+            confirmButton: UIAlertAction(title: "확인", style: .destructive) { [weak self]_ in
+                
                 guard let self = self else {
                     return
                 }
                 
                 self.viewModel.sync()
                     .disposed(by: self.disposeBag)
-            })
-            .disposed(by: disposeBag)
+            }
+        )
     }
     
     private func presentRegistrationView() {
