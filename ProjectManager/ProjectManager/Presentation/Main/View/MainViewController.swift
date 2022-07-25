@@ -64,6 +64,22 @@ final class MainViewController: UIViewController {
         didTapLoadButton()
         
         NetworkCondition.sharedInstance.delegate = self
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "History", style: .plain, target: nil, action: nil)
+        didTapHistoryButton()
+    }
+    
+    private func didTapHistoryButton() {
+        guard let historyButton = navigationItem.leftBarButtonItem else {
+            return
+        }
+        
+        historyButton.rx.tap
+            .asObservable()
+            .subscribe(onNext: {
+
+            })
+            .disposed(by: disposeBag)
     }
     
     private func didTapAddButton() {
