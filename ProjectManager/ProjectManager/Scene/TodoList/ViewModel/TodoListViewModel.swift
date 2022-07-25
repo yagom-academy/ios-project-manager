@@ -16,6 +16,10 @@ fileprivate enum NetworkState {
     static let nonConncted = "wifi.slash"
 }
 
+fileprivate enum Current {
+    static let date = Date()
+}
+
 final class TodoListViewModel {
     let todoViewData: Driver<[Todo]>
     let doingViewData: Driver<[Todo]>
@@ -98,7 +102,7 @@ final class TodoListViewModel {
     }
     
     func changeDateLabelColor(in cell: TodoListCell, from todoData: Todo) {
-        if todoData.date > Formatter.date.currentDate() && todoData.todoListItemStatus != .done {
+        if todoData.date < Current.date && todoData.todoListItemStatus != .done {
             cell.changeDateLabelColor(to: .red)
         } else {
             cell.changeDateLabelColor(to: .black)
