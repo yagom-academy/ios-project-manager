@@ -29,21 +29,21 @@ final class DefaultTodoMoveViewModel {
         self.item = item
     }
     
-    private func changeToTitle(at state: State) -> String {
+    private func setButtonTitle(at state: State) -> (String, String) {
         switch state {
         case .todo:
-            return "Move to TODO"
+            return ("Move to DOING", "Move to DONE")
         case .doing:
-            return "Move to DOING"
+            return ("Move to TODO", "Move to DONE")
         case .done:
-            return "Move to DONE"
+            return ("Move to TODO", "Move to DOING")
         }
     }
     
     private func changeItemState(to state: State) {
         var newItem = item
         newItem.state = state
-        useCase.saveItem(to: newItem)
+        useCase.createItem(to: newItem)
     }
 }
 
@@ -51,21 +51,17 @@ extension DefaultTodoMoveViewModel: TodoMoveViewModel {
     
     //MARK: - Output
     var buttonTitle: Observable<(String, String)> {
-        let (firstButtonType, secondButtonType) = useCase.moveState(from: item.state)
-        let firstButtonTitle = changeToTitle(at: firstButtonType)
-        let secondButtonTitle = changeToTitle(at: secondButtonType)
+        let buttonTitle = setButtonTitle(at: item.state)
         
-        return Observable.just((firstButtonTitle, secondButtonTitle))
+        return Observable.just(buttonTitle)
     }
     
     //MARK: - Input
     func firstButtonDidTap() {
-        let newState = useCase.moveState(from: item.state).first
-        changeItemState(to: newState)
+        useCase.firstMoveState(item: item)
     }
     
     func secondButtonDidTap() {
-        let newState = useCase.moveState(from: item.state).second
-        changeItemState(to: newState)
+        useCase.secondMoveState(item: item)
     }
 }
