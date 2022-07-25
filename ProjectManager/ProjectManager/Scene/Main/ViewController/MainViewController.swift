@@ -145,11 +145,8 @@ extension MainViewController {
             return
         }
         viewModel.network
-            .map { [weak self] bool in
-                if bool {
-                    DispatchQueue.main.async {
-                        self?.viewModel.syncronize()
-                    }
+            .map { online in
+                if online {
                     return UIColor.systemGreen
                 } else {
                     return UIColor.systemRed
