@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoHistoryCell: UITableViewCell, CellIdentifiable {
+class HistoryCell: UITableViewCell, CellIdentifiable {
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLabel])
         stackView.spacing = 4
@@ -15,13 +15,13 @@ class TodoHistoryCell: UITableViewCell, CellIdentifiable {
         return stackView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title2)
         return label
     }()
     
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
         label.textColor = .systemGray2
@@ -42,5 +42,10 @@ class TodoHistoryCell: UITableViewCell, CellIdentifiable {
         contentStackView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide).inset(8)
         }
+    }
+    
+    func setContent(item: HistoryCellContent) {
+        titleLabel.text = item.title
+        dateLabel.text = item.createAt
     }
 }

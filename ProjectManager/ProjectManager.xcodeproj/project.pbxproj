@@ -36,7 +36,7 @@
 		9BA95C74287701B300927C63 /* Date+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA95C73287701B300927C63 /* Date+ToString.swift */; };
 		9BA95C77287713C400927C63 /* CellIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA95C76287713C400927C63 /* CellIdentifiable.swift */; };
 		9BB9AF21288E578E0068030B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB9AF20288E578E0068030B /* HistoryViewController.swift */; };
-		9BB9AF23288E58340068030B /* TodoHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB9AF22288E58340068030B /* TodoHistoryCell.swift */; };
+		9BB9AF23288E58340068030B /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB9AF22288E58340068030B /* HistoryCell.swift */; };
 		9BCEA9552875E7F500258589 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCEA9542875E7F500258589 /* TodoModel.swift */; };
 		9BCEA95728768C3C00258589 /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCEA95628768C3C00258589 /* TodoListCell.swift */; };
 		9BDA0189287445C500C8F7C8 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9BDA0188287445C500C8F7C8 /* RxCocoa */; };
@@ -82,7 +82,7 @@
 		9BA95C73287701B300927C63 /* Date+ToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ToString.swift"; sourceTree = "<group>"; };
 		9BA95C76287713C400927C63 /* CellIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellIdentifiable.swift; sourceTree = "<group>"; };
 		9BB9AF20288E578E0068030B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		9BB9AF22288E58340068030B /* TodoHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistoryCell.swift; sourceTree = "<group>"; };
+		9BB9AF22288E58340068030B /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		9BCEA9542875E7F500258589 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		9BCEA95628768C3C00258589 /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
 		9BDA018F287464E800C8F7C8 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
@@ -262,8 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				9BF85573288657AE0098441C /* TodoEntity+Realm.swift */,
-				9B45247C2889B30A0011D5D1 /* TodoEntity+Firebase.swift */,
 				9BA4EC02288EA1EC0060536E /* HistoryEntity+Realm.swift */,
+				9B45247C2889B30A0011D5D1 /* TodoEntity+Firebase.swift */,
 			);
 			path = MappingEntities;
 			sourceTree = "<group>";
@@ -372,7 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				9BB9AF20288E578E0068030B /* HistoryViewController.swift */,
-				9BB9AF22288E58340068030B /* TodoHistoryCell.swift */,
+				9BB9AF22288E58340068030B /* HistoryCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -507,7 +507,7 @@
 				9B2D9BCD2877F3EE0062C81A /* TodoEditView.swift in Sources */,
 				9BA95C702876EE6400927C63 /* TodoListViewModel.swift in Sources */,
 				9B45247A2888577F0011D5D1 /* FirebaseTodoListStorage.swift in Sources */,
-				9BB9AF23288E58340068030B /* TodoHistoryCell.swift in Sources */,
+				9BB9AF23288E58340068030B /* HistoryCell.swift in Sources */,
 				9BA4EC07288EAA940060536E /* HistoryRepository.swift in Sources */,
 				9B2D9BE128787CCD0062C81A /* TodoSceneDIContainer.swift in Sources */,
 				9B15AF30287EECEE002F0D01 /* TodoMoveViewController.swift in Sources */,
