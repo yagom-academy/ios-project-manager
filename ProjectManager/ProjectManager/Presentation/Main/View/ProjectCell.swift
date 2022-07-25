@@ -36,6 +36,8 @@ final class ProjectCell: UITableViewCell {
     private let baseStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .equalCentering
+        stackView.spacing = 8
         stackView.axis = .vertical
         return stackView
     }()
