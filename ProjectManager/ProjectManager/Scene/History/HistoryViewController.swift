@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  HistoryViewController.swift
 //  ProjectManager
 //
 //  Created by Donnie, Grumpy on 2022/07/22.
@@ -13,10 +13,22 @@ final class HistoryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureNavigationItems()
+        registerTableViewCell()
+        setupNotification()
+    }
+    
+    private func configureNavigationItems() {
         title = "History"
         navigationItem.hidesBackButton = true
+    }
+    
+    private func registerTableViewCell() {
         tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.identifier)
-        
+    }
+    
+    private func setupNotification() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(appendHistoryData(notification:)),
