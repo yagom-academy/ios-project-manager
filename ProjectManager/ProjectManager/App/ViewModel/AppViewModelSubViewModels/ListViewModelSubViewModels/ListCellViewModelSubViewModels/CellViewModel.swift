@@ -8,7 +8,7 @@
 import Foundation
 
 class CellViewModel: ObservableObject {
-  let todo: Todo
+  @Published var todo: Todo
   @Published var isOverDate = false
 
   init(todo: Todo) {

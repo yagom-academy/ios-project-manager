@@ -28,5 +28,8 @@ struct CellOperationView: View {
       .popover(isPresented: $viewModel.isShowModal) {
         PopOverView(viewModel: viewModel.popViewModel)
       }
+      .onChange(of: viewModel.todo) { todo in
+        viewModel.todoListCellViewModel.todo = todo
+      }
   }
 }
