@@ -26,8 +26,6 @@ final class CardHistoryViewController: UIViewController, PopOverable {
   init(histories: [CardHistoryViewModelItem]) {
     self.histories.accept(histories)
     super.init(nibName: nil, bundle: nil)
-    configureSubviews()
-    configureLayouts()
   }
   
   required init?(coder: NSCoder) {
@@ -36,6 +34,8 @@ final class CardHistoryViewController: UIViewController, PopOverable {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureSubviews()
+    configureLayouts()
     bindUI()
   }
   

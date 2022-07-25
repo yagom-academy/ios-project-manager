@@ -28,8 +28,6 @@ final class CardDetailViewController: UIViewController {
     self.viewModel = viewModel
     self.card = card
     super.init(nibName: nil, bundle: nil)
-    configureSubViews()
-    configureLayouts()
     configureNavigationItem()
     configureCardEditView()
   }
@@ -40,6 +38,8 @@ final class CardDetailViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureSubViews()
+    configureLayouts()
     bindUI()
   }
   

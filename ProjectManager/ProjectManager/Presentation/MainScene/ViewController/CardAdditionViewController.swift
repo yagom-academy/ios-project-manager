@@ -24,8 +24,6 @@ final class CardAdditionViewController: UIViewController {
   init(viewModel: CardAdditionViewModelable) {
     self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
-    configureSubViews()
-    configureLayouts()
     configureNavigationItem()
   }
   
@@ -35,6 +33,8 @@ final class CardAdditionViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureSubViews()
+    configureLayouts()
     bindUI()
   }
   

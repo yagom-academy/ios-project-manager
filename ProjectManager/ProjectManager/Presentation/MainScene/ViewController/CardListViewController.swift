@@ -50,8 +50,6 @@ final class CardListViewController: UIViewController {
     self.viewModel = viewModel
     self.coordinator = coordinator
     super.init(nibName: nil, bundle: nil)
-    configureSubViews()
-    configureLayouts()
     configureTableViews()
     configureNavigationItem()
   }
@@ -62,6 +60,8 @@ final class CardListViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureSubViews()
+    configureLayouts()
     bindUI()
   }
   
