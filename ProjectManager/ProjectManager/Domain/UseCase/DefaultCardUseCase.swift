@@ -43,25 +43,19 @@ final class DefaultCardUseCase: CardUseCase {
   }
   
   func fetchCards() -> Observable<Void> {
-    if UserDefaults.standard.object(forKey: Settings.firstTimeRunningCheckingKey) == nil {
-      UserDefaults.standard.set(false, forKey: Settings.firstTimeRunningCheckingKey)
-      
-      return realtimeDatabaseRepository.fetchAll()
-        .catchAndReturn([])
-        .withUnretained(self)
-        .flatMap { wself, cards in wself.localDatabaseRepository.create(cards) }
-        .flatMap { [weak self] cards -> Observable<Void> in
-          self?.cards.accept(cards)
-          return Observable.just(())
-        }
-    }
-    
     return localDatabaseRepository.fetchAll()
-      .withUnretained(self)
-      .flatMap { wself, cards in wself.realtimeDatabaseRepository.create(cards) }
-      .flatMap { [weak self] cards -> Observable<Void> in
-        self?.cards.accept(cards)
-        return Observable<Void>.just(())
+      .catchAndReturn([])
+      .flatMap { cards -> Observable<[Card]> in
+        self.cards.accept(cards)
+        return self.realtimeDatabaseRepository.fetchAll()
+      }
+      .catchAndReturn([])
+      .flatMap { cards -> Observable<Void> in
+        self.cards.accept(cards)
+        return .concat(
+          self.localDatabaseRepository.deleteAll(),
+          self.localDatabaseRepository.create(cards).map { _ in }
+        )
       }
   }
   
