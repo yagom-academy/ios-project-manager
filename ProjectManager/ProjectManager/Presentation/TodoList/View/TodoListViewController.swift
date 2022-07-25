@@ -12,6 +12,7 @@ import RxCocoa
 protocol TodoListViewControllerDependencies: AnyObject {
     func presentEditViewController(item: TodoModel?)
     func popoverMoveViewController(cell: UITableViewCell?, item: TodoModel)
+    func popoverHistoryViewController(button: UIBarButtonItem)
     func showErrorAlert(message: String)
 }
 
@@ -105,6 +106,12 @@ extension TodoListViewController {
         plusButton.rx.tap
             .bind { [weak self] in
                 self?.coordinator?.presentEditViewController(item: nil)
+            }.disposed(by: bag)
+        
+        historyButton.rx.tap
+            .withUnretained(self)
+            .bind { (self, _) in
+                self.coordinator?.popoverHistoryViewController(button: self.historyButton)
             }.disposed(by: bag)
         
         Observable

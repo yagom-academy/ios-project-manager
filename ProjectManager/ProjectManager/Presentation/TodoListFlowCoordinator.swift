@@ -22,6 +22,7 @@ final class TodoListFlowCoordinator {
     private weak var todoListViewController: TodoListViewController?
     private weak var todoEditViewController: TodoEditViewController?
     private weak var todoMoveViewController: TodoMoveViewController?
+    private weak var historyViewController: HistoryViewController?
     
     init(navigationController: UINavigationController, dependencies: TodoListFlowCoordinatorDependencies) {
         self.navigationController = navigationController
@@ -63,6 +64,16 @@ extension TodoListFlowCoordinator: TodoListViewControllerDependencies {
         alertController.addAction(.init(title: "확인", style: .default))
         todoListViewController?.present(alertController, animated: true, completion: nil)
     }
+    
+    func popoverHistoryViewController(button: UIBarButtonItem) {
+        let viewController = dependencies.makeHistoryViewController(coordinator: self)
+        viewController.modalPresentationStyle = .popover
+        viewController.preferredContentSize = CGSize(width: 500, height: 500)
+        viewController.popoverPresentationController?.barButtonItem = button
+        todoListViewController?.present(viewController, animated: true)
+        
+        historyViewController = viewController
+    }
 }
 
 extension TodoListFlowCoordinator: TodoEditViewControllerDependencies {
@@ -74,5 +85,11 @@ extension TodoListFlowCoordinator: TodoEditViewControllerDependencies {
 extension TodoListFlowCoordinator: TodoMoveViewControllerDependencies {
     func dismissMoveViewController() {
         todoMoveViewController?.dismiss(animated: true)
+    }
+}
+
+extension TodoListFlowCoordinator: HistoryViewControllerDependencies {
+    func dismissHistoryViewController() {
+        historyViewController?.dismiss(animated: true)
     }
 }

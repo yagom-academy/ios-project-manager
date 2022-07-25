@@ -10,6 +10,7 @@ import RxSwift
 import RxRelay
 
 protocol TodoEditViewModelInput {
+    func createButtonDidTap()
     func doneButtonDidTap()
     func inputitle(title: String?)
     func inputDeadline(deadline: Date)
@@ -60,11 +61,18 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     //MARK: - Input
+    func createButtonDidTap() {
+        guard let item = item else {
+            return
+        }
+        useCase.createItem(to: item)
+    }
+    
     func doneButtonDidTap() {
         guard let item = item else {
             return
         }
-        useCase.saveItem(to: item)
+        useCase.updateItem(to: item)
     }
     
     func editButtonDidTap() {

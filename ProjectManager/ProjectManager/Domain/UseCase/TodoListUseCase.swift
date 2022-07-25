@@ -11,7 +11,9 @@ import RxRelay
 
 protocol TodoListUseCase {
     func readItems() -> BehaviorSubject<[TodoModel]>
-    func saveItem(to data: TodoModel)
+    func readHistoryItems() -> BehaviorSubject<[History]>
+    func createItem(to data: TodoModel)
+    func updateItem(to item: TodoModel)
     func deleteItem(id: UUID)
     func checkDeadline(time: Date) -> Bool
     func firstMoveState(item: TodoModel)
@@ -20,34 +22,61 @@ protocol TodoListUseCase {
 }
 
 final class DefaultTodoListUseCase {
-    private let repository: TodoListRepository
+    private let listRepository: TodoListRepository
+    private let historyRepository: HistoryRepository
     
-    init(repository: TodoListRepository) {
-        self.repository = repository
+    init(listRepository: TodoListRepository, historyRepository: HistoryRepository) {
+        self.listRepository = listRepository
+        self.historyRepository = historyRepository
+    }
+    
+    private func changTodoItemState(item: TodoModel, to state: State) {
+        var revisedItem = item
+        revisedItem.state = state
+        listRepository.save(to: revisedItem)
+        let historyItem = History(changes: .moved,
+                                  title: item.title ?? "",
+                                  beforeState: item.state,
+                                  afterState: revisedItem.state)
+        historyRepository.save(to: historyItem)
     }
 }
 
 extension DefaultTodoListUseCase: TodoListUseCase {
     var errorObserver: PublishRelay<TodoError> {
-        repository.errorObserver
+        listRepository.errorObserver
     }
 
     func readItems() -> BehaviorSubject<[TodoModel]> {
-        return repository.read()
+        return listRepository.read()
     }
     
-    func saveItem(to data: TodoModel) {
-        repository.save(to: data)
+    func readHistoryItems() -> BehaviorSubject<[History]> {
+        return historyRepository.read()
+    }
+    
+    func createItem(to item: TodoModel) {
+        let historyItem = History(changes: .added,
+                                  title: item.title ?? "")
+        historyRepository.save(to: historyItem)
+        listRepository.save(to: item)
+    }
+    
+    func updateItem(to item: TodoModel) {
+        listRepository.save(to: item)
     }
     
     func deleteItem(id: UUID) {
-        guard let index = try? repository.read().value()
-            .firstIndex(where: { $0.id == id }) else {
+        guard let items = try? listRepository.read().value(),
+              let index = items.firstIndex(where: { $0.id == id }) else {
             errorObserver.accept(TodoError.unknownItem)
             return
         }
-        
-        repository.delete(index: index)
+        let historyItem = History(changes: .removed,
+                                  title: items[index].title ?? "",
+                                  beforeState: items[index].state)
+        historyRepository.save(to: historyItem)
+        listRepository.delete(index: index)
     }
     
     func checkDeadline(time: Date) -> Bool {

@@ -18,6 +18,9 @@ final class TodoEditViewController: UIViewController {
     private enum Constant {
         static let edit = "Edit"
         static let eidting = "Editing"
+        static let create = "Create"
+        static let cancel = "Cancel"
+        static let done = "Done"
         static let navigationBarTitle = "Todo"
     }
     
@@ -27,7 +30,9 @@ final class TodoEditViewController: UIViewController {
     private let bag = DisposeBag()
     
     private let navigationBar = UINavigationBar()
+    
     private let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
+    private let createButton = UIBarButtonItem()
     private let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
     private let editButton = UIBarButtonItem()
     
@@ -65,16 +70,20 @@ extension TodoEditViewController {
     
     private func configureRightBarButtonItem() {
         title = Constant.navigationBarTitle
-        navigationItem.rightBarButtonItem = doneButton
+        editButton.title = Constant.edit
+        doneButton.title = Constant.done
+        createButton.title = Constant.create
+        cancelButton.title = Constant.cancel
         navigationBar.items = [navigationItem]
     }
     
     private func configureLeftBarButtonItem(isCreateMode: Bool) {
         if isCreateMode {
             navigationItem.leftBarButtonItem = cancelButton
+            navigationItem.rightBarButtonItem = createButton
         } else {
             navigationItem.leftBarButtonItem = editButton
-            editButton.title = Constant.edit
+            navigationItem.rightBarButtonItem = doneButton
         }
     }
 }
@@ -106,10 +115,15 @@ extension TodoEditViewController {
             }.disposed(by: bag)
         
         doneButton.rx.tap
-            .withUnretained(self)
-            .bind { (self, _) in
-                self.coordinator?.dismissEditViewController()
-                self.viewModel.doneButtonDidTap()
+            .bind { [weak self] in
+                self?.coordinator?.dismissEditViewController()
+                self?.viewModel.doneButtonDidTap()
+            }.disposed(by: bag)
+        
+        createButton.rx.tap
+            .bind { [weak self] in
+                self?.coordinator?.dismissEditViewController()
+                self?.viewModel.createButtonDidTap()
             }.disposed(by: bag)
         
         editButton.rx.tap

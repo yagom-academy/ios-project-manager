@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 protocol HistoryViewControllerDependencies: AnyObject {
     func dismissHistoryViewController()
@@ -16,16 +17,18 @@ class HistoryViewController: UIViewController {
     
     private let viewModel: HistoryViewModel
     private weak var coordinator: HistoryViewControllerDependencies?
+    private let bag = DisposeBag()
 
     private let historyTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(TodoHistoryCell.self, forCellReuseIdentifier: TodoHistoryCell.identifier)
+        tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.identifier)
         return tableView
     }()
         
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        bind()
     }
     
     init(viewModel: HistoryViewModel, coordinator: HistoryViewControllerDependencies) {
@@ -42,11 +45,21 @@ class HistoryViewController: UIViewController {
 //MARK: - View Setting
 extension HistoryViewController {
     private func configureView() {
-        
-        
         self.view.addSubview(historyTableView)
         historyTableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
+            make.top.equalToSuperview().inset(24)
+            make.bottom.leading.trailing.equalToSuperview().inset(8)
         }
+    }
+}
+
+//MARK: - ViewModel Bind
+extension HistoryViewController {
+    private func bind() {
+        viewModel.historyList
+            .bind(to: historyTableView.rx.items(cellIdentifier: HistoryCell.identifier,
+                                                cellType: HistoryCell.self)) { row, item, cell in
+                cell.setContent(item: item)
+            }.disposed(by: bag)
     }
 }
