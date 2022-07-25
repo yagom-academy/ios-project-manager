@@ -107,7 +107,6 @@ final class MainViewController: UIViewController {
                 let alertController = self.presentAlert()
                 
                 self.present(alertController, animated: true, completion: nil)
-                
             })
             .disposed(by: disposeBag)
     }
