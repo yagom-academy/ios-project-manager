@@ -31,4 +31,10 @@ struct HistoryEntity {
     let editedType: String
     let title: String
     let date: String
+    
+    init(editedType: EditedType, title: String, date: TimeInterval) {
+        self.editedType = editedType.iconName
+        self.title = title
+        self.date = String(date)
+    }
 }
