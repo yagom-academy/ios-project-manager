@@ -101,6 +101,7 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
     
     wifiIndicatorButton.rx.tap
+      .throttle(.seconds(3), latest: false, scheduler: MainScheduler.instance)
       .withUnretained(self)
       .flatMap { wself, _ in wself.viewModel.fetchCards() }
       .map { UISettings.syncCompletionMessage }
