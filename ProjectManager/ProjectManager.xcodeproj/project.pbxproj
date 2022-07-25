@@ -30,6 +30,7 @@
 		03F0EF99288EEFD900FBC7EB /* HistoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF98288EEFD900FBC7EB /* HistoryEntity.swift */; };
 		0E02C72E28896C0600522622 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E02C72D28896C0600522622 /* NetworkRepository.swift */; };
 		0E02C731288975D200522622 /* NetworkCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E02C730288975D200522622 /* NetworkCondition.swift */; };
+		0E02C733288EFB1900522622 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E02C732288EFB1900522622 /* HistoryViewModel.swift */; };
 		0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04B287C7C5600438285 /* DateFormatter.swift */; };
 		0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04E287C815300438285 /* PopOverViewModel.swift */; };
 		0E8130E9288693FA003EC6C7 /* PersistentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */; };
@@ -75,6 +76,7 @@
 		03F0EF98288EEFD900FBC7EB /* HistoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntity.swift; sourceTree = "<group>"; };
 		0E02C72D28896C0600522622 /* NetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
 		0E02C730288975D200522622 /* NetworkCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCondition.swift; sourceTree = "<group>"; };
+		0E02C732288EFB1900522622 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		0E34F04B287C7C5600438285 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		0E34F04E287C815300438285 /* PopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewModel.swift; sourceTree = "<group>"; };
 		0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRepository.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				0E34F04E287C815300438285 /* PopOverViewModel.swift */,
+				0E02C732288EFB1900522622 /* HistoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				0E8130ED2886A1F3003EC6C7 /* Project+CoreDataProperties.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				0EA67EBE2874789700E15093 /* ModalView.swift in Sources */,
+				0E02C733288EFB1900522622 /* HistoryViewModel.swift in Sources */,
 				0E8130E9288693FA003EC6C7 /* PersistentRepository.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				03F0EF8F288EDAF300FBC7EB /* HistoryViewController.swift in Sources */,
