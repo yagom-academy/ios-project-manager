@@ -20,12 +20,16 @@ final class TodoSceneDIContainer {
                                         item: item)
     }
     
-    private func makeTodoListUseCase() -> DefaultTodoListUseCase {
-        return DefaultTodoListUseCase(repository: makeTodoListRepository())
-    }
-    
     private func makeTodoMoveViewModel(item: TodoModel) -> TodoMoveViewModel {
         return DefaultTodoMoveViewModel(useCase: makeTodoListUseCase(), item: item)
+    }
+    
+    private func makeTodoHistoryViewModel() -> TodoHistoryViewModel {
+        return DefaultTodoHistoryViewModel(useCase: makeTodoListUseCase())
+    }
+    
+    private func makeTodoListUseCase() -> DefaultTodoListUseCase {
+        return DefaultTodoListUseCase(repository: makeTodoListRepository())
     }
     
     private func makeTodoListRepository() -> DefaultTodoListRepository {
@@ -36,16 +40,24 @@ final class TodoSceneDIContainer {
 extension TodoSceneDIContainer: TodoListFlowCoordinatorDependencies {
     func makeTodoMoveViewController(item: TodoModel,
                                     coordinator: TodoMoveViewControllerDependencies) -> TodoMoveViewController {
-        return TodoMoveViewController(viewModel: makeTodoMoveViewModel(item: item), coordinator: coordinator)
+        return TodoMoveViewController(viewModel: makeTodoMoveViewModel(item: item),
+                                      coordinator: coordinator)
     }
     
-    func makeTodoListViewController(coordinator: TodoListFlowCoordinator) -> TodoListViewController {
-        return TodoListViewController(viewModel: makeTodoListViewModel(), coordinator: coordinator)
+    func makeTodoListViewController(coordinator: TodoListViewControllerDependencies) -> TodoListViewController {
+        return TodoListViewController(viewModel: makeTodoListViewModel(),
+                                      coordinator: coordinator)
     }
 
     func makeTodoEditViewController(item: TodoModel?,
                                     coordinator: TodoEditViewControllerDependencies) -> TodoEditViewController {
-        return TodoEditViewController(viewModel: makeTodoEditViewModel(item: item), coordinator: coordinator)
+        return TodoEditViewController(viewModel: makeTodoEditViewModel(item: item),
+                                      coordinator: coordinator)
 
+    }
+    
+    func makeTodoHistoryViewController(coordinator: TodoHistoryViewControllerDependencies) -> TodoHistoryViewController {
+        return TodoHistoryViewController(viewModel: makeTodoHistoryViewModel(),
+                                         coordinator: coordinator)
     }
 }

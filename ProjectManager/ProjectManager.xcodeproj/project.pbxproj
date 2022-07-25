@@ -24,6 +24,8 @@
 		9B45247D2889B30A0011D5D1 /* TodoEntity+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B45247C2889B30A0011D5D1 /* TodoEntity+Firebase.swift */; };
 		9B7A8CF9287FCC62009938C8 /* Reactive+ItemSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7A8CF8287FCC62009938C8 /* Reactive+ItemSelected.swift */; };
 		9B7A8CFE288012A4009938C8 /* TodoMoveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7A8CFD288012A4009938C8 /* TodoMoveViewModel.swift */; };
+		9BA4EBFF288E890B0060536E /* TodoHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA4EBFE288E890B0060536E /* TodoHistoryViewModel.swift */; };
+		9BA4EC01288EA0260060536E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA4EC00288EA0260060536E /* History.swift */; };
 		9BA8225A28815A2E005C6521 /* TodoCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA8225928815A2E005C6521 /* TodoCellContent.swift */; };
 		9BA8225C2881922C005C6521 /* TodoListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA8225B2881922C005C6521 /* TodoListTableView.swift */; };
 		9BA95C702876EE6400927C63 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA95C6F2876EE6400927C63 /* TodoListViewModel.swift */; };
@@ -64,6 +66,8 @@
 		9B45247C2889B30A0011D5D1 /* TodoEntity+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoEntity+Firebase.swift"; sourceTree = "<group>"; };
 		9B7A8CF8287FCC62009938C8 /* Reactive+ItemSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+ItemSelected.swift"; sourceTree = "<group>"; };
 		9B7A8CFD288012A4009938C8 /* TodoMoveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMoveViewModel.swift; sourceTree = "<group>"; };
+		9BA4EBFE288E890B0060536E /* TodoHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistoryViewModel.swift; sourceTree = "<group>"; };
+		9BA4EC00288EA0260060536E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		9BA8225928815A2E005C6521 /* TodoCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCellContent.swift; sourceTree = "<group>"; };
 		9BA8225B2881922C005C6521 /* TodoListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableView.swift; sourceTree = "<group>"; };
 		9BA95C6F2876EE6400927C63 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
@@ -277,6 +281,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		9BA4EBFD288E88E80060536E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9BA4EBFE288E890B0060536E /* TodoHistoryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		9BA95C6C2876D76F00927C63 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				9BCEA9542875E7F500258589 /* TodoModel.swift */,
+				9BA4EC00288EA0260060536E /* History.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -337,6 +350,7 @@
 		9BB9AF1E288E57410068030B /* TodoHistory */ = {
 			isa = PBXGroup;
 			children = (
+				9BA4EBFD288E88E80060536E /* ViewModel */,
 				9BB9AF1F288E575D0068030B /* View */,
 			);
 			path = TodoHistory;
@@ -490,6 +504,8 @@
 				9BDA0190287464E800C8F7C8 /* TodoListView.swift in Sources */,
 				9B2D9BE328787F1D0062C81A /* TodoListFlowCoordinator.swift in Sources */,
 				9BCEA9552875E7F500258589 /* TodoModel.swift in Sources */,
+				9BA4EBFF288E890B0060536E /* TodoHistoryViewModel.swift in Sources */,
+				9BA4EC01288EA0260060536E /* History.swift in Sources */,
 				9BA8225A28815A2E005C6521 /* TodoCellContent.swift in Sources */,
 				9BF8557928869E2D0098441C /* RealmTodoListStorage.swift in Sources */,
 				9BB9AF21288E578E0068030B /* TodoHistoryViewController.swift in Sources */,

@@ -8,11 +8,12 @@
 import UIKit
 
 protocol TodoListFlowCoordinatorDependencies {
-    func makeTodoListViewController(coordinator: TodoListFlowCoordinator) -> TodoListViewController
+    func makeTodoListViewController(coordinator: TodoListViewControllerDependencies) -> TodoListViewController
     func makeTodoEditViewController(item: TodoModel?,
                                     coordinator: TodoEditViewControllerDependencies) -> TodoEditViewController
     func makeTodoMoveViewController(item: TodoModel,
                                     coordinator: TodoMoveViewControllerDependencies) -> TodoMoveViewController
+    func makeTodoHistoryViewController(coordinator: TodoHistoryViewControllerDependencies) -> TodoHistoryViewController
 }
 
 final class TodoListFlowCoordinator {
