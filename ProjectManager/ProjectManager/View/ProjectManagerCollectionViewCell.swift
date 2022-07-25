@@ -19,6 +19,15 @@ final class ProjectManagerCollectionViewCell: UICollectionViewListCell {
       .isActive = true
   }
 
+  override func prepareForReuse() {
+    super.prepareForReuse()
+
+    self.titleLabel.text = nil
+    self.bodyLabel.text = nil
+    self.dateLabel.text = nil
+    self.dateLabel.textColor = nil
+  }
+
   func configure(title: String, body: String, date: Date) {
     let dateText = date.changeToString()
     self.titleLabel.text = title
