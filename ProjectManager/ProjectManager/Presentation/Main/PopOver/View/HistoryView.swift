@@ -8,7 +8,7 @@
 import UIKit
 
 final class HistoryView: UIView {
-    private let historyTableView: UITableView = {
+    let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -26,15 +26,17 @@ final class HistoryView: UIView {
     }
     
     private func setUpTableViews() {
-        addSubview(historyTableView)
+        addSubview(tableView)
     }
     
     private func setUpLayout() {
         NSLayoutConstraint.activate([
-            historyTableView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            historyTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            historyTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            historyTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
+            tableView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
     }
+    
+    
 }
