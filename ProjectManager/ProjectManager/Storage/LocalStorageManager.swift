@@ -15,7 +15,12 @@ protocol LocalStorageManagerable {
 }
 
 final class LocalStorageManager: LocalStorageManagerable {
+    private let networkStorageManager: NetworkStorageManagerable
     private let realm = try? Realm()
+    
+    init(_ networkStorageManager: NetworkStorageManagerable) {
+        self.networkStorageManager = networkStorageManager
+    }
     
     private func selectListModel(_ type: ListType) -> List<ListItemDTO> {
         guard let realm = try? Realm() else {
