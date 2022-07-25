@@ -12,7 +12,7 @@ final class ModalView: UIView {
         let textField = UITextField()
         drawBorder(view: textField, color: .systemGray3)
         textField.font = .preferredFont(forTextStyle: .title3)
-        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0))
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
         textField.placeholder = "title"
         return textField
