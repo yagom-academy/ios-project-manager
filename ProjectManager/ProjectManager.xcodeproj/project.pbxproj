@@ -11,7 +11,7 @@
 		AB2E845728765291002E4593 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845628765291002E4593 /* ToDo.swift */; };
 		AB4BB992288E84F000F1603B /* Originator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BB991288E84F000F1603B /* Originator.swift */; };
 		AB4BB994288E852000F1603B /* Memento.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BB993288E852000F1603B /* Memento.swift */; };
-		AB4BB997288E958000F1603B /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BB996288E958000F1603B /* History.swift */; };
+		AB4BB997288E958000F1603B /* CareTaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BB996288E958000F1603B /* CareTaker.swift */; };
 		AB8FA539287C5D7B00C99110 /* WriteTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */; };
 		AB9AE8B828839F510050EA99 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8B728839F510050EA99 /* Storage.swift */; };
 		AB9AE8BB2883DAE00050EA99 /* WriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */; };
@@ -46,7 +46,7 @@
 		AB2E845628765291002E4593 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		AB4BB991288E84F000F1603B /* Originator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Originator.swift; sourceTree = "<group>"; };
 		AB4BB993288E852000F1603B /* Memento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memento.swift; sourceTree = "<group>"; };
-		AB4BB996288E958000F1603B /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		AB4BB996288E958000F1603B /* CareTaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareTaker.swift; sourceTree = "<group>"; };
 		AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTodoView.swift; sourceTree = "<group>"; };
 		AB9AE8B728839F510050EA99 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewModel.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 			children = (
 				AB4BB991288E84F000F1603B /* Originator.swift */,
 				AB4BB993288E852000F1603B /* Memento.swift */,
-				AB4BB996288E958000F1603B /* History.swift */,
+				AB4BB996288E958000F1603B /* CareTaker.swift */,
 			);
 			path = Memento;
 			sourceTree = "<group>";
@@ -472,7 +472,7 @@
 				ABDB96372875E477002D6602 /* TodoCollectionViewCell.swift in Sources */,
 				ABC54F8D287D873200280F43 /* State.swift in Sources */,
 				AB4BB992288E84F000F1603B /* Originator.swift in Sources */,
-				AB4BB997288E958000F1603B /* History.swift in Sources */,
+				AB4BB997288E958000F1603B /* CareTaker.swift in Sources */,
 				ABAECAE1287AE864009DA449 /* EditTodoViewController.swift in Sources */,
 				ABC54F90287D87AB00280F43 /* TodoViewModel.swift in Sources */,
 				AB4BB994288E852000F1603B /* Memento.swift in Sources */,

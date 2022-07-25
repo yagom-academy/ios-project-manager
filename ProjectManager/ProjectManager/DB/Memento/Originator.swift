@@ -9,7 +9,7 @@ import Foundation
 
 protocol Originatable {
   var memento: Memento? { get set }
-  var history: History { get set }
+  var history: CareTaker { get set }
   
   mutating func createMemento(_ memento: Memento)
   mutating func undo()
@@ -21,7 +21,7 @@ class Originator: Originatable {
   private init() {}
   
   var memento: Memento?
-  var history = History()
+  var history = CareTaker()
   
   func createMemento(_ memento: Memento) {
     self.memento?.make(memento.memento)

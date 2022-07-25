@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Historyable {
+protocol CareTakerable {
   var stateList: [Memento] { get set }
   var garbageStateList: [Memento] { get }
   
@@ -17,7 +17,7 @@ protocol Historyable {
   func readStateList() -> [Memento]
 }
 
-struct History: Historyable {
+struct CareTaker: CareTakerable {
   var stateList = [Memento]()
   var garbageStateList = [Memento]()
   
