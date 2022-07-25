@@ -8,46 +8,26 @@
 import UIKit
 
 final class HistoryCell: UITableViewCell {
+    private let actionLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let statusLabel = UILabel()
+    private let dateLabel = UILabel()
+    
     private let historyStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fill
         stackView.spacing = 5
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
-    
-    private let actionLabel: UILabel = {
-        let label = UILabel()
-        
-        return label
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        
-        return label
-    }()
-    
-    private let statusLabel: UILabel = {
-        let label = UILabel()
-        
-        return label
-    }()
-    
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpCell()
-        self.setUpHistoryStackView()
+        self.setUpConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -59,14 +39,15 @@ final class HistoryCell: UITableViewCell {
         self.contentView.backgroundColor = .systemBackground
     }
     
-    private func setUpHistoryStackView() {
+    private func setUpConstraints() {
+        self.dateLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.historyStackView)
         self.contentView.addSubview(self.dateLabel)
         self.historyStackView.addArrangedSubviews(with: [self.actionLabel, self.titleLabel, self.statusLabel])
         
         NSLayoutConstraint.activate([
             self.historyStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5),
-            self.historyStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5),
+            self.historyStackView.trailingAnchor.constraint(lessThanOrEqualTo: self.contentView.trailingAnchor, constant: -5),
             self.historyStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5),
             self.historyStackView.bottomAnchor.constraint(equalTo: self.dateLabel.topAnchor, constant: -5)
         ])
@@ -80,7 +61,7 @@ final class HistoryCell: UITableViewCell {
     
     func configure(_ history: History) {
         self.actionLabel.text = history.action.description
-        self.titleLabel.text = history.title
+        self.titleLabel.text = "'\(history.title)'"
         self.statusLabel.text = history.status.value
         self.dateLabel.text = history.date.convertToString()
     }

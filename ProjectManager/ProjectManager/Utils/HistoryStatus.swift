@@ -14,9 +14,9 @@ enum HistoryStatus {
     var value: String {
         switch self {
         case .from(let currentStatus):
-            return "from \(currentStatus)"
+            return "from \(currentStatus.displayName)"
         case .move(let lastStatus, let currentStatus):
-            return "from \(lastStatus) to \(currentStatus)"
+            return "from \(lastStatus.displayName) to \(currentStatus.displayName)"
         }
     }
 }
