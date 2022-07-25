@@ -9,7 +9,9 @@ pod 'RxSwift'
 pod 'RxCocoa'
 pod 'SnapKit'
 pod 'RxGesture'
-pod ‘RealmSwift’
+pod 'RealmSwift'
+
+pod 'FirebaseDatabase'
   # Pods for ProjectManager
 
 end
