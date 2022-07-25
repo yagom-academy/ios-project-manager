@@ -35,7 +35,7 @@ struct PopOverViewModel {
     }
     
     private func createMoved(from oldStatus: ProjectStatus, to newStatus: ProjectStatus, title: String) {
-        let historyTitle = title + "(from: \(oldStatus.string) to: \(newStatus.string))"
+        let historyTitle = "(from: \(oldStatus.string) to: \(newStatus.string))" + title 
         
         let historyEntity = HistoryEntity(
             editedType: .move,
