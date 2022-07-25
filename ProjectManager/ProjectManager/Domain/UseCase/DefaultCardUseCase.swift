@@ -45,16 +45,18 @@ final class DefaultCardUseCase: CardUseCase {
   func fetchCards() -> Observable<Void> {
     return localDatabaseRepository.fetchAll()
       .catchAndReturn([])
-      .flatMap { cards -> Observable<[Card]> in
-        self.cards.accept(cards)
-        return self.realtimeDatabaseRepository.fetchAll()
+      .withUnretained(self)
+      .flatMap { wself, cards -> Observable<[Card]> in
+        wself.cards.accept(cards)
+        return wself.realtimeDatabaseRepository.fetchAll()
       }
       .catchAndReturn([])
-      .flatMap { cards -> Observable<Void> in
-        self.cards.accept(cards)
+      .withUnretained(self)
+      .flatMap { wself, cards -> Observable<Void> in
+        wself.cards.accept(cards)
         return .concat(
-          self.localDatabaseRepository.deleteAll(),
-          self.localDatabaseRepository.create(cards).map { _ in }
+          wself.localDatabaseRepository.deleteAll(),
+          wself.localDatabaseRepository.create(cards).map { _ in }
         )
       }
   }

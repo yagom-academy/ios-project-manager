@@ -27,7 +27,7 @@ final class CardListViewController: UIViewController {
   private let doingSectionView = CardSectionView(sectionType: .doing)
   private let doneSectionView = CardSectionView(sectionType: .done)
   
-  private let wifiIndicator = UIBarButtonItem()
+  private let wifiIndicatorButton = UIBarButtonItem()
   private let historyButton = UIBarButtonItem().then {
     $0.title = UISettings.historyButtonTitle
   }
@@ -97,7 +97,14 @@ final class CardListViewController: UIViewController {
         : UIImage(systemName: UISettings.wifiDisConnectedImageName)
       }
       .observe(on: MainScheduler.instance)
-      .bind(to: wifiIndicator.rx.image)
+      .bind(to: wifiIndicatorButton.rx.image)
+      .disposed(by: disposeBag)
+    
+    wifiIndicatorButton.rx.tap
+      .withUnretained(self)
+      .flatMap { wself, _ in wself.viewModel.fetchCards() }
+      .map { UISettings.syncCompletionMessage }
+      .bind(onNext: showToastLabel(_:))
       .disposed(by: disposeBag)
   }
   
@@ -237,7 +244,7 @@ extension CardListViewController {
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
     navigationItem.leftBarButtonItem = historyButton
-    navigationItem.rightBarButtonItems = [cardAdditionButton, wifiIndicator]
+    navigationItem.rightBarButtonItems = [cardAdditionButton, wifiIndicatorButton]
   }
   
   private func configureTableViews() {
