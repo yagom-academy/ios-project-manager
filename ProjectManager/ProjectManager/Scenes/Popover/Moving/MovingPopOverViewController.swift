@@ -1,5 +1,5 @@
 //
-//  PopoverViewController.swift
+//  MovingPopOverViewController.swift
 //  ProjectManager
 //
 //  Created by 우롱차, 파프리 on 12/07/2022.
@@ -11,8 +11,8 @@ protocol PopoverViewControllerDelegate: AnyObject {
     func move(from: TaskInfo, to: TaskType)
 }
 
-class PopoverViewController: UIViewController {
-    private let mainView = PopoverView()
+class MovingPopOverViewController: UIViewController {
+    private let mainView = MovingPopOverView()
     private let taskInfo: TaskInfo
     weak var delegate: PopoverViewControllerDelegate?
     
@@ -38,7 +38,7 @@ class PopoverViewController: UIViewController {
 
 // MARK: Functions
 
-extension PopoverViewController {
+extension MovingPopOverViewController {
     func setButtonTarget() {
         mainView.findButton(taskType: .todo)
                 .addTarget(self, action: #selector(moveToToDoButtonClicked), for: .touchUpInside)

@@ -15,8 +15,8 @@
 		672F3C872875644C00CA92D4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F3C862875644C00CA92D4 /* Date+Extension.swift */; };
 		67A743AD28746229004D1A5B /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A743AC28746229004D1A5B /* TaskManager.swift */; };
 		67A743AF28746C83004D1A5B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A743AE28746C83004D1A5B /* Task.swift */; };
-		67FF0F0E287D4700001DD1F3 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0F0D287D4700001DD1F3 /* PopoverViewController.swift */; };
-		67FF0F10287D472B001DD1F3 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0F0F287D472B001DD1F3 /* PopoverView.swift */; };
+		67FF0F0E287D4700001DD1F3 /* MovingPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0F0D287D4700001DD1F3 /* MovingPopOverViewController.swift */; };
+		67FF0F10287D472B001DD1F3 /* MovingPopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0F0F287D472B001DD1F3 /* MovingPopOverView.swift */; };
 		67FF0F17287E9B89001DD1F3 /* ContextualActionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0F16287E9B89001DD1F3 /* ContextualActionBuilder.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -32,6 +32,11 @@
 		E1BF89A728896D2D00D77841 /* FirebaseManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF89A628896D2D00D77841 /* FirebaseManagerTest.swift */; };
 		E1C26DCB28746D1500A37983 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DCA28746D1500A37983 /* RealmManager.swift */; };
 		E1C26DD32874720200A37983 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DD22874720200A37983 /* ProjectManagerTests.swift */; };
+		E1C3F807288EAD7600111F8A /* HistoryPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3F806288EAD7600111F8A /* HistoryPopOverViewController.swift */; };
+		E1C3F809288EAD8C00111F8A /* HistoryPopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3F808288EAD8C00111F8A /* HistoryPopOverView.swift */; };
+		E1C3F80B288EBC6000111F8A /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3F80A288EBC6000111F8A /* HistoryCell.swift */; };
+		E1C3F80D288EBD9C00111F8A /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3F80C288EBD9C00111F8A /* History.swift */; };
+		E1C3F80F288EBF7C00111F8A /* WorkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3F80E288EBF7C00111F8A /* WorkType.swift */; };
 		E1CCBDD1287EC10400348378 /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CCBDD0287EC10400348378 /* TaskInfo.swift */; };
 		E1D0946028756D8A0084308A /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0945F28756D8A0084308A /* TaskType.swift */; };
 		E1D094632875716A0084308A /* DetailModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D094622875716A0084308A /* DetailModalView.swift */; };
@@ -64,8 +69,8 @@
 		672F3C862875644C00CA92D4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		67A743AC28746229004D1A5B /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		67A743AE28746C83004D1A5B /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		67FF0F0D287D4700001DD1F3 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
-		67FF0F0F287D472B001DD1F3 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
+		67FF0F0D287D4700001DD1F3 /* MovingPopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingPopOverViewController.swift; sourceTree = "<group>"; };
+		67FF0F0F287D472B001DD1F3 /* MovingPopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingPopOverView.swift; sourceTree = "<group>"; };
 		67FF0F16287E9B89001DD1F3 /* ContextualActionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextualActionBuilder.swift; sourceTree = "<group>"; };
 		9EC7FFDFB9FDA36BDBAE4D9C /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +94,11 @@
 		E1C26DD92874769000A37983 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C26DDD2874769600A37983 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C26DE0287476F700A37983 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1C3F806288EAD7600111F8A /* HistoryPopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPopOverViewController.swift; sourceTree = "<group>"; };
+		E1C3F808288EAD8C00111F8A /* HistoryPopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPopOverView.swift; sourceTree = "<group>"; };
+		E1C3F80A288EBC6000111F8A /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		E1C3F80C288EBD9C00111F8A /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		E1C3F80E288EBF7C00111F8A /* WorkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkType.swift; sourceTree = "<group>"; };
 		E1CCBDD0287EC10400348378 /* TaskInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfo.swift; sourceTree = "<group>"; };
 		E1D0945F28756D8A0084308A /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
 		E1D094622875716A0084308A /* DetailModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModalView.swift; sourceTree = "<group>"; };
@@ -187,8 +197,8 @@
 		67FF0F0C287D4314001DD1F3 /* Popover */ = {
 			isa = PBXGroup;
 			children = (
-				67FF0F0D287D4700001DD1F3 /* PopoverViewController.swift */,
-				67FF0F0F287D472B001DD1F3 /* PopoverView.swift */,
+				E1C3F805288EAD6300111F8A /* History */,
+				E1C3F804288EAD5B00111F8A /* Moving */,
 			);
 			path = Popover;
 			sourceTree = "<group>";
@@ -262,9 +272,11 @@
 		E1C26DC728745E8600A37983 /* DataType */ = {
 			isa = PBXGroup;
 			children = (
+				E1C3F80C288EBD9C00111F8A /* History.swift */,
 				67A743AE28746C83004D1A5B /* Task.swift */,
 				E1D0945F28756D8A0084308A /* TaskType.swift */,
 				E1CCBDD0287EC10400348378 /* TaskInfo.swift */,
+				E1C3F80E288EBF7C00111F8A /* WorkType.swift */,
 			);
 			path = DataType;
 			sourceTree = "<group>";
@@ -275,6 +287,25 @@
 				E1C26DD22874720200A37983 /* ProjectManagerTests.swift */,
 			);
 			path = ProjectManagerTests;
+			sourceTree = "<group>";
+		};
+		E1C3F804288EAD5B00111F8A /* Moving */ = {
+			isa = PBXGroup;
+			children = (
+				67FF0F0D287D4700001DD1F3 /* MovingPopOverViewController.swift */,
+				67FF0F0F287D472B001DD1F3 /* MovingPopOverView.swift */,
+			);
+			path = Moving;
+			sourceTree = "<group>";
+		};
+		E1C3F805288EAD6300111F8A /* History */ = {
+			isa = PBXGroup;
+			children = (
+				E1C3F806288EAD7600111F8A /* HistoryPopOverViewController.swift */,
+				E1C3F808288EAD8C00111F8A /* HistoryPopOverView.swift */,
+				E1C3F80A288EBC6000111F8A /* HistoryCell.swift */,
+			);
+			path = History;
 			sourceTree = "<group>";
 		};
 		E1D09461287571550084308A /* Detail */ = {
@@ -480,25 +511,30 @@
 			files = (
 				E1BF899F288969EB00D77841 /* Encodable+Extension.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				E1C3F80B288EBC6000111F8A /* HistoryCell.swift in Sources */,
 				E1BF89992889646A00D77841 /* String+Extension.swift in Sources */,
 				E1D094652875A1C10084308A /* DetailModalViewController.swift in Sources */,
 				E1BBADB0287DC2D100FCFE76 /* UITableView+Extension.swift in Sources */,
+				E1C3F80F288EBF7C00111F8A /* WorkType.swift in Sources */,
 				E1BF899D2889691D00D77841 /* FirebaseManager.swift in Sources */,
 				671B238A2877C29D00D0EAB2 /* UIView+Extension.swift in Sources */,
 				672F3C7F2875592E00CA92D4 /* MainView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				67FF0F10287D472B001DD1F3 /* PopoverView.swift in Sources */,
+				67FF0F10287D472B001DD1F3 /* MovingPopOverView.swift in Sources */,
 				67A743AD28746229004D1A5B /* TaskManager.swift in Sources */,
 				67A743AF28746C83004D1A5B /* Task.swift in Sources */,
 				672F3C872875644C00CA92D4 /* Date+Extension.swift in Sources */,
-				67FF0F0E287D4700001DD1F3 /* PopoverViewController.swift in Sources */,
+				E1C3F807288EAD7600111F8A /* HistoryPopOverViewController.swift in Sources */,
+				67FF0F0E287D4700001DD1F3 /* MovingPopOverViewController.swift in Sources */,
 				672F3C8328755CA900CA92D4 /* UIStackView+Extension.swift in Sources */,
 				E1D0946028756D8A0084308A /* TaskType.swift in Sources */,
+				E1C3F80D288EBD9C00111F8A /* History.swift in Sources */,
 				E1D094632875716A0084308A /* DetailModalView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				E1CCBDD1287EC10400348378 /* TaskInfo.swift in Sources */,
 				67FF0F17287E9B89001DD1F3 /* ContextualActionBuilder.swift in Sources */,
 				672F3C852875610900CA92D4 /* TaskCell.swift in Sources */,
+				E1C3F809288EAD8C00111F8A /* HistoryPopOverView.swift in Sources */,
 				E17E7E552878535000BD1CCA /* CircleLabel.swift in Sources */,
 				E1C26DCB28746D1500A37983 /* RealmManager.swift in Sources */,
 			);

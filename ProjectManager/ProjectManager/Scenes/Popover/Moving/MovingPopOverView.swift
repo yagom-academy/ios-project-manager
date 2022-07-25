@@ -1,5 +1,5 @@
 //
-//  PopoverView.swift
+//  MovingPopOverView.swift
 //  ProjectManager
 //
 //  Created by 우롱차, 파프리 on 12/07/2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PopoverView: UIView {
+final class MovingPopOverView: UIView {
     private enum Constant {
         static let buttonTitleColor: UIColor = .systemBlue
         static let buttonBackgroundColor: UIColor = .white
@@ -64,7 +64,7 @@ final class PopoverView: UIView {
 }
 
 // MARK: Functions
-extension PopoverView {
+extension MovingPopOverView {
     func findButton(taskType: TaskType) -> UIButton {
         switch taskType {
         case .todo:
@@ -82,7 +82,7 @@ extension PopoverView {
 }
     
 // MARK: setUp
-extension PopoverView {
+extension MovingPopOverView {
     private func setUp() {
         backgroundColor = Constant.viewBackgroundColor
         setUpSubView()

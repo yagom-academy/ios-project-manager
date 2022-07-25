@@ -184,7 +184,7 @@ extension MainViewController {
     }
     
     private func makePopover(taskInfo: TaskInfo, point: CGPoint) {
-        let popoverController = PopoverViewController(taskInfo: taskInfo)
+        let popoverController = MovingPopOverViewController(taskInfo: taskInfo)
         popoverController.delegate = self
         popoverController.modalPresentationStyle = .popover
         popoverController.preferredContentSize = CGSize(width: 200, height: 100)
