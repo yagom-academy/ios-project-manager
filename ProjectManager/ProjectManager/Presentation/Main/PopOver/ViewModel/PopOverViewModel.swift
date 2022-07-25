@@ -5,6 +5,8 @@
 //  Created by Tiana, mmim on 2022/07/12.
 //
 
+import Foundation
+
 struct PopOverViewModel {
     private let cell: ProjectCell
     
@@ -25,9 +27,23 @@ struct PopOverViewModel {
             return
         }
         
+        createMoved(from: project.status, to: status, title: project.title)
+        
         project.status = status
         
         ProjectUseCase().update(projectContent: project)
+    }
+    
+    private func createMoved(from oldStatus: ProjectStatus, to newStatus: ProjectStatus, title: String) {
+        let historyTitle = title + "(from: \(oldStatus.string) to: \(newStatus.string))"
+        
+        let historyEntity = HistoryEntity(
+            editedType: .move,
+            title: historyTitle,
+            date: Date().timeIntervalSince1970
+        )
+        
+        ProjectUseCase().createHistory(historyEntity: historyEntity)
     }
     
     func getStatus() -> (first: ProjectStatus, second: ProjectStatus)? {
