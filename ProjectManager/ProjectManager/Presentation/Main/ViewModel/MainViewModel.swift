@@ -16,6 +16,7 @@ struct MainViewModel {
 
     func deleteProject(_ content: ProjectContent) {
         ProjectUseCase().delete(projectContentID: content.id)
+        deleteHistory(by: content)
     }
     
     func readProject(_ id: UUID?) -> ProjectContent? {
@@ -42,5 +43,15 @@ struct MainViewModel {
     
     func sync() -> Disposable {
         return ProjectUseCase().load()
+    }
+    
+    private func deleteHistory(by content: ProjectContent) {
+        let historyEntity = HistoryEntity(
+            editedType: .delete,
+            title: content.title,
+            date: Date().timeIntervalSince1970
+        )
+        
+        ProjectUseCase().createHistory(historyEntity: historyEntity)
     }
 }
