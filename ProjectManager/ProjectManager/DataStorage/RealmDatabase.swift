@@ -10,48 +10,48 @@ import Foundation
 import RealmSwift
 
 final class RealmDatabase {
-    private var realm: Realm?
+    private let realm: Realm?
     
     init() {
         self.realm = try? Realm()
     }
-
-    func create(todoData: Todo) {
-        try? realm?.write {
-            realm?.add(todoData.convertRealmTodo())
+    
+    func create(todoData: Todo, completion: @escaping (Todo) -> Void) {
+        try? self.realm?.write { [weak self] in
+            self?.realm?.add(todoData.convertRealmTodo())
+            completion(todoData)
         }
     }
     
-    func read() -> [Todo] {
-        var todoArray: [Todo] = []
-        realm?.objects(TodoDTO.self).forEach { todoArray.append($0.convertTodo()) }
-        
-        return todoArray
+    func read(completion: @escaping ([Todo]) -> Void) {
+        var todoList: [Todo] = []
+        self.realm?.objects(TodoDTO.self)
+            .forEach { todoList.append($0.convertTodo()) }
+        completion(todoList)
     }
     
-    func update(selectedTodo: Todo) {
-        let item = realm?.objects(TodoDTO.self)
-            .filter({ $0.identifier == selectedTodo.identifier })
-            .first
-        
-        if item != nil {
-            try? realm?.write({
-                item?.todoListItemStatus = selectedTodo.todoListItemStatus.displayName
-                item?.identifier = selectedTodo.identifier
-                item?.title = selectedTodo.title
-                item?.body = selectedTodo.description
-                item?.date = selectedTodo.date
-            })
-        }
+    func update(selectedTodo: Todo, completion: @escaping (Todo) -> Void) {
+        try? self.realm?.write({ [weak self] in
+            self?.realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
+            completion(selectedTodo)
+        })
     }
     
-    func delete(todoID: UUID) {
-        guard let item = realm?.objects(TodoDTO.self).filter({ $0.identifier == todoID }).first else {
+    func delete(todoID: UUID, completion: @escaping (UUID) -> Void) {
+        guard let item = self.realm?.object(ofType: TodoDTO.self, forPrimaryKey: todoID) else {
             return
         }
         
-        try? realm?.write({
-            realm?.delete(item)
+        try? self.realm?.write({ [weak self] in
+            self?.realm?.delete(item)
+            completion(todoID)
+        })
+    }
+    
+    func add(todoData: [Todo]) {
+        let todoDataCollection = todoData.map { $0.convertRealmTodo() }
+        try? self.realm?.write({ [weak self] in
+            self?.realm?.add(todoDataCollection, update: .all)
         })
     }
 }

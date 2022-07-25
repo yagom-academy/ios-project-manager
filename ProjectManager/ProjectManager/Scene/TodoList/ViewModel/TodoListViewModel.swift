@@ -11,11 +11,20 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
+fileprivate enum NetworkState {
+    static let connected = "wifi"
+    static let nonConncted = "wifi.slash"
+}
+
+fileprivate enum Current {
+    static let date = Date()
+}
+
 final class TodoListViewModel {
     let todoViewData: Driver<[Todo]>
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
-    
+    let networkState: Driver<String>
     private var dataBase: DatabaseManagerProtocol
     
     init(dataBase: DatabaseManagerProtocol) {
@@ -35,6 +44,10 @@ final class TodoListViewModel {
             .map { $0.filter { $0.todoListItemStatus == .done } }
             .map { $0.sorted{ $0.date < $1.date } }
             .asDriver(onErrorJustReturn: [])
+        
+        self.networkState = self.dataBase.isConnected()
+            .map { $0 == true ? NetworkState.connected : NetworkState.nonConncted }
+            .asDriver(onErrorJustReturn: "")
     }
     
     func cellSelectEvent(
@@ -89,7 +102,7 @@ final class TodoListViewModel {
     }
     
     func changeDateLabelColor(in cell: TodoListCell, from todoData: Todo) {
-        if todoData.date > Formatter.date.currentDate() && todoData.todoListItemStatus != .done {
+        if todoData.date < Current.date && todoData.todoListItemStatus != .done {
             cell.changeDateLabelColor(to: .red)
         } else {
             cell.changeDateLabelColor(to: .black)

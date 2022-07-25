@@ -42,3 +42,41 @@ struct Todo {
         )
     }
 }
+
+extension Todo: Serializable {
+    var dictionary: [String: Any] {
+        return [
+            "todoListItemStatus": self.todoListItemStatus.displayName,
+            "identifier": self.identifier.uuidString,
+            "title": self.title,
+            "description": self.description,
+            "date": self.date.convertToString()
+        ]
+    }
+    
+    init?(dictionary: [String : Any]) {        
+        guard let status = dictionary["todoListItemStatus"] as? String,
+              let uuid = dictionary["identifier"] as? String,
+              let title = dictionary["title"] as? String,
+              let description = dictionary["description"] as? String,
+              let date = dictionary["date"] as? String
+        else {
+            return nil
+        }
+        
+        guard let todoListItemStatus = TodoListItemStatus(rawValue: status),
+              let identifier = UUID(uuidString: uuid),
+              let date = date.convertToDate()
+        else {
+            return nil
+        }
+        
+        self.init(
+            todoListItemStatus: todoListItemStatus,
+            identifier: identifier,
+            title: title,
+            description: description,
+            date: date
+        )
+    }
+}

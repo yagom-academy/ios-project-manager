@@ -40,6 +40,13 @@ final class TodoListViewController: UIViewController {
         target: nil,
         action: nil
     )
+    
+    private let networkBarButton = UIBarButtonItem(
+        image: UIImage(systemName: "wifi.slash"),
+        style: .plain,
+        target: nil,
+        action: nil
+    )
 
     init(todoViewModel: TodoListViewModel, coordinator: AppCoordinator) {
         self.todoView = ListView(todoListItemStatus: .todo, listViewModel: todoViewModel, coordinator: coordinator)
@@ -81,7 +88,7 @@ final class TodoListViewController: UIViewController {
     private func setUpNavigation() {
         self.view.backgroundColor = .systemBackground
         self.title = Const.projectManager
-        self.navigationItem.rightBarButtonItem = self.rightBarButton
+        self.navigationItem.rightBarButtonItems = [self.rightBarButton, self.networkBarButton]
     }
     
     private func bind() {
@@ -89,6 +96,11 @@ final class TodoListViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 self?.coordinator?.showDetailView()
             })
+            .disposed(by: self.disposeBag)
+        
+        self.viewModel.networkState
+            .map { UIImage(systemName: $0) }
+            .drive(self.networkBarButton.rx.image)
             .disposed(by: self.disposeBag)
     }
 }

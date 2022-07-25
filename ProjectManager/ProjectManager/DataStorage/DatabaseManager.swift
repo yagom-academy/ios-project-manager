@@ -7,51 +7,73 @@
 
 import Foundation
 
+import RxSwift
 import RxRelay
 
 protocol DatabaseManagerProtocol {
-    var todoListBehaviorRelay: BehaviorRelay<[Todo]> { get set }
+    var todoListBehaviorRelay: BehaviorRelay<[Todo]> { get }
     
     func create(todoData: Todo)
     func read()
     func update(selectedTodo: Todo)
     func delete(todoID: UUID)
+    func isConnected() -> Observable<Bool>
 }
 
 final class DatabaseManager: DatabaseManagerProtocol {
     var todoListBehaviorRelay = BehaviorRelay<[Todo]>(value: [])
 
-    let realm = RealmDatabase()
+    private let realm = RealmDatabase()
+    private let firebase = FirebaseDatabase()
     
     init() {
         self.read()
     }
     
+    func isConnected() -> Observable<Bool> {
+            return self.firebase.isConnected()
+        }
+    
     func create(todoData: Todo) {
-        self.realm.create(todoData: todoData)
+        self.realm.create(todoData: todoData) { [weak self] todoData in
+            self?.firebase.create(todoData: todoData)
+        }
         
         self.todoListBehaviorRelay.accept(self.todoListBehaviorRelay.value + [todoData])
     }
-    
+
     func read() {
-        self.todoListBehaviorRelay.accept(self.realm.read())
+        self.realm.read { [weak self] todoData in
+            self?.firebase.sync(todoData: todoData)
+            self?.todoListBehaviorRelay.accept(todoData)
+        }
     }
 
     func update(selectedTodo: Todo) {
-        self.realm.update(selectedTodo: selectedTodo)
+        self.realm.update(selectedTodo: selectedTodo) { [weak self] selectedTodo in
+            self?.firebase.update(selectedTodo: selectedTodo)
+        }
         
-        var todoArray = self.todoListBehaviorRelay.value
-        if let index = todoArray.firstIndex(where: { $0.identifier == selectedTodo.identifier }) {
-            todoArray[index] = selectedTodo
+        var todoList = self.todoListBehaviorRelay.value
+        if let index = todoList.firstIndex(where: { $0.identifier == selectedTodo.identifier }) {
+            todoList[index] = selectedTodo
         }
 
-        self.todoListBehaviorRelay.accept(todoArray)
+        self.todoListBehaviorRelay.accept(todoList)
     }
     
     func delete(todoID: UUID) {
-        self.realm.delete(todoID: todoID)
+        self.realm.delete(todoID: todoID) { [weak self] uuid in
+            self?.firebase.delete(todoID: uuid)
+        }
         
         let items = self.todoListBehaviorRelay.value.filter { $0.identifier != todoID }
         self.todoListBehaviorRelay.accept(items)
+    }
+    
+    func backup() {
+        self.firebase.read { [weak self] todo in
+            self?.realm.add(todoData: todo)
+        }
     }
 }
