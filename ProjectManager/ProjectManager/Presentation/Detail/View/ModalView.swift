@@ -10,9 +10,16 @@ import UIKit
 final class ModalView: UIView {
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
-        drawBorder(view: textField, color: .systemGray3)
+        drawBorder(view: textField, color: .systemGray6)
         textField.font = .preferredFont(forTextStyle: .title3)
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftView = UIView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: 10,
+                height: 0
+            )
+        )
         textField.leftViewMode = .always
         textField.placeholder = "title"
         return textField
@@ -27,9 +34,14 @@ final class ModalView: UIView {
     
     lazy var bodyTextView: UITextView = {
         let textView = UITextView()
-        drawBorder(view: textView, color: .systemGray3)
+        drawBorder(view: textView, color: .systemGray6)
         textView.font = .preferredFont(forTextStyle: .title3)
-        textView.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 0)
+        textView.textContainerInset = UIEdgeInsets(
+            top: 5,
+            left: 5,
+            bottom: 5,
+            right: 0
+        )
         textView.isScrollEnabled = false
         return textView
     }()
@@ -59,12 +71,10 @@ final class ModalView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func drawBorder(view: UIView, borderWidth: CGFloat = 2, color: UIColor) {
-        view.layer.borderWidth = borderWidth
+    private func drawBorder(view: UIView, color: UIColor) {
+        view.layer.borderWidth = 1
         view.layer.borderColor = color.cgColor
-        view.layer.shadowOpacity = 1
-        view.layer.shadowColor = color.cgColor
-        view.layer.shadowOffset = CGSize(width: 1, height: 1)
+        view.layer.cornerRadius = 5
     }
     
     private func setUpBackgroundColor() {
@@ -119,6 +129,8 @@ final class ModalView: UIView {
         titleTextField.isUserInteractionEnabled = isEnable
         datePicker.isUserInteractionEnabled = isEnable
         bodyTextView.isEditable = isEnable
+        
+        changeColor(isEnable)
     }
     
     func change(_ content: ProjectContent) -> ProjectContent {
@@ -139,5 +151,15 @@ final class ModalView: UIView {
             bottom: keyboardHeight,
             right: 0
         )
+    }
+    
+    private func changeColor(_ isEnable: Bool) {
+        let backgroundColor = isEnable ? UIColor.systemBackground : UIColor.systemGray6
+        let boundColor = isEnable ? UIColor.systemGray3 : UIColor.systemGray6
+        
+        titleTextField.backgroundColor = backgroundColor
+        bodyTextView.backgroundColor = backgroundColor
+        drawBorder(view: titleTextField, color: boundColor)
+        drawBorder(view: bodyTextView, color: boundColor)
     }
 }
