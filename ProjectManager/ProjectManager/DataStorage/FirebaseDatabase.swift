@@ -47,23 +47,12 @@ final class FirebaseDatabase {
     func read(completion: @escaping ([Todo]) -> Void) {
         var todoList: [Todo] = []
         self.firebase?.child("TodoList").getData(completion: { error, snapshot in
-            guard error == nil else {
-                return
-            }
-            
-            guard let todoLists = snapshot?.value as? [String: Any] else {
-                return
-            }
+            guard error == nil else { return }
+            guard let todoLists = snapshot?.value as? [String: Any] else { return }
             
             todoLists.forEach { (key, value) in
-                guard let todoDictionary = value as? [String : Any] else {
-                    return
-                }
-
-                guard let todoData = Todo(dictionary: todoDictionary) else {
-                    return
-                }
-
+                guard let todoDictionary = value as? [String : Any] else { return }
+                guard let todoData = Todo(dictionary: todoDictionary) else { return }
                 todoList.append(todoData)
             }
             completion(todoList)

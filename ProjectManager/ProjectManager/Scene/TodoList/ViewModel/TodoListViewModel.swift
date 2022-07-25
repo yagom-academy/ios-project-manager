@@ -46,8 +46,8 @@ final class TodoListViewModel {
             .asDriver(onErrorJustReturn: [])
         
         self.networkState = self.dataBase.isConnected()
-                    .map { $0 == true ? NetworkState.connected : NetworkState.nonConncted }
-                    .asDriver(onErrorJustReturn: "")
+            .map { $0 == true ? NetworkState.connected : NetworkState.nonConncted }
+            .asDriver(onErrorJustReturn: "")
     }
     
     func cellSelectEvent(
