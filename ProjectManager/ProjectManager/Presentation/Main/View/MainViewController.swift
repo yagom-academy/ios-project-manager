@@ -61,6 +61,7 @@ final class MainViewController: UIViewController {
         
         navigationItem.rightBarButtonItems = [addButton, loadButton, networkConditionItem]
         didTapAddButton()
+        didTapLoadButton()
         
         NetworkCondition.sharedInstance.delegate = self
     }
@@ -70,16 +71,18 @@ final class MainViewController: UIViewController {
             return
         }
         
-        guard let loadButton = navigationItem.rightBarButtonItems?[1] else {
-            return
-        }
-        
         addButton.rx.tap
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
                 self?.presentRegistrationView()
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func didTapLoadButton() {
+        guard let loadButton = navigationItem.rightBarButtonItems?[1] else {
+            return
+        }
         
         loadButton.rx.tap
             .asObservable()
@@ -92,7 +95,6 @@ final class MainViewController: UIViewController {
                     .disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
-        
     }
     
     private func presentRegistrationView() {
