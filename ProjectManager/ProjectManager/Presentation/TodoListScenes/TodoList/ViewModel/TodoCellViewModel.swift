@@ -13,12 +13,7 @@ protocol TodoCellViewModelInput {
 }
 
 protocol TodoCellViewModelOutput {
-    var todoTitle: Just<String> { get }
-    var todoContent: Just<String> { get }
-    var todoDeadline: Just<String> { get }
-    
-    var expired: PassthroughSubject<Void, Never> { get }
-    var notExpired: PassthroughSubject<Void, Never> { get }
+    var state: PassthroughSubject<TodoCellViewModel.State, Never> { get }
 }
 
 protocol TodoCellViewModelable: TodoCellViewModelInput, TodoCellViewModelOutput {}
@@ -27,22 +22,17 @@ final class TodoCellViewModel: TodoCellViewModelable {
     
     // MARK: - Output
     
-    var todoTitle: Just<String> {
-        return Just(model.title)
+    enum State {
+        case todoTitle(title: String)
+        case todoContent(content: String)
+        case todoDeadline(deadline: String)
+        case expired
+        case notExpired
     }
     
-    var todoContent: Just<String> {
-        return Just(model.content)
-    }
+    let state = PassthroughSubject<State, Never>()
     
-    var todoDeadline: Just<String> {
-        return Just(dateformatter.string(from: model.deadline))
-    }
-    
-    let expired = PassthroughSubject<Void, Never>()
-    let notExpired = PassthroughSubject<Void, Never>()
-    
-    private let model: Todo
+    private let todo: Todo
     private let dateformatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = .current
@@ -50,15 +40,15 @@ final class TodoCellViewModel: TodoCellViewModelable {
         return formatter
     }()
     
-    init(_ model: Todo) {
-        self.model = model
+    init(_ item: Todo) {
+        self.todo = item
     }
     
     private func setDateLabelColor() {
-        if Date() > endOfTheDay(for: model.deadline) ?? Date() {
-            expired.send(())
+        if Date() > endOfTheDay(for: todo.deadline) ?? Date() {
+            state.send(.expired)
         } else {
-            notExpired.send(())
+            state.send(.notExpired)
         }
     }
     
@@ -78,6 +68,10 @@ extension TodoCellViewModel {
     // MARK: - Input
     
     func cellDidBind() {
+        self.state.send(.todoTitle(title: todo.title))
+        self.state.send(.todoContent(content: todo.content))
+        self.state.send(.todoDeadline(deadline: dateformatter.string(from: todo.deadline)))
+        
         setDateLabelColor()
     }
 }

@@ -61,35 +61,22 @@ final class TodoTableViewCell: UITableViewCell {
     func bind(_ viewModel: TodoCellViewModelable) {
         self.viewModel = viewModel
         
-        viewModel.todoTitle
-            .sink { [weak self] title in
-                self?.titleLabel.text = title
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.todoContent
-            .sink { [weak self] content in
-                self?.contentLabel.text = content
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.todoDeadline
-            .sink { [weak self] deadline in
-                self?.deadlineLabel.text = deadline
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.expired
-            .sink { [weak self] _ in
-                self?.deadlineLabel.textColor = .systemRed
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.notExpired
-            .sink { [weak self] _ in
-                self?.deadlineLabel.textColor = .label
-            }
-            .store(in: &cancellableBag)
+        viewModel.state
+            .print()
+            .sink { [weak self] state in
+                switch state {
+                case .todoTitle(let title):
+                    self?.titleLabel.text = title
+                case .todoContent(let content):
+                    self?.contentLabel.text = content
+                case .todoDeadline(let deadline):
+                    self?.deadlineLabel.text = deadline
+                case .expired:
+                    self?.deadlineLabel.textColor = .systemRed
+                case .notExpired:
+                    self?.deadlineLabel.textColor = .label
+                }
+            }.store(in: &cancellableBag)
         
         viewModel.cellDidBind()
     }

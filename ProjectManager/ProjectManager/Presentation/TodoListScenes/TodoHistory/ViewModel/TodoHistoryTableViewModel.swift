@@ -21,8 +21,9 @@ protocol TodoHistoryTableViewModelable: TodoHistoryTableViewModelInput, TodoHist
 final class TodoHistoryTableViewModel: TodoHistoryTableViewModelable {
     
     // MARK: - Output
+    
     var items: AnyPublisher<[TodoHistory], Never>
-            
+
     init(items: AnyPublisher<[TodoHistory], Never>) {
         self.items = items
     }

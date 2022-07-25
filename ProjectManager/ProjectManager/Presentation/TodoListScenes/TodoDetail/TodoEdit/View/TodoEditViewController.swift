@@ -28,6 +28,7 @@ final class TodoEditViewController: UIViewController, Alertable {
         super.viewDidLoad()
         setup()
         bind()
+        viewModel.viewDidLoad()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -36,38 +37,24 @@ final class TodoEditViewController: UIViewController, Alertable {
     }
     
     private func bind() {
-        viewModel.item
-            .sink { [weak self] item in
-                self?.todoDetailView.titleTextField.text = item.title
-                self?.todoDetailView.datePicker.date = item.deadline
-                self?.todoDetailView.contentTextView.text = item.content
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.title
-            .sink { [weak self] title in
-                self?.title = title
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.dismissView
-            .sink { [weak self] _  in
-                self?.coordiantor?.dismiss()
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.isEdited
-            .sink { [weak self] _ in
-                self?.setupNavigationLeftBarButtonItem()
-                self?.todoDetailView.setupUserInteractionEnabled(true)
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.showErrorAlert
-            .sink { [weak self] errorMessage in
-                self?.showErrorAlertWithConfirmButton(errorMessage)
-            }
-            .store(in: &cancellableBag)
+        viewModel.state
+            .sink { [weak self] state in
+                switch state {
+                case .item(let item):
+                    self?.todoDetailView.titleTextField.text = item.title
+                    self?.todoDetailView.datePicker.date = item.deadline
+                    self?.todoDetailView.contentTextView.text = item.content
+                case .viewTitle(let title):
+                    self?.title = title
+                case .isEdited:
+                    self?.setupNavigationLeftBarButtonItem()
+                    self?.todoDetailView.setupUserInteractionEnabled(true)
+                case .dismissView:
+                    self?.coordiantor?.dismiss()
+                case .showErrorAlert(let message):
+                    self?.showErrorAlertWithConfirmButton(message)
+                }
+            }.store(in: &cancellableBag)
     }
     
     private func setup() {

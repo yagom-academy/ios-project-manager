@@ -42,15 +42,23 @@ final class TodoListViewController: UIViewController, Alertable {
     }
     
     private func bind() {
-        viewModel.title
-            .sink { [weak self] title in
-                self?.title = title
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.showErrorAlert
-            .sink { [weak self] errorMessage in
-                self?.showErrorAlertWithConfirmButton(errorMessage)
+        viewModel.state
+            .sink { [weak self] state in
+                switch state {
+                case .viewTitle(let title):
+                    self?.title = title
+                case .showErrorAlert(let message):
+                    self?.showErrorAlertWithConfirmButton(message)
+                case .showEditView(let item):
+                    self?.coordinator?.showDetailViewController(item)
+                case .showHistoryView:
+                    guard let sourceView = self?.navigationItem.leftBarButtonItem else {
+                        return
+                    }
+                    self?.coordinator?.showHistoryViewController(sourceView: sourceView)
+                case .showCreateView:
+                    self?.coordinator?.showCreateViewController()
+                }
             }
             .store(in: &cancellableBag)
         
@@ -58,24 +66,6 @@ final class TodoListViewController: UIViewController, Alertable {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 self?.todoListView.networkStatusImageView.image = UIImage(systemName: status)
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.showCreateView
-            .sink { [weak self] _ in
-                self?.coordinator?.showCreateViewController()
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.showEditView
-            .sink { [weak self] item in
-                self?.coordinator?.showDetailViewController(item)
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.showHistoryView
-            .sink { [weak self] _ in
-                self?.coordinator?.showHistoryViewController(sourceView: self!.navigationItem.leftBarButtonItem!)
             }
             .store(in: &cancellableBag)
     }

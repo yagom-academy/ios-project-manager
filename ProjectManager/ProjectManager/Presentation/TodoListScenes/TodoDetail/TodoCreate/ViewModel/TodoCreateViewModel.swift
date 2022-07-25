@@ -14,8 +14,7 @@ protocol TodoCreateViewModelInput {
 }
 
 protocol TodoCreateViewModelOutput {
-    var dismissView: PassthroughSubject<Void, Never> { get }
-    var showErrorAlert: PassthroughSubject<String, Never> { get }
+    var state: PassthroughSubject<TodoCreateViewModel.State, Never> { get }
 }
 
 protocol TodoCreateViewModelable: TodoCreateViewModelInput, TodoCreateViewModelOutput {}
@@ -24,9 +23,13 @@ final class TodoCreateViewModel: TodoCreateViewModelable {
     
     // MARK: - Output
     
-    let dismissView = PassthroughSubject<Void, Never>()
-    let showErrorAlert = PassthroughSubject<String, Never>()
+    enum State {
+        case dismissView
+        case showErrorAlert(message: String)
+    }
     
+    let state = PassthroughSubject<State, Never>()
+
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
     private var cancellableBag = Set<AnyCancellable>()
@@ -42,7 +45,7 @@ extension TodoCreateViewModel {
     // MARK: - Input
     
     func didTapCancelButton() {
-        dismissView.send(())
+        state.send(.dismissView)
     }
     
     func didTapDoneButton(_ title: String?, _ content: String?, _ deadline: Date?) {
@@ -56,7 +59,7 @@ extension TodoCreateViewModel {
         let historyItem = TodoHistory(title: "[생성] \(todoItem.title)", createdAt: Date())
         createHistoryItem(historyItem)
         
-        dismissView.send(())
+        state.send(.dismissView)
     }
     
     private func createTodoItem(_ item: Todo) {
@@ -64,7 +67,7 @@ extension TodoCreateViewModel {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
+                    self.state.send(.showErrorAlert(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)
@@ -75,7 +78,7 @@ extension TodoCreateViewModel {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
+                    self.state.send(.showErrorAlert(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)

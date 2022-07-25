@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 protocol TodoListViewModelInput {
     func viewDidLoad()
@@ -16,12 +17,8 @@ protocol TodoListViewModelInput {
 
 protocol TodoListViewModelOutput {
     var isNetworkConnected: AnyPublisher<String, Never> { get }
-    var title: Just<String> { get }
     
-    var showErrorAlert: PassthroughSubject<String, Never> { get }
-    var showCreateView: PassthroughSubject<Void, Never> { get }
-    var showEditView: PassthroughSubject<Todo, Never> { get }
-    var showHistoryView: PassthroughSubject<Void, Never> { get }
+    var state: PassthroughSubject<TodoListViewModel.State, Never> { get }
 }
 
 protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
@@ -49,15 +46,16 @@ final class TodoListViewModel: TodoListViewModelable {
     var historyItems: AnyPublisher<[TodoHistory], Never> {
         return historyUseCase.read().eraseToAnyPublisher()
     }
-    
-    var title: Just<String> {
-        return Just("Project Manager")
+
+    enum State {
+        case viewTitle(title: String)
+        case showErrorAlert(message: String)
+        case showEditView(item: Todo)
+        case showHistoryView
+        case showCreateView
     }
     
-    let showErrorAlert = PassthroughSubject<String, Never>()
-    let showEditView = PassthroughSubject<Todo, Never>()
-    let showHistoryView = PassthroughSubject<Void, Never>()
-    let showCreateView = PassthroughSubject<Void, Never>()
+    let state = PassthroughSubject<State, Never>()
     
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
@@ -74,15 +72,16 @@ extension TodoListViewModel {
     // MARK: - Input
     
     func viewDidLoad() {
+        state.send(.viewTitle(title: "Project Manager"))
         todoUseCase.synchronizeDatabase()
     }
     
     func didTapAddButton() {
-        showCreateView.send()
+        state.send(.showCreateView)
     }
     
     func didTapHistoryButton() {
-        showHistoryView.send(())
+        state.send(.showHistoryView)
     }
 }
 
@@ -95,7 +94,7 @@ extension TodoListViewModel: TodoViewModelInput {
     }
     
     func didTapCell(_ item: Todo) {
-        showEditView.send(item)
+        state.send(.showEditView(item: item))
     }
     
     func didTapFirstContextMenu(_ item: Todo) {
@@ -117,7 +116,7 @@ extension TodoListViewModel: TodoViewModelInput {
         .sink(
             receiveCompletion: {
                 guard case .failure(let error) = $0 else { return}
-                self.showErrorAlert.send(error.localizedDescription)
+                self.state.send(.showErrorAlert(message: error.localizedDescription))
             }, receiveValue: {}
         )
         .store(in: &cancellableBag)
@@ -128,7 +127,7 @@ extension TodoListViewModel: TodoViewModelInput {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
+                    self.state.send(.showErrorAlert(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)
@@ -139,7 +138,7 @@ extension TodoListViewModel: TodoViewModelInput {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
+                    self.state.send(.showErrorAlert(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)

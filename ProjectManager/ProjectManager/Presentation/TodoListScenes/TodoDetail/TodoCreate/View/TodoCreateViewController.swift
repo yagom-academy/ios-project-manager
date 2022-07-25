@@ -33,17 +33,15 @@ final class TodoCreateViewController: UIViewController, Alertable {
     }
     
     private func bind() {
-        viewModel.dismissView
-            .sink { [weak self] in
-                self?.coordinator?.dismiss()
-            }
-            .store(in: &cancellableBag)
-        
-        viewModel.showErrorAlert
-            .sink { [weak self] errorMessage in
-                self?.showErrorAlertWithConfirmButton(errorMessage)
-            }
-            .store(in: &cancellableBag)
+        viewModel.state
+            .sink { [weak self] state in
+                switch state {
+                case .dismissView:
+                    self?.coordinator?.dismiss()
+                case .showErrorAlert(message: let message):
+                    self?.showErrorAlertWithConfirmButton(message)
+                }
+            }.store(in: &cancellableBag)
     }
     
     private func setup() {

@@ -9,17 +9,13 @@ import Foundation
 import Combine
 
 protocol TodoEditViewModelInput {
+    func viewDidLoad()
     func didTapDoneButton(title: String?, content: String?, deadline: Date?)
     func didTapEditButton()
 }
 
 protocol TodoEditViewModelOutput {
-    var item: Just<Todo> { get }
-    var isEdited: PassthroughSubject<Void, Never> { get }
-    var title: CurrentValueSubject<String, Never> { get }
-    
-    var dismissView: PassthroughSubject<Void, Never> { get }
-    var showErrorAlert: PassthroughSubject<String, Never> { get }
+    var state: PassthroughSubject<TodoEditViewModel.State, Never> { get }
 }
 
 protocol TodoEditViewModelable: TodoEditViewModelInput, TodoEditViewModelOutput {}
@@ -28,14 +24,15 @@ final class TodoEditViewModel: TodoEditViewModelable {
     
     // MARK: - Output
     
-    var item: Just<Todo> {
-        return Just(todo)
+    enum State {
+        case item(item: Todo)
+        case viewTitle(title: String)
+        case isEdited
+        case dismissView
+        case showErrorAlert(message: String)
     }
     
-    let isEdited = PassthroughSubject<Void, Never>()
-    let title = CurrentValueSubject<String, Never>("TODO")
-    let dismissView = PassthroughSubject<Void, Never>()
-    let showErrorAlert = PassthroughSubject<String, Never>()
+    let state = PassthroughSubject<State, Never>()
     
     private let todo: Todo
     private let todoUseCase: TodoListUseCaseable
@@ -52,6 +49,11 @@ final class TodoEditViewModel: TodoEditViewModelable {
 extension TodoEditViewModel {
     
     // MARK: - Input
+    
+    func viewDidLoad() {
+        state.send(.viewTitle(title: "TODO"))
+        state.send(.item(item: todo))
+    }
     
     func didTapDoneButton(title: String?, content: String?, deadline: Date?) {
         guard let title = title,
@@ -77,7 +79,7 @@ extension TodoEditViewModel {
         let historyItem = TodoHistory(title: "[수정] \(title)", createdAt: Date())
         createHistoryItem(historyItem)
 
-        dismissView.send(())
+        state.send(.dismissView)
     }
     
     private func updateTodoItem(_ item: Todo) {
@@ -85,7 +87,7 @@ extension TodoEditViewModel {
         .sink(
             receiveCompletion: {
                 guard case .failure(let error) = $0 else { return}
-                self.showErrorAlert.send(error.localizedDescription)
+                self.state.send(.showErrorAlert(message: error.localizedDescription))
             }, receiveValue: {}
         )
         .store(in: &cancellableBag)
@@ -96,13 +98,13 @@ extension TodoEditViewModel {
             .sink(
                 receiveCompletion: {
                     guard case .failure(let error) = $0 else { return}
-                    self.showErrorAlert.send(error.localizedDescription)
+                    self.state.send(.showErrorAlert(message: error.localizedDescription))
                 }, receiveValue: {}
             )
             .store(in: &cancellableBag)
     }
     
     func didTapEditButton() {
-        isEdited.send(())
+        state.send(.isEdited)
     }
 }
