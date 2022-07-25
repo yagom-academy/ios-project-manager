@@ -25,6 +25,8 @@
 		03F0EF8F288EDAF300FBC7EB /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF8E288EDAF300FBC7EB /* HistoryViewController.swift */; };
 		03F0EF91288EDB5200FBC7EB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF90288EDB5200FBC7EB /* HistoryView.swift */; };
 		03F0EF93288EDCC200FBC7EB /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF92288EDCC200FBC7EB /* HistoryCell.swift */; };
+		03F0EF95288EE15B00FBC7EB /* MockHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF94288EE15B00FBC7EB /* MockHistoryRepository.swift */; };
+		03F0EF97288EEB7B00FBC7EB /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF96288EEB7B00FBC7EB /* HistoryRepository.swift */; };
 		03F0EF99288EEFD900FBC7EB /* HistoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF98288EEFD900FBC7EB /* HistoryEntity.swift */; };
 		0E02C72E28896C0600522622 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E02C72D28896C0600522622 /* NetworkRepository.swift */; };
 		0E02C731288975D200522622 /* NetworkCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E02C730288975D200522622 /* NetworkCondition.swift */; };
@@ -68,6 +70,8 @@
 		03F0EF8E288EDAF300FBC7EB /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		03F0EF90288EDB5200FBC7EB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		03F0EF92288EDCC200FBC7EB /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		03F0EF94288EE15B00FBC7EB /* MockHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHistoryRepository.swift; sourceTree = "<group>"; };
+		03F0EF96288EEB7B00FBC7EB /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		03F0EF98288EEFD900FBC7EB /* HistoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntity.swift; sourceTree = "<group>"; };
 		0E02C72D28896C0600522622 /* NetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
 		0E02C730288975D200522622 /* NetworkCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCondition.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				032D3D13287D64EB00A32E57 /* ProjectRepository.swift */,
+				03F0EF96288EEB7B00FBC7EB /* HistoryRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				0334E70528770E3D00222EB7 /* MockRepository.swift */,
+				03F0EF94288EE15B00FBC7EB /* MockHistoryRepository.swift */,
 				0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */,
 				0E02C72D28896C0600522622 /* NetworkRepository.swift */,
 				03498B752886DF3A00D8CB3F /* ProjectDTO.swift */,
@@ -523,6 +529,7 @@
 				0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */,
 				0EA67ED0287674D000E15093 /* ProjectListView.swift in Sources */,
 				033294B2287C713800EE7CBE /* PopOverViewController.swift in Sources */,
+				03F0EF97288EEB7B00FBC7EB /* HistoryRepository.swift in Sources */,
 				03F0EF91288EDB5200FBC7EB /* HistoryView.swift in Sources */,
 				0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */,
 				03F0EF99288EEFD900FBC7EB /* HistoryEntity.swift in Sources */,
@@ -533,6 +540,7 @@
 				032D3D14287D64EB00A32E57 /* ProjectRepository.swift in Sources */,
 				033294B4287C717700EE7CBE /* PopOverView.swift in Sources */,
 				0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */,
+				03F0EF95288EE15B00FBC7EB /* MockHistoryRepository.swift in Sources */,
 				0E02C731288975D200522622 /* NetworkCondition.swift in Sources */,
 				03F0EF93288EDCC200FBC7EB /* HistoryCell.swift in Sources */,
 				0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */,
