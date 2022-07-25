@@ -311,7 +311,7 @@
 				9B2D9BE428788B6B0062C81A /* TodoList */,
 				9B2D9BE728788BC00062C81A /* TodoEdit */,
 				9B7A8CFA28800E18009938C8 /* TodoMove */,
-				9BB9AF1E288E57410068030B /* TodoHistory */,
+				9BB9AF1E288E57410068030B /* History */,
 				9BA95C712877016200927C63 /* Utils */,
 			);
 			path = Presentation;
@@ -362,13 +362,13 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		9BB9AF1E288E57410068030B /* TodoHistory */ = {
+		9BB9AF1E288E57410068030B /* History */ = {
 			isa = PBXGroup;
 			children = (
 				9BA4EBFD288E88E80060536E /* ViewModel */,
 				9BB9AF1F288E575D0068030B /* View */,
 			);
-			path = TodoHistory;
+			path = History;
 			sourceTree = "<group>";
 		};
 		9BB9AF1F288E575D0068030B /* View */ = {
