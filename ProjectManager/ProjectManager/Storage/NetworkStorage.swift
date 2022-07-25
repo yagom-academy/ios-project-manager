@@ -7,7 +7,7 @@
 
 import FirebaseDatabase
 
-struct NetworkStorage {
+struct NetworkStorageManager {
     private let database = Database.database()
     
     init() {
