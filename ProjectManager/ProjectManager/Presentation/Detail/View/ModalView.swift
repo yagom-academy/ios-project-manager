@@ -8,6 +8,8 @@
 import UIKit
 
 final class ModalView: UIView {
+//    private var bottomConstraint: NSLayoutConstraint?
+    
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
         drawBorder(view: textField, color: .systemGray3)
@@ -130,5 +132,14 @@ final class ModalView: UIView {
         )
         
         return newContent
+    }
+    
+    func adjustConstraint(by keyboardHeight: CGFloat) {
+        scrollView.contentInset = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: keyboardHeight,
+            right: 0
+        )
     }
 }

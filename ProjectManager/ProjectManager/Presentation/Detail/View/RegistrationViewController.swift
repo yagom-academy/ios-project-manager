@@ -29,7 +29,7 @@ final class RegistrationViewController: UIViewController {
         super.viewDidLoad()
         
         setUpNavigationItem()
-        modalView.descriptionTextView.delegate = self
+        registerNotification()
     }
     
     private func setUpNavigationItem() {
@@ -88,16 +88,41 @@ final class RegistrationViewController: UIViewController {
     }
 }
 
-extension RegistrationViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if self.view.frame.origin.y == 0 {
-            self.view.frame.origin.y -= 170
-        }
+extension RegistrationViewController {
+    private func registerNotification() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              modalView.descriptionTextView.isFirstResponder == true
+        else {
+            return
         }
+        
+        let keyboardInfo = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
+        
+        if let keyboardSize = (keyboardInfo as? NSValue)?.cgRectValue {
+            modalView.adjustConstraint(by: keyboardSize.height)
+        }
+        
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        modalView.adjustConstraint(by: .zero)
     }
 }
