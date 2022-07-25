@@ -11,13 +11,7 @@ struct HistoryCellContent {
     let title: String
     let createAt: String
     
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy. MM. d"
-        return dateFormatter
-    }()
-    
-    init(item: History) {
+    init(item: History, dateFormatter: DateFormatter) {
         switch item.changes {
         case .moved:
             title = "\(item.changes.rawValue) '\(item.title)' from \(item.beforeState?.rawValue ?? "") to \(item.afterState?.rawValue ?? "")"

@@ -37,9 +37,17 @@ final class DefaultTodoListViewModel {
         todoLists = useCase.readItems()
     }
     
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy. MM. d"
+        return dateFormatter
+    }()
+    
     private func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {
         todoModels.map { item in
-            TodoCellContent(entity: item, isPast: useCase.checkDeadline(time: item.deadlineAt))
+            TodoCellContent(entity: item,
+                            isPast: useCase.checkDeadline(time: item.deadlineAt),
+                            dateFormatter: dateFormatter)
         }
     }
     

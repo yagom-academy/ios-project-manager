@@ -18,6 +18,12 @@ protocol HistoryViewModel: HistoryViewModelOutput {}
 final class DefaultTodoHistoryViewModel {
     private let useCase: TodoListUseCase
     
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy. MM. d"
+        return dateFormatter
+    }()
+    
     init(useCase: TodoListUseCase) {
         self.useCase = useCase
     }
@@ -26,9 +32,10 @@ final class DefaultTodoHistoryViewModel {
 extension DefaultTodoHistoryViewModel: HistoryViewModel {
     var historyList: Observable<[HistoryCellContent]> {
         useCase.readHistoryItems()
-            .map { items in
+            .withUnretained(self)
+            .map { (self, items) in
                 items.map { item in
-                    HistoryCellContent(item: item)
+                    HistoryCellContent(item: item, dateFormatter: self.dateFormatter)
                 }
             }
     }

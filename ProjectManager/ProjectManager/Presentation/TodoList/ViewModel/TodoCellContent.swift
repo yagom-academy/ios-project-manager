@@ -13,14 +13,8 @@ struct TodoCellContent {
     let deadlineAt: String
     let id: UUID
     let isPast: Bool
-    
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy. MM. d"
-        return dateFormatter
-    }()
-    
-    init(entity: TodoModel, isPast: Bool) {
+
+    init(entity: TodoModel, isPast: Bool, dateFormatter: DateFormatter) {
         self.title = entity.title
         self.body = entity.body
         self.deadlineAt = entity.deadlineAt.toString(dateFormatter)
