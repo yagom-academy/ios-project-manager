@@ -17,9 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
+        
         let mainViewController = UINavigationController(rootViewController: MainViewController())
-        let historyTableViewController = UINavigationController(rootViewController: HistoryViewController())
         let splitViewController = UISplitViewController(style: .doubleColumn)
+        let historyTableViewController = UINavigationController(
+            rootViewController: HistoryViewController(style: .plain)
+        )
+        
         splitViewController.viewControllers = [historyTableViewController, mainViewController]
         splitViewController.preferredPrimaryColumnWidthFraction = 1/3
         splitViewController.preferredDisplayMode = .secondaryOnly
