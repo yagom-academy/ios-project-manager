@@ -16,8 +16,17 @@ protocol RemoteStorageable: AnyObject {
 }
 
 final class FirebaseStorage: RemoteStorageable {
-    private let databaseURL = "https://projectmanager-42e08-default-rtdb.asia-southeast1.firebasedatabase.app"
-    private lazy var databaseReference = Database.database(url: databaseURL).reference()
+    private enum Constants {
+        static let databaseURL = "https://projectmanager-42e08-default-rtdb.asia-southeast1.firebasedatabase.app"
+        static let root = "todos"
+        static let title = "title"
+        static let content = "content"
+        static let deadline = "deadline"
+        static let processType = "processType"
+        static let id = "id"
+    }
+    
+    private lazy var databaseReference = Database.database(url: Constants.databaseURL).reference()
     private let firebaseSubject = CurrentValueSubject<[Todo], StorageError>([])
     private var cancelBag = Set<AnyCancellable>()
     
@@ -31,7 +40,7 @@ final class FirebaseStorage: RemoteStorageable {
         } receiveValue: { _ in
             items.forEach {
                 self.databaseReference
-                    .child("todos")
+                    .child(Constants.root)
                     .child($0.id)
                     .setValue($0.toDictionary() as NSDictionary)
             }
@@ -44,7 +53,7 @@ final class FirebaseStorage: RemoteStorageable {
     }
     
     private func readAll() {
-        self.databaseReference.child("todos").getData { error, snapshot in
+        self.databaseReference.child(Constants.root).getData { error, snapshot in
             guard error == nil else {
                 self.firebaseSubject.send(completion: .failure(.readFail))
                 return
@@ -60,12 +69,12 @@ final class FirebaseStorage: RemoteStorageable {
                     return nil
                 }
                 
-                guard let title = item["title"] as? String,
-                      let content = item["content"] as? String,
-                      let deadline = item["deadline"] as? Double,
-                      let processTypeValue = item["processType"] as? String,
+                guard let title = item[Constants.title] as? String,
+                      let content = item[Constants.content] as? String,
+                      let deadline = item[Constants.deadline] as? Double,
+                      let processTypeValue = item[Constants.processType] as? String,
                       let processType = ProcessType(rawValue: processTypeValue),
-                      let id = item["id"] as? String
+                      let id = item[Constants.id] as? String
                 else {
                     return nil
                 }
@@ -86,7 +95,7 @@ final class FirebaseStorage: RemoteStorageable {
     private func deleteAll() -> AnyPublisher<Void, StorageError> {
         return Future<Void, StorageError> { [weak self] observer in
             self?.databaseReference
-                .child("todos")
+                .child(Constants.root)
                 .removeValue { error, _ in
                     guard error == nil else {
                         return observer(.failure(.deleteFail))
