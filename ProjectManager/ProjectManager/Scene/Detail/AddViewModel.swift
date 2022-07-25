@@ -12,7 +12,7 @@ protocol AddViewModelable: AddViewModelOutput, AddViewModelInput {}
 protocol AddViewModelOutput {
     var list: ListItem { get }
     var dismiss: PublishRelay<Void> { get }
-    var showErrorAlert: PublishRelay<String> { get }
+    var showErrorAlert: PublishRelay<String?> { get }
 }
 
 protocol AddViewModelInput {
@@ -28,7 +28,7 @@ final class AddViewModel: AddViewModelable {
     
     var list: ListItem
     var dismiss = PublishRelay<Void>()
-    var showErrorAlert = PublishRelay<String>()
+    var showErrorAlert = PublishRelay<String?>()
     
     init(storage: AppStoregeable) {
         self.storage = storage
@@ -57,6 +57,7 @@ final class AddViewModel: AddViewModelable {
             dismiss.accept(())
         } catch {
             guard let error = error as? StorageError else {
+                showErrorAlert.accept(nil)
                 return
             }
             showErrorAlert.accept(error.errorDescription)

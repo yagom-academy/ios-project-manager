@@ -13,7 +13,7 @@ protocol EditViewModelOutput {
     var list: ListItem { get }
     var isEditable: BehaviorRelay<Bool> { get }
     var dismiss: PublishRelay<Void> { get }
-    var showErrorAlert: PublishRelay<String> { get }
+    var showErrorAlert: PublishRelay<String?> { get }
 }
 
 protocol EditViewModelInput {
@@ -31,7 +31,7 @@ final class EditViewModel: EditViewModelable {
     var list: ListItem
     var isEditable = BehaviorRelay<Bool>(value: false)
     var dismiss = PublishRelay<Void>()
-    var showErrorAlert = PublishRelay<String>()
+    var showErrorAlert = PublishRelay<String?>()
     
     init(storage: AppStoregeable, item: ListItem) {
         self.storage = storage
@@ -65,6 +65,7 @@ final class EditViewModel: EditViewModelable {
             dismiss.accept(())
         } catch {
             guard let error = error as? StorageError else {
+                showErrorAlert.accept(nil)
                 return
             }
             showErrorAlert.accept(error.errorDescription)

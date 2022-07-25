@@ -20,7 +20,7 @@ protocol MainViewModelOutput {
     
     var showAddView: PublishRelay<Void> { get }
     var showEditView: PublishRelay<ListItem> { get }
-    var showErrorAlert: PublishRelay<String> { get }
+    var showErrorAlert: PublishRelay<String?> { get }
 }
 
 protocol MainViewModelInput {
@@ -59,7 +59,7 @@ final class MainViewModel: MainViewModelInOut {
     
     var showAddView = PublishRelay<Void>()
     var showEditView = PublishRelay<ListItem>()
-    var showErrorAlert = PublishRelay<String>()
+    var showErrorAlert = PublishRelay<String?>()
 }
 
 //MARK: - input
@@ -82,6 +82,7 @@ extension MainViewModel {
             try storage.deleteItem(index: index, type: type)
         } catch {
             guard let error = error as? StorageError else {
+                showErrorAlert.accept(nil)
                 return
             }
             
@@ -94,6 +95,7 @@ extension MainViewModel {
             try storage.changeItemType(index: index, type: type, destination: destination)
         } catch {
             guard let error = error as? StorageError else {
+                showErrorAlert.accept(nil)
                 return
             }
             
