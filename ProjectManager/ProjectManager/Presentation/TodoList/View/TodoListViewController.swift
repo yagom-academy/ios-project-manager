@@ -21,6 +21,7 @@ final class TodoListViewController: UIViewController {
     }
     
     private let plusButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
+    private let historyButton = UIBarButtonItem()
     
     private let mainView = TodoListView()
     private let viewModel: TodoListViewModel
@@ -58,6 +59,8 @@ extension TodoListViewController {
     private func configureNavigationBar() {
         title = Constant.navigationBarTitle
         navigationItem.rightBarButtonItem = plusButton
+        navigationItem.leftBarButtonItem = historyButton
+        historyButton.title = "History"
     }
 }
 
@@ -134,6 +137,7 @@ extension TodoListViewController {
                 self?.viewModel.cellDeleteButtonDidTap(item: item)
             }.disposed(by: bag)
         
+        //MARK: - Error Handling
         viewModel.errorMessage
             .bind { [weak self] message in
                 self?.coordinator?.showErrorAlert(message: message)
