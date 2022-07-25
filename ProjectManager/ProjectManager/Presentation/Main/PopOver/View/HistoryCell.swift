@@ -71,5 +71,11 @@ final class HistoryCell: UITableViewCell {
             labelStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
+    
+    func compose(content: HistoryEntity) {
+        iconImageView.image = UIImage(systemName: content.editedType)
+        titleLabel.text = content.title
+        dateLabel.text = content.date
+    }
 }
 
