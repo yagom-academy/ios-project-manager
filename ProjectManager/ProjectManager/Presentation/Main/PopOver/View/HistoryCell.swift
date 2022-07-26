@@ -16,7 +16,7 @@ final class HistoryCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.textAlignment = .left
         return label
     }()
