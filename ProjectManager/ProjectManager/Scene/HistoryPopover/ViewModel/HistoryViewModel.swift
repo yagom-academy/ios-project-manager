@@ -17,6 +17,7 @@ final class HistoryViewModel {
         self.database = database
         
         self.historyData = database.updateBehaviorRelay
-            .asDriver()
+            .map { $0.reversed() }
+            .asDriver(onErrorJustReturn: [])
     }
 }
