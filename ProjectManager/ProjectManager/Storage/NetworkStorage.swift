@@ -29,7 +29,7 @@ struct NetworkStorageManager: NetworkStorageManagerable {
             "type": item.type,
             "id": item.id
         ]
-        database.reference().child(item.type).child(item.id).setValue(object)
+        database.reference().child(item.id).setValue(object)
     }
     
     func read() {
