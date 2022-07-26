@@ -86,16 +86,25 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     private func deleteData(task: Task) {
-        let newTask: Task = Task(title: task.title, body: task.body, date: task.date, taskType: task.taskType, id: task.id)
+        
+        let newTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: task.taskType,
+            id: task.id
+        )
+        
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             do {
                 try self?.realmManager.create(task: newTask)
-                
                 self?.sendNotificationForHistory()
             } catch {
                 self?.error.accept(DatabaseError.createError)
             }
         }
+        
+        
         
         let title = task.title
         let type = task.taskType
@@ -150,7 +159,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     func redoButtonTapped() {
-        print("# Redo")
         undoManager.redo()
+        fetchData()
     }
 }

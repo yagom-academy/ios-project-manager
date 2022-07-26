@@ -21,7 +21,7 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
     
     var dismiss: PublishRelay<Void> = .init()
     var error: PublishRelay<DatabaseError> = .init()
-    
+    private let undoManager = AppDelegate.undoManager
     private let realmManager = RealmManager()
     
     func moveButtonTapped(_ task: Task, to taskType: TaskType) {
@@ -30,6 +30,8 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
 
     private func changeTaskType(_ task: Task, taskType: TaskType) {
         let beforeType = task.taskType
+
+        registerChangeUndoAction(task: task, taskType: taskType)
         
         do {
             try realmManager.change(task: task, targetType: taskType)
@@ -41,10 +43,51 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
         }
     }
     
+    private func registerChangeUndoAction(task: Task, taskType: TaskType) {
+        
+        let movedTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: taskType,
+            id: task.id
+        )
+        
+        let beforeType = task.taskType
+
+        undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            do {
+                self?.registerChangeRedoAction(task: task, taskType: taskType)
+                try self?.realmManager.change(task: movedTask, targetType: beforeType)
+                self?.sendNotificationForHistory()
+            } catch {
+                self?.error.accept(DatabaseError.changeError)
+            }
+        }
+    }
+    
+    private func registerChangeRedoAction(task: Task, taskType: TaskType) {
+        let beforeType = task.taskType
+
+        undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            do {
+                self?.registerChangeUndoAction(task: task, taskType: taskType)
+                try self?.realmManager.change(task: task, targetType: taskType)
+                self?.sendNotificationForHistory(task.title, from: beforeType, to: task.taskType)
+            } catch {
+                self?.error.accept(DatabaseError.changeError)
+            }
+        }
+    }
+    
     private func sendNotificationForHistory(_ title: String, from beforeType: TaskType, to afterType: TaskType) {
         let content = "Moved '\(title)' from \(beforeType.rawValue) to \(afterType.rawValue)"
         let time = Date().timeIntervalSince1970
         let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("Pop"), object: nil, userInfo: history)
+        NotificationCenter.default.post(name: NSNotification.Name("Push"), object: nil, userInfo: history)
+    }
+    
+    private func sendNotificationForHistory() {
+        NotificationCenter.default.post(name: NSNotification.Name("Pop"), object: nil, userInfo: nil)
     }
 }

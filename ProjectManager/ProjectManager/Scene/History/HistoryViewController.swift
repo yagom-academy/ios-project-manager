@@ -54,13 +54,12 @@ final class HistoryViewController: UITableViewController {
                   return
               }
         let history = History(content: content, time: time)
-        self.histories.append(history)
+        self.histories.insert(history, at: .zero)
         self.tableView.reloadData()
     }
     
     @objc private func removeHistoryData() {
-        
-        self.histories.removeLast()
+        self.histories.removeFirst()
         self.tableView.reloadData()
     }
     
