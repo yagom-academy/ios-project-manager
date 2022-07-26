@@ -120,7 +120,7 @@ extension TodoListViewController {
                 mainView.done.tableView.rx.listLongPress(TodoCellContent.self))
             .merge()
             .bind { [weak self] (cell, item) in
-                guard let item = self?.viewModel.cellLongPress(id: item.id) else { return }
+                guard let item = self?.viewModel.cellSelected(id: item.id) else { return }
                 self?.coordinator?.popoverMoveViewController(cell: cell, item: item)
             }.disposed(by: bag)
         

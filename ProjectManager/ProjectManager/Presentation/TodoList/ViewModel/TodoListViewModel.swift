@@ -11,7 +11,6 @@ import RxCocoa
 
 protocol TodoListViewModelInput {
     func cellSelected(id: UUID) -> TodoModel?
-    func cellLongPress(id: UUID) -> TodoModel?
     func cellDeleteButtonDidTap(item: TodoCellContent)
 }
 
@@ -112,12 +111,7 @@ extension DefaultTodoListViewModel: TodoListViewModel {
         return try? todoLists.value()
             .first { $0.id == id }
     }
-    
-    func cellLongPress(id: UUID) -> TodoModel? {
-        return try? todoLists.value()
-            .first(where: { $0.id == id })
-    }
-    
+
     func cellDeleteButtonDidTap(item: TodoCellContent) {
         useCase.deleteItem(id: item.id)
     }
