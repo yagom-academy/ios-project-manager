@@ -25,6 +25,6 @@ struct HistoryViewModel {
             return false
         }
         
-        return lhs > rhs
+        return lhs < rhs
     }
 }
