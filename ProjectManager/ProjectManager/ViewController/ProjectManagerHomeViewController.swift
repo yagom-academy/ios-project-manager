@@ -24,9 +24,11 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.initializeNavigationBar()
     self.initializeTableView()
     self.setCountLabelCornerRadius()
-    self.realmService.reloadDataWhenChangedRealmData(
-      [todoTableView, doingTableView, doneTableView]
-    )
+    self.realmService.makeRealmObserve {
+      [self.todoTableView, self.doingTableView, self.doneTableView].forEach {
+        $0.reloadData()
+      }
+    }
   }
 
   override func viewWillDisappear(_ animated: Bool) {

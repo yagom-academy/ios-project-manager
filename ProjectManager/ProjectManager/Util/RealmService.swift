@@ -15,11 +15,9 @@ final class RealmService {
     self.notificationToken?.invalidate()
   }
 
-  func reloadDataWhenChangedRealmData(_ collecionViews: [UITableView]) {
+  func makeRealmObserve(_ handler: @escaping () -> Void) {
     self.notificationToken = realm?.observe { (_, _) in
-      collecionViews.forEach {
-        $0.reloadData()
-      }
+      handler()
     }
   }
 
