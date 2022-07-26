@@ -11,7 +11,6 @@
 		B32142B92887D7F300F8CBE9 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142B82887D7F300F8CBE9 /* ContentViewModel.swift */; };
 		B32142BB2887DAF200F8CBE9 /* AllListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142BA2887DAF200F8CBE9 /* AllListView.swift */; };
 		B32142BD2887DCBB00F8CBE9 /* AllListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142BC2887DCBB00F8CBE9 /* AllListViewModel.swift */; };
-		B32142C12887E04E00F8CBE9 /* PopoverButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142C02887E04E00F8CBE9 /* PopoverButtonViewModel.swift */; };
 		B32142C32887E18900F8CBE9 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142C22887E18900F8CBE9 /* EditViewModel.swift */; };
 		B32142C52887E6EB00F8CBE9 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142C42887E6EB00F8CBE9 /* RegisterViewModel.swift */; };
 		B32429F52890123B00BA5700 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32429F42890123B00BA5700 /* ListView.swift */; };
@@ -38,7 +37,6 @@
 		B32142B82887D7F300F8CBE9 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		B32142BA2887DAF200F8CBE9 /* AllListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListView.swift; sourceTree = "<group>"; };
 		B32142BC2887DCBB00F8CBE9 /* AllListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListViewModel.swift; sourceTree = "<group>"; };
-		B32142C02887E04E00F8CBE9 /* PopoverButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverButtonViewModel.swift; sourceTree = "<group>"; };
 		B32142C22887E18900F8CBE9 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		B32142C42887E6EB00F8CBE9 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		B32429F42890123B00BA5700 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -104,7 +102,6 @@
 				B32C992F28899AAB00C1F891 /* ViewModelType.swift */,
 				B32142B82887D7F300F8CBE9 /* ContentViewModel.swift */,
 				B32142BC2887DCBB00F8CBE9 /* AllListViewModel.swift */,
-				B32142C02887E04E00F8CBE9 /* PopoverButtonViewModel.swift */,
 				B32142C42887E6EB00F8CBE9 /* RegisterViewModel.swift */,
 				B32142C22887E18900F8CBE9 /* EditViewModel.swift */,
 			);
@@ -301,7 +298,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B32142BB2887DAF200F8CBE9 /* AllListView.swift in Sources */,
-				B32142C12887E04E00F8CBE9 /* PopoverButtonViewModel.swift in Sources */,
 				B3CA0B7E287D0FE90047E1D1 /* Date+extension.swift in Sources */,
 				DA79E41A28755DC6000192CC /* NavigationBarModifier.swift in Sources */,
 				B39F102C2873DDC100475AE4 /* ContentView.swift in Sources */,
