@@ -37,6 +37,13 @@ final class DetailViewController: UIViewController {
         bind()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if let touch = touches.first, touch.view == self.view {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     private func setUpAttribute() {
         view.backgroundColor = .black.withAlphaComponent(0.5)
     }
