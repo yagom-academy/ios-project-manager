@@ -30,16 +30,19 @@ final class DefaultCardUseCase: CardUseCase {
   
   private let localDatabaseRepository: LocalDatabaseRepository
   private let realtimeDatabaseRepository: RealtimeDatabaseRepository
+  private let cardNotificationService: CardNotificationService
   
   let cards = BehaviorRelay<[Card]>(value: [])
   let histories = BehaviorRelay<[History]>(value: [])
   
   init(
     localDatabaseRepository: LocalDatabaseRepository,
-    realtimeDatabaseRepository: RealtimeDatabaseRepository
+    realtimeDatabaseRepository: RealtimeDatabaseRepository,
+    cardNotificationService: CardNotificationService
   ) {
     self.localDatabaseRepository = localDatabaseRepository
     self.realtimeDatabaseRepository = realtimeDatabaseRepository
+    self.cardNotificationService = cardNotificationService
   }
   
   func fetchCards() -> Observable<Void> {
@@ -48,17 +51,20 @@ final class DefaultCardUseCase: CardUseCase {
       .withUnretained(self)
       .flatMap { wself, cards -> Observable<[Card]> in
         wself.cards.accept(cards)
+        wself.cardNotificationService.removeCardsNotification(cards)
         return wself.realtimeDatabaseRepository.fetchAll()
       }
       .catchAndReturn([])
       .withUnretained(self)
       .flatMap { wself, cards -> Observable<Void> in
         wself.cards.accept(cards)
+        wself.cardNotificationService.registerCardsNotification(cards)
         return .concat(
           wself.localDatabaseRepository.deleteAll(),
           wself.localDatabaseRepository.create(cards).map { _ in }
         )
       }
+      .catchAndReturn(())
   }
   
   func createNewCard(_ card: Card) -> Observable<Void> {
@@ -72,6 +78,7 @@ final class DefaultCardUseCase: CardUseCase {
       .flatMap(realtimeDatabaseRepository.create(_:))
       .flatMap { [weak self] cards -> Observable<Void> in
         self?.cards.accept(cards)
+        self?.cardNotificationService.registerCardNotification(card)
         return .just(())
       }
   }
@@ -87,6 +94,7 @@ final class DefaultCardUseCase: CardUseCase {
       .flatMap(realtimeDatabaseRepository.create(_:))
       .flatMap { [weak self] cards -> Observable<Void> in
         self?.cards.accept(cards)
+        self?.cardNotificationService.updateCardNotification(card)
         return .just(())
       }
   }
@@ -102,6 +110,7 @@ final class DefaultCardUseCase: CardUseCase {
       .flatMap(realtimeDatabaseRepository.create(_:))
       .flatMap { [weak self] cards -> Observable<Void> in
         self?.cards.accept(cards)
+        self?.cardNotificationService.removeCardNotification(card)
         return .just(())
       }
   }
@@ -120,6 +129,7 @@ final class DefaultCardUseCase: CardUseCase {
       .flatMap(realtimeDatabaseRepository.create(_:))
       .flatMap { [weak self] cards -> Observable<Void> in
         self?.cards.accept(cards)
+        self?.cardNotificationService.updateCardNotification(newCard)
         return .just(())
       }
   }
