@@ -8,24 +8,27 @@
 import SwiftUI
 
 struct ListRowView: View {
-    let task: Task
+  let taskTitle: String
+  let taskBody: String
+  let taskDate: Date
+  let isOverdate: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(task.title)
+            Text(taskTitle)
                 .foregroundColor(.black)
-            Text(task.body)
+            Text(taskBody)
                 .foregroundColor(.gray)
             checkOverdate()
         }
     }
     
     func checkOverdate() -> some View {
-        if task.isOverdate {
-            return Text(task.date.convertDateToString)
+        if isOverdate {
+            return Text(taskDate.convertDateToString)
                 .foregroundColor(.red)
         } else {
-            return Text(task.date.convertDateToString)
+            return Text(taskDate.convertDateToString)
                 .foregroundColor(.black)
         }
     }
@@ -33,7 +36,10 @@ struct ListRowView: View {
 
 struct ListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ListRowView(task: Task(title: "Title", date: Date(), body: "body", type: .todo))
+        ListRowView(taskTitle: "title",
+                    taskBody: "body",
+                    taskDate: Date(),
+                    isOverdate: true)
             .previewLayout(.sizeThatFits)
     }
 }
