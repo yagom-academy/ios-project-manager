@@ -45,6 +45,6 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
         let content = "Moved '\(title)' from \(beforeType.rawValue) to \(afterType.rawValue)"
         let time = Date().timeIntervalSince1970
         let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
+        NotificationCenter.default.post(name: NSNotification.Name("Pop"), object: nil, userInfo: history)
     }
 }

@@ -60,6 +60,10 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
         let content = "Added '\(title)'."
         let time = date.value
         let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
+        NotificationCenter.default.post(name: NSNotification.Name("Push"), object: nil, userInfo: history)
+    }
+    
+    private func sendNotificationForHistory() {
+        NotificationCenter.default.post(name: NSNotification.Name("Pop"), object: nil, userInfo: nil)
     }
 }

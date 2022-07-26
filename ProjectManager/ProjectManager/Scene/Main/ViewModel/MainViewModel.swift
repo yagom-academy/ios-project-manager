@@ -109,7 +109,11 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         let content = "Removed '\(title)' from \(type.rawValue)"
         let time = Date().timeIntervalSince1970
         let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
+        NotificationCenter.default.post(name: NSNotification.Name("Push"), object: nil, userInfo: history)
+    }
+    
+    private func sendNotificationForHistory() {
+        NotificationCenter.default.post(name: NSNotification.Name("Pop"), object: nil, userInfo: nil)
     }
         
     private func fetchToDo() {
