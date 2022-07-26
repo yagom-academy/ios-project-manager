@@ -38,7 +38,7 @@ final class HistoryCell: UITableViewCell {
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: "\(ProjectCell.self)")
+        super.init(style: style, reuseIdentifier: "\(HistoryCell.self)")
         
         setUpCell()
         setUpLayout()
