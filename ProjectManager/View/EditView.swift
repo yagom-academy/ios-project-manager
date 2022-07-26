@@ -10,33 +10,31 @@ import SwiftUI
 struct EditView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var editViewModel: EditViewModel
-    
-    var cellIndex: Int
+    let task: Task
     
     var body: some View {
         NavigationView {
-            EditElementView(editViewModel: editViewModel,
-                            cellIndex: cellIndex)
-            .navigationTitle(TaskType.todo.title)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarColor(.systemGray5)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Cancel")
+            EditElementView(task: task)
+                .navigationTitle(TaskType.todo.title)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarColor(.systemGray5)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Text("Cancel")
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            editViewModel.doneButtonTapped(task: task)
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Text("Done")
+                        }
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        editViewModel.editTask(task: editViewModel.service.tasks[cellIndex])
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Done")
-                    }
-                }
-            }
         }
         .navigationViewStyle(.stack)
     }
@@ -44,7 +42,8 @@ struct EditView: View {
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        EditView(editViewModel: EditViewModel(withService: TaskManagementService()), cellIndex: 0)
+        EditView(editViewModel: EditViewModel(withService: TaskManagementService()),
+                 task: Task(title: "Title", date: Date(), body: "body", type: .todo))
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 class PopoverButtonViewModel: ViewModelType {
-    func moveData(_ task: Task, from: TaskType, to: TaskType) {
+    func moveData(_ task: Task, to: TaskType) {
         guard let item = service.tasks.filter({ $0 == task }).first else {
             return
         }
