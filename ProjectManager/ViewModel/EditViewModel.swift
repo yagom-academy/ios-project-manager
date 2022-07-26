@@ -8,16 +8,17 @@
 import SwiftUI
 
 class EditViewModel: ViewModelType {
-    @Published var title: String = ""
-    @Published var body: String = ""
-    @Published var date: Date = Date()
-    
-    func doneButtonTapped(task: Task) {
-        var testTask = task
-        testTask.title = title
-        testTask.body = body
-        testTask.date = date
-        
-        self.service.editTask(task: testTask)
-    }
+  @Published var title: String = ""
+  @Published var body: String = ""
+  @Published var date: Date = Date()
+  var task: Task = Task(title: "", date: Date(), body: "", type: .todo)
+  
+  init(withService: TaskManagementService, task: Task) {
+    super.init(withService: withService)
+    self.task = task
+  }
+  
+  func doneButtonTapped() {
+    self.service.editTask(task: task)
+  }
 }
