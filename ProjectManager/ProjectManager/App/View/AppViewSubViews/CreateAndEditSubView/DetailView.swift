@@ -10,6 +10,10 @@ import SwiftUI
 struct DetailView: View {
   @Binding var todo: Todo
   
+  init(todo: Binding<Todo>) {
+    self._todo = todo
+  }
+  
   var body: some View {
     VStack {
       ZStack {

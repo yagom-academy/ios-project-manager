@@ -6,54 +6,88 @@
 //
 
 import Foundation
+import RealmSwift
 
 class TodoService: ObservableObject {
-  @Published private var todoList: [Todo] = [
-    Todo(title: "1Title", content: "blablabla", status: .todo),
-    Todo(title: "2Title", content: "blablabla", status: .doing),
-    Todo(title: "3Title", content: "blablabla", status: .doing),
-    Todo(title: "4Title", content: "blablabla", status: .done),
-    Todo(title: "5Title", content: "blablabla", status: .doing),
-    Todo(title: "6Title", content: "blablabla", status: .todo),
-    Todo(title: "7Title", content: "blablabla", status: .todo),
-    Todo(title: "8Title", content: "blablabla", status: .doing),
-    Todo(title: "9Title", content: "blablabla", status: .done),
-    Todo(title: "10Title", content: "blablabla", status: .todo),
-    Todo(title: "11Title", content: "blablabla", status: .done),
-    Todo(title: "12Title", content: "blablabla", status: .todo),
-    Todo(title: "13Title", content: "heydaybay", status: .done)
-  ]
-  
   func creat(todo: Todo) {
-    todoList.insert(Todo(title: todo.title, content: todo.content, status: .todo), at: 0)
-  }
-  
-  func insert(todo: Todo) {
-    todoList.insert(todo, at: 0)
+    let realmData = TodoRealm()
+    realmData.title = todo.title
+    realmData.content = todo.content
+    realmData.date = todo.date
+    realmData.status = todo.status
+    
+    guard let realm = try? Realm() else {
+      return
+    }
+    
+    try? realm.write {
+      realm.add(realmData)
+    }
   }
   
   func read() -> [Todo] {
-    return todoList
+    guard let realm = try? Realm() else { return [] }
+    let todoData = realm.objects(TodoRealm.self)
+    let realArr = Array(todoData)
+    let result = realArr.map { todoRealm -> Todo in
+      
+      return Todo(id: todoRealm.id,
+                  title: todoRealm.title,
+                  content: todoRealm.content,
+                  date: todoRealm.date,
+                  status: todoRealm.status)
+    }
+    return result
   }
   
-  func read(by status: Todo.Status) -> [Todo] {
-    let filteredTodo = read().filter { todo in
+  func read(by status: Status) -> [Todo] {
+    let data = self.read()
+    let filteredTodo = data.filter { todo in
       todo.status == status
     }
     return filteredTodo
   }
   
+  func read(by todo: Todo) -> Todo {
+    let todos = read()
+    let filteredTodo = todos.filter { $0.id == todo.id }[0]
+    return filteredTodo
+  }
+  
+  func updateStatus(status: Status, todo: Todo) {
+    
+    guard let realm = try? Realm() else { return }
+    guard let selectedTodo = realm.objects(TodoRealm.self).filter({ $0.id == todo.id }).first else {
+      return
+    }
+    
+    try? realm.write {
+      selectedTodo.status = status
+    }
+  }
+  
   func update(todo: Todo) {
-    guard let index = todoList.firstIndex(where: { $0.id == todo.id }) else { return }
-    todoList[index].content = todo.content
-    todoList[index].title = todo.title
-    todoList[index].date  = todo.date
-    todoList[index].status = todo.status
+    guard let realm = try? Realm() else { return }
+    guard let selectedTodo = realm.objects(TodoRealm.self).filter({ $0.id == todo.id }).first else {
+      return
+    }
+    
+    try? realm.write {
+      selectedTodo.content = todo.content
+      selectedTodo.title = todo.title
+      selectedTodo.date = todo.date
+      selectedTodo.status = todo.status
+    }
   }
   
   func delete(id: UUID) {
-    todoList.removeAll { todo in
-      todo.id == id
+    guard let realm = try? Realm() else { return }
+    try? realm.write {
+      
+      let selectedTodo = realm.objects(TodoRealm.self).filter { realm in
+        realm.id == id
+      }
+      realm.delete(selectedTodo)
     }
   }
 }

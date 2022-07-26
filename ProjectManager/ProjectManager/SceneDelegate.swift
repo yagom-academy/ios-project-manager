@@ -15,11 +15,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              options connectionOptions: UIScene.ConnectionOptions) {
     
     if let windowSecene = (scene as? UIWindowScene) {
-      let todoService = TodoService()
-      let viewModel = AppViewModel(todoService: todoService)
-      let contentView = AppView(viewModel: viewModel)
+      
+      let contentView = AppView(viewModel: AppViewModel())
       window = UIWindow(windowScene: windowSecene)
-      window?.rootViewController = UIHostingController(rootView: contentView)
+      let asd = UIHostingController(rootView: contentView)
+      window?.rootViewController = asd
       window?.makeKeyAndVisible()
     }
   }
