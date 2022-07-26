@@ -15,16 +15,7 @@ struct HistoryViewModel {
     
     func read() -> Driver<[HistoryEntity]> {
         return history
-            .map { $0.sorted { compare(lhs: $0, rhs: $1) } }
+            .map { $0.sorted { $0.date > $1.date } }
             .asDriver(onErrorJustReturn: [])
-    }
-    
-    private func compare(lhs: HistoryEntity, rhs: HistoryEntity) -> Bool {
-        guard let lhs = DateFormatter().formatted(string: lhs.date)?.timeIntervalSince1970,
-              let rhs = DateFormatter().formatted(string: rhs.date)?.timeIntervalSince1970 else {
-            return false
-        }
-        
-        return lhs < rhs
     }
 }
