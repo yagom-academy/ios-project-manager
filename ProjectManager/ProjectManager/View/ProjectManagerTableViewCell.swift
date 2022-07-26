@@ -7,17 +7,10 @@
 
 import UIKit
 
-final class ProjectManagerCollectionViewCell: UICollectionViewListCell {
+final class ProjectManagerTableViewCell: UITableViewCell {
   @IBOutlet private weak var titleLabel: UILabel!
   @IBOutlet private weak var bodyLabel: UILabel!
   @IBOutlet private weak var dateLabel: UILabel!
-
-  override func updateConstraints() {
-    super.updateConstraints()
-
-    self.separatorLayoutGuide.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor)
-      .isActive = true
-  }
 
   override func prepareForReuse() {
     super.prepareForReuse()

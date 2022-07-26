@@ -21,7 +21,7 @@
 		E5B4720E287F03AC00640EC4 /* ProjectCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B4720D287F03AC00640EC4 /* ProjectCategory.swift */; };
 		E5B47211287F397E00640EC4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B47210287F397E00640EC4 /* Project.swift */; };
 		E5B47213288041B300640EC4 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B47212288041B300640EC4 /* RealmService.swift */; };
-		E5D91966287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D91965287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift */; };
+		E5D91966287B46C4000379C6 /* ProjectManagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D91965287B46C4000379C6 /* ProjectManagerTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +43,7 @@
 		E5B4720D287F03AC00640EC4 /* ProjectCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCategory.swift; sourceTree = "<group>"; };
 		E5B47210287F397E00640EC4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		E5B47212288041B300640EC4 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
-		E5D91965287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerCollectionViewCell.swift; sourceTree = "<group>"; };
+		E5D91965287B46C4000379C6 /* ProjectManagerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,7 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				E5D91965287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift */,
+				E5D91965287B46C4000379C6 /* ProjectManagerTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -312,7 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E582B9DD287DD9E000F13416 /* String+Extension.swift in Sources */,
-				E5D91966287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift in Sources */,
+				E5D91966287B46C4000379C6 /* ProjectManagerTableViewCell.swift in Sources */,
 				E582B9DA287DC67700F13416 /* Date+Extension.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerHomeViewController.swift in Sources */,
 				E582B9E1287EAFA200F13416 /* ProjectAddViewController.swift in Sources */,

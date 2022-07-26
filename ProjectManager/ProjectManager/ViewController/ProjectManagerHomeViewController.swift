@@ -8,9 +8,9 @@ import UIKit
 import RealmSwift
 
 final class ProjectManagerHomeViewController: UIViewController {
-  @IBOutlet private weak var todoCollectionView: UICollectionView!
-  @IBOutlet private weak var doingCollectionView: UICollectionView!
-  @IBOutlet private weak var doneCollectionView: UICollectionView!
+  @IBOutlet private weak var todoTableView: UITableView!
+  @IBOutlet private weak var doingTableView: UITableView!
+  @IBOutlet private weak var doneTableView: UITableView!
   @IBOutlet private weak var todoCountLabel: UILabel!
   @IBOutlet private weak var doingCountLabel: UILabel!
   @IBOutlet private weak var doneCountLabel: UILabel!
@@ -22,10 +22,10 @@ final class ProjectManagerHomeViewController: UIViewController {
     super.viewDidLoad()
     self.projects = realmService.readAll(projectType: Project.self)
     self.initializeNavigationBar()
-    self.initializeCollectionView()
+    self.initializeTableView()
     self.setCountLabelCornerRadius()
     self.realmService.reloadDataWhenChangedRealmData(
-      [todoCollectionView, doingCollectionView, doneCollectionView]
+      [todoTableView, doingTableView, doneTableView]
     )
   }
 
@@ -37,11 +37,10 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.navigationItem.title = "Project Manager"
   }
 
-  private func initializeCollectionView() {
-    [todoCollectionView, doingCollectionView, doneCollectionView].forEach {
+  private func initializeTableView() {
+    [todoTableView, doingTableView, doneTableView].forEach {
       $0?.dataSource = self
       $0?.delegate = self
-      $0?.collectionViewLayout = listCompositionLayout()
     }
   }
 
@@ -61,38 +60,24 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.present(projectAddVC, animated: true)
   }
 
-  @IBAction private func longPressTodoCollectionView(_ sender: UILongPressGestureRecognizer) {
-    self.handleLongPress(todoCollectionView, projectCategory: .todo, gestureRecognizer: sender)
+  @IBAction private func longPressTodoTableView(_ sender: UILongPressGestureRecognizer) {
+    self.handleLongPress(todoTableView, projectCategory: .todo, gestureRecognizer: sender)
   }
 
-  @IBAction private func longPressDoingCollectionView(_ sender: UILongPressGestureRecognizer) {
-    self.handleLongPress(doingCollectionView, projectCategory: .doing, gestureRecognizer: sender)
+  @IBAction private func longPressDoingTableView(_ sender: UILongPressGestureRecognizer) {
+    self.handleLongPress(doingTableView, projectCategory: .doing, gestureRecognizer: sender)
   }
 
-  @IBAction private func longPressDoneCollectionView(_ sender: UILongPressGestureRecognizer) {
-    self.handleLongPress(doneCollectionView, projectCategory: .done, gestureRecognizer: sender)
-  }
-}
-
-// MARK: - UICollectionViewCompositionalLayout
-
-extension ProjectManagerHomeViewController {
-  private func listCompositionLayout() -> UICollectionViewCompositionalLayout {
-    let listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-    let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
-
-    return layout
+  @IBAction private func longPressDoneTableView(_ sender: UILongPressGestureRecognizer) {
+    self.handleLongPress(doneTableView, projectCategory: .done, gestureRecognizer: sender)
   }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UITableViewDataSource
 
-extension ProjectManagerHomeViewController: UICollectionViewDataSource {
-  func collectionView(
-    _ collectionView: UICollectionView,
-    numberOfItemsInSection section: Int
-  ) -> Int {
-    guard let proejctCategory = self.fetchProejctCategory(from: collectionView) else { return .zero }
+extension ProjectManagerHomeViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    guard let proejctCategory = self.fetchProejctCategory(from: tableView) else { return .zero }
     let itemCount = fetchItemCount(from: proejctCategory)
 
     self.configureCountLabel(projectCategory: proejctCategory, itemCount: itemCount)
@@ -100,17 +85,14 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     return itemCount
   }
 
-  func collectionView(
-    _ collectionView: UICollectionView,
-    cellForItemAt indexPath: IndexPath
-  ) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(
-      withReuseIdentifier: "\(ProjectManagerCollectionViewCell.self)",
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(
+      withIdentifier: "\(ProjectManagerTableViewCell.self)",
       for: indexPath
-    ) as? ProjectManagerCollectionViewCell else {
-      return UICollectionViewCell()
+    ) as? ProjectManagerTableViewCell else {
+      return UITableViewCell()
     }
-    guard let projectCategory = fetchProejctCategory(from: collectionView) else { return cell }
+    guard let projectCategory = fetchProejctCategory(from: tableView) else { return cell }
     guard let projectList = realmService.filter(projectCategory: projectCategory) else { return cell }
 
     cell.configure(
@@ -122,14 +104,14 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     return cell
   }
 
-  private func fetchProejctCategory(from collectionView: UICollectionView) -> ProjectCategory? {
-    let projectCategory: [UICollectionView: ProjectCategory] = [
-      self.todoCollectionView: .todo,
-      self.doingCollectionView: .doing,
-      self.doneCollectionView: .done
+  private func fetchProejctCategory(from tableView: UITableView) -> ProjectCategory? {
+    let projectCategory: [UITableView: ProjectCategory] = [
+      self.todoTableView: .todo,
+      self.doingTableView: .doing,
+      self.doneTableView: .done
     ]
 
-    return projectCategory[collectionView]
+    return projectCategory[tableView]
   }
 
   private func fetchItemCount(from projectCategory: ProjectCategory) -> Int {
@@ -150,11 +132,13 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
   }
 }
 
-// MARK: - UICollectionViewDelegate
+// MARK: - UITableViewDelegate
 
-extension ProjectManagerHomeViewController: UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    guard let projectCategory = fetchProejctCategory(from: collectionView) else { return }
+extension ProjectManagerHomeViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+
+    guard let projectCategory = fetchProejctCategory(from: tableView) else { return }
 
     self.presentProjectEditView(projectCategory: projectCategory, indexPath: indexPath)
   }
@@ -178,16 +162,16 @@ extension ProjectManagerHomeViewController: UICollectionViewDelegate {
 
 extension ProjectManagerHomeViewController {
   private func handleLongPress(
-    _ collectionView: UICollectionView,
+    _ tableView: UITableView,
     projectCategory: ProjectCategory,
     gestureRecognizer: UILongPressGestureRecognizer
   ) {
     guard gestureRecognizer.state == .began else { return }
 
-    let touchedLocation = gestureRecognizer.location(in: collectionView)
+    let touchedLocation = gestureRecognizer.location(in: tableView)
 
-    guard let indexPath = collectionView.indexPathForItem(at: touchedLocation) else { return }
-    guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+    guard let indexPath = tableView.indexPathForRow(at: touchedLocation) else { return }
+    guard let cell = tableView.cellForRow(at: indexPath) else { return }
 
     self.presentMoveMenuAlert(
       view: cell.contentView,
