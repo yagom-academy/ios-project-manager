@@ -12,17 +12,12 @@ class EditViewModel: ViewModelType {
     @Published var body: String = ""
     @Published var date: Date = Date()
     
-    func editTask(task: Task) {
-        guard let item = self.service.tasks.filter ({ $0 == task }).first else {
-            return
-        }
+    func doneButtonTapped(task: Task) {
+        var testTask = task
+        testTask.title = title
+        testTask.body = body
+        testTask.date = date
         
-        guard let index = service.tasks.firstIndex(of: item) else {
-            return
-        }
-        
-        service.tasks[index].title = service.tasks[index].title
-        service.tasks[index].body = service.tasks[index].body
-        service.tasks[index].date = service.tasks[index].date
+        self.service.editTask(task: testTask)
     }
 }

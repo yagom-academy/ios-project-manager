@@ -12,7 +12,7 @@ class RegisterViewModel: ViewModelType {
     @Published var body: String = ""
     @Published var date: Date = Date()
     
-    func appendTask() {
-        self.service.tasks.append(Task(title: title, date: date, body: body, type: .todo))
+    func doneButtonTapped() {
+        self.service.addTask(Task(title: title, date: date, body: body, type: .todo))
     }
 }
