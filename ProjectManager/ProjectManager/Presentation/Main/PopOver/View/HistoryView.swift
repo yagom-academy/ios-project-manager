@@ -19,6 +19,7 @@ final class HistoryView: UIView {
 
         setUpTableViews()
         setUpLayout()
+        registerCell()
     }
     
     required init?(coder: NSCoder) {
@@ -38,5 +39,8 @@ final class HistoryView: UIView {
         ])
     }
     
-    
+    private func registerCell() {
+        tableView.register(HistoryCell.self, forCellReuseIdentifier: "\(HistoryCell.self)")
+        tableView.tableFooterView = UIView()
+    }
 }
