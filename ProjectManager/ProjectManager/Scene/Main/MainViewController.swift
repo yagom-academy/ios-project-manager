@@ -95,6 +95,12 @@ final class MainViewController: UIViewController {
             self?.showNetworkErrorAlert()
         })
         .disposed(by: disposebag)
+        
+        viewModel.isConnectedInternet.bind(onNext: { [weak self] in
+            self?.networkLabel.text = $0 ? "Online" : "Offline"
+            self?.stateImage.tintColor = $0 ? .green : .red
+        })
+        .disposed(by: disposebag)
     }
     
     private func bindTableView() {

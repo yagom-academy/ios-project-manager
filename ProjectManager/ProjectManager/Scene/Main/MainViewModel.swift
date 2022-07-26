@@ -8,6 +8,7 @@
 import RxSwift
 import RxRelay
 import RxCocoa
+import Network
 
 protocol MainViewModelInOut: MainViewModelInput, MainViewModelOutput {}
 
@@ -22,6 +23,7 @@ protocol MainViewModelOutput {
     var showEditView: PublishRelay<ListItem> { get }
     var showErrorAlert: PublishRelay<String?> { get }
     var showNetworkErrorAlert: PublishRelay<Void> { get }
+    var isConnectedInternet: PublishRelay<Bool> { get }
 }
 
 protocol MainViewModelInput {
@@ -33,21 +35,37 @@ protocol MainViewModelInput {
 
 final class MainViewModel: MainViewModelInOut {
     private let storage: AppStoregeable
+    private let networkMonitor: NWPathMonitor
 
 //MARK: - output
     let todoList: Driver<[ListItem]>
     let doingList: Driver<[ListItem]>
     let doneList: Driver<[ListItem]>
     
-    init(storage: AppStoregeable) {
+    init(storage: AppStoregeable, networkMonitor: NWPathMonitor) {
         self.storage = storage
-        
+        self.networkMonitor = networkMonitor
         todoList = storage.todoList.asDriver(onErrorJustReturn: [])
         doingList = storage.doingList.asDriver(onErrorJustReturn: [])
         doneList = storage.doneList.asDriver(onErrorJustReturn: [])
-        
+        checkNetwork()
         if UserDefaults.standard.bool(forKey: "lunchedBefore") == false {
             setList()
+        }
+    }
+    
+    private func checkNetwork() {
+        networkMonitor.start(queue: DispatchQueue.global())
+        networkMonitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                DispatchQueue.main.async {
+                    self.isConnectedInternet.accept(true)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.isConnectedInternet.accept(false)
+                }
+            }
         }
     }
     
@@ -79,6 +97,7 @@ final class MainViewModel: MainViewModelInOut {
     let showEditView = PublishRelay<ListItem>()
     let showErrorAlert = PublishRelay<String?>()
     let showNetworkErrorAlert = PublishRelay<Void>()
+    let isConnectedInternet = PublishRelay<Bool>()
 }
 
 //MARK: - input

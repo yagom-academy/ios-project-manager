@@ -4,6 +4,7 @@
 //
 //  Created by 두기 on 2022/07/13.
 //
+import Network
 
 final class Container {
     private let storage: AppStoregeable
@@ -13,7 +14,7 @@ final class Container {
     }
     
     private func makeMainViewModel() -> MainViewModelInOut {
-        return MainViewModel(storage: storage)
+        return MainViewModel(storage: storage, networkMonitor: NWPathMonitor())
     }
     
     func makeAddViewController() -> AddViewController {
