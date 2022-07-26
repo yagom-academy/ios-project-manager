@@ -32,7 +32,7 @@ protocol MainViewModelInput {
 }
 
 final class MainViewModel: MainViewModelInOut {
-    private var storage: AppStoregeable
+    private let storage: AppStoregeable
 
 //MARK: - output
     let todoList: Driver<[ListItem]>
@@ -75,10 +75,10 @@ final class MainViewModel: MainViewModelInOut {
         }
     }
     
-    var showAddView = PublishRelay<Void>()
-    var showEditView = PublishRelay<ListItem>()
-    var showErrorAlert = PublishRelay<String?>()
-    var showNetworkErrorAlert = PublishRelay<Void>()
+    let showAddView = PublishRelay<Void>()
+    let showEditView = PublishRelay<ListItem>()
+    let showErrorAlert = PublishRelay<String?>()
+    let showNetworkErrorAlert = PublishRelay<Void>()
 }
 
 //MARK: - input
