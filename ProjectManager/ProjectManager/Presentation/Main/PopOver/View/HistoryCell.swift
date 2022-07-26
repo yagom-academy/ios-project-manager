@@ -64,7 +64,7 @@ final class HistoryCell: UITableViewCell {
             iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             iconImageView.trailingAnchor.constraint(equalTo: labelStackView.leadingAnchor, constant: -10),
             iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor),
-            iconImageView.widthAnchor.constraint(equalTo: labelStackView.widthAnchor, multiplier: 0.2)
+            iconImageView.widthAnchor.constraint(equalTo: labelStackView.widthAnchor, multiplier: 0.15)
         ])
         
         NSLayoutConstraint.activate([

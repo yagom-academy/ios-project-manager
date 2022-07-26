@@ -34,8 +34,8 @@ final class HistoryViewController: UIViewController {
     private func setUpAttribute(_ source: UIBarButtonItem) {
         modalPresentationStyle = .popover
         preferredContentSize = CGSize(
-            width: historyView.tableView.frame.width,
-            height: historyView.tableView.frame.height
+            width: 600,
+            height: UIScreen.main.bounds.size.height * 0.8
         )
         popoverPresentationController?.permittedArrowDirections = .up
         popoverPresentationController?.barButtonItem = source
