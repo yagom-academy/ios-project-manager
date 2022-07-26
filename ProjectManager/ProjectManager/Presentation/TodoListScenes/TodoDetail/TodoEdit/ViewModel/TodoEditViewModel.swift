@@ -1,5 +1,5 @@
 //
-//  DefaultTodoDetailViewModel.swift
+//  TodoEditViewModel.swift
 //  ProjectManager
 //
 //  Created by 김도연 on 2022/07/06.
@@ -8,6 +8,14 @@
 import Foundation
 import Combine
 
+enum TodoEditViewModelState {
+    case itemEvent(item: Todo)
+    case viewTitleEvent(title: String)
+    case isEdited
+    case dismissEvent
+    case errorEvent(message: String)
+}
+
 protocol TodoEditViewModelInput {
     func viewDidLoad()
     func didTapDoneButton(title: String?, content: String?, deadline: Date?)
@@ -15,7 +23,7 @@ protocol TodoEditViewModelInput {
 }
 
 protocol TodoEditViewModelOutput {
-    var state: PassthroughSubject<TodoEditViewModel.State, Never> { get }
+    var state: PassthroughSubject<TodoEditViewModelState, Never> { get }
 }
 
 protocol TodoEditViewModelable: TodoEditViewModelInput, TodoEditViewModelOutput {}
@@ -23,16 +31,8 @@ protocol TodoEditViewModelable: TodoEditViewModelInput, TodoEditViewModelOutput 
 final class TodoEditViewModel: TodoEditViewModelable {
     
     // MARK: - Output
-    
-    enum State {
-        case itemEvent(item: Todo)
-        case viewTitleEvent(title: String)
-        case isEdited
-        case dismissEvent
-        case errorEvent(message: String)
-    }
-    
-    let state = PassthroughSubject<State, Never>()
+        
+    let state = PassthroughSubject<TodoEditViewModelState, Never>()
     
     private let todo: Todo
     private let todoUseCase: TodoListUseCaseable

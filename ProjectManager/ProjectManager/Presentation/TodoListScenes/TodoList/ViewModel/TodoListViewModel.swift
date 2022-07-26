@@ -7,7 +7,14 @@
 
 import Foundation
 import Combine
-import SwiftUI
+
+enum TodoListViewModelState {
+    case viewTitleEvent(title: String)
+    case errorEvent(message: String)
+    case showEditViewEvent(item: Todo)
+    case showHistoryViewEvent
+    case showCreateViewEvent
+}
 
 protocol TodoListViewModelInput {
     func viewDidLoad()
@@ -17,8 +24,8 @@ protocol TodoListViewModelInput {
 
 protocol TodoListViewModelOutput {
     var isNetworkConnected: AnyPublisher<String, Never> { get }
-    
-    var state: PassthroughSubject<TodoListViewModel.State, Never> { get }
+
+    var state: PassthroughSubject<TodoListViewModelState, Never> { get }
 }
 
 protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
@@ -47,15 +54,7 @@ final class TodoListViewModel: TodoListViewModelable {
         return historyUseCase.todoHistoriesPublisher().eraseToAnyPublisher()
     }
 
-    enum State {
-        case viewTitleEvent(title: String)
-        case errorEvent(message: String)
-        case showEditViewEvent(item: Todo)
-        case showHistoryViewEvent
-        case showCreateViewEvent
-    }
-    
-    let state = PassthroughSubject<State, Never>()
+    let state = PassthroughSubject<TodoListViewModelState, Never>()
     
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable

@@ -28,7 +28,7 @@ extension TodoListRepository: TodoListRepositorible {
         return todoLocalStorage.create(item)
     }
     
-    func todosPublisher() -> CurrentValueSubject< [Todo], Never> {
+    func todosPublisher() -> CurrentValueSubject<[Todo], Never> {
         return todoLocalStorage.todosPublisher()
     }
     

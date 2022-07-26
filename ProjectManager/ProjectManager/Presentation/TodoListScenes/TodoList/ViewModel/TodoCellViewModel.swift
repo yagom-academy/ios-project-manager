@@ -8,12 +8,20 @@
 import Foundation
 import Combine
 
+enum TodoCellViewModelState {
+    case todoTitleEvent(title: String)
+    case todoContentEvent(content: String)
+    case todoDeadlineEvent(deadline: String)
+    case expiredEvent
+    case notExpiredEvent
+}
+
 protocol TodoCellViewModelInput {
     func cellDidBind()
 }
 
 protocol TodoCellViewModelOutput {
-    var state: PassthroughSubject<TodoCellViewModel.State, Never> { get }
+    var state: PassthroughSubject<TodoCellViewModelState, Never> { get }
 }
 
 protocol TodoCellViewModelable: TodoCellViewModelInput, TodoCellViewModelOutput {}
@@ -22,15 +30,7 @@ final class TodoCellViewModel: TodoCellViewModelable {
     
     // MARK: - Output
     
-    enum State {
-        case todoTitleEvent(title: String)
-        case todoContentEvent(content: String)
-        case todoDeadlineEvent(deadline: String)
-        case expiredEvent
-        case notExpiredEvent
-    }
-    
-    let state = PassthroughSubject<State, Never>()
+    let state = PassthroughSubject<TodoCellViewModelState, Never>()
     
     private let todo: Todo
     private let dateformatter: DateFormatter = {

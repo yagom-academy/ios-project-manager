@@ -8,13 +8,18 @@
 import Combine
 import Foundation
 
+enum TodoCreateViewModelState {
+    case dismissEvent
+    case errorEvent(message: String)
+}
+
 protocol TodoCreateViewModelInput {
     func didTapCancelButton()
     func didTapDoneButton(_ title: String?, _ content: String?, _ deadline: Date?)
 }
 
 protocol TodoCreateViewModelOutput {
-    var state: PassthroughSubject<TodoCreateViewModel.State, Never> { get }
+    var state: PassthroughSubject<TodoCreateViewModelState, Never> { get }
 }
 
 protocol TodoCreateViewModelable: TodoCreateViewModelInput, TodoCreateViewModelOutput {}
@@ -22,13 +27,8 @@ protocol TodoCreateViewModelable: TodoCreateViewModelInput, TodoCreateViewModelO
 final class TodoCreateViewModel: TodoCreateViewModelable {
     
     // MARK: - Output
-    
-    enum State {
-        case dismissEvent
-        case errorEvent(message: String)
-    }
-    
-    let state = PassthroughSubject<State, Never>()
+        
+    let state = PassthroughSubject<TodoCreateViewModelState, Never>()
 
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
