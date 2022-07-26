@@ -13,6 +13,7 @@ class AppViewModel: ObservableObject {
   let navigationTitle: String
   @Published var todoList: [Todo]
   @Published var isShowCreateView: Bool
+  @Published var isConnectedNetwork: Bool = false
   
   var todoListViewModel: ListViewModel {
     return ListViewModel(todoService: todoService, status: .todo, update: self.changeStatus) }

@@ -10,6 +10,7 @@ import RealmSwift
 
 class TodoService: ObservableObject {
   let dataManager: DataManager = DataManager()
+  var newtWorkCollection: Bool = true
   
   func creat(todo: Todo) {
     let realmData = TodoRealm()

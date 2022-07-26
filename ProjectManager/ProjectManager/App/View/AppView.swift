@@ -27,14 +27,23 @@ struct AppView: View {
         ListView(viewModel: viewModel.doneListViewModel)
       }
       .background(Color(UIColor.systemGray4))
-      .navigationTitle(viewModel.navigationTitle)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
-        Button(action: {
-          viewModel.plusButtonTapped()
-        }, label: {
-          Image(systemName: "plus")
-        })
+        ToolbarItem(placement: .principal) {
+          HStack {
+            Text(viewModel.navigationTitle)
+              .font(.title)
+            Image(systemName: "circle.fill")
+              .foregroundColor(viewModel.isConnectedNetwork ? .green : .red)
+          }
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+          Button(action: {
+            viewModel.plusButtonTapped()
+          }, label: {
+            Image(systemName: "plus")
+          })
+        }
       }
       .sheet(isPresented: $viewModel.isShowCreateView) {
         CreateView(viewModel: viewModel.createViewModel)

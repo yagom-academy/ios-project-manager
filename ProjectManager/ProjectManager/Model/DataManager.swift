@@ -28,21 +28,24 @@ class DataManager {
         return
       }
       
-      for documnet in snapShot.documents {
-        let data = documnet.data()
+      DispatchQueue.main.async {
         
-        let id = data["id"] as? String ?? ""
-        let title = data["title"] as? String ?? ""
-        let content = data["content"] as? String ?? ""
-        let date = data["date"] as? Date ?? Date()
-        let status = data["status"] as? String ?? ""
-        
-        let todo = Todo(id: UUID(uuidString: id) ?? UUID(),
-                        title: title,
-                        content: content,
-                        date: date,
-                        status: Status(rawValue: status) ?? Status.todo)
-        todoList.append(todo)
+        for documnet in snapShot.documents {
+          let data = documnet.data()
+          
+          let id = data["id"] as? String ?? ""
+          let title = data["title"] as? String ?? ""
+          let content = data["content"] as? String ?? ""
+          let date = data["date"] as? Date ?? Date()
+          let status = data["status"] as? String ?? ""
+          
+          let todo = Todo(id: UUID(uuidString: id) ?? UUID(),
+                          title: title,
+                          content: content,
+                          date: date,
+                          status: Status(rawValue: status) ?? Status.todo)
+          todoList.append(todo)
+        }
       }
     }
     return todoList
