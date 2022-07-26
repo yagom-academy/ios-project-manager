@@ -16,7 +16,7 @@
 		306C5A3B288AC30600765DD9 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306C5A3A288AC30600765DD9 /* HistoryViewModel.swift */; };
 		306C5A3F288ADE4700765DD9 /* UITableViewCell+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306C5A3E288ADE4700765DD9 /* UITableViewCell+Sugar.swift */; };
 		306C5A41288ADE6800765DD9 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306C5A40288ADE6800765DD9 /* History.swift */; };
-		306C5A43288ADEC400765DD9 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306C5A42288ADEC400765DD9 /* Action.swift */; };
+		306C5A43288ADEC400765DD9 /* HistoryAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306C5A42288ADEC400765DD9 /* HistoryAction.swift */; };
 		306C5A45288ADF0100765DD9 /* HistoryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306C5A44288ADF0100765DD9 /* HistoryStatus.swift */; };
 		307DFCDA288059120030873F /* Reactive+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DFCD9288059120030873F /* Reactive+Sugar.swift */; };
 		3088777C2875CD7800057592 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3088777B2875CD7800057592 /* ListView.swift */; };
@@ -72,7 +72,7 @@
 		306C5A3A288AC30600765DD9 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		306C5A3E288ADE4700765DD9 /* UITableViewCell+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Sugar.swift"; sourceTree = "<group>"; };
 		306C5A40288ADE6800765DD9 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		306C5A42288ADEC400765DD9 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		306C5A42288ADEC400765DD9 /* HistoryAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAction.swift; sourceTree = "<group>"; };
 		306C5A44288ADF0100765DD9 /* HistoryStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatus.swift; sourceTree = "<group>"; };
 		307DFCD9288059120030873F /* Reactive+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Sugar.swift"; sourceTree = "<group>"; };
 		3088777B2875CD7800057592 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 				307DFCD9288059120030873F /* Reactive+Sugar.swift */,
 				3043996028810EE800D154C7 /* ColorPalete.swift */,
 				306C5A3E288ADE4700765DD9 /* UITableViewCell+Sugar.swift */,
-				306C5A42288ADEC400765DD9 /* Action.swift */,
+				306C5A42288ADEC400765DD9 /* HistoryAction.swift */,
 				64E7AD37288C0E28008A424B /* Todo+Serializable.swift */,
 				306C5A44288ADF0100765DD9 /* HistoryStatus.swift */,
 			);
@@ -428,7 +428,7 @@
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				64E7AD38288C0E28008A424B /* Todo+Serializable.swift in Sources */,
-				306C5A43288ADEC400765DD9 /* Action.swift in Sources */,
+				306C5A43288ADEC400765DD9 /* HistoryAction.swift in Sources */,
 				306C5A37288AC1E200765DD9 /* HistoryViewController.swift in Sources */,
 				64371B03287EEB1500F78AAA /* TempData.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

@@ -42,7 +42,7 @@ struct Todo {
         )
     }
     
-    func convertHistory(action: Action, status: HistoryStatus) -> History {
+    func convertHistory(action: HistoryAction, status: HistoryStatus) -> History {
         return History(
             action: action,
             title: self.title,

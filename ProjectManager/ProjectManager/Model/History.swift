@@ -8,7 +8,7 @@
 import Foundation
 
 struct History {
-    let action: Action
+    let action: HistoryAction
     let title: String
     let status: HistoryStatus
     let date: Date
