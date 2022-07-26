@@ -134,9 +134,10 @@ final class MainViewController: UIViewController {
     }
     
     private func presentRegistrationView() {
-        let next = UINavigationController(rootViewController: RegistrationViewController())
+        let next = RegistrationViewController()
         
-        next.modalPresentationStyle = .formSheet
+        next.modalPresentationStyle = .overCurrentContext
+        next.modalTransitionStyle = .crossDissolve
         
         present(next, animated: true)
     }

@@ -21,39 +21,26 @@ final class RegistrationViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        view = modalView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpLayout()
         setUpNavigationItem()
         registerNotification()
+        setUpAttribute()
     }
     
     private func setUpNavigationItem() {
-        navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationItem.title = ProjectStatus.todo.string
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: nil,
-            action: nil
-        )
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: nil,
-            action: nil
-        )
+        modalView.navigationBar.modalTitle.text = ProjectStatus.todo.string
+        modalView.navigationBar.leftButton.setTitle("cancel", for: .normal)
+        modalView.navigationBar.rightButton.setTitle("done", for: .normal)
         
         didTapCancelButton()
         didTapSaveButton()
     }
     
     private func didTapCancelButton() {
-        guard let cancelButton = navigationItem.leftBarButtonItem else {
-            return
-        }
+        let cancelButton = modalView.navigationBar.leftButton
         
         cancelButton.rx.tap
             .asDriver()
@@ -64,9 +51,7 @@ final class RegistrationViewController: UIViewController {
     }
     
     private func didTapSaveButton() {
-        guard let saveButton = navigationItem.rightBarButtonItem else {
-            return
-        }
+        let saveButton = modalView.navigationBar.rightButton
         
         saveButton.rx.tap
             .asDriver()
@@ -85,6 +70,23 @@ final class RegistrationViewController: UIViewController {
         let date = modalView.datePicker.date
         
         viewModel.registrate(title: title, date: date, body: body)
+    }
+    
+    private func setUpAttribute() {
+        view.backgroundColor = .black.withAlphaComponent(0.5)
+    }
+    
+    private func setUpLayout() {
+        view.addSubview(modalView)
+        
+        modalView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            modalView.widthAnchor.constraint(equalToConstant: 500),
+            modalView.heightAnchor.constraint(equalToConstant: 600),
+            modalView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            modalView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 }
 

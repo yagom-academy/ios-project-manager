@@ -8,6 +8,8 @@
 import UIKit
 
 final class ModalView: UIView {
+    let navigationBar = ModalNavigationBar()
+    
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
         drawBorder(view: textField, color: .systemGray6)
@@ -62,7 +64,7 @@ final class ModalView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setUpBackgroundColor()
+        setUpAttribute()
         setUpContents()
         setUpLayout()
     }
@@ -77,11 +79,13 @@ final class ModalView: UIView {
         view.layer.cornerRadius = 5
     }
     
-    private func setUpBackgroundColor() {
+    private func setUpAttribute() {
         backgroundColor = .systemBackground
+        layer.cornerRadius = 10
     }
     
     private func setUpContents() {
+        addSubview(navigationBar)
         addSubview(scrollView)
         
         scrollView.addSubview(baseStackView)
@@ -92,8 +96,17 @@ final class ModalView: UIView {
     }
     
     private func setUpLayout() {
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            navigationBar.topAnchor.constraint(equalTo: topAnchor),
+            navigationBar.bottomAnchor.constraint(equalTo: scrollView.topAnchor, constant: -10),
+            navigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            navigationBar.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        NSLayoutConstraint.activate([
             scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             scrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10)
