@@ -20,6 +20,8 @@ final class CardListViewController: UIViewController {
     static let wifiConnectedImageName = "wifi"
     static let wifiDisConnectedImageName = "wifi.slash"
     static let syncCompletionMessage = "동기화가 완료되었습니다"
+    static let undoButtonTitle = "Undo"
+    static let redoButtonTitle = "Redo"
     static let intervalBetweenTableViews = 20.0
   }
   
@@ -40,6 +42,14 @@ final class CardListViewController: UIViewController {
     $0.spacing = UISettings.intervalBetweenTableViews
     $0.translatesAutoresizingMaskIntoConstraints = false
   }
+  private let undoButton = UIBarButtonItem().then {
+    $0.title = UISettings.undoButtonTitle
+    $0.isEnabled = false
+  }
+  private let redoButton = UIBarButtonItem().then {
+    $0.title = UISettings.redoButtonTitle
+    $0.isEnabled = false
+  }
   
   private let monitor = NWPathMonitor()
   private let disposeBag = DisposeBag()
@@ -52,6 +62,7 @@ final class CardListViewController: UIViewController {
     super.init(nibName: nil, bundle: nil)
     configureTableViews()
     configureNavigationItem()
+    configureToolbar()
   }
   
   required init?(coder: NSCoder) {
@@ -246,6 +257,11 @@ extension CardListViewController {
     title = UISettings.navigationTitle
     navigationItem.leftBarButtonItem = historyButton
     navigationItem.rightBarButtonItems = [cardAdditionButton, wifiIndicatorButton]
+  }
+  
+  private func configureToolbar() {
+    let flexible = UIBarButtonItem.flexibleSpace()
+    toolbarItems = [flexible, undoButton, redoButton]
   }
   
   private func configureTableViews() {

@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     AppAppearance.configureNavigationBar()
     let navigationController = UINavigationController()
+    navigationController.isToolbarHidden = false
     
     window = UIWindow(windowScene: windowScene)
     window?.rootViewController = navigationController
