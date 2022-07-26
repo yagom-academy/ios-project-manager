@@ -14,9 +14,9 @@ final class PersistentRepository {
     
     private init() { }
     
-    private lazy var projectEntities = BehaviorRelay<[ProjectContent]>(value: fetchCoreDate())
+    private lazy var projectEntities = BehaviorRelay<[ProjectEntity]>(value: fetchCoreDate())
     
-    private func fetchCoreDate() -> [ProjectContent] {
+    private func fetchCoreDate() -> [ProjectEntity] {
         let currentProjects = persistentManager.read()
         let contents = currentProjects.compactMap { parse(from: $0) }
         
@@ -25,25 +25,25 @@ final class PersistentRepository {
 }
 
 extension PersistentRepository: Storagable {
-    func create(projectContent: ProjectContent) {
+    func create(projectContent: ProjectEntity) {
         createCoreDate(newProjectContent: projectContent)
         createProjectEntities(newProjectContent: projectContent)
     }
     
-    func create(projectContents: [ProjectContent]) {
+    func create(projectContents: [ProjectEntity]) {
         createCoreDate(newProjectContents: projectContents)
         createProjectEntities(newProjectContents: projectContents)
     }
     
-    func read() -> BehaviorRelay<[ProjectContent]> {
+    func read() -> BehaviorRelay<[ProjectEntity]> {
         return projectEntities
     }
     
-    func read(id: UUID?) -> ProjectContent? {
+    func read(id: UUID?) -> ProjectEntity? {
         return projectEntities.value.filter { $0.id == id }.first
     }
     
-    func update(projectContent: ProjectContent) {
+    func update(projectContent: ProjectEntity) {
         updateCoreDate(newProjectContent: projectContent)
         updateProjectEntities(newProjectContent: projectContent)
     }
@@ -60,7 +60,7 @@ extension PersistentRepository: Storagable {
 }
 
 extension PersistentRepository {
-    private func createCoreDate(newProjectContent: ProjectContent) {
+    private func createCoreDate(newProjectContent: ProjectEntity) {
         guard let newProject = parse(from: newProjectContent) else {
             return
         }
@@ -68,14 +68,14 @@ extension PersistentRepository {
         persistentManager.create(project: newProject)
     }
     
-    private func createProjectEntities(newProjectContent: ProjectContent) {
+    private func createProjectEntities(newProjectContent: ProjectEntity) {
         var projectContents = projectEntities.value
         
         projectContents.append(newProjectContent)
         projectEntities.accept(projectContents)
     }
     
-    private func createCoreDate(newProjectContents: [ProjectContent]) {
+    private func createCoreDate(newProjectContents: [ProjectEntity]) {
         let newProjects = newProjectContents.compactMap {
             parse(from: $0)
         }
@@ -83,11 +83,11 @@ extension PersistentRepository {
         persistentManager.create(projects: newProjects)
     }
     
-    private func createProjectEntities(newProjectContents: [ProjectContent]) {
+    private func createProjectEntities(newProjectContents: [ProjectEntity]) {
         projectEntities.accept(newProjectContents)
     }
     
-    private func updateCoreDate(newProjectContent: ProjectContent) {
+    private func updateCoreDate(newProjectContent: ProjectEntity) {
         guard let newProject = parse(from: newProjectContent) else {
             return
         }
@@ -95,7 +95,7 @@ extension PersistentRepository {
         persistentManager.update(project: newProject)
     }
     
-    private func updateProjectEntities(newProjectContent: ProjectContent) {
+    private func updateProjectEntities(newProjectContent: ProjectEntity) {
         let projects = projectEntities.value
         
         if let indexToUpdated = projects.firstIndex(where: { $0.id == newProjectContent.id}) {
@@ -131,7 +131,7 @@ extension PersistentRepository {
 }
 
 extension PersistentRepository {
-    func parse(from project: Project) -> ProjectContent? {
+    func parse(from project: Project) -> ProjectEntity? {
         guard let id = project.id,
               let status = ProjectStatus.convert(statusString: project.status),
               let title = project.title,
@@ -140,7 +140,7 @@ extension PersistentRepository {
             return nil
         }
         
-        return ProjectContent(
+        return ProjectEntity(
             id: id,
             status: status,
             title: title,
@@ -149,7 +149,7 @@ extension PersistentRepository {
         )
     }
     
-    func parse(from projectContent: ProjectContent) -> ProjectDTO? {
+    func parse(from projectContent: ProjectEntity) -> ProjectDTO? {
         return ProjectDTO(
             id: projectContent.id.uuidString,
             status: projectContent.status.string,

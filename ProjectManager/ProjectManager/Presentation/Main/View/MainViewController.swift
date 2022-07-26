@@ -182,7 +182,7 @@ final class MainViewController: UIViewController {
         bindCell(to: viewModel.asDoneProjects(), at: mainView.doneTable.tableView)
     }
     
-    private func bindCell(to projects: Driver<[ProjectContent]>, at tableView: UITableView) {
+    private func bindCell(to projects: Driver<[ProjectEntity]>, at tableView: UITableView) {
         projects
             .drive(tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
@@ -201,7 +201,7 @@ final class MainViewController: UIViewController {
     
     private func bindModelDeleted(at tableView: UITableView) {
         tableView.rx
-            .modelDeleted(ProjectContent.self)
+            .modelDeleted(ProjectEntity.self)
             .asDriver()
             .drive { [weak self] project in
                 self?.viewModel.deleteProject(project)
@@ -215,7 +215,7 @@ final class MainViewController: UIViewController {
         bindCountLabel(of: mainView.doneTable, to: viewModel.asDoneProjects())
     }
     
-    private func bindCountLabel(of tableView: ProjectListView, to projects: Driver<[ProjectContent]>) {
+    private func bindCountLabel(of tableView: ProjectListView, to projects: Driver<[ProjectEntity]>) {
         projects
             .map { "\($0.count)" }
             .drive { count in

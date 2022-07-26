@@ -26,7 +26,7 @@ final class DetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var mode: Mode = .display
     
-    init(content: ProjectContent) {
+    init(content: ProjectEntity) {
         self.viewModel = DetailViewModel(content: content)
         super.init(nibName: nil, bundle: nil)
     }

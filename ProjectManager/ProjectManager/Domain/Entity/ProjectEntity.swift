@@ -61,7 +61,7 @@ enum ProjectStatus {
     }
 }
 
-struct ProjectContent {
+struct ProjectEntity {
     let id: UUID
     var status: ProjectStatus
     var title: String
@@ -94,8 +94,8 @@ struct ProjectContent {
     }
 }
 
-extension ProjectContent {
-    static func == (lhs: ProjectContent, rhs: ProjectContent) -> Bool {
+extension ProjectEntity {
+    static func == (lhs: ProjectEntity, rhs: ProjectEntity) -> Bool {
         return lhs.id == rhs.id
     }
 }

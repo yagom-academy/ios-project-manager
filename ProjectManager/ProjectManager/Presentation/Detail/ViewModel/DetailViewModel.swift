@@ -8,26 +8,26 @@
 import Foundation
 
 struct DetailViewModel {
-    private let content: ProjectContent
+    private let content: ProjectEntity
     
-    init(content: ProjectContent) {
+    init(content: ProjectEntity) {
         self.content = content
     }
     
-    func read() -> ProjectContent? {
+    func read() -> ProjectEntity? {
         return ProjectUseCase().read(id: content.id)
     }
     
-    func update(_ content: ProjectContent) {
+    func update(_ content: ProjectEntity) {
         ProjectUseCase().update(projectContent: content)
         updateHistory(by: content)
     }
     
-    func asContent() -> ProjectContent {
+    func asContent() -> ProjectEntity {
         return content
     }
     
-    private func updateHistory(by content: ProjectContent) {
+    private func updateHistory(by content: ProjectEntity) {
         let historyEntity = HistoryEntity(
             editedType: .edit,
             title: content.title,

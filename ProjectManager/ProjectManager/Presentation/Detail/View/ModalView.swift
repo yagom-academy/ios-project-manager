@@ -129,7 +129,7 @@ final class ModalView: UIView {
         ])
     }
     
-    func compose(content: ProjectContent) {
+    func compose(content: ProjectEntity) {
         guard let formattedDate = DateFormatter().formatted(string: content.deadline) else {
             return
         }
@@ -146,7 +146,7 @@ final class ModalView: UIView {
         changeColor(isEnable)
     }
     
-    func change(_ content: ProjectContent) -> ProjectContent {
+    func change(_ content: ProjectEntity) -> ProjectEntity {
         var newContent = content
         newContent.editContent(
             title: titleTextField.text,

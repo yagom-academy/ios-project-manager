@@ -73,7 +73,7 @@ final class ProjectCell: UITableViewCell {
         ])
     }
     
-    func compose(content: ProjectContent) {
+    func compose(content: ProjectEntity) {
         guard let formattedDate = DateFormatter().formatted(string: content.deadline) else {
             return
         }

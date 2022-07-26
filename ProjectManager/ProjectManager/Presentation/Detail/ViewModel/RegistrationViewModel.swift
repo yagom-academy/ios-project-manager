@@ -9,7 +9,7 @@ import Foundation
 
 struct RegistrationViewModel {
     func registrate(title: String, date: Date, body: String) {
-        let newProject = ProjectContent(
+        let newProject = ProjectEntity(
             title: title,
             deadline: date,
             body: body
@@ -19,7 +19,7 @@ struct RegistrationViewModel {
         registrateHistory(by: newProject)
     }
     
-    private func registrateHistory(by content: ProjectContent) {
+    private func registrateHistory(by content: ProjectEntity) {
         let historyEntity = HistoryEntity(
             editedType: .register,
             title: content.title,

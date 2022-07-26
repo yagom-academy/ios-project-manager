@@ -9,11 +9,11 @@ import RxSwift
 import RxRelay
 
 protocol Storagable {
-    func create(projectContent: ProjectContent)
-    func create(projectContents: [ProjectContent])
-    func read() -> BehaviorRelay<[ProjectContent]>
-    func read(id: UUID?) -> ProjectContent?
-    func update(projectContent: ProjectContent)
+    func create(projectContent: ProjectEntity)
+    func create(projectContents: [ProjectEntity])
+    func read() -> BehaviorRelay<[ProjectEntity]>
+    func read(id: UUID?) -> ProjectEntity?
+    func update(projectContent: ProjectEntity)
     func delete(projectContentID: UUID?)
     func deleteAll()
 }
@@ -27,23 +27,23 @@ struct ProjectRepository {
 }
 
 extension ProjectRepository {
-    func create(projectContent: ProjectContent) {
+    func create(projectContent: ProjectEntity) {
         storageManager.create(projectContent: projectContent)
     }
     
-    func create(projectContents: [ProjectContent]) {
+    func create(projectContents: [ProjectEntity]) {
         storageManager.create(projectContents: projectContents)
     }
     
-    func read() -> BehaviorRelay<[ProjectContent]> {
+    func read() -> BehaviorRelay<[ProjectEntity]> {
         return storageManager.read()
     }
     
-    func read(id: UUID?) -> ProjectContent? {
+    func read(id: UUID?) -> ProjectEntity? {
         return storageManager.read(id: id)
     }
     
-    func update(projectContent: ProjectContent) {
+    func update(projectContent: ProjectEntity) {
         storageManager.update(projectContent: projectContent)
     }
     

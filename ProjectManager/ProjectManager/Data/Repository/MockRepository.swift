@@ -13,29 +13,29 @@ final class MockRepository {
     
     private init() { }
     
-    private var projectEntities = BehaviorRelay<[ProjectContent]>(value: [])
+    private var projectEntities = BehaviorRelay<[ProjectEntity]>(value: [])
 }
 
 extension MockRepository: Storagable {
-    func create(projectContent: ProjectContent) {
+    func create(projectContent: ProjectEntity) {
         var currentProject = read().value
         currentProject.append(projectContent)
         projectEntities.accept(currentProject)
     }
     
-    func create(projectContents: [ProjectContent]) {
+    func create(projectContents: [ProjectEntity]) {
         projectEntities.accept(projectContents)
     }
     
-    func read() -> BehaviorRelay<[ProjectContent]> {
+    func read() -> BehaviorRelay<[ProjectEntity]> {
         return projectEntities
     }
     
-    func read(id: UUID?) -> ProjectContent? {
+    func read(id: UUID?) -> ProjectEntity? {
         return projectEntities.value.filter { $0.id == id }.first
     }
     
-    func update(projectContent: ProjectContent) {
+    func update(projectContent: ProjectEntity) {
         let projects = projectEntities.value
         
         if let indexToUpdated = projects.firstIndex(where: { $0.id == projectContent.id}) {

@@ -10,32 +10,32 @@ import RxCocoa
 import RxGesture
 
 struct MainViewModel {
-    private let projects: BehaviorRelay<[ProjectContent]> = {
+    private let projects: BehaviorRelay<[ProjectEntity]> = {
         return ProjectUseCase().read()
     }()
 
-    func deleteProject(_ content: ProjectContent) {
+    func deleteProject(_ content: ProjectEntity) {
         ProjectUseCase().delete(projectContentID: content.id)
         deleteHistory(by: content)
     }
     
-    func readProject(_ id: UUID?) -> ProjectContent? {
+    func readProject(_ id: UUID?) -> ProjectEntity? {
         return ProjectUseCase().read(id: id)
     }
     
-    func asTodoProjects() -> Driver<[ProjectContent]> {
+    func asTodoProjects() -> Driver<[ProjectEntity]> {
         return projects
             .map { $0.filter { $0.status == .todo } }
             .asDriver(onErrorJustReturn: [])
     }
     
-    func asDoingProjects() -> Driver<[ProjectContent]> {
+    func asDoingProjects() -> Driver<[ProjectEntity]> {
         return projects
             .map { $0.filter { $0.status == .doing } }
             .asDriver(onErrorJustReturn: [])
     }
     
-    func asDoneProjects() -> Driver<[ProjectContent]> {
+    func asDoneProjects() -> Driver<[ProjectEntity]> {
         return projects
             .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
@@ -45,7 +45,7 @@ struct MainViewModel {
         return ProjectUseCase().load()
     }
     
-    private func deleteHistory(by content: ProjectContent) {
+    private func deleteHistory(by content: ProjectEntity) {
         let historyEntity = HistoryEntity(
             editedType: .delete,
             title: content.title,

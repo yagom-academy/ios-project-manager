@@ -46,7 +46,7 @@ extension NetworkRepository {
 }
 
 extension NetworkRepository {
-    func parse(from project: ProjectDTO) -> ProjectContent? {
+    func parse(from project: ProjectDTO) -> ProjectEntity? {
         guard let status = ProjectStatus.convert(statusString: project.status),
               let id = UUID(uuidString: project.id),
               let unixTime = Double(project.deadline) else {
@@ -57,7 +57,7 @@ extension NetworkRepository {
         let title = project.title
         let body = project.body
         
-        return ProjectContent(
+        return ProjectEntity(
             id: id,
             status: status,
             title: title,
@@ -66,7 +66,7 @@ extension NetworkRepository {
         )
     }
     
-    func parse(from projectContent: ProjectContent) -> ProjectDTO? {
+    func parse(from projectContent: ProjectEntity) -> ProjectDTO? {
         guard let date = DateFormatter().formatted(string: projectContent.deadline) else {
             return nil
         }

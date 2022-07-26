@@ -16,19 +16,19 @@ struct ProjectUseCase {
     #endif
     private let historyRepository = HistoryRepository(storageManager: MockHistoryRepository.shared)
 
-    func create(projectContent: ProjectContent) {
+    func create(projectContent: ProjectEntity) {
         repository.create(projectContent: projectContent)
     }
     
-    func read() -> BehaviorRelay<[ProjectContent]> {
+    func read() -> BehaviorRelay<[ProjectEntity]> {
         return repository.read()
     }
     
-    func read(id: UUID?) -> ProjectContent? {
+    func read(id: UUID?) -> ProjectEntity? {
         return repository.read(id: id)
     }
     
-    func update(projectContent: ProjectContent) {
+    func update(projectContent: ProjectEntity) {
         repository.update(projectContent: projectContent)
     }
     
