@@ -15,7 +15,6 @@ protocol TodoListUseCase {
     func createItem(to data: TodoModel)
     func updateItem(to item: TodoModel)
     func deleteItem(id: UUID)
-    func checkDeadline(time: Date) -> Bool
     func firstMoveState(item: TodoModel)
     func secondMoveState(item: TodoModel)
     var errorObserver: PublishRelay<TodoError> { get }
@@ -79,10 +78,6 @@ extension DefaultTodoListUseCase: TodoListUseCase {
         listRepository.delete(index: index)
     }
     
-    func checkDeadline(time: Date) -> Bool {
-        return time + 24 * 60 * 60 < Date()
-    }
-
     func firstMoveState(item: TodoModel) {
         switch item.state {
         case .todo:
