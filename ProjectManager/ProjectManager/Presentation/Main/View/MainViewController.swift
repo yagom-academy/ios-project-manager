@@ -9,6 +9,12 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
+private enum ImageConstant {
+    static let connectedNetwork = "wifi"
+    static let unconnectedNetwork = "wifi.slash"
+    static let fetchingNetworkData = "icloud.and.arrow.down"
+}
+
 final class MainViewController: UIViewController {
     private let mainView = MainView(frame: .zero)
     private let viewModel = MainViewModel()
@@ -39,7 +45,9 @@ final class MainViewController: UIViewController {
             action: nil
         )
         
-        let networkConditionImage = UIImage(systemName: "wifi")?.withTintColor(
+        let networkConditionImage = UIImage(
+            systemName: ImageConstant.connectedNetwork
+        )?.withTintColor(
             .systemBlue,
             renderingMode: .alwaysOriginal
         )
@@ -53,7 +61,7 @@ final class MainViewController: UIViewController {
         networkConditionItem.isEnabled = false
         
         let loadButton = UIBarButtonItem(
-            image: UIImage(systemName: "icloud.and.arrow.down"),
+            image: UIImage(systemName: ImageConstant.fetchingNetworkData),
             style: .done,
             target: nil,
             action: nil
@@ -65,7 +73,12 @@ final class MainViewController: UIViewController {
         
         NetworkCondition.sharedInstance.delegate = self
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "History", style: .plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "History",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
         didTapHistoryButton()
     }
     
@@ -277,14 +290,18 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: NetworkConditionDelegate {
     func applyNetworkEnable() {
-        navigationItem.rightBarButtonItems?[2].image = UIImage(systemName: "wifi")?.withTintColor(
+        navigationItem.rightBarButtonItems?[2].image = UIImage(
+            systemName: ImageConstant.connectedNetwork
+        )?.withTintColor(
             .systemBlue,
             renderingMode: .alwaysOriginal
         )
     }
     
     func applyNetworkUnable() {
-        navigationItem.rightBarButtonItems?[2].image = UIImage(systemName: "wifi.slash")?.withTintColor(
+        navigationItem.rightBarButtonItems?[2].image = UIImage(
+            systemName: ImageConstant.unconnectedNetwork
+        )?.withTintColor(
             .systemRed,
             renderingMode: .alwaysOriginal
         )
