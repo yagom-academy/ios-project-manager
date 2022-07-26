@@ -13,17 +13,6 @@ struct ListItem {
     var deadline: Date
     var type: ListType = .todo
     let id: String
-    
-    var convertedItem: ListItemDTO {
-        let itemModel = ListItemDTO()
-        itemModel.title = self.title
-        itemModel.body = self.body
-        itemModel.deadline = self.deadline
-        itemModel.type = self.type.rawValue
-        itemModel.id = self.id
-        
-        return itemModel
-    }
 }
 
 enum ListType: String {

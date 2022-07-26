@@ -22,6 +22,17 @@ final class LocalStorageManager: LocalStorageManagerable {
         self.networkStorageManager = networkStorageManager
     }
     
+    private func convertedItem(_ item: ListItem) -> ListItemDTO {
+            let itemModel = ListItemDTO()
+            itemModel.title = item.title
+            itemModel.body = item.body
+            itemModel.deadline = item.deadline
+            itemModel.type = item.type.rawValue
+            itemModel.id = item.id
+            
+            return itemModel
+    }
+    
     private func selectListModel(_ type: ListType) -> List<ListItemDTO> {
         guard let realm = try? Realm() else {
             return List<ListItemDTO>()
@@ -62,17 +73,17 @@ final class LocalStorageManager: LocalStorageManagerable {
         do {
             if realm.objects(LocalStorage.self).isEmpty {
                 let listModel = LocalStorage()
-                listModel.todoList.append(item.convertedItem)
+                listModel.todoList.append(convertedItem(item))
                 
                 try realm.write {
                     realm.add(listModel)
                 }
             } else {
                 try realm.write {
-                    selectListModel(item.type).append(item.convertedItem)
+                    selectListModel(item.type).append(convertedItem(item))
                 }
             }
-            networkStorageManager.create(item.convertedItem)
+            networkStorageManager.create(convertedItem(item))
         } catch {
             throw StorageError.creatError
         }
@@ -90,7 +101,7 @@ final class LocalStorageManager: LocalStorageManagerable {
                 itemModel?.deadline = item.deadline
                 itemModel?.body = item.body
             }
-            networkStorageManager.updateItem(item.convertedItem)
+            networkStorageManager.updateItem(convertedItem(item))
         } catch {
             throw StorageError.updateError
         }
@@ -108,7 +119,7 @@ final class LocalStorageManager: LocalStorageManagerable {
             try realm?.write {
                 realm?.delete(itemModel)
             }
-            networkStorageManager.deleteItem(item.convertedItem)
+            networkStorageManager.deleteItem(convertedItem(item))
         } catch {
             throw StorageError.deleteError
         }
