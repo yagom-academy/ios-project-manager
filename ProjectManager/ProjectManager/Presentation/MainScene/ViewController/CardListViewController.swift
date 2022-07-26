@@ -5,6 +5,7 @@
 //  Created by Lingo on 2022/07/04.
 //
 
+import Network
 import UIKit
 
 import RxCocoa
@@ -15,6 +16,10 @@ final class CardListViewController: UIViewController {
   private enum UISettings {
     static let navigationTitle = "Project Manager"
     static let cardAdditionButtonImage = "plus"
+    static let historyButtonTitle = "History"
+    static let wifiConnectedImageName = "wifi"
+    static let wifiDisConnectedImageName = "wifi.slash"
+    static let syncCompletionMessage = "동기화가 완료되었습니다"
     static let intervalBetweenTableViews = 20.0
   }
   
@@ -22,6 +27,10 @@ final class CardListViewController: UIViewController {
   private let doingSectionView = CardSectionView(sectionType: .doing)
   private let doneSectionView = CardSectionView(sectionType: .done)
   
+  private let wifiIndicatorButton = UIBarButtonItem()
+  private let historyButton = UIBarButtonItem().then {
+    $0.title = UISettings.historyButtonTitle
+  }
   private let cardAdditionButton = UIBarButtonItem().then {
     $0.image = UIImage(systemName: UISettings.cardAdditionButtonImage)
   }
@@ -32,14 +41,15 @@ final class CardListViewController: UIViewController {
     $0.translatesAutoresizingMaskIntoConstraints = false
   }
   
+  private let monitor = NWPathMonitor()
   private let disposeBag = DisposeBag()
   private let viewModel: CardListViewModelable
+  private weak var coordinator: CardCoordinator?
   
-  init(viewModel: CardListViewModelable) {
+  init(viewModel: CardListViewModelable, coordinator: CardCoordinator) {
     self.viewModel = viewModel
+    self.coordinator = coordinator
     super.init(nibName: nil, bundle: nil)
-    configureSubViews()
-    configureLayouts()
     configureTableViews()
     configureNavigationItem()
   }
@@ -50,6 +60,8 @@ final class CardListViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureSubViews()
+    configureLayouts()
     bindUI()
   }
   
@@ -63,10 +75,37 @@ final class CardListViewController: UIViewController {
     cardAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
         guard let self = self else { return }
-        let cardAdditionViewController = CardAdditionViewController(viewModel: self.viewModel)
-        cardAdditionViewController.modalPresentationStyle = .formSheet
-        self.present(cardAdditionViewController, animated: true)
+        self.coordinator?.toAddition()
       })
+      .disposed(by: disposeBag)
+    
+    historyButton.rx.tap
+      .withLatestFrom(viewModel.histories)
+      .withUnretained(self)
+      .map { wself, histories in
+        histories.map { wself.viewModel.toCardHistoryViewModelItem(history: $0)}
+      }
+      .withUnretained(self)
+      .bind(onNext: { wself, histories in
+        CardHistoryViewController.presentHistoryPopover(wself, with: histories, on: wself.historyButton)
+      })
+      .disposed(by: disposeBag)
+    
+    monitor.rx.pathUpdated
+      .map { $0.status == .satisfied
+        ? UIImage(systemName: UISettings.wifiConnectedImageName)
+        : UIImage(systemName: UISettings.wifiDisConnectedImageName)
+      }
+      .observe(on: MainScheduler.instance)
+      .bind(to: wifiIndicatorButton.rx.image)
+      .disposed(by: disposeBag)
+    
+    wifiIndicatorButton.rx.tap
+      .throttle(.seconds(3), latest: false, scheduler: MainScheduler.instance)
+      .withUnretained(self)
+      .flatMap { wself, _ in wself.viewModel.fetchCards() }
+      .map { UISettings.syncCompletionMessage }
+      .bind(onNext: showToastLabel(_:))
       .disposed(by: disposeBag)
   }
   
@@ -88,6 +127,11 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSectionsItems() {
+    viewModel.fetchCards()
+      .map { UISettings.syncCompletionMessage }
+      .bind(onNext: showToastLabel(_:))
+      .disposed(by: disposeBag)
+    
     viewModel.todoCards
       .drive(todoSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
@@ -120,67 +164,71 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSectionsItemSelected() {
-    Observable.of(
-      Observable.zip(
-        todoSectionView.tableView.rx.itemSelected,
-        todoSectionView.tableView.rx.modelSelected(Card.self)
-      ),
-      Observable.zip(
-        doingSectionView.tableView.rx.itemSelected,
-        doingSectionView.tableView.rx.modelSelected(Card.self)
-      ),
-      Observable.zip(
-        doneSectionView.tableView.rx.itemSelected,
-        doneSectionView.tableView.rx.modelSelected(Card.self)
-      )
+    Observable.zip(
+      todoSectionView.tableView.rx.itemSelected,
+      todoSectionView.tableView.rx.modelSelected(Card.self)
     )
-    .merge()
     .bind(onNext: { [weak self] indexPath, card in
       guard let self = self else { return }
       self.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
-      cardDetailViewController.modalPresentationStyle = .formSheet
-      self.present(cardDetailViewController, animated: true)
+      self.coordinator?.toDetail(of: card)
+    })
+    .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doingSectionView.tableView.rx.itemSelected,
+      doingSectionView.tableView.rx.modelSelected(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      self.coordinator?.toDetail(of: card)
+    })
+    .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doneSectionView.tableView.rx.itemSelected,
+      doneSectionView.tableView.rx.modelSelected(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      self.coordinator?.toDetail(of: card)
     })
     .disposed(by: disposeBag)
   }
   
   private func bindSectionsItemDeleted() {
-    Observable.of(
-      todoSectionView.tableView.rx.modelDeleted(Card.self),
-      doingSectionView.tableView.rx.modelDeleted(Card.self),
-      doneSectionView.tableView.rx.modelDeleted(Card.self)
+    Observable.merge(
+      todoSectionView.tableView.rx.modelDeleted(Card.self).asObservable(),
+      doingSectionView.tableView.rx.modelDeleted(Card.self).asObservable(),
+      doneSectionView.tableView.rx.modelDeleted(Card.self).asObservable()
     )
-    .merge()
-    .bind(onNext: { [weak self] card in
-      self?.viewModel.deleteSelectedCard(card)
-    })
+    .withUnretained(self)
+    .flatMap { wself, card -> Observable<Void> in
+      return wself.viewModel.deleteSelectedCard(card)
+    }
+    .bind(onNext: { _ in })
     .disposed(by: disposeBag)
   }
   
   private func bindSectionsLongPressed() {
-    Observable.of(
-      todoSectionView.tableView.rx.modelLongPressed(Card.self),
-      doingSectionView.tableView.rx.modelLongPressed(Card.self),
-      doneSectionView.tableView.rx.modelLongPressed(Card.self)
+    Observable.merge(
+      todoSectionView.tableView.rx.modelLongPressed(Card.self).asObservable(),
+      doingSectionView.tableView.rx.modelLongPressed(Card.self).asObservable(),
+      doneSectionView.tableView.rx.modelLongPressed(Card.self).asObservable()
     )
-    .merge()
-    .withUnretained(self)
-    .flatMap { wself, item -> Observable<(Card, CardType)> in
-      let (first, second) = wself.distinguishMenuType(of: item.1)
-      let popover = wself.showPopover(
-        sourceView: item.0,
-        firstTitle: first.moveToMenuTitle,
-        secondTitle: second.moveToMenuTitle
-      )
-      return Observable.zip(
-        Observable.just(item.1),
-        popover.map { [first, second][$0] }
+    .flatMap { [weak self] cell, card in
+      Observable.zip(
+        Observable.just(card),
+        UIAlertController.presentPopOver(self, with: .init(card: card), on: cell)
       )
     }
-    .bind(onNext: { [weak self] card, cardType in
-      self?.viewModel.moveDifferentSection(card, to: cardType)
-    })
+    .withUnretained(self)
+    .flatMap { wself, items -> Observable<Void> in
+      return wself.viewModel.moveDifferentSection(items.0, to: items.1)
+    }
+    .bind(onNext: { _ in })
     .disposed(by: disposeBag)
   }
 }
@@ -188,9 +236,16 @@ final class CardListViewController: UIViewController {
 // MARK: - UI Configuration
 
 extension CardListViewController {
+  private func showToastLabel(_ text: String) {
+    let toast = CardToastLabel(configuration: .init(), text: text)
+    view.addSubview(toast)
+    toast.show()
+  }
+  
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
-    navigationItem.rightBarButtonItem = cardAdditionButton
+    navigationItem.leftBarButtonItem = historyButton
+    navigationItem.rightBarButtonItems = [cardAdditionButton, wifiIndicatorButton]
   }
   
   private func configureTableViews() {
@@ -213,50 +268,5 @@ extension CardListViewController {
       containerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       containerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
     ])
-  }
-}
-
-// MARK: - Alert
-
-extension CardListViewController {
-  private func showPopover(
-    sourceView: UIView,
-    firstTitle: String,
-    secondTitle: String
-  ) -> Observable<Int> {
-    return Single<Int>.create { [weak self] emitter in
-      guard let self = self else {
-        emitter(.failure(RxCocoaError.unknown))
-        return Disposables.create()
-      }
-      
-      let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-      alert.modalPresentationStyle = .popover
-      alert.popoverPresentationController?.permittedArrowDirections = .up
-      alert.popoverPresentationController?.sourceView = sourceView.superview
-      alert.popoverPresentationController?.sourceRect = CGRect(origin: sourceView.center, size: .zero)
-      
-      let firstAction = UIAlertAction(title: firstTitle, style: .default) { action in
-        emitter(.success(0))
-      }
-      let secondAction = UIAlertAction(title: secondTitle, style: .default) { action in
-        emitter(.success(1))
-      }
-      alert.addAction(firstAction)
-      alert.addAction(secondAction)
-      self.present(alert, animated: true)
-      
-      return Disposables.create {
-        alert.dismiss(animated: true)
-      }
-    }.asObservable()
-  }
-  
-  private func distinguishMenuType(of card: Card) -> (CardType, CardType) {
-    switch card.cardType {
-    case .todo: return (.doing, .done)
-    case .doing: return (.todo, .done)
-    case .done: return (.todo, .doing)
-    }
   }
 }

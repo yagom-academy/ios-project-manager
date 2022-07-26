@@ -9,6 +9,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
+  var appCoordinator: Coordinator?
   
   func scene(
     _ scene: UIScene,
@@ -22,7 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     window = UIWindow(windowScene: windowScene)
     window?.rootViewController = navigationController
-    navigationController.viewControllers = [CardListViewController(viewModel: DefaultCardListViewModel())]
+    appCoordinator = AppCoordinator(navigationController: navigationController)
+    appCoordinator?.start()
+    
     window?.makeKeyAndVisible()
   }
 }

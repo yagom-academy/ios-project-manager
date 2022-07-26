@@ -10,8 +10,8 @@
 
 ## 목차
 - [1. 트러블 슈팅](#트러블-슈팅-/-고민한-점)
-- [2. 실행화면](#실행화면)
-- [3. 기술 스택(DB) 선택 과정](#DB-선택-과정)
+- [2. 기술 스택(DB) 선택 과정](#DB-선택-과정)
+- [3. 실행화면](#실행화면)
 
 
 ## 기술 스택
@@ -77,12 +77,12 @@ protocol ViewModelType {
 
 <img width="600" src="https://i.imgur.com/uwQDMXg.png"/> <br/>
 
-위와 같이 구조로 변경하여 ViewModel를 사용하는 곳에서는 ViewModel 프로토콜을 바라보고 있기 때문에 교체가 용이하게되어 테스트하기 쉽고 
+위와 같이 구조로 변경하여 ViewModel를 사용하는 곳에서는 ViewModel 프로토콜을 바라보고 있기 때문에 
+ViewModel과 ViewController간의 의존성을 낮추게 되어 교체가 용이하게되고 테스트하기 좋은 구조로 변경했습니다.
 
 <img width="350" src="https://i.imgur.com/nmAAIT8.png"/> <br/>
 
 `transform` 메서드만으로 전달되는 구조가 아니기 때문에 유연하게 데이터를 전달할 수 있게 되었습니다.
-
 
 **화면 전환에 대한 고민**
 기능 개발이 이뤄지면서 띄워야하는 장면이 증가하고 `present/dismiss` 또는 `push/pop`을 호출해야하는 상황에서 새로운 ViewController를 생성하여 화면 전환을 하게 되는데 
@@ -95,7 +95,82 @@ protocol ViewModelType {
 
 프로젝트 코드에서 CardListViewController, CardAdditionViewController, CardDetailViewController가 하나의 CardListViewModel 객체를 주입 받는 형태로 구현되어 있고 이렇게 구현된 이유로는 Card를 저장하는 배열을 각각의 ViewController에서 공유해야하기 때문에 1:1이 아닌 1:N의 구조가 되었다고 생각합니다.
 
-ViewModel과 ViewController가 1:N으로 구현이 되어 있다면 CardListViewController에서 사용하지 않는 로직이 CardListViewModel에 구현되어 있는 문제가 있다고 생각했습니다. 하지만, 1:1로 분리하게 된다면 데이터 공유 문제와 중복 로직이 발생할 가능성이 있을 것이며 이를 해결하기 위해 `DataManager`로 공유가 필요한 데이터를 관리하는 계층을 더 추가하는 것도 데이터 공유 문제를 해결할 수 있는 좋은 방법일 것 같습니다.🤔
+하나의 ViewModel를 여러 ViewController이 사용하도록 구현되어 있다면 CardListViewController에서 사용하지 않는 로직이 CardListViewModel에 구현되어 있는 문제가 있다고 생각했습니다. 하지만 공유하지 않고 분리하게 된다면 데이터 공유 문제와 중복 로직이 발생할 가능성이 있을 것이며 이를 해결하기 위해 `DataManager`로 공유가 필요한 데이터를 관리하는 계층을 더 추가하는 것도 데이터 공유 문제를 해결할 수 있는 좋은 방법이라고 생각했습니다.
+
+**Long Press 이벤트에 대한 처리**
+
+길게 터치하는 이벤트가 전달되기 위해 `UILongPressGestureRecognizer`를 사용하였습니다. 해당 이벤트가 발생하고 팝오버 메뉴를 표시하기 위해 처음에는 UIKit스럽게 Target-Action 방식으로 구현을 시도했었습니다. 하지만, Rx를 제대로 활용하지 못한다고 생각했고 아래 코드와 같이 기능을 확장하여 구현했습니다.
+ 
+<img width="800" src="https://i.imgur.com/GOR0539.png"/> <br/>
+
+`modelLongPressed`라는 메서드를 정의하고 Long 제스처를 Base가 되는 TableView에 추가한 후 제스처 이벤트가 발생하면 아래의 과정으로 데이터를 처리한 후 Cell과 데이터를 방출하도록 설계했습니다.
+
+![](https://i.imgur.com/T6tIfJ6.png)
+
+
+<img width="600" src="https://i.imgur.com/hCNOJni.png"/> <br/>
+
+구현된 `modelLongPressed`를 ViewController에서 사용하여 길게 터치하는 이벤트에 대한 처리를 ViewModel에서 처리하도록 로직을 분리했습니다.
+
+
+## DB 선택 과정
+
+> 로컬 DB에는 `Core Data` / 원격 DB에는 `Firebase Realtime Database` 로 결정했습니다. 
+
+### 💬 **하위 버전 호환성에는 문제가 없는가?**
+
+✅ [iOS 및 iPad OS 사용 현황](https://developer.apple.com/kr/support/app-store/)을 보면 iPad의 경우 90%이상이 iOS 15 버전을 사용한다는 것을 알 수 있었고 
+Core Data는 iOS 3.0 /  Firebase는 iOS 10.0 부터 지원하기 때문에 하위 버전 호환성 문제는 없다고 판단하였습니다.
+
+|iPhone|iPad|
+|:---:|:---:|
+|<img width="300px" src="https://i.imgur.com/A2mxBmX.png"/>|<img width="315px" src="https://i.imgur.com/ff0XpWg.png"/>|
+
+### 💬 **안정적으로 운용 가능한가?**
+
+✅ Core Data의 경우 Apple의 First-Party 프레임워크이기 때문에 안정적으로 운용 가능할 것으로 판단됩니다.  
+✅ Firebase는 구글의 서비스로써 지속적인 유지보수가 이뤄지고 있고 많은 곳에서 사용되어 검증된 기술이므로 안정적인 운용 가능할 것으로 판단했습니다.
+
+
+### 💬 **미래 지속 가능성이 있는가?**
+
+✅ Core Data의 경우 Apple의 First-Party 프레임워크이기 때문에 지속 가능할 것으로 판단됩니다.   
+⚠️ Firebase는 구글에서 서비스하고 있는 Third-Party이므로 언제든지 종료 가능성이 있다고 생각됩니다. 구글은 성과가 없는 프로젝트에 대해 서비스 종료한 과거 사례가 있기 때문에 완전히 안정적이다 라고 볼 수 없을 것 같습니다. 하지만, Firebase는 충분한 성과를 이룬 프로젝트이고 지속적인 유지보수가 이뤄지고 있으며 아직도 많은 곳에서 사용되고 있기 때문에 지속 가능성이 있다고 생각합니다.
+
+
+### 💬 **리스크를 최소화 할 수 있는가? 알고 있는 리스크는 무엇인가?**
+
+✅ Core Data의 경우 Thread-Safe 하지 않는 리스크가 있기 때문에 관련 기능을 추가적으로 구현하여 최소화할 수 있습니다.  
+✅ Firebase의 경우 비용 문제가 발생할 수 있지만 초기 서비스에서는 초과할 가능성이 적을 것으로 예상되어 문제가 없을 것으로 생각됩니다.
+
+
+### 💬 **어떤 의존성 관리도구를 사용하여 관리할 수 있는가?**
+
+대표적인 의존성 관리도구로는 CocoaPod, Carthage, Swift Package Manager(SPM)이 있습니다. 
+SPM은 애플의 First-Party 의존성 관리도구이며 이번 프로젝트에서 사용하기로 정한 라이브러리 모두 지원하고 있기 때문에 SPM을 선택했습니다.
+
+✅ Core Data는 애플의 First-Party 프레임워크이므로 의존성 관리 도구를 사용할 필요가 없습니다.  
+✅ Firebase Realtime Database는 Swift Package Manager를 지원합니다.
+
+
+### 💬 **이 앱의 요구 기능에 적절한 선택인가?**
+
+`Realtime Database`와 `Cloud FireStore` 중 무엇을 선택해야할 지에 대한 다음의 고민이 있었습니다.
+
+1. 어느 것이 프로젝트의 성격에 부합하는가?
+2. 어느 것이 비용 정책에서 유리한가?
+
+**1️⃣ 어느 것이 프로젝트의 성격에 부합하는가?**
+
+<img width="600" src="https://i.imgur.com/WbgwBlL.png"/>
+
+**2️⃣ 어느 것이 비용 정책에서 유리한가?**
+
+|Realtime Database|Cloud FireStore|
+|:---:|:---:|
+|![](https://i.imgur.com/diDJMBM.png)|![](https://i.imgur.com/nPHE2aI.png)|
+
+Cloud FireStore는 `CRUD`를 기준으로 비용을 책정하기 때문에 `CRUD`가 자주 발생한다면 Realtime Database가 유리하고 큰 단위의 데이터 요청이 자주 발생한다면 Firestore가 유리할 것이라고 판단했고 프로젝트의 성격과 각각의 비용 정책을 고려한 결과 **Realtime Database** 로 결정하게 되었습니다.
 
 
 ## 실행화면
@@ -131,62 +206,3 @@ ViewModel과 ViewController가 1:N으로 구현이 되어 있다면 CardListView
 |[메인 화면] 카드 이동 시 마감 시간순 정렬|
 |:---:|
 |<img width="370" src="https://i.imgur.com/xNVHnq3.gif"/>|
-
-## DB 선택 과정
-
-> 로컬 DB에는 `Core Data` / 원격 DB에는 `Firebase Realtime Database` 로 결정했습니다. 
-
-### 💬 **하위 버전 호환성에는 문제가 없는가?**
-
-✅ [iOS 및 iPad OS 사용 현황](https://developer.apple.com/kr/support/app-store/)을 보면 iPad의 경우 90%이상이 iOS 15 버전을 사용한다는 것을 알 수 있었고 
-Core Data는 iOS 3.0 /  Firebase는 iOS 10.0 부터 지원하기 때문에 하위 버전 호환성 문제는 없다고 판단하였습니다.
-
-|iPhone|iPad|
-|:---:|:---:|
-|<img width="300px" src="https://i.imgur.com/A2mxBmX.png"/>|<img width="315px" src="https://i.imgur.com/ff0XpWg.png"/>|
-
-### 💬 **안정적으로 운용 가능한가?**
-
-✅ Core Data의 경우 Apple의 First-Party 프레임워크이기 때문에 안정적으로 운용 가능할 것으로 판단됩니다.  
-✅ Firebase는 구글의 서비스로써 지속적인 유지보수가 이뤄지고 있고 많은 곳에서 사용되어 검증된 기술이므로 안정적인 운용 가능할 것으로 판단했습니다.
-
-
-### 💬 **미래 지속 가능성이 있는가?**
-
-✅ Core Data의 경우 Apple의 First-Party 프레임워크이기 때문에 지속 가능할 것으로 판단됩니다.   
-⚠️ Firebase는 구글에서 서비스하고 있는 Third-Party이므로 언제든지 종료 가능성이 있다고 생각됩니다. 구글은 성과가 없는 프로젝트에 대해 서비스 종료한 과거 사례가 있기 때문에 완전히 안정적이다 라고 볼 수 없을 것 같습니다. 하지만, Firebase는 충분한 성과를 이룬 프로젝트이고 지속적인 유지보수가 이뤄지고 있으며 아직도 많은 곳에서 사용되고 있기 때문에 지속 가능성이 있다고 생각합니다.
-
-
-### 💬 **리스크를 최소화 할 수 있는가? 알고 있는 리스크는 무엇인가?**
-
-✅ Core Data의 경우 Thread-Safe 하지 않는 리스크가 있기 때문에 관련 기능을 추가적으로 구현하여 최소화할 수 있습니다.
-✅ Firebase의 경우 비용 문제가 발생할 수 있지만 초기 서비스에서는 초과할 가능성이 적을 것으로 예상되어 문제가 없을 것으로 생각됩니다.
-
-
-### 💬 **어떤 의존성 관리도구를 사용하여 관리할 수 있는가?**
-
-대표적인 의존성 관리도구로는 CocoaPod, Carthage, Swift Package Manager(SPM)이 있습니다. 
-SPM은 애플의 First-Party 의존성 관리도구이며 이번 프로젝트에서 사용하기로 정한 라이브러리 모두 지원하고 있기 때문에 SPM을 선택했습니다.
-
-✅ Core Data는 애플의 First-Party 프레임워크이므로 의존성 관리 도구를 사용할 필요가 없습니다.  
-✅ Firebase Realtime Database는 Swift Package Manager를 지원합니다.
-
-
-### 💬 **이 앱의 요구 기능에 적절한 선택인가?**
-
-`Realtime Database`와 `Cloud FireStore` 중 무엇을 선택해야할 지에 대한 다음의 고민이 있었습니다.
-
-1. 어느 것이 프로젝트의 성격에 부합하는가?
-2. 어느 것이 비용 정책에서 유리한가?
-
-**1️⃣ 어느 것이 프로젝트의 성격에 부합하는가?**
-
-<img width="600" src="https://i.imgur.com/WbgwBlL.png"/>
-
-**2️⃣ 어느 것이 비용 정책에서 유리한가?**
-
-|Realtime Database|Cloud FireStore|
-|:---:|:---:|
-|![](https://i.imgur.com/diDJMBM.png)|![](https://i.imgur.com/nPHE2aI.png)|
-
-Cloud FireStore는 `CRUD`를 기준으로 비용을 책정하기 때문에 `CRUD`가 자주 발생한다면 Realtime Database가 유리하고 큰 단위의 데이터 요청이 자주 발생한다면 Firestore가 유리할 것이라고 판단했고 프로젝트의 성격과 각각의 비용 정책을 고려한 결과 **Realtime Database** 로 결정하게 되었습니다.

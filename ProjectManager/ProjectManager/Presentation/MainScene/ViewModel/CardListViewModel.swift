@@ -11,49 +11,57 @@ import RxCocoa
 import RxSwift
 
 protocol CardListViewModelInput {
+  func fetchCards() -> Observable<Void>
   func toCardListViewModelItem(card: Card) -> CardListViewModelItem
-  func createNewCard(_ card: Card)
-  func updateSelectedCard(_ card: Card)
-  func deleteSelectedCard(_ card: Card)
-  func moveDifferentSection(_ card: Card, to cardType: CardType)
+  func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem
+  func deleteSelectedCard(_ card: Card) -> Observable<Void>
+  func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void>
 }
 
 protocol CardListViewModelOutput {
   var todoCards: Driver<[Card]> { get }
   var doingCards: Driver<[Card]> { get }
   var doneCards: Driver<[Card]> { get }
+  var histories: Driver<[History]> { get }
 }
 
 protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput {}
 
-final class DefaultCardListViewModel: CardListViewModelable {
-  private let cards = BehaviorRelay<[Card]>(value: Card.sample)
-  
+final class CardListViewModel: CardListViewModelable {
   // MARK: - Output
   
   let todoCards: Driver<[Card]>
   let doingCards: Driver<[Card]>
   let doneCards: Driver<[Card]>
+  let histories: Driver<[History]>
   
   // MARK: - Init
   
-  init() {
-    todoCards = cards
+  private weak var useCase: CardUseCase?
+  
+  init(useCase: CardUseCase) {
+    self.useCase = useCase
+  
+    todoCards = useCase.cards
       .map { $0.filter { $0.cardType == .todo } }
       .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
       .distinctUntilChanged { $0 == $1 }
       .asDriver(onErrorJustReturn: [])
     
-    doingCards = cards
+    doingCards = useCase.cards
       .map { $0.filter { $0.cardType == .doing } }
       .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
       .distinctUntilChanged { $0 == $1 }
       .asDriver(onErrorJustReturn: [])
     
-    doneCards = cards
+    doneCards = useCase.cards
       .map { $0.filter { $0.cardType == .done } }
       .map { $0.sorted { $0.deadlineDate > $1.deadlineDate } }
       .distinctUntilChanged { $0 == $1 }
+      .asDriver(onErrorJustReturn: [])
+    
+    histories = useCase.histories
+      .map { $0.sorted { $0.actionTime > $1.actionTime } }
       .asDriver(onErrorJustReturn: [])
   }
   
@@ -64,35 +72,37 @@ final class DefaultCardListViewModel: CardListViewModelable {
       id: card.id,
       title: card.title,
       description: card.description,
-      deadlineDateString: setDeadlineDateToString(card.deadlineDate),
+      deadlineDateString: setDateToString(card.deadlineDate),
       isOverdue: isOverdue(card: card)
     )
   }
   
-  func createNewCard(_ card: Card) {
-    cards.accept(cards.value + [card])
+  func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem {
+    return CardHistoryViewModelItem(
+      card: history.card,
+      actionType: history.actionType,
+      actionTimeString: setDateToString(history.actionTime),
+      informationString: setInformationString(history)
+    )
   }
   
-  func updateSelectedCard(_ card: Card) {
-    let originCards = cards.value.filter { $0.id != card.id }
-    cards.accept(originCards + [card])
+  func fetchCards() -> Observable<Void> {
+    useCase?.fetchCards() ?? .empty()
   }
   
-  func deleteSelectedCard(_ card: Card) {
-    cards.accept(cards.value.filter { $0.id != card.id })
+  func deleteSelectedCard(_ card: Card) -> Observable<Void> {
+    return useCase?.deleteSelectedCard(card) ?? .empty()
   }
   
-  func moveDifferentSection(_ card: Card, to cardType: CardType) {
-    var newCard = card
-    newCard.cardType = cardType
-    self.updateSelectedCard(newCard)
+  func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void> {
+    return useCase?.moveDifferentSection(card, to: index) ?? .empty()
   }
 }
 
 // MARK: - Private
 
-extension DefaultCardListViewModel {
-  private func setDeadlineDateToString(_ date: Date) -> String {
+extension CardListViewModel {
+  private func setDateToString(_ date: Date) -> String {
     let formatter = DateFormatter()
     formatter.dateStyle = .full
     formatter.locale = setPreferredLocale()
@@ -106,5 +116,12 @@ extension DefaultCardListViewModel {
   
   private func isOverdue(card: Card) -> Bool {
     return (card.cardType == .todo || card.cardType == .doing) && Date() > card.deadlineDate
+  }
+  
+  private func setInformationString(_ history: History) -> String {
+    if case .move(let destinationCardType) = history.actionType {
+       return "\(history.card.cardType.description) ➡️ \(destinationCardType.description)"
+    }
+    return "\(history.card.cardType.description)"
   }
 }

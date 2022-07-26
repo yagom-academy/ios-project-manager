@@ -1,31 +1,35 @@
 //
-//  CardAdditionViewController.swift
+//  CardDetailViewController.swift
 //  ProjectManager
 //
-//  Created by Lingo on 2022/07/07.
+//  Created by Lingo on 2022/07/08.
 //
 
 import UIKit
 
 import RxSwift
 
-final class CardAdditionViewController: UIViewController {
+final class CardDetailViewController: UIViewController {
   private enum UISettings {
     static let navigationTitle = "TODO"
-    static let leftBarButtonTitle = "Cancel"
+    static let leftBarButtonEditTitle = "Edit"
+    static let leftBarButtonEditingTitle = "Editing"
     static let rightBarButtonTitle = "Done"
   }
   
   private let cardEditView = CardEditView()
-  private let disposeBag = DisposeBag()
-  private let viewModel: CardListViewModelable
+  private var isEditable = false
   
-  init(viewModel: CardListViewModelable) {
+  private let disposeBag = DisposeBag()
+  private let viewModel: CardDetailViewModelable
+  private let card: Card
+  
+  init(viewModel: CardDetailViewModelable, card: Card) {
     self.viewModel = viewModel
+    self.card = card
     super.init(nibName: nil, bundle: nil)
-    configureSubViews()
-    configureLayouts()
     configureNavigationItem()
+    configureCardEditView()
   }
   
   required init?(coder: NSCoder) {
@@ -34,46 +38,69 @@ final class CardAdditionViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureSubViews()
+    configureLayouts()
     bindUI()
   }
   
   private func bindUI() {
     cardEditView.leftBarButton.rx.tap
       .bind(onNext: { [weak self] in
-        self?.dismiss(animated: true)
+        self?.toggleEditingMode()
       })
       .disposed(by: disposeBag)
     
     cardEditView.rightBarButton.rx.tap
-      .bind(onNext: { [weak self] in
-        guard let self = self else { return }
-        guard let card = self.createNewCard() else { return }
-        
-        self.viewModel.createNewCard(card)
-        self.dismiss(animated: true)
-      })
+      .compactMap { [weak self] _ in self?.updateSelectedCard() }
+      .withUnretained(self)
+      .flatMap { wself, card in wself.viewModel.updateSelectedCard(card) }
+      .bind(onNext: { [weak self] _ in self?.dismiss(animated: true) })
       .disposed(by: disposeBag)
   }
   
-  private func createNewCard() -> Card? {
+  private func toggleEditingMode() {
+    isEditable.toggle()
+    cardEditView.titleTextField.isUserInteractionEnabled.toggle()
+    cardEditView.descriptionTextView.isEditable.toggle()
+    cardEditView.deadlineDatePicker.isUserInteractionEnabled.toggle()
+    
+    let title = isEditable ? UISettings.leftBarButtonEditingTitle : UISettings.leftBarButtonEditTitle
+    cardEditView.leftBarButton.title = title
+  }
+  
+  private func updateSelectedCard() -> Card? {
     guard let title = cardEditView.titleTextField.text,
           let description = cardEditView.descriptionTextView.text else { return nil }
     let deadlineDate = cardEditView.deadlineDatePicker.date
     
-    return Card(title: title, description: description, deadlineDate: deadlineDate)
+    var card = self.card
+    card.title = title
+    card.description = description
+    card.deadlineDate = deadlineDate
+    
+    return card
   }
 }
 
 // MARK: - UI Configuration
 
-extension CardAdditionViewController {
+extension CardDetailViewController {
+  private func configureCardEditView() {
+    cardEditView.titleTextField.text = card.title
+    cardEditView.descriptionTextView.text = card.description
+    cardEditView.deadlineDatePicker.date = card.deadlineDate
+    cardEditView.titleTextField.isUserInteractionEnabled = false
+    cardEditView.descriptionTextView.isEditable = false
+    cardEditView.deadlineDatePicker.isUserInteractionEnabled = false
+  }
+  
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
     navigationItem.leftBarButtonItem = cardEditView.leftBarButton
     navigationItem.rightBarButtonItem = cardEditView.rightBarButton
     
     cardEditView.navigationBar.items = [navigationItem]
-    cardEditView.leftBarButton.title = UISettings.leftBarButtonTitle
+    cardEditView.leftBarButton.title = UISettings.leftBarButtonEditTitle
     cardEditView.rightBarButton.title = UISettings.rightBarButtonTitle
     cardEditView.rightBarButton.style = .done
   }

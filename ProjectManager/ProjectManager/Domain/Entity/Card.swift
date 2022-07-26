@@ -7,10 +7,18 @@
 
 import Foundation
 
-enum CardType: CustomStringConvertible {
-  case todo
-  case doing
-  case done
+struct Card: Codable, Equatable {
+  private(set) var id = UUID().uuidString
+  var title: String
+  var description: String
+  var deadlineDate: Date
+  var cardType: CardType = .todo
+}
+
+enum CardType: Int16, Codable, CustomStringConvertible {
+  case todo = 0
+  case doing = 1
+  case done = 2
 
   var description: String {
     switch self {
@@ -30,15 +38,16 @@ enum CardType: CustomStringConvertible {
       return "MOVE TO DONE"
     }
   }
+  
+  var distinguishMenuType: [CardType] {
+    switch self {
+    case .todo: return [.doing, .done]
+    case .doing: return [.todo, .done]
+    case .done: return [.todo, .doing]
+    }
+  }
 }
 
-struct Card: Equatable {
-  let id = UUID().uuidString
-  var title: String
-  var description: String
-  var deadlineDate: Date
-  var cardType: CardType = .todo
-}
 
 #if DEBUG
 extension Card {
