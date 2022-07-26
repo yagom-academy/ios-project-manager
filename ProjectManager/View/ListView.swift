@@ -9,15 +9,17 @@ import SwiftUI
 
 struct ListView: View {
     @ObservedObject var listViewModel: ListViewModel
-    let taskType: TaskType
-    let numberOfTasks: Int
     
     var body: some View {
         VStack(alignment: .leading) {
             List {
-                Section(header: HeaderView(title: taskType.title, numberOfTasks: numberOfTasks)){
-                    ForEach(listViewModel.service.readTasks().filter({ $0.type == taskType })) { task in
-                        ListRowView(task: task)
+              Section(header: HeaderView(title: listViewModel.taskType.title,
+                                         numberOfTasks: listViewModel.readTasks().count)){
+                    ForEach(listViewModel.readTasks()) { task in
+                      ListRowView(taskTitle: task.title,
+                                  taskBody: task.body,
+                                  taskDate: task.date,
+                                  isOverdate: task.isOverdate)
                             .onTapGesture {
                                 listViewModel.toggleShowingSheet()
                             }
@@ -30,7 +32,7 @@ struct ListView: View {
                             }
                             .popover(isPresented: $listViewModel.isShowingPopover,
                                      arrowEdge: .bottom) {
-                                PopoverButton(taskType: taskType) { to in
+                              PopoverButton(taskType: listViewModel.taskType) { to in
                                     listViewModel.moveTask(task, to: to)
                                 }
                             }
@@ -64,6 +66,6 @@ struct PopoverButton: View {
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView(listViewModel: ListViewModel(withService: TaskManagementService()), taskType: .todo, numberOfTasks: 1)
+      ListView(listViewModel: ListViewModel(withService: TaskManagementService(), taskType: .todo))
     }
 }

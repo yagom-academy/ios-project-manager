@@ -13,19 +13,11 @@ struct AllListView: View {
     var body: some View {
         HStack {
             // TODO
-            ListView(listViewModel: ListViewModel(withService: allListViewModel.service),
-                     taskType: TaskType.todo,
-                     numberOfTasks: allListViewModel.showLists().filter({ $0.type == .todo }).count)
-            
+          ListView(listViewModel: ListViewModel(withService: allListViewModel.service, taskType: .todo))
             // DOING
-            ListView(listViewModel: ListViewModel(withService: allListViewModel.service),
-                     taskType: TaskType.doing,
-                     numberOfTasks: allListViewModel.showLists().filter({ $0.type == .doing }).count)
-            
+          ListView(listViewModel: ListViewModel(withService: allListViewModel.service, taskType: .doing))
             // DONE
-            ListView(listViewModel: ListViewModel(withService: allListViewModel.service),
-                     taskType: TaskType.done,
-                     numberOfTasks: allListViewModel.showLists().filter({ $0.type == .done }).count)
+          ListView(listViewModel: ListViewModel(withService: allListViewModel.service, taskType: .done))
         }
     }
 }
