@@ -29,6 +29,7 @@ final class DetailViewController: UIViewController {
         setUpLayout()
         setUpModalView()
         setUpDetailNavigationItem()
+        modalView.registerNotification()
     }
     
     private func setUpAttribute() {

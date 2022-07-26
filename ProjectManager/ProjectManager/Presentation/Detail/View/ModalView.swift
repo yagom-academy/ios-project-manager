@@ -157,7 +157,7 @@ final class ModalView: UIView {
         return newContent
     }
     
-    func adjustConstraint(by keyboardHeight: CGFloat) {
+    private func adjustConstraint(by keyboardHeight: CGFloat) {
         scrollView.contentInset = UIEdgeInsets(
             top: 0,
             left: 0,
@@ -174,5 +174,43 @@ final class ModalView: UIView {
         bodyTextView.backgroundColor = backgroundColor
         drawBorder(view: titleTextField, color: boundColor)
         drawBorder(view: bodyTextView, color: boundColor)
+    }
+}
+
+extension ModalView {
+    func registerNotification() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              bodyTextView.isFirstResponder == true
+        else {
+            return
+        }
+        
+        let keyboardInfo = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
+        
+        if let keyboardSize = (keyboardInfo as? NSValue)?.cgRectValue {
+            adjustConstraint(by: keyboardSize.height)
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        adjustConstraint(by: .zero)
     }
 }
