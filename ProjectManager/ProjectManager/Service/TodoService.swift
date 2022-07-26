@@ -17,6 +17,7 @@ class TodoService: ObservableObject {
     realmData.content = todo.content
     realmData.date = todo.date
     realmData.status = todo.status
+    realmData.id = todo.id
     
     guard let realm = try? Realm() else {
       return
@@ -97,6 +98,7 @@ class TodoService: ObservableObject {
       }
       realm.delete(selectedTodo)
     }
-    dataManager.deleteTodo()
+    
+    dataManager.deleteTodo(id: id)
   }
 }

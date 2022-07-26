@@ -15,7 +15,7 @@ class TodoRealm: Object {
   @Persisted var date: Date
   @Persisted var status: Status
   
-  convenience init(id: UUID = UUID(), title: String, content: String, date: Date = Date(), status: Status = .todo) {
+  convenience init(id: UUID, title: String, content: String, date: Date = Date(), status: Status = .todo) {
     self.init()
     self.id = id
     self.title = title
