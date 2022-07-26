@@ -8,10 +8,16 @@
 import RxSwift
 import RxCocoa
 
+private enum Mode {
+    case display
+    case edit
+}
+
 final class DetailViewController: UIViewController {
     private let viewModel: DetailViewModel
     private let modalView = ModalView(frame: .zero)
     private let disposeBag = DisposeBag()
+    private var mode: Mode = .display
     
     init(content: ProjectContent) {
         self.viewModel = DetailViewModel(content: content)
@@ -28,8 +34,7 @@ final class DetailViewController: UIViewController {
         setUpAttribute()
         setUpLayout()
         setUpModalView()
-        setUpDetailNavigationItem()
-        modalView.registerNotification()
+        bind()
     }
     
     private func setUpAttribute() {
@@ -50,69 +55,72 @@ final class DetailViewController: UIViewController {
     }
     
     private func setUpModalView() {
-        modalView.compose(content: viewModel.asContent())
-        modalView.isUserInteractionEnabled(false)
+        modalView.registerNotification()
+        modalView.navigationBar.modalTitle.text = viewModel.asContent().status.string
     }
     
-    private func setUpDetailNavigationItem() {
-        modalView.navigationBar.modalTitle.text = viewModel.asContent().status.string
+    private func bind() {
+        setUpDefaultUI()
+        
+        setUpLeftButton()
+        setUpRightButton()
+    }
+    
+    private func setUpDefaultUI() {
         modalView.navigationBar.leftButton.setTitle("edit", for: .normal)
         modalView.navigationBar.rightButton.setTitle("done", for: .normal)
         
-        didTapEditButton()
-        didTapDoneButton()
+        guard let project = self.viewModel.read() else {
+            return
+        }
+        self.modalView.compose(content: project)
+        self.modalView.isUserInteractionEnabled(false)
     }
     
-    private func setUpEditNavigationItem() {
-        modalView.navigationBar.modalTitle.text = viewModel.asContent().status.string
+    private func setUpLeftButton() {
+        let leftButton = modalView.navigationBar.leftButton
+        
+        leftButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                guard let self = self else {
+                    return
+                }
+                
+                switch self.mode {
+                case .display:
+                    self.turnToEditMode()
+                case .edit:
+                    self.cancel()
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func turnToEditMode() {
         modalView.navigationBar.leftButton.setTitle("cancel", for: .normal)
         modalView.navigationBar.rightButton.setTitle("save", for: .normal)
         
-        didTapCancelButton()
-        didTapSaveButton()
-    }
-    
-    private func didTapEditButton() {
-        let leftButton = modalView.navigationBar.leftButton
+        modalView.isUserInteractionEnabled(true)
         
-        leftButton.rx.tap
-            .asDriver()
-            .drive { [weak self] _ in
-                self?.modalView.isUserInteractionEnabled(true)
-                self?.setUpEditNavigationItem()
-            }
-            .disposed(by: disposeBag)
+        mode = .edit
     }
     
-    private func didTapDoneButton() {
-        let rightButton = modalView.navigationBar.rightButton
+    private func cancel() {
+        modalView.navigationBar.leftButton.setTitle("edit", for: .normal)
+        modalView.navigationBar.rightButton.setTitle("done", for: .normal)
         
-        rightButton.rx.tap
-            .asDriver()
-            .drive { [weak self] _ in
-                self?.dismiss(animated: true, completion: nil)
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    private func didTapCancelButton() {
-        let leftButton = modalView.navigationBar.leftButton
+        guard let project = self.viewModel.read() else {
+            return
+        }
         
-        leftButton.rx.tap
-            .asDriver()
-            .drive { [weak self] _ in
-                guard let self = self,
-                      let project = self.viewModel.read() else {
-                    return
-                }
-                self.modalView.compose(content: project)
-                self.modalView.isUserInteractionEnabled(false)
-                self.setUpDetailNavigationItem()
-            }
-            .disposed(by: disposeBag)
+        self.modalView.compose(content: project)
+        self.modalView.isUserInteractionEnabled(false)
+        
+        mode = .display
     }
     
-    private func didTapSaveButton() {
+    private func setUpRightButton() {
         let rightButton = modalView.navigationBar.rightButton
         
         rightButton.rx.tap
@@ -121,11 +129,29 @@ final class DetailViewController: UIViewController {
                 guard let self = self else {
                     return
                 }
-                let newContent = self.modalView.change(self.viewModel.asContent())
-                self.viewModel.update(newContent)
-                self.modalView.isUserInteractionEnabled(false)
-                self.setUpDetailNavigationItem()
+                
+                switch self.mode {
+                case .display:
+                    self.done()
+                case .edit:
+                    self.save()
+                }
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func done() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func save() {
+        modalView.navigationBar.leftButton.setTitle("edit", for: .normal)
+        modalView.navigationBar.rightButton.setTitle("done", for: .normal)
+        
+        let newContent = modalView.change(viewModel.asContent())
+        viewModel.update(newContent)
+        modalView.isUserInteractionEnabled(false)
+        
+        mode = .display
     }
 }
