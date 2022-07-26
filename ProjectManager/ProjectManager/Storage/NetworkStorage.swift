@@ -43,10 +43,10 @@ struct NetworkStorageManager: NetworkStorageManagerable {
             "type": item.type,
             "id": item.id
         ]
-        database.reference().child(item.type).child(item.id).updateChildValues(object)
+        database.reference().child(item.id).updateChildValues(object)
     }
     
     func deleteItem(_ item: ListItemDTO) {
-        database.reference().child(item.type).child(item.id).removeValue()
+        database.reference().child(item.id).removeValue()
     }
 }
