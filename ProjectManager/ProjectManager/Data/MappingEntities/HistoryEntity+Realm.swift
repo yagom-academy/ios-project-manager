@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class HistoryRealmEntity: Object {
+final class HistoryRealmEntity: Object {
     @Persisted var changes: String
     @Persisted var title: String
     @Persisted var beforeState: String?
