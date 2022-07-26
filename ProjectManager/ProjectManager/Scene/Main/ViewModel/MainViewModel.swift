@@ -19,6 +19,8 @@ protocol MainViewModelState {
     var doings: BehaviorRelay<[Task]> { get }
     var dones: BehaviorRelay<[Task]> { get }
     var online: BehaviorRelay<Bool> { get }
+    var undoable: BehaviorRelay<Bool> { get }
+    var redoable: BehaviorRelay<Bool> { get }
 }
 
 final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservable {
@@ -27,6 +29,9 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var online: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var undoable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var redoable: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
     var error: PublishRelay<DatabaseError> = .init()
 
     private lazy var synchronizeManager = SynchronizeManager(realmManager: realmManager)
@@ -93,7 +98,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         do {
             try realmManager.delete(task: task)
             sendNotificationForHistory(title, from: type)
-            
+            undoable.accept(true)
         } catch {
             self.error.accept(DatabaseError.deleteError)
         }
@@ -106,6 +111,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         case .done:
             fetchDone()
         }
+        
     }
     
     private func registerDeleteUndoAction(task: Task) {
@@ -177,11 +183,24 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     
     func undoButtonTapped() {
         undoManager.undo()
+        redoable.accept(true)
+        if !undoManager.canUndo {
+            undoable.accept(false)
+        }
         fetchData()
     }
     
     func redoButtonTapped() {
         undoManager.redo()
+        if undoManager.canRedo {
+            redoable.accept(true)
+        } else {
+            redoable.accept(false)
+        }
+        
+        if undoManager.canUndo {
+            undoable.accept(true)
+        }
         fetchData()
     }
 }

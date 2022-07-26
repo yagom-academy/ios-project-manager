@@ -276,6 +276,16 @@ extension MainViewController {
     }
     
     private func bindUndoRedoButtons() {
+        viewModel.undoable
+            .map({ Bool($0) })
+            .bind(to: mainView.underBarView.undoButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        viewModel.redoable
+            .map({ Bool($0) })
+            .bind(to: mainView.underBarView.redoButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
         mainView.underBarView.undoButton.rx.tap
             .subscribe { [weak self] _ in
                 self?.viewModel.undoButtonTapped()
@@ -293,6 +303,7 @@ extension MainViewController {
 extension MainViewController: DataReloadable {
     func reloadData() {
         viewModel.fetchData()
+        mainView.underBarView.undoButton.isEnabled = true
     }
 }
 
