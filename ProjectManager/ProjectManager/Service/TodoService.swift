@@ -9,6 +9,8 @@ import Foundation
 import RealmSwift
 
 class TodoService: ObservableObject {
+  let dataManager: DataManager = DataManager()
+  
   func creat(todo: Todo) {
     let realmData = TodoRealm()
     realmData.title = todo.title
@@ -23,6 +25,8 @@ class TodoService: ObservableObject {
     try? realm.write {
       realm.add(realmData)
     }
+    
+    dataManager.createTodo(todo: todo)
   }
   
   func read() -> [Todo] {
@@ -64,6 +68,8 @@ class TodoService: ObservableObject {
     try? realm.write {
       selectedTodo.status = status
     }
+    
+    dataManager.updateTodo(status: status, todo: todo)
   }
   
   func update(todo: Todo) {
@@ -78,6 +84,8 @@ class TodoService: ObservableObject {
       selectedTodo.date = todo.date
       selectedTodo.status = todo.status
     }
+    
+    dataManager.updateTodo(todo: todo)
   }
   
   func delete(id: UUID) {
@@ -89,5 +97,6 @@ class TodoService: ObservableObject {
       }
       realm.delete(selectedTodo)
     }
+    dataManager.deleteTodo()
   }
 }

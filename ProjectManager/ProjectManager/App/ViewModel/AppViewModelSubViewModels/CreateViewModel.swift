@@ -13,6 +13,7 @@ class CreateViewModel: ObservableObject {
   var todo: Todo
   var close: () -> Void
   @Published var todoList: [Todo]
+
   
   init(todoService: TodoService,
        todo: Todo = Todo(title: "", content: ""),
@@ -25,13 +26,15 @@ class CreateViewModel: ObservableObject {
   }
   
   func cancelButtonTapped() {
-    todo = Todo(title: "", content: "")
+    todo.title = ""
+    todo.content = ""
     close()
    }
   
   func doneButtonTapped() {
     saveTodo()
-    todo = Todo(title: "", content: "")
+    todo.title = ""
+    todo.content = ""
     close()
   }
   

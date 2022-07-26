@@ -5,27 +5,18 @@
 //  Created by 박세리 on 2022/07/26.
 //
 
-import Foundation
-import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class DataManager: ObservableObject {
-  @Published var todos: [Todo] = []
-  
-  init() {
-//    fetchTodo()
-  }
-  
-  func fetchTodo() {
+class DataManager {
+  var todos: [Todo] = []
+  let db = Firestore.firestore()
+  func readTodo() {
     todos.removeAll()
-    let db = Firestore.firestore()
+    
+
     let ref = db.collection("Todo")
-    ref.getDocuments { snapShot, error in
-//      guard error == nil else {
-//        print("에러: \(error!.localizedDescription)")
-//        return
-//      }
+    ref.getDocuments { snapShot, _ in
       
       if let snapShot = snapShot {
         for documnet in snapShot.documents {
@@ -40,9 +31,66 @@ class DataManager: ObservableObject {
           let todo = Todo(id: UUID(uuidString: id) ?? UUID(), title: title, content: content, date: date, status: Status(rawValue: status) ?? Status.todo)
           
           self.todos.append(todo)
-          
         }
       }
     }
   }
+  
+  func createTodo(todo: Todo) {
+    
+    db.collection("Todo").document(todo.id.uuidString).setData(["id": todo.id.uuidString,
+                                                                "title": todo.title,
+                                                                "content": todo.content,
+                                                                "date": todo.date,
+                                                                "status": todo.status.rawValue])
+  }
+  
+  func updateTodo(status: Status, todo: Todo) {
+    
+    db.collection("Todo").document(todo.id.uuidString).updateData(["status": status.rawValue])
+  }
+  
+  func updateTodo(todo: Todo) {
+    
+    db.collection("Todo").document(todo.id.uuidString).updateData(["id": "\(todo.id)",
+                                                                       "title": todo.title,
+                                                                       "content": todo.content,
+                                                                       "date": todo.date,
+                                                                       "status": todo.status.rawValue])
+  }
+
+  func deleteTodo() {
+    
+    db.collection("Todo").document("Jt0lnu78k2AyMpbP4GCN").delete { error in
+      print("\(error)삭제가 안되!")
+    }
+
+  }
 }
+//
+//func updateStatus(status: Status, todo: Todo) {
+//
+//  guard let realm = try? Realm() else { return }
+//  guard let selectedTodo = realm.objects(TodoRealm.self).filter({ $0.id == todo.id }).first else {
+//    return
+//  }
+//
+//  try? realm.write {
+//    selectedTodo.status = status
+//  }
+//}
+//
+//func update(todo: Todo) {
+//  guard let realm = try? Realm() else { return }
+//  guard let selectedTodo = realm.objects(TodoRealm.self).filter({ $0.id == todo.id }).first else {
+//    return
+//  }
+//
+//  try? realm.write {
+//    selectedTodo.content = todo.content
+//    selectedTodo.title = todo.title
+//    selectedTodo.date = todo.date
+//    selectedTodo.status = todo.status
+//  }
+//}
+

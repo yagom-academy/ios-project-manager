@@ -41,10 +41,5 @@ struct AppView: View {
       }
     }
     .navigationViewStyle(.stack)
-    .onAppear {
-      let manager = DataManager()
-      manager.fetchTodo()
-      print(manager.todos)
-    }
   }
 }
