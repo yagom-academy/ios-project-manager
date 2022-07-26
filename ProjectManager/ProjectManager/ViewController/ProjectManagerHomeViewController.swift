@@ -92,8 +92,7 @@ extension ProjectManagerHomeViewController: UITableViewDataSource {
     ) as? ProjectManagerTableViewCell else {
       return UITableViewCell()
     }
-    guard let projectCategory = fetchProejctCategory(from: tableView) else { return cell }
-    guard let projectList = realmService.filter(projectCategory: projectCategory) else { return cell }
+    guard let projectList = fetchProjectList(in: tableView) else { return cell}
 
     cell.configure(
       title: projectList[indexPath.row].title,
@@ -130,6 +129,13 @@ extension ProjectManagerHomeViewController: UITableViewDataSource {
       self.doneCountLabel.text = "\(itemCount)"
     }
   }
+
+  private func fetchProjectList(in tableView: UITableView) ->  Results<Project>? {
+    guard let projectCategory = fetchProejctCategory(from: tableView) else { return nil }
+    guard let projectList = realmService.filter(projectCategory: projectCategory) else { return nil }
+
+    return projectList
+  }
 }
 
 // MARK: - UITableViewDelegate
@@ -141,6 +147,21 @@ extension ProjectManagerHomeViewController: UITableViewDelegate {
     guard let projectCategory = fetchProejctCategory(from: tableView) else { return }
 
     self.presentProjectEditView(projectCategory: projectCategory, indexPath: indexPath)
+  }
+
+  func tableView(
+    _ tableView: UITableView,
+    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+  ) -> UISwipeActionsConfiguration? {
+    guard let projectList = fetchProjectList(in: tableView) else { return nil }
+
+    let deleteAction = UIContextualAction(style: .destructive, title: "Delete") {
+      _, _, actionPerformed in
+      self.realmService.delete(project: projectList[indexPath.row])
+      actionPerformed(true)
+    }
+
+    return UISwipeActionsConfiguration(actions: [deleteAction])
   }
 
   private func presentProjectEditView(projectCategory: ProjectCategory, indexPath: IndexPath) {
