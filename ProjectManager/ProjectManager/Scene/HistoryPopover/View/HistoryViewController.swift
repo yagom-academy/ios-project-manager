@@ -10,9 +10,9 @@ import UIKit
 import RxSwift
 
 final class HistoryViewController: UIViewController {
-    let viewModel: HistoryViewModel
-    let tableView = UITableView()
-    let disposeBag = DisposeBag()
+    private let viewModel: HistoryViewModel
+    private let tableView = UITableView()
+    private let disposeBag = DisposeBag()
     
     init(viewModel: HistoryViewModel) {
         self.viewModel = viewModel

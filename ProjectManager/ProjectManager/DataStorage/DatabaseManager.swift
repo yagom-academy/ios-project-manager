@@ -22,8 +22,8 @@ protocol DatabaseManagerProtocol {
 }
 
 final class DatabaseManager: DatabaseManagerProtocol {
-    var todoListBehaviorRelay = BehaviorRelay<[Todo]>(value: [])
-    var updateBehaviorRelay = BehaviorRelay<[History]>(value: [])
+    let todoListBehaviorRelay = BehaviorRelay<[Todo]>(value: [])
+    let updateBehaviorRelay = BehaviorRelay<[History]>(value: [])
 
     private let realm = RealmDatabase()
     private let firebase = FirebaseDatabase()
