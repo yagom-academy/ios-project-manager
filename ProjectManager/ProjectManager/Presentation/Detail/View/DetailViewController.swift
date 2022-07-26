@@ -103,35 +103,12 @@ final class DetailViewController: UIViewController {
                 
                 switch self.mode {
                 case .display:
-                    self.turnToEditMode()
+                    self.didTapEditButton()
                 case .edit:
-                    self.cancel()
+                    self.didTapCancelButton()
                 }
             }
             .disposed(by: disposeBag)
-    }
-    
-    private func turnToEditMode() {
-        modalView.navigationBar.leftButton.setTitle(Constant.cancel, for: .normal)
-        modalView.navigationBar.rightButton.setTitle(Constant.save, for: .normal)
-        
-        modalView.isUserInteractionEnabled(true)
-        
-        mode = .edit
-    }
-    
-    private func cancel() {
-        modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
-        modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
-        
-        guard let project = self.viewModel.read() else {
-            return
-        }
-        
-        self.modalView.compose(content: project)
-        self.modalView.isUserInteractionEnabled(false)
-        
-        mode = .display
     }
     
     private func setUpRightButton() {
@@ -146,19 +123,44 @@ final class DetailViewController: UIViewController {
                 
                 switch self.mode {
                 case .display:
-                    self.done()
+                    self.didTapDoneButton()
                 case .edit:
-                    self.save()
+                    self.didTapSaveButton()
                 }
             }
             .disposed(by: disposeBag)
     }
+}
+
+extension DetailViewController {
+    private func didTapEditButton() {
+        modalView.navigationBar.leftButton.setTitle(Constant.cancel, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.save, for: .normal)
+        
+        modalView.isUserInteractionEnabled(true)
+        
+        mode = .edit
+    }
     
-    private func done() {
+    private func didTapDoneButton() {
         dismiss(animated: true, completion: nil)
     }
     
-    private func save() {
+    private func didTapCancelButton() {
+        modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
+        
+        guard let project = self.viewModel.read() else {
+            return
+        }
+        
+        self.modalView.compose(content: project)
+        self.modalView.isUserInteractionEnabled(false)
+        
+        mode = .display
+    }
+    
+    private func didTapSaveButton() {
         modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
         modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
         
