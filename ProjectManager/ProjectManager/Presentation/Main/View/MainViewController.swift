@@ -266,11 +266,10 @@ final class MainViewController: UIViewController {
             return
         }
         
-        let next = UINavigationController(
-            rootViewController: DetailViewController(content: content)
-        )
+        let next = DetailViewController(content: content)
         
-        next.modalPresentationStyle = .formSheet
+        next.modalPresentationStyle = .overCurrentContext
+        next.modalTransitionStyle = .crossDissolve
         
         self.present(next, animated: true)
     }

@@ -24,10 +24,27 @@ final class RegistrationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpAttribute()
         setUpLayout()
         setUpNavigationItem()
         registerNotification()
-        setUpAttribute()
+    }
+    
+    private func setUpAttribute() {
+        view.backgroundColor = .black.withAlphaComponent(0.5)
+    }
+    
+    private func setUpLayout() {
+        view.addSubview(modalView)
+        
+        modalView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            modalView.widthAnchor.constraint(equalToConstant: 500),
+            modalView.heightAnchor.constraint(equalToConstant: 600),
+            modalView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            modalView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     private func setUpNavigationItem() {
@@ -70,23 +87,6 @@ final class RegistrationViewController: UIViewController {
         let date = modalView.datePicker.date
         
         viewModel.registrate(title: title, date: date, body: body)
-    }
-    
-    private func setUpAttribute() {
-        view.backgroundColor = .black.withAlphaComponent(0.5)
-    }
-    
-    private func setUpLayout() {
-        view.addSubview(modalView)
-        
-        modalView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            modalView.widthAnchor.constraint(equalToConstant: 500),
-            modalView.heightAnchor.constraint(equalToConstant: 600),
-            modalView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            modalView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
     }
 }
 

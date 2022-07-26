@@ -22,16 +22,31 @@ final class DetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        view = modalView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpAttribute()
+        setUpLayout()
         setUpModalView()
         setUpDetailNavigationItem()
         modalView.bodyTextView.delegate = self
+    }
+    
+    private func setUpAttribute() {
+        view.backgroundColor = .black.withAlphaComponent(0.5)
+    }
+    
+    private func setUpLayout() {
+        view.addSubview(modalView)
+        
+        modalView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            modalView.widthAnchor.constraint(equalToConstant: 500),
+            modalView.heightAnchor.constraint(equalToConstant: 600),
+            modalView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            modalView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     private func setUpModalView() {
@@ -40,43 +55,27 @@ final class DetailViewController: UIViewController {
     }
     
     private func setUpDetailNavigationItem() {
-        navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationItem.title = viewModel.asContent().status.string
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .edit,
-            target: nil,
-            action: nil
-        )
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: nil,
-            action: nil
-        )
+        modalView.navigationBar.modalTitle.text = viewModel.asContent().status.string
+        modalView.navigationBar.leftButton.setTitle("edit", for: .normal)
+        modalView.navigationBar.rightButton.setTitle("done", for: .normal)
         
         didTapEditButton()
         didTapDoneButton()
     }
     
     private func setUpEditNavigationItem() {
-        navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationItem.title = viewModel.asContent().status.string
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: nil,
-            action: nil
-        )
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .save,
-            target: nil,
-            action: nil
-        )
+        modalView.navigationBar.modalTitle.text = viewModel.asContent().status.string
+        modalView.navigationBar.leftButton.setTitle("cancel", for: .normal)
+        modalView.navigationBar.rightButton.setTitle("save", for: .normal)
         
         didTapCancelButton()
         didTapSaveButton()
     }
     
     private func didTapEditButton() {
-        navigationItem.leftBarButtonItem?.rx.tap
+        let leftButton = modalView.navigationBar.leftButton
+        
+        leftButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
                 self?.modalView.isUserInteractionEnabled(true)
@@ -86,7 +85,9 @@ final class DetailViewController: UIViewController {
     }
     
     private func didTapDoneButton() {
-        navigationItem.rightBarButtonItem?.rx.tap
+        let rightButton = modalView.navigationBar.rightButton
+        
+        rightButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
                 self?.dismiss(animated: true, completion: nil)
@@ -95,7 +96,9 @@ final class DetailViewController: UIViewController {
     }
     
     private func didTapCancelButton() {
-        navigationItem.leftBarButtonItem?.rx.tap
+        let leftButton = modalView.navigationBar.leftButton
+        
+        leftButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
                 guard let self = self,
@@ -110,7 +113,9 @@ final class DetailViewController: UIViewController {
     }
     
     private func didTapSaveButton() {
-        navigationItem.rightBarButtonItem?.rx.tap
+        let rightButton = modalView.navigationBar.rightButton
+        
+        rightButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
                 guard let self = self else {
