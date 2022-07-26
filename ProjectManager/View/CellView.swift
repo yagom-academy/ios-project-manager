@@ -47,71 +47,19 @@ struct CellView: View {
 }
 
 struct PopoverButton: View {
-    var popoverButtonViewModel: PopoverButtonViewModel
-    var taskType: TaskType
-    var cellIndex: Int
+    let taskType: TaskType
+    let moveTask: (_ to: TaskType) -> Void
     
     var body: some View {
-        switch taskType {
-        case .todo:
-            Form {
+        Form {
+            ForEach(TaskType.allCases.filter{ $0 != taskType }, content: { type in
                 Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
-                                                    from: taskType,
-                                                    to: .doing)
-                    
-                }) {
-                    Text("Move to DOING")
-                }
-                Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
-                                                    from: taskType,
-                                                    to: .done)
-                    
-                }) {
-                    Text("Move to DONE")
-                }
-            }
-            .frame(width: 190, height: 90, alignment: .center)
-            
-        case .doing:
-            Form {
-                Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
-                                                    from: taskType,
-                                                    to: .todo)
-                }) {
-                    Text("Move to TODO")
-                }
-                Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
-                                                    from: taskType,
-                                                    to: .done)
-                }) {
-                    Text("Move to DONE")
-                }
-            }
-            .frame(width: 190, height: 90, alignment: .center)
-            
-        case .done:
-            Form {
-                Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
-                                                    from: taskType,
-                                                    to: .todo)
-                }) {
-                    Text("Move to TODO")
-                }
-                Button(action: {
-                    popoverButtonViewModel.moveData(popoverButtonViewModel.service.tasks[cellIndex],
-                                                    from: taskType,
-                                                    to: .doing)
-                }) {
-                    Text("Move to DOING")
-                }
-            }
-            .frame(width: 190, height: 90, alignment: .center)
-        }
+                    moveTask(type)
+                }, label: {
+                    Text("Move to \(type.title)")
+                })
+            })
+        }.frame(width: 200, height: 150, alignment: .center)
     }
 }
 
