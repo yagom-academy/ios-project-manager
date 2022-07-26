@@ -29,7 +29,6 @@ final class DetailViewController: UIViewController {
         setUpLayout()
         setUpModalView()
         setUpDetailNavigationItem()
-        modalView.bodyTextView.delegate = self
     }
     
     private func setUpAttribute() {
@@ -127,19 +126,5 @@ final class DetailViewController: UIViewController {
                 self.setUpDetailNavigationItem()
             }
             .disposed(by: disposeBag)
-    }
-}
-
-extension DetailViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if self.view.frame.origin.y == 0 {
-            self.view.frame.origin.y -= 170
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
     }
 }
