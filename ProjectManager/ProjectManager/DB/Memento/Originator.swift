@@ -22,7 +22,7 @@ final class Originator: Originatable {
   var careTaker = CareTaker()
   
   func createMemento(_ memento: Memento) {
-    self.memento = Memento(todo: memento.todo, historyState: memento.historyState)
+    self.memento = memento
     
     guard let unwrappedMemento = self.memento else {
       return

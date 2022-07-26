@@ -11,7 +11,7 @@ import Combine
 
 final class FireBaseService: StorageType {
   static let shared = FireBaseService()
-  private let firebaseRef: DatabaseReference!
+  private let firebaseRef: DatabaseReference?
   
   private var items = CurrentValueSubject<[Todo], Never>([])
   
@@ -20,7 +20,7 @@ final class FireBaseService: StorageType {
   }
   
   func create(_ todo: Todo) {
-    firebaseRef.child(todo.id).setValue([
+    firebaseRef?.child(todo.id).setValue([
       "title": todo.title,
       "content": todo.content,
       "date": todo.date.timeIntervalSinceReferenceDate,
@@ -32,7 +32,7 @@ final class FireBaseService: StorageType {
   }
   
   func read() -> AnyPublisher<[Todo], Never> {
-    firebaseRef.observeSingleEvent(of: .value) { snapshot in
+    firebaseRef?.observeSingleEvent(of: .value) { snapshot in
       guard let snapData = snapshot.value as? [String: Any] else {
         return
       }
@@ -67,7 +67,7 @@ final class FireBaseService: StorageType {
   }
   
   func update(_ todo: Todo) {
-    firebaseRef.child(todo.id).setValue([
+    firebaseRef?.child(todo.id).setValue([
       "title": todo.title,
       "content": todo.content,
       "date": todo.date.timeIntervalSinceNow,
@@ -86,7 +86,7 @@ final class FireBaseService: StorageType {
   }
   
   func delete(_ todo: Todo) {
-    firebaseRef.child(todo.id).removeValue()
+    firebaseRef?.child(todo.id).removeValue()
     
     var todos = items.value
     todos.removeAll(where: { $0.id == todo.id })
