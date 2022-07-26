@@ -12,10 +12,10 @@ final class TodoListViewCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
-    private let dependencies: TodoSceneDIContainer
+    private let dependencies: TodoListDIContainer
     private weak var viewController: TodoListViewController?
     
-    init(navigationController: UINavigationController, dependencies: TodoSceneDIContainer) {
+    init(navigationController: UINavigationController, dependencies: TodoListDIContainer) {
         self.navigationController = navigationController
         self.dependencies = dependencies
     }

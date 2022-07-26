@@ -1,5 +1,5 @@
 //
-//  TodoSceneDIContainer.swift
+//  TodoListDIContainer.swift
 //  ProjectManager
 //
 //  Created by 김도연 on 2022/07/06.
@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class TodoSceneDIContainer {
+final class TodoListDIContainer {
     struct Dependencies {
         unowned let todoStorage: LocalStorageable
         unowned let remoteStorage: RemoteStorageable
@@ -25,7 +25,7 @@ final class TodoSceneDIContainer {
     }
 }
 
-extension TodoSceneDIContainer {
+extension TodoListDIContainer {
     
     // MARK: ViewController
     

@@ -30,7 +30,7 @@ final class TodoListView: UIView {
         return stackView
     }()
     
-    init(dependency: TodoSceneDIContainer) {
+    init(dependency: TodoListDIContainer) {
         self.todoView = dependency.makeTodoView(processType: .todo)
         self.doingView = dependency.makeTodoView(processType: .doing)
         self.doneView = dependency.makeTodoView(processType: .done)

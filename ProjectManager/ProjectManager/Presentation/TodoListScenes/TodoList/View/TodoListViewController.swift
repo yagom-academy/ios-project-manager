@@ -11,14 +11,14 @@ import Combine
 import SnapKit
 
 final class TodoListViewController: UIViewController, Alertable {
-    private unowned let dependency: TodoSceneDIContainer
+    private unowned let dependency: TodoListDIContainer
     weak var coordinator: TodoListViewCoordinator?
     private lazy var todoListView = dependency.makeTodoListView()
     private let viewModel: TodoListViewModelable
     
     private var cancellableBag = Set<AnyCancellable>()
     
-    init(viewModel: TodoListViewModelable, dependency: TodoSceneDIContainer) {
+    init(viewModel: TodoListViewModelable, dependency: TodoListDIContainer) {
         self.viewModel = viewModel
         self.dependency = dependency
         super.init(nibName: nil, bundle: nil)

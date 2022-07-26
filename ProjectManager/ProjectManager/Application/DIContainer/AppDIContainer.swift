@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AppDIContainerable {
-    func makeTodoListSceneDIContainer() -> TodoSceneDIContainer
+    func makeTodoListSceneDIContainer() -> TodoListDIContainer
 }
 
 final class AppDIContainer: AppDIContainerable {
@@ -16,9 +16,9 @@ final class AppDIContainer: AppDIContainerable {
     private let remoteStorage = FirebaseStorage()
     private let historyStorage = HistoryStorage()
     
-    func makeTodoListSceneDIContainer() -> TodoSceneDIContainer {
-        return TodoSceneDIContainer(
-            dependencies: TodoSceneDIContainer.Dependencies(
+    func makeTodoListSceneDIContainer() -> TodoListDIContainer {
+        return TodoListDIContainer(
+            dependencies: TodoListDIContainer.Dependencies(
                 todoStorage: todoStorage,
                 remoteStorage: remoteStorage,
                 historyStorage: historyStorage
