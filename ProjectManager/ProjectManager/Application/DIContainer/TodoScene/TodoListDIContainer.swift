@@ -33,14 +33,6 @@ extension TodoListDIContainer {
         return TodoListViewController(viewModel: makeTodoListViewModel(), dependency: self)
     }
     
-    func makeTodoCreateViewContoller() -> TodoCreateViewController {
-        return TodoCreateViewController(viewModel: makeTodoCreateViewModel())
-    }
-    
-    func makeTodoEditViewContoller(todoListModel: Todo) -> TodoEditViewController {
-        return TodoEditViewController(viewModel: makeTodoEditViewModel(todoListModel))
-    }
-    
     // MARK: - View
     
     func makeTodoListView() -> TodoListView {
@@ -58,18 +50,6 @@ extension TodoListDIContainer {
         parentViewModel = viewModel
         
         return viewModel
-    }
-    
-    private func makeTodoCreateViewModel() -> TodoCreateViewModelable {
-        return TodoCreateViewModel(todoUseCase: makeTodoListUseCase(), historyUseCase: makeTodoHistoryUseCase())
-    }
-    
-    private func makeTodoEditViewModel(_ item: Todo) -> TodoEditViewModelable {
-        return TodoEditViewModel(
-            todoUseCase: makeTodoListUseCase(),
-            historyUseCase: makeTodoHistoryUseCase(),
-            todoListModel: item
-        )
     }
     
     private func makeTodoViewModel(processType: ProcessType) -> TodoViewModel {
@@ -106,24 +86,36 @@ extension TodoListDIContainer {
     private func makeTodoHistoryRepository() -> TodoHistoryRepositorible {
         return TodoHistoryRepository(storage: dependencies.historyStorage)
     }
-
+    
     // MARK: - Coordiantor
     
     func makeListViewCoordinator(navigationController: UINavigationController) -> TodoListViewCoordinator {
         return TodoListViewCoordinator(navigationController: navigationController, dependencies: self)
     }
     
-    func makeCreateViewCoordinator(navigationController: UINavigationController) -> TodoCreateViewCoordinator {
-        return TodoCreateViewCoordinator(navigationController: navigationController, dependencies: self)
-    }
-    
-    func makeEditViewCoordinator(navigationController: UINavigationController) -> TodoEditViewCoordinator {
-        return TodoEditViewCoordinator(navigationController: navigationController, dependencies: self)
-    }
-    
     // MARK: - DIContainer
     
     func makeTodoHistoryDIContainer() -> TodoHistoryDIContainer {
         return TodoHistoryDIContainer(dependencies: .init(historyStorage: dependencies.historyStorage))
+    }
+    
+    func makeTodoCreateDIContainer() -> TodoCreateDIContainer {
+        return TodoCreateDIContainer(
+            dependencies: .init(
+                todoStorage: dependencies.todoStorage,
+                remoteStorage: dependencies.remoteStorage,
+                historyStorage: dependencies.historyStorage
+            )
+        )
+    }
+    
+    func makeTodoEditDIContainer() -> TodoEditDIContainer {
+        return TodoEditDIContainer(
+            dependencies: .init(
+                todoStorage: dependencies.todoStorage,
+                remoteStorage: dependencies.remoteStorage,
+                historyStorage: dependencies.historyStorage
+            )
+        )
     }
 }

@@ -33,7 +33,8 @@ final class TodoListViewCoordinator: Coordinator {
             return
         }
 
-        let sceneCoordinator = dependencies.makeCreateViewCoordinator(navigationController: navigationController)
+        let dIContainer = dependencies.makeTodoCreateDIContainer()
+        let sceneCoordinator = dIContainer.makeCreateViewCoordinator(navigationController: navigationController)
         
         childCoordinators.append(sceneCoordinator)
         sceneCoordinator.parentCoordinator = self
@@ -45,8 +46,9 @@ final class TodoListViewCoordinator: Coordinator {
         guard let navigationController = navigationController else {
             return
         }
-
-        let sceneCoordinator = dependencies.makeEditViewCoordinator(navigationController: navigationController)
+        
+        let diContainer = dependencies.makeTodoEditDIContainer()
+        let sceneCoordinator = diContainer.makeEditViewCoordinator(navigationController: navigationController)
         
         childCoordinators.append(sceneCoordinator)
         sceneCoordinator.parentCoordinator = self
