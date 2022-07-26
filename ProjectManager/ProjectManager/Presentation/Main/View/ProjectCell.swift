@@ -54,7 +54,7 @@ final class ProjectCell: UITableViewCell {
     }
     
     private func setUpCell() {
-        backgroundColor = .systemGray5
+        backgroundColor = .systemGray6
         contentView.backgroundColor = .systemBackground
         
         contentView.addSubview(baseStackView)

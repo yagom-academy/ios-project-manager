@@ -31,6 +31,8 @@ final class ProjectListView: UIStackView {
     
     private func registerCell() {
         tableView.register(ProjectCell.self, forCellReuseIdentifier: "\(ProjectCell.self)")
+        
+        tableView.backgroundColor = .systemGray6
         tableView.tableFooterView = UIView()
     }
     
@@ -77,7 +79,7 @@ final class HeaderView: UIView {
         
         setUpLayout()
         setUpTitle(title: title)
-        backgroundColor = .systemGray5
+        backgroundColor = .systemGray6
     }
     
     required init?(coder: NSCoder) {
