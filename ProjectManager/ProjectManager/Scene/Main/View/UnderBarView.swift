@@ -15,15 +15,19 @@ final class UnderBarView: UIView {
         $0.spacing = 20
     }
     
-    private let undoButton = UIButton().then {
+    private(set) var undoButton = UIButton().then {
         $0.setTitle("Undo", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
+        $0.setTitleColor(.gray, for: .disabled)
+        //$0.isEnabled = false
         $0.titleLabel?.font = .preferredFont(forTextStyle: .title2)
     }
     
-    private let redoButton = UIButton().then {
+    private(set) var redoButton = UIButton().then {
         $0.setTitle("Redo", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
+        $0.setTitleColor(.gray, for: .disabled)
+        //$0.isEnabled = false
         $0.titleLabel?.font = .preferredFont(forTextStyle: .title2)
     }
     
@@ -49,5 +53,6 @@ final class UnderBarView: UIView {
             $0.top.bottom.equalToSuperview()
             $0.trailing.equalToSuperview().inset(10)
         }
+        backgroundColor = .systemBackground
     }
 }

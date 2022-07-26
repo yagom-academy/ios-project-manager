@@ -13,10 +13,11 @@ final class MainView: UIView {
     private(set) lazy var todoView = TaskSectionView(taskType: .todo)
     private(set) lazy var doingView = TaskSectionView(taskType: .doing)
     private(set) lazy var doneView = TaskSectionView(taskType: .done)
-    private let underBarView = UnderBarView()
+    private(set) lazy var underBarView = UnderBarView()
     
     private let baseStackView = UIStackView().then {
         $0.axis = .vertical
+        $0.spacing = 3
     }
     
     private let taskSectionStackView = UIStackView().then {
