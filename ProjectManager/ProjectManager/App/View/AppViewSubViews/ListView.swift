@@ -35,5 +35,8 @@ struct ListView: View {
         }
       }
     }
+    .refreshable {
+      viewModel.refrash()
+    }
   }
 }

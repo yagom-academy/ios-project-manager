@@ -8,20 +8,24 @@
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+enum FirebaseError: Error {
+  case unKnownError
+}
+
 class DataManager {
   
   let dataBase = Firestore.firestore()
   
-  func readTodo() -> [Todo] {
+  func readTodo(completionHandler: @escaping (Result<[Todo], FirebaseError>) -> Void) {
     var todoList: [Todo] = []
     todoList.removeAll()
     
     dataBase.collection("Todo").getDocuments { snapShot, error in
       
-      guard error != nil else {
-        print("\(String(describing: error?.localizedDescription))")
-        return
-      }
+//      guard error != nil else {
+//        print("\(String(describing: error?.localizedDescription))")
+//        return
+//      }
 
       guard let snapShot = snapShot else {
         print("non snapShot")
@@ -48,7 +52,7 @@ class DataManager {
         }
       }
     }
-    return todoList
+    completionHandler(.success(todoList))
   }
   
   func createTodo(todo: Todo) {

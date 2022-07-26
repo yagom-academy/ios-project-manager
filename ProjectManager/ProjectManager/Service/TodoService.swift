@@ -7,6 +7,8 @@
 
 import Foundation
 import RealmSwift
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class TodoService: ObservableObject {
   let dataManager: DataManager = DataManager()
@@ -32,18 +34,31 @@ class TodoService: ObservableObject {
   }
   
   func read() -> [Todo] {
-    guard let realm = try? Realm() else { return [] }
-    let todoData = realm.objects(TodoRealm.self)
-    let realArr = Array(todoData)
-    let result = realArr.map { todoRealm -> Todo in
-      
-      return Todo(id: todoRealm.id,
-                  title: todoRealm.title,
-                  content: todoRealm.content,
-                  date: todoRealm.date,
-                  status: todoRealm.status)
+    var todos: [Todo] = []
+    if newtWorkCollection ==  true {
+      dataManager.readTodo { result in
+        switch result {
+        case.success(let todoList):
+          todos = todoList
+        case .failure(let error):
+          print("read \(error.localizedDescription)")
+        }
+      }
+      return todos
+    } else {
+      guard let realm = try? Realm() else { return [] }
+      let todoData = realm.objects(TodoRealm.self)
+      let realArr = Array(todoData)
+      let result = realArr.map { todoRealm -> Todo in
+        
+        return Todo(id: todoRealm.id,
+                    title: todoRealm.title,
+                    content: todoRealm.content,
+                    date: todoRealm.date,
+                    status: todoRealm.status)
+      }
     }
-    return result
+    return []
   }
   
   func read(by status: Status) -> [Todo] {
