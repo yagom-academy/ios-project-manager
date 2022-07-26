@@ -60,11 +60,6 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
         }
     }
     
-    var setEditMode: Observable<Bool> {
-        isEditMode
-            .asObservable()
-    }
-    
     //MARK: - Input
     func createButtonDidTap() {
         guard let item = item else {
