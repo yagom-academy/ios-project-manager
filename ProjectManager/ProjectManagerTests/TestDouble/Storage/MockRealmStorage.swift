@@ -21,7 +21,7 @@ final class MockRealmStorage: LocalStorageable {
         return Empty().eraseToAnyPublisher()
     }
     
-    func read() -> CurrentValueSubject<[Todo], Never> {
+    func todosPublisher() -> CurrentValueSubject<[Todo], Never> {
         readCallCount += 1
         return CurrentValueSubject<[Todo], Never>([])
     }

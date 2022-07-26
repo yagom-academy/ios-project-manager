@@ -18,7 +18,7 @@ final class MockFirebaseStrorage: RemoteStorageable {
         backupCallCount += 1
     }
     
-    func read() -> CurrentValueSubject<[Todo], StorageError> {
+    func todosPublisher() -> CurrentValueSubject<[Todo], StorageError> {
         readCallCount += 1
         return CurrentValueSubject<[Todo], StorageError>([])
     }

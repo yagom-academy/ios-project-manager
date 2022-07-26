@@ -19,7 +19,7 @@ final class StubTodoHistoryUseCase: TodoHistoryUseCaseable {
         return Empty().eraseToAnyPublisher()
     }
     
-    func read() -> CurrentValueSubject<[TodoHistory], Never> {
+    func todoHistoriesPublisher() -> CurrentValueSubject<[TodoHistory], Never> {
         return items
     }
     

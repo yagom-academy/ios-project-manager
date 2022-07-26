@@ -20,7 +20,7 @@ final class MockTodoHistoryRepository: TodoHistoryRepositorible {
         return Empty().eraseToAnyPublisher()
     }
     
-    func read() -> CurrentValueSubject<[TodoHistory], Never> {
+    func todoHistoriesPublisher() -> CurrentValueSubject<[TodoHistory], Never> {
         readCallCount += 1
         return CurrentValueSubject<[TodoHistory], Never>([])
     }

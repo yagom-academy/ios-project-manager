@@ -18,7 +18,7 @@ final class StubTodoUseCase: TodoListUseCaseable {
         return Empty().eraseToAnyPublisher()
     }
     
-    func read() -> CurrentValueSubject<[Todo], Never> {
+    func todosPublisher() -> CurrentValueSubject<[Todo], Never> {
         return items
     }
     

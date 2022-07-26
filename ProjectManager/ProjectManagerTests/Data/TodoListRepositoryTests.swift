@@ -18,7 +18,7 @@ class TodoListRepositoryTests: XCTestCase {
         try super.setUpWithError()
         mockRealmStorage = MockRealmStorage()
         mockFirebaseStorage = MockFirebaseStrorage()
-        repository = TodoListRepository(todoLocalStorage: mockRealmStorage, todoRemoteStorage: mockFirebaseStorage)
+        repository = TodoListRepository(todoLocalStorage: mockRealmStorage, todoRemoteStorage: mockFirebaseStorage, isFirstLogin: false)
     }
     
     func test_create를호출할때_createCallCount가하나늘어난다() {
@@ -37,7 +37,7 @@ class TodoListRepositoryTests: XCTestCase {
         let expected = 1
         
         // when
-        repository.read()
+        repository.todosPublisher()
         
         // then
         XCTAssertEqual(expected, mockRealmStorage.readCallCount)

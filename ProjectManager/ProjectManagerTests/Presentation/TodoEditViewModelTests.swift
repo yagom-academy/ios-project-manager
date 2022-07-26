@@ -20,7 +20,7 @@ class TodoEditViewModelTests: XCTestCase {
         historyUseCase = StubTodoHistoryUseCase()
         todoUseCase = StubTodoUseCase()
         
-        viewModel = TodoEditViewModel(todoUseCase: todoUseCase, historyUseCase: historyUseCase, todoListModel: todoUseCase.items.value.last!)
+        viewModel = TodoEditViewModel(todoUseCase: todoUseCase, historyUseCase: historyUseCase, item: todoUseCase.items.value.last!)
     }
 
     func test_didTapDoneButton하면_item의title과content와deadline이업데이트되어야한다() {

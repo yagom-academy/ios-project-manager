@@ -37,7 +37,7 @@ class TodoHistoryUseCaseTests: XCTestCase {
         let expected = 1
         
         // when
-        useCase.read()
+        useCase.todoHistoriesPublisher()
         
         // then
         XCTAssertEqual(expected, mockTodoHistoryRepository.readCallCount)

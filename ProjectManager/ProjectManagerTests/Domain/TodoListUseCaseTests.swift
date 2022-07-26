@@ -35,7 +35,7 @@ class TodoListUseCaseTests: XCTestCase {
         let expected = 1
         
         // when
-        useCase.read()
+        useCase.todosPublisher()
         
         // then
         XCTAssertEqual(expected, mockTodoListRepository.readCallCount)
