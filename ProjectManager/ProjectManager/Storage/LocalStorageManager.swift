@@ -43,7 +43,13 @@ final class LocalStorageManager: LocalStorageManagerable {
     
     func readList(_ type: ListType) -> [ListItem] {
         let list: [ListItem] = selectListModel(type)
-            .compactMap { $0.convertedItem }
+            .compactMap {
+                ListItem(title: $0.title,
+                         body: $0.body,
+                         deadline: $0.deadline,
+                         type: ListType(rawValue: $0.type) ?? .todo,
+                         id: $0.id)
+            }
             .sorted { $0.deadline < $1.deadline }
         return list
     }
