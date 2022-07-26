@@ -5,22 +5,25 @@
 //  Created by Tiana, mmim on 2022/07/25.
 //
 
-import Foundation
+import RxRelay
 
 final class MockHistoryRepository {
     static let shared = MockHistoryRepository()
     
     private init() { }
     
-    private var historyEntities = [HistoryEntity]()
+    private var historyEntities = BehaviorRelay<[HistoryEntity]>(value: [])
 }
 
 extension MockHistoryRepository: HistoryStoragable {
     func create(historyEntity: HistoryEntity) {
-        historyEntities.append(historyEntity)
+        var currentProject = read().value
+        
+        currentProject.append(historyEntity)
+        historyEntities.accept(currentProject)
     }
     
-    func read() -> [HistoryEntity] {
+    func read() -> BehaviorRelay<[HistoryEntity]> {
         return historyEntities
     }
 }

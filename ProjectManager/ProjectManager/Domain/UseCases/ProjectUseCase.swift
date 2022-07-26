@@ -48,7 +48,7 @@ struct ProjectUseCase {
         historyRepository.create(historyEntity: historyEntity)
     }
     
-    func readHistory() -> [HistoryEntity] {
+    func readHistory() -> BehaviorRelay<[HistoryEntity]> {
         return historyRepository.read()
     }
 }

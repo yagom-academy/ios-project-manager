@@ -5,11 +5,11 @@
 //  Created by Tiana, mmim on 2022/07/26.
 //
 
-import Foundation
+import RxRelay
 
 protocol HistoryStoragable {
     func create(historyEntity: HistoryEntity)
-    func read() -> [HistoryEntity]
+    func read() -> BehaviorRelay<[HistoryEntity]>
 }
 
 struct HistoryRepository {
@@ -25,7 +25,7 @@ extension HistoryRepository: HistoryStoragable {
         storageManager.create(historyEntity: historyEntity)
     }
     
-    func read() -> [HistoryEntity] {
+    func read() -> BehaviorRelay<[HistoryEntity]> {
         return storageManager.read()
     }
 }
