@@ -29,8 +29,17 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
     }
 
     private func changeTaskType(_ task: Task, taskType: TaskType) {
+        
         let beforeType = task.taskType
-        let temp = Task(title: task.title, body: task.body, date: task.date, taskType: task.taskType, id: task.id)
+        
+        let temp = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: task.taskType,
+            id: task.id
+        )
+        
         registerChangeUndoAction(task: temp, taskType: taskType)
         
         do {

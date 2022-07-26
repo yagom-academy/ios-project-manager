@@ -9,6 +9,7 @@ import Foundation
 import RxRelay
 import RxSwift
 import Network
+import UserNotifications
 
 protocol MainViewModelEvent {
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType)
@@ -88,6 +89,10 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         fetchToDo()
         fetchDoing()
         fetchDone()
+        
+        todos.value.forEach {
+            self.createDeadlineNotification(at: $0)
+        }
     }
     
     private func deleteData(task: Task) {
@@ -203,5 +208,21 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
             undoable.accept(true)
         }
         fetchData()
+    }
+    
+    private func createDeadlineNotification(at task: Task) {
+        let content = UNMutableNotificationContent()
+        content.title = task.title
+        content.body = task.body
+        content.sound = .default
+        
+//        var dateComponents = DateComponents()
+//        dateComponents.calendar = Calendar.current
+//        dateComponents.hour = 9
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 4, repeats: false)
+        let request = UNNotificationRequest(identifier: task.id, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request)
     }
 }
