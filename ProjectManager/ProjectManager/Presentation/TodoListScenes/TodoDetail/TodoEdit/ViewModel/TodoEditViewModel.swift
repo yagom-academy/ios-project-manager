@@ -39,10 +39,10 @@ final class TodoEditViewModel: TodoEditViewModelable {
     private let historyUseCase: TodoHistoryUseCaseable
     private var cancellableBag = Set<AnyCancellable>()
     
-    init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable, todoListModel: Todo) {
+    init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable, item: Todo) {
         self.todoUseCase = todoUseCase
         self.historyUseCase = historyUseCase
-        self.todo = todoListModel
+        self.todo = item
     }
 }
 

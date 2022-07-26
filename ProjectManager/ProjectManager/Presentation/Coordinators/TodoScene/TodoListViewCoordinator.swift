@@ -33,8 +33,8 @@ final class TodoListViewCoordinator: Coordinator {
             return
         }
 
-        let dIContainer = dependencies.makeTodoCreateDIContainer()
-        let sceneCoordinator = dIContainer.makeCreateViewCoordinator(navigationController: navigationController)
+        let factory = dependencies.makeTodoCreateFactory()
+        let sceneCoordinator = factory.makeCreateViewCoordinator(navigationController: navigationController)
         
         childCoordinators.append(sceneCoordinator)
         sceneCoordinator.parentCoordinator = self
@@ -42,13 +42,13 @@ final class TodoListViewCoordinator: Coordinator {
         sceneCoordinator.start()
     }
     
-    func showDetailViewController(_ item: Todo) {
+    func showEditViewController(_ item: Todo) {
         guard let navigationController = navigationController else {
             return
         }
         
-        let diContainer = dependencies.makeTodoEditDIContainer()
-        let sceneCoordinator = diContainer.makeEditViewCoordinator(navigationController: navigationController)
+        let factory = dependencies.makeTodoEditFactory()
+        let sceneCoordinator = factory.makeEditViewCoordinator(navigationController: navigationController)
         
         childCoordinators.append(sceneCoordinator)
         sceneCoordinator.parentCoordinator = self
@@ -61,8 +61,8 @@ final class TodoListViewCoordinator: Coordinator {
             return
         }
         
-        let todoHistoryDIContainer = dependencies.makeTodoHistoryDIContainer()
-        let sceneCoordinator = todoHistoryDIContainer.makeHistoryViewCoordinator(
+        let factory = dependencies.makeTodoHistoryFactory()
+        let sceneCoordinator = factory.makeHistoryViewCoordinator(
             navigationController: navigationController
         )
         

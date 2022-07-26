@@ -12,15 +12,15 @@ final class TodoHistoryViewCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
-    private let dependencies: TodoHistoryDIContainer
+    private let factory: TodoHistoryFactory
     
-    init(navigationController: UINavigationController, dependencies: TodoHistoryDIContainer) {
+    init(navigationController: UINavigationController, factory: TodoHistoryFactory) {
         self.navigationController = navigationController
-        self.dependencies = dependencies
+        self.factory = factory
     }
     
     func start(sourceView: UIBarButtonItem) {
-        let todoHistoryViewController = dependencies.makeTodoHistoryTableViewController()
+        let todoHistoryViewController = factory.makeTodoHistoryTableViewController()
         todoHistoryViewController.coordinator = self
         todoHistoryViewController.modalPresentationStyle = .popover
         let popoverViewController = todoHistoryViewController.popoverPresentationController

@@ -12,11 +12,11 @@ final class TodoEditViewCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
-    private unowned let dependencies: TodoEditDIContainer
+    private unowned let factory: TodoEditFactory
 
-    init(navigationController: UINavigationController, dependencies: TodoEditDIContainer) {
+    init(navigationController: UINavigationController, factory: TodoEditFactory) {
         self.navigationController = navigationController
-        self.dependencies = dependencies
+        self.factory = factory
     }
 
     func start(_ item: Todo) {
@@ -24,7 +24,7 @@ final class TodoEditViewCoordinator: Coordinator {
             return
         }
 
-        let todoEditViewController = dependencies.makeTodoEditViewContoller(todoListModel: item)
+        let todoEditViewController = factory.makeTodoEditViewContoller(item)
         todoEditViewController.coordiantor = self
         
         let todoEditNavigationController = UINavigationController(rootViewController: todoEditViewController)

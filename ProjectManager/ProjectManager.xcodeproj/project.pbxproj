@@ -43,9 +43,9 @@
 		947C3F382875CD4600223403 /* TodoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C3F372875CD4600223403 /* TodoHeaderView.swift */; };
 		947EEF31287D4691009746C9 /* TodoEditViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947EEF30287D4691009746C9 /* TodoEditViewCoordinator.swift */; };
 		947EEF63287EA106009746C9 /* TodoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947EEF62287EA106009746C9 /* TodoCellViewModel.swift */; };
-		948A2916288FB0D20055A031 /* TodoHistoryDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948A2915288FB0D20055A031 /* TodoHistoryDIContainer.swift */; };
-		948A291C288FBC8F0055A031 /* TodoCreateDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948A291B288FBC8F0055A031 /* TodoCreateDIContainer.swift */; };
-		948A291E288FBEB30055A031 /* TodoEditDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948A291D288FBEB30055A031 /* TodoEditDIContainer.swift */; };
+		948A2916288FB0D20055A031 /* TodoHistoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948A2915288FB0D20055A031 /* TodoHistoryFactory.swift */; };
+		948A291C288FBC8F0055A031 /* TodoCreateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948A291B288FBC8F0055A031 /* TodoCreateFactory.swift */; };
+		948A291E288FBEB30055A031 /* TodoEditFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948A291D288FBEB30055A031 /* TodoEditFactory.swift */; };
 		A148151B288820D7000059D9 /* AlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148151A288820D7000059D9 /* AlertBuilder.swift */; };
 		A148151D28890984000059D9 /* MockTodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148151C28890984000059D9 /* MockTodoListViewModel.swift */; };
 		A148151F28890A25000059D9 /* TodoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A148151E28890A25000059D9 /* TodoViewModelTests.swift */; };
@@ -123,9 +123,9 @@
 		947C3F372875CD4600223403 /* TodoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHeaderView.swift; sourceTree = "<group>"; };
 		947EEF30287D4691009746C9 /* TodoEditViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditViewCoordinator.swift; sourceTree = "<group>"; };
 		947EEF62287EA106009746C9 /* TodoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCellViewModel.swift; sourceTree = "<group>"; };
-		948A2915288FB0D20055A031 /* TodoHistoryDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistoryDIContainer.swift; sourceTree = "<group>"; };
-		948A291B288FBC8F0055A031 /* TodoCreateDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCreateDIContainer.swift; sourceTree = "<group>"; };
-		948A291D288FBEB30055A031 /* TodoEditDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditDIContainer.swift; sourceTree = "<group>"; };
+		948A2915288FB0D20055A031 /* TodoHistoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistoryFactory.swift; sourceTree = "<group>"; };
+		948A291B288FBC8F0055A031 /* TodoCreateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCreateFactory.swift; sourceTree = "<group>"; };
+		948A291D288FBEB30055A031 /* TodoEditFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditFactory.swift; sourceTree = "<group>"; };
 		A148151A288820D7000059D9 /* AlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBuilder.swift; sourceTree = "<group>"; };
 		A148151C28890984000059D9 /* MockTodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTodoListViewModel.swift; sourceTree = "<group>"; };
 		A148151E28890A25000059D9 /* TodoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModelTests.swift; sourceTree = "<group>"; };
@@ -429,9 +429,9 @@
 			isa = PBXGroup;
 			children = (
 				940B64C6287551BC001D3FD9 /* TodoListDIContainer.swift */,
-				948A291B288FBC8F0055A031 /* TodoCreateDIContainer.swift */,
-				948A291D288FBEB30055A031 /* TodoEditDIContainer.swift */,
-				948A2915288FB0D20055A031 /* TodoHistoryDIContainer.swift */,
+				948A291B288FBC8F0055A031 /* TodoCreateFactory.swift */,
+				948A291D288FBEB30055A031 /* TodoEditFactory.swift */,
+				948A2915288FB0D20055A031 /* TodoHistoryFactory.swift */,
 			);
 			path = TodoScene;
 			sourceTree = "<group>";
@@ -826,18 +826,18 @@
 				942729E428866F3F0010BC10 /* TodoHistory.swift in Sources */,
 				947EEF31287D4691009746C9 /* TodoEditViewCoordinator.swift in Sources */,
 				9465AF2A2875ACAE002D4352 /* TodoEditViewModel.swift in Sources */,
-				948A291C288FBC8F0055A031 /* TodoCreateDIContainer.swift in Sources */,
+				948A291C288FBC8F0055A031 /* TodoCreateFactory.swift in Sources */,
 				A1C466BA28868C8900AAAF51 /* TodoHistoryTableViewCell.swift in Sources */,
 				942729EC2886734D0010BC10 /* TodoHistoryRepository.swift in Sources */,
 				A1849707287561CE00C82AA0 /* TodoTableViewCell.swift in Sources */,
 				942729EA288673160010BC10 /* TodoHistoryRepositorible.swift in Sources */,
 				A148151B288820D7000059D9 /* AlertBuilder.swift in Sources */,
 				942729E228866C9D0010BC10 /* TodoHistoryTableViewController.swift in Sources */,
-				948A2916288FB0D20055A031 /* TodoHistoryDIContainer.swift in Sources */,
+				948A2916288FB0D20055A031 /* TodoHistoryFactory.swift in Sources */,
 				942729E82886709E0010BC10 /* HistoryStorage.swift in Sources */,
 				942729DD288640820010BC10 /* NetworkMonitor.swift in Sources */,
 				942729BA288527830010BC10 /* TodoRealm.swift in Sources */,
-				948A291E288FBEB30055A031 /* TodoEditDIContainer.swift in Sources */,
+				948A291E288FBEB30055A031 /* TodoEditFactory.swift in Sources */,
 				940B64D928755591001D3FD9 /* TodoListRepositorible.swift in Sources */,
 				947C3F382875CD4600223403 /* TodoHeaderView.swift in Sources */,
 				947EEF63287EA106009746C9 /* TodoCellViewModel.swift in Sources */,

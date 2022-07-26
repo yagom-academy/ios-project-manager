@@ -50,7 +50,7 @@ final class TodoListViewController: UIViewController, Alertable {
                 case .errorEvent(let message):
                     self?.showErrorAlertWithConfirmButton(message)
                 case .showEditViewEvent(let item):
-                    self?.coordinator?.showDetailViewController(item)
+                    self?.coordinator?.showEditViewController(item)
                 case .showHistoryViewEvent:
                     guard let sourceView = self?.navigationItem.leftBarButtonItem else {
                         return

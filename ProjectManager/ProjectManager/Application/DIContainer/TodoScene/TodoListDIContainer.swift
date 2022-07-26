@@ -93,29 +93,27 @@ extension TodoListDIContainer {
         return TodoListViewCoordinator(navigationController: navigationController, dependencies: self)
     }
     
-    // MARK: - DIContainer
-    
-    func makeTodoHistoryDIContainer() -> TodoHistoryDIContainer {
-        return TodoHistoryDIContainer(dependencies: .init(historyStorage: dependencies.historyStorage))
-    }
-    
-    func makeTodoCreateDIContainer() -> TodoCreateDIContainer {
-        return TodoCreateDIContainer(
+    // MARK: - Factory
+        
+    func makeTodoCreateFactory() -> TodoCreateFactory {
+        return TodoCreateFactory(
             dependencies: .init(
-                todoStorage: dependencies.todoStorage,
-                remoteStorage: dependencies.remoteStorage,
-                historyStorage: dependencies.historyStorage
+                todoListUseCase: makeTodoListUseCase(),
+                todoHistoryUseCase: makeTodoHistoryUseCase()
             )
         )
     }
     
-    func makeTodoEditDIContainer() -> TodoEditDIContainer {
-        return TodoEditDIContainer(
+    func makeTodoEditFactory() -> TodoEditFactory {
+        return TodoEditFactory(
             dependencies: .init(
-                todoStorage: dependencies.todoStorage,
-                remoteStorage: dependencies.remoteStorage,
-                historyStorage: dependencies.historyStorage
+                todoListUseCase: makeTodoListUseCase(),
+                todoHistoryUseCase: makeTodoHistoryUseCase()
             )
         )
+    }
+    
+    func makeTodoHistoryFactory() -> TodoHistoryFactory {
+        return TodoHistoryFactory(dependencies: .init(historyUseCase: makeTodoHistoryUseCase()))
     }
 }
