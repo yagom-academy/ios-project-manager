@@ -8,9 +8,9 @@
 import SwiftUI
 
 class ContentViewModel: ViewModelType {
-    @Published var isShowingSheet = false
-    
-    func toggleShowingSheet() {
-        isShowingSheet.toggle()
-    }
+  @Published var isShowingSheet = false
+  
+  func toggleShowingSheet() {
+    isShowingSheet.toggle()
+  }
 }

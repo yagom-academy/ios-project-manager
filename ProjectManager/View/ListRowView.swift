@@ -12,34 +12,34 @@ struct ListRowView: View {
   let taskBody: String
   let taskDate: Date
   let isOverdate: Bool
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(taskTitle)
-                .foregroundColor(.black)
-            Text(taskBody)
-                .foregroundColor(.gray)
-            checkOverdate()
-        }
+  
+  var body: some View {
+    VStack(alignment: .leading) {
+      Text(taskTitle)
+        .foregroundColor(.black)
+      Text(taskBody)
+        .foregroundColor(.gray)
+      checkOverdate()
     }
-    
-    func checkOverdate() -> some View {
-        if isOverdate {
-            return Text(taskDate.convertDateToString)
-                .foregroundColor(.red)
-        } else {
-            return Text(taskDate.convertDateToString)
-                .foregroundColor(.black)
-        }
+  }
+  
+  func checkOverdate() -> some View {
+    if isOverdate {
+      return Text(taskDate.convertDateToString)
+        .foregroundColor(.red)
+    } else {
+      return Text(taskDate.convertDateToString)
+        .foregroundColor(.black)
     }
+  }
 }
 
 struct ListRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListRowView(taskTitle: "title",
-                    taskBody: "body",
-                    taskDate: Date(),
-                    isOverdate: true)
-            .previewLayout(.sizeThatFits)
-    }
+  static var previews: some View {
+    ListRowView(taskTitle: "title",
+                taskBody: "body",
+                taskDate: Date(),
+                isOverdate: true)
+      .previewLayout(.sizeThatFits)
+  }
 }

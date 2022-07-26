@@ -8,9 +8,9 @@
 import Foundation
 
 class ViewModelType: ObservableObject {
-    var service: TaskManagementService
-    
-    init(withService: TaskManagementService) {
-        self.service = withService
-    }
+  var service: TaskManagementService
+  
+  init(withService: TaskManagementService) {
+    self.service = withService
+  }
 }
