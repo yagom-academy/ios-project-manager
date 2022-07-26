@@ -59,7 +59,10 @@ final class TodoListViewCoordinator: Coordinator {
             return
         }
         
-        let sceneCoordinator = dependencies.makeHistoryViewCoordinator(navigationController: navigationController)
+        let todoHistoryDIContainer = dependencies.makeTodoHistoryDIContainer()
+        let sceneCoordinator = todoHistoryDIContainer.makeHistoryViewCoordinator(
+            navigationController: navigationController
+        )
         
         childCoordinators.append(sceneCoordinator)
         sceneCoordinator.parentCoordinator = self

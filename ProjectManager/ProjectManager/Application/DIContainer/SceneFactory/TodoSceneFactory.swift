@@ -4,6 +4,7 @@
 //
 //  Created by 조민호 on 2022/07/12.
 //
+
 import Foundation
 import Combine
 
@@ -32,10 +33,6 @@ final class TodoSceneFactory {
     
     func makeTodoEditViewContoller(todoListModel: Todo) -> TodoEditViewController {
         return TodoEditViewController(viewModel: makeTodoEditViewModel(todoListModel: todoListModel))
-    }
-    
-    func makeTodoHistoryViewController() -> TodoHistoryTableViewController {
-        return TodoHistoryTableViewController(makeTodoHistoryViewModel())
     }
     
     // MARK: - View
@@ -76,12 +73,6 @@ final class TodoSceneFactory {
         viewModel.delegate = parentViewModel
         
         return viewModel
-    }
-    
-    private func makeTodoHistoryViewModel() -> TodoHistoryTableViewModelable {
-        return TodoHistoryTableViewModel(
-            items: parentViewModel?.historyItems ?? Just([TodoHistory]()).eraseToAnyPublisher()
-        )
     }
     
     // MARK: - UseCase

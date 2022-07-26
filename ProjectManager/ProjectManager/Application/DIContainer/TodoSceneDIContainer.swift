@@ -38,11 +38,7 @@ extension TodoSceneDIContainer {
     func makeTodoEditViewContoller(todoListModel: Todo) -> TodoEditViewController {
         return sceneFactory.makeTodoEditViewContoller(todoListModel: todoListModel)
     }
-    
-    func makeTodoHistoryTableViewController() -> TodoHistoryTableViewController {
-        return sceneFactory.makeTodoHistoryViewController()
-    }
-    
+
     // MARK: - Coordiantor
     
     func makeListViewCoordinator(navigationController: UINavigationController) -> TodoListViewCoordinator {
@@ -57,7 +53,7 @@ extension TodoSceneDIContainer {
         return TodoEditViewCoordinator(navigationController: navigationController, dependencies: self)
     }
     
-    func makeHistoryViewCoordinator(navigationController: UINavigationController) -> TodoHistoryViewCoordinator {
-        return TodoHistoryViewCoordinator(navigationController: navigationController, dependencies: self)
+    func makeTodoHistoryDIContainer() -> TodoHistoryDIContainer {
+        return TodoHistoryDIContainer(dependencies: .init(historyStorage: dependencies.historyStorage))
     }
 }

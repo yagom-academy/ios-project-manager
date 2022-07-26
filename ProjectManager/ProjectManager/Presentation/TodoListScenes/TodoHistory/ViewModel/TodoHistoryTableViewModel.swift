@@ -13,7 +13,7 @@ protocol TodoHistoryTableViewModelInput {
 }
 
 protocol TodoHistoryTableViewModelOutput {
-    var items: AnyPublisher<[TodoHistory], Never> { get set }
+    var items: CurrentValueSubject<[TodoHistory], Never> { get }
 }
 
 protocol TodoHistoryTableViewModelable: TodoHistoryTableViewModelInput, TodoHistoryTableViewModelOutput {}
@@ -22,9 +22,12 @@ final class TodoHistoryTableViewModel: TodoHistoryTableViewModelable {
     
     // MARK: - Output
     
-    var items: AnyPublisher<[TodoHistory], Never>
+    private let historyUseCase: TodoHistoryUseCaseable
+    
+    let items: CurrentValueSubject<[TodoHistory], Never>
 
-    init(items: AnyPublisher<[TodoHistory], Never>) {
-        self.items = items
+    init(historyUseCase: TodoHistoryUseCaseable) {
+        self.historyUseCase = historyUseCase
+        self.items = historyUseCase.todoHistoriesPublisher()
     }
 }
