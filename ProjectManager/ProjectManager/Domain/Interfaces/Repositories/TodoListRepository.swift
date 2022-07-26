@@ -11,7 +11,8 @@ import RxRelay
 
 protocol TodoListRepository {
     func read() -> BehaviorSubject<[TodoModel]>
-    func save(to data: TodoModel)
+    func create(to data: TodoModel)
+    func update(to data: TodoModel)
     func delete(index: Int)
     var errorObserver: PublishRelay<TodoError> { get }
 }

@@ -35,7 +35,7 @@ final class DefaultTodoListRepository {
             backUpStorage.allRead()
                 .subscribe { [weak self] items in
                     items.forEach { [weak self] item in
-                        self?.storage.save(to: item)
+                        self?.storage.create(to: item)
                     }
                 } onFailure: { [weak self] _ in
                     self?.storage.errorObserver.accept(TodoError.backUpError)
@@ -62,8 +62,12 @@ extension DefaultTodoListRepository: TodoListRepository {
         return storage.read()
     }
     
-    func save(to data: TodoModel) {
-        storage.save(to: data)
+    func create(to data: TodoModel) {
+        storage.create(to: data)
+    }
+    
+    func update(to data: TodoModel) {
+        storage.update(to: data)
     }
     
     func delete(index: Int) {

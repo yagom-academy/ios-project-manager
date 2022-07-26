@@ -24,7 +24,8 @@ protocol StorageError {
 
 protocol TodoListStorage: StorageError, AnyObject {
     func read() -> BehaviorSubject<[TodoModel]>
-    func save(to data: TodoModel)
+    func create(to data: TodoModel)
+    func update(to data: TodoModel)
     func delete(index: Int)
 }
 
@@ -47,15 +48,24 @@ extension RealmTodoListStorage: TodoListStorage {
         return storage
     }
     
-    func save(to data: TodoModel) {
+    func create(to data: TodoModel) {
         do {
             try realm?.write({
                 guard let items = items else { return }
-                if let item = items.first(where: { $0.id == data.id }) {
-                    item.updateEntity(entity: data)
-                } else {
-                    realm?.add(TodoRealmEntity(entity: data))
-                }
+                realm?.add(TodoRealmEntity(entity: data))
+                storage.onNext(items.map { $0.toTodoModel() })
+            })
+        } catch {
+            errorObserver.accept(TodoError.saveError)
+        }
+    }
+    
+    func update(to data: TodoModel) {
+        do {
+            try realm?.write({
+                guard let items = items,
+                let item = items.first(where: { $0.id == data.id }) else { return }
+                item.updateEntity(entity: data)
                 storage.onNext(items.map { $0.toTodoModel() })
             })
         } catch {

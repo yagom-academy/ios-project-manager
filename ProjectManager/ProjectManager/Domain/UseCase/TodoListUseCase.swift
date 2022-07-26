@@ -33,7 +33,7 @@ final class DefaultTodoListUseCase {
     private func changTodoItemState(item: TodoModel, to state: State) {
         var revisedItem = item
         revisedItem.state = state
-        listRepository.save(to: revisedItem)
+        listRepository.update(to: revisedItem)
         let historyItem = History(changes: .moved,
                                   title: item.title ?? "",
                                   beforeState: item.state,
@@ -59,11 +59,11 @@ extension DefaultTodoListUseCase: TodoListUseCase {
         let historyItem = History(changes: .added,
                                   title: item.title ?? "")
         historyRepository.save(to: historyItem)
-        listRepository.save(to: item)
+        listRepository.create(to: item)
     }
     
     func updateItem(to item: TodoModel) {
-        listRepository.save(to: item)
+        listRepository.update(to: item)
     }
     
     func deleteItem(id: UUID) {
