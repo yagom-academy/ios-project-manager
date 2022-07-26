@@ -111,7 +111,6 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         case .done:
             fetchDone()
         }
-        
     }
     
     private func registerDeleteUndoAction(task: Task) {
@@ -144,9 +143,10 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         )
         let title = task.title
         let type = task.taskType
+        
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             do {
-                self?.registerDeleteRedoAction(task: createdTask)
+                self?.registerDeleteUndoAction(task: createdTask)
                 try self?.realmManager.delete(task: task)
                 self?.sendNotificationForHistory(title, from: type)
             } catch {
@@ -182,6 +182,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     func undoButtonTapped() {
+        
         undoManager.undo()
         redoable.accept(true)
         if !undoManager.canUndo {

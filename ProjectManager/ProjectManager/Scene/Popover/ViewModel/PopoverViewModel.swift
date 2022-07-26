@@ -30,8 +30,8 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
 
     private func changeTaskType(_ task: Task, taskType: TaskType) {
         let beforeType = task.taskType
-
-        registerChangeUndoAction(task: task, taskType: taskType)
+        let temp = Task(title: task.title, body: task.body, date: task.date, taskType: task.taskType, id: task.id)
+        registerChangeUndoAction(task: temp, taskType: taskType)
         
         do {
             try realmManager.change(task: task, targetType: taskType)
@@ -65,11 +65,12 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
     
     private func registerChangeRedoAction(task: Task, taskType: TaskType) {
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
-            let afterType = task.taskType
+            let temp = Task(title: task.title, body: task.body, date: task.date, taskType: task.taskType, id: task.id)
+            let afterType = temp.taskType
             do {
-                self?.registerChangeUndoAction(task: task, taskType: taskType)
-                try self?.realmManager.change(task: task, targetType: taskType)
-                self?.sendNotificationForHistory(task.title, from: afterType, to: task.taskType)
+                self?.registerChangeUndoAction(task: temp, taskType: taskType)
+                try self?.realmManager.change(task: temp, targetType: taskType)
+                self?.sendNotificationForHistory(temp.title, from: afterType, to: temp.taskType)
             } catch {
                 self?.error.accept(DatabaseError.changeError)
             }

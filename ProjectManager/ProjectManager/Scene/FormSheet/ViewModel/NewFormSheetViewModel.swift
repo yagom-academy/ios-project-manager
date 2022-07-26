@@ -50,7 +50,6 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
         
         do {
             try realmManager.create(task: newTask)
-
             sendNotificationForHistory(newTask.title)
             dismiss.accept(())
         } catch {
@@ -60,14 +59,16 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
     
     private func registerAddUndoAction(task: Task) {
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            let createdTask = Task(
+                title: task.title,
+                body: task.body,
+                date: task.date,
+                taskType: .todo,
+                id: task.id
+            )
+            
             do {
-                let createdTask = Task(
-                    title: task.title,
-                    body: task.body,
-                    date: task.date,
-                    taskType: .todo,
-                    id: task.id
-                )
+                
                 self?.registerAddRedoAction(task: createdTask)
                 try self?.realmManager.delete(task: task)
                 self?.sendNotificationForHistory()
@@ -79,8 +80,9 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
     
     private func registerAddRedoAction(task: Task) {
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            let title = task.title
+            
             do {
-                let title = task.title
                 self?.registerAddUndoAction(task: task)
                 try self?.realmManager.create(task: task)
                 self?.sendNotificationForHistory(title)
