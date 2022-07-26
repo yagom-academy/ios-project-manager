@@ -44,6 +44,23 @@ final class MainViewModel: MainViewModelInOut {
         todoList = storage.todoList.asDriver(onErrorJustReturn: [])
         doingList = storage.doingList.asDriver(onErrorJustReturn: [])
         doneList = storage.doneList.asDriver(onErrorJustReturn: [])
+        
+        if UserDefaults.standard.bool(forKey: "lunchedBefore") == false {
+            setList()
+        }
+    }
+    
+    private func setList() {
+        print("activity indicator 시작")
+        storage.setList { result in
+            switch result {
+            case .success():
+                UserDefaults.standard.set(true, forKey: "lunchedBefore")
+            case .failure(let error):
+                self.showErrorAlert.accept(error.errorDescription)
+            }
+            print("activity indicator 종료")
+        }
     }
     
     func listCount(_ type: ListType) -> Driver<String> {

@@ -8,6 +8,7 @@
 import RealmSwift
 
 protocol LocalStorageManagerable {
+    func setList(_ completion: @escaping (Result<Void, StorageError>) -> Void)
     func readList(_ type: ListType) -> [ListItem]
     func createItem(_ item: ListItem) throws
     func updateItem(_ item: ListItem) throws
@@ -20,6 +21,24 @@ final class LocalStorageManager: LocalStorageManagerable {
     
     init(_ networkStorageManager: NetworkStorageManagerable) {
         self.networkStorageManager = networkStorageManager
+    }
+    
+    func setList(_ completion: @escaping (Result<Void, StorageError>) -> Void) {
+        networkStorageManager.read { result in
+            switch result {
+            case .success(let list):
+                list.forEach {
+                    do {
+                        try self.createItem($0)
+                    } catch {
+                        completion(.failure(StorageError.readError))
+                    }
+                }
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
     private func convertedItem(_ item: ListItem) -> ListItemDTO {

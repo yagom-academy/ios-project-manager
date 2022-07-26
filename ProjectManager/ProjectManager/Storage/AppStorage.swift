@@ -11,6 +11,7 @@ protocol AppStoregeable {
     var todoList: BehaviorRelay<[ListItem]> { get }
     var doingList: BehaviorRelay<[ListItem]> { get }
     var doneList: BehaviorRelay<[ListItem]> { get }
+    func setList(_ completion: @escaping (Result<(), StorageError>) -> Void)
     func creatItem(listItem: ListItem) throws
     func updateItem(listItem: ListItem) throws
     func selectItem(index: Int, type: ListType) -> ListItem
@@ -31,6 +32,21 @@ final class AppStorage: AppStoregeable {
         self.doingList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.doing))
         self.doneList = BehaviorRelay<[ListItem]>(value: localStorage.readList(.done))
     }
+    
+    func setList(_ completion: @escaping (Result<Void, StorageError>) -> Void) {
+        localStorage.setList { result in
+            switch result {
+            case .success():
+                self.todoList.accept(self.localStorage.readList(.todo))
+                self.doingList.accept(self.localStorage.readList(.doing))
+                self.doneList.accept(self.localStorage.readList(.done))
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     private func selectList(_ type: ListType) -> BehaviorRelay<[ListItem]> {
         switch type {
         case .todo:
