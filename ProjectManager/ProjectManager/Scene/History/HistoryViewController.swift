@@ -35,7 +35,14 @@ final class HistoryViewController: UITableViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(appendHistoryData(notification:)),
-            name: Notification.Name("History"),
+            name: Notification.Name("Push"),
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(removeHistoryData),
+            name: Notification.Name("Pop"),
             object: nil
         )
     }
@@ -48,6 +55,12 @@ final class HistoryViewController: UITableViewController {
               }
         let history = History(content: content, time: time)
         self.histories.append(history)
+        self.tableView.reloadData()
+    }
+    
+    @objc private func removeHistoryData() {
+        
+        self.histories.removeLast()
         self.tableView.reloadData()
     }
     

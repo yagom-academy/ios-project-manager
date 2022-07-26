@@ -76,6 +76,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         bindItemsDeleted()
         bindLongPressGestures()
         bindErrorAlert()
+        bindUndoRedoButtons()
     }
     
     private func cell(
@@ -272,6 +273,20 @@ extension MainViewController {
                 })
                 .disposed(by: disposeBag)
         }
+    }
+    
+    private func bindUndoRedoButtons() {
+        mainView.underBarView.undoButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.viewModel.undoButtonTapped()
+            }
+            .disposed(by: disposeBag)
+        
+        mainView.underBarView.redoButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.viewModel.redoButtonTapped()
+            }
+            .disposed(by: disposeBag)
     }
 }
 

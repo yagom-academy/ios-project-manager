@@ -32,6 +32,7 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
     private let realmManager = RealmManager()
     private let uuid = UUID().uuidString
     private let reference = Database.database().reference()
+    private let undoManager = AppDelegate.undoManager
     
     func doneButtonTapped() {
         registerNewTask()
@@ -45,6 +46,15 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
             taskType: .todo,
             id: uuid
         )
+        
+        undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            do {
+                try self?.realmManager.delete(task: newTask)
+                self?.sendNotificationForHistory()
+            } catch {
+                self?.error.accept(DatabaseError.createError)
+            }
+        }
 
         do {
             try realmManager.create(task: newTask)

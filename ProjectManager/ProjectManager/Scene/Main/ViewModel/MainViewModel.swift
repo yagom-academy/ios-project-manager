@@ -32,6 +32,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     private lazy var synchronizeManager = SynchronizeManager(realmManager: realmManager)
     private let realmManager = RealmManager()
     private let monitor = NWPathMonitor()
+    private let undoManager = AppDelegate.undoManager
     
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType) {
         let task: Task
@@ -43,6 +44,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         case .done:
             task = dones.value[indexPath.row]
         }
+        
         deleteData(task: task)
     }
     
@@ -84,6 +86,17 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     private func deleteData(task: Task) {
+        let newTask: Task = Task(title: task.title, body: task.body, date: task.date, taskType: task.taskType, id: task.id)
+        undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            do {
+                try self?.realmManager.create(task: newTask)
+                
+                self?.sendNotificationForHistory()
+            } catch {
+                self?.error.accept(DatabaseError.createError)
+            }
+        }
+        
         let title = task.title
         let type = task.taskType
                 
@@ -129,5 +142,15 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     private func fetchDone() {
         let dones = realmManager.fetchTasks(type: .done)
         self.dones.accept(dones)
+    }
+    
+    func undoButtonTapped() {
+        undoManager.undo()
+        fetchData()
+    }
+    
+    func redoButtonTapped() {
+        print("# Redo")
+        undoManager.redo()
     }
 }
