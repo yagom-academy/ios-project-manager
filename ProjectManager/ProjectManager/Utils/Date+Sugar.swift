@@ -12,4 +12,16 @@ extension Date {
         guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString
     }
+    
+    func convertToHistoryString() -> String {
+        Formatter.date.timeStyle = .medium
+        guard let dateString = Formatter.date.string(for: self) else { return "" }
+        return dateString
+    }
+    
+    func convertToString(isMarkTheTime: Bool = false) -> String {
+        Formatter.date.timeStyle = isMarkTheTime == false ? .none : .medium
+        guard let dateString = Formatter.date.string(for: self) else { return "" }
+        return dateString
+    }
 }
