@@ -39,17 +39,33 @@ final class MainViewController: UIViewController {
     
     private func setInitialView() {
         self.view.backgroundColor = .systemGray5
-        self.navigationItem.rightBarButtonItem = addButton
+        self.view.addSubview(navigationStackView)
         self.view.addSubview(mainStackView)
-        mainStackView.snp.makeConstraints {
-            $0.edges.equalTo(self.view.safeAreaLayoutGuide)
+        
+        navigationStackView.snp.makeConstraints {
+            $0.top.equalTo(self.view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(40)
         }
-        setNavigationBar()
+        
+        networkStackView.snp.makeConstraints {
+            $0.width.equalToSuperview().multipliedBy(0.1)
+        }
+        
+        stateImage.snp.makeConstraints {
+            $0.width.equalTo(13)
+            $0.height.equalTo(13)
+        }
+        
+        addButton.snp.makeConstraints {
+            $0.width.equalToSuperview().multipliedBy(0.1)
+        }
+        
+        mainStackView.snp.makeConstraints {
+            $0.top.equalTo(navigationStackView.snp.bottom).offset(15)
+            $0.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
         bindView()
-    }
-    
-    private func setNavigationBar() {
-        self.title = "Project Manger"
     }
     
     private func bindView() {
@@ -198,7 +214,53 @@ final class MainViewController: UIViewController {
     }
     
     // MARK: - UI Components
-    private lazy var addButton = UIBarButtonItem(systemItem: .add)
+    private lazy var navigationStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [networkStackView, titleLabel, addButton])
+        stackView.alignment = .bottom
+        
+        return stackView
+    }()
+    
+    private lazy var networkStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [networkLabel, stateImage, UILabel()])
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    private lazy var networkLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.text = "Offline"
+        
+        return label
+    }()
+    
+    private lazy var stateImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "circle.fill"))
+        imageView.tintColor = .red
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
+        return imageView
+    }()
+    
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.text = "Project Manager"
+        
+        return label
+    }()
+    
+    private lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.setPreferredSymbolConfiguration(.init(pointSize: 25, weight: .regular, scale: .default), forImageIn: .normal)
+        button.contentHorizontalAlignment = .right
+        return button
+    }()
     
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews:[listStackView(headerView: todoHeaderView,
