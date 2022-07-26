@@ -8,6 +8,13 @@
 import RxSwift
 import RxCocoa
 
+private enum Constant {
+    static let edit = "edit"
+    static let done = "done"
+    static let save = "save"
+    static let cancel = "cancel"
+}
+
 private enum Mode {
     case display
     case edit
@@ -74,8 +81,8 @@ final class DetailViewController: UIViewController {
     }
     
     private func setUpDefaultUI() {
-        modalView.navigationBar.leftButton.setTitle("edit", for: .normal)
-        modalView.navigationBar.rightButton.setTitle("done", for: .normal)
+        modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
         
         guard let project = self.viewModel.read() else {
             return
@@ -105,8 +112,8 @@ final class DetailViewController: UIViewController {
     }
     
     private func turnToEditMode() {
-        modalView.navigationBar.leftButton.setTitle("cancel", for: .normal)
-        modalView.navigationBar.rightButton.setTitle("save", for: .normal)
+        modalView.navigationBar.leftButton.setTitle(Constant.cancel, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.save, for: .normal)
         
         modalView.isUserInteractionEnabled(true)
         
@@ -114,8 +121,8 @@ final class DetailViewController: UIViewController {
     }
     
     private func cancel() {
-        modalView.navigationBar.leftButton.setTitle("edit", for: .normal)
-        modalView.navigationBar.rightButton.setTitle("done", for: .normal)
+        modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
         
         guard let project = self.viewModel.read() else {
             return
@@ -152,8 +159,8 @@ final class DetailViewController: UIViewController {
     }
     
     private func save() {
-        modalView.navigationBar.leftButton.setTitle("edit", for: .normal)
-        modalView.navigationBar.rightButton.setTitle("done", for: .normal)
+        modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
         
         let newContent = modalView.change(viewModel.asContent())
         viewModel.update(newContent)
