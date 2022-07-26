@@ -39,6 +39,12 @@ final class DefaultTodoMoveViewModel {
             return ("Move to TODO", "Move to DOING")
         }
     }
+    
+    private func changeItemState(to state: State) {
+        var newItem = item
+        newItem.state = state
+        useCase.saveItem(to: newItem)
+    }
 }
 
 extension DefaultTodoMoveViewModel: TodoMoveViewModel {
@@ -57,5 +63,6 @@ extension DefaultTodoMoveViewModel: TodoMoveViewModel {
     
     func secondButtonDidTap() {
         useCase.secondMoveState(item: item)
+
     }
 }

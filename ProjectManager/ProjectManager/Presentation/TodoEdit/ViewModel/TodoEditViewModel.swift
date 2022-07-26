@@ -60,6 +60,11 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
         }
     }
     
+    var setEditMode: Observable<Bool> {
+        isEditMode
+            .asObservable()
+    }
+    
     //MARK: - Input
     func createButtonDidTap() {
         guard let item = item else {
@@ -78,6 +83,7 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
     func editButtonDidTap() {
         isEditMode = !isEditMode
         setEditMode.accept(isEditMode)
+
     }
     
     func inputitle(title: String?) {
