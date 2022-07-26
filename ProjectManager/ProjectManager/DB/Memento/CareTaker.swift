@@ -5,43 +5,62 @@
 //  Created by LIMGAUI on 2022/07/25.
 //
 
-import Foundation
+import Combine
 
 protocol CareTakerable {
-  var stateList: [Memento] { get set }
-  var garbageStateList: [Memento] { get }
+  var states: CurrentValueSubject<[Memento], Never> { get set }
+  var garbageStates: CurrentValueSubject<[Memento], Never> { get set }
+  var stateList: AnyPublisher<[Memento], Never> { get }
   
   mutating func save(_ memento: Memento)
+  mutating func update(_ memento: Memento)
   mutating func undo()
   mutating func redo()
-  func readStateList() -> [Memento]
 }
 
 struct CareTaker: CareTakerable {
-  var stateList = [Memento]()
-  var garbageStateList = [Memento]()
+  var states = CurrentValueSubject<[Memento], Never>([])
+  var garbageStates = CurrentValueSubject<[Memento], Never>([])
+  
+  var stateList: AnyPublisher<[Memento], Never> {
+    return states.eraseToAnyPublisher()
+  }
   
   mutating func save(_ memento: Memento) {
-    stateList.append(memento)
+    var savedStates = states.value
+    savedStates.append(memento)
+    states.send(savedStates)
+  }
+  
+  mutating func update(_ memento: Memento) {
+    
   }
   
   mutating func undo() {
-    guard let lastState = stateList.popLast() else {
+    var mutableStates = states.value
+    var mutableGarbageStates = garbageStates.value
+    
+    guard let lastState = mutableStates.popLast() else {
       return
     }
     
-    garbageStateList.append(lastState)
+    states.send(mutableStates)
+    
+    mutableGarbageStates.append(lastState)
+    garbageStates.send(mutableGarbageStates)
   }
   
   mutating func redo() {
-    guard let lastState = garbageStateList.popLast() else {
+    var mutableGarbageStates = garbageStates.value
+    var mutableStates = states.value
+    
+    guard let lastGarbageState = mutableGarbageStates.popLast() else {
       return
     }
     
-    stateList.append(lastState)
-  }
-  
-  func readStateList() -> [Memento] {
-    return stateList
+    garbageStates.send(mutableGarbageStates)
+    
+    mutableStates.append(lastGarbageState)
+    states.send(mutableStates)
   }
 }

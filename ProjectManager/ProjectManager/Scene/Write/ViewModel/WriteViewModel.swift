@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class WriteViewModel {
   private let storage: StorageType
@@ -25,6 +26,11 @@ final class WriteViewModel {
     let todo = Todo(title: title, content: content, date: date)
     
     storage.create(todo)
+    saveHistory(todo)
+  }
+  
+  private func saveHistory(_ todo: Todo) {
+    originator.createMemento(Memento(todo: todo, historyState: .added))
   }
   
   // MARK: - Output

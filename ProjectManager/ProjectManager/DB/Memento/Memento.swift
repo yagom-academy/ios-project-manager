@@ -5,22 +5,14 @@
 //  Created by LIMGAUI on 2022/07/25.
 //
 
-import Foundation
-
 protocol Mementoable {
-  associatedtype Element
-  
-  var memento: Element { get set }
-  
-  mutating func make(_ memento: Element)
+  var todo: Todo { get set }
+  var historyState: HistoryState { get set }
+  var toState: State? { get set }
 }
 
 struct Memento: Mementoable {
-  typealias Element = Todo
-  
-  var memento: Todo
-  
-  mutating func make(_ memento: Todo) {
-    self.memento = memento
-  }
+  var todo: Todo
+  var historyState: HistoryState
+  var toState: State?
 }

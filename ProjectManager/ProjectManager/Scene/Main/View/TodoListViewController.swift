@@ -241,7 +241,7 @@ extension TodoListViewController: SwipeCollectionViewCellDelegate {
     }
     
     let deleteAction = SwipeAction(style: .destructive, title: Constant.delete) { [weak self] _, _ in
-      self?.viewModel.deleActionDidTap(item)
+      self?.viewModel.deleteActionDidTap(item)
     }
     
     deleteAction.image = UIImage(named: Constant.deleteImage)

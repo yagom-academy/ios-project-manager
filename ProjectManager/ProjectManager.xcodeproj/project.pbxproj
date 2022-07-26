@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB2E168D288FA7A600944565 /* HIstoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E168C288FA7A600944565 /* HIstoryState.swift */; };
 		AB2E845428764B78002E4593 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845328764B78002E4593 /* TodoListViewController.swift */; };
 		AB2E845728765291002E4593 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845628765291002E4593 /* ToDo.swift */; };
 		AB4BB992288E84F000F1603B /* Originator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BB991288E84F000F1603B /* Originator.swift */; };
@@ -42,6 +43,7 @@
 		29D6594A104AC464E3F0B18F /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		69ED1A6F55518C8A1F17823B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0AC1F6351308DEBA229D99 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
+		AB2E168C288FA7A600944565 /* HIstoryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIstoryState.swift; sourceTree = "<group>"; };
 		AB2E845328764B78002E4593 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		AB2E845628765291002E4593 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		AB4BB991288E84F000F1603B /* Originator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Originator.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				AB4BB991288E84F000F1603B /* Originator.swift */,
 				AB4BB993288E852000F1603B /* Memento.swift */,
 				AB4BB996288E958000F1603B /* CareTaker.swift */,
+				AB2E168C288FA7A600944565 /* HIstoryState.swift */,
 			);
 			path = Memento;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				ABDB96392875E6C3002D6602 /* UIStackView.swift in Sources */,
 				AB2E845728765291002E4593 /* ToDo.swift in Sources */,
 				ABE5D6B228797F350065F216 /* TodoListView.swift in Sources */,
+				AB2E168D288FA7A600944565 /* HIstoryState.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				ABDB96332875DC7B002D6602 /* Date.swift in Sources */,
 				AB9AE8BB2883DAE00050EA99 /* WriteViewModel.swift in Sources */,

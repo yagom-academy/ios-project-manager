@@ -26,9 +26,14 @@ final class TodoViewModel {
     self.originator = originator
   }
   // MARK: - Input
+  
+  func HistoryButtonDidTap() {
+    
+  }
 
-  func deleActionDidTap(_ todo: Todo) {
+  func deleteActionDidTap(_ todo: Todo) {
     storage.delete(todo)
+    saveDeleteState(todo)
   }
 
   func popoverButtonDidTap(_ todo: Todo, to state: State) {
@@ -41,6 +46,7 @@ final class TodoViewModel {
     )
     
     storage.update(todo)
+    saveMovedState(todo, to: state)
   }
   
   func applySnapShot(_ items: [Todo], dataSource: DataSource) {
@@ -49,7 +55,19 @@ final class TodoViewModel {
     snapshot.appendItems(items)
     dataSource.apply(snapshot)
   }
+  
+  private func saveMovedState(_ todo: Todo, to state: State) {
+    originator.createMemento(Memento(todo: todo, historyState: .moved, toState: state))
+  }
+  
+  private func saveDeleteState(_ todo: Todo) {
+    originator.createMemento(Memento(todo: todo, historyState: .removed))
+  }
   // MARK: - Output
+
+  var historyList: AnyPublisher<[Memento], Never> {
+    return originator.careTaker.stateList
+  }
   
   var toList: AnyPublisher<[Todo], Never> {
     return readData(by: .todo)
