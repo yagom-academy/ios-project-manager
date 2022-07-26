@@ -44,8 +44,9 @@ final class AppStorage: AppStoregeable {
     
     func creatItem(listItem: ListItem) throws {
         do {
-            let list = try localStorage.createItem(listItem)
-            selectList(listItem.type).accept(list)
+            try localStorage.createItem(listItem)
+            let newList = localStorage.readList(listItem.type)
+            selectList(listItem.type).accept(newList)
             
         } catch {
             throw StorageError.creatError
@@ -58,8 +59,9 @@ final class AppStorage: AppStoregeable {
     
     func updateItem(listItem: ListItem) throws {
         do {
-            let list = try localStorage.updateItem(listItem)
-            selectList(listItem.type).accept(list)
+            try localStorage.updateItem(listItem)
+            let nweList = localStorage.readList(listItem.type)
+            selectList(listItem.type).accept(nweList)
         } catch {
             throw StorageError.updateError
         }
@@ -69,8 +71,9 @@ final class AppStorage: AppStoregeable {
         let item = selectItem(index: index, type: type)
         
         do {
-            let list = try localStorage.deleteItem(item)
-            selectList(item.type).accept(list)
+            try localStorage.deleteItem(item)
+            let nweList = localStorage.readList(item.type)
+            selectList(item.type).accept(nweList)
         } catch {
             throw StorageError.deleteError
         }

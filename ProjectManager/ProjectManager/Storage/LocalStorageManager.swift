@@ -9,9 +9,9 @@ import RealmSwift
 
 protocol LocalStorageManagerable {
     func readList(_ type: ListType) -> [ListItem]
-    func createItem(_ item: ListItem) throws -> [ListItem]
-    func updateItem(_ item: ListItem) throws -> [ListItem]
-    func deleteItem(_ item: ListItem) throws -> [ListItem]
+    func createItem(_ item: ListItem) throws
+    func updateItem(_ item: ListItem) throws
+    func deleteItem(_ item: ListItem) throws
 }
 
 final class LocalStorageManager: LocalStorageManagerable {
@@ -23,14 +23,14 @@ final class LocalStorageManager: LocalStorageManagerable {
     }
     
     private func convertedItem(_ item: ListItem) -> ListItemDTO {
-            let itemModel = ListItemDTO()
-            itemModel.title = item.title
-            itemModel.body = item.body
-            itemModel.deadline = item.deadline
-            itemModel.type = item.type.rawValue
-            itemModel.id = item.id
-            
-            return itemModel
+        let itemModel = ListItemDTO()
+        itemModel.title = item.title
+        itemModel.body = item.body
+        itemModel.deadline = item.deadline
+        itemModel.type = item.type.rawValue
+        itemModel.id = item.id
+        
+        return itemModel
     }
     
     private func selectListModel(_ type: ListType) -> List<ListItemDTO> {
@@ -65,9 +65,9 @@ final class LocalStorageManager: LocalStorageManagerable {
         return list
     }
     
-    func createItem(_ item: ListItem) throws -> [ListItem] {
+    func createItem(_ item: ListItem) throws{
         guard let realm = realm else {
-            return []
+            return
         }
         
         do {
@@ -87,11 +87,9 @@ final class LocalStorageManager: LocalStorageManagerable {
         } catch {
             throw StorageError.creatError
         }
-        
-        return readList(item.type)
     }
     
-    func updateItem(_ item: ListItem) throws -> [ListItem] {
+    func updateItem(_ item: ListItem) throws {
         let itemModel = selectListModel(item.type)
             .filter(NSPredicate(format: "id = %@", item.id)).first
         
@@ -105,14 +103,12 @@ final class LocalStorageManager: LocalStorageManagerable {
         } catch {
             throw StorageError.updateError
         }
-        
-        return readList(item.type)
     }
     
-    func deleteItem(_ item: ListItem) throws -> [ListItem] {
+    func deleteItem(_ item: ListItem) throws {
         guard let itemModel = selectListModel(item.type)
             .filter(NSPredicate(format: "id = %@", item.id)).first else {
-            return []
+            return
         }
         
         do {
@@ -123,7 +119,5 @@ final class LocalStorageManager: LocalStorageManagerable {
         } catch {
             throw StorageError.deleteError
         }
-        
-        return readList(item.type)
     }
 }
