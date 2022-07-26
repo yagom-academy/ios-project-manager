@@ -5,49 +5,81 @@
 //  Created by OneTool, marisol on 2022/07/12.
 //
 
+import RealmSwift
+
 class TaskManagementService {
-    var tasks: [Task] = []
-    
-    // CREATE
-    func addTask(_ task: Task) {
-        tasks.append(task)
+  var tasks: [Task] = []
+  private var realm: Realm?
+  
+  init() {
+    do {
+      try self.realm = Realm()
+    } catch {
+      print(error)
+    }
+    self.tasks = self.read()
+  }
+  
+
+  func create(_ task: Task) {
+    do {
+      try realm?.write({
+        let task = Task(title: task.title,
+                        date: task.date,
+                        body: task.body,
+                        type: .todo)
+        realm?.add(task)
+        self.tasks = self.read()
+      })
+    } catch {
+      print(error)
+    }
+  }
+  
+  func read() -> [Task] {
+    guard let tasks = realm?.objects(Task.self) else {
+      return []
     }
     
-    // READ
-    func readTasks() -> [Task] {
-        return tasks
+    return Array(tasks)
+  }
+  
+  func update(task: Task) {
+    let tasks = read()
+    guard let index = tasks.firstIndex(of: task) else {
+      return
     }
     
-    // UPDATE
-    func editTask(task: Task) {
-        guard let item = tasks.filter ({ $0 == task }).first else {
-            return
-        }
-        
-        guard let index = tasks.firstIndex(of: item) else {
-            return
-        }
-        
-        tasks[index].title = tasks[index].title
-        tasks[index].body = tasks[index].body
-        tasks[index].date = tasks[index].date
+    do {
+      try realm?.write({
+        tasks[index].title = task.title
+        tasks[index].body = task.body
+        tasks[index].date = task.date
+        tasks[index].type = task.type
+      })
+    } catch {
+      print(error)
     }
-    
-    // DELETE
-    
-    // MOVE
-    func moveTask(_ task: Task, to: TaskType) {
-        guard let item = tasks.filter({ $0 == task }).first else {
-            return
-        }
-        
-        guard let index = tasks.firstIndex(of: item) else {
-            return
-        }
-        
-        var newItem = item
-        newItem.type = to
-        tasks.remove(at: index)
-        tasks.append(newItem)
+  }
+  
+  func delete(task: Task) {
+    do {
+      try realm?.write({
+        realm?.delete(task)
+      })
+    } catch {
+      print(error)
     }
+  }
+  
+  func move(_ task: Task, type: TaskType) {
+    do {
+      try realm?.write({
+        task.type = type
+        self.tasks = read()
+      })
+    } catch {
+      print(error)
+    }
+  }
 }
