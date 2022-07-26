@@ -27,7 +27,14 @@ final class AlertController: UIAlertController {
         }
         addAction(cancelButton)
         
-        title = alertTitle
+        setValue(
+            NSAttributedString(
+                string: alertTitle,
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 20)
+                ]
+            ), forKey: "attributedTitle"
+        )
     }
     
     private func setUpAttribute(over source: UIViewController) {
