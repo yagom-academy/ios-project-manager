@@ -8,6 +8,11 @@
 import RxSwift
 import RxCocoa
 
+private enum Constant {
+    static let done = "done"
+    static let cancel = "cancel"
+}
+
 final class RegistrationViewController: UIViewController {
     private let modalView = ModalView(frame: .zero)
     private let viewModel = RegistrationViewModel()
@@ -56,8 +61,8 @@ final class RegistrationViewController: UIViewController {
     
     private func setUpNavigationItem() {
         modalView.navigationBar.modalTitle.text = ProjectStatus.todo.string
-        modalView.navigationBar.leftButton.setTitle("cancel", for: .normal)
-        modalView.navigationBar.rightButton.setTitle("done", for: .normal)
+        modalView.navigationBar.leftButton.setTitle(Constant.cancel, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
         
         didTapCancelButton()
         didTapSaveButton()
