@@ -73,7 +73,15 @@ final class LocalStorageManager: LocalStorageManagerable {
         do {
             if realm.objects(LocalStorage.self).isEmpty {
                 let listModel = LocalStorage()
-                listModel.todoList.append(convertedItem(item))
+                switch item.type {
+                case .todo:
+                    listModel.todoList.append(convertedItem(item))
+                case .doing:
+                    listModel.doingList.append(convertedItem(item))
+                case .done:
+                    listModel.doneList.append(convertedItem(item))
+                }
+                
                 
                 try realm.write {
                     realm.add(listModel)
