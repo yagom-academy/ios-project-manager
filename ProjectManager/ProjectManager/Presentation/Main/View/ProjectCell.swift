@@ -98,9 +98,9 @@ final class ProjectCell: UITableViewCell {
         
         contentView.frame = contentView.frame.inset(
             by: UIEdgeInsets(
-                top: 0,
+                top: 10,
                 left: 0,
-                bottom: 10,
+                bottom: 0,
                 right: 0
             )
         )
