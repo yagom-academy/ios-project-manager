@@ -34,6 +34,7 @@ final class HistoryCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .equalCentering
         stackView.spacing = 8
+        stackView.axis = .vertical
         return stackView
     }()
     
