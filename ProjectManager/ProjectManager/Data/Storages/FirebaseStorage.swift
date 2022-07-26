@@ -35,17 +35,7 @@ final class FirebaseStorage: RemoteStorageable {
     }
     
     func backup(_ items: [Todo]) {
-        deleteAll().sink { _ in
-            
-        } receiveValue: { _ in
-            items.forEach {
-                self.databaseReference
-                    .child(Constants.root)
-                    .child($0.id)
-                    .setValue($0.toDictionary() as NSDictionary)
-            }
-        }
-        .store(in: &cancellableBag)
+        deleteAll(items)
     }
     
     func todosPublisher() -> CurrentValueSubject<[Todo], StorageError> {
@@ -92,16 +82,23 @@ final class FirebaseStorage: RemoteStorageable {
         }
     }
     
-    private func deleteAll() -> AnyPublisher<Void, StorageError> {
-        return Future<Void, StorageError> { [weak self] observer in
-            self?.databaseReference
-                .child(Constants.root)
-                .removeValue { error, _ in
-                    guard error == nil else {
-                        return observer(.failure(.deleteFail))
-                    }
-                    return observer(.success(()))
+    private func deleteAll(_ items: [Todo]) {
+        self.databaseReference
+            .child(Constants.root)
+            .removeValue { error, _ in
+                guard error == nil else {
+                    return
                 }
-        }.eraseToAnyPublisher()
+                self.uploadAll(items)
+            }
+    }
+    
+    private func uploadAll(_ items: [Todo]) {
+        items.forEach {
+            self.databaseReference
+                .child(Constants.root)
+                .child($0.id)
+                .setValue($0.toDictionary() as NSDictionary)
+        }
     }
 }
