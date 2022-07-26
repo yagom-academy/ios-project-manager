@@ -24,7 +24,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct ProjectManagerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @StateObject var service = TaskManagementService()
+    let service = TaskManagementService()
     
     var body: some Scene {
         WindowGroup {

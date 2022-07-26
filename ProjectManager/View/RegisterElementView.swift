@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegisterElementView: View {
-    @State var registerViewModel: RegisterViewModel
+    @State var task: Task
     
     var dateRange: ClosedRange<Date> {
         let min = Calendar.current.date(byAdding: .year, value: -1, to: Date()) ?? Date()
@@ -19,7 +19,7 @@ struct RegisterElementView: View {
     
     var body: some View {
         VStack {
-            TextField("Title", text: $registerViewModel.title)
+            TextField("Title", text: $task.title)
                 .foregroundColor(Color.gray)
                 .padding(.all)
                 .border(Color(UIColor.separator))
@@ -28,13 +28,13 @@ struct RegisterElementView: View {
                 .font(.title2)
             
             DatePicker("",
-                       selection: $registerViewModel.date,
+                       selection: $task.date,
                        in: dateRange,
                        displayedComponents: [.date])
             .datePickerStyle(.wheel)
             .labelsHidden()
             
-            TextEditor(text: $registerViewModel.body)
+            TextEditor(text: $task.body)
                 .foregroundColor(Color.gray)
                 .lineSpacing(5)
                 .frame(minWidth: 0,
@@ -46,16 +46,16 @@ struct RegisterElementView: View {
                 .padding(.leading)
                 .padding(.trailing)
         }.onDisappear {
-            registerViewModel.title = ""
-            registerViewModel.date = Date()
-            registerViewModel.body = ""
+            task.title = ""
+            task.date = Date()
+            task.body = ""
         }
     }
 }
 
 struct RegisterElementView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterElementView(registerViewModel: RegisterViewModel(withService: TaskManagementService()))
+        RegisterElementView(task: Task(title: "Title", date: Date(), body: "body", type: .todo))
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

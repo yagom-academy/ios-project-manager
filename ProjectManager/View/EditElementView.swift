@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct EditElementView: View {
-    @State var editViewModel: EditViewModel
-    var cellIndex: Int
+    @State var task: Task
     
     var dateRange: ClosedRange<Date> {
         let min = Calendar.current.date(byAdding: .year, value: -1, to: Date()) ?? Date()
@@ -20,7 +19,7 @@ struct EditElementView: View {
     
     var body: some View {
         VStack {
-            TextField("Title", text: $editViewModel.service.tasks[cellIndex].title)
+            TextField("Title", text: $task.title)
                 .foregroundColor(Color.gray)
                 .padding(.all)
                 .border(Color(UIColor.separator))
@@ -29,13 +28,13 @@ struct EditElementView: View {
                 .font(.title2)
             
             DatePicker("",
-                       selection: $editViewModel.service.tasks[cellIndex].date,
+                       selection: $task.date,
                        in: dateRange,
                        displayedComponents: [.date])
             .datePickerStyle(.wheel)
             .labelsHidden()
             
-            TextEditor(text: $editViewModel.service.tasks[cellIndex].body)
+            TextEditor(text: $task.body)
                 .foregroundColor(Color.gray)
                 .lineSpacing(5)
                 .frame(minWidth: 0,
@@ -52,7 +51,7 @@ struct EditElementView: View {
 
 struct RegisterElementsView_Previews: PreviewProvider {
     static var previews: some View {
-        EditElementView(editViewModel: EditViewModel(withService: TaskManagementService()), cellIndex: 0)
+        EditElementView(task: Task(title: "title", date: Date(), body: "body", type: .todo))
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

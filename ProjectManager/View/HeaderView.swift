@@ -7,18 +7,18 @@
 import SwiftUI
 
 struct HeaderView: View {
-    let allListViewModel: AllListViewModel
-    let type: TaskType
+    let title: String
+    let numberOfTasks: Int
     
     var body: some View {
         HStack {
-            Text(type.title)
+            Text(title)
                 .font(.largeTitle)
                 .foregroundColor(.black)
             ZStack {
                 Circle()
                     .frame(width: 25, height: 25)
-                Text(String(allListViewModel.service.tasks.filter({ $0.type == self.type }).count))
+                Text(String(numberOfTasks))
                     .foregroundColor(.white)
                     .font(.title2)
             }
@@ -28,6 +28,6 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderView(allListViewModel: AllListViewModel(withService: TaskManagementService()), type: .todo)
+        HeaderView(title: TaskType.todo.title, numberOfTasks: 1)
     }
 }

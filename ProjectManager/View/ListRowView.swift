@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct ListRowView: View {
-    var taskArray: [Task]
-    var cellIndex: Int
-    var taskType: TaskType
+    let task: Task
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(taskArray[cellIndex].title)
+            Text(task.title)
                 .foregroundColor(.black)
-            Text(taskArray[cellIndex].body)
+            Text(task.body)
                 .foregroundColor(.gray)
             checkOverdate()
         }
@@ -35,7 +33,7 @@ struct ListRowView: View {
 
 struct ListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ListRowView(taskArray: [], cellIndex: 0, taskType: TaskType.todo)
+        ListRowView(task: Task(title: "Title", date: Date(), body: "body", type: .todo))
             .previewLayout(.sizeThatFits)
     }
 }
