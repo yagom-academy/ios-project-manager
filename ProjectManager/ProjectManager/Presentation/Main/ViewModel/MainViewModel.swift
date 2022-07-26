@@ -41,7 +41,7 @@ struct MainViewModel {
             .asDriver(onErrorJustReturn: [])
     }
     
-    func sync() -> Disposable {
+    func loadNetworkData() -> Disposable {
         return ProjectUseCase().load()
     }
     

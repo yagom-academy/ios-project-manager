@@ -140,7 +140,7 @@ final class MainViewController: UIViewController {
                     return
                 }
                 
-                self.viewModel.sync()
+                self.viewModel.loadNetworkData()
                     .disposed(by: self.disposeBag)
             }
         )
