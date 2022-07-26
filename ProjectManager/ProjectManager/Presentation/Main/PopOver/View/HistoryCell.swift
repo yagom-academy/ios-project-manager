@@ -75,9 +75,12 @@ final class HistoryCell: UITableViewCell {
     }
     
     func compose(content: HistoryEntity) {
+        guard let date = Double(content.date) else {
+            return
+        }
+        
         iconImageView.image = UIImage(systemName: content.editedType)
         titleLabel.text = content.title
-        dateLabel.text = content.date
+        dateLabel.text = DateFormatter().formatted(date: Date(timeIntervalSince1970: date))
     }
 }
-
