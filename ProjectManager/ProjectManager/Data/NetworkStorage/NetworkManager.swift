@@ -34,14 +34,13 @@ extension NetworkManager {
         return Observable.create { emitter in
             
             Database.database().reference(withPath: "user").getData { error, snapshot in
-                if let error = error {
+                guard error == nil else {
                     return
                 }
-                
+
                 guard let value = snapshot?.value as? [String: Any],
                       let data = try? JSONSerialization.data(withJSONObject: value.map { $1 }),
                       let projects = try? JSONDecoder().decode([ProjectDTO].self, from: data) else {
-                    
                     return
                 }
                 
