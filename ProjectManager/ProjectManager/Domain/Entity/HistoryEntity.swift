@@ -18,9 +18,9 @@ enum EditedType {
         case .register:
             return "plus.square"
         case .move:
-            return "plus.square"
+            return "arrow.left.arrow.right.square"
         case .delete:
-            return "trash.square"
+            return "trash"
         case .edit:
             return "square.and.pencil"
         }
