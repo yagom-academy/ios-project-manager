@@ -23,11 +23,11 @@ struct ListRowView: View {
     }
     
     func checkOverdate() -> some View {
-        if taskType != .done && taskArray[cellIndex].date + (60*60*24) < Date() {
-            return Text(taskArray[cellIndex].date.convertDateToString)
+        if task.isOverdate {
+            return Text(task.date.convertDateToString)
                 .foregroundColor(.red)
         } else {
-            return Text(taskArray[cellIndex].date.convertDateToString)
+            return Text(task.date.convertDateToString)
                 .foregroundColor(.black)
         }
     }

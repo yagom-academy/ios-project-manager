@@ -13,16 +13,18 @@ struct Task: Identifiable, Equatable {
     var date: Date
     var body: String
     var type: TaskType
+    var isOverdate: Bool
     
     init(title: String, date: Date, body: String, type: TaskType) {
         self.title = title
         self.date = date
         self.body = body
         self.type = type
+        self.isOverdate = (self.type == .done) && (self.date + (60*60*24) < Date()) == true
     }
 }
 
-enum TaskType {
+enum TaskType: Identifiable, CaseIterable {
     case todo
     case doing
     case done
@@ -36,5 +38,9 @@ enum TaskType {
         case .done:
             return "DONE"
         }
+    }
+    
+    var id: String {
+        return title
     }
 }
