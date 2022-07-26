@@ -74,6 +74,11 @@ final class MainViewController: UIViewController {
             self?.showErrorAlert(messege: $0)
         })
         .disposed(by: disposebag)
+        
+        viewModel.showNetworkErrorAlert.bind(onNext: { [weak self] in
+            self?.showNetworkErrorAlert()
+        })
+        .disposed(by: disposebag)
     }
     
     private func bindTableView() {

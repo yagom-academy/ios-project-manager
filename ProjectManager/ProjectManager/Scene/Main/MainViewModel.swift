@@ -21,6 +21,7 @@ protocol MainViewModelOutput {
     var showAddView: PublishRelay<Void> { get }
     var showEditView: PublishRelay<ListItem> { get }
     var showErrorAlert: PublishRelay<String?> { get }
+    var showNetworkErrorAlert: PublishRelay<Void> { get }
 }
 
 protocol MainViewModelInput {
@@ -56,8 +57,8 @@ final class MainViewModel: MainViewModelInOut {
             switch result {
             case .success():
                 UserDefaults.standard.set(true, forKey: "lunchedBefore")
-            case .failure(let error):
-                self.showErrorAlert.accept(error.errorDescription)
+            case .failure(_):
+                self.showNetworkErrorAlert.accept(())
             }
             print("activity indicator 종료")
         }
@@ -77,6 +78,7 @@ final class MainViewModel: MainViewModelInOut {
     var showAddView = PublishRelay<Void>()
     var showEditView = PublishRelay<ListItem>()
     var showErrorAlert = PublishRelay<String?>()
+    var showNetworkErrorAlert = PublishRelay<Void>()
 }
 
 //MARK: - input
