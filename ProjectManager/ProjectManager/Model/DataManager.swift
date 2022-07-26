@@ -7,6 +7,8 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class DataManager: ObservableObject {
   @Published var todos: [Todo] = []
