@@ -32,7 +32,7 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
         
         let beforeType = task.taskType
         
-        let capturedTask = Task(
+        let capturedOriginalTask = Task(
             title: task.title,
             body: task.body,
             date: task.date,
@@ -40,7 +40,14 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
             id: task.id
         )
         
-        registerChangeUndoAction(task: capturedTask, taskType: taskType)
+        let capturedChangedTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: taskType,
+            id: task.id
+        )
+        registerChangeUndoAction(task: capturedChangedTask, targetType: beforeType)
         
         do {
             try realmManager.change(task: task, targetType: taskType)
@@ -52,7 +59,7 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
         }
     }
     
-    private func registerChangeUndoAction(task: Task, taskType: TaskType) {
+    private func registerChangeUndoAction(task: Task, targetType: TaskType) {
         let capturedOriginalTask = Task(
             title: task.title,
             body: task.body,
@@ -60,20 +67,20 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
             taskType: task.taskType,
             id: task.id
         )
+        let capturedChangedTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: targetType,
+            id: task.id
+        )
         
-//        let capturedEditedTask = Task(
-//            title: task.title,
-//            body: task.body,
-//            date: task.date,
-//            taskType: taskType,
-//            id: task.id
-//        )
-        let beforeTask = capturedOriginalTask.taskType
+        let beforeType = capturedOriginalTask.taskType
         
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
-            self?.registerChangeRedoAction(task: capturedOriginalTask, taskType: taskType)
+            self?.registerChangeRedoAction(task: capturedChangedTask, targetType: beforeType)
             do {
-                try self?.realmManager.change(task: task, targetType: beforeTask)
+                try self?.realmManager.change(task: task, targetType: targetType)
                 self?.sendNotificationForHistory()
             } catch {
                 self?.error.accept(DatabaseError.changeError)
@@ -81,7 +88,7 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
         }
     }
     
-    private func registerChangeRedoAction(task: Task, taskType: TaskType) {
+    private func registerChangeRedoAction(task: Task, targetType: TaskType) {
         let capturedOriginalTask = Task(
             title: task.title,
             body: task.body,
@@ -90,19 +97,25 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
             id: task.id
         )
         
-        let capturedEditedTask = Task(
+        let capturedChangedTask = Task(
             title: task.title,
             body: task.body,
             date: task.date,
-            taskType: taskType,
+            taskType: targetType,
             id: task.id
         )
         
+        let beforeTask = capturedOriginalTask.taskType
+        
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
-            self?.registerChangeUndoAction(task: capturedEditedTask, taskType: capturedOriginalTask.taskType)
+            self?.registerChangeUndoAction(task: capturedChangedTask, targetType: beforeTask)
             do {
-                try self?.realmManager.change(task: capturedEditedTask, targetType: capturedOriginalTasktaskType)
-                self?.sendNotificationForHistory(capturedOriginalTask.title, from: capturedOriginalTask.taskType, to: taskType)
+                try self?.realmManager.change(task: task, targetType: targetType)
+                self?.sendNotificationForHistory(
+                    capturedOriginalTask.title,
+                    from: capturedOriginalTask.taskType,
+                    to: targetType
+                )
             } catch {
                 self?.error.accept(DatabaseError.changeError)
             }
