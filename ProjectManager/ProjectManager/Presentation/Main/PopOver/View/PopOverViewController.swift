@@ -9,11 +9,16 @@ import RxSwift
 
 final class PopOverViewController: UIViewController {
     private let popOverView = PopOverView()
-    private let viewModel: PopOverViewModel
+    private var viewModel: PopOverViewModel?
     private let disposeBag = DisposeBag()
     
+    static func create(with viewModel: PopOverViewModel, cell: ProjectCell) -> PopOverViewController {
+        let viewController = PopOverViewController(cell: cell)
+        viewController.viewModel = viewModel
+        return viewController
+    }
+    
     init(cell: ProjectCell) {
-        viewModel = PopOverViewModel(cell: cell)
         super.init(nibName: nil, bundle: nil)
         
         setUpAttribute(cell)
@@ -44,7 +49,7 @@ final class PopOverViewController: UIViewController {
     }
     
     private func setUpButtonTitle() {
-        guard let (first, second) = viewModel.getStatus() else {
+        guard let (first, second) = viewModel?.getStatus() else {
             return
         }
         
@@ -58,7 +63,7 @@ final class PopOverViewController: UIViewController {
         firstButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                self?.viewModel.moveCell(by: firstButton.titleLabel?.text)
+                self?.viewModel?.moveCell(by: firstButton.titleLabel?.text)
                 self?.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
@@ -66,7 +71,7 @@ final class PopOverViewController: UIViewController {
         secondButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                self?.viewModel.moveCell(by: secondButton.titleLabel?.text)
+                self?.viewModel?.moveCell(by: secondButton.titleLabel?.text)
                 self?.dismiss(animated: true)
             }
             .disposed(by: disposeBag)

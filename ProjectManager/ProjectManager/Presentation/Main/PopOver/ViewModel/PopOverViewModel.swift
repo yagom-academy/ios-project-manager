@@ -8,9 +8,11 @@
 import Foundation
 
 struct PopOverViewModel {
+    private let projectUseCase: ProjectUseCase
     private let cell: ProjectCell
     
-    init(cell: ProjectCell) {
+    init(projectUseCase: ProjectUseCase, cell: ProjectCell) {
+        self.projectUseCase = projectUseCase
         self.cell = cell
     }
     
@@ -23,7 +25,7 @@ struct PopOverViewModel {
     
     private func changeContent(status: ProjectStatus) {
         guard let id = cell.contentID,
-              var project = ProjectUseCase().read(id: id) else {
+              var project = projectUseCase.read(id: id) else {
             return
         }
         
@@ -31,7 +33,7 @@ struct PopOverViewModel {
         
         project.status = status
         
-        ProjectUseCase().update(projectContent: project)
+        projectUseCase.update(projectContent: project)
     }
     
     private func createMoved(from oldStatus: ProjectStatus, to newStatus: ProjectStatus, title: String) {
@@ -43,12 +45,12 @@ struct PopOverViewModel {
             date: Date().timeIntervalSince1970
         )
         
-        ProjectUseCase().createHistory(historyEntity: historyEntity)
+        projectUseCase.createHistory(historyEntity: historyEntity)
     }
     
     func getStatus() -> (first: ProjectStatus, second: ProjectStatus)? {
         guard let id = cell.contentID,
-              let project = ProjectUseCase().read(id: id) else {
+              let project = projectUseCase.read(id: id) else {
             return nil
         }
         
