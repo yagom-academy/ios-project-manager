@@ -15,6 +15,7 @@
 		B32429F52890123B00BA5700 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32429F42890123B00BA5700 /* ListView.swift */; };
 		B32C993028899AAC00C1F891 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C992F28899AAB00C1F891 /* ViewModelType.swift */; };
 		B335136B287579DF00BF3495 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B335136A287579DF00BF3495 /* SheetView.swift */; };
+		B38E4329289156DA00D276A1 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E4328289156DA00D276A1 /* HistoryView.swift */; };
 		B38E432B28915A4B00D276A1 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E432A28915A4B00D276A1 /* History.swift */; };
 		B38E432D28915C7000D276A1 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E432C28915C7000D276A1 /* HistoryViewModel.swift */; };
 		B39F102A2873DDC100475AE4 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F10292873DDC100475AE4 /* ProjectManagerApp.swift */; };
@@ -42,6 +43,7 @@
 		B32429F42890123B00BA5700 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		B32C992F28899AAB00C1F891 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		B335136A287579DF00BF3495 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		B38E4328289156DA00D276A1 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		B38E432A28915A4B00D276A1 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		B38E432C28915C7000D276A1 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryViewModel.swift; path = ProjectManager/View/HistoryViewModel.swift; sourceTree = SOURCE_ROOT; };
 		B39F10262873DDC100475AE4 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				B39F102B2873DDC100475AE4 /* ContentView.swift */,
+				B38E4328289156DA00D276A1 /* HistoryView.swift */,
 				B32429F42890123B00BA5700 /* ListView.swift */,
 				DA79E413287525C3000192CC /* ListRowView.swift */,
 				B3BDBB50287FA82E0072933E /* RegisterView.swift */,
@@ -308,6 +311,7 @@
 				B39F102A2873DDC100475AE4 /* ProjectManagerApp.swift in Sources */,
 				B32142BD2887DCBB00F8CBE9 /* ListViewModel.swift in Sources */,
 				B32429F52890123B00BA5700 /* ListView.swift in Sources */,
+				B38E4329289156DA00D276A1 /* HistoryView.swift in Sources */,
 				B32142C32887E18900F8CBE9 /* EditViewModel.swift in Sources */,
 				B3CA0B7B287D0A620047E1D1 /* Task.swift in Sources */,
 				B3B28F4328756B1000A3CB57 /* EditView.swift in Sources */,

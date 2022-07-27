@@ -35,6 +35,15 @@ struct ContentView: View {
               RegisterView(registerViewModel: RegisterViewModel(withService: contentViewModel.service))
             }
           }
+          ToolbarItem(placement: .navigationBarLeading) {
+            Button(action: {
+              contentViewModel.historyButtonTapped()
+            }) {
+              Text("History")
+            }.popover(isPresented: $contentViewModel.isShowingHistory) {
+              HistoryView(historyViewModel: HistoryViewModel(withService: contentViewModel.service))
+            }
+          }
         }
     }
     .navigationViewStyle(.stack)
