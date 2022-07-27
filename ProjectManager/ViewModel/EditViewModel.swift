@@ -19,6 +19,6 @@ class EditViewModel: ViewModelType {
   }
   
   func doneButtonTapped() {
-    self.service.editTask(task: task)
+    self.service.update(task: task)
   }
 }

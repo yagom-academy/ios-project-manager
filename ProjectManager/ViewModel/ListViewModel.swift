@@ -25,11 +25,19 @@ class ListViewModel: ViewModelType {
     isShowingPopover.toggle()
   }
   
-  func moveTask(_ task: Task, to: TaskType) {
-    self.service.moveTask(task, to: to)
+  func moveTask(_ task: Task, type: TaskType) {
+    self.service.move(task, type: type)
   }
   
   func readTasks() -> [Task] {
-    self.service.readTasks().filter { $0.type == taskType }
+    self.service.read().filter { $0.type == taskType }
+  }
+  
+  func swipedCell(index: IndexSet) {
+    let tasks = service.read()
+    let filterTasks = tasks.filter({ $0.type == taskType })
+    let taskToDelete = filterTasks[index.first ?? 0]
+    
+    service.delete(task: taskToDelete)
   }
 }
