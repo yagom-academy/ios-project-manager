@@ -12,6 +12,7 @@ protocol AppStoregeable {
     var doingList: BehaviorRelay<[ListItem]> { get }
     var doneList: BehaviorRelay<[ListItem]> { get }
     func setList(_ completion: @escaping (Result<(), StorageError>) -> Void)
+    func readHistory() -> [History]
     func creatItem(listItem: ListItem) throws
     func updateItem(listItem: ListItem) throws
     func selectItem(index: Int, type: ListType) -> ListItem
@@ -65,6 +66,10 @@ final class AppStorage: AppStoregeable {
         } catch {
             throw StorageError.historyError
         }
+    }
+    
+    func readHistory() -> [History] {
+        return localStorage.readHistory()
     }
     
     func creatItem(listItem: ListItem) throws {

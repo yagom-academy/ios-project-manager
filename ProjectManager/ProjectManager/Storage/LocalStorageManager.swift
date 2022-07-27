@@ -10,6 +10,7 @@ import RealmSwift
 protocol LocalStorageManagerable {
     func setList(_ completion: @escaping (Result<Void, StorageError>) -> Void)
     func readList(_ type: ListType) -> [ListItem]
+    func readHistory() -> [History]
     func createItem(_ item: ListItem) throws
     func updateItem(_ item: ListItem) throws
     func deleteItem(_ item: ListItem) throws
@@ -85,6 +86,34 @@ final class LocalStorageManager: LocalStorageManagerable {
         return list
     }
     
+    func readHistory() -> [History] {
+        guard let listModel = realm?.objects(LocalStorage.self).first else {
+            return []
+        }
+        return listModel.history.compactMap { $0 }
+    }
+    
+    func addHistory(title: String) throws {
+        guard let realm = realm else {
+            return
+        }
+        
+        do {
+            try realm.write {
+                guard let listModel = realm.objects(LocalStorage.self).first else {
+                    return
+                }
+                
+                let history = History()
+                history.title = title
+                
+                listModel.history.append(history)
+            }
+        } catch{
+            throw StorageError.historyError
+        }
+    }
+    
     func createItem(_ item: ListItem) throws {
         guard let realm = realm else {
             return
@@ -114,29 +143,6 @@ final class LocalStorageManager: LocalStorageManagerable {
             networkStorageManager.create(convertedItem(item))
         } catch {
             throw StorageError.creatError
-        }
-    }
-    
-    func addHistory(title: String) throws {
-        guard let realm = realm else {
-            return
-        }
-        
-        do {
-            try realm.write {
-                guard let listModel = realm.objects(LocalStorage.self).first else {
-                    return
-                }
-                
-                let history = History()
-                history.title = title
-                
-                listModel.history.append(history)
-                
-                print(listModel.history)
-            }
-        } catch{
-            throw StorageError.historyError
         }
     }
     
