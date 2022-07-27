@@ -43,10 +43,9 @@ final class NotificationManager {
     }
     
     func updateNotification(todoData: Todo) {
-        self.deleteNotification(todoIdentifier: todoData.identifier.uuidString)
-        
-        guard todoData.todoListItemStatus == .done else {
-            return self.setNotification(todoData: todoData)
+        guard todoData.todoListItemStatus != .done else {
+            return deleteNotification(todoIdentifier: todoData.identifier.uuidString)
         }
+        self.setNotification(todoData: todoData)
     }
 }
