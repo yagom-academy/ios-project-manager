@@ -67,16 +67,17 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
                 self?.syncronize()
             } else {
                 self?.online.accept(false)
+            }
+            DispatchQueue.main.async {
                 self?.fetchData()
             }
         }
     }
     
     func syncronize() {
-        synchronizeManager.synchronizeDatabase { [weak self] result in
+        synchronizeManager.synchronizeDatabase { result in
             switch result {
             case .success:
-                self?.fetchData()
                 return
             case .failure(let error):
                 print(error.localizedDescription)
