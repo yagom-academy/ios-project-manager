@@ -40,9 +40,9 @@ final class DatabaseManager: DatabaseManagerProtocol {
         })
         .disposed(by: disposeBag)
         
-        self.realm.updateDataPublishRelay.bind { todoData in
+        self.realm.updateDataPublishRelay.subscribe(onNext: { todoData in
             self.firebase.update(selectedTodo: todoData)
-        }
+        })
         .disposed(by: disposeBag)
         
         self.realm.deleteDataPublishRelay.subscribe(onNext: { uuid in
