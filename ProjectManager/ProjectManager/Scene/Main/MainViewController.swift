@@ -220,6 +220,8 @@ final class MainViewController: UIViewController {
     }
     
     // MARK: - UI Components
+    
+    // MARK: - navigationStackView
     private lazy var navigationStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [historyButton, titleLabel, addButton])
         stackView.alignment = .center
@@ -235,31 +237,6 @@ final class MainViewController: UIViewController {
         
         return button
     }()
-    
-    private lazy var networkStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [networkLabel, stateImage, UILabel()])
-        stackView.alignment = .bottom
-        
-        return stackView
-    }()
-    
-    private lazy var networkLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
-        label.setContentHuggingPriority(.required, for: .horizontal)
-        label.text = "Offline"
-        
-        return label
-    }()
-    
-    private lazy var stateImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "circle.fill"))
-        imageView.tintColor = .red
-        imageView.setContentHuggingPriority(.required, for: .horizontal)
-        return imageView
-    }()
-    
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -278,6 +255,7 @@ final class MainViewController: UIViewController {
         return button
     }()
     
+    // MARK: - mainStackView
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews:[listStackView(headerView: todoHeaderView,
                                                                     tableView: todoTableView),
@@ -309,4 +287,29 @@ final class MainViewController: UIViewController {
         
         return tableView
     }
+    
+    // MARK: - bottomStackView
+    private lazy var networkStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [networkLabel, stateImage, UILabel()])
+        stackView.alignment = .bottom
+        
+        return stackView
+    }()
+    
+    private lazy var networkLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.text = "Offline"
+        
+        return label
+    }()
+    
+    private lazy var stateImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "circle.fill"))
+        imageView.tintColor = .red
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
+        return imageView
+    }()
 }
