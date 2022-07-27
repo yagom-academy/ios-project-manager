@@ -8,7 +8,8 @@
 import RealmSwift
 
 class TaskManagementService {
-  var tasks: [Task] = []
+  var allTasks: [Task] = []
+  var allHistories: [History] = []
   private var realm: Realm?
   
   init() {
@@ -17,7 +18,7 @@ class TaskManagementService {
     } catch {
       print(error)
     }
-    self.tasks = self.read()
+    self.allTasks = self.readAllTasks()
   }
   
 
@@ -28,15 +29,24 @@ class TaskManagementService {
                         date: task.date,
                         body: task.body,
                         type: .todo)
+        let history = History(title: task.title,
+                              from: nil,
+                              to: nil,
+                              date: Date(),
+                              type: .add)
+        realm?.add(history)
+        self.allHistories = self.readAllHistories()
+        
         realm?.add(task)
-        self.tasks = self.read()
+        self.allTasks = self.readAllTasks()
+        
       })
     } catch {
       print(error)
     }
   }
   
-  func read() -> [Task] {
+  func readAllTasks() -> [Task] {
     guard let tasks = realm?.objects(Task.self) else {
       return []
     }
@@ -44,8 +54,16 @@ class TaskManagementService {
     return Array(tasks)
   }
   
+  func readAllHistories() -> [History] {
+    guard let histories = realm?.objects(History.self) else {
+      return []
+    }
+    
+    return Array(histories)
+  }
+  
   func update(task: Task) {
-    let tasks = read()
+    let tasks = readAllTasks()
     guard let index = tasks.firstIndex(of: task) else {
       return
     }
@@ -65,8 +83,16 @@ class TaskManagementService {
   func delete(task: Task) {
     do {
       try realm?.write({
+        let history = History(title: task.title,
+                              from: task.type,
+                              to: nil,
+                              date: Date(),
+                              type: .remove)
+        realm?.add(history)
+        self.allHistories = readAllHistories()
+        
         realm?.delete(task)
-        self.tasks = read()
+        self.allTasks = readAllTasks()
       })
     } catch {
       print(error)
@@ -76,8 +102,16 @@ class TaskManagementService {
   func move(_ task: Task, type: TaskType) {
     do {
       try realm?.write({
+        let history = History(title: task.title,
+                              from: task.type,
+                              to: type,
+                              date: Date(),
+                              type: .move)
+        realm?.add(history)
+        self.allHistories = readAllHistories()
+        
         task.type = type
-        self.tasks = read()
+        self.allTasks = readAllTasks()
       })
     } catch {
       print(error)
