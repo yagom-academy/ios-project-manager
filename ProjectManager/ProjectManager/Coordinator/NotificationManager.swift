@@ -16,29 +16,39 @@ final class NotificationManager {
     
     func requestAuthorization() {
         self.notificationCenter.requestAuthorization(
-            options: [.alert, .badge, .sound],
+            options: [.alert, .sound],
             completionHandler: { didAllow, error  in }
         )
     }
-    
-    func setNotification(todo: Todo) {
+
+    func setNotification(todoData: Todo) {
         let content = UNMutableNotificationContent()
-        content.title = todo.title
-        content.subtitle = "의 마감기한은 \(todo.date.historyString())입니다. "
+        content.title = todoData.title
+        content.subtitle = "의 마감기한은 \(todoData.date.historyString())입니다. "
         content.badge =  1
         content.sound = .defaultCritical
         
-        var todoDateComponent = Calendar.current.dateComponents([.year, .month, .day], from: todo.date)
+        var todoDateComponent = Calendar.current.dateComponents([.year, .month, .day], from: todoData.date)
         todoDateComponent.hour = 9
-        
-        let timeTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: todoDateComponent, repeats: false)
         let request = UNNotificationRequest(
-            identifier: todo.identifier.uuidString,
+            identifier: todoData.identifier.uuidString,
             content: content,
-            trigger: timeTrigger
+            trigger: trigger
         )
         self.notificationCenter.add(request)
+    }
+
+    func deleteNotification(todoIdentifier: String) {
+        self.notificationCenter.removePendingNotificationRequests(withIdentifiers: [todoIdentifier])
+    }
+    
+    func updateNotification(todoData: Todo) {
+        self.deleteNotification(todoIdentifier: todoData.identifier.uuidString)
+        
+        guard todoData.todoListItemStatus == .done else {
+            return self.setNotification(todoData: todoData)
+        }
     }
 }

@@ -29,9 +29,7 @@ final class AppCoordinator: Coordinator {
     }
     
     private func showListView() {
-        //1. 노티피케이션 매니저를 뷰모델에 주입해준다
-        //2. 
-        let listViewModel = TodoListViewModel(dataBase: self.database)
+        let listViewModel = TodoListViewModel(dataBase: self.database, notificationManger: notificationManager)
         let todoListViewController = TodoListViewController(
             todoViewModel: listViewModel,
             coordinator: self

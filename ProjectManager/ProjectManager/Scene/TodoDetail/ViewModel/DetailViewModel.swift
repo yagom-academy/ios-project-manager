@@ -30,10 +30,11 @@ final class DetailViewModel {
         
         if selectedTodo != nil {
             self.database.update(selectedTodo: todo)
+            self.notificationManager.updateNotification(todoData: todo)
             completion()
         } else {
             self.database.create(todoData: todo)
-            self.notificationManager.setNotification(todo: todo)
+            self.notificationManager.setNotification(todoData: todo)
             completion()
         }
     }
