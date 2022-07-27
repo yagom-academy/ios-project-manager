@@ -21,19 +21,11 @@ class DataManager {
     todoList.removeAll()
     
     dataBase.collection("Todo").getDocuments { snapShot, error in
-      
-//      guard error != nil else {
-//        print("\(String(describing: error?.localizedDescription))")
-//        return
-//      }
 
       guard let snapShot = snapShot else {
         print("non snapShot")
         return
       }
-      
-      DispatchQueue.main.async {
-        
         for documnet in snapShot.documents {
           let data = documnet.data()
           
@@ -50,9 +42,8 @@ class DataManager {
                           status: Status(rawValue: status) ?? Status.todo)
           todoList.append(todo)
         }
-      }
+      completionHandler(.success(todoList))
     }
-    completionHandler(.success(todoList))
   }
   
   func createTodo(todo: Todo) {

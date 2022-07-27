@@ -28,6 +28,7 @@ class AppViewModel: ObservableObject {
   
   init(todoService: TodoService = TodoService(), navigationTitle: String = "Project Manager") {
     self.todoService = todoService
+    self.todoService.initUpdata()
     self.navigationTitle = navigationTitle
     self.todoList = todoService.read()
     self.isShowCreateView = false

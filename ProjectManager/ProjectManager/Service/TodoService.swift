@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 class TodoService: ObservableObject {
   let dataManager: DataManager = DataManager()
   var newtWorkCollection: Bool = true
+  let realm = try? Realm()
   
   func creat(todo: Todo) {
     let realmData = TodoRealm()
@@ -22,43 +23,47 @@ class TodoService: ObservableObject {
     realmData.status = todo.status
     realmData.id = todo.id
     
-    guard let realm = try? Realm() else {
-      return
-    }
-    
-    try? realm.write {
-      realm.add(realmData)
-    }
-    
     dataManager.createTodo(todo: todo)
   }
   
-  func read() -> [Todo] {
-    var todos: [Todo] = []
-    if newtWorkCollection ==  true {
+  func initUpdata() {
+    if newtWorkCollection {
       dataManager.readTodo { result in
         switch result {
-        case.success(let todoList):
-          todos = todoList
-        case .failure(let error):
-          print("read \(error.localizedDescription)")
+        case .success(let data):
+          try? self.realm?.write {
+            self.realm?.deleteAll()
+            for todo in data {
+              let realmData = TodoRealm()
+              realmData.title = todo.title
+              realmData.content = todo.content
+              realmData.date = todo.date
+              realmData.status = todo.status
+              realmData.id = todo.id
+              self.realm?.add(realmData)
+            }
+          }
+        case.failure(let error):
+          fatalError()
         }
       }
-      return todos
-    } else {
-      guard let realm = try? Realm() else { return [] }
-      let todoData = realm.objects(TodoRealm.self)
-      let realArr = Array(todoData)
-      let result = realArr.map { todoRealm -> Todo in
-        
-        return Todo(id: todoRealm.id,
-                    title: todoRealm.title,
-                    content: todoRealm.content,
-                    date: todoRealm.date,
-                    status: todoRealm.status)
-      }
     }
-    return []
+  }
+  
+  func read() -> [Todo] {
+    guard let todoData = realm?.objects(TodoRealm.self) else {
+      return []
+    }
+    let realArr = Array(todoData)
+    let result = realArr.map { todoRealm -> Todo in
+      
+      return Todo(id: todoRealm.id,
+                  title: todoRealm.title,
+                  content: todoRealm.content,
+                  date: todoRealm.date,
+                  status: todoRealm.status)
+    }
+    return result
   }
   
   func read(by status: Status) -> [Todo] {
@@ -71,31 +76,31 @@ class TodoService: ObservableObject {
   
   func read(by todo: Todo) -> Todo {
     let todos = read()
-    let filteredTodo = todos.filter { $0.id == todo.id }[0]
+    guard let filteredTodo = todos.first(where: { $0.id == todo.id }) else {
+      return Todo(title: "", content: "")
+    }
     return filteredTodo
   }
   
   func updateStatus(status: Status, todo: Todo) {
     
-    guard let realm = try? Realm() else { return }
-    guard let selectedTodo = realm.objects(TodoRealm.self).filter({ $0.id == todo.id }).first else {
+    guard let selectedTodo = realm?.objects(TodoRealm.self).first(where: { $0.id == todo.id }) else {
       return
     }
     
-    try? realm.write {
+    try? realm?.write {
       selectedTodo.status = status
     }
-    
     dataManager.updateTodo(status: status, todo: todo)
   }
   
   func update(todo: Todo) {
-    guard let realm = try? Realm() else { return }
-    guard let selectedTodo = realm.objects(TodoRealm.self).filter({ $0.id == todo.id }).first else {
+   
+    guard let selectedTodo = realm?.objects(TodoRealm.self).first(where: { $0.id == todo.id }) else {
       return
     }
     
-    try? realm.write {
+    try? realm?.write {
       selectedTodo.content = todo.content
       selectedTodo.title = todo.title
       selectedTodo.date = todo.date
@@ -106,13 +111,13 @@ class TodoService: ObservableObject {
   }
   
   func delete(id: UUID) {
-    guard let realm = try? Realm() else { return }
-    try? realm.write {
-      
-      let selectedTodo = realm.objects(TodoRealm.self).filter { realm in
-        realm.id == id
-      }
-      realm.delete(selectedTodo)
+    
+    guard let selectedTodo = realm?.objects(TodoRealm.self).first(where: { $0.id == id }) else {
+      return
+    }
+    
+    try? realm?.write {
+      realm?.delete(selectedTodo)
     }
     
     dataManager.deleteTodo(id: id)

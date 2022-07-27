@@ -15,7 +15,7 @@ class ListViewModel: ObservableObject {
   @Published var todoList: [Todo]
   var update: (Status, Todo) -> Void
  
-  init(todoService: TodoService, status: Status, update: @escaping (Status, Todo) -> Void) {
+  init(todoService: TodoService = TodoService(), status: Status, update: @escaping (Status, Todo) -> Void) {
     self.todoService = todoService
     self.status = status
     self.todoList = todoService.read(by: status)
