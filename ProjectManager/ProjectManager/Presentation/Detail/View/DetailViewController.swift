@@ -21,18 +21,15 @@ private enum Mode {
 }
 
 final class DetailViewController: UIViewController {
-    private let viewModel: DetailViewModel
+    private var viewModel: DetailViewModel?
     private let modalView = ModalView(frame: .zero)
     private let disposeBag = DisposeBag()
     private var mode: Mode = .display
     
-    init(content: ProjectEntity) {
-        self.viewModel = DetailViewModel(content: content)
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    static func create(with viewModel: DetailViewModel) -> DetailViewController {
+        let viewController = DetailViewController()
+        viewController.viewModel = viewModel
+        return viewController
     }
     
     override func viewDidLoad() {
@@ -70,7 +67,7 @@ final class DetailViewController: UIViewController {
     
     private func setUpModalView() {
         modalView.registerNotification()
-        modalView.navigationBar.modalTitle.text = viewModel.asContent().status.string
+        modalView.navigationBar.modalTitle.text = viewModel?.asContent().status.string
     }
     
     private func bind() {
@@ -84,7 +81,7 @@ final class DetailViewController: UIViewController {
         modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
         modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
         
-        guard let project = self.viewModel.read() else {
+        guard let project = self.viewModel?.read() else {
             return
         }
         self.modalView.compose(content: project)
@@ -150,7 +147,7 @@ extension DetailViewController {
         modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
         modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
         
-        guard let project = self.viewModel.read() else {
+        guard let project = self.viewModel?.read() else {
             return
         }
         
@@ -164,8 +161,12 @@ extension DetailViewController {
         modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
         modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
         
-        let newContent = modalView.change(viewModel.asContent())
-        viewModel.update(newContent)
+        guard let content = viewModel?.asContent() else {
+            return
+        }
+        
+        let newContent = modalView.change(content)
+        viewModel?.update(newContent)
         modalView.isUserInteractionEnabled(false)
         
         mode = .display
