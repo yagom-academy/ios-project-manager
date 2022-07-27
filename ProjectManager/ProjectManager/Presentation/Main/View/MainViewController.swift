@@ -17,8 +17,14 @@ private enum ImageConstant {
 
 final class MainViewController: UIViewController {
     private let mainView = MainView(frame: .zero)
-    private let viewModel = MainViewModel()
+    private var viewModel: MainViewModel?
     private let disposeBag = DisposeBag()
+    
+    static func create(with viewModel: MainViewModel) -> MainViewController {
+        let viewController = MainViewController()
+        viewController.viewModel = viewModel
+        return viewController
+    }
     
     override func loadView() {
         view = mainView
@@ -140,7 +146,7 @@ final class MainViewController: UIViewController {
                     return
                 }
                 
-                self.viewModel.loadNetworkData()
+                self.viewModel?.loadNetworkData()
                     .disposed(by: self.disposeBag)
             }
         )
@@ -177,13 +183,13 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpTableCellData() {
-        bindCell(to: viewModel.asTodoProjects(), at: mainView.toDoTable.tableView)
-        bindCell(to: viewModel.asDoingProjects(), at: mainView.doingTable.tableView)
-        bindCell(to: viewModel.asDoneProjects(), at: mainView.doneTable.tableView)
+        bindCell(to: viewModel?.asTodoProjects(), at: mainView.toDoTable.tableView)
+        bindCell(to: viewModel?.asDoingProjects(), at: mainView.doingTable.tableView)
+        bindCell(to: viewModel?.asDoneProjects(), at: mainView.doneTable.tableView)
     }
     
-    private func bindCell(to projects: Driver<[ProjectEntity]>, at tableView: UITableView) {
-        projects
+    private func bindCell(to projects: Driver<[ProjectEntity]>?, at tableView: UITableView) {
+        projects?
             .drive(tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
                 cellType: ProjectCell.self)
@@ -204,19 +210,19 @@ final class MainViewController: UIViewController {
             .modelDeleted(ProjectEntity.self)
             .asDriver()
             .drive { [weak self] project in
-                self?.viewModel.deleteProject(project)
+                self?.viewModel?.deleteProject(project)
             }
             .disposed(by: disposeBag)
     }
     
     private func setUpTotalCount() {
-        bindCountLabel(of: mainView.toDoTable, to: viewModel.asTodoProjects())
-        bindCountLabel(of: mainView.doingTable, to: viewModel.asDoingProjects())
-        bindCountLabel(of: mainView.doneTable, to: viewModel.asDoneProjects())
+        bindCountLabel(of: mainView.toDoTable, to: viewModel?.asTodoProjects())
+        bindCountLabel(of: mainView.doingTable, to: viewModel?.asDoingProjects())
+        bindCountLabel(of: mainView.doneTable, to: viewModel?.asDoneProjects())
     }
     
-    private func bindCountLabel(of tableView: ProjectListView, to projects: Driver<[ProjectEntity]>) {
-        projects
+    private func bindCountLabel(of tableView: ProjectListView, to projects: Driver<[ProjectEntity]>?) {
+        projects?
             .map { "\($0.count)" }
             .drive { count in
                 tableView.compose(projectCount: count)
@@ -275,11 +281,11 @@ final class MainViewController: UIViewController {
     }
     
     private func presentViewController(status: ProjectStatus, cell: ProjectCell) {
-        guard let content = viewModel.readProject(cell.contentID) else {
+        guard let content = viewModel?.readProject(cell.contentID) else {
             return
         }
         
-        let next = DetailViewController(content: content)
+        let next = DetailViewController()
         
         next.modalPresentationStyle = .overCurrentContext
         next.modalTransitionStyle = .crossDissolve

@@ -10,39 +10,45 @@ import RxCocoa
 import RxGesture
 
 struct MainViewModel {
-    private let projects: BehaviorRelay<[ProjectEntity]> = {
-        return ProjectUseCase().read()
+    private let projectUseCase: ProjectUseCase
+    
+    init(projectUseCase: ProjectUseCase) {
+        self.projectUseCase = projectUseCase
+    }
+    
+    private lazy var projects: BehaviorRelay<[ProjectEntity]> = {
+        return projectUseCase.read()
     }()
 
     func deleteProject(_ content: ProjectEntity) {
-        ProjectUseCase().delete(projectContentID: content.id)
+        projectUseCase.delete(projectContentID: content.id)
         deleteHistory(by: content)
     }
     
     func readProject(_ id: UUID?) -> ProjectEntity? {
-        return ProjectUseCase().read(id: id)
+        return projectUseCase.read(id: id)
     }
     
-    func asTodoProjects() -> Driver<[ProjectEntity]> {
+    mutating func asTodoProjects() -> Driver<[ProjectEntity]> {
         return projects
             .map { $0.filter { $0.status == .todo } }
             .asDriver(onErrorJustReturn: [])
     }
     
-    func asDoingProjects() -> Driver<[ProjectEntity]> {
+    mutating func asDoingProjects() -> Driver<[ProjectEntity]> {
         return projects
             .map { $0.filter { $0.status == .doing } }
             .asDriver(onErrorJustReturn: [])
     }
     
-    func asDoneProjects() -> Driver<[ProjectEntity]> {
+    mutating func asDoneProjects() -> Driver<[ProjectEntity]> {
         return projects
             .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
     }
     
     func loadNetworkData() -> Disposable {
-        return ProjectUseCase().load()
+        return projectUseCase.load()
     }
     
     private func deleteHistory(by content: ProjectEntity) {
@@ -52,6 +58,6 @@ struct MainViewModel {
             date: Date().timeIntervalSince1970
         )
         
-        ProjectUseCase().createHistory(historyEntity: historyEntity)
+        projectUseCase.createHistory(historyEntity: historyEntity)
     }
 }
