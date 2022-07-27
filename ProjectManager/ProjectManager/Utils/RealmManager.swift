@@ -47,8 +47,14 @@ struct RealmManager {
     func delete(task: Task) throws {
         do {
             try realmInstance?.write {
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [task.id])
-                realmInstance?.delete(task)
+                let result = realmInstance?.objects(Task.self).where {
+                    $0.id == task.id
+                }
+                guard let tasks = result else { return }
+                if let queriedTask = tasks.filter({ $0 == $0 }).first {
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [task.id])
+                    realmInstance?.delete(queriedTask)
+                }
             }
         } catch {
             throw DatabaseError.deleteError

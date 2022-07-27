@@ -61,18 +61,18 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
     }
     
     private func registerAddUndoAction(task: Task) {
+        let capturedTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: .todo,
+            id: task.id
+        )
+        
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
-            let createdTask = Task(
-                title: task.title,
-                body: task.body,
-                date: task.date,
-                taskType: .todo,
-                id: task.id
-            )
-            
+            self?.registerAddRedoAction(task: capturedTask)
             do {
-                self?.registerAddRedoAction(task: createdTask)
-                try self?.realmManager.delete(task: task)
+                try self?.realmManager.delete(task: capturedTask)
                 self?.sendNotificationForHistory()
             } catch {
                 self?.error.accept(DatabaseError.deleteError)
@@ -81,12 +81,19 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
     }
     
     private func registerAddRedoAction(task: Task) {
+        let capturedTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: .todo,
+            id: task.id
+        )
+        
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
-            let title = task.title
-            
+            let title = capturedTask.title
+            self?.registerAddUndoAction(task: capturedTask)
             do {
-                self?.registerAddUndoAction(task: task)
-                try self?.realmManager.create(task: task)
+                try self?.realmManager.create(task: capturedTask)
                 self?.sendNotificationForHistory(title)
             } catch {
                 self?.error.accept(DatabaseError.createError)

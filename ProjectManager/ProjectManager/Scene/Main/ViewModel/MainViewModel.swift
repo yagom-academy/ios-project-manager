@@ -92,12 +92,20 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     private func deleteData(task: Task) {
-        registerDeleteUndoAction(task: task)
-        let title = task.title
-        let type = task.taskType
+        let capturedTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: task.taskType,
+            id: task.id
+        )
+        
+        registerDeleteUndoAction(task: capturedTask)
+        let title = capturedTask.title
+        let type = capturedTask.taskType
         
         do {
-            try realmManager.delete(task: task)
+            try realmManager.delete(task: capturedTask)
             sendNotificationForHistory(title, from: type)
             undoable.accept(true)
             redoable.accept(false)
@@ -116,7 +124,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     private func registerDeleteUndoAction(task: Task) {
-        let newTask = Task(
+        let capturedTask = Task(
             title: task.title,
             body: task.body,
             date: task.date,
@@ -126,8 +134,8 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             do {
-                self?.registerDeleteRedoAction(task: newTask)
-                try self?.realmManager.create(task: newTask)
+                self?.registerDeleteRedoAction(task: capturedTask)
+                try self?.realmManager.create(task: capturedTask)
                 self?.sendNotificationForHistory()
             } catch {
                 self?.error.accept(DatabaseError.createError)
@@ -136,20 +144,20 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     private func registerDeleteRedoAction(task: Task) {
-        let createdTask = Task(
+        let capturedTask = Task(
             title: task.title,
             body: task.body,
             date: task.date,
             taskType: task.taskType,
             id: task.id
         )
-        let title = task.title
-        let type = task.taskType
+        let title = capturedTask.title
+        let type = capturedTask.taskType
         
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             do {
-                self?.registerDeleteUndoAction(task: createdTask)
-                try self?.realmManager.delete(task: task)
+                self?.registerDeleteUndoAction(task: capturedTask)
+                try self?.realmManager.delete(task: capturedTask)
                 self?.sendNotificationForHistory(title, from: type)
             } catch {
                 self?.error.accept(DatabaseError.createError)
