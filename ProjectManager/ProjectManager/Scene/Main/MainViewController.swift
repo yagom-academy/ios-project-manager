@@ -48,7 +48,7 @@ final class MainViewController: UIViewController {
             $0.height.equalTo(40)
         }
         
-        networkStackView.snp.makeConstraints {
+        historyButton.snp.makeConstraints {
             $0.width.equalToSuperview().multipliedBy(0.1)
         }
         
@@ -62,7 +62,7 @@ final class MainViewController: UIViewController {
         }
         
         mainStackView.snp.makeConstraints {
-            $0.top.equalTo(navigationStackView.snp.bottom).offset(15)
+            $0.top.equalTo(navigationStackView.snp.bottom).offset(5)
             $0.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
         bindView()
@@ -221,15 +221,25 @@ final class MainViewController: UIViewController {
     
     // MARK: - UI Components
     private lazy var navigationStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [networkStackView, titleLabel, addButton])
-        stackView.alignment = .bottom
+        let stackView = UIStackView(arrangedSubviews: [historyButton, titleLabel, addButton])
+        stackView.alignment = .center
         
         return stackView
     }()
     
+    private lazy var historyButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("History", for: .normal)
+        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.contentHorizontalAlignment = .leading
+        
+        return button
+    }()
+    
     private lazy var networkStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [networkLabel, stateImage, UILabel()])
-        stackView.alignment = .center
+        stackView.alignment = .bottom
+        
         return stackView
     }()
     
