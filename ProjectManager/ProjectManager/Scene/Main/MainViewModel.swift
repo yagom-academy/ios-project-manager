@@ -20,6 +20,7 @@ protocol MainViewModelOutput {
     func listCount(_ type: ListType) -> Driver<String>
     
     var showAddView: PublishRelay<Void> { get }
+    var showHistoryView: PublishRelay<Void> { get }
     var showEditView: PublishRelay<ListItem> { get }
     var showErrorAlert: PublishRelay<String?> { get }
     var showNetworkErrorAlert: PublishRelay<Void> { get }
@@ -28,6 +29,7 @@ protocol MainViewModelOutput {
 
 protocol MainViewModelInput {
     func touchAddButton()
+    func touchHistoryButton()
     func touchCell(index: Int, type: ListType)
     func deleteCell(index: Int, type: ListType)
     func changeItemType(index: Int, type: ListType, to: ListType)
@@ -99,6 +101,7 @@ final class MainViewModel: MainViewModelInOut {
     }
     
     let showAddView = PublishRelay<Void>()
+    let showHistoryView = PublishRelay<Void>()
     let showEditView = PublishRelay<ListItem>()
     let showErrorAlert = PublishRelay<String?>()
     let showNetworkErrorAlert = PublishRelay<Void>()
@@ -113,6 +116,10 @@ extension MainViewModel {
     
     func touchAddButton() {
         showAddView.accept(())
+    }
+    
+    func touchHistoryButton() {
+        print("history")
     }
     
     func touchCell(index: Int, type: ListType) {

@@ -84,6 +84,12 @@ final class MainViewController: UIViewController {
             })
             .disposed(by: disposebag)
         
+        historyButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.viewModel.touchHistoryButton()
+            })
+            .disposed(by: disposebag)
+        
         viewModel.showAddView.bind(onNext: { [weak self] in
             guard let self = self else {
                 return
@@ -92,6 +98,8 @@ final class MainViewController: UIViewController {
             self.present(self.container.makeAddViewController(), animated: true)
         })
         .disposed(by: disposebag)
+        
+        viewModel.showHistoryView.bind(onNext: {}).disposed(by: disposebag)
         
         viewModel.showErrorAlert.bind(onNext: { [weak self] in
             self?.showErrorAlert(messege: $0)
