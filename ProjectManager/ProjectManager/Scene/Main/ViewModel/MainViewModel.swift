@@ -89,16 +89,13 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         fetchToDo()
         fetchDoing()
         fetchDone()
-        
-        todos.value.forEach {
-            self.createDeadlineNotification(at: $0)
-        }
     }
     
     private func deleteData(task: Task) {
         registerDeleteUndoAction(task: task)
         let title = task.title
         let type = task.taskType
+        
         do {
             try realmManager.delete(task: task)
             sendNotificationForHistory(title, from: type)
@@ -172,17 +169,31 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         
     private func fetchToDo() {
         let todos = realmManager.fetchTasks(type: .todo)
+        setupTaskDeadlineNotification(todos)
         self.todos.accept(todos)
     }
     
     private func fetchDoing() {
         let doings = realmManager.fetchTasks(type: .doing)
+        setupTaskDeadlineNotification(doings)
         self.doings.accept(doings)
     }
     
     private func fetchDone() {
         let dones = realmManager.fetchTasks(type: .done)
+        removeAllPendingNotifications(dones)
         self.dones.accept(dones)
+    }
+    
+    private func setupTaskDeadlineNotification(_ tasks: [Task]) {
+        removeAllPendingNotifications(tasks)
+        tasks.forEach {
+            self.createDeadlineNotification(at: $0)
+        }
+    }
+    
+    private func removeAllPendingNotifications(_ tasks: [Task]) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: tasks.map { $0.id })
     }
     
     func undoButtonTapped() {
@@ -209,18 +220,34 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     private func createDeadlineNotification(at task: Task) {
+        guard todayIsDeadline(of: task) else {
+            return
+        }
+        
         let content = UNMutableNotificationContent()
-        content.title = task.title
-        content.body = task.body
+        content.title = "오늘까지인 할 일이 있습니다."
+        content.body = task.title
+        content.subtitle = task.taskType.rawValue
         content.sound = .default
         
-//        var dateComponents = DateComponents()
-//        dateComponents.calendar = Calendar.current
-//        dateComponents.hour = 9
+        var dateComponents = DateComponents()
+        dateComponents.calendar = Calendar.current
+        dateComponents.hour = 9
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 4, repeats: false)
-        let request = UNNotificationRequest(identifier: task.id, content: content, trigger: trigger)
+        //let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        let request =  UNNotificationRequest(identifier: task.id, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request)
+    }
+    
+    private func todayIsDeadline(of task: Task) -> Bool {
+        let today = Calendar.current.startOfDay(for: Date()).timeIntervalSince1970
+        let tomorrow = today + 86400
+        
+        if task.date > today, task.date < tomorrow {
+            return true
+        }
+        return false
     }
 }
