@@ -45,6 +45,7 @@
 		9BB9AF23288E58340068030B /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB9AF22288E58340068030B /* HistoryCell.swift */; };
 		9BCEA9552875E7F500258589 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCEA9542875E7F500258589 /* TodoModel.swift */; };
 		9BCEA95728768C3C00258589 /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCEA95628768C3C00258589 /* TodoListCell.swift */; };
+		9BD40D4D289120C100939532 /* TodoEditViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD40D4C289120C100939532 /* TodoEditViewModelTest.swift */; };
 		9BDA0189287445C500C8F7C8 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9BDA0188287445C500C8F7C8 /* RxCocoa */; };
 		9BDA018B287445C500C8F7C8 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9BDA018A287445C500C8F7C8 /* RxSwift */; };
 		9BDA018E287445DB00C8F7C8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9BDA018D287445DB00C8F7C8 /* SnapKit */; };
@@ -108,6 +109,7 @@
 		9BB9AF22288E58340068030B /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		9BCEA9542875E7F500258589 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		9BCEA95628768C3C00258589 /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
+		9BD40D4C289120C100939532 /* TodoEditViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditViewModelTest.swift; sourceTree = "<group>"; };
 		9BDA018F287464E800C8F7C8 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
 		9BF85573288657AE0098441C /* TodoEntity+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoEntity+Realm.swift"; sourceTree = "<group>"; };
 		9BF8557828869E2D0098441C /* RealmTodoListStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTodoListStorage.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				9BB1595B288FEFC400BECEEB /* TodoListViewModelTest.swift */,
+				9BD40D4C289120C100939532 /* TodoEditViewModelTest.swift */,
 				9BB15962288FF08000BECEEB /* MockUesCase.swift */,
 			);
 			path = ViewModelTests;
@@ -599,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BB1595C288FEFC400BECEEB /* TodoListViewModelTest.swift in Sources */,
+				9BD40D4D289120C100939532 /* TodoEditViewModelTest.swift in Sources */,
 				9BB15963288FF08000BECEEB /* MockUesCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
