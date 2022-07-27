@@ -27,7 +27,7 @@ struct ContentView: View {
         .toolbar {
           ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: {
-              contentViewModel.toggleShowingSheet()
+              contentViewModel.plusButtonTapped()
             }) {
               Image(systemName: "plus")
                 .imageScale(.large)

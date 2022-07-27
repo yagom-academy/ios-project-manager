@@ -18,21 +18,21 @@ class ListViewModel: ViewModelType {
     self.taskType = taskType
   }
   
-  func toggleShowingSheet() {
+  func cellTapped() {
     isShowingSheet.toggle()
   }
   
-  func toggleShowingPopover() {
+  func cellLongPressed() {
     isShowingPopover.toggle()
   }
   
   func moveTask(_ task: Task, type: TaskType) {
     self.service.move(task, type: type)
-    self.tasks = service.tasks
+    self.tasks = service.allTasks
   }
   
   func readTasks() -> [Task] {
-    self.service.read().filter { $0.type == taskType }
+    self.service.readAllTasks().filter { $0.type == taskType }
   }
   
   func swipedCell(index: IndexSet) {
@@ -40,6 +40,6 @@ class ListViewModel: ViewModelType {
       let taskToDelete = readTasks()[index]
       service.delete(task: taskToDelete)
     })
-    self.tasks = service.tasks
+    self.tasks = service.allTasks
   }
 }

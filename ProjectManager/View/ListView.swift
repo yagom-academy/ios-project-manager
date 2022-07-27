@@ -21,13 +21,13 @@ struct ListView: View {
                         taskDate: task.date,
                         isOverdate: task.isOverdate)
             .onTapGesture {
-              listViewModel.toggleShowingSheet()
+              listViewModel.cellTapped()
             }
             .sheet(isPresented: $listViewModel.isShowingSheet) {
               EditView(editViewModel: EditViewModel(withService: listViewModel.service, task: task))
             }
             .onLongPressGesture(minimumDuration: 1) {
-              listViewModel.toggleShowingPopover()
+              listViewModel.cellLongPressed()
             }
             .popover(isPresented: $listViewModel.isShowingPopover,
                      arrowEdge: .bottom) {

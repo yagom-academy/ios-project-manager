@@ -9,8 +9,13 @@ import SwiftUI
 
 class ContentViewModel: ViewModelType {
   @Published var isShowingSheet = false
+  @Published var isShowingHistory = false
   
-  func toggleShowingSheet() {
+  func plusButtonTapped() {
     isShowingSheet.toggle()
+  }
+  
+  func historyButtonTapped() {
+    isShowingHistory.toggle()
   }
 }
