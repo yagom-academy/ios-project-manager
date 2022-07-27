@@ -15,8 +15,8 @@ protocol AppStoregeable {
     func creatItem(listItem: ListItem) throws
     func updateItem(listItem: ListItem) throws
     func selectItem(index: Int, type: ListType) -> ListItem
-    func deleteItem(index: Int, type: ListType) throws
-    func changeItemType(index: Int, type: ListType, destination: ListType) throws
+    func deleteItem(listItem: ListItem) throws
+    func changeItemType(listItem: ListItem, destination: ListType) throws
 }
 
 final class AppStorage: AppStoregeable {
@@ -72,7 +72,7 @@ final class AppStorage: AppStoregeable {
     func selectItem(index: Int, type: ListType) -> ListItem {
         return selectList(type).value[index]
     }
-    
+
     func updateItem(listItem: ListItem) throws {
         do {
             try localStorage.updateItem(listItem)
@@ -83,23 +83,21 @@ final class AppStorage: AppStoregeable {
         }
     }
     
-    func deleteItem(index: Int, type: ListType) throws {
-        let item = selectItem(index: index, type: type)
-        
+    func deleteItem(listItem: ListItem) throws {
         do {
-            try localStorage.deleteItem(item)
-            let nweList = localStorage.readList(item.type)
-            selectList(item.type).accept(nweList)
+            try localStorage.deleteItem(listItem)
+            let nweList = localStorage.readList(listItem.type)
+            selectList(listItem.type).accept(nweList)
+            
         } catch {
             throw StorageError.deleteError
         }
     }
-    
-    func changeItemType(index: Int, type: ListType, destination: ListType) throws {
-        var item = selectItem(index: index, type: type)
-        
+
+    func changeItemType(listItem: ListItem, destination: ListType) throws {
+        var item = listItem
         do {
-            try deleteItem(index: index, type: type)
+            try deleteItem(listItem: item)
         } catch {
             throw StorageError.updateError
         }

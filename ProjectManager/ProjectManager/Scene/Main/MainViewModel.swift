@@ -129,7 +129,8 @@ extension MainViewModel {
     
     func deleteCell(index: Int, type: ListType) {
         do {
-            try storage.deleteItem(index: index, type: type)
+            let item = storage.selectItem(index: index, type: type)
+            try storage.deleteItem(listItem: item)
         } catch {
             guard let error = error as? StorageError else {
                 showErrorAlert.accept(nil)
@@ -142,7 +143,8 @@ extension MainViewModel {
     
     func changeItemType(index: Int, type: ListType, to destination: ListType) {
         do {
-            try storage.changeItemType(index: index, type: type, destination: destination)
+            let item = storage.selectItem(index: index, type: type)
+            try storage.changeItemType(listItem: item, destination: destination)
         } catch {
             guard let error = error as? StorageError else {
                 showErrorAlert.accept(nil)
