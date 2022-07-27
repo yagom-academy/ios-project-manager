@@ -41,11 +41,11 @@ final class MainViewController: UIViewController {
         self.view.backgroundColor = .systemGray5
         self.view.addSubview(navigationStackView)
         self.view.addSubview(mainStackView)
+        self.view.addSubview(bottomStackView)
         
         navigationStackView.snp.makeConstraints {
             $0.top.equalTo(self.view.safeAreaLayoutGuide)
             $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(40)
         }
         
         historyButton.snp.makeConstraints {
@@ -62,9 +62,16 @@ final class MainViewController: UIViewController {
         }
         
         mainStackView.snp.makeConstraints {
-            $0.top.equalTo(navigationStackView.snp.bottom).offset(5)
-            $0.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.top.equalTo(navigationStackView.snp.bottom).inset(-5)
+            $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(bottomStackView.snp.top).inset(-20)
         }
+        
+        bottomStackView.snp.makeConstraints {
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(20)
+        }
+        
         bindView()
     }
     
@@ -289,9 +296,15 @@ final class MainViewController: UIViewController {
     }
     
     // MARK: - bottomStackView
+    private lazy var bottomStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [networkStackView, rightButtonStackView])
+        stackView.distribution = .equalSpacing
+        
+        return stackView
+    }()
+    
     private lazy var networkStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [networkLabel, stateImage, UILabel()])
-        stackView.alignment = .bottom
         
         return stackView
     }()
@@ -310,6 +323,31 @@ final class MainViewController: UIViewController {
         let imageView = UIImageView(image: UIImage(systemName: "circle.fill"))
         imageView.tintColor = .red
         imageView.setContentHuggingPriority(.required, for: .horizontal)
+        
         return imageView
+    }()
+    
+    private lazy var rightButtonStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [undoButton, redoButton])
+        stackView.distribution = .fillEqually
+        stackView.spacing = 20
+        
+        return stackView
+    }()
+    
+    private lazy var undoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Undo", for: .normal)
+        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        
+        return button
+    }()
+    
+    private lazy var redoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Redo", for: .normal)
+        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        
+        return button
     }()
 }
