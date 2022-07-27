@@ -99,7 +99,9 @@ final class MainViewController: UIViewController {
         })
         .disposed(by: disposebag)
         
-        viewModel.showHistoryView.bind(onNext: {}).disposed(by: disposebag)
+        viewModel.showHistoryView.bind(onNext: { [weak self] in
+            print($0)
+        }).disposed(by: disposebag)
         
         viewModel.showErrorAlert.bind(onNext: { [weak self] in
             self?.showErrorAlert(messege: $0)

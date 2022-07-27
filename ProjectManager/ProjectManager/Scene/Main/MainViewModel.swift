@@ -20,7 +20,7 @@ protocol MainViewModelOutput {
     func listCount(_ type: ListType) -> Driver<String>
     
     var showAddView: PublishRelay<Void> { get }
-    var showHistoryView: PublishRelay<Void> { get }
+    var showHistoryView: PublishRelay<[History]> { get }
     var showEditView: PublishRelay<ListItem> { get }
     var showErrorAlert: PublishRelay<String?> { get }
     var showNetworkErrorAlert: PublishRelay<Void> { get }
@@ -101,7 +101,7 @@ final class MainViewModel: MainViewModelInOut {
     }
     
     let showAddView = PublishRelay<Void>()
-    let showHistoryView = PublishRelay<Void>()
+    let showHistoryView = PublishRelay<[History]>()
     let showEditView = PublishRelay<ListItem>()
     let showErrorAlert = PublishRelay<String?>()
     let showNetworkErrorAlert = PublishRelay<Void>()
@@ -119,7 +119,7 @@ extension MainViewModel {
     }
     
     func touchHistoryButton() {
-        print("history")
+        showHistoryView.accept(storage.readHistory().reversed())
     }
     
     func touchCell(index: Int, type: ListType) {
