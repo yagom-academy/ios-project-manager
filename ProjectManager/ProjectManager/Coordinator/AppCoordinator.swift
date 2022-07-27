@@ -15,18 +15,22 @@ protocol Coordinator: AnyObject {
 
 final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
-    private var detailViewController: DetailViewController?
     private let database = DatabaseManager()
-    
-    func start() {
-        self.showListView()
-    }
+    private let notificationManager = NotificationManager()
+    private var detailViewController: DetailViewController?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
+    func start() {
+        self.notificationManager.requestAuthorization()
+        self.showListView()
+    }
+    
     private func showListView() {
+        //1. 노티피케이션 매니저를 뷰모델에 주입해준다
+        //2. 
         let listViewModel = TodoListViewModel(dataBase: self.database)
         let todoListViewController = TodoListViewController(
             todoViewModel: listViewModel,
@@ -40,7 +44,7 @@ final class AppCoordinator: Coordinator {
             return
         }
         
-        let detailViewModel = DetailViewModel(database: self.database)
+        let detailViewModel = DetailViewModel(database: self.database, notificationManager: self.notificationManager)
         self.detailViewController = DetailViewController(
             selectedTodo: selectedTodo,
             todoListItemStatus: todoListItemStatus,
