@@ -68,7 +68,6 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
             )
             
             do {
-                
                 self?.registerAddRedoAction(task: createdTask)
                 try self?.realmManager.delete(task: task)
                 self?.sendNotificationForHistory()

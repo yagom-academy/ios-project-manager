@@ -99,7 +99,6 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         registerDeleteUndoAction(task: task)
         let title = task.title
         let type = task.taskType
-                
         do {
             try realmManager.delete(task: task)
             sendNotificationForHistory(title, from: type)
@@ -187,7 +186,6 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
     }
     
     func undoButtonTapped() {
-        
         undoManager.undo()
         redoable.accept(true)
         if !undoManager.canUndo {
