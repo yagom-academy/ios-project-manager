@@ -9,6 +9,7 @@ import Foundation
 
 extension Date {
     func dateString() -> String {
+        Formatter.date.timeStyle = .none
         guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString
     }
