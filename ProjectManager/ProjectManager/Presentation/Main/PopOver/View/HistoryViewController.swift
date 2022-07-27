@@ -10,8 +10,14 @@ import RxSwift
 
 final class HistoryViewController: UIViewController {
     private let historyView = HistoryView()
-    private let viewModel = HistoryViewModel()
+    private var viewModel: HistoryViewModel?
     private let disposeBag = DisposeBag()
+    
+    static func create(with viewModel: HistoryViewModel, source: UIBarButtonItem) -> HistoryViewController {
+        let viewController = HistoryViewController(source: source)
+        viewController.viewModel = viewModel
+        return viewController
+    }
     
     init(source: UIBarButtonItem) {
         super.init(nibName: nil, bundle: nil)
@@ -46,7 +52,7 @@ final class HistoryViewController: UIViewController {
     }
     
     private func setUpTable() {
-        viewModel
+        viewModel?
             .read()
             .drive(
                 historyView.tableView.rx.items(
