@@ -63,6 +63,6 @@ final class HistoryCell: UITableViewCell {
         self.actionLabel.text = history.action.description
         self.titleLabel.text = "'\(history.title)'"
         self.statusLabel.text = history.status.value
-        self.dateLabel.text = history.date.convertToHistoryString()
+        self.dateLabel.text = history.date.historyString()
     }
 }
