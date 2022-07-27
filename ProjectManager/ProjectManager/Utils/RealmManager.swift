@@ -6,6 +6,7 @@
 //
 
 import RealmSwift
+import UserNotifications
 
 struct RealmManager {
     private let realmInstance = try? Realm()
@@ -44,8 +45,10 @@ struct RealmManager {
     }
     
     func delete(task: Task) throws {
+        
         do {
             try realmInstance?.write {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [task.id])
                 realmInstance?.delete(task)
             }
         } catch {
