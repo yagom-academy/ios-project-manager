@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		14391D15E9073FB568E4F24D /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5940E20276FB64A885633 /* Pods_ProjectManager.framework */; };
+		AC035E932890D7BF0068DC7E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC035E922890D7BF0068DC7E /* History.swift */; };
 		AC15AB932876E2BC004B5E8A /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15AB922876E2BC004B5E8A /* DetailView.swift */; };
 		AC54B7A02875478700092D83 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B79F2875478700092D83 /* ListItem.swift */; };
 		AC54B7A2287549F800092D83 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B7A1287549F800092D83 /* ListTableViewCell.swift */; };
@@ -39,6 +40,7 @@
 		275580651BF567068A8E517A /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		9B82BA3364C1F3335ED7823D /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		9BC5940E20276FB64A885633 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC035E922890D7BF0068DC7E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		AC15AB922876E2BC004B5E8A /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		AC54B79F2875478700092D83 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		AC54B7A1287549F800092D83 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				AC54B79F2875478700092D83 /* ListItem.swift */,
 				ACDD285F288717D60083356A /* ListItemDTO.swift */,
 				AC60141B288A540D005CA2F4 /* LocalStorage.swift */,
+				AC035E922890D7BF0068DC7E /* History.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				ACA39AD1287DE50200AE4964 /* EditViewController.swift in Sources */,
 				ACDD285E2887178F0083356A /* LocalStorageManager.swift in Sources */,
 				ACDD2860288717D60083356A /* ListItemDTO.swift in Sources */,
+				AC035E932890D7BF0068DC7E /* History.swift in Sources */,
 				ACA39ACD287DE05200AE4964 /* Container.swift in Sources */,
 				AC9C57C3287A8CC100BA7F7D /* UITableView + Extension.swift in Sources */,
 				AC54B7A02875478700092D83 /* ListItem.swift in Sources */,
