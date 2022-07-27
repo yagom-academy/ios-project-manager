@@ -100,6 +100,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
             try realmManager.delete(task: task)
             sendNotificationForHistory(title, from: type)
             undoable.accept(true)
+            redoable.accept(false)
         } catch {
             self.error.accept(DatabaseError.deleteError)
         }
