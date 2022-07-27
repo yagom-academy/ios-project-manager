@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		14391D15E9073FB568E4F24D /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5940E20276FB64A885633 /* Pods_ProjectManager.framework */; };
 		AC035E932890D7BF0068DC7E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC035E922890D7BF0068DC7E /* History.swift */; };
+		AC035E962890EF350068DC7E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC035E952890EF350068DC7E /* HistoryViewController.swift */; };
+		AC035E982890EF570068DC7E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC035E972890EF570068DC7E /* HistoryView.swift */; };
+		AC035E9A2890EF6C0068DC7E /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC035E992890EF6C0068DC7E /* HistoryViewModel.swift */; };
 		AC15AB932876E2BC004B5E8A /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15AB922876E2BC004B5E8A /* DetailView.swift */; };
 		AC54B7A02875478700092D83 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B79F2875478700092D83 /* ListItem.swift */; };
 		AC54B7A2287549F800092D83 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC54B7A1287549F800092D83 /* ListTableViewCell.swift */; };
@@ -41,6 +44,9 @@
 		9B82BA3364C1F3335ED7823D /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		9BC5940E20276FB64A885633 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC035E922890D7BF0068DC7E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		AC035E952890EF350068DC7E /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		AC035E972890EF570068DC7E /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		AC035E992890EF6C0068DC7E /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		AC15AB922876E2BC004B5E8A /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		AC54B79F2875478700092D83 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		AC54B7A1287549F800092D83 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
@@ -82,6 +88,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC035E942890EF160068DC7E /* History */ = {
+			isa = PBXGroup;
+			children = (
+				AC035E952890EF350068DC7E /* HistoryViewController.swift */,
+				AC035E992890EF6C0068DC7E /* HistoryViewModel.swift */,
+				AC035E972890EF570068DC7E /* HistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		AC15AB942876E80E004B5E8A /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +115,7 @@
 			children = (
 				ACA39AD6287DF77800AE4964 /* Main */,
 				AC15AB942876E80E004B5E8A /* Detail */,
+				AC035E942890EF160068DC7E /* History */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -328,14 +345,17 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				ACCBF0F02877CACA00FEC0F3 /* DateConverter.swift in Sources */,
 				AC601418288A3C13005CA2F4 /* StorageError.swift in Sources */,
+				AC035E982890EF570068DC7E /* HistoryView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				AC60141C288A540D005CA2F4 /* LocalStorage.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				AC035E9A2890EF6C0068DC7E /* HistoryViewModel.swift in Sources */,
 				ACA39AD1287DE50200AE4964 /* EditViewController.swift in Sources */,
 				ACDD285E2887178F0083356A /* LocalStorageManager.swift in Sources */,
 				ACDD2860288717D60083356A /* ListItemDTO.swift in Sources */,
 				AC035E932890D7BF0068DC7E /* History.swift in Sources */,
 				ACA39ACD287DE05200AE4964 /* Container.swift in Sources */,
+				AC035E962890EF350068DC7E /* HistoryViewController.swift in Sources */,
 				AC9C57C3287A8CC100BA7F7D /* UITableView + Extension.swift in Sources */,
 				AC54B7A02875478700092D83 /* ListItem.swift in Sources */,
 				AC60141A288A487F005CA2F4 /* UIViewController + Extension.swift in Sources */,
