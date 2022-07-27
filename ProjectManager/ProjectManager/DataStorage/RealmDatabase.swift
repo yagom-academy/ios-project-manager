@@ -8,19 +8,24 @@
 import Foundation
 
 import RealmSwift
+import RxRelay
 
 final class RealmDatabase {
     private let realm: Realm?
+    
+    let createDataPublishRelay = PublishRelay<Todo>()
+    let updateDataPublishRelay = PublishRelay<Todo>()
+    let deleteDataPublishRelay = PublishRelay<UUID>()
     
     init() {
         self.realm = try? Realm()
     }
     
-    func create(todoData: Todo, completion: @escaping (Todo) -> Void) {
+    func create(todoData: Todo) {
         try? self.realm?.write { [weak self] in
             self?.realm?.add(todoData.convertRealmTodo())
-            completion(todoData)
         }
+        self.createDataPublishRelay.accept(todoData)
     }
     
     func read(completion: @escaping ([Todo]) -> Void) {
@@ -30,22 +35,22 @@ final class RealmDatabase {
         completion(todoList)
     }
     
-    func update(selectedTodo: Todo, completion: @escaping (Todo) -> Void) {
+    func update(selectedTodo: Todo) {
         try? self.realm?.write({ [weak self] in
             self?.realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
-            completion(selectedTodo)
         })
+        self.updateDataPublishRelay.accept(selectedTodo)
     }
     
-    func delete(todoID: UUID, completion: @escaping (UUID) -> Void) {
+    func delete(todoID: UUID) {
         guard let item = self.realm?.object(ofType: TodoDTO.self, forPrimaryKey: todoID) else {
             return
         }
-        
         try? self.realm?.write({ [weak self] in
             self?.realm?.delete(item)
-            completion(todoID)
+            
         })
+        self.deleteDataPublishRelay.accept(todoID)
     }
     
     func add(todoData: [Todo]) {
