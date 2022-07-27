@@ -36,8 +36,8 @@ struct ListView: View {
               }
             }
           }
-          .onDelete { offset in
-            listViewModel.service.tasks.remove(atOffsets: offset)
+          .onDelete { index in
+            listViewModel.swipedCell(index: index)
           }
         }
       }
