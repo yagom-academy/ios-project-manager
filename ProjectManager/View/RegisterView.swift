@@ -8,40 +8,47 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @Environment(\.dismiss) var dismiss
-    var contentViewModel: ContentViewModel
-    
-    var body: some View {
-        NavigationView {
-            RegisterElementView(taskViewModel: contentViewModel.data)
-            .navigationTitle("TODO")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarColor(.systemGray5)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Text("Cancel")
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        contentViewModel.appendData()
-                        dismiss()
-                    }) {
-                        Text("Done")
-                    }
-                }
-            }
+  @Environment(\.presentationMode) var presentationMode
+  @ObservedObject var registerViewModel: RegisterViewModel
+  
+  var body: some View {
+    NavigationView {
+      SheetView(taskTitle: $registerViewModel.title,
+                taskBody: $registerViewModel.body,
+                taskDate: $registerViewModel.date)
+        .onDisappear {
+          registerViewModel.title = ""
+          registerViewModel.date = Date()
+          registerViewModel.body = ""
         }
-        .navigationViewStyle(.stack)
+        .navigationTitle(TaskType.todo.title)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarColor(.systemGray5)
+        .toolbar {
+          ToolbarItem(placement: .navigationBarLeading) {
+            Button(action: {
+              presentationMode.wrappedValue.dismiss()
+            }) {
+              Text("Cancel")
+            }
+          }
+          ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: {
+              registerViewModel.doneButtonTapped()
+              presentationMode.wrappedValue.dismiss()
+            }) {
+              Text("Done")
+            }
+          }
+        }
     }
+    .navigationViewStyle(.stack)
+  }
 }
 
 struct RegisterView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisterView(contentViewModel: ContentViewModel())
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
+  static var previews: some View {
+    RegisterView(registerViewModel: RegisterViewModel(withService: TaskManagementService()))
+      .previewInterfaceOrientation(.landscapeLeft)
+  }
 }

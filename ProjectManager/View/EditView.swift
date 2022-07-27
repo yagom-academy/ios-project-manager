@@ -8,41 +8,43 @@
 import SwiftUI
 
 struct EditView: View {
-    @Environment(\.dismiss) var dismiss
-    var contentViewModel: ContentViewModel
-    var cellIndex: Int
-    
-    var body: some View {
-        NavigationView {
-            EditElementView(taskViewModel: contentViewModel.data, cellIndex: cellIndex)
-            .navigationTitle("TODO")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarColor(.systemGray5)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Text("Cancel")
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        contentViewModel.appendData()
-                        dismiss()
-                    }) {
-                        Text("Done")
-                    }
-                }
+  @Environment(\.presentationMode) var presentationMode
+  @ObservedObject var editViewModel: EditViewModel
+  
+  var body: some View {
+    NavigationView {
+      SheetView(taskTitle: $editViewModel.task.title,
+                taskBody: $editViewModel.task.body,
+                taskDate: $editViewModel.task.date)
+        .navigationTitle(TaskType.todo.title)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarColor(.systemGray5)
+        .toolbar {
+          ToolbarItem(placement: .navigationBarLeading) {
+            Button(action: {
+              presentationMode.wrappedValue.dismiss()
+            }) {
+              Text("Cancel")
             }
+          }
+          ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: {
+              editViewModel.doneButtonTapped()
+              presentationMode.wrappedValue.dismiss()
+            }) {
+              Text("Done")
+            }
+          }
         }
-        .navigationViewStyle(.stack)
     }
+    .navigationViewStyle(.stack)
+  }
 }
 
 struct EditView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditView(contentViewModel: ContentViewModel(), cellIndex: 0)
-.previewInterfaceOrientation(.landscapeLeft)
-    }
+  static var previews: some View {
+    EditView(editViewModel: EditViewModel(withService: TaskManagementService(),
+                                          task: Task(title: "title", date: Date(), body: "body", type: .todo)))
+      .previewInterfaceOrientation(.landscapeLeft)
+  }
 }
