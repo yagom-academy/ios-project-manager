@@ -235,8 +235,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         dateComponents.calendar = Calendar.current
         dateComponents.hour = 9
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 4, repeats: false)
-        //let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request =  UNNotificationRequest(identifier: task.id, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request)
