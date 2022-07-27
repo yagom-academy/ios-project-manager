@@ -8,6 +8,12 @@
 import Foundation
 
 struct RegistrationViewModel {
+    private let projectUseCase: ProjectUseCase
+    
+    init(projectUseCase: ProjectUseCase) {
+        self.projectUseCase = projectUseCase
+    }
+    
     func registrate(title: String, date: Date, body: String) {
         let newProject = ProjectEntity(
             title: title,
@@ -15,7 +21,7 @@ struct RegistrationViewModel {
             body: body
         )
         
-        ProjectUseCase().create(projectContent: newProject)
+        projectUseCase.create(projectContent: newProject)
         registrateHistory(by: newProject)
     }
     
@@ -26,6 +32,6 @@ struct RegistrationViewModel {
             date: Date().timeIntervalSince1970
         )
         
-        ProjectUseCase().createHistory(historyEntity: historyEntity)
+        projectUseCase.createHistory(historyEntity: historyEntity)
     }
 }

@@ -15,8 +15,14 @@ private enum Constant {
 
 final class RegistrationViewController: UIViewController {
     private let modalView = ModalView(frame: .zero)
-    private let viewModel = RegistrationViewModel()
+    private var viewModel: RegistrationViewModel?
     private let disposeBag = DisposeBag()
+    
+    static func create(with viewModel: RegistrationViewModel) -> RegistrationViewController {
+        let viewController = RegistrationViewController()
+        viewController.viewModel = viewModel
+        return viewController
+    }
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -98,6 +104,6 @@ final class RegistrationViewController: UIViewController {
               }
         let date = modalView.datePicker.date
         
-        viewModel.registrate(title: title, date: date, body: body)
+        viewModel?.registrate(title: title, date: date, body: body)
     }
 }
