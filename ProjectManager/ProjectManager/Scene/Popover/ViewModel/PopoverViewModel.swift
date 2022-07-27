@@ -17,7 +17,7 @@ protocol PopoverViewModelState {
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, ErrorObservable {
+final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, ErrorObservable, PopNotificationSendable {
     
     var dismiss: PublishRelay<Void> = .init()
     var error: PublishRelay<DatabaseError> = .init()
@@ -74,12 +74,18 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
     
     private func registerChangeRedoAction(task: Task, taskType: TaskType) {
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
-            let temp = Task(title: task.title, body: task.body, date: task.date, taskType: task.taskType, id: task.id)
-            let afterType = temp.taskType
+            let movingTask = Task(
+                title: task.title,
+                body: task.body,
+                date: task.date,
+                taskType: task.taskType,
+                id: task.id
+            )
+            let afterType = movingTask.taskType
             do {
-                self?.registerChangeUndoAction(task: temp, taskType: taskType)
-                try self?.realmManager.change(task: temp, targetType: taskType)
-                self?.sendNotificationForHistory(temp.title, from: afterType, to: temp.taskType)
+                self?.registerChangeUndoAction(task: movingTask, taskType: taskType)
+                try self?.realmManager.change(task: movingTask, targetType: taskType)
+                self?.sendNotificationForHistory(movingTask.title, from: afterType, to: movingTask.taskType)
             } catch {
                 self?.error.accept(DatabaseError.changeError)
             }
@@ -90,10 +96,6 @@ final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, Erro
         let content = "Moved '\(title)' from \(beforeType.rawValue) to \(afterType.rawValue)"
         let time = Date().timeIntervalSince1970
         let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("Push"), object: nil, userInfo: history)
-    }
-    
-    private func sendNotificationForHistory() {
-        NotificationCenter.default.post(name: NSNotification.Name("Pop"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("PushHistory"), object: nil, userInfo: history)
     }
 }

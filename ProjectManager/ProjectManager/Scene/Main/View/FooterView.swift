@@ -1,5 +1,5 @@
 //
-//  UnderBarView.swift
+//  FooterView.swift
 //  ProjectManager
 //
 //  Created by Donnie, Grump on 2022/07/26.
@@ -8,28 +8,15 @@
 import UIKit
 import SnapKit
 
-final class UnderBarView: UIView {
+final class FooterView: UIView {
     
     private let baseStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 20
     }
     
-    private(set) var undoButton = UIButton().then {
-        $0.setTitle("Undo", for: .normal)
-        $0.setTitleColor(.systemBlue, for: .normal)
-        $0.setTitleColor(.gray, for: .disabled)
-        //$0.isEnabled = false
-        $0.titleLabel?.font = .preferredFont(forTextStyle: .title2)
-    }
-    
-    private(set) var redoButton = UIButton().then {
-        $0.setTitle("Redo", for: .normal)
-        $0.setTitleColor(.systemBlue, for: .normal)
-        $0.setTitleColor(.gray, for: .disabled)
-        //$0.isEnabled = false
-        $0.titleLabel?.font = .preferredFont(forTextStyle: .title2)
-    }
+    private(set) lazy var undoButton = generateUndoManageButton(title: "Undo")
+    private(set) lazy var redoButton = generateUndoManageButton(title: "Redo")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,6 +26,15 @@ final class UnderBarView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func generateUndoManageButton(title: String) -> UIButton {
+        return UIButton().then {
+            $0.setTitle(title, for: .normal)
+            $0.setTitleColor(.systemBlue, for: .normal)
+            $0.setTitleColor(.gray, for: .disabled)
+            $0.titleLabel?.font = .preferredFont(forTextStyle: .title2)
+        }
     }
     
     private func setupSubViews() {

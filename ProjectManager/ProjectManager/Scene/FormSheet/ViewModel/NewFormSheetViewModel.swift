@@ -21,7 +21,10 @@ protocol NewFormSheetViewModelState {
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewModelState, ErrorObservable {
+final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
+                                    NewFormSheetViewModelState,
+                                    ErrorObservable,
+                                    PopNotificationSendable {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
@@ -95,10 +98,6 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
         let content = "Added '\(title)'."
         let time = date.value
         let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("Push"), object: nil, userInfo: history)
-    }
-    
-    private func sendNotificationForHistory() {
-        NotificationCenter.default.post(name: NSNotification.Name("Pop"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("PushHistory"), object: nil, userInfo: history)
     }
 }

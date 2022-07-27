@@ -43,7 +43,8 @@
 		9CACE12D28755BE20010E4F0 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE12C28755BE20010E4F0 /* Then.swift */; };
 		9CACE13228755FDF0010E4F0 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */; };
 		9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE134287566F30010E4F0 /* UIFont+extension.swift */; };
-		9CB74188288F79D500153604 /* UnderBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB74187288F79D500153604 /* UnderBarView.swift */; };
+		9CB74188288F79D500153604 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB74187288F79D500153604 /* FooterView.swift */; };
+		9CB7418A289139FE00153604 /* PopNotificationSendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB74189289139FE00153604 /* PopNotificationSendable.swift */; };
 		9CBB9AC2288997120037B024 /* SynchronizeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB9AC1288997120037B024 /* SynchronizeManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -82,7 +83,8 @@
 		9CACE12C28755BE20010E4F0 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		9CACE134287566F30010E4F0 /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
-		9CB74187288F79D500153604 /* UnderBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderBarView.swift; sourceTree = "<group>"; };
+		9CB74187288F79D500153604 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		9CB74189289139FE00153604 /* PopNotificationSendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopNotificationSendable.swift; sourceTree = "<group>"; };
 		9CBB9AC1288997120037B024 /* SynchronizeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizeManager.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -182,7 +184,7 @@
 				4EB3FFD228758E9F0001DBC0 /* MainView.swift */,
 				4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */,
 				9CACA2BB287FECB50024E923 /* TaskSectionView.swift */,
-				9CB74187288F79D500153604 /* UnderBarView.swift */,
+				9CB74187288F79D500153604 /* FooterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -268,6 +270,7 @@
 				9C8BC0D828786ECF003EF525 /* RealmManager.swift */,
 				9CBB9AC1288997120037B024 /* SynchronizeManager.swift */,
 				9CACE12C28755BE20010E4F0 /* Then.swift */,
+				9CB7418B28913A0E00153604 /* Protocol */,
 				9CACE133287566D40010E4F0 /* Extension */,
 			);
 			path = Utils;
@@ -281,6 +284,14 @@
 				9CACA2BD28804CEB0024E923 /* UIViewController+extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		9CB7418B28913A0E00153604 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				9CB74189289139FE00153604 /* PopNotificationSendable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		AE87CCF57CC7FEFBCF5C38F9 /* Pods */ = {
@@ -471,7 +482,7 @@
 				9CACE13228755FDF0010E4F0 /* TaskTableViewCell.swift in Sources */,
 				4EB3FFC228756FDD0001DBC0 /* Task.swift in Sources */,
 				9CACA2BE28804CEB0024E923 /* UIViewController+extension.swift in Sources */,
-				9CB74188288F79D500153604 /* UnderBarView.swift in Sources */,
+				9CB74188288F79D500153604 /* FooterView.swift in Sources */,
 				9CACE12D28755BE20010E4F0 /* Then.swift in Sources */,
 				9CBB9AC2288997120037B024 /* SynchronizeManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
@@ -487,6 +498,7 @@
 				4E4479FD288A4880001D99A7 /* HistoryViewController.swift in Sources */,
 				4EB2451F2876F589007F4056 /* EditFormSheetViewController.swift in Sources */,
 				4EB89253287C6D2E008DE9B8 /* MainViewModel.swift in Sources */,
+				9CB7418A289139FE00153604 /* PopNotificationSendable.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

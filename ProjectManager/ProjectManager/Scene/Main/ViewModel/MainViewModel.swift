@@ -24,7 +24,7 @@ protocol MainViewModelState {
     var redoable: BehaviorRelay<Bool> { get }
 }
 
-final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservable {
+final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservable, PopNotificationSendable {
     
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
@@ -50,7 +50,6 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         case .done:
             task = dones.value[indexPath.row]
         }
-        
         deleteData(task: task)
     }
     
@@ -161,11 +160,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         let content = "Removed '\(title)' from \(type.rawValue)"
         let time = Date().timeIntervalSince1970
         let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("Push"), object: nil, userInfo: history)
-    }
-    
-    private func sendNotificationForHistory() {
-        NotificationCenter.default.post(name: NSNotification.Name("Pop"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("PushHistory"), object: nil, userInfo: history)
     }
         
     private func fetchToDo() {
@@ -226,7 +221,7 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         }
         
         let content = UNMutableNotificationContent()
-        content.title = "오늘까지인 할 일이 있습니다."
+        content.title = "오늘까지인 일정이 있습니다."
         content.body = task.title
         content.subtitle = task.taskType.rawValue
         content.sound = .default

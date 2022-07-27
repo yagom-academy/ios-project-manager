@@ -135,6 +135,11 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         editFormSheet.modalPresentationStyle = .formSheet
         present(editFormSheet, animated: true)
     }
+    
+    private func initializeUndoRedoButtons() {
+        mainView.footerView.undoButton.isEnabled = true
+        mainView.footerView.redoButton.isEnabled = false
+    }
 }
 
 // MARK: - bind Funciton
@@ -278,21 +283,21 @@ extension MainViewController {
     private func bindUndoRedoButtons() {
         viewModel.undoable
             .map({ Bool($0) })
-            .bind(to: mainView.underBarView.undoButton.rx.isEnabled)
+            .bind(to: mainView.footerView.undoButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
         viewModel.redoable
             .map({ Bool($0) })
-            .bind(to: mainView.underBarView.redoButton.rx.isEnabled)
+            .bind(to: mainView.footerView.redoButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        mainView.underBarView.undoButton.rx.tap
+        mainView.footerView.undoButton.rx.tap
             .subscribe { [weak self] _ in
                 self?.viewModel.undoButtonTapped()
             }
             .disposed(by: disposeBag)
         
-        mainView.underBarView.redoButton.rx.tap
+        mainView.footerView.redoButton.rx.tap
             .subscribe { [weak self] _ in
                 self?.viewModel.redoButtonTapped()
             }
@@ -303,8 +308,7 @@ extension MainViewController {
 extension MainViewController: DataReloadable {
     func reloadData() {
         viewModel.fetchData()
-        mainView.underBarView.undoButton.isEnabled = true
-        mainView.underBarView.redoButton.isEnabled = false
+        initializeUndoRedoButtons()
     }
 }
 

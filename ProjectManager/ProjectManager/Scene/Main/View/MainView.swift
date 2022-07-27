@@ -13,7 +13,7 @@ final class MainView: UIView {
     private(set) lazy var todoView = TaskSectionView(taskType: .todo)
     private(set) lazy var doingView = TaskSectionView(taskType: .doing)
     private(set) lazy var doneView = TaskSectionView(taskType: .done)
-    private(set) lazy var underBarView = UnderBarView()
+    private(set) lazy var footerView = FooterView()
     
     private let baseStackView = UIStackView().then {
         $0.axis = .vertical
@@ -45,7 +45,7 @@ final class MainView: UIView {
         taskSectionStackView.addArrangedSubview(doneView)
         
         baseStackView.addArrangedSubview(taskSectionStackView)
-        baseStackView.addArrangedSubview(underBarView)
+        baseStackView.addArrangedSubview(footerView)
     }
     
     private func setupUILayout() {
@@ -54,7 +54,7 @@ final class MainView: UIView {
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        underBarView.snp.makeConstraints {
+        footerView.snp.makeConstraints {
             $0.height.equalTo(baseStackView.snp.height).multipliedBy(0.08)
         }
     }

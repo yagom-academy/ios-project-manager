@@ -33,11 +33,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         window?.rootViewController = splitViewController
         window?.makeKeyAndVisible()
         
+        configureLocalNotification(viewController: mainViewController)
+    }
+    
+    private func configureLocalNotification(viewController: UIViewController) {
         current.delegate = self
         current.requestAuthorization(options: [.sound, .alert, .badge]) { isAllowed, _ in
             if !isAllowed {
                 DispatchQueue.main.async {
-                    self.showAlert(viewController: mainViewController) { _ in
+                    self.showAlert(viewController: viewController) { _ in
                         self.showSettingURL()
                     }
                 }

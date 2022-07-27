@@ -45,7 +45,6 @@ struct RealmManager {
     }
     
     func delete(task: Task) throws {
-        
         do {
             try realmInstance?.write {
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [task.id])
