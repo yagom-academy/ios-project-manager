@@ -10,7 +10,8 @@ import Foundation
 class ListViewModel: ViewModelType {
   @Published var isShowingSheet = false
   @Published var isShowingPopover = false
-  var taskType = TaskType.todo
+  @Published var tasks: [Task] = []
+  @Published var taskType: TaskType = .todo
   
   init(withService: TaskManagementService, taskType: TaskType) {
     super.init(withService: withService)
@@ -27,6 +28,7 @@ class ListViewModel: ViewModelType {
   
   func moveTask(_ task: Task, type: TaskType) {
     self.service.move(task, type: type)
+    self.tasks = service.tasks
   }
   
   func readTasks() -> [Task] {
@@ -34,10 +36,10 @@ class ListViewModel: ViewModelType {
   }
   
   func swipedCell(index: IndexSet) {
-    let tasks = service.read()
-    let filterTasks = tasks.filter({ $0.type == taskType })
-    let taskToDelete = filterTasks[index.first ?? 0]
-    
-    service.delete(task: taskToDelete)
+    index.forEach({ index in
+      let taskToDelete = readTasks()[index]
+      service.delete(task: taskToDelete)
+    })
+    self.tasks = service.tasks
   }
 }
