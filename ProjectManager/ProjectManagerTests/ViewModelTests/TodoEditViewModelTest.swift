@@ -5,7 +5,6 @@
 //  Created by 이시원 on 2022/07/27.
 //
 
-import Foundation
 import XCTest
 import RxSwift
 @testable import ProjectManager
