@@ -20,21 +20,21 @@ struct ListView: View {
                         taskBody: task.body,
                         taskDate: task.date,
                         isOverdate: task.isOverdate)
-              .onTapGesture {
-                listViewModel.toggleShowingSheet()
+            .onTapGesture {
+              listViewModel.toggleShowingSheet()
+            }
+            .sheet(isPresented: $listViewModel.isShowingSheet) {
+              EditView(editViewModel: EditViewModel(withService: listViewModel.service, task: task))
+            }
+            .onLongPressGesture(minimumDuration: 1) {
+              listViewModel.toggleShowingPopover()
+            }
+            .popover(isPresented: $listViewModel.isShowingPopover,
+                     arrowEdge: .bottom) {
+              PopoverButton(taskType: listViewModel.taskType) { type in
+                listViewModel.moveTask(task, type: type)
               }
-              .sheet(isPresented: $listViewModel.isShowingSheet) {
-                EditView(editViewModel: EditViewModel(withService: listViewModel.service, task: task))
-              }
-              .onLongPressGesture(minimumDuration: 1) {
-                listViewModel.toggleShowingPopover()
-              }
-              .popover(isPresented: $listViewModel.isShowingPopover,
-                       arrowEdge: .bottom) {
-                PopoverButton(taskType: listViewModel.taskType) { to in
-                  listViewModel.moveTask(task, to: to)
-                }
-              }
+            }
           }
           .onDelete { offset in
             listViewModel.service.tasks.remove(atOffsets: offset)
