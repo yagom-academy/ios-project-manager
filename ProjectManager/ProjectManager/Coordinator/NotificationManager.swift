@@ -23,14 +23,12 @@ final class NotificationManager {
 
     func setNotification(todoData: Todo) {
         let content = UNMutableNotificationContent()
-        content.title = todoData.title
-        content.subtitle = "의 마감기한은 \(todoData.date.historyString())입니다. "
-        content.badge =  1
+        content.title = "\(todoData.title)의 마감기한은 \(todoData.date.historyString()) 입니다."
         content.sound = .defaultCritical
         
         var todoDateComponent = Calendar.current.dateComponents([.year, .month, .day], from: todoData.date)
         todoDateComponent.hour = 9
-        
+                
         let trigger = UNCalendarNotificationTrigger(dateMatching: todoDateComponent, repeats: false)
         let request = UNNotificationRequest(
             identifier: todoData.identifier.uuidString,
