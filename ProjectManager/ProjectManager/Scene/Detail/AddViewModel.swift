@@ -53,7 +53,8 @@ final class AddViewModel: AddViewModelable {
     
     func touchDoneButton() {
         do {
-        try storage.creatItem(listItem: list)
+            try storage.creatItem(listItem: list)
+            try storage.makeHistory(title: "Added '\(list.title)'.")
             dismiss.accept(())
         } catch {
             guard let error = error as? StorageError else {

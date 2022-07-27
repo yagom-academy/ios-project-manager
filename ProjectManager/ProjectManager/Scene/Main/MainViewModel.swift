@@ -131,6 +131,7 @@ extension MainViewModel {
         do {
             let item = storage.selectItem(index: index, type: type)
             try storage.deleteItem(listItem: item)
+            try storage.makeHistory(title: "Removed '\(item.title)'.")
         } catch {
             guard let error = error as? StorageError else {
                 showErrorAlert.accept(nil)
@@ -145,6 +146,7 @@ extension MainViewModel {
         do {
             let item = storage.selectItem(index: index, type: type)
             try storage.changeItemType(listItem: item, destination: destination)
+            try storage.makeHistory(title: "Moved '\(item.title)' from \(type.title) to \(destination.title).")
         } catch {
             guard let error = error as? StorageError else {
                 showErrorAlert.accept(nil)

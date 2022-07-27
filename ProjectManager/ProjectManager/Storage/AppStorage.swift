@@ -17,6 +17,7 @@ protocol AppStoregeable {
     func selectItem(index: Int, type: ListType) -> ListItem
     func deleteItem(listItem: ListItem) throws
     func changeItemType(listItem: ListItem, destination: ListType) throws
+    func makeHistory(title: String) throws
 }
 
 final class AppStorage: AppStoregeable {
@@ -55,6 +56,14 @@ final class AppStorage: AppStoregeable {
             return doingList
         case .done:
             return doneList
+        }
+    }
+    
+    func makeHistory(title: String) throws {
+        do {
+            try localStorage.addHistory(title: title)
+        } catch {
+            throw StorageError.historyError
         }
     }
     

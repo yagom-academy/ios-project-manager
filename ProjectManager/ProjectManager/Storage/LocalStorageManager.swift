@@ -13,6 +13,7 @@ protocol LocalStorageManagerable {
     func createItem(_ item: ListItem) throws
     func updateItem(_ item: ListItem) throws
     func deleteItem(_ item: ListItem) throws
+    func addHistory(title: String) throws
 }
 
 final class LocalStorageManager: LocalStorageManagerable {
@@ -84,7 +85,7 @@ final class LocalStorageManager: LocalStorageManagerable {
         return list
     }
     
-    func createItem(_ item: ListItem) throws{
+    func createItem(_ item: ListItem) throws {
         guard let realm = realm else {
             return
         }
@@ -113,6 +114,29 @@ final class LocalStorageManager: LocalStorageManagerable {
             networkStorageManager.create(convertedItem(item))
         } catch {
             throw StorageError.creatError
+        }
+    }
+    
+    func addHistory(title: String) throws {
+        guard let realm = realm else {
+            return
+        }
+        
+        do {
+            try realm.write {
+                guard let listModel = realm.objects(LocalStorage.self).first else {
+                    return
+                }
+                
+                let history = History()
+                history.title = title
+                
+                listModel.history.append(history)
+                
+                print(listModel.history)
+            }
+        } catch{
+            throw StorageError.historyError
         }
     }
     
