@@ -10,6 +10,7 @@ enum StorageError: Error {
     case updateError
     case deleteError
     case readError
+    case historyError
     
     var errorDescription: String {
         switch self {
@@ -21,6 +22,8 @@ enum StorageError: Error {
             return "리스트 삭제에 실패하였습니다. 잠시 후 다시 시도해 주세요"
         case .readError:
             return "리스트 불러오기에 실패하였습니다. 잠시 후 다시 시도해 주세요"
+        case .historyError:
+            return "히스토리 생성에 실패하였습니다."
         }
     }
 }
