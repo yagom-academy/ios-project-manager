@@ -66,6 +66,7 @@ class TaskManagementService {
     do {
       try realm?.write({
         realm?.delete(task)
+        self.tasks = read()
       })
     } catch {
       print(error)
