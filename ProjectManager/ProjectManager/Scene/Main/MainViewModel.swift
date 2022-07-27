@@ -61,8 +61,13 @@ final class MainViewModel: MainViewModelInOut {
                 DispatchQueue.main.async {
                     self.isConnectedInternet.accept(true)
                 }
-            } else {
+            }
+            
+            if path.status != .satisfied  {
                 DispatchQueue.main.async {
+                    if UserDefaults.standard.bool(forKey: "lunchedBefore") == false {
+                        self.showNetworkErrorAlert.accept(())
+                    }
                     self.isConnectedInternet.accept(false)
                 }
             }
