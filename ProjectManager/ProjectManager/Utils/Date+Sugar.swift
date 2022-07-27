@@ -15,7 +15,7 @@ extension Date {
     }
     
     func historyString() -> String {
-        Formatter.date.timeStyle = .medium
+        Formatter.date.timeStyle = .short
         guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString
     }
