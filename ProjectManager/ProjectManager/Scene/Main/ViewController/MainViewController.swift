@@ -304,6 +304,7 @@ extension MainViewController: DataReloadable {
     func reloadData() {
         viewModel.fetchData()
         mainView.underBarView.undoButton.isEnabled = true
+        mainView.underBarView.redoButton.isEnabled = false
     }
 }
 
