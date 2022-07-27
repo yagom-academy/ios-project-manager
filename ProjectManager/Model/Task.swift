@@ -5,17 +5,18 @@
 //  Created by OneTool, marisol on 2022/07/12.
 //
 
-import Foundation
+import RealmSwift
 
-struct Task: Identifiable, Equatable {
-  let id = UUID()
-  var title: String
-  var date: Date
-  var body: String
-  var type: TaskType
-  var isOverdate: Bool
+class Task: Object, ObjectKeyIdentifiable {
+  @Persisted(primaryKey: true) var id = UUID()
+  @Persisted var title: String
+  @Persisted var date: Date
+  @Persisted var body: String
+  @Persisted var type: TaskType
+  @Persisted var isOverdate: Bool
   
-  init(title: String, date: Date, body: String, type: TaskType) {
+  convenience init(title: String, date: Date, body: String, type: TaskType) {
+    self.init()
     self.title = title
     self.date = date
     self.body = body
@@ -24,7 +25,7 @@ struct Task: Identifiable, Equatable {
   }
 }
 
-enum TaskType: Identifiable, CaseIterable {
+enum TaskType: String, Identifiable ,PersistableEnum {
   case todo
   case doing
   case done
