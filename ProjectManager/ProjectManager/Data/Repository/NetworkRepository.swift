@@ -9,11 +9,11 @@ import Foundation
 import RxSwift
 
 final class NetworkRepository {
-    static let shared = NetworkRepository()
+    let networkManager: NetworkManager
     
-    let networkManager = NetworkManager()
-    
-    private init() { }
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
+    }
 }
 
 extension NetworkRepository {

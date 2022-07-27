@@ -9,39 +9,45 @@ import RxSwift
 import RxRelay
 
 struct ProjectUseCase {
-    #if DEBUG
-        private let repository = ProjectRepository(storageManager: MockRepository.shared)
-    #else
-        private let repository = ProjectRepository(storageManager: PersistentRepository.shared)
-    #endif
-    private let historyRepository = HistoryRepository(storageManager: MockHistoryRepository.shared)
+    private let projectRepository: ProjectRepository
+    private let networkRepository: NetworkRepository
+    private let historyRepository: HistoryRepository
 
+    init(projectRepository: ProjectRepository,
+         networkRepository: NetworkRepository,
+         historyRepository: HistoryRepository
+    ) {
+        self.projectRepository = projectRepository
+        self.networkRepository = networkRepository
+        self.historyRepository = historyRepository
+    }
+    
     func create(projectContent: ProjectEntity) {
-        repository.create(projectContent: projectContent)
+        projectRepository.create(projectContent: projectContent)
     }
     
     func read() -> BehaviorRelay<[ProjectEntity]> {
-        return repository.read()
+        return projectRepository.read()
     }
     
     func read(id: UUID?) -> ProjectEntity? {
-        return repository.read(id: id)
+        return projectRepository.read(id: id)
     }
     
     func update(projectContent: ProjectEntity) {
-        repository.update(projectContent: projectContent)
+        projectRepository.update(projectContent: projectContent)
     }
     
     func delete(projectContentID: UUID?) {
-        repository.delete(projectContentID: projectContentID)
+        projectRepository.delete(projectContentID: projectContentID)
     }
     
     func load() -> Disposable {
-        return NetworkRepository.shared.read(repository: repository)
+        return networkRepository.read(repository: projectRepository)
     }
     
     func backUp() {
-        NetworkRepository.shared.update(repository: repository)
+        networkRepository.update(repository: projectRepository)
     }
     
     func createHistory(historyEntity: HistoryEntity) {

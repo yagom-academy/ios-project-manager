@@ -9,12 +9,13 @@ import RxSwift
 import RxRelay
 
 final class PersistentRepository {
-    static let shared = PersistentRepository()
-    private let persistentManager = PersistentManager()
-    
-    private init() { }
+    private let persistentManager: PersistentManager
     
     private lazy var projectEntities = BehaviorRelay<[ProjectEntity]>(value: fetchCoreDate())
+    
+    init(persistentManager: PersistentManager) {
+        self.persistentManager = persistentManager
+    }
     
     private func fetchCoreDate() -> [ProjectEntity] {
         let currentProjects = persistentManager.read()

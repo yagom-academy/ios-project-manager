@@ -19,10 +19,15 @@ final class MainViewController: UIViewController {
     private let mainView = MainView(frame: .zero)
     private var viewModel: MainViewModel?
     private let disposeBag = DisposeBag()
+    private var sceneDIContainer: SceneDIContainer?
     
-    static func create(with viewModel: MainViewModel) -> MainViewController {
+    static func create(
+        with viewModel: MainViewModel,
+        _ sceneDIContainer: SceneDIContainer
+    ) -> MainViewController {
         let viewController = MainViewController()
         viewController.viewModel = viewModel
+        viewController.sceneDIContainer = sceneDIContainer
         return viewController
     }
     
@@ -102,7 +107,9 @@ final class MainViewController: UIViewController {
     }
     
     private func presentHistoryPopOver(source: UIBarButtonItem) {
-        let historyViewController = HistoryViewController(source: source)
+        guard let historyViewController = sceneDIContainer?.makeHistoryViewController(with: source) else {
+            return
+        }
         
         present(historyViewController, animated: true)
     }
@@ -129,31 +136,38 @@ final class MainViewController: UIViewController {
             .asObservable()
             .withUnretained(self)
             .subscribe(onNext: { (self, _) in
-                let alertController = self.presentAlert()
+                guard let alertController = self.presentAlert() else {
+                    return
+                }
                 
                 self.present(alertController, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
     }
     
-    private func presentAlert() -> UIAlertController {
-        return AlertController(
+    private func presentAlert() -> UIAlertController? {
+        let alertAction = UIAlertAction(title: "확인", style: .destructive) { [weak self]_ in
+            guard let self = self else {
+                return
+            }
+            
+            self.viewModel?.loadNetworkData()
+                .disposed(by: self.disposeBag)
+        }
+        
+        let next = sceneDIContainer?.makeAlertController(
             over: self,
             title: "서버 데이터를 사용자 기기로 동기화할까요?",
-            confirmButton: UIAlertAction(title: "확인", style: .destructive) { [weak self]_ in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                self.viewModel?.loadNetworkData()
-                    .disposed(by: self.disposeBag)
-            }
+            confirmButton: alertAction
         )
+        
+        return next
     }
     
     private func presentRegistrationView() {
-        let next = RegistrationViewController()
+        guard let next = sceneDIContainer?.makeRegistrationViewController() else {
+            return
+        }
         
         next.modalPresentationStyle = .overCurrentContext
         next.modalTransitionStyle = .crossDissolve
@@ -275,17 +289,19 @@ final class MainViewController: UIViewController {
     }
     
     private func presentPopOver(_ cell: ProjectCell) {
-        let popOverViewController = PopOverViewController(cell: cell)
+        guard let popOverViewController = sceneDIContainer?.makePopOverViewController(with: cell) else {
+            return
+        }
         
         present(popOverViewController, animated: true)
     }
     
     private func presentViewController(status: ProjectStatus, cell: ProjectCell) {
-        guard let content = viewModel?.readProject(cell.contentID) else {
+        guard let content = viewModel?.readProject(cell.contentID),
+              let next = sceneDIContainer?.makeDetailViewController(with: content)
+        else {
             return
         }
-        
-        let next = DetailViewController()
         
         next.modalPresentationStyle = .overCurrentContext
         next.modalTransitionStyle = .crossDissolve

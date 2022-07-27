@@ -7,15 +7,9 @@
 
 import RxRelay
 
-final class MockHistoryRepository {
-    static let shared = MockHistoryRepository()
-    
-    private init() { }
-    
+final class MockHistoryRepository: HistoryStoragable {
     private var historyEntities = BehaviorRelay<[HistoryEntity]>(value: [])
-}
-
-extension MockHistoryRepository: HistoryStoragable {
+    
     func create(historyEntity: HistoryEntity) {
         var currentProject = read().value
         
