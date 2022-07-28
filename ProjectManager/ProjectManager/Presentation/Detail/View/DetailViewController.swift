@@ -68,8 +68,8 @@ final class DetailViewController: UIViewController {
         )
         
         NSLayoutConstraint.activate([
-            modalView.widthAnchor.constraint(equalToConstant: 500),
-            modalView.heightAnchor.constraint(equalToConstant: 600),
+            modalView.widthAnchor.constraint(equalToConstant: ModalConstant.modalFrameWidth),
+            modalView.heightAnchor.constraint(equalToConstant: ModalConstant.modalFrameHeight),
             modalView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             topConstraint
         ].compactMap { $0 })
