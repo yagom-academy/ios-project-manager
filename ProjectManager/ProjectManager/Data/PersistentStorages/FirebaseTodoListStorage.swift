@@ -11,7 +11,7 @@ import RxSwift
 
 protocol RemoteBackUpStorage: AnyObject {
     func backUp(items: [TodoModel])
-    func allRead() -> Single<[TodoModel]>
+    func readAll() -> Single<[TodoModel]>
 }
 
 final class FirebaseTodoListStorage {
@@ -19,14 +19,14 @@ final class FirebaseTodoListStorage {
         .database(url: "https://todoapp-c1203-default-rtdb.asia-southeast1.firebasedatabase.app")
         .reference()
     
-    private func allDelete() {
+    private func deleteAll() {
         database.removeValue()
     }
 }
 
 extension FirebaseTodoListStorage: RemoteBackUpStorage {
     func backUp(items: [TodoModel]) {
-        allDelete()
+        deleteAll()
         items.forEach { item in
             database.child(item.id.uuidString)
                 .setValue(["title": item.title ?? "",
@@ -37,7 +37,7 @@ extension FirebaseTodoListStorage: RemoteBackUpStorage {
         }
     }
     
-    func allRead() -> Single<[TodoModel]>  {
+    func readAll() -> Single<[TodoModel]>  {
         return Single.create { [weak self] single in
             var items: [TodoModel] = []
             self?.database.getData(completion: { error, snapshot in

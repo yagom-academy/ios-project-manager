@@ -32,7 +32,7 @@ final class DefaultTodoListRepository {
     
     private func upLoad() {
         guard isUser else {
-            backUpStorage.allRead()
+            backUpStorage.readAll()
                 .subscribe { [weak self] items in
                     items.forEach { [weak self] item in
                         self?.storage.create(to: item)
