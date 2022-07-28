@@ -29,4 +29,9 @@ class HistoryViewModel: ViewModelType {
     }
     return result
   }
+  
+  func showDate(_ history: History) -> String {
+    let currentDate = Date().convertTimeToString
+    return currentDate
+  }
 }
