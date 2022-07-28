@@ -45,13 +45,8 @@ final class DefaultTodoListViewModel {
     private func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {
         todoModels.map { item in
             TodoCellContent(entity: item,
-                            isPast: checkDeadline(time: item.deadlineAt),
                             dateFormatter: dateFormatter)
         }
-    }
-    
-    private func checkDeadline(time: Date) -> Bool {
-        return time + 24 * 60 * 60 < Date()
     }
     
     private func splitList(by state: State) -> Observable<[TodoCellContent]> {

@@ -14,11 +14,11 @@ struct TodoCellContent {
     let id: UUID
     let isPast: Bool
 
-    init(entity: TodoModel, isPast: Bool, dateFormatter: DateFormatter) {
+    init(entity: TodoModel, dateFormatter: DateFormatter) {
         self.title = entity.title
         self.body = entity.body
         self.deadlineAt = entity.deadlineAt.toString(dateFormatter)
         self.id = entity.id
-        self.isPast = isPast
+        self.isPast = entity.deadlineAt + 24 * 60 * 60 < Date()
     }
 }
