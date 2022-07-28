@@ -13,6 +13,8 @@ import RxSwift
 protocol CardUseCase: AnyObject {
   var cards: BehaviorRelay<[Card]> { get }
   var histories: BehaviorRelay<[History]> { get }
+  var undoHistories: BehaviorRelay<[History]> { get }
+  var redoHistories: BehaviorRelay<[History]> { get }
   
   func fetchCards() -> Observable<Void>
   func createNewCard(_ card: Card) -> Observable<Void>
@@ -34,6 +36,8 @@ final class DefaultCardUseCase: CardUseCase {
   
   let cards = BehaviorRelay<[Card]>(value: [])
   let histories = BehaviorRelay<[History]>(value: [])
+  let undoHistories = BehaviorRelay<[History]>(value: [])
+  let redoHistories = BehaviorRelay<[History]>(value: [])
   
   init(
     localDatabaseRepository: LocalDatabaseRepository,

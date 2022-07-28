@@ -82,6 +82,7 @@ final class CardListViewController: UIViewController {
     bindSectionsItemSelected()
     bindSectionsItemDeleted()
     bindSectionsLongPressed()
+    bindUndoRedoButton()
     
     cardAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
@@ -241,6 +242,30 @@ final class CardListViewController: UIViewController {
     }
     .bind(onNext: { _ in })
     .disposed(by: disposeBag)
+  }
+  
+  private func bindUndoRedoButton() {
+    viewModel.undoHistories
+      .map { !$0.isEmpty }
+      .drive(undoButton.rx.isEnabled)
+      .disposed(by: disposeBag)
+    
+    viewModel.redoHistories
+      .map { !$0.isEmpty }
+      .drive(redoButton.rx.isEnabled)
+      .disposed(by: disposeBag)
+    
+    undoButton.rx.tap
+      .bind(onNext: {
+        print("UNDO")
+      })
+      .disposed(by: disposeBag)
+    
+    redoButton.rx.tap
+      .bind(onNext: {
+        print("REDO")
+      })
+      .disposed(by: disposeBag)
   }
 }
 

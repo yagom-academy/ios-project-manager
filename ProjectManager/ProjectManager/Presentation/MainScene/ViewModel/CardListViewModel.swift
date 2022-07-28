@@ -23,6 +23,8 @@ protocol CardListViewModelOutput {
   var doingCards: Driver<[Card]> { get }
   var doneCards: Driver<[Card]> { get }
   var histories: Driver<[History]> { get }
+  var undoHistories: Driver<[History]> { get }
+  var redoHistories: Driver<[History]> { get }
 }
 
 protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput {}
@@ -34,6 +36,8 @@ final class CardListViewModel: CardListViewModelable {
   let doingCards: Driver<[Card]>
   let doneCards: Driver<[Card]>
   let histories: Driver<[History]>
+  let undoHistories: Driver<[History]>
+  let redoHistories: Driver<[History]>
   
   // MARK: - Init
   
@@ -62,6 +66,12 @@ final class CardListViewModel: CardListViewModelable {
     
     histories = useCase.histories
       .map { $0.sorted { $0.actionTime > $1.actionTime } }
+      .asDriver(onErrorJustReturn: [])
+    
+    undoHistories = useCase.undoHistories
+      .asDriver(onErrorJustReturn: [])
+    
+    redoHistories = useCase.redoHistories
       .asDriver(onErrorJustReturn: [])
   }
   
