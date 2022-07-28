@@ -55,8 +55,16 @@ extension RealmTodoListStorage: TodoListStorage {
     func update(to data: TodoModel) {
         do {
             try realm?.write({
-                guard let items = items,
-                let item = items.first(where: { $0.id == data.id }) else { return }
+                guard let items = items else {
+                    errorObserver.accept(TodoError.unknownItem)
+                    storage.onNext([])
+                    return
+                }
+                guard let item = items.first(where: { $0.id == data.id }) else {
+                    errorObserver.accept(TodoError.unknownItem)
+                    storage.onNext(items.map { $0.toTodoModel() })
+                    return
+                }
                 item.updateEntity(entity: data)
                 storage.onNext(items.map { $0.toTodoModel() })
             })
@@ -68,7 +76,16 @@ extension RealmTodoListStorage: TodoListStorage {
     func delete(index: Int) {
         do {
             try realm?.write({
-                guard let items = items, let item = items[safe: index] else { return }
+                guard let items = items else {
+                    errorObserver.accept(TodoError.unknownItem)
+                    storage.onNext([])
+                    return
+                }
+                guard let item = items[safe: index] else {
+                    errorObserver.accept(TodoError.unknownItem)
+                    storage.onNext(items.map { $0.toTodoModel() })
+                    return
+                }
                 realm?.delete(item)
                 storage.onNext(items.map { $0.toTodoModel() })
             })
