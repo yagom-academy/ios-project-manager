@@ -13,7 +13,7 @@ protocol HistoryViewControllerDependencies: AnyObject {
     func dismissHistoryViewController()
 }
 
-class HistoryViewController: UIViewController {
+final class HistoryViewController: UIViewController {
     
     private let viewModel: HistoryViewModel
     private weak var coordinator: HistoryViewControllerDependencies?

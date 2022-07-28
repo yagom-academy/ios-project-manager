@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HistoryCell: UITableViewCell, CellIdentifiable {
+final class HistoryCell: UITableViewCell, CellIdentifiable {
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLabel])
         stackView.spacing = 4
