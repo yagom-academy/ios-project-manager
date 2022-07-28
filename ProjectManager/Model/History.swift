@@ -8,7 +8,8 @@
 import RealmSwift
 import Foundation
 
-class History: Object {
+class History: Object, ObjectKeyIdentifiable {
+  @Persisted(primaryKey: true) var id = UUID()
   @Persisted var title: String
   @Persisted var from: TaskType?
   @Persisted var to: TaskType?

@@ -12,9 +12,12 @@ struct HistoryView: View {
   
     var body: some View {
       List {
-        VStack(alignment: .leading) {
-          Text(historyViewModel.showHistory())
-          Text("Mar 11, 2020 3:32:07 PM")
+        ForEach(historyViewModel.allHistories) { history in
+          VStack(alignment: .leading) {
+            Text(historyViewModel.showHistory(history))
+            Text(historyViewModel.showDate(history))
+              .foregroundColor(.gray)
+          }
         }
       }
       .frame(width: 500, height: 300)
