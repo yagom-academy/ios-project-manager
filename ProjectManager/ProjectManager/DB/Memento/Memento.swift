@@ -11,7 +11,7 @@ protocol Mementoable {
   var toState: State? { get set }
 }
 
-struct Memento: Mementoable {
+struct Memento: Mementoable, Hashable {
   var todo: Todo
   var historyState: HistoryState
   var toState: State?

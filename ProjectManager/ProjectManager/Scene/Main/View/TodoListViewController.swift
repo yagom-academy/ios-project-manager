@@ -91,7 +91,7 @@ final class TodoListViewController: UIViewController {
   @objc private func redo() { print("\(#function)") }
   
   private func bind() {
-    viewModel.toList
+    viewModel.todoList
       .sink { [weak self] items in
         guard let self = self,
               let todoDataSource = self.viewModel.todoDataSource else { return }

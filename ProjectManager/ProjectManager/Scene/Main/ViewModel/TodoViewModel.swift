@@ -69,7 +69,7 @@ final class TodoViewModel {
     return originator.careTaker.stateList
   }
   
-  var toList: AnyPublisher<[Todo], Never> {
+  var todoList: AnyPublisher<[Todo], Never> {
     return readData(by: .todo)
   }
   

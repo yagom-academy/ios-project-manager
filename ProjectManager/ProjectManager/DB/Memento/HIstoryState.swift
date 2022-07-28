@@ -5,8 +5,8 @@
 //  Created by LIMGAUI on 2022/07/26.
 //
 
-enum HistoryState {
-  case added
-  case moved
-  case removed
+enum HistoryState: String {
+  case added = "Added"
+  case moved = "Moved"
+  case removed = "Removed"
 }

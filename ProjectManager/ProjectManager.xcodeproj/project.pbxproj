@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB2AE7F92892866400A00978 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2AE7F82892866400A00978 /* HistoryViewModel.swift */; };
+		AB2AE7FB2892B45400A00978 /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2AE7FA2892B45400A00978 /* HistoryCollectionViewCell.swift */; };
 		AB2E168D288FA7A600944565 /* HIstoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E168C288FA7A600944565 /* HIstoryState.swift */; };
 		AB2E1692288FE42E00944565 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E1691288FE42E00944565 /* HistoryViewController.swift */; };
 		AB2E169528904A4400944565 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E169428904A4400944565 /* StorageError.swift */; };
@@ -45,6 +47,8 @@
 		29D6594A104AC464E3F0B18F /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		69ED1A6F55518C8A1F17823B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0AC1F6351308DEBA229D99 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
+		AB2AE7F82892866400A00978 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		AB2AE7FA2892B45400A00978 /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		AB2E168C288FA7A600944565 /* HIstoryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIstoryState.swift; sourceTree = "<group>"; };
 		AB2E1691288FE42E00944565 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		AB2E169428904A4400944565 /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
@@ -110,6 +114,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AB2AE7FC2892B45A00A00978 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AB2AE7FA2892B45400A00978 /* HistoryCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		AB2E168E288FE3DA00944565 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				AB2E1691288FE42E00944565 /* HistoryViewController.swift */,
+				AB2AE7FC2892B45A00A00978 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -130,6 +143,7 @@
 		AB2E1690288FE3FD00944565 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				AB2AE7F82892866400A00978 /* HistoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -507,6 +521,7 @@
 				ABDB96392875E6C3002D6602 /* UIStackView.swift in Sources */,
 				AB2E845728765291002E4593 /* ToDo.swift in Sources */,
 				ABE5D6B228797F350065F216 /* TodoListView.swift in Sources */,
+				AB2AE7FB2892B45400A00978 /* HistoryCollectionViewCell.swift in Sources */,
 				AB2E168D288FA7A600944565 /* HIstoryState.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				ABDB96332875DC7B002D6602 /* Date.swift in Sources */,
@@ -528,6 +543,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				ABCEA1B128810484009C32DC /* EditViewModel.swift in Sources */,
 				ABCEA1B72881662C009C32DC /* Constant.swift in Sources */,
+				AB2AE7F92892866400A00978 /* HistoryViewModel.swift in Sources */,
 				ABC54F8B287D654200280F43 /* TodoModel.swift in Sources */,
 				AB2E169528904A4400944565 /* StorageError.swift in Sources */,
 				ABC54F87287D637900280F43 /* RealmService.swift in Sources */,
