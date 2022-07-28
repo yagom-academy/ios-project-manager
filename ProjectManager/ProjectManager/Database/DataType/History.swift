@@ -11,6 +11,6 @@ struct History: Hashable {
     let title: String
     let date: Date
     let from: TaskType
-    let to: TaskType
+    let to: TaskType?
     let changedType: WorkType
 }

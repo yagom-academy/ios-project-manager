@@ -80,7 +80,7 @@ final class HistoryCell: UITableViewCell {
         switch history.changedType {
         case .move:
             prefixString = "Moved"
-            suffixString = "from \(history.from.rawValue) to \(history.to.rawValue)"
+            suffixString = "from \(history.from.rawValue) to \(history.to?.rawValue ?? "")"
         case .add:
             prefixString = "Added"
         case .delete:

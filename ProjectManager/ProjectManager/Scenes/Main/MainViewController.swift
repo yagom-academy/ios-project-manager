@@ -12,16 +12,13 @@ class MainViewController: UIViewController {
     
     private let mainView = MainView()
     private var dataSources: [TaskType: DataSource] = [:]
+    private var historys: [History] = []
     
+    private var navigationHistoryButton: UIBarButtonItem?
+    private var navigationAddButton: UIBarButtonItem?
+    private var navigationSyncButton: UIBarButtonItem?
+        
     private let taskManager = try? TaskManager()
-    
-    private let navigationAddButton = UIBarButtonItem(barButtonSystemItem: .add,
-                                                      target: MainViewController.self,
-                                                        action: #selector(addButtonClick(_:)) )
-    private let navigationSyncButton = UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down.fill"),
-                                     style: .plain,
-                                                       target: MainViewController.self,
-                                     action: #selector(syncButtonClick(_:)))
     
     override func loadView() {
         view = mainView
@@ -113,15 +110,34 @@ extension MainViewController {
     }
     
     private func setNavigationBar() {
+        let navigationHistoryButton = UIBarButtonItem(title: "History",
+                                                              style: .plain,
+                                                              target: self,
+                                                              action: #selector(historyButtonClick(_:)))
+        let navigationAddButton = UIBarButtonItem(barButtonSystemItem: .add,
+                                                          target: self,
+                                                          action: #selector(addButtonClick(_:)) )
+        let navigationSyncButton = UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down.fill"),
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(syncButtonClick(_:)))
+        self.navigationHistoryButton = navigationHistoryButton
+        self.navigationAddButton = navigationAddButton
+        self.navigationSyncButton = navigationSyncButton
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = navigationAddButton
-        navigationItem.leftBarButtonItem = navigationSyncButton
+        navigationItem.leftBarButtonItems = [navigationSyncButton, navigationHistoryButton]
     }
 }
 
 // MARK: functions
 
 extension MainViewController {
+    @objc
+    private func historyButtonClick(_ sender: Any) {
+        makePopover()
+    }
+    
     @objc
     private func addButtonClick(_ sender: Any) {
         let detailView = DetailModalView(frame: view.bounds)
@@ -197,6 +213,18 @@ extension MainViewController {
         present(popoverController, animated: true)
     }
     
+    private func makePopover() {
+        let popoverController = HistoryPopOverViewController(historys: historys)
+        popoverController.modalPresentationStyle = .popover
+        popoverController.preferredContentSize = CGSize(width: 500, height: 500)
+        
+        let popover = popoverController.popoverPresentationController
+        popover?.barButtonItem = navigationHistoryButton
+        popover?.permittedArrowDirections = .down
+        
+        present(popoverController, animated: true)
+    }
+    
     private func makeTaskInfo(tableView: UITableView, indexPath: IndexPath) -> TaskInfo? {
         guard let type = mainView.findTableViewType(tableView: tableView) else { return nil }
         let dataSource = dataSources[type]
@@ -262,13 +290,13 @@ extension MainViewController {
 extension MainViewController: NetworkConnectionDelegate {
     func offline() {
         DispatchQueue.main.async {
-            self.navigationSyncButton.isEnabled = false
+            self.navigationSyncButton?.isEnabled = false
         }
     }
     
     func online() {
         DispatchQueue.main.async {
-            self.navigationSyncButton.isEnabled = true
+            self.navigationSyncButton?.isEnabled = true
         }
     }
 }
