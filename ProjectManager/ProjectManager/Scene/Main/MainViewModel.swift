@@ -23,7 +23,7 @@ protocol MainViewModelOutput {
     var showHistoryView: PublishRelay<[History]> { get }
     var showEditView: PublishRelay<ListItem> { get }
     var showErrorAlert: PublishRelay<String?> { get }
-    var showNetworkErrorAlert: PublishRelay<Void> { get }
+    var showNetworkErrorAlert: PublishRelay<StorageError> { get }
     var isConnectedInternet: PublishRelay<Bool> { get }
 }
 
@@ -69,7 +69,7 @@ final class MainViewModel: MainViewModelInOut {
             if path.status != .satisfied  {
                 DispatchQueue.main.async {
                     if UserDefaults.standard.bool(forKey: "lunchedBefore") == false {
-                        self.showNetworkErrorAlert.accept(())
+                        self.showNetworkErrorAlert.accept(StorageError.networkError)
                     }
                     self.isConnectedInternet.accept(false)
                 }
@@ -84,7 +84,7 @@ final class MainViewModel: MainViewModelInOut {
             case .success():
                 UserDefaults.standard.set(true, forKey: "lunchedBefore")
             case .failure(_):
-                self.showNetworkErrorAlert.accept(())
+                self.showNetworkErrorAlert.accept(StorageError.networkError)
             }
             print("activity indicator 종료")
         }
@@ -105,7 +105,7 @@ final class MainViewModel: MainViewModelInOut {
     let showHistoryView = PublishRelay<[History]>()
     let showEditView = PublishRelay<ListItem>()
     let showErrorAlert = PublishRelay<String?>()
-    let showNetworkErrorAlert = PublishRelay<Void>()
+    let showNetworkErrorAlert = PublishRelay<StorageError>()
     let isConnectedInternet = PublishRelay<Bool>()
 }
 

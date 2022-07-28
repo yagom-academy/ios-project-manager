@@ -116,7 +116,7 @@ final class MainViewController: UIViewController {
         .disposed(by: disposebag)
         
         viewModel.showNetworkErrorAlert.bind(onNext: { [weak self] in
-            self?.showNetworkErrorAlert()
+            self?.showExitAlert(message: $0.errorDescription)
         })
         .disposed(by: disposebag)
         

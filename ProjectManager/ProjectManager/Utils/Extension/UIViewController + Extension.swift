@@ -21,9 +21,9 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
-    func showNetworkErrorAlert() {
-        let alert = UIAlertController(title: "인터넷 연결을 확인해주세요",
-                                      message: "어플 최초 실행시 서버와의 연동을 위해 인터넷 연결이 필요합니다.\n연결 확인 후 어플을 다시 실행해주세요.",
+    func showExitAlert(message: String) {
+        let alert = UIAlertController(title: "",
+                                      message: message,
                                       preferredStyle: .alert)
         let action = UIAlertAction(title: "확인", style: .default) { _ in
             exit(0)
