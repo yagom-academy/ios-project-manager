@@ -17,15 +17,15 @@ final class TodoHistoryRepository {
 }
 
 extension TodoHistoryRepository: TodoHistoryRepositorible {
-    func create(_ item: TodoHistory) -> AnyPublisher<Void, StorageError> {
-        return storage.create(item)
+    func create(_ item: TodoHistory) {
+        storage.create(item)
     }
     
-    func todoHistoriesPublisher() -> CurrentValueSubject<[TodoHistory], Never> {
-        return storage.todoHistoriesPublisher()
+    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never> {
+        storage.todoHistoriesPublisher()
     }
     
-    func delete(item: TodoHistory) -> AnyPublisher<Void, StorageError> {
-        return storage.delete(item)
+    func delete(item: TodoHistory) {
+        storage.delete(item)
     }
 }

@@ -24,25 +24,30 @@ final class TodoListRepository {
 }
 
 extension TodoListRepository: TodoListRepositorible {
-    func create(_ item: Todo) -> AnyPublisher<Void, StorageError> {
-        return todoLocalStorage.create(item)
+    func create(_ item: Todo) {
+        todoLocalStorage.create(item)
     }
     
-    func todosPublisher() -> CurrentValueSubject<[Todo], Never> {
+    func todosPublisher() -> CurrentValueSubject<LocalStorageState, Never> {
         return todoLocalStorage.todosPublisher()
     }
     
-    func update(_ item: Todo) -> AnyPublisher<Void, StorageError> {
-        return todoLocalStorage.update(item)
+    func update(_ item: Todo) {
+        todoLocalStorage.update(item)
     }
     
-    func delete(item: Todo) -> AnyPublisher<Void, StorageError> {
-        return todoLocalStorage.delete(item)
+    func delete(item: Todo) {
+        todoLocalStorage.delete(item)
     }
     
     func synchronizeDatabase() {
         if isFirstLogin {
-            todoRemoteStorage.backup(todoLocalStorage.todosPublisher().value)
+            switch todoLocalStorage.todosPublisher().value {
+            case .success(let items):
+                todoRemoteStorage.backup(items)
+            case .failure(let _):
+                break
+            }
         } else {
             todoRemoteStorage.todosPublisher()
                 .sink { _ in

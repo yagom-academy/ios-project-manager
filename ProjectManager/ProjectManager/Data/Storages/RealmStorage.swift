@@ -9,6 +9,11 @@ import Combine
 
 import RealmSwift
 
+enum LocalStorageState {
+    case success(items: [Todo])
+    case failure(error: StorageError)
+}
+
 enum StorageError: LocalizedError {
     case createFail
     case updateFail
@@ -30,54 +35,53 @@ enum StorageError: LocalizedError {
 }
 
 protocol LocalStorageable: AnyObject {
-    func create(_ item: Todo) -> AnyPublisher<Void, StorageError>
-    func todosPublisher() -> CurrentValueSubject<[Todo], Never>
-    func update(_ item: Todo) -> AnyPublisher<Void, StorageError>
-    func delete(_ item: Todo) -> AnyPublisher<Void, StorageError>
+    func create(_ item: Todo)
+    func todosPublisher() -> CurrentValueSubject<LocalStorageState, Never>
+    func update(_ item: Todo)
+    func delete(_ item: Todo)
 }
 
 final class RealmStorage: LocalStorageable {
     private let realm = try! Realm()
-    private let realmSubject = CurrentValueSubject<[Todo], Never>([])
+    private let realmSubject = CurrentValueSubject<LocalStorageState, Never>(.success(items: []))
     
     init() {
-        realmSubject.send(readAll())
+        realmSubject.send(.success(items: readAll()))
     }
     
-    func create(_ item: Todo) -> AnyPublisher<Void, StorageError> {
-        return write(.createFail) {
+    func create(_ item: Todo) {
+        write(.createFail) {
             realm.add(transferToTodoRealm(with: item))
-            realmSubject.send(readAll())
+            realmSubject.send(.success(items: readAll()))
         }
     }
         
-    func todosPublisher() -> CurrentValueSubject<[Todo], Never> {
+    func todosPublisher() -> CurrentValueSubject<LocalStorageState, Never> {
         return realmSubject
     }
     
-    func update(_ item: Todo) -> AnyPublisher<Void, StorageError> {
-        return write(.updateFail) {
+    func update(_ item: Todo) {
+        write(.updateFail) {
             realm.add(transferToTodoRealm(with: item), update: .modified)
-            realmSubject.send(readAll())
+            realmSubject.send(.success(items: readAll()))
         }
     }
     
-    func delete(_ item: Todo) -> AnyPublisher<Void, StorageError> {
-        return write(.deleteFail) {
+    func delete(_ item: Todo) {
+        write(.deleteFail) {
             guard let realmModel = realm.object(ofType: TodoRealm.self, forPrimaryKey: item.id) else {
                 return
             }
             realm.delete(realmModel)
-            realmSubject.send(readAll())
+            realmSubject.send(.success(items: readAll()))
         }
     }
     
-    private func write(_ realmError: StorageError, _ work: () -> Void) -> AnyPublisher<Void, StorageError> {
+    private func write(_ realmError: StorageError, _ work: () -> Void) {
         do {
             try realm.write { work() }
-            return Empty<Void, StorageError>().eraseToAnyPublisher()
         } catch {
-            return Fail<Void, StorageError>(error: realmError).eraseToAnyPublisher()
+            realmSubject.send(.failure(error: realmError))
         }
     }
     

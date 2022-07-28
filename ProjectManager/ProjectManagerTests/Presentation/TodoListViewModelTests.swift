@@ -109,7 +109,7 @@ class TodoListViewModelTests: XCTestCase {
         // when
         viewModel.didTapFirstContextMenu(mockTodoListModel)
         
-        _ = viewModel.historyItems.sink { items in
+        _ = viewModel.historyItems.sink { _ in
             result += 1
             expectation.fulfill()
         }

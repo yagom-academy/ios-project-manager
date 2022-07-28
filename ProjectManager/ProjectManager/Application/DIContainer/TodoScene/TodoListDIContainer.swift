@@ -18,7 +18,7 @@ final class TodoListDIContainer {
     private let isFirstLogin = UserDefaults.standard.bool(forKey: "isFirstLogin")
     private let dependencies: Dependencies
     
-    private unowned var parentViewModel: TodoListViewModel?
+    private unowned var parentViewModel: TodoListViewModel!
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -55,7 +55,7 @@ extension TodoListDIContainer {
     private func makeTodoViewModel(processType: ProcessType) -> TodoViewModel {
         let viewModel = TodoViewModel(
             processType: processType,
-            items: parentViewModel?.todoItems ?? Just([Todo]()).eraseToAnyPublisher()
+            state: parentViewModel.todoItems
         )
         
         viewModel.delegate = parentViewModel

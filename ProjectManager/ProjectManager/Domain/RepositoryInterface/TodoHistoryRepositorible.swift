@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol TodoHistoryRepositorible {
-    func create(_ item: TodoHistory) -> AnyPublisher<Void, StorageError>
-    func todoHistoriesPublisher() -> CurrentValueSubject<[TodoHistory], Never>
-    func delete(item: TodoHistory) -> AnyPublisher<Void, StorageError>
+    func create(_ item: TodoHistory)
+    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never>
+    func delete(item: TodoHistory)
 }

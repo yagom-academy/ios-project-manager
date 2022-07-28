@@ -32,7 +32,7 @@ final class TodoListViewCoordinator: Coordinator {
         guard let navigationController = navigationController else {
             return
         }
-
+        
         let factory = dependencies.makeTodoCreateFactory()
         let sceneCoordinator = factory.makeCreateViewCoordinator(navigationController: navigationController)
         

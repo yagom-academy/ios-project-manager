@@ -84,24 +84,10 @@ extension TodoEditViewModel {
     
     private func updateTodoItem(_ item: Todo) {
         todoUseCase.update(item)
-        .sink(
-            receiveCompletion: {
-                guard case .failure(let error) = $0 else { return}
-                self.state.send(.errorEvent(message: error.localizedDescription))
-            }, receiveValue: {}
-        )
-        .store(in: &cancellableBag)
     }
     
     private func createHistoryItem(_ item: TodoHistory) {
         historyUseCase.create(item)
-            .sink(
-                receiveCompletion: {
-                    guard case .failure(let error) = $0 else { return}
-                    self.state.send(.errorEvent(message: error.localizedDescription))
-                }, receiveValue: {}
-            )
-            .store(in: &cancellableBag)
     }
     
     func didTapEditButton() {

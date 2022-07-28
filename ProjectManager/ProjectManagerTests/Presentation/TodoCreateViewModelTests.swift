@@ -44,7 +44,7 @@ class TodoCreateViewModelTests: XCTestCase {
         // when
         viewModel.didTapDoneButton("제목입니다", "내용입니다", Date())
         
-        _ = historyUseCase.items.sink { items in
+        _ = historyUseCase.items.sink { _ in
             result += 1
             expectation.fulfill()
         }

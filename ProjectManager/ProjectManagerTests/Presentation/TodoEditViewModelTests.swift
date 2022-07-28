@@ -59,7 +59,7 @@ class TodoEditViewModelTests: XCTestCase {
         // when
         viewModel.didTapDoneButton(title: "테스트입니다", content: "내용입니다", deadline: Date())
         
-        _ = historyUseCase.items.sink { items in
+        _ = historyUseCase.items.sink { _ in
             result += 1
             expectation.fulfill()
         }

@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 protocol TodoHistoryUseCaseable {
-    func create(_ item: TodoHistory) -> AnyPublisher<Void, StorageError>
-    func todoHistoriesPublisher() -> CurrentValueSubject<[TodoHistory], Never>
-    func delete(item: TodoHistory) -> AnyPublisher<Void, StorageError>
+    func create(_ item: TodoHistory)
+    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never>
+    func delete(item: TodoHistory)
 }
 
 final class TodoHistoryUseCase: TodoHistoryUseCaseable {
@@ -21,15 +21,15 @@ final class TodoHistoryUseCase: TodoHistoryUseCaseable {
         self.repository = repository
     }
     
-    func create(_ item: TodoHistory) -> AnyPublisher<Void, StorageError> {
-        return repository.create(item)
+    func create(_ item: TodoHistory) {
+        repository.create(item)
     }
     
-    func todoHistoriesPublisher() -> CurrentValueSubject<[TodoHistory], Never> {
+    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never> {
         return repository.todoHistoriesPublisher()
     }
     
-    func delete(item: TodoHistory) -> AnyPublisher<Void, StorageError> {
-        return repository.delete(item: item)
+    func delete(item: TodoHistory) {
+        repository.delete(item: item)
     }
 }

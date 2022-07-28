@@ -62,7 +62,6 @@ final class TodoTableViewCell: UITableViewCell {
         self.viewModel = viewModel
         
         viewModel.state
-            .print()
             .sink { [weak self] state in
                 switch state {
                 case .todoTitleEvent(let title):
