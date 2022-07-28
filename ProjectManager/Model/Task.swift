@@ -21,7 +21,7 @@ class Task: Object, ObjectKeyIdentifiable {
     self.date = date
     self.body = body
     self.type = type
-    self.isOverdate = (self.type == .done) && (self.date + (60*60*24) < Date()) == true
+    self.isOverdate = (self.type != .done) && (self.date + (60*60*24) < Date()) == true
   }
 }
 

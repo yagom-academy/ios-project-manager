@@ -74,6 +74,7 @@ class TaskManagementService {
         tasks[index].body = task.body
         tasks[index].date = task.date
         tasks[index].type = task.type
+        tasks[index].isOverdate = (task.type != .done) && (task.date + (60*60*24) < Date()) == true
       })
     } catch {
       print(error)
@@ -109,9 +110,13 @@ class TaskManagementService {
                               type: .move)
         realm?.add(history)
         self.allHistories = readAllHistories()
-        
+
         task.type = type
-        self.allTasks = readAllTasks()
+        if type == .done {
+          task.isOverdate = false
+        } else if (task.date + (60*60*24) < Date()) == true {
+          task.isOverdate = true
+        }
       })
     } catch {
       print(error)
