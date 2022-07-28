@@ -61,7 +61,7 @@ final class SceneDIContainer {
     }
     
     func makeMainViewController(with sceneDIContainer: SceneDIContainer) -> MainViewController {
-        return MainViewController.create(with: makeMainViewModel(), sceneDIContainer)
+        return MainViewController(with: makeMainViewModel(), sceneDIContainer)
     }
     
     // MARK: - PopOver
@@ -71,7 +71,7 @@ final class SceneDIContainer {
     }
     
     func makePopOverViewController(with cell: ProjectCell) -> PopOverViewController {
-        return PopOverViewController.create(with: makePopOverViewModel(with: cell))
+        return PopOverViewController(with: makePopOverViewModel(with: cell))
     }
     
     // MARK: - History
@@ -81,7 +81,7 @@ final class SceneDIContainer {
     }
     
     func makeHistoryViewController(with source: UIBarButtonItem) -> HistoryViewController {
-        return HistoryViewController.create(with: makeHistoryViewModel(), source: source)
+        return HistoryViewController(with: makeHistoryViewModel(), source: source)
     }
     
     // MARK: - Detail
@@ -91,7 +91,7 @@ final class SceneDIContainer {
     }
     
     func makeDetailViewController(with projectEntity: ProjectEntity) -> DetailViewController {
-        return DetailViewController.create(with: makeDetailViewModel(with: projectEntity))
+        return DetailViewController(with: makeDetailViewModel(with: projectEntity))
     }
     
     // MARK: - Registration
@@ -101,7 +101,7 @@ final class SceneDIContainer {
     }
     
     func makeRegistrationViewController() -> RegistrationViewController {
-        return RegistrationViewController.create(with: makeRegistrationViewModel())
+        return RegistrationViewController(with: makeRegistrationViewModel())
     }
     
     // MARK: - Alert

@@ -21,14 +21,16 @@ final class MainViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var sceneDIContainer: SceneDIContainer?
     
-    static func create(
-        with viewModel: MainViewModel,
-        _ sceneDIContainer: SceneDIContainer
-    ) -> MainViewController {
-        let viewController = MainViewController()
-        viewController.viewModel = viewModel
-        viewController.sceneDIContainer = sceneDIContainer
-        return viewController
+    init(with viewModel: MainViewModel,
+         _ sceneDIContainer: SceneDIContainer
+    ) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+        self.sceneDIContainer = sceneDIContainer
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func loadView() {

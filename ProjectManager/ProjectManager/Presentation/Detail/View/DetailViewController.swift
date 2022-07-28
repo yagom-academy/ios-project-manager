@@ -26,10 +26,13 @@ final class DetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var mode: Mode = .display
     
-    static func create(with viewModel: DetailViewModel) -> DetailViewController {
-        let viewController = DetailViewController()
-        viewController.viewModel = viewModel
-        return viewController
+    init(with viewModel: DetailViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {

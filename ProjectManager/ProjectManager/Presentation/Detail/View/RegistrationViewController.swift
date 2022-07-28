@@ -18,14 +18,9 @@ final class RegistrationViewController: UIViewController {
     private var viewModel: RegistrationViewModel?
     private let disposeBag = DisposeBag()
     
-    static func create(with viewModel: RegistrationViewModel) -> RegistrationViewController {
-        let viewController = RegistrationViewController()
-        viewController.viewModel = viewModel
-        return viewController
-    }
-    
-    init() {
+    init(with viewModel: RegistrationViewModel) {
         super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
     }
     
     required init?(coder: NSCoder) {

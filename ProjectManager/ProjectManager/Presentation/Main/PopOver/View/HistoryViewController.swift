@@ -13,15 +13,10 @@ final class HistoryViewController: UIViewController {
     private var viewModel: HistoryViewModel?
     private let disposeBag = DisposeBag()
     
-    static func create(with viewModel: HistoryViewModel, source: UIBarButtonItem) -> HistoryViewController {
-        let viewController = HistoryViewController(source: source)
-        viewController.viewModel = viewModel
-        return viewController
-    }
-    
-    init(source: UIBarButtonItem) {
+    init(with viewModel: HistoryViewModel, source: UIBarButtonItem) {
         super.init(nibName: nil, bundle: nil)
         
+        self.viewModel = viewModel
         setUpAttribute(source)
     }
     
