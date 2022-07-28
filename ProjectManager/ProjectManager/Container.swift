@@ -41,6 +41,7 @@ final class Container {
     func makeHistoryViewController(sourceView: UIView, bounds: CGRect, history: [History]) -> HistoryViewController {
         let historyVC = HistoryViewController(viewModel: makeHistoryViewModel(history))
         historyVC.modalPresentationStyle = .popover
+        historyVC.preferredContentSize = CGSize(width: 500, height: 500)
         guard let popover = historyVC.popoverPresentationController else {
             return historyVC
         }
