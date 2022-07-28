@@ -9,4 +9,12 @@ import UIKit
 
 final class HistoryViewController: UIViewController {
     
+    
+    let historyView = HistoryView()
+    
+    override func loadView() {
+        super.loadView()
+        self.view = historyView
+    }
+    
 }
