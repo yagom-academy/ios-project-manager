@@ -105,9 +105,9 @@ final class MainViewController: UIViewController {
             }
             
             let historyVC = self.container.makeHistoryViewController(sourceView: self.view,
-                                                                     bounds: self.historyButton.bounds)
+                                                                     bounds: self.historyButton.bounds,
+                                                                     history: $0)
             self.present(historyVC, animated: true)
-            print($0) // 추후 삭제 예정
         }).disposed(by: disposebag)
         
         viewModel.showErrorAlert.bind(onNext: { [weak self] in

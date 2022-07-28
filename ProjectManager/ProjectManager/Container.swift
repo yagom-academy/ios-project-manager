@@ -38,16 +38,20 @@ final class Container {
         return EditViewModel(storage: storage, item: listItem)
     }
     
-    func makeHistoryViewController(sourceView: UIView, bounds: CGRect) -> HistoryViewController {
-        let historyVC = HistoryViewController()
+    func makeHistoryViewController(sourceView: UIView, bounds: CGRect, history: [History]) -> HistoryViewController {
+        let historyVC = HistoryViewController(viewModel: makeHistoryViewModel(history))
         historyVC.modalPresentationStyle = .popover
         guard let popover = historyVC.popoverPresentationController else {
-            return HistoryViewController()
+            return historyVC
         }
         popover.sourceView = sourceView
         popover.sourceRect = CGRect(x: bounds.minX, y: bounds.minY + 20, width: bounds.width, height: bounds.height)
         
         return historyVC
+    }
+    
+    private func makeHistoryViewModel(_ history: [History]) -> HistoryViewModelable {
+        return HistoryViewModel(history: history)
     }
     
     init(storage: AppStoregeable) {
