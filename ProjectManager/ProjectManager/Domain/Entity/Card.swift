@@ -13,6 +13,10 @@ struct Card: Codable, Equatable {
   var description: String
   var deadlineDate: Date
   var cardType: CardType = .todo
+  
+  static func empty() -> Card {
+    return Card(title: "", description: "", deadlineDate: Date())
+  }
 }
 
 enum CardType: Int16, Codable, CustomStringConvertible {

@@ -39,11 +39,6 @@ final class DefaultCardNotificationService: CardNotificationService {
     }
   }
   
-  func updateCardNotification(_ card: Card) {
-    removeCardNotification(card)
-    registerCardNotification(card)
-  }
-  
   func removeCardNotification(_ card: Card) {
     userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [card.id])
   }

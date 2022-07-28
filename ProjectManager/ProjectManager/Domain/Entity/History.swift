@@ -8,9 +8,10 @@
 import Foundation
 
 struct History {
-  let card: Card
+  var prev: Card? = nil
+  var next: Card? = nil
   let actionType: HistoryActionType
-  let actionTime: Date
+  let actionTime: Date = Date()
 }
 
 enum HistoryActionType: CustomStringConvertible {

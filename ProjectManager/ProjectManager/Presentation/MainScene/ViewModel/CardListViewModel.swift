@@ -89,7 +89,7 @@ final class CardListViewModel: CardListViewModelable {
   
   func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem {
     return CardHistoryViewModelItem(
-      card: history.card,
+      card: history.prev ?? .empty(),
       actionType: history.actionType,
       actionTimeString: setDateToString(history.actionTime),
       informationString: setInformationString(history)
@@ -130,8 +130,8 @@ extension CardListViewModel {
   
   private func setInformationString(_ history: History) -> String {
     if case .move(let destinationCardType) = history.actionType {
-       return "\(history.card.cardType.description) ➡️ \(destinationCardType.description)"
+       return "\(history.prev?.cardType.description ?? "") ➡️ \(destinationCardType.description)"
     }
-    return "\(history.card.cardType.description)"
+    return "\(history.prev?.cardType.description ?? "")"
   }
 }

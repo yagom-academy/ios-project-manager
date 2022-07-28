@@ -51,90 +51,89 @@ final class DefaultCardUseCase: CardUseCase {
   
   func fetchCards() -> Observable<Void> {
     return localDatabaseRepository.fetchAll()
-      .catchAndReturn([])
       .withUnretained(self)
-      .flatMap { wself, cards -> Observable<[Card]> in
-        wself.cards.accept(cards)
-        wself.cardNotificationService.removeCardsNotification(cards)
-        return wself.realtimeDatabaseRepository.fetchAll()
+      .flatMap { owner, cards -> Observable<[Card]> in
+        owner.cards.accept(cards)
+        return owner.realtimeDatabaseRepository.fetchAll()
       }
-      .catchAndReturn([])
       .withUnretained(self)
-      .flatMap { wself, cards -> Observable<Void> in
-        wself.cards.accept(cards)
-        wself.cardNotificationService.registerCardsNotification(cards)
+      .flatMap { owner, cards -> Observable<Void> in
+        owner.cards.accept(cards)
+        owner.cardNotificationService.registerCardsNotification(cards)
         return .concat(
-          wself.localDatabaseRepository.deleteAll(),
-          wself.localDatabaseRepository.create(cards).map { _ in }
+          owner.localDatabaseRepository.deleteAll(),
+          owner.localDatabaseRepository.create(cards).map { _ in }
         )
       }
       .catchAndReturn(())
   }
   
   func createNewCard(_ card: Card) -> Observable<Void> {
-    return localDatabaseRepository.create(card)
-      .map { History(card: card, actionType: .create, actionTime: Date()) }
+    return Observable.just(card)
+      .map { History(prev: $0, next: $0, actionType: .create) }
       .withUnretained(self)
-      .flatMap { wself, history -> Observable<[Card]> in
-        wself.histories.accept(wself.histories.value + [history])
-        return wself.localDatabaseRepository.fetchAll()
+      .flatMap { owner, history -> Observable<Void> in
+        owner.histories.accept(owner.histories.value + [history])
+        owner.cardNotificationService.removeCardNotification(card)
+        
+        // TODO: Undo Redo 등록
+        return owner.localDatabaseRepository.create(card)
       }
-      .flatMap(realtimeDatabaseRepository.create(_:))
-      .flatMap { [weak self] cards -> Observable<Void> in
-        self?.cards.accept(cards)
-        self?.cardNotificationService.registerCardNotification(card)
-        return .just(())
-      }
+      .flatMap(localDatabaseRepository.fetchAll)
+      .flatMap(realtimeDatabaseRepository.create)
+      .map { [weak self] in self?.cards.accept($0) }
   }
   
   func updateSelectedCard(_ card: Card) -> Observable<Void> {
-    return localDatabaseRepository.update(card)
-      .map { History(card: card, actionType: .update, actionTime: Date()) }
+    return localDatabaseRepository.fetchOne(id: card.id)
+      .map { History(prev: $0, next: card, actionType: .update) }
       .withUnretained(self)
-      .flatMap { wself, history -> Observable<[Card]> in
-        wself.histories.accept(wself.histories.value + [history])
-        return wself.localDatabaseRepository.fetchAll()
+      .flatMap { owner, history -> Observable<Void> in
+        owner.histories.accept(owner.histories.value + [history])
+        owner.cardNotificationService.registerCardNotification(card)
+        
+        // TODO: Undo Redo 등록
+        return owner.localDatabaseRepository.update(card)
       }
-      .flatMap(realtimeDatabaseRepository.create(_:))
-      .flatMap { [weak self] cards -> Observable<Void> in
-        self?.cards.accept(cards)
-        self?.cardNotificationService.updateCardNotification(card)
-        return .just(())
-      }
+      .flatMap(localDatabaseRepository.fetchAll)
+      .flatMap(realtimeDatabaseRepository.create)
+      .map { [weak self] in self?.cards.accept($0) }
   }
   
   func deleteSelectedCard(_ card: Card) -> Observable<Void> {
-    return localDatabaseRepository.delete(card)
-      .map { History(card: card, actionType: .delete, actionTime: Date()) }
+    return Observable.just(card)
+      .map { History(prev: $0, next: nil, actionType: .delete) }
       .withUnretained(self)
-      .flatMap { wself, history -> Observable<[Card]> in
-        wself.histories.accept(wself.histories.value + [history])
-        return wself.localDatabaseRepository.fetchAll()
+      .flatMap { owner, history -> Observable<Void> in
+        owner.histories.accept(owner.histories.value + [history])
+        owner.cardNotificationService.removeCardNotification(card)
+        
+        // TODO: Undo Redo 등록
+        return owner.localDatabaseRepository.delete(card)
       }
-      .flatMap(realtimeDatabaseRepository.create(_:))
-      .flatMap { [weak self] cards -> Observable<Void> in
-        self?.cards.accept(cards)
-        self?.cardNotificationService.removeCardNotification(card)
-        return .just(())
-      }
+      .flatMap(localDatabaseRepository.fetchAll)
+      .flatMap(realtimeDatabaseRepository.create)
+      .map { [weak self] in self?.cards.accept($0) }
   }
   
   func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void> {
-    var newCard = card
-    newCard.cardType = card.cardType.distinguishMenuType[index]
-    
-    return localDatabaseRepository.update(newCard)
-      .map { History(card: card, actionType: .move(newCard.cardType), actionTime: Date()) }
+    return Observable.just(card)
+      .map { oldCard -> History in
+        var newCard = oldCard
+        newCard.cardType = oldCard.cardType.distinguishMenuType[index]
+        return History(prev: oldCard, next: newCard, actionType: .move(newCard.cardType))
+      }
       .withUnretained(self)
-      .flatMap { wself, history -> Observable<[Card]> in
-        wself.histories.accept(wself.histories.value + [history])
-        return wself.localDatabaseRepository.fetchAll()
+      .flatMap { owner, history -> Observable<Void> in
+        let newCard = history.next ?? .empty()
+        owner.histories.accept(owner.histories.value + [history])
+        owner.cardNotificationService.registerCardNotification(newCard)
+        
+        // TODO: Undo Redo 등록
+        return owner.localDatabaseRepository.update(newCard)
       }
-      .flatMap(realtimeDatabaseRepository.create(_:))
-      .flatMap { [weak self] cards -> Observable<Void> in
-        self?.cards.accept(cards)
-        self?.cardNotificationService.updateCardNotification(newCard)
-        return .just(())
-      }
+      .flatMap(localDatabaseRepository.fetchAll)
+      .flatMap(realtimeDatabaseRepository.create)
+      .map { [weak self] in self?.cards.accept($0) }
   }
 }
