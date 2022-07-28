@@ -11,17 +11,21 @@ import SwiftUI
 class HistoryViewModel: ViewModelType {
   @Published var allHistories: [History] = []
   
-  func showHistory() -> String {
+  override init(withService: TaskManagementService) {
+    super.init(withService: withService)
+    self.allHistories = withService.allHistories
+  }
+  
+  func showHistory(_ history: History) -> String {
     var result: String = ""
-    self.allHistories = service.allHistories
     
-    allHistories.forEach { history in
-      switch history.type {
-      case .add, .remove:
-        result = "\(history.type.title) '\(history.title)'"
-      case .move:
-        result = "\(history.type.title) '\(history.title)' from \(history.from ?? .todo) to \(history.to ?? .todo)"
-      }
+    switch history.type {
+    case .add:
+      result = "\(history.type.title) '\(history.title)'."
+    case .move:
+      result = "\(history.type.title) '\(history.title)' from \(history.from?.title ?? "") to \(history.to?.title ?? "")."
+    case .remove:
+      result = "\(history.type.title) '\(history.title)' from \(history.from?.title ?? "")."
     }
     return result
   }
