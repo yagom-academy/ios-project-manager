@@ -78,7 +78,6 @@ final class MainViewModel: MainViewModelInOut {
     }
     
     private func setList() {
-        print("activity indicator 시작")
         storage.setList { result in
             switch result {
             case .success():
@@ -86,7 +85,6 @@ final class MainViewModel: MainViewModelInOut {
             case .failure(_):
                 self.showNetworkErrorAlert.accept(StorageError.networkError)
             }
-            print("activity indicator 종료")
         }
     }
     
