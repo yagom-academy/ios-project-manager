@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AB2AE7F92892866400A00978 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2AE7F82892866400A00978 /* HistoryViewModel.swift */; };
 		AB2AE7FB2892B45400A00978 /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2AE7FA2892B45400A00978 /* HistoryCollectionViewCell.swift */; };
+		AB2AE7FE2892EBD600A00978 /* HistoryCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2AE7FD2892EBD600A00978 /* HistoryCollectionViewModel.swift */; };
 		AB2E168D288FA7A600944565 /* HIstoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E168C288FA7A600944565 /* HIstoryState.swift */; };
 		AB2E1692288FE42E00944565 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E1691288FE42E00944565 /* HistoryViewController.swift */; };
 		AB2E169528904A4400944565 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E169428904A4400944565 /* StorageError.swift */; };
@@ -49,6 +50,7 @@
 		9A0AC1F6351308DEBA229D99 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		AB2AE7F82892866400A00978 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		AB2AE7FA2892B45400A00978 /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		AB2AE7FD2892EBD600A00978 /* HistoryCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewModel.swift; sourceTree = "<group>"; };
 		AB2E168C288FA7A600944565 /* HIstoryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIstoryState.swift; sourceTree = "<group>"; };
 		AB2E1691288FE42E00944565 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		AB2E169428904A4400944565 /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
@@ -118,8 +120,17 @@
 			isa = PBXGroup;
 			children = (
 				AB2AE7FA2892B45400A00978 /* HistoryCollectionViewCell.swift */,
+				AB2AE7FF2892EC0700A00978 /* ViewModel */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		AB2AE7FF2892EC0700A00978 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AB2AE7FD2892EBD600A00978 /* HistoryCollectionViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		AB2E168E288FE3DA00944565 /* History */ = {
@@ -527,6 +538,7 @@
 				ABDB96332875DC7B002D6602 /* Date.swift in Sources */,
 				AB9AE8BB2883DAE00050EA99 /* WriteViewModel.swift in Sources */,
 				ABDB96372875E477002D6602 /* TodoCollectionViewCell.swift in Sources */,
+				AB2AE7FE2892EBD600A00978 /* HistoryCollectionViewModel.swift in Sources */,
 				ABC54F8D287D873200280F43 /* State.swift in Sources */,
 				AB4BB992288E84F000F1603B /* Originator.swift in Sources */,
 				AB4BB997288E958000F1603B /* CareTaker.swift in Sources */,

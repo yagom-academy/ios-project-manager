@@ -8,6 +8,8 @@
 import UIKit
 
 final class HistoryCollectionViewCell: UICollectionViewCell, Identifierable {
+  let viewModel = HistoryCollectionViewModel()
+  
   private let mainStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.axis = .vertical
@@ -55,38 +57,7 @@ final class HistoryCollectionViewCell: UICollectionViewCell, Identifierable {
   }
   
   func updateUIDate(_ memento: Memento) {
-    titleLabel.text = makeTitle(memento)
+    titleLabel.text = viewModel.makeTitle(memento)
     dateLabel.text = Date.makeDate(memento.todo.date)
-  }
-  
-  private func makeTitle(_ memento: Memento) -> String {
-    return memento.historyState.rawValue + "'\(memento.todo.title)' from" + makeMovementDescription(
-      fromState: memento.todo.state,
-      toState: memento.toState
-    )
-  }
-  
-  private func makeMovementDescription(fromState: State, toState: State?) -> String {
-    if fromState == .todo, toState == .doing {
-      return "TODO to DOING."
-    }
-    
-    if fromState == .todo, toState == .done {
-      return "TODO to DONE."
-    }
-    
-    if fromState == .doing, toState == .todo {
-      return "DOING to TODO."
-    }
-    
-    if fromState == .doing, toState == .done {
-      return "DOING to DONE."
-    }
-    
-    if fromState == .done, toState == .todo {
-      return "DONE to TODO."
-    }
-    
-    return "DONE to DOING."
   }
 }
