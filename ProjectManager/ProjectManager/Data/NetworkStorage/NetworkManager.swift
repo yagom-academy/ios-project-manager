@@ -17,18 +17,6 @@ final class NetworkManager {
 }
 
 extension NetworkManager {
-    func create(project: ProjectDTO) {
-        let projectItem = projectsReference.child(project.id)
-        let values: [String: Any] = [
-            "status": project.status,
-            "title": project.title,
-            "deadline": project.deadline,
-            "body": project.body
-        ]
-        
-        projectItem.setValue(values)
-    }
-    
     func read() -> Observable<[ProjectDTO]> {
         
         return Observable.create { emitter in
