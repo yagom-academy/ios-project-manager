@@ -107,7 +107,12 @@ final class LocalStorageManager: LocalStorageManagerable {
                 let history = History()
                 history.title = title
                 
-                listModel.history.append(history)
+                let historyStorage = listModel.history
+                historyStorage.append(history)
+                
+                if historyStorage.count > 15 {
+                    historyStorage.removeFirst()
+                }
             }
         } catch{
             throw StorageError.historyError
