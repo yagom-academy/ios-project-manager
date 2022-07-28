@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxRelay
 
 protocol ErrorThrowble {
     var errorObserver: PublishRelay<TodoError> { get }
