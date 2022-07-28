@@ -30,6 +30,13 @@ final class MainViewModel: MainViewModelEvent,
                             PopNotificationSendable,
                             PushDeleteNotificationSendable {
     
+    fileprivate enum Constants {
+        static let monitoringQueue: String = "monitor"
+        static let userNotificationTitle: String = "오늘까지인 일정이 있습니다."
+        static let userNotificationHour: Int = 9
+        static let secondOfDay: Double = 86400
+    }
+    
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
@@ -62,7 +69,7 @@ final class MainViewModel: MainViewModelEvent,
     }
     
     private func startMonitoring() {
-        let monitoringQueue = DispatchQueue(label: "network", attributes: .concurrent)
+        let monitoringQueue = DispatchQueue(label: Constants.monitoringQueue, attributes: .concurrent)
         monitor.start(queue: monitoringQueue)
         monitor.pathUpdateHandler = { [weak self] path in
             if path.status == .satisfied {
@@ -227,14 +234,14 @@ final class MainViewModel: MainViewModelEvent,
         }
         
         let content = UNMutableNotificationContent()
-        content.title = "오늘까지인 일정이 있습니다."
+        content.title = Constants.userNotificationTitle
         content.body = task.title
         content.subtitle = task.taskType.rawValue
         content.sound = .default
         
         var dateComponents = DateComponents()
         dateComponents.calendar = Calendar.current
-        dateComponents.hour = 9
+        dateComponents.hour = Constants.userNotificationHour
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request =  UNNotificationRequest(identifier: task.id, content: content, trigger: trigger)
@@ -244,7 +251,7 @@ final class MainViewModel: MainViewModelEvent,
     
     private func todayIsDeadline(of task: Task) -> Bool {
         let today = Calendar.current.startOfDay(for: Date()).timeIntervalSince1970
-        let tomorrow = today + 86400
+        let tomorrow = today + Constants.secondOfDay
         
         if task.date > today, task.date < tomorrow {
             return true

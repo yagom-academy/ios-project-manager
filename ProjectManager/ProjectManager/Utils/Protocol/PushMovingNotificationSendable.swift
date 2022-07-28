@@ -15,7 +15,11 @@ extension PushMovingNotificationSendable {
     func sendNotificationForHistory(_ title: String, from beforeType: TaskType, to afterType: TaskType) {
         let content = "Moved '\(title)' from \(beforeType.rawValue) to \(afterType.rawValue)"
         let time = Date().timeIntervalSince1970
-        let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("PushHistory"), object: nil, userInfo: history)
+        let history: [String: Any] = [AppConstants.historyContentKey: content, AppConstants.historyTimeKey: time]
+        NotificationCenter.default.post(
+            name: NSNotification.Name(AppConstants.pushHistoryNotificationName),
+            object: nil,
+            userInfo: history
+        )
     }
 }

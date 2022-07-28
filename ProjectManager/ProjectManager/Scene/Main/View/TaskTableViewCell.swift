@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 final class TaskTableViewCell: UITableViewCell {
+    
     fileprivate enum Constants {
         static let numberOfLines = 3
     }
@@ -90,7 +91,6 @@ final class TaskTableViewCell: UITableViewCell {
             identifier:
                 Locale.current.identifier
         )
-        
         return dateFormatter.string(from: Date(timeIntervalSince1970: date))
     }
 }

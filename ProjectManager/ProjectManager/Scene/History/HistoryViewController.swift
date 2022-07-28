@@ -9,6 +9,10 @@ import UIKit
 
 final class HistoryViewController: UITableViewController {
     
+    fileprivate enum Constants {
+        static let title: String = "History"
+    }
+    
     private var histories: [History] = []
     
     override init(style: UITableView.Style) {
@@ -23,7 +27,7 @@ final class HistoryViewController: UITableViewController {
     }
     
     private func configureNavigationItems() {
-        title = "History"
+        title = Constants.title
         navigationItem.hidesBackButton = true
     }
     
@@ -35,22 +39,22 @@ final class HistoryViewController: UITableViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(appendHistory(notification:)),
-            name: Notification.Name("PushHistory"),
+            name: Notification.Name(AppConstants.pushHistoryNotificationName),
             object: nil
         )
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(removeHistory),
-            name: Notification.Name("PopHistory"),
+            name: Notification.Name(AppConstants.popHistoryNotificationName),
             object: nil
         )
     }
     
     @objc private func appendHistory(notification: Notification) {
         guard let received = notification.userInfo as? [String: Any],
-              let content = received["content"] as? String,
-              let time = received["time"] as? Double else {
+              let content = received[AppConstants.historyContentKey] as? String,
+              let time = received[AppConstants.historyTimeKey] as? Double else {
                   return
               }
         let history = History(content: content, time: time)
@@ -74,9 +78,7 @@ final class HistoryViewController: UITableViewController {
                 as? HistoryCell else {
             return UITableViewCell()
         }
-        
         cell.setupContents(history: histories[indexPath.row])
-        
         return cell
     }
 }

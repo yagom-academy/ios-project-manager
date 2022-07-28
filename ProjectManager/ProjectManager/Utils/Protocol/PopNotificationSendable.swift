@@ -13,6 +13,10 @@ protocol PopNotificationSendable {
 
 extension PopNotificationSendable {
     func sendNotificationForHistory() {
-        NotificationCenter.default.post(name: NSNotification.Name("PopHistory"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(
+            name: NSNotification.Name(AppConstants.popHistoryNotificationName),
+            object: nil,
+            userInfo: nil
+        )
     }
 }

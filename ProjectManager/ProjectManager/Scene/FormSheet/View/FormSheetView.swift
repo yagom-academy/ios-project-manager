@@ -10,13 +10,18 @@ import SnapKit
 
 final class FormSheetView: UIView {
     
+    fileprivate enum Constants {
+        static let titlePlaceholder: String = "Title"
+        static let bodyDefaultValue: String = "입력 가능한 글자수는 1000자로 제한합니다."
+    }
+    
     private lazy var formSheetStackView = UIStackView().then {
         $0.axis = .vertical
         $0.spacing = 10
     }
     
     private(set) lazy var titleTextField = UITextField().then {
-        $0.placeholder = "Title"
+        $0.placeholder = Constants.titlePlaceholder
         $0.backgroundColor = .white
         $0.addLeftPadding()
         setShadow(target: $0)
@@ -34,7 +39,7 @@ final class FormSheetView: UIView {
     
     private(set) lazy var bodyTextView = UITextView().then {
         $0.font = .preferredFont(forTextStyle: .subheadline)
-        $0.text = "입력 가능한 글자수는 1000자로 제한합니다."
+        $0.text = Constants.bodyDefaultValue
     }
     
     override init(frame: CGRect) {

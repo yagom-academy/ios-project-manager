@@ -21,7 +21,9 @@ protocol EditFormSheetViewModelState {
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class EditFormSheetViewModel: EditFormSheetViewModelEvent, EditFormSheetViewModelState, ErrorObservable {
+final class EditFormSheetViewModel: EditFormSheetViewModelEvent,
+                                        EditFormSheetViewModelState,
+                                        ErrorObservable {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)

@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 final class HistoryCell: UITableViewCell {
+    
     static var identifier: String {
         return String(describing: self)
     }

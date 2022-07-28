@@ -63,8 +63,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
     }
     
     private func showAlert(viewController: UIViewController, handler: @escaping ((UIAlertAction) -> Void)) {
-        let alert = UIAlertController(title: "알림 권한", message: "서비스를 이용하시려면 알림 권한을 허용해주세요", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: handler)
+        let alert = UIAlertController(
+            title: AppConstants.notificationPermissionAlertTitle,
+            message: AppConstants.notificationPermissionAlertMessage,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(
+            title: AppConstants.okActionTitle,
+            style: .default,
+            handler: handler
+        )
         alert.addAction(okAction)
         viewController.present(alert, animated: true)
     }

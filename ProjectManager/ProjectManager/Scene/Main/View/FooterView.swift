@@ -10,13 +10,18 @@ import SnapKit
 
 final class FooterView: UIView {
     
+    fileprivate enum Constants {
+        static let undo: String = "Undo"
+        static let redo: String = "Redo"
+    }
+    
     private let baseStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 20
     }
     
-    private(set) lazy var undoButton = generateUndoManageButton(title: "Undo")
-    private(set) lazy var redoButton = generateUndoManageButton(title: "Redo")
+    private(set) lazy var undoButton = generateUndoManageButton(title: Constants.undo)
+    private(set) lazy var redoButton = generateUndoManageButton(title: Constants.redo)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
