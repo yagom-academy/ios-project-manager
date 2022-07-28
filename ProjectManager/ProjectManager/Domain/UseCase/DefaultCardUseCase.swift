@@ -211,12 +211,11 @@ final class DefaultCardUseCase: CardUseCase {
       
     } else if let card = history?.prev {
       return Observable.just(card)
-        .flatMap { card -> Observable<Void> in
-          if history?.actionType == .delete {
-            return self.localDatabaseRepository.delete(card)
-          } else {
-            return self.localDatabaseRepository.create(card)
-          }
+        .withUnretained(self)
+        .flatMap { owner, card -> Observable<Void> in
+          history?.actionType == .delete
+            ? owner.localDatabaseRepository.delete(card)
+            : owner.localDatabaseRepository.create(card)
         }
         .withUnretained(self)
         .flatMap { owner, _ -> Observable<[Card]> in
