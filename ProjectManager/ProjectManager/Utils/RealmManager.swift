@@ -52,7 +52,6 @@ struct RealmManager {
                 }
                 guard let tasks = result else { return }
                 if let queriedTask = tasks.filter({ $0 == $0 }).first {
-                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [task.id])
                     realmInstance?.delete(queriedTask)
                 }
             }

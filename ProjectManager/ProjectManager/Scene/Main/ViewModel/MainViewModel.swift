@@ -114,10 +114,11 @@ final class MainViewModel: MainViewModelEvent,
         registerDeleteUndoAction(task: capturedTask)
         let title = capturedTask.title
         let type = capturedTask.taskType
-        
+        let id = capturedTask.id
         do {
             try realmManager.delete(task: capturedTask)
             sendNotificationForHistory(title, from: type)
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
             undoable.accept(true)
             redoable.accept(false)
         } catch {
@@ -164,11 +165,12 @@ final class MainViewModel: MainViewModelEvent,
         )
         let title = capturedTask.title
         let type = capturedTask.taskType
-        
+        let id = capturedTask.id
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             do {
                 self?.registerDeleteUndoAction(task: capturedTask)
                 try self?.realmManager.delete(task: capturedTask)
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
                 self?.sendNotificationForHistory(title, from: type)
             } catch {
                 self?.error.accept(DatabaseError.createError)

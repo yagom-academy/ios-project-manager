@@ -69,11 +69,12 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
             taskType: .todo,
             id: task.id
         )
-        
+        let id = capturedTask.id
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             self?.registerAddRedoAction(task: capturedTask)
             do {
                 try self?.realmManager.delete(task: capturedTask)
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
                 self?.sendNotificationForHistory()
             } catch {
                 self?.error.accept(DatabaseError.deleteError)
