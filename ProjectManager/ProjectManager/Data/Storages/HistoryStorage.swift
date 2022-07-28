@@ -16,7 +16,7 @@ enum HistoryStorageState {
 
 protocol HistoryStorageable: AnyObject {
     func create(_ item: TodoHistory)
-    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never>
+    var todoHistoriesPublisher: CurrentValueSubject<HistoryStorageState, Never> { get }
     func delete(_ item: TodoHistory)
 }
 
@@ -35,7 +35,7 @@ final class HistoryStorage: HistoryStorageable {
         }
     }
         
-    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never> {
+    var todoHistoriesPublisher: CurrentValueSubject<HistoryStorageState, Never> {
         return realmSubject
     }
     

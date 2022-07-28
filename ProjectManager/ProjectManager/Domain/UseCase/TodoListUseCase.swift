@@ -10,7 +10,7 @@ import Combine
 
 protocol TodoListUseCaseable {
     func create(_ item: Todo)
-    func todosPublisher() -> CurrentValueSubject<LocalStorageState, Never>
+    var todosPublisher: CurrentValueSubject<LocalStorageState, Never> { get }
     func update(_ item: Todo)
     func delete(item: Todo)
     func synchronizeDatabase()
@@ -27,8 +27,8 @@ final class TodoListUseCase: TodoListUseCaseable {
         repository.create(item)
     }
     
-    func todosPublisher() -> CurrentValueSubject<LocalStorageState, Never> {
-        return repository.todosPublisher()
+    var todosPublisher: CurrentValueSubject<LocalStorageState, Never> {
+        return repository.todosPublisher
     }
     
     func update(_ item: Todo) {

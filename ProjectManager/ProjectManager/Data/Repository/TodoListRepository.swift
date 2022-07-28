@@ -28,8 +28,8 @@ extension TodoListRepository: TodoListRepositorible {
         todoLocalStorage.create(item)
     }
     
-    func todosPublisher() -> CurrentValueSubject<LocalStorageState, Never> {
-        return todoLocalStorage.todosPublisher()
+    var todosPublisher: CurrentValueSubject<LocalStorageState, Never> {
+        return todoLocalStorage.todosPublisher
     }
     
     func update(_ item: Todo) {
@@ -42,14 +42,14 @@ extension TodoListRepository: TodoListRepositorible {
     
     func synchronizeDatabase() {
         if isFirstLogin {
-            switch todoLocalStorage.todosPublisher().value {
+            switch todoLocalStorage.todosPublisher.value {
             case .success(let items):
                 todoRemoteStorage.backup(items)
             case .failure(let _):
                 break
             }
         } else {
-            todoRemoteStorage.todosPublisher()
+            todoRemoteStorage.todosPublisher
                 .sink { _ in
                     
                 } receiveValue: { [weak self] items in

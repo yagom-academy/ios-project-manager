@@ -10,6 +10,6 @@ import Combine
 
 protocol TodoHistoryRepositorible {
     func create(_ item: TodoHistory)
-    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never>
+    var todoHistoriesPublisher: CurrentValueSubject<HistoryStorageState, Never> { get }
     func delete(item: TodoHistory)
 }

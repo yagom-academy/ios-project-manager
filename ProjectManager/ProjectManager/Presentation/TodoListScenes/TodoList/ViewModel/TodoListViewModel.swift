@@ -47,7 +47,7 @@ final class TodoListViewModel: TodoListViewModelable {
     }
     
     var todoItems: AnyPublisher<LocalStorageState, Never> {
-        return todoUseCase.todosPublisher().eraseToAnyPublisher()
+        return todoUseCase.todosPublisher.eraseToAnyPublisher()
     }
 
     let state = PassthroughSubject<TodoListViewModelState, Never>()

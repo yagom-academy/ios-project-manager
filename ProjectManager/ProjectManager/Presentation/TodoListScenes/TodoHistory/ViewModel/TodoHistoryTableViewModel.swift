@@ -33,7 +33,7 @@ final class TodoHistoryTableViewModel: TodoHistoryTableViewModelable {
     }
     
     private func setData() {
-        historyUseCase.todoHistoriesPublisher()
+        historyUseCase.todoHistoriesPublisher
             .flatMap { state -> AnyPublisher<[TodoHistory], Never> in
                 switch state {
                 case .success(let items):

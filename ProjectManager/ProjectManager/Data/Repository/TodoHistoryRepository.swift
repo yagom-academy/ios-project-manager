@@ -21,8 +21,8 @@ extension TodoHistoryRepository: TodoHistoryRepositorible {
         storage.create(item)
     }
     
-    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never> {
-        storage.todoHistoriesPublisher()
+    var todoHistoriesPublisher: CurrentValueSubject<HistoryStorageState, Never> {
+        return storage.todoHistoriesPublisher
     }
     
     func delete(item: TodoHistory) {

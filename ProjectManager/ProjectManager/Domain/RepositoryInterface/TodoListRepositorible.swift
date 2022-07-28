@@ -10,7 +10,7 @@ import Combine
 
 protocol TodoListRepositorible {
     func create(_ item: Todo)
-    func todosPublisher() -> CurrentValueSubject<LocalStorageState, Never>
+    var todosPublisher: CurrentValueSubject<LocalStorageState, Never> { get }
     func update(_ item: Todo)
     func delete(item: Todo)
     func synchronizeDatabase()

@@ -10,7 +10,7 @@ import Combine
 
 protocol TodoHistoryUseCaseable {
     func create(_ item: TodoHistory)
-    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never>
+    var todoHistoriesPublisher: CurrentValueSubject<HistoryStorageState, Never> { get }
     func delete(item: TodoHistory)
 }
 
@@ -25,8 +25,8 @@ final class TodoHistoryUseCase: TodoHistoryUseCaseable {
         repository.create(item)
     }
     
-    func todoHistoriesPublisher() -> CurrentValueSubject<HistoryStorageState, Never> {
-        return repository.todoHistoriesPublisher()
+    var todoHistoriesPublisher: CurrentValueSubject<HistoryStorageState, Never> {
+        return repository.todoHistoriesPublisher
     }
     
     func delete(item: TodoHistory) {
