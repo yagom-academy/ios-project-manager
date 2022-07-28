@@ -69,7 +69,7 @@ extension ListTableViewCell {
         self.backgroundColor = .systemGray6
         titleLabel.text = listItem.title
         bodyLabel.text = listItem.body
-        deadlineLabel.text = DateConverter.dateToString(listItem.deadline)
+        deadlineLabel.text = DateConverter.listDateString(listItem.deadline)
         deadlineLabel.textColor = isOver ? .red : .label
     }
     

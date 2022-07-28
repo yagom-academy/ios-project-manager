@@ -10,7 +10,7 @@ import Foundation
 struct DateConverter {
     static let dateFormatter = DateFormatter()
     
-    static func dateToString(_ date: Date) -> String {
+    static func listDateString(_ date: Date) -> String {
         dateFormatter.locale = .autoupdatingCurrent
         dateFormatter.timeZone = .autoupdatingCurrent
         dateFormatter.dateFormat = "yyyy. M. d."
