@@ -19,7 +19,7 @@ final class HistoryView: UIView {
     
     private(set) lazy var historyTableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .red
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
         tableView.register(HistoryTableViewCell.self)
         return tableView
     }()
@@ -27,7 +27,7 @@ final class HistoryView: UIView {
     private func setLayout() {
         self.addSubview(historyTableView)
         historyTableView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(20)
+            $0.edges.equalToSuperview().inset(20)
         }
     }
 }
