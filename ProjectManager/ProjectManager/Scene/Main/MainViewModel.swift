@@ -53,7 +53,6 @@ final class MainViewModel: MainViewModelInOut {
         checkNetwork()
         if UserDefaults.standard.bool(forKey: "lunchedBefore") == false {
             setList()
-            UserDefaults.standard.set(true, forKey: "lunchedBefore")
         }
     }
     
