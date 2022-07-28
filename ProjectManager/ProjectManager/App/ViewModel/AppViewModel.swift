@@ -42,4 +42,12 @@ class AppViewModel: ObservableObject {
   func plusButtonTapped() {
     isShowCreateView = true
   }
+  
+  func syncRemoteDatabase() {
+    guard isConnectedNetwork == false else { return }
+    
+    todoService.initUpdata()
+    
+    isConnectedNetwork = true
+  }
 }

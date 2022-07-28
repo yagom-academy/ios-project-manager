@@ -33,8 +33,12 @@ struct AppView: View {
           HStack {
             Text(viewModel.navigationTitle)
               .font(.title)
-            Image(systemName: "circle.fill")
-              .foregroundColor(viewModel.isConnectedNetwork ? .green : .red)
+            Button {
+              viewModel.isConnectedNetwork.toggle()
+            } label: {
+              Image(systemName: "circle.fill")
+                .foregroundColor(viewModel.isConnectedNetwork ? .green : .gray)
+            }
           }
         }
         ToolbarItem(placement: .navigationBarTrailing) {

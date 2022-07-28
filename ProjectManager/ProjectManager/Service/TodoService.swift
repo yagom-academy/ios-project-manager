@@ -22,7 +22,9 @@ class TodoService: ObservableObject {
     realmData.date = todo.date
     realmData.status = todo.status
     realmData.id = todo.id
-    
+    try? realm?.write {
+      realm?.add(realmData)
+    }
     dataManager.createTodo(todo: todo)
   }
   
