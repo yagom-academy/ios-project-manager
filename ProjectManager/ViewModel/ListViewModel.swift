@@ -16,6 +16,7 @@ class ListViewModel: ViewModelType {
   init(withService: TaskManagementService, taskType: TaskType) {
     super.init(withService: withService)
     self.taskType = taskType
+    self.tasks = service.allTasks
   }
   
   func cellTapped() {
@@ -28,7 +29,6 @@ class ListViewModel: ViewModelType {
   
   func moveTask(_ task: Task, type: TaskType) {
     self.service.move(task, type: type)
-    self.tasks = service.allTasks
   }
   
   func readTasks() -> [Task] {

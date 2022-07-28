@@ -18,6 +18,7 @@ class TaskManagementService {
     } catch {
       print(error)
     }
+    self.allHistories = self.readAllHistories()
     self.allTasks = self.readAllTasks()
   }
   
@@ -39,7 +40,6 @@ class TaskManagementService {
         
         realm?.add(task)
         self.allTasks = self.readAllTasks()
-        
       })
     } catch {
       print(error)
@@ -121,5 +121,6 @@ class TaskManagementService {
     } catch {
       print(error)
     }
+    self.allTasks = readAllTasks()
   }
 }
