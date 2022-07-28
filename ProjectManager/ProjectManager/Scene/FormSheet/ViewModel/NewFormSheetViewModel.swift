@@ -24,7 +24,8 @@ protocol NewFormSheetViewModelState {
 final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
                                     NewFormSheetViewModelState,
                                     ErrorObservable,
-                                    PopNotificationSendable {
+                                    PopNotificationSendable,
+                                    PushAddNotificationSendable {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
@@ -99,12 +100,5 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
                 self?.error.accept(DatabaseError.createError)
             }
         }
-    }
-    
-    private func sendNotificationForHistory(_ title: String) {
-        let content = "Added '\(title)'."
-        let time = date.value
-        let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("PushHistory"), object: nil, userInfo: history)
     }
 }

@@ -24,7 +24,11 @@ protocol MainViewModelState {
     var redoable: BehaviorRelay<Bool> { get }
 }
 
-final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservable, PopNotificationSendable {
+final class MainViewModel: MainViewModelEvent,
+                            MainViewModelState,
+                            ErrorObservable,
+                            PopNotificationSendable,
+                            PushDeleteNotificationSendable {
     
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
@@ -165,13 +169,6 @@ final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservab
         }
     }
     
-    private func sendNotificationForHistory(_ title: String, from type: TaskType) {
-        let content = "Removed '\(title)' from \(type.rawValue)"
-        let time = Date().timeIntervalSince1970
-        let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("PushHistory"), object: nil, userInfo: history)
-    }
-        
     private func fetchToDo() {
         let todos = realmManager.fetchTasks(type: .todo)
         setupTaskDeadlineNotification(todos)
