@@ -10,36 +10,43 @@ import Foundation
 import RealmSwift
 import RxRelay
 
+enum CRUDType {
+    case create(at: Todo)
+    case update(at: Todo)
+    case delete(at: UUID)
+    case read(at: [Todo])
+}
+
 final class RealmDatabase {
-    private let realm: Realm?
+    let dataBehaviorRelay = BehaviorRelay<CRUDType>(value: .read(at: []))
     
-    let createDataPublishRelay = PublishRelay<Todo>()
-    let updateDataPublishRelay = PublishRelay<Todo>()
-    let deleteDataPublishRelay = PublishRelay<UUID>()
+    private let realm: Realm?
+
     
     init() {
         self.realm = try? Realm()
+        self.read()
     }
     
     func create(todoData: Todo) {
         try? self.realm?.write { [weak self] in
             self?.realm?.add(todoData.convertRealmTodo())
         }
-        self.createDataPublishRelay.accept(todoData)
+        self.dataBehaviorRelay.accept(.create(at: todoData))
     }
     
-    func read(completion: @escaping ([Todo]) -> Void) {
+    private func read() {
         var todoList: [Todo] = []
         self.realm?.objects(TodoDTO.self)
             .forEach { todoList.append($0.convertTodo()) }
-        completion(todoList)
+        self.dataBehaviorRelay.accept(.read(at: todoList))
     }
     
     func update(selectedTodo: Todo) {
         try? self.realm?.write({ [weak self] in
             self?.realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
         })
-        self.updateDataPublishRelay.accept(selectedTodo)
+        self.dataBehaviorRelay.accept(.update(at: selectedTodo))
     }
     
     func delete(todoID: UUID) {
@@ -50,7 +57,7 @@ final class RealmDatabase {
             self?.realm?.delete(item)
             
         })
-        self.deleteDataPublishRelay.accept(todoID)
+        self.dataBehaviorRelay.accept(.delete(at: todoID))
     }
     
     func add(todoData: [Todo]) {

@@ -32,7 +32,8 @@ final class FirebaseDatabase {
     
     func sync(todoData: [Todo]) {
         todoData.forEach {
-            let todoListReference = self.firebase?.child("TodoList/\($0.identifier.uuidString)")
+            let todoListReference = self.firebase?
+                .child("TodoList/\($0.identifier.uuidString)")
             todoListReference?.setValue($0.dictionary)
         }
     }
