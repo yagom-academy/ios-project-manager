@@ -4,13 +4,13 @@
 //
 //  Created by Red and Taeangel on 2022/07/04.
 //
-  
+
 import SwiftUI
 import RealmSwift
 
 struct AppView: View {
   @ObservedObject private var viewModel: AppViewModel
-
+  
   init(viewModel: AppViewModel) {
     let navigationBarApperance = UINavigationBarAppearance()
     navigationBarApperance.backgroundColor = UIColor.systemGray6
@@ -29,6 +29,15 @@ struct AppView: View {
       .background(Color(UIColor.systemGray4))
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
+        ToolbarItem(placement: .navigationBarLeading) {
+          Button(
+            action: {
+              viewModel.historyButtonTapped()
+            },
+            label: {
+              Text("History")
+            })
+        }
         ToolbarItem(placement: .principal) {
           HStack {
             Text(viewModel.navigationTitle)
@@ -50,6 +59,9 @@ struct AppView: View {
       }
       .sheet(isPresented: $viewModel.isShowCreateView) {
         CreateView(viewModel: viewModel.createViewModel)
+      }
+      .popover(isPresented: $viewModel.isShowHistoryView) {
+        HistoryView(viewModel: viewModel.historyViewModel)
       }
     }
     .navigationViewStyle(.stack)

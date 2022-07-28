@@ -15,6 +15,9 @@
 		866FCC20288D6045005CDFBC /* CellContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866FCC1F288D6045005CDFBC /* CellContentViewModel.swift */; };
 		866FCC24288D60B4005CDFBC /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866FCC23288D60B4005CDFBC /* PopoverViewModel.swift */; };
 		866FCC29288D63EE005CDFBC /* CellButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866FCC28288D63EE005CDFBC /* CellButtonViewModel.swift */; };
+		867AC6432892AF0C00E6BBD8 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867AC6422892AF0C00E6BBD8 /* HistoryView.swift */; };
+		867AC6452892B0A500E6BBD8 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867AC6442892B0A500E6BBD8 /* HistoryViewModel.swift */; };
+		867AC6472892B42F00E6BBD8 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867AC6462892B42F00E6BBD8 /* HistoryStore.swift */; };
 		86855C342873C608002090E1 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C332873C608002090E1 /* Realm */; };
 		86855C362873C608002090E1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C352873C608002090E1 /* RealmSwift */; };
 		86B5211B28758AD5003B83C9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5211A28758AD5003B83C9 /* Todo.swift */; };
@@ -53,6 +56,9 @@
 		866FCC1F288D6045005CDFBC /* CellContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellContentViewModel.swift; sourceTree = "<group>"; };
 		866FCC23288D60B4005CDFBC /* PopoverViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
 		866FCC28288D63EE005CDFBC /* CellButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellButtonViewModel.swift; sourceTree = "<group>"; };
+		867AC6422892AF0C00E6BBD8 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		867AC6442892B0A500E6BBD8 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		867AC6462892B42F00E6BBD8 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
 		86B5211A28758AD5003B83C9 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		86B5211D287597E7003B83C9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		86B5211F2875B8DF003B83C9 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -115,6 +121,7 @@
 		866FCC14288D5AEB005CDFBC /* AppViewSubViews */ = {
 			isa = PBXGroup;
 			children = (
+				867AC6422892AF0C00E6BBD8 /* HistoryView.swift */,
 				DAA805B0287D1154001CF270 /* CreateView.swift */,
 				866FCC10288D5765005CDFBC /* CreateAndEditSubView */,
 				DA657CE228759BB6002DB030 /* ListView.swift */,
@@ -136,6 +143,7 @@
 		866FCC1A288D5D82005CDFBC /* AppViewModelSubViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				867AC6442892B0A500E6BBD8 /* HistoryViewModel.swift */,
 				DAA805B4287D2555001CF270 /* CreateViewModel.swift */,
 				DAE17E7028813CFE0021F54B /* ListViewModel.swift */,
 				866FCC25288D60E8005CDFBC /* ListViewModelSubViewModels */,
@@ -236,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				8641DC14287D1C4E0079D3EE /* TodoService.swift */,
+				867AC6462892B42F00E6BBD8 /* HistoryStore.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -362,9 +371,12 @@
 				DAA805AF287D113F001CF270 /* DetailView.swift in Sources */,
 				8641DC15287D1C4E0079D3EE /* TodoService.swift in Sources */,
 				DA6B678728868312009B13BF /* TodoRealm.swift in Sources */,
+				867AC6472892B42F00E6BBD8 /* HistoryStore.swift in Sources */,
+				867AC6432892AF0C00E6BBD8 /* HistoryView.swift in Sources */,
 				866FCC17288D5C19005CDFBC /* CellButtonView.swift in Sources */,
 				86B521202875B8DF003B83C9 /* HeaderView.swift in Sources */,
 				DA657CE128758FE5002DB030 /* CellContentView.swift in Sources */,
+				867AC6452892B0A500E6BBD8 /* HistoryViewModel.swift in Sources */,
 				866FCC20288D6045005CDFBC /* CellContentViewModel.swift in Sources */,
 				DA657CE328759BB6002DB030 /* ListView.swift in Sources */,
 				DA657CE52875C77D002DB030 /* EditView.swift in Sources */,

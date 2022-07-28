@@ -13,6 +13,7 @@ class AppViewModel: ObservableObject {
   let navigationTitle: String
   @Published var todoList: [Todo]
   @Published var isShowCreateView: Bool
+  @Published var isShowHistoryView: Bool
   
   var todoListViewModel: ListViewModel {
     return ListViewModel(todoService: todoService, status: .todo, update: self.changeStatus) }
@@ -22,8 +23,12 @@ class AppViewModel: ObservableObject {
     return ListViewModel(todoService: todoService, status: .done, update: self.changeStatus) }
   
   var createViewModel: CreateViewModel {
-    return  CreateViewModel(todoService: todoService, todoList: todoList) { self.isShowCreateView = false
+    return CreateViewModel(todoService: todoService, todoList: todoList) { self.isShowCreateView = false
     }
+  }
+  
+  var historyViewModel: HistoryViewModel {
+    return HistoryViewModel(todoService: todoService)
   }
   
   init(todoService: TodoService = TodoService(), navigationTitle: String = "Project Manager") {
@@ -32,6 +37,7 @@ class AppViewModel: ObservableObject {
     self.navigationTitle = navigationTitle
     self.todoList = todoService.read()
     self.isShowCreateView = false
+    self.isShowHistoryView = false
   }
   
   func changeStatus(status: Status, todo: Todo) {
@@ -42,7 +48,11 @@ class AppViewModel: ObservableObject {
   func plusButtonTapped() {
     isShowCreateView = true
   }
-  
+
+  func historyButtonTapped() {
+    isShowHistoryView = true
+  }
+
   func syncRemoteDatabase() {
     todoService.initUpdata {
       self.todoList = self.todoService.read()

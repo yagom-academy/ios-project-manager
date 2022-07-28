@@ -28,9 +28,9 @@ class ListViewModel: ObservableObject {
     
     guard let index = set.first else { return }
     
-    let id = filteredtodoList[index].id
+    let todo = filteredtodoList[index]
     
-    todoService.delete(id: id)
+    todoService.delete(todo: todo)
     
     self.refrash()
   }

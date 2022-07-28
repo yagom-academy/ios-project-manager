@@ -10,9 +10,11 @@ import RealmSwift
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class TodoService: ObservableObject {
+class TodoService {
   let dataManager: DataManager = DataManager()
   var newtWorkCollection: Bool = true
+  var historyStore: [HistoryModel] = []
+  
   let realm = try? Realm()
   
   func creat(todo: Todo) {
@@ -25,7 +27,11 @@ class TodoService: ObservableObject {
     try? realm?.write {
       realm?.add(realmData)
     }
+    
     dataManager.createTodo(todo: todo)
+    
+    let history = HistoryModel(title: todo.title, data: todo.date)
+    historyStore.append(history)
   }
   
   func initUpdata(completion: @escaping () -> Void) {
@@ -94,7 +100,16 @@ class TodoService: ObservableObject {
     try? realm?.write {
       selectedTodo.status = status
     }
+    
     dataManager.updateTodo(status: status, todo: todo)
+ 
+    let history = HistoryModel(action: .move,
+                               title: todo.title,
+                               originalStatus: todo.status,
+                               nowStatus: status,
+                               data: todo.date)
+    historyStore.append(history)
+ 
   }
   
   func update(todo: Todo) {
@@ -111,11 +126,19 @@ class TodoService: ObservableObject {
     }
     
     dataManager.updateTodo(todo: todo)
+
+    let history = HistoryModel(action: .edit,
+                               title: todo.title,
+                               originalStatus: todo.status,
+                               nowStatus: nil,
+                               data: todo.date)
+    historyStore.append(history)
+ 
   }
   
-  func delete(id: UUID) {
+  func delete(todo: Todo) {
     
-    guard let selectedTodo = realm?.objects(TodoRealm.self).first(where: { $0.id == id }) else {
+    guard let selectedTodo = realm?.objects(TodoRealm.self).first(where: { $0.id == todo.id }) else {
       return
     }
     
@@ -123,6 +146,13 @@ class TodoService: ObservableObject {
       realm?.delete(selectedTodo)
     }
     
-    dataManager.deleteTodo(id: id)
+    dataManager.deleteTodo(todo: todo)
+
+    let history = HistoryModel(action: .delete,
+                               title: todo.title,
+                               originalStatus: todo.status,
+                               nowStatus: nil,
+                               data: todo.date)
+    historyStore.append(history)
   }
 }

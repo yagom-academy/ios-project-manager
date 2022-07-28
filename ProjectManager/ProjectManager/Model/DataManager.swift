@@ -72,9 +72,8 @@ class DataManager {
                    "status": todo.status.rawValue])
   }
   
-  func deleteTodo(id: UUID) {
-    dataBase.collection("Todo").document(id.uuidString).delete { _ in
-    
+  func deleteTodo(todo: Todo) {
+    dataBase.collection("Todo").document(todo.id.uuidString).delete { _ in
     }
   }
 }
