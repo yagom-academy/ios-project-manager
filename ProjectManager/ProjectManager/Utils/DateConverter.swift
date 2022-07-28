@@ -19,4 +19,14 @@ struct DateConverter {
         
         return stringDate
     }
+    
+    static func historyDateString(_ date: Date) -> String {
+        dateFormatter.locale = .autoupdatingCurrent
+        dateFormatter.timeZone = .autoupdatingCurrent
+        dateFormatter.dateFormat = "MMM d, y h:mm:ss a"
+        
+        let stringDate = dateFormatter.string(from: date)
+        
+        return stringDate
+    }
 }
