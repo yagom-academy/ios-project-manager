@@ -14,5 +14,5 @@ protocol TodoListRepository {
     func create(to data: TodoModel)
     func update(to data: TodoModel)
     func delete(index: Int)
-    var errorObserver: PublishRelay<TodoError> { get }
+    var errorObserver: Observable<TodoError> { get }
 }

@@ -13,5 +13,5 @@ protocol HistoryRepository {
     func read() -> BehaviorSubject<[History]>
     func save(to data: History)
     func delete(index: Int)
-    var errorObserver: PublishRelay<TodoError> { get }
+    var errorObserver: Observable<TodoError> { get }
 }

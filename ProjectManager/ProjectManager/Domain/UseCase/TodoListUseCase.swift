@@ -17,7 +17,7 @@ protocol TodoListUseCase {
     func deleteItem(id: UUID)
     func firstMoveState(item: TodoModel)
     func secondMoveState(item: TodoModel)
-    var errorObserver: PublishRelay<TodoError> { get }
+    var errorObserver: Observable<TodoError> { get }
 }
 
 final class DefaultTodoListUseCase {
@@ -42,7 +42,7 @@ final class DefaultTodoListUseCase {
 }
 
 extension DefaultTodoListUseCase: TodoListUseCase {
-    var errorObserver: PublishRelay<TodoError> {
+    var errorObserver: Observable<TodoError> {
         listRepository.errorObserver
     }
 
@@ -67,10 +67,7 @@ extension DefaultTodoListUseCase: TodoListUseCase {
     
     func deleteItem(id: UUID) {
         guard let items = try? listRepository.read().value(),
-              let index = items.firstIndex(where: { $0.id == id }) else {
-            errorObserver.accept(TodoError.unknownItem)
-            return
-        }
+              let index = items.firstIndex(where: { $0.id == id }) else { return }
         let historyItem = History(changes: .removed,
                                   title: items[index].title ?? "",
                                   beforeState: items[index].state)

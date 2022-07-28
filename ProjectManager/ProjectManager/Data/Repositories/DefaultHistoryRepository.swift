@@ -30,7 +30,7 @@ extension DefaultHistoryRepository: HistoryRepository {
         storage.delete(index: index)
     }
     
-    var errorObserver: PublishRelay<TodoError> {
-        return storage.errorObserver
+    var errorObserver: Observable<TodoError> {
+        return storage.errorObserver.asObservable()
     }
 }

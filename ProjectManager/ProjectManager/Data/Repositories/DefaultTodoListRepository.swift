@@ -59,8 +59,8 @@ final class DefaultTodoListRepository {
 }
 
 extension DefaultTodoListRepository: TodoListRepository {
-    var errorObserver: PublishRelay<TodoError> {
-        return storage.errorObserver
+    var errorObserver: Observable<TodoError> {
+        return storage.errorObserver.asObservable()
     }
     
     func read() -> BehaviorSubject<[TodoModel]> {
