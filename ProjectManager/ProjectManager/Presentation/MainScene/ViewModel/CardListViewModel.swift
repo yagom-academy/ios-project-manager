@@ -16,6 +16,8 @@ protocol CardListViewModelInput {
   func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem
   func deleteSelectedCard(_ card: Card) -> Observable<Void>
   func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void>
+  func undo() -> Observable<Void>
+  func redo() -> Observable<Void>
 }
 
 protocol CardListViewModelOutput {
@@ -88,8 +90,10 @@ final class CardListViewModel: CardListViewModelable {
   }
   
   func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem {
+    let card = history.actionType == .create ? history.next : history.prev
+    
     return CardHistoryViewModelItem(
-      card: history.prev ?? .empty(),
+      card: card ?? .empty(),
       actionType: history.actionType,
       actionTimeString: setDateToString(history.actionTime),
       informationString: setInformationString(history)
@@ -106,6 +110,14 @@ final class CardListViewModel: CardListViewModelable {
   
   func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void> {
     return useCase?.moveDifferentSection(card, to: index) ?? .empty()
+  }
+  
+  func undo() -> Observable<Void> {
+    useCase?.undo() ?? .empty()
+  }
+  
+  func redo() -> Observable<Void> {
+    useCase?.redo() ?? .empty()
   }
 }
 

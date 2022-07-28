@@ -21,6 +21,8 @@ protocol CardUseCase: AnyObject {
   func updateSelectedCard(_ card: Card) -> Observable<Void>
   func deleteSelectedCard(_ card: Card) -> Observable<Void>
   func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void>
+  func undo() -> Observable<Void>
+  func redo() -> Observable<Void>
 }
 
 // MARK: - Implement
@@ -33,6 +35,7 @@ final class DefaultCardUseCase: CardUseCase {
   private let localDatabaseRepository: LocalDatabaseRepository
   private let realtimeDatabaseRepository: RealtimeDatabaseRepository
   private let cardNotificationService: CardNotificationService
+  private let undoRedoService: UndoRedoService
   
   let cards = BehaviorRelay<[Card]>(value: [])
   let histories = BehaviorRelay<[History]>(value: [])
@@ -42,11 +45,13 @@ final class DefaultCardUseCase: CardUseCase {
   init(
     localDatabaseRepository: LocalDatabaseRepository,
     realtimeDatabaseRepository: RealtimeDatabaseRepository,
-    cardNotificationService: CardNotificationService
+    cardNotificationService: CardNotificationService,
+    undoRedoService: UndoRedoService
   ) {
     self.localDatabaseRepository = localDatabaseRepository
     self.realtimeDatabaseRepository = realtimeDatabaseRepository
     self.cardNotificationService = cardNotificationService
+    self.undoRedoService = undoRedoService
   }
   
   func fetchCards() -> Observable<Void> {
@@ -70,13 +75,16 @@ final class DefaultCardUseCase: CardUseCase {
   
   func createNewCard(_ card: Card) -> Observable<Void> {
     return Observable.just(card)
-      .map { History(prev: $0, next: $0, actionType: .create) }
+      .map { History(next: $0, actionType: .create) }
       .withUnretained(self)
       .flatMap { owner, history -> Observable<Void> in
         owner.histories.accept(owner.histories.value + [history])
         owner.cardNotificationService.removeCardNotification(card)
         
-        // TODO: Undo Redo 등록
+        owner.undoRedoService.take(history: history)
+        owner.undoHistories.accept(owner.undoRedoService.undoStack)
+        owner.redoHistories.accept(owner.undoRedoService.redoStack)
+        
         return owner.localDatabaseRepository.create(card)
       }
       .flatMap(localDatabaseRepository.fetchAll)
@@ -92,7 +100,10 @@ final class DefaultCardUseCase: CardUseCase {
         owner.histories.accept(owner.histories.value + [history])
         owner.cardNotificationService.registerCardNotification(card)
         
-        // TODO: Undo Redo 등록
+        owner.undoRedoService.take(history: history)
+        owner.undoHistories.accept(owner.undoRedoService.undoStack)
+        owner.redoHistories.accept(owner.undoRedoService.redoStack)
+        
         return owner.localDatabaseRepository.update(card)
       }
       .flatMap(localDatabaseRepository.fetchAll)
@@ -108,7 +119,10 @@ final class DefaultCardUseCase: CardUseCase {
         owner.histories.accept(owner.histories.value + [history])
         owner.cardNotificationService.removeCardNotification(card)
         
-        // TODO: Undo Redo 등록
+        owner.undoRedoService.take(history: history)
+        owner.undoHistories.accept(owner.undoRedoService.undoStack)
+        owner.redoHistories.accept(owner.undoRedoService.redoStack)
+        
         return owner.localDatabaseRepository.delete(card)
       }
       .flatMap(localDatabaseRepository.fetchAll)
@@ -129,11 +143,91 @@ final class DefaultCardUseCase: CardUseCase {
         owner.histories.accept(owner.histories.value + [history])
         owner.cardNotificationService.registerCardNotification(newCard)
         
-        // TODO: Undo Redo 등록
+        owner.undoRedoService.take(history: history)
+        owner.undoHistories.accept(owner.undoRedoService.undoStack)
+        owner.redoHistories.accept(owner.undoRedoService.redoStack)
+        
         return owner.localDatabaseRepository.update(newCard)
       }
       .flatMap(localDatabaseRepository.fetchAll)
       .flatMap(realtimeDatabaseRepository.create)
       .map { [weak self] in self?.cards.accept($0) }
+  }
+  
+  func undo() -> Observable<Void> {
+    let history = undoRedoService.undo()
+    
+    if let card = history?.prev {
+      return localDatabaseRepository.isExist(id: card.id)
+        .withUnretained(self)
+        .flatMap { owner, isExist -> Observable<Void> in
+          isExist
+            ? owner.localDatabaseRepository.update(card)
+            : owner.localDatabaseRepository.create(card)
+        }
+        .withUnretained(self)
+        .flatMap { owner, _ -> Observable<[Card]> in
+          owner.undoHistories.accept(owner.undoRedoService.undoStack)
+          owner.redoHistories.accept(owner.undoRedoService.redoStack)
+          return owner.localDatabaseRepository.fetchAll()
+        }
+        .flatMap(realtimeDatabaseRepository.create)
+        .map { [weak self] in self?.cards.accept($0) }
+      
+    } else if let card = history?.next {
+      return localDatabaseRepository.delete(card)
+        .withUnretained(self)
+        .flatMap { owner, _ -> Observable<[Card]> in
+          owner.undoHistories.accept(owner.undoRedoService.undoStack)
+          owner.redoHistories.accept(owner.undoRedoService.redoStack)
+          return owner.localDatabaseRepository.fetchAll()
+        }
+        .flatMap(realtimeDatabaseRepository.create)
+        .map { [weak self] in self?.cards.accept($0) }
+    } else {
+      return .empty()
+    }
+  }
+  
+  func redo() -> Observable<Void> {
+    let history = undoRedoService.redo()
+    
+    if let card = history?.next {
+      return localDatabaseRepository.isExist(id: card.id)
+        .withUnretained(self)
+        .flatMap { owner, isExist -> Observable<Void> in
+          isExist
+            ? owner.localDatabaseRepository.update(card)
+            : owner.localDatabaseRepository.create(card)
+        }
+        .withUnretained(self)
+        .flatMap { owner, _ -> Observable<[Card]> in
+          owner.undoHistories.accept(owner.undoRedoService.undoStack)
+          owner.redoHistories.accept(owner.undoRedoService.redoStack)
+          return owner.localDatabaseRepository.fetchAll()
+        }
+        .flatMap(realtimeDatabaseRepository.create)
+        .map { [weak self] in self?.cards.accept($0) }
+      
+    } else if let card = history?.prev {
+      return Observable.just(card)
+        .flatMap { card -> Observable<Void> in
+          if history?.actionType == .delete {
+            return self.localDatabaseRepository.delete(card)
+          } else {
+            return self.localDatabaseRepository.create(card)
+          }
+        }
+        .withUnretained(self)
+        .flatMap { owner, _ -> Observable<[Card]> in
+          owner.undoHistories.accept(owner.undoRedoService.undoStack)
+          owner.redoHistories.accept(owner.undoRedoService.redoStack)
+          return owner.localDatabaseRepository.fetchAll()
+        }
+        .flatMap(realtimeDatabaseRepository.create)
+        .map { [weak self] in self?.cards.accept($0) }
+    } else {
+      return .empty()
+    }
   }
 }

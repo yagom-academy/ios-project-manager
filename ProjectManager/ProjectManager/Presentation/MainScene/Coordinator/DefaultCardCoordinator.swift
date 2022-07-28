@@ -21,7 +21,8 @@ final class DefaultCardCoordinator: CardCoordinator {
   private let useCase = DefaultCardUseCase(
     localDatabaseRepository: DefaultLocalDatabaseRepository(storage: CoreDataStorage.standard),
     realtimeDatabaseRepository: DefaultRealtimeDatabaseRepository(service: Database.database().reference()),
-    cardNotificationService: DefaultCardNotificationService(userNotificationCenter: UNUserNotificationCenter.current())
+    cardNotificationService: DefaultCardNotificationService(userNotificationCenter: UNUserNotificationCenter.current()),
+    undoRedoService: DefaultUndoRedoService()
   )
   
   init(navigationController: UINavigationController) {

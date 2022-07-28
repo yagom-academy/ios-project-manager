@@ -256,15 +256,13 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
     
     undoButton.rx.tap
-      .bind(onNext: {
-        print("UNDO")
-      })
+      .flatMap(viewModel.undo)
+      .bind(onNext: { _ in })
       .disposed(by: disposeBag)
     
     redoButton.rx.tap
-      .bind(onNext: {
-        print("REDO")
-      })
+      .flatMap(viewModel.redo)
+      .bind(onNext: { _ in })
       .disposed(by: disposeBag)
   }
 }

@@ -14,7 +14,7 @@ struct History {
   let actionTime: Date = Date()
 }
 
-enum HistoryActionType: CustomStringConvertible {
+enum HistoryActionType: Equatable, CustomStringConvertible {
   case create
   case update
   case delete

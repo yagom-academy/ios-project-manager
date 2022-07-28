@@ -173,4 +173,17 @@ final class DefaultLocalDatabaseRepository: LocalDatabaseRepository {
   func count() -> Observable<Int> {
     return fetchAll().map { $0.count }
   }
+  
+  func isExist(id: String) -> Observable<Bool> {
+    return fetchOne(id: id)
+      .materialize()
+      .flatMap { event -> Observable<Event<Bool>> in
+        switch event {
+        case .next(_): return .just(.next(true))
+        case .error(_): return .just(.next(false))
+        default: return .empty()
+        }
+      }
+      .dematerialize()
+  }
 }
