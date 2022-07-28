@@ -18,8 +18,8 @@ class TaskManagementService {
     } catch {
       print(error)
     }
-    self.allHistories = self.readAllHistories()
-    self.allTasks = self.readAllTasks()
+    self.allHistories = readAllHistories()
+    self.allTasks = readAllTasks()
   }
   
 
@@ -36,10 +36,10 @@ class TaskManagementService {
                               date: Date(),
                               type: .add)
         realm?.add(history)
-        self.allHistories = self.readAllHistories()
+        self.allHistories = readAllHistories()
         
         realm?.add(task)
-        self.allTasks = self.readAllTasks()
+        self.allTasks = readAllTasks()
       })
     } catch {
       print(error)
