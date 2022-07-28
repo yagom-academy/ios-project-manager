@@ -101,7 +101,7 @@ extension DefaultTodoListViewModel: TodoListViewModel {
     var errorMessage: Observable<String> {
         useCase.errorObserver
             .map { error in
-                error.rawValue
+                error.localizedDescription
             }
     }
     
