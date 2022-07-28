@@ -20,6 +20,7 @@ final class HistoryView: UIView {
     private(set) lazy var historyTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .red
+        tableView.register(HistoryTableViewCell.self)
         return tableView
     }()
     
