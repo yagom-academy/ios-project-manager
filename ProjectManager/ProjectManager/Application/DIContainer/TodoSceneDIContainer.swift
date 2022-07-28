@@ -11,6 +11,7 @@ final class TodoSceneDIContainer {
     private let todoListStorage = RealmTodoListStorage()
     private let historyStorage = RealmHistoryStorage()
     private let backUpStorage = FirebaseTodoListStorage()
+    private let userStateStorage = UserDefaults()
 
     private func makeTodoListViewModel() -> DefaultTodoListViewModel {
         return DefaultTodoListViewModel(useCase: makeTodoListUseCase())
@@ -35,7 +36,7 @@ final class TodoSceneDIContainer {
     }
     
     private func makeTodoListRepository() -> DefaultTodoListRepository {
-        return DefaultTodoListRepository(storage: todoListStorage, backUpStorage: backUpStorage)
+        return DefaultTodoListRepository(storage: todoListStorage, backUpStorage: backUpStorage, userStateStorage: userStateStorage)
     }
     
     private func makeHistoryRepository() -> DefaultHistoryRepository {

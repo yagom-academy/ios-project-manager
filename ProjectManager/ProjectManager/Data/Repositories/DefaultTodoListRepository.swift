@@ -10,22 +10,28 @@ import RxSwift
 import RxRelay
 
 final class DefaultTodoListRepository {
+    private enum Constant {
+        static let userStateKey = "isUser"
+    }
+    
     private unowned let storage: TodoListStorage
     private unowned let backUpStorage: RemoteBackUpStorage
     private let bag = DisposeBag()
+    private unowned let userStateStorage: UserDefaults
     
     private var isUser: Bool {
-        if UserDefaults.standard.bool(forKey: "isUser") {
+        if userStateStorage.bool(forKey: Constant.userStateKey) {
             return true
         } else {
-            UserDefaults.standard.set(true, forKey: "isUser")
+            userStateStorage.set(true, forKey: Constant.userStateKey)
             return false
         }
     }
     
-    init(storage: TodoListStorage, backUpStorage: RemoteBackUpStorage) {
+    init(storage: TodoListStorage, backUpStorage: RemoteBackUpStorage, userStateStorage: UserDefaults) {
         self.storage = storage
         self.backUpStorage = backUpStorage
+        self.userStateStorage = userStateStorage
         upLoad()
         backUp()
     }
