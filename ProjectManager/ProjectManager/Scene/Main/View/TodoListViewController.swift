@@ -35,14 +35,6 @@ final class TodoListViewController: UIViewController {
     return stackView
   }()
   
-  private lazy var historyScrollView: UIScrollView = {
-    let scrollView = UIScrollView()
-    scrollView.translatesAutoresizingMaskIntoConstraints = false
-    scrollView.indicatorStyle = .black
-    scrollView.backgroundColor = .systemBlue
-    return scrollView
-  }()
-  
   private let todoListStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -169,11 +161,21 @@ final class TodoListViewController: UIViewController {
     navigationItem.leftBarButtonItem = UIBarButtonItem(
       title: "History",
       primaryAction: UIAction(handler: { _ in
-        self.showHistoryPopover()
+        self.showPopoverHistoryViewController()
       })
     )
-    
     navigationItem.title = "Project Manager"
+  }
+  
+  private func showPopoverHistoryViewController() {
+    let historyVC = HistoryViewController()
+    historyVC.modalPresentationStyle = .popover
+    
+    let popover = historyVC.popoverPresentationController
+    
+    popover?.barButtonItem = navigationItem.leftBarButtonItem
+
+    present(historyVC, animated: true)
   }
   
   private func configureUI() {
@@ -271,43 +273,6 @@ extension TodoListViewController: SwipeCollectionViewCellDelegate {
 
 // MARK: Popover
 private extension TodoListViewController {
-  func showHistoryPopover() {
-    let popoverVC = UIViewController()
-    popoverVC.modalPresentationStyle = .popover
-    popoverVC.view.addSubview(historyScrollView)
-    
-    NSLayoutConstraint.activate([
-      historyScrollView.topAnchor.constraint(
-        equalTo: popoverVC.view.safeAreaLayoutGuide.topAnchor,
-        constant: 20
-      ),
-      historyScrollView.bottomAnchor.constraint(
-        equalTo: popoverVC.view.safeAreaLayoutGuide.bottomAnchor,
-        constant: -20
-      ),
-      historyScrollView.leadingAnchor.constraint(
-        equalTo: popoverVC.view.safeAreaLayoutGuide.leadingAnchor,
-        constant: 10
-      ),
-      historyScrollView.trailingAnchor.constraint(
-        equalTo: popoverVC.view.safeAreaLayoutGuide.trailingAnchor,
-        constant: -10
-      )
-    ])
-    
-    let popover = popoverVC.popoverPresentationController
-    
-    popover?.sourceView = view
-    popover?.sourceRect = CGRect(
-      x: -500,
-      y: -220,
-      width: view.bounds.width * 0.5,
-      height: view.bounds.height * 0.6
-    )
-    
-    present(popoverVC, animated: true)
-  }
-  
   @objc func showPopover(longPressed gesture: UILongPressGestureRecognizer) {
     let pressedPoint = gesture.location(ofTouch: 0, in: nil)
     let pressedState = filterState(from: pressedPoint.x, by: view.bounds.width)
