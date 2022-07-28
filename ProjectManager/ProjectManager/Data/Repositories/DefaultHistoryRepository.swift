@@ -11,7 +11,6 @@ import RxRelay
 
 final class DefaultHistoryRepository {
     private unowned let storage: HistoryStorage
-    private let bag = DisposeBag()
     
     init(storage: HistoryStorage) {
         self.storage = storage
