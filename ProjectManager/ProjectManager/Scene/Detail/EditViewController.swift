@@ -84,7 +84,7 @@ final class EditViewController: UIViewController {
         .disposed(by: disposebag)
         
         viewModel.showErrorAlert.bind(onNext: {[weak self] in
-            self?.showErrorAlert(messege: $0)
+            self?.showErrorAlert(message: $0)
         })
         .disposed(by: disposebag)
     }

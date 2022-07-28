@@ -8,9 +8,9 @@
 import UIKit
 
 extension UIViewController {
-    func showErrorAlert(messege: String?) {
+    func showErrorAlert(message: String?) {
         let alert = UIAlertController(title: "오류",
-                                      message: messege ?? "예상치 못한 오류가 발생했습니다. 잠시 후 다시 시도해 주세요",
+                                      message: message ?? "예상치 못한 오류가 발생했습니다. 잠시 후 다시 시도해 주세요",
                                       preferredStyle: .alert)
         let action = UIAlertAction(title: "확인", style: .default) { _ in
             self.dismiss(animated: true)
