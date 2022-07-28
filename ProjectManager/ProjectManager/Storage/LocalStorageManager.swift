@@ -19,10 +19,11 @@ protocol LocalStorageManagerable {
 
 final class LocalStorageManager: LocalStorageManagerable {
     private let networkStorageManager: NetworkStorageManagerable
-    private let realm = try? Realm()
+    private let realm: Realm
     
-    init(_ networkStorageManager: NetworkStorageManagerable) {
+    init(networkStorageManager: NetworkStorageManagerable, realm: Realm) {
         self.networkStorageManager = networkStorageManager
+        self.realm = realm
     }
     
     func setList(_ completion: @escaping (Result<Void, StorageError>) -> Void) {
@@ -87,17 +88,13 @@ final class LocalStorageManager: LocalStorageManagerable {
     }
     
     func readHistory() -> [History] {
-        guard let listModel = realm?.objects(LocalStorage.self).first else {
+        guard let listModel = realm.objects(LocalStorage.self).first else {
             return []
         }
         return listModel.history.compactMap { $0 }
     }
     
     func addHistory(title: String) throws {
-        guard let realm = realm else {
-            return
-        }
-        
         do {
             try realm.write {
                 guard let listModel = realm.objects(LocalStorage.self).first else {
@@ -120,10 +117,6 @@ final class LocalStorageManager: LocalStorageManagerable {
     }
     
     func createItem(_ item: ListItem) throws {
-        guard let realm = realm else {
-            return
-        }
-        
         do {
             if realm.objects(LocalStorage.self).isEmpty {
                 let listModel = LocalStorage()
@@ -156,7 +149,7 @@ final class LocalStorageManager: LocalStorageManagerable {
             .filter(NSPredicate(format: "id = %@", item.id)).first
         
         do {
-            try realm?.write {
+            try realm.write {
                 itemModel?.title = item.title
                 itemModel?.deadline = item.deadline
                 itemModel?.body = item.body
@@ -174,8 +167,8 @@ final class LocalStorageManager: LocalStorageManagerable {
         }
         
         do {
-            try realm?.write {
-                realm?.delete(itemModel)
+            try realm.write {
+                realm.delete(itemModel)
             }
             networkStorageManager.deleteItem(convertedItem(item))
         } catch {
