@@ -30,12 +30,17 @@ final class LocalStorageManager: LocalStorageManagerable {
         networkStorageManager.read { result in
             switch result {
             case .success(let list):
-                list.forEach {
-                    do {
-                        try self.createItem($0)
-                    } catch {
-                        completion(.failure(StorageError.readError))
+                do {
+                    try self.deleteAll()
+                    list.forEach {
+                        do {
+                            try self.createItem($0)
+                        } catch {
+                            completion(.failure(StorageError.readError))
+                        }
                     }
+                } catch {
+                    completion(.failure(StorageError.deleteError))
                 }
                 completion(.success(()))
             case .failure(let error):
@@ -171,6 +176,16 @@ final class LocalStorageManager: LocalStorageManagerable {
                 realm.delete(itemModel)
             }
             networkStorageManager.deleteItem(convertedItem(item))
+        } catch {
+            throw StorageError.deleteError
+        }
+    }
+    
+    private func deleteAll() throws {
+        do {
+            try realm.write {
+                realm.deleteAll()
+            }
         } catch {
             throw StorageError.deleteError
         }
