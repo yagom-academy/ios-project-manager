@@ -37,6 +37,9 @@ struct AppView: View {
             label: {
               Text("History")
             })
+          .popover(isPresented: $viewModel.isShowHistoryView) {
+            HistoryView(viewModel: viewModel.historyViewModel)
+          }
         }
         ToolbarItem(placement: .principal) {
           HStack {
@@ -59,9 +62,6 @@ struct AppView: View {
       }
       .sheet(isPresented: $viewModel.isShowCreateView) {
         CreateView(viewModel: viewModel.createViewModel)
-      }
-      .popover(isPresented: $viewModel.isShowHistoryView) {
-        HistoryView(viewModel: viewModel.historyViewModel)
       }
     }
     .navigationViewStyle(.stack)
