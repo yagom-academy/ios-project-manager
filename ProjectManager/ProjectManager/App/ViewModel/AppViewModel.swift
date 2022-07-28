@@ -13,7 +13,6 @@ class AppViewModel: ObservableObject {
   let navigationTitle: String
   @Published var todoList: [Todo]
   @Published var isShowCreateView: Bool
-  @Published var isConnectedNetwork: Bool = false
   
   var todoListViewModel: ListViewModel {
     return ListViewModel(todoService: todoService, status: .todo, update: self.changeStatus) }
@@ -23,12 +22,13 @@ class AppViewModel: ObservableObject {
     return ListViewModel(todoService: todoService, status: .done, update: self.changeStatus) }
   
   var createViewModel: CreateViewModel {
-    return  CreateViewModel(todoService: todoService, todoList: todoList) { self.isShowCreateView = false }
+    return  CreateViewModel(todoService: todoService, todoList: todoList) { self.isShowCreateView = false
+    }
   }
   
   init(todoService: TodoService = TodoService(), navigationTitle: String = "Project Manager") {
     self.todoService = todoService
-    self.todoService.initUpdata()
+    self.todoService.initUpdata {}
     self.navigationTitle = navigationTitle
     self.todoList = todoService.read()
     self.isShowCreateView = false
@@ -44,10 +44,11 @@ class AppViewModel: ObservableObject {
   }
   
   func syncRemoteDatabase() {
-    guard isConnectedNetwork == false else { return }
-    
-    todoService.initUpdata()
-    
-    isConnectedNetwork = true
+    todoService.initUpdata {
+      self.todoList = self.todoService.read()
+      self.todoListViewModel.refrash()
+      self.doingListViewModel.refrash()
+      self.doneListViewModel.refrash()
+    }
   }
 }

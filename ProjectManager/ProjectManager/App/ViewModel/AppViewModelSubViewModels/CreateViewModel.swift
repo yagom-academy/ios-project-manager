@@ -14,7 +14,6 @@ class CreateViewModel: ObservableObject {
   var close: () -> Void
   @Published var todoList: [Todo]
 
-  
   init(todoService: TodoService,
        todo: Todo = Todo(title: "", content: ""),
        todoList: [Todo],

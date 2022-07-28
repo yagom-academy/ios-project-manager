@@ -28,7 +28,7 @@ class TodoService: ObservableObject {
     dataManager.createTodo(todo: todo)
   }
   
-  func initUpdata() {
+  func initUpdata(completion: @escaping () -> Void) {
     if newtWorkCollection {
       dataManager.readTodo { result in
         switch result {
@@ -44,6 +44,7 @@ class TodoService: ObservableObject {
               realmData.id = todo.id
               self.realm?.add(realmData)
             }
+            completion()
           }
         case.failure(let error):
           fatalError()

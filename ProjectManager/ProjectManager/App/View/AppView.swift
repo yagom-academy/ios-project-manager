@@ -34,10 +34,9 @@ struct AppView: View {
             Text(viewModel.navigationTitle)
               .font(.title)
             Button {
-              viewModel.isConnectedNetwork.toggle()
+              viewModel.syncRemoteDatabase()
             } label: {
-              Image(systemName: "circle.fill")
-                .foregroundColor(viewModel.isConnectedNetwork ? .green : .gray)
+              Image(systemName: "arrow.up.arrow.down.circle.fill")
             }
           }
         }
