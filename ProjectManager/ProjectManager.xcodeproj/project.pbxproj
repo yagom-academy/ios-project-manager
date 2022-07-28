@@ -26,6 +26,7 @@
 		9B7A8CFE288012A4009938C8 /* TodoMoveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7A8CFD288012A4009938C8 /* TodoMoveViewModel.swift */; };
 		9B84B0482892A71600C26ECC /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B84B0472892A71600C26ECC /* Collection+Subscript.swift */; };
 		9B84B04B2892A91100C26ECC /* TodoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B84B04A2892A91100C26ECC /* TodoError.swift */; };
+		9B84B04F2892C56400C26ECC /* ErrorThrowble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B84B04E2892C56400C26ECC /* ErrorThrowble.swift */; };
 		9BA4EBFF288E890B0060536E /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA4EBFE288E890B0060536E /* HistoryViewModel.swift */; };
 		9BA4EC01288EA0260060536E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA4EC00288EA0260060536E /* History.swift */; };
 		9BA4EC03288EA1EC0060536E /* HistoryEntity+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA4EC02288EA1EC0060536E /* HistoryEntity+Realm.swift */; };
@@ -75,6 +76,7 @@
 		9B7A8CFD288012A4009938C8 /* TodoMoveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMoveViewModel.swift; sourceTree = "<group>"; };
 		9B84B0472892A71600C26ECC /* Collection+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Subscript.swift"; sourceTree = "<group>"; };
 		9B84B04A2892A91100C26ECC /* TodoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoError.swift; sourceTree = "<group>"; };
+		9B84B04E2892C56400C26ECC /* ErrorThrowble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorThrowble.swift; sourceTree = "<group>"; };
 		9BA4EBFE288E890B0060536E /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		9BA4EC00288EA0260060536E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		9BA4EC02288EA1EC0060536E /* HistoryEntity+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+Realm.swift"; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				9B45247B2889B2BE0011D5D1 /* MappingEntities */,
 				9B2D9BD1287829770062C81A /* Repositories */,
 				9B2D9BD22878299B0062C81A /* PersistentStorages */,
+				9B84B04C2892C50200C26ECC /* Uitils */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -306,6 +309,22 @@
 				9B84B04A2892A91100C26ECC /* TodoError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		9B84B04C2892C50200C26ECC /* Uitils */ = {
+			isa = PBXGroup;
+			children = (
+				9B84B04D2892C51500C26ECC /* Protocols */,
+			);
+			path = Uitils;
+			sourceTree = "<group>";
+		};
+		9B84B04D2892C51500C26ECC /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9B84B04E2892C56400C26ECC /* ErrorThrowble.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		9BA4EBFD288E88E80060536E /* ViewModel */ = {
@@ -531,6 +550,7 @@
 				9B84B0482892A71600C26ECC /* Collection+Subscript.swift in Sources */,
 				9B15AF30287EECEE002F0D01 /* TodoMoveViewController.swift in Sources */,
 				9BF85574288657AE0098441C /* TodoEntity+Realm.swift in Sources */,
+				9B84B04F2892C56400C26ECC /* ErrorThrowble.swift in Sources */,
 				9B7A8CF9287FCC62009938C8 /* Reactive+ItemSelected.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				9B2D9BEB28788D520062C81A /* TodoEditViewModel.swift in Sources */,

@@ -10,11 +10,7 @@ import RxSwift
 import RealmSwift
 import RxRelay
 
-protocol StorageError {
-    var errorObserver: PublishRelay<TodoError> { get }
-}
-
-protocol TodoListStorage: StorageError, AnyObject {
+protocol TodoListStorage: ErrorThrowble, AnyObject {
     func read() -> BehaviorSubject<[TodoModel]>
     func create(to data: TodoModel)
     func update(to data: TodoModel)

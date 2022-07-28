@@ -10,7 +10,7 @@ import RxSwift
 import RealmSwift
 import RxRelay
 
-protocol HistoryStorage: StorageError ,AnyObject {
+protocol HistoryStorage: ErrorThrowble ,AnyObject {
     func read() -> BehaviorSubject<[History]>
     func save(to data: History)
     func delete(index: Int)
