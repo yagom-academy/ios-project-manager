@@ -9,11 +9,11 @@ import Foundation
 import RealmSwift
 
 final class HistoryRealmEntity: Object {
-    @Persisted var changes: String
-    @Persisted var title: String
-    @Persisted var beforeState: String?
-    @Persisted var afterState: String?
-    @Persisted var createAt: Date
+    @Persisted private var changes: String
+    @Persisted private var title: String
+    @Persisted private var beforeState: String?
+    @Persisted private var afterState: String?
+    @Persisted private var createAt: Date
     
     convenience init(entity: History) {
         self.init()
