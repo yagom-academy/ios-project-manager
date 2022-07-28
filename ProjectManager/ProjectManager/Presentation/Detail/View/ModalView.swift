@@ -9,6 +9,8 @@ import UIKit
 
 final class ModalView: UIView {
     let navigationBar = ModalNavigationBar()
+    let defaultTopConstant = (UIScreen.main.bounds.height - ModalConstant.modalFrameHeight) / 2
+    weak var delegate: ModalDelegate?
     
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
@@ -197,20 +199,28 @@ extension ModalView {
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
-              bodyTextView.isFirstResponder == true
-        else {
+        guard let userInfo = notification.userInfo else {
             return
         }
         
         let keyboardInfo = userInfo[UIResponder.keyboardFrameEndUserInfoKey]
         
-        if let keyboardSize = (keyboardInfo as? NSValue)?.cgRectValue {
-            adjustConstraint(by: keyboardSize.height)
+        guard let keyboardSize = (keyboardInfo as? NSValue)?.cgRectValue else {
+            return
+        }
+        
+        if titleTextField.isFirstResponder == true {
+            delegate?.changeModalViewTopConstant(to: ModalConstant.minTopConstant)
+        }
+        
+        if bodyTextView.isFirstResponder == true {
+            adjustConstraint(by: keyboardSize.height - 2 * defaultTopConstant + ModalConstant.minTopConstant)
+            delegate?.changeModalViewTopConstant(to: ModalConstant.minTopConstant)
         }
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
         adjustConstraint(by: .zero)
+        delegate?.changeModalViewTopConstant(to: defaultTopConstant)
     }
 }

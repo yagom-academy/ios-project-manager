@@ -25,6 +25,7 @@ final class DetailViewController: UIViewController {
     private let modalView = ModalView(frame: .zero)
     private let disposeBag = DisposeBag()
     private var mode: Mode = .display
+    private var topConstraint: NSLayoutConstraint?
     
     init(with viewModel: DetailViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -42,6 +43,7 @@ final class DetailViewController: UIViewController {
         setUpLayout()
         setUpModalView()
         bind()
+        modalView.delegate = self
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -60,12 +62,17 @@ final class DetailViewController: UIViewController {
         
         modalView.translatesAutoresizingMaskIntoConstraints = false
         
+        topConstraint = modalView.topAnchor.constraint(
+            equalTo: view.topAnchor,
+            constant: modalView.defaultTopConstant
+        )
+        
         NSLayoutConstraint.activate([
             modalView.widthAnchor.constraint(equalToConstant: 500),
             modalView.heightAnchor.constraint(equalToConstant: 600),
             modalView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            modalView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+            topConstraint
+        ].compactMap { $0 })
     }
     
     private func setUpModalView() {
@@ -173,5 +180,12 @@ extension DetailViewController {
         modalView.isUserInteractionEnabled(false)
         
         mode = .display
+    }
+}
+
+extension DetailViewController: ModalDelegate {
+    func changeModalViewTopConstant(to constant: Double) {
+        topConstraint?.constant = constant
+        view.layoutIfNeeded()
     }
 }

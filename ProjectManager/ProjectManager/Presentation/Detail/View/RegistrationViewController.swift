@@ -17,6 +17,7 @@ final class RegistrationViewController: UIViewController {
     private let modalView = ModalView(frame: .zero)
     private var viewModel: RegistrationViewModel?
     private let disposeBag = DisposeBag()
+    private var topConstraint: NSLayoutConstraint?
     
     init(with viewModel: RegistrationViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -34,6 +35,7 @@ final class RegistrationViewController: UIViewController {
         setUpLayout()
         setUpNavigationItem()
         modalView.registerNotification()
+        modalView.delegate = self
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -52,12 +54,17 @@ final class RegistrationViewController: UIViewController {
         
         modalView.translatesAutoresizingMaskIntoConstraints = false
         
+        topConstraint = modalView.topAnchor.constraint(
+            equalTo: view.topAnchor,
+            constant: modalView.defaultTopConstant
+        )
+        
         NSLayoutConstraint.activate([
-            modalView.widthAnchor.constraint(equalToConstant: 500),
-            modalView.heightAnchor.constraint(equalToConstant: 600),
+            modalView.widthAnchor.constraint(equalToConstant: ModalConstant.modalFrameWidth),
+            modalView.heightAnchor.constraint(equalToConstant: ModalConstant.modalFrameHeight),
             modalView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            modalView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+            topConstraint
+        ].compactMap { $0 })
     }
     
     private func setUpNavigationItem() {
@@ -100,5 +107,12 @@ final class RegistrationViewController: UIViewController {
         let date = modalView.datePicker.date
         
         viewModel?.registrate(title: title, date: date, body: body)
+    }
+}
+
+extension RegistrationViewController: ModalDelegate {
+    func changeModalViewTopConstant(to constant: Double) {
+        topConstraint?.constant = constant
+        view.layoutIfNeeded()
     }
 }
