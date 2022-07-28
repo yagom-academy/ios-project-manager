@@ -5,6 +5,7 @@
 //  Created by 두기 on 2022/07/13.
 //
 import Network
+import UIKit
 
 final class Container {
     private let storage: AppStoregeable
@@ -35,6 +36,18 @@ final class Container {
 
     private func makeEditViewModel(_ listItem: ListItem) -> EditViewModelable {
         return EditViewModel(storage: storage, item: listItem)
+    }
+    
+    func makeHistoryViewController(sourceView: UIView, bounds: CGRect) -> HistoryViewController {
+        let historyVC = HistoryViewController()
+        historyVC.modalPresentationStyle = .popover
+        guard let popover = historyVC.popoverPresentationController else {
+            return HistoryViewController()
+        }
+        popover.sourceView = sourceView
+        popover.sourceRect = CGRect(x: bounds.minX, y: bounds.minY + 20, width: bounds.width, height: bounds.height)
+        
+        return historyVC
     }
     
     init(storage: AppStoregeable) {
