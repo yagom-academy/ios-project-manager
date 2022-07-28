@@ -32,6 +32,7 @@
 		ACDD285C2886FEFC0083356A /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285B2886FEFC0083356A /* AppStorage.swift */; };
 		ACDD285E2887178F0083356A /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285D2887178F0083356A /* LocalStorageManager.swift */; };
 		ACDD2860288717D60083356A /* ListItemDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDD285F288717D60083356A /* ListItemDTO.swift */; };
+		ACE2F88428923CCB0016526E /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE2F88328923CCB0016526E /* HistoryTableViewCell.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -67,6 +68,7 @@
 		ACDD285B2886FEFC0083356A /* AppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorage.swift; sourceTree = "<group>"; };
 		ACDD285D2887178F0083356A /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		ACDD285F288717D60083356A /* ListItemDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemDTO.swift; sourceTree = "<group>"; };
+		ACE2F88328923CCB0016526E /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				AC035E952890EF350068DC7E /* HistoryViewController.swift */,
 				AC035E992890EF6C0068DC7E /* HistoryViewModel.swift */,
 				AC035E972890EF570068DC7E /* HistoryView.swift */,
+				ACE2F88328923CCB0016526E /* HistoryTableViewCell.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				AC035E932890D7BF0068DC7E /* History.swift in Sources */,
 				ACA39ACD287DE05200AE4964 /* Container.swift in Sources */,
 				AC035E962890EF350068DC7E /* HistoryViewController.swift in Sources */,
+				ACE2F88428923CCB0016526E /* HistoryTableViewCell.swift in Sources */,
 				AC9C57C3287A8CC100BA7F7D /* UITableView + Extension.swift in Sources */,
 				AC54B7A02875478700092D83 /* ListItem.swift in Sources */,
 				AC60141A288A487F005CA2F4 /* UIViewController + Extension.swift in Sources */,

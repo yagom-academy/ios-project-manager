@@ -26,4 +26,8 @@ final class HistoryViewController: UIViewController {
         self.view = historyView
     }
     
+    private func bindView() {
+        historyView.historyTableView.register(HistoryTableViewCell.self)
+
+    }
 }
