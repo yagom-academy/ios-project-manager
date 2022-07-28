@@ -37,7 +37,7 @@ final class DefaultTodoListRepository {
     }
     
     private func upLoad() {
-        guard isUser else {
+        if isUser == false {
             backUpStorage.readAll()
                 .subscribe { [weak self] items in
                     items.forEach { [weak self] item in
@@ -46,7 +46,6 @@ final class DefaultTodoListRepository {
                 } onFailure: { [weak self] _ in
                     self?.storage.errorObserver.accept(TodoError.backUpError)
                 }.disposed(by: bag)
-            return
         }
     }
     
