@@ -22,11 +22,18 @@ protocol NetworkConnectionDelegate: AnyObject {
     func online()
 }
 
+protocol FirebaseEventObserveDelegate: AnyObject {
+    func added(snapshot: DataSnapshot)
+    func changed(snapshot: DataSnapshot)
+    func removed(snapshot: DataSnapshot)
+}
+
 //: DatabaseManagerable
 final class FirebaseManager: FirebaseManagerAble {
     
     private var database: DatabaseReference
     weak var networkConnectionDelegate: NetworkConnectionDelegate?
+    weak var firebaseEventObserveDelegate: FirebaseEventObserveDelegate?
     
     init(firebaseReference: DatabaseReference = Database.database().reference()) {
         self.database = firebaseReference
@@ -38,6 +45,24 @@ final class FirebaseManager: FirebaseManagerAble {
                 self.networkConnectionDelegate?.offline()
             }
         })
+    }
+    
+    func observe<T: FirebaseDatable>(_: T.Type) {
+        let observeRef = T.path.reduce(database) { database, path in
+            database.child(path)
+        }
+        
+        observeRef.observe(DataEventType.childAdded) { snapshot in
+            self.firebaseEventObserveDelegate?.added(snapshot: snapshot)
+        }
+        
+        observeRef.observe(DataEventType.childChanged) { snapshot in
+            self.firebaseEventObserveDelegate?.changed(snapshot: snapshot)
+        }
+        
+        observeRef.observe(DataEventType.childRemoved) { snapshot in
+            self.firebaseEventObserveDelegate?.removed(snapshot: snapshot)
+        }
     }
     
     func create<T: FirebaseDatable>(_ data: T) throws {

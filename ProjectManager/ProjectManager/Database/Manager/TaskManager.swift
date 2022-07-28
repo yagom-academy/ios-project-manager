@@ -71,4 +71,9 @@ final class TaskManager {
     func setNetworkConnectionDelegate(delegate: NetworkConnectionDelegate) {
         firebaseManager.networkConnectionDelegate = delegate
     }
+    
+    func setFirebaseEventObserveDelegate(delegate: FirebaseEventObserveDelegate) {
+        firebaseManager.firebaseEventObserveDelegate = delegate
+        self.firebaseManager.observe(Task.self)
+    }
 }

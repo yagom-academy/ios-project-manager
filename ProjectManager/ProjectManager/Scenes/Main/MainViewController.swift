@@ -5,6 +5,8 @@
 // 
 
 import UIKit
+import FirebaseDatabase
+import FirebaseDatabaseSwift
 
 class MainViewController: UIViewController {
     private typealias DataSource = UITableViewDiffableDataSource<Int, Task>
@@ -107,6 +109,7 @@ extension MainViewController {
         setTableView()
         mainView.refreshCount()
         taskManager?.setNetworkConnectionDelegate(delegate: self)
+        taskManager?.setFirebaseEventObserveDelegate(delegate: self)
     }
     
     private func setNavigationBar() {
@@ -233,6 +236,16 @@ extension MainViewController {
         
         return taskInfo
     }
+    
+    private func findIndexPath(type: TaskType, id: String) -> IndexPath? {
+        guard let elements = dataSources[type]?.accessibilityElements else { return nil }
+        guard let task = elements.filter({ data in
+            guard let task = data as? Task else { return false }
+            return task.id == id
+        }).first as? Task else {return nil}
+        
+        return dataSources[type]?.indexPath(for: task)
+    }
 }
 
 // MARK: Setup ToDoTableView
@@ -298,5 +311,36 @@ extension MainViewController: NetworkConnectionDelegate {
         DispatchQueue.main.async {
             self.navigationSyncButton?.isEnabled = true
         }
+    }
+}
+
+// MARK: FirebaseEventObserveDelegate
+
+extension MainViewController: FirebaseEventObserveDelegate {
+    func added(snapshot: DataSnapshot) {
+        guard let task = try? snapshot.data(as: Task.self) else { return }
+        
+        //addTask(task)
+    }
+    
+    func changed(snapshot: DataSnapshot) {
+        guard let task = try? snapshot.data(as: Task.self) else { return }
+        
+        guard let typeString = task.type,
+              let tasktype = TaskType(rawValue: typeString),
+              let indexPath = findIndexPath(type: tasktype, id: task.id) else { return }
+        
+        // indexPath 문제
+        updateTask(by: TaskInfo(task: task, type: tasktype, indexPath: indexPath))
+    }
+    
+    func removed(snapshot: DataSnapshot) {
+        guard let task = try? snapshot.data(as: Task.self) else { return }
+        
+        guard let typeString = task.type,
+              let tasktype = TaskType(rawValue: typeString),
+              let indexPath = dataSources[tasktype]?.indexPath(for: task) else { return }
+        
+        deleteTask(taskInfo: TaskInfo(task: task, type: tasktype, indexPath: indexPath))
     }
 }
