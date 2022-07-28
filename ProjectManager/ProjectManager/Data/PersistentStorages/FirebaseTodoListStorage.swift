@@ -39,7 +39,6 @@ extension FirebaseTodoListStorage: RemoteBackUpStorage {
     
     func readAll() -> Single<[TodoModel]>  {
         return Single.create { [weak self] single in
-            var items: [TodoModel] = []
             self?.database.getData(completion: { error, snapshot in
                 if let error = error {
                     single(.failure(error))
@@ -50,10 +49,8 @@ extension FirebaseTodoListStorage: RemoteBackUpStorage {
                     single(.success([]))
                     return
                 }
-                data.forEach { (_ , value: [String : Any]) in
-                    let item = TodoFirebaseEntity(value: value).toTodoModel()
-                    items.append(item)
-                }
+                let items = data.map { TodoFirebaseEntity(value: $1).toTodoModel() }
+                
                 single(.success(items))
             })
             return Disposables.create()
