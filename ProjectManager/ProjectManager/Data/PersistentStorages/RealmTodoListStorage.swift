@@ -76,8 +76,8 @@ extension RealmTodoListStorage: TodoListStorage {
     func delete(index: Int) {
         do {
             try realm?.write({
-                guard let items = items else { return }
-                realm?.delete(items[index])
+                guard let items = items, let item = items[safe: index] else { return }
+                realm?.delete(item)
                 storage.onNext(items.map { $0.toTodoModel() })
             })
         } catch {

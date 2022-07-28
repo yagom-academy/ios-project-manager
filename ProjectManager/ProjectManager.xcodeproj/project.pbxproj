@@ -24,6 +24,7 @@
 		9B45247D2889B30A0011D5D1 /* TodoEntity+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B45247C2889B30A0011D5D1 /* TodoEntity+Firebase.swift */; };
 		9B7A8CF9287FCC62009938C8 /* Reactive+ItemSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7A8CF8287FCC62009938C8 /* Reactive+ItemSelected.swift */; };
 		9B7A8CFE288012A4009938C8 /* TodoMoveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7A8CFD288012A4009938C8 /* TodoMoveViewModel.swift */; };
+		9B84B0482892A71600C26ECC /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B84B0472892A71600C26ECC /* Collection+Subscript.swift */; };
 		9BA4EBFF288E890B0060536E /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA4EBFE288E890B0060536E /* HistoryViewModel.swift */; };
 		9BA4EC01288EA0260060536E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA4EC00288EA0260060536E /* History.swift */; };
 		9BA4EC03288EA1EC0060536E /* HistoryEntity+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA4EC02288EA1EC0060536E /* HistoryEntity+Realm.swift */; };
@@ -71,6 +72,7 @@
 		9B45247C2889B30A0011D5D1 /* TodoEntity+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoEntity+Firebase.swift"; sourceTree = "<group>"; };
 		9B7A8CF8287FCC62009938C8 /* Reactive+ItemSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+ItemSelected.swift"; sourceTree = "<group>"; };
 		9B7A8CFD288012A4009938C8 /* TodoMoveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMoveViewModel.swift; sourceTree = "<group>"; };
+		9B84B0472892A71600C26ECC /* Collection+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Subscript.swift"; sourceTree = "<group>"; };
 		9BA4EBFE288E890B0060536E /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		9BA4EC00288EA0260060536E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		9BA4EC02288EA1EC0060536E /* HistoryEntity+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+Realm.swift"; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			children = (
 				9B15AF33287F1F8E002F0D01 /* Reactive+LongPress.swift */,
 				9B7A8CF8287FCC62009938C8 /* Reactive+ItemSelected.swift */,
+				9B84B0472892A71600C26ECC /* Collection+Subscript.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				9BB9AF23288E58340068030B /* HistoryCell.swift in Sources */,
 				9BA4EC07288EAA940060536E /* HistoryRepository.swift in Sources */,
 				9B2D9BE128787CCD0062C81A /* TodoSceneDIContainer.swift in Sources */,
+				9B84B0482892A71600C26ECC /* Collection+Subscript.swift in Sources */,
 				9B15AF30287EECEE002F0D01 /* TodoMoveViewController.swift in Sources */,
 				9BF85574288657AE0098441C /* TodoEntity+Realm.swift in Sources */,
 				9B7A8CF9287FCC62009938C8 /* Reactive+ItemSelected.swift in Sources */,
