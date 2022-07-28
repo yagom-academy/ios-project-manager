@@ -17,9 +17,38 @@ class HistoryTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private lazy var mainStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLabel])
+        stackView.distribution = .fillEqually
+        stackView.axis = .vertical
+        
+        return stackView
+    }()
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        
+        return label
+    }()
+    
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = .systemGray
+        
+        return label
+    }()
 
     private func setViewLayout() {
-        self.backgroundColor = .systemBlue
+        self.addSubview(mainStackView)
+        
+        mainStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(10)
+        }
+    }
+    
+    func setCellContents(_ history: History) {
+        titleLabel.text = history.title
+        dateLabel.text = DateConverter.historyDateString(history.editedDate)
     }
 }
