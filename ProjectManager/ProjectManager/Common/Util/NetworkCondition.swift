@@ -31,9 +31,7 @@ final class NetworkCondition {
             object: reachability
         )
         
-        guard let _ = try? reachability?.startNotifier() else {
-            return
-        }
+        try? reachability?.startNotifier()
     }
 }
 
@@ -51,9 +49,10 @@ extension NetworkCondition {
     }
     
     static func stopNotifier() {
-        guard let reachability = NetworkCondition.sharedInstance.reachability,
-              let _ = try? reachability.startNotifier() else {
-                  return
-              }
+        guard let reachability = NetworkCondition.sharedInstance.reachability else {
+            return
+        }
+        
+        try? reachability.startNotifier()
     }
 }
