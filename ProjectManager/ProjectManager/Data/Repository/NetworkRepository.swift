@@ -9,9 +9,9 @@ import Foundation
 import RxSwift
 
 final class NetworkRepository {
-    private let networkManager: NetworkManager
+    private let networkManager: NetworkManagerProtocol
     
-    init(networkManager: NetworkManager) {
+    init(networkManager: NetworkManagerProtocol) {
         self.networkManager = networkManager
     }
 }
