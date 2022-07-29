@@ -22,6 +22,8 @@
 		9B45247828884E000011D5D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B45247728884E000011D5D1 /* GoogleService-Info.plist */; };
 		9B45247A2888577F0011D5D1 /* FirebaseTodoListStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4524792888577F0011D5D1 /* FirebaseTodoListStorage.swift */; };
 		9B45247D2889B30A0011D5D1 /* TodoEntity+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B45247C2889B30A0011D5D1 /* TodoEntity+Firebase.swift */; };
+		9B518EA22893E2EB001DB579 /* MockListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518EA12893E2EB001DB579 /* MockListRepository.swift */; };
+		9B518EA42893E31A001DB579 /* MockHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518EA32893E31A001DB579 /* MockHistoryRepository.swift */; };
 		9B7A8CF9287FCC62009938C8 /* Reactive+ItemSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7A8CF8287FCC62009938C8 /* Reactive+ItemSelected.swift */; };
 		9B7A8CFE288012A4009938C8 /* TodoMoveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7A8CFD288012A4009938C8 /* TodoMoveViewModel.swift */; };
 		9B84B0482892A71600C26ECC /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B84B0472892A71600C26ECC /* Collection+Subscript.swift */; };
@@ -52,6 +54,7 @@
 		9BDA018B287445C500C8F7C8 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9BDA018A287445C500C8F7C8 /* RxSwift */; };
 		9BDA018E287445DB00C8F7C8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9BDA018D287445DB00C8F7C8 /* SnapKit */; };
 		9BDA0190287464E800C8F7C8 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDA018F287464E800C8F7C8 /* TodoListView.swift */; };
+		9BF4A9D42893858C0098DC1B /* TodoListUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF4A9D32893858C0098DC1B /* TodoListUseCaseTest.swift */; };
 		9BF85574288657AE0098441C /* TodoEntity+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF85573288657AE0098441C /* TodoEntity+Realm.swift */; };
 		9BF85577288658B30098441C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9BF85576288658B30098441C /* RealmSwift */; };
 		9BF8557928869E2D0098441C /* RealmTodoListStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8557828869E2D0098441C /* RealmTodoListStorage.swift */; };
@@ -87,6 +90,8 @@
 		9B45247728884E000011D5D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9B4524792888577F0011D5D1 /* FirebaseTodoListStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTodoListStorage.swift; sourceTree = "<group>"; };
 		9B45247C2889B30A0011D5D1 /* TodoEntity+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoEntity+Firebase.swift"; sourceTree = "<group>"; };
+		9B518EA12893E2EB001DB579 /* MockListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockListRepository.swift; sourceTree = "<group>"; };
+		9B518EA32893E31A001DB579 /* MockHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHistoryRepository.swift; sourceTree = "<group>"; };
 		9B7A8CF8287FCC62009938C8 /* Reactive+ItemSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+ItemSelected.swift"; sourceTree = "<group>"; };
 		9B7A8CFD288012A4009938C8 /* TodoMoveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMoveViewModel.swift; sourceTree = "<group>"; };
 		9B84B0472892A71600C26ECC /* Collection+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Subscript.swift"; sourceTree = "<group>"; };
@@ -115,6 +120,7 @@
 		9BD40D4E289152FF00939532 /* TodoMoveViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMoveViewModelTest.swift; sourceTree = "<group>"; };
 		9BD40D502891618E00939532 /* HistoryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTest.swift; sourceTree = "<group>"; };
 		9BDA018F287464E800C8F7C8 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
+		9BF4A9D32893858C0098DC1B /* TodoListUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUseCaseTest.swift; sourceTree = "<group>"; };
 		9BF85573288657AE0098441C /* TodoEntity+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoEntity+Realm.swift"; sourceTree = "<group>"; };
 		9BF8557828869E2D0098441C /* RealmTodoListStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTodoListStorage.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -425,6 +431,7 @@
 		9BB1595A288FEFC400BECEEB /* ProjectManagerTests */ = {
 			isa = PBXGroup;
 			children = (
+				9BF4A9D22893854B0098DC1B /* UseCaseTests */,
 				9BB15964288FF17200BECEEB /* ViewModelTests */,
 			);
 			path = ProjectManagerTests;
@@ -458,6 +465,16 @@
 				9BB9AF22288E58340068030B /* HistoryCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9BF4A9D22893854B0098DC1B /* UseCaseTests */ = {
+			isa = PBXGroup;
+			children = (
+				9BF4A9D32893858C0098DC1B /* TodoListUseCaseTest.swift */,
+				9B518EA12893E2EB001DB579 /* MockListRepository.swift */,
+				9B518EA32893E31A001DB579 /* MockHistoryRepository.swift */,
+			);
+			path = UseCaseTests;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -609,9 +626,12 @@
 			files = (
 				9BB1595C288FEFC400BECEEB /* TodoListViewModelTest.swift in Sources */,
 				9BD40D512891618E00939532 /* HistoryViewModelTest.swift in Sources */,
+				9B518EA42893E31A001DB579 /* MockHistoryRepository.swift in Sources */,
 				9BD40D4D289120C100939532 /* TodoEditViewModelTest.swift in Sources */,
 				9BB15963288FF08000BECEEB /* MockUesCase.swift in Sources */,
+				9B518EA22893E2EB001DB579 /* MockListRepository.swift in Sources */,
 				9BD40D4F289152FF00939532 /* TodoMoveViewModelTest.swift in Sources */,
+				9BF4A9D42893858C0098DC1B /* TodoListUseCaseTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

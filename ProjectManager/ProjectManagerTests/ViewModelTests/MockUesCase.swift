@@ -11,6 +11,8 @@ import RxCocoa
 @testable import ProjectManager
 
 class MockUseCase: TodoListUseCase {
+    var errorObserver: Observable<TodoError> = Observable.just(.saveError)
+    
     private let todoList: BehaviorSubject<[TodoModel]>
     private let historyList: BehaviorSubject<[History]>
     
@@ -88,7 +90,5 @@ class MockUseCase: TodoListUseCase {
         updateItem(to: item)
         historyList.onNext(try! historyList.value() + [hitoryItem])
     }
-    
-    var errorObserver: PublishRelay<TodoError> = PublishRelay()
 }
 

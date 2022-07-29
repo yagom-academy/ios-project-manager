@@ -232,7 +232,6 @@ class TodoListViewModelTest: XCTestCase {
         let todoItem = TodoModel(title: "todo",
                                   body: "todo")
         let cellItem = TodoCellContent(entity: todoItem,
-                                       isPast: false,
                                        dateFormatter: DateFormatter())
         // when
         useCase.createItem(to: todoItem)
@@ -248,7 +247,6 @@ class TodoListViewModelTest: XCTestCase {
         let todoItem = TodoModel(title: "todo",
                                   body: "todo")
         let cellItem = TodoCellContent(entity: todoItem,
-                                       isPast: false,
                                        dateFormatter: DateFormatter())
         // when
         useCase.createItem(to: todoItem)
@@ -264,11 +262,8 @@ class TodoListViewModelTest: XCTestCase {
         viewModel.errorMessage
             .bind { errorMessage in
                 // then
-                XCTAssertEqual(errorMessage, TodoError.saveError.rawValue)
+                XCTAssertEqual(errorMessage, TodoError.saveError.localizedDescription)
             }.disposed(by: bag)
-        
-        // given
-        useCase.errorObserver.accept(TodoError.saveError)
     }
 }
 
