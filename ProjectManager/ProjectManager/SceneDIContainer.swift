@@ -36,8 +36,8 @@ final class SceneDIContainer {
     
     // MARK: - Repository
     
-    private func makeProjectRepository() -> ProjectRepository {
-        return ProjectRepository(storageManager: makePersistentRepository())
+    private func makeProjectRepository() -> PersistentRepository {
+        return PersistentRepository(storageManager: makePersistentRepository())
     }
     
     private func makeHistoryRepository() -> HistoryRepository {

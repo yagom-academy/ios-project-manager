@@ -10,8 +10,8 @@ import RxSwift
 
 protocol NetworkRepositoryProtocol {
     var networkManager: NetworkManagerProtocol { get }
-    func update(repository: ProjectRepositoryProtocol)
-    func read(repository: ProjectRepositoryProtocol) -> Disposable
+    func update(repository: PersistentRepositoryProtocol)
+    func read(repository: PersistentRepositoryProtocol) -> Disposable
 }
 
 extension NetworkRepositoryProtocol {
@@ -61,7 +61,7 @@ final class NetworkRepository: NetworkRepositoryProtocol {
 }
 
 extension NetworkRepository {
-    func update(repository: ProjectRepositoryProtocol) {
+    func update(repository: PersistentRepositoryProtocol) {
         let projects = repository.read().value.compactMap {
             parse(from: $0)
         }
@@ -69,7 +69,7 @@ extension NetworkRepository {
         networkManager.update(projects: projects)
     }
     
-    func read(repository: ProjectRepositoryProtocol) -> Disposable {
+    func read(repository: PersistentRepositoryProtocol) -> Disposable {
         return networkManager.read()
             .subscribe(onNext: {[weak self] data in
                 self?.synchronize(with: data, to: repository)
@@ -78,7 +78,7 @@ extension NetworkRepository {
     
     private func synchronize(
         with projects: [ProjectDTO],
-        to repository: ProjectRepositoryProtocol
+        to repository: PersistentRepositoryProtocol
     ) {
         let formattedProjects = projects.compactMap {
             parse(from: $0)

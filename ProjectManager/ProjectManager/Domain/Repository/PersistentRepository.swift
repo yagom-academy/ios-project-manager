@@ -1,5 +1,5 @@
 //
-//  ProjectRepository.swift
+//  PersistentRepository.swift
 //  ProjectManager
 //
 //  Created by Tiana, mmim on 2022/07/12.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxRelay
 
-protocol ProjectRepositoryProtocol {
+protocol PersistentRepositoryProtocol {
     var storageManager: StorageProtocol { get }
     func create(projectContent: ProjectEntity)
     func create(projectContents: [ProjectEntity])
@@ -19,7 +19,7 @@ protocol ProjectRepositoryProtocol {
     func deleteAll()
 }
 
-struct ProjectRepository: ProjectRepositoryProtocol {
+struct PersistentRepository: PersistentRepositoryProtocol {
     let storageManager: StorageProtocol
     
     init(storageManager: StorageProtocol) {
@@ -27,7 +27,7 @@ struct ProjectRepository: ProjectRepositoryProtocol {
     }
 }
 
-extension ProjectRepository {
+extension PersistentRepository {
     func create(projectContent: ProjectEntity) {
         storageManager.create(projectContent: projectContent)
     }
