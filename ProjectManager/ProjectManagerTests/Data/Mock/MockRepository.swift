@@ -17,7 +17,7 @@ final class MockRepository {
     private var projectEntities = BehaviorRelay<[ProjectEntity]>(value: [])
 }
 
-extension MockRepository: StorageProtocol {
+extension MockRepository: PersistentStorageProtocol {
     func create(projectContent: ProjectEntity) {
         var currentProject = read().value
         currentProject.append(projectContent)

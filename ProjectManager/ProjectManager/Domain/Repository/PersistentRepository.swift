@@ -9,7 +9,7 @@ import RxSwift
 import RxRelay
 
 protocol PersistentRepositoryProtocol {
-    var storageManager: StorageProtocol { get }
+    var storageManager: PersistentStorageProtocol { get }
     func create(projectContent: ProjectEntity)
     func create(projectContents: [ProjectEntity])
     func read() -> BehaviorRelay<[ProjectEntity]>
@@ -20,9 +20,9 @@ protocol PersistentRepositoryProtocol {
 }
 
 struct PersistentRepository: PersistentRepositoryProtocol {
-    let storageManager: StorageProtocol
+    let storageManager: PersistentStorageProtocol
     
-    init(storageManager: StorageProtocol) {
+    init(storageManager: PersistentStorageProtocol) {
         self.storageManager = storageManager
     }
 }

@@ -8,7 +8,7 @@
 import RxSwift
 import RxRelay
 
-protocol StorageProtocol {
+protocol PersistentStorageProtocol {
     func create(projectContent: ProjectEntity)
     func create(projectContents: [ProjectEntity])
     func read() -> BehaviorRelay<[ProjectEntity]>
@@ -18,7 +18,7 @@ protocol StorageProtocol {
     func deleteAll()
 }
 
-extension StorageProtocol {
+extension PersistentStorageProtocol {
     func parse(from project: Project) -> ProjectEntity? {
         guard let id = project.id,
               let status = ProjectStatus.convert(statusString: project.status),
@@ -65,7 +65,7 @@ final class PersistentStorage {
     }
 }
 
-extension PersistentStorage: StorageProtocol {
+extension PersistentStorage: PersistentStorageProtocol {
     func create(projectContent: ProjectEntity) {
         createCoreDate(newProjectContent: projectContent)
         createProjectEntities(newProjectContent: projectContent)
