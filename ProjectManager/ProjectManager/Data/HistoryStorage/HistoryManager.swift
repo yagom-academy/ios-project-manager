@@ -7,9 +7,16 @@
 
 import RxRelay
 
-final class HistoryManager: HistoryStoragable {
-    private var historyEntities = BehaviorRelay<[HistoryEntity]>(value: [])
-    
+protocol HistoryManagerProtocol {
+    func create(historyEntity: HistoryEntity)
+    func read() -> BehaviorRelay<[HistoryEntity]>
+}
+
+final class HistoryManager {
+    let historyEntities = BehaviorRelay<[HistoryEntity]>(value: [])
+}
+
+extension HistoryManager: HistoryManagerProtocol {
     func create(historyEntity: HistoryEntity) {
         var currentProject = read().value
         

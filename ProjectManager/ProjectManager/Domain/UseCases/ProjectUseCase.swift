@@ -11,11 +11,11 @@ import RxRelay
 struct ProjectUseCase {
     private let projectRepository: ProjectRepositoryProtocol
     private let networkRepository: NetworkRepositoryProtocol
-    private let historyRepository: HistoryRepository
+    private let historyRepository: HistoryRepositoryProtocol
 
     init(projectRepository: ProjectRepositoryProtocol,
          networkRepository: NetworkRepositoryProtocol,
-         historyRepository: HistoryRepository
+         historyRepository: HistoryRepositoryProtocol
     ) {
         self.projectRepository = projectRepository
         self.networkRepository = networkRepository
