@@ -10,7 +10,7 @@ import FirebaseDatabase
 import FirebaseDatabaseSwift
 import RealmSwift
 
-protocol FirebaseManagerAble {
+protocol FirebaseManagerable {
     func create<T: FirebaseDatable>(_ data: T) throws
     func readAll<T: FirebaseDatable> (completion: @escaping ([T]) -> Void)
     func update<T: FirebaseDatable>(updatedData: T) throws
@@ -29,7 +29,7 @@ protocol FirebaseEventObserveDelegate: AnyObject {
 }
 
 //: DatabaseManagerable
-final class FirebaseManager: FirebaseManagerAble {
+final class FirebaseManager: FirebaseManagerable {
     
     private var database: DatabaseReference
     weak var networkConnectionDelegate: NetworkConnectionDelegate?
