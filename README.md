@@ -1,7 +1,7 @@
 # 프로젝트 매니저 공유노트
  
 # 🗂 프로젝트 매니저
-> 프로젝트 기간 2022-07-04 ~ 2022-07-15 
+> 프로젝트 기간 2022-07-04 ~ 2022-07-29 
 팀원 : 👼[@Taeangel](https://github.com/Taeangel) 🔴[Red](https://github.com/cherrishRed) / 리뷰어 : [TOny](https://github.com/Monsteel)
 
 - [프로젝트 소개](#프로젝트-소개)
@@ -9,10 +9,24 @@
 - [키워드](#키워드)
 - [STEP 1](#step1)
 - [STEP 2](#step2)
+- [STEP 3](#step3)
 
 ## 프로젝트 소개
-간편한 아이패드 TodoList App!
+🌼 간편한 아이패드 TodoList App!🌼
 
+🧑🏻‍💻 할일이 너무 많아서 자꾸 까먹는 다구요?
+
+📱 프로젝트 매니저로 할일을 정리하세요!
+
+🔵 버튼을 눌러서 Remote 저장소와 동기화 하세요!
+
+|할일을 생성|할일을 삭제|
+|:---:|:---:|
+|![create](https://i.imgur.com/zzxxaAu.gif)|![delete](https://i.imgur.com/WCP50kd.gif)|
+
+|할일을 수정|할일 기록 보기|
+|:---:|:---:|
+|![edit](https://i.imgur.com/SMW7wq5.gif)|![history](https://i.imgur.com/564jnuH.gif)
 
 ## 개발환경 및 라이브러리
 [![swift](https://img.shields.io/badge/swift-5.6-orange?style=for-the-badge)]()
@@ -25,10 +39,10 @@
 
 
 ## 키워드
-`SwiftUI`, `Combine`, `firebase`, `Realm`, `List`, `@State`, `@Binding`, `@StateObject`
+`SwiftUI`, `Combine`, `firebase`, `Realm`, `List`, `@State`, `@Binding`, `@StateObject`, `MVVM`, `@ObservedObject`, `@Published`, `UIHostingController`, `FirebaseFirestore` ``
 
 ## STEP1
-[STEP1-PR](https://github.com/yagom-academy/ios-project-manager/pull/135)
+[자세한 고민보기 STEP1-PR](https://github.com/yagom-academy/ios-project-manager/pull/154)
 ### 기능구현
 - SPM으로 firebase, realm 설치 
 
@@ -41,7 +55,7 @@
 ||다양한 쿼리를 지원하지 않음|
 ||iOS8부터 지원가능|
 
-> CoreData 를 사용해 본 적이 있기 때문에 다른 Local DB를 사용해 보고 싶었고, Realm 이 성능이 빠르고 보편화 되어 있는 것 같아 선정하였다.  
+> CoreData 를 사용해 본 적이 있기 때문에 다른 Local DB를 사용해 보고 싶었고, Realm 이 성능이 빠르고 보편화 되어 있는 것 같아 선정하였다.
 
 ### Firebase 선정이유
 |😁장점|😩단점|
@@ -88,6 +102,10 @@ swiftUI 로 개발을 하기 때문에 타겟을 ios15로 설정하여 개발하
 
 ## STEP2
 
+[자세한 고민보기 STEP2-1-PR](https://github.com/yagom-academy/ios-project-manager/pull/135)
+
+[자세한 고민보기 STEP2-2-PR](https://github.com/yagom-academy/ios-project-manager/pull/147)
+
 ### 🚀 trouble shooting
 
 ### NavigationView 가 한쪽으로 솔리고 Title 이 중앙에 오지 않는 현상
@@ -113,7 +131,6 @@ title Mode 를 inline 으로 변경하여 문제를 해결 했다.
 
 ### NavigationView SafeArea
 `🤔문제` 
-
 위의 NavigationView 문제를 해결했는데 NavBar의 배경색이 예상했던 것과 달라서 배경색을 
 
 ```swift
@@ -129,7 +146,6 @@ init() {
 `.edgesIgnoringSafeArea(.all)`, `.ignoringSafeArea(.all)` 등을 사용해도 해결되지 않았다.
 
 `🥳해결`
-
 ```swift
  init() {
     let navigationBarApperance = UINavigationBarAppearance()
@@ -150,7 +166,6 @@ init() {
 하지만 padding이나 Spacer()등을 활용해 보아도 cell사이의 간격을 줄 수 없었다. 
 
 `🥳해결`
-
 그래서 우선 cell의 배경색을 흰색으로 넣어주었다  
 `.listStyle(.inset)` 을 사용하고, 
 `.listRowSeparator(.hidden)` 으로 주어서 간격이 떨어져 보이게끔 (약간야매?)했다
@@ -158,20 +173,16 @@ init() {
 
 ### EnvironmentObject vs ObservableObject 
 `🤔문제`
-
 처음에는 편하는 이유로 EnvironmentObject 를 사용해서 대부분의 데이터를 받았다. 
 그런데 EnvironmentObject 는 전역적으로 사용되기 때문에 싱글톤 같은 느낌을 받았다.
 할 수 있다면 데이터를 전역으로 공개하지 않는 것이 좋다고 생각되었다. 
 `🥳해결`
-
 ObservableObject로 변경하였다. 
 
 EnvironmentObject 보다는 ObservableObject가 더 메모리상(?) 효율 적일 것 같은데 아직까지는 근거를 못찾았다. EnvironmentObject를 선언하면 싱글톤을 사용한 것처럼 되어 사용이 꺼려 졌었는데 EnvironmentObject을 선언한 하위뷰에서만 사용이 가능하기때문에 만약 하위뷰 전체에서 사용할 거라면 ObservableObject를 사용하여 계속 값을 넘겨 주는 것 보다는 EnvironmentObject를 사용하는 것이 더 깔끔하게 코드를 작성 할 수 있을 것이라 생각한다.
 
-
 ### updata 메서드 사용시 UI 업데이트 문제
 `🤔문제`
-
 ```swift
 class Todo: Identifiable, ObservableObject {
   let id: UUID
@@ -209,7 +220,6 @@ todoList가 수정이 되었을 때는 반응하지 않고 새로운 인스턴�
 
 
 `🥳해결`
-
 Todo(Model)를 직접적으로 수정하기 위해서 class 로 만들고 Observable을 붙여 주었었다.
 
 클래스는 주소를 stack에 저장하고 데이터를 heap 에 저장하는데 있던 객체를 수정하면 stack 이 변하질 않으니 값이 변했다고 인지를 못한다. 
@@ -220,44 +230,36 @@ Todo(Model)를 직접적으로 수정하기 위해서 class 로 만들고 Observ
 
 ### MVVM
 `🤔문제`
-
 SwiftUI를 처음 써보기도 하였고 MVVM 디자인 패턴을 UIKIT에서도 많이 사용해 보지 못하여 현제 코드 상태가 MVVM 디자인 패턴에 맞는지 잘 모르겠다.
 SwiftUI를 쓰다보니 View 를 많이 생성하게 되는데, 모든 View 가 ViewModel 을 가져야 하는 것인지 어느정도 까지 ViewModel 을 공유해도 되는지도 잘 모르겠다.
 또 @State @Binding 등의 상태를 통해 action 을 수행하다 보니 View 마다 들고 있는 변수가 많아지고 마치 이 변수들이 flag 처럼 느껴져서 좋게 생각되지는 않았다. 
 
 `🥳해결`
-
 모든 View 가 ViewModel 을 가져야 하는 것인지 어느정도 까지 ViewModel 을 공유해도 되는지 에대해 이번 프로잭트 코드리뷰를 담당하신 토니의 조언을 구했을때는 Scene별로 ViewModel이 존재 하면 좋을 것 같다는 조언에 따라 이번프로잭트에서는 3개의 Scene이존재 하기 때문에 3개의 ViewModel을 두현 하였다. 하지만 무조건 Scene별로 하나의 ViewModel을 생성하기 보다는 팀적으로 합의를 하고 그 기준에 맞추어 ViewModel을 구성해야 겠다.
 
 @State를 사용하여 바인딩 값을 전달해 주는것은 flag로 보기 보다는 특정 부분의 값만을 변경하려는 SwiftUI의 특징으로 보아야 겠다.
 
 ### file 분리 
 `🤔문제`
-
 SwiftUI 를 사용하다보니 View를 자잘하게 나눠지게 되었는데 이에 따른 파일 분리를 어떻게 해야 하는지 아직 잘 모르겠다.
 
 `🥳해결`
-
 최종적인 Scene을 보여주는 파일들을 Scene으로 분리하였고 안에 view들은 View파일을 만들고 그 안에 파일을 하나 더 만들어 좀더 보기 좋게 파일을 분리 하였다.
 
 ### Gesture가 작동하지 않는 문제
 `🤔문제`
-
 하나의 버튼에 LongPressGesture 와 TapGesture 를 추가해 주었는데, 작동하지 않았다.
 
 `🥳해결`
-
 우선 제스쳐를 두개로 나눠주는 시점에서 Button 타입을 사용할 필요성이 없었다.
 SwiftUI 에서는 코드의 순서도 중요해서 LongPressGesture 를 먼저 배치하면 TapGesture 를 인지하지 못해서 발생한 오류 였다.
 
 ### service 를 어떻게 넘겨야 하는가? 
 `🤔문제`
-
 이번 프로젝트에서 todoService라는 개념을 만들어 주었는데 이 todoService는 모든 뷰모델에서 공통되게 가지고 있어야 한다. 그래서 view가 이동할 떄마다 todoService를 넘겨 주엇는데 이렇게 되면 코드가 복잡해지는 문제가 발생하였다.
 ![](https://i.imgur.com/6NZpask.png)
 
 `🥳해결`
-
 해당 뷰의 하위뷰에서 전체적으로 사용해야할 경우 @EnvironmentObject를 사용하는 것이 더 합리적 일것이라는 의견을 받았다. 그러나 이번 프로잭트에서는 한번만 todoService를 넘겨주어도 되기 때문에 @ObjectedObject를 사용하여 todoService를 넘겨 주었다.
 
 
@@ -269,16 +271,79 @@ SwiftUI 에서는 코드의 순서도 중요해서 LongPressGesture 를 먼저 �
 이렇게 되면 상위뷰에서 isShowEditView 값을 true로 전달하면 모든 EditViewButton의 isShowEditView 값이 true가 되어 여러 EditView가 띄워져 가장먼저 띄워진 각 status의 첫번째 뷰가 띄워지는 것 같았다.
 
 `🥳해결`
-
 isShowEditView의 값을 상위뷰에서 EditViewButton으로 전달하지 않고 EditViewButton 자체적으로 isShowEditView를 @State으로 선언하여 전체 EditViewButton에 값을 전달하는 것이 아니라 선택한 EditViewButton에만 true를 바꾸도록 수정하여 문제를 해결하였다.
 
 ### ViewModel 과 Service 
-하나의 View(여기선 scene)가 ViewModel을 가지도록 구현을 하였다. 모든 ViewModel이 하나의 service를 의존성 주입 형태로 받고 있는데, viewModel들을 생성하는 부분이 제각각 이다 보니 이 service 프로퍼티를 넘겨주어야 해서, service 프로퍼티가 외부에 나와잇는 경우가 생기더라구요.(viewModel 이 아닌 그냥 view 상단에)
-저희가 보기엔 이 그림이 깔끔하진 않다는 생각이 들었습니다.
+`🤔문제`
+하나의 View(여기선 scene)가 ViewModel을 가지도록 구현을 하였다. 모든 ViewModel이 하나의 service를 의존성 주입 형태로 받고 있는데, viewModel들을 생성하는 부분이 제각각 이다 보니 이 service 프로퍼티를 넘겨주어야 해서, service 프로퍼티가 외부에 나와잇는 경우가 생겼다.
 
-또 service가 view에 있다보니 이것을 사용하게 되더라구요.
+(viewModel 이 아닌 그냥 view 상단에)
+저희가 보기엔 이 그림이 깔끔하진 않다는 생각이 들었다
+
+또 service가 view에 있다보니 이것을 사용하게 되었다.
 지금 todoListView의 경우 AppView의 하위 View 인데, ViewModel을 가지지 않고 되도록 closure를 넘겨서 처리하려고 하였으나, List가 값이 바뀔 때 마다 갱신이 되어야 하는데 closure는 이 역할을 충분히 하지 못해서 결국엔 service를 사용하게 되었습니다. 
 
 이 부분의 로직이 저희가 보기엔 MVVM에서 깔끔한 형태가 아닌 것 같아 어떻게 수정을 해야 하는지 조언을 얻고 싶습니다. 
 
-`😱추후 리뷰받은후에 수정예정`
+`🥳해결`
+아직 MVVM패턴에 대한 이해가 완벽하지 않아 생긴 문제였다. 각 뷰가 각자의 뷰모델을 가지게 수정을 하여 뷰에서 service를 직접적으로 사용하지않고 각 뷰가 뷰모데의 해당 뷰모델을 사용하게하여 수정하였다. 이렇게 뷰모델을 설정하고 뷰모델들은 파사드 패턴으로구현하여 뷰에서 서비스를 넘기지 않고 뷰모델 내에서 넘기도록 수정하여 뷰에서는 뷰모델만을 넘기게하여 문제를 해결했다. 
+
+
+### realm primaryKey 
+`🤔문제`
+realm Model 객체를 만들었는데, primaryKey 를 꼭 설정해야 한다는 공식문서의 지침을 보고
+```swift
+@Persisted(primaryKey: true) var id: UUID
+```
+이렇게 key 값을 설정해 주었더니 
+Realm() 을 불러오는 과정에서 부터 오류가 났다.  
+결국에 false로 값을 바꿔서 key 값을 설정해 주지 않았더니, 문제가 해결 되었지만 공식문서의 지침을 따르면서 문제를 해결하고 싶었다. 
+
+`🥳해결`
+이미 키 값이 존재하지 않는 상태로 정보를 저장한 이력이 있어서 모델을 수정하고 정상적으로 작동하려면 마이그레이션이 필요했다. 
+```swift
+let realmConfigure = Realm.Configuration(schemaVersion: 2)
+Realm.Configuration.defaultConfiguration = realmConfigure
+```
+위의 코드로 realm 의 자동 마이그레이션으로 문제를 해결했다.
+
+### ViewModel 이 View 의 상태를 들고 있어야 하는 점
+`🤔문제`
+View의 상태값을 ViewModel이 알고 있어야 한다생각 하는데 그렇게 하려면 모든 상태값을 가지는 뷰는 ViewModel을 가지고 있어야 한다 그래서 ViewModel에 state를 가지고 View에 Biding으로 값을 넣어주었더니 Biding 값을 추적해보았을 때, Binding 값을 바꿨음에도 값 자체가 바뀌지 않는 현상이 일어났다.
+
+`🥳해결`
+하위뷰가 상위뷰를 알 수 있는 방법은 클로저 밖에 없다 판단하여 뷰에서 State Binding으로 사용한 값들에 대해서는 클로저를 사용했다.
+
+## STEP3
+
+[자세한 고민보기 STEP3-PR](https://github.com/yagom-academy/ios-project-manager/pull/154)
+
+### 뷰와 뷰모델이 1:1 대응이 되게 MVVM 수정 
+저번 스탭까지는 Scene별로 뷰모델을 하나씩 가지게 해여 뷰모델이 여러 뷰를 처리하도록 되어 있었다. 이번스탭부터는 뷰와 뷰모델이 1:1 대응이 되게 로직을 변경하고 뷰모델은 파사드 패턴으로 구현하여 뷰에서 다음 뷰로 넘어갈 때에는 그 해당 뷰의 뷰모델만을 전달해 주는 방식으로 변경 했다. 이런 방식으로 변경하였더니 appViewModel의 todoList 값을 변경해 주었는데도 listViewModel 값이 변경되지 않던 문제가 발생하였다. 그래서 appViewModel 안에 있는 다른 ViewModel들을 연산프로퍼티로 변경하여 appViewModel의 todoList값이 변경되면 listViewModel의 값이 변경되 도록 수정하였다
+
+### fireBase와 realm의 연동
+`🤔문제`
+fireBase와 realm의 연동상태는 
+처음에 앱을 시작했을때 firebase에 있는 데이터를 가져와서 갱신해주고 
+그 다음에 CRUD 시 Raealm과 firebase를 둘다 각각 업데이트를 해주고 
+특정 버튼(NavigationBar 의 초록버튼)을 누를경우 realm의 데이터를 모두 삭제하고
+firebase에 있는 데이터를 가져오는 방식으로 구현하였다.
+
+이러한 방식의 문제점은 각각 수정을 해주기 때문에 데이터의 무결성이 깨진다는 것과 sync 버튼을 누를 때마다 realm 을 모두 지우고 firebase 의 모든 값을 가져오기 때문에 비용이 많이 든다는 점이다.
+
+`🥳해결`
+`🔴 추후 피드백 받고 수정 예정` 
+
+### swiftUI layout
+`🤔문제`
+`todo`의 기록이 저장되는 `historyView`가 popOver 형식으로 화면에 나타나고 있는데, View의 frame 값을 미리 정해주지 않으면 화면에 리스트가 나타나지 않는 오류가 있었다.
+[오류의 원인](https://stackoverflow.com/questions/61228002/navigationview-in-ipad-popover-does-not-work-properly-in-swiftui)
+
+frame 값이 미리 지정해 주어야 하기 때문에 Text 의 길이에 따른 frame 의 width 를 정해주고 싶다. (마치 UIkit 의 autolayOut 처럼)
+
+`🥳해결`
+`🔴 추후 피드백 받고 수정 예정` 
+
+### firebase 비동기 방식
+
+처음에 firebase의 getDocuments를 했을때 값이 잘 받아와 졌었다(print로 찍었을때), 그래서 그대로 firebase의 read 메서드를 만들어 사용하였는데 값이 분명히 받아와 졌는데 화면에 값이 띄워지지 않는 오류가 있었다. 이 문제는 firebase의 getDocuments가 비동기 방식이라 발생한 문제였다.
