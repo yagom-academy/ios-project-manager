@@ -49,11 +49,11 @@ extension PersistentStorageProtocol {
 }
 
 final class PersistentStorage {
-    private let persistentManager: PersistentManager
+    private let persistentManager: PersistentManagerProtocol
     
     private lazy var projectEntities = BehaviorRelay<[ProjectEntity]>(value: fetchCoreDate())
     
-    init(persistentManager: PersistentManager) {
+    init(persistentManager: PersistentManagerProtocol) {
         self.persistentManager = persistentManager
     }
     

@@ -10,6 +10,16 @@ import RxRelay
 import CoreData
 import OSLog
 
+protocol PersistentManagerProtocol {
+    func create(project: ProjectDTO)
+    func create(projects: [ProjectDTO])
+    func read() -> [Project]
+    func read(id: UUID?) -> Project?
+    func update(project: ProjectDTO)
+    func delete(projectContentID: UUID?)
+    func deleteAll()
+}
+
 final class PersistentManager {
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Project")
@@ -25,7 +35,7 @@ final class PersistentManager {
     }
 }
 
-extension PersistentManager {
+extension PersistentManager: PersistentManagerProtocol {
     func create(project: ProjectDTO) {
         saveToContext(project)
     }
