@@ -120,16 +120,17 @@ extension MainViewController {
         let navigationAddButton = UIBarButtonItem(barButtonSystemItem: .add,
                                                           target: self,
                                                           action: #selector(addButtonClick(_:)) )
-        let navigationSyncButton = UIBarButtonItem(image: UIImage(systemName: "icloud.and.arrow.down.fill"),
+        let navigationWifiButton = UIBarButtonItem(image: UIImage(systemName: "wifi"),
                                                            style: .plain,
                                                            target: self,
-                                                           action: #selector(syncButtonClick(_:)))
+                                                           action: nil)
         self.navigationHistoryButton = navigationHistoryButton
         self.navigationAddButton = navigationAddButton
-        self.navigationSyncButton = navigationSyncButton
+        self.navigationSyncButton = navigationWifiButton
+    
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = navigationAddButton
-        navigationItem.leftBarButtonItems = [navigationSyncButton, navigationHistoryButton]
+        navigationItem.leftBarButtonItems = [navigationWifiButton, navigationHistoryButton]
     }
 }
 
@@ -150,14 +151,6 @@ extension MainViewController {
         detailView.setButtonDelegate(detailModalViewController)
         detailModalViewController.modalPresentationStyle = .formSheet
         self.present(detailModalViewController, animated: true)
-    }
-    
-    @objc
-    private func syncButtonClick(_ sender: Any) {
-        try? taskManager?.sync { [weak self] in
-            self?.setUpDataSource()
-            self?.mainView.refreshCount()
-        }
     }
     
     @objc
@@ -302,13 +295,13 @@ extension MainViewController {
 extension MainViewController: NetworkConnectionDelegate {
     func offline() {
         DispatchQueue.main.async {
-            self.navigationSyncButton?.isEnabled = false
+            self.navigationSyncButton?.image = UIImage(systemName: "wifi.slash")
         }
     }
     
     func online() {
         DispatchQueue.main.async {
-            self.navigationSyncButton?.isEnabled = true
+            self.navigationSyncButton?.image = UIImage(systemName: "wifi")
         }
     }
 }
