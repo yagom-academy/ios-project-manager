@@ -26,10 +26,6 @@ extension DefaultHistoryRepository: HistoryRepository {
         storage.save(to: data)
     }
     
-    func delete(index: Int) {
-        storage.delete(index: index)
-    }
-    
     var errorObserver: Observable<TodoError> {
         return storage.errorObserver.asObservable()
     }

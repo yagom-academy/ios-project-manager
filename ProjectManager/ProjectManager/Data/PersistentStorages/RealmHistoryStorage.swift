@@ -13,7 +13,6 @@ import RxRelay
 protocol HistoryStorage: ErrorThrowble ,AnyObject {
     func read() -> BehaviorSubject<[History]>
     func save(to data: History)
-    func delete(index: Int)
 }
 
 final class RealmHistoryStorage {
@@ -41,18 +40,6 @@ extension RealmHistoryStorage: HistoryStorage {
                 guard let items = items else { return }
                 realm?.add(HistoryRealmEntity(entity: data))
                 
-                storage.onNext(items.map { $0.toHistory() })
-            })
-        } catch {
-            errorObserver.accept(TodoError.historySyncError)
-        }
-    }
-    
-    func delete(index: Int) {
-        do {
-            try realm?.write({
-                guard let items = items, let item = items[safe: index] else { return }
-                realm?.delete(item)
                 storage.onNext(items.map { $0.toHistory() })
             })
         } catch {

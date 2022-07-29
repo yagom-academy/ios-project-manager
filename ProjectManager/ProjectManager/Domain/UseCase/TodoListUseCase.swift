@@ -43,7 +43,8 @@ final class DefaultTodoListUseCase {
 
 extension DefaultTodoListUseCase: TodoListUseCase {
     var errorObserver: Observable<TodoError> {
-        listRepository.errorObserver
+        Observable.merge(listRepository.errorObserver,
+                         historyRepository.errorObserver)
     }
 
     func readItems() -> BehaviorSubject<[TodoModel]> {
