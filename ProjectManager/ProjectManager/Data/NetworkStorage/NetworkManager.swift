@@ -8,6 +8,11 @@
 import FirebaseDatabase
 import RxSwift
 
+protocol NetworkManagerProtocol {
+    func read() -> Observable<[ProjectDTO]>
+    func update(projects: [ProjectDTO])
+}
+
 enum NetworkError: Error {
     case loadFailure
 }
@@ -16,7 +21,7 @@ final class NetworkManager {
     private let projectsReference = Database.database().reference(withPath: "user")
 }
 
-extension NetworkManager {
+extension NetworkManager: NetworkManagerProtocol {
     func read() -> Observable<[ProjectDTO]> {
         
         return Observable.create { emitter in
