@@ -14,52 +14,17 @@ struct ListView: View {
     VStack(alignment: .leading) {
       List {
         Section(header: HeaderView(title: listViewModel.taskType.title,
-                                   numberOfTasks: listViewModel.readTasks().count)){
-          ForEach(listViewModel.readTasks()) { task in
-            ListRowView(taskTitle: task.title,
-                        taskBody: task.body,
-                        taskDate: task.date,
-                        isOverdate: task.isOverdate)
-            .onTapGesture {
-              listViewModel.cellTapped()
-            }
-            .sheet(isPresented: $listViewModel.isShowingSheet) {
-              EditView(editViewModel: EditViewModel(withService: listViewModel.service, task: task))
-            }
-            .onLongPressGesture(minimumDuration: 1) {
-              listViewModel.cellLongPressed()
-            }
-            .popover(isPresented: $listViewModel.isShowingPopover,
-                     arrowEdge: .bottom) {
-              PopoverButton(taskType: listViewModel.taskType) { type in
-                listViewModel.moveTask(task, type: type)
-              }
-            }
+                                   numberOfTasks: listViewModel.filteredTasks.count)){
+          ForEach(listViewModel.filteredTasks) { task in
+            ListRowView(listRowViewModel: ListRowViewModel(withService: listViewModel.service, task: task))
           }
           .onDelete { index in
-            listViewModel.swipedCell(index: index)
+            listViewModel.deleteCell(index: index)
           }
         }
       }
       .listStyle(.grouped)
     }
-  }
-}
-
-struct PopoverButton: View {
-  let taskType: TaskType
-  let moveTask: (_ to: TaskType) -> Void
-  
-  var body: some View {
-    Form {
-      ForEach(TaskType.allCases.filter{ $0 != taskType }, content: { type in
-        Button(action: {
-          moveTask(type)
-        }, label: {
-          Text("Move to \(type.title)")
-        })
-      })
-    }.frame(width: 200, height: 150, alignment: .center)
   }
 }
 

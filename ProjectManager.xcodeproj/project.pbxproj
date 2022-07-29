@@ -28,6 +28,7 @@
 		B3CA0B7B287D0A620047E1D1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B7A287D0A620047E1D1 /* Task.swift */; };
 		B3CA0B7E287D0FE90047E1D1 /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B7D287D0FE90047E1D1 /* Date+extension.swift */; };
 		B3EA5F12287481F6000713F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */; };
+		DA626F902893A87F00490848 /* ListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA626F8F2893A87F00490848 /* ListRowViewModel.swift */; };
 		DA6A312D2889C081008AFA28 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A312C2889C081008AFA28 /* HeaderView.swift */; };
 		DA79E414287525C3000192CC /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E413287525C3000192CC /* ListRowView.swift */; };
 		DA79E41A28755DC6000192CC /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41928755DC6000192CC /* NavigationBarModifier.swift */; };
@@ -58,6 +59,7 @@
 		B3CA0B7D287D0FE90047E1D1 /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
 		B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA626F8F2893A87F00490848 /* ListRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowViewModel.swift; sourceTree = "<group>"; };
 		DA6A312C2889C081008AFA28 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		DA79E413287525C3000192CC /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
 		DA79E41928755DC6000192CC /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				B32142BC2887DCBB00F8CBE9 /* ListViewModel.swift */,
 				B32142C42887E6EB00F8CBE9 /* RegisterViewModel.swift */,
 				B32142C22887E18900F8CBE9 /* EditViewModel.swift */,
+				DA626F8F2893A87F00490848 /* ListRowViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				B32429F52890123B00BA5700 /* ListView.swift in Sources */,
 				B38E4329289156DA00D276A1 /* HistoryView.swift in Sources */,
 				B32142C32887E18900F8CBE9 /* EditViewModel.swift in Sources */,
+				DA626F902893A87F00490848 /* ListRowViewModel.swift in Sources */,
 				B3CA0B7B287D0A620047E1D1 /* Task.swift in Sources */,
 				B3B28F4328756B1000A3CB57 /* EditView.swift in Sources */,
 				DA6A312D2889C081008AFA28 /* HeaderView.swift in Sources */,

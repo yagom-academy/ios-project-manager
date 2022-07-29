@@ -14,30 +14,14 @@ final class ListViewModel: ViewModelType {
   init(withService: TaskManagementService, taskType: TaskType) {
     super.init(withService: withService)
     self.taskType = taskType
-    self.tasks = service.allTasks
+    self.filteredTasks = service.allTasks.filter({ $0.type == taskType })
   }
   
-  func cellTapped() {
-    isShowingSheet.toggle()
-  }
-  
-  func cellLongPressed() {
-    isShowingPopover.toggle()
-  }
-  
-  func moveTask(_ task: Task, type: TaskType) {
-    self.service.move(task, type: type)
-  }
-  
-  func readTasks() -> [Task] {
-    self.service.readAllTasks().filter { $0.type == taskType }
-  }
-  
-  func swipedCell(index: IndexSet) {
+  func deleteCell(index: IndexSet) {
     index.forEach({ index in
-      let taskToDelete = readTasks()[index]
+      let taskToDelete = filteredTasks[index]
       service.delete(task: taskToDelete)
     })
-    self.tasks = service.allTasks
+    self.filteredTasks = service.allTasks.filter({ $0.type == taskType })
   }
 }
