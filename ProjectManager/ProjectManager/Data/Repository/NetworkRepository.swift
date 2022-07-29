@@ -8,44 +8,13 @@
 import Foundation
 import RxSwift
 
-final class NetworkRepository {
-    private let networkManager: NetworkManagerProtocol
-    
-    init(networkManager: NetworkManagerProtocol) {
-        self.networkManager = networkManager
-    }
+protocol NetworkRepositoryProtocol {
+    var networkManager: NetworkManagerProtocol { get }
+    func update(repository: ProjectRepositoryProtocol)
+    func read(repository: ProjectRepositoryProtocol) -> Disposable
 }
 
-extension NetworkRepository {
-    func update(repository: ProjectRepositoryProtocol) {
-        let projects = repository.read().value.compactMap {
-            parse(from: $0)
-        }
-        
-        networkManager.update(projects: projects)
-    }
-    
-    func read(repository: ProjectRepositoryProtocol) -> Disposable {
-        return networkManager.read()
-            .subscribe(onNext: {[weak self] data in
-                self?.synchronize(with: data, to: repository)
-            })
-    }
-    
-    private func synchronize(
-        with projects: [ProjectDTO],
-        to repository: ProjectRepositoryProtocol
-    ) {
-        let formattedProjects = projects.compactMap {
-            parse(from: $0)
-        }
-        
-        repository.deleteAll()
-        repository.create(projectContents: formattedProjects)
-    }
-}
-
-extension NetworkRepository {
+extension NetworkRepositoryProtocol {
     func parse(from project: ProjectDTO) -> ProjectEntity? {
         guard let status = ProjectStatus.convert(statusString: project.status),
               let id = UUID(uuidString: project.id),
@@ -80,5 +49,42 @@ extension NetworkRepository {
             deadline: timeInterval,
             body: projectContent.body
         )
+    }
+}
+
+final class NetworkRepository: NetworkRepositoryProtocol {
+    let networkManager: NetworkManagerProtocol
+    
+    init(networkManager: NetworkManagerProtocol) {
+        self.networkManager = networkManager
+    }
+}
+
+extension NetworkRepository {
+    func update(repository: ProjectRepositoryProtocol) {
+        let projects = repository.read().value.compactMap {
+            parse(from: $0)
+        }
+        
+        networkManager.update(projects: projects)
+    }
+    
+    func read(repository: ProjectRepositoryProtocol) -> Disposable {
+        return networkManager.read()
+            .subscribe(onNext: {[weak self] data in
+                self?.synchronize(with: data, to: repository)
+            })
+    }
+    
+    private func synchronize(
+        with projects: [ProjectDTO],
+        to repository: ProjectRepositoryProtocol
+    ) {
+        let formattedProjects = projects.compactMap {
+            parse(from: $0)
+        }
+        
+        repository.deleteAll()
+        repository.create(projectContents: formattedProjects)
     }
 }
