@@ -33,7 +33,7 @@ final class HistoryCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .systemGray6
+        label.textColor = .black
         return label
     }()
     
@@ -42,6 +42,7 @@ final class HistoryCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(baseStackView)
+        backgroundColor = .white
         configureLayout()
     }
     
@@ -70,7 +71,7 @@ final class HistoryCell: UITableViewCell {
     
     func setUpLabel(history: History) {
         self.titleLabel.text = makeTitle(history: history)
-        self.dateLabel.text = history.date.isoDateString
+        self.dateLabel.text = history.date.isoFormattedlongString
     }
     
     func makeTitle(history: History) -> String {
@@ -80,15 +81,15 @@ final class HistoryCell: UITableViewCell {
         switch history.changedType {
         case .move:
             prefixString = "Moved"
-            suffixString = "from \(history.from.rawValue) to \(history.to?.rawValue ?? "")"
+            suffixString = "from \(history.from?.rawValue ?? "" ) to \(history.to?.rawValue ?? "")"
         case .add:
             prefixString = "Added"
         case .delete:
             prefixString = "Removed"
-            suffixString = "from \(history.from)"
+            suffixString = "from  \(history.from?.rawValue ?? "")"
         case .update:
             prefixString = "Updated"
         }
-        return prefixString + history.title + suffixString
+        return prefixString + " \"" + (history.title ?? "") + "\" " + suffixString
     }
 }

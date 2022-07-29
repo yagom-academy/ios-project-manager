@@ -22,5 +22,11 @@ extension Date {
         return Date.dateFormatter.string(from: self)
     }
     
+    var isoFormattedlongString: String {
+        Date.dateFormatter.timeStyle = .medium
+        Date.dateFormatter.locale = .current
+        return Date.dateFormatter.string(from: self)
+    }
+    
     static let today = Date()
 }

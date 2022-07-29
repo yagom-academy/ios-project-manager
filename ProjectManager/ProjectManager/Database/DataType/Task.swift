@@ -27,6 +27,12 @@ class Task: Object, FirebaseDatable {
     @Persisted var body: String?
     @Persisted var type: String?
     
+    var taskType: TaskType? {
+        get {
+            TaskType(rawValue: type ?? "")
+        }
+    }
+    
     var date: Date {
         get {
             dateInfo.toDate ?? Date.today

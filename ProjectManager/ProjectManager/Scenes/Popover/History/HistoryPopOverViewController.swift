@@ -39,7 +39,7 @@ class HistoryPopOverViewController: UIViewController {
 extension HistoryPopOverViewController {
     private func setUpTableView() {
         let tableView = mainView.baseTableView
-        tableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
+        tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.identifier)
         tableView.dataSource = dataSource
         tableView.reloadData()
     }

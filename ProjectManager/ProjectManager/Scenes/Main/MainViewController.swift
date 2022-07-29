@@ -32,6 +32,135 @@ class MainViewController: UIViewController {
     }
 }
 
+// MARK: objc functions
+
+extension MainViewController {
+    @objc
+    private func historyButtonClick(_ sender: Any) {
+        makePopover()
+    }
+    
+    @objc
+    private func addButtonClick(_ sender: Any) {
+        let detailView = DetailModalView(frame: view.bounds)
+        let detailModalViewController = DetailModalViewController(modalView: detailView)
+        
+        detailModalViewController.delegate = self
+        detailView.setButtonDelegate(detailModalViewController)
+        detailModalViewController.modalPresentationStyle = .formSheet
+        self.present(detailModalViewController, animated: true)
+    }
+    
+    @objc
+    private func longPressGesture(sender: UILongPressGestureRecognizer) {
+        guard let tableView = sender.view as? UITableView else { return }
+        guard let type = mainView.findTableViewType(tableView: tableView) else { return }
+        let point = sender.location(in: self.mainView.retrieveTableView(taskType: type))
+        if let indexPath = tableView.indexPathForRow(at: point) {
+            if let task = dataSources[type]?.itemIdentifier(for: indexPath) {
+                switch sender.state {
+                case .began:
+                    let taskInfo = TaskInfo(task: task, type: type, indexPath: indexPath)
+                    makePopover(taskInfo: taskInfo, point: point)
+                default:
+                    return
+                }
+            }
+        }
+    }
+}
+
+// MARK: functions
+
+extension MainViewController {
+    private func delete(taskInfo: TaskInfo) {
+        deleteCell(taskInfo: taskInfo)
+        try? taskManager?.delete(task: taskInfo.task)
+        mainView.refreshCount()
+    }
+    
+    private func add(task: Task, type: TaskType) {
+        addCell(task: task, type: type)
+        try? taskManager?.create(task: task)
+        mainView.refreshCount()
+    }
+    
+    private func update(taskInfo: TaskInfo) {
+        let dataSource = dataSources[taskInfo.type]
+        if let snapshot = dataSource?.snapshot() {
+            var copySnapshot = snapshot
+            guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
+            let task = taskInfo.task
+            copySnapshot.insertItems([task], afterItem: beforeTask)
+            copySnapshot.deleteItems([beforeTask])
+            dataSource?.apply(copySnapshot)
+            try? taskManager?.update(task: task)
+        }
+    }
+    
+    private func deleteCell(taskInfo: TaskInfo) {
+        let dataSource = dataSources[taskInfo.type]
+        if let snapshot = dataSource?.snapshot() {
+            var copySnapshot = snapshot
+            guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
+            copySnapshot.deleteItems([beforeTask])
+            dataSource?.apply(copySnapshot)
+        }
+    }
+    
+    private func addCell(task: Task, type: TaskType) {
+        let dataSource = dataSources[type]
+        guard let snapshot = dataSource?.snapshot(), snapshot.numberOfSections > 0 else { return }
+        var copySnapshot = snapshot
+        copySnapshot.appendItems([task])
+        dataSource?.apply(copySnapshot)
+    }
+    
+    private func makeTaskInfo(tableView: UITableView, indexPath: IndexPath) -> TaskInfo? {
+        guard let type = mainView.findTableViewType(tableView: tableView) else { return nil }
+        let dataSource = dataSources[type]
+        guard let task = dataSource?.itemIdentifier(for: indexPath) else { return nil }
+        let taskInfo = TaskInfo(task: task, type: type, indexPath: indexPath)
+        
+        return taskInfo
+    }
+    
+    private func findIndexPath(type: TaskType, id: String) -> IndexPath? {
+        guard let elements = dataSources[type]?.snapshot().itemIdentifiers else { return nil }
+        guard let task = elements.filter({ data in
+            return data.id == id
+        }).first else { return nil }
+        
+        return dataSources[type]?.indexPath(for: task)
+    }
+    
+    private func makePopover(taskInfo: TaskInfo, point: CGPoint) {
+        let popoverController = MovingPopOverViewController(taskInfo: taskInfo)
+        popoverController.delegate = self
+        popoverController.modalPresentationStyle = .popover
+        popoverController.preferredContentSize = CGSize(width: 200, height: 100)
+        
+        let popover = popoverController.popoverPresentationController
+        popover?.sourceView = mainView.retrieveTableView(taskType: taskInfo.type)
+        popover?.sourceRect = CGRect(x: point.x, y: point.y, width: 0, height: 0)
+        popover?.permittedArrowDirections = .up
+        
+        present(popoverController, animated: true)
+    }
+    
+    private func makePopover() {
+        let popoverController = HistoryPopOverViewController(historys: historys)
+        popoverController.modalPresentationStyle = .popover
+        popoverController.preferredContentSize = CGSize(width: 500, height: 500)
+        
+        let popover = popoverController.popoverPresentationController
+        popover?.barButtonItem = navigationHistoryButton
+        popover?.permittedArrowDirections = .down
+        
+        present(popoverController, animated: true)
+    }
+}
+
 // MARK: TableViewDelegate
 
 extension MainViewController: UITableViewDelegate {
@@ -57,33 +186,27 @@ extension MainViewController: UITableViewDelegate {
                 style: .destructive,
                 action: {
                     guard let taskInfo = self.makeTaskInfo(tableView: tableView, indexPath: indexPath) else { return }
-                    self.deleteTask(taskInfo: taskInfo)
+                    let history = History(task: taskInfo.task, changedType: .delete)
+                    self.historys.append(history)
+                    self.delete(taskInfo: taskInfo)
                 })
             .build()
     }
-    
 }
 
 // MARK: DetailViewControllerDelegate
 
 extension MainViewController: DetailViewControllerDelegate {
     func addTask(_ task: Task) {
-        addCell(task: task, type: .todo)
-        try? taskManager?.create(task: task)
-        mainView.refreshCount()
+        add(task: task, type: .todo)
+        let history = History(task: task, changedType: .delete)
+        historys.append(history)
     }
     
     func updateTask(by taskInfo: TaskInfo) {
-        let dataSource = dataSources[taskInfo.type]
-        if let snapshot = dataSource?.snapshot() {
-            var copySnapshot = snapshot
-            guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
-            let task = taskInfo.task
-            copySnapshot.insertItems([task], afterItem: beforeTask)
-            copySnapshot.deleteItems([beforeTask])
-            dataSource?.apply(copySnapshot)
-            try? taskManager?.update(task: task)
-        }
+        update(taskInfo: taskInfo)
+        let history = History(task: taskInfo.task, changedType: .update)
+        historys.append(history)
     }
 }
 
@@ -95,6 +218,8 @@ extension MainViewController: PopoverViewControllerDelegate {
         deleteCell(taskInfo: taskInfo)
         mainView.refreshCount()
         
+        let history = History(task: taskInfo.task, changedType: .move, to: type)
+        historys.append(history)
         let task = taskInfo.task
         let updatedTask = Task(id: task.id, title: task.title, date: task.date, body: task.body, type: type)
         try? taskManager?.update(task: updatedTask)
@@ -134,109 +259,56 @@ extension MainViewController {
     }
 }
 
-// MARK: functions
+// MARK: NetworkConnectionDelegate
 
-extension MainViewController {
-    @objc
-    private func historyButtonClick(_ sender: Any) {
-        makePopover()
-    }
-    
-    @objc
-    private func addButtonClick(_ sender: Any) {
-        let detailView = DetailModalView(frame: view.bounds)
-        let detailModalViewController = DetailModalViewController(modalView: detailView)
-        
-        detailModalViewController.delegate = self
-        detailView.setButtonDelegate(detailModalViewController)
-        detailModalViewController.modalPresentationStyle = .formSheet
-        self.present(detailModalViewController, animated: true)
-    }
-    
-    @objc
-    private func longPressGesture(sender: UILongPressGestureRecognizer) {
-        guard let tableView = sender.view as? UITableView else { return }
-        guard let type = mainView.findTableViewType(tableView: tableView) else { return }
-        let point = sender.location(in: self.mainView.retrieveTableView(taskType: type))
-        if let indexPath = tableView.indexPathForRow(at: point) {
-            if let task = dataSources[type]?.itemIdentifier(for: indexPath) {
-                switch sender.state {
-                case .began:
-                    let taskInfo = TaskInfo(task: task, type: type, indexPath: indexPath)
-                    makePopover(taskInfo: taskInfo, point: point)
-                default:
-                    return
-                }
-            }
+extension MainViewController: NetworkConnectionDelegate {
+    func offline() {
+        DispatchQueue.main.async {
+            self.navigationSyncButton?.image = UIImage(systemName: "wifi.slash")
         }
     }
     
-    private func deleteTask(taskInfo: TaskInfo) {
-        deleteCell(taskInfo: taskInfo)
-        try? taskManager?.delete(task: taskInfo.task)
-        mainView.refreshCount()
-    }
-    
-    private func deleteCell(taskInfo: TaskInfo) {
-        let dataSource = dataSources[taskInfo.type]
-        if let snapshot = dataSource?.snapshot() {
-            var copySnapshot = snapshot
-            guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
-            copySnapshot.deleteItems([beforeTask])
-            dataSource?.apply(copySnapshot)
+    func online() {
+        DispatchQueue.main.async {
+            self.navigationSyncButton?.image = UIImage(systemName: "wifi")
         }
     }
-    
-    private func addCell(task: Task, type: TaskType) {
-        let dataSource = dataSources[type]
-        guard let snapshot = dataSource?.snapshot(), snapshot.numberOfSections > 0 else { return }
-        var copySnapshot = snapshot
-        copySnapshot.appendItems([task])
-        dataSource?.apply(copySnapshot)
+}
+
+// MARK: FirebaseEventObserveDelegate
+
+extension MainViewController: FirebaseEventObserveDelegate {
+    func added(snapshot: DataSnapshot) {
+        guard let task = try? snapshot.data(as: Task.self) else { return }
+        guard let typeString = task.type,
+              let tasktype = TaskType(rawValue: typeString),
+              nil == findIndexPath(type: tasktype, id: task.id) else {
+            return
+        }
+        add(task: task, type: tasktype)
     }
     
-    private func makePopover(taskInfo: TaskInfo, point: CGPoint) {
-        let popoverController = MovingPopOverViewController(taskInfo: taskInfo)
-        popoverController.delegate = self
-        popoverController.modalPresentationStyle = .popover
-        popoverController.preferredContentSize = CGSize(width: 200, height: 100)
+    func changed(snapshot: DataSnapshot) {
+        guard let task = try? snapshot.data(as: Task.self) else { return }
         
-        let popover = popoverController.popoverPresentationController
-        popover?.sourceView = mainView.retrieveTableView(taskType: taskInfo.type)
-        popover?.sourceRect = CGRect(x: point.x, y: point.y, width: 0, height: 0)
-        popover?.permittedArrowDirections = .up
+        guard let typeString = task.type,
+              let tasktype = TaskType(rawValue: typeString),
+              let indexPath = findIndexPath(type: tasktype, id: task.id) else { return }
+        let taskInfo = TaskInfo(task: task, type: tasktype, indexPath: indexPath)
         
-        present(popoverController, animated: true)
+        update(taskInfo: taskInfo)
     }
     
-    private func makePopover() {
-        let popoverController = HistoryPopOverViewController(historys: historys)
-        popoverController.modalPresentationStyle = .popover
-        popoverController.preferredContentSize = CGSize(width: 500, height: 500)
+    func removed(snapshot: DataSnapshot) {
+        guard let task = try? snapshot.data(as: Task.self) else { return }
         
-        let popover = popoverController.popoverPresentationController
-        popover?.barButtonItem = navigationHistoryButton
-        popover?.permittedArrowDirections = .down
+        guard let typeString = task.type,
+              let tasktype = TaskType(rawValue: typeString),
+              let indexPath = findIndexPath(type: tasktype, id: task.id),
+              let deletedTask = dataSources[tasktype]?.itemIdentifier(for: indexPath) else { return }
+        let taskInfo = TaskInfo(task: deletedTask, type: tasktype, indexPath: indexPath)
         
-        present(popoverController, animated: true)
-    }
-    
-    private func makeTaskInfo(tableView: UITableView, indexPath: IndexPath) -> TaskInfo? {
-        guard let type = mainView.findTableViewType(tableView: tableView) else { return nil }
-        let dataSource = dataSources[type]
-        guard let task = dataSource?.itemIdentifier(for: indexPath) else { return nil }
-        let taskInfo = TaskInfo(task: task, type: type, indexPath: indexPath)
-        
-        return taskInfo
-    }
-    
-    private func findIndexPath(type: TaskType, id: String) -> IndexPath? {
-        guard let elements = dataSources[type]?.snapshot().itemIdentifiers else { return nil }
-        guard let task = elements.filter({ data in
-            return data.id == id
-        }).first else { return nil }
-        
-        return dataSources[type]?.indexPath(for: task)
+        delete(taskInfo: taskInfo)
     }
 }
 
@@ -287,57 +359,5 @@ extension MainViewController {
         snapshot.appendItems(tasks)
         
         return snapshot
-    }
-}
-
-// MARK: NetworkConnectionDelegate
-
-extension MainViewController: NetworkConnectionDelegate {
-    func offline() {
-        DispatchQueue.main.async {
-            self.navigationSyncButton?.image = UIImage(systemName: "wifi.slash")
-        }
-    }
-    
-    func online() {
-        DispatchQueue.main.async {
-            self.navigationSyncButton?.image = UIImage(systemName: "wifi")
-        }
-    }
-}
-
-// MARK: FirebaseEventObserveDelegate
-
-extension MainViewController: FirebaseEventObserveDelegate {
-    func added(snapshot: DataSnapshot) {
-        guard let task = try? snapshot.data(as: Task.self) else { return }
-        if let typeString = task.type,
-           let tasktype = TaskType(rawValue: typeString),
-           nil != findIndexPath(type: tasktype, id: task.id) {
-               return
-           } else {
-               addTask(task)
-           }
-    }
-    
-    func changed(snapshot: DataSnapshot) {
-        guard let task = try? snapshot.data(as: Task.self) else { return }
-        
-        guard let typeString = task.type,
-              let tasktype = TaskType(rawValue: typeString),
-              let indexPath = findIndexPath(type: tasktype, id: task.id) else { return }
-        
-        updateTask(by: TaskInfo(task: task, type: tasktype, indexPath: indexPath))
-    }
-    
-    func removed(snapshot: DataSnapshot) {
-        guard let task = try? snapshot.data(as: Task.self) else { return }
-        
-        guard let typeString = task.type,
-              let tasktype = TaskType(rawValue: typeString),
-              let indexPath = findIndexPath(type: tasktype, id: task.id),
-              let deletedTask = dataSources[tasktype]?.itemIdentifier(for: indexPath) else { return }
-        
-        deleteTask(taskInfo: TaskInfo(task: deletedTask, type: tasktype, indexPath: indexPath))
     }
 }
