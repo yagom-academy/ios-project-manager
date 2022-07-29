@@ -18,6 +18,16 @@ protocol Storagable {
     func deleteAll()
 }
 
+protocol ProjectRepositoryProtocol {
+    func create(projectContent: ProjectEntity)
+    func create(projectContents: [ProjectEntity])
+    func read() -> BehaviorRelay<[ProjectEntity]>
+    func read(id: UUID?) -> ProjectEntity?
+    func update(projectContent: ProjectEntity)
+    func delete(projectContentID: UUID?)
+    func deleteAll()
+}
+
 struct ProjectRepository {
     private let storageManager: Storagable
 
@@ -26,7 +36,7 @@ struct ProjectRepository {
     }
 }
 
-extension ProjectRepository {
+extension ProjectRepository: ProjectRepositoryProtocol {
     func create(projectContent: ProjectEntity) {
         storageManager.create(projectContent: projectContent)
     }
