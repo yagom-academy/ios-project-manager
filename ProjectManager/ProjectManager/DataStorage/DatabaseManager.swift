@@ -12,7 +12,8 @@ import RxRelay
 
 protocol DatabaseManagerProtocol {
     var todoListBehaviorRelay: BehaviorRelay<[Todo]> { get }
-    var updateBehaviorRelay: BehaviorRelay<[History]> { get }
+    var historyBehaviorRelay: BehaviorRelay<[History]> { get }
+    var undoBehaviorRelay: BehaviorRelay<[History]> { get }
     
     func create(todoData: Todo)
     func update(selectedTodo: Todo)
@@ -22,7 +23,8 @@ protocol DatabaseManagerProtocol {
 
 final class DatabaseManager: DatabaseManagerProtocol {
     let todoListBehaviorRelay = BehaviorRelay<[Todo]>(value: [])
-    let updateBehaviorRelay = BehaviorRelay<[History]>(value: [])
+    let historyBehaviorRelay = BehaviorRelay<[History]>(value: [])
+    let undoBehaviorRelay = BehaviorRelay<[History]>(value: [])
     
     private let realm = RealmDatabase()
     private let firebase = FirebaseDatabase()
@@ -57,7 +59,7 @@ final class DatabaseManager: DatabaseManagerProtocol {
         self.realm.create(todoData: todoData)
         
         self.todoListBehaviorRelay.accept(self.todoListBehaviorRelay.value + [todoData])
-        self.updateBehaviorRelay.accept(self.updateBehaviorRelay.value + [todoData.convertHistory(action: .added, status: .from(currentStatus: .todo))])
+        self.historyBehaviorRelay.accept(self.historyBehaviorRelay.value + [todoData.history(action: .added, status: .from(currentStatus: .todo))])
     }
     
     func update(selectedTodo: Todo) {
@@ -81,19 +83,19 @@ final class DatabaseManager: DatabaseManagerProtocol {
     }
     
     private func edit(lastTodo: Todo) {
-        let history = lastTodo.convertHistory(
+        let history = lastTodo.history(
             action: .edited,
             status: .from(currentStatus: lastTodo.todoListItemStatus)
         )
-        self.updateBehaviorRelay.accept(self.updateBehaviorRelay.value + [history])
+        self.historyBehaviorRelay.accept(self.historyBehaviorRelay.value + [history])
     }
     
     private func move(_ selectedTodo: Todo, to currentStatus: TodoListItemStatus) {
-        let history = selectedTodo.convertHistory(
+        let history = selectedTodo.history(
             action: .moved,
             status: .move(lastStatus: selectedTodo.todoListItemStatus, currentStatus: currentStatus)
         )
-        self.updateBehaviorRelay.accept(self.updateBehaviorRelay.value + [history])
+        self.historyBehaviorRelay.accept(self.historyBehaviorRelay.value + [history])
     }
     
     func delete(todoID: UUID) {
@@ -103,8 +105,8 @@ final class DatabaseManager: DatabaseManagerProtocol {
             return
         }
         
-        let history = todoItem.convertHistory(action: .removed, status: .from(currentStatus: todoItem.todoListItemStatus))
-        self.updateBehaviorRelay.accept(self.updateBehaviorRelay.value + [history])
+        let history = todoItem.history(action: .removed, status: .from(currentStatus: todoItem.todoListItemStatus))
+        self.historyBehaviorRelay.accept(self.historyBehaviorRelay.value + [history])
         
         let todoItems = self.todoListBehaviorRelay.value.filter { $0.identifier != todoID }
         self.todoListBehaviorRelay.accept(todoItems)

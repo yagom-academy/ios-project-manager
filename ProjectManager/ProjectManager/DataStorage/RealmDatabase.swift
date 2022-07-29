@@ -30,7 +30,7 @@ final class RealmDatabase {
     
     func create(todoData: Todo) {
         try? self.realm?.write { [weak self] in
-            self?.realm?.add(todoData.convertRealmTodo())
+            self?.realm?.add(todoData.todoDTO())
         }
         self.dataBehaviorRelay.accept(.create(at: todoData))
     }
@@ -44,7 +44,7 @@ final class RealmDatabase {
     
     func update(selectedTodo: Todo) {
         try? self.realm?.write({ [weak self] in
-            self?.realm?.add(selectedTodo.convertRealmTodo(), update: .modified)
+            self?.realm?.add(selectedTodo.todoDTO(), update: .modified)
         })
         self.dataBehaviorRelay.accept(.update(at: selectedTodo))
     }
@@ -61,7 +61,7 @@ final class RealmDatabase {
     }
     
     func add(todoData: [Todo]) {
-        let todoDataCollection = todoData.map { $0.convertRealmTodo() }
+        let todoDataCollection = todoData.map { $0.todoDTO() }
         try? self.realm?.write({ [weak self] in
             self?.realm?.add(todoDataCollection, update: .all)
         })

@@ -25,6 +25,8 @@ final class TodoListViewModel {
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
     let networkState: Driver<String>
+    let historyList: Driver<Bool>
+    let undoList: Driver<Bool>
     private let dataBase: DatabaseManagerProtocol
     private let notificationManager: NotificationManager
     
@@ -50,6 +52,14 @@ final class TodoListViewModel {
         self.networkState = self.dataBase.isConnected()
             .map { $0 == true ? NetworkState.connected : NetworkState.nonConncted }
             .asDriver(onErrorJustReturn: "")
+        
+        self.historyList = self.dataBase.historyBehaviorRelay
+            .map { $0.first == nil ? false : true }
+            .asDriver(onErrorJustReturn: false)
+        
+        self.undoList = self.dataBase.undoBehaviorRelay
+            .map { $0.first == nil ? false : true }
+            .asDriver(onErrorJustReturn: false)
     }
     
     func cellSelectEvent(
@@ -110,5 +120,59 @@ final class TodoListViewModel {
         } else {
             cell.changeDateLabelColor(to: .black)
         }
+    }
+    
+    func undoButtonTapEvent() {
+        guard let lastHistoryData = self.dataBase.historyBehaviorRelay.value.last else {
+            return
+        }
+        
+        switch lastHistoryData.action {
+        case .moved:
+            self.dataBase.update(selectedTodo: lastHistoryData.lastTodo())
+        case .added:
+            self.dataBase.delete(todoID: lastHistoryData.identifier)
+        case .edited:
+            self.dataBase.update(selectedTodo: lastHistoryData.lastTodo())
+        case .removed:
+            self.dataBase.create(todoData: lastHistoryData.lastTodo())
+        }
+        self.delete(lastHistoryData: lastHistoryData)
+        
+        let redoList = self.dataBase.undoBehaviorRelay.value
+        self.dataBase.undoBehaviorRelay.accept(redoList + [lastHistoryData])
+    }
+    
+    func redoButtonTapEvent() {
+        guard let lastUndoData = self.dataBase.undoBehaviorRelay.value.last else {
+            return
+        }
+        
+        switch lastUndoData.action {
+        case .moved:
+            self.dataBase.update(selectedTodo: lastUndoData.currentTodo())
+        case .added:
+            self.dataBase.create(todoData: lastUndoData.currentTodo())
+        case .edited:
+            self.dataBase.update(selectedTodo: lastUndoData.currentTodo())
+        case .removed:
+            self.dataBase.delete(todoID: lastUndoData.identifier)
+        }
+        
+        self.delete(lastUndoData: lastUndoData)
+    }
+    
+    private func delete(lastHistoryData: History) {
+        for _ in 0...1 {
+            let lastHistoryData = self.dataBase.historyBehaviorRelay.value.last
+            let historyItems = self.dataBase.historyBehaviorRelay.value.filter { $0 != lastHistoryData }
+            self.dataBase.historyBehaviorRelay.accept(historyItems)
+        }
+    }
+    
+    private func delete(lastUndoData: History) {
+        let lastUndoData = self.dataBase.undoBehaviorRelay.value.last
+        let historyItems = self.dataBase.undoBehaviorRelay.value.filter { $0 != lastUndoData }
+        self.dataBase.undoBehaviorRelay.accept(historyItems)
     }
 }
