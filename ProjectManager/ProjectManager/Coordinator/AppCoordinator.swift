@@ -15,19 +15,21 @@ protocol Coordinator: AnyObject {
 
 final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
-    private var detailViewController: DetailViewController?
     private let database = DatabaseManager()
-    
-    func start() {
-        self.showListView()
-    }
+    private let notificationManager = NotificationManager()
+    private var detailViewController: DetailViewController?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
+    func start() {
+        self.notificationManager.requestAuthorization()
+        self.showListView()
+    }
+    
     private func showListView() {
-        let listViewModel = TodoListViewModel(dataBase: self.database)
+        let listViewModel = TodoListViewModel(dataBase: self.database, notificationManger: notificationManager)
         let todoListViewController = TodoListViewController(
             todoViewModel: listViewModel,
             coordinator: self
@@ -40,7 +42,7 @@ final class AppCoordinator: Coordinator {
             return
         }
         
-        let detailViewModel = DetailViewModel(database: self.database)
+        let detailViewModel = DetailViewModel(database: self.database, notificationManager: self.notificationManager)
         self.detailViewController = DetailViewController(
             selectedTodo: selectedTodo,
             todoListItemStatus: todoListItemStatus,

@@ -26,6 +26,7 @@
 		30B02F8C2873E3F40029579F /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B02F8B2873E3F40029579F /* TodoListViewModel.swift */; };
 		30B02F9028747FF40029579F /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B02F8F28747FF40029579F /* TodoListCell.swift */; };
 		30B2D14428866D1400792807 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B2D14328866D1400792807 /* FirebaseDatabase.swift */; };
+		30EDE7D12890F2FB00154B19 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EDE7D02890F2FB00154B19 /* NotificationManager.swift */; };
 		30FCF72228854AE2007D9557 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCF72128854AE2007D9557 /* RealmDatabase.swift */; };
 		30FCF72428854C5D007D9557 /* TodoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCF72328854C5D007D9557 /* TodoDTO.swift */; };
 		643719A22872B0DF00F78AAA /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A12872B0DF00F78AAA /* RxCocoa */; };
@@ -82,6 +83,7 @@
 		30B02F8B2873E3F40029579F /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		30B02F8F28747FF40029579F /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
 		30B2D14328866D1400792807 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
+		30EDE7D02890F2FB00154B19 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		30FCF72128854AE2007D9557 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
 		30FCF72328854C5D007D9557 /* TodoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDTO.swift; sourceTree = "<group>"; };
 		643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				64371AE8287C570C00F78AAA /* AppCoordinator.swift */,
+				30EDE7D02890F2FB00154B19 /* NotificationManager.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				64E7AD38288C0E28008A424B /* Todo+Serializable.swift in Sources */,
 				306C5A43288ADEC400765DD9 /* HistoryAction.swift in Sources */,
+				30EDE7D12890F2FB00154B19 /* NotificationManager.swift in Sources */,
 				306C5A37288AC1E200765DD9 /* HistoryViewController.swift in Sources */,
 				64371B03287EEB1500F78AAA /* TempData.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

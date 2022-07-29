@@ -25,10 +25,12 @@ final class TodoListViewModel {
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
     let networkState: Driver<String>
-    private var dataBase: DatabaseManagerProtocol
+    private let dataBase: DatabaseManagerProtocol
+    private let notificationManager: NotificationManager
     
-    init(dataBase: DatabaseManagerProtocol) {
+    init(dataBase: DatabaseManagerProtocol, notificationManger: NotificationManager) {
         self.dataBase = dataBase
+        self.notificationManager = notificationManger
         
         self.todoViewData = dataBase.todoListBehaviorRelay
             .map { $0.filter { $0.todoListItemStatus == .todo } }
@@ -80,6 +82,7 @@ final class TodoListViewModel {
     
     func cellDeleteEvent(selectedTodo: Todo) {
         self.dataBase.delete(todoID: selectedTodo.identifier)
+        self.notificationManager.deleteNotification(todoIdentifier: selectedTodo.identifier.uuidString)
     }
     
     func extractNotIncludedMenuType(from todo: Todo) -> (TodoListItemStatus, TodoListItemStatus) {

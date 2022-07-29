@@ -11,10 +11,12 @@ import RxCocoa
 import RxSwift
 
 final class DetailViewModel {
-    private var database: DatabaseManagerProtocol
+    private let database: DatabaseManagerProtocol
+    private let notificationManager: NotificationManager
     
-    init(database: DatabaseManagerProtocol) {
+    init(database: DatabaseManagerProtocol, notificationManager: NotificationManager) {
         self.database = database
+        self.notificationManager = notificationManager
     }
     
     func doneButtonTapEvent(
@@ -28,9 +30,11 @@ final class DetailViewModel {
         
         if selectedTodo != nil {
             self.database.update(selectedTodo: todo)
+            self.notificationManager.updateNotification(todoData: todo)
             completion()
         } else {
             self.database.create(todoData: todo)
+            self.notificationManager.setNotification(todoData: todo)
             completion()
         }
     }
