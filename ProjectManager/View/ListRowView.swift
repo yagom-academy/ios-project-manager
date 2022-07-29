@@ -34,7 +34,6 @@ struct ListRowView: View {
         listRowViewModel.moveButtonTapped(listRowViewModel.task, type: type)
       }
     }
-    
   }
   
   private func checkOverdate() -> some View {
