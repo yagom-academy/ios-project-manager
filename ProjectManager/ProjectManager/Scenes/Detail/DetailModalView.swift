@@ -103,7 +103,9 @@ final class DetailModalView: UIView {
         textView.layer.shadowOffset = CGSize(width: 0, height: 4)
         textView.layer.shadowRadius = 5
         textView.layer.shadowOpacity = 0.3
-        textView.layer.masksToBounds = false
+        textView.layer.borderColor = UIColor.black.cgColor
+        textView.layer.borderWidth = 1.0
+        
         return textView
     }()
     
