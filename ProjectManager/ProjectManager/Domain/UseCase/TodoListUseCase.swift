@@ -29,7 +29,7 @@ final class DefaultTodoListUseCase {
         self.historyRepository = historyRepository
     }
     
-    private func changTodoItemState(item: TodoModel, to state: State) {
+    private func changeTodoItemState(item: TodoModel, to state: State) {
         var revisedItem = item
         revisedItem.state = state
         listRepository.update(to: revisedItem)
@@ -79,22 +79,22 @@ extension DefaultTodoListUseCase: TodoListUseCase {
     func firstMoveState(item: TodoModel) {
         switch item.state {
         case .todo:
-            changTodoItemState(item: item, to: .doing)
+            changeTodoItemState(item: item, to: .doing)
         case .doing:
-            changTodoItemState(item: item, to: .todo)
+            changeTodoItemState(item: item, to: .todo)
         case .done:
-            changTodoItemState(item: item, to: .todo)
+            changeTodoItemState(item: item, to: .todo)
         }
     }
     
     func secondMoveState(item: TodoModel) {
         switch item.state {
         case .todo:
-            changTodoItemState(item: item, to: .done)
+            changeTodoItemState(item: item, to: .done)
         case .doing:
-            changTodoItemState(item: item, to: .done)
+            changeTodoItemState(item: item, to: .done)
         case .done:
-            changTodoItemState(item: item, to: .doing)
+            changeTodoItemState(item: item, to: .doing)
         }
     }
 }
