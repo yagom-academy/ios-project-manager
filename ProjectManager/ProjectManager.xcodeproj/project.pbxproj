@@ -193,16 +193,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		03498B712886760600D8CB3F /* Persistent */ = {
-			isa = PBXGroup;
-			children = (
-				0ED373642893CCF900904751 /* CoreData */,
-				03498B72288676B500D8CB3F /* PersistentManager.swift */,
-				03498B662886737300D8CB3F /* Project.xcdatamodeld */,
-			);
-			path = Persistent;
-			sourceTree = "<group>";
-		};
 		0384DA69288996B800C30AC9 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,14 +293,6 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		0E8130F02886F791003EC6C7 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				0E8130F12886F8A8003EC6C7 /* NetworkManager.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		0EA67EB92874768500E15093 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,17 +350,10 @@
 			path = UseCases;
 			sourceTree = "<group>";
 		};
-		0EB71CDF28937A870025F66C /* History */ = {
-			isa = PBXGroup;
-			children = (
-				03F0EF94288EE15B00FBC7EB /* HistoryManager.swift */,
-			);
-			path = History;
-			sourceTree = "<group>";
-		};
 		0ED373642893CCF900904751 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				03498B662886737300D8CB3F /* Project.xcdatamodeld */,
 				0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */,
 				0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */,
 			);
@@ -388,9 +363,10 @@
 		0ED373652893CD4B00904751 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				0EB71CDF28937A870025F66C /* History */,
-				0E8130F02886F791003EC6C7 /* Network */,
-				03498B712886760600D8CB3F /* Persistent */,
+				0ED373642893CCF900904751 /* CoreData */,
+				03498B72288676B500D8CB3F /* PersistentManager.swift */,
+				0E8130F12886F8A8003EC6C7 /* NetworkManager.swift */,
+				03F0EF94288EE15B00FBC7EB /* HistoryManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
