@@ -49,7 +49,7 @@
 		0EA67EC928752A0F00E15093 /* ProjectEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC828752A0F00E15093 /* ProjectEntity.swift */; };
 		0EA67ED0287674D000E15093 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67ECF287674D000E15093 /* ProjectListView.swift */; };
 		0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67ED128772C0200E15093 /* RegistrationViewModel.swift */; };
-		0EB71CDE289377DB0025F66C /* MockHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF94288EE15B00FBC7EB /* MockHistoryRepository.swift */; };
+		0EB71CDE289377DB0025F66C /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF94288EE15B00FBC7EB /* HistoryManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -89,7 +89,7 @@
 		03F0EF8E288EDAF300FBC7EB /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		03F0EF90288EDB5200FBC7EB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		03F0EF92288EDCC200FBC7EB /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
-		03F0EF94288EE15B00FBC7EB /* MockHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHistoryRepository.swift; sourceTree = "<group>"; };
+		03F0EF94288EE15B00FBC7EB /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		03F0EF96288EEB7B00FBC7EB /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		03F0EF98288EEFD900FBC7EB /* HistoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntity.swift; sourceTree = "<group>"; };
 		03F0EF9C288F7C0C00FBC7EB /* ModalNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationBar.swift; sourceTree = "<group>"; };
@@ -184,6 +184,7 @@
 		0334E70428770E1400222EB7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0EB71CDF28937A870025F66C /* HistoryStorage */,
 				0E8130F02886F791003EC6C7 /* NetworkStorage */,
 				03498B712886760600D8CB3F /* PersistentStorage */,
 				0E8130E728869383003EC6C7 /* Repository */,
@@ -297,7 +298,6 @@
 			children = (
 				0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */,
 				0E02C72D28896C0600522622 /* NetworkRepository.swift */,
-				03F0EF94288EE15B00FBC7EB /* MockHistoryRepository.swift */,
 				03498B752886DF3A00D8CB3F /* ProjectDTO.swift */,
 			);
 			path = Repository;
@@ -366,6 +366,14 @@
 				032D3D10287D629800A32E57 /* ProjectUseCase.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		0EB71CDF28937A870025F66C /* HistoryStorage */ = {
+			isa = PBXGroup;
+			children = (
+				03F0EF94288EE15B00FBC7EB /* HistoryManager.swift */,
+			);
+			path = HistoryStorage;
 			sourceTree = "<group>";
 		};
 		0ED5C2BB2873236A00B8DD67 /* Presentation */ = {
@@ -629,7 +637,7 @@
 				0384DA6B288996DE00C30AC9 /* AlertController.swift in Sources */,
 				0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */,
 				03AB73DD2873292900B0C980 /* MainView.swift in Sources */,
-				0EB71CDE289377DB0025F66C /* MockHistoryRepository.swift in Sources */,
+				0EB71CDE289377DB0025F66C /* HistoryManager.swift in Sources */,
 				0EA67EC928752A0F00E15093 /* ProjectEntity.swift in Sources */,
 				0EA67ED0287674D000E15093 /* ProjectListView.swift in Sources */,
 				033294B2287C713800EE7CBE /* PopOverViewController.swift in Sources */,

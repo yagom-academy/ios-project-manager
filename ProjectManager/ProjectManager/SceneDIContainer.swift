@@ -30,8 +30,8 @@ final class SceneDIContainer {
         return NetworkRepository(networkManager: makeNetworkManager())
     }
     
-    private func makeMockHistoryRepository() -> MockHistoryRepository {
-        return MockHistoryRepository()
+    private func makeHistoryManager() -> HistoryManager {
+        return HistoryManager()
     }
     
     // MARK: - Repository
@@ -41,7 +41,7 @@ final class SceneDIContainer {
     }
     
     private func makeHistoryRepository() -> HistoryRepository {
-        return HistoryRepository(storageManager: makeMockHistoryRepository())
+        return HistoryRepository(storageManager: makeHistoryManager())
     }
     
     // MARK: - Use Cases

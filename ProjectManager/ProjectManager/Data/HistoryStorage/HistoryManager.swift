@@ -1,5 +1,5 @@
 //
-//  MockHistoryRepository.swift
+//  HistoryManager.swift
 //  ProjectManager
 //
 //  Created by Tiana, mmim on 2022/07/25.
@@ -7,7 +7,7 @@
 
 import RxRelay
 
-final class MockHistoryRepository: HistoryStoragable {
+final class HistoryManager: HistoryStoragable {
     private var historyEntities = BehaviorRelay<[HistoryEntity]>(value: [])
     
     func create(historyEntity: HistoryEntity) {
