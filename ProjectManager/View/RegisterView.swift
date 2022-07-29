@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegisterView: View {
   @Environment(\.presentationMode) var presentationMode
-  @ObservedObject var registerViewModel: RegisterViewModel
+  @ObservedObject private(set) var registerViewModel: RegisterViewModel
   
   var body: some View {
     NavigationView {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-  @ObservedObject var contentViewModel: ContentViewModel
+  @ObservedObject private(set) var contentViewModel: ContentViewModel
   
   var body: some View {
     NavigationView {

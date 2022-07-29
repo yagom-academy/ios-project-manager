@@ -7,10 +7,8 @@
 
 import Foundation
 
-class ListViewModel: ViewModelType {
-  @Published var isShowingSheet = false
-  @Published var isShowingPopover = false
-  @Published var tasks: [Task] = []
+final class ListViewModel: ViewModelType {
+  @Published var filteredTasks: [Task] = []
   @Published var taskType: TaskType = .todo
   
   init(withService: TaskManagementService, taskType: TaskType) {

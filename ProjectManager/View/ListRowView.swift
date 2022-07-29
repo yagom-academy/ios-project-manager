@@ -12,6 +12,7 @@ struct ListRowView: View {
   let taskBody: String
   let taskDate: Date
   let isOverdate: Bool
+  @ObservedObject private(set) var listRowViewModel: ListRowViewModel
   
   var body: some View {
     VStack(alignment: .leading) {
@@ -26,6 +27,7 @@ struct ListRowView: View {
   func checkOverdate() -> some View {
     if isOverdate {
       return Text(taskDate.convertDateToString)
+  private func checkOverdate() -> some View {
         .foregroundColor(.red)
     } else {
       return Text(taskDate.convertDateToString)

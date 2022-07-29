@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListView: View {
-  @ObservedObject var listViewModel: ListViewModel
+  @ObservedObject private(set) var listViewModel: ListViewModel
   
   var body: some View {
     VStack(alignment: .leading) {

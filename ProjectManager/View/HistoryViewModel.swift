@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import SwiftUI
 
-class HistoryViewModel: ViewModelType {
+final class HistoryViewModel: ViewModelType {
   @Published var allHistories: [History] = []
   
   override init(withService: TaskManagementService) {

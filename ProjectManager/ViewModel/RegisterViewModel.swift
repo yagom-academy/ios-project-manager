@@ -5,9 +5,9 @@
 //  Created by OneTool, marisol on 2022/07/20.
 //
 
-import SwiftUI
+import Foundation
 
-class RegisterViewModel: ViewModelType {
+final class RegisterViewModel: ViewModelType {
   @Published var title: String = ""
   @Published var body: String = ""
   @Published var date: Date = Date()

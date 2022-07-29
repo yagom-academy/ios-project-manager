@@ -5,17 +5,14 @@
 //  Created by OneTool, marisol on 2022/07/20.
 //
 
-import SwiftUI
+import Foundation
 
-class EditViewModel: ViewModelType {
-  @Published var title: String = ""
-  @Published var body: String = ""
-  @Published var date: Date = Date()
-  var task: Task = Task(title: "", date: Date(), body: "", type: .todo)
+final class EditViewModel: ViewModelType {
+  @Published var task: Task
   
   init(withService: TaskManagementService, task: Task) {
-    super.init(withService: withService)
     self.task = task
+    super.init(withService: withService)
   }
   
   func doneButtonTapped() {

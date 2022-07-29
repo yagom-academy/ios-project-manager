@@ -12,7 +12,7 @@ struct SheetView: View {
   @Binding var taskBody: String
   @Binding var taskDate: Date
   
-  var dateRange: ClosedRange<Date> {
+  private var dateRange: ClosedRange<Date> {
     let min = Calendar.current.date(byAdding: .year, value: -1, to: Date()) ?? Date()
     let max = Calendar.current.date(byAdding: .year, value: 1, to: Date().addingTimeInterval(60*60*24*365)) ?? Date()
     
