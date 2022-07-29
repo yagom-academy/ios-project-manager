@@ -13,11 +13,11 @@ enum RealmError: Error {
 
 // 호출 순서 주의: realm에서 먼저 생성 시 오류 발생
 final class TaskManager {
-    private let firebaseManager: FirebaseManager
+    private var firebaseManager: FirebaseManagerable
     private let realmManager: RealmManagerable
     
     init(realmManager: RealmManagerable? = RealmManager.shared,
-         firebaseManager: FirebaseManager = FirebaseManager()) throws {
+firebaseManager: FirebaseManagerable = FirebaseManager.shared) throws {
         guard let realmManager = realmManager else { throw RealmError.initializationError }
         self.firebaseManager = firebaseManager
         self.realmManager = realmManager

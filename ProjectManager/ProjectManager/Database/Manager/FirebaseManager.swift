@@ -15,6 +15,9 @@ protocol FirebaseManagerable {
     func readAll<T: FirebaseDatable> (completion: @escaping ([T]) -> Void)
     func update<T: FirebaseDatable>(updatedData: T) throws
     func delete<T: FirebaseDatable>(_ data: T) throws
+    func observe<T: FirebaseDatable>(_: T.Type)
+    var networkConnectionDelegate: NetworkConnectionDelegate? { get set }
+    var firebaseEventObserveDelegate: FirebaseEventObserveDelegate? { get set }
 }
 
 protocol NetworkConnectionDelegate: AnyObject {
@@ -30,12 +33,12 @@ protocol FirebaseEventObserveDelegate: AnyObject {
 
 //: DatabaseManagerable
 final class FirebaseManager: FirebaseManagerable {
-    
     private var database: DatabaseReference
     weak var networkConnectionDelegate: NetworkConnectionDelegate?
     weak var firebaseEventObserveDelegate: FirebaseEventObserveDelegate?
+    static let shared: FirebaseManagerable = FirebaseManager()
     
-    init(firebaseReference: DatabaseReference = Database.database().reference()) {
+    private init(firebaseReference: DatabaseReference = Database.database().reference()) {
         self.database = firebaseReference
         let connectedRef = Database.database().reference(withPath: ".info/connected")
         connectedRef.observe(.value, with: { snapshot in
