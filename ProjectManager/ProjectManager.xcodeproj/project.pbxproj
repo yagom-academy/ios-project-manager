@@ -52,6 +52,7 @@
 		0EB71CDE289377DB0025F66C /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF94288EE15B00FBC7EB /* HistoryManager.swift */; };
 		0EB71CE128937CD00025F66C /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB71CE028937CD00025F66C /* MockNetworkManager.swift */; };
 		0ED373672893D18600904751 /* NetworkStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED373662893D18600904751 /* NetworkStorage.swift */; };
+		0ED373692893D5BD00904751 /* HistoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED373682893D5BD00904751 /* HistoryStorage.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -116,6 +117,7 @@
 		0EA67ED128772C0200E15093 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		0EB71CE028937CD00025F66C /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		0ED373662893D18600904751 /* NetworkStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStorage.swift; sourceTree = "<group>"; };
+		0ED373682893D5BD00904751 /* HistoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStorage.swift; sourceTree = "<group>"; };
 		1F70E19F85975BF5AEC875C5 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		398DAEAB83EA2395CF261AE9 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		4819746BAEB061C8DCAEBAE0 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			children = (
 				0E8130E8288693FA003EC6C7 /* PersistentStorage.swift */,
 				0ED373662893D18600904751 /* NetworkStorage.swift */,
+				0ED373682893D5BD00904751 /* HistoryStorage.swift */,
 				03498B752886DF3A00D8CB3F /* ProjectDTO.swift */,
 			);
 			path = Storage;
@@ -632,6 +635,7 @@
 				03F0EF8F288EDAF300FBC7EB /* HistoryViewController.swift in Sources */,
 				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,
 				03F0EF9D288F7C0C00FBC7EB /* ModalNavigationBar.swift in Sources */,
+				0ED373692893D5BD00904751 /* HistoryStorage.swift in Sources */,
 				0E02C72E28896C0600522622 /* NetworkRepository.swift in Sources */,
 				0384DA6B288996DE00C30AC9 /* AlertController.swift in Sources */,
 				0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */,
