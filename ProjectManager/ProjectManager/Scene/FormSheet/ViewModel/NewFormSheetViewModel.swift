@@ -37,6 +37,7 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
     private let uuid = UUID().uuidString
     private let reference = Database.database().reference()
     private let undoManager = AppDelegate.undoManager
+    private let userNotificationManager = UserNotificationManager()
     
     func doneButtonTapped() {
         registerNewTask()
@@ -51,7 +52,7 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
             id: uuid
         )
         registerAddUndoAction(task: newTask)
-        
+        userNotificationManager.addUserNotification(of: newTask)
         do {
             try realmManager.create(task: newTask)
             sendNotificationForHistory(newTask.title)
@@ -69,12 +70,11 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
             taskType: .todo,
             id: task.id
         )
-        let id = capturedTask.id
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             self?.registerAddRedoAction(task: capturedTask)
+            self?.userNotificationManager.removeUserNotification(of: capturedTask)
             do {
                 try self?.realmManager.delete(task: capturedTask)
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
                 self?.sendNotificationForHistory()
             } catch {
                 self?.error.accept(DatabaseError.deleteError)
@@ -94,6 +94,7 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             let title = capturedTask.title
             self?.registerAddUndoAction(task: capturedTask)
+            self?.userNotificationManager.addUserNotification(of: capturedTask)
             do {
                 try self?.realmManager.create(task: capturedTask)
                 self?.sendNotificationForHistory(title)

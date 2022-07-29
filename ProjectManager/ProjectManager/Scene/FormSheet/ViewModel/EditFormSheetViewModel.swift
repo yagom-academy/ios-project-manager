@@ -34,6 +34,7 @@ final class EditFormSheetViewModel: EditFormSheetViewModelEvent,
     private let reference = Database.database().reference()
     private let realmManager = RealmManager()
     private let undoManager = AppDelegate.undoManager
+    private let userNotificationManager = UserNotificationManager()
     
     func editButtonTapped(task: Task) {
         modifyEditableTask(task: task)
@@ -65,6 +66,7 @@ final class EditFormSheetViewModel: EditFormSheetViewModelEvent,
             before: capturedOriginalTask,
             after: capturedEditedTask
         )
+        userNotificationManager.adjustUserNotificationAboutTypeChange(of: editableTask)
         do {
             try realmManager.update(task: editableTask)
             dismiss.accept(())
@@ -93,6 +95,7 @@ final class EditFormSheetViewModel: EditFormSheetViewModelEvent,
                 before: capturedEditedTask,
                 after: capturedOriginalTask
             )
+            self?.userNotificationManager.adjustUserNotificationAboutTypeChange(of: capturedOriginalTask)
             do {
                 try self?.realmManager.update(task: before)
             } catch {
@@ -117,6 +120,7 @@ final class EditFormSheetViewModel: EditFormSheetViewModelEvent,
             id: after.id
         )
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            self?.userNotificationManager.adjustUserNotificationAboutTypeChange(of: capturedOriginalTask)
             self?.registerModifyUndoAction(
                 before: capturedEditedTask,
                 after: capturedOriginalTask

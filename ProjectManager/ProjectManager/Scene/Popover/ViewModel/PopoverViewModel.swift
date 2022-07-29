@@ -27,6 +27,7 @@ final class PopoverViewModel: PopoverViewModelEvent,
     var error: PublishRelay<DatabaseError> = .init()
     private let undoManager = AppDelegate.undoManager
     private let realmManager = RealmManager()
+    private let userNotificationManager = UserNotificationManager()
     
     func moveButtonTapped(_ task: Task, to taskType: TaskType) {
         changeTaskType(task, taskType: taskType)
@@ -42,6 +43,7 @@ final class PopoverViewModel: PopoverViewModelEvent,
             id: task.id
         )
         registerChangeUndoAction(task: capturedChangedTask, targetType: beforeType)
+        userNotificationManager.adjustUserNotificationAboutTypeChange(of: capturedChangedTask)
         do {
             try realmManager.change(task: task, targetType: taskType)
             sendNotificationForHistory(task.title, from: beforeType, to: task.taskType)
@@ -62,6 +64,7 @@ final class PopoverViewModel: PopoverViewModelEvent,
         )
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             self?.registerChangeRedoAction(task: capturedChangedTask, targetType: beforeType)
+            self?.userNotificationManager.adjustUserNotificationAboutTypeChange(of: capturedChangedTask)
             do {
                 try self?.realmManager.change(task: task, targetType: targetType)
                 self?.sendNotificationForHistory()
@@ -89,6 +92,7 @@ final class PopoverViewModel: PopoverViewModelEvent,
         )
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             self?.registerChangeUndoAction(task: capturedChangedTask, targetType: beforeTask)
+            self?.userNotificationManager.adjustUserNotificationAboutTypeChange(of: capturedChangedTask)
             do {
                 try self?.realmManager.change(task: task, targetType: targetType)
                 self?.sendNotificationForHistory(

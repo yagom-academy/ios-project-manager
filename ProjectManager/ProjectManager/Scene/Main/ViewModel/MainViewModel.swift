@@ -32,9 +32,6 @@ final class MainViewModel: MainViewModelEvent,
     
     fileprivate enum Constants {
         static let monitoringQueue: String = "monitor"
-        static let userNotificationTitle: String = "오늘까지인 일정이 있습니다."
-        static let userNotificationHour: Int = 9
-        static let secondOfDay: Double = 86400
     }
     
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
@@ -50,6 +47,7 @@ final class MainViewModel: MainViewModelEvent,
     private let realmManager = RealmManager()
     private let monitor = NWPathMonitor()
     private let undoManager = AppDelegate.undoManager
+    private let userNotificationManager = UserNotificationManager()
     
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType) {
         let task: Task
@@ -80,6 +78,7 @@ final class MainViewModel: MainViewModelEvent,
             }
             DispatchQueue.main.async {
                 self?.fetchData()
+                self?.createNotifications()
             }
         }
     }
@@ -102,6 +101,21 @@ final class MainViewModel: MainViewModelEvent,
         fetchDone()
     }
     
+    private func fetchToDo() {
+        let todos = realmManager.fetchTasks(type: .todo)
+        self.todos.accept(todos)
+    }
+    
+    private func fetchDoing() {
+        let doings = realmManager.fetchTasks(type: .doing)
+        self.doings.accept(doings)
+    }
+    
+    private func fetchDone() {
+        let dones = realmManager.fetchTasks(type: .done)
+        self.dones.accept(dones)
+    }
+    
     private func deleteData(task: Task) {
         let capturedTask = Task(
             title: task.title,
@@ -114,11 +128,10 @@ final class MainViewModel: MainViewModelEvent,
         registerDeleteUndoAction(task: capturedTask)
         let title = capturedTask.title
         let type = capturedTask.taskType
-        let id = capturedTask.id
         do {
             try realmManager.delete(task: capturedTask)
             sendNotificationForHistory(title, from: type)
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
+            userNotificationManager.removeUserNotification(of: capturedTask)
             undoable.accept(true)
             redoable.accept(false)
         } catch {
@@ -148,6 +161,7 @@ final class MainViewModel: MainViewModelEvent,
             do {
                 self?.registerDeleteRedoAction(task: capturedTask)
                 try self?.realmManager.create(task: capturedTask)
+                self?.userNotificationManager.addUserNotification(of: capturedTask)
                 self?.sendNotificationForHistory()
             } catch {
                 self?.error.accept(DatabaseError.createError)
@@ -165,12 +179,11 @@ final class MainViewModel: MainViewModelEvent,
         )
         let title = capturedTask.title
         let type = capturedTask.taskType
-        let id = capturedTask.id
         undoManager.registerUndo(withTarget: self) { [weak self] _ in
             do {
                 self?.registerDeleteUndoAction(task: capturedTask)
                 try self?.realmManager.delete(task: capturedTask)
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
+                self?.userNotificationManager.removeUserNotification(of: capturedTask)
                 self?.sendNotificationForHistory(title, from: type)
             } catch {
                 self?.error.accept(DatabaseError.createError)
@@ -178,33 +191,21 @@ final class MainViewModel: MainViewModelEvent,
         }
     }
     
-    private func fetchToDo() {
-        let todos = realmManager.fetchTasks(type: .todo)
-        setupTaskDeadlineNotification(todos)
-        self.todos.accept(todos)
-    }
-    
-    private func fetchDoing() {
-        let doings = realmManager.fetchTasks(type: .doing)
-        setupTaskDeadlineNotification(doings)
-        self.doings.accept(doings)
-    }
-    
-    private func fetchDone() {
-        let dones = realmManager.fetchTasks(type: .done)
-        removeAllPendingNotifications(dones)
-        self.dones.accept(dones)
+    private func createNotifications() {
+        setupTaskDeadlineNotification(todos.value)
+        setupTaskDeadlineNotification(doings.value)
+        removeAllPendingNotifications(dones.value)
     }
     
     private func setupTaskDeadlineNotification(_ tasks: [Task]) {
         removeAllPendingNotifications(tasks)
         tasks.forEach {
-            self.createDeadlineNotification(at: $0)
+            userNotificationManager.addUserNotification(of: $0)
         }
     }
     
     private func removeAllPendingNotifications(_ tasks: [Task]) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: tasks.map { $0.id })
+        userNotificationManager.removeUserNotifications(of: tasks)
     }
     
     func undoButtonTapped() {
@@ -228,36 +229,5 @@ final class MainViewModel: MainViewModelEvent,
             undoable.accept(true)
         }
         fetchData()
-    }
-    
-    private func createDeadlineNotification(at task: Task) {
-        guard todayIsDeadline(of: task) else {
-            return
-        }
-        
-        let content = UNMutableNotificationContent()
-        content.title = Constants.userNotificationTitle
-        content.body = task.title
-        content.subtitle = task.taskType.rawValue
-        content.sound = .default
-        
-        var dateComponents = DateComponents()
-        dateComponents.calendar = Calendar.current
-        dateComponents.hour = Constants.userNotificationHour
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        let request =  UNNotificationRequest(identifier: task.id, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request)
-    }
-    
-    private func todayIsDeadline(of task: Task) -> Bool {
-        let today = Calendar.current.startOfDay(for: Date()).timeIntervalSince1970
-        let tomorrow = today + Constants.secondOfDay
-        
-        if task.date > today, task.date < tomorrow {
-            return true
-        }
-        return false
     }
 }
