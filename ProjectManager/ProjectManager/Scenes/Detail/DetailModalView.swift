@@ -149,13 +149,17 @@ extension DetailModalView {
     func setLayoutTextViewDidBeginEditing() {
         titleTextField.isHidden = true
         datePicker.isHidden = true
-        bottomConstraint = stackView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor)
+        bottomConstraint.isActive = false
+        bottomConstraint = stackView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5)
+        bottomConstraint.isActive = true
     }
     
     func setLayoutTextViewDidEndEditing() {
         titleTextField.isHidden = false
         datePicker.isHidden = false
+        bottomConstraint.isActive = false
         bottomConstraint = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+        bottomConstraint.isActive = true
     }
     
     func makeTask(id: String) -> Task {
