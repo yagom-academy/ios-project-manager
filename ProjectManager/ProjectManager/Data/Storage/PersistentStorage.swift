@@ -1,5 +1,5 @@
 //
-//  PersistentStorageManager.swift
+//  PersistentStorage.swift
 //  ProjectManager
 //
 //  Created by Tiana, mmim on 2022/07/19.
@@ -8,7 +8,47 @@
 import RxSwift
 import RxRelay
 
-final class PersistentRepository {
+protocol StorageProtocol {
+    func create(projectContent: ProjectEntity)
+    func create(projectContents: [ProjectEntity])
+    func read() -> BehaviorRelay<[ProjectEntity]>
+    func read(id: UUID?) -> ProjectEntity?
+    func update(projectContent: ProjectEntity)
+    func delete(projectContentID: UUID?)
+    func deleteAll()
+}
+
+extension StorageProtocol {
+    func parse(from project: Project) -> ProjectEntity? {
+        guard let id = project.id,
+              let status = ProjectStatus.convert(statusString: project.status),
+              let title = project.title,
+              let deadline = project.deadline,
+              let body = project.body else {
+            return nil
+        }
+        
+        return ProjectEntity(
+            id: id,
+            status: status,
+            title: title,
+            deadline: deadline,
+            body: body
+        )
+    }
+    
+    func parse(from projectContent: ProjectEntity) -> ProjectDTO? {
+        return ProjectDTO(
+            id: projectContent.id.uuidString,
+            status: projectContent.status.string,
+            title: projectContent.title,
+            deadline: projectContent.deadline,
+            body: projectContent.body
+        )
+    }
+}
+
+final class PersistentStorage {
     private let persistentManager: PersistentManager
     
     private lazy var projectEntities = BehaviorRelay<[ProjectEntity]>(value: fetchCoreDate())
@@ -25,7 +65,7 @@ final class PersistentRepository {
     }
 }
 
-extension PersistentRepository: Storagable {
+extension PersistentStorage: StorageProtocol {
     func create(projectContent: ProjectEntity) {
         createCoreDate(newProjectContent: projectContent)
         createProjectEntities(newProjectContent: projectContent)
@@ -60,7 +100,7 @@ extension PersistentRepository: Storagable {
     }
 }
 
-extension PersistentRepository {
+extension PersistentStorage {
     private func createCoreDate(newProjectContent: ProjectEntity) {
         guard let newProject = parse(from: newProjectContent) else {
             return
@@ -128,35 +168,5 @@ extension PersistentRepository {
     
     private func deleteAllProjectEntities() {
         projectEntities.accept([])
-    }
-}
-
-extension PersistentRepository {
-    func parse(from project: Project) -> ProjectEntity? {
-        guard let id = project.id,
-              let status = ProjectStatus.convert(statusString: project.status),
-              let title = project.title,
-              let deadline = project.deadline,
-              let body = project.body else {
-            return nil
-        }
-        
-        return ProjectEntity(
-            id: id,
-            status: status,
-            title: title,
-            deadline: deadline,
-            body: body
-        )
-    }
-    
-    func parse(from projectContent: ProjectEntity) -> ProjectDTO? {
-        return ProjectDTO(
-            id: projectContent.id.uuidString,
-            status: projectContent.status.string,
-            title: projectContent.title,
-            deadline: projectContent.deadline,
-            body: projectContent.body
-        )
     }
 }

@@ -8,18 +8,8 @@
 import RxSwift
 import RxRelay
 
-protocol Storagable {
-    func create(projectContent: ProjectEntity)
-    func create(projectContents: [ProjectEntity])
-    func read() -> BehaviorRelay<[ProjectEntity]>
-    func read(id: UUID?) -> ProjectEntity?
-    func update(projectContent: ProjectEntity)
-    func delete(projectContentID: UUID?)
-    func deleteAll()
-}
-
 protocol ProjectRepositoryProtocol {
-    var storageManager: Storagable { get }
+    var storageManager: StorageProtocol { get }
     func create(projectContent: ProjectEntity)
     func create(projectContents: [ProjectEntity])
     func read() -> BehaviorRelay<[ProjectEntity]>
@@ -30,9 +20,9 @@ protocol ProjectRepositoryProtocol {
 }
 
 struct ProjectRepository: ProjectRepositoryProtocol {
-    let storageManager: Storagable
+    let storageManager: StorageProtocol
     
-    init(storageManager: Storagable) {
+    init(storageManager: StorageProtocol) {
         self.storageManager = storageManager
     }
 }

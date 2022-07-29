@@ -37,7 +37,7 @@
 		0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04E287C815300438285 /* PopOverViewModel.swift */; };
 		0E5B6C0128936E6A00A5FE48 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B6C0028936E6A00A5FE48 /* ProjectManagerTests.swift */; };
 		0E5B6C0828936F5800A5FE48 /* MockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockRepository.swift */; };
-		0E8130E9288693FA003EC6C7 /* PersistentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */; };
+		0E8130E9288693FA003EC6C7 /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130E8288693FA003EC6C7 /* PersistentStorage.swift */; };
 		0E8130EC2886A1F3003EC6C7 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */; };
 		0E8130ED2886A1F3003EC6C7 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */; };
 		0E8130EF2886E2E5003EC6C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8130EE2886E2E5003EC6C7 /* GoogleService-Info.plist */; };
@@ -101,7 +101,7 @@
 		0E34F04E287C815300438285 /* PopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewModel.swift; sourceTree = "<group>"; };
 		0E5B6BFE28936E6A00A5FE48 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5B6C0028936E6A00A5FE48 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
-		0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRepository.swift; sourceTree = "<group>"; };
+		0E8130E8288693FA003EC6C7 /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
 		0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0E8130EE2886E2E5003EC6C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -148,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				032D3D13287D64EB00A32E57 /* ProjectRepository.swift */,
+				0E02C72D28896C0600522622 /* NetworkRepository.swift */,
 				03F0EF96288EEB7B00FBC7EB /* HistoryRepository.swift */,
 			);
 			path = Repository;
@@ -186,23 +187,20 @@
 		0334E70428770E1400222EB7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				0EB71CDF28937A870025F66C /* HistoryStorage */,
-				0E8130F02886F791003EC6C7 /* NetworkStorage */,
-				03498B712886760600D8CB3F /* PersistentStorage */,
-				0E8130E728869383003EC6C7 /* Repository */,
+				0ED373652893CD4B00904751 /* Manager */,
+				0E8130E728869383003EC6C7 /* Storage */,
 			);
 			path = Data;
 			sourceTree = "<group>";
 		};
-		03498B712886760600D8CB3F /* PersistentStorage */ = {
+		03498B712886760600D8CB3F /* Persistent */ = {
 			isa = PBXGroup;
 			children = (
-				0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */,
-				0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */,
+				0ED373642893CCF900904751 /* CoreData */,
 				03498B72288676B500D8CB3F /* PersistentManager.swift */,
 				03498B662886737300D8CB3F /* Project.xcdatamodeld */,
 			);
-			path = PersistentStorage;
+			path = Persistent;
 			sourceTree = "<group>";
 		};
 		0384DA69288996B800C30AC9 /* Alert */ = {
@@ -296,22 +294,21 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
-		0E8130E728869383003EC6C7 /* Repository */ = {
+		0E8130E728869383003EC6C7 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */,
-				0E02C72D28896C0600522622 /* NetworkRepository.swift */,
+				0E8130E8288693FA003EC6C7 /* PersistentStorage.swift */,
 				03498B752886DF3A00D8CB3F /* ProjectDTO.swift */,
 			);
-			path = Repository;
+			path = Storage;
 			sourceTree = "<group>";
 		};
-		0E8130F02886F791003EC6C7 /* NetworkStorage */ = {
+		0E8130F02886F791003EC6C7 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				0E8130F12886F8A8003EC6C7 /* NetworkManager.swift */,
 			);
-			path = NetworkStorage;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		0EA67EB92874768500E15093 /* Detail */ = {
@@ -371,12 +368,31 @@
 			path = UseCases;
 			sourceTree = "<group>";
 		};
-		0EB71CDF28937A870025F66C /* HistoryStorage */ = {
+		0EB71CDF28937A870025F66C /* History */ = {
 			isa = PBXGroup;
 			children = (
 				03F0EF94288EE15B00FBC7EB /* HistoryManager.swift */,
 			);
-			path = HistoryStorage;
+			path = History;
+			sourceTree = "<group>";
+		};
+		0ED373642893CCF900904751 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */,
+				0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		0ED373652893CD4B00904751 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				0EB71CDF28937A870025F66C /* History */,
+				0E8130F02886F791003EC6C7 /* Network */,
+				03498B712886760600D8CB3F /* Persistent */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		0ED5C2BB2873236A00B8DD67 /* Presentation */ = {
@@ -632,7 +648,7 @@
 				0EA67EBE2874789700E15093 /* ModalView.swift in Sources */,
 				0E02C733288EFB1900522622 /* HistoryViewModel.swift in Sources */,
 				03BECD342892C55000BED881 /* ModalDelegate.swift in Sources */,
-				0E8130E9288693FA003EC6C7 /* PersistentRepository.swift in Sources */,
+				0E8130E9288693FA003EC6C7 /* PersistentStorage.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				03F0EF8F288EDAF300FBC7EB /* HistoryViewController.swift in Sources */,
 				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,

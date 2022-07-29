@@ -22,8 +22,8 @@ final class SceneDIContainer {
     
     // MARK: - Storage
     
-    private func makePersistentRepository() -> PersistentRepository {
-        return PersistentRepository(persistentManager: makePersistentManager())
+    private func makePersistentRepository() -> PersistentStorage {
+        return PersistentStorage(persistentManager: makePersistentManager())
     }
     
     private func makeNetworkRepository() -> NetworkRepository {
