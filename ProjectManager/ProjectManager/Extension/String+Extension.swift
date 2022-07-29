@@ -8,11 +8,9 @@
 import Foundation
 
 extension String {
-    static let dateFormatter = DateFormatter()
-    
     var toDate: Date? {
-        String.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let date = String.dateFormatter.date(from: self)
+        DateFormatter.shared.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let date = DateFormatter.shared.date(from: self)
         
         return date
     }

@@ -24,6 +24,7 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		E17E7E552878535000BD1CCA /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17E7E542878535000BD1CCA /* CircleLabel.swift */; };
+		E1ACC1F62893F53200E92EF8 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ACC1F52893F53200E92EF8 /* DateFormatter+Extension.swift */; };
 		E1BBADB0287DC2D100FCFE76 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BBADAF287DC2D000FCFE76 /* UITableView+Extension.swift */; };
 		E1BF8995288961F900D77841 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1BF8994288961F900D77841 /* GoogleService-Info.plist */; };
 		E1BF89992889646A00D77841 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF89982889646A00D77841 /* String+Extension.swift */; };
@@ -81,6 +82,7 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E17E7E542878535000BD1CCA /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
+		E1ACC1F52893F53200E92EF8 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		E1BBADAF287DC2D000FCFE76 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		E1BF8994288961F900D77841 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1BF89982889646A00D77841 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				E1BBADAF287DC2D000FCFE76 /* UITableView+Extension.swift */,
 				E1BF89982889646A00D77841 /* String+Extension.swift */,
 				E1BF899E288969EB00D77841 /* Encodable+Extension.swift */,
+				E1ACC1F52893F53200E92EF8 /* DateFormatter+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				E1D0946028756D8A0084308A /* TaskType.swift in Sources */,
 				E1C3F80D288EBD9C00111F8A /* History.swift in Sources */,
 				E1D094632875716A0084308A /* DetailModalView.swift in Sources */,
+				E1ACC1F62893F53200E92EF8 /* DateFormatter+Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				E1CCBDD1287EC10400348378 /* TaskInfo.swift in Sources */,
 				67FF0F17287E9B89001DD1F3 /* ContextualActionBuilder.swift in Sources */,
