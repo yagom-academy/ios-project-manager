@@ -238,11 +238,10 @@ extension MainViewController {
     }
     
     private func findIndexPath(type: TaskType, id: String) -> IndexPath? {
-        guard let elements = dataSources[type]?.accessibilityElements else { return nil }
+        guard let elements = dataSources[type]?.snapshot().itemIdentifiers else { return nil }
         guard let task = elements.filter({ data in
-            guard let task = data as? Task else { return false }
-            return task.id == id
-        }).first as? Task else {return nil}
+            return data.id == id
+        }).first else { return nil }
         
         return dataSources[type]?.indexPath(for: task)
     }
@@ -319,8 +318,13 @@ extension MainViewController: NetworkConnectionDelegate {
 extension MainViewController: FirebaseEventObserveDelegate {
     func added(snapshot: DataSnapshot) {
         guard let task = try? snapshot.data(as: Task.self) else { return }
-        
-        //addTask(task)
+        if let typeString = task.type,
+           let tasktype = TaskType(rawValue: typeString),
+           nil != findIndexPath(type: tasktype, id: task.id) {
+               return
+           } else {
+               addTask(task)
+           }
     }
     
     func changed(snapshot: DataSnapshot) {
@@ -330,7 +334,6 @@ extension MainViewController: FirebaseEventObserveDelegate {
               let tasktype = TaskType(rawValue: typeString),
               let indexPath = findIndexPath(type: tasktype, id: task.id) else { return }
         
-        // indexPath 문제
         updateTask(by: TaskInfo(task: task, type: tasktype, indexPath: indexPath))
     }
     
@@ -339,8 +342,9 @@ extension MainViewController: FirebaseEventObserveDelegate {
         
         guard let typeString = task.type,
               let tasktype = TaskType(rawValue: typeString),
-              let indexPath = dataSources[tasktype]?.indexPath(for: task) else { return }
+              let indexPath = findIndexPath(type: tasktype, id: task.id),
+              let deletedTask = dataSources[tasktype]?.itemIdentifier(for: indexPath) else { return }
         
-        deleteTask(taskInfo: TaskInfo(task: task, type: tasktype, indexPath: indexPath))
+        deleteTask(taskInfo: TaskInfo(task: deletedTask, type: tasktype, indexPath: indexPath))
     }
 }
