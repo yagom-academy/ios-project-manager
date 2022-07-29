@@ -5,7 +5,9 @@
 
 
 ## 프로젝트 기간
-> 2022.07.04(월) ~ 2022.07.15(금) 리뷰어: [린생](https://github.com/jungseungyeo)
+> 프로젝트 매니저 I 2022.07.04(월) ~ 2022.07.15(금) 리뷰어: [린생](https://github.com/jungseungyeo)
+
+> 프로젝트 매니저 II 2022.07.18(월) ~ 2022.07.29(금) 리뷰어: [린생](https://github.com/jungseungyeo)
 
 
 ## 목차
@@ -172,37 +174,117 @@ SPM은 애플의 First-Party 의존성 관리도구이며 이번 프로젝트에
 
 Cloud FireStore는 `CRUD`를 기준으로 비용을 책정하기 때문에 `CRUD`가 자주 발생한다면 Realtime Database가 유리하고 큰 단위의 데이터 요청이 자주 발생한다면 Firestore가 유리할 것이라고 판단했고 프로젝트의 성격과 각각의 비용 정책을 고려한 결과 **Realtime Database** 로 결정하게 되었습니다.
 
+### DB - Repository - UseCase - ViewModel - ViewController 데이터 Flow에 대해
+이번 프로젝트 매니저 II에서 I과 달리 계층을 늘리는 과정에서 데이터 Flow를 ViewController에서 Disposed 되어야할까? UseCase에서 스트림을 한번 끊어야 할까? 에 대해 고민이 있었습니다.
+
+기본적으로 내부에서 외부를 모르도록 설계하는 것이 클린 아키텍쳐가 지향하는 구조이며 <U>단방향 데이터 흐름</U>을 가져감으로써 아래와 같은 장점을 얻을 수 있다고 생각합니다.
+
+1. 데이터가 한 방향으로만 전달되기 때문에 문제가 발생했을때 어디서 디버깅하기 좋다.
+2. 전체적인 앱의 실행 흐름을 파악하기 쉽다.
+
+<img width="500" src="https://i.imgur.com/tbvoj3B.png"/>
+
+[그림 출처](https://medium.com/tiendeo-tech/ios-rxswift-clean-architecture-d7e9eaa60ba) / [참고 자료: Medium_Clean Architecture](https://medium.com/@jonas.schaude/developing-ios-applications-with-uncle-bobs-clean-architecture-572084853cdc)
+
+따라서, View에서 요청을 하면 DB까지 요청 메시지가 전달되고 반환되는 응답 스트림이 끊어지지 않도록 구현했습니다.
+
+### DI Container 
+계층이 많아지고 주입해줘야하는 객체가 늘어남에 따라 의존성 관리하는 것이 어려워질 것 같다는 생각이 들었습니다.
+
+<img width="500" src="https://i.imgur.com/vunI3Q0.png"/> <br/>
+
+사용할 때마다 UseCase 인스턴스 하나를 생성하기 위해 위와 같이 작성하다보면 Coordinator 코드도 비대해질 것 같습니다. 이를 해결할 방법으로 DIContainer를 통한 의존성 관리를 고려했고 Swinject, PureDI 등 많은 DI 라이브러리가 있지만 직접 구현해보자고 생각했습니다.
+
+직접 구현할 DIContainer의 주요 목표 기능은
+
+1. 필요할 때 생성할 수 있도록 지연 생성을 지원해야한다.
+2. 중복 생성되지 않도록 캐싱을 지원해야한다.
+3. 하위 객체부터 상위 객체로 조합하며 생성되어야한다. (IoC)
+
+
+**1. 필요할 때 생성할 수 있도록 지연 생성을 지원해야한다.**
+DIContainer가 필요한 인스턴스를 처음부터 생성하고 가지고 있다면 메모리를 낭비하게되기 때문에 사용할 때 생성될 수 있도록 해야합니다. 지연 생성을 구현하기 위해 <U>클로저의 지연 평가</U>를 활용했습니다.
+
+**2. 중복 생성되지 않도록 캐싱을 지원해야한다.**
+이미 생성된 인스턴스를 다시 생성하지 않도록하여 메모리 낭비를 줄여야합니다.
+
+**3. 하위 객체부터 상위 객체로 조합하며 생성되어야한다.**
+아래의 그림과 같이 Storage부터 생성되고 ViewController까지 역순으로 생성되어야합니다.
+
+<img width="800" src="https://i.imgur.com/T1hH3Tg.png"/> <br/>
+
+위의 요구조건을 만족하도록 아래와 같이 구현해보았습니다.
+
+<img width="500" src="https://i.imgur.com/BxyOmeB.png"/> <br/>
+
+**UseCase의 로직의 공통 요소에 대해**
+
+구현하는 과정에서 각각의 CRUD에 대한 노티피케이션 설정, Undo-Redo 관리 로직 등에서 공통된 요소들이 많은 것 같습니다.
+대표적으로 아래의 첨부된 코드에서 `FlatMap`과 내부 로직이 중복되고 있는 것을 확인할 수 있는데 이러한 스트림을 이어주는 과정에서 발생한 중복 요소를 개별 함수로 빼는 것이 좋을지 고민이 되었습니다.
+
+<img width="500" src="https://i.imgur.com/TkzMulC.png"/> <br/>
+
+<img width="500" src="https://i.imgur.com/hXtmGYc.png"/> <br/>
+
+**테스트 코드의 중요성**
+
+이번 프로젝트에서는 테스트 코드없이 진행하게 되었습니다. 점점 기능이 많아지고 규모가 커지면서 예상하지 못한 곳에서 문제가 발생하는 경우도 있었고 해당 기능이 제대로 동작하는지 확인하기 위한 <U>계속된 디버깅 작업</U>과 구현된 <U>코드를 신뢰할 수 없는 등의 어려움</U>이 있었습니다. 이번 기회를 통해 테스트 코드 작성의 필요성을 한번 더 느꼈고 이후 프로젝트에서는 테스트 코드를 무조건 작성해야겠다는 다짐을 얻을 수 있었던 계기가 된 것 같습니다. 
 
 ## 실행화면
 
 |[메인 화면] 앱 시작|[메인 화면] 한국어 설정|
 |:---:|:---:|
-|<img width="800" src="https://i.imgur.com/iRV42qz.gif"/>|<img width="800" src="https://i.imgur.com/VKxPymY.png"/>|
+|<img width="400" src="https://i.imgur.com/iRV42qz.gif"/>|<img width="400" src="https://i.imgur.com/VKxPymY.png"/>|
 
 |[메인 화면] 영어 설정|[메인 화면] 일본어 설정|
 |:---:|:---:|
-|<img width="800" src="https://i.imgur.com/hSF72A1.png"/>|<img width="800" src="https://i.imgur.com/m7sf27r.png"/>|
+|<img width="400" src="https://i.imgur.com/hSF72A1.png"/>|<img width="400" src="https://i.imgur.com/m7sf27r.png"/>|
 
 |[메인 화면] 카드 생성|[메인 화면] 카드 생성 취소|
 |:---:|:---:|
-|<img width="800" src="https://i.imgur.com/Kl6SpGJ.gif"/>|<img width="800" src="https://i.imgur.com/n76Ef5k.gif"/>|
+|<img width="400" src="https://i.imgur.com/Kl6SpGJ.gif"/>|<img width="400" src="https://i.imgur.com/n76Ef5k.gif"/>|
 
 |[메인 화면] 카드 수정|[메인 화면] 카드 디테일 - 편집모드 X|
 |:---:|:---:|
-|<img width="800" src="https://i.imgur.com/wRVMNJB.gif"/>|<img width="800" src="https://i.imgur.com/4PoJmjJ.gif"/>|
+|<img width="400" src="https://i.imgur.com/wRVMNJB.gif"/>|<img width="400" src="https://i.imgur.com/4PoJmjJ.gif"/>|
 
 |[메인 화면] 카드 디테일 - 편집모드 O|[메인 화면] 카드 상세 화면|
 |:---:|:---:|
-|<img width="800" src="https://i.imgur.com/n6zw6mE.gif"/>|<img width="800" src="https://i.imgur.com/JNkvRPK.gif"/>|
+|<img width="400" src="https://i.imgur.com/n6zw6mE.gif"/>|<img width="400" src="https://i.imgur.com/JNkvRPK.gif"/>|
 
 |[메인 화면] 카드 Swipe 삭제|[메인 화면] 카드 일반 삭제|
 |:---:|:---:|
-|<img width="800" src="https://i.imgur.com/SztzZ4b.gif"/>|<img width="800" src="https://i.imgur.com/STlPlIs.gif"/>|
+|<img width="400" src="https://i.imgur.com/SztzZ4b.gif"/>|<img width="400" src="https://i.imgur.com/STlPlIs.gif"/>|
 
 |[메인 화면] 카드 팝오버 표시|[메인 화면] 카드 팝오버 Section 이동|
 |:---:|:---:|
-|<img width="800" src="https://i.imgur.com/CoeyFZk.gif"/>|<img width="770" src="https://i.imgur.com/lLARdES.gif"/>|
+|<img width="400" src="https://i.imgur.com/CoeyFZk.gif"/>|<img width="400" src="https://i.imgur.com/lLARdES.gif"/>|
 
 |[메인 화면] 카드 이동 시 마감 시간순 정렬|
 |:---:|
-|<img width="370" src="https://i.imgur.com/xNVHnq3.gif"/>|
+|<img width="400" src="https://i.imgur.com/xNVHnq3.gif"/>|
+
+
+|[메인 화면] 히스토리 I|[메인 화면] 히스토리 II|
+|:---:|:---:|
+|<img width="400" src="https://i.imgur.com/SIyPRVM.gif"/>|<img width="400" src="https://i.imgur.com/RZ3feL2.gif"/>|
+
+|[메인 화면] 히스토리 III|[메인 화면] Core Data 캐시|
+|:---:|:---:|
+|<img width="400" src="https://i.imgur.com/Uj8K0rB.gif"/>|<img width="400" src="https://i.imgur.com/2rYcjQd.gif"/>|
+
+|[메인 화면] Firebase 동기화 - 앱 재설치|[메인 화면] 네트워크 연결 상태|
+|:---:|:---:|
+|<img width="400" src="https://user-images.githubusercontent.com/94151993/180363892-a149f91b-8ddf-4795-9207-e18793a06bbc.gif"/>|<img width="400" src="https://i.imgur.com/porBnvJ.gif"/>|
+
+|[메인 화면] 동기화 애니메이션|[메인 화면] 마감일 알림|
+|:---:|:---:|
+|<img width="500" src="https://i.imgur.com/Qrv6ub4.gif"/>|<img width="500" src="https://i.imgur.com/Y2WoDuk.gif"/>|
+
+|[메인 화면] 생성 Undo Redo|[메인 화면] 업데이트 Undo Redo|
+|:---:|:---:|
+|<img width="500" src="https://i.imgur.com/BW56lgR.gif"/>|<img width="500" src="https://i.imgur.com/9T5ME5J.gif"/>|
+
+|[메인 화면] 삭제 Undo Redo|[메인 화면] 이동하기 Undo Redo|
+|:---:|:---:|
+|<img width="500" src="https://i.imgur.com/N9sIVkt.gif"/>|<img width="500" src="https://i.imgur.com/Nyiuw9X.gif"/>|
