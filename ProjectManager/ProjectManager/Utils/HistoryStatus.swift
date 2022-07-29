@@ -7,16 +7,34 @@
 
 import Foundation
 
-enum HistoryStatus {
+enum HistoryStatus: Equatable {
     case from(currentStatus: TodoListItemStatus)
     case move(lastStatus: TodoListItemStatus, currentStatus: TodoListItemStatus)
-    
+
     var value: String {
         switch self {
         case .from(let currentStatus):
             return "from \(currentStatus.displayName)"
         case .move(let lastStatus, let currentStatus):
             return "from \(lastStatus.displayName) to \(currentStatus.displayName)"
+        }
+    }
+
+    var lastStatus: TodoListItemStatus {
+        switch self {
+        case .from(let currentStatus):
+            return currentStatus
+        case .move(let lastStatus, _):
+            return lastStatus
+        }
+    }
+
+    var currentStatus: TodoListItemStatus {
+        switch self {
+        case .from(let currentStatus):
+            return currentStatus
+        case .move(_, let currentStatus):
+            return currentStatus
         }
     }
 }

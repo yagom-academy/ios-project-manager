@@ -32,7 +32,7 @@ struct Todo {
         self.date = date
     }
     
-    func convertRealmTodo() -> TodoDTO {
+    func todoDTO() -> TodoDTO {
         return TodoDTO(
             todoListItemStatus: self.todoListItemStatus,
             identifier: self.identifier,
@@ -41,11 +41,13 @@ struct Todo {
             date: self.date
         )
     }
-    
-    func convertHistory(action: HistoryAction, status: HistoryStatus) -> History {
+
+    func history(action: HistoryAction, status: HistoryStatus) -> History {
         return History(
             action: action,
+            identifier: self.identifier,
             title: self.title,
+            description: self.description,
             status: status,
             date: self.date
         )
