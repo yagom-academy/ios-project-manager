@@ -12,7 +12,7 @@ final class HistoryViewModel: ViewModelType {
   
   override init(withService: TaskManagementService) {
     super.init(withService: withService)
-    self.allHistories = withService.allHistories
+    self.allHistories = withService.allHistories.reversed()
   }
   
   func showHistory(_ history: History) -> String {
