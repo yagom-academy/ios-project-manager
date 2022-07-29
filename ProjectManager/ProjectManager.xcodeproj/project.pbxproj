@@ -13,7 +13,6 @@
 		033294B4287C717700EE7CBE /* PopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033294B3287C717700EE7CBE /* PopOverView.swift */; };
 		0334E70028767E7100222EB7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E6FF28767E7100222EB7 /* DetailViewController.swift */; };
 		0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70128767EBB00222EB7 /* DetailViewModel.swift */; };
-		0334E70628770E3D00222EB7 /* MockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockRepository.swift */; };
 		03498B682886737300D8CB3F /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03498B662886737300D8CB3F /* Project.xcdatamodeld */; };
 		03498B73288676B500D8CB3F /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03498B72288676B500D8CB3F /* PersistentManager.swift */; };
 		03498B762886DF3A00D8CB3F /* ProjectDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03498B752886DF3A00D8CB3F /* ProjectDTO.swift */; };
@@ -28,7 +27,6 @@
 		03F0EF8F288EDAF300FBC7EB /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF8E288EDAF300FBC7EB /* HistoryViewController.swift */; };
 		03F0EF91288EDB5200FBC7EB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF90288EDB5200FBC7EB /* HistoryView.swift */; };
 		03F0EF93288EDCC200FBC7EB /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF92288EDCC200FBC7EB /* HistoryCell.swift */; };
-		03F0EF95288EE15B00FBC7EB /* MockHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF94288EE15B00FBC7EB /* MockHistoryRepository.swift */; };
 		03F0EF97288EEB7B00FBC7EB /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF96288EEB7B00FBC7EB /* HistoryRepository.swift */; };
 		03F0EF99288EEFD900FBC7EB /* HistoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF98288EEFD900FBC7EB /* HistoryEntity.swift */; };
 		03F0EF9D288F7C0C00FBC7EB /* ModalNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF9C288F7C0C00FBC7EB /* ModalNavigationBar.swift */; };
@@ -37,6 +35,9 @@
 		0E02C733288EFB1900522622 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E02C732288EFB1900522622 /* HistoryViewModel.swift */; };
 		0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04B287C7C5600438285 /* DateFormatter.swift */; };
 		0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04E287C815300438285 /* PopOverViewModel.swift */; };
+		0E5B6C0128936E6A00A5FE48 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B6C0028936E6A00A5FE48 /* ProjectManagerTests.swift */; };
+		0E5B6C0728936F4900A5FE48 /* MockHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF94288EE15B00FBC7EB /* MockHistoryRepository.swift */; };
+		0E5B6C0828936F5800A5FE48 /* MockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockRepository.swift */; };
 		0E8130E9288693FA003EC6C7 /* PersistentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */; };
 		0E8130EC2886A1F3003EC6C7 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */; };
 		0E8130ED2886A1F3003EC6C7 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */; };
@@ -55,6 +56,16 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		FAEDDC229AC8F5407D9684E2 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F70E19F85975BF5AEC875C5 /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0E5B6C0228936E6A00A5FE48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7431EFA25F51E1D0094C4CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C7431F0125F51E1D0094C4CF;
+			remoteInfo = ProjectManager;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		032D3D10287D629800A32E57 /* ProjectUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUseCase.swift; sourceTree = "<group>"; };
@@ -87,6 +98,8 @@
 		0E02C732288EFB1900522622 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		0E34F04B287C7C5600438285 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		0E34F04E287C815300438285 /* PopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewModel.swift; sourceTree = "<group>"; };
+		0E5B6BFE28936E6A00A5FE48 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E5B6C0028936E6A00A5FE48 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
 		0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRepository.swift; sourceTree = "<group>"; };
 		0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -111,6 +124,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0E5B6BFB28936E6A00A5FE48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7431EFF25F51E1D0094C4CF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -247,11 +267,35 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		0E8130E728869383003EC6C7 /* Repository */ = {
+		0E5B6BFF28936E6A00A5FE48 /* ProjectManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E5B6C0928936F7B00A5FE48 /* Data */,
+				0E5B6C0028936E6A00A5FE48 /* ProjectManagerTests.swift */,
+			);
+			path = ProjectManagerTests;
+			sourceTree = "<group>";
+		};
+		0E5B6C0928936F7B00A5FE48 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				0E5B6C0A28936F9E00A5FE48 /* Mock */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		0E5B6C0A28936F9E00A5FE48 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
 				0334E70528770E3D00222EB7 /* MockRepository.swift */,
 				03F0EF94288EE15B00FBC7EB /* MockHistoryRepository.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		0E8130E728869383003EC6C7 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
 				0E8130E8288693FA003EC6C7 /* PersistentRepository.swift */,
 				0E02C72D28896C0600522622 /* NetworkRepository.swift */,
 				03498B752886DF3A00D8CB3F /* ProjectDTO.swift */,
@@ -366,6 +410,7 @@
 			children = (
 				03AB73D52873043000B0C980 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
+				0E5B6BFF28936E6A00A5FE48 /* ProjectManagerTests */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 				962FA9F780902A94161358D2 /* Pods */,
 				492104A8C41981BAFB5B7756 /* Frameworks */,
@@ -376,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0225F51E1D0094C4CF /* ProjectManager.app */,
+				0E5B6BFE28936E6A00A5FE48 /* ProjectManagerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -398,6 +444,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0E5B6BFD28936E6A00A5FE48 /* ProjectManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E5B6C0628936E6A00A5FE48 /* Build configuration list for PBXNativeTarget "ProjectManagerTests" */;
+			buildPhases = (
+				0E5B6BFA28936E6A00A5FE48 /* Sources */,
+				0E5B6BFB28936E6A00A5FE48 /* Frameworks */,
+				0E5B6BFC28936E6A00A5FE48 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E5B6C0328936E6A00A5FE48 /* PBXTargetDependency */,
+			);
+			name = ProjectManagerTests;
+			productName = ProjectManagerTests;
+			productReference = 0E5B6BFE28936E6A00A5FE48 /* ProjectManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C7431F0125F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7431F1625F51E1E0094C4CF /* Build configuration list for PBXNativeTarget "ProjectManager" */;
@@ -424,9 +488,13 @@
 		C7431EFA25F51E1D0094C4CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					0E5B6BFD28936E6A00A5FE48 = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = C7431F0125F51E1D0094C4CF;
+					};
 					C7431F0125F51E1D0094C4CF = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -446,11 +514,19 @@
 			projectRoot = "";
 			targets = (
 				C7431F0125F51E1D0094C4CF /* ProjectManager */,
+				0E5B6BFD28936E6A00A5FE48 /* ProjectManagerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0E5B6BFC28936E6A00A5FE48 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7431F0025F51E1D0094C4CF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -524,6 +600,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0E5B6BFA28936E6A00A5FE48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E5B6C0728936F4900A5FE48 /* MockHistoryRepository.swift in Sources */,
+				0E5B6C0828936F5800A5FE48 /* MockRepository.swift in Sources */,
+				0E5B6C0128936E6A00A5FE48 /* ProjectManagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7431EFE25F51E1D0094C4CF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -551,7 +637,6 @@
 				03F0EF91288EDB5200FBC7EB /* HistoryView.swift in Sources */,
 				0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */,
 				03F0EF99288EEFD900FBC7EB /* HistoryEntity.swift in Sources */,
-				0334E70628770E3D00222EB7 /* MockRepository.swift in Sources */,
 				03AB73DB2873290400B0C980 /* MainViewController.swift in Sources */,
 				03BECD322892C34500BED881 /* ModalConstant.swift in Sources */,
 				03498B762886DF3A00D8CB3F /* ProjectDTO.swift in Sources */,
@@ -559,7 +644,6 @@
 				032D3D14287D64EB00A32E57 /* ProjectRepository.swift in Sources */,
 				033294B4287C717700EE7CBE /* PopOverView.swift in Sources */,
 				0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */,
-				03F0EF95288EE15B00FBC7EB /* MockHistoryRepository.swift in Sources */,
 				0E02C731288975D200522622 /* NetworkCondition.swift in Sources */,
 				03F0EF93288EDCC200FBC7EB /* HistoryCell.swift in Sources */,
 				0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */,
@@ -575,6 +659,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0E5B6C0328936E6A00A5FE48 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C7431F0125F51E1D0094C4CF /* ProjectManager */;
+			targetProxy = 0E5B6C0228936E6A00A5FE48 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -587,6 +679,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0E5B6C0428936E6A00A5FE48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = urlreversed.ProjectManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/ProjectManager";
+			};
+			name = Debug;
+		};
+		0E5B6C0528936E6A00A5FE48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = urlreversed.ProjectManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/ProjectManager";
+			};
+			name = Release;
+		};
 		C7431F1425F51E1E0094C4CF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -746,6 +876,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0E5B6C0628936E6A00A5FE48 /* Build configuration list for PBXNativeTarget "ProjectManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E5B6C0428936E6A00A5FE48 /* Debug */,
+				0E5B6C0528936E6A00A5FE48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C7431EFD25F51E1D0094C4CF /* Build configuration list for PBXProject "ProjectManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
