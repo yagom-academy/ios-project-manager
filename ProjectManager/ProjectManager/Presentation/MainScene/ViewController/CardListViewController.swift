@@ -20,6 +20,8 @@ final class CardListViewController: UIViewController {
     static let wifiConnectedImageName = "wifi"
     static let wifiDisConnectedImageName = "wifi.slash"
     static let syncCompletionMessage = "동기화가 완료되었습니다"
+    static let undoButtonTitle = "Undo"
+    static let redoButtonTitle = "Redo"
     static let intervalBetweenTableViews = 20.0
   }
   
@@ -40,6 +42,14 @@ final class CardListViewController: UIViewController {
     $0.spacing = UISettings.intervalBetweenTableViews
     $0.translatesAutoresizingMaskIntoConstraints = false
   }
+  private let undoButton = UIBarButtonItem().then {
+    $0.title = UISettings.undoButtonTitle
+    $0.isEnabled = false
+  }
+  private let redoButton = UIBarButtonItem().then {
+    $0.title = UISettings.redoButtonTitle
+    $0.isEnabled = false
+  }
   
   private let monitor = NWPathMonitor()
   private let disposeBag = DisposeBag()
@@ -52,6 +62,7 @@ final class CardListViewController: UIViewController {
     super.init(nibName: nil, bundle: nil)
     configureTableViews()
     configureNavigationItem()
+    configureToolbar()
   }
   
   required init?(coder: NSCoder) {
@@ -71,6 +82,7 @@ final class CardListViewController: UIViewController {
     bindSectionsItemSelected()
     bindSectionsItemDeleted()
     bindSectionsLongPressed()
+    bindUndoRedoButton()
     
     cardAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
@@ -231,6 +243,28 @@ final class CardListViewController: UIViewController {
     .bind(onNext: { _ in })
     .disposed(by: disposeBag)
   }
+  
+  private func bindUndoRedoButton() {
+    viewModel.undoHistories
+      .map { !$0.isEmpty }
+      .drive(undoButton.rx.isEnabled)
+      .disposed(by: disposeBag)
+    
+    viewModel.redoHistories
+      .map { !$0.isEmpty }
+      .drive(redoButton.rx.isEnabled)
+      .disposed(by: disposeBag)
+    
+    undoButton.rx.tap
+      .flatMap(viewModel.undo)
+      .bind(onNext: { _ in })
+      .disposed(by: disposeBag)
+    
+    redoButton.rx.tap
+      .flatMap(viewModel.redo)
+      .bind(onNext: { _ in })
+      .disposed(by: disposeBag)
+  }
 }
 
 // MARK: - UI Configuration
@@ -246,6 +280,11 @@ extension CardListViewController {
     title = UISettings.navigationTitle
     navigationItem.leftBarButtonItem = historyButton
     navigationItem.rightBarButtonItems = [cardAdditionButton, wifiIndicatorButton]
+  }
+  
+  private func configureToolbar() {
+    let flexible = UIBarButtonItem.flexibleSpace()
+    toolbarItems = [flexible, undoButton, redoButton]
   }
   
   private func configureTableViews() {

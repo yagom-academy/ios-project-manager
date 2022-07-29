@@ -20,12 +20,17 @@
 		B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA22873BFB20087383E /* CardListTableViewCell.swift */; };
 		B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA52873DAC00087383E /* CardListHeaderView.swift */; };
 		B032CDA82873F3610087383E /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA72873F3610087383E /* AppAppearance.swift */; };
+		B03DEBDD2892E58D00C23F03 /* UndoRedoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03DEBDC2892E58D00C23F03 /* UndoRedoService.swift */; };
+		B03DEBDF2892E5C200C23F03 /* DefaultUndoRedoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03DEBDE2892E5C200C23F03 /* DefaultUndoRedoService.swift */; };
 		B0524DA42889063C00F9A28D /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B0524DA32889063C00F9A28D /* FirebaseDatabaseSwift */; };
 		B0524DAA28895CA100F9A28D /* CardHistoryViewModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0524DA928895CA100F9A28D /* CardHistoryViewModelItem.swift */; };
 		B0524DAC2889686900F9A28D /* NWPathMonitor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0524DAB2889686900F9A28D /* NWPathMonitor+Extension.swift */; };
 		B0640CC4287F17CA00E684E6 /* PopOverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0640CC3287F17CA00E684E6 /* PopOverable.swift */; };
 		B067DB80288E8581000CB9C4 /* FirebaseDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067DB7F288E8581000CB9C4 /* FirebaseDatabaseService.swift */; };
 		B067DB82288EAD7E000CB9C4 /* CardToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067DB81288EAD7E000CB9C4 /* CardToastLabel.swift */; };
+		B067DB84288FB630000CB9C4 /* CardNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067DB83288FB630000CB9C4 /* CardNotificationService.swift */; };
+		B067DB89288FBD0A000CB9C4 /* DefaultCardNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067DB88288FBD0A000CB9C4 /* DefaultCardNotificationService.swift */; };
+		B067DB8B288FBFDA000CB9C4 /* UserNotificationCenterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067DB8A288FBFDA000CB9C4 /* UserNotificationCenterable.swift */; };
 		B06FD23428854A96003CED8E /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23328854A96003CED8E /* CardDetailViewModel.swift */; };
 		B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */; };
 		B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */; };
@@ -74,11 +79,16 @@
 		B032CDA22873BFB20087383E /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
 		B032CDA52873DAC00087383E /* CardListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListHeaderView.swift; sourceTree = "<group>"; };
 		B032CDA72873F3610087383E /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
+		B03DEBDC2892E58D00C23F03 /* UndoRedoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoService.swift; sourceTree = "<group>"; };
+		B03DEBDE2892E5C200C23F03 /* DefaultUndoRedoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUndoRedoService.swift; sourceTree = "<group>"; };
 		B0524DA928895CA100F9A28D /* CardHistoryViewModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewModelItem.swift; sourceTree = "<group>"; };
 		B0524DAB2889686900F9A28D /* NWPathMonitor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NWPathMonitor+Extension.swift"; sourceTree = "<group>"; };
 		B0640CC3287F17CA00E684E6 /* PopOverable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverable.swift; sourceTree = "<group>"; };
 		B067DB7F288E8581000CB9C4 /* FirebaseDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseService.swift; sourceTree = "<group>"; };
 		B067DB81288EAD7E000CB9C4 /* CardToastLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardToastLabel.swift; sourceTree = "<group>"; };
+		B067DB83288FB630000CB9C4 /* CardNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardNotificationService.swift; sourceTree = "<group>"; };
+		B067DB88288FBD0A000CB9C4 /* DefaultCardNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardNotificationService.swift; sourceTree = "<group>"; };
+		B067DB8A288FBFDA000CB9C4 /* UserNotificationCenterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationCenterable.swift; sourceTree = "<group>"; };
 		B06FD23328854A96003CED8E /* CardDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewModel.swift; sourceTree = "<group>"; };
 		B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdditionViewModel.swift; sourceTree = "<group>"; };
 		B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardUseCase.swift; sourceTree = "<group>"; };
@@ -222,6 +232,41 @@
 			path = MainScene;
 			sourceTree = "<group>";
 		};
+		B03DEBDB2892E55400C23F03 /* UndoRedo */ = {
+			isa = PBXGroup;
+			children = (
+				B03DEBDC2892E58D00C23F03 /* UndoRedoService.swift */,
+				B03DEBDE2892E5C200C23F03 /* DefaultUndoRedoService.swift */,
+			);
+			path = UndoRedo;
+			sourceTree = "<group>";
+		};
+		B067DB85288FBCD5000CB9C4 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				B067DB8D288FD32A000CB9C4 /* Common */,
+				B067DB8C288FD322000CB9C4 /* CardNotification */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		B067DB8C288FD322000CB9C4 /* CardNotification */ = {
+			isa = PBXGroup;
+			children = (
+				B067DB83288FB630000CB9C4 /* CardNotificationService.swift */,
+				B067DB88288FBD0A000CB9C4 /* DefaultCardNotificationService.swift */,
+			);
+			path = CardNotification;
+			sourceTree = "<group>";
+		};
+		B067DB8D288FD32A000CB9C4 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B067DB8A288FBFDA000CB9C4 /* UserNotificationCenterable.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		B06FD23728854EB1003CED8E /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,6 +337,8 @@
 			children = (
 				B0F615AA287C11A700672D87 /* Protocol */,
 				B0DA23ED287AD63600576D5E /* Extension */,
+				B067DB85288FBCD5000CB9C4 /* Notification */,
+				B03DEBDB2892E55400C23F03 /* UndoRedo */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -512,6 +559,7 @@
 				B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */,
 				B0BC2475288835A9007DFE5E /* Endpoint.swift in Sources */,
 				B0DC54232886A7DD004F74CD /* DefaultLocalDatabaseRepository.swift in Sources */,
+				B03DEBDF2892E5C200C23F03 /* DefaultUndoRedoService.swift in Sources */,
 				B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */,
 				B07673A1288C54BA0068EF6B /* CoreDataStoragable.swift in Sources */,
 				B0DC54282886C186004F74CD /* LocalDatabaseRepository.swift in Sources */,
@@ -519,6 +567,7 @@
 				B0524DAC2889686900F9A28D /* NWPathMonitor+Extension.swift in Sources */,
 				B0BC247728883A91007DFE5E /* HTTPMethod.swift in Sources */,
 				B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */,
+				B067DB8B288FBFDA000CB9C4 /* UserNotificationCenterable.swift in Sources */,
 				B0BC248828884B0D007DFE5E /* RealtimeDatabaseRepository.swift in Sources */,
 				B067DB80288E8581000CB9C4 /* FirebaseDatabaseService.swift in Sources */,
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
@@ -530,6 +579,7 @@
 				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
 				B0640CC4287F17CA00E684E6 /* PopOverable.swift in Sources */,
 				B009119828781F44007074E5 /* CardListViewModelItem.swift in Sources */,
+				B067DB84288FB630000CB9C4 /* CardNotificationService.swift in Sources */,
 				B0C043422888FA6E00FABDD4 /* CardHistoryViewController.swift in Sources */,
 				B067DB82288EAD7E000CB9C4 /* CardToastLabel.swift in Sources */,
 				B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */,
@@ -538,6 +588,7 @@
 				B0BC248228884185007DFE5E /* NetworkServiceError.swift in Sources */,
 				B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */,
 				B0C043402888F3B300FABDD4 /* History.swift in Sources */,
+				B067DB89288FBD0A000CB9C4 /* DefaultCardNotificationService.swift in Sources */,
 				B0C043442888FAC600FABDD4 /* CardHistoryTableViewCell.swift in Sources */,
 				B01748BF287744DF00EE15B0 /* CardEditView.swift in Sources */,
 				B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */,
@@ -545,6 +596,7 @@
 				B01DCDC928732AC900AFF91A /* Card.swift in Sources */,
 				B0BC248A28884B29007DFE5E /* DefaultRealtimeDatabaseRepository.swift in Sources */,
 				B0524DAA28895CA100F9A28D /* CardHistoryViewModelItem.swift in Sources */,
+				B03DEBDD2892E58D00C23F03 /* UndoRedoService.swift in Sources */,
 				B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

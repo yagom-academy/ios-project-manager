@@ -16,6 +16,8 @@ protocol CardListViewModelInput {
   func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem
   func deleteSelectedCard(_ card: Card) -> Observable<Void>
   func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void>
+  func undo() -> Observable<Void>
+  func redo() -> Observable<Void>
 }
 
 protocol CardListViewModelOutput {
@@ -23,6 +25,8 @@ protocol CardListViewModelOutput {
   var doingCards: Driver<[Card]> { get }
   var doneCards: Driver<[Card]> { get }
   var histories: Driver<[History]> { get }
+  var undoHistories: Driver<[History]> { get }
+  var redoHistories: Driver<[History]> { get }
 }
 
 protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput {}
@@ -34,6 +38,8 @@ final class CardListViewModel: CardListViewModelable {
   let doingCards: Driver<[Card]>
   let doneCards: Driver<[Card]>
   let histories: Driver<[History]>
+  let undoHistories: Driver<[History]>
+  let redoHistories: Driver<[History]>
   
   // MARK: - Init
   
@@ -63,6 +69,12 @@ final class CardListViewModel: CardListViewModelable {
     histories = useCase.histories
       .map { $0.sorted { $0.actionTime > $1.actionTime } }
       .asDriver(onErrorJustReturn: [])
+    
+    undoHistories = useCase.undoHistories
+      .asDriver(onErrorJustReturn: [])
+    
+    redoHistories = useCase.redoHistories
+      .asDriver(onErrorJustReturn: [])
   }
   
   // MARK: - Input
@@ -78,8 +90,10 @@ final class CardListViewModel: CardListViewModelable {
   }
   
   func toCardHistoryViewModelItem(history: History) -> CardHistoryViewModelItem {
+    let card = history.actionType == .create ? history.next : history.prev
+    
     return CardHistoryViewModelItem(
-      card: history.card,
+      card: card ?? .empty(),
       actionType: history.actionType,
       actionTimeString: setDateToString(history.actionTime),
       informationString: setInformationString(history)
@@ -96,6 +110,14 @@ final class CardListViewModel: CardListViewModelable {
   
   func moveDifferentSection(_ card: Card, to index: Int) -> Observable<Void> {
     return useCase?.moveDifferentSection(card, to: index) ?? .empty()
+  }
+  
+  func undo() -> Observable<Void> {
+    useCase?.undo() ?? .empty()
+  }
+  
+  func redo() -> Observable<Void> {
+    useCase?.redo() ?? .empty()
   }
 }
 
@@ -120,8 +142,8 @@ extension CardListViewModel {
   
   private func setInformationString(_ history: History) -> String {
     if case .move(let destinationCardType) = history.actionType {
-       return "\(history.card.cardType.description) ➡️ \(destinationCardType.description)"
+       return "\(history.prev?.cardType.description ?? "") ➡️ \(destinationCardType.description)"
     }
-    return "\(history.card.cardType.description)"
+    return "\(history.prev?.cardType.description ?? "")"
   }
 }

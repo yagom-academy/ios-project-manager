@@ -14,4 +14,5 @@ protocol LocalDatabaseRepository: DatabaseRepository {
   func delete(_ card: Card) -> Observable<Void>
   func deleteAll() -> Observable<Void>
   func count() -> Observable<Int>
+  func isExist(id: String) -> Observable<Bool>
 }
