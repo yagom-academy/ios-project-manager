@@ -6,6 +6,7 @@
 //
 
 import RealmSwift
+import UserNotifications
 
 struct RealmManager {
     private let realmInstance = try? Realm()
@@ -46,7 +47,13 @@ struct RealmManager {
     func delete(task: Task) throws {
         do {
             try realmInstance?.write {
-                realmInstance?.delete(task)
+                let result = realmInstance?.objects(Task.self).where {
+                    $0.id == task.id
+                }
+                guard let tasks = result else { return }
+                if let queriedTask = tasks.filter({ $0 == $0 }).first {
+                    realmInstance?.delete(queriedTask)
+                }
             }
         } catch {
             throw DatabaseError.deleteError

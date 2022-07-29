@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 final class NewFormSheetViewController: UIViewController {
+    
     fileprivate enum Constants {
         static let title: String = "TODO"
         static let done: String = "Done"

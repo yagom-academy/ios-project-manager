@@ -9,8 +9,15 @@ import UIKit
 
 extension UIViewController {
     func showAlert(message: String) {
-        let alertController = UIAlertController(title: "오류", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default)
+        let alertController = UIAlertController(
+            title: AppConstants.errorAlertTitle,
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(
+            title: AppConstants.okActionTitle,
+            style: .default
+        )
         alertController.addAction(okAction)
         self.present(alertController, animated: true)
     }

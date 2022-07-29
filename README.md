@@ -18,8 +18,10 @@
 - [STEP 3](#step-3)
     - [STEP 3 진행과정](#-step-3-진행과정)
     - [STEP 3 고민한점 및 해결한 부분](#-step-3-고민한-점-및-해결한-부분)
-    - [STEP 3 조언을 얻고 싶은 부분](#-step-3-조언을-얻고-싶은-부분)
-
+- [STEP 4](#step-4)
+    - [STEP 4 진행과정](#-step-4-진행과정)
+    - [STEP 4 고민한점 및 해결한 부분](#-step-4-고민한-점-및-해결한-부분)
+    - [STEP 4 해결하지 못한 부분](#-step-4-해결하지-못한-부분)
 <br>
 
 ## 🔎 프로젝트 소개
@@ -48,7 +50,32 @@
 
 |변경 내역 확인하기|
 |:---:|
-|<img src="https://user-images.githubusercontent.com/63997044/180429788-c3a2014c-e127-4021-bceb-9b6b2179c354.png" width="80%">|
+|<img src="https://user-images.githubusercontent.com/63997044/180429788-c3a2014c-e127-4021-bceb-9b6b2179c354.png" width="60%">|
+
+### 마감일 오전 9시에 로컬 노티피케이션으로 마감일을 알립니다
+|화면 녹화 기준(28일)인 일정만 알림이 옵니다.|
+|:---:|
+|<img width="60%" alt="스크린샷 2022-07-22 오후 8 29 43" src="https://user-images.githubusercontent.com/74251593/181467038-0ada2c74-c857-4db5-bcac-3a924be85d7e.gif">|
+
+### 마감일이 변경되면 알림의 날짜를 변경합니다
+|마감일이 지난 일정은 알림이 오지 않습니다.|마감일이 변경되면 알림의 날짜가 변경됩니다.|
+|:---:|:---:|
+|<img width="100%" alt="스크린샷 2022-07-22 오후 8 29 43" src="https://user-images.githubusercontent.com/74251593/181468162-7341d7a9-03d3-487f-967d-4151f130b1b6.gif">|<img src="https://user-images.githubusercontent.com/74251593/181469495-fea35ccf-bdc9-4de4-890d-993a8b380aae.gif" width="100%">|
+
+### 할일을 완료하면 설정해 두었던 알림을 해제합니다
+|DONE으로 옮겨진 할일은 알림을 띄우지 않습니다.|
+|:---:|
+|<img width="60%" alt="스크린샷 2022-07-22 오후 8 29 43" src="https://user-images.githubusercontent.com/63997044/181471662-80adebbc-5fcd-48c6-97cd-44e5e0e5e130.gif">|
+
+### 화면 하단의 버튼을 통해 되돌리기 기능을 수행할 수 있습니다
+|생성 -> 이동 -> 이동 -> 히스토리 확인 -> Undo -> Undo -> Undo -> 히스토리 확인|
+|:---:|
+|<img width="60%" alt="스크린샷 2022-07-22 오후 8 29 43" src="https://user-images.githubusercontent.com/74251593/181463178-cac5921a-f479-437e-bf89-13e06ac660f4.gif">|
+
+### 수행할 내용이 없으면 버튼을 비활성화 합니다
+|`Undo`, `Redo` 버튼 활성화/비활성화|
+|:---:|
+|<img width="100%" alt="스크린샷 2022-07-22 오후 8 29 43" src="https://user-images.githubusercontent.com/74251593/181464180-0872a4ce-eb55-4313-afb6-71943dd9ac55.gif">|
 
 <br>
 
@@ -77,7 +104,11 @@
 |22.07.20(수)|STEP1 진행|
 |22.07.21(목)|STEP1 진행|
 |22.07.22(금)|STEP1 PR, README 작성|
-
+|22.07.25(월)|STEP2(4-1) 진행|
+|22.07.26(화)|STEP2(4-2) 진행|
+|22.07.27(수)|STEP2(4-2, 4-3) 진행|
+|22.07.28(목)|STEP2(4-3) 진행|
+|22.07.29(금)|README 작성|
 <br>
 
 ## 👀 PR
@@ -87,6 +118,7 @@
 
 프로젝트 매니저 II
 - [STEP 1](https://github.com/yagom-academy/ios-project-manager/pull/160)
+- [STEP 2](https://github.com/yagom-academy/ios-project-manager/pull/166)
 <br>
 
 ## 🛠 개발환경 및 라이브러리
@@ -111,6 +143,8 @@
 - NWPathMonitor
 - UISplitViewController
 - NotificationCenter
+- UndoManager
+- UserNotification
 
 <br>
 
@@ -316,6 +350,8 @@ private func bindErrorAlert() {
     - 변경 이력(History) 기능 구현
     - 소스 코드 리팩토링
 
+<br>
+
 ## 🤔 STEP 3 고민한 점 및 해결한 부분
 ### 1. `History`이력을 어떤 `UI/UX`로 보여야 할지 고민하였습니다.
 <img src="https://user-images.githubusercontent.com/74251593/180429093-f262a451-4f03-4fa4-9937-a22ad70afc08.png" width="80%"><br>
@@ -412,6 +448,118 @@ viewModel.network
     .disposed(by: disposeBag)
 ```
 - 현재 그 내용이 위 코드로 구현되어 있는데 `ViewModel`의 상태값 변화를 `ViewController`가 감지하여 다시 `ViewModel`의 메서드를 실행시킨다는 것이 부자연스럽게 느껴집니다. 위의 코드를 어떻게 개선할 수 있을까요?
+
+<br>
+
+## [STEP 4]
+## ⏳ STEP 4 진행과정
+- **[STEP 4-1]**
+    - Undo, Redo 기능 구현
+- **[STEP 4-2]**
+    - UserNotification 기능 구현
+- **[STEP 4-3]**
+    - 소스 코드 리팩토링
+    - 버그 수정
+
+<br>
+
+## 🤔 STEP 4 고민한 점 및 해결한 부분
+### 1. Undo/Redo Action을 등록하는 방법
+#### 주요논리구조
+1. 생성, 이동, 삭제 등 이벤트가 발생, `Undo`이벤트를 등록 및 저장하는 메서드 호출
+2. `registerUndo`에, `Undo`시의 이벤트 저장과 `Redo`이벤트를 등록하는 메서드 호출, `Undo`버튼 활성화
+3. `Undo`버튼 클릭시 `registerUndo`에 등록 및 저장된 `Undo`이벤트 실행(생성, 이동, 삭제 전으로 변경)
+4. `Redo`버튼 클릭시 `registerUndo`에 등록 및 저장된 `Redo`이벤트 실행(생성, 이동, 삭제 후로 변경)
+
+위와 같은 논리를 바탕으로 `Undo`/`Redo` 기능을 구현해 보았습니다.
+
+<br>
+
+### 2. UserNotification 생성
+#### 현재 구현한 `UserNotification` 생성 방식은 다음과 같습니다.
+- ~~`fetchTodo()`, `fetchDoing()`, `fetchDone()` 호출 시 등록되어 있는 알림을 모두 제거합니다.~~
+- ~~알림을 제거한 후 `identifier`를 `task.id`로 오늘 날짜에 해당하는 알림을 생성합니다.~~
+- ~~수정, 삭제, 이동이 발생하는 경우 `fetchData()`를 통해 알림을 제거하고 다시 생성합니다.~~
+#### 할일을 완료하면 설정해 두었던 알림을 해제합니다
+- ~~할일을 완료하면 `DONE`으로 항목이 이동하는 상황이라고 생각하였습니다.~~
+- ~~`DONE`에 해당하는 데이터(`MainViewModel.dones`)는 알림을 제거만 하고 생성하지 않습니다.~~
+#### 오늘 날짜에 해당하는 알림을 생성하는 이유
+- 요구사항에 `마감일이 변경되면 알림의 날짜를 변경합니다`라는 문장이 있었으나 마감일이 오늘이 아닌 항목에 대해서는 당장 알림을 생성할 필요가 없다고 판단해서 오늘이 마감일인 항목들만 알림을 생성하도록 구현하였습니다.
+
+#### 피드백을 받아 변경된 알림 관리 방식
+- 앱 실행 시 `TODO`, `DOING`의 항목들 중 마감일이 오늘 날짜인 항목에 대한 알림을 생성합니다.
+- 항목 추가 시 `UserNotificationManager`의 `addUserNotification` 메서드에 의해 새로운 알림을 생성합니다.
+- 항목 삭제 시 `UserNotificationManager`의 `removeUserNotification` 메서드에 의해 새로운 알림을 생성합니다.
+- 마감일 변경 시 `UserNotificationManager`의 `adjustUserNotificationAboutModify` 메서드를 호출합니다. 마감일이 오늘이 아니라면 알림을 제거합니다.
+- 항목 이동 시 `UserNotificationManager`의 `adjustUserNotificationAboutTypeChange` 메서드를 호출합니다. 옮겨진 타입이 `TODO`나 `DOING`이라면 알림을 업데이트하고 `DONE`이라면 알림을 제거합니다.
+<br>
+
+### 3. Undo/Redo 실행 시 Realm Object Access
+🙏 공식 문서에 나와있는 내용을 통해 이해한 내용이 아니라 Trouble Shooting으로 인해 이해한 내용이므로 틀릴 수도 있습니다. 혹시 틀린 내용이 있다면 정정 부탁드립니다!
+- `Undo`/`Redo` 동작을 사용하다보면 필연적으로 `Realm Object`에 접근해야 합니다. `Undo`/`Redo` 동작 중에 항목을 삭제하는 `action`이 있을 경우 다음 에러들을 볼 수 있었습니다.
+    - `"Object has been deleted or invalidated"`  
+    - `"Can only delete an object from the Realm it belongs to."`
+- `Realm`의 `delete`를 통해 `object`를 삭제하면 `invalidated`상태가 됩니다. `undoManager.registerUndo()`에서 클로저를 캡처하고 사용할 때 `task`에 대한 값들이 필요한데 이때 이미 삭제된 `task`에 접근이 발생하기 때문인 것으로 보입니다.
+- 또한 Realm에서 `Create`를 제외한`Delete` 등 쓰기 작업에서는 이미 저장되어 있는 Realm Object만 사용 가능하다는 내용으로 파악했습니다. 
+- 즉 fetch를 통해 가져온 `task`와 `let copiedTask = Task(title: task.title ..)`로 만들어진 둘은 전혀 다른 객체이고 Realm을 통해 Delete를 하려고 하면 후자의 경우 Realm Object가 아니기 때문에 취급이 불가능하다는 것입니다.
+```swift
+undoManager.registerUndo(withTarget: self) { [weak self] _ in
+    self?.registerAddRedoAction(task: task)    // Error!
+    do {
+        try self?.realmManager.delete(task: task) // Error!
+    } catch {
+        self?.error.accept(DatabaseError.deleteError)
+    }
+}
+```
+#### 해결한 방법
+- `Realm`의 `write transaction`에 쓰인 객체인 경우, 저장된 Realm DB의 주소값을 참조하는 것 같습니다. 따라서 삭제 후 `Undo`를 통해 다시 생성했다고 해도 그 둘은 동일한 객체가 아니기 때문에 반복되는 `Undo`/`Redo` 동작이나 혹은 복합적인 여러 동작을 하는 경우 꼬이는 문제가 발생한 것 같습니다. 
+
+```swift
+// In ViewModel.swift
+private func registerAddUndoAction(task: Task) {
+    // 원본과 동일한 값을 가진 객체 생성
+    let capturedTask = Task(
+        title: task.title,
+        body: task.body,
+        date: task.date,
+        taskType: .todo,
+        id: task.id
+    )
+    // 이 객체를 가지고 Undo/Redo 등록
+    undoManager.registerUndo(withTarget: self) { [weak self] _ in
+        self?.registerAddRedoAction(task: capturedTask)
+        do {
+            try self?.realmManager.delete(task: capturedTask)
+            } catch { ... }
+        }
+    }
+```
+
+- 그리고 삭제하는 방법을 **전달 받은 객체 삭제**에서 **전달 받은 객체의 ID와 동일한 객체를 Realm에서 삭제**로 변경했습니다. 코드가 길어졌지만 안정성은 더 올라갔다고 생각합니다. 
+
+```swift
+func delete(task: Task) throws {
+    do {
+        try realmInstance?.write {
+            let result = realmInstance?.objects(Task.self).where {
+                $0.id == task.id
+            }
+            guard let tasks = result else { return }
+            if let queriedTask = tasks.filter({ $0 == $0 }).first {
+                realmInstance?.delete(queriedTask)
+            }
+        }
+    } catch { ... }
+}
+```
+
+<br>
+
+## 🤔 STEP 4 해결하지 못한 부분
+### 1. UndoManager의 canUndo, canRedo 프로퍼티를 직접적으로 버튼에 bind 할 수 없을까?
+- 현재는 `MainViewModel`의 `undoable`, `redoable`값을 통해 `MainViewController`에서는 버튼의 `isEnabled`상태값을 변경하고 있습니다. 
+- 그런데 `UndoManager`의 `canUndo`, `canRedo` 프로퍼티를 사용한다면 굳이 `undoable`, `redoable`가 필요없지 않을까 생각이 들었습니다. 만약 적용 가능하다면 버튼을 눌렀을 때 하는 동작에서도 상황에 따른 상태 변화를 직접 계산해서 입력해주어야 하는 번거로움을 해결할 수 있을 것 같습니다.
 
 <br>
 

@@ -76,6 +76,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         bindItemsDeleted()
         bindLongPressGestures()
         bindErrorAlert()
+        bindUndoRedoButtons()
     }
     
     private func cell(
@@ -133,6 +134,11 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         )
         editFormSheet.modalPresentationStyle = .formSheet
         present(editFormSheet, animated: true)
+    }
+    
+    private func initializeUndoRedoButtons() {
+        mainView.footerView.undoButton.isEnabled = true
+        mainView.footerView.redoButton.isEnabled = false
     }
 }
 
@@ -273,11 +279,36 @@ extension MainViewController {
                 .disposed(by: disposeBag)
         }
     }
+    
+    private func bindUndoRedoButtons() {
+        viewModel.undoable
+            .map({ Bool($0) })
+            .bind(to: mainView.footerView.undoButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        viewModel.redoable
+            .map({ Bool($0) })
+            .bind(to: mainView.footerView.redoButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        mainView.footerView.undoButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.viewModel.undoButtonTapped()
+            }
+            .disposed(by: disposeBag)
+        
+        mainView.footerView.redoButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.viewModel.redoButtonTapped()
+            }
+            .disposed(by: disposeBag)
+    }
 }
 
 extension MainViewController: DataReloadable {
     func reloadData() {
         viewModel.fetchData()
+        initializeUndoRedoButtons()
     }
 }
 

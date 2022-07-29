@@ -13,12 +13,19 @@ final class MainView: UIView {
     private(set) lazy var todoView = TaskSectionView(taskType: .todo)
     private(set) lazy var doingView = TaskSectionView(taskType: .doing)
     private(set) lazy var doneView = TaskSectionView(taskType: .done)
-
+    private(set) lazy var footerView = FooterView()
+    
     private let baseStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.spacing = 3
+    }
+    
+    private let taskSectionStackView = UIStackView().then {
+        $0.axis = .horizontal
         $0.spacing = 15
         $0.distribution = .fillEqually
     }
-
+    
     init() {
         super.init(frame: .zero)
         backgroundColor = .systemGray5
@@ -33,15 +40,22 @@ final class MainView: UIView {
     private func setupSubViews() {
         addSubview(baseStackView)
         
-        baseStackView.addArrangedSubview(todoView)
-        baseStackView.addArrangedSubview(doingView)
-        baseStackView.addArrangedSubview(doneView)
+        taskSectionStackView.addArrangedSubview(todoView)
+        taskSectionStackView.addArrangedSubview(doingView)
+        taskSectionStackView.addArrangedSubview(doneView)
+        
+        baseStackView.addArrangedSubview(taskSectionStackView)
+        baseStackView.addArrangedSubview(footerView)
     }
     
     private func setupUILayout() {
         baseStackView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        footerView.snp.makeConstraints {
+            $0.height.equalTo(baseStackView.snp.height).multipliedBy(0.08)
         }
     }
 }

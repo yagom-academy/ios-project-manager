@@ -10,7 +10,9 @@ import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     var window: UIWindow?
+    static let undoManager = UndoManager()
     
     func application(
         _ application: UIApplication,

@@ -21,7 +21,9 @@ protocol EditFormSheetViewModelState {
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class EditFormSheetViewModel: EditFormSheetViewModelEvent, EditFormSheetViewModelState, ErrorObservable {
+final class EditFormSheetViewModel: EditFormSheetViewModelEvent,
+                                        EditFormSheetViewModelState,
+                                        ErrorObservable {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
@@ -31,7 +33,9 @@ final class EditFormSheetViewModel: EditFormSheetViewModelEvent, EditFormSheetVi
     
     private let reference = Database.database().reference()
     private let realmManager = RealmManager()
-
+    private let undoManager = AppDelegate.undoManager
+    private let userNotificationManager = UserNotificationManager()
+    
     func editButtonTapped(task: Task) {
         modifyEditableTask(task: task)
     }
@@ -44,12 +48,88 @@ final class EditFormSheetViewModel: EditFormSheetViewModelEvent, EditFormSheetVi
             taskType: task.taskType,
             id: task.id
         )
-        
+        let capturedOriginalTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: task.taskType,
+            id: task.id
+        )
+        let capturedEditedTask = Task(
+            title: title.value,
+            body: body.value,
+            date: date.value,
+            taskType: task.taskType,
+            id: task.id
+        )
+        registerModifyUndoAction(
+            before: capturedOriginalTask,
+            after: capturedEditedTask
+        )
+        userNotificationManager.adjustUserNotificationAboutTypeChange(of: editableTask)
         do {
             try realmManager.update(task: editableTask)
             dismiss.accept(())
         } catch {
             self.error.accept(DatabaseError.updateError)
+        }
+    }
+    
+    private func registerModifyUndoAction(before: Task, after: Task) {
+        let capturedOriginalTask = Task(
+            title: before.title,
+            body: before.body,
+            date: before.date,
+            taskType: before.taskType,
+            id: before.id
+        )
+        let capturedEditedTask = Task(
+            title: after.title,
+            body: after.body,
+            date: after.date,
+            taskType: after.taskType,
+            id: after.id
+        )
+        undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            self?.registerModifyRedoAction(
+                before: capturedEditedTask,
+                after: capturedOriginalTask
+            )
+            self?.userNotificationManager.adjustUserNotificationAboutTypeChange(of: capturedOriginalTask)
+            do {
+                try self?.realmManager.update(task: before)
+            } catch {
+                self?.error.accept(DatabaseError.updateError)
+            }
+        }
+    }
+    
+    private func registerModifyRedoAction(before: Task, after: Task) {
+        let capturedOriginalTask = Task(
+            title: before.title,
+            body: before.body,
+            date: before.date,
+            taskType: before.taskType,
+            id: before.id
+        )
+        let capturedEditedTask = Task(
+            title: after.title,
+            body: after.body,
+            date: after.date,
+            taskType: after.taskType,
+            id: after.id
+        )
+        undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            self?.userNotificationManager.adjustUserNotificationAboutTypeChange(of: capturedOriginalTask)
+            self?.registerModifyUndoAction(
+                before: capturedEditedTask,
+                after: capturedOriginalTask
+            )
+            do {
+                try self?.realmManager.update(task: before)
+            } catch {
+                self?.error.accept(DatabaseError.updateError)
+            }
         }
     }
 }

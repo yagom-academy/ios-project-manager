@@ -21,7 +21,11 @@ protocol NewFormSheetViewModelState {
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewModelState, ErrorObservable {
+final class NewFormSheetViewModel: NewFormSheetViewModelEvent,
+                                    NewFormSheetViewModelState,
+                                    ErrorObservable,
+                                    PopNotificationSendable,
+                                    PushAddNotificationSendable {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
@@ -32,6 +36,8 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
     private let realmManager = RealmManager()
     private let uuid = UUID().uuidString
     private let reference = Database.database().reference()
+    private let undoManager = AppDelegate.undoManager
+    private let userNotificationManager = UserNotificationManager()
     
     func doneButtonTapped() {
         registerNewTask()
@@ -45,10 +51,10 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
             taskType: .todo,
             id: uuid
         )
-
+        registerAddUndoAction(task: newTask)
+        userNotificationManager.addUserNotification(of: newTask)
         do {
             try realmManager.create(task: newTask)
-
             sendNotificationForHistory(newTask.title)
             dismiss.accept(())
         } catch {
@@ -56,10 +62,45 @@ final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewM
         }
     }
     
-    private func sendNotificationForHistory(_ title: String) {
-        let content = "Added '\(title)'."
-        let time = date.value
-        let history: [String: Any] = ["content": content, "time": time]
-        NotificationCenter.default.post(name: NSNotification.Name("History"), object: nil, userInfo: history)
+    private func registerAddUndoAction(task: Task) {
+        let capturedTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: .todo,
+            id: task.id
+        )
+        undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            self?.registerAddRedoAction(task: capturedTask)
+            self?.userNotificationManager.removeUserNotification(of: capturedTask)
+            do {
+                try self?.realmManager.delete(task: capturedTask)
+                self?.sendNotificationForHistory()
+            } catch {
+                self?.error.accept(DatabaseError.deleteError)
+            }
+        }
+    }
+    
+    private func registerAddRedoAction(task: Task) {
+        let capturedTask = Task(
+            title: task.title,
+            body: task.body,
+            date: task.date,
+            taskType: .todo,
+            id: task.id
+        )
+        
+        undoManager.registerUndo(withTarget: self) { [weak self] _ in
+            let title = capturedTask.title
+            self?.registerAddUndoAction(task: capturedTask)
+            self?.userNotificationManager.addUserNotification(of: capturedTask)
+            do {
+                try self?.realmManager.create(task: capturedTask)
+                self?.sendNotificationForHistory(title)
+            } catch {
+                self?.error.accept(DatabaseError.createError)
+            }
+        }
     }
 }
