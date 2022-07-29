@@ -57,6 +57,5 @@ extension DefaultTodoMoveViewModel: TodoMoveViewModel {
     
     func secondButtonDidTap() {
         useCase.secondMoveState(item: item)
-
     }
 }
