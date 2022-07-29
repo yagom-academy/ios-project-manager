@@ -72,9 +72,7 @@ extension PersistentManager: PersistentManagerProtocol {
         oldProject?.setValue(formattedDeadline, forKey: "deadline")
         oldProject?.setValue(project.body, forKey: "body")
         
-        guard let _ = try? context.save() else {
-            return
-        }
+        try? context.save()
     }
 
     func delete(projectEntityID: UUID?) {
@@ -84,9 +82,7 @@ extension PersistentManager: PersistentManagerProtocol {
         
         context.delete(projectToDelete)
         
-        guard let _ = try? context.save() else {
-            return
-        }
+        try? context.save()
     }
     
     func deleteAll() {
@@ -122,9 +118,7 @@ extension PersistentManager {
         managedObject.setValue(formattedDeadline, forKey: "deadline")
         managedObject.setValue(project.body, forKey: "body")
         
-        guard let _ = try? context.save() else {
-            return
-        }
+        try? context.save()
     }
 
     private func fetchProjects() -> [Project]? {
