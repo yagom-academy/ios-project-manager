@@ -41,6 +41,15 @@ struct Todo {
             date: self.date
         )
     }
+    
+    func convertHistory(action: HistoryAction, status: HistoryStatus) -> History {
+        return History(
+            action: action,
+            title: self.title,
+            status: status,
+            date: self.date
+        )
+    }
 }
 
 extension Todo: Serializable {
@@ -50,7 +59,7 @@ extension Todo: Serializable {
             "identifier": self.identifier.uuidString,
             "title": self.title,
             "description": self.description,
-            "date": self.date.convertToString()
+            "date": self.date.dateString()
         ]
     }
     

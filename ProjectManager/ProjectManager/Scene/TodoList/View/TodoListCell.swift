@@ -8,10 +8,6 @@
 import UIKit
 
 final class TodoListCell: UITableViewCell {
-    static var identifier: String {
-        return String(describing: Self.self)
-    }
-    
     private let contentsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -81,7 +77,7 @@ final class TodoListCell: UITableViewCell {
     func configure(_ todo: Todo) {
         self.titleLabel.text = todo.title
         self.descriptionLabel.text = todo.description
-        self.dateLabel.text = todo.date.convertToString()
+        self.dateLabel.text = todo.date.dateString()
     }
     
     func changeDateLabelColor(to dateLabelColor: DateLabelColor) {

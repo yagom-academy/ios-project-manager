@@ -61,6 +61,19 @@ final class AppCoordinator: Coordinator {
         self.detailViewController?.dismiss(animated: true)
     }
     
+    func showHistory(historyButton: UIBarButtonItem?) {
+        guard let historyButton = historyButton else {
+            return
+        }
+        
+        let historyViewModel = HistoryViewModel(database: self.database)
+        let historyView = HistoryViewController(viewModel: historyViewModel)
+        historyView.modalPresentationStyle = .popover
+        historyView.popoverPresentationController?.barButtonItem = historyButton
+
+        self.navigationController.present(historyView, animated: true)
+    }
+    
     func showPopover(
         sourceView: UIView,
         firstTitle: String,
