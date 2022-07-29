@@ -279,12 +279,12 @@ DIContainer가 필요한 인스턴스를 처음부터 생성하고 가지고 있
 
 |[메인 화면] 동기화 애니메이션|[메인 화면] 마감일 알림|
 |:---:|:---:|
-|<img width="500" src="https://i.imgur.com/Qrv6ub4.gif"/>|<img width="500" src="https://i.imgur.com/Y2WoDuk.gif"/>|
+|<img width="400" src="https://i.imgur.com/Qrv6ub4.gif"/>|<img width="400" src="https://i.imgur.com/Y2WoDuk.gif"/>|
 
 |[메인 화면] 생성 Undo Redo|[메인 화면] 업데이트 Undo Redo|
 |:---:|:---:|
-|<img width="500" src="https://i.imgur.com/BW56lgR.gif"/>|<img width="500" src="https://i.imgur.com/9T5ME5J.gif"/>|
+|<img width="400" src="https://i.imgur.com/BW56lgR.gif"/>|<img width="400" src="https://i.imgur.com/9T5ME5J.gif"/>|
 
 |[메인 화면] 삭제 Undo Redo|[메인 화면] 이동하기 Undo Redo|
 |:---:|:---:|
-|<img width="500" src="https://i.imgur.com/N9sIVkt.gif"/>|<img width="500" src="https://i.imgur.com/Nyiuw9X.gif"/>|
+|<img width="400" src="https://i.imgur.com/N9sIVkt.gif"/>|<img width="400" src="https://i.imgur.com/Nyiuw9X.gif"/>|
