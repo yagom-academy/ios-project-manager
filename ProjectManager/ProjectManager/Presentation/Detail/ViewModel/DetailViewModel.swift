@@ -17,11 +17,11 @@ struct DetailViewModel {
     }
     
     func read() -> ProjectEntity? {
-        return projectUseCase.read(id: content.id)
+        return projectUseCase.read(projectEntityID: content.id)
     }
     
     func update(_ content: ProjectEntity) {
-        projectUseCase.update(projectContent: content)
+        projectUseCase.update(projectEntity: content)
         updateHistory(by: content)
     }
     

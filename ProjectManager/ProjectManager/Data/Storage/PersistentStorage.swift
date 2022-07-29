@@ -9,12 +9,12 @@ import RxSwift
 import RxRelay
 
 protocol PersistentStorageProtocol {
-    func create(projectContent: ProjectEntity)
-    func create(projectContents: [ProjectEntity])
+    func create(projectEntity: ProjectEntity)
+    func create(projectEntities: [ProjectEntity])
     func read() -> BehaviorRelay<[ProjectEntity]>
     func read(id: UUID?) -> ProjectEntity?
-    func update(projectContent: ProjectEntity)
-    func delete(projectContentID: UUID?)
+    func update(projectEntity: ProjectEntity)
+    func delete(projectEntityID: UUID?)
     func deleteAll()
 }
 
@@ -66,14 +66,14 @@ final class PersistentStorage {
 }
 
 extension PersistentStorage: PersistentStorageProtocol {
-    func create(projectContent: ProjectEntity) {
-        createCoreDate(newProjectContent: projectContent)
-        createProjectEntities(newProjectContent: projectContent)
+    func create(projectEntity: ProjectEntity) {
+        createCoreDate(newProjectEntity: projectEntity)
+        createProjectEntities(newProjectEntity: projectEntity)
     }
     
-    func create(projectContents: [ProjectEntity]) {
-        createCoreDate(newProjectContents: projectContents)
-        createProjectEntities(newProjectContents: projectContents)
+    func create(projectEntities: [ProjectEntity]) {
+        createCoreDate(newProjectEntities: projectEntities)
+        createProjectEntities(newProjectEntities: projectEntities)
     }
     
     func read() -> BehaviorRelay<[ProjectEntity]> {
@@ -84,14 +84,14 @@ extension PersistentStorage: PersistentStorageProtocol {
         return projectEntities.value.filter { $0.id == id }.first
     }
     
-    func update(projectContent: ProjectEntity) {
-        updateCoreDate(newProjectContent: projectContent)
-        updateProjectEntities(newProjectContent: projectContent)
+    func update(projectEntity: ProjectEntity) {
+        updateCoreDate(newProjectEntity: projectEntity)
+        updateProjectEntities(newProjectEntity: projectEntity)
     }
     
-    func delete(projectContentID: UUID?) {
-        deleteCoreDate(projectContentID: projectContentID)
-        deleteProjectEntities(projectContentID: projectContentID)
+    func delete(projectEntityID: UUID?) {
+        deleteCoreDate(projectEntityID: projectEntityID)
+        deleteProjectEntities(projectEntityID: projectEntityID)
     }
     
     func deleteAll() {
@@ -101,60 +101,60 @@ extension PersistentStorage: PersistentStorageProtocol {
 }
 
 extension PersistentStorage {
-    private func createCoreDate(newProjectContent: ProjectEntity) {
-        guard let newProject = parse(from: newProjectContent) else {
+    private func createCoreDate(newProjectEntity: ProjectEntity) {
+        guard let newProject = parse(from: newProjectEntity) else {
             return
         }
         
         persistentManager.create(project: newProject)
     }
     
-    private func createProjectEntities(newProjectContent: ProjectEntity) {
-        var projectContents = projectEntities.value
+    private func createProjectEntities(newProjectEntity: ProjectEntity) {
+        var projects = projectEntities.value
         
-        projectContents.append(newProjectContent)
-        projectEntities.accept(projectContents)
+        projects.append(newProjectEntity)
+        projectEntities.accept(projects)
     }
     
-    private func createCoreDate(newProjectContents: [ProjectEntity]) {
-        let newProjects = newProjectContents.compactMap {
+    private func createCoreDate(newProjectEntities: [ProjectEntity]) {
+        let newProjects = newProjectEntities.compactMap {
             parse(from: $0)
         }
         
         persistentManager.create(projects: newProjects)
     }
     
-    private func createProjectEntities(newProjectContents: [ProjectEntity]) {
-        projectEntities.accept(newProjectContents)
+    private func createProjectEntities(newProjectEntities: [ProjectEntity]) {
+        projectEntities.accept(newProjectEntities)
     }
     
-    private func updateCoreDate(newProjectContent: ProjectEntity) {
-        guard let newProject = parse(from: newProjectContent) else {
+    private func updateCoreDate(newProjectEntity: ProjectEntity) {
+        guard let newProject = parse(from: newProjectEntity) else {
             return
         }
         
         persistentManager.update(project: newProject)
     }
     
-    private func updateProjectEntities(newProjectContent: ProjectEntity) {
+    private func updateProjectEntities(newProjectEntity: ProjectEntity) {
         let projects = projectEntities.value
         
-        if let indexToUpdated = projects.firstIndex(where: { $0.id == newProjectContent.id}) {
+        if let indexToUpdated = projects.firstIndex(where: { $0.id == newProjectEntity.id}) {
             var projectsToUpdate = projectEntities.value
             
-            projectsToUpdate[indexToUpdated] = newProjectContent
+            projectsToUpdate[indexToUpdated] = newProjectEntity
             projectEntities.accept(projectsToUpdate)
         }
     }
     
-    private func deleteCoreDate(projectContentID: UUID?) {
-        persistentManager.delete(projectContentID: projectContentID)
+    private func deleteCoreDate(projectEntityID: UUID?) {
+        persistentManager.delete(projectEntityID: projectEntityID)
     }
     
-    private func deleteProjectEntities(projectContentID: UUID?) {
+    private func deleteProjectEntities(projectEntityID: UUID?) {
         let projects = projectEntities.value
         
-        if let indexToDelete = projects.firstIndex(where: { $0.id == projectContentID}) {
+        if let indexToDelete = projects.firstIndex(where: { $0.id == projectEntityID}) {
             var projectsToDelete = projectEntities.value
             
             projectsToDelete.remove(at: indexToDelete)

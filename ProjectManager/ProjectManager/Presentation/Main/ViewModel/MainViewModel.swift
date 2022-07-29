@@ -21,12 +21,12 @@ struct MainViewModel {
     }()
 
     func deleteProject(_ content: ProjectEntity) {
-        projectUseCase.delete(projectContentID: content.id)
+        projectUseCase.delete(projectEntityID: content.id)
         deleteHistory(by: content)
     }
     
     func readProject(_ id: UUID?) -> ProjectEntity? {
-        return projectUseCase.read(id: id)
+        return projectUseCase.read(projectEntityID: id)
     }
     
     mutating func asTodoProjects() -> Driver<[ProjectEntity]> {

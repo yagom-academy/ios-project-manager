@@ -85,6 +85,6 @@ extension NetworkRepository {
         }
         
         repository.deleteAll()
-        repository.create(projectContents: formattedProjects)
+        repository.create(projectEntities: formattedProjects)
     }
 }

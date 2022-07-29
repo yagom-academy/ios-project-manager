@@ -10,12 +10,12 @@ import RxRelay
 
 protocol PersistentRepositoryProtocol {
     var persistentStorage: PersistentStorageProtocol { get }
-    func create(projectContent: ProjectEntity)
-    func create(projectContents: [ProjectEntity])
+    func create(projectEntity: ProjectEntity)
+    func create(projectEntities: [ProjectEntity])
     func read() -> BehaviorRelay<[ProjectEntity]>
-    func read(id: UUID?) -> ProjectEntity?
-    func update(projectContent: ProjectEntity)
-    func delete(projectContentID: UUID?)
+    func read(projectEntityID: UUID?) -> ProjectEntity?
+    func update(projectEntity: ProjectEntity)
+    func delete(projectEntityID: UUID?)
     func deleteAll()
 }
 
@@ -28,28 +28,28 @@ struct PersistentRepository: PersistentRepositoryProtocol {
 }
 
 extension PersistentRepository {
-    func create(projectContent: ProjectEntity) {
-        persistentStorage.create(projectContent: projectContent)
+    func create(projectEntity: ProjectEntity) {
+        persistentStorage.create(projectEntity: projectEntity)
     }
     
-    func create(projectContents: [ProjectEntity]) {
-        persistentStorage.create(projectContents: projectContents)
+    func create(projectEntities: [ProjectEntity]) {
+        persistentStorage.create(projectEntities: projectEntities)
     }
     
     func read() -> BehaviorRelay<[ProjectEntity]> {
         return persistentStorage.read()
     }
     
-    func read(id: UUID?) -> ProjectEntity? {
-        return persistentStorage.read(id: id)
+    func read(projectEntityID: UUID?) -> ProjectEntity? {
+        return persistentStorage.read(id: projectEntityID)
     }
     
-    func update(projectContent: ProjectEntity) {
-        persistentStorage.update(projectContent: projectContent)
+    func update(projectEntity: ProjectEntity) {
+        persistentStorage.update(projectEntity: projectEntity)
     }
     
-    func delete(projectContentID: UUID?) {
-        persistentStorage.delete(projectContentID: projectContentID)
+    func delete(projectEntityID: UUID?) {
+        persistentStorage.delete(projectEntityID: projectEntityID)
     }
     
     func deleteAll() {

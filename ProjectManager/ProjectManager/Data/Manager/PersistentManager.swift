@@ -16,7 +16,7 @@ protocol PersistentManagerProtocol {
     func read() -> [Project]
     func read(id: UUID?) -> Project?
     func update(project: ProjectDTO)
-    func delete(projectContentID: UUID?)
+    func delete(projectEntityID: UUID?)
     func deleteAll()
 }
 
@@ -77,8 +77,8 @@ extension PersistentManager: PersistentManagerProtocol {
         }
     }
 
-    func delete(projectContentID: UUID?) {
-        guard let projectToDelete = fetchProject(id: projectContentID?.uuidString) else {
+    func delete(projectEntityID: UUID?) {
+        guard let projectToDelete = fetchProject(id: projectEntityID?.uuidString) else {
             return
         }
         

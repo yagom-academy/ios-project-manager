@@ -25,7 +25,7 @@ struct PopOverViewModel {
     
     private func changeContent(status: ProjectStatus) {
         guard let id = cell.contentID,
-              var project = projectUseCase.read(id: id) else {
+              var project = projectUseCase.read(projectEntityID: id) else {
             return
         }
         
@@ -33,7 +33,7 @@ struct PopOverViewModel {
         
         project.status = status
         
-        projectUseCase.update(projectContent: project)
+        projectUseCase.update(projectEntity: project)
     }
     
     private func createMoved(from oldStatus: ProjectStatus, to newStatus: ProjectStatus, title: String) {
@@ -50,7 +50,7 @@ struct PopOverViewModel {
     
     func getStatus() -> (first: ProjectStatus, second: ProjectStatus)? {
         guard let id = cell.contentID,
-              let project = projectUseCase.read(id: id) else {
+              let project = projectUseCase.read(projectEntityID: id) else {
             return nil
         }
         

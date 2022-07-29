@@ -21,7 +21,7 @@ struct RegistrationViewModel {
             body: body
         )
         
-        projectUseCase.create(projectContent: newProject)
+        projectUseCase.create(projectEntity: newProject)
         registrateHistory(by: newProject)
     }
     

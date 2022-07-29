@@ -22,24 +22,24 @@ struct ProjectUseCase {
         self.historyRepository = historyRepository
     }
     
-    func create(projectContent: ProjectEntity) {
-        projectRepository.create(projectContent: projectContent)
+    func create(projectEntity: ProjectEntity) {
+        projectRepository.create(projectEntity: projectEntity)
     }
     
     func read() -> BehaviorRelay<[ProjectEntity]> {
         return projectRepository.read()
     }
     
-    func read(id: UUID?) -> ProjectEntity? {
-        return projectRepository.read(id: id)
+    func read(projectEntityID: UUID?) -> ProjectEntity? {
+        return projectRepository.read(projectEntityID: projectEntityID)
     }
     
-    func update(projectContent: ProjectEntity) {
-        projectRepository.update(projectContent: projectContent)
+    func update(projectEntity: ProjectEntity) {
+        projectRepository.update(projectEntity: projectEntity)
     }
     
-    func delete(projectContentID: UUID?) {
-        projectRepository.delete(projectContentID: projectContentID)
+    func delete(projectEntityID: UUID?) {
+        projectRepository.delete(projectEntityID: projectEntityID)
     }
     
     func load() -> Disposable {
