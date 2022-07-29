@@ -19,6 +19,7 @@ protocol Storagable {
 }
 
 protocol ProjectRepositoryProtocol {
+    var storageManager: Storagable { get }
     func create(projectContent: ProjectEntity)
     func create(projectContents: [ProjectEntity])
     func read() -> BehaviorRelay<[ProjectEntity]>
@@ -28,15 +29,15 @@ protocol ProjectRepositoryProtocol {
     func deleteAll()
 }
 
-struct ProjectRepository {
-    private let storageManager: Storagable
-
+struct ProjectRepository: ProjectRepositoryProtocol {
+    let storageManager: Storagable
+    
     init(storageManager: Storagable) {
         self.storageManager = storageManager
     }
 }
 
-extension ProjectRepository: ProjectRepositoryProtocol {
+extension ProjectRepository {
     func create(projectContent: ProjectEntity) {
         storageManager.create(projectContent: projectContent)
     }

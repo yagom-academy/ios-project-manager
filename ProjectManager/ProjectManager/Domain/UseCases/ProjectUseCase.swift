@@ -9,11 +9,11 @@ import RxSwift
 import RxRelay
 
 struct ProjectUseCase {
-    private let projectRepository: ProjectRepository
+    private let projectRepository: ProjectRepositoryProtocol
     private let networkRepository: NetworkRepository
     private let historyRepository: HistoryRepository
 
-    init(projectRepository: ProjectRepository,
+    init(projectRepository: ProjectRepositoryProtocol,
          networkRepository: NetworkRepository,
          historyRepository: HistoryRepository
     ) {

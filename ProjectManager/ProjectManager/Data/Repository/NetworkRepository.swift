@@ -17,7 +17,7 @@ final class NetworkRepository {
 }
 
 extension NetworkRepository {
-    func update(repository: ProjectRepository) {
+    func update(repository: ProjectRepositoryProtocol) {
         let projects = repository.read().value.compactMap {
             parse(from: $0)
         }
@@ -25,7 +25,7 @@ extension NetworkRepository {
         networkManager.update(projects: projects)
     }
     
-    func read(repository: ProjectRepository) -> Disposable {
+    func read(repository: ProjectRepositoryProtocol) -> Disposable {
         return networkManager.read()
             .subscribe(onNext: {[weak self] data in
                 self?.synchronize(with: data, to: repository)
@@ -34,7 +34,7 @@ extension NetworkRepository {
     
     private func synchronize(
         with projects: [ProjectDTO],
-        to repository: ProjectRepository
+        to repository: ProjectRepositoryProtocol
     ) {
         let formattedProjects = projects.compactMap {
             parse(from: $0)
