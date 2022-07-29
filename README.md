@@ -1,19 +1,27 @@
-# ⏰ 프로젝트 관리 앱 I
+# ⏰ 프로젝트 관리 앱
 
-> 프로젝트 기간: 2022.07.04 ~ 2022.07.15 <br>
+> 프로젝트 기간: 2022.07.04 ~ 2022.07.29 <br>
 > 팀원: [marisol](https://github.com/marisol-develop), [OneTool](https://github.com/kimt4580)
 > 리뷰어: [Tony](https://github.com/Monsteel)
+
+## ✅ 목차
+
+1. [프로젝트 소개](##🔎-프로젝트-소개)
+2. [PR](##👀-PR)
+3. [프로젝트 실행화면](##📺-프로젝트-실행화면)
+4. [개발환경 및 라이브러리](##🛠-개발환경-및-라이브러리)
+5. [키워드](##🔑-키워드)
+6. [전체적인 구조](##📝-전체적인-구조)
+7. [Trouble Shooting](##🚀-trouble-shooting)
 
 ## 🔎 프로젝트 소개
 : Todo, Doing, Done으로 프로젝트를 관리하는 앱
 
-## 📺 프로젝트 실행화면
-
-
 ## 👀 PR
 [STEP 1](https://github.com/yagom-academy/ios-project-manager/pull/129)
-
 [STEP 2](https://github.com/yagom-academy/ios-project-manager/pull/149)
+[STEP 3-1](https://github.com/yagom-academy/ios-project-manager/pull/156)
+[STEP 3-2](https://github.com/yagom-academy/ios-project-manager/pull/165)
 
 ## 🛠 개발환경 및 라이브러리
 - [![swift](https://img.shields.io/badge/swift-5.6-orange)]()
@@ -21,9 +29,9 @@
 - [![iOS](https://img.shields.io/badge/iOS-15.2-red)]()
 
 ## 🔑 키워드
-`SwiftUI` `MVVM` `@ObservedObject` `popover` `onLongPressGesture` `@Published`
+`SwiftUI` `MVVM` `@ObservedObject` `popover` `onLongPressGesture` `@Published` `Realm`
 
-## 📑 구현내용
+## 📺 프로젝트 실행화면
 - 프로젝트 수행을 위한 다양한 기술 (SQLite, CoreData, iCloud, Dropbox, Firebase, Realm, MongoDB)의 장단점을 비교하여 사용할 기술 선정
 - CocoaPod으로 SwiftLint, Realm, Firebase 설치
 
@@ -35,25 +43,38 @@
 | -------- | -------- |
 |![](https://i.imgur.com/dLZIrao.gif) |![](https://i.imgur.com/ZeoK4UG.gif) |
 
+| 5. Task 추가/이동/삭제시 History에 추가 | 6. Realm Studio |
+| -------- | -------- |
+|<img src = https://i.imgur.com/KFGpAPo.gif, width = "100%">| <img src = https://i.imgur.com/nl1e2co.gif, width = "100%">|
+
+
 ## 📝 전체적인 구조
 
-- `TaskViewModel`: Task마다 가지고 있는 ViewModel로, title, date, body변수가 Published로 선언되어 있다
-- `ContentViewModel`: ContentViewModel이 가지고 있는 ViewModel이다. TaskViewModel을 ObservedObject로 갖고 있고, @Published로 선언된 todoTasks, doingTasks, doneTasks를 갖고 있다. 
-    - `appendData()`: TaskViewModel에 접근해 todo/doing/done에 append해주는 메서드
-    - `moveData(_ task: Task, from: TaskType, to: TaskType)`: task를 다른 배열로 이동시켜주는 메서드
-- `ContentView`: `TodoView`, `DoingView`, `DoneView`를 NavigationView > HStack으로 보여주는 뷰
-- `TodoView`, `DoingView`, `DoneView`: 구독하고 있는 contentViewModel에서 자신의 taskType에 맞는 array의 Task 요소들을 CellView를 통해 보여주는 View
-- `CellView`: 위 3가지 타입의 뷰로부터 contentViewModel, cellIndex, taskType을 전달받아 ListRowView로 데이터를 표시하는 뷰
-- `ListRowView`: `CellView`로부터 정보를 전달받아 직접 화면에 Text를 통해 정보를 보여주는 뷰
-- `RegisterView`, `RegisterElementView`: NavigationView인 `RegisterView`가 `RegisterElementView`를 화면에 표시함
-- `EditView`, `EditElementView`: NavigationView인 `EditView`가 선택된 Task의 정보를 `EditElementView`가 화면에 표시함
+- **`Model`**
+    - `Task`: title, date, body, type(todo/doing/done) 정보를 갖고 있는 모델 객체
+    - `History`: 변경 이력에 대한 정보(title, from(taskType), to(taskType), date, type(add/move/remove))을 갖고 있는 모델 객체
+
+- **`View`**
+    - `ContentView`: 3가지`ListView`를 `NavigationView`로 보여주는 가장 상위 View
+    - `HistoryView` : ContentView의 왼쪽 Toolbar 버튼을 클릭하면 보여지는 뷰. added, moved, removed 등의 변경 이력을 보여줌
+    - `ListView`: `TODO`, `DOING`, `DONE` Task별로 LIST를 보여주는 View
+    - `ListRowView`: `ListView`의 각 Cell이며, title, date, body Text를 보여주는 View
+    - `RegisterView` : ContentView의 오른쪽 Toolbar 버튼을 클릭하면 보여지는 뷰. `SheetView`를 표시함
+    - `EditView`: 각 ListView를 tap하면 보여지는 뷰. `RegisterView`와 공동으로 `SheetView`를 사용함
+    - `SheetView` : TextField, DatePicker, TextEditor를 sheet 형식으로 보여주는 뷰
+    - `HeaderView`: 각 TaskType에 맞게 헤더에 텍스트와 Task 갯수를 표시하는 View
+
+- **`Service`**
+    - `TaskManagementService`: 모든 task들이 있는 allTasks 배열과 모든 변경이력이 있는 allHistories을 프로퍼티로 갖는 클래스이며, Realm의 CRUD가 구현되어 있는 객체
+
+- **`ViewModel`**
+    - `ViewModelType`: 모든 ViewModel이 상속받는 ObservableObject 객체로, 모든 ViewModel이 같은 `TaskManagementService`를 참조하도록 해준다
 
 ## 📖 학습한 내용
 
 - Swift Package Manager와 CoCoaPods의 차이 
 
 **Dynamic FrameWork**
-
 <img src = https://i.imgur.com/syk2WY7.png, width = "80%">
 - 동시에 여러 프레임워크 혹은 프로그램에서 공유하여 사용하기 때문에 메모리를 효율적으로 사용
 - 동적으로 연결되어 있으므로, 전체 빌드를 다시 하지 않아도 새로운 프레임워크 사용이 가능
@@ -157,52 +178,6 @@ class ContentViewModel: ObservableObject {
     }
 }
 ```
-
-# ⏰ 프로젝트 관리 앱 II
-
-> 프로젝트 기간: 2022.07.18 ~ 2022.07.29 <br>
-> 팀원: [marisol](https://github.com/marisol-develop), [OneTool](https://github.com/kimt4580)
-> 리뷰어: [Tony](https://github.com/Monsteel)
-
-## 🔎 프로젝트 소개
-: Todo, Doing, Done으로 프로젝트를 관리하는 앱
-
-## 📺 프로젝트 실행화면
-
-
-## 👀 PR
-[STEP 3](https://github.com/yagom-academy/ios-project-manager/pull/156)
-
-
-## 🛠 개발환경 및 라이브러리
-- [![swift](https://img.shields.io/badge/swift-5.6-orange)]()
-- [![xcode](https://img.shields.io/badge/Xcode-13.2.1-blue)]()
-- [![iOS](https://img.shields.io/badge/iOS-15.2-red)]()
-
-## 🔑 키워드
-`SwiftUI` `MVVM` `@ObservedObject` `popover` `onLongPressGesture` `@Published`
-
-## 📝 전체적인 구조
-
-- **`Model`**
-    - `Task`: title, date, body, type(todo/doing/done) 정보를 갖고 있는 모델 객체
-
-- **`View`**
-    - `ContentView`: `AllListView`를 `NavigationView`로 보여주는 가장 상위 View
-    - `AllListView`: `TODO`, `DOING`, `DONE` LIST를 보여주는 View
-    - `CellView`: `AllListView`의 List 내의 각 Cell이며, `ListRowView`에게 정보를 전달해주는 View
-    - `ListRowView`: `CellView`에게 전달받은 정보를 가지고 실제로 title, date, body Text를 보여주는 View
-    - `RegisterView`, `RegisterElementView`: NavigationView인 `RegisterView`가 `RegisterElementView`를 화면에 표시함
-    - `EditView`, `EditElementView`: NavigationView인 `EditView`가 선택된 Task의 정보를 `EditElementView`에게 전달하여 화면에 표시함
-    - `HeaderView`: 각 TaskType에 맞게 헤더에 텍스트와 Task 갯수를 표시하는 View
-
-- **`Service`**
-    - `TaskManagementService`: 모든 task들이 있는 tasks 배열을 프로퍼티로 갖는 클래스이며, 추후에 Realm의 CRUD가 구현될 클래스
-
-- **`ViewModel`**
-    - `ViewModelType`: 모든 ViewModel이 상속받는 ObservableObject 객체로, 모든 ViewModel이 같은 `TaskManagementService`를 참조하도록 해준다
-
-## 🚀 trouble shooting
 ### 📌 어떻게 모든 ViewModel이 같은 Service를 알도록 할수 있을까?
 
 우선 `Todo`, `Doing`, `Done`으로 `array`가 쪼개져있었기 때문에 분기처리를 해줘야할 부분이 많아서 각 `Task`가 자신의 `type`을 알도록 `Task`의 프로퍼티로 `type`을 추가해주었습니다. 그리고 모든 `task`들이 모여있는 `tasks` 배열을 갖고 있는 `TaskManagementService`를 생성했습니다. 
@@ -240,5 +215,42 @@ class ViewModelType: ObservableObject {
 
 [@StateObject, @ObservedObject](https://wondev.tistory.com/5)
 
+### 📌 변경 이력을 어떻게 표시해줄 수 있을까?
 
+- Task가 생성되었을 때, 이동되었을 때, 삭제되었을 때 변경이력을 HistoryView에 표시해주어야했고, History Object를 생성하여 기존 realm의 생성, 삭제 이동시 함께 처리해주도록 구현했습니다. 
+- TaskManagementService에 모든 History들을 갖고있는 allHistories 배열을 생성했습니다. 그리고 Task가 생성될 때, 이동될 때, 삭제될 때 History를 생성해서 realm에 add해주는 방식으로 처리했습니다.
+- HistoryViewModel의 showHistory 메서드에서 history의 type(add / move / remove)에 따라 분기처리하여 String을 리턴하고, HistoryView에서는 해당 String을 받아 Text에 표시만 해주도록 했습니다.
+
+### 📌 realm과 View의 데이터가 동기화 되지 않는 문제
+- 기존의 Service를 realm으로 변경하였을 때, realm에는 저장되지만, View에는 동기화되지 않는 오류가 발생하였습니다. realm이 가진 data와 동기화 해주는 코드를 추가해서 해결해주었습니다.
+```swift
+func swipedCell(index: IndexSet) {
+    index.forEach({ index in
+      let taskToDelete = readTasks()[index]
+      service.delete(task: taskToDelete)
+    })
+    self.tasks = service.allTasks
+  }
+```
+```swift
+realm?.add(history)
+self.allHistories = self.readAllHistories()
+        
+realm?.add(task)
+self.allTasks = readAllTasks()
+```
+
+### 📌 History View Popover의 무한 재귀
+```swift
+ self.allHistories = service.allHistories
+```
+계속해서, 자신을 호출하는 현상으로 무한재귀에 빠져서 App Crash가 발생했습니다.
+```swift
+ override init(withService: TaskManagementService) {
+    super.init(withService: withService)
+    self.allHistories = withService.allHistories
+  }
+
+```
+그로 인해서, 동기화가 무한으로 진행되어서 View를 그릴 수 없었습니다. 메서드를 호출할 때마다 초기화를 해주는 것이 아닌, 처음 실행될 때 한번만 초기화를 하기 위해서 init을 사용하여 초기화 해주었습니다.
 
