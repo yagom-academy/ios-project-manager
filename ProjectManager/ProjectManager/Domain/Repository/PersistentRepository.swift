@@ -9,7 +9,7 @@ import RxSwift
 import RxRelay
 
 protocol PersistentRepositoryProtocol {
-    var storageManager: PersistentStorageProtocol { get }
+    var persistentStorage: PersistentStorageProtocol { get }
     func create(projectContent: ProjectEntity)
     func create(projectContents: [ProjectEntity])
     func read() -> BehaviorRelay<[ProjectEntity]>
@@ -20,39 +20,39 @@ protocol PersistentRepositoryProtocol {
 }
 
 struct PersistentRepository: PersistentRepositoryProtocol {
-    let storageManager: PersistentStorageProtocol
+    let persistentStorage: PersistentStorageProtocol
     
-    init(storageManager: PersistentStorageProtocol) {
-        self.storageManager = storageManager
+    init(persistentStorage: PersistentStorageProtocol) {
+        self.persistentStorage = persistentStorage
     }
 }
 
 extension PersistentRepository {
     func create(projectContent: ProjectEntity) {
-        storageManager.create(projectContent: projectContent)
+        persistentStorage.create(projectContent: projectContent)
     }
     
     func create(projectContents: [ProjectEntity]) {
-        storageManager.create(projectContents: projectContents)
+        persistentStorage.create(projectContents: projectContents)
     }
     
     func read() -> BehaviorRelay<[ProjectEntity]> {
-        return storageManager.read()
+        return persistentStorage.read()
     }
     
     func read(id: UUID?) -> ProjectEntity? {
-        return storageManager.read(id: id)
+        return persistentStorage.read(id: id)
     }
     
     func update(projectContent: ProjectEntity) {
-        storageManager.update(projectContent: projectContent)
+        persistentStorage.update(projectContent: projectContent)
     }
     
     func delete(projectContentID: UUID?) {
-        storageManager.delete(projectContentID: projectContentID)
+        persistentStorage.delete(projectContentID: projectContentID)
     }
     
     func deleteAll() {
-        storageManager.deleteAll()
+        persistentStorage.deleteAll()
     }
 }
