@@ -210,24 +210,18 @@ final class MainViewModel: MainViewModelEvent,
     
     func undoButtonTapped() {
         undoManager.undo()
-        redoable.accept(true)
-        if !undoManager.canUndo {
-            undoable.accept(false)
-        }
+        acceptUndoRedoState()
         fetchData()
     }
     
     func redoButtonTapped() {
         undoManager.redo()
-        if undoManager.canRedo {
-            redoable.accept(true)
-        } else {
-            redoable.accept(false)
-        }
-        
-        if undoManager.canUndo {
-            undoable.accept(true)
-        }
+        acceptUndoRedoState()
         fetchData()
+    }
+    
+    private func acceptUndoRedoState() {
+        undoable.accept(undoManager.canUndo)
+        redoable.accept(undoManager.canRedo)
     }
 }
