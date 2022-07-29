@@ -19,8 +19,11 @@
 
 ## 👀 PR
 [STEP 1](https://github.com/yagom-academy/ios-project-manager/pull/129)
+
 [STEP 2](https://github.com/yagom-academy/ios-project-manager/pull/149)
+
 [STEP 3-1](https://github.com/yagom-academy/ios-project-manager/pull/156)
+
 [STEP 3-2](https://github.com/yagom-academy/ios-project-manager/pull/165)
 
 ## 🛠 개발환경 및 라이브러리
@@ -75,7 +78,9 @@
 - Swift Package Manager와 CoCoaPods의 차이 
 
 **Dynamic FrameWork**
+
 <img src = https://i.imgur.com/syk2WY7.png, width = "80%">
+
 - 동시에 여러 프레임워크 혹은 프로그램에서 공유하여 사용하기 때문에 메모리를 효율적으로 사용
 - 동적으로 연결되어 있으므로, 전체 빌드를 다시 하지 않아도 새로운 프레임워크 사용이 가능
 - Static Linker를 통해 Dynamic Library Reference가 어플리케이션 코드에 들어가고 모듈 호출시 Stack에 있는 Library에 접근하여 사용
@@ -112,9 +117,13 @@
 하지만 라이브러리는 어떤 특정 기능을 구현하기 위해 미리 만들어진 함수의 집합이며, 필요할 때만 자유롭게 사용할 수 있는 `도구`이다.
 
 참조 : 
+
 [Podfile Syntax Reference](https://guides.cocoapods.org/syntax/podfile.html#use_frameworks_bang)
+
 [Building a dynamic modular iOS architecture](https://medium.com/fluxom/building-a-dynamic-modular-ios-architecture-1b87dc31278b)
+
 [Static, Dynamic Framework](https://velog.io/@dvhuni/Static-Dynamic-Framework)
+
 [프레임워크와 라이브러리 차이점 쉽게 이해하기](https://velog.io/@nemo/framework-library-gfreqbgx)
 
 ## 🚀 trouble shooting
