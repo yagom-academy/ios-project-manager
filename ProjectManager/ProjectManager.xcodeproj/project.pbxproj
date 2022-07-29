@@ -29,6 +29,7 @@
 		4EB595F3287D543D006C8303 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB595F2287D543D006C8303 /* AppConstants.swift */; };
 		4EB89251287C68B1008DE9B8 /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */; };
 		4EB89253287C6D2E008DE9B8 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */; };
+		4EBAA742289399E8006E57AE /* UserNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBAA741289399E8006E57AE /* UserNotificationManager.swift */; };
 		4EC236262873DCF9006C9D32 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236252873DCF9006C9D32 /* RxCocoa */; };
 		4EC236282873DCF9006C9D32 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236272873DCF9006C9D32 /* RxRelay */; };
 		4EC2362A2873DCF9006C9D32 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236292873DCF9006C9D32 /* RxSwift */; };
@@ -74,6 +75,7 @@
 		4EB595F2287D543D006C8303 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
 		4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		4EBAA741289399E8006E57AE /* UserNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationManager.swift; sourceTree = "<group>"; };
 		8186A352743ECE68B4046D56 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		9C8BC0D828786ECF003EF525 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		9C8BC0DA287874F3003EF525 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				4EB595F2287D543D006C8303 /* AppConstants.swift */,
 				9C8BC0D828786ECF003EF525 /* RealmManager.swift */,
 				9CBB9AC1288997120037B024 /* SynchronizeManager.swift */,
+				4EBAA741289399E8006E57AE /* UserNotificationManager.swift */,
 				9CACE12C28755BE20010E4F0 /* Then.swift */,
 				9CB7418B28913A0E00153604 /* Protocol */,
 				9CACE133287566D40010E4F0 /* Extension */,
@@ -488,6 +491,7 @@
 				9CB7419128921C3B00153604 /* PushDeleteNotificationSendable.swift in Sources */,
 				9CACA2BC287FECB50024E923 /* TaskSectionView.swift in Sources */,
 				9C8BC0DB287874F3003EF525 /* PopoverView.swift in Sources */,
+				4EBAA742289399E8006E57AE /* UserNotificationManager.swift in Sources */,
 				9C8BC0D928786ED0003EF525 /* RealmManager.swift in Sources */,
 				9CACE13228755FDF0010E4F0 /* TaskTableViewCell.swift in Sources */,
 				4EB3FFC228756FDD0001DBC0 /* Task.swift in Sources */,
@@ -652,6 +656,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ProjectManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -672,6 +677,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ProjectManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
