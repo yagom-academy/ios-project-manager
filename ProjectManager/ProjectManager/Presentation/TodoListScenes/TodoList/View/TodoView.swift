@@ -10,15 +10,14 @@ import UIKit
 import Combine
 
 final class TodoView: UIView {
-    typealias DataSource = UITableViewDiffableDataSource<Int, TodoListModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, TodoListModel>
+    private typealias DataSource = UITableViewDiffableDataSource<Int, Todo>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Todo>
     
+    private let headerView: TodoHeaderView
     private let viewModel: TodoViewModelable
     
-    private lazy var headerView = TableHeaderView(title: viewModel.headerTitle)
+    private var cancellableBag = Set<AnyCancellable>()
     private var dataSource: DataSource?
-    
-    private var cancellables = Set<AnyCancellable>()
         
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -36,6 +35,7 @@ final class TodoView: UIView {
     
     init(viewModel: TodoViewModelable) {
         self.viewModel = viewModel
+        self.headerView = TodoHeaderView(title: viewModel.headerTitle)
         super.init(frame: .zero)
         setup()
     }
@@ -59,7 +59,7 @@ final class TodoView: UIView {
                 self?.applySnapshot(items: items)
                 self?.headerView.setupHeaderTodoCountLabel(with: items.count)
             }
-            .store(in: &cancellables)
+            .store(in: &cancellableBag)
     }
     
     private func addSubviews() {
@@ -95,7 +95,7 @@ final class TodoView: UIView {
         }
     }
     
-    private func applySnapshot(items: [TodoListModel]) {
+    private func applySnapshot(items: [Todo]) {
         var snapshot = Snapshot()
         snapshot.appendSections([0])
         snapshot.appendItems(items)
@@ -135,7 +135,7 @@ extension TodoView: UITableViewDelegate {
         }
     }
     
-    private func makeUIMenu(_ tableView: UITableView, item: TodoListModel) -> UIMenu {
+    private func makeUIMenu(_ tableView: UITableView, item: Todo) -> UIMenu {
         let menuType = viewModel.menuType
         
         let firstMoveAction = UIAction(title: menuType.firstTitle) { _ in

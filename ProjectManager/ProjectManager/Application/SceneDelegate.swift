@@ -25,13 +25,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = rootNaivgationController
         window?.makeKeyAndVisible()
         
-        setupLibrary()
+        setup()
                 
         appCoorinator = AppCoordinator(navigationController: rootNaivgationController, appDIContainer: AppDIContainer())
         appCoorinator?.start()
     }
     
-    private func setupLibrary() {
+    private func setup() {
+        setupLibrarys()
+        setupUtils()
+    }
+    
+    private func setupLibrarys() {
         FirebaseApp.configure()
+    }
+    
+    private func setupUtils() {
+        NetworkMonitor.shared.start()
     }
 }

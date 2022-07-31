@@ -9,38 +9,57 @@ import Foundation
 import Combine
 
 final class TodoListRepository {
-    private unowned let storage: Storageable
+    private unowned let todoLocalStorage: LocalStorageable
+    private unowned let todoRemoteStorage: RemoteStorageable
+    private let isFirstLogin: Bool
+    private var cancellableBag = Set<AnyCancellable>()
     
-    var bag = Set<AnyCancellable>()
-    
-    init(storage: Storageable) {
-        self.storage = storage
+    init(todoLocalStorage: LocalStorageable, todoRemoteStorage: RemoteStorageable,
+         isFirstLogin: Bool
+    ) {
+        self.todoLocalStorage = todoLocalStorage
+        self.todoRemoteStorage = todoRemoteStorage
+        self.isFirstLogin = isFirstLogin
     }
 }
 
 extension TodoListRepository: TodoListRepositorible {
-    func create(_ item: TodoListModel) {
-        storage.create(item)
+    func create(_ item: Todo) {
+        todoLocalStorage.create(item)
     }
     
-    func read() -> AnyPublisher< [TodoListModel], Never> {
-        return storage.read()
+    var todosPublisher: CurrentValueSubject<LocalStorageState, Never> {
+        return todoLocalStorage.todosPublisher
     }
     
-    func update(_ item: TodoListModel) {
-        storage.update(item)
+    func update(_ item: Todo) {
+        todoLocalStorage.update(item)
     }
     
-    func delete(item: TodoListModel) {
-        storage.delete(item)
+    func delete(item: Todo) {
+        todoLocalStorage.delete(item)
     }
     
-    func deleteLastItem() {
-        _ = storage.read()
-            .prefix(1)
-            .sink { [weak self] items in
-            guard let lastItem = items.last else { return }
-            self?.storage.delete(lastItem)
+    func synchronizeDatabase() {
+        if isFirstLogin {
+            switch todoLocalStorage.todosPublisher.value {
+            case .success(let items):
+                todoRemoteStorage.backup(items)
+            case .failure(let _):
+                break
+            }
+        } else {
+            todoRemoteStorage.todosPublisher
+                .sink { _ in
+                    
+                } receiveValue: { [weak self] items in
+                    items.forEach { item in
+                        _ = self?.todoLocalStorage.create(item)
+                    }
+                }
+                .store(in: &cancellableBag)
+            
+            UserDefaults.standard.set(true, forKey: "isFirstLogin")
         }
     }
 }

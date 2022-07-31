@@ -8,34 +8,57 @@
 import Foundation
 import Combine
 
+enum TodoListViewModelState {
+    case viewTitleEvent(title: String)
+    case errorEvent(message: String)
+    case showEditViewEvent(item: Todo)
+    case showHistoryViewEvent
+    case showCreateViewEvent
+}
+
 protocol TodoListViewModelInput {
+    func viewDidLoad()
     func didTapAddButton()
+    func didTapHistoryButton()
 }
 
 protocol TodoListViewModelOutput {
-    var items: AnyPublisher<[TodoListModel], Never> { get }
-    var title: Just<String> { get }
+    var isNetworkConnected: AnyPublisher<String, Never> { get }
+
+    var state: PassthroughSubject<TodoListViewModelState, Never> { get }
 }
 
 protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
 
 final class TodoListViewModel: TodoListViewModelable {
+    
     // MARK: - Output
     
-    var items: AnyPublisher<[TodoListModel], Never> {
-        return useCase.read().eraseToAnyPublisher()
+    var isNetworkConnected: AnyPublisher<String, Never> {
+        return NetworkMonitor.shared.$isConnected
+            .map { isConnect in
+                if isConnect {
+                    return "wifi"
+                } else {
+                    return "wifi.slash"
+                }
+            }
+            .eraseToAnyPublisher()
     }
     
-    var title: Just<String> {
-        return Just("Project Manager")
+    var todoItems: AnyPublisher<LocalStorageState, Never> {
+        return todoUseCase.todosPublisher.eraseToAnyPublisher()
     }
+
+    let state = PassthroughSubject<TodoListViewModelState, Never>()
     
-    private weak var coordinator: TodoListViewCoordinator?
-    private let useCase: TodoListUseCaseable
+    private let todoUseCase: TodoListUseCaseable
+    private let historyUseCase: TodoHistoryUseCaseable
+    private var cancellableBag = Set<AnyCancellable>()
     
-    init(coordinator: TodoListViewCoordinator? = nil, useCase: TodoListUseCaseable) {
-        self.useCase = useCase
-        self.coordinator = coordinator
+    init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable) {
+        self.todoUseCase = todoUseCase
+        self.historyUseCase = historyUseCase
     }
 }
 
@@ -43,27 +66,43 @@ extension TodoListViewModel {
     
     // MARK: - Input
     
+    func viewDidLoad() {
+        state.send(.viewTitleEvent(title: "Project Manager"))
+        todoUseCase.synchronizeDatabase()
+    }
+    
     func didTapAddButton() {
-        let item = TodoListModel.empty
-        useCase.create(item)
-        coordinator?.showDetailViewController(item)
-    }    
+        state.send(.showCreateViewEvent)
+    }
+    
+    func didTapHistoryButton() {
+        state.send(.showHistoryViewEvent)
+    }
 }
 
 extension TodoListViewModel: TodoViewModelInput {
-    func deleteItem(_ item: TodoListModel) {
-        useCase.delete(item: item)
+    func deleteItem(_ item: Todo) {
+        todoUseCase.delete(item: item)
+        
+        let historyItem = TodoHistory(title: "[삭제] \(item.title)", createdAt: Date())
+        historyUseCase.create(historyItem)
     }
     
-    func didTapCell(_ item: TodoListModel) {
-        coordinator?.showDetailViewController(item)
+    func didTapCell(_ item: Todo) {
+        state.send(.showEditViewEvent(item: item))
     }
     
-    func didTapFirstContextMenu(_ item: TodoListModel) {
-        useCase.update(item)
+    func didTapFirstContextMenu(_ item: Todo) {
+        todoUseCase.update(item)
+        
+        let historyItem = TodoHistory(title: "[수정] \(item.title)", createdAt: Date())
+        historyUseCase.create(historyItem)
     }
     
-    func didTapSecondContextMenu(_ item: TodoListModel) {
-        useCase.update(item)
+    func didTapSecondContextMenu(_ item: Todo) {
+        todoUseCase.update(item)
+        
+        let historyItem = TodoHistory(title: "[수정] \(item.title)", createdAt: Date())
+        historyUseCase.create(historyItem)
     }
 }

@@ -2,69 +2,66 @@
 //  TodoViewModelTests.swift
 //  ProjectManagerTests
 //
-//  Created by 조민호 on 2022/07/13.
+//  Created by 조민호 on 2022/07/21.
 //
 
 import XCTest
 import Combine
+
 @testable import ProjectManager
 
 class TodoViewModelTests: XCTestCase {
-    var parentViewModel: TodoListViewModel!
+    var mockTodoViewModel: MockTodoListViewModel!
     var viewModel: TodoViewModel!
-
+    
     override func setUpWithError() throws {
         try super.setUpWithError()
-        
-        parentViewModel = TodoListViewModel(useCase: FakeTodoListUseCase())
-        viewModel = TodoViewModel(processType: .todo, items: parentViewModel.items)
-        viewModel.delegate = parentViewModel
+        mockTodoViewModel = MockTodoListViewModel()
+        viewModel = TodoViewModel(processType: .todo, items: Just([]).eraseToAnyPublisher())
+        viewModel.delegate = mockTodoViewModel
     }
     
-    func test_didTapContextMenu하면_업데이트한processType으로바뀌어야한다() {
+    func test_deleteItem을호출했을때_deleteItemCallCount가하나늘어난다() {
         // given
-        let deadLine = Date()
-        let expectation = XCTestExpectation(description: "cellDidLongPress")
-        let expected1 = TodoListModel(title: "Mock", content: "Mock", deadLine: deadLine, processType: .doing, id: "1")
-        let expected2 = TodoListModel(title: "Mock", content: "Mock", deadLine: deadLine, processType: .done, id: "2")
-        var result1: TodoListModel = TodoListModel.empty
-        var result2: TodoListModel = TodoListModel.empty
+        let expected = 1
         
         // when
-        viewModel.didTapFirstContextMenu(expected1)
-        _ = parentViewModel.items.sink { items in
-            result1 = items.first(where: { $0.id == "1" })!
-            expectation.fulfill()
-        }
+        viewModel.deleteItem(Todo.empty())
         
-        viewModel.didTapSecondContextMenu(expected2)
-        _ = parentViewModel.items.sink { items in
-            result2 = items.first(where: { $0.id == "2" })!
-            expectation.fulfill()
-        }
-                    
         // then
-        wait(for: [expectation], timeout: 5)
-        XCTAssertEqual(result1, expected1)
-        XCTAssertEqual(result2, expected2)
+        XCTAssertEqual(expected, mockTodoViewModel.deleteItemCallCount)
     }
     
-    func test_deleteItem하면_todoItems가방출하는배열의원소가하나줄어들어야한다() {
+    func test_didTapCell을호출했을때_didTapCellCallCount가하나늘어난다() {
         // given
-        let expectation = XCTestExpectation(description: "deleteItem")
-        let mockTodoListModel = TodoListModel(title: "2", content: "2", deadLine: Date(), processType: .todo, id: "2")
-        let expected = 2
-        var result = 0
-
+        let expected = 1
+        
         // when
-        viewModel.deleteItem(mockTodoListModel)
-        _ = parentViewModel.items.sink { items in
-            result = items.count
-            expectation.fulfill()
-        }
-
+        viewModel.didTapCell(Todo.empty())
+        
         // then
-        wait(for: [expectation], timeout: 5)
-        XCTAssertEqual(result, expected)
+        XCTAssertEqual(expected, mockTodoViewModel.didTapCellCallCount)
+    }
+    
+    func test_didTapFirstContextMenu을호출했을때_didTapFirstContextMenuCallCount가하나늘어난다() {
+        // given
+        let expected = 1
+        
+        // when
+        viewModel.didTapFirstContextMenu(Todo.empty())
+        
+        // then
+        XCTAssertEqual(expected, mockTodoViewModel.didTapFirstContextMenuCallCount)
+    }
+    
+    func test_didTapSecondContextMenu을호출했을때_didTapSecondContextMenuCallCount가하나늘어난다() {
+        // given
+        let expected = 1
+        
+        // when
+        viewModel.didTapSecondContextMenu(Todo.empty())
+        
+        // then
+        XCTAssertEqual(expected, mockTodoViewModel.didTapSecondContextMenuCallCount)
     }
 }

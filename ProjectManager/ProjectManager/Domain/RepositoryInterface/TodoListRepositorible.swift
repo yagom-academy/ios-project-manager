@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 protocol TodoListRepositorible {
-    func create(_ item: TodoListModel)
-    func read() -> AnyPublisher<[TodoListModel], Never>
-    func update(_ item: TodoListModel)
-    func delete(item: TodoListModel)
-    func deleteLastItem()
+    func create(_ item: Todo)
+    var todosPublisher: CurrentValueSubject<LocalStorageState, Never> { get }
+    func update(_ item: Todo)
+    func delete(item: Todo)
+    func synchronizeDatabase()
 }

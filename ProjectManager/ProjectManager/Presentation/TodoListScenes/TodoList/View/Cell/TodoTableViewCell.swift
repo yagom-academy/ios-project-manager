@@ -11,6 +11,9 @@ import Combine
 import SnapKit
 
 final class TodoTableViewCell: UITableViewCell {
+    private var viewModel: TodoCellViewModelable?
+    private var cancellableBag = Set<AnyCancellable>()
+    
     private let todoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -41,9 +44,6 @@ final class TodoTableViewCell: UITableViewCell {
         return label
     }()
     
-    private var viewModel: TodoCellViewModelable?
-    private var cancellables = Set<AnyCancellable>()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -55,42 +55,27 @@ final class TodoTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
     }
     
     func bind(_ viewModel: TodoCellViewModelable) {
         self.viewModel = viewModel
         
-        viewModel.todoTitle
-            .sink { [weak self] title in
-                self?.titleLabel.text = title
-            }
-            .store(in: &cancellables)
-        
-        viewModel.todoContent
-            .sink { [weak self] content in
-                self?.contentLabel.text = content
-            }
-            .store(in: &cancellables)
-        
-        viewModel.todoDeadline
-            .sink { [weak self] deadline in
-                self?.deadlineLabel.text = deadline
-            }
-            .store(in: &cancellables)
-        
-        viewModel.expired
-            .sink { [weak self] _ in
-                self?.deadlineLabel.textColor = .systemRed
-            }
-            .store(in: &cancellables)
-        
-        viewModel.notExpired
-            .sink { [weak self] _ in
-                self?.deadlineLabel.textColor = .label
-            }
-            .store(in: &cancellables)
+        viewModel.state
+            .sink { [weak self] state in
+                switch state {
+                case .todoTitleEvent(let title):
+                    self?.titleLabel.text = title
+                case .todoContentEvent(let content):
+                    self?.contentLabel.text = content
+                case .todoDeadlineEvent(let deadline):
+                    self?.deadlineLabel.text = deadline
+                case .expiredEvent:
+                    self?.deadlineLabel.textColor = .systemRed
+                case .notExpiredEvent:
+                    self?.deadlineLabel.textColor = .label
+                }
+            }.store(in: &cancellableBag)
         
         viewModel.cellDidBind()
     }

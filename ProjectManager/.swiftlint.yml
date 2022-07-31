@@ -1,5 +1,8 @@
 disabled_rules:
 - trailing_whitespace
+- force_try
+- force_cast
 
 excluded:
 - Pods
+- ProjectManager/ProjectManagerTests

@@ -14,6 +14,13 @@ final class TodoListView: UIView {
     private let doingView: TodoView
     private let doneView: TodoView
     
+    let networkStatusImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
+    
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fillEqually
@@ -23,10 +30,10 @@ final class TodoListView: UIView {
         return stackView
     }()
     
-    init(factory: ViewControllerFactory) {
-        self.todoView = factory.makeTodoView(processType: .todo)
-        self.doingView = factory.makeTodoView(processType: .doing)
-        self.doneView = factory.makeTodoView(processType: .done)
+    init(dependency: TodoListDIContainer) {
+        self.todoView = dependency.makeTodoView(processType: .todo)
+        self.doingView = dependency.makeTodoView(processType: .doing)
+        self.doneView = dependency.makeTodoView(processType: .done)
         super.init(frame: .zero)
         setup()
     }
@@ -44,6 +51,12 @@ final class TodoListView: UIView {
     private func addSubviews() {
         addSubview(tableStackView)
         tableStackView.addArrangeSubviews(todoView, doingView, doneView)
+        
+        addSubview(networkStatusImageView)
+        networkStatusImageView.snp.makeConstraints {
+            $0.width.height.equalTo(30)
+            $0.top.trailing.equalTo(safeAreaLayoutGuide).inset(15)
+        }
     }
     
     private func setupConstraint() {

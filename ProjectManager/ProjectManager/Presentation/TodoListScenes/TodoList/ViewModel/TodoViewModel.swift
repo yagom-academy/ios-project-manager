@@ -16,14 +16,14 @@ struct MenuType {
 }
 
 protocol TodoViewModelInput: AnyObject {
-    func deleteItem(_ item: TodoListModel)
-    func didTapCell(_ item: TodoListModel)
-    func didTapFirstContextMenu(_ item: TodoListModel)
-    func didTapSecondContextMenu(_ item: TodoListModel)
+    func deleteItem(_ item: Todo)
+    func didTapCell(_ item: Todo)
+    func didTapFirstContextMenu(_ item: Todo)
+    func didTapSecondContextMenu(_ item: Todo)
 }
 
 protocol TodoViewModelOutput {
-    var items: AnyPublisher<[TodoListModel], Never> { get set }
+    var items: CurrentValueSubject<[Todo], Never> { get }
     var menuType: MenuType { get }
     var headerTitle: String { get }
 }
@@ -31,9 +31,13 @@ protocol TodoViewModelOutput {
 protocol TodoViewModelable: TodoViewModelInput, TodoViewModelOutput {}
 
 final class TodoViewModel: TodoViewModelable {
+    
+    private var cancellableBag = Set<AnyCancellable>()
+    
     // MARK: - Output
     
-    var items: AnyPublisher<[TodoListModel], Never>
+    let items = CurrentValueSubject<[Todo], Never>([])
+    private let state: AnyPublisher<LocalStorageState, Never>
     
     var menuType: MenuType {
         switch processType {
@@ -76,21 +80,31 @@ final class TodoViewModel: TodoViewModelable {
     
     weak var delegate: TodoViewModelInput?
     
-    init(processType: ProcessType, items: AnyPublisher<[TodoListModel], Never>) {
+    init(processType: ProcessType, state: AnyPublisher<LocalStorageState, Never>) {
         self.processType = processType
-        self.items = items
-        self.items = filteredItems(with: processType, items: items)
+        self.state = state
+        filteredItems(with: processType, state: state)
     }
     
     private func filteredItems(
         with type: ProcessType,
-        items: AnyPublisher<[TodoListModel], Never>
-    ) -> AnyPublisher<[TodoListModel], Never> {
-        return items
-            .compactMap { item in
-                return item.filter { $0.processType == type }
+        state: AnyPublisher<LocalStorageState, Never>
+    ) {
+        state
+            .flatMap { state -> AnyPublisher<[Todo], Never> in
+                switch state {
+                case .success(let items):
+                    return Just(items).eraseToAnyPublisher()
+                case .failure(let _):
+                    return Just([]).eraseToAnyPublisher()
+                }
             }
-            .eraseToAnyPublisher()
+            .sink { [weak self] item in
+                let filteredItem = item.filter { $0.processType == type }
+                self?.items.send(filteredItem)
+            }
+            .store(in: &cancellableBag)
+        
     }
 }
 
@@ -98,16 +112,16 @@ extension TodoViewModel {
     
     // MARK: - Input
     
-    func deleteItem(_ item: TodoListModel) {
+    func deleteItem(_ item: Todo) {
         delegate?.deleteItem(item)
     }
     
-    func didTapCell(_ item: TodoListModel) {
+    func didTapCell(_ item: Todo) {
         delegate?.didTapCell(item)
     }
     
-    func didTapFirstContextMenu(_ item: TodoListModel) {
-        let item = TodoListModel(
+    func didTapFirstContextMenu(_ item: Todo) {
+        let item = Todo(
             title: item.title,
             content: item.content,
             deadline: item.deadline,
@@ -117,8 +131,8 @@ extension TodoViewModel {
         delegate?.didTapFirstContextMenu(item)
     }
     
-    func didTapSecondContextMenu(_ item: TodoListModel) {
-        let item = TodoListModel(
+    func didTapSecondContextMenu(_ item: Todo) {
+        let item = Todo(
             title: item.title,
             content: item.content,
             deadline: item.deadline,
