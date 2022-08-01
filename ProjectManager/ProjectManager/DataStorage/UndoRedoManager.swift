@@ -8,7 +8,7 @@
 import RxCocoa
 import RxSwift
 
-class UndoRedoManager {
+final class UndoRedoManager {
     let undoRelay = PublishRelay<Void>()
     let redoRelay = PublishRelay<Void>()
     
