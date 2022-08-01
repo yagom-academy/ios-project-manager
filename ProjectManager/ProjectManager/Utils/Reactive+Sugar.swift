@@ -17,7 +17,7 @@ extension Reactive where Base: UITableView {
             gesture.minimumPressDuration = 0.5
             return gesture
         }()
-        
+
         base.addGestureRecognizer(longPressGesture)
         let source = longPressGesture.rx.event
             .filter { $0.state == .began }

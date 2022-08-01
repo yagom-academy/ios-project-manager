@@ -12,7 +12,7 @@ struct Formatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         dateFormatter.locale = .autoupdatingCurrent
-        
+
         return dateFormatter
     }()
     

@@ -23,7 +23,7 @@ final class DetailViewController: UIViewController {
     private let detailViewModel: DetailViewModel
     private let disposeBag = DisposeBag()
     weak private var coordinator: AppCoordinator?
-    
+
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
@@ -34,18 +34,18 @@ final class DetailViewController: UIViewController {
         textField.layer.shadowOffset = CGSize(width: 3, height: 3)
         textField.layer.shadowOpacity = 0.3
         textField.layer.shadowRadius = 5
-        
+
         return textField
     }()
-    
+
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.setContentHuggingPriority(.required, for: .vertical)
-        
+
         return datePicker
     }()
-    
+
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .systemBackground
@@ -55,35 +55,33 @@ final class DetailViewController: UIViewController {
         textView.layer.shadowOffset = CGSize(width: 3, height: 3)
         textView.layer.shadowOpacity = 0.3
         textView.layer.shadowRadius = 5
-        
+
         return textView
     }()
-    
+
     private let detailStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .fill
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return stackView
     }()
-    
+
     private let leftBarButton = UIBarButtonItem(
         title: Const.cancel,
         style: .plain,
         target: nil,
         action: nil
     )
-    
+
     private let rightBarButton = UIBarButtonItem(
         title: Const.done,
         style: .plain,
         target: nil,
         action: nil
     )
-    
+
     init(
         selectedTodo: Todo?,
         todoListItemStatus: TodoListItemStatus,
@@ -96,11 +94,11 @@ final class DetailViewController: UIViewController {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpNavigationBar()
@@ -110,13 +108,13 @@ final class DetailViewController: UIViewController {
         self.setUpEditView()
         self.bind()
     }
-    
+
     private func setUpNavigationBar() {
         self.navigationItem.title = self.todoListItemStatus.displayName
         self.navigationItem.leftBarButtonItem = self.leftBarButton
         self.navigationItem.rightBarButtonItem = self.rightBarButton
     }
-    
+
     private func setUpDetailStackView() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(self.detailStackView)
@@ -126,7 +124,7 @@ final class DetailViewController: UIViewController {
                 self.datePicker,
                 self.descriptionTextView
             ])
-        
+
         NSLayoutConstraint.activate([
             self.detailStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.detailStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
@@ -134,20 +132,20 @@ final class DetailViewController: UIViewController {
             self.detailStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
-    
+
     private func setUpTitleTextField() {
         NSLayoutConstraint.activate([
             self.titleTextField.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
-    
+
     private func setUpAttribute() {
         self.titleTextField.isEnabled = self.selectedTodo == nil ? true : false
         self.datePicker.isEnabled = self.selectedTodo == nil ? true : false
         self.descriptionTextView.isEditable = self.selectedTodo == nil ? true : false
         self.leftBarButton.title = self.selectedTodo == nil ? Const.cancel : Const.edit
     }
-    
+
     private func setUpEditView() {
         if let selectedTodo = self.selectedTodo {
             self.titleTextField.text = selectedTodo.title
@@ -155,7 +153,7 @@ final class DetailViewController: UIViewController {
             self.descriptionTextView.text = selectedTodo.description
         }
     }
-    
+
     private func bind() {
         rightBarButton.rx.tap
             .subscribe(onNext: { [weak self] in
@@ -167,7 +165,7 @@ final class DetailViewController: UIViewController {
                     })
             })
             .disposed(by: self.disposeBag)
-        
+
         leftBarButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 if self?.selectedTodo == nil {
@@ -178,7 +176,7 @@ final class DetailViewController: UIViewController {
             })
             .disposed(by: self.disposeBag)
     }
-    
+
     private func createTodo() -> Todo {
         if let selectedTodo = self.selectedTodo {
             return Todo(
@@ -189,7 +187,7 @@ final class DetailViewController: UIViewController {
                 date: self.datePicker.date
             )
         }
-        
+
         return Todo(
             todoListItemStatus: .todo,
             title: self.titleTextField.text ?? Const.empty,
@@ -197,7 +195,7 @@ final class DetailViewController: UIViewController {
             date: self.datePicker.date
         )
     }
-    
+
     private func changeAttribute() {
         self.leftBarButton.title = self.leftBarButton.title == Const.edit ? Const.cancel : Const.edit
         self.titleTextField.isEnabled = !self.titleTextField.isEnabled

@@ -10,7 +10,7 @@ import UIKit
 enum DateLabelColor {
     case red
     case black
-    
+
     var color: UIColor {
         switch self {
         case .red:

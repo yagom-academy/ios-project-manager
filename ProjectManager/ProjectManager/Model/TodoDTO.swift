@@ -15,7 +15,7 @@ final class TodoDTO: Object {
     @Persisted var title: String
     @Persisted var body: String
     @Persisted var date: Date
-    
+
     convenience init(
         todoListItemStatus: TodoListItemStatus,
         identifier: UUID,
@@ -30,8 +30,8 @@ final class TodoDTO: Object {
         self.body = body
         self.date = date
     }
-    
-    func convertTodo() -> Todo {
+
+    func todo() -> Todo {
         return Todo(
             todoListItemStatus: TodoListItemStatus(rawValue: self.todoListItemStatus) ?? .todo,
             identifier: self.identifier,

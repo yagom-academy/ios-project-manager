@@ -9,21 +9,21 @@ import Foundation
 
 struct TempData {
     init() {}
-    
+
     let todoData = [
         "todoListItemStatus": "TODO",
         "title": "책상정리",
         "description": "집중이 안될때 역시나 책상정리",
         "date": "2022. 7. 11.",
     ]
-    
+
     let doneData = [
         "todoListItemStatus": "DONE",
         "title": "TIL 작성하기",
         "description": "TIL 작성하면\n오늘의 상큼한 마무리도 되고\n나중에 포트폴리오 용으로 좋죠!",
         "date": "2022. 7. 11.",
     ]
-    
+
     let doingData = [
         "todoListItemStatus": "DOING",
         "title": "오늘의 할일 찾기",

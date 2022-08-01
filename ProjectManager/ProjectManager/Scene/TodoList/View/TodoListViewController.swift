@@ -33,27 +33,56 @@ final class TodoListViewController: UIViewController {
 
         return stackView
     }()
-    
+
     private let rightBarButton = UIBarButtonItem(
         image: UIImage(systemName: Const.plus),
         style: .plain,
         target: nil,
         action: nil
     )
-    
+
     private let networkBarButton = UIBarButtonItem(
         image: UIImage(systemName: "wifi.slash"),
         style: .plain,
         target: nil,
         action: nil
     )
-    
-    private let historyBarButton = UIBarButtonItem(
-        title: "History",
-        style: .plain,
-        target: nil,
-        action: nil
-    )
+
+    private let historyBarButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "clock"),
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        barButtonItem.isEnabled = false
+
+        return barButtonItem
+    }()
+
+    private let undoBarButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.uturn.backward"),
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        barButtonItem.isEnabled = false
+
+        return barButtonItem
+    }()
+
+    private let redoBarButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.uturn.forward"),
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        barButtonItem.isEnabled = false
+
+        return barButtonItem
+    }()
 
     init(todoViewModel: TodoListViewModel, coordinator: AppCoordinator) {
         self.todoView = ListView(todoListItemStatus: .todo, listViewModel: todoViewModel, coordinator: coordinator)
@@ -96,25 +125,74 @@ final class TodoListViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         self.title = Const.projectManager
         self.navigationItem.rightBarButtonItems = [self.rightBarButton, self.networkBarButton]
-        self.navigationItem.leftBarButtonItem = self.historyBarButton
+        self.navigationItem.leftBarButtonItems = [self.historyBarButton, self.undoBarButton, self.redoBarButton]
     }
-    
+
     private func bind() {
         self.rightBarButton.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
                 self?.coordinator?.showDetailView()
             })
             .disposed(by: self.disposeBag)
-        
+
         self.viewModel.networkState
             .map { UIImage(systemName: $0) }
             .drive(self.networkBarButton.rx.image)
             .disposed(by: self.disposeBag)
-        
+
         self.historyBarButton.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
                 self?.coordinator?.showHistory(historyButton: self?.historyBarButton)
             })
             .disposed(by: self.disposeBag)
+
+        self.viewModel.isHistoryEmpty
+            .drive(onNext: { [weak self] isHistory in
+                self?.isHistoryButtonActive(isHistoryEmpty: isHistory)
+                self?.isUndoButtonActive(isUndoEmpty: isHistory)
+            })
+            .disposed(by: self.disposeBag)
+
+        self.undoBarButton.rx.tap.asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.undoButtonTapEvent()
+            })
+            .disposed(by: self.disposeBag)
+
+        self.viewModel.isRedoEmpty
+            .drive(onNext: { [weak self] isRedo in
+                self?.isRedoButtonActive(isRedoEmpty: isRedo)
+            })
+            .disposed(by: self.disposeBag)
+
+        self.redoBarButton.rx.tap.asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.redoButtonTapEvent()
+            })
+            .disposed(by: self.disposeBag)
+    }
+
+    private func isHistoryButtonActive(isHistoryEmpty: Bool) {
+        if isHistoryEmpty {
+            self.historyBarButton.isEnabled = true
+        } else {
+            self.historyBarButton.isEnabled = false
+        }
+    }
+
+    private func isUndoButtonActive(isUndoEmpty: Bool) {
+        if isUndoEmpty {
+            self.undoBarButton.isEnabled = true
+        } else {
+            self.undoBarButton.isEnabled = false
+        }
+    }
+
+    private func isRedoButtonActive(isRedoEmpty: Bool) {
+        if isRedoEmpty {
+            self.redoBarButton.isEnabled = true
+        } else {
+            self.redoBarButton.isEnabled = false
+        }
     }
 }
