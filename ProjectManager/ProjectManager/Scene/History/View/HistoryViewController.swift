@@ -52,18 +52,13 @@ final class HistoryViewController: UIViewController {
       .sink { [weak self] mementos in
         guard let self = self,
               let historyDataSource = self.viewModel.historyDataSource else { return }
-        self.viewModel.applySnapShot(mementos, dataSource: historyDataSource)
+        self.viewModel.applySnapShot(mementos.reversed(), dataSource: historyDataSource)
       }
       .store(in: &bag)
-      
   }
   
   private func createTodoLayout() -> UICollectionViewCompositionalLayout {
     let todoItemSize = NSCollectionLayoutSize(
-      widthDimension: .fractionalWidth(1),
-      heightDimension: .fractionalWidth(1))
-    
-    let outerGroupSize = NSCollectionLayoutSize(
       widthDimension: .fractionalWidth(1),
       heightDimension: .fractionalHeight(1))
     
@@ -74,6 +69,10 @@ final class HistoryViewController: UIViewController {
       bottom: 10,
       trailing: 0
     )
+    
+    let outerGroupSize = NSCollectionLayoutSize(
+      widthDimension: .fractionalWidth(1),
+      heightDimension: .fractionalHeight(0.2))
     
     let outerGroup = NSCollectionLayoutGroup.vertical(
       layoutSize: outerGroupSize,
