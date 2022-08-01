@@ -26,11 +26,6 @@ final class TodoViewModel {
     self.originator = originator
   }
   // MARK: - Input
-  
-  func HistoryButtonDidTap() {
-    
-  }
-
   func deleteActionDidTap(_ todo: Todo) {
     storage.delete(todo)
     saveDeleteState(todo)
