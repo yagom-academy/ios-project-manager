@@ -87,8 +87,13 @@ final class TodoListViewController: UIViewController {
     setUpNotification()
   }
   
-  @objc private func undo() { print("\(#function)") }
-  @objc private func redo() { print("\(#function)") }
+  @objc private func undo() {
+    viewModel.undoButtonDidTap()
+  }
+  
+  @objc private func redo() {
+    viewModel.redoButtonDidTap()
+  }
   
   private func bind() {
     viewModel.todoList

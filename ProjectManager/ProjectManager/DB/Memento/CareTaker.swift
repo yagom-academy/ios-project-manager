@@ -60,10 +60,4 @@ struct CareTaker: CareTakerable {
     mutableStates.append(lastGarbageState)
     states.send(mutableStates)
   }
-  
-  private mutating func redoData(_ memento: Memento) {
-    if memento.historyState == .removed {
-      
-    }
-  }
 }

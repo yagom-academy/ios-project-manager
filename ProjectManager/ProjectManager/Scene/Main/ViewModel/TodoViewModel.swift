@@ -63,6 +63,14 @@ final class TodoViewModel {
   private func saveDeleteState(_ todo: Todo) {
     originator.createMemento(Memento(todo: todo, historyState: .removed))
   }
+  
+  func undoButtonDidTap() {
+    originator.undo()
+  }
+  
+  func redoButtonDidTap() {
+    originator.redo()
+  }
   // MARK: - Output
 
   var historyList: AnyPublisher<[Memento], Never> {

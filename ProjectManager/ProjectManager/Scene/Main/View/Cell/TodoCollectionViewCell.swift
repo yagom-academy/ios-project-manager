@@ -91,5 +91,6 @@ final class TodoCollectionViewCell: SwipeCollectionViewCell, Identifierable {
     titleLabel.text = nil
     contentLabel.text = nil
     dateLabel.text = nil
+    dateLabel.textColor = nil
   }
 }
