@@ -64,8 +64,8 @@ final class UndoRedoManager {
     }
 }
 
-class UndoRedoActionAble {
-    let database: DatabaseManagerProtocol
+final class UndoRedoActionAble {
+    private let database: DatabaseManagerProtocol
     
     init(database: DatabaseManagerProtocol) {
         self.database = database
