@@ -24,6 +24,7 @@ final class HistoryCollectionViewCell: UICollectionViewCell, Identifierable {
     let label = UILabel()
     label.font = .preferredFont(forTextStyle: .title2)
     label.setContentHuggingPriority(.required, for: .vertical)
+    label.numberOfLines = 0
     return label
   }()
   
@@ -58,6 +59,12 @@ final class HistoryCollectionViewCell: UICollectionViewCell, Identifierable {
   
   func updateUIDate(_ memento: Memento) {
     titleLabel.text = viewModel.makeTitle(memento)
-    dateLabel.text = Date.makeDate(memento.todo.date)
+    dateLabel.text = Date.makeDate(Date.now)
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    titleLabel.text = nil
+    dateLabel.text = nil
   }
 }

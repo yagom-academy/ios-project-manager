@@ -13,7 +13,6 @@ protocol CareTakerable {
   var stateList: AnyPublisher<[Memento], Never> { get }
   
   mutating func save(_ memento: Memento)
-  mutating func update(_ memento: Memento)
   mutating func undo()
   mutating func redo()
 }
@@ -23,6 +22,8 @@ struct CareTaker: CareTakerable {
   var garbageStates = CurrentValueSubject<[Memento], Never>([])
   
   var stateList: AnyPublisher<[Memento], Never> {
+    let reversedStates = states.value
+    states.send(reversedStates)
     return states.eraseToAnyPublisher()
   }
   
@@ -30,10 +31,6 @@ struct CareTaker: CareTakerable {
     var savedStates = states.value
     savedStates.append(memento)
     states.send(savedStates)
-  }
-  
-  mutating func update(_ memento: Memento) {
-    
   }
   
   mutating func undo() {
@@ -62,5 +59,11 @@ struct CareTaker: CareTakerable {
     
     mutableStates.append(lastGarbageState)
     states.send(mutableStates)
+  }
+  
+  private mutating func redoData(_ memento: Memento) {
+    if memento.historyState == .removed {
+      
+    }
   }
 }
