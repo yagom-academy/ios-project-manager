@@ -13,36 +13,36 @@ final class TempDatabase {
     let tempTodoData = TempData().todoData
     let tempDoneData = TempData().doneData
     let tempDoingData = TempData().doingData
-    
+
     var tempArray: [Todo] = []
-        
+
     init() {
         self.read()
     }
-    
+
     func create(todoData: Todo) {
         self.tempArray.append(todoData)
     }
-    
+
     func read() {
         guard let tempTodoStatus = self.tempTodoData["todoListItemStatus"],
               let tempTodoTitle = self.tempTodoData["title"],
               let tempTodoDescription = self.tempTodoData["description"] else {
             return
         }
-        
+
         guard let tempDoneStatus = self.tempDoneData["todoListItemStatus"],
               let tempDoneTitle = self.tempDoneData["title"],
               let tempDoneDescription = self.tempDoneData["description"] else {
             return
         }
-        
+
         guard let tempDoingStatus = self.tempDoingData["todoListItemStatus"],
               let tempDoingTitle = self.tempDoingData["title"],
               let tempDoingDescription = self.tempDoingData["description"] else {
             return
         }
-        
+
         self.tempArray = [
             Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempTodoStatus) ?? TodoListItemStatus.todo, title: tempTodoTitle, description: tempTodoDescription),
             Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoneStatus) ?? TodoListItemStatus.done, title: tempDoneTitle, description: tempDoneDescription),
@@ -54,7 +54,7 @@ final class TempDatabase {
             tempArray[index] = selectedTodo
         }
 }
-    
+
     func delete(todoID: UUID) {
         let items = self.tempArray.filter { $0.identifier != todoID }
         self.tempArray = items

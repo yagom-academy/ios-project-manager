@@ -30,38 +30,38 @@ final class TodoListViewModel {
     private let undoRedoManager: UndoRedoManager
     private let dataBase: DatabaseManagerProtocol
     private let notificationManager: NotificationManager
-    
+
     init(dataBase: DatabaseManagerProtocol, notificationManger: NotificationManager) {
         self.dataBase = dataBase
         self.undoRedoManager = UndoRedoManager(database: dataBase)
         self.notificationManager = notificationManger
-        
+
         self.todoViewData = dataBase.todoListBehaviorRelay
             .map { $0.filter { $0.todoListItemStatus == .todo } }
             .map { $0.sorted{ $0.date < $1.date } }
             .asDriver(onErrorJustReturn: [])
-        
+
         self.doingViewData = dataBase.todoListBehaviorRelay
             .map { $0.filter { $0.todoListItemStatus == .doing } }
             .map { $0.sorted{ $0.date < $1.date } }
             .asDriver(onErrorJustReturn: [])
-        
+
         self.doneViewData = dataBase.todoListBehaviorRelay
             .map { $0.filter { $0.todoListItemStatus == .done } }
             .map { $0.sorted{ $0.date < $1.date } }
             .asDriver(onErrorJustReturn: [])
-        
+
         self.networkState = self.dataBase.isConnected()
             .map { $0 == true ? NetworkState.connected : NetworkState.nonConncted }
             .asDriver(onErrorJustReturn: "")
-        
+
         self.isHistoryEmpty = self.dataBase.isHistoryEmpty()
             .asDriver(onErrorJustReturn: false)
-        
+
         self.isRedoEmpty = self.undoRedoManager.isRedoEmpty()
             .asDriver(onErrorJustReturn: false)
     }
-    
+
     func cellSelectEvent(
         indexPathRow: Int,
         todoListItemStatus: TodoListItemStatus?,
@@ -70,7 +70,7 @@ final class TodoListViewModel {
         guard let todoListItemStatus = todoListItemStatus else {
             return
         }
-        
+
         switch todoListItemStatus {
         case .todo:
             self.todoViewData.drive(onNext: {
@@ -89,12 +89,12 @@ final class TodoListViewModel {
             .dispose()
         }
     }
-    
+
     func cellDeleteEvent(selectedTodo: Todo) {
         self.dataBase.delete(todoID: selectedTodo.identifier)
         self.notificationManager.deleteNotification(todoIdentifier: selectedTodo.identifier.uuidString)
     }
-    
+
     func extractNotIncludedMenuType(from todo: Todo) -> (TodoListItemStatus, TodoListItemStatus) {
         switch todo.todoListItemStatus {
         case .todo: return (.doing, .done)
@@ -102,18 +102,18 @@ final class TodoListViewModel {
         case .done: return (.todo, .doing)
         }
     }
-    
+
     func changeTodoListItemStatus(to: TodoListItemStatus, from selectedCell: Todo) {
         var selectedTodo = selectedCell
-        
+
         guard let newStatus = TodoListItemStatus(rawValue: to.rawValue) else {
             return
         }
-        
+
         selectedTodo.todoListItemStatus = newStatus
         self.dataBase.update(selectedTodo: selectedTodo)
     }
-    
+
     func changeDateLabelColor(in cell: TodoListCell, from todoData: Todo) {
         if todoData.date < Current.date && todoData.todoListItemStatus != .done {
             cell.changeDateLabelColor(to: .red)
@@ -121,11 +121,11 @@ final class TodoListViewModel {
             cell.changeDateLabelColor(to: .black)
         }
     }
-    
+
     func undoButtonTapEvent() {
         self.undoRedoManager.undoRelay.accept(())
     }
-    
+
     func redoButtonTapEvent() {
         self.undoRedoManager.redoRelay.accept(())
     }

@@ -11,7 +11,7 @@ enum TodoListItemStatus: String {
     case todo = "TODO"
     case doing = "DOING"
     case done = "DONE"
-    
+
     var displayName: String {
         return self.rawValue
     }

@@ -13,21 +13,21 @@ import RxSwift
 final class DetailViewModel {
     private let database: DatabaseManagerProtocol
     private let notificationManager: NotificationManager
-    
+
     init(database: DatabaseManagerProtocol, notificationManager: NotificationManager) {
         self.database = database
         self.notificationManager = notificationManager
     }
-    
+
     func doneButtonTapEvent(
         todo: Todo?,
         selectedTodo: Todo? = nil,
         completion: @escaping () -> Void
-    ) {
+    ){
         guard let todo = todo else {
             return
         }
-        
+
         if selectedTodo != nil {
             self.database.update(selectedTodo: todo)
             self.notificationManager.updateNotification(todoData: todo)

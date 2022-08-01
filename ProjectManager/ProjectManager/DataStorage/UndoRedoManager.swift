@@ -11,14 +11,14 @@ import RxSwift
 final class UndoRedoManager {
     let undoRelay = PublishRelay<Void>()
     let redoRelay = PublishRelay<Void>()
-    
+
     private var undoDataStack: [History] = []
     private var redoDataStack: [History] = []
     private let disposeBag = DisposeBag()
-    
+
     private let database: DatabaseManagerProtocol
     private let undoRedoActionAble: UndoRedoActionAble
-    
+
     init(database: DatabaseManagerProtocol) {
         self.database = database
         self.undoRedoActionAble = UndoRedoActionAble(database: database)
@@ -31,7 +31,7 @@ final class UndoRedoManager {
                 self?.undoDataStack = history
             })
             .disposed(by: self.disposeBag)
-        
+
         self.undoRelay
             .subscribe(onNext: { [weak self] _ in
                 guard let lastHistory = self?.undoDataStack.removeLast() else { return }
@@ -47,7 +47,7 @@ final class UndoRedoManager {
             })
             .disposed(by: self.disposeBag)
     }
-    
+
     func isRedoEmpty() -> Observable<Bool> {
         return Observable.create { observer in
             let _ = Observable.of(self.undoRelay, self.redoRelay)
@@ -66,11 +66,11 @@ final class UndoRedoManager {
 
 final class UndoRedoActionAble {
     private let database: DatabaseManagerProtocol
-    
+
     init(database: DatabaseManagerProtocol) {
         self.database = database
     }
-    
+
     func undoTapEvent(history: History) {
         switch history.action {
         case .moved:
@@ -82,10 +82,10 @@ final class UndoRedoActionAble {
         case .removed:
             self.database.create(todoData: history.nextTodo)
         }
-        
+
         self.database.deleteHistory()
     }
-    
+
     func redoTapEvent(history: History) {
         switch history.action {
         case .moved:

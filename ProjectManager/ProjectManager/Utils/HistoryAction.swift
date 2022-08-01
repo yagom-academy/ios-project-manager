@@ -12,7 +12,7 @@ enum HistoryAction: String {
     case added = "Added"
     case edited = "Edited"
     case removed = "Removed"
-    
+
     var description: String {
         return self.rawValue
     }

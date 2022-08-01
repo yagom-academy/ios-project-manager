@@ -11,15 +11,15 @@ struct History: Equatable {
     let action: HistoryAction
     let nextTodo: Todo
     let previousTodo: Todo?
-    
+
     var identifier: UUID {
         return nextTodo.identifier
     }
-    
+
     var title: String {
         return "'\(nextTodo.title)'"
     }
-    
+
     var status: String {
         switch action {
         case .moved:
@@ -32,7 +32,7 @@ struct History: Equatable {
             return "from \(nextTodo.todoListItemStatus.displayName)"
         }
     }
-    
+
     var date: String {
         return nextTodo.date.dateString()
     }

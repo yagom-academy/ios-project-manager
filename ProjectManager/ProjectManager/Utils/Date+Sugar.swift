@@ -13,7 +13,7 @@ extension Date {
         guard let dateString = Formatter.date.string(for: self) else { return "" }
         return dateString
     }
-    
+
     func historyString() -> String {
         Formatter.date.timeStyle = .short
         guard let dateString = Formatter.date.string(for: self) else { return "" }

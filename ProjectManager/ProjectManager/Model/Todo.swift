@@ -17,7 +17,7 @@ struct Todo: Equatable {
     let title: String
     let description: String
     let date: Date
-    
+
     init(
         todoListItemStatus: TodoListItemStatus = .todo,
         identifier: UUID = UUID(),
@@ -31,7 +31,7 @@ struct Todo: Equatable {
         self.description = description
         self.date = date
     }
-    
+
     func todoDTO() -> TodoDTO {
         return TodoDTO(
             todoListItemStatus: self.todoListItemStatus,
@@ -57,7 +57,7 @@ extension Todo: Serializable {
             "date": self.date.dateString()
         ]
     }
-    
+
     init?(dictionary: [String : Any]) {        
         guard let status = dictionary["todoListItemStatus"] as? String,
               let uuid = dictionary["identifier"] as? String,
@@ -67,14 +67,14 @@ extension Todo: Serializable {
         else {
             return nil
         }
-        
+
         guard let todoListItemStatus = TodoListItemStatus(rawValue: status),
               let identifier = UUID(uuidString: uuid),
               let date = date.convertToDate()
         else {
             return nil
         }
-        
+
         self.init(
             todoListItemStatus: todoListItemStatus,
             identifier: identifier,
