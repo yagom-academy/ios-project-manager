@@ -58,7 +58,7 @@ final class TodoListViewModel {
         self.isHistoryEmpty = self.dataBase.isHistoryEmpty()
             .asDriver(onErrorJustReturn: false)
         
-        self.isRedoEmpty = self.undoRedoManager.isRedo()
+        self.isRedoEmpty = self.undoRedoManager.isRedoEmpty()
             .asDriver(onErrorJustReturn: false)
     }
     
