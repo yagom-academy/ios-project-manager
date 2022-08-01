@@ -8,39 +8,32 @@
 import Foundation
 
 struct History: Equatable {
-    static func == (lhs: History, rhs: History) -> Bool {
-        return lhs.action == rhs.action &&
-        lhs.identifier == rhs.identifier &&
-        lhs.description == rhs.description &&
-        lhs.status == rhs.status &&
-        lhs.date == rhs.date &&
-        lhs.title == rhs.title
-    }
-
     let action: HistoryAction
-    let identifier: UUID
-    let title: String
-    let description: String
-    let status: HistoryStatus
-    let date: Date
-
-    func lastTodo() -> Todo {
-        return Todo(
-            todoListItemStatus: self.status.lastStatus,
-            identifier: self.identifier,
-            title: self.title,
-            description: self.description,
-            date: self.date
-        )
+    let nextTodo: Todo
+    let previousTodo: Todo?
+    
+    var identifier: UUID {
+        return nextTodo.identifier
     }
-
-    func currentTodo() -> Todo {
-        return Todo(
-            todoListItemStatus: self.status.currentStatus,
-            identifier: self.identifier,
-            title: self.title,
-            description: self.description,
-            date: self.date
-        )
+    
+    var title: String {
+        return "'\(nextTodo.title)'"
+    }
+    
+    var status: String {
+        switch action {
+        case .moved:
+            return "from \(previousTodo?.todoListItemStatus.displayName ?? "") to \(nextTodo.todoListItemStatus.displayName)"
+        case .added:
+            return "from \(nextTodo.todoListItemStatus.displayName)"
+        case .edited:
+            return "from \(nextTodo.todoListItemStatus.displayName)"
+        case .removed:
+            return "from \(nextTodo.todoListItemStatus.displayName)"
+        }
+    }
+    
+    var date: String {
+        return nextTodo.date.dateString()
     }
 }

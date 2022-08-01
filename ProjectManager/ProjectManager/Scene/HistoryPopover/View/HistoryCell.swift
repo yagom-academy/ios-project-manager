@@ -61,8 +61,8 @@ final class HistoryCell: UITableViewCell {
     
     func configure(_ history: History) {
         self.actionLabel.text = history.action.description
-        self.titleLabel.text = "'\(history.title)'"
-        self.statusLabel.text = history.status.value
-        self.dateLabel.text = history.date.historyString()
+        self.titleLabel.text = history.title
+        self.statusLabel.text = history.status
+        self.dateLabel.text = history.date
     }
 }

@@ -146,10 +146,10 @@ final class TodoListViewController: UIViewController {
             })
             .disposed(by: self.disposeBag)
         
-        self.viewModel.historyList
+        self.viewModel.isHistory
             .drive(onNext: { [weak self] isHistory in
-                self?.isUndoButtonActive(isHistoryData: isHistory)
                 self?.isHistoryButtonActive(isHistoryData: isHistory)
+                self?.isUndoButtonActive(isHistoryData: isHistory)
             })
             .disposed(by: self.disposeBag)
         
@@ -159,9 +159,9 @@ final class TodoListViewController: UIViewController {
             })
             .disposed(by: self.disposeBag)
         
-        self.viewModel.undoList
-            .drive(onNext: { [weak self] isUndo in
-                self?.isRedoButtonActive(isUndoData: isUndo)
+        self.viewModel.isRedo
+            .drive(onNext: { [weak self] isRedo in
+                self?.isRedoButtonActive(isUndoData: isRedo)
             })
             .disposed(by: self.disposeBag)
         
@@ -179,7 +179,7 @@ final class TodoListViewController: UIViewController {
             self.historyBarButton.isEnabled = false
         }
     }
-
+    
     private func isUndoButtonActive(isHistoryData: Bool) {
         if isHistoryData {
             self.undoBarButton.isEnabled = true
@@ -187,7 +187,7 @@ final class TodoListViewController: UIViewController {
             self.undoBarButton.isEnabled = false
         }
     }
-
+    
     private func isRedoButtonActive(isUndoData: Bool) {
         if isUndoData {
             self.redoBarButton.isEnabled = true

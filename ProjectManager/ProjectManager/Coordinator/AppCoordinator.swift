@@ -67,7 +67,7 @@ final class AppCoordinator: Coordinator {
         guard let historyButton = historyButton else {
             return
         }
-        
+
         let historyViewModel = HistoryViewModel(database: self.database)
         let historyView = HistoryViewController(viewModel: historyViewModel)
         historyView.modalPresentationStyle = .popover

@@ -11,7 +11,7 @@ private enum Const {
     static let empty = ""
 }
 
-struct Todo {
+struct Todo: Equatable {
     var todoListItemStatus: TodoListItemStatus
     let identifier: UUID
     let title: String
@@ -41,16 +41,9 @@ struct Todo {
             date: self.date
         )
     }
-
-    func history(action: HistoryAction, status: HistoryStatus) -> History {
-        return History(
-            action: action,
-            identifier: self.identifier,
-            title: self.title,
-            description: self.description,
-            status: status,
-            date: self.date
-        )
+    
+    func createHistory(action: HistoryAction, previousTodo: Todo? = nil) -> History {
+        return History(action: action, nextTodo: self, previousTodo: previousTodo)
     }
 }
 

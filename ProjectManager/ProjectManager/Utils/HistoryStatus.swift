@@ -19,22 +19,13 @@ enum HistoryStatus: Equatable {
             return "from \(lastStatus.displayName) to \(currentStatus.displayName)"
         }
     }
-
-    var lastStatus: TodoListItemStatus {
+    
+    var lastValue: TodoListItemStatus {
         switch self {
         case .from(let currentStatus):
             return currentStatus
         case .move(let lastStatus, _):
             return lastStatus
-        }
-    }
-
-    var currentStatus: TodoListItemStatus {
-        switch self {
-        case .from(let currentStatus):
-            return currentStatus
-        case .move(_, let currentStatus):
-            return currentStatus
         }
     }
 }
