@@ -32,8 +32,6 @@ final class ListView: UIView {
     private let headerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.spacing = 10
         stackView.backgroundColor = .systemGray6
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,8 +62,6 @@ final class ListView: UIView {
     private let todoListStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView

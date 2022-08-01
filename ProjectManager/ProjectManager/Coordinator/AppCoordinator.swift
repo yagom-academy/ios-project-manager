@@ -29,7 +29,7 @@ final class AppCoordinator: Coordinator {
     }
     
     private func showListView() {
-        let listViewModel = TodoListViewModel(dataBase: self.database, notificationManger: notificationManager)
+        let listViewModel = TodoListViewModel(dataBase: self.database, notificationManger: self.notificationManager)
         let todoListViewController = TodoListViewController(
             todoViewModel: listViewModel,
             coordinator: self
@@ -67,7 +67,7 @@ final class AppCoordinator: Coordinator {
         guard let historyButton = historyButton else {
             return
         }
-        
+
         let historyViewModel = HistoryViewModel(database: self.database)
         let historyView = HistoryViewController(viewModel: historyViewModel)
         historyView.modalPresentationStyle = .popover

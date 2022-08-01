@@ -31,7 +31,7 @@ final class TodoDTO: Object {
         self.date = date
     }
     
-    func convertTodo() -> Todo {
+    func todo() -> Todo {
         return Todo(
             todoListItemStatus: TodoListItemStatus(rawValue: self.todoListItemStatus) ?? .todo,
             identifier: self.identifier,

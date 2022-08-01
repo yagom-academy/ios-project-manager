@@ -16,7 +16,6 @@ final class HistoryCell: UITableViewCell {
     private let historyStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .leading
-        stackView.distribution = .fill
         stackView.spacing = 5
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,8 +60,8 @@ final class HistoryCell: UITableViewCell {
     
     func configure(_ history: History) {
         self.actionLabel.text = history.action.description
-        self.titleLabel.text = "'\(history.title)'"
-        self.statusLabel.text = history.status.value
-        self.dateLabel.text = history.date.historyString()
+        self.titleLabel.text = history.title
+        self.statusLabel.text = history.status
+        self.dateLabel.text = history.date
     }
 }

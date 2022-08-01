@@ -11,8 +11,6 @@ final class TodoListCell: UITableViewCell {
     private let contentsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .fill
         stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
         

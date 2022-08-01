@@ -38,7 +38,7 @@ final class RealmDatabase {
     private func read() {
         var todoList: [Todo] = []
         self.realm?.objects(TodoDTO.self)
-            .forEach { todoList.append($0.convertTodo()) }
+            .forEach { todoList.append($0.todo()) }
         self.dataBehaviorRelay.accept(.read(at: todoList))
     }
     

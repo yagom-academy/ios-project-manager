@@ -9,13 +9,12 @@ import RxCocoa
 import RxRelay
 
 final class HistoryViewModel {
-    let historyData: Driver<[History]>
-
     private let database: DatabaseManagerProtocol?
-
+    let historyData: Driver<[History]>
+        
     init(database: DatabaseManagerProtocol) {
         self.database = database
-
+        
         self.historyData = database.historyBehaviorRelay
             .map { $0.reversed() }
             .asDriver(onErrorJustReturn: [])
