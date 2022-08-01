@@ -29,7 +29,7 @@ final class AppCoordinator: Coordinator {
     }
     
     private func showListView() {
-        let listViewModel = TodoListViewModel(dataBase: self.database, notificationManger: notificationManager)
+        let listViewModel = TodoListViewModel(dataBase: self.database, notificationManger: self.notificationManager)
         let todoListViewController = TodoListViewController(
             todoViewModel: listViewModel,
             coordinator: self

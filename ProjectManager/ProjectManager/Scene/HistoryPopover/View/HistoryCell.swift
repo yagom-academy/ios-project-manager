@@ -16,7 +16,6 @@ final class HistoryCell: UITableViewCell {
     private let historyStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .leading
-        stackView.distribution = .fill
         stackView.spacing = 5
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false

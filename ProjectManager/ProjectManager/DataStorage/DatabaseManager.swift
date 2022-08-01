@@ -18,7 +18,7 @@ protocol DatabaseManagerProtocol {
     func update(selectedTodo: Todo)
     func delete(todoID: UUID)
     func isConnected() -> Observable<Bool>
-    func isHistory() -> Observable<Bool>
+    func isHistoryEmpty() -> Observable<Bool>
     func deleteHistory()
 }
 
@@ -55,7 +55,7 @@ final class DatabaseManager: DatabaseManagerProtocol {
         return self.firebase.isConnected()
     }
     
-    func isHistory() -> Observable<Bool> {
+    func isHistoryEmpty() -> Observable<Bool> {
         return Observable.create { observer in
             let _ = self.historyBehaviorRelay.subscribe(onNext: { history in
                 if history.isEmpty {

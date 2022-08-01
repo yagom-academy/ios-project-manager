@@ -12,8 +12,8 @@ class UndoRedoManager {
     let undoRelay = PublishRelay<Void>()
     let redoRelay = PublishRelay<Void>()
     
-    private var undoStack: [History] = []
-    private var redoStack: [History] = []
+    private var undoDataStack: [History] = []
+    private var redoDataStack: [History] = []
     private let disposeBag = DisposeBag()
     
     private let database: DatabaseManagerProtocol
@@ -28,21 +28,21 @@ class UndoRedoManager {
     func bind() {
         self.database.historyBehaviorRelay
             .subscribe(onNext: { [weak self] history in
-                self?.undoStack = history
+                self?.undoDataStack = history
             })
             .disposed(by: self.disposeBag)
         
         self.undoRelay
             .subscribe(onNext: { [weak self] _ in
-                guard let lastHistory = self?.undoStack.removeLast() else { return }
+                guard let lastHistory = self?.undoDataStack.removeLast() else { return }
                 self?.undoRedoActionAble.undoTapEvent(history: lastHistory)
-                self?.redoStack.append(lastHistory)
+                self?.redoDataStack.append(lastHistory)
             })
             .disposed(by: self.disposeBag)
 
         self.redoRelay
             .subscribe(onNext: { [weak self] _ in
-                guard let lastHistory = self?.redoStack.removeLast() else { return }
+                guard let lastHistory = self?.redoDataStack.removeLast() else { return }
                 self?.undoRedoActionAble.redoTapEvent(history: lastHistory)
             })
             .disposed(by: self.disposeBag)
@@ -53,7 +53,7 @@ class UndoRedoManager {
             let _ = Observable.of(self.undoRelay, self.redoRelay)
                 .merge()
                 .subscribe(onNext: { [weak self] _ in
-                    if self?.redoStack.count == 0 {
+                    if self?.redoDataStack.count == 0 {
                         observer.onNext(false)
                     } else {
                         observer.onNext(true)

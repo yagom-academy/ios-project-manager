@@ -25,8 +25,8 @@ final class TodoListViewModel {
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
     let networkState: Driver<String>
-    let isHistory: Driver<Bool>
-    let isRedo: Driver<Bool>
+    let isHistoryEmpty: Driver<Bool>
+    let isRedoEmpty: Driver<Bool>
     private let undoRedoManager: UndoRedoManager
     private let dataBase: DatabaseManagerProtocol
     private let notificationManager: NotificationManager
@@ -55,10 +55,10 @@ final class TodoListViewModel {
             .map { $0 == true ? NetworkState.connected : NetworkState.nonConncted }
             .asDriver(onErrorJustReturn: "")
         
-        self.isHistory = self.dataBase.isHistory()
+        self.isHistoryEmpty = self.dataBase.isHistoryEmpty()
             .asDriver(onErrorJustReturn: false)
         
-        self.isRedo = self.undoRedoManager.isRedo()
+        self.isRedoEmpty = self.undoRedoManager.isRedo()
             .asDriver(onErrorJustReturn: false)
     }
     

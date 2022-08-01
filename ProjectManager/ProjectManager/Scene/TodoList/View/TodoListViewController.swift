@@ -146,10 +146,10 @@ final class TodoListViewController: UIViewController {
             })
             .disposed(by: self.disposeBag)
         
-        self.viewModel.isHistory
+        self.viewModel.isHistoryEmpty
             .drive(onNext: { [weak self] isHistory in
-                self?.isHistoryButtonActive(isHistoryData: isHistory)
-                self?.isUndoButtonActive(isHistoryData: isHistory)
+                self?.isHistoryButtonActive(isHistoryEmpty: isHistory)
+                self?.isUndoButtonActive(isUndoEmpty: isHistory)
             })
             .disposed(by: self.disposeBag)
         
@@ -159,9 +159,9 @@ final class TodoListViewController: UIViewController {
             })
             .disposed(by: self.disposeBag)
         
-        self.viewModel.isRedo
+        self.viewModel.isRedoEmpty
             .drive(onNext: { [weak self] isRedo in
-                self?.isRedoButtonActive(isUndoData: isRedo)
+                self?.isRedoButtonActive(isRedoEmpty: isRedo)
             })
             .disposed(by: self.disposeBag)
         
@@ -172,24 +172,24 @@ final class TodoListViewController: UIViewController {
             .disposed(by: self.disposeBag)
     }
     
-    private func isHistoryButtonActive(isHistoryData: Bool) {
-        if isHistoryData {
+    private func isHistoryButtonActive(isHistoryEmpty: Bool) {
+        if isHistoryEmpty {
             self.historyBarButton.isEnabled = true
         } else {
             self.historyBarButton.isEnabled = false
         }
     }
     
-    private func isUndoButtonActive(isHistoryData: Bool) {
-        if isHistoryData {
+    private func isUndoButtonActive(isUndoEmpty: Bool) {
+        if isUndoEmpty {
             self.undoBarButton.isEnabled = true
         } else {
             self.undoBarButton.isEnabled = false
         }
     }
     
-    private func isRedoButtonActive(isUndoData: Bool) {
-        if isUndoData {
+    private func isRedoButtonActive(isRedoEmpty: Bool) {
+        if isRedoEmpty {
             self.redoBarButton.isEnabled = true
         } else {
             self.redoBarButton.isEnabled = false
