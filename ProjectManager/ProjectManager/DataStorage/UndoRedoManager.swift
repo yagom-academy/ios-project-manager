@@ -48,7 +48,7 @@ final class UndoRedoManager {
             .disposed(by: self.disposeBag)
     }
     
-    func isRedo() -> Observable<Bool> {
+    func isRedoEmpty() -> Observable<Bool> {
         return Observable.create { observer in
             let _ = Observable.of(self.undoRelay, self.redoRelay)
                 .merge()
@@ -64,8 +64,8 @@ final class UndoRedoManager {
     }
 }
 
-class UndoRedoActionAble {
-    let database: DatabaseManagerProtocol
+final class UndoRedoActionAble {
+    private let database: DatabaseManagerProtocol
     
     init(database: DatabaseManagerProtocol) {
         self.database = database
