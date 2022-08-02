@@ -13,7 +13,7 @@ final class MockCoreData {
 }
 
 final class MockPersistentManager {
-    private let database = MockCoreData()
+    let database = MockCoreData()
 }
 
 extension MockPersistentManager: PersistentManagerProtocol {
