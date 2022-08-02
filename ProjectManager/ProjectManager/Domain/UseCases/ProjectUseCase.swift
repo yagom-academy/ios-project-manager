@@ -8,7 +8,19 @@
 import RxSwift
 import RxRelay
 
-struct ProjectUseCase {
+protocol ProjectUseCase {
+    func create(projectEntity: ProjectEntity)
+    func read() -> BehaviorRelay<[ProjectEntity]>
+    func read(projectEntityID: UUID?) -> ProjectEntity?
+    func update(projectEntity: ProjectEntity)
+    func delete(projectEntityID: UUID?)
+    func load() -> Disposable
+    func backUp()
+    func createHistory(historyEntity: HistoryEntity)
+    func readHistory() -> BehaviorRelay<[HistoryEntity]>
+}
+
+struct DefaultProjectUseCase: ProjectUseCase {
     private let projectRepository: PersistentRepositoryProtocol
     private let networkRepository: NetworkRepositoryProtocol
     private let historyRepository: HistoryRepositoryProtocol
