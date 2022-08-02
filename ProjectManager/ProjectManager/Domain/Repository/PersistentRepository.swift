@@ -54,6 +54,11 @@ final class PersistentRepository: PersistentRepositoryProtocol {
         self.persistentManager = persistentManager
     }
     
+    convenience init(projectEntities: BehaviorRelay<[ProjectEntity]>, persistentManager: PersistentManagerProtocol) {
+        self.init(persistentManager: persistentManager)
+        self.projectEntities = projectEntities
+    }
+    
     private func fetchCoreDate() -> [ProjectEntity] {
         let currentProjects = persistentManager.read()
         let contents = currentProjects.compactMap { parse(from: $0) }

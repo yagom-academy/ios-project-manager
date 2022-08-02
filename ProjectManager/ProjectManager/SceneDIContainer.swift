@@ -24,20 +24,6 @@ final class SceneDIContainer {
         return HistoryManager()
     }
     
-    // MARK: - Storage
-//
-//    private func makePersistentStorage() -> PersistentStorage {
-//        return PersistentStorage(persistentManager: makePersistentManager())
-//    }
-//
-//    private func makeNetworkStorage() -> NetworkStorage {
-//        return NetworkStorage(networkManager: makeNetworkManager())
-//    }
-//
-//    private func makeHistoryStorage() -> HistoryStorage {
-//        return HistoryStorage(historyManager: makeHistoryManager())
-//    }
-    
     // MARK: - Repository
     
     private func makeProjectRepository() -> PersistentRepository {

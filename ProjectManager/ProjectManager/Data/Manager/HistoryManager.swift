@@ -13,7 +13,7 @@ protocol HistoryManagerProtocol {
 }
 
 final class HistoryManager {
-    let historyEntities = BehaviorRelay<[HistoryEntity]>(value: [])
+    private var historyEntities = BehaviorRelay<[HistoryEntity]>(value: [])
 }
 
 extension HistoryManager: HistoryManagerProtocol {

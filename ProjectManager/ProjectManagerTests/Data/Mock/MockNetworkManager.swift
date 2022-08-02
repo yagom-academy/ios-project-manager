@@ -45,7 +45,7 @@ final class MockFirebase {
 }
 
 final class MockNetworkManager {
-    let database = MockFirebase(error: nil)
+    let mockFirebase = MockFirebase(error: nil)
 }
 
 extension MockNetworkManager: NetworkManagerProtocol {
@@ -53,7 +53,7 @@ extension MockNetworkManager: NetworkManagerProtocol {
         
         return Observable.create { [weak self] emitter in
             
-            self?.database.getData { error, snapshot in
+            self?.mockFirebase.getData { error, snapshot in
                 guard error == nil else {
                     return
                 }
@@ -84,6 +84,6 @@ extension MockNetworkManager: NetworkManagerProtocol {
             ]
         }
         
-        database.setValue(newData)
+        mockFirebase.setValue(newData)
     }
 }
