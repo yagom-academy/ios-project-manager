@@ -36,8 +36,7 @@
 		0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04B287C7C5600438285 /* DateFormatter.swift */; };
 		0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04E287C815300438285 /* PopOverViewModel.swift */; };
 		0E5B6C0128936E6A00A5FE48 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B6C0028936E6A00A5FE48 /* ProjectManagerTests.swift */; };
-		0E5B6C0828936F5800A5FE48 /* MockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockRepository.swift */; };
-		0E8130E9288693FA003EC6C7 /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130E8288693FA003EC6C7 /* PersistentStorage.swift */; };
+		0E5B6C0828936F5800A5FE48 /* MockPersistentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockPersistentRepository.swift */; };
 		0E8130EC2886A1F3003EC6C7 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */; };
 		0E8130ED2886A1F3003EC6C7 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */; };
 		0E8130EF2886E2E5003EC6C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8130EE2886E2E5003EC6C7 /* GoogleService-Info.plist */; };
@@ -51,8 +50,6 @@
 		0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67ED128772C0200E15093 /* RegistrationViewModel.swift */; };
 		0EB71CDE289377DB0025F66C /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F0EF94288EE15B00FBC7EB /* HistoryManager.swift */; };
 		0EB71CE128937CD00025F66C /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB71CE028937CD00025F66C /* MockNetworkManager.swift */; };
-		0ED373672893D18600904751 /* NetworkStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED373662893D18600904751 /* NetworkStorage.swift */; };
-		0ED373692893D5BD00904751 /* HistoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED373682893D5BD00904751 /* HistoryStorage.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -77,7 +74,7 @@
 		033294B3287C717700EE7CBE /* PopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverView.swift; sourceTree = "<group>"; };
 		0334E6FF28767E7100222EB7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0334E70128767EBB00222EB7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
-		0334E70528770E3D00222EB7 /* MockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRepository.swift; sourceTree = "<group>"; };
+		0334E70528770E3D00222EB7 /* MockPersistentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPersistentRepository.swift; sourceTree = "<group>"; };
 		03498B672886737300D8CB3F /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		03498B72288676B500D8CB3F /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		03498B752886DF3A00D8CB3F /* ProjectDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDTO.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 		0E34F04E287C815300438285 /* PopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewModel.swift; sourceTree = "<group>"; };
 		0E5B6BFE28936E6A00A5FE48 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5B6C0028936E6A00A5FE48 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
-		0E8130E8288693FA003EC6C7 /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
 		0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0E8130EE2886E2E5003EC6C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -116,8 +112,6 @@
 		0EA67ECF287674D000E15093 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		0EA67ED128772C0200E15093 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		0EB71CE028937CD00025F66C /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
-		0ED373662893D18600904751 /* NetworkStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStorage.swift; sourceTree = "<group>"; };
-		0ED373682893D5BD00904751 /* HistoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStorage.swift; sourceTree = "<group>"; };
 		1F70E19F85975BF5AEC875C5 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		398DAEAB83EA2395CF261AE9 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		4819746BAEB061C8DCAEBAE0 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
@@ -192,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				0ED373652893CD4B00904751 /* Manager */,
-				0E8130E728869383003EC6C7 /* Storage */,
+				0E8130E728869383003EC6C7 /* Model */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -282,21 +276,18 @@
 		0E5B6C0A28936F9E00A5FE48 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				0334E70528770E3D00222EB7 /* MockRepository.swift */,
+				0334E70528770E3D00222EB7 /* MockPersistentRepository.swift */,
 				0EB71CE028937CD00025F66C /* MockNetworkManager.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
 		};
-		0E8130E728869383003EC6C7 /* Storage */ = {
+		0E8130E728869383003EC6C7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0E8130E8288693FA003EC6C7 /* PersistentStorage.swift */,
-				0ED373662893D18600904751 /* NetworkStorage.swift */,
-				0ED373682893D5BD00904751 /* HistoryStorage.swift */,
 				03498B752886DF3A00D8CB3F /* ProjectDTO.swift */,
 			);
-			path = Storage;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		0EA67EB92874768500E15093 /* Detail */ = {
@@ -614,7 +605,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EB71CE128937CD00025F66C /* MockNetworkManager.swift in Sources */,
-				0E5B6C0828936F5800A5FE48 /* MockRepository.swift in Sources */,
+				0E5B6C0828936F5800A5FE48 /* MockPersistentRepository.swift in Sources */,
 				0E5B6C0128936E6A00A5FE48 /* ProjectManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,12 +621,10 @@
 				0EA67EBE2874789700E15093 /* ModalView.swift in Sources */,
 				0E02C733288EFB1900522622 /* HistoryViewModel.swift in Sources */,
 				03BECD342892C55000BED881 /* ModalDelegate.swift in Sources */,
-				0E8130E9288693FA003EC6C7 /* PersistentStorage.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				03F0EF8F288EDAF300FBC7EB /* HistoryViewController.swift in Sources */,
 				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,
 				03F0EF9D288F7C0C00FBC7EB /* ModalNavigationBar.swift in Sources */,
-				0ED373692893D5BD00904751 /* HistoryStorage.swift in Sources */,
 				0E02C72E28896C0600522622 /* NetworkRepository.swift in Sources */,
 				0384DA6B288996DE00C30AC9 /* AlertController.swift in Sources */,
 				0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */,
@@ -662,7 +651,6 @@
 				03498B73288676B500D8CB3F /* PersistentManager.swift in Sources */,
 				032D3D11287D629800A32E57 /* ProjectUseCase.swift in Sources */,
 				0E8130F22886F8A8003EC6C7 /* NetworkManager.swift in Sources */,
-				0ED373672893D18600904751 /* NetworkStorage.swift in Sources */,
 				03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */,
 				0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */,
 				0E8130EC2886A1F3003EC6C7 /* Project+CoreDataClass.swift in Sources */,

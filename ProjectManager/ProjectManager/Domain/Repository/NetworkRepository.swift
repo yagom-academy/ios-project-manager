@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 
 protocol NetworkRepositoryProtocol {
-    var networkStorage: NetworkStorageProtocol { get }
     func update(repository: PersistentRepositoryProtocol)
     func read(repository: PersistentRepositoryProtocol) -> Disposable
 }
@@ -53,10 +52,10 @@ extension NetworkRepositoryProtocol {
 }
 
 final class NetworkRepository: NetworkRepositoryProtocol {
-    let networkStorage: NetworkStorageProtocol
+    private let networkManger: NetworkManagerProtocol
     
-    init(networkStorage: NetworkStorageProtocol) {
-        self.networkStorage = networkStorage
+    init(networkManger: NetworkManagerProtocol) {
+        self.networkManger = networkManger
     }
 }
 
@@ -66,11 +65,11 @@ extension NetworkRepository {
             parse(from: $0)
         }
         
-        networkStorage.update(projects: projects)
+        networkManger.update(projects: projects)
     }
     
     func read(repository: PersistentRepositoryProtocol) -> Disposable {
-        return networkStorage.read()
+        return networkManger.read()
             .subscribe(onNext: {[weak self] data in
                 self?.synchronize(with: data, to: repository)
             })

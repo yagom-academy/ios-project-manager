@@ -25,31 +25,31 @@ final class SceneDIContainer {
     }
     
     // MARK: - Storage
-    
-    private func makePersistentStorage() -> PersistentStorage {
-        return PersistentStorage(persistentManager: makePersistentManager())
-    }
-    
-    private func makeNetworkStorage() -> NetworkStorage {
-        return NetworkStorage(networkManager: makeNetworkManager())
-    }
-    
-    private func makeHistoryStorage() -> HistoryStorage {
-        return HistoryStorage(historyManager: makeHistoryManager())
-    }
+//
+//    private func makePersistentStorage() -> PersistentStorage {
+//        return PersistentStorage(persistentManager: makePersistentManager())
+//    }
+//
+//    private func makeNetworkStorage() -> NetworkStorage {
+//        return NetworkStorage(networkManager: makeNetworkManager())
+//    }
+//
+//    private func makeHistoryStorage() -> HistoryStorage {
+//        return HistoryStorage(historyManager: makeHistoryManager())
+//    }
     
     // MARK: - Repository
     
     private func makeProjectRepository() -> PersistentRepository {
-        return PersistentRepository(persistentStorage: makePersistentStorage())
+        return PersistentRepository(persistentManager: makePersistentManager())
     }
     
     private func makeNetworkRepository() -> NetworkRepository {
-        return NetworkRepository(networkStorage: makeNetworkStorage())
+        return NetworkRepository(networkManger: makeNetworkManager())
     }
     
     private func makeHistoryRepository() -> HistoryRepository {
-        return HistoryRepository(historyStorage: makeHistoryStorage())
+        return HistoryRepository(historyManager: makeHistoryManager())
     }
     
     // MARK: - Use Cases

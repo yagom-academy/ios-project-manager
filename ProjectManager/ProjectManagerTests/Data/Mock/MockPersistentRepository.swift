@@ -1,5 +1,5 @@
 //
-//  MockStorageManager.swift
+//  MockPersistentRepository.swift
 //  ProjectManager
 //
 //  Created by Tiana, mmim on 2022/07/07.
@@ -9,22 +9,18 @@
 import RxSwift
 import RxRelay
 
-final class MockRepository {
-    static let shared = MockRepository()
-    
-    private init() { }
-    
+final class MockPersistentRepository {
     private var projectEntities = BehaviorRelay<[ProjectEntity]>(value: [])
 }
 
-extension MockRepository: PersistentStorageProtocol {
-    func create(projectContent: ProjectEntity) {
+extension MockPersistentRepository: PersistentRepositoryProtocol {
+    func create(projectEntity projectContent: ProjectEntity) {
         var currentProject = read().value
         currentProject.append(projectContent)
         projectEntities.accept(currentProject)
     }
     
-    func create(projectContents: [ProjectEntity]) {
+    func create(projectEntities projectContents: [ProjectEntity]) {
         projectEntities.accept(projectContents)
     }
     
@@ -32,11 +28,11 @@ extension MockRepository: PersistentStorageProtocol {
         return projectEntities
     }
     
-    func read(id: UUID?) -> ProjectEntity? {
+    func read(projectEntityID id: UUID?) -> ProjectEntity? {
         return projectEntities.value.filter { $0.id == id }.first
     }
     
-    func update(projectContent: ProjectEntity) {
+    func update(projectEntity projectContent: ProjectEntity) {
         let projects = projectEntities.value
         
         if let indexToUpdated = projects.firstIndex(where: { $0.id == projectContent.id}) {
@@ -47,7 +43,7 @@ extension MockRepository: PersistentStorageProtocol {
         }
     }
     
-    func delete(projectContentID: UUID?) {
+    func delete(projectEntityID projectContentID: UUID?) {
         let projects = projectEntities.value
         
         if let indexToDelete = projects.firstIndex(where: { $0.id == projectContentID}) {

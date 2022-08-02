@@ -8,25 +8,24 @@
 import RxRelay
 
 protocol HistoryRepositoryProtocol {
-    var historyStorage: HistoryStorageProtocol { get }
     func create(historyEntity: HistoryEntity)
     func read() -> BehaviorRelay<[HistoryEntity]>
 }
 
 struct HistoryRepository: HistoryRepositoryProtocol {
-    let historyStorage: HistoryStorageProtocol
+    private let historyManager: HistoryManagerProtocol
     
-    init(historyStorage: HistoryStorageProtocol) {
-        self.historyStorage = historyStorage
+    init(historyManager: HistoryManagerProtocol) {
+        self.historyManager = historyManager
     }
 }
 
 extension HistoryRepository {
     func create(historyEntity: HistoryEntity) {
-        historyStorage.create(historyEntity: historyEntity)
+        historyManager.create(historyEntity: historyEntity)
     }
     
     func read() -> BehaviorRelay<[HistoryEntity]> {
-        return historyStorage.read()
+        return historyManager.read()
     }
 }
