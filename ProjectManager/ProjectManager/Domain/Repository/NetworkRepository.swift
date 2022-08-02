@@ -34,19 +34,19 @@ extension NetworkRepositoryProtocol {
         )
     }
     
-    func parse(from projectContent: ProjectEntity) -> ProjectDTO? {
-        guard let date = DateFormatter().formatted(string: projectContent.deadline) else {
+    func parse(from projectEntity: ProjectEntity) -> ProjectDTO? {
+        guard let date = DateFormatter().formatted(string: projectEntity.deadline) else {
             return nil
         }
         
         let timeInterval = "\(date.timeIntervalSince1970)"
         
         return ProjectDTO(
-            id: projectContent.id.uuidString,
-            status: projectContent.status.string,
-            title: projectContent.title,
+            id: projectEntity.id.uuidString,
+            status: projectEntity.status.string,
+            title: projectEntity.title,
             deadline: timeInterval,
-            body: projectContent.body
+            body: projectEntity.body
         )
     }
 }

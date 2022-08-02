@@ -37,13 +37,13 @@ extension PersistentRepositoryProtocol {
         )
     }
     
-    func parse(from projectContent: ProjectEntity) -> ProjectDTO? {
+    func parse(from projectEntity: ProjectEntity) -> ProjectDTO? {
         return ProjectDTO(
-            id: projectContent.id.uuidString,
-            status: projectContent.status.string,
-            title: projectContent.title,
-            deadline: projectContent.deadline,
-            body: projectContent.body
+            id: projectEntity.id.uuidString,
+            status: projectEntity.status.string,
+            title: projectEntity.title,
+            deadline: projectEntity.deadline,
+            body: projectEntity.body
         )
     }
 }
