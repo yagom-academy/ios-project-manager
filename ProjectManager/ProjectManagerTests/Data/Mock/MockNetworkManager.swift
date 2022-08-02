@@ -44,32 +44,20 @@ final class MockFirebase {
     }
 }
 
-final class MockNetworkRepository {
+final class MockNetworkManager {
     let database = MockFirebase(error: nil)
 }
 
-extension MockNetworkRepository: NetworkRepositoryProtocol {
-    func update(repository: PersistentRepositoryProtocol) {
-        let projects = repository.read().value.compactMap {
-            parse(from: $0)
-        }
-        
-        update(projects: projects)
-    }
-    
-    func read(repository: PersistentRepositoryProtocol) -> Disposable {
-        return read()
-            .subscribe(onNext: {[weak self] data in
-                self?.synchronize(with: data, to: repository)
-            })
-    }
-}
-
-extension MockNetworkRepository {
-    private func read() -> Observable<[ProjectDTO]> {
+extension MockNetworkManager: NetworkManagerProtocol {
+    func read() -> Observable<[ProjectDTO]> {
         
         return Observable.create { [weak self] emitter in
-            self?.database.getData { _, snapshot in
+            
+            self?.database.getData { error, snapshot in
+                guard error == nil else {
+                    return
+                }
+                
                 guard let value = snapshot,
                       let data = try? JSONSerialization.data(withJSONObject: value.map { $1 }),
                       let projects = try? JSONDecoder().decode([ProjectDTO].self, from: data) else {
@@ -83,7 +71,7 @@ extension MockNetworkRepository {
         }
     }
     
-    private func update(projects: [ProjectDTO]) {
+    func update(projects: [ProjectDTO]) {
         var newData: [String: [String: String]] = [:]
         
         projects.forEach {
@@ -97,17 +85,5 @@ extension MockNetworkRepository {
         }
         
         database.setValue(newData)
-    }
-    
-    private func synchronize(
-        with projects: [ProjectDTO],
-        to repository: PersistentRepositoryProtocol
-    ) {
-        let formattedProjects = projects.compactMap {
-            parse(from: $0)
-        }
-        
-        repository.deleteAll()
-        repository.create(projectEntities: formattedProjects)
     }
 }

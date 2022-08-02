@@ -13,11 +13,32 @@ import OSLog
 protocol PersistentManagerProtocol {
     func create(project: ProjectDTO)
     func create(projects: [ProjectDTO])
-    func read() -> [Project]
-    func read(id: UUID?) -> Project?
+    func read() -> [ProjectDTO]
+    func read(projectEntityID: UUID?) -> ProjectDTO?
     func update(project: ProjectDTO)
     func delete(projectEntityID: UUID?)
     func deleteAll()
+}
+
+extension PersistentManagerProtocol {
+    func parse(from project: Project) -> ProjectDTO? {
+        guard let id = project.id?.uuidString,
+              let status = project.status,
+              let title = project.title,
+              let deadline = project.deadline,
+              let body = project.body else {
+            return nil
+        }
+        let formattedDeadline = DateFormatter().formatted(date: deadline)
+        
+        return ProjectDTO(
+            id: id,
+            status: status,
+            title: title,
+            deadline: formattedDeadline,
+            body: body
+        )
+    }
 }
 
 final class PersistentManager {
@@ -46,18 +67,19 @@ extension PersistentManager: PersistentManagerProtocol {
         }
     }
     
-    func read() -> [Project] {
+    func read() -> [ProjectDTO] {
         guard let projects = fetchProjects() else {
             return []
         }
-        return projects
+        
+        return projects.compactMap { parse(from: $0) }
     }
     
-    func read(id: UUID?) -> Project? {
-        guard let project = fetchProject(id: id?.uuidString) else {
+    func read(projectEntityID: UUID?) -> ProjectDTO? {
+        guard let project = fetchProject(id: projectEntityID?.uuidString) else {
             return nil
         }
-        return project
+        return parse(from: project)
     }
 
     func update(project: ProjectDTO) {

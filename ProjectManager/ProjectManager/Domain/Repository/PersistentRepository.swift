@@ -19,21 +19,19 @@ protocol PersistentRepositoryProtocol {
 }
 
 extension PersistentRepositoryProtocol {
-    func parse(from project: Project) -> ProjectEntity? {
-        guard let id = project.id,
+    func parse(from project: ProjectDTO) -> ProjectEntity? {
+        guard let id = UUID(uuidString: project.id),
               let status = ProjectStatus.convert(statusString: project.status),
-              let title = project.title,
-              let deadline = project.deadline,
-              let body = project.body else {
+              let deadline = DateFormatter().formatted(string: project.deadline) else {
             return nil
         }
         
         return ProjectEntity(
             id: id,
             status: status,
-            title: title,
+            title: project.title,
             deadline: deadline,
-            body: body
+            body: project.body
         )
     }
     
@@ -169,4 +167,3 @@ extension PersistentRepository {
         projectEntities.accept([])
     }
 }
-

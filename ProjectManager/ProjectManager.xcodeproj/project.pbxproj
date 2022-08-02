@@ -36,7 +36,7 @@
 		0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04B287C7C5600438285 /* DateFormatter.swift */; };
 		0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04E287C815300438285 /* PopOverViewModel.swift */; };
 		0E5B6C0128936E6A00A5FE48 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5B6C0028936E6A00A5FE48 /* ProjectManagerTests.swift */; };
-		0E5B6C0828936F5800A5FE48 /* MockPersistentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockPersistentRepository.swift */; };
+		0E5B6C0828936F5800A5FE48 /* MockPersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockPersistentManager.swift */; };
 		0E8130EC2886A1F3003EC6C7 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */; };
 		0E8130ED2886A1F3003EC6C7 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */; };
 		0E8130EF2886E2E5003EC6C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8130EE2886E2E5003EC6C7 /* GoogleService-Info.plist */; };
@@ -74,7 +74,7 @@
 		033294B3287C717700EE7CBE /* PopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverView.swift; sourceTree = "<group>"; };
 		0334E6FF28767E7100222EB7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0334E70128767EBB00222EB7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
-		0334E70528770E3D00222EB7 /* MockPersistentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPersistentRepository.swift; sourceTree = "<group>"; };
+		0334E70528770E3D00222EB7 /* MockPersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPersistentManager.swift; sourceTree = "<group>"; };
 		03498B672886737300D8CB3F /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		03498B72288676B500D8CB3F /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		03498B752886DF3A00D8CB3F /* ProjectDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDTO.swift; sourceTree = "<group>"; };
@@ -276,7 +276,7 @@
 		0E5B6C0A28936F9E00A5FE48 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				0334E70528770E3D00222EB7 /* MockPersistentRepository.swift */,
+				0334E70528770E3D00222EB7 /* MockPersistentManager.swift */,
 				0EB71CE028937CD00025F66C /* MockNetworkManager.swift */,
 			);
 			path = Mock;
@@ -605,7 +605,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EB71CE128937CD00025F66C /* MockNetworkManager.swift in Sources */,
-				0E5B6C0828936F5800A5FE48 /* MockPersistentRepository.swift in Sources */,
+				0E5B6C0828936F5800A5FE48 /* MockPersistentManager.swift in Sources */,
 				0E5B6C0128936E6A00A5FE48 /* ProjectManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

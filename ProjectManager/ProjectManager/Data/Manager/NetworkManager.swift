@@ -48,7 +48,13 @@ extension NetworkManager: NetworkManagerProtocol {
         var dic: [String: [String: String]] = [:]
         
         projects.forEach {
-            dic[$0.id] = ["id": $0.id, "status": $0.status, "title": $0.title, "deadline": $0.deadline, "body": $0.body]
+            dic[$0.id] = [
+                "id": $0.id,
+                "status": $0.status,
+                "title": $0.title,
+                "deadline": $0.deadline,
+                "body": $0.body
+            ]
         }
         
         Database.database().reference().child("user").setValue(dic)
