@@ -9,15 +9,16 @@ import RxSwift
 
 final class PopOverViewController: UIViewController {
     private let popOverView = PopOverView()
-    private let viewModel: PopOverViewModel
+    private var viewModel: PopOverViewModel?
     private let disposeBag = DisposeBag()
     
-    init(cell: ProjectCell) {
-        viewModel = PopOverViewModel(cell: cell)
+    init(with viewModel: PopOverViewModel) {
         super.init(nibName: nil, bundle: nil)
         
-        setUpAttribute(cell)
-        setUpButtonAction(cell)
+        self.viewModel = viewModel
+        
+        setUpAttribute()
+        setUpButtonAction()
         setUpButtonTitle()
     }
     
@@ -29,36 +30,40 @@ final class PopOverViewController: UIViewController {
         view = popOverView
     }
     
-    private func setUpAttribute(_ cell: ProjectCell) {
+    private func setUpAttribute() {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
         modalPresentationStyle = .popover
-        popoverPresentationController?.sourceView = cell
+        popoverPresentationController?.sourceView = viewModel.cell
         preferredContentSize = CGSize(width: 300, height: 100)
         popoverPresentationController?.permittedArrowDirections = .up
         
         popoverPresentationController?.sourceRect = CGRect(
-            x: cell.bounds.width * 0.5,
-            y: cell.bounds.minY,
+            x: viewModel.cell.bounds.width * 0.5,
+            y: viewModel.cell.bounds.minY,
             width: 30,
             height: 50
         )
     }
     
     private func setUpButtonTitle() {
-        guard let (first, second) = viewModel.getStatus() else {
+        guard let (first, second) = viewModel?.getStatus() else {
             return
         }
         
         popOverView.setUpButtonTitle(first: first, second: second)
     }
     
-    private func setUpButtonAction(_ cell: ProjectCell) {
+    private func setUpButtonAction() {
         let firstButton = popOverView.firstButton
         let secondButton = popOverView.secondButton
         
         firstButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                self?.viewModel.moveCell(by: firstButton.titleLabel?.text)
+                self?.viewModel?.moveCell(by: firstButton.titleLabel?.text)
                 self?.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
@@ -66,7 +71,7 @@ final class PopOverViewController: UIViewController {
         secondButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                self?.viewModel.moveCell(by: secondButton.titleLabel?.text)
+                self?.viewModel?.moveCell(by: secondButton.titleLabel?.text)
                 self?.dismiss(animated: true)
             }
             .disposed(by: disposeBag)

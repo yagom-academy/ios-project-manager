@@ -8,118 +8,184 @@
 import RxSwift
 import RxCocoa
 
+private enum Constant {
+    static let edit = "edit"
+    static let done = "done"
+    static let save = "save"
+    static let cancel = "cancel"
+}
+
+private enum Mode {
+    case display
+    case edit
+}
+
 final class DetailViewController: UIViewController {
-    private let viewModel: DetailViewModel
+    private var viewModel: DetailViewModel?
     private let modalView = ModalView(frame: .zero)
     private let disposeBag = DisposeBag()
+    private var mode: Mode = .display
+    private var topConstraint: NSLayoutConstraint?
     
-    init(content: ProjectContent) {
-        self.viewModel = DetailViewModel(content: content)
+    init(with viewModel: DetailViewModel) {
         super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        view = modalView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpAttribute()
+        setUpLayout()
         setUpModalView()
-        setUpDetailNavigationItem()
-        modalView.descriptionTextView.delegate = self
+        bind()
+        modalView.delegate = self
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        if let touch = touches.first, touch.view == self.view {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    private func setUpAttribute() {
+        view.backgroundColor = .black.withAlphaComponent(0.5)
+    }
+    
+    private func setUpLayout() {
+        view.addSubview(modalView)
+        
+        modalView.translatesAutoresizingMaskIntoConstraints = false
+        
+        topConstraint = modalView.topAnchor.constraint(
+            equalTo: view.topAnchor,
+            constant: modalView.defaultTopConstant
+        )
+        
+        NSLayoutConstraint.activate([
+            modalView.widthAnchor.constraint(equalToConstant: ModalConstant.modalFrameWidth),
+            modalView.heightAnchor.constraint(equalToConstant: ModalConstant.modalFrameHeight),
+            modalView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            topConstraint
+        ].compactMap { $0 })
     }
     
     private func setUpModalView() {
-        modalView.compose(content: viewModel.asContent())
-        modalView.isUserInteractionEnabled(false)
+        modalView.registerNotification()
+        modalView.navigationBar.modalTitle.text = viewModel?.asContent().status.string
     }
     
-    private func setUpDetailNavigationItem() {
-        navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationItem.title = viewModel.asContent().status.string
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .edit,
-            target: nil,
-            action: nil
-        )
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: nil,
-            action: nil
-        )
+    private func bind() {
+        setUpDefaultUI()
         
-        didTapEditButton()
-        didTapDoneButton()
+        setUpLeftButton()
+        setUpRightButton()
     }
     
-    private func setUpEditNavigationItem() {
-        navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationItem.title = viewModel.asContent().status.string
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: nil,
-            action: nil
-        )
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .save,
-            target: nil,
-            action: nil
-        )
+    private func setUpDefaultUI() {
+        modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
         
-        didTapEditButton()
-        didTapSaveButton()
+        guard let project = self.viewModel?.read() else {
+            return
+        }
+        self.modalView.compose(content: project)
+        self.modalView.isUserInteractionEnabled(false)
     }
     
-    private func didTapEditButton() {
-        navigationItem.leftBarButtonItem?.rx.tap
-            .asDriver()
-            .drive { [weak self] _ in
-                self?.modalView.isUserInteractionEnabled(true)
-                self?.setUpEditNavigationItem()
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    private func didTapSaveButton() {
-        navigationItem.rightBarButtonItem?.rx.tap
+    private func setUpLeftButton() {
+        let leftButton = modalView.navigationBar.leftButton
+        
+        leftButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
                 guard let self = self else {
                     return
                 }
-                let newContent = self.modalView.change(self.viewModel.asContent())
-                self.viewModel.update(newContent)
-                self.modalView.isUserInteractionEnabled(false)
-                self.setUpDetailNavigationItem()
+                
+                switch self.mode {
+                case .display:
+                    self.didTapEditButton()
+                case .edit:
+                    self.didTapCancelButton()
+                }
             }
             .disposed(by: disposeBag)
     }
     
-    private func didTapDoneButton() {
-        navigationItem.rightBarButtonItem?.rx.tap
+    private func setUpRightButton() {
+        let rightButton = modalView.navigationBar.rightButton
+        
+        rightButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                self?.dismiss(animated: true, completion: nil)
+                guard let self = self else {
+                    return
+                }
+                
+                switch self.mode {
+                case .display:
+                    self.didTapDoneButton()
+                case .edit:
+                    self.didTapSaveButton()
+                }
             }
             .disposed(by: disposeBag)
     }
 }
 
-extension DetailViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if self.view.frame.origin.y == 0 {
-            self.view.frame.origin.y -= 170
-        }
+extension DetailViewController {
+    private func didTapEditButton() {
+        modalView.navigationBar.leftButton.setTitle(Constant.cancel, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.save, for: .normal)
+        
+        modalView.isUserInteractionEnabled(true)
+        
+        mode = .edit
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
+    private func didTapDoneButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func didTapCancelButton() {
+        modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
+        
+        guard let project = self.viewModel?.read() else {
+            return
         }
+        
+        self.modalView.compose(content: project)
+        self.modalView.isUserInteractionEnabled(false)
+        
+        mode = .display
+    }
+    
+    private func didTapSaveButton() {
+        modalView.navigationBar.leftButton.setTitle(Constant.edit, for: .normal)
+        modalView.navigationBar.rightButton.setTitle(Constant.done, for: .normal)
+        
+        guard let content = viewModel?.asContent() else {
+            return
+        }
+        
+        let newContent = modalView.change(content)
+        viewModel?.update(newContent)
+        modalView.isUserInteractionEnabled(false)
+        
+        mode = .display
+    }
+}
+
+extension DetailViewController: ModalDelegate {
+    func changeModalViewTopConstant(to constant: Double) {
+        topConstraint?.constant = constant
+        view.layoutIfNeeded()
     }
 }

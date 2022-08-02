@@ -5,37 +5,59 @@
 //  Created by Tiana, mmim on 2022/07/06.
 //
 
+import RxSwift
 import RxCocoa
 import RxGesture
 
 struct MainViewModel {
-    private let projects: BehaviorRelay<[ProjectContent]> = {
-        return ProjectUseCase().read()
+    private let projectUseCase: ProjectUseCase
+    
+    init(projectUseCase: ProjectUseCase) {
+        self.projectUseCase = projectUseCase
+    }
+    
+    private lazy var projects: BehaviorRelay<[ProjectEntity]> = {
+        return projectUseCase.read()
     }()
 
-    func deleteProject(_ content: ProjectContent) {
-        ProjectUseCase().delete(projectContentID: content.id)
+    func deleteProject(_ content: ProjectEntity) {
+        projectUseCase.delete(projectEntityID: content.id)
+        deleteHistory(by: content)
     }
     
-    func readProject(_ id: UUID?) -> ProjectContent? {
-        return ProjectUseCase().read(id: id)
+    func readProject(_ id: UUID?) -> ProjectEntity? {
+        return projectUseCase.read(projectEntityID: id)
     }
     
-    func asTodoProjects() -> Driver<[ProjectContent]> {
+    mutating func asTodoProjects() -> Driver<[ProjectEntity]> {
         return projects
             .map { $0.filter { $0.status == .todo } }
             .asDriver(onErrorJustReturn: [])
     }
     
-    func asDoingProjects() -> Driver<[ProjectContent]> {
+    mutating func asDoingProjects() -> Driver<[ProjectEntity]> {
         return projects
             .map { $0.filter { $0.status == .doing } }
             .asDriver(onErrorJustReturn: [])
     }
     
-    func asDoneProjects() -> Driver<[ProjectContent]> {
+    mutating func asDoneProjects() -> Driver<[ProjectEntity]> {
         return projects
             .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
+    }
+    
+    func loadNetworkData() -> Disposable {
+        return projectUseCase.load()
+    }
+    
+    private func deleteHistory(by content: ProjectEntity) {
+        let historyEntity = HistoryEntity(
+            editedType: .delete,
+            title: content.title,
+            date: Date().timeIntervalSince1970
+        )
+        
+        projectUseCase.createHistory(historyEntity: historyEntity)
     }
 }

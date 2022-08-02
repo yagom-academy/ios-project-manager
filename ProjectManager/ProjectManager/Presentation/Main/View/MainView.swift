@@ -17,7 +17,7 @@ final class MainView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 5
+        stackView.spacing = 10
         stackView.backgroundColor = .systemGray4
         return stackView
     }()

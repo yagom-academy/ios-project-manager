@@ -34,7 +34,7 @@ enum ProjectStatus {
         }
     }
     
-    static func convert(_ titleText: String?) -> ProjectStatus? {
+    static func convert(titleText: String?) -> ProjectStatus? {
         switch titleText {
         case ProjectStatus.todo.buttonTitle:
             return .todo
@@ -46,25 +46,39 @@ enum ProjectStatus {
             return nil
         }
     }
+    
+    static func convert(statusString: String?) -> ProjectStatus? {
+        switch statusString {
+        case ProjectStatus.todo.string:
+            return .todo
+        case ProjectStatus.doing.string:
+            return .doing
+        case ProjectStatus.done.string:
+            return .done
+        default:
+            return nil
+        }
+    }
 }
 
-struct ProjectContent {
+struct ProjectEntity {
     let id: UUID
-    var status: ProjectStatus = .todo
+    var status: ProjectStatus
     var title: String
     var deadline: String
-    var description: String
+    var body: String
     
-    init(id: UUID = UUID(), title: String, deadline: Date, description: String) {
+    init(id: UUID = UUID(), status: ProjectStatus = .todo, title: String, deadline: Date, body: String) {
         self.id = id
+        self.status = status
         self.title = title
         self.deadline = DateFormatter().formatted(date: deadline)
-        self.description = description
+        self.body = body
     }
     
     mutating func editContent(title: String? = nil,
                               deadline: Date? = nil,
-                              description: String? = nil
+                              body: String? = nil
     ) {
         if let title = title {
             self.title = title
@@ -74,23 +88,14 @@ struct ProjectContent {
             self.deadline = DateFormatter().formatted(date: deadline)
         }
         
-        if let description = description {
-            self.description = description
+        if let body = body {
+            self.body = body
         }
-    }
-    
-    func getStatus() -> ProjectStatus? {
-        return MockStorageManager.shared.read(id: id)?.status
-    }
-    
-    mutating func updateStatus(_ status: ProjectStatus) {
-        self.status = status
-        MockStorageManager.shared.update(projectContent: self)
     }
 }
 
-extension ProjectContent {
-    static func == (lhs: ProjectContent, rhs: ProjectContent) -> Bool {
+extension ProjectEntity {
+    static func == (lhs: ProjectEntity, rhs: ProjectEntity) -> Bool {
         return lhs.id == rhs.id
     }
 }

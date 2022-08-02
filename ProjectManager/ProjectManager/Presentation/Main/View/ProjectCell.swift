@@ -17,7 +17,7 @@ final class ProjectCell: UITableViewCell {
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
@@ -36,6 +36,8 @@ final class ProjectCell: UITableViewCell {
     private let baseStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .equalCentering
+        stackView.spacing = 8
         stackView.axis = .vertical
         return stackView
     }()
@@ -52,10 +54,13 @@ final class ProjectCell: UITableViewCell {
     }
     
     private func setUpCell() {
+        backgroundColor = .systemGray6
+        contentView.backgroundColor = .systemBackground
+        
         contentView.addSubview(baseStackView)
         
         baseStackView.addArrangedSubview(titleLabel)
-        baseStackView.addArrangedSubview(descriptionLabel)
+        baseStackView.addArrangedSubview(bodyLabel)
         baseStackView.addArrangedSubview(deadlineLabel)
     }
     
@@ -68,14 +73,14 @@ final class ProjectCell: UITableViewCell {
         ])
     }
     
-    func compose(content: ProjectContent) {
+    func compose(content: ProjectEntity) {
         guard let formattedDate = DateFormatter().formatted(string: content.deadline) else {
             return
         }
         
         contentID = content.id
         titleLabel.text = content.title
-        descriptionLabel.text = content.description
+        bodyLabel.text = content.body
         deadlineLabel.text = content.deadline
         
         if formattedDate < Date() {
@@ -86,5 +91,18 @@ final class ProjectCell: UITableViewCell {
     override func prepareForReuse() {
         deadlineLabel.textColor = .black
         contentID = nil
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.frame = contentView.frame.inset(
+            by: UIEdgeInsets(
+                top: 10,
+                left: 0,
+                bottom: 0,
+                right: 0
+            )
+        )
     }
 }

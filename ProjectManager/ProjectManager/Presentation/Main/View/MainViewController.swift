@@ -9,10 +9,29 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
+private enum ImageConstant {
+    static let connectedNetwork = "wifi"
+    static let unconnectedNetwork = "wifi.slash"
+    static let fetchingNetworkData = "icloud.and.arrow.down"
+}
+
 final class MainViewController: UIViewController {
     private let mainView = MainView(frame: .zero)
-    private let viewModel = MainViewModel()
+    private var viewModel: MainViewModel?
     private let disposeBag = DisposeBag()
+    private var sceneDIContainer: SceneDIContainer?
+    
+    init(with viewModel: MainViewModel,
+         _ sceneDIContainer: SceneDIContainer
+    ) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+        self.sceneDIContainer = sceneDIContainer
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = mainView
@@ -33,12 +52,68 @@ final class MainViewController: UIViewController {
     
     private func setUpNavigationItem() {
         navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        let addButton = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: nil,
             action: nil
         )
+        
+        let networkConditionImage = UIImage(
+            systemName: ImageConstant.connectedNetwork
+        )?.withTintColor(
+            .systemBlue,
+            renderingMode: .alwaysOriginal
+        )
+        
+        let networkConditionItem = UIBarButtonItem(
+            image: networkConditionImage,
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        networkConditionItem.isEnabled = false
+        
+        let loadButton = UIBarButtonItem(
+            image: UIImage(systemName: ImageConstant.fetchingNetworkData),
+            style: .done,
+            target: nil,
+            action: nil
+        )
+        
+        navigationItem.rightBarButtonItems = [addButton, loadButton, networkConditionItem]
         didTapAddButton()
+        didTapLoadButton()
+        
+        NetworkCondition.sharedInstance.delegate = self
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "History",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        didTapHistoryButton()
+    }
+    
+    private func didTapHistoryButton() {
+        guard let historyButton = navigationItem.leftBarButtonItem else {
+            return
+        }
+        
+        historyButton.rx.tap
+            .asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                self?.presentHistoryPopOver(source: historyButton)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func presentHistoryPopOver(source: UIBarButtonItem) {
+        guard let historyViewController = sceneDIContainer?.makeHistoryViewController(with: source) else {
+            return
+        }
+        
+        present(historyViewController, animated: true)
     }
     
     private func didTapAddButton() {
@@ -54,10 +129,50 @@ final class MainViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func presentRegistrationView() {
-        let next = UINavigationController(rootViewController: RegistrationViewController())
+    private func didTapLoadButton() {
+        guard let loadButton = navigationItem.rightBarButtonItems?[1] else {
+            return
+        }
         
-        next.modalPresentationStyle = .formSheet
+        loadButton.rx.tap
+            .asObservable()
+            .withUnretained(self)
+            .subscribe(onNext: { (self, _) in
+                guard let alertController = self.presentAlert() else {
+                    return
+                }
+                
+                self.present(alertController, animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func presentAlert() -> UIAlertController? {
+        let alertAction = UIAlertAction(title: "확인", style: .destructive) { [weak self]_ in
+            guard let self = self else {
+                return
+            }
+            
+            self.viewModel?.loadNetworkData()
+                .disposed(by: self.disposeBag)
+        }
+        
+        let next = sceneDIContainer?.makeAlertController(
+            over: self,
+            title: "서버 데이터를 사용자 기기로 동기화할까요?",
+            confirmButton: alertAction
+        )
+        
+        return next
+    }
+    
+    private func presentRegistrationView() {
+        guard let next = sceneDIContainer?.makeRegistrationViewController() else {
+            return
+        }
+        
+        next.modalPresentationStyle = .overCurrentContext
+        next.modalTransitionStyle = .crossDissolve
         
         present(next, animated: true)
     }
@@ -84,13 +199,13 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpTableCellData() {
-        bindCell(to: viewModel.asTodoProjects(), at: mainView.toDoTable.tableView)
-        bindCell(to: viewModel.asDoingProjects(), at: mainView.doingTable.tableView)
-        bindCell(to: viewModel.asDoneProjects(), at: mainView.doneTable.tableView)
+        bindCell(to: viewModel?.asTodoProjects(), at: mainView.toDoTable.tableView)
+        bindCell(to: viewModel?.asDoingProjects(), at: mainView.doingTable.tableView)
+        bindCell(to: viewModel?.asDoneProjects(), at: mainView.doneTable.tableView)
     }
     
-    private func bindCell(to projects: Driver<[ProjectContent]>, at tableView: UITableView) {
-        projects
+    private func bindCell(to projects: Driver<[ProjectEntity]>?, at tableView: UITableView) {
+        projects?
             .drive(tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
                 cellType: ProjectCell.self)
@@ -108,22 +223,22 @@ final class MainViewController: UIViewController {
     
     private func bindModelDeleted(at tableView: UITableView) {
         tableView.rx
-            .modelDeleted(ProjectContent.self)
+            .modelDeleted(ProjectEntity.self)
             .asDriver()
             .drive { [weak self] project in
-                self?.viewModel.deleteProject(project)
+                self?.viewModel?.deleteProject(project)
             }
             .disposed(by: disposeBag)
     }
     
     private func setUpTotalCount() {
-        bindCountLabel(of: mainView.toDoTable, to: viewModel.asTodoProjects())
-        bindCountLabel(of: mainView.doingTable, to: viewModel.asDoingProjects())
-        bindCountLabel(of: mainView.doneTable, to: viewModel.asDoneProjects())
+        bindCountLabel(of: mainView.toDoTable, to: viewModel?.asTodoProjects())
+        bindCountLabel(of: mainView.doingTable, to: viewModel?.asDoingProjects())
+        bindCountLabel(of: mainView.doneTable, to: viewModel?.asDoneProjects())
     }
     
-    private func bindCountLabel(of tableView: ProjectListView, to projects: Driver<[ProjectContent]>) {
-        projects
+    private func bindCountLabel(of tableView: ProjectListView, to projects: Driver<[ProjectEntity]>?) {
+        projects?
             .map { "\($0.count)" }
             .drive { count in
                 tableView.compose(projectCount: count)
@@ -176,22 +291,43 @@ final class MainViewController: UIViewController {
     }
     
     private func presentPopOver(_ cell: ProjectCell) {
-        let popOverViewController = PopOverViewController(cell: cell)
+        guard let popOverViewController = sceneDIContainer?.makePopOverViewController(with: cell) else {
+            return
+        }
         
         present(popOverViewController, animated: true)
     }
     
     private func presentViewController(status: ProjectStatus, cell: ProjectCell) {
-        guard let content = viewModel.readProject(cell.contentID) else {
+        guard let content = viewModel?.readProject(cell.contentID),
+              let next = sceneDIContainer?.makeDetailViewController(with: content)
+        else {
             return
         }
         
-        let next = UINavigationController(
-            rootViewController: DetailViewController(content: content)
-        )
-        
-        next.modalPresentationStyle = .formSheet
+        next.modalPresentationStyle = .overCurrentContext
+        next.modalTransitionStyle = .crossDissolve
         
         self.present(next, animated: true)
+    }
+}
+
+extension MainViewController: NetworkConditionDelegate {
+    func applyNetworkEnable() {
+        navigationItem.rightBarButtonItems?[2].image = UIImage(
+            systemName: ImageConstant.connectedNetwork
+        )?.withTintColor(
+            .systemBlue,
+            renderingMode: .alwaysOriginal
+        )
+    }
+    
+    func applyNetworkUnable() {
+        navigationItem.rightBarButtonItems?[2].image = UIImage(
+            systemName: ImageConstant.unconnectedNetwork
+        )?.withTintColor(
+            .systemRed,
+            renderingMode: .alwaysOriginal
+        )
     }
 }

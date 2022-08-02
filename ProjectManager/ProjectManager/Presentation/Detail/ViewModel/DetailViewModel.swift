@@ -5,18 +5,37 @@
 //  Created by Tiana, mmim on 2022/07/07.
 //
 
+import Foundation
+
 struct DetailViewModel {
-    private let content: ProjectContent
+    private let projectUseCase: ProjectUseCase
+    private let content: ProjectEntity
     
-    init(content: ProjectContent) {
+    init(projectUseCase: ProjectUseCase, content: ProjectEntity) {
+        self.projectUseCase = projectUseCase
         self.content = content
     }
     
-    func update(_ content: ProjectContent) {
-        ProjectUseCase().update(projectContent: content)
+    func read() -> ProjectEntity? {
+        return projectUseCase.read(projectEntityID: content.id)
     }
     
-    func asContent() -> ProjectContent {
+    func update(_ content: ProjectEntity) {
+        projectUseCase.update(projectEntity: content)
+        updateHistory(by: content)
+    }
+    
+    func asContent() -> ProjectEntity {
         return content
+    }
+    
+    private func updateHistory(by content: ProjectEntity) {
+        let historyEntity = HistoryEntity(
+            editedType: .edit,
+            title: content.title,
+            date: Date().timeIntervalSince1970
+        )
+        
+        projectUseCase.createHistory(historyEntity: historyEntity)
     }
 }

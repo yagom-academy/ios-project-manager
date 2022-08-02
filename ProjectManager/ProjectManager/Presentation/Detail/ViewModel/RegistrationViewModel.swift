@@ -8,17 +8,30 @@
 import Foundation
 
 struct RegistrationViewModel {
-    func registrate(title: String, date: Date, description: String) {
-        var currentProjects = ProjectUseCase().read().value
-        currentProjects
-            .append(
-                ProjectContent(
-                    title: title,
-                    deadline: date,
-                    description: description
-                )
-            )
+    private let projectUseCase: ProjectUseCase
+    
+    init(projectUseCase: ProjectUseCase) {
+        self.projectUseCase = projectUseCase
+    }
+    
+    func registrate(title: String, date: Date, body: String) {
+        let newProject = ProjectEntity(
+            title: title,
+            deadline: date,
+            body: body
+        )
         
-        ProjectUseCase().create(projectContents: currentProjects)
+        projectUseCase.create(projectEntity: newProject)
+        registrateHistory(by: newProject)
+    }
+    
+    private func registrateHistory(by content: ProjectEntity) {
+        let historyEntity = HistoryEntity(
+            editedType: .register,
+            title: content.title,
+            date: Date().timeIntervalSince1970
+        )
+        
+        projectUseCase.createHistory(historyEntity: historyEntity)
     }
 }
