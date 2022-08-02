@@ -14,4 +14,8 @@ target 'ProjectManager' do
   pod 'RxGesture'
   pod 'FirebaseDatabase'
   pod 'ReachabilitySwift'
+  
+  target 'ProjectManagerTests' do
+    inherit! :search_paths
+  end
 end
