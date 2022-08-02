@@ -14,6 +14,8 @@ class AppViewModel: ObservableObject {
   @Published var todoList: [Todo]
   @Published var isShowCreateView: Bool
   @Published var isShowHistoryView: Bool
+  @Published var isShowAlerView: Bool
+  var willError: LocalizedError?
   
   var todoListViewModel: ListViewModel {
     return ListViewModel(todoService: todoService, status: .todo, update: self.changeStatus) }
@@ -33,11 +35,21 @@ class AppViewModel: ObservableObject {
   
   init(todoService: TodoService = TodoService(), navigationTitle: String = "Project Manager") {
     self.todoService = todoService
-    self.todoService.initUpdata {}
+    self.isShowHistoryView = false
+    self.isShowAlerView = false
     self.navigationTitle = navigationTitle
     self.todoList = todoService.read()
     self.isShowCreateView = false
-    self.isShowHistoryView = false
+    self.todoService.initUpdata { [self] result in
+      switch result {
+      case .success:
+        break
+      case .failure(let error):
+        self.willError = error
+        self.isShowAlerView = true
+        // alert 에 대한 내용 추가
+      }
+    }
   }
   
   func changeStatus(status: Status, todo: Todo) {
@@ -54,11 +66,23 @@ class AppViewModel: ObservableObject {
   }
 
   func syncRemoteDatabase() {
-    todoService.initUpdata {
-      self.todoList = self.todoService.read()
-      self.todoListViewModel.refrash()
-      self.doingListViewModel.refrash()
-      self.doneListViewModel.refrash()
+    todoService.initUpdata { result in
+      switch result {
+      case .success:
+        self.todoList = self.todoService.read()
+        self.todoListViewModel.refrash()
+        self.doingListViewModel.refrash()
+        self.doneListViewModel.refrash()
+      case .failure(let error):
+        self.willError = error
+        self.isShowAlerView = true
+        // alert 정보를 어떻게 넘기지?
+      }
     }
   }
+  
+  func cloaseAlert() {
+    isShowAlerView = false
+  }
+  
 }

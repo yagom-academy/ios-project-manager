@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 
 class TodoService {
   let dataManager: DataManager = DataManager()
-  var newtWorkCollection: Bool = true
+//  var newtWorkCollection: Bool = true
   var historyStore: [HistoryModel] = []
   
   let realm = try? Realm()
@@ -34,29 +34,29 @@ class TodoService {
     historyStore.append(history)
   }
   
-  func initUpdata(completion: @escaping () -> Void) {
-    if newtWorkCollection {
-      dataManager.readTodo { result in
-        switch result {
-        case .success(let data):
-          try? self.realm?.write {
-            self.realm?.deleteAll()
-            for todo in data {
-              let realmData = TodoRealm()
-              realmData.title = todo.title
-              realmData.content = todo.content
-              realmData.date = todo.date
-              realmData.status = todo.status
-              realmData.id = todo.id
-              self.realm?.add(realmData)
-            }
-            completion()
+  func initUpdata(completion: @escaping (Result<Void, Error>) -> Void) {
+    //    if newtWorkCollection {
+    dataManager.readTodo { result in
+      switch result {
+      case .success(let data):
+        try? self.realm?.write {
+          self.realm?.deleteAll()
+          for todo in data {
+            let realmData = TodoRealm()
+            realmData.title = todo.title
+            realmData.content = todo.content
+            realmData.date = todo.date
+            realmData.status = todo.status
+            realmData.id = todo.id
+            self.realm?.add(realmData)
           }
-        case.failure(let error):
-          fatalError()
+          completion(.success(()))
         }
+      case.failure(let error):
+        completion(.failure(error))
       }
     }
+    //    }
   }
   
   func read() -> [Todo] {

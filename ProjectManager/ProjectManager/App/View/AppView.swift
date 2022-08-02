@@ -64,6 +64,17 @@ struct AppView: View {
         CreateView(viewModel: viewModel.createViewModel)
       }
     }
+    .alert(isPresented: $viewModel.isShowAlerView,
+           error: viewModel.willError,
+           actions: {
+      Button {
+        viewModel.cloaseAlert()
+      } label: {
+        Text("타이틀")
+      }
+
+    })
+    
     .navigationViewStyle(.stack)
   }
 }
