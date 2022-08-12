@@ -11,7 +11,7 @@ import RxSwift
 
 class TodoMoveViewModelTest: XCTestCase {
     var viewModel: DefaultTodoMoveViewModel!
-    var useCase: TodoListUseCase!
+    var useCase: MockUseCase!
     let bag = DisposeBag()
     
     override func setUpWithError() throws {
@@ -64,87 +64,31 @@ class TodoMoveViewModelTest: XCTestCase {
             }.disposed(by: bag)
     }
     
-    func test_Stated가_todo인_item을_firstButton을_Tap했을때_State가_doing으로_업데이트되는지() {
+    func test_firstButton을_Tap했을때_UseCase의_firstMoveState메서드를_호출하는지() {
         //given
         let todoItme = TodoModel(title: "todo", body: "todo", state: .todo)
         viewModel = .init(useCase: useCase, item: todoItme)
         
         // when
-        useCase.createItem(to: todoItme)
         viewModel.firstButtonDidTap()
-        let value = try! useCase.readItems().value().first
         
         // then
-        XCTAssertEqual(value?.state, State.doing)
+        XCTAssertEqual(useCase.targetId, todoItme.id)
+        XCTAssertEqual(useCase.actions.last!, Action.firstMove)
+        XCTAssertEqual(useCase.actions.count, 1)
     }
     
-    func test_Stated가_todo인_item을_secondButton을_Tap했을때_State가_done로_업데이트되는지() {
+    func test_secondButton을_Tap했을때_UseCase의_secondMoveState메서드를_호출하는지() {
         //given
         let todoItme = TodoModel(title: "todo", body: "todo", state: .todo)
         viewModel = .init(useCase: useCase, item: todoItme)
         
         // when
-        useCase.createItem(to: todoItme)
         viewModel.secondButtonDidTap()
-        let value = try! useCase.readItems().value().first
         
         // then
-        XCTAssertEqual(value?.state, State.done)
-    }
-    
-    func test_Stated가_doing인_item을_firstButton을_Tap했을때_State가_todo로_업데이트되는지() {
-        // given
-        let doingItme = TodoModel(title: "doing", body: "doing", state: .doing)
-        viewModel = .init(useCase: useCase, item: doingItme)
-        
-        // when
-        useCase.createItem(to: doingItme)
-        viewModel.firstButtonDidTap()
-        let value = try! useCase.readItems().value().first
-        
-        // then
-        XCTAssertEqual(value?.state, State.todo)
-    }
-    
-    func test_Stated가_doing인_item을_secondButton을_Tap했을때_State가_done로_업데이트되는지() {
-        // given
-        let doingItme = TodoModel(title: "doing", body: "doing", state: .doing)
-        viewModel = .init(useCase: useCase, item: doingItme)
-        
-        // whene
-        useCase.createItem(to: doingItme)
-        viewModel.secondButtonDidTap()
-        let value = try! useCase.readItems().value().first
-        
-        // then
-        XCTAssertEqual(value?.state, State.done)
-    }
-    
-    func test_Stated가_done인_item을_firstButton을_Tap했을때_State가_todo로_업데이트되는지() {
-        // given
-        let doneItme = TodoModel(title: "done", body: "done", state: .done)
-        viewModel = .init(useCase: useCase, item: doneItme)
-        
-        // when
-        useCase.createItem(to: doneItme)
-        viewModel.firstButtonDidTap()
-        let value = try! useCase.readItems().value().first
-        
-        // then
-        XCTAssertEqual(value?.state, State.todo)
-    }
-    
-    func test_Stated가_done인_item을_secondButton을_Tap했을때_State가_doing로_업데이트되는지() {
-        // given
-        let doneItme = TodoModel(title: "done", body: "done", state: .done)
-        viewModel = .init(useCase: useCase, item: doneItme)
-        
-        // when
-        useCase.createItem(to: doneItme)
-        viewModel.secondButtonDidTap()
-        let value = try! useCase.readItems().value().first
-        
-        // then
-        XCTAssertEqual(value?.state, State.doing)
+        XCTAssertEqual(useCase.targetId, todoItme.id)
+        XCTAssertEqual(useCase.actions.last!, Action.secondMove)
+        XCTAssertEqual(useCase.actions.count, 1)
     }
 }

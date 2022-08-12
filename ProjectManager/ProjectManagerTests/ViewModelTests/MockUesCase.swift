@@ -10,11 +10,21 @@ import RxSwift
 import RxCocoa
 @testable import ProjectManager
 
+enum Action {
+    case create
+    case delete
+    case update
+    case firstMove
+    case secondMove
+}
+
 class MockUseCase: TodoListUseCase {
     var errorObserver: Observable<TodoError> = Observable.just(.saveError)
     
-    private let todoList: BehaviorSubject<[TodoModel]>
-    private let historyList: BehaviorSubject<[History]>
+    let todoList: BehaviorSubject<[TodoModel]>
+    let historyList: BehaviorSubject<[History]>
+    var actions: [Action] = []
+    var targetId: UUID?
     
     init() {
         self.todoList = .init(value: [])
@@ -22,73 +32,36 @@ class MockUseCase: TodoListUseCase {
     }
     
     func readItems() -> BehaviorSubject<[TodoModel]> {
-       
         return todoList
     }
     
     func readHistoryItems() -> BehaviorSubject<[History]> {
-        
         return historyList
     }
     
     func createItem(to data: TodoModel) {
-        todoList.onNext(try! todoList.value() + [data])
-        historyList.onNext(try! historyList.value() + [History(changes: .added, title: data.title!)])
+        actions.append(.create)
+        targetId = data.id
     }
     
     func updateItem(to item: TodoModel) {
-        var items = try! todoList.value()
-        let index = items.firstIndex { $0.id == item.id }!
-        items[index] = item
-        todoList.onNext(items)
+        actions.append(.update)
+        targetId = item.id
     }
     
     func deleteItem(id: UUID) {
-        var items = try! todoList.value()
-        let index = items.firstIndex { $0.id == id }!
-        let item = items.remove(at: index)
-        let historyItem = History(changes: .removed, title: item.title!, beforeState: item.state)
-        
-        todoList.onNext(items)
-        historyList.onNext(try! historyList.value() + [historyItem])
+        actions.append(.delete)
+        targetId = id
     }
     
     func firstMoveState(item: TodoModel) {
-        var item = item
-        let hitoryItem: History
-        switch item.state {
-        case .todo:
-            item.state = .doing
-            hitoryItem = .init(changes: .moved, title: item.title!, beforeState: item.state, afterState: .doing)
-        case .doing:
-            item.state = .todo
-            hitoryItem = .init(changes: .moved, title: item.title!, beforeState: item.state, afterState: .todo)
-        case .done:
-            item.state = .todo
-            hitoryItem = .init(changes: .moved, title: item.title!, beforeState: item.state, afterState: .todo)
-        }
-        
-        updateItem(to: item)
-        historyList.onNext(try! historyList.value() + [hitoryItem])
+        actions.append(.firstMove)
+        targetId = item.id
     }
     
     func secondMoveState(item: TodoModel) {
-        var item = item
-        let hitoryItem: History
-        switch item.state {
-        case .todo:
-            item.state = .done
-            hitoryItem = .init(changes: .moved, title: item.title!, beforeState: item.state, afterState: .done)
-        case .doing:
-            item.state = .done
-            hitoryItem = .init(changes: .moved, title: item.title!, beforeState: item.state, afterState: .done)
-        case .done:
-            item.state = .doing
-            hitoryItem = .init(changes: .moved, title: item.title!, beforeState: item.state, afterState: .doing)
-        }
-        
-        updateItem(to: item)
-        historyList.onNext(try! historyList.value() + [hitoryItem])
+        actions.append(.secondMove)
+        targetId = item.id
     }
 }
 

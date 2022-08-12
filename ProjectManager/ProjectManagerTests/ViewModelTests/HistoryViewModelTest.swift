@@ -10,14 +10,16 @@ import RxSwift
 @testable import ProjectManager
 
 class HistoryViewModelTest: XCTestCase {
-    var useCase: TodoListUseCase!
+    var useCase: MockUseCase!
     var viewModel: DefaultTodoHistoryViewModel!
     let bag = DisposeBag()
-    let item = TodoModel(title: "사파리", body: "사파리")
+    let dummyData: [History] = [.init(changes: .added, title: "todo"),
+                                .init(changes: .moved, title: "doing", beforeState: .todo, afterState: .doing),
+                                .init(changes: .removed, title: "done")]
+    
     override func setUpWithError() throws {
-        useCase = MockUseCase()
+        useCase = .init()
         viewModel = .init(useCase: useCase)
-        useCase.createItem(to: item)
     }
 
     override func tearDownWithError() throws {
@@ -25,44 +27,15 @@ class HistoryViewModelTest: XCTestCase {
         viewModel = nil
     }
     
-    func test_item을_생성했을때_올바른_HistoryTitle을_방출하는지() {
+    func test_UseCase를_통해_HistoryItme을_읽어오는지() {
         // given
-        let historyItem = try! useCase.readHistoryItems().value().last!
+        useCase.historyList.onNext(dummyData)
         
         // when
         viewModel.historyList
             .bind { cellItems in
-                let value = cellItems.last!.title
                 // then
-                XCTAssertEqual(value, "\(historyItem.changes.rawValue) '\(historyItem.title)'")
-            }.disposed(by: bag)
-    }
-    
-    func test_item의_State를_변경_했을때_올바른_HistoryTitle을_방출하는지() {
-        // given
-        useCase.firstMoveState(item: item)
-        let historyItem = try! useCase.readHistoryItems().value().last!
-        
-        // when
-        viewModel.historyList
-            .bind { cellItems in
-                let value = cellItems.last!.title
-                // then
-                XCTAssertEqual(value, "\(historyItem.changes.rawValue) '\(historyItem.title)' from \(historyItem.beforeState!.rawValue) to \(historyItem.afterState!.rawValue)")
-            }.disposed(by: bag)
-    }
-    
-    func test_item을_삭제_했을때_올바른_HistoryTitle을_방출하는지() {
-        // given
-        useCase.deleteItem(id: item.id)
-        let historyItem = try! useCase.readHistoryItems().value().last!
-        
-        // when
-        viewModel.historyList
-            .bind { cellItems in
-                let value = cellItems.last!.title
-                // then
-                XCTAssertEqual(value, "\(historyItem.changes.rawValue) '\(historyItem.title)' from \(historyItem.beforeState!.rawValue)")
+                XCTAssertEqual(cellItems.count, self.dummyData.count)
             }.disposed(by: bag)
     }
 }
