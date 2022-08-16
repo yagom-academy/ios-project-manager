@@ -74,7 +74,7 @@ class TodoMoveViewModelTest: XCTestCase {
         
         // then
         XCTAssertEqual(useCase.targetId, todoItme.id)
-        XCTAssertEqual(useCase.actions.last!, Action.firstMove)
+        XCTAssertEqual(useCase.actions.last!, UseCaseAction.firstMove)
         XCTAssertEqual(useCase.actions.count, 1)
     }
     
@@ -88,7 +88,7 @@ class TodoMoveViewModelTest: XCTestCase {
         
         // then
         XCTAssertEqual(useCase.targetId, todoItme.id)
-        XCTAssertEqual(useCase.actions.last!, Action.secondMove)
+        XCTAssertEqual(useCase.actions.last!, UseCaseAction.secondMove)
         XCTAssertEqual(useCase.actions.count, 1)
     }
 }

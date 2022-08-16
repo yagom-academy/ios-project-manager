@@ -110,7 +110,7 @@ class TodoEditViewModelTest: XCTestCase {
         
         // then
         XCTAssertEqual(useCase.targetId, todoItem.id)
-        XCTAssertEqual(useCase.actions.last!, Action.create)
+        XCTAssertEqual(useCase.actions.last!, UseCaseAction.create)
         XCTAssertEqual(useCase.actions.count, 1)
     }
     
@@ -189,7 +189,7 @@ class TodoEditViewModelTest: XCTestCase {
         
         //then
         XCTAssertEqual(useCase.targetId, todoItem.id)
-        XCTAssertEqual(useCase.actions.last!, Action.update)
+        XCTAssertEqual(useCase.actions.last!, UseCaseAction.update)
         XCTAssertEqual(useCase.actions.count, 1)
     }
 }

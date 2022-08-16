@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 @testable import ProjectManager
 
-enum Action {
+enum UseCaseAction {
     case create
     case delete
     case update
@@ -23,7 +23,7 @@ class MockUseCase: TodoListUseCase {
     
     let todoList: BehaviorSubject<[TodoModel]>
     let historyList: BehaviorSubject<[History]>
-    var actions: [Action] = []
+    var actions: [UseCaseAction] = []
     var targetId: UUID?
     
     init() {
