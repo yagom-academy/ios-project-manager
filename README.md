@@ -12,8 +12,7 @@
 |이동|삭제|
 |<img src="https://i.imgur.com/QmVBxdd.gif" width="350" height="230"/>|<img src="https://i.imgur.com/y2HHGq2.gif" width="350" height="230"/>|
 |로컬저장소|원격저장소|
-|<img src="https://i.imgur.com/FYuyfNa.gif" width="350" height="230"/>|<img src="https://i.imgur.com/ysjwk6s.gif" width="350" height="230"/>|
-
+|<img src="https://user-images.githubusercontent.com/82325822/185056431-9e5d6652-6c44-4817-80c0-f110380d82c8.gif" width="350" height="230"/>|<img src="https://user-images.githubusercontent.com/82325822/185056561-05523b43-1e9c-4f6b-8e50-225364a19197.gif" width="350" height="230"/>|
 
 ## 기능 구현
 - title, deadline, body로 구성된 Todo List 작성
