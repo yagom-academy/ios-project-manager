@@ -1,0 +1,10 @@
+disabled_rules: # Default Rules에서 비활성화할 규칙
+
+    # 라인 뒤에 공백이 없어야 합니다.
+    - trailing_whitespace
+
+    - line_length
+
+excluded: # SwiftLint 검사에서 제외할 파일 경로
+  - Pods
+
