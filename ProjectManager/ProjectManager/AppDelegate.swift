@@ -1,10 +1,10 @@
 //
 //  ProjectManager - AppDelegate.swift
-//  Created by yagom. 
-//  Copyright © yagom. All rights reserved.
+//  Created by Kiwi. 
+//  Copyright © Kiwi. All rights reserved.
 // 
 
-import UIKit
+import SwiftUI
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
