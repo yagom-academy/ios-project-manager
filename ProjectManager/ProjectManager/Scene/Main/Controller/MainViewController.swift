@@ -1,18 +1,17 @@
 //
 //  ProjectManager - ViewController.swift
-//  Created by yagom. 
+//  Created by brad, bard.
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
 
+    // MARK: - Life cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
     }
-
-
 }
 
