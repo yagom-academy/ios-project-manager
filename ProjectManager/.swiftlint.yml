@@ -1,0 +1,7 @@
+disabled_rules:
+- trailing_whitespace
+excluded:
+- Pods
+- ProjectManager/Application/AppDelegate.swift
+- ProjectManager/Application/SceneDelegate.swift
+
