@@ -9,4 +9,5 @@ target 'ProjectManager' do
   pod 'SwiftLint'
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'Firebase/Firestore'
 end
