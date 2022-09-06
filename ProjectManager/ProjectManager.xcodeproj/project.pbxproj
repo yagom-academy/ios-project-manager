@@ -13,6 +13,9 @@
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		D7C465D328C72286004B64F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */; };
+		D7C465D928C76450004B64F7 /* ToDoListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C465D828C76450004B64F7 /* ToDoListCollectionView.swift */; };
+		D7C465DB28C76584004B64F7 /* ToDoListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C465DA28C76584004B64F7 /* ToDoListCollectionViewCell.swift */; };
+		D7C465DE28C771AE004B64F7 /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C465DD28C771AE004B64F7 /* ReuseIdentifiable.swift */; };
 		DA2A56AAD2CDD12624D09692 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C5D5EB4E541AF976BA0CEB /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +31,9 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D7C465D828C76450004B64F7 /* ToDoListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListCollectionView.swift; sourceTree = "<group>"; };
+		D7C465DA28C76584004B64F7 /* ToDoListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListCollectionViewCell.swift; sourceTree = "<group>"; };
+		D7C465DD28C771AE004B64F7 /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				D7C465DC28C7719E004B64F7 /* Protocol */,
 				D7C465CB28C71E66004B64F7 /* DataBase */,
 				D7C465CA28C71E19004B64F7 /* Extension */,
 				D7C465C928C71E11004B64F7 /* Common */,
@@ -150,18 +157,11 @@
 		D7C465CE28C71EEC004B64F7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				D7C465D728C763C7004B64F7 /* View */,
 				D7C465D128C71F15004B64F7 /* Controller */,
 				D7C465D028C71EF7004B64F7 /* ViewModel */,
-				D7C465CF28C71EF2004B64F7 /* View */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		D7C465CF28C71EF2004B64F7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		D7C465D028C71EF7004B64F7 /* ViewModel */ = {
@@ -177,6 +177,23 @@
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		D7C465D728C763C7004B64F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D7C465D828C76450004B64F7 /* ToDoListCollectionView.swift */,
+				D7C465DA28C76584004B64F7 /* ToDoListCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D7C465DC28C7719E004B64F7 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D7C465DD28C771AE004B64F7 /* ReuseIdentifiable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,8 +310,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C465D928C76450004B64F7 /* ToDoListCollectionView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				D7C465DB28C76584004B64F7 /* ToDoListCollectionViewCell.swift in Sources */,
+				D7C465DE28C771AE004B64F7 /* ReuseIdentifiable.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
