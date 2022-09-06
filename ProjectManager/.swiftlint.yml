@@ -1,7 +1,6 @@
 disabled_rules: # Default Rules에서 비활성화할 규칙
     - trailing_whitespace
-    
-    
+
 opt_in_rules:
   - empty_count
   - empty_string
