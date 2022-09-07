@@ -1,0 +1,6 @@
+disabled_rules:
+- trailing_whitespace
+- line_length
+- unused_optional_binding
+included:
+excluded:
