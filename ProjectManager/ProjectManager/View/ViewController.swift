@@ -11,6 +11,5 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = .systemBackground
-        print("hello")
     }
 }

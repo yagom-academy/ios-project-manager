@@ -14,12 +14,12 @@
 		20DFE5C728C868A6003D42E5 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C628C868A6003D42E5 /* FirebaseRemoteConfigSwift */; };
 		7236B03B28C86CCD009A7412 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */; };
 		7236B03E28C86D4B009A7412 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7236B03C28C86D4B009A7412 /* ProjectManager.xcdatamodeld */; };
-		7236B04428C86FB3009A7412 /* DataBaseLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04328C86FB3009A7412 /* DataBaseLogic.swift */; };
-		7236B04628C86FF9009A7412 /* LocalDataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04528C86FF9009A7412 /* LocalDataBaseManager.swift */; };
+		7236B04428C86FB3009A7412 /* DatabaseLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04328C86FB3009A7412 /* DatabaseLogic.swift */; };
+		7236B04628C86FF9009A7412 /* LocalDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */; };
 		7236B04928C87A2A009A7412 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04728C87A2A009A7412 /* Project+CoreDataClass.swift */; };
 		7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */; };
 		7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04B28C87A58009A7412 /* ProjectUnit.swift */; };
-		7236B04E28C8844D009A7412 /* DataBaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04D28C8844D009A7412 /* DataBaseError.swift */; };
+		7236B04E28C8844D009A7412 /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04D28C8844D009A7412 /* DatabaseError.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -31,12 +31,12 @@
 		20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7236B03D28C86D4B009A7412 /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
-		7236B04328C86FB3009A7412 /* DataBaseLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseLogic.swift; sourceTree = "<group>"; };
-		7236B04528C86FF9009A7412 /* LocalDataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataBaseManager.swift; sourceTree = "<group>"; };
+		7236B04328C86FB3009A7412 /* DatabaseLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseLogic.swift; sourceTree = "<group>"; };
+		7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseManager.swift; sourceTree = "<group>"; };
 		7236B04728C87A2A009A7412 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7236B04B28C87A58009A7412 /* ProjectUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUnit.swift; sourceTree = "<group>"; };
-		7236B04D28C8844D009A7412 /* DataBaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseError.swift; sourceTree = "<group>"; };
+		7236B04D28C8844D009A7412 /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,13 +61,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C7431EF925F51E1D0094C4CF = {
+		2037CD0428C8886100D712B3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7236B04B28C87A58009A7412 /* ProjectUnit.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2037CD0528C8888A00D712B3 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				7236B04D28C8844D009A7412 /* DatabaseError.swift */,
+				7236B04328C86FB3009A7412 /* DatabaseLogic.swift */,
+				7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		2037CD0628C888C100D712B3 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */,
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				2037CD0928C8892900D712B3 /* CoreData */,
+				2037CD0528C8888A00D712B3 /* Database */,
+				7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		2037CD0928C8892900D712B3 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				7236B04728C87A2A009A7412 /* Project+CoreDataClass.swift */,
 				7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */,
 				7236B03C28C86D4B009A7412 /* ProjectManager.xcdatamodeld */,
-				20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		2037CD0A28C8898C00D712B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C7431EF925F51E1D0094C4CF = {
+			isa = PBXGroup;
+			children = (
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 			);
@@ -84,17 +132,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */,
-				7236B04328C86FB3009A7412 /* DataBaseLogic.swift */,
-				7236B04528C86FF9009A7412 /* LocalDataBaseManager.swift */,
-				7236B04B28C87A58009A7412 /* ProjectUnit.swift */,
-				7236B04D28C8844D009A7412 /* DataBaseError.swift */,
+				2037CD0428C8886100D712B3 /* Model */,
+				2037CD0A28C8898C00D712B3 /* View */,
+				2037CD0628C888C100D712B3 /* Resource */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -200,14 +240,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7236B04628C86FF9009A7412 /* LocalDataBaseManager.swift in Sources */,
+				7236B04628C86FF9009A7412 /* LocalDatabaseManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */,
-				7236B04E28C8844D009A7412 /* DataBaseError.swift in Sources */,
+				7236B04E28C8844D009A7412 /* DatabaseError.swift in Sources */,
 				7236B03E28C86D4B009A7412 /* ProjectManager.xcdatamodeld in Sources */,
 				7236B04928C87A2A009A7412 /* Project+CoreDataClass.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				7236B04428C86FB3009A7412 /* DataBaseLogic.swift in Sources */,
+				7236B04428C86FB3009A7412 /* DatabaseLogic.swift in Sources */,
 				7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);

@@ -2,7 +2,7 @@
 //  Project+CoreDataClass.swift
 //  ProjectManager
 //
-//  Created by dhoney96 on 2022/09/07.
+//  Created by 수꿍, 휴 on 2022/09/07.
 //
 //
 

@@ -1,14 +1,13 @@
 //
-//  LocalDataBaseManager.swift
+//  LocalDatabaseManager.swift
 //  ProjectManager
 //
 //  Created by 수꿍, 휴 on 2022/09/07.
 //
 
 import CoreData
-import SwiftUI
 
-final class LocalDataBaseManager: DataBaseLogic {
+final class LocalDatabaseManager: DatabaseLogic {
     lazy private var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Diary")
         container.loadPersistentStores(completionHandler: { (_, _) in
@@ -64,7 +63,7 @@ final class LocalDataBaseManager: DataBaseLogic {
         request.predicate = NSPredicate(format: "id = %@", data.id as CVarArg)
         
         guard let project = try context.fetch(request).first else {
-            throw DataBaseError.invalidFetchRequest
+            throw DatabaseError.invalidFetchRequest
         }
         
         project.body = data.body
@@ -76,13 +75,14 @@ final class LocalDataBaseManager: DataBaseLogic {
             try context.save()
         }
     }
+    
     func delete(id: UUID) throws {
         let context = persistentContainer.viewContext
         let request = NSFetchRequest<Project>(entityName: "Project")
         request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
         
         guard let project = try context.fetch(request).first else {
-            throw DataBaseError.invalidFetchRequest
+            throw DatabaseError.invalidFetchRequest
         }
         
         context.delete(project)
