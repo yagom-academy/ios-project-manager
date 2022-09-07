@@ -2,5 +2,22 @@ disabled_rules:
 - trailing_whitespace
 - line_length
 - unused_optional_binding
+- identifier_name
+- trailing_newline
+- comma
+- colon
+- type_name
+- large_tuple
+- function_parameter_count
+- file_length
+- statement_position
+- vertical_whitespace
+- opening_brace
+- todo
+- operator_whitespace
+- cyclomatic_complexity
+- private_over_fileprivate
+- comment_spacing
+- unused_closure_parameter
 included:
 excluded:

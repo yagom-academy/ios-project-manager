@@ -6,6 +6,8 @@ target 'ProjectManager' do
   use_frameworks!
 
 pod 'SwiftLint'
+pod 'RxSwift'
+
   # Pods for ProjectManager
 
 end
