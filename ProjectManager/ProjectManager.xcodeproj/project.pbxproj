@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		20E1A87A28C872B30074364A /* ProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87928C872B30074364A /* ProjectManagerView.swift */; };
 		20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87B28C875EC0074364A /* HeaderView.swift */; };
+		20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */; };
+		20E1A88428C8A22A0074364A /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88328C8A22A0074364A /* Work.swift */; };
 		20F670FA28C7154C0069CB46 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 20F670F928C7154C0069CB46 /* .swiftlint.yml */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -22,6 +24,8 @@
 		1BA66A5555EF5D11E54B0D98 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		20E1A87928C872B30074364A /* ProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerView.swift; sourceTree = "<group>"; };
 		20E1A87B28C875EC0074364A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
+		20E1A88328C8A22A0074364A /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		20F670F928C7154C0069CB46 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6ECD53AFD7F818F72F4ABD72 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86153E1F572E4DF3D908BD34 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
@@ -59,8 +63,17 @@
 			children = (
 				20E1A87928C872B30074364A /* ProjectManagerView.swift */,
 				20E1A87B28C875EC0074364A /* HeaderView.swift */,
+				20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		20E1A88028C8A1A30074364A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				20E1A88328C8A22A0074364A /* Work.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		20F670F628C7149B0069CB46 /* Application */ = {
@@ -95,6 +108,7 @@
 			children = (
 				20F670F928C7154C0069CB46 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 				35FA72FB502F17A9B1FE7971 /* Pods */,
 				1E4D879B38BCD11C3696095A /* Frameworks */,
@@ -116,7 +130,7 @@
 				20F670F728C714AB0069CB46 /* Resources */,
 				20F670F628C7149B0069CB46 /* Application */,
 				20E1A87828C872080074364A /* View */,
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+				20E1A88028C8A1A30074364A /* Model */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -254,9 +268,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */,
+				20E1A88428C8A22A0074364A /* Work.swift in Sources */,
 				20E1A87A28C872B30074364A /* ProjectManagerView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
