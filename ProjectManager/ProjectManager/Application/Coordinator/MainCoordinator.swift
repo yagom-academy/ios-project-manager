@@ -14,6 +14,21 @@ final class MainCoordinator: Coordinator {
     var children: [Coordinator]? = []
     private var cardViewModel = CardViewModel()
     
+    func eventOccurred(with type: Event) {
+        switch type {
+        case .plusButtonTapped:
+            let cardEnrollmentViewController: CoordinatingViewController = CardEnrollmentViewController()
+            
+            navigationController?.setViewControllers([cardEnrollmentViewController],
+                                                     animated: true)
+        case .tableViewCellTapped:
+            let cardDetailViewController: CoordinatingViewController = CardDetailViewController()
+            
+            navigationController?.setViewControllers([cardDetailViewController],
+                                                     animated: true)
+        }
+    }
+    
     func start() {
         var cardLisitViewController: CoordinatingViewController = CardListViewController(viewModel: cardViewModel, coordinator: self)
         cardLisitViewController.coordinator = self
