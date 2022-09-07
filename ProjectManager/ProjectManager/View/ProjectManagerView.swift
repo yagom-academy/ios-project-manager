@@ -16,18 +16,21 @@ final class ProjectManagerView: UIView {
     private let toDoTableVeiw: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
         return tableView
     }()
     
     private let doingTableVeiw: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
         return tableView
     }()
     
     private let doneTableVeiw: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
         return tableView
     }()
     
