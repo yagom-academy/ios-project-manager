@@ -8,11 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		20DFE5BC28C85E24003D42E5 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */; };
-		20DFE5BE28C8683B003D42E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20DFE5BD28C8683B003D42E5 /* GoogleService-Info.plist */; };
 		20DFE5C128C868A6003D42E5 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C028C868A6003D42E5 /* FirebaseAnalyticsSwift */; };
 		20DFE5C328C868A6003D42E5 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C228C868A6003D42E5 /* FirebaseDatabaseSwift */; };
 		20DFE5C528C868A6003D42E5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C428C868A6003D42E5 /* FirebaseFirestoreSwift */; };
 		20DFE5C728C868A6003D42E5 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C628C868A6003D42E5 /* FirebaseRemoteConfigSwift */; };
+		7236B03B28C86CCD009A7412 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */; };
+		7236B03E28C86D4B009A7412 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7236B03C28C86D4B009A7412 /* ProjectManager.xcdatamodeld */; };
+		7236B04428C86FB3009A7412 /* DataBaseLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04328C86FB3009A7412 /* DataBaseLogic.swift */; };
+		7236B04628C86FF9009A7412 /* LocalDataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04528C86FF9009A7412 /* LocalDataBaseManager.swift */; };
+		7236B04928C87A2A009A7412 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04728C87A2A009A7412 /* Project+CoreDataClass.swift */; };
+		7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */; };
+		7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04B28C87A58009A7412 /* ProjectUnit.swift */; };
+		7236B04E28C8844D009A7412 /* DataBaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04D28C8844D009A7412 /* DataBaseError.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -22,7 +29,14 @@
 
 /* Begin PBXFileReference section */
 		20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		20DFE5BD28C8683B003D42E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7236B03D28C86D4B009A7412 /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
+		7236B04328C86FB3009A7412 /* DataBaseLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseLogic.swift; sourceTree = "<group>"; };
+		7236B04528C86FF9009A7412 /* LocalDataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataBaseManager.swift; sourceTree = "<group>"; };
+		7236B04728C87A2A009A7412 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7236B04B28C87A58009A7412 /* ProjectUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUnit.swift; sourceTree = "<group>"; };
+		7236B04D28C8844D009A7412 /* DataBaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseError.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +64,9 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				7236B04728C87A2A009A7412 /* Project+CoreDataClass.swift */,
+				7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */,
+				7236B03C28C86D4B009A7412 /* ProjectManager.xcdatamodeld */,
 				20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
@@ -73,7 +90,11 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				20DFE5BD28C8683B003D42E5 /* GoogleService-Info.plist */,
+				7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */,
+				7236B04328C86FB3009A7412 /* DataBaseLogic.swift */,
+				7236B04528C86FF9009A7412 /* LocalDataBaseManager.swift */,
+				7236B04B28C87A58009A7412 /* ProjectUnit.swift */,
+				7236B04D28C8844D009A7412 /* DataBaseError.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -146,7 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20DFE5BC28C85E24003D42E5 /* .swiftlint.yml in Resources */,
-				20DFE5BE28C8683B003D42E5 /* GoogleService-Info.plist in Resources */,
+				7236B03B28C86CCD009A7412 /* GoogleService-Info.plist in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
@@ -179,8 +200,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7236B04628C86FF9009A7412 /* LocalDataBaseManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */,
+				7236B04E28C8844D009A7412 /* DataBaseError.swift in Sources */,
+				7236B03E28C86D4B009A7412 /* ProjectManager.xcdatamodeld in Sources */,
+				7236B04928C87A2A009A7412 /* Project+CoreDataClass.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				7236B04428C86FB3009A7412 /* DataBaseLogic.swift in Sources */,
+				7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +439,19 @@
 			productName = FirebaseRemoteConfigSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		7236B03C28C86D4B009A7412 /* ProjectManager.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7236B03D28C86D4B009A7412 /* ProjectManager.xcdatamodel */,
+			);
+			currentVersion = 7236B03D28C86D4B009A7412 /* ProjectManager.xcdatamodel */;
+			path = ProjectManager.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }

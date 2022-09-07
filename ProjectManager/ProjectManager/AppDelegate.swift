@@ -1,10 +1,11 @@
 //
 //  ProjectManager - AppDelegate.swift
-//  Created by yagom. 
+//  Created by 수꿍, 휴 on 2022/09/07.
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
+
 import FirebaseCore
 
 @main
