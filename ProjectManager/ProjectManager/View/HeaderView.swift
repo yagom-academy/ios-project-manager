@@ -12,7 +12,7 @@ final class HeaderView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .title1)
+        label.font = .preferredFont(forTextStyle: .largeTitle)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -20,19 +20,10 @@ final class HeaderView: UIView {
     private let countImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = .black
         return imageView
     }()
-    
-    private let horizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .fill
-        stackView.spacing = 8
-        return stackView
-    }()
-    
+
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,23 +37,27 @@ final class HeaderView: UIView {
     
     // MARK: - Methods
     private func addSubView() {
-        horizontalStackView.addArrangedSubview(titleLabel)
-        horizontalStackView.addArrangedSubview(countImageView)
-        self.addSubview(horizontalStackView)
+        self.addSubview(titleLabel)
+        self.addSubview(countImageView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            horizontalStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            horizontalStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            horizontalStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            horizontalStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8)
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
+            
+            countImageView.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: 8),
+            countImageView.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
+            countImageView.heightAnchor.constraint(equalTo: self.titleLabel.heightAnchor),
+            countImageView.widthAnchor.constraint(equalTo: self.countImageView.heightAnchor)
         ])
     }
     
     private func setupView() {
         addSubView()
         setupConstraints()
+        self.backgroundColor = .systemBackground
     }
     
     func configure(title: String, count: Int) {
