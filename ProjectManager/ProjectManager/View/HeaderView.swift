@@ -43,7 +43,7 @@ final class HeaderView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
             

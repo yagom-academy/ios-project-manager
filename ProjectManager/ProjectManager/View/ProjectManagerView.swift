@@ -104,10 +104,10 @@ final class ProjectManagerView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            horizontalStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            horizontalStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            horizontalStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            horizontalStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8)
+            horizontalStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            horizontalStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            horizontalStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            horizontalStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
