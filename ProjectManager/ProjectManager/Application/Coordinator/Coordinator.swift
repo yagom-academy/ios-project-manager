@@ -17,7 +17,7 @@ protocol Coordinator {
 
 enum Event {
     case plusButtonTapped
-    case tagbleCellTapped
+    case tableViewCellTapped
 }
 
 protocol Coordinating {
