@@ -3,22 +3,40 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9097B5A828C70B3700A46DB8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9097B5A728C70B3700A46DB8 /* .swiftlint.yml */; };
+		9097B5B128C756DD00A46DB8 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 9097B5B028C756DD00A46DB8 /* Then */; };
+		9097B5B428C7570D00A46DB8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9097B5B328C7570D00A46DB8 /* SnapKit */; };
+		9097B5B628C7575500A46DB8 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5B528C7575500A46DB8 /* CardViewModel.swift */; };
+		9097B5B928C81A5200A46DB8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5B828C81A5200A46DB8 /* Coordinator.swift */; };
+		9097B5BF28C8E2E200A46DB8 /* CardListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5BE28C8E2E200A46DB8 /* CardListTableViewCell.swift */; };
+		9097B5C128C8E70000A46DB8 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5C028C8E70000A46DB8 /* MainCoordinator.swift */; };
+		9097B5C328C8E8B200A46DB8 /* CardEnrollmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5C228C8E8B200A46DB8 /* CardEnrollmentViewController.swift */; };
+		9097B5C528C8E8C200A46DB8 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5C428C8E8C200A46DB8 /* CardDetailViewController.swift */; };
+		9097B5C728C8EAB700A46DB8 /* CardViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5C628C8EAB700A46DB8 /* CardViewModelProtocol.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* CardListViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9097B5A728C70B3700A46DB8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		9097B5B528C7575500A46DB8 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		9097B5B828C81A5200A46DB8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		9097B5BE28C8E2E200A46DB8 /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
+		9097B5C028C8E70000A46DB8 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		9097B5C228C8E8B200A46DB8 /* CardEnrollmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEnrollmentViewController.swift; sourceTree = "<group>"; };
+		9097B5C428C8E8C200A46DB8 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
+		9097B5C628C8EAB700A46DB8 /* CardViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModelProtocol.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* CardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -29,12 +47,77 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9097B5B128C756DD00A46DB8 /* Then in Frameworks */,
+				9097B5B428C7570D00A46DB8 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9097B5A928C70B3D00A46DB8 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				9097B5B728C81A4700A46DB8 /* Coordinator */,
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		9097B5AA28C70B4900A46DB8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9097B5AC28C7482B00A46DB8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9097B5AD28C7483700A46DB8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9097B5B528C7575500A46DB8 /* CardViewModel.swift */,
+				9097B5C628C8EAB700A46DB8 /* CardViewModelProtocol.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9097B5AE28C7484500A46DB8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
+				9097B5C228C8E8B200A46DB8 /* CardEnrollmentViewController.swift */,
+				9097B5C428C8E8C200A46DB8 /* CardDetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9097B5B728C81A4700A46DB8 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				9097B5B828C81A5200A46DB8 /* Coordinator.swift */,
+				9097B5C028C8E70000A46DB8 /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		9097B5BD28C8208700A46DB8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9097B5BE28C8E2E200A46DB8 /* CardListTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -54,12 +137,13 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				9097B5A728C70B3700A46DB8 /* .swiftlint.yml */,
+				9097B5A928C70B3D00A46DB8 /* Application */,
+				9097B5AD28C7483700A46DB8 /* ViewModel */,
+				9097B5BD28C8208700A46DB8 /* View */,
+				9097B5AE28C7484500A46DB8 /* ViewController */,
+				9097B5AC28C7482B00A46DB8 /* Model */,
+				9097B5AA28C70B4900A46DB8 /* Resources */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -72,6 +156,7 @@
 			buildConfigurationList = C7431F1625F51E1E0094C4CF /* Build configuration list for PBXNativeTarget "ProjectManager" */;
 			buildPhases = (
 				C7431EFE25F51E1D0094C4CF /* Sources */,
+				9097B5A628C70AD800A46DB8 /* Run SwiftLint */,
 				C7431EFF25F51E1D0094C4CF /* Frameworks */,
 				C7431F0025F51E1D0094C4CF /* Resources */,
 			);
@@ -80,6 +165,10 @@
 			dependencies = (
 			);
 			name = ProjectManager;
+			packageProductDependencies = (
+				9097B5B028C756DD00A46DB8 /* Then */,
+				9097B5B328C7570D00A46DB8 /* SnapKit */,
+			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
@@ -107,6 +196,10 @@
 				Base,
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
+			packageReferences = (
+				9097B5AF28C756DD00A46DB8 /* XCRemoteSwiftPackageReference "Then" */,
+				9097B5B228C7570D00A46DB8 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -121,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9097B5A828C70B3700A46DB8 /* .swiftlint.yml in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
@@ -128,13 +222,41 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9097B5A628C70AD800A46DB8 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C7431EFE25F51E1D0094C4CF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				9097B5BF28C8E2E200A46DB8 /* CardListTableViewCell.swift in Sources */,
+				9097B5C128C8E70000A46DB8 /* MainCoordinator.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				9097B5C528C8E8C200A46DB8 /* CardDetailViewController.swift in Sources */,
+				9097B5B928C81A5200A46DB8 /* Coordinator.swift in Sources */,
+				9097B5B628C7575500A46DB8 /* CardViewModel.swift in Sources */,
+				9097B5C328C8E8B200A46DB8 /* CardEnrollmentViewController.swift in Sources */,
+				9097B5C728C8EAB700A46DB8 /* CardViewModelProtocol.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,7 +397,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -294,7 +416,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -329,6 +451,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9097B5AF28C756DD00A46DB8 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		9097B5B228C7570D00A46DB8 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9097B5B028C756DD00A46DB8 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9097B5AF28C756DD00A46DB8 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		9097B5B328C7570D00A46DB8 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9097B5B228C7570D00A46DB8 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
