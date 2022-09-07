@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20E1A87A28C872B30074364A /* ProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87928C872B30074364A /* ProjectManagerView.swift */; };
 		20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87B28C875EC0074364A /* HeaderView.swift */; };
 		20F670FA28C7154C0069CB46 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 20F670F928C7154C0069CB46 /* .swiftlint.yml */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		1BA66A5555EF5D11E54B0D98 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		20E1A87928C872B30074364A /* ProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerView.swift; sourceTree = "<group>"; };
 		20E1A87B28C875EC0074364A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		20F670F928C7154C0069CB46 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6ECD53AFD7F818F72F4ABD72 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */,
+				20E1A87A28C872B30074364A /* ProjectManagerView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
