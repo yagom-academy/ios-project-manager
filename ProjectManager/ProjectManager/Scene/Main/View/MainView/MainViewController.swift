@@ -6,15 +6,15 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
     
     // MARK: - Properties
 
-    let toDoListTableViewController = ToDoListViewController(title: "TODO")
-    let doingListTableViewController = DoingListTableViewController(title: "DOING")
-    let doneListTableViewController = DoneListTableViewController(title: "DONE")
+    private let toDoListTableViewController = ToDoListViewController()
+    private let doingListTableViewController = DoingListTableViewController()
+    private let doneListTableViewController = DoneListTableViewController()
     
-    let horizontalStackView: UIStackView = {
+    private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -33,8 +33,10 @@ class MainViewController: UIViewController {
         setupVerticalStackViewLayout()
     }
     
+    // MARK: - Functions
+    
     private func setupSubviews() {
-        self.view.addSubview(horizontalStackView)
+        view.addSubview(horizontalStackView)
         
         [toDoListTableViewController.view, doingListTableViewController.view, doneListTableViewController.view]
             .forEach { horizontalStackView.addArrangedSubview($0) }

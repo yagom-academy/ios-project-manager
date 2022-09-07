@@ -11,15 +11,16 @@ final class ToDoListTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    let verticalStackView: UIStackView = {
+    private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 5
+        
         return stackView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
@@ -27,7 +28,7 @@ final class ToDoListTableViewCell: UITableViewCell {
         return label
     }()
     
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
@@ -36,7 +37,7 @@ final class ToDoListTableViewCell: UITableViewCell {
         return label
     }()
     
-    let timeLimitLabel: UILabel = {
+    private let timeLimitLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -56,7 +57,7 @@ final class ToDoListTableViewCell: UITableViewCell {
     // MARK: - Functions
     
     private func setupSubviews() {
-        self.contentView.addSubview(verticalStackView)
+        contentView.addSubview(verticalStackView)
         
         [titleLabel, descriptionLabel, timeLimitLabel]
             .forEach { verticalStackView.addArrangedSubview($0) }

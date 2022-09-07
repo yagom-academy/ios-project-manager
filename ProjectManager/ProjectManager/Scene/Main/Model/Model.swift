@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct Model: Hashable {
+struct ToDoItem: Hashable {
+    
     private let uuid = UUID()
+    
     let title: String
-    let body: String
-    let date: String
+    
+    let description: String
+    
+    let timeLimit: Date
 }

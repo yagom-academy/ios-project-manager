@@ -34,6 +34,7 @@ final class DoingListTableViewController: UIViewController {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
         uiLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        uiLabel.text = "DOING"
         
         return uiLabel
     }()
@@ -41,7 +42,7 @@ final class DoingListTableViewController: UIViewController {
     private let indexLabel: UILabel = {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
-        uiLabel.text = "9"
+        uiLabel.text = "0"
         
         return uiLabel
     }()
@@ -55,17 +56,6 @@ final class DoingListTableViewController: UIViewController {
         return tableView
     }()
     
-    // MARK: Initializers
-    
-    init(title: String) {
-        self.titleLabel.text = title
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
@@ -78,7 +68,7 @@ final class DoingListTableViewController: UIViewController {
     // MARK: - Functions
 
     private func setupSubviews() {
-        self.view.addSubview(verticalStackView)
+        view.addSubview(verticalStackView)
         
         [titleLabel, indexLabel]
             .forEach { horizontalStackView.addArrangedSubview($0) }
@@ -89,10 +79,10 @@ final class DoingListTableViewController: UIViewController {
     
     private func setupListTableViewLayout() {
         NSLayoutConstraint.activate([
-            verticalStackView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            verticalStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            verticalStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            verticalStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            verticalStackView.topAnchor.constraint(equalTo: view.topAnchor),
+            verticalStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
