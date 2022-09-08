@@ -1,0 +1,8 @@
+disabled_rules:
+    - leading_whitespace
+    - trailing_whitespace
+    - line_length
+    
+force_cast: warning
+force_try:
+    severity: warning
