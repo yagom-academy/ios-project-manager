@@ -30,10 +30,10 @@ final class MainCoordinator: Coordinator {
     }
     
     func start() {
-        var cardLisitViewController: CoordinatingViewController = CardListViewController(viewModel: cardViewModel, coordinator: self)
+        var cardLisitViewController: CoordinatingViewController = CardListViewController(viewModel: cardViewModel,
+                                                                                         coordinator: self)
         cardLisitViewController.coordinator = self
         
-        children?.append(self)
         navigationController?.setViewControllers([cardLisitViewController],
                                                  animated: true)
     }
