@@ -15,26 +15,24 @@ final class DoingListTableViewController: UIViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 5
+        stackView.spacing = 2
         
         return stackView
     }()
     
-    private let horizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 5
-        stackView.alignment = .leading
+    private let horizontalView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray5
         
-        return stackView
+        return view
     }()
     
     private let titleLabel: UILabel = {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
-        uiLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         uiLabel.text = "DOING"
+        uiLabel.font = .preferredFont(forTextStyle: .title1)
         
         return uiLabel
     }()
@@ -43,6 +41,10 @@ final class DoingListTableViewController: UIViewController {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
         uiLabel.text = "0"
+        uiLabel.textAlignment = .center
+        uiLabel.textColor = .white
+        uiLabel.font = .preferredFont(forTextStyle: .title3)
+        uiLabel.backgroundColor = .black
         
         return uiLabel
     }()
@@ -51,7 +53,7 @@ final class DoingListTableViewController: UIViewController {
         let tableView = UITableView()
         tableView.register(DoingListTableViewCell.self, forCellReuseIdentifier: DoingListTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .lightGray
+        tableView.backgroundColor = .systemGray5
         
         return tableView
     }()
@@ -63,6 +65,8 @@ final class DoingListTableViewController: UIViewController {
         todoItemTableView.delegate = self
         setupSubviews()
         setupListTableViewLayout()
+        indexLabel.layoutIfNeeded()
+        indexLabel.drawCircle()
     }
     
     // MARK: - Functions
@@ -71,9 +75,9 @@ final class DoingListTableViewController: UIViewController {
         view.addSubview(verticalStackView)
         
         [titleLabel, indexLabel]
-            .forEach { horizontalStackView.addArrangedSubview($0) }
+            .forEach { horizontalView.addSubview($0) }
         
-        [horizontalStackView, todoItemTableView]
+        [horizontalView, todoItemTableView]
             .forEach { verticalStackView.addArrangedSubview($0) }
     }
     
@@ -84,6 +88,20 @@ final class DoingListTableViewController: UIViewController {
             verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: horizontalView.topAnchor, constant: 8),
+            titleLabel.bottomAnchor.constraint(equalTo: horizontalView.bottomAnchor, constant: -8),
+            titleLabel.leadingAnchor.constraint(equalTo: horizontalView.leadingAnchor, constant: 8)
+        ])
+        
+        NSLayoutConstraint.activate([
+            indexLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor),
+            indexLabel.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            indexLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            indexLabel.widthAnchor.constraint(equalTo: indexLabel.heightAnchor)
+        ])
+
     }
 }
 
