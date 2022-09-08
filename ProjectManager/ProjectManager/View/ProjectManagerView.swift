@@ -13,21 +13,21 @@ final class ProjectManagerView: UIView {
     private let doingTitleView = HeaderView()
     private let doneTitleView = HeaderView()
     
-    private let toDoTableVeiw: UITableView = {
+    let toDoTableVeiw: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
         return tableView
     }()
     
-    private let doingTableVeiw: UITableView = {
+    let doingTableVeiw: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
         return tableView
     }()
     
-    private let doneTableVeiw: UITableView = {
+    let doneTableVeiw: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
@@ -38,7 +38,7 @@ final class ProjectManagerView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.distribution = .equalCentering
+        stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 8
         return stackView
@@ -48,7 +48,7 @@ final class ProjectManagerView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.distribution = .equalCentering
+        stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 8
         return stackView
@@ -58,7 +58,7 @@ final class ProjectManagerView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.distribution = .equalCentering
+        stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 8
         return stackView
@@ -97,7 +97,7 @@ final class ProjectManagerView: UIView {
         doingStackView.addArrangedSubview(doingTableVeiw)
         doneStackView.addArrangedSubview(doneTitleView)
         doneStackView.addArrangedSubview(doneTableVeiw)
-        
+
         horizontalStackView.addArrangedSubview(toDoStackView)
         horizontalStackView.addArrangedSubview(doingStackView)
         horizontalStackView.addArrangedSubview(doneStackView)
@@ -110,13 +110,17 @@ final class ProjectManagerView: UIView {
             horizontalStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             horizontalStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             horizontalStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            horizontalStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+            horizontalStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            
+            toDoTitleView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05),
+            doingTitleView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05),
+            doneTitleView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05)
         ])
     }
     
     private func setupView() {
         addSubView()
         setupConstraints()
-        self.backgroundColor = .systemBackground
+        self.backgroundColor = .systemGray6
     }
 }
