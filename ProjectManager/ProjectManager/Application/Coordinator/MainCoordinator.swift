@@ -11,7 +11,7 @@ typealias CoordinatingViewController = UIViewController & Coordinating
 
 final class MainCoordinator: Coordinator {
     var navigationController: UINavigationController?
-    var children: [Coordinator]? = []
+    var children = [Coordinator]()
     private var cardViewModel = CardViewModel()
     
     func eventOccurred(with type: Event) {
