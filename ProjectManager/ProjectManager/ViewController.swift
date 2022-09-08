@@ -1,7 +1,7 @@
 //
 //  ProjectManager - ViewController.swift
-//  Created by yagom. 
-//  Copyright © yagom. All rights reserved.
+//  Created by Finnn.
+//  Copyright © Finnn. All rights reserved.
 // 
 
 import UIKit
@@ -10,9 +10,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
 
-
 }
-
