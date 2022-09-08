@@ -13,6 +13,8 @@
 		FD6659C728C9B9C600934AF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD6659C628C9B9C600934AF4 /* Preview Assets.xcassets */; };
 		FD6659D928C9F66000934AF4 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FD6659D828C9F66000934AF4 /* Realm */; };
 		FD6659DB28C9F66000934AF4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD6659DA28C9F66000934AF4 /* RealmSwift */; };
+		FD9C397C28C9F6C200B97B39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD9C397B28C9F6C200B97B39 /* GoogleService-Info.plist */; };
+		FD9C397F28C9F74A00B97B39 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD9C397E28C9F74A00B97B39 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,7 @@
 		FD6659C128C9B9C400934AF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FD6659C328C9B9C600934AF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD6659C628C9B9C600934AF4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FD9C397B28C9F6C200B97B39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +33,7 @@
 			files = (
 				FD6659DB28C9F66000934AF4 /* RealmSwift in Frameworks */,
 				FD6659D928C9F66000934AF4 /* Realm in Frameworks */,
+				FD9C397F28C9F74A00B97B39 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +62,7 @@
 				FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */,
 				FD6659C128C9B9C400934AF4 /* ContentView.swift */,
 				FD6659C328C9B9C600934AF4 /* Assets.xcassets */,
+				FD9C397B28C9F6C200B97B39 /* GoogleService-Info.plist */,
 				FD6659C528C9B9C600934AF4 /* Preview Content */,
 			);
 			path = ProjectManager;
@@ -90,6 +95,7 @@
 			packageProductDependencies = (
 				FD6659D828C9F66000934AF4 /* Realm */,
 				FD6659DA28C9F66000934AF4 /* RealmSwift */,
+				FD9C397E28C9F74A00B97B39 /* FirebaseFirestoreSwift */,
 			);
 			productName = ProjectManager;
 			productReference = FD6659BC28C9B9C400934AF4 /* ProjectManager.app */;
@@ -121,6 +127,7 @@
 			mainGroup = FD6659B328C9B9C400934AF4;
 			packageReferences = (
 				FD6659D728C9F66000934AF4 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				FD9C397D28C9F74A00B97B39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = FD6659BD28C9B9C400934AF4 /* Products */;
 			projectDirPath = "";
@@ -138,6 +145,7 @@
 			files = (
 				FD6659C728C9B9C600934AF4 /* Preview Assets.xcassets in Resources */,
 				FD6659C428C9B9C600934AF4 /* Assets.xcassets in Resources */,
+				FD9C397C28C9F6C200B97B39 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +368,14 @@
 				minimumVersion = 10.28.7;
 			};
 		};
+		FD9C397D28C9F74A00B97B39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -372,6 +388,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FD6659D728C9F66000934AF4 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		FD9C397E28C9F74A00B97B39 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD9C397D28C9F74A00B97B39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
