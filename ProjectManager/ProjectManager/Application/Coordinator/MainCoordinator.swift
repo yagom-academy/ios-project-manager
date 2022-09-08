@@ -37,4 +37,11 @@ final class MainCoordinator: Coordinator {
         navigationController?.setViewControllers([cardLisitViewController],
                                                  animated: true)
     }
+    
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in children.enumerated() where coordinator === child {
+            children.remove(at: index)
+            break
+        }
+    }
 }
