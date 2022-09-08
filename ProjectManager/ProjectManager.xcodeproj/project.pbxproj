@@ -14,8 +14,6 @@
 		7E967C0C28C9D41200970577 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0B28C9D41200970577 /* Persistence.swift */; };
 		7E967C0F28C9D41200970577 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0D28C9D41200970577 /* ProjectManager.xcdatamodeld */; };
 		7E967C1928C9D41200970577 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C1828C9D41200970577 /* ProjectManagerTests.swift */; };
-		7E967C2328C9D41200970577 /* ProjectManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C2228C9D41200970577 /* ProjectManagerUITests.swift */; };
-		7E967C2528C9D41200970577 /* ProjectManagerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C2428C9D41200970577 /* ProjectManagerUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +44,6 @@
 		7E967C1428C9D41200970577 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E967C1828C9D41200970577 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
 		7E967C1E28C9D41200970577 /* ProjectManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E967C2228C9D41200970577 /* ProjectManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerUITests.swift; sourceTree = "<group>"; };
-		7E967C2428C9D41200970577 /* ProjectManagerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +76,6 @@
 			children = (
 				7E967C0128C9D41100970577 /* ProjectManager */,
 				7E967C1728C9D41200970577 /* ProjectManagerTests */,
-				7E967C2128C9D41200970577 /* ProjectManagerUITests */,
 				7E967C0028C9D41100970577 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,15 +119,6 @@
 			path = ProjectManagerTests;
 			sourceTree = "<group>";
 		};
-		7E967C2128C9D41200970577 /* ProjectManagerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				7E967C2228C9D41200970577 /* ProjectManagerUITests.swift */,
-				7E967C2428C9D41200970577 /* ProjectManagerUITestsLaunchTests.swift */,
-			);
-			path = ProjectManagerUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,6 +126,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7E967C2828C9D41200970577 /* Build configuration list for PBXNativeTarget "ProjectManager" */;
 			buildPhases = (
+				7E967C3128C9D6B400970577 /* SwiftLint Script */,
 				7E967BFB28C9D41100970577 /* Sources */,
 				7E967BFC28C9D41100970577 /* Frameworks */,
 				7E967BFD28C9D41100970577 /* Resources */,
@@ -258,6 +245,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7E967C3128C9D6B400970577 /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7E967BFB28C9D41100970577 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -282,8 +290,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E967C2528C9D41200970577 /* ProjectManagerUITestsLaunchTests.swift in Sources */,
-				7E967C2328C9D41200970577 /* ProjectManagerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
