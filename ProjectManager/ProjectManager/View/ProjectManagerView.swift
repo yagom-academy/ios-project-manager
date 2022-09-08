@@ -9,9 +9,9 @@ import UIKit
 
 final class ProjectManagerView: UIView {
     // MARK: - Properties
-    private let toDoTitleView = HeaderView()
-    private let doingTitleView = HeaderView()
-    private let doneTitleView = HeaderView()
+    let toDoTitleView = HeaderView()
+    let doingTitleView = HeaderView()
+    let doneTitleView = HeaderView()
     
     let toDoTableVeiw: UITableView = {
         let tableView = UITableView()

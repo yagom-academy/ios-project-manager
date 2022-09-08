@@ -17,7 +17,7 @@ final class HeaderView: UIView {
         return label
     }()
     
-    private let countImageView: UIImageView = {
+    let countImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = .black

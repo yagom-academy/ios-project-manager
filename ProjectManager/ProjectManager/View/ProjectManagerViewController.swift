@@ -49,5 +49,30 @@ class ProjectManagerViewController: UIViewController {
                cell.works.onNext(item)
            }
            .disposed(by: disposeBag)
+        
+        viewModel.todoWorks
+            .map {
+                UIImage(systemName: "\($0.count).circle.fill")
+            }
+            .observe(on: MainScheduler.instance)
+            .bind(to: projectManagerView.toDoTitleView.countImageView.rx.image)
+            .disposed(by: disposeBag)
+        
+        viewModel.doingWorks
+            .map {
+                UIImage(systemName: "\($0.count).circle.fill")
+            }
+            .observe(on: MainScheduler.instance)
+            .bind(to: projectManagerView.doingTitleView.countImageView.rx.image)
+            .disposed(by: disposeBag)
+        
+        viewModel.doneWorks
+            .map {
+                UIImage(systemName: "\($0.count).circle.fill")
+            }
+            .observe(on: MainScheduler.instance)
+            .bind(to: projectManagerView.doneTitleView.countImageView.rx.image)
+            .disposed(by: disposeBag)
+        
     }
 }
