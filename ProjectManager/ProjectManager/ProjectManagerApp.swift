@@ -13,7 +13,7 @@ struct ProjectManagerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TodoListMainView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

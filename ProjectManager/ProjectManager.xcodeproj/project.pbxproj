@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7E967C0328C9D41100970577 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0228C9D41100970577 /* ProjectManagerApp.swift */; };
-		7E967C0528C9D41100970577 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0428C9D41100970577 /* ContentView.swift */; };
+		7E967C0528C9D41100970577 /* TodoListMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0428C9D41100970577 /* TodoListMainView.swift */; };
 		7E967C0728C9D41200970577 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E967C0628C9D41200970577 /* Assets.xcassets */; };
 		7E967C0A28C9D41200970577 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E967C0928C9D41200970577 /* Preview Assets.xcassets */; };
 		7E967C0C28C9D41200970577 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0B28C9D41200970577 /* Persistence.swift */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		7E967BFF28C9D41100970577 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E967C0228C9D41100970577 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
-		7E967C0428C9D41100970577 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7E967C0428C9D41100970577 /* TodoListMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListMainView.swift; sourceTree = "<group>"; };
 		7E967C0628C9D41200970577 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E967C0928C9D41200970577 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7E967C0B28C9D41200970577 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				7E967C0228C9D41100970577 /* ProjectManagerApp.swift */,
-				7E967C0428C9D41100970577 /* ContentView.swift */,
+				7E967C0428C9D41100970577 /* TodoListMainView.swift */,
 				7E967C0628C9D41200970577 /* Assets.xcassets */,
 				7E967C0B28C9D41200970577 /* Persistence.swift */,
 				7E967C0D28C9D41200970577 /* ProjectManager.xcdatamodeld */,
@@ -273,7 +273,7 @@
 			files = (
 				7E967C0C28C9D41200970577 /* Persistence.swift in Sources */,
 				7E967C0F28C9D41200970577 /* ProjectManager.xcdatamodeld in Sources */,
-				7E967C0528C9D41100970577 /* ContentView.swift in Sources */,
+				7E967C0528C9D41100970577 /* TodoListMainView.swift in Sources */,
 				7E967C0328C9D41100970577 /* ProjectManagerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
