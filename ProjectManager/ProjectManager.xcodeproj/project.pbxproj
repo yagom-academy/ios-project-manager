@@ -84,14 +84,30 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		B4A6E1A128C9C2A80017AC34 /* View */ = {
+		B455973528CB500B00F65E0C /* AddTodoView */ = {
 			isa = PBXGroup;
 			children = (
 				B452F3A428CA5E1F00953775 /* AddTodoViewController.swift */,
-				B4A6E1B228C9CF940017AC34 /* ProjectManagerCollectionViewCell.swift */,
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+			);
+			path = AddTodoView;
+			sourceTree = "<group>";
+		};
+		B455973628CB502000F65E0C /* SectionHeaderView */ = {
+			isa = PBXGroup;
+			children = (
 				B452F3A228CA49B800953775 /* TableSectionHeaderView.swift */,
+			);
+			path = SectionHeaderView;
+			sourceTree = "<group>";
+		};
+		B4A6E1A128C9C2A80017AC34 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+				B4A6E1B228C9CF940017AC34 /* ProjectManagerCollectionViewCell.swift */,
 				B452F37728CA228300953775 /* TodoListTableViewCell.swift */,
+				B455973628CB502000F65E0C /* SectionHeaderView */,
+				B455973528CB500B00F65E0C /* AddTodoView */,
 			);
 			path = View;
 			sourceTree = "<group>";
