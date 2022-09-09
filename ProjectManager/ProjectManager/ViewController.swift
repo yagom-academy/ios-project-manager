@@ -6,13 +6,31 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+final class ViewController: UIViewController {
+    // MARK: - ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setupInitialView()
+        setupNavigationBar()
     }
-
-
+    
+    private func setupInitialView() {
+        view.backgroundColor = .systemBackground
+    }
 }
-
+// MARK: - NavigationBar Settings
+extension ViewController {
+    
+    private func setupNavigationBar() {
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addButtonDidTapped)
+        )
+    }
+    
+    @objc private func addButtonDidTapped() {
+        
+    }
+}
