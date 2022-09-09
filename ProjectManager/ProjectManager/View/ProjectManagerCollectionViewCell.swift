@@ -138,13 +138,14 @@ extension ProjectManagerCollectionViewCell {
 
 extension ProjectManagerCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let rootViewController = self.window?.rootViewController,
-              let popoverAlertController = generatePopoverAlertController(
-                tableView,
-                indexPath
-              ) else { return }
+        guard let rootViewController = self.window?.rootViewController else { return }
         
-        rootViewController.present(popoverAlertController, animated: true)
+        let todoDetailViewController = TodoDetailViewController()
+        todoDetailViewController.todoData = categorizedTodoList?.map { $0[indexPath.row] }
+        
+        let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
+        rootViewController.present(todoDetailNavigationController, animated: true)
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
