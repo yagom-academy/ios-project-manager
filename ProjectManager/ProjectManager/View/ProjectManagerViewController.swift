@@ -110,6 +110,15 @@ extension ProjectManagerViewController {
     }
 }
 
+// MARK: - Objective-C Methods
+
+extension ProjectManagerViewController {
+    @objc private func rightBarButtonTapped(sender: UIView) {
+        let addTodoNavigationController = UINavigationController(rootViewController: AddTodoViewController())
+        present(addTodoNavigationController, animated: true)
+    }
+}
+
 // MARK: - Other Methods
 
 extension ProjectManagerViewController {
