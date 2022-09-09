@@ -84,12 +84,12 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		B455973528CB500B00F65E0C /* AddTodoView */ = {
+		B455973528CB500B00F65E0C /* TodoDetailView */ = {
 			isa = PBXGroup;
 			children = (
 				B452F3A428CA5E1F00953775 /* TodoDetailViewController.swift */,
 			);
-			path = AddTodoView;
+			path = TodoDetailView;
 			sourceTree = "<group>";
 		};
 		B455973628CB502000F65E0C /* SectionHeaderView */ = {
@@ -107,7 +107,7 @@
 				B4A6E1B228C9CF940017AC34 /* ProjectManagerCollectionViewCell.swift */,
 				B452F37728CA228300953775 /* TodoListTableViewCell.swift */,
 				B455973628CB502000F65E0C /* SectionHeaderView */,
-				B455973528CB500B00F65E0C /* AddTodoView */,
+				B455973528CB500B00F65E0C /* TodoDetailView */,
 			);
 			path = View;
 			sourceTree = "<group>";

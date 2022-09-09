@@ -160,7 +160,7 @@ extension ProjectManagerCollectionViewCell: UITableViewDelegate {
         guard let rootViewController = self.window?.rootViewController else { return }
         
         let todoDetailViewController = TodoDetailViewController()
-        todoDetailViewController.todoData = categorizedTodoList?.map { $0[indexPath.row] }
+        todoDetailViewController.set(by: categorizedTodoList?.map { $0[indexPath.row] })
         
         let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
         rootViewController.present(todoDetailNavigationController, animated: true)
@@ -172,12 +172,7 @@ extension ProjectManagerCollectionViewCell: UITableViewDelegate {
         guard let statusType = self.statusType else { return nil }
         
         let headerView = TableSectionHeaderView()
-        headerView.titleLabel.text = statusType.upperCasedString
-        
-        categorizedTodoList?
-            .map { "\($0.count)" }
-            .bind(to: headerView.countLabel.rx.text)
-            .disposed(by: disposeBag)
+        headerView.set(by: categorizedTodoList, status: statusType)
         
         return headerView
     }

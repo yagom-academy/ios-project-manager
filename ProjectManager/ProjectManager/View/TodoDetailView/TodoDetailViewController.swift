@@ -13,18 +13,10 @@ class TodoDetailViewController: UIViewController {
 
     // MARK: - Properties
     
-    var disposeBag = DisposeBag()
-    var todoData: Observable<Todo>? {
+    private var disposeBag = DisposeBag()
+    private var todoData: Observable<Todo>? {
         didSet {
-            todoData?
-                .map { $0.title }
-                .bind(to: titleTextField.rx.text)
-                .disposed(by: disposeBag)
-            
-            todoData?
-                .map { $0.body }
-                .bind(to: bodyTextView.rx.text)
-                .disposed(by: disposeBag)
+            configureObservable()
         }
     }
     
@@ -158,6 +150,23 @@ extension TodoDetailViewController {
         view.layer.shadowOffset = CGSize(width: 3, height: 3)
         view.layer.shadowColor = UIColor.gray.cgColor
     }
+    
+    private func configureObservable() {
+        todoData?
+            .map { $0.title }
+            .bind(to: titleTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        todoData?
+            .map { $0.body }
+            .bind(to: bodyTextView.rx.text)
+            .disposed(by: disposeBag)
+        
+        todoData?
+            .map { $0.createdAt }
+            .bind(to: datePicker.rx.date)
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - Objective-C Methods
@@ -169,5 +178,13 @@ extension TodoDetailViewController {
     
     @objc private func doneButtonTapped() {
         dismiss(animated: true)
+    }
+}
+
+// MARK: - Setter Methods
+
+extension TodoDetailViewController {
+    func set(by todoData: Observable<Todo>?) {
+        self.todoData = todoData
     }
 }

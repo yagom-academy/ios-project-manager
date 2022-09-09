@@ -6,12 +6,21 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class TableSectionHeaderView: UIView {
     
     // MARK: - Properties
     
-    let titleLabel: UILabel = {
+    private var disposeBag = DisposeBag()
+    private var categorizedTodoList: Observable<[Todo]>? {
+        didSet {
+            configureObservable()
+        }
+    }
+    
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
         label.text = "Default Title"
@@ -19,7 +28,7 @@ class TableSectionHeaderView: UIView {
         return label
     }()
     
-    let countLabel: UILabel = {
+    private let countLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.layer.cornerRadius = label.font.pointSize
@@ -67,6 +76,10 @@ class TableSectionHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        disposeBag = DisposeBag()
+    }
 }
 
 // MARK: - Configure Methods
@@ -106,5 +119,23 @@ extension TableSectionHeaderView {
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
             separatorView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1)
         ])
+    }
+    
+    private func configureObservable() {
+//        headerView.titleLabel.text = statusType.upperCasedString
+        
+        categorizedTodoList?
+            .map { "\($0.count)" }
+            .bind(to: countLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Setter Methods
+
+extension TableSectionHeaderView {
+    func set(by categorizedTodoList: Observable<[Todo]>?, status: TodoStatus) {
+        self.categorizedTodoList = categorizedTodoList
+        self.titleLabel.text = status.upperCasedString
     }
 }

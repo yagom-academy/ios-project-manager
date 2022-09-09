@@ -12,7 +12,6 @@ class ProjectManagerViewController: UIViewController {
     
     private let cellIdentifier = "tableViewCell"
     private var collectionView: UICollectionView?
-    
     private var viewModel = ProjectManagerViewModel()
     
     // MARK: - Life Cycle
