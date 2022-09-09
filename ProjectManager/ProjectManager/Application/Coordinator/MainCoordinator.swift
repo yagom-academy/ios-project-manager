@@ -33,7 +33,7 @@ final class MainCoordinator: Coordinator {
         var cardLisitViewController: CoordinatingViewController = CardListViewController(viewModel: cardViewModel,
                                                                                          coordinator: self)
         cardLisitViewController.coordinator = self
-        
+        children.append(self)
         navigationController?.setViewControllers([cardLisitViewController],
                                                  animated: true)
     }
