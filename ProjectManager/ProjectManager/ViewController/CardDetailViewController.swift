@@ -8,7 +8,7 @@
 import UIKit
 
 class CardDetailViewController: UIViewController, Coordinating {
-    var coordinator: Coordinator?
+    var coordinator: CoordinatorProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,7 +8,7 @@
 import UIKit
 
 class CardEnrollmentViewController: UIViewController, Coordinating {
-    var coordinator: Coordinator?
+    var coordinator: CoordinatorProtocol?
    
     override func viewDidLoad() {
         super.viewDidLoad()
