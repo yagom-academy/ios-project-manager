@@ -9,9 +9,9 @@ import UIKit
 
 typealias CoordinatingViewController = UIViewController & Coordinating
 
-final class MainCoordinator: Coordinator {
+final class MainCoordinator: CoordinatorProtocol {
     var navigationController: UINavigationController?
-    var children = [Coordinator]()
+    var children = [CoordinatorProtocol]()
     private var cardViewModel = CardViewModel()
     
     func eventOccurred(with type: Event) {
@@ -38,7 +38,7 @@ final class MainCoordinator: Coordinator {
                                                  animated: true)
     }
     
-    func childDidFinish(_ child: Coordinator?) {
+    func childDidFinish(_ child: CoordinatorProtocol?) {
         for (index, coordinator) in children.enumerated() where coordinator === child {
             children.remove(at: index)
             break

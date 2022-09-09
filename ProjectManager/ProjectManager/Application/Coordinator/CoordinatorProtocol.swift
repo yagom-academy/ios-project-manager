@@ -1,5 +1,5 @@
 //
-//  Coordinator.swift
+//  CoordinatorProtocol.swift
 //  ProjectManager
 //
 //  Created by Derrick kim on 9/7/22.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-protocol Coordinator: AnyObject {
+protocol CoordinatorProtocol: AnyObject {
     var navigationController: UINavigationController? { get set }
-    var children: [Coordinator] { get set }
+    var children: [CoordinatorProtocol] { get set }
     
     func eventOccurred(with type: Event)
     func start()
@@ -21,5 +21,5 @@ enum Event {
 }
 
 protocol Coordinating {
-    var coordinator: Coordinator? { get set }
+    var coordinator: CoordinatorProtocol? { get set }
 }

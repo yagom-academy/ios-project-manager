@@ -7,7 +7,7 @@
 import UIKit
 
 class CardListViewController: UIViewController, Coordinating {
-    var coordinator: Coordinator?
+    var coordinator: CoordinatorProtocol?
     private var viewModel: CardViewModelProtocol?
     
     private lazy var todoCardDataSource = self.configureDataSource(with: todoCardSectionView.tableView)
@@ -27,7 +27,7 @@ class CardListViewController: UIViewController, Coordinating {
     }
     
     init(viewModel: CardViewModelProtocol,
-         coordinator: Coordinator) {
+         coordinator: CoordinatorProtocol) {
         
         self.viewModel = viewModel
         self.coordinator = coordinator
