@@ -80,15 +80,34 @@ extension ProjectManagerCollectionViewCell {
                 )
             ) { _, item, cell in
                 cell.set(by: item)
+                let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.popoverMoveTo))
+                cell.addGestureRecognizer(longPressGestureRecognizer)
             }
             .disposed(by: disposeBag)
     }
 }
 
-// MARK: - Other Methods
+// MARK: - Objective-C Methods
 
 extension ProjectManagerCollectionViewCell {
-    private func generatePopoverAlertController(_ tableView: UITableView, _ indexPath: IndexPath) -> UIAlertController? {
+    @objc private func popoverMoveTo(_ sender: Any) {
+        guard let gesture = sender as? UILongPressGestureRecognizer,
+              gesture.state == .began else { return }
+        
+        guard let rootViewController = self.window?.rootViewController,
+              let cell = gesture.view as? UITableViewCell,
+              let tableView = self.tableView,
+              let indexPath = tableView.indexPath(for: cell) else { return }
+        
+        let popoverAlertController = generatePopoverAlertController(tableView, indexPath)
+        rootViewController.present(popoverAlertController, animated: true)
+    }
+}
+
+// MARK: - PopoverAlert Methods
+
+extension ProjectManagerCollectionViewCell {
+    private func generatePopoverAlertController(_ tableView: UITableView, _ indexPath: IndexPath) -> UIAlertController {
         let popoverAlertController = UIAlertController()
         
         addAlertActions(to: popoverAlertController, indexPath: indexPath)

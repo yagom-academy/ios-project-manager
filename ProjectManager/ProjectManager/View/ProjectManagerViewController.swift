@@ -114,8 +114,8 @@ extension ProjectManagerViewController {
 
 extension ProjectManagerViewController {
     @objc private func rightBarButtonTapped(sender: UIView) {
-        let addTodoNavigationController = UINavigationController(rootViewController: AddTodoViewController())
-        present(addTodoNavigationController, animated: true)
+        let todoDetailNavigationController = UINavigationController(rootViewController: TodoDetailViewController())
+        present(todoDetailNavigationController, animated: true)
     }
 }
 

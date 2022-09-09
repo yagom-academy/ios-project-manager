@@ -6,10 +6,27 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class AddTodoViewController: UIViewController {
+class TodoDetailViewController: UIViewController {
 
     // MARK: - Properties
+    
+    var disposeBag = DisposeBag()
+    var todoData: Observable<Todo>? {
+        didSet {
+            todoData?
+                .map { $0.title }
+                .bind(to: titleTextField.rx.text)
+                .disposed(by: disposeBag)
+            
+            todoData?
+                .map { $0.body }
+                .bind(to: bodyTextView.rx.text)
+                .disposed(by: disposeBag)
+        }
+    }
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -65,11 +82,17 @@ class AddTodoViewController: UIViewController {
         configureShadow(titleTextField)
         configureShadow(bodyTextView)
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        disposeBag = DisposeBag()
+    }
 }
 
 // MARK: - Configure Methods
 
-extension AddTodoViewController {
+extension TodoDetailViewController {
     private func configureNavigationBar() {
         title = "TODO"
         
@@ -139,7 +162,7 @@ extension AddTodoViewController {
 
 // MARK: - Objective-C Methods
 
-extension AddTodoViewController {
+extension TodoDetailViewController {
     @objc private func cancelButtonTapped() {
         dismiss(animated: true)
     }
