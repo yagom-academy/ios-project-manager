@@ -94,3 +94,13 @@ extension TodoListTableViewCell {
     }
 }
 
+// MARK: - Setter Methods
+
+extension TodoListTableViewCell {
+    func set(by todo: Todo) {
+        titleLabel.text = todo.title
+        bodyLabel.text = todo.body
+        createdAtLabel.text = todo.createdAt.formattedDate
+        createdAtLabel.textColor = todo.isOutdated ? .systemRed : .black
+    }
+}
