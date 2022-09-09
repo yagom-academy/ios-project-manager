@@ -107,4 +107,12 @@ extension ProjectManagerCollectionViewCell: UITableViewDelegate {
         return headerView
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { _, _, completion in
+            print("스와이프 제스쳐 Delete 감지됨!")
+            completion(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
