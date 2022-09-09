@@ -145,6 +145,8 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let collectionView = self.collectionView,
+              let status = TodoStatus(rawValue: indexPath.row),
+              let categoriedTodoList = self.viewModel.categorizedTodoList[status],
               let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: cellIdentifier,
                 for: indexPath
@@ -152,8 +154,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.statusType = TodoStatus(rawValue: indexPath.row)
-        cell.viewModel = self.viewModel
+        cell.set(status: status, categorizedTodoList: categoriedTodoList)
         
         return cell
     }
