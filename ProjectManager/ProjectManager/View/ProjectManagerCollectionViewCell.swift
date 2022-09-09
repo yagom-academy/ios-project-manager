@@ -89,9 +89,65 @@ extension ProjectManagerCollectionViewCell {
     }
 }
 
+// MARK: - Other Methods
+
+extension ProjectManagerCollectionViewCell {
+    private func generatePopoverAlertController(_ tableView: UITableView, _ indexPath: IndexPath) -> UIAlertController? {
+        guard let selectedCellView = tableView.cellForRow(at: indexPath) else { return nil }
+        
+        let popoverAlertController = UIAlertController()
+        let popoverPresentationController = popoverAlertController.popoverPresentationController
+        let statusList = TodoStatus.allCases.filter { $0 != self.statusType }
+        var actionList: [UIAlertAction] = []
+        
+        statusList.forEach { [weak self] status in
+            let newAction = UIAlertAction(
+                title: "Move to \(status.upperCasedString)",
+                style: .default
+            ) { _ in
+                guard let statusType = self?.statusType else { return }
+                self?.moveToButtonTapped(from: statusType, indexPath: indexPath, to: status)
+            }
+            actionList.append(newAction)
+        }
+        
+        actionList.forEach { action in
+            popoverAlertController.addAction(action)
+        }
+
+        popoverAlertController.modalPresentationStyle = .popover
+        popoverPresentationController?.permittedArrowDirections = .up
+        popoverPresentationController?.sourceView = selectedCellView
+        popoverPresentationController?.sourceRect = CGRect(
+            x: 0,
+            y: 0,
+            width: selectedCellView.frame.width,
+            height: selectedCellView.frame.height / 2
+        )
+        
+        return popoverAlertController
+    }
+    
+    private func moveToButtonTapped(from currentStatus: TodoStatus,
+                                    indexPath: IndexPath,
+                                    to destinationStatus: TodoStatus) {
+        print("\(currentStatus)로 부터 \(indexPath.row)번째 셀에서 \(destinationStatus)버튼 눌림!!")
+    }
+}
+
 // MARK: - UITableViewDelegate
 
 extension ProjectManagerCollectionViewCell: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let rootViewController = self.window?.rootViewController,
+              let popoverAlertController = generatePopoverAlertController(
+                tableView,
+                indexPath
+              ) else { return }
+        
+        rootViewController.present(popoverAlertController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let statusType = self.statusType else { return nil }
