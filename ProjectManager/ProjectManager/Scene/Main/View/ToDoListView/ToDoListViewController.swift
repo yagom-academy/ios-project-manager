@@ -10,6 +10,7 @@ import UIKit
 final class ToDoListViewController: UIViewController {
     
     // MARK: - Properties
+    
     private let mockToDoItemManger = MockToDoItemManager()
     
     private let verticalStackView: UIStackView = {
@@ -127,16 +128,8 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ToDoListTableViewCell.identifier, for: indexPath) as? ToDoListTableViewCell
         else { return UITableViewCell() }
         
-        cell.configure(data: mockToDoItemManger.content(index: indexPath.row))
+        cell.configure(data: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem() )
         
         return cell
-    }
-}
-
-extension UILabel {
-    func drawCircle() {
-        self.layer.cornerRadius = self.frame.width / 2
-        self.layer.masksToBounds = true
-        print("drawCicle: \(self.frame.width)")
     }
 }

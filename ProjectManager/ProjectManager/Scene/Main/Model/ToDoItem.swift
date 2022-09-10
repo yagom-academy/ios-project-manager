@@ -26,6 +26,12 @@ struct ToDoItem: Codable {
         timeLimit = try container.decode(Date.self, forKey: .timeLimit)
     }
     
+    init(title: String = "", description: String = "", timeLimit: Date = Date()) {
+        self.title = title
+        self.description = description
+        self.timeLimit = timeLimit
+    }
+    
     // MARK: - CodingKey
 
     private enum CodingKeys: CodingKey {

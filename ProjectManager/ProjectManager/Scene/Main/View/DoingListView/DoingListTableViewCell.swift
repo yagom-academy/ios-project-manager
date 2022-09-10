@@ -55,6 +55,12 @@ final class DoingListTableViewCell: UITableViewCell {
     
     // MARK: - Functions
     
+    func configure(data: ToDoItem) {
+        titleLabel.text = data.title
+        descriptionLabel.text = data.description
+        timeLimitLabel.text = data.timeLimit.formatDate()
+    }
+    
     private func setupSubviews() {
         contentView.addSubview(verticalStackView)
         

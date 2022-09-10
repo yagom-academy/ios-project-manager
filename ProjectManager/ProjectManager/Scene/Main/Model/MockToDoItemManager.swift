@@ -26,7 +26,7 @@ final class MockToDoItemManager {
         return mockToDoItemContent.count
     }
     
-    func content(index: Int) -> ToDoItem {
-        return mockToDoItemContent[index]
+    func content(index: Int) -> ToDoItem? {
+        return mockToDoItemContent.get(index: index)
     }
 }
