@@ -83,9 +83,10 @@ final class WorkTableViewCell: UITableViewCell {
         addSubView()
         setupConstraints()
         bind()
+        self.selectionStyle = .none
     }
     
-    func bind() {
+    private func bind() {
 //        let works = PublishSubject<Work>()
 //        onData = works.asObserver()
         
@@ -94,7 +95,7 @@ final class WorkTableViewCell: UITableViewCell {
                 guard let self = self else { return }
                 self.titleLabel.text = work.title
                 self.contentLabel.text = work.content
-                self.deadlineLabel.text = "\(work.deadline)"
+                self.deadlineLabel.text = work.deadline.convertToRegion()
             })
             .disposed(by: disposeBag)
     }

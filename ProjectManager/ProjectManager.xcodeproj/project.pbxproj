@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C46E28CAA46E0091D087 /* WorkManageView.swift */; };
 		2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */; };
+		2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47328CB100F0091D087 /* Date+Extension.swift */; };
 		20E1A87A28C872B30074364A /* ProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87928C872B30074364A /* ProjectManagerView.swift */; };
 		20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87B28C875EC0074364A /* HeaderView.swift */; };
 		20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */; };
@@ -28,6 +29,7 @@
 		1BA66A5555EF5D11E54B0D98 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		2021C46E28CAA46E0091D087 /* WorkManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManageView.swift; sourceTree = "<group>"; };
 		2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageWorkViewController.swift; sourceTree = "<group>"; };
+		2021C47328CB100F0091D087 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		20E1A87928C872B30074364A /* ProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerView.swift; sourceTree = "<group>"; };
 		20E1A87B28C875EC0074364A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
@@ -64,6 +66,14 @@
 				6ECD53AFD7F818F72F4ABD72 /* Pods_ProjectManager.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2021C47228CB0FE70091D087 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				2021C47328CB100F0091D087 /* Date+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		20E1A87828C872080074364A /* View */ = {
@@ -148,6 +158,7 @@
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				20F670F728C714AB0069CB46 /* Resources */,
 				20F670F628C7149B0069CB46 /* Application */,
+				2021C47228CB0FE70091D087 /* Extension */,
 				20E1A88828C8C9940074364A /* ViewModel */,
 				20E1A87828C872080074364A /* View */,
 				20E1A88028C8A1A30074364A /* Model */,
@@ -292,6 +303,7 @@
 				20E1A87A28C872B30074364A /* ProjectManagerView.swift in Sources */,
 				20E1A88A28C8C9B50074364A /* WorkViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
+				2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */,
 				20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */,
