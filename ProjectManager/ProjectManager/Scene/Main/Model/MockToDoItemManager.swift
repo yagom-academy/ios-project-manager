@@ -19,7 +19,6 @@ final class MockToDoItemManager {
         guard let data: [ToDoItem]? = JSONDecoder.decodedJson(jsonName: "sample"),
               let mockItem = data else { return }
         mockToDoItemContent = mockItem
-        print(mockToDoItemContent)
     }
     
     func count() -> Int {

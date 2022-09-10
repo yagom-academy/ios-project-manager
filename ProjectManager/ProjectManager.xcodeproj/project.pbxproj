@@ -14,6 +14,9 @@
 		A334148F28C86AA80059D133 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334148E28C86AA80059D133 /* ToDoItem.swift */; };
 		A334149328C8E1E70059D133 /* DoingListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334149228C8E1E70059D133 /* DoingListTableViewController.swift */; };
 		A334149528C8E24C0059D133 /* DoneListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334149428C8E24C0059D133 /* DoneListTableViewController.swift */; };
+		A3420F8E28CCD3F2004AFF56 /* ToDoListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3420F8D28CCD3F2004AFF56 /* ToDoListDetailViewController.swift */; };
+		A3420F9028CCD6CE004AFF56 /* DoingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3420F8F28CCD6CE004AFF56 /* DoingListDetailViewController.swift */; };
+		A3420F9228CCD78E004AFF56 /* DoneListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3420F9128CCD78E004AFF56 /* DoneListDetailViewController.swift */; };
 		A37C3BA528CCC2C300CE4F50 /* MockToDoItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */; };
 		A37C3BA728CCC3D700CE4F50 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = A37C3BA628CCC3D700CE4F50 /* sample.json */; };
 		A37C3BAA28CCC5F800CE4F50 /* JSONDecoder+Extentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BA928CCC5F800CE4F50 /* JSONDecoder+Extentsion.swift */; };
@@ -41,6 +44,9 @@
 		A334148E28C86AA80059D133 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		A334149228C8E1E70059D133 /* DoingListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingListTableViewController.swift; sourceTree = "<group>"; };
 		A334149428C8E24C0059D133 /* DoneListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneListTableViewController.swift; sourceTree = "<group>"; };
+		A3420F8D28CCD3F2004AFF56 /* ToDoListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListDetailViewController.swift; sourceTree = "<group>"; };
+		A3420F8F28CCD6CE004AFF56 /* DoingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingListDetailViewController.swift; sourceTree = "<group>"; };
+		A3420F9128CCD78E004AFF56 /* DoneListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneListDetailViewController.swift; sourceTree = "<group>"; };
 		A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockToDoItemManager.swift; sourceTree = "<group>"; };
 		A37C3BA628CCC3D700CE4F50 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		A37C3BA928CCC5F800CE4F50 /* JSONDecoder+Extentsion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extentsion.swift"; sourceTree = "<group>"; };
@@ -94,6 +100,7 @@
 			children = (
 				D7C465D828C76450004B64F7 /* ToDoListViewController.swift */,
 				D7C465DA28C76584004B64F7 /* ToDoListTableViewCell.swift */,
+				A3420F8D28CCD3F2004AFF56 /* ToDoListDetailViewController.swift */,
 			);
 			path = ToDoListView;
 			sourceTree = "<group>";
@@ -103,6 +110,7 @@
 			children = (
 				A334149228C8E1E70059D133 /* DoingListTableViewController.swift */,
 				A334148928C86A170059D133 /* DoingListTableViewCell.swift */,
+				A3420F8F28CCD6CE004AFF56 /* DoingListDetailViewController.swift */,
 			);
 			path = DoingListView;
 			sourceTree = "<group>";
@@ -112,6 +120,7 @@
 			children = (
 				A334149428C8E24C0059D133 /* DoneListTableViewController.swift */,
 				A334148B28C86A420059D133 /* DoneListTableViewCell.swift */,
+				A3420F9128CCD78E004AFF56 /* DoneListDetailViewController.swift */,
 			);
 			path = DoneListView;
 			sourceTree = "<group>";
@@ -198,6 +207,9 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				A334149728C8EEA10059D133 /* ToDoListView */,
+				A334149828C8EEFB0059D133 /* DoingListView */,
+				A334149928C8EF0D0059D133 /* DoneListView */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -206,9 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				D7C465D128C71F15004B64F7 /* MainView */,
-				A334149728C8EEA10059D133 /* ToDoListView */,
-				A334149828C8EEFB0059D133 /* DoingListView */,
-				A334149928C8EF0D0059D133 /* DoneListView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -341,6 +350,8 @@
 				D7C465D928C76450004B64F7 /* ToDoListViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				A3420F9228CCD78E004AFF56 /* DoneListDetailViewController.swift in Sources */,
+				A3420F9028CCD6CE004AFF56 /* DoingListDetailViewController.swift in Sources */,
 				A334148C28C86A420059D133 /* DoneListTableViewCell.swift in Sources */,
 				D7971F4828CCCA72008C7ADA /* Array+Extension.swift in Sources */,
 				D7C465DB28C76584004B64F7 /* ToDoListTableViewCell.swift in Sources */,
@@ -350,6 +361,7 @@
 				A37C3BA528CCC2C300CE4F50 /* MockToDoItemManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				A334148A28C86A170059D133 /* DoingListTableViewCell.swift in Sources */,
+				A3420F8E28CCD3F2004AFF56 /* ToDoListDetailViewController.swift in Sources */,
 				A334149528C8E24C0059D133 /* DoneListTableViewController.swift in Sources */,
 				A37C3BAC28CCC6B900CE4F50 /* Date+Extension.swift in Sources */,
 			);
