@@ -10,6 +10,8 @@ import RxSwift
 
 class WorkManageView: UIView {
     // MARK: - Properties
+    let disposeBag = DisposeBag()
+    let work = PublishSubject<Work>()
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -81,7 +83,18 @@ class WorkManageView: UIView {
     private func setupView() {
         addSubView()
         setupConstraints()
+        bind()
         self.backgroundColor = .systemGray6
     }
     
+    private func bind() {
+        work.observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] work in
+                guard let self = self else { return }
+                self.titleTextField.text = work.title
+                self.contentTextView.text = work.content
+                self.deadlinePicker.date = work.deadline
+            })
+            .disposed(by: disposeBag)
+    }
 }

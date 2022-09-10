@@ -89,5 +89,34 @@ class ProjectManagerViewController: UIViewController {
             .bind(to: projectManagerView.doneTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
         
+        projectManagerView.toDoTableVeiw.rx.itemSelected
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                let manageViewController = ManageWorkViewController()
+                manageViewController.configureWork((self.viewModel.todoWorks.value[index.row]))
+                let manageNavigationController = UINavigationController(rootViewController: manageViewController)
+                self.present(manageNavigationController, animated: true)
+            }).disposed(by: disposeBag)
+        
+        projectManagerView.doingTableVeiw.rx.itemSelected
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                let manageViewController = ManageWorkViewController()
+                manageViewController.configureWork((self.viewModel.doingWorks.value[index.row]))
+                let manageNavigationController = UINavigationController(rootViewController: manageViewController)
+                self.present(manageNavigationController, animated: true)
+            }).disposed(by: disposeBag)
+        
+        projectManagerView.doneTableVeiw.rx.itemSelected
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                let manageViewController = ManageWorkViewController()
+                manageViewController.configureWork((self.viewModel.doneWorks.value[index.row]))
+                let manageNavigationController = UINavigationController(rootViewController: manageViewController)
+                self.present(manageNavigationController, animated: true)
+            }).disposed(by: disposeBag)
     }
 }
