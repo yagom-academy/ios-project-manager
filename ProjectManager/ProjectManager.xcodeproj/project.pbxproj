@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C46E28CAA46E0091D087 /* WorkManageView.swift */; };
+		2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */; };
 		20E1A87A28C872B30074364A /* ProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87928C872B30074364A /* ProjectManagerView.swift */; };
 		20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87B28C875EC0074364A /* HeaderView.swift */; };
 		20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */; };
@@ -24,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		1BA66A5555EF5D11E54B0D98 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		2021C46E28CAA46E0091D087 /* WorkManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManageView.swift; sourceTree = "<group>"; };
+		2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageWorkViewController.swift; sourceTree = "<group>"; };
 		20E1A87928C872B30074364A /* ProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerView.swift; sourceTree = "<group>"; };
 		20E1A87B28C875EC0074364A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 				20E1A87B28C875EC0074364A /* HeaderView.swift */,
 				20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */,
 				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+				2021C46E28CAA46E0091D087 /* WorkManageView.swift */,
+				2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -287,8 +293,10 @@
 				20E1A88A28C8C9B50074364A /* WorkViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */,
 				20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */,
 				20E1A88628C8A4EE0074364A /* SampleData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
