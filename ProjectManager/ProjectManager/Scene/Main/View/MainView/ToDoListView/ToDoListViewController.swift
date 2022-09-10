@@ -1,17 +1,18 @@
 //
-//  DoingListTableViewController.swift
+//  ToDoListViewController.swift
 //  ProjectManager
 //
-//  Created by brad, bard on 2022/09/07.
+//  Created by brad, bard on 2022/09/06.
 //
 
 import UIKit
 
-final class DoingListTableViewController: UIViewController {
+final class ToDoListViewController: UIViewController {
     
     // MARK: - Properties
+    
     private let mockToDoItemManger = MockToDoItemManager()
-        
+    
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +33,7 @@ final class DoingListTableViewController: UIViewController {
     private let titleLabel: UILabel = {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
-        uiLabel.text = "DOING"
+        uiLabel.text = "TODO"
         uiLabel.font = .preferredFont(forTextStyle: .title1)
         
         return uiLabel
@@ -51,7 +52,7 @@ final class DoingListTableViewController: UIViewController {
     
     private let todoItemTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(DoingListTableViewCell.self, forCellReuseIdentifier: DoingListTableViewCell.identifier)
+        tableView.register(ToDoListTableViewCell.self, forCellReuseIdentifier: ToDoListTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray5
         
@@ -72,7 +73,7 @@ final class DoingListTableViewController: UIViewController {
     }
     
     // MARK: - Functions
-
+    
     private func setupSubviews() {
         view.addSubview(verticalStackView)
         
@@ -117,18 +118,28 @@ final class DoingListTableViewController: UIViewController {
 
 // MARK: - Extentions
 
-extension DoingListTableViewController: UITableViewDelegate, UITableViewDataSource {
+extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return mockToDoItemManger.count()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DoingListTableViewCell.identifier, for: indexPath) as? DoingListTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ToDoListTableViewCell.identifier, for: indexPath) as? ToDoListTableViewCell
         else { return UITableViewCell() }
-             
-        cell.configure(data: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem() )
+        
+        cell.configure(data: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let toDoListDetailViewController = ToDoListDetailViewController()
+        let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
+        
+        toDoListDetailViewController.modalPresentationStyle = .formSheet
+        
+        present(navigationController, animated: true)
+        toDoListDetailViewController.loadData(of: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
     }
 }
