@@ -66,7 +66,8 @@ final class DoingListDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+        setupNavigationController()
+        setupView()
         setupSubviews()
         setupStackViewLayout()
     }
@@ -79,12 +80,34 @@ final class DoingListDetailViewController: UIViewController {
         descriptionTextView.text = item.description
     }
     
+    private func setupView() {
+        self.view.backgroundColor = .systemBackground
+    }
+    
     private func setupSubviews() {
         titleView.addSubview(titleTextView)
         descriptionView.addSubview(descriptionTextView)
         
         [titleView, timeLimitDatePicker, descriptionView]
             .forEach { view.addSubview($0) }
+    }
+    
+    private func setupNavigationController() {
+        navigationItem.title = "DOING"
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)
+        ]
+        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.9488992095, green: 0.9492433667, blue: 0.9632378221, alpha: 1)
+        
+        let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                 target: self,
+                                                 action: #selector(didDoneButtonTapped))
+        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
+                                                 target: self,
+                                                action: #selector(didEditButtonTapped))
+        
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     private func setupStackViewLayout() {
@@ -123,5 +146,19 @@ final class DoingListDetailViewController: UIViewController {
             descriptionTextView.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor, constant: 20),
             descriptionTextView.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -20)
         ])
+    }
+    
+    private func dismissViewController() {
+        navigationController?.dismiss(animated: true)
+    }
+    
+    // MARK: - objc Functions
+    
+    @objc private func didEditButtonTapped() {
+        dismissViewController()
+    }
+    
+    @objc private func didDoneButtonTapped() {
+        dismissViewController()
     }
 }
