@@ -70,10 +70,10 @@ final class DoingListTableViewCell: UITableViewCell {
  
     private func setupVerticalStackViewLayout() {
         NSLayoutConstraint.activate([
-            verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            verticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            verticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
     }
 }
