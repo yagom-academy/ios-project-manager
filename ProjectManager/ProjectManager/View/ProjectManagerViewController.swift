@@ -20,9 +20,24 @@ class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Project Manager"
+        configureAddBarButton()
         setupBinding()
     }
+    
+    private func configureAddBarButton() {
+        let addWorkBarButton = UIBarButtonItem(image: UIImage(systemName: "plus"),
+                                               style: .plain, target: self,
+                                               action: #selector(addWorkBarButtonTapped))
+        self.navigationItem.rightBarButtonItem = addWorkBarButton
+    }
+    
+    @objc private func addWorkBarButtonTapped() {
+        let manageViewController = UINavigationController(rootViewController: ManageWorkViewController())
+        modalPresentationStyle = .popover
+        self.present(manageViewController, animated: true)
 
+    }
+    
     // MARK: - UI Binding
     
     private func setupBinding() {
