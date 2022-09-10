@@ -11,9 +11,13 @@
 		A334148028C779EC0059D133 /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334147F28C779EC0059D133 /* ReuseIdentifiable.swift */; };
 		A334148A28C86A170059D133 /* DoingListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334148928C86A170059D133 /* DoingListTableViewCell.swift */; };
 		A334148C28C86A420059D133 /* DoneListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334148B28C86A420059D133 /* DoneListTableViewCell.swift */; };
-		A334148F28C86AA80059D133 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334148E28C86AA80059D133 /* Model.swift */; };
+		A334148F28C86AA80059D133 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334148E28C86AA80059D133 /* ToDoItem.swift */; };
 		A334149328C8E1E70059D133 /* DoingListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334149228C8E1E70059D133 /* DoingListTableViewController.swift */; };
 		A334149528C8E24C0059D133 /* DoneListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334149428C8E24C0059D133 /* DoneListTableViewController.swift */; };
+		A37C3BA528CCC2C300CE4F50 /* MockToDoItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */; };
+		A37C3BA728CCC3D700CE4F50 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = A37C3BA628CCC3D700CE4F50 /* sample.json */; };
+		A37C3BAA28CCC5F800CE4F50 /* JSONDecoder + Extentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BA928CCC5F800CE4F50 /* JSONDecoder + Extentsion.swift */; };
+		A37C3BAC28CCC6B900CE4F50 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BAB28CCC6B900CE4F50 /* Date + Extension.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -32,9 +36,13 @@
 		A334147F28C779EC0059D133 /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 		A334148928C86A170059D133 /* DoingListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingListTableViewCell.swift; sourceTree = "<group>"; };
 		A334148B28C86A420059D133 /* DoneListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneListTableViewCell.swift; sourceTree = "<group>"; };
-		A334148E28C86AA80059D133 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		A334148E28C86AA80059D133 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		A334149228C8E1E70059D133 /* DoingListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingListTableViewController.swift; sourceTree = "<group>"; };
 		A334149428C8E24C0059D133 /* DoneListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneListTableViewController.swift; sourceTree = "<group>"; };
+		A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockToDoItemManager.swift; sourceTree = "<group>"; };
+		A37C3BA628CCC3D700CE4F50 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
+		A37C3BA928CCC5F800CE4F50 /* JSONDecoder + Extentsion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder + Extentsion.swift"; sourceTree = "<group>"; };
+		A37C3BAB28CCC6B900CE4F50 /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,7 +78,9 @@
 		A334148D28C86A9E0059D133 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A334148E28C86AA80059D133 /* Model.swift */,
+				A334148E28C86AA80059D133 /* ToDoItem.swift */,
+				A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */,
+				A37C3BA628CCC3D700CE4F50 /* sample.json */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -102,6 +112,15 @@
 			path = DoneListView;
 			sourceTree = "<group>";
 		};
+		A37C3BA828CCC5D600CE4F50 /* Extentsion */ = {
+			isa = PBXGroup;
+			children = (
+				A37C3BA928CCC5F800CE4F50 /* JSONDecoder + Extentsion.swift */,
+				A37C3BAB28CCC6B900CE4F50 /* Date + Extension.swift */,
+			);
+			path = Extentsion;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +143,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				A37C3BA828CCC5D600CE4F50 /* Extentsion */,
 				D7C465DC28C7719E004B64F7 /* Protocol */,
 				D7C465C828C71E09004B64F7 /* Scene */,
 				D7C465C728C71E03004B64F7 /* Resources */,
@@ -255,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A334147E28C72F810059D133 /* .swiftlint.yml in Resources */,
+				A37C3BA728CCC3D700CE4F50 /* sample.json in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				D7C465D328C72286004B64F7 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -310,16 +331,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				A334149328C8E1E70059D133 /* DoingListTableViewController.swift in Sources */,
-				A334148F28C86AA80059D133 /* Model.swift in Sources */,
+				A334148F28C86AA80059D133 /* ToDoItem.swift in Sources */,
 				D7C465D928C76450004B64F7 /* ToDoListViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				A334148C28C86A420059D133 /* DoneListTableViewCell.swift in Sources */,
 				D7C465DB28C76584004B64F7 /* ToDoListTableViewCell.swift in Sources */,
+				A37C3BAA28CCC5F800CE4F50 /* JSONDecoder + Extentsion.swift in Sources */,
 				A334148028C779EC0059D133 /* ReuseIdentifiable.swift in Sources */,
+				A37C3BA528CCC2C300CE4F50 /* MockToDoItemManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				A334148A28C86A170059D133 /* DoingListTableViewCell.swift in Sources */,
 				A334149528C8E24C0059D133 /* DoneListTableViewController.swift in Sources */,
+				A37C3BAC28CCC6B900CE4F50 /* Date + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

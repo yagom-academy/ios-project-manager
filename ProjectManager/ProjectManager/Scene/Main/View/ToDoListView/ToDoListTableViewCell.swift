@@ -44,6 +44,8 @@ final class ToDoListTableViewCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Initializers
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupSubviews()
@@ -55,6 +57,12 @@ final class ToDoListTableViewCell: UITableViewCell {
     }
     
     // MARK: - Functions
+    
+    func configure(data: ToDoItem) {
+        titleLabel.text = data.title
+        descriptionLabel.text = data.description
+        timeLimitLabel.text = data.timeLimit.formatDate()
+    }
     
     private func setupSubviews() {
         contentView.addSubview(verticalStackView)

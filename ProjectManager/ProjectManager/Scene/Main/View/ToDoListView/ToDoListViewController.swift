@@ -10,7 +10,8 @@ import UIKit
 final class ToDoListViewController: UIViewController {
     
     // MARK: - Properties
-        
+    private let mockToDoItemManger = MockToDoItemManager()
+    
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +41,6 @@ final class ToDoListViewController: UIViewController {
     private let indexLabel: UILabel = {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
-        uiLabel.text = "0"
         uiLabel.textAlignment = .center
         uiLabel.textColor = .white
         uiLabel.font = .preferredFont(forTextStyle: .title3)
@@ -62,15 +62,17 @@ final class ToDoListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        todoItemTableView.delegate = self
         setupSubviews()
         setupListTableViewLayout()
+        setupDelegates()
         indexLabel.layoutIfNeeded()
         indexLabel.drawCircle()
+        mockToDoItemManger.loadData()
+        updateIndexLabelData()
     }
     
     // MARK: - Functions
-
+    
     private func setupSubviews() {
         view.addSubview(verticalStackView)
         
@@ -102,6 +104,15 @@ final class ToDoListViewController: UIViewController {
             indexLabel.widthAnchor.constraint(equalTo: indexLabel.heightAnchor)
         ])
     }
+    
+    private func setupDelegates() {
+        todoItemTableView.delegate = self
+        todoItemTableView.dataSource = self
+    }
+    
+    private func updateIndexLabelData() {
+        indexLabel.text = mockToDoItemManger.count().description
+    }
 }
 
 // MARK: - Extentions
@@ -109,13 +120,15 @@ final class ToDoListViewController: UIViewController {
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 10
+        return mockToDoItemManger.count()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ToDoListTableViewCell.identifier, for: indexPath) as? ToDoListTableViewCell
         else { return UITableViewCell() }
-                
+        
+        cell.configure(data: mockToDoItemManger.content(index: indexPath.row))
+        
         return cell
     }
 }
