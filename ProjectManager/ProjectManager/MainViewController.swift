@@ -1,5 +1,5 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - MainViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
@@ -9,13 +9,10 @@ import RxSwift
 import CoreData
 import CloudKit
 
-class ViewController: UIViewController {
-
+class MainViewController: UIViewController {
+    //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
-
-
 }
 
