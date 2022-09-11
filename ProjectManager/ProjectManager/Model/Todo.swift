@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct Todo {
+struct Todo: Equatable {
     let id: UUID = .init()
-    let title, body: String
-    let createdAt: Date
-    let status: Status
+    var title, body: String
+    let createdAt: Date = .init()
+    var status: Status
+    
+    static func == (lhs: Todo, rhs: Todo) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
