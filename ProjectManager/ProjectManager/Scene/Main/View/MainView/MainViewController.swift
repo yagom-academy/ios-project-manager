@@ -69,8 +69,16 @@ final class MainViewController: UIViewController {
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus"),
                                              style: .plain,
                                              target: self,
-                                             action: nil)
+                                             action: #selector(didPlusButtonTapped))
         
         navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    @objc private func didPlusButtonTapped() {
+        let registrationViewController = RegistrationViewController()
+        let navigationController = UINavigationController(rootViewController: registrationViewController)
+
+        registrationViewController.modalPresentationStyle = .formSheet
+        view.window?.rootViewController?.present(navigationController, animated: true)
     }
 }
