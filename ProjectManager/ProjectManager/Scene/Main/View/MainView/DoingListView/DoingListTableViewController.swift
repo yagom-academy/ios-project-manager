@@ -133,12 +133,13 @@ extension DoingListTableViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let doingListDetailViewController = DoingListDetailViewController()
         let navigationController = UINavigationController(rootViewController: doingListDetailViewController)
         
         doingListDetailViewController.modalPresentationStyle = .formSheet
-        
-        present(navigationController, animated: true)
         doingListDetailViewController.loadData(of: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
+        view.window?.rootViewController?.present(navigationController, animated: true)
     }
 }

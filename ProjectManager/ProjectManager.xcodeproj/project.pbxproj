@@ -21,6 +21,7 @@
 		A37C3BA728CCC3D700CE4F50 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = A37C3BA628CCC3D700CE4F50 /* sample.json */; };
 		A37C3BAA28CCC5F800CE4F50 /* JSONDecoder+Extentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BA928CCC5F800CE4F50 /* JSONDecoder+Extentsion.swift */; };
 		A37C3BAC28CCC6B900CE4F50 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BAB28CCC6B900CE4F50 /* Date+Extension.swift */; };
+		A39C1FD228CE1CB500009A15 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39C1FD128CE1CB500009A15 /* RegistrationViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -52,6 +53,7 @@
 		A37C3BA628CCC3D700CE4F50 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		A37C3BA928CCC5F800CE4F50 /* JSONDecoder+Extentsion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extentsion.swift"; sourceTree = "<group>"; };
 		A37C3BAB28CCC6B900CE4F50 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		A39C1FD128CE1CB500009A15 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,14 @@
 			path = Extentsion;
 			sourceTree = "<group>";
 		};
+		A39C1FD328CE1CD000009A15 /* RegistrationView */ = {
+			isa = PBXGroup;
+			children = (
+				A39C1FD128CE1CB500009A15 /* RegistrationViewController.swift */,
+			);
+			path = RegistrationView;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				A39C1FD328CE1CD000009A15 /* RegistrationView */,
 				A334149728C8EEA10059D133 /* ToDoListView */,
 				A334149828C8EEFB0059D133 /* DoingListView */,
 				A334149928C8EF0D0059D133 /* DoneListView */,
@@ -374,6 +385,7 @@
 				A334148A28C86A170059D133 /* DoingListTableViewCell.swift in Sources */,
 				A3420F8E28CCD3F2004AFF56 /* ToDoListDetailViewController.swift in Sources */,
 				A334149528C8E24C0059D133 /* DoneListTableViewController.swift in Sources */,
+				A39C1FD228CE1CB500009A15 /* RegistrationViewController.swift in Sources */,
 				D7971F5028CE196E008C7ADA /* ToDoComponentsView.swift in Sources */,
 				A37C3BAC28CCC6B900CE4F50 /* Date+Extension.swift in Sources */,
 			);
