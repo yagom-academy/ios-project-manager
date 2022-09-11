@@ -12,6 +12,8 @@
 		18B3285628C8B601000BC914 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3285528C8B601000BC914 /* TodoTableViewCell.swift */; };
 		18B3287828CDE394000BC914 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3287728CDE394000BC914 /* ViewModel.swift */; };
 		18B3287A28CDE3B3000BC914 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3287928CDE3B3000BC914 /* Project.swift */; };
+		18B3287C28CDFCE7000BC914 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3287B28CDFCE7000BC914 /* ProjectViewController.swift */; };
+		18C7C68F28CE16DE00C42A12 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7C68E28CE16DE00C42A12 /* Extension+UITextField.swift */; };
 		73664EEE85A7364605A1937A /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849BEFF9277F1B26FCF4F94F /* Pods_ProjectManager.framework */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -27,6 +29,8 @@
 		18B3285528C8B601000BC914 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		18B3287728CDE394000BC914 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		18B3287928CDE3B3000BC914 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		18B3287B28CDFCE7000BC914 /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
+		18C7C68E28CE16DE00C42A12 /* Extension+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
 		44D390B4B08B16DA2B925ADE /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		849BEFF9277F1B26FCF4F94F /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,6 +54,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18B3287D28CE161C000BC914 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				18C7C68E28CE16DE00C42A12 /* Extension+UITextField.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		88600FD2A56EC1A04A8E18D4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,9 +101,11 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				18B3287D28CE161C000BC914 /* Extension */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */,
+				18B3287B28CDFCE7000BC914 /* ProjectViewController.swift */,
 				1852988028C896BF00F7019E /* ListView.swift */,
 				18B3287728CDE394000BC914 /* ViewModel.swift */,
 				18B3287928CDE3B3000BC914 /* Project.swift */,
@@ -236,9 +250,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1852988128C896BF00F7019E /* ListView.swift in Sources */,
+				18C7C68F28CE16DE00C42A12 /* Extension+UITextField.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				18B3285628C8B601000BC914 /* TodoTableViewCell.swift in Sources */,
+				18B3287C28CDFCE7000BC914 /* ProjectViewController.swift in Sources */,
 				18B3287828CDE394000BC914 /* ViewModel.swift in Sources */,
 				18B3287A28CDE3B3000BC914 /* Project.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

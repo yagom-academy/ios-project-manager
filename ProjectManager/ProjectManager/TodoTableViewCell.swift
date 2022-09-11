@@ -10,6 +10,8 @@ import UIKit
 final class TodoTableViewCell: UITableViewCell {
     static let identifier = "CustumCell"
     
+    // MARK: - properties
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

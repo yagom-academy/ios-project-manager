@@ -7,11 +7,14 @@
 import UIKit
 
 final class TodoListViewController: UIViewController {
+    
+    // MARK: - properties
+    
     private var todoView = ListView(status: .todo)
     private var doingView = ListView(status: .doing)
     private var doneView = ListView(status: .done)
     
-    private let viewModel = ViewModel()
+    private var viewModel = ViewModel()
     
     private let listStackView: UIStackView = {
         let stackView = UIStackView()
@@ -24,34 +27,50 @@ final class TodoListViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - life cycle
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.view.backgroundColor = .systemGray6
-        
-        setupNavigationBar()
+        super.viewDidLoad()        
+        setupNavigationItem()
         setupListStackView()
     }
-    
+}
+
+// MARK: - functions
+
+extension TodoListViewController {
     private func setupListStackView() {
-        self.view.addSubview(listStackView)
-        self.listStackView.addArrangedSubview(self.todoView)
-        self.listStackView.addArrangedSubview(self.doingView)
-        self.listStackView.addArrangedSubview(self.doneView)
+        view.backgroundColor = .systemGray6
+        
+        view.addSubview(listStackView)
+        listStackView.addArrangedSubview(todoView)
+        listStackView.addArrangedSubview(doingView)
+        listStackView.addArrangedSubview(doneView)
         
         NSLayoutConstraint.activate([
-            self.listStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.listStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            self.listStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.listStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+            listStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            listStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            listStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            listStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
-    private func setupNavigationBar() {
-        self.navigationItem.title = Design.navigationItemTitle
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                                 target: .none,
-                                                                 action: nil)
+    private func setupNavigationItem() {
+        navigationItem.title = Design.navigationItemTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(showAlert))
+    }
+}
+
+// MARK: - objc functions
+
+extension TodoListViewController {
+    @objc private func showAlert() {
+        let projectViewController = ProjectViewController()
+        projectViewController.modalPresentationStyle = .formSheet
+        let projectAddViewController = UINavigationController(rootViewController: projectViewController)
+        present(projectAddViewController, animated: true)
     }
 }
 

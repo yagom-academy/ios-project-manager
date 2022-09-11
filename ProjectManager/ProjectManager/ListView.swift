@@ -19,7 +19,7 @@ final class ListView: UIView {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
-
+        
         return tableView
     }()
     
@@ -48,7 +48,6 @@ final class ListView: UIView {
     
     let listCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "1"
         label.font = .preferredFont(forTextStyle: .title2)
         label.textColor = .white
         label.backgroundColor = .black
@@ -95,10 +94,10 @@ final class ListView: UIView {
         todoStackView.addArrangedSubview(tableView)
         
         NSLayoutConstraint.activate([
-            todoStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            todoStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            todoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            todoStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            todoStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            todoStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant:  -4),
+            todoStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            todoStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
@@ -112,8 +111,8 @@ final class ListView: UIView {
         NSLayoutConstraint.activate([
             titleStackView.topAnchor.constraint(equalTo: titleView.topAnchor),
             titleStackView.bottomAnchor.constraint(equalTo: titleView.bottomAnchor),
-            titleStackView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-            titleStackView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor)
+            titleStackView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 4),
+            titleStackView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor, constant: -4)
         ])
         
         titleLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
