@@ -6,19 +6,30 @@
 
 import UIKit
 import RxSwift
-import CoreData
-import CloudKit
+import RxCocoa
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
+    
+    //MARK: - UI Properties
+    
+    private lazy var mainView = MainView(frame: view.safeAreaLayoutGuide.layoutFrame)
     
     //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarItem()
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mainView)
+        NSLayoutConstraint.activate([
+            mainView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            mainView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        print("?")
     }
 }
-
 
 private extension MainViewController {
     
@@ -26,11 +37,12 @@ private extension MainViewController {
     
     func setupNavigationBarItem() {
         navigationItem.title = MainViewCommand.mainViewNavigationBarTitle
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGray5
         setupRightBarButtonItem()
     }
+    
     func setupRightBarButtonItem() {
         let rightBarButtonItem = UIBarButtonItem(systemItem: .add)
-        navigationItem.rightBarButtonItem  = rightBarButtonItem    
+        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
 }
