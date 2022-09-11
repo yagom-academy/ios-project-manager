@@ -1,0 +1,11 @@
+disabled_rules:
+  - colon
+  - comma
+  - control_statement
+  - force_cast
+  - unused_optional_binding
+
+excluded:
+  - Pods
+
+line_length: 130
