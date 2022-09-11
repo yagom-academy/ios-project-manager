@@ -7,7 +7,7 @@ target 'ProjectManager' do
 
 pod 'SwiftLint'
 pod 'RxSwift'
-
+pod 'RxCocoa'
   # Pods for ProjectManager
 
 end
