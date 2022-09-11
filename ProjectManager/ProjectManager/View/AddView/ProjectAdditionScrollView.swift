@@ -78,8 +78,6 @@ final class ProjectAdditionScrollView: UIScrollView {
         return view
     }()
     
-    // MARK: - Initializer
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -91,8 +89,6 @@ final class ProjectAdditionScrollView: UIScrollView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    // MARK: - Methods
     
     private func configureView() {
         guard let datePicker = datePicker else {

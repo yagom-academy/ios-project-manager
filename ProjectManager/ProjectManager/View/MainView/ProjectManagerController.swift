@@ -7,6 +7,12 @@
 import UIKit
 
 final class ProjectManagerController: UIViewController {
+    enum Schedule {
+        case todo
+        case doing
+        case done
+    }
+    
     typealias DataSource = UITableViewDiffableDataSource<Schedule, ProjectUnit>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Schedule, ProjectUnit>
     
@@ -80,12 +86,23 @@ final class ProjectManagerController: UIViewController {
     private func configureToDoViewSnapshot() {
         toDoViewSnapshot = Snapshot()
 
-        let unit = ProjectUnit(title: "쥬스 메이커", body: "쥬스 메이커 프로젝트입니다", section: "ToDo", deadLine: Date())
-        let unit2 = ProjectUnit(title: "은행 창구 매니저", body: "은행 창구 매니저 프로젝트입니다", section: "Doing", deadLine: Date())
+        let unit = ProjectUnit(
+            id: UUID(),
+            title: "쥬스 메이커",
+            body: "쥬스 메이커 프로젝트입니다",
+            section: "ToDo",
+            deadLine: Date()
+        )
+        let unit2 = ProjectUnit(
+            id: UUID(),
+            title: "은행 창구 매니저",
+            body: "은행 창구 매니저 프로젝트입니다",
+            section: "ToDo",
+            deadLine: Date()
+        )
 
         toDoViewSnapshot?.appendSections([.todo])
         toDoViewSnapshot?.appendItems([unit, unit2])
-
         toDoViewdataSource?.apply(toDoViewSnapshot!)
     }
 }
@@ -95,21 +112,21 @@ extension ProjectManagerController: UITableViewDelegate {
         switch tableView {
         case scheduleStackView.toDoListView:
             let headerView = SectionHeaderView()
-            headerView.setupLabelText(section: "TODO", number: 5)
+            headerView.setupLabelText(section: "TODO", number: 2)
             
             return headerView
         case scheduleStackView.doingListView:
-            return UIView()
+            let headerView = SectionHeaderView()
+            headerView.setupLabelText(section: "Doing", number: 0)
+            
+            return headerView
         case scheduleStackView.doneListView:
-            return UIView()
+            let headerView = SectionHeaderView()
+            headerView.setupLabelText(section: "Done", number: 0)
+            
+            return headerView
         default:
-            return UIView()
+            return nil
         }
     }
-}
-
-enum Schedule {
-    case todo
-    case doing
-    case done
 }

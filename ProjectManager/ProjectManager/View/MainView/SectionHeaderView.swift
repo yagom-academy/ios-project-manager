@@ -15,7 +15,12 @@ final class SectionHeaderView: UIView {
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
         stackView.spacing = 10
-        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        stackView.layoutMargins = UIEdgeInsets(
+            top: 0,
+            left: 15,
+            bottom: 0,
+            right: 0
+        )
         stackView.isLayoutMarginsRelativeArrangement = true
         
         return stackView
@@ -53,7 +58,11 @@ final class SectionHeaderView: UIView {
         stackView.addArrangedSubview(numberImageView)
     }
 
-    func setupLabelText(section: String, number: Int, font: UIFont = .preferredFont(forTextStyle: .body)) {
+    func setupLabelText(
+        section: String,
+        number: Int,
+        font: UIFont = .preferredFont(forTextStyle: .body)
+    ) {
         sectionLabel.text = section
         numberImageView.image = circleAroundDigit(number, diameter: 30, font: font)
     }

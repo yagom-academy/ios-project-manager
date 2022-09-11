@@ -71,6 +71,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2015836A28CDD885000CCC52 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */,
+				2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */,
+				2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */,
+				72C61C6628CDAA550041CD12 /* ScheduleStackView.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		2015836B28CDD89D000CCC52 /* AddView */ = {
+			isa = PBXGroup;
+			children = (
+				72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */,
+				72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */,
+			);
+			path = AddView;
+			sourceTree = "<group>";
+		};
 		2037CD0428C8886100D712B3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,12 +137,8 @@
 		2037CD0A28C8898C00D712B3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */,
-				72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */,
-				2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */,
-				72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */,
-				72C61C6628CDAA550041CD12 /* ScheduleStackView.swift */,
-				2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */,
+				2015836A28CDD885000CCC52 /* MainView */,
+				2015836B28CDD89D000CCC52 /* AddView */,
 			);
 			path = View;
 			sourceTree = "<group>";

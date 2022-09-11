@@ -80,14 +80,22 @@ final class ProjectManagerListCell: UITableViewCell {
         let inset = CGFloat(10)
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                    constant: inset),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                    constant: -inset),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor,
-                                               constant: inset),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
-                                                  constant: -inset)
+            stackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: inset
+            ),
+            stackView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -inset
+            ),
+            stackView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: inset
+            ),
+            stackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -inset
+            )
         ])
     }
 }
