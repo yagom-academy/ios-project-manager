@@ -12,7 +12,6 @@ final class ProjectManagerListCell: UITableViewCell {
     
     private var stackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
