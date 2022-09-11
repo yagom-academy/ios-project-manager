@@ -27,8 +27,15 @@ final class ProjectManagerController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
-            action: nil
+            action: #selector(didTappedAddButton)
         )
+    }
+    
+    @objc func didTappedAddButton() {
+        let projectAdditionController = UINavigationController(rootViewController: ProjectAdditionController())
+        projectAdditionController.modalPresentationStyle = .formSheet
+        
+        self.present(projectAdditionController, animated: true)
     }
     
     private func configureUI() {
@@ -73,8 +80,8 @@ final class ProjectManagerController: UIViewController {
     private func configureToDoViewSnapshot() {
         toDoViewSnapshot = Snapshot()
 
-        let unit = ProjectUnit(id: UUID(), title: "쥬스 메이커", body: "쥬스 메이커 프로젝트입니다", section: "ToDo", deadLine: Date())
-        let unit2 = ProjectUnit(id: UUID(), title: "은행 창구 매니저", body: "은행 창구 매니저 프로젝트입니다", section: "Doing", deadLine: Date())
+        let unit = ProjectUnit(title: "쥬스 메이커", body: "쥬스 메이커 프로젝트입니다", section: "ToDo", deadLine: Date())
+        let unit2 = ProjectUnit(title: "은행 창구 매니저", body: "은행 창구 매니저 프로젝트입니다", section: "Doing", deadLine: Date())
 
         toDoViewSnapshot?.appendSections([.todo])
         toDoViewSnapshot?.appendItems([unit, unit2])
