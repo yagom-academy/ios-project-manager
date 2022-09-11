@@ -27,6 +27,7 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		D7971F4828CCCA72008C7ADA /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7971F4728CCCA72008C7ADA /* Array+Extension.swift */; };
 		D7971F4A28CCCE16008C7ADA /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7971F4928CCCE16008C7ADA /* UILabel+Extension.swift */; };
+		D7971F5028CE196E008C7ADA /* ToDoComponentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7971F4F28CE196E008C7ADA /* ToDoComponentsView.swift */; };
 		D7C465D328C72286004B64F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */; };
 		D7C465D928C76450004B64F7 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C465D828C76450004B64F7 /* ToDoListViewController.swift */; };
 		D7C465DB28C76584004B64F7 /* ToDoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C465DA28C76584004B64F7 /* ToDoListTableViewCell.swift */; };
@@ -59,6 +60,7 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7971F4728CCCA72008C7ADA /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		D7971F4928CCCE16008C7ADA /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		D7971F4F28CE196E008C7ADA /* ToDoComponentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoComponentsView.swift; sourceTree = "<group>"; };
 		D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7C465D828C76450004B64F7 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		D7C465DA28C76584004B64F7 /* ToDoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTableViewCell.swift; sourceTree = "<group>"; };
@@ -174,6 +176,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D7971F5128CE1982008C7ADA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D7971F4F28CE196E008C7ADA /* ToDoComponentsView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		D7C465C728C71E03004B64F7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +227,7 @@
 		D7C465D728C763C7004B64F7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D7971F5128CE1982008C7ADA /* Common */,
 				D7C465D128C71F15004B64F7 /* MainView */,
 			);
 			path = View;
@@ -363,6 +374,7 @@
 				A334148A28C86A170059D133 /* DoingListTableViewCell.swift in Sources */,
 				A3420F8E28CCD3F2004AFF56 /* ToDoListDetailViewController.swift in Sources */,
 				A334149528C8E24C0059D133 /* DoneListTableViewController.swift in Sources */,
+				D7971F5028CE196E008C7ADA /* ToDoComponentsView.swift in Sources */,
 				A37C3BAC28CCC6B900CE4F50 /* Date+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
