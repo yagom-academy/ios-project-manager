@@ -2,17 +2,18 @@
 //  ScheduleStackView.swift
 //  ProjectManager
 //
-//  Created by dhoney96 on 2022/09/11.
+//  Created by 수꿍, 휴 on 2022/09/11.
 //
 
 import UIKit
 
-class ScheduleStackView: UIStackView {
+final class ScheduleStackView: UIStackView {
     let toDoListView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
         tableView.sectionHeaderHeight = 50
+        
         return tableView
     }()
     
@@ -21,6 +22,7 @@ class ScheduleStackView: UIStackView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
         tableView.sectionHeaderHeight = 50
+        
         return tableView
     }()
     
@@ -29,6 +31,7 @@ class ScheduleStackView: UIStackView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
         tableView.sectionHeaderHeight = 50
+        
         return tableView
     }()
     
