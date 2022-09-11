@@ -5,6 +5,18 @@
 //  Created by bonf on 2022/09/11.
 //
 
+import Foundation
+
 struct ViewModel {
-    let model = Project(title: "", image: "")
+    var projects: [Project] = []
+    
+    struct Input {
+        
+    }
+    
+    struct Output {
+        
+    }
+    
+    
 }
