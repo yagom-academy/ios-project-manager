@@ -21,9 +21,10 @@
 		7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */; };
 		7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04B28C87A58009A7412 /* ProjectUnit.swift */; };
 		7236B04E28C8844D009A7412 /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04D28C8844D009A7412 /* DatabaseError.swift */; };
+		72C61C6728CDAA550041CD12 /* ScheduleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6628CDAA550041CD12 /* ScheduleStackView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* ProjectManagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -39,10 +40,11 @@
 		7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7236B04B28C87A58009A7412 /* ProjectUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUnit.swift; sourceTree = "<group>"; };
 		7236B04D28C8844D009A7412 /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
+		72C61C6628CDAA550041CD12 /* ScheduleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStackView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,7 +111,8 @@
 		2037CD0A28C8898C00D712B3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */,
+				72C61C6628CDAA550041CD12 /* ScheduleStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -244,9 +247,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7236B04628C86FF9009A7412 /* LocalDatabaseManager.swift in Sources */,
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* ProjectManagerController.swift in Sources */,
 				7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */,
 				7236B04E28C8844D009A7412 /* DatabaseError.swift in Sources */,
+				72C61C6728CDAA550041CD12 /* ScheduleStackView.swift in Sources */,
 				7236B03E28C86D4B009A7412 /* ProjectManager.xcdatamodeld in Sources */,
 				7236B04928C87A2A009A7412 /* Project+CoreDataClass.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
