@@ -134,12 +134,14 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let toDoListDetailViewController = ToDoListDetailViewController()
         let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
         
         toDoListDetailViewController.modalPresentationStyle = .formSheet
-        
-        present(navigationController, animated: true)
         toDoListDetailViewController.loadData(of: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
+
+        view.window?.rootViewController?.present(navigationController, animated: true)        
     }
 }
