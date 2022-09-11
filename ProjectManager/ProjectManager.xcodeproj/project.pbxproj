@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		205DF41C28C9B99B004B4A0A /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205DF41B28C9B99B004B4A0A /* CollectionViewCell.swift */; };
+		2015836728CDB0D8000CCC52 /* ProjectManagerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */; };
+		2015836928CDBA2E000CCC52 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */; };
 		20DFE5BC28C85E24003D42E5 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */; };
 		20DFE5C128C868A6003D42E5 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C028C868A6003D42E5 /* FirebaseAnalyticsSwift */; };
 		20DFE5C328C868A6003D42E5 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C228C868A6003D42E5 /* FirebaseDatabaseSwift */; };
@@ -30,7 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		205DF41B28C9B99B004B4A0A /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerListCell.swift; sourceTree = "<group>"; };
+		2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7236B03D28C86D4B009A7412 /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
@@ -86,14 +88,14 @@
 		2037CD0628C888C100D712B3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				2037CD0928C8892900D712B3 /* CoreData */,
 				2037CD0528C8888A00D712B3 /* Database */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -112,7 +114,9 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */,
+				2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */,
 				72C61C6628CDAA550041CD12 /* ScheduleStackView.swift */,
+				2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -140,7 +144,6 @@
 				2037CD0428C8886100D712B3 /* Model */,
 				2037CD0A28C8898C00D712B3 /* View */,
 				2037CD0628C888C100D712B3 /* Resource */,
-				205DF41B28C9B99B004B4A0A /* CollectionViewCell.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -257,7 +260,8 @@
 				7236B04428C86FB3009A7412 /* DatabaseLogic.swift in Sources */,
 				7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				205DF41C28C9B99B004B4A0A /* CollectionViewCell.swift in Sources */,
+				2015836928CDBA2E000CCC52 /* SectionHeaderView.swift in Sources */,
+				2015836728CDB0D8000CCC52 /* ProjectManagerListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
