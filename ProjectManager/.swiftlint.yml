@@ -19,5 +19,9 @@ disabled_rules:
 - private_over_fileprivate
 - comment_spacing
 - unused_closure_parameter
+- force_cast
+- force_try
+- legacy_random
+
 included:
 excluded:
