@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4D2D320228C7332F004EE398 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4D2D320128C7332F004EE398 /* .swiftlint.yml */; };
 		4D2D320428C73B56004EE398 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D320328C73B56004EE398 /* ContentView.swift */; };
+		4DC81A2728CDA2E700F80235 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC81A2628CDA2E700F80235 /* Todo.swift */; };
+		4DC81A2928CDA55D00F80235 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC81A2828CDA55D00F80235 /* Status.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 		154A03AB5582F68DADC418C5 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		4D2D320128C7332F004EE398 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		4D2D320328C73B56004EE398 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4DC81A2628CDA2E700F80235 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		4DC81A2828CDA55D00F80235 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		5C35B2C542318E1621B2D045 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +50,23 @@
 				D7C411D43FA90CA819AE47C8 /* Pods_ProjectManager.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4DC81A2A28CDA5B600F80235 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4DC81A2628CDA2E700F80235 /* Todo.swift */,
+				4DC81A2828CDA55D00F80235 /* Status.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4DC81A2B28CDA5D100F80235 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4D2D320328C73B56004EE398 /* ContentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B754D8D5E2C1ADE382789DC7 /* Pods */ = {
@@ -81,7 +102,8 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				4D2D320328C73B56004EE398 /* ContentView.swift */,
+				4DC81A2A28CDA5B600F80235 /* Model */,
+				4DC81A2B28CDA5D100F80235 /* View */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
@@ -202,8 +224,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				4DC81A2928CDA55D00F80235 /* Status.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				4D2D320428C73B56004EE398 /* ContentView.swift in Sources */,
+				4DC81A2728CDA2E700F80235 /* Todo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +358,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -354,7 +378,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
