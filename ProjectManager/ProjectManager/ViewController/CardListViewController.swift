@@ -6,7 +6,14 @@
 
 import UIKit
 
-class CardListViewController: UIViewController, Coordinating {
+final class CardListViewController: UIViewController, Coordinating {
+    private enum Const {
+        static let title = "Project Manager"
+        static let plus = "plus"
+        static let delete = "삭제"
+        static let stackViewSpacing = 10.0
+    }
+    
     var coordinator: CoordinatorProtocol?
     private var viewModel: CardViewModelProtocol?
     
@@ -21,7 +28,7 @@ class CardListViewController: UIViewController, Coordinating {
     private let rootStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
-        $0.spacing = 10
+        $0.spacing = Const.stackViewSpacing
         $0.backgroundColor = .systemGray4
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -48,8 +55,8 @@ class CardListViewController: UIViewController, Coordinating {
     }
     
     private func addSubViews() {
-        self.title = "Project Manager"
-        self.view.backgroundColor = .systemBackground
+        self.title = Const.title
+        self.view.backgroundColor = .systemGray6
         self.view.addSubview(rootStackView)
         
         rootStackView.addArrangedSubview(todoCardSectionView)
@@ -67,7 +74,7 @@ class CardListViewController: UIViewController, Coordinating {
     }
     
     private func configureNavigationBarItem() {
-        self.navigationItem.rightBarButtonItem  = UIBarButtonItem(image: UIImage(systemName: "plus"),
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Const.plus),
                                                                   style: .plain,
                                                                   target: self,
                                                                   action: #selector(plusButtonTapped(_:)))

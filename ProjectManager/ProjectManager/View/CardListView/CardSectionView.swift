@@ -9,28 +9,30 @@ import UIKit
 import Then
 
 final class CardSectionView: UIView {
+    private enum Const {
+        static let stackViewSpacing = 10.0
+    }
+    
+    var headerView: CardHeaderView?
+    let tableView = UITableView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.register(CardListTableViewCell.self,
+                    forCellReuseIdentifier: CardListTableViewCell.reuseIdentifier)
+        $0.backgroundColor = .systemGray6
+        $0.separatorStyle = .none
+    }
+    
     private let rootStackView = UIStackView().then {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
         $0.distribution = .fill
         $0.alignment = .fill
-        $0.spacing = 10
-    }
-    
-    var headerView: CardListHeaderView?
-    let tableView = UITableView().then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.spacing = Const.stackViewSpacing
         $0.backgroundColor = .systemGray6
-        $0.separatorStyle = .none
-        $0.rowHeight = UITableView.automaticDimension
-        $0.estimatedRowHeight = 130
-        $0.tableFooterView = UIView(frame: .zero)
-        $0.register(CardListTableViewCell.self,
-                    forCellReuseIdentifier: CardListTableViewCell.identifier)
     }
     
     init(type: CardType) {
-        self.headerView = CardListHeaderView(cardType: type)
+        self.headerView = CardHeaderView(cardType: type)
         super.init(frame: .zero)
         addSubViews()
         configureLayout()
@@ -45,6 +47,7 @@ final class CardSectionView: UIView {
         self.addSubview(rootStackView)
         
         guard let headerView = headerView else { return }
+        headerView.backgroundColor = .systemGray5
         
         rootStackView.addArrangedSubview(headerView)
         rootStackView.addArrangedSubview(tableView)

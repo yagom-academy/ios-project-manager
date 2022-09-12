@@ -9,41 +9,41 @@ import UIKit
 import Then
 
 final class CardListTableViewCell: BaseTableViewCell<TodoListModel> {
-    static let identifier = "CardListTableViewCell"
+    private enum Const {
+        static let stackViewSpacing = 12.0
+        static let baseConstraint = 12.0
+        static let layerCornerRadius = 30.0
+        static let numberOfLines = 3
+    }
     
     private let titleLabel = UILabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .title3)
-        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        $0.setContentHuggingPriority(.defaultHigh,
+                                     for: .vertical)
     }
     
     private let descriptionLabel = UILabel().then {
         $0.font = UIFont.preferredFont(forTextStyle: .body)
         $0.textColor = .systemGray3
-        $0.numberOfLines = 3
+        $0.numberOfLines = Const.numberOfLines
     }
     
     private let deadlineDateLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .callout)
-        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        $0.setContentHuggingPriority(.defaultHigh,
+                                     for: .vertical)
     }
     
     private lazy var rootStackView = UIStackView(
         arrangedSubviews: [titleLabel, descriptionLabel, deadlineDateLabel]).then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.distribution = .fill
-        $0.alignment = .fill
-        $0.axis = .vertical
-        $0.spacing = 4
-    }
-        
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.axis = .vertical
+            $0.spacing = Const.stackViewSpacing
+        }
+    
     override func configure() {
         super.configure()
-
-        self.backgroundColor = .secondarySystemBackground
-        self.contentView.layer.cornerRadius = 8
-        self.contentView.addSubview(rootStackView)
-        
-        configureLayout()
+        setupDefault()
     }
     
     override func prepareForReuse() {
@@ -51,7 +51,6 @@ final class CardListTableViewCell: BaseTableViewCell<TodoListModel> {
         titleLabel.text = nil
         descriptionLabel.text = nil
         deadlineDateLabel.text = nil
-        backgroundColor = nil
     }
 
     override func layoutSubviews() {
@@ -64,13 +63,19 @@ final class CardListTableViewCell: BaseTableViewCell<TodoListModel> {
         descriptionLabel.text = model.description
         deadlineDateLabel.text = model.deadlineDate.description
     }
-
-    private func configureLayout() {
+    
+    private func setupDefault() {
+        self.contentView.addSubview(rootStackView)
+        
         NSLayoutConstraint.activate([
-            rootStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            rootStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            rootStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            rootStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor)
+            rootStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor,
+                                               constant: Const.baseConstraint),
+            rootStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,
+                                                  constant: -Const.baseConstraint),
+            rootStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,
+                                                   constant: Const.baseConstraint),
+            rootStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,
+                                                    constant: -Const.baseConstraint)
         ])
     }
 }
