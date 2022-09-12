@@ -14,8 +14,8 @@ protocol DBManagerable {
     var doneTasks: [Todo] { get }
     
     func fetch() -> [Todo]
-    func add(title: String, body: String, status: Status)
+    func add(title: String, body: String, date: Date, status: Status)
     func delete(id: UUID)
-    func update(id: UUID, title: String, body: String)
+    func update(id: UUID, title: String, body: String, date: Date)
     func changeStatus(id: UUID, to status: Status)
 }

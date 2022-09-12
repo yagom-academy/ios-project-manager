@@ -28,16 +28,16 @@ final class DataManager {
         self.dbManager.fetch()
     }
     
-    func add(title: String, body: String, status: Status) {
-        self.dbManager.add(title: title, body: body, status: status)
+    func add(title: String, body: String, date: Date, status: Status) {
+        self.dbManager.add(title: title, body: body, date: date, status: status)
     }
     
     func delete(id: UUID) {
         self.dbManager.delete(id: id)
     }
     
-    func update(id: UUID, title: String, body: String) {
-        self.dbManager.update(id: id, title: title, body: body)
+    func update(id: UUID, title: String, body: String, date: Date) {
+        self.dbManager.update(id: id, title: title, body: body, date: date)
     }
     
     func changeStatus(id: UUID, to status: Status) {

@@ -24,15 +24,15 @@ final class TodoDataManager: DBManagerable {
         return todoData
     }
     
-    func add(title: String, body: String, status: Status) {
-        self.todoData.append(Todo(title: title, body: body, status: .todo))
+    func add(title: String, body: String, date: Date, status: Status) {
+        self.todoData.append(Todo(title: title, body: body, date: date, status: .todo))
     }
     
     func delete(id: UUID) {
         self.todoData.removeAll(where: { $0.id == id })
     }
     
-    func update(id: UUID, title: String, body: String) {
+    func update(id: UUID, title: String, body: String, date: Date) {
         guard var selectedData = todoData.filter({ $0.id == id }).last else { return }
         
         selectedData.title = title
