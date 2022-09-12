@@ -8,8 +8,8 @@
 import RealmSwift
 
 protocol DatabaseManager {
-    func createDatabase()
-    func readDatabase()
+    func createDatabase(data: Object)
+    func readDatabase() -> [TaskModel]
     func updateDatabase()
     func deleteDatabase()
 }
