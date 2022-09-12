@@ -12,12 +12,33 @@ struct TodoListView: View {
     let todoTasks: [Todo]
     
     var body: some View {
-        List {
-            ForEach(todoTasks) { task in
-                TodoListRow(todo: task)
+        VStack{
+            HeaderView(todoTasks: todoTasks)
+            List {
+                ForEach(todoTasks) { task in
+                    TodoListRow(todo: task)
+                }
             }
+            .listStyle(.plain)
         }
-        .listStyle(.grouped)
+        .background(Color(UIColor.systemGray6))
+    }
+}
+
+struct HeaderView: View {
+    
+    let todoTasks: [Todo]
+    
+    var body: some View {
+        HStack(spacing: 10) {
+            Text("TODO")
+                .font(.largeTitle)
+            Circle()
+                .frame(width: 25, height: 25)
+                .foregroundColor(.primary)
+            Spacer()
+        }
+        .padding(EdgeInsets(top: 11, leading: 21, bottom: -1, trailing: 21))
     }
 }
 
