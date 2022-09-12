@@ -11,6 +11,8 @@ struct TodoListAddView: View {
     var body: some View {
         VStack {
             TodoListAddTitleView()
+            TitleTextView()
+            DatePickerView()
         }
     }
 }
@@ -39,6 +41,30 @@ struct TodoListAddTitleView: View {
                     .padding(10)
             })
         }
+    }
+}
+
+struct TitleTextView: View {
+    @State var title: String = ""
+
+    var body: some View {
+        TextField("Title", text: $title)
+            .padding()
+            .background(Color(.systemBackground))
+            .shadow(color: .gray, radius: 5, x: 10, y: 10)
+            .padding(12)
+    }
+}
+
+struct DatePickerView: View {
+    @State var date = Date()
+
+    var body: some View {
+        DatePicker("",
+                   selection: $date,
+                   displayedComponents: .date)
+        .datePickerStyle(WheelDatePickerStyle())
+        .labelsHidden()
     }
 }
 
