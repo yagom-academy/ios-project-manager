@@ -12,4 +12,5 @@ protocol DatabaseManager {
     func readDatabase() -> [TaskModel]
     func updateDatabase(data: TaskModel, id: UUID)
     func deleteDatabase()
+    func getTaskStateCount(state: String) -> Int
 }

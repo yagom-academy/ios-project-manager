@@ -72,4 +72,16 @@ class RealmDatabaseManager: DatabaseManager {
             return
         }
     }
+
+    func getTaskStateCount(state: String) -> Int {
+        guard let realm = realm else {
+            return 0
+        }
+
+        let count = realm.objects(RealmDatabaseModel.self).where {
+            $0.taskState == state
+        }.count
+
+        return count
+    }
 }
