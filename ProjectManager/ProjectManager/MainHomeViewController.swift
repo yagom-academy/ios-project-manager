@@ -153,6 +153,30 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
         selectedIndex = indexPath.row
     }
+
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: "Delete"
+        ) { [weak self] _,_,_  in
+            guard let self = self else {
+                return
+            }
+
+            if tableView == self.todoTableView {
+                self.todoList.remove(at: indexPath.row)
+            } else if tableView == self.doingTableView {
+                self.doingList.remove(at: indexPath.row)
+            } else {
+                self.doneList.remove(at: indexPath.row)
+            }
+        }
+
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 extension MainHomeViewController: UIGestureRecognizerDelegate {
