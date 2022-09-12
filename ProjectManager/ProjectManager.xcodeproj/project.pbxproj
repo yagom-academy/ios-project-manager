@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		05BAA00F28CE99680009BB06 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 05BAA00E28CE99680009BB06 /* .swiftlint.yml */; };
+		05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */; };
 		7E25D6CB9B7CC70581D3BEAF /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		05BAA00E28CE99680009BB06 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0257905294AE94EAFB553A4 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +92,7 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainHomeViewController.swift in Sources */,
+				05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
