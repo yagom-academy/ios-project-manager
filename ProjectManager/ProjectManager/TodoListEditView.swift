@@ -13,6 +13,7 @@ struct TodoListEditView: View {
             TodoListEditTitleView()
             TodoListEditTitleTextView()
             TodoListEditDatePickerView()
+            TodoListEditDetailTextView()
         }
     }
 }
@@ -65,6 +66,28 @@ struct TodoListEditDatePickerView: View {
                    displayedComponents: .date)
         .datePickerStyle(WheelDatePickerStyle())
         .labelsHidden()
+    }
+}
+
+struct TodoListEditDetailTextView: View {
+    @State var textString: String = ""
+    @State var placeHolder: String = "해당 투두리스트의 내용이 들어올 예정"
+
+    var body: some View {
+
+        ZStack {
+            if self.textString.isEmpty {
+                TextEditor(text: $placeHolder)
+                    .font(.body)
+                    .disabled(true)
+                    .padding()
+            }
+            TextEditor(text: $textString)
+                .font(.body)
+                .opacity(self.textString.isEmpty ? 0.25 : 1)
+                .padding()
+                .disableAutocorrection(true)
+        }
     }
 }
 
