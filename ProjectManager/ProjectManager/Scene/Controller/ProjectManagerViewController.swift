@@ -20,10 +20,10 @@ final class ProjectManagerViewController: UIViewController {
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = Design.mainStackViewSpacing
         stackView.backgroundColor = .systemGray5
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
-        stackView.spacing = Design.mainStackViewSpacing
         
         return stackView
     }()
@@ -70,7 +70,7 @@ final class ProjectManagerViewController: UIViewController {
         navigationItem.title = Design.navigationTitle
     }
     
-    @objc func rightBarButtonDidTap() {
+    @objc private func rightBarButtonDidTap() {
         let projectCreateViewController = ProjectCreateViewController()
         let navigationController = UINavigationController(rootViewController: projectCreateViewController)
         

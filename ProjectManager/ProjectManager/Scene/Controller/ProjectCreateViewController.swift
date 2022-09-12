@@ -34,11 +34,11 @@ final class ProjectCreateViewController: UIViewController {
         navigationItem.title = item == nil ? WorkState.todo.name : item?.workState.name
     }
     
-    @objc func rightBarButtonDidTap() {
+    @objc private func rightBarButtonDidTap() {
         dismiss(animated: true)
     }
     
-    @objc func leftBarButtonDidTap() {
+    @objc private func leftBarButtonDidTap() {
         dismiss(animated: true)
     }
     
