@@ -40,5 +40,11 @@ class RealmDatabaseManager: DatabaseManager {
 
     func updateDatabase() { }
 
-    func deleteDatabase() { }
+    func deleteDatabase() {
+        guard let realm = realm,
+              ((try? realm.write({ realm.deleteAll() })) != nil)
+        else {
+            return
+        }
+    }
 }
