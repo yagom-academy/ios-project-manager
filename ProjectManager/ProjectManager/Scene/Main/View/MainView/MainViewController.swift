@@ -11,8 +11,8 @@ final class MainViewController: UIViewController {
     // MARK: - Properties
 
     private let toDoListTableViewController = ToDoListViewController()
-    private let doingListTableViewController = DoingListTableViewController()
-    private let doneListTableViewController = DoneListTableViewController()
+    private let doingListTableViewController = DoingListViewController()
+    private let doneListTableViewController = DoneListViewController()
     
     private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
@@ -38,6 +38,9 @@ final class MainViewController: UIViewController {
     
     private func setupSubviews() {
         view.addSubview(horizontalStackView)
+        
+        [toDoListTableViewController, doingListTableViewController, doneListTableViewController]
+            .forEach { addChild($0) }
         
         [toDoListTableViewController.view, doingListTableViewController.view, doneListTableViewController.view]
             .forEach { horizontalStackView.addArrangedSubview($0) }
@@ -77,8 +80,8 @@ final class MainViewController: UIViewController {
     @objc private func didPlusButtonTapped() {
         let registrationViewController = RegistrationViewController()
         let navigationController = UINavigationController(rootViewController: registrationViewController)
-
         registrationViewController.modalPresentationStyle = .formSheet
-        view.window?.rootViewController?.present(navigationController, animated: true)
+        
+        present(navigationController, animated: true)
     }
 }
