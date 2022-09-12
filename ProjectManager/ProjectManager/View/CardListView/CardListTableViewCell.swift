@@ -56,11 +56,7 @@ final class CardListTableViewCell: BaseTableViewCell<TodoListModel> {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        let edge = UIEdgeInsets(top: 6,
-                                left: 6,
-                                bottom: 6,
-                                right: 6)
-        self.contentView.frame = self.contentView.frame.inset(by: edge)
+        self.contentView.layer.addBottomBorder()
     }
     
     override func bind(_ model: TodoListModel) {
