@@ -12,6 +12,7 @@
 		05A5774828CF0AE600E05133 /* RealmDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774728CF0AE600E05133 /* RealmDatabaseManager.swift */; };
 		05A5774A28CF13A300E05133 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774928CF13A300E05133 /* TaskModel.swift */; };
 		05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774B28CF807A00E05133 /* TodoFormViewController.swift */; };
+		05A5775928CFC04F00E05133 /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5775828CFC04F00E05133 /* TaskData.swift */; };
 		05BAA00F28CE99680009BB06 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 05BAA00E28CE99680009BB06 /* .swiftlint.yml */; };
 		05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */; };
 		7E25D6CB9B7CC70581D3BEAF /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */; };
@@ -29,6 +30,7 @@
 		05A5774728CF0AE600E05133 /* RealmDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabaseManager.swift; sourceTree = "<group>"; };
 		05A5774928CF13A300E05133 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		05A5774B28CF807A00E05133 /* TodoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormViewController.swift; sourceTree = "<group>"; };
+		05A5775828CFC04F00E05133 /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 		05BAA00E28CE99680009BB06 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,6 +58,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05A5775428CFBD5F00E05133 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				05A5775628CFBDF600E05133 /* Database */,
+				05A5775528CFBDCF00E05133 /* Model */,
+				05A5775728CFBE0900E05133 /* View */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		05A5775528CFBDCF00E05133 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */,
+				05A5774928CF13A300E05133 /* TaskModel.swift */,
+				05A5775828CFC04F00E05133 /* TaskData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		05A5775628CFBDF600E05133 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				05A5774328CF088A00E05133 /* DatabaseManager.swift */,
+				05A5774728CF0AE600E05133 /* RealmDatabaseManager.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		05A5775728CFBE0900E05133 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
+				05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		7059A1DCEB4D827E172AEA64 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,19 +139,10 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				05A5775428CFBD5F00E05133 /* Common */,
 				C7431F0925F51E1D0094C4CF /* MainHomeViewController.swift */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */,
-				05A5774328CF088A00E05133 /* DatabaseManager.swift */,
-				05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */,
-				05A5774728CF0AE600E05133 /* RealmDatabaseManager.swift */,
-				05A5774928CF13A300E05133 /* TaskModel.swift */,
 				05A5774B28CF807A00E05133 /* TodoFormViewController.swift */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -249,6 +284,7 @@
 			files = (
 				05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainHomeViewController.swift in Sources */,
+				05A5775928CFC04F00E05133 /* TaskData.swift in Sources */,
 				05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */,
 				05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */,
 				05A5774428CF088A00E05133 /* DatabaseManager.swift in Sources */,

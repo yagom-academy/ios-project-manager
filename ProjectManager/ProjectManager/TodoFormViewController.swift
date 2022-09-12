@@ -31,7 +31,7 @@ class TodoFormViewController: UIViewController {
             state: TaskState.todo
         )
 
-        RealmDatabaseManager().createDatabase(data: data)
+        TaskData.shared.databaseManager.createDatabase(data: data)
         self.dismiss(animated: true)
     }
 

@@ -16,7 +16,6 @@ class MainHomeViewController: UIViewController {
     @IBOutlet weak var doingCount: UIButton!
     @IBOutlet weak var doneCount: UIButton!
 
-    private let databaseManager: DatabaseManager = RealmDatabaseManager()
     private var todoList = [TaskModel]()
     private var doingList = [TaskModel]()
     private var doneList = [TaskModel]()
@@ -66,7 +65,7 @@ class MainHomeViewController: UIViewController {
             taskData.taskState = TaskState.doing
             self.todoList.remove(at: dataIndex)
             self.doingList.append(taskData)
-            self.databaseManager.updateDatabase(data: taskData, id: taskData.id ?? UUID())
+            TaskData.shared.databaseManager.updateDatabase(data: taskData, id: taskData.id ?? UUID())
         }
         let doneButton = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
             guard let self = self,
@@ -77,7 +76,7 @@ class MainHomeViewController: UIViewController {
             taskData.taskState = TaskState.done
             self.todoList.remove(at: dataIndex)
             self.doneList.append(taskData)
-            self.databaseManager.updateDatabase(data: taskData, id: taskData.id ?? UUID())
+            TaskData.shared.databaseManager.updateDatabase(data: taskData, id: taskData.id ?? UUID())
         }
 
         actionSheet.addAction(doingButton)
@@ -91,7 +90,7 @@ class MainHomeViewController: UIViewController {
     }
 
     private func setUpDataList() {
-        let allDatabase = databaseManager.readDatabase()
+        let allDatabase = TaskData.shared.databaseManager.readDatabase()
 
         allDatabase.forEach { task in
             if task.taskState == TaskState.todo {
@@ -108,11 +107,11 @@ class MainHomeViewController: UIViewController {
 extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == todoTableView {
-            return databaseManager.getTaskStateCount(state: TaskState.todo)
+            return TaskData.shared.databaseManager.getTaskStateCount(state: TaskState.todo)
         } else if tableView == doingTableView {
-            return databaseManager.getTaskStateCount(state: TaskState.doing)
+            return TaskData.shared.databaseManager.getTaskStateCount(state: TaskState.doing)
         } else {
-            return databaseManager.getTaskStateCount(state: TaskState.done)
+            return TaskData.shared.databaseManager.getTaskStateCount(state: TaskState.done)
         }
     }
 
