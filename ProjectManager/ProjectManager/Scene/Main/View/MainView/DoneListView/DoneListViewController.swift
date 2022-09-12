@@ -131,10 +131,10 @@ final class DoneListViewController: UIViewController {
         
         let alertController = UIAlertController()
         
-        let doingAlertAction = UIAlertAction(title: "Move to DOING", style: .default) { _ in
+        let doingAlertAction = UIAlertAction(title: "Move to TODO", style: .default) { _ in
 
         }
-        let doneAlertAction = UIAlertAction(title: "Move to DONE", style: .default) { _ in
+        let doneAlertAction = UIAlertAction(title: "Move to DOING", style: .default) { _ in
             
         }
         
