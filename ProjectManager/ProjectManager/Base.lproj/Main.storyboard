@@ -281,8 +281,11 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="EhE-tH-R89"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="doingCount" destination="ohN-oq-OCK" id="1N0-ql-e95"/>
                         <outlet property="doingTableView" destination="WVL-3Y-8KN" id="cAP-5g-thi"/>
+                        <outlet property="doneCount" destination="SXo-me-mdZ" id="xWP-S5-0tX"/>
                         <outlet property="doneTableView" destination="Ytj-DI-p9R" id="r6g-Fa-uvL"/>
+                        <outlet property="todoCount" destination="x6M-7d-rVl" id="Sa9-Q0-8ii"/>
                         <outlet property="todoTableView" destination="ga3-6R-E2C" id="DGu-ih-hy9"/>
                     </connections>
                 </viewController>
