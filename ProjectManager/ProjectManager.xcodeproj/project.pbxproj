@@ -7,16 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		906399C828CEDBE7000ACBE3 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906399C728CEDBE7000ACBE3 /* ReuseIdentifying.swift */; };
+		906399CA28CEF587000ACBE3 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906399C928CEF587000ACBE3 /* Date+Extensions.swift */; };
 		9097B5A828C70B3700A46DB8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9097B5A728C70B3700A46DB8 /* .swiftlint.yml */; };
 		9097B5B128C756DD00A46DB8 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 9097B5B028C756DD00A46DB8 /* Then */; };
-		9097B5B428C7570D00A46DB8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9097B5B328C7570D00A46DB8 /* SnapKit */; };
 		9097B5B628C7575500A46DB8 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5B528C7575500A46DB8 /* CardViewModel.swift */; };
-		9097B5B928C81A5200A46DB8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5B828C81A5200A46DB8 /* Coordinator.swift */; };
+		9097B5B928C81A5200A46DB8 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5B828C81A5200A46DB8 /* CoordinatorProtocol.swift */; };
 		9097B5BF28C8E2E200A46DB8 /* CardListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5BE28C8E2E200A46DB8 /* CardListTableViewCell.swift */; };
 		9097B5C128C8E70000A46DB8 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5C028C8E70000A46DB8 /* MainCoordinator.swift */; };
 		9097B5C328C8E8B200A46DB8 /* CardEnrollmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5C228C8E8B200A46DB8 /* CardEnrollmentViewController.swift */; };
 		9097B5C528C8E8C200A46DB8 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5C428C8E8C200A46DB8 /* CardDetailViewController.swift */; };
 		9097B5C728C8EAB700A46DB8 /* CardViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5C628C8EAB700A46DB8 /* CardViewModelProtocol.swift */; };
+		9097B5C928C9A7E700A46DB8 /* TodoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5C828C9A7E700A46DB8 /* TodoListModel.swift */; };
+		9097B5CB28C9A93400A46DB8 /* CardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5CA28C9A93400A46DB8 /* CardHeaderView.swift */; };
+		9097B5CD28C9D13300A46DB8 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5CC28C9D13300A46DB8 /* CardSectionView.swift */; };
+		9097B5CF28C9D33A00A46DB8 /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5CE28C9D33A00A46DB8 /* CardType.swift */; };
+		90E7FA7628CAD082003336B2 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7FA7528CAD082003336B2 /* BaseTableViewCell.swift */; };
+		90E7FA7828CB3387003336B2 /* CardModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7FA7728CB3387003336B2 /* CardModalView.swift */; };
+		90E7FA8428CDC1CB003336B2 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7FA8328CDC1CB003336B2 /* CALayer+Extensions.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* CardListViewController.swift */; };
@@ -25,14 +33,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		906399C728CEDBE7000ACBE3 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
+		906399C928CEF587000ACBE3 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		9097B5A728C70B3700A46DB8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		9097B5B528C7575500A46DB8 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
-		9097B5B828C81A5200A46DB8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		9097B5B828C81A5200A46DB8 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		9097B5BE28C8E2E200A46DB8 /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
 		9097B5C028C8E70000A46DB8 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		9097B5C228C8E8B200A46DB8 /* CardEnrollmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEnrollmentViewController.swift; sourceTree = "<group>"; };
 		9097B5C428C8E8C200A46DB8 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		9097B5C628C8EAB700A46DB8 /* CardViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModelProtocol.swift; sourceTree = "<group>"; };
+		9097B5C828C9A7E700A46DB8 /* TodoListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListModel.swift; sourceTree = "<group>"; };
+		9097B5CA28C9A93400A46DB8 /* CardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHeaderView.swift; sourceTree = "<group>"; };
+		9097B5CC28C9D13300A46DB8 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
+		9097B5CE28C9D33A00A46DB8 /* CardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
+		90E7FA7528CAD082003336B2 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		90E7FA7728CB3387003336B2 /* CardModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModalView.swift; sourceTree = "<group>"; };
+		90E7FA8328CDC1CB003336B2 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,19 +65,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				9097B5B128C756DD00A46DB8 /* Then in Frameworks */,
-				9097B5B428C7570D00A46DB8 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		906399C628CEDBDF000ACBE3 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				90E7FA7528CAD082003336B2 /* BaseTableViewCell.swift */,
+				906399C728CEDBE7000ACBE3 /* ReuseIdentifying.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		9097B5A928C70B3D00A46DB8 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				9097B5B728C81A4700A46DB8 /* Coordinator */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				9097B5B728C81A4700A46DB8 /* Coordinator */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -78,6 +103,8 @@
 		9097B5AC28C7482B00A46DB8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9097B5C828C9A7E700A46DB8 /* TodoListModel.swift */,
+				9097B5CE28C9D33A00A46DB8 /* CardType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -104,7 +131,7 @@
 		9097B5B728C81A4700A46DB8 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				9097B5B828C81A5200A46DB8 /* Coordinator.swift */,
+				9097B5B828C81A5200A46DB8 /* CoordinatorProtocol.swift */,
 				9097B5C028C8E70000A46DB8 /* MainCoordinator.swift */,
 			);
 			path = Coordinator;
@@ -113,9 +140,45 @@
 		9097B5BD28C8208700A46DB8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9097B5BE28C8E2E200A46DB8 /* CardListTableViewCell.swift */,
+				90E7FA7928CB4F3E003336B2 /* CardModalView */,
+				9097B5D128C9D58800A46DB8 /* CardListView */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9097B5D128C9D58800A46DB8 /* CardListView */ = {
+			isa = PBXGroup;
+			children = (
+				9097B5CC28C9D13300A46DB8 /* CardSectionView.swift */,
+				9097B5CA28C9A93400A46DB8 /* CardHeaderView.swift */,
+				9097B5BE28C8E2E200A46DB8 /* CardListTableViewCell.swift */,
+			);
+			path = CardListView;
+			sourceTree = "<group>";
+		};
+		90E7FA7428CAD06C003336B2 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				906399C628CEDBDF000ACBE3 /* Cell */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		90E7FA7928CB4F3E003336B2 /* CardModalView */ = {
+			isa = PBXGroup;
+			children = (
+				90E7FA7728CB3387003336B2 /* CardModalView.swift */,
+			);
+			path = CardModalView;
+			sourceTree = "<group>";
+		};
+		90E7FA8228CDC1B7003336B2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				90E7FA8328CDC1CB003336B2 /* CALayer+Extensions.swift */,
+				906399C928CEF587000ACBE3 /* Date+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -143,6 +206,8 @@
 				9097B5BD28C8208700A46DB8 /* View */,
 				9097B5AE28C7484500A46DB8 /* ViewController */,
 				9097B5AC28C7482B00A46DB8 /* Model */,
+				90E7FA8228CDC1B7003336B2 /* Extensions */,
+				90E7FA7428CAD06C003336B2 /* Utility */,
 				9097B5AA28C70B4900A46DB8 /* Resources */,
 			);
 			path = ProjectManager;
@@ -167,7 +232,6 @@
 			name = ProjectManager;
 			packageProductDependencies = (
 				9097B5B028C756DD00A46DB8 /* Then */,
-				9097B5B328C7570D00A46DB8 /* SnapKit */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -198,7 +262,6 @@
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
 				9097B5AF28C756DD00A46DB8 /* XCRemoteSwiftPackageReference "Then" */,
-				9097B5B228C7570D00A46DB8 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -248,16 +311,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90E7FA7828CB3387003336B2 /* CardModalView.swift in Sources */,
+				906399C828CEDBE7000ACBE3 /* ReuseIdentifying.swift in Sources */,
 				9097B5BF28C8E2E200A46DB8 /* CardListTableViewCell.swift in Sources */,
+				9097B5CB28C9A93400A46DB8 /* CardHeaderView.swift in Sources */,
+				9097B5CD28C9D13300A46DB8 /* CardSectionView.swift in Sources */,
+				9097B5CF28C9D33A00A46DB8 /* CardType.swift in Sources */,
 				9097B5C128C8E70000A46DB8 /* MainCoordinator.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				9097B5C528C8E8C200A46DB8 /* CardDetailViewController.swift in Sources */,
-				9097B5B928C81A5200A46DB8 /* Coordinator.swift in Sources */,
+				9097B5B928C81A5200A46DB8 /* CoordinatorProtocol.swift in Sources */,
+				90E7FA7628CAD082003336B2 /* BaseTableViewCell.swift in Sources */,
+				90E7FA8428CDC1CB003336B2 /* CALayer+Extensions.swift in Sources */,
 				9097B5B628C7575500A46DB8 /* CardViewModel.swift in Sources */,
 				9097B5C328C8E8B200A46DB8 /* CardEnrollmentViewController.swift in Sources */,
 				9097B5C728C8EAB700A46DB8 /* CardViewModelProtocol.swift in Sources */,
+				906399CA28CEF587000ACBE3 /* Date+Extensions.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				9097B5C928C9A7E700A46DB8 /* TodoListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,14 +533,6 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		9097B5B228C7570D00A46DB8 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -476,11 +540,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9097B5AF28C756DD00A46DB8 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
-		};
-		9097B5B328C7570D00A46DB8 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9097B5B228C7570D00A46DB8 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

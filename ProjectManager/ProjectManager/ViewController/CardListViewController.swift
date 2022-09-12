@@ -98,14 +98,17 @@ final class CardListViewController: UIViewController, Coordinating {
             .forEach { dataSource in
                 guard let dataSource = dataSource else { return }
                 
-                updateTableView(dataSource, by: TodoListModel.sample)
+                updateTableView(dataSource,
+                                by: TodoListModel.sample)
             }
     }
     
     @objc private func plusButtonTapped(_ sender: UIBarButtonItem) {
-        coordinator?.eventOccurred(with: .plusButtonTapped)
+        coordinator?.presentEnrollmentViewController()
     }
 }
+
+// MARK: TableView DataSource
 
 private extension CardListViewController {
     typealias DataSource = UITableViewDiffableDataSource<Section, TodoListModel>
@@ -115,7 +118,8 @@ private extension CardListViewController {
         case main
     }
     
-    func updateTableView(_ dataSource: DataSource, by data: [TodoListModel]) {
+    func updateTableView(_ dataSource: DataSource,
+                         by data: [TodoListModel]) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(data)
