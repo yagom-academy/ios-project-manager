@@ -9,7 +9,6 @@ import UIKit
 
 class TodoFormViewController: UIViewController {
 
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -18,6 +17,22 @@ class TodoFormViewController: UIViewController {
         super.viewDidLoad()
 
         setUpShadow()
+    }
+
+    @IBAction func didTapCancelButton(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+
+    @IBAction func didTapDoneButton(_ sender: Any) {
+        let data = RealmDatabaseModel(
+            title: titleTextField.text ?? "",
+            description: descriptionTextView.text ?? "",
+            deadline: datePicker.date.description,
+            state: TaskState.todo
+        )
+
+        RealmDatabaseManager().createDatabase(data: data)
+        self.dismiss(animated: true)
     }
 
     private func setUpShadow() {

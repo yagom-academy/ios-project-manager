@@ -249,7 +249,16 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="TODO" id="nD3-Rn-Yx6">
-                                        <barButtonItem key="rightBarButtonItem" title="Done" id="ULQ-yI-wNv"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="41I-xR-qHg">
+                                            <connections>
+                                                <action selector="didTapCancelButton:" destination="rQ3-C8-5HZ" id="cuh-cA-DLz"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="ULQ-yI-wNv">
+                                            <connections>
+                                                <action selector="didTapDoneButton:" destination="rQ3-C8-5HZ" id="NS6-dq-Tyi"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -268,7 +277,7 @@
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="R4g-T1-AXp">
                                         <rect key="frame" x="0.0" y="52" width="674" height="523"/>
                                     </datePicker>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="할 일" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRE-xg-zGd">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRE-xg-zGd">
                                         <rect key="frame" x="0.0" y="577" width="674" height="273"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" systemColor="labelColor"/>
@@ -294,7 +303,6 @@
                     <connections>
                         <outlet property="datePicker" destination="R4g-T1-AXp" id="aU7-Az-str"/>
                         <outlet property="descriptionTextView" destination="bRE-xg-zGd" id="aJT-YL-DTK"/>
-                        <outlet property="navigationBar" destination="jab-ob-tMf" id="oMB-gr-9ce"/>
                         <outlet property="titleTextField" destination="aAv-dh-u3U" id="h9h-3u-uIb"/>
                     </connections>
                 </viewController>
