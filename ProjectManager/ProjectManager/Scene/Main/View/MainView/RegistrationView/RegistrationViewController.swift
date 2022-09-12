@@ -17,20 +17,16 @@ final class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        commonInit()
-    }
-    
-    // MARK: - Functions
-    
-    private func commonInit() {
         setupNavigationController()
         setupView()
         setupSubviews()
         setupConstraints()
     }
     
+    // MARK: - Functions
+    
     private func setupView() {
-        self.view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
     }
     
     private func setupSubviews() {

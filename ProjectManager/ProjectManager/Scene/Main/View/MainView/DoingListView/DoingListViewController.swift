@@ -65,11 +65,10 @@ final class DoingListViewController: UIViewController {
         setupSubviews()
         setupListTableViewLayout()
         setupDelegates()
-        indexLabel.layoutIfNeeded()
-        indexLabel.drawCircle()
+        setupIndexLabel()
+        setupLongTapGesture()
         mockToDoItemManger.loadData()
         updateIndexLabelData()
-        setupLongTapGesture()
     }
     
     // MARK: - Functions
@@ -111,15 +110,20 @@ final class DoingListViewController: UIViewController {
         todoItemTableView.dataSource = self
     }
     
-    private func updateIndexLabelData() {
-        indexLabel.text = mockToDoItemManger.count().description
+    private func setupIndexLabel() {
+        indexLabel.layoutIfNeeded()
+        indexLabel.drawCircle()
     }
     
     private func setupLongTapGesture() {
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(didcellTappedLong))
-        longTap.minimumPressDuration = 2
+        longTap.minimumPressDuration = 1.5
         
         todoItemTableView.addGestureRecognizer(longTap)
+    }
+    
+    private func updateIndexLabelData() {
+        indexLabel.text = mockToDoItemManger.count().description
     }
     
     // MARK: - objc Functions
