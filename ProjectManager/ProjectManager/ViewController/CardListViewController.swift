@@ -48,9 +48,14 @@ final class CardListViewController: UIViewController, Coordinating {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupDefault()
+    }
+    
+    private func setupDefault() {
         addSubViews()
         configureLayout()
         configureNavigationBarItem()
+        applyDelegatePermission()
         applyTableViewDataSources()
     }
     
@@ -62,6 +67,12 @@ final class CardListViewController: UIViewController, Coordinating {
         rootStackView.addArrangedSubview(todoCardSectionView)
         rootStackView.addArrangedSubview(doingCardSectionView)
         rootStackView.addArrangedSubview(doneCardSectionView)
+    }
+    
+    private func applyDelegatePermission() {
+        todoCardSectionView.tableView.delegate = self
+        doingCardSectionView.tableView.delegate = self
+        doneCardSectionView.tableView.delegate = self
     }
     
     private func configureLayout() {
@@ -126,5 +137,26 @@ private extension CardListViewController {
         })
         
         return dataSource
+    }
+}
+
+// MARK: TableView Action
+
+extension CardListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.coordinator?.presentDetailViewController(TodoListModel.sample[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: Const.delete) { (_, _, completionHandler: @escaping (Bool) -> Void) in
+            completionHandler(true)
+        }
+        
+        delete.backgroundColor = .systemRed
+
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }
