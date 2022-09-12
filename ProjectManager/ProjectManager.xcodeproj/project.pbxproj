@@ -14,6 +14,7 @@
 		7E967C0C28C9D41200970577 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0B28C9D41200970577 /* Persistence.swift */; };
 		7E967C0F28C9D41200970577 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0D28C9D41200970577 /* ProjectManager.xcdatamodeld */; };
 		7E967C1928C9D41200970577 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C1828C9D41200970577 /* ProjectManagerTests.swift */; };
+		7EF8466A28CF1EC0001475E1 /* TodoListEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF8466928CF1EC0001475E1 /* TodoListEditView.swift */; };
 		8FBFB27F28CF0A9000600C4B /* TodoListAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBFB27E28CF0A9000600C4B /* TodoListAddView.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		7E967C1428C9D41200970577 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E967C1828C9D41200970577 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
 		7E967C1E28C9D41200970577 /* ProjectManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EF8466928CF1EC0001475E1 /* TodoListEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListEditView.swift; sourceTree = "<group>"; };
 		8FBFB27E28CF0A9000600C4B /* TodoListAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListAddView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +99,7 @@
 			children = (
 				7E967C0228C9D41100970577 /* ProjectManagerApp.swift */,
 				7E967C0428C9D41100970577 /* TodoListMainView.swift */,
+				7EF8466928CF1EC0001475E1 /* TodoListEditView.swift */,
 				8FBFB27E28CF0A9000600C4B /* TodoListAddView.swift */,
 				7E967C0628C9D41200970577 /* Assets.xcassets */,
 				7E967C0B28C9D41200970577 /* Persistence.swift */,
@@ -276,6 +279,7 @@
 			files = (
 				7E967C0C28C9D41200970577 /* Persistence.swift in Sources */,
 				7E967C0F28C9D41200970577 /* ProjectManager.xcdatamodeld in Sources */,
+				7EF8466A28CF1EC0001475E1 /* TodoListEditView.swift in Sources */,
 				8FBFB27F28CF0A9000600C4B /* TodoListAddView.swift in Sources */,
 				7E967C0528C9D41100970577 /* TodoListMainView.swift in Sources */,
 				7E967C0328C9D41100970577 /* ProjectManagerApp.swift in Sources */,

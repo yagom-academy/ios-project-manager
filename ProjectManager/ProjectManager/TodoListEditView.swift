@@ -1,23 +1,23 @@
 //
-//  TodoListAddView.swift
+//  TodoListEditView.swift
 //  ProjectManager
 //
-//  Created by 재재, 언체인  on 2022/09/12.
+//  Created by 재재, 언체인 on 2022/09/12.
 //
 
 import SwiftUI
 
-struct TodoListAddView: View {
+struct TodoListEditView: View {
     var body: some View {
         VStack {
-            TodoListAddTitleView()
-            TodoListAddTitleTextView()
-            TodoListAddDatePickerView()
+            TodoListEditTitleView()
+            TodoListEditTitleTextView()
+            TodoListEditDatePickerView()
         }
     }
 }
 
-struct TodoListAddTitleView: View {
+struct TodoListEditTitleView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -25,7 +25,7 @@ struct TodoListAddTitleView: View {
             Button(action: {
                 dismiss()
             }, label: {
-                Text("Cancel")
+                Text("Edit")
                     .font(.title3)
             })
             .padding(10)
@@ -44,7 +44,7 @@ struct TodoListAddTitleView: View {
     }
 }
 
-struct TodoListAddTitleTextView: View {
+struct TodoListEditTitleTextView: View {
     @State var title: String = ""
 
     var body: some View {
@@ -56,7 +56,7 @@ struct TodoListAddTitleTextView: View {
     }
 }
 
-struct TodoListAddDatePickerView: View {
+struct TodoListEditDatePickerView: View {
     @State var date = Date()
 
     var body: some View {
@@ -68,7 +68,7 @@ struct TodoListAddDatePickerView: View {
     }
 }
 
-struct TodoListAddView_Previews: PreviewProvider {
+struct TodoListEditView_Previews: PreviewProvider {
     static var previews: some View {
         TodoListAddView()
     }
