@@ -186,7 +186,6 @@
                                                             <outlet property="deadlineLabel" destination="lbR-jH-3GB" id="jsO-cr-PqJ"/>
                                                             <outlet property="descriptionLabel" destination="vaJ-1a-PSk" id="pKF-89-Mh4"/>
                                                             <outlet property="titleLabel" destination="oiD-ea-n3B" id="NcA-z3-RYE"/>
-                                                            <segue destination="rQ3-C8-5HZ" kind="presentation" identifier="" id="t9V-gU-OxC"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -304,9 +303,6 @@
             <point key="canvasLocation" x="1485.944363103953" y="779.8828125"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="t9V-gU-OxC"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="circlebadge.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>

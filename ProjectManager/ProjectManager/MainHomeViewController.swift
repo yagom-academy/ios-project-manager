@@ -20,6 +20,8 @@ class MainHomeViewController: UIViewController {
     private var todoList = [TaskModel]()
     private var doingList = [TaskModel]()
     private var doneList = [TaskModel]()
+    private var selectedCell: TaskModel?
+    private var selectedIndex: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,15 @@ class MainHomeViewController: UIViewController {
         UIDevice.current.setValue(value, forKey: "orientation")
 
         setUpDataList()
+
+        let myGesture = UIPanGestureRecognizer(target: self, action: nil)
+        myGesture.delegate = self
+        self.todoTableView.addGestureRecognizer(myGesture)
+
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+        longPress.minimumPressDuration = 1
+        longPress.delegate = self
+        self.todoTableView.addGestureRecognizer(longPress)
 
         todoCount.setTitle(String(todoList.count), for: .normal)
         doingCount.setTitle(String(doingList.count), for: .normal)
@@ -41,6 +52,42 @@ class MainHomeViewController: UIViewController {
 
         doneTableView.dataSource = self
         doneTableView.delegate = self
+    }
+
+    @objc func handleLongPressGesture(recognizer: UITapGestureRecognizer) {
+        let location = recognizer.location(in: recognizer.view)
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let doingButton = UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
+            guard let self = self,
+            let dataIndex = self.selectedIndex,
+            var taskData = self.selectedCell
+            else { return }
+
+            taskData.taskState = TaskState.doing
+            self.todoList.remove(at: dataIndex)
+            self.doingList.append(taskData)
+            self.databaseManager.updateDatabase(data: taskData, id: taskData.id ?? UUID())
+        }
+        let doneButton = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
+            guard let self = self,
+            let dataIndex = self.selectedIndex,
+            var taskData = self.selectedCell
+            else { return }
+
+            taskData.taskState = TaskState.done
+            self.todoList.remove(at: dataIndex)
+            self.doneList.append(taskData)
+            self.databaseManager.updateDatabase(data: taskData, id: taskData.id ?? UUID())
+        }
+
+        actionSheet.addAction(doingButton)
+        actionSheet.addAction(doneButton)
+
+        let popover = actionSheet.popoverPresentationController
+        popover?.sourceView = view
+        popover?.sourceRect = CGRect(x: location.x, y: location.y + 60 , width: 60, height: 60)
+
+        present(actionSheet, animated: true)
     }
 
     private func setUpDataList() {
@@ -93,5 +140,26 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.deadlineLabel.text = data.taskDeadline
             return cell
         }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == todoTableView {
+            selectedCell = todoList[indexPath.row]
+        } else if tableView == doingTableView {
+            selectedCell = doingList[indexPath.row]
+        } else {
+            selectedCell = doneList[indexPath.row]
+        }
+
+        selectedIndex = indexPath.row
+    }
+}
+
+extension MainHomeViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
+        return true
     }
 }
