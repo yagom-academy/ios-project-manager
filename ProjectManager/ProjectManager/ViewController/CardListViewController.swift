@@ -109,7 +109,7 @@ private extension CardListViewController {
     
     func configureDataSource(with tableView: UITableView) -> DataSource? {
         let dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, model -> UITableViewCell? in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CardListTableViewCell.identifier,
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CardListTableViewCell.reuseIdentifier,
                                                            for: indexPath) as? CardListTableViewCell else {
                 return UITableViewCell()
             }
