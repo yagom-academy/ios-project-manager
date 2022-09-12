@@ -68,7 +68,7 @@ final class WorkTableViewCell: UITableViewCell {
     
     private func commonInit() {
         configureView()
-        configureViewLayouts()
+        configureMainStackViewLayouts()
     }
     
     private func configureView() {
@@ -76,7 +76,7 @@ final class WorkTableViewCell: UITableViewCell {
         [titleLabel, bodyLabel, dateLabel].forEach { mainStackView.addArrangedSubview($0) }
     }
     
-    private func configureViewLayouts() {
+    private func configureMainStackViewLayouts() {
         NSLayoutConstraint.activate(
             [
                 mainStackView.topAnchor

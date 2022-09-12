@@ -15,7 +15,7 @@ private enum Design {
 
 final class ProjectManagerViewController: UIViewController {
     private var dataManager = WorkDataManager().provider
-    private var items: WorkDTO?
+    private var items: [WorkDTO]?
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -71,7 +71,11 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     @objc func rightBarButtonDidTap() {
-        print("rightBarButtonDidTap")
+        let projectCreateViewController = ProjectCreateViewController()
+        let navigationController = UINavigationController(rootViewController: projectCreateViewController)
+        
+        navigationController.modalPresentationStyle = .formSheet
+        present(navigationController, animated: true)
     }
     
     private func configureTableViews() {
@@ -129,18 +133,18 @@ extension ProjectManagerViewController: UITableViewDataSource {
         
         switch tableView {
         case todoTableView:
-            items = dataManager.read(workState: .todo)[indexPath.row]
+            items = dataManager.read(workState: .todo)
         case doingTableView:
-            items = dataManager.read(workState: .doing)[indexPath.row]
+            items = dataManager.read(workState: .doing)
         case doneTabelView:
-            items = dataManager.read(workState: .done)[indexPath.row]
+            items = dataManager.read(workState: .done)
         default:
             break
         }
         
-        cell.setItems(title: items?.title,
-                      body: items?.body,
-                      date: items?.date.description)
+        cell.setItems(title: items?[indexPath.row].title,
+                      body: items?[indexPath.row].body,
+                      date: items?[indexPath.row].date.description)
         
         return cell
     }
@@ -168,6 +172,12 @@ extension ProjectManagerViewController: UITableViewDataSource {
 
 extension ProjectManagerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        let projectCreateViewController = ProjectCreateViewController()
+        projectCreateViewController.item = items?[indexPath.row]
+        
+        let navigationController = UINavigationController(rootViewController: projectCreateViewController)
+        navigationController.modalPresentationStyle = .formSheet
+        
+        present(navigationController, animated: true)
     }
 }

@@ -11,6 +11,7 @@ private enum Design {
     static let mainStackViewSpacing: CGFloat = 8
     static let mainStackViewLeadingAnchor: CGFloat = 8
     static let countLabelSize: CGFloat = 25
+    static let countLabelBorderWidth: CGFloat = 1
 }
 
 final class TableHeaderView: UIView {
@@ -40,7 +41,7 @@ final class TableHeaderView: UIView {
         label.widthAnchor.constraint(equalToConstant: Design.countLabelSize).isActive = true
         label.font = .preferredFont(forTextStyle: .title3)
         label.layer.backgroundColor = UIColor.black.cgColor
-        label.layer.borderWidth = 1.0
+        label.layer.borderWidth = Design.countLabelBorderWidth
         label.layer.cornerRadius = Design.countLabelSize / 2
         label.textAlignment = .center
         label.textColor = .white
@@ -65,6 +66,7 @@ final class TableHeaderView: UIView {
     
     private func commonInit() {
         configureView()
+        configureMainStackViewLayouts()
     }
     
     private func configureView() {
@@ -73,19 +75,9 @@ final class TableHeaderView: UIView {
         [titleLabel, countLabel].forEach { mainStackView.addArrangedSubview($0) }
     }
     
-    private func configureStactViewLayout() {
-        NSLayoutConstraint.activate(
-            [
-                mainStackView.topAnchor
-                    .constraint(equalTo: self.topAnchor),
-                mainStackView.bottomAnchor
-                    .constraint(equalTo: self.bottomAnchor),
-                mainStackView.leadingAnchor
-                    .constraint(equalTo: self.leadingAnchor,
-                                constant: Design.mainStackViewLeadingAnchor),
-                mainStackView.trailingAnchor
-                    .constraint(equalTo: self.trailingAnchor)
-            ]
-        )
+    private func configureMainStackViewLayouts() {
+        mainStackView.leadingAnchor
+            .constraint(equalTo: self.leadingAnchor,
+                        constant: Design.mainStackViewLeadingAnchor).isActive = true
     }
 }
