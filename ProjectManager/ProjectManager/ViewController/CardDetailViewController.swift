@@ -46,6 +46,8 @@ final class CardDetailViewController: UIViewController {
     
     private func setupDefault() {
         self.view.addSubview(cardModalView)
+
+        cardModalView.descriptionTextView.delegate = self
         
         cardModalView.titleTextField.isUserInteractionEnabled = false
         cardModalView.descriptionTextView.isEditable = false
@@ -97,5 +99,17 @@ final class CardDetailViewController: UIViewController {
         self.dismiss(animated: true)
     }
 }
+
+// MARK: - UITextViewDelegate
+
+extension CardDetailViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView,
+                  shouldChangeTextIn range: NSRange,
+                  replacementText text: String) -> Bool {
+        guard textView.text.count < Const.limitedTextAmount else {
+            return false
+        }
+        
+        return true
     }
 }
