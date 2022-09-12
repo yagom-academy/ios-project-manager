@@ -32,13 +32,38 @@ class RealmDatabaseManager: DatabaseManager {
             taskModel.taskTitle = realmDatabaseModel.taskTitle
             taskModel.taskDescription = realmDatabaseModel.taskDescription
             taskModel.taskDeadline = realmDatabaseModel.taskDeadline
+            taskModel.taskState = realmDatabaseModel.taskState
+            taskModel.id = realmDatabaseModel.id
             database.append(taskModel)
         }
 
         return database
     }
 
-    func updateDatabase() { }
+    func updateDatabase(data: TaskModel, id: UUID) {
+        guard let realm = realm else {
+            return
+        }
+
+        let relamData = realm.objects(RealmDatabaseModel.self).where {
+            $0.id == id
+        }.first
+
+        guard let searchData = relamData else {
+            return
+        }
+
+        do {
+            try realm.write({
+                searchData.taskTitle = data.taskTitle
+                searchData.taskDescription = data.taskDescription
+                searchData.taskDeadline = data.taskDeadline
+                searchData.taskState = data.taskState
+            })
+        } catch {
+            print("업데이트 실패")
+        }
+    }
 
     func deleteDatabase() {
         guard let realm = realm,

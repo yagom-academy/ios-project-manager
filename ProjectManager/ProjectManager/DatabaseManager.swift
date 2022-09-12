@@ -10,6 +10,6 @@ import RealmSwift
 protocol DatabaseManager {
     func createDatabase(data: Object)
     func readDatabase() -> [TaskModel]
-    func updateDatabase()
+    func updateDatabase(data: TaskModel, id: UUID)
     func deleteDatabase()
 }

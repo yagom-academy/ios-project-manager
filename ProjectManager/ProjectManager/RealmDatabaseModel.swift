@@ -11,11 +11,14 @@ class RealmDatabaseModel: Object {
     @Persisted var taskTitle: String = ""
     @Persisted var taskDescription: String = ""
     @Persisted var taskDeadline: String = ""
+    @Persisted var taskState: String = TaskState.none
+    @Persisted var id: UUID = UUID()
 
-    convenience init(title: String, description: String, deadline: String) {
+    convenience init(title: String, description: String, deadline: String, state: String) {
         self.init()
         self.taskTitle = title
         self.taskDescription = description
         self.taskDeadline = deadline
+        self.taskState = state
     }
 }
