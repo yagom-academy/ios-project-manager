@@ -22,6 +22,8 @@ struct TodoListMainView: View {
     }
 
     struct ProjectTitleView: View {
+        @State private var showModal = false
+
         var body: some View {
             ZStack {
                 HStack {
@@ -33,9 +35,12 @@ struct TodoListMainView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        print("+ 눌림")
+                        self.showModal = true
                     }, label: {
                         Image(systemName: "plus")
+                    })
+                    .sheet(isPresented: self.$showModal, content: {
+                        TodoListAddView()
                     })
                     .font(.title)
                     .padding(10)

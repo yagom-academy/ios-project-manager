@@ -68,6 +68,28 @@ struct TodoListAddDatePickerView: View {
     }
 }
 
+struct DetailTextView: View {
+    @State var textString: String = ""
+    @State var placeHolder: String = "내용을 입력하세요(글자수는 1000자로 제한합니다"
+
+    var body: some View {
+
+        ZStack {
+            if self.textString.isEmpty {
+                TextEditor(text: $placeHolder)
+                    .font(.body)
+                    .disabled(true)
+                    .padding()
+            }
+            TextEditor(text: $textString)
+                .font(.body)
+                .opacity(self.textString.isEmpty ? 0.25 : 1)
+                .padding()
+                .disableAutocorrection(true)
+        }
+    }
+}
+
 struct TodoListAddView_Previews: PreviewProvider {
     static var previews: some View {
         TodoListAddView()
