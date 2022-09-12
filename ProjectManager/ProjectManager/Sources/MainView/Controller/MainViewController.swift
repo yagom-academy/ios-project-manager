@@ -27,7 +27,6 @@ final class MainViewController: UIViewController {
             mainView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        print("?")
     }
 }
 

@@ -12,6 +12,7 @@
 		4518E47228CDCA19005CB548 /* MainViewCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4518E47128CDCA19005CB548 /* MainViewCommand.swift */; };
 		457D22D128CE8E570000DE07 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D22D028CE8E570000DE07 /* MainView.swift */; };
 		457D22D328CE8EBB0000DE07 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D22D228CE8EBB0000DE07 /* ListView.swift */; };
+		457D22DA28CF6C1A0000DE07 /* ProjectTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D22D928CF6C1A0000DE07 /* ProjectTask.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -22,6 +23,7 @@
 		4518E47128CDCA19005CB548 /* MainViewCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCommand.swift; sourceTree = "<group>"; };
 		457D22D028CE8E570000DE07 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		457D22D228CE8EBB0000DE07 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		457D22D928CF6C1A0000DE07 /* ProjectTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTask.swift; sourceTree = "<group>"; };
 		45FFFD4928CDD0CD00B1FA70 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,9 +92,34 @@
 		4518E47428CDCE48005CB548 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				457D22D728CF6BC30000DE07 /* Common */,
 				4518E46D28CDC9A3005CB548 /* MainView */,
+				457D22D628CF6BA50000DE07 /* TodoAddView */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		457D22D628CF6BA50000DE07 /* TodoAddView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TodoAddView;
+			sourceTree = "<group>";
+		};
+		457D22D728CF6BC30000DE07 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				457D22D828CF6BC90000DE07 /* Model */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		457D22D828CF6BC90000DE07 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				457D22D928CF6C1A0000DE07 /* ProjectTask.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -202,6 +229,7 @@
 				457D22D328CE8EBB0000DE07 /* ListView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				457D22D128CE8E570000DE07 /* MainView.swift in Sources */,
+				457D22DA28CF6C1A0000DE07 /* ProjectTask.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
