@@ -186,6 +186,7 @@
                                                             <outlet property="deadlineLabel" destination="lbR-jH-3GB" id="jsO-cr-PqJ"/>
                                                             <outlet property="descriptionLabel" destination="vaJ-1a-PSk" id="pKF-89-Mh4"/>
                                                             <outlet property="titleLabel" destination="oiD-ea-n3B" id="NcA-z3-RYE"/>
+                                                            <segue destination="rQ3-C8-5HZ" kind="presentation" identifier="" id="t9V-gU-OxC"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -215,7 +216,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Project Manager" id="wAW-FZ-WqI">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="EhE-tH-R89"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="EhE-tH-R89">
+                            <connections>
+                                <segue destination="rQ3-C8-5HZ" kind="presentation" identifier="" id="TvG-j8-7nc"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="doingCount" destination="ohN-oq-OCK" id="1N0-ql-e95"/>
@@ -230,7 +235,78 @@
             </objects>
             <point key="canvasLocation" x="806.88140556368955" y="779.8828125"/>
         </scene>
+        <!--Todo Form View Controller-->
+        <scene sceneID="xar-Jm-XNP">
+            <objects>
+                <viewController id="rQ3-C8-5HZ" customClass="TodoFormViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qjz-Dt-Yqe">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="944"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jab-ob-tMf">
+                                <rect key="frame" x="0.0" y="0.0" width="704" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="m0Q-cH-GgF"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="TODO" id="nD3-Rn-Yx6">
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="ULQ-yI-wNv"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="qZr-Rf-2wn">
+                                <rect key="frame" x="15" y="64" width="674" height="850"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aAv-dh-u3U">
+                                        <rect key="frame" x="0.0" y="0.0" width="674" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="aed-sX-ftN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="R4g-T1-AXp">
+                                        <rect key="frame" x="0.0" y="52" width="674" height="523"/>
+                                    </datePicker>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="할 일" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRE-xg-zGd">
+                                        <rect key="frame" x="0.0" y="577" width="674" height="273"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4Iw-vT-7kE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jab-ob-tMf" firstAttribute="centerX" secondItem="qZr-Rf-2wn" secondAttribute="centerX" id="JGB-Eo-cgp"/>
+                            <constraint firstItem="jab-ob-tMf" firstAttribute="top" secondItem="4Iw-vT-7kE" secondAttribute="top" id="OYg-DE-D3g"/>
+                            <constraint firstItem="qZr-Rf-2wn" firstAttribute="leading" secondItem="4Iw-vT-7kE" secondAttribute="leading" constant="15" id="P9m-sz-ynC"/>
+                            <constraint firstItem="jab-ob-tMf" firstAttribute="leading" secondItem="Qjz-Dt-Yqe" secondAttribute="leading" id="YHr-4t-GBQ"/>
+                            <constraint firstItem="4Iw-vT-7kE" firstAttribute="trailing" secondItem="qZr-Rf-2wn" secondAttribute="trailing" constant="15" id="aQ0-Jg-eZy"/>
+                            <constraint firstItem="4Iw-vT-7kE" firstAttribute="bottom" secondItem="qZr-Rf-2wn" secondAttribute="bottom" constant="30" id="h3Z-8b-0np"/>
+                            <constraint firstItem="qZr-Rf-2wn" firstAttribute="top" secondItem="jab-ob-tMf" secondAttribute="bottom" constant="20" id="wfO-0K-YB3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="G7M-Pp-3fU"/>
+                    <connections>
+                        <outlet property="datePicker" destination="R4g-T1-AXp" id="aU7-Az-str"/>
+                        <outlet property="descriptionTextView" destination="bRE-xg-zGd" id="aJT-YL-DTK"/>
+                        <outlet property="navigationBar" destination="jab-ob-tMf" id="oMB-gr-9ce"/>
+                        <outlet property="titleTextField" destination="aAv-dh-u3U" id="h9h-3u-uIb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k2p-4T-AOa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1485.944363103953" y="779.8828125"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="t9V-gU-OxC"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="circlebadge.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>

@@ -11,6 +11,7 @@
 		05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */; };
 		05A5774828CF0AE600E05133 /* RealmDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774728CF0AE600E05133 /* RealmDatabaseManager.swift */; };
 		05A5774A28CF13A300E05133 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774928CF13A300E05133 /* TaskModel.swift */; };
+		05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774B28CF807A00E05133 /* TodoFormViewController.swift */; };
 		05BAA00F28CE99680009BB06 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 05BAA00E28CE99680009BB06 /* .swiftlint.yml */; };
 		05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */; };
 		7E25D6CB9B7CC70581D3BEAF /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */; };
@@ -27,6 +28,7 @@
 		05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabaseModel.swift; sourceTree = "<group>"; };
 		05A5774728CF0AE600E05133 /* RealmDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabaseManager.swift; sourceTree = "<group>"; };
 		05A5774928CF13A300E05133 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		05A5774B28CF807A00E05133 /* TodoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormViewController.swift; sourceTree = "<group>"; };
 		05BAA00E28CE99680009BB06 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +107,7 @@
 				05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */,
 				05A5774728CF0AE600E05133 /* RealmDatabaseManager.swift */,
 				05A5774928CF13A300E05133 /* TaskModel.swift */,
+				05A5774B28CF807A00E05133 /* TodoFormViewController.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainHomeViewController.swift in Sources */,
 				05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */,
 				05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */,
