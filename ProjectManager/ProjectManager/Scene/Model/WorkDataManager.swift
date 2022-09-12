@@ -8,5 +8,5 @@
 import Foundation
 
 struct WorkDataManager {
-    let provider: ProjectManagerDataProtocol = WorkDAO()
+    var provider = WorkDAO()
 }

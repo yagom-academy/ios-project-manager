@@ -12,8 +12,10 @@
 		37038F8828C9EC46008D3921 /* WorkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8728C9EC46008D3921 /* WorkDTO.swift */; };
 		37038F8A28C9EC83008D3921 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8928C9EC83008D3921 /* WorkState.swift */; };
 		37038F8F28C9EE8F008D3921 /* WorkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8E28C9EE8F008D3921 /* WorkDataManager.swift */; };
-		37038F9428CA0F45008D3921 /* WorkDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9328CA0F45008D3921 /* WorkDAO.swift */; };
+		37038F9428CA0F45008D3921 /* ProjectDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9328CA0F45008D3921 /* ProjectDAO.swift */; };
 		37038F9628CA1606008D3921 /* ProjectManagerDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */; };
+		37038F9928CA1FBD008D3921 /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9828CA1FBD008D3921 /* WorkTableViewCell.swift */; };
+		37038F9E28CA3241008D3921 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9D28CA3241008D3921 /* TableHeaderView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -26,8 +28,10 @@
 		37038F8728C9EC46008D3921 /* WorkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDTO.swift; sourceTree = "<group>"; };
 		37038F8928C9EC83008D3921 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
 		37038F8E28C9EE8F008D3921 /* WorkDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDataManager.swift; sourceTree = "<group>"; };
-		37038F9328CA0F45008D3921 /* WorkDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDAO.swift; sourceTree = "<group>"; };
+		37038F9328CA0F45008D3921 /* ProjectDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDAO.swift; sourceTree = "<group>"; };
 		37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerDataProtocol.swift; sourceTree = "<group>"; };
+		37038F9828CA1FBD008D3921 /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
+		37038F9D28CA3241008D3921 /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				37038F8628C9EC21008D3921 /* Model */,
+				37038F9728CA1F84008D3921 /* View */,
 				37038F8528C8BA08008D3921 /* Controller */,
 			);
 			path = Scene;
@@ -79,12 +84,21 @@
 			isa = PBXGroup;
 			children = (
 				37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */,
-				37038F9328CA0F45008D3921 /* WorkDAO.swift */,
+				37038F9328CA0F45008D3921 /* ProjectDAO.swift */,
 				37038F8728C9EC46008D3921 /* WorkDTO.swift */,
 				37038F8928C9EC83008D3921 /* WorkState.swift */,
 				37038F8E28C9EE8F008D3921 /* WorkDataManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		37038F9728CA1F84008D3921 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37038F9828CA1FBD008D3921 /* WorkTableViewCell.swift */,
+				37038F9D28CA3241008D3921 /* TableHeaderView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -205,14 +219,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37038F9E28CA3241008D3921 /* TableHeaderView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				37038F9628CA1606008D3921 /* ProjectManagerDataProtocol.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				37038F8F28C9EE8F008D3921 /* WorkDataManager.swift in Sources */,
+				37038F9928CA1FBD008D3921 /* WorkTableViewCell.swift in Sources */,
 				37038F8828C9EC46008D3921 /* WorkDTO.swift in Sources */,
 				37038F8A28C9EC83008D3921 /* WorkState.swift in Sources */,
 				37038F8328C8B9E3008D3921 /* ProjectManagerViewController.swift in Sources */,
-				37038F9428CA0F45008D3921 /* WorkDAO.swift in Sources */,
+				37038F9428CA0F45008D3921 /* ProjectDAO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
