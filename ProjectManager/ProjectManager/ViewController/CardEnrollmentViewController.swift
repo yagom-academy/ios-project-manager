@@ -41,6 +41,7 @@ final class CardEnrollmentViewController: UIViewController {
     
     private func setupDefault() {
         self.view.addSubview(cardModalView)
+        self.cardModalView.descriptionTextView.delegate = self
     }
     
     private func configureLayout() {
@@ -78,5 +79,17 @@ final class CardEnrollmentViewController: UIViewController {
         self.dismiss(animated: true)
     }
 }
+
+// MARK: - UITextViewDelegate
+
+extension CardEnrollmentViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView,
+                  shouldChangeTextIn range: NSRange,
+                  replacementText text: String) -> Bool {
+        guard textView.text.count < Const.limitedTextAmount else {
+            return false
+        }
+        
+        return true
     }
 }
