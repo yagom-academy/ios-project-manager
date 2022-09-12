@@ -133,6 +133,23 @@ extension CardModalView {
             object: nil)
     }
     
+    private func congifureToolBar() {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace,
+                                            target: nil,
+                                            action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done,
+                                         target: self,
+                                         action: #selector(doneButtonDidTapped))
+        
+        toolBar.setItems([flexibleSpace, doneButton],
+                         animated: false)
+        
+        titleTextField.inputAccessoryView = toolBar
+        descriptionTextView.inputAccessoryView = toolBar
+    }
+    
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
@@ -153,5 +170,10 @@ extension CardModalView {
         let contentInset = UIEdgeInsets.zero
         rootScrollView.contentInset = contentInset
         rootScrollView.scrollIndicatorInsets = contentInset
+    }
+    
+    @objc private func doneButtonDidTapped() {
+        titleTextField.resignFirstResponder()
+        descriptionTextView.resignFirstResponder()
     }
 }
