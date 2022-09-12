@@ -11,8 +11,9 @@ protocol CoordinatorProtocol: AnyObject {
     var navigationController: UINavigationController? { get set }
     var children: [CoordinatorProtocol] { get set }
     
-    func eventOccurred(with type: Event)
     func start()
+    func presentEnrollmentViewController()
+    func presentDetailViewController(_ model: TodoListModel)
 }
 
 enum Event {
