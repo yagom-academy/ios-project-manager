@@ -13,6 +13,7 @@ struct TodoListAddView: View {
             TodoListAddTitleView()
             TodoListAddTitleTextView()
             TodoListAddDatePickerView()
+            TodoListAddDetailTextView()
         }
     }
 }
@@ -68,7 +69,7 @@ struct TodoListAddDatePickerView: View {
     }
 }
 
-struct DetailTextView: View {
+struct TodoListAddDetailTextView: View {
     @State var textString: String = ""
     @State var placeHolder: String = "내용을 입력하세요(글자수는 1000자로 제한합니다"
 
