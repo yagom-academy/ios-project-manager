@@ -1,5 +1,5 @@
 //
-//  DoneListTableViewController.swift
+//  DoingListTableViewController.swift
 //  ProjectManager
 //
 //  Created by brad, bard on 2022/09/07.
@@ -7,12 +7,11 @@
 
 import UIKit
 
-final class DoneListTableViewController: UIViewController {
+final class DoingListViewController: UIViewController {
     
     // MARK: - Properties
-    
     private let mockToDoItemManger = MockToDoItemManager()
-    
+        
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +32,7 @@ final class DoneListTableViewController: UIViewController {
     private let titleLabel: UILabel = {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
-        uiLabel.text = "DONE"
+        uiLabel.text = "DOING"
         uiLabel.font = .preferredFont(forTextStyle: .title1)
         
         return uiLabel
@@ -42,7 +41,6 @@ final class DoneListTableViewController: UIViewController {
     private let indexLabel: UILabel = {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
-        uiLabel.text = "0"
         uiLabel.textAlignment = .center
         uiLabel.textColor = .white
         uiLabel.font = .preferredFont(forTextStyle: .title3)
@@ -53,7 +51,7 @@ final class DoneListTableViewController: UIViewController {
     
     private let todoItemTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(DoneListTableViewCell.self, forCellReuseIdentifier: DoneListTableViewCell.identifier)
+        tableView.register(DoingListTableViewCell.self, forCellReuseIdentifier: DoingListTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray5
         
@@ -71,6 +69,7 @@ final class DoneListTableViewController: UIViewController {
         indexLabel.drawCircle()
         mockToDoItemManger.loadData()
         updateIndexLabelData()
+        setupLongTapGesture()
     }
     
     // MARK: - Functions
@@ -115,20 +114,58 @@ final class DoneListTableViewController: UIViewController {
     private func updateIndexLabelData() {
         indexLabel.text = mockToDoItemManger.count().description
     }
+    
+    private func setupLongTapGesture() {
+        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(didcellTappedLong))
+        longTap.minimumPressDuration = 2
+        
+        todoItemTableView.addGestureRecognizer(longTap)
+    }
+    
+    // MARK: - objc Functions
+    
+    @objc private func didcellTappedLong(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        guard gestureRecognizer.state == .began else { return }
+        
+        let alertController = UIAlertController()
+        
+        let doingAlertAction = UIAlertAction(title: "Move to DOING", style: .default) { _ in
+
+        }
+        let doneAlertAction = UIAlertAction(title: "Move to DONE", style: .default) { _ in
+            
+        }
+        
+        alertController.addAction(doingAlertAction)
+        alertController.addAction(doneAlertAction)
+        
+        let touchPoint = gestureRecognizer.location(in: todoItemTableView)
+        
+        guard let indexPath = todoItemTableView.indexPathForRow(at: touchPoint),
+              let popoverController = alertController.popoverPresentationController
+        else { return }
+        
+        let cell = todoItemTableView.cellForRow(at: indexPath)
+        
+        popoverController.sourceView = cell
+        popoverController.sourceRect = cell?.bounds ?? CGRect(x: 0, y: 0, width: 50, height: 50)
+        
+        parent?.present(alertController, animated: true)
+    }
 }
 
 // MARK: - Extentions
 
-extension DoneListTableViewController: UITableViewDelegate, UITableViewDataSource {
+extension DoingListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return mockToDoItemManger.count()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DoneListTableViewCell.identifier, for: indexPath) as? DoneListTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DoingListTableViewCell.identifier, for: indexPath) as? DoingListTableViewCell
         else { return UITableViewCell() }
-              
+             
         cell.configure(data: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem() )
         
         return cell
@@ -137,12 +174,13 @@ extension DoneListTableViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let doneListDetailViewController = DoneListDetailViewController()
-        let navigationController = UINavigationController(rootViewController: doneListDetailViewController)
+        let doingListDetailViewController = DoingListDetailViewController()
+        let navigationController = UINavigationController(rootViewController: doingListDetailViewController)
         
-        doneListDetailViewController.modalPresentationStyle = .formSheet
-        doneListDetailViewController.loadData(of: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
-        view.window?.rootViewController?.present(navigationController, animated: true)
+        doingListDetailViewController.modalPresentationStyle = .formSheet
+        doingListDetailViewController.loadData(of: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
+        
+        present(navigationController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

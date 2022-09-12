@@ -70,6 +70,7 @@ final class ToDoListViewController: UIViewController {
         indexLabel.drawCircle()
         mockToDoItemManger.loadData()
         updateIndexLabelData()
+        setupLongTapGesture()
     }
     
     // MARK: - Functions
@@ -114,6 +115,44 @@ final class ToDoListViewController: UIViewController {
     private func updateIndexLabelData() {
         indexLabel.text = mockToDoItemManger.count().description
     }
+    
+    private func setupLongTapGesture() {
+        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(didcellTappedLong))
+        longTap.minimumPressDuration = 2
+        
+        todoItemTableView.addGestureRecognizer(longTap)
+    }
+    
+    // MARK: - objc Functions
+    
+    @objc private func didcellTappedLong(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        guard gestureRecognizer.state == .began else { return }
+        
+        let alertController = UIAlertController()
+        
+        let doingAlertAction = UIAlertAction(title: "Move to DOING", style: .default) { _ in
+
+        }
+        let doneAlertAction = UIAlertAction(title: "Move to DONE", style: .default) { _ in
+            
+        }
+        
+        alertController.addAction(doingAlertAction)
+        alertController.addAction(doneAlertAction)
+        
+        let touchPoint = gestureRecognizer.location(in: todoItemTableView)
+        
+        guard let indexPath = todoItemTableView.indexPathForRow(at: touchPoint),
+              let popoverController = alertController.popoverPresentationController
+        else { return }
+        
+        let cell = todoItemTableView.cellForRow(at: indexPath)
+        
+        popoverController.sourceView = cell
+        popoverController.sourceRect = cell?.bounds ?? CGRect(x: 0, y: 0, width: 50, height: 50)
+        
+        parent?.present(alertController, animated: true)
+    }
 }
 
 // MARK: - Extentions
@@ -142,7 +181,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         toDoListDetailViewController.modalPresentationStyle = .formSheet
         toDoListDetailViewController.loadData(of: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
 
-        view.window?.rootViewController?.present(navigationController, animated: true)        
+        present(navigationController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
