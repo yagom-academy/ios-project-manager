@@ -7,34 +7,8 @@
 
 import Foundation
 
-struct ProjectDAO: ProjectManagerDataProtocol {
-    private var data = [
-        ProjectDTO(id: UUID().description,
-                title: "test",
-                body: "testBody",
-                date: Date(),
-                workState: .todo),
-        ProjectDTO(id: UUID().description,
-                title: "test",
-                body: "testBody",
-                date: Date(),
-                workState: .todo),
-        ProjectDTO(id: UUID().description,
-                title: "test",
-                body: "testBody",
-                date: Date(),
-                workState: .todo),
-        ProjectDTO(id: UUID().description,
-                title: "test",
-                body: "testBody",
-                date: Date(),
-                workState: .done),
-        ProjectDTO(id: UUID().description,
-                title: "test",
-                body: "testBody",
-                date: Date(),
-                workState: .done)
-    ]
+struct ProjectDAO {
+    private var data = [ProjectDTO]()
     
     mutating func append(work: ProjectDTO) {
         data.append(work)

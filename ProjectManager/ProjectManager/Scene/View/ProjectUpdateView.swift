@@ -15,6 +15,7 @@ private enum Design {
     static let mainStackViewTrailngAnchor: CGFloat = -8
     static let mainStackViewLeadingAnchor: CGFloat = 8
     static let titleTextFieldPlaceholder = " Title"
+    static let defaultText = ""
 }
 
 final class ProjectUpdateView: UIView {
@@ -71,6 +72,15 @@ final class ProjectUpdateView: UIView {
     func configureItem(title: String?, body: String?) {
         titleTextField.text = title
         bodyTextView.text = body
+    }
+    
+    func makeItems() -> (textArray: [String], date: Date) {
+        let textArray: [String] = [
+            titleTextField.text ?? Design.defaultText,
+            bodyTextView.text
+        ]
+        
+        return (textArray, datePicker.date)
     }
     
     private func commonInit() {

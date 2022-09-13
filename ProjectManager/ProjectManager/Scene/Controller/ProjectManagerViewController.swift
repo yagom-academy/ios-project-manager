@@ -9,10 +9,11 @@ import UIKit
 
 private enum Design {
     static let mainStackViewSpacing: CGFloat = 8
-    static let navigationTitle: String = "ProjectManager"
+    static let navigationTitle: String = "PROJECT MANAGER"
     static let tableViewdefaultRow = 0
     static let longPressGestureMinimumPressDuration = 1.0
     static let alertControllerDefaultTitle = ""
+    static let deleteSwipeActionTitle = "DELETE"
 }
 
 final class ProjectManagerViewController: UIViewController {
@@ -109,20 +110,20 @@ final class ProjectManagerViewController: UIViewController {
         
         switch state {
         case .todo:
-            firstActionHandler = { [weak self] _ in self?.updateData(item: item,
-                                                                     state: .doing) }
-            secondActionHandler = { [weak self] _ in self?.updateData(item: item,
-                                                                      state: .done) }
+            firstActionHandler = { [weak self] _ in self?.changeState(item: item,
+                                                                     to: .doing) }
+            secondActionHandler = { [weak self] _ in self?.changeState(item: item,
+                                                                      to: .done) }
         case .doing:
-            firstActionHandler = { [weak self] _ in self?.updateData(item: item,
-                                                                     state: .todo) }
-            secondActionHandler = { [weak self] _ in self?.updateData(item: item,
-                                                                      state: .done) }
+            firstActionHandler = { [weak self] _ in self?.changeState(item: item,
+                                                                     to: .todo) }
+            secondActionHandler = { [weak self] _ in self?.changeState(item: item,
+                                                                      to: .done) }
         case .done:
-            firstActionHandler = { [weak self] _ in self?.updateData(item: item,
-                                                                     state: .todo) }
-            secondActionHandler = { [weak self] _ in self?.updateData(item: item,
-                                                                      state: .doing) }
+            firstActionHandler = { [weak self] _ in self?.changeState(item: item,
+                                                                     to: .todo) }
+            secondActionHandler = { [weak self] _ in self?.changeState(item: item,
+                                                                      to: .doing) }
         }
         
         let firstAction = UIAlertAction(title: state.actionTitles.first,
@@ -135,7 +136,7 @@ final class ProjectManagerViewController: UIViewController {
         return [firstAction, secondAction]
     }
     
-    private func updateData(item: ProjectDTO, state: ProjectState) {
+    private func changeState(item: ProjectDTO, to state: ProjectState) {
         let newItem = ProjectDTO(id: item.id,
                               title: item.title,
                               body: item.body,
@@ -144,9 +145,7 @@ final class ProjectManagerViewController: UIViewController {
         
         dataManager.update(id: item.id, work: newItem)
         
-        todoTableView.reloadData()
-        doneTabelView.reloadData()
-        doingTableView.reloadData()
+        tableViewsReloadData(todoTableView, doneTabelView, doingTableView)
     }
     
     private func configureNavigationItems() {
@@ -160,10 +159,15 @@ final class ProjectManagerViewController: UIViewController {
     
     @objc private func rightBarButtonDidTap() {
         let projectCreateViewController = ProjectUpdateViewController()
-        let navigationController = UINavigationController(rootViewController: projectCreateViewController)
+        projectCreateViewController.delegate = self
         
+        let navigationController = UINavigationController(rootViewController: projectCreateViewController)
         navigationController.modalPresentationStyle = .formSheet
         present(navigationController, animated: true)
+    }
+    
+    private func tableViewsReloadData(_ tableViews: UITableView?...) {
+        tableViews.forEach { $0?.reloadData() }
     }
     
     private func configureTableViews() {
@@ -264,10 +268,50 @@ extension ProjectManagerViewController: UITableViewDelegate {
         
         let projectCreateViewController = ProjectUpdateViewController()
         projectCreateViewController.item = dataManager.read()[indexPath.row]
+        projectCreateViewController.delegate = self
         
         let navigationController = UINavigationController(rootViewController: projectCreateViewController)
         navigationController.modalPresentationStyle = .formSheet
         
         present(navigationController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        var items: ProjectDTO
+        
+        switch tableView {
+        case todoTableView:
+            items = dataManager.read(workState: .todo)[indexPath.row]
+        case doingTableView:
+            items = dataManager.read(workState: .doing)[indexPath.row]
+        case doneTabelView:
+            items = dataManager.read(workState: .done)[indexPath.row]
+        default: return nil
+        }
+        
+        let deleteSwipeAction = UIContextualAction(style: .destructive,
+                                                   title: "Delete",
+                                                   handler: { [weak self] _, _, completionHaldler in
+            self?.dataManager.delete(id: items.id)
+            self?.tableViewsReloadData(self?.todoTableView, self?.doingTableView, self?.doneTabelView)
+            completionHaldler(true)
+        })
+        
+        return UISwipeActionsConfiguration(actions: [deleteSwipeAction])
+    }
+}
+
+extension ProjectManagerViewController: ProjectManagerDataProtocol {
+    func create(data: ProjectDTO) {
+        dataManager.append(work: data)
+        
+        tableViewsReloadData(todoTableView)
+    }
+    
+    func update(id: String, data: ProjectDTO) {
+        dataManager.update(id: id, work: data)
+        
+        tableViewsReloadData(todoTableView, doingTableView, doneTabelView)
     }
 }

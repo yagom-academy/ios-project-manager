@@ -22,11 +22,11 @@ enum ProjectState: String, Decodable {
     var actionTitles: (first: String, second: String) {
         switch self {
         case .todo:
-            return ("Move To Doing", "Move To Done")
+            return ("Move To DONING", "Move To DONE")
         case .doing:
-            return ("Move To Todo", "Move To Done")
+            return ("Move To TODO", "Move To DONE")
         case .done:
-            return ("Move To Todo", "Move To Doing")
+            return ("Move To TODO", "Move To DONING")
         }
     }
 }
