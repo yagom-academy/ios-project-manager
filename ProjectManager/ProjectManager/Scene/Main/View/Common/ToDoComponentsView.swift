@@ -14,12 +14,12 @@ class ToDoComponentsView: UIView {
     private let titleView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.borderWidth = 1.0
+        view.layer.borderWidth = Design.titleViewLayerBorderWidth
         view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowRadius = 5.0
+        view.layer.shadowOffset = Design.titleViewLayerShaodwOffset
+        view.layer.shadowRadius = Design.titleViewLayerShaodwRadius
         view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowOpacity = 0.8
+        view.layer.shadowOpacity = Design.titleViewLayerShaodwOpacity
         view.backgroundColor = .systemBackground
         
         return view
@@ -28,12 +28,12 @@ class ToDoComponentsView: UIView {
     private let descriptionView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.borderWidth = 1.0
+        view.layer.borderWidth = Design.descriptionViewLayerBorderWidth
         view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowRadius = 5.0
+        view.layer.shadowOffset = Design.descriptionViewLayerShaodwOffset
+        view.layer.shadowRadius = Design.descriptionViewLayerShaodwRadius
         view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowOpacity = 0.8
+        view.layer.shadowOpacity = Design.descriptionViewLayerShaodwOpacity
         view.backgroundColor = .systemBackground
         
         return view
@@ -134,5 +134,17 @@ class ToDoComponentsView: UIView {
         ])
     }
     
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let titleViewLayerBorderWidth = 1.0
+        static let titleViewLayerShaodwOffset = CGSize(width: 3, height: 3)
+        static let titleViewLayerShaodwRadius = 5.0
+        static let titleViewLayerShaodwOpacity: Float = 0.8
+        static let descriptionViewLayerBorderWidth = 1.0
+        static let descriptionViewLayerShaodwOffset = CGSize(width: 3, height: 3)
+        static let descriptionViewLayerShaodwRadius = 5.0
+        static let descriptionViewLayerShaodwOpacity: Float = 0.8
+    }
 }
 

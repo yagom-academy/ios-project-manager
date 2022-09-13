@@ -17,7 +17,7 @@ final class ToDoListDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        commonInit()
+        setupUI()
     }
 
     // MARK: - Functions
@@ -26,7 +26,7 @@ final class ToDoListDetailViewController: UIViewController {
         toDoComponentsView.configure(of: item)
     }
     
-    private func commonInit() {
+    private func setupUI() {
         setupNavigationController()
         setupView()
         setupSubviews()
@@ -42,9 +42,9 @@ final class ToDoListDetailViewController: UIViewController {
     }
     
     private func setupNavigationController() {
-        navigationItem.title = "TODO"
+        navigationItem.title = Design.navigationTitle
         navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Design.navigationTitleFontSize, weight: .bold)
         ]
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.9488992095, green: 0.9492433667, blue: 0.9632378221, alpha: 1)
         
@@ -80,5 +80,12 @@ final class ToDoListDetailViewController: UIViewController {
     
     @objc private func didDoneButtonTapped() {
         dismissViewController()
+    }
+    
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let navigationTitle = "TODO"
+        static let navigationTitleFontSize: CGFloat = 20
     }
 }

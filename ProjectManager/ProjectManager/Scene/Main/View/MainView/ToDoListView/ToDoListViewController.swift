@@ -17,7 +17,7 @@ final class ToDoListViewController: UIViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.spacing = Design.verticalStackViewSpacing
         
         return stackView
     }()
@@ -33,7 +33,7 @@ final class ToDoListViewController: UIViewController {
     private let titleLabel: UILabel = {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
-        uiLabel.text = "TODO"
+        uiLabel.text = Design.titleLabelText
         uiLabel.font = .preferredFont(forTextStyle: .title1)
         
         return uiLabel
@@ -63,6 +63,12 @@ final class ToDoListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    // MARK: - Functions
+    
+    private func setupUI() {
         setupSubviews()
         setupListTableViewLayout()
         setupDelegates()
@@ -71,8 +77,6 @@ final class ToDoListViewController: UIViewController {
         mockToDoItemManger.loadData()
         updateIndexLabelData()
     }
-    
-    // MARK: - Functions
     
     private func setupSubviews() {
         view.addSubview(verticalStackView)
@@ -118,7 +122,7 @@ final class ToDoListViewController: UIViewController {
     
     private func setupLongTapGesture() {
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(didcellTappedLong))
-        longTap.minimumPressDuration = 1.5
+        longTap.minimumPressDuration = Design.longTapDuration
         
         todoItemTableView.addGestureRecognizer(longTap)
     }
@@ -134,10 +138,10 @@ final class ToDoListViewController: UIViewController {
         
         let alertController = UIAlertController()
         
-        let doingAlertAction = UIAlertAction(title: "Move to DOING", style: .default) { _ in
+        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) { _ in
 
         }
-        let doneAlertAction = UIAlertAction(title: "Move to DONE", style: .default) { _ in
+        let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { _ in
             
         }
         
@@ -153,9 +157,21 @@ final class ToDoListViewController: UIViewController {
         let cell = todoItemTableView.cellForRow(at: indexPath)
         
         popoverController.sourceView = cell
-        popoverController.sourceRect = cell?.bounds ?? CGRect(x: 0, y: 0, width: 50, height: 50)
+        popoverController.sourceRect = cell?.bounds ?? Design.defaultRect
         
         parent?.present(alertController, animated: true)
+    }
+    
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let verticalStackViewSpacing: CGFloat = 2
+        static let titleLabelText = "TODO"
+        static let longTapDuration: TimeInterval = 1.5
+        static let doingAlertActionTitle = "Move to DOING"
+        static let doneAlertActionTitle = "Move to DONE"
+        static let defaultRect = CGRect(x: 0, y: 0, width: 50, height: 50)
+        static let deleteActionTitle = "삭제"
     }
 }
 
@@ -189,7 +205,7 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+        let deleteAction = UIContextualAction(style: .normal, title: Design.deleteActionTitle) { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             success(true)
         }
        

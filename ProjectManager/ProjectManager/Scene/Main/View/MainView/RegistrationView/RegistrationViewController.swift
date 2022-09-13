@@ -17,13 +17,17 @@ final class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    // MARK: - Functions
+    
+    private func setupUI() {
         setupNavigationController()
         setupView()
         setupSubviews()
         setupConstraints()
     }
-    
-    // MARK: - Functions
     
     private func setupView() {
         view.backgroundColor = .systemBackground
@@ -34,9 +38,9 @@ final class RegistrationViewController: UIViewController {
     }
     
     private func setupNavigationController() {
-        navigationItem.title = "TODO"
+        navigationItem.title = Design.navigationTitle
         navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Design.navigationTitleFontSize, weight: .bold)
         ]
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.9488992095, green: 0.9492433667, blue: 0.9632378221, alpha: 1)
         
@@ -72,5 +76,12 @@ final class RegistrationViewController: UIViewController {
     
     @objc private func didCancelButtonTapped() {
         dismissViewController()
+    }
+    
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let navigationTitle = "TODO"
+        static let navigationTitleFontSize: CGFloat = 20
     }
 }

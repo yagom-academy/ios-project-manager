@@ -19,7 +19,7 @@ final class MainViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 8
+        stackView.spacing = Design.horizontalStackViewSpacing
         stackView.backgroundColor = .systemGray3
 
         return stackView
@@ -29,12 +29,16 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    // MARK: - Functions
+    
+    private func setupUI() {
         setupSubviews()
         setupVerticalStackViewLayout()
         setupView()
     }
-    
-    // MARK: - Functions
     
     private func setupSubviews() {
         view.addSubview(horizontalStackView)
@@ -64,12 +68,12 @@ final class MainViewController: UIViewController {
     }
     
     private func setupNavigationController() {
-        navigationController?.navigationBar.topItem?.title = "Project Manager"
+        navigationController?.navigationBar.topItem?.title = Design.navigationTitle
         navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Design.navigationTitleFontSize, weight: .bold)
         ]
         
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus"),
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: Design.plusImage),
                                              style: .plain,
                                              target: self,
                                              action: #selector(didPlusButtonTapped))
@@ -83,5 +87,14 @@ final class MainViewController: UIViewController {
         registrationViewController.modalPresentationStyle = .formSheet
         
         present(navigationController, animated: true)
+    }
+    
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let horizontalStackViewSpacing: CGFloat = 8
+        static let navigationTitle = "Project Manager"
+        static let navigationTitleFontSize: CGFloat = 20
+        static let plusImage = "plus"
     }
 }

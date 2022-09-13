@@ -17,7 +17,7 @@ final class DoneListViewController: UIViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.spacing = Design.verticalStackViewSpacing
         
         return stackView
     }()
@@ -33,7 +33,7 @@ final class DoneListViewController: UIViewController {
     private let titleLabel: UILabel = {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
-        uiLabel.text = "DONE"
+        uiLabel.text = Design.titleLabelText
         uiLabel.font = .preferredFont(forTextStyle: .title1)
         
         return uiLabel
@@ -42,7 +42,6 @@ final class DoneListViewController: UIViewController {
     private let indexLabel: UILabel = {
         let uiLabel = UILabel()
         uiLabel.translatesAutoresizingMaskIntoConstraints = false
-        uiLabel.text = "0"
         uiLabel.textAlignment = .center
         uiLabel.textColor = .white
         uiLabel.font = .preferredFont(forTextStyle: .title3)
@@ -64,6 +63,12 @@ final class DoneListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    // MARK: - Functions
+    
+    private func setupUI() {
         setupSubviews()
         setupListTableViewLayout()
         setupDelegates()
@@ -72,8 +77,6 @@ final class DoneListViewController: UIViewController {
         mockToDoItemManger.loadData()
         updateIndexLabelData()
     }
-    
-    // MARK: - Functions
 
     private func setupSubviews() {
         view.addSubview(verticalStackView)
@@ -119,7 +122,7 @@ final class DoneListViewController: UIViewController {
     
     private func setupLongTapGesture() {
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(didcellTappedLong))
-        longTap.minimumPressDuration = 1.5
+        longTap.minimumPressDuration = Design.longTapDuration
         
         todoItemTableView.addGestureRecognizer(longTap)
     }
@@ -135,15 +138,15 @@ final class DoneListViewController: UIViewController {
         
         let alertController = UIAlertController()
         
-        let doingAlertAction = UIAlertAction(title: "Move to TODO", style: .default) { _ in
+        let toDoAlertAction = UIAlertAction(title: Design.toDoAlertActionTitle, style: .default) { _ in
 
         }
-        let doneAlertAction = UIAlertAction(title: "Move to DOING", style: .default) { _ in
+        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) { _ in
             
         }
         
+        alertController.addAction(toDoAlertAction)
         alertController.addAction(doingAlertAction)
-        alertController.addAction(doneAlertAction)
         
         let touchPoint = gestureRecognizer.location(in: todoItemTableView)
         
@@ -154,7 +157,7 @@ final class DoneListViewController: UIViewController {
         let cell = todoItemTableView.cellForRow(at: indexPath)
         
         popoverController.sourceView = cell
-        popoverController.sourceRect = cell?.bounds ?? CGRect(x: 0, y: 0, width: 50, height: 50)
+        popoverController.sourceRect = cell?.bounds ?? Design.defaultRect
         
         parent?.present(alertController, animated: true)
     }
@@ -190,12 +193,24 @@ extension DoneListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+        let deleteAction = UIContextualAction(style: .normal, title: Design.deleteActionTitle) { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             success(true)
         }
        
         deleteAction.backgroundColor = .systemRed
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let verticalStackViewSpacing: CGFloat = 2
+        static let titleLabelText = "DONE"
+        static let longTapDuration: TimeInterval = 1.5
+        static let doingAlertActionTitle = "Move to TODO"
+        static let toDoAlertActionTitle = "Move to DONE"
+        static let defaultRect = CGRect(x: 0, y: 0, width: 50, height: 50)
+        static let deleteActionTitle = "삭제"
     }
 }

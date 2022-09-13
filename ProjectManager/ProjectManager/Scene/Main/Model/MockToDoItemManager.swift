@@ -16,7 +16,7 @@ final class MockToDoItemManager {
     // MARK: - Functions
 
     func loadData() {
-        guard let data: [ToDoItem]? = JSONDecoder.decodedJson(jsonName: "sample"),
+        guard let data: [ToDoItem]? = JSONDecoder.decodedJson(jsonName: Design.jsonName),
               let mockItem = data else { return }
         mockToDoItemContent = mockItem
     }
@@ -27,5 +27,9 @@ final class MockToDoItemManager {
     
     func content(index: Int) -> ToDoItem? {
         return mockToDoItemContent.get(index: index)
+    }
+    
+    private enum Design {
+        static let jsonName = "sample"
     }
 }

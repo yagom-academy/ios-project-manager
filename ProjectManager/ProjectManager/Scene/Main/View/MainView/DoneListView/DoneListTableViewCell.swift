@@ -15,14 +15,14 @@ final class DoneListTableViewCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 5
+        stackView.spacing = Design.verticalStackViewSpacing
         return stackView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 1
+        label.numberOfLines = Design.titleLabelLine
         
         return label
     }()
@@ -30,7 +30,7 @@ final class DoneListTableViewCell: UITableViewCell {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 3
+        label.numberOfLines = Design.descriptionLabelLine
         label.textColor = .lightGray
         
         return label
@@ -45,12 +45,12 @@ final class DoneListTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupSubviews()
-        setupVerticalStackViewLayout()
+        commonInit()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        commonInit()
     }
     
     // MARK: - Functions
@@ -59,6 +59,11 @@ final class DoneListTableViewCell: UITableViewCell {
         titleLabel.text = data.title
         descriptionLabel.text = data.description
         timeLimitLabel.text = data.timeLimit.formatDate()
+    }
+    
+    private func commonInit() {
+        setupSubviews()
+        setupVerticalStackViewLayout()
     }
     
     private func setupSubviews() {
@@ -75,6 +80,14 @@ final class DoneListTableViewCell: UITableViewCell {
             verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
+    }
+    
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let verticalStackViewSpacing: CGFloat = 5
+        static let titleLabelLine = 1
+        static let descriptionLabelLine = 3
     }
 }
 
