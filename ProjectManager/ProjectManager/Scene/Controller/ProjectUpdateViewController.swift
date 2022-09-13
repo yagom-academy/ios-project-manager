@@ -8,9 +8,13 @@
 import UIKit
 
 final class ProjectUpdateViewController: UIViewController {
+    // MARK: - Properties
+    
     private let projectUpdateView = ProjectUpdateView()
-    var item: ProjectDTO?
     weak var delegate: ProjectManagerDataProtocol?
+    var item: ProjectDTO?
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +25,8 @@ final class ProjectUpdateViewController: UIViewController {
         configureViewLayout()
         configureViewItems()
     }
+    
+    // MARK: - Methods
     
     private func configureNavigationItems() {
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .done,
@@ -34,6 +40,12 @@ final class ProjectUpdateViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.title = item == nil ? ProjectState.todo.name : item?.workState.name
+    }
+    
+    private func configureViewItems() {
+        guard let item = item else { return }
+        
+        projectUpdateView.configureItem(title: item.title, body: item.body)
     }
     
     @objc private func rightBarButtonDidTap() {
@@ -63,15 +75,11 @@ final class ProjectUpdateViewController: UIViewController {
                                   workState: item.workState)
             
             delegate?.update(id: item.id, data: data)
+            
+            return
         }
         
         dismiss(animated: true)
-    }
-    
-    private func configureViewItems() {
-        guard let item = item else { return }
-        
-        projectUpdateView.configureItem(title: item.title, body: item.body)
     }
     
     private func configureViewLayout() {

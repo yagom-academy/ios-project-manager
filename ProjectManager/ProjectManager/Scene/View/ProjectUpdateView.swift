@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - NameSpace
+
 private enum Design {
     static let titleTextFieldBorderWidth: CGFloat = 1
     static let bodyTextViewBorderWidth: CGFloat = 1
@@ -20,6 +22,8 @@ private enum Design {
 }
 
 final class ProjectUpdateView: UIView {
+    // MARK: - Properties
+    
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +63,8 @@ final class ProjectUpdateView: UIView {
         return textView
     }()
     
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -69,6 +75,8 @@ final class ProjectUpdateView: UIView {
         super.init(coder: coder)
         commonInit()
     }
+    
+    // MARK: - Methods
     
     func configureItem(title: String?, body: String?) {
         titleTextField.text = title
@@ -123,6 +131,8 @@ final class ProjectUpdateView: UIView {
         )
     }
 }
+
+// MARK: - Extension
 
 extension ProjectUpdateView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {

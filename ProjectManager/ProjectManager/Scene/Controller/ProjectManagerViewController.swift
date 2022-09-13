@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - NameSpace
+
 private enum Design {
     static let mainStackViewSpacing: CGFloat = 8
     static let navigationTitle: String = "PROJECT MANAGER"
@@ -17,6 +19,8 @@ private enum Design {
 }
 
 final class ProjectManagerViewController: UIViewController {
+    // MARK: - Properties
+    
     private var dataManager = ProjectDataManager().provider
     
     private let mainStackView: UIStackView = {
@@ -54,6 +58,8 @@ final class ProjectManagerViewController: UIViewController {
         return tableView
     }()
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mainStackView)
@@ -64,29 +70,13 @@ final class ProjectManagerViewController: UIViewController {
         configureTableViews()
     }
     
+    // MARK: - Methods
+    
     private func configureLongPressGestureRecognizer() {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))
         longPress.minimumPressDuration = Design.longPressGestureMinimumPressDuration
         
         self.view.addGestureRecognizer(longPress)
-    }
-    
-    @objc private func longPressGesture(sender: UILongPressGestureRecognizer) {
-        guard sender.state == .ended else { return }
-        
-        if let indexPath = todoTableView.indexPathForRow(at: sender.location(in: todoTableView)) {
-            showAlert(view: todoTableView.cellForRow(at: indexPath),
-                      state: .todo,
-                      indexPath: indexPath)
-        } else if let indexPath = doingTableView.indexPathForRow(at: sender.location(in: doingTableView)) {
-            showAlert(view: doingTableView.cellForRow(at: indexPath),
-                      state: .doing,
-                      indexPath: indexPath)
-        } else if let indexPath = doneTabelView.indexPathForRow(at: sender.location(in: doneTabelView)) {
-            showAlert(view: doneTabelView.cellForRow(at: indexPath),
-                      state: .done,
-                      indexPath: indexPath)
-        }
     }
     
     private func showAlert(view: UIView?, state: ProjectState?, indexPath: IndexPath) {
@@ -157,6 +147,28 @@ final class ProjectManagerViewController: UIViewController {
         navigationItem.title = Design.navigationTitle
     }
     
+    private func tableViewsReloadData(_ tableViews: UITableView?...) {
+        tableViews.forEach { $0?.reloadData() }
+    }
+    
+    @objc private func longPressGesture(sender: UILongPressGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        
+        if let indexPath = todoTableView.indexPathForRow(at: sender.location(in: todoTableView)) {
+            showAlert(view: todoTableView.cellForRow(at: indexPath),
+                      state: .todo,
+                      indexPath: indexPath)
+        } else if let indexPath = doingTableView.indexPathForRow(at: sender.location(in: doingTableView)) {
+            showAlert(view: doingTableView.cellForRow(at: indexPath),
+                      state: .doing,
+                      indexPath: indexPath)
+        } else if let indexPath = doneTabelView.indexPathForRow(at: sender.location(in: doneTabelView)) {
+            showAlert(view: doneTabelView.cellForRow(at: indexPath),
+                      state: .done,
+                      indexPath: indexPath)
+        }
+    }
+    
     @objc private func rightBarButtonDidTap() {
         let projectCreateViewController = ProjectUpdateViewController()
         projectCreateViewController.delegate = self
@@ -166,20 +178,10 @@ final class ProjectManagerViewController: UIViewController {
         present(navigationController, animated: true)
     }
     
-    private func tableViewsReloadData(_ tableViews: UITableView?...) {
-        tableViews.forEach { $0?.reloadData() }
-    }
-    
     private func configureTableViews() {
-        todoTableView.dataSource = self
-        doingTableView.dataSource = self
-        doneTabelView.dataSource = self
-        
-        todoTableView.delegate = self
-        doingTableView.delegate = self
-        doneTabelView.delegate = self
-        
         [todoTableView, doingTableView, doneTabelView].forEach {
+            $0.dataSource = self
+            $0.delegate = self
             $0.register(ProjectTableViewCell.self,
                         forCellReuseIdentifier: ProjectTableViewCell.reuseIdentifier)
         }
@@ -203,6 +205,8 @@ final class ProjectManagerViewController: UIViewController {
             .forEach { mainStackView.addArrangedSubview($0) }
     }
 }
+
+// MARK: - Extension UITableViewDataSource
 
 extension ProjectManagerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -262,6 +266,8 @@ extension ProjectManagerViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - Extension UITableViewDelegate
+
 extension ProjectManagerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
@@ -301,6 +307,8 @@ extension ProjectManagerViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [deleteSwipeAction])
     }
 }
+
+// MARK: - Extension ProjectManagerDataProtocol
 
 extension ProjectManagerViewController: ProjectManagerDataProtocol {
     func create(data: ProjectDTO) {

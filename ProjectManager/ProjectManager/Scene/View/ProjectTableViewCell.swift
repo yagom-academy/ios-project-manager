@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - NameSpace
+
 private enum Design {
     static let cellReuseIdentifier = "WorkTableViewCell"
     static let mainStackViewLeadingAnchor: CGFloat = 12
@@ -17,6 +19,8 @@ private enum Design {
 
 final class ProjectTableViewCell: UITableViewCell {
     static let reuseIdentifier = Design.cellReuseIdentifier
+    
+    // MARK: - Properties
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -54,6 +58,8 @@ final class ProjectTableViewCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Initializer
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
@@ -65,13 +71,15 @@ final class ProjectTableViewCell: UITableViewCell {
         commonInit()
     }
     
+    // MARK: - Methods
+    
     func setItems(title: String?, body: String?, date: Date?) {
         titleLabel.text = title
         bodyLabel.text = body
-        dateLabel.attributedText = convertString(date: date)
+        dateLabel.attributedText = convertToText(date: date)
     }
     
-    private func convertString(date: Date?) -> NSAttributedString? {
+    private func convertToText(date: Date?) -> NSAttributedString? {
         guard let date = date else { return nil }
         
         if date > Date() {

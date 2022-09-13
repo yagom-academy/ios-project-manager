@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - NameSpace
+
 private enum Design {
     static let mainStackViewSpacing: CGFloat = 8
     static let mainStackViewLeadingAnchor: CGFloat = 8
@@ -15,6 +17,8 @@ private enum Design {
 }
 
 final class ProjectTableHeaderView: UIView {
+    // MARK: - Properties
+    
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +53,8 @@ final class ProjectTableHeaderView: UIView {
         return label
     }()
     
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -58,6 +64,8 @@ final class ProjectTableHeaderView: UIView {
         super.init(coder: coder)
         commonInit()
     }
+    
+    // MARK: - Methods
     
     func setItems(title: String?, count: String?) {
         titleLabel.text = title
