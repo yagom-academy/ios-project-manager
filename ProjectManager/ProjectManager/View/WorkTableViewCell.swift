@@ -61,6 +61,11 @@ final class WorkTableViewCell: UITableViewCell {
         setupView()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
     // MARK: - Methods
     private func addSubView() {
         verticalStackView.addArrangedSubview(titleLabel)
@@ -87,9 +92,6 @@ final class WorkTableViewCell: UITableViewCell {
     }
     
     private func bind() {
-//        let works = PublishSubject<Work>()
-//        onData = works.asObserver()
-        
         works.observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] work in
                 guard let self = self else { return }
