@@ -153,6 +153,14 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
     @objc func handleLongPressGesture(recognizer: UITapGestureRecognizer) {
         let location = recognizer.location(in: recognizer.view)
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let todoButton = UIAlertAction(title: "Move to TODO", style: .default) { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+
+            self.viewModel.move(to: TaskState.todo, self.selectedIndex)
+            self.reloadTableView()
+        }
         let doingButton = UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
             guard let self = self else {
                 return
@@ -169,12 +177,13 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
             self.viewModel.move(to: TaskState.done, self.selectedIndex)
             self.reloadTableView()
         }
+        actionSheet.addAction(todoButton)
         actionSheet.addAction(doingButton)
         actionSheet.addAction(doneButton)
 
         let popover = actionSheet.popoverPresentationController
         popover?.sourceView = view
-        popover?.sourceRect = CGRect(x: location.x, y: location.y + 60 , width: 60, height: 60)
+        popover?.sourceRect = CGRect(x: location.x, y: location.y + 120 , width: 60, height: 60)
 
         present(actionSheet, animated: true)
     }
