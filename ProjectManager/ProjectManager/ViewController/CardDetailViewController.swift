@@ -19,7 +19,7 @@ final class CardDetailViewController: UIViewController {
     
     private var viewModel: CardViewModelProtocol?
     private var model: CardModel?
-    private var isEditable = false
+    private var isClickedEdition = false
     
     private let cardModalView = CardModalView().then {
         $0.backgroundColor = .systemBackground
@@ -46,9 +46,7 @@ final class CardDetailViewController: UIViewController {
     
     private func setupDefault() {
         self.view.addSubview(cardModalView)
-
         cardModalView.descriptionTextView.delegate = self
-        
         cardModalView.titleTextField.isUserInteractionEnabled = false
         cardModalView.descriptionTextView.isEditable = false
         cardModalView.datePicker.isUserInteractionEnabled = false
@@ -68,12 +66,12 @@ final class CardDetailViewController: UIViewController {
         cardModalView.leftBarButtonItem = UIBarButtonItem(title: Const.edit,
                                                           style: .plain,
                                                           target: self,
-                                                          action: #selector(editButtonDidTapped))
+                                                          action: #selector(didTapEditButton))
         
         cardModalView.rightBarButtonItem = UIBarButtonItem(title: Const.done,
                                                            style: .done,
                                                            target: self,
-                                                           action: #selector(doneButtonDidTapped))
+                                                           action: #selector(didTapDoneButton))
         
         navigationItem.leftBarButtonItem = cardModalView.leftBarButtonItem
         navigationItem.rightBarButtonItem = cardModalView.rightBarButtonItem
@@ -82,20 +80,20 @@ final class CardDetailViewController: UIViewController {
     }
     
     private func toggleEditingMode() {
-        isEditable.toggle()
+        isClickedEdition.toggle()
         cardModalView.titleTextField.isUserInteractionEnabled.toggle()
         cardModalView.descriptionTextView.isEditable.toggle()
         cardModalView.datePicker.isUserInteractionEnabled.toggle()
         
-        let title = isEditable ? Const.editing : Const.edit
+        let title = isClickedEdition ? Const.editing : Const.edit
         cardModalView.leftBarButtonItem.title = title
     }
     
-    @objc func editButtonDidTapped() {
+    @objc func didTapEditButton() {
         toggleEditingMode()
     }
     
-    @objc func doneButtonDidTapped() {
+    @objc func didTapDoneButton() {
         self.dismiss(animated: true)
     }
 }

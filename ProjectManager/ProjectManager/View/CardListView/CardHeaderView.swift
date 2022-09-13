@@ -27,7 +27,6 @@ final class CardHeaderView: UIView {
         $0.textAlignment = .center
         $0.layer.cornerRadius = Const.layerCornerRadius * 0.5
         $0.layer.masksToBounds = true
-        $0.text = "10"
     }
     
     private lazy var rootStackView = UIStackView(

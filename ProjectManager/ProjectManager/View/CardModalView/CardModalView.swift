@@ -141,7 +141,7 @@ extension CardModalView {
                                             action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done,
                                          target: self,
-                                         action: #selector(doneButtonDidTapped))
+                                         action: #selector(didTapDoneButton))
         
         toolBar.setItems([flexibleSpace, doneButton],
                          animated: false)
@@ -172,7 +172,7 @@ extension CardModalView {
         rootScrollView.scrollIndicatorInsets = contentInset
     }
     
-    @objc private func doneButtonDidTapped() {
+    @objc private func didTapDoneButton() {
         titleTextField.resignFirstResponder()
         descriptionTextView.resignFirstResponder()
     }

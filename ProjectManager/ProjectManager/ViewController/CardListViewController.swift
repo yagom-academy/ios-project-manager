@@ -86,9 +86,9 @@ final class CardListViewController: UIViewController, Coordinating {
     
     private func configureNavigationBarItem() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Const.plus),
-                                                                  style: .plain,
-                                                                  target: self,
-                                                                  action: #selector(plusButtonTapped(_:)))
+                                                                 style: .plain,
+                                                                 target: self,
+                                                                 action: #selector(plusButtonTapped(_:)))
     }
     
     private func applyTableViewDataSources() {
@@ -152,7 +152,7 @@ extension CardListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         self.coordinator?.presentDetailViewController(TodoListModel.sample[indexPath.row])
     }
-    
+
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: Const.delete) { (_, _, completionHandler: @escaping (Bool) -> Void) in

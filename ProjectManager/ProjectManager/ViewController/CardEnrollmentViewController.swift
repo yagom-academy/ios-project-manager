@@ -58,24 +58,29 @@ final class CardEnrollmentViewController: UIViewController {
         cardModalView.leftBarButtonItem = UIBarButtonItem(title: Const.cancel,
                                                           style: .plain,
                                                           target: self,
-                                                          action: #selector(cancelButtonDidTapped))
+                                                          action: #selector(didTapCancelButton))
 
         cardModalView.rightBarButtonItem = UIBarButtonItem(title: Const.done,
-                                                          style: .done,
-                                                          target: self,
-                                                          action: #selector(doneButtonDidTapped))
+                                                           style: .done,
+                                                           target: self,
+                                                           action: #selector(didTapDoneButton))
         
         navigationItem.leftBarButtonItem = cardModalView.leftBarButtonItem
         navigationItem.rightBarButtonItem = cardModalView.rightBarButtonItem
         
         cardModalView.navigationBar.items = [navigationItem]
     }
-    
-    @objc func cancelButtonDidTapped() {
+
+    }
+
+    @objc func didTapCancelButton() {
         self.dismiss(animated: true)
     }
     
-    @objc func doneButtonDidTapped() {
+    @objc func didTapDoneButton() {
+        guard let newCard = create() else { return }
+
+        viewModel?.append(newCard)
         self.dismiss(animated: true)
     }
 }
