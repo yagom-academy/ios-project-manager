@@ -63,10 +63,10 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
         self.contentView.layer.addBottomBorder()
     }
     
-    override func bind(_ model: TodoListModel) {
+    func bindUI(_ model: CardEntity) {
         titleLabel.text = model.title
         descriptionLabel.text = model.description
-        deadlineDateLabel.text = model.deadlineDate.description
+        deadlineDateLabel.text = model.deadlineDate
     }
     
     private func setupDefault() {
