@@ -10,11 +10,12 @@ import UIKit
 private enum Design {
     static let titleTextFieldBorderWidth: CGFloat = 1
     static let bodyTextViewBorderWidth: CGFloat = 1
-    static let mainStackViewTopAnchor: CGFloat = -8
-    static let mainStackViewBottomAnchor: CGFloat = 8
+    static let mainStackViewTopAnchor: CGFloat = 8
+    static let mainStackViewBottomAnchor: CGFloat = -8
     static let mainStackViewTrailngAnchor: CGFloat = -8
     static let mainStackViewLeadingAnchor: CGFloat = 8
     static let titleTextFieldPlaceholder = " Title"
+    static let bodyTextViewMaxTextCount = 1000
     static let defaultText = ""
 }
 
@@ -90,6 +91,8 @@ final class ProjectUpdateView: UIView {
         configureView()
         configureMainStackView()
         configureMainStackViewLayouts()
+        
+        bodyTextView.delegate = self
     }
     
     private func configureView() {
@@ -118,5 +121,15 @@ final class ProjectUpdateView: UIView {
                                 constant: Design.mainStackViewTrailngAnchor)
             ]
         )
+    }
+}
+
+extension ProjectUpdateView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        guard let textViewText = textView.text else { return }
+        
+        if textViewText.count > Design.bodyTextViewMaxTextCount {
+            textView.deleteBackward()
+        }
     }
 }

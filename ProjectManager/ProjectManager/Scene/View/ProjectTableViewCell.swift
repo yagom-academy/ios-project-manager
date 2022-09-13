@@ -9,8 +9,10 @@ import UIKit
 
 private enum Design {
     static let cellReuseIdentifier = "WorkTableViewCell"
-    static let mainStackViewLeadingAnchor: CGFloat = 8
-    static let mainStackViewTrailingAnchor: CGFloat = -8
+    static let mainStackViewLeadingAnchor: CGFloat = 12
+    static let mainStackViewTrailingAnchor: CGFloat = -12
+    static let titleLabelNumberOfLines = 1
+    static let bodyLabelNumberOfLines = 3
 }
 
 final class ProjectTableViewCell: UITableViewCell {
@@ -29,6 +31,7 @@ final class ProjectTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title1)
+        label.numberOfLines = Design.titleLabelNumberOfLines
         
         return label
     }()
@@ -37,6 +40,8 @@ final class ProjectTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .systemGray
+        label.numberOfLines = Design.bodyLabelNumberOfLines
         
         return label
     }()
@@ -60,10 +65,23 @@ final class ProjectTableViewCell: UITableViewCell {
         commonInit()
     }
     
-    func setItems(title: String?, body: String?, date: String?) {
+    func setItems(title: String?, body: String?, date: Date?) {
         titleLabel.text = title
         bodyLabel.text = body
-        dateLabel.text = date
+        dateLabel.attributedText = convertString(date: date)
+    }
+    
+    private func convertString(date: Date?) -> NSAttributedString? {
+        guard let date = date else { return nil }
+        
+        if date > Date() {
+            return NSAttributedString(string: date.convertLocalization())
+        }
+        
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.systemRed]
+        let attributedString = (NSAttributedString(string: date.convertLocalization(),
+                                                   attributes: attributes))
+        return attributedString
     }
     
     private func commonInit() {

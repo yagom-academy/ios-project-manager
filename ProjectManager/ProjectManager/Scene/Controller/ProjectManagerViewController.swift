@@ -237,7 +237,7 @@ extension ProjectManagerViewController: UITableViewDataSource {
         
         cell.setItems(title: items?[indexPath.row].title,
                       body: items?[indexPath.row].body,
-                      date: items?[indexPath.row].date.convertLocalization())
+                      date: items?[indexPath.row].date)
         
         return cell
     }
