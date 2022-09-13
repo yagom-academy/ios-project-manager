@@ -63,7 +63,13 @@ class TodoDetailViewController: UIViewController {
         return textView
     }()
     
-    private let stackView: UIStackView = {
+    private lazy var bodyTextShadowView: UIView = {
+        let view = UIView(frame: bodyTextView.frame)
+        view.backgroundColor = .brown
+        return view
+    }()
+    
+    private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 0
@@ -84,7 +90,7 @@ class TodoDetailViewController: UIViewController {
         configureNavigationBar()
         
         configureShadow(titleTextField)
-        configureShadow(bodyTextView)
+        configureShadow(bodyTextShadowView)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -177,15 +183,16 @@ extension TodoDetailViewController {
     }
     
     private func configureHierarchy() {
-        view.addSubview(stackView)
+        view.addSubview(bodyTextShadowView)
+        view.addSubview(mainStackView)
         
-        stackView.addArrangedSubview(titleTextField)
-        stackView.addArrangedSubview(datePicker)
-        stackView.addArrangedSubview(bodyTextView)
+        mainStackView.addArrangedSubview(titleTextField)
+        mainStackView.addArrangedSubview(datePicker)
+        mainStackView.addArrangedSubview(bodyTextView)
     }
     
     private func configureLayout() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
@@ -220,12 +227,26 @@ extension TodoDetailViewController {
                 multiplier: 0.3
             )
         ])
+        
+        bodyTextView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bodyTextView.heightAnchor.constraint(
+                equalTo: view.heightAnchor,
+                multiplier: 0.5
+            )
+        ])
+        
+        bodyTextShadowView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bodyTextShadowView.topAnchor.constraint(equalTo: bodyTextView.topAnchor),
+            bodyTextShadowView.bottomAnchor.constraint(equalTo: bodyTextView.bottomAnchor),
+            bodyTextShadowView.leadingAnchor.constraint(equalTo: bodyTextView.leadingAnchor),
+            bodyTextShadowView.trailingAnchor.constraint(equalTo: bodyTextView.trailingAnchor)
         ])
     }
     
     private func configureShadow(_ view: UIView) {
         view.backgroundColor = .white
-        view.clipsToBounds = false
 
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.systemGray6.cgColor
