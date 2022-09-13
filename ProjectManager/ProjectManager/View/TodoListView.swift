@@ -12,7 +12,7 @@ struct TodoListView: View {
     let todoTasks: [Todo]
     
     var body: some View {
-        VStack{
+        VStack {
             HeaderView(todoTasks: todoTasks)
             List {
                 ForEach(todoTasks) { task in

@@ -32,6 +32,5 @@ struct TodoListRow: View {
 struct TodoListRow_Previews: PreviewProvider {
     static var previews: some View {
         TodoListRow(todo: Todo(title: "제목", body: "내용", date: Date(), status: .todo))
-            .previewLayout(.fixed(width: 500, height: 100))
     }
 }
