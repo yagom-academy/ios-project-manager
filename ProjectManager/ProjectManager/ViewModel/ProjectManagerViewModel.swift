@@ -142,6 +142,7 @@ extension ProjectManagerViewModel {
     private func requestChangeStatus(_ currentStatus: TodoStatus, _ indexPathRow: Int, _ destinationStatus: TodoStatus) {
         self.categorizedTodoList[currentStatus]?
             .take(1)
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { todoData in
                 var changedTodo = todoData[indexPathRow]
                 changedTodo.status = destinationStatus
