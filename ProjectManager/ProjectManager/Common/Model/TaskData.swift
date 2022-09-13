@@ -12,5 +12,11 @@ class TaskData {
 
     var databaseManager: DatabaseManager = RealmDatabaseManager()
 
-    private init() {}
+    private init() { }
+}
+
+class TaskDataStore {
+    var todoList = [TaskModel]()
+    var doingList = [TaskModel]()
+    var doneList = [TaskModel]()
 }
