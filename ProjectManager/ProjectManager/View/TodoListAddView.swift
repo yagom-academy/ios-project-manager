@@ -49,11 +49,17 @@ struct TodoListAddTitleTextView: View {
     @State var title: String = ""
 
     var body: some View {
-        TextField("Title", text: $title)
-            .padding()
-            .background(Color(.systemBackground))
-            .shadow(color: .gray, radius: 5, x: 10, y: 10)
-            .padding(12)
+        ZStack {
+            Rectangle()
+                .fill(Color(.systemBackground))
+                .frame(width: 670, height: 60, alignment: .center)
+                .shadow(color: .gray, radius: 5, x: 10, y: 10)
+            TextField("Title", text: $title)
+                .padding()
+                .frame(width: 670, height: 60, alignment: .center)
+                .background(Color(.systemBackground))
+                .padding(12)
+        }
     }
 }
 
