@@ -71,18 +71,18 @@ final class ProjectManagerViewController: UIViewController {
     
     private func bindHeaderImage() {
         viewModel.todoCountImage
-            .observe(on: MainScheduler.instance)
-            .bind(to: projectManagerView.toDoTitleView.countImageView.rx.image)
+            .asDriver(onErrorJustReturn: nil)
+            .drive(projectManagerView.toDoTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
         
         viewModel.doingCountImage
-            .observe(on: MainScheduler.instance)
-            .bind(to: projectManagerView.doingTitleView.countImageView.rx.image)
+            .asDriver(onErrorJustReturn: nil)
+            .drive(projectManagerView.doingTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
         
         viewModel.doneCountImage
-            .observe(on: MainScheduler.instance)
-            .bind(to: projectManagerView.doneTitleView.countImageView.rx.image)
+            .asDriver(onErrorJustReturn: nil)
+            .drive(projectManagerView.doneTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
     }
     
