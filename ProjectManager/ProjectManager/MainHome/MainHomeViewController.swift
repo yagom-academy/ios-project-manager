@@ -85,13 +85,7 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
         let cell = todoTableView.dequeueReusableCell(withIdentifier: "todoTableViewCell", for: indexPath) as! TableViewCell
 
-        if tableView == todoTableView {
-            viewModel.currentState = TaskState.todo
-        } else if tableView == doingTableView {
-            viewModel.currentState = TaskState.doing
-        } else {
-            viewModel.currentState = TaskState.done
-        }
+        setUpTaskState(tableView: tableView)
 
         let list = viewModel.getDataList()
         let data = list[indexPath.row]
@@ -103,18 +97,10 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
-
-        if tableView == todoTableView {
-            viewModel.currentState = TaskState.todo
-        } else if tableView == doingTableView {
-            viewModel.currentState = TaskState.doing
-        } else {
-            viewModel.currentState = TaskState.done
-        }
+        setUpTaskState(tableView: tableView)
+        setUpGestureEvent(tableView)
 
         NotificationCenter.default.post(name: NSNotification.Name("모델 수정"), object: viewModel.readData(index: indexPath.row))
-
-        setUpGestureEvent(tableView)
         tableView.deselectRow(at: indexPath, animated: false)
     }
 
@@ -130,19 +116,22 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
                 return
             }
 
-            if tableView == self.todoTableView {
-                self.viewModel.currentState = TaskState.todo
-            } else if tableView == self.doingTableView {
-                self.viewModel.currentState = TaskState.doing
-            } else {
-                self.viewModel.currentState = TaskState.done
-            }
-
+            self.setUpTaskState(tableView: tableView)
             self.viewModel.remove(index: indexPath.row)
             self.reloadTableView()
         }
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+
+    private func setUpTaskState(tableView: UITableView) {
+        if tableView == todoTableView {
+            viewModel.currentState = TaskState.todo
+        } else if tableView == doingTableView {
+            viewModel.currentState = TaskState.doing
+        } else {
+            viewModel.currentState = TaskState.done
+        }
     }
 }
 

@@ -8,13 +8,11 @@
 import RealmSwift
 
 class RealmDatabaseManager: DatabaseManager {
-
     let realm = try? Realm()
 
     func createDatabase(data: Object) {
         guard let realm = realm,
-              ((try? realm.write({ realm.add(data) })) != nil)
-        else {
+              ((try? realm.write({ realm.add(data) })) != nil) else {
             return
         }
     }

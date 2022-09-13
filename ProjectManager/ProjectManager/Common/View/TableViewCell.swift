@@ -32,7 +32,6 @@ class TableViewCell: UITableViewCell {
 
     private func checkPastDate(date: String) -> Bool {
         let deadline = Int(date.filter { $0.isNumber }) ?? 0
-
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd"
         let currentDate = Int(formatter.string(from: Date())) ?? 0

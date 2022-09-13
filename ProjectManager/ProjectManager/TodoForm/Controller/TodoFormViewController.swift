@@ -30,7 +30,7 @@ class TodoFormViewController: UIViewController {
     }
 
     @IBAction func didTapCancelButton(_ sender: Any) {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 
     @IBAction func didTapDoneButton(_ sender: Any) {
@@ -47,7 +47,7 @@ class TodoFormViewController: UIViewController {
 
     private func notifyChangedModel() {
         NotificationCenter.default.post(name: NSNotification.Name("모델 리로드 예정"), object: nil)
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 
     private func setUpShadow() {
@@ -108,6 +108,6 @@ class TodoFormViewController: UIViewController {
     }
 
     @objc private func closeView() {
-        self.dismiss(animated: false)
+        dismiss(animated: false)
     }
 }
