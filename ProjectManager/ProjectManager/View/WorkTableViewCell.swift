@@ -28,7 +28,7 @@ final class WorkTableViewCell: UITableViewCell {
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .systemGray
-        label.numberOfLines = 0
+        label.numberOfLines = 3
         return label
     }()
     

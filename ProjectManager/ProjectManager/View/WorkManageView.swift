@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class WorkManageView: UIView {
+final class WorkManageView: UIView {
     // MARK: - Properties
     let disposeBag = DisposeBag()
     let work = PublishSubject<Work>()

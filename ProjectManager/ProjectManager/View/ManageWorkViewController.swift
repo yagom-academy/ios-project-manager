@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ManageWorkViewController: UIViewController {
+final class ManageWorkViewController: UIViewController {
     private let workManageView = WorkManageView()
     
     override func loadView() {

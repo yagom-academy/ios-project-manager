@@ -85,8 +85,8 @@
 				20E1A87928C872B30074364A /* ProjectManagerView.swift */,
 				20E1A87B28C875EC0074364A /* HeaderView.swift */,
 				20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */,
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
 				2021C46E28CAA46E0091D087 /* WorkManageView.swift */,
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
 				2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */,
 			);
 			path = View;

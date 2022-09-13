@@ -7,7 +7,7 @@
 import UIKit
 import RxSwift
 
-class ProjectManagerViewController: UIViewController {
+final class ProjectManagerViewController: UIViewController {
     private let projectManagerView = ProjectManagerView()
     private let viewModel = WorkViewModel()
     private let disposeBag = DisposeBag()
