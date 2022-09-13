@@ -120,7 +120,7 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     private func makeHandlers(item: ProjectDTO, to state: ProjectState) -> ((UIAlertAction) -> Void)? {
-        return { [weak self] _ in self?.changeState(item: item, to: .todo) }
+        return { [weak self] _ in self?.changeState(item: item, to: state) }
     }
     
     private func changeState(item: ProjectDTO, to state: ProjectState) {
@@ -177,12 +177,18 @@ final class ProjectManagerViewController: UIViewController {
         if let indexPath = todoTableView.indexPathForRow(at: sender.location(in: todoTableView)) {
             showAlert(tableView: todoTableView,
                       indexPath: indexPath)
+            
+            return
         } else if let indexPath = doingTableView.indexPathForRow(at: sender.location(in: doingTableView)) {
             showAlert(tableView: doingTableView,
                       indexPath: indexPath)
+            
+            return
         } else if let indexPath = doneTabelView.indexPathForRow(at: sender.location(in: doneTabelView)) {
             showAlert(tableView: doneTabelView,
                       indexPath: indexPath)
+            
+            return
         }
     }
     
