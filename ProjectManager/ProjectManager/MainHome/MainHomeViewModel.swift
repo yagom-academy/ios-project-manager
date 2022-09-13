@@ -30,7 +30,19 @@ class MainHomeViewModel {
                 return taskDataStore.doneList
             }
         }
-        set { }
+        set {
+            switch currentState {
+            case TaskState.todo:
+                taskDataStore.todoList = newValue
+                return
+            case TaskState.doing:
+                taskDataStore.doingList = newValue
+                return
+            default:
+                taskDataStore.doneList = newValue
+                return
+            }
+        }
     }
     private var taskDataStore = TaskDataStore()
     private let databaseManager: DatabaseManager = RealmDatabaseManager()
@@ -47,11 +59,10 @@ class MainHomeViewModel {
     }
 
     func getDataList() -> [TaskModel] {
-        fetchDataList()
         return currentList
     }
 
-    private func fetchDataList() {
+    func fetchDataList() {
         let allData = databaseManager.readDatabase()
 
         allData.forEach { data in

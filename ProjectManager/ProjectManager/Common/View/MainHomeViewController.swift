@@ -25,11 +25,15 @@ class MainHomeViewController: UIViewController {
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")
 
+        viewModel.fetchDataList()
+
         setUpGestureEvent()
         setUpListCount()
 
         setUpTableViewDelegate()
         setUpTableViewDataSource()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(addModel), name: NSNotification.Name("모델 추가"), object: nil)
     }
 
     private func setUpGestureEvent() {
@@ -86,6 +90,12 @@ class MainHomeViewController: UIViewController {
         todoTableView.delegate = self
         doingTableView.delegate = self
         doneTableView.delegate = self
+    }
+
+    @objc private func addModel() {
+        todoTableView.reloadData()
+        doingTableView.reloadData()
+        doneTableView.reloadData()
     }
 }
 

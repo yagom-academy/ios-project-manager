@@ -32,6 +32,7 @@ class TodoFormViewController: UIViewController {
         )
 
         TaskData.shared.databaseManager.createDatabase(data: data)
+        NotificationCenter.default.post(name: NSNotification.Name("모델 추가"), object: nil)
         self.dismiss(animated: true)
     }
 
