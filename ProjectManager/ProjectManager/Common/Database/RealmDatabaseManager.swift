@@ -73,6 +73,14 @@ class RealmDatabaseManager: DatabaseManager {
         }
     }
 
+    func deleteAllDatabase() {
+        guard let realm = realm,
+              ((try? realm.write({ realm.deleteAll() })) != nil)
+        else {
+            return
+        }
+    }
+
     private func search(data: TaskModel) -> RealmDatabaseModel? {
         guard let realm = realm,
                 let id = data.id else {
