@@ -18,7 +18,7 @@ final class CardDetailViewController: UIViewController {
     }
     
     private var viewModel: CardViewModelProtocol?
-    private var model: TodoListModel?
+    private var model: CardModel?
     private var isEditable = false
     
     private let cardModalView = CardModalView().then {
@@ -26,7 +26,7 @@ final class CardDetailViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    init(viewModel: CardViewModelProtocol, model: TodoListModel) {
+    init(viewModel: CardViewModelProtocol, model: CardModel) {
         self.viewModel = viewModel
         self.model = model
         super.init(nibName: nil, bundle: nil)

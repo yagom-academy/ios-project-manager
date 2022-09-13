@@ -29,7 +29,7 @@ final class MainCoordinator: CoordinatorProtocol {
                                       animated: true)
     }
     
-    func presentDetailViewController(_ model: TodoListModel) {
+    func presentDetailViewController(_ model: CardModel) {
         let cardDetailViewController = CardDetailViewController(viewModel: cardViewModel,
                                                                 model: model)
         

@@ -13,7 +13,7 @@ protocol CoordinatorProtocol: AnyObject {
     
     func start()
     func presentEnrollmentViewController()
-    func presentDetailViewController(_ model: TodoListModel)
+    func presentDetailViewController(_ model: CardModel)
 }
 
 enum Event {

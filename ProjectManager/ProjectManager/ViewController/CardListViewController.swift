@@ -111,15 +111,15 @@ final class CardListViewController: UIViewController, Coordinating {
 // MARK: TableView DataSource
 
 private extension CardListViewController {
-    typealias DataSource = UITableViewDiffableDataSource<Section, TodoListModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, TodoListModel>
+    typealias DataSource = UITableViewDiffableDataSource<Section, CardModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, CardModel>
     
     enum Section {
         case main
     }
     
     func updateTableView(_ dataSource: DataSource,
-                         by data: [TodoListModel]) {
+                         by data: [CardModel]) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(data)
