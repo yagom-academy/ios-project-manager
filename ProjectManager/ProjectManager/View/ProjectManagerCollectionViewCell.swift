@@ -48,13 +48,21 @@ class ProjectManagerCollectionViewCell: UICollectionViewCell {
 
 extension ProjectManagerCollectionViewCell {
     private func configureTableView() {
-        let initialTableView = UITableView(frame: bounds, style: .plain)
+        let initialTableView = UITableView(
+            frame: bounds,
+            style: .plain
+        )
         
         if #available(iOS 15, *) {
             initialTableView.sectionHeaderTopPadding = 0
         }
         initialTableView.backgroundColor = .systemGray6
-        initialTableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        initialTableView.separatorInset = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0
+        )
         initialTableView.register(
             TodoListTableViewCell.self,
             forCellReuseIdentifier: tableViewCellIdentifier
@@ -72,18 +80,20 @@ extension ProjectManagerCollectionViewCell {
     private func configureObservable() {
         guard let tableView = self.tableView else { return }
         
-        categorizedTodoList?
-            .bind(
-                to: tableView.rx.items(
-                    cellIdentifier: tableViewCellIdentifier,
-                    cellType: TodoListTableViewCell.self
-                )
-            ) { _, item, cell in
-                cell.set(by: item)
-                let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.popoverMoveTo))
-                cell.addGestureRecognizer(longPressGestureRecognizer)
-            }
-            .disposed(by: disposeBag)
+        categorizedTodoList?.bind(
+            to: tableView.rx.items(
+                cellIdentifier: ProjectManagerCollectionViewCell.tableViewCellIdentifier,
+                cellType: TodoListTableViewCell.self
+            )
+        ) { _, item, cell in
+            let longPressGestureRecognizer = UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(self.popoverMoveTo)
+            )
+            cell.addGestureRecognizer(longPressGestureRecognizer)
+            cell.set(by: item)
+        }
+        .disposed(by: disposeBag)
     }
 }
 
@@ -100,7 +110,10 @@ extension ProjectManagerCollectionViewCell {
               let indexPath = tableView.indexPath(for: cell) else { return }
         
         let popoverAlertController = generatePopoverAlertController(tableView, indexPath)
-        rootViewController.present(popoverAlertController, animated: true)
+        rootViewController.present(
+            popoverAlertController,
+            animated: true
+        )
     }
 }
 
@@ -110,8 +123,14 @@ extension ProjectManagerCollectionViewCell {
     private func generatePopoverAlertController(_ tableView: UITableView, _ indexPath: IndexPath) -> UIAlertController {
         let popoverAlertController = UIAlertController()
         
-        addAlertActions(to: popoverAlertController, indexPath: indexPath)
-        settingPopoverView(of: popoverAlertController, indexPath: indexPath)
+        addAlertActions(
+            to: popoverAlertController,
+            indexPath: indexPath
+        )
+        settingPopoverView(
+            of: popoverAlertController,
+            indexPath: indexPath
+        )
         
         return popoverAlertController
     }
@@ -125,7 +144,11 @@ extension ProjectManagerCollectionViewCell {
                 title: "Move to \(selectedStatus.upperCasedString)",
                 style: .default
             ) { [weak self] _ in
-                self?.moveToButtonTapped(from: currentStatus, indexPath: indexPath, to: selectedStatus)
+                self?.moveToButtonTapped(
+                    from: currentStatus,
+                    indexPath: indexPath,
+                    to: selectedStatus
+                )
             }
             
             alertController.addAction(newAction)
@@ -160,19 +183,31 @@ extension ProjectManagerCollectionViewCell: UITableViewDelegate {
         guard let rootViewController = self.window?.rootViewController else { return }
         
         let todoDetailViewController = TodoDetailViewController()
-        todoDetailViewController.set(by: categorizedTodoList?.map { $0[indexPath.row] })
+        todoDetailViewController.set(
+            todo: categorizedTodoList?.map { $0[indexPath.row] },
+            viewModel: viewModel
+        )
         
         let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
-        rootViewController.present(todoDetailNavigationController, animated: true)
+        rootViewController.present(
+            todoDetailNavigationController,
+            animated: true
+        )
         
-        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(
+            at: indexPath,
+            animated: true
+        )
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let statusType = self.statusType else { return nil }
         
         let headerView = TableSectionHeaderView()
-        headerView.set(by: categorizedTodoList, status: statusType)
+        headerView.set(
+            by: categorizedTodoList,
+            status: statusType
+        )
         
         return headerView
     }

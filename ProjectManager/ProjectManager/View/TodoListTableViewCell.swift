@@ -81,15 +81,32 @@ extension TodoListTableViewCell {
     }
     
     private func configureLayout() {
-        let separatorRect = CGRect(x: 0, y: 0, width: self.bounds.width * 10, height: 10)
+        let separatorRect = CGRect(
+            x: 0,
+            y: 0,
+            width: self.bounds.width * 10,
+            height: 10
+        )
         separatorView.frame = separatorRect
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 15),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15)
+            stackView.topAnchor.constraint(
+                equalTo: separatorView.bottomAnchor,
+                constant: 15
+            ),
+            stackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -15
+            ),
+            stackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 15
+            ),
+            stackView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -15
+            )
         ])
     }
 }

@@ -53,6 +53,7 @@ class TableSectionHeaderView: UIView {
         stackView.spacing = 8
         stackView.alignment = .fill
         stackView.distribution = .fill
+        
         return stackView
     }()
     
@@ -101,10 +102,22 @@ extension TableSectionHeaderView {
     private func configureLayout() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
+            stackView.topAnchor.constraint(
+                equalTo: topAnchor,
+                constant: 15
+            ),
+            stackView.bottomAnchor.constraint(
+                equalTo: bottomAnchor,
+                constant: -15
+            ),
+            stackView.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: 15
+            ),
+            stackView.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: -15
+            )
         ])
         
         countLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -117,13 +130,14 @@ extension TableSectionHeaderView {
             separatorView.heightAnchor.constraint(equalToConstant: 3),
             separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separatorView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1)
+            separatorView.bottomAnchor.constraint(
+                equalTo: bottomAnchor,
+                constant: -1
+            )
         ])
     }
     
     private func configureObservable() {
-//        headerView.titleLabel.text = statusType.upperCasedString
-        
         categorizedTodoList?
             .map { "\($0.count)" }
             .bind(to: countLabel.rx.text)

@@ -153,7 +153,11 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.set(status: status, categorizedTodoList: categoriedTodoList)
+        cell.set(
+            status: status,
+            categorizedTodoList: categoriedTodoList,
+            viewModel: viewModel
+        )
         
         return cell
     }

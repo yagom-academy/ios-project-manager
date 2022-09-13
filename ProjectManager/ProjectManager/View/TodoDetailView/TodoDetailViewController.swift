@@ -22,7 +22,12 @@ class TodoDetailViewController: UIViewController {
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 0))
+        let leftPaddingView = UIView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: 30,
+            height: 0
+        ))
         textField.font = .preferredFont(forTextStyle: .title2)
         textField.placeholder = "Title"
         textField.textAlignment = .left
@@ -46,7 +51,14 @@ class TodoDetailViewController: UIViewController {
         let textView = UITextView()
         textView.adjustsFontForContentSizeCategory = true
         textView.font = .preferredFont(forTextStyle: .body)
-        textView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        textView.textContainerInset = UIEdgeInsets(
+            top: 15,
+            left: 15,
+            bottom: 15,
+            right: 15
+        )
+        textView.keyboardDismissMode = .interactive
+        textView.alwaysBounceVertical = true
         
         return textView
     }()
@@ -121,20 +133,39 @@ extension TodoDetailViewController {
     private func configureLayout() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            mainStackView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 20
+            ),
+            mainStackView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -20
+            ),
+            mainStackView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: 20
+            ),
+            mainStackView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -20
+            )
         ])
         
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleTextField.heightAnchor.constraint(equalTo: datePicker.heightAnchor, multiplier: 0.2)
+            titleTextField.heightAnchor.constraint(
+                equalTo: datePicker.heightAnchor,
+                multiplier: 0.2
+            )
         ])
         
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            datePicker.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+            datePicker.heightAnchor.constraint(
+                equalTo: view.heightAnchor,
+                multiplier: 0.3
+            )
+        ])
         ])
     }
     
@@ -147,7 +178,10 @@ extension TodoDetailViewController {
 
         view.layer.shadowOpacity = 0.5
         view.layer.shadowRadius = 3.0
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOffset = CGSize(
+            width: 3,
+            height: 3
+        )
         view.layer.shadowColor = UIColor.gray.cgColor
     }
     
