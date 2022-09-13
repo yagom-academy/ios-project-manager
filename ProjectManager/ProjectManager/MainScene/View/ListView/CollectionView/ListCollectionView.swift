@@ -16,9 +16,10 @@ final class ListCollectionView: UICollectionView {
     private var todoDataSource: UICollectionViewDiffableDataSource<Section, TodoModel>?
     private var snapshot = NSDiffableDataSourceSnapshot<Section, TodoModel>()
     private var viewModel: TodoListViewModel?
-    var category: Category?
     private var currentLongPressedCell: ListCell?
+    var category: Category?
     
+    // MARK: Initializer
     init(frame: CGRect, category: Category?, viewModel: TodoListViewModel?) {
         super.init(frame: frame, collectionViewLayout: UICollectionViewLayout())
         self.viewModel = viewModel
@@ -126,6 +127,7 @@ extension ListCollectionView: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UIGestureRecognizerDelegate
 extension ListCollectionView: UIGestureRecognizerDelegate {
     
     private func setupLongGestureRecognizerOnCollection() {
@@ -172,6 +174,7 @@ extension ListCollectionView: UIGestureRecognizerDelegate {
     }
 }
 
+// MARK: - UIPopoverPresentationControllerDelegate
 extension ListCollectionView: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController,
                                    traitCollection: UITraitCollection) -> UIModalPresentationStyle {

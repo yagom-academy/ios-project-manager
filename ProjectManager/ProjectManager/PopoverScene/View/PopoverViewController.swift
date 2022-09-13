@@ -17,6 +17,7 @@ class PopoverViewController: UIViewController {
     
     private var viewModel: PopoverViewModel?
     
+    // MARK: - UIComponents
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,13 +53,15 @@ class PopoverViewController: UIViewController {
         button.backgroundColor = .white
         return button
     }()
-    // MARK: - View LifeCycle
+    
+    // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitialView()
         setupButton()
     }
     
+    // MARK: - Methods
     static func create(with viewModel: PopoverViewModel) -> PopoverViewController {
         let viewController = PopoverViewController()
         viewController.viewModel = viewModel

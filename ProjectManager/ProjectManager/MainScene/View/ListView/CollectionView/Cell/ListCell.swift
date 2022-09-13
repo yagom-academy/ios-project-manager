@@ -52,6 +52,7 @@ final class ListCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
     // MARK: - Methods
     private func setupInitialView() {
         backgroundColor = .white

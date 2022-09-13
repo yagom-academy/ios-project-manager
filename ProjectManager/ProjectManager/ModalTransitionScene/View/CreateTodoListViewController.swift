@@ -11,12 +11,15 @@ final class CreateTodoListViewController: UIViewController {
     
     private let createTemplateView = FormSheetTemplateView(frame: .zero)
     private var viewModel: TodoListViewModel?
+    
+    // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitialView()
         setupNavigationBar()
     }
     
+    // MARK: - Methods
     static func create(with viewModel: TodoListViewModel) -> CreateTodoListViewController {
         let viewController = CreateTodoListViewController()
         viewController.viewModel = viewModel

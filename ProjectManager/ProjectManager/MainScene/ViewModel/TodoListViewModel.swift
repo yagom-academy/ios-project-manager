@@ -9,20 +9,22 @@ import UIKit
 
 final class TodoListViewModel {
     weak var coordinator: AppCoordinator?
-
+    
     private var todoList: [TodoModel] = []
     private var doingList: [TodoModel] = []
     private var doneList: [TodoModel] = []
-
+    
     var didCreatedItem: ((TodoModel) -> Void)?
     var didDeletedItem: ((TodoModel) -> Void)?
     var didUpdateItem: ((TodoModel) -> Void)?
     
+    // MARK: - Initializer
     init(models: [TodoModel]) {
         self.todoList = models.filter { $0.category == .todo }
         self.doingList = models.filter { $0.category == .doing }
         self.doneList = models.filter { $0.category == .done }
     }
+    
     // MARK: - View Transition
     func goToEdit(_ model: TodoModel) {
         coordinator?.goToEdit(model)
@@ -127,7 +129,7 @@ final class TodoListViewModel {
         }
         didDeletedItem?(model)
     }
-    
+    // MARK: - support method
     func generateHeader(category: Category?) -> Header? {
         switch category {
         case .todo:

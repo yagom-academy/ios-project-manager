@@ -13,12 +13,14 @@ final class EditTodoListViewController: UIViewController {
     private var viewModel: TodoListViewModel?
     private var cellData: TodoModel?
     
+    // MARK: - ViewLifeCyle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitialView()
         setupNavigationBar()
     }
     
+    // MARK: - Methods
     static func create(with viewModel: TodoListViewModel,
                        cellData: TodoModel) -> EditTodoListViewController {
         let viewController = EditTodoListViewController()

@@ -9,6 +9,9 @@ import UIKit
 final class TodoListViewController: UIViewController {
     weak var coordinator: AppCoordinator?
     private var viewModel: TodoListViewModel?
+    private var todoListView: ListView?
+    private var doingListView: ListView?
+    private var doneListView: ListView?
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -18,9 +21,6 @@ final class TodoListViewController: UIViewController {
         stackView.spacing = 6
         return stackView
     }()
-    private var todoListView: ListView?
-    private var doingListView: ListView?
-    private var doneListView: ListView?
     
     // MARK: - ViewLifeCycles
     override func viewDidLoad() {
@@ -105,6 +105,7 @@ final class TodoListViewController: UIViewController {
         ])
     }
     
+    // MARK: - Bind Methods
     private func bind() {
         didCreatedItem()
         didDeletedItem()

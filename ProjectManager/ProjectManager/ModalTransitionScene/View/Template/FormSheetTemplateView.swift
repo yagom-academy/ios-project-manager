@@ -8,6 +8,8 @@
 import UIKit
 
 final class FormSheetTemplateView: UIView {
+    
+    // MARK: - UIComponents
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +60,7 @@ final class FormSheetTemplateView: UIView {
         return textView
     }()
     
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -67,6 +70,7 @@ final class FormSheetTemplateView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Methods
     private func setupView() {
         backgroundColor = .systemBackground
         addSubview(verticalStackView)

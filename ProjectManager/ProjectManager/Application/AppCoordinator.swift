@@ -11,7 +11,7 @@ final class AppCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
-    let viewModel = TodoListViewModel(models: []) // mock
+    let viewModel = TodoListViewModel(models: [])
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController

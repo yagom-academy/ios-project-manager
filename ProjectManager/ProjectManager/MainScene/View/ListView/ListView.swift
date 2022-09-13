@@ -13,6 +13,7 @@ final class ListView: UIView {
     private var viewModel: TodoListViewModel?
     private var category: Category?
     
+    // MARK: - Initializer
     init(viewModel: TodoListViewModel?, category: Category) {
         super.init(frame: .zero)
         guard let viewModel = viewModel else { return }
@@ -33,6 +34,7 @@ final class ListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Methods
     private func setupInitialView() {
         backgroundColor = .systemGray6
     }
