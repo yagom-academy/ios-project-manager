@@ -16,11 +16,13 @@ class MainHomeViewController: UIViewController {
     @IBOutlet weak var doingCount: UIButton!
     @IBOutlet weak var doneCount: UIButton!
 
+    private let viewModel = MainHomeViewModel()
+
     private var todoList = [TaskModel]()
     private var doingList = [TaskModel]()
     private var doneList = [TaskModel]()
     private var selectedCell: TaskModel?
-    private var selectedIndex: Int?
+    private var selectedIndex: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,9 +41,9 @@ class MainHomeViewController: UIViewController {
         longPress.delegate = self
         self.todoTableView.addGestureRecognizer(longPress)
 
-        todoCount.setTitle(String(todoList.count), for: .normal)
-        doingCount.setTitle(String(doingList.count), for: .normal)
-        doneCount.setTitle(String(doneList.count), for: .normal)
+        todoCount.setTitle(String(viewModel.todoCount), for: .normal)
+        doingCount.setTitle(String(viewModel.doingCount), for: .normal)
+        doneCount.setTitle(String(viewModel.doneCount), for: .normal)
 
         todoTableView.dataSource = self
         todoTableView.delegate = self
@@ -57,28 +59,19 @@ class MainHomeViewController: UIViewController {
         let location = recognizer.location(in: recognizer.view)
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let doingButton = UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
-            guard let self = self,
-            let dataIndex = self.selectedIndex,
-            var taskData = self.selectedCell
-            else { return }
+            guard let self = self else {
+                return
+            }
 
-            taskData.taskState = TaskState.doing
-            self.todoList.remove(at: dataIndex)
-            self.doingList.append(taskData)
-            TaskData.shared.databaseManager.updateDatabase(data: taskData, id: taskData.id ?? UUID())
+            self.viewModel.move(to: TaskState.doing, self.selectedIndex)
         }
         let doneButton = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
-            guard let self = self,
-            let dataIndex = self.selectedIndex,
-            var taskData = self.selectedCell
-            else { return }
+            guard let self = self else {
+                return
+            }
 
-            taskData.taskState = TaskState.done
-            self.todoList.remove(at: dataIndex)
-            self.doneList.append(taskData)
-            TaskData.shared.databaseManager.updateDatabase(data: taskData, id: taskData.id ?? UUID())
+            self.viewModel.move(to: TaskState.done, self.selectedIndex)
         }
-
         actionSheet.addAction(doingButton)
         actionSheet.addAction(doneButton)
 
