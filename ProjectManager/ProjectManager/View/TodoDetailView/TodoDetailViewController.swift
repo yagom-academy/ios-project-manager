@@ -105,17 +105,71 @@ extension TodoDetailViewController {
         
         let cancelButton = UIBarButtonItem(
             barButtonSystemItem: .cancel,
-            target: self,
-            action: #selector(cancelButtonTapped)
+            target: nil,
+            action: nil
         )
         let doneButton = UIBarButtonItem(
             barButtonSystemItem: .done,
-            target: self,
-            action: #selector(doneButtonTapped)
+            target: nil,
+            action: nil
         )
+        
+        configureBarbuttonItems(doneButton, cancelButton)
         
         navigationItem.setLeftBarButton(cancelButton, animated: true)
         navigationItem.setRightBarButton(doneButton, animated: true)
+    }
+    
+    private func getCurrentTodoInfomation() -> Todo? {
+        guard let title = self.titleTextField.text,
+              let body = self.bodyTextView.text else { return nil }
+        let date = self.datePicker.date
+        
+        var todoId = UUID()
+        var status = TodoStatus.todo
+        var isOutdated = false
+        
+        if let todoData = self.todoData {
+            todoData
+                .take(1)
+                .subscribe(onNext: {
+                    todoId = $0.todoId
+                    status = $0.status
+                    isOutdated = $0.isOutdated
+                })
+                .disposed(by: self.disposeBag)
+        }
+        
+        let currentTodoInfomation = Todo(
+            todoId: todoId,
+            title: title,
+            body: body,
+            createdAt: date,
+            status: status,
+            isOutdated: isOutdated
+        )
+        
+        return currentTodoInfomation
+    }
+    
+    private func configureBarbuttonItems(_ doneButton: UIBarButtonItem, _ cancelButton: UIBarButtonItem) {
+        doneButton.rx.tap
+            .subscribe(onNext: {
+                guard let currentTodoInfo = self.getCurrentTodoInfomation() else { return }
+
+                self.viewModel?.saveTodoData?.onNext(currentTodoInfo)
+                self.viewModel?.saveTodoData?.subscribe(onCompleted: {
+                    self.dismiss(animated: true)
+                })
+                .disposed(by: self.disposeBag)
+            })
+            .disposed(by: disposeBag)
+        
+        cancelButton.rx.tap
+            .subscribe(onNext: {
+                self.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureBackgroundColor() {
