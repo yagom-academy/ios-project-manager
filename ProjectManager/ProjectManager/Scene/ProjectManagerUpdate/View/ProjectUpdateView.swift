@@ -59,6 +59,7 @@ final class ProjectUpdateView: UIView {
         textView.layer.borderWidth = Design.bodyTextViewBorderWidth
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.font = .preferredFont(forTextStyle: .body)
+        textView.autocorrectionType = .no
         
         return textView
     }()
