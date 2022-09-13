@@ -45,30 +45,12 @@ struct TodoListAddTitleView: View {
     }
 }
 
-struct TodoListAddTitleTextView: View {
-    @State var title: String = ""
-
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(Color(.systemBackground))
-                .frame(width: 670, height: 60, alignment: .center)
-                .shadow(color: .gray, radius: 5, x: 10, y: 10)
-            TextField("Title", text: $title)
-                .padding()
-                .frame(width: 670, height: 60, alignment: .center)
-                .background(Color(.systemBackground))
-                .padding(12)
-        }
-    }
-}
-
 struct TodoListAddDatePickerView: View {
-    @State var date = Date()
+    @ObservedObject private var viewModel = ProjectAddViewModel()
 
     var body: some View {
         DatePicker("",
-                   selection: $date,
+                   selection: $viewModel.date,
                    displayedComponents: .date)
         .datePickerStyle(WheelDatePickerStyle())
         .labelsHidden()
@@ -76,23 +58,40 @@ struct TodoListAddDatePickerView: View {
 }
 
 struct TodoListAddDetailTextView: View {
-    @State var textString: String = ""
-    @State var placeHolder: String = "내용을 입력하세요(글자수는 1000자로 제한합니다"
+    @ObservedObject private var viewModel = ProjectAddViewModel()
 
     var body: some View {
 
         ZStack {
-            if self.textString.isEmpty {
-                TextEditor(text: $placeHolder)
+            if viewModel.detail.isEmpty {
+                TextEditor(text: $viewModel.placeholder)
                     .font(.body)
                     .disabled(true)
                     .padding()
             }
-            TextEditor(text: $textString)
+            TextEditor(text: $viewModel.detail)
                 .font(.body)
-                .opacity(self.textString.isEmpty ? 0.25 : 1)
+                .opacity(viewModel.detail.isEmpty ? 0.25 : 1)
                 .padding()
                 .disableAutocorrection(true)
+        }
+    }
+}
+
+struct TodoListAddTitleTextView: View {
+    @ObservedObject private var viewModel = ProjectAddViewModel()
+
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .fill(Color(.systemBackground))
+                .frame(width: 670, height: 60, alignment: .center)
+                .shadow(color: .gray, radius: 5, x: 10, y: 10)
+            TextField("Title", text: $viewModel.title)
+                .padding()
+                .frame(width: 670, height: 60, alignment: .center)
+                .background(Color(.systemBackground))
+                .padding(12)
         }
     }
 }

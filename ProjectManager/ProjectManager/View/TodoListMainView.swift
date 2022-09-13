@@ -97,9 +97,9 @@ struct VStackView: View {
             }
             List(array) { memo in
                 VStack(alignment: .leading) {
-                    Text(memo.title)
-                    Text(memo.detail)
-                    Text(memo.date, formatter: dateFormatter)
+                    Text(memo.title!)
+                    Text(memo.detail!)
+                    Text(memo.date!, formatter: dateFormatter)
                 }
             }
         }
