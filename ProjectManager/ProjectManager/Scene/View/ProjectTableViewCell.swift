@@ -1,5 +1,5 @@
 //
-//  WorkTableViewCell.swift
+//  ProjectTableViewCell.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/08.
@@ -13,7 +13,7 @@ private enum Design {
     static let mainStackViewTrailingAnchor: CGFloat = -8
 }
 
-final class WorkTableViewCell: UITableViewCell {
+final class ProjectTableViewCell: UITableViewCell {
     static let reuseIdentifier = Design.cellReuseIdentifier
     
     private let mainStackView: UIStackView = {

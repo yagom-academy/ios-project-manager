@@ -14,8 +14,8 @@
 		37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */; };
 		37038F9428CA0F45008D3921 /* ProjectDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9328CA0F45008D3921 /* ProjectDAO.swift */; };
 		37038F9628CA1606008D3921 /* ProjectManagerDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */; };
-		37038F9928CA1FBD008D3921 /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9828CA1FBD008D3921 /* WorkTableViewCell.swift */; };
-		37038F9E28CA3241008D3921 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9D28CA3241008D3921 /* TableHeaderView.swift */; };
+		37038F9928CA1FBD008D3921 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */; };
+		37038F9E28CA3241008D3921 /* ProjectTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */; };
 		37B39FB028CF2153008796AD /* ProjectUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B39FAF28CF2153008796AD /* ProjectUpdateViewController.swift */; };
 		37B39FB228CF2555008796AD /* ProjectUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B39FB128CF2555008796AD /* ProjectUpdateView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -32,8 +32,8 @@
 		37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataManager.swift; sourceTree = "<group>"; };
 		37038F9328CA0F45008D3921 /* ProjectDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDAO.swift; sourceTree = "<group>"; };
 		37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerDataProtocol.swift; sourceTree = "<group>"; };
-		37038F9828CA1FBD008D3921 /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
-		37038F9D28CA3241008D3921 /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
+		37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
+		37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableHeaderView.swift; sourceTree = "<group>"; };
 		37B39FAF28CF2153008796AD /* ProjectUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUpdateViewController.swift; sourceTree = "<group>"; };
 		37B39FB128CF2555008796AD /* ProjectUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUpdateView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,8 +100,8 @@
 		37038F9728CA1F84008D3921 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				37038F9828CA1FBD008D3921 /* WorkTableViewCell.swift */,
-				37038F9D28CA3241008D3921 /* TableHeaderView.swift */,
+				37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */,
+				37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */,
 				37B39FB128CF2555008796AD /* ProjectUpdateView.swift */,
 			);
 			path = View;
@@ -225,13 +225,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37038F9E28CA3241008D3921 /* TableHeaderView.swift in Sources */,
+				37038F9E28CA3241008D3921 /* ProjectTableHeaderView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				37038F9628CA1606008D3921 /* ProjectManagerDataProtocol.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				37B39FB228CF2555008796AD /* ProjectUpdateView.swift in Sources */,
 				37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */,
-				37038F9928CA1FBD008D3921 /* WorkTableViewCell.swift in Sources */,
+				37038F9928CA1FBD008D3921 /* ProjectTableViewCell.swift in Sources */,
 				37038F8828C9EC46008D3921 /* ProjectDTO.swift in Sources */,
 				37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */,
 				37038F8328C8B9E3008D3921 /* ProjectManagerViewController.swift in Sources */,

@@ -14,7 +14,7 @@ private enum Design {
     static let countLabelBorderWidth: CGFloat = 1
 }
 
-final class TableHeaderView: UIView {
+final class ProjectTableHeaderView: UIView {
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false

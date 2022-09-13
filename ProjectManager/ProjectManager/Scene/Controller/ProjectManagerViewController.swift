@@ -176,8 +176,8 @@ final class ProjectManagerViewController: UIViewController {
         doneTabelView.delegate = self
         
         [todoTableView, doingTableView, doneTabelView].forEach {
-            $0.register(WorkTableViewCell.self,
-                        forCellReuseIdentifier: WorkTableViewCell.reuseIdentifier)
+            $0.register(ProjectTableViewCell.self,
+                        forCellReuseIdentifier: ProjectTableViewCell.reuseIdentifier)
         }
     }
     
@@ -215,8 +215,8 @@ extension ProjectManagerViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WorkTableViewCell.reuseIdentifier)
-                as? WorkTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProjectTableViewCell.reuseIdentifier)
+                as? ProjectTableViewCell
         else { return UITableViewCell() }
         
         var items: [ProjectDTO]?
@@ -239,7 +239,7 @@ extension ProjectManagerViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = TableHeaderView()
+        let view = ProjectTableHeaderView()
         
         switch tableView {
         case todoTableView:
