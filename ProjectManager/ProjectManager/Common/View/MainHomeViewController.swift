@@ -31,7 +31,28 @@ class MainHomeViewController: UIViewController {
         UIDevice.current.setValue(value, forKey: "orientation")
 
         setUpDataList()
+        setUpGestureEvent()
+        setUpListCount()
 
+        setUpTableViewDelegate()
+        setUpTableViewDataSource()
+    }
+
+    private func setUpDataList() {
+        let allDatabase = TaskData.shared.databaseManager.readDatabase()
+
+        allDatabase.forEach { task in
+            if task.taskState == TaskState.todo {
+                todoList.append(task)
+            } else if task.taskState == TaskState.doing {
+                doingList.append(task)
+            } else {
+                doneList.append(task)
+            }
+        }
+    }
+
+    private func setUpGestureEvent() {
         let myGesture = UIPanGestureRecognizer(target: self, action: nil)
         myGesture.delegate = self
         self.todoTableView.addGestureRecognizer(myGesture)
@@ -40,19 +61,6 @@ class MainHomeViewController: UIViewController {
         longPress.minimumPressDuration = 1
         longPress.delegate = self
         self.todoTableView.addGestureRecognizer(longPress)
-
-        todoCount.setTitle(String(viewModel.todoCount), for: .normal)
-        doingCount.setTitle(String(viewModel.doingCount), for: .normal)
-        doneCount.setTitle(String(viewModel.doneCount), for: .normal)
-
-        todoTableView.dataSource = self
-        todoTableView.delegate = self
-
-        doingTableView.dataSource = self
-        doingTableView.delegate = self
-
-        doneTableView.dataSource = self
-        doneTableView.delegate = self
     }
 
     @objc func handleLongPressGesture(recognizer: UITapGestureRecognizer) {
@@ -82,18 +90,22 @@ class MainHomeViewController: UIViewController {
         present(actionSheet, animated: true)
     }
 
-    private func setUpDataList() {
-        let allDatabase = TaskData.shared.databaseManager.readDatabase()
+    private func setUpListCount() {
+        todoCount.setTitle(String(viewModel.todoCount), for: .normal)
+        doingCount.setTitle(String(viewModel.doingCount), for: .normal)
+        doneCount.setTitle(String(viewModel.doneCount), for: .normal)
+    }
 
-        allDatabase.forEach { task in
-            if task.taskState == TaskState.todo {
-                todoList.append(task)
-            } else if task.taskState == TaskState.doing {
-                doingList.append(task)
-            } else {
-                doneList.append(task)
-            }
-        }
+    private func setUpTableViewDataSource() {
+        todoTableView.dataSource = self
+        doingTableView.dataSource = self
+        doneTableView.dataSource = self
+    }
+
+    private func setUpTableViewDelegate() {
+        todoTableView.delegate = self
+        doingTableView.delegate = self
+        doneTableView.delegate = self
     }
 }
 
