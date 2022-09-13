@@ -7,12 +7,22 @@
 
 import Foundation
 
-struct Todo {
+struct Todo: Codable {
+    var todoId: UUID
     var title: String
     var body: String
     var createdAt: Date
     var status: TodoStatus
     var isOutdated: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case todoId = "todo_id"
+        case title
+        case body
+        case createdAt = "created_at"
+        case status
+        case isOutdated = "is_outdated"
+    }
 }
 
 // MARK: - Sample Data (for Test)
