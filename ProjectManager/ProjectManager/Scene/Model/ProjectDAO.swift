@@ -8,7 +8,33 @@
 import Foundation
 
 struct WorkDAO: ProjectManagerDataProtocol {
-    private var data = [WorkDTO]()
+    private var data = [
+        WorkDTO(id: UUID().description,
+                title: "test",
+                body: "testBody",
+                date: Date(),
+                workState: .todo),
+        WorkDTO(id: UUID().description,
+                title: "test",
+                body: "testBody",
+                date: Date(),
+                workState: .todo),
+        WorkDTO(id: UUID().description,
+                title: "test",
+                body: "testBody",
+                date: Date(),
+                workState: .todo),
+        WorkDTO(id: UUID().description,
+                title: "test",
+                body: "testBody",
+                date: Date(),
+                workState: .done),
+        WorkDTO(id: UUID().description,
+                title: "test",
+                body: "testBody",
+                date: Date(),
+                workState: .done)
+    ]
     
     mutating func append(work: WorkDTO) {
         data.append(work)

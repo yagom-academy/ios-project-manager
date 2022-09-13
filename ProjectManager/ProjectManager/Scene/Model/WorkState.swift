@@ -18,4 +18,15 @@ enum WorkState: String, Decodable {
             return "DONE"
         }
     }
+    
+    var actionTitles: (first: String, second: String) {
+        switch self {
+        case .todo:
+            return ("Move To Doing", "Move To Done")
+        case .doing:
+            return ("Move To Todo", "Move To Done")
+        case .done:
+            return ("Move To Todo", "Move To Doing")
+        }
+    }
 }
