@@ -22,6 +22,7 @@ struct TodoListView: View {
             .listStyle(.plain)
         }
         .background(Color(UIColor.systemGray6))
+        Divider()
     }
 }
 
@@ -33,21 +34,19 @@ struct HeaderView: View {
         HStack(spacing: 10) {
             Text("TODO")
                 .font(.largeTitle)
+                .padding(EdgeInsets(top: 11, leading: 21, bottom: -1, trailing: 0))
             Circle()
                 .frame(width: 25, height: 25)
                 .foregroundColor(.primary)
+                .padding(EdgeInsets(top: 11, leading: 0, bottom: -1, trailing: 21))
             Spacer()
         }
-        .padding(EdgeInsets(top: 11, leading: 21, bottom: -1, trailing: 21))
     }
 }
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView(todoTasks: [Todo(title: "1번 할일", body: "1줄\n2줄\n3줄", date: Date(timeIntervalSinceNow: -86400 * 2), status: .todo),
-                                 Todo(title: "2번 할일", body: "1줄\n2줄", date: Date(timeIntervalSinceNow: -86400), status: .todo),
-                                 Todo(title: "3번 할일", body: "1줄", date: Date(timeIntervalSinceNow: 86400), status: .todo),
-                                 Todo(title: "4번 할일", body: "1줄\n2줄\n3줄\n4줄", date: Date(timeIntervalSinceNow: 86400 * 2), status: .todo)])
+        TodoListView(todoTasks: DummyData.dummyData)
         .previewInterfaceOrientation(.landscapeRight)
     }
 }

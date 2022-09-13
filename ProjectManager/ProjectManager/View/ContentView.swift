@@ -9,7 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            HStack {
+                TodoListView(todoTasks: DummyData.dummyData)
+
+                TodoListView(todoTasks: DummyData.dummyData)
+
+                TodoListView(todoTasks: DummyData.dummyData)
+            }
+            .navigationTitle("Project Manager")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarColor(.systemGray5)
+        }
+        .navigationViewStyle(.stack)
     }
 }
 
