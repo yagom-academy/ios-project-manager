@@ -98,9 +98,8 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
         let list = viewModel.getDataList()
         let data = list[indexPath.row]
 
-        cell.titleLabel.text = data.taskTitle
-        cell.descriptionLabel.text = data.taskDescription
-        cell.deadlineLabel.text = data.taskDeadline
+        cell.setUpCell(data: data)
+
         return cell
     }
 
@@ -143,7 +142,7 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
     ) -> Bool {
         return true
     }
-    
+
     private func setUpGestureEvent() {
         let myGesture = UIPanGestureRecognizer(target: self, action: nil)
         myGesture.delegate = self
