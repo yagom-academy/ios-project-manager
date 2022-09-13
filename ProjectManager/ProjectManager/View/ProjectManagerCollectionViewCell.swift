@@ -13,6 +13,8 @@ class ProjectManagerCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
+    static let tableViewCellIdentifier = "todoListCell"
+
     private var statusType: TodoStatus?
     private var disposeBag = DisposeBag()
     private var categorizedTodoList: Observable<[Todo]>? {
@@ -21,7 +23,6 @@ class ProjectManagerCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private let tableViewCellIdentifier = "todoListCell"
     private var tableView: UITableView?
     
     // MARK: - Life Cycle
@@ -65,7 +66,7 @@ extension ProjectManagerCollectionViewCell {
         )
         initialTableView.register(
             TodoListTableViewCell.self,
-            forCellReuseIdentifier: tableViewCellIdentifier
+            forCellReuseIdentifier: ProjectManagerCollectionViewCell.tableViewCellIdentifier
         )
         initialTableView.delegate = self
         

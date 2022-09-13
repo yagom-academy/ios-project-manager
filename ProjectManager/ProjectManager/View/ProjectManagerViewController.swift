@@ -10,7 +10,8 @@ class ProjectManagerViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let cellIdentifier = "tableViewCell"
+    static let collectionViewCellIdentifier = "tableViewCell"
+    
     private var collectionView: UICollectionView?
     private var viewModel = ProjectManagerViewModel()
     
@@ -60,7 +61,7 @@ extension ProjectManagerViewController {
         initialCollectionView.backgroundColor = .systemGray5
         initialCollectionView.register(
             ProjectManagerCollectionViewCell.self,
-            forCellWithReuseIdentifier: cellIdentifier
+            forCellWithReuseIdentifier: ProjectManagerViewController.collectionViewCellIdentifier
         )
         initialCollectionView.isScrollEnabled = false
         initialCollectionView.dataSource = self
@@ -147,9 +148,10 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
               let status = TodoStatus(rawValue: indexPath.row),
               let categoriedTodoList = self.viewModel.categorizedTodoList[status],
               let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: cellIdentifier,
+                withReuseIdentifier: ProjectManagerViewController.collectionViewCellIdentifier,
                 for: indexPath
               ) as? ProjectManagerCollectionViewCell else {
+            
             return UICollectionViewCell()
         }
         
