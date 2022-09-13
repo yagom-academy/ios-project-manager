@@ -143,33 +143,39 @@ extension ListCollectionView: UIGestureRecognizerDelegate {
     
     @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: self)
-        if gestureRecognizer.state == .began {
-            if let indexPath = indexPathForItem(at: location) {
-                UIView.animate(withDuration: 0.2) { [weak self] in
-                    guard let self = self else { return }
-                    if let cell = self.cellForItem(at: indexPath) as? ListCell {
-                        self.currentLongPressedCell = cell
-                        cell.transform = .init(scaleX: 0.95, y: 0.95)
-                    }
-                }
-            }
-        } else if gestureRecognizer.state == .ended {
-            if let indexPath = indexPathForItem(at: location) {
-                UIView.animate(withDuration: 0.2) { [weak self] in
-                    guard let self = self else { return }
-                    if let cell = self.currentLongPressedCell {
-                        cell.transform = .init(scaleX: 1, y: 1)
-                        if cell == self.cellForItem(at: indexPath) as? ListCell {
-                            self.viewModel?.showPopover(at: cell,
-                                                        in: self,
-                                                        location: location,
-                                                        indexPath: indexPath)
-                        }
-                    }
-                }
-            }
-        } else {
+        let state = gestureRecognizer.state
+        switch state {
+        case .began:
+            animateLongPressBegin(at: location)
+        case .ended:
+            animateLongPressEnd(at: location)
+        default:
             return
+        }
+    }
+    
+    private func animateLongPressBegin(at location: CGPoint) {
+        guard let indexPath = indexPathForItem(at: location) else { return }
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            guard let self = self else { return }
+            guard let cell = self.cellForItem(at: indexPath) as? ListCell else { return }
+            self.currentLongPressedCell = cell
+            cell.transform = .init(scaleX: 0.95, y: 0.95)
+        }
+    }
+    
+    private func animateLongPressEnd(at location: CGPoint) {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            guard let self = self else { return }
+            guard let cell = self.currentLongPressedCell else { return }
+            cell.transform = .init(scaleX: 1, y: 1)
+            guard let indexPath = self.indexPathForItem(at: location) else { return }
+            guard cell == self.cellForItem(at: indexPath) as? ListCell else { return }
+            self.viewModel?.showPopover(
+                in: self,
+                location: (Double(location.x), Double(location.y)),
+                indexPath: indexPath.row
+            )
         }
     }
 }

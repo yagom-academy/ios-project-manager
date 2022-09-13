@@ -95,8 +95,10 @@ final class FormSheetTemplateView: UIView {
     }
     
     func setupData(with model: TodoModel?) {
-        titleTextField.text = model?.title
-        bodyTextView.text = model?.body
+        guard let model = model else { return }
+        titleTextField.text = model.title
+        datePicker.date = model.date
+        bodyTextView.text = model.body
     }
     
     func generateTodoModel() -> TodoModel? {

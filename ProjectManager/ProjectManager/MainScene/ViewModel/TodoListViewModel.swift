@@ -34,37 +34,33 @@ final class TodoListViewModel {
         coordinator?.goToCreate()
     }
     
-    func showPopover<T: ListCollectionView>(
-        at cell: UICollectionViewCell,
-        in view: T,
-        location: CGPoint,
-        indexPath: IndexPath) {
-            switch view.category {
-            case .todo:
-                coordinator?.showPopover(
-                    at: cell,
-                    in: view,
-                    location: location,
-                    item: read(.todo)?[indexPath.row]
-                )
-            case .doing:
-                coordinator?.showPopover(
-                    at: cell,
-                    in: view,
-                    location: location,
-                    item: read(.doing)?[indexPath.row]
-                )
-            case .done:
-                coordinator?.showPopover(
-                    at: cell,
-                    in: view,
-                    location: location,
-                    item: read(.done)?[indexPath.row]
-                )
-            case .none:
-                return
-            }
+    func showPopover<T: ListCollectionView>(in view: T,
+                                            location: (x: Double, y: Double),
+                                            indexPath: Int) {
+        switch view.category {
+        case .todo:
+            coordinator?.showPopover(
+                in: view,
+                location: location,
+                item: read(.todo)?[indexPath]
+            )
+        case .doing:
+            coordinator?.showPopover(
+                in: view,
+                location: location,
+                item: read(.doing)?[indexPath]
+            )
+        case .done:
+            coordinator?.showPopover(
+                in: view,
+                location: location,
+                item: read(.done)?[indexPath]
+            )
+        case .none:
+            return
         }
+    }
+    
     // MARK: - CRUD
     func create(with model: TodoModel) {
         let category = model.category
