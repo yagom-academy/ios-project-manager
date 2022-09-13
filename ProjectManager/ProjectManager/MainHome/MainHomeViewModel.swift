@@ -8,7 +8,6 @@
 import Foundation
 
 class MainHomeViewModel {
-
     var todoCount: Int {
         return taskDataStore.todoList.count
     }
@@ -45,5 +44,19 @@ class MainHomeViewModel {
 
         currentList.append(data)
         databaseManager.updateDatabase(data: data, id: data.id ?? UUID())
+    }
+
+    func getDataList() -> [TaskModel] {
+        fetchDataList()
+        return currentList
+    }
+
+    private func fetchDataList() {
+        let allData = databaseManager.readDatabase()
+
+        allData.forEach { data in
+            currentState = data.taskState
+            currentList.append(data)
+        }
     }
 }
