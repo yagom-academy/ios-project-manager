@@ -5,7 +5,7 @@
 //  Created by Finnn on 2022/09/08.
 //
 
-enum TodoStatus: Int, CaseIterable {
+enum TodoStatus: Int, Codable, CaseIterable {
     case todo = 0
     case doing
     case done
