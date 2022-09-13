@@ -7,7 +7,4 @@
 
 enum MainViewCommand {
     static let mainViewNavigationBarTitle = "Project Manager"
-    static let todoTitle = "TODO"
-    static let doingTitle = "DOING"
-    static let doneTitle = "DONE" 
 }
