@@ -120,7 +120,7 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
         } else if tableView == doingTableView {
             return viewModel.doingCount
         } else {
-            return TaskData.shared.databaseManager.getTaskStateCount(state: TaskState.done)
+            return viewModel.doneCount
         }
     }
 
@@ -161,13 +161,16 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
                 return
             }
 
-//            if tableView == self.todoTableView {
-//                self.todoList.remove(at: indexPath.row)
-//            } else if tableView == self.doingTableView {
-//                self.doingList.remove(at: indexPath.row)
-//            } else {
-//                self.doneList.remove(at: indexPath.row)
-//            }
+            if tableView == self.todoTableView {
+                self.viewModel.currentState = TaskState.todo
+            } else if tableView == self.doingTableView {
+                self.viewModel.currentState = TaskState.doing
+            } else {
+                self.viewModel.currentState = TaskState.done
+            }
+
+            self.viewModel.remove(index: indexPath.row)
+            self.reloadTableView()
         }
 
         return UISwipeActionsConfiguration(actions: [deleteAction])

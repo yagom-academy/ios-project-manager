@@ -40,16 +40,9 @@ class RealmDatabaseManager: DatabaseManager {
         return database
     }
 
-    func updateDatabase(data: TaskModel, id: UUID) {
-        guard let realm = realm else {
-            return
-        }
-
-        let relamData = realm.objects(RealmDatabaseModel.self).where {
-            $0.id == id
-        }.first
-
-        guard let searchData = relamData else {
+    func updateDatabase(data: TaskModel) {
+        guard let realm = realm,
+              let searchData = search(data: data) else {
             return
         }
 
@@ -65,23 +58,31 @@ class RealmDatabaseManager: DatabaseManager {
         }
     }
 
-    func deleteDatabase() {
+    func deleteDatabase(data: TaskModel) {
         guard let realm = realm,
-              ((try? realm.write({ realm.deleteAll() })) != nil)
-        else {
+              let searchData = search(data: data) else {
             return
+        }
+
+        do {
+            try realm.write({
+                realm.delete(searchData)
+            })
+        } catch {
+            print("삭제 실패")
         }
     }
 
-    func getTaskStateCount(state: String) -> Int {
-        guard let realm = realm else {
-            return 0
+    private func search(data: TaskModel) -> RealmDatabaseModel? {
+        guard let realm = realm,
+                let id = data.id else {
+            return nil
         }
 
-        let count = realm.objects(RealmDatabaseModel.self).where {
-            $0.taskState == state
-        }.count
+        let relamData = realm.objects(RealmDatabaseModel.self).where {
+            $0.id == id
+        }.first
 
-        return count
+        return relamData
     }
 }

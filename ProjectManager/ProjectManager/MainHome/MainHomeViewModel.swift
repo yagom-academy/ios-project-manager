@@ -55,7 +55,7 @@ class MainHomeViewModel {
         currentState = state
 
         currentList.append(data)
-        databaseManager.updateDatabase(data: data, id: data.id ?? UUID())
+        databaseManager.updateDatabase(data: data)
     }
 
     func getDataList() -> [TaskModel] {
@@ -79,5 +79,11 @@ class MainHomeViewModel {
         }
 
         taskDataStore.todoList.append(data)
+    }
+
+    func remove(index: Int) {
+        let data = currentList[index]
+        currentList.remove(at: index)
+        databaseManager.deleteDatabase(data: data)
     }
 }
