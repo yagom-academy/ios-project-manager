@@ -216,8 +216,15 @@ extension ProjectManagerCollectionViewCell: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { _, _, completion in
-            print("스와이프 제스쳐 Delete 감지됨!")
+        let delete = UIContextualAction(
+            style: .destructive,
+            title: "Delete"
+        ) { _, _, completion in
+            self.categorizedTodoList?
+                .take(1)
+                .subscribe(onNext: { self.viewModel?.deleteTodoData?.onNext($0[indexPath.row]) })
+                .disposed(by: self.disposeBag)
+            
             completion(true)
         }
         

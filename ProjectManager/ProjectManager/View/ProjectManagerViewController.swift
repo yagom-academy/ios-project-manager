@@ -14,6 +14,7 @@ class ProjectManagerViewController: UIViewController {
     
     private var collectionView: UICollectionView?
     private var viewModel = ProjectManagerViewModel()
+    private var disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
     
@@ -25,12 +26,17 @@ class ProjectManagerViewController: UIViewController {
         configureNavigationBar()
         configureHierarchy()
         configureLayout()
+        configureObservable()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         addCollectionViewBottomLine(borderWidth: 2, color: .systemGray5)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        disposeBag = DisposeBag()
     }
 }
 
