@@ -5,6 +5,7 @@
 // 
 
 import UIKit
+import RxSwift
 
 class ProjectManagerViewController: UIViewController {
     
@@ -106,10 +107,14 @@ extension ProjectManagerViewController {
     
     private func configureLayout() {
         guard let collectionView = self.collectionView else { return }
+        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            collectionView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -50
+            ),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
@@ -128,7 +133,14 @@ extension ProjectManagerViewController {
 
 extension ProjectManagerViewController {
     @objc private func rightBarButtonTapped(sender: UIView) {
-        let todoDetailNavigationController = UINavigationController(rootViewController: TodoDetailViewController())
+        let todoDetailViewController = TodoDetailViewController()
+        let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
+        
+        todoDetailViewController.set(
+            todo: nil,
+            viewModel: viewModel
+        )
+        
         present(todoDetailNavigationController, animated: true)
     }
 }
