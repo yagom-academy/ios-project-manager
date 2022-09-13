@@ -26,6 +26,7 @@ final class CardModalView: UIView {
     }
     
     let titleTextField = UITextField().then {
+        $0.font = .preferredFont(forTextStyle: .title3)
         $0.placeholder = Const.placeHolder
         $0.layer.borderColor = UIColor.systemGray4.cgColor
         $0.layer.borderWidth = Const.layerBorderWidth
@@ -40,6 +41,7 @@ final class CardModalView: UIView {
     }
     
     let descriptionTextView = UITextView().then {
+        $0.font = .preferredFont(forTextStyle: .body)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.layer.borderWidth = Const.layerBorderWidth
         $0.layer.borderColor = UIColor.systemGray4.cgColor
