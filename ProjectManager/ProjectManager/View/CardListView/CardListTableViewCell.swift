@@ -8,7 +8,7 @@
 import UIKit
 import Then
 
-final class CardListTableViewCell: BaseTableViewCell<TodoListModel> {
+final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
     private enum Const {
         static let stackViewSpacing = 12.0
         static let baseConstraint = 12.0
@@ -41,9 +41,14 @@ final class CardListTableViewCell: BaseTableViewCell<TodoListModel> {
             $0.spacing = Const.stackViewSpacing
         }
     
-    override func configure() {
-        super.configure()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupDefault()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
     override func prepareForReuse() {
@@ -52,7 +57,7 @@ final class CardListTableViewCell: BaseTableViewCell<TodoListModel> {
         descriptionLabel.text = nil
         deadlineDateLabel.text = nil
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.layer.addBottomBorder()
