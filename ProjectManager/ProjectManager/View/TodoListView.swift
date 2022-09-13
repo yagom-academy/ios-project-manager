@@ -34,19 +34,22 @@ struct HeaderView: View {
         HStack(spacing: 10) {
             Text("TODO")
                 .font(.largeTitle)
-                .padding(EdgeInsets(top: 11, leading: 21, bottom: -1, trailing: 0))
-            Circle()
-                .frame(width: 25, height: 25)
-                .foregroundColor(.primary)
-                .padding(EdgeInsets(top: 11, leading: 0, bottom: -1, trailing: 21))
+            Text("\(todoTasks.count)")
+                .frame(width: 28.5, height: 24)
+                .font(.title3)
+                .padding(.all, 3)
+                .colorInvert()
+                .background(Color.primary)
+                .clipShape(Circle())
             Spacer()
         }
+        .padding(EdgeInsets(top: 10, leading: 20, bottom: -1, trailing: 0))
     }
 }
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
         TodoListView(todoTasks: DummyData.dummyData)
-        .previewInterfaceOrientation(.landscapeRight)
+            .previewInterfaceOrientation(.landscapeRight)
     }
 }
