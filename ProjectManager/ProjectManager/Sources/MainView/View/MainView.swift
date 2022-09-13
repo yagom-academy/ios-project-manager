@@ -34,12 +34,6 @@ final class MainView: UIView {
         todoListView.translatesAutoresizingMaskIntoConstraints = false
         doingListView.translatesAutoresizingMaskIntoConstraints = false
         doneListView.translatesAutoresizingMaskIntoConstraints = false
-        
-        //TODO: 지워도됨, 테스트 코드
-        
-        todoListView.backgroundColor = .red
-        doingListView.backgroundColor = .blue
-        doneListView.backgroundColor = .green
     }
     
     required init?(coder: NSCoder) {

@@ -18,9 +18,17 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupMainView()
         setupNavigationBarItem()
-        mainView.translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+private extension MainViewController {
+    
+    //MARK: - Root View Setup
+    func setupMainView() {
         view.addSubview(mainView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             mainView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -28,11 +36,6 @@ final class MainViewController: UIViewController {
             mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-}
-
-private extension MainViewController {
-    
-    //MARK: - Root View Setup
     
     func setupNavigationBarItem() {
         navigationItem.title = MainViewCommand.mainViewNavigationBarTitle
@@ -42,6 +45,19 @@ private extension MainViewController {
     
     func setupRightBarButtonItem() {
         let rightBarButtonItem = UIBarButtonItem(systemItem: .add)
+        rightBarButtonItem.target = self
+        rightBarButtonItem.action = #selector(rightBarButtonDidTap)
         navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+    }
+    
+    @objc func rightBarButtonDidTap() {
+        let todoAddViewController = TodoAddViewController()
+        todoAddViewController.state = .TODO
+        
+        let presentNavigationController = UINavigationController(rootViewController: todoAddViewController)
+        presentNavigationController.modalPresentationStyle = .pageSheet
+        
+        self.navigationController?.present(presentNavigationController, animated: true)
     }
 }

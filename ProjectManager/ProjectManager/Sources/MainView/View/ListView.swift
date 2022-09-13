@@ -15,8 +15,9 @@ final class ListView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.distribution = .fill
+        
         stackView.alignment = .center
+        stackView.backgroundColor = .systemBackground
         return stackView
     }()
     
@@ -31,15 +32,31 @@ final class ListView: UIView {
     let countLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 0.5
-        label.text = "999"
+        label.font = .preferredFont(forTextStyle: .title3)
+        label.layer.backgroundColor = UIColor.black.cgColor
+        label.textColor = .white
+        label.layer.cornerRadius = 7
+        label.text = "99"
         return label
+    }()
+    
+    private let titleSpacingView: UIView = {
+        let view = UIView()
+        //view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray5
+        return view
+      }()
+    
+    private let tableSpacingView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray5
+        return view
     }()
     
     let mainTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         return tableView
     }()
     
@@ -49,6 +66,7 @@ final class ListView: UIView {
         super.init(frame: frame)
         addUIComponents()
         setupListViewLayout()
+        print(0.5 * mainTitleLabel.frame.size.width)
     }
     
     required init?(coder: NSCoder) {
@@ -62,21 +80,30 @@ private extension ListView {
     
     func addUIComponents() {
         self.addSubview(titleStackView)
+        self.addSubview(tableSpacingView)
         self.addSubview(mainTableView)
         
         titleStackView.addArrangedSubview(mainTitleLabel)
         titleStackView.addArrangedSubview(countLabel)
+        titleStackView.addArrangedSubview(titleSpacingView)
     }
     
     func setupListViewLayout() {
         NSLayoutConstraint.activate([
             titleStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             titleStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            titleStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor)
+            titleStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            mainTableView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor),
+            tableSpacingView.topAnchor.constraint(equalTo: self.titleStackView.bottomAnchor),
+            tableSpacingView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            tableSpacingView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            tableSpacingView.heightAnchor.constraint(equalToConstant: 10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            mainTableView.topAnchor.constraint(equalTo: tableSpacingView.bottomAnchor),
             mainTableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             mainTableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             mainTableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
