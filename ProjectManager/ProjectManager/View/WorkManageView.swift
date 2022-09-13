@@ -73,10 +73,14 @@ class WorkManageView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            verticalStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            verticalStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            verticalStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
-            verticalStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            verticalStackView.leadingAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            verticalStackView.trailingAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            verticalStackView.topAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
+            verticalStackView.bottomAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             
             contentTextView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.6)
         ])
