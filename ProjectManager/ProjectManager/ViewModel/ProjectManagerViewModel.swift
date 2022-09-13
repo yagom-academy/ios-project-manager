@@ -12,7 +12,10 @@ class ProjectManagerViewModel {
     
     // MARK: - Properties
     
-    private var allTodoList = BehaviorSubject<[Todo]>(value: [])
+    static let firestoreCollectionName = "todo_list"
+    
+    var disposeBag = DisposeBag()
+    var allTodoList = BehaviorSubject<[Todo]>(value: [])
     var categorizedTodoList: [TodoStatus: Observable<[Todo]>] = [:]
     
     var saveTodoData: PublishSubject<Todo>?
@@ -21,17 +24,23 @@ class ProjectManagerViewModel {
     // MARK: - Life Cycle
     
     init() {
-        let sampleData = Todo.generateSampleData(
-            count: 20,
-            maxBodyLine: 10,
-            startDate: "2022-09-01",
-            endData: "2022-09-30"
-        )
-        allTodoList.onNext(sampleData)
         configureSaveTodoData()
         configureDeleteTodoData()
         configureChangeStatusTodoData()
+        configureCategorizedTodoList()
         
+        fetchTodoData()
+    }
+    
+    deinit {
+        disposeBag = DisposeBag()
+    }
+}
+
+// MARK: - Configure Methods
+
+extension ProjectManagerViewModel {
+    private func configureCategorizedTodoList() {
         TodoStatus.allCases.forEach { status in
             categorizedTodoList[status] = categorizeTodoList(by: status)
         }
@@ -88,6 +97,7 @@ extension ProjectManagerViewModel {
             todo.status == status
         }
     }
+}
 
 // MARK: - Request Methods
 
@@ -141,6 +151,20 @@ extension ProjectManagerViewModel {
             .disposed(by: disposeBag)
     }
 }
+
+// MARK: - Other Methods
+
+extension ProjectManagerViewModel {
+    private func fetchTodoData() {
+        FirebaseManager.shared.fetchData(collection: ProjectManagerViewModel.firestoreCollectionName)
+            .map { self.convertData($0) }
+            .map { $0.sorted { $0.createdAt < $1.createdAt } }
+            .take(1)
+            .subscribe(onNext: { todoList in
+                self.allTodoList.onNext(todoList)
+            })
+            .disposed(by: disposeBag)
+    }
     
     private func checkOutdated(of todoList: [Todo]) -> [Todo] {
         return todoList.map { todo -> Todo in
@@ -152,5 +176,16 @@ extension ProjectManagerViewModel {
             
             return todo
         }
+    }
+    
+    private func convertData(_ firebaseSnapshot: [QueryDocumentSnapshot]) -> [Todo] {
+        var convertedTodoList: [Todo] = []
+        
+        firebaseSnapshot.forEach { documents in
+            guard let todo = Todo(dictionary: documents.data()) else { return }
+            convertedTodoList.append(todo)
+        }
+        
+        return convertedTodoList
     }
 }
