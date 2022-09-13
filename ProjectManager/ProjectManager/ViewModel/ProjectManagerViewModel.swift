@@ -21,6 +21,9 @@ class ProjectManagerViewModel {
     var saveTodoData: PublishSubject<Todo>?
     var deleteTodoData: PublishSubject<Todo>?
     var changeStatusTodoData: PublishSubject<(TodoStatus, Int, TodoStatus)>?
+    
+    var alertError = PublishSubject<Error>()
+    
     // MARK: - Life Cycle
     
     init() {

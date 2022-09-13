@@ -108,6 +108,14 @@ extension ProjectManagerViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
+    
+    private func configureObservable() {
+        viewModel.alertError
+            .subscribe(onNext: {
+                self.presentAlert(error: $0)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - Objective-C Methods
@@ -133,6 +141,34 @@ extension ProjectManagerViewController {
         downBorder.backgroundColor = color.cgColor
 
         collectionView.layer.addSublayer(downBorder)
+    }
+    
+    private func presentAlert(error: Error) {
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
+              let rootViewController = sceneDelegate.window?.rootViewController as? UINavigationController else { return }
+        
+        var errorMessage: String
+        
+        switch error {
+        case TodoError.emptyTitle:
+            errorMessage = "Title을 입력해주세요."
+        default:
+            errorMessage = error.localizedDescription
+        }
+        
+        let alertController = UIAlertController(
+            title: "Error",
+            message: errorMessage,
+            preferredStyle: .alert
+        )
+        let action = UIAlertAction(
+            title: "확인",
+            style: .cancel
+        )
+        
+        alertController.addAction(action)
+        
+        rootViewController.presentedViewController?.present(alertController, animated: true)
     }
 }
 
