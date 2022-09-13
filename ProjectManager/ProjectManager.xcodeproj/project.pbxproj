@@ -64,7 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				0578628628D03DA2003CD311 /* ViewModel */,
-				0578628728D03DEF003CD311 /* MainHomeViewModel.swift */,
+				C7431F0925F51E1D0094C4CF /* MainHomeViewController.swift */,
 			);
 			path = MainHome;
 			sourceTree = "<group>";
@@ -72,8 +72,25 @@
 		0578628628D03DA2003CD311 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				0578628728D03DEF003CD311 /* MainHomeViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0578628C28D09B8E003CD311 /* TodoForm */ = {
+			isa = PBXGroup;
+			children = (
+				0578628D28D09BA4003CD311 /* Controller */,
+			);
+			path = TodoForm;
+			sourceTree = "<group>";
+		};
+		0578628D28D09BA4003CD311 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				05A5774B28CF807A00E05133 /* TodoFormViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		05A5775428CFBD5F00E05133 /* Common */ = {
@@ -114,7 +131,6 @@
 			children = (
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 				05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */,
-				C7431F0925F51E1D0094C4CF /* MainHomeViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -160,7 +176,7 @@
 			children = (
 				05A5775428CFBD5F00E05133 /* Common */,
 				0578628528D03D81003CD311 /* MainHome */,
-				05A5774B28CF807A00E05133 /* TodoFormViewController.swift */,
+				0578628C28D09B8E003CD311 /* TodoForm */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;

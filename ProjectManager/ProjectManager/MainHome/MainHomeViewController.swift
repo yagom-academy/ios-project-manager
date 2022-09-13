@@ -7,7 +7,6 @@
 import UIKit
 
 class MainHomeViewController: UIViewController {
-
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
@@ -39,46 +38,6 @@ class MainHomeViewController: UIViewController {
             name: NSNotification.Name("모델 추가"),
             object: nil
         )
-    }
-
-    private func setUpGestureEvent() {
-        let myGesture = UIPanGestureRecognizer(target: self, action: nil)
-        myGesture.delegate = self
-        self.todoTableView.addGestureRecognizer(myGesture)
-
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
-        longPress.minimumPressDuration = 1
-        longPress.delegate = self
-        self.todoTableView.addGestureRecognizer(longPress)
-    }
-
-    @objc func handleLongPressGesture(recognizer: UITapGestureRecognizer) {
-        let location = recognizer.location(in: recognizer.view)
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let doingButton = UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
-            guard let self = self else {
-                return
-            }
-
-            self.viewModel.move(to: TaskState.doing, self.selectedIndex)
-            self.reloadTableView()
-        }
-        let doneButton = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
-            guard let self = self else {
-                return
-            }
-
-            self.viewModel.move(to: TaskState.done, self.selectedIndex)
-            self.reloadTableView()
-        }
-        actionSheet.addAction(doingButton)
-        actionSheet.addAction(doneButton)
-
-        let popover = actionSheet.popoverPresentationController
-        popover?.sourceView = view
-        popover?.sourceRect = CGRect(x: location.x, y: location.y + 60 , width: 60, height: 60)
-
-        present(actionSheet, animated: true)
     }
 
     private func setUpTableViewCount() {
@@ -183,5 +142,45 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
     ) -> Bool {
         return true
+    }
+    
+    private func setUpGestureEvent() {
+        let myGesture = UIPanGestureRecognizer(target: self, action: nil)
+        myGesture.delegate = self
+        self.todoTableView.addGestureRecognizer(myGesture)
+
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+        longPress.minimumPressDuration = 1
+        longPress.delegate = self
+        self.todoTableView.addGestureRecognizer(longPress)
+    }
+
+    @objc func handleLongPressGesture(recognizer: UITapGestureRecognizer) {
+        let location = recognizer.location(in: recognizer.view)
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let doingButton = UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+
+            self.viewModel.move(to: TaskState.doing, self.selectedIndex)
+            self.reloadTableView()
+        }
+        let doneButton = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+
+            self.viewModel.move(to: TaskState.done, self.selectedIndex)
+            self.reloadTableView()
+        }
+        actionSheet.addAction(doingButton)
+        actionSheet.addAction(doneButton)
+
+        let popover = actionSheet.popoverPresentationController
+        popover?.sourceView = view
+        popover?.sourceRect = CGRect(x: location.x, y: location.y + 60 , width: 60, height: 60)
+
+        present(actionSheet, animated: true)
     }
 }

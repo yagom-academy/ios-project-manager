@@ -19,6 +19,7 @@ class MainHomeViewModel {
     }
     var currentState: String = TaskState.todo
 
+    private var taskDataStore = TaskDataStore()
     private var currentList: [TaskModel] {
         get {
             switch currentState {
@@ -44,8 +45,6 @@ class MainHomeViewModel {
             }
         }
     }
-    private var taskDataStore = TaskDataStore()
-    private let databaseManager: DatabaseManager = RealmDatabaseManager()
 
     func move(to state: String, _ index: Int) {
         var data = currentList[index]
@@ -55,7 +54,7 @@ class MainHomeViewModel {
         currentState = state
 
         currentList.append(data)
-        databaseManager.updateDatabase(data: data)
+        TaskData.shared.databaseManager.updateDatabase(data: data)
     }
 
     func getDataList() -> [TaskModel] {
@@ -63,7 +62,7 @@ class MainHomeViewModel {
     }
 
     func fetchDataList() {
-        let allData = databaseManager.readDatabase()
+        let allData = TaskData.shared.databaseManager.readDatabase()
 
         allData.forEach { data in
             currentState = data.taskState
@@ -72,7 +71,7 @@ class MainHomeViewModel {
     }
 
     func addTodo() {
-        let allData = databaseManager.readDatabase()
+        let allData = TaskData.shared.databaseManager.readDatabase()
 
         guard let data = allData.last else {
             return
@@ -84,6 +83,6 @@ class MainHomeViewModel {
     func remove(index: Int) {
         let data = currentList[index]
         currentList.remove(at: index)
-        databaseManager.deleteDatabase(data: data)
+        TaskData.shared.databaseManager.deleteDatabase(data: data)
     }
 }
