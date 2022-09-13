@@ -81,15 +81,16 @@ final class ProjectTableViewCell: UITableViewCell {
     
     private func convertToText(date: Date?) -> NSAttributedString? {
         guard let date = date else { return nil }
+        let currentDate = Date()
         
-        if date > Date() {
-            return NSAttributedString(string: date.convertLocalization())
+        if date.convertLocalization() != currentDate.convertLocalization() && date < currentDate {
+            let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.systemRed]
+            let attributedString = (NSAttributedString(string: date.convertLocalization(),
+                                                       attributes: attributes))
+            return attributedString
         }
         
-        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.systemRed]
-        let attributedString = (NSAttributedString(string: date.convertLocalization(),
-                                                   attributes: attributes))
-        return attributedString
+        return NSAttributedString(string: date.convertLocalization())
     }
     
     private func commonInit() {
