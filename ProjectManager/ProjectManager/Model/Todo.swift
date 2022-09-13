@@ -5,7 +5,7 @@
 //  Created by Finnn on 2022/09/08.
 //
 
-import Foundation
+import FirebaseFirestore
 
 struct Todo: Codable {
     var todoId: UUID
@@ -22,6 +22,33 @@ struct Todo: Codable {
         case createdAt = "created_at"
         case status
         case isOutdated = "is_outdated"
+    }
+    
+    init(todoId: UUID, title: String, body: String, createdAt: Date, status: TodoStatus, isOutdated: Bool) {
+        self.todoId = todoId
+        self.title = title
+        self.body = body
+        self.createdAt = createdAt
+        self.status = status
+        self.isOutdated = isOutdated
+    }
+    
+    init?(dictionary: [String: Any]) {
+        guard let todoIdString = dictionary["todo_id"] as? String,
+              let todoId = UUID(uuidString: todoIdString),
+              let title = dictionary["title"] as? String,
+              let body = dictionary["body"] as? String,
+              let createdAt = dictionary["created_at"] as? Timestamp,
+              let statusInt = dictionary["status"] as? Int,
+              let status = TodoStatus(rawValue: statusInt),
+              let isOutdated = dictionary["is_outdated"] as? Bool else { return nil }
+        
+        self.todoId = todoId
+        self.title = title
+        self.body = body
+        self.createdAt = createdAt.dateValue()
+        self.status = status
+        self.isOutdated = isOutdated
     }
 }
 
@@ -47,7 +74,7 @@ extension Todo {
                   let randomString = randomStringList.randomElement() else { break }
             let randomDate = Date.randomBetween(start: "2022-09-01", end: "2022-09-30")
             
-            let todo = Todo(title: "\(index)번째 할 일", body: "\(index)번째 : " + randomString, createdAt: randomDate, status: randomStatus, isOutdated: false)
+            let todo = Todo(todoId: UUID(), title: "\(index)번째 할 일", body: "\(index)번째 : " + randomString, createdAt: randomDate, status: randomStatus, isOutdated: false)
             
             initialTodoList.append(todo)
         }
