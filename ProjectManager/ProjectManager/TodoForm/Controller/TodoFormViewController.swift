@@ -26,7 +26,7 @@ class TodoFormViewController: UIViewController {
         let data = RealmDatabaseModel(
             title: titleTextField.text ?? "",
             description: descriptionTextView.text ?? "",
-            deadline: datePicker.date.description,
+            deadline: getCurrentDateTime(),
             state: TaskState.todo
         )
 
@@ -44,5 +44,11 @@ class TodoFormViewController: UIViewController {
         descriptionTextView.layer.shadowOffset = CGSize(width: 0, height: 2)
         descriptionTextView.layer.shadowOpacity = 0.6
         descriptionTextView.layer.masksToBounds = false
+    }
+
+    private func getCurrentDateTime() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd."
+        return formatter.string(from: datePicker.date)
     }
 }
