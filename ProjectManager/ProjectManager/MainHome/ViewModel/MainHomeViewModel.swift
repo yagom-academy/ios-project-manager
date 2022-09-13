@@ -57,6 +57,10 @@ class MainHomeViewModel {
         TaskData.shared.databaseManager.updateDatabase(data: data)
     }
 
+    func readData(index: Int) -> TaskModel {
+        return currentList[index]
+    }
+
     func getDataList() -> [TaskModel] {
         return currentList
     }

@@ -26,9 +26,7 @@ class MainHomeViewController: UIViewController {
 
         viewModel.fetchDataList()
 
-        setUpGestureEvent()
         setUpTableViewCount()
-
         setUpTableViewDelegate()
         setUpTableViewDataSource()
 
@@ -105,6 +103,19 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
+
+        if tableView == todoTableView {
+            viewModel.currentState = TaskState.todo
+        } else if tableView == doingTableView {
+            viewModel.currentState = TaskState.doing
+        } else {
+            viewModel.currentState = TaskState.done
+        }
+
+        NotificationCenter.default.post(name: NSNotification.Name("모델 수정"), object: viewModel.readData(index: indexPath.row))
+
+        setUpGestureEvent(tableView)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 
     func tableView(
@@ -143,15 +154,11 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
         return true
     }
 
-    private func setUpGestureEvent() {
-        let myGesture = UIPanGestureRecognizer(target: self, action: nil)
-        myGesture.delegate = self
-        self.todoTableView.addGestureRecognizer(myGesture)
-
+    private func setUpGestureEvent(_ tableView: UITableView) {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
-        longPress.minimumPressDuration = 1
+        longPress.minimumPressDuration = 0.5
         longPress.delegate = self
-        self.todoTableView.addGestureRecognizer(longPress)
+        tableView.addGestureRecognizer(longPress)
     }
 
     @objc func handleLongPressGesture(recognizer: UITapGestureRecognizer) {
