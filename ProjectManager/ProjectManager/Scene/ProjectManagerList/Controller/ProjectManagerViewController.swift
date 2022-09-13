@@ -79,59 +79,56 @@ final class ProjectManagerViewController: UIViewController {
         self.view.addGestureRecognizer(longPress)
     }
     
-    private func showAlert(view: UIView?, state: ProjectState?, indexPath: IndexPath) {
-        guard let state = state else { return }
+    private func showAlert(tableView: UITableView, indexPath: IndexPath) {
         let alertController = UIAlertController(title: Design.alertControllerDefaultTitle,
                                                 message: nil,
                                                 preferredStyle: .actionSheet)
         
-        makeAlertAction(state: state, indexPath: indexPath).forEach { alertController.addAction($0) }
+        makeAlertAction(tableView: tableView, indexPath: indexPath).forEach { alertController.addAction($0) }
         
-        alertController.popoverPresentationController?.sourceView = view
+        alertController.popoverPresentationController?.sourceView = tableView
+        alertController.popoverPresentationController?.sourceRect = tableView.rectForRow(at: indexPath)
         alertController.popoverPresentationController?.permittedArrowDirections = [.up]
         
         present(alertController, animated: false)
     }
     
-    private func makeAlertAction(state: ProjectState, indexPath: IndexPath) -> [UIAlertAction] {
-        var firstActionHandler: ((UIAlertAction) -> Void)?
-        var secondActionHandler: ((UIAlertAction) -> Void)?
-        let item = dataManager.read(workState: state)[indexPath.row]
-        
-        switch state {
-        case .todo:
-            firstActionHandler = { [weak self] _ in self?.changeState(item: item,
-                                                                     to: .doing) }
-            secondActionHandler = { [weak self] _ in self?.changeState(item: item,
-                                                                      to: .done) }
-        case .doing:
-            firstActionHandler = { [weak self] _ in self?.changeState(item: item,
-                                                                     to: .todo) }
-            secondActionHandler = { [weak self] _ in self?.changeState(item: item,
-                                                                      to: .done) }
-        case .done:
-            firstActionHandler = { [weak self] _ in self?.changeState(item: item,
-                                                                     to: .todo) }
-            secondActionHandler = { [weak self] _ in self?.changeState(item: item,
-                                                                      to: .doing) }
-        }
-        
-        let firstAction = UIAlertAction(title: state.actionTitles.first,
+    private func makeAlertAction(tableView: UITableView, indexPath: IndexPath) -> [UIAlertAction] {
+        guard let item = makeItem(tableView: tableView)?[indexPath.row] else { return [UIAlertAction]() }
+        let actionHandlers = makeActionHandlers(tableView: tableView, item: item)
+        let firstAction = UIAlertAction(title: item.workState.actionTitles.first,
                                         style: .default,
-                                        handler: firstActionHandler)
-        let secondAction = UIAlertAction(title: state.actionTitles.second,
+                                        handler: actionHandlers[0])
+        let secondAction = UIAlertAction(title: item.workState.actionTitles.second,
                                          style: .default,
-                                         handler: secondActionHandler)
+                                         handler: actionHandlers[1])
         
         return [firstAction, secondAction]
     }
     
+    private func makeActionHandlers(tableView: UITableView,
+                                    item: ProjectDTO) -> [((UIAlertAction) -> Void)?] {
+        switch tableView {
+        case todoTableView:
+            return [ makeHandlers(item: item, to: .doing), makeHandlers(item: item, to: .done) ]
+        case doingTableView:
+            return [ makeHandlers(item: item, to: .todo), makeHandlers(item: item, to: .done) ]
+        case doneTabelView:
+            return [ makeHandlers(item: item, to: .todo), makeHandlers(item: item, to: .doing) ]
+        default: return [nil]
+        }
+    }
+    
+    private func makeHandlers(item: ProjectDTO, to state: ProjectState) -> ((UIAlertAction) -> Void)? {
+        return { [weak self] _ in self?.changeState(item: item, to: .todo) }
+    }
+    
     private func changeState(item: ProjectDTO, to state: ProjectState) {
         let newItem = ProjectDTO(id: item.id,
-                              title: item.title,
-                              body: item.body,
-                              date: item.date,
-                              workState: state)
+                                 title: item.title,
+                                 body: item.body,
+                                 date: item.date,
+                                 workState: state)
         
         dataManager.update(id: item.id, work: newItem)
         
@@ -151,30 +148,47 @@ final class ProjectManagerViewController: UIViewController {
         tableViews.forEach { $0?.reloadData() }
     }
     
+    private func makeItem(tableView: UITableView) -> [ProjectDTO]? {
+        switch tableView {
+        case todoTableView:
+            return dataManager.read().filter { $0.workState == .todo}
+        case doingTableView:
+            return dataManager.read().filter { $0.workState == .doing}
+        case doneTabelView:
+            return dataManager.read().filter { $0.workState == .done}
+        default: return nil
+        }
+    }
+    
+    private func configurePresentNavigationController(item: ProjectDTO?) -> UINavigationController {
+        let projectCreateViewController = ProjectUpdateViewController()
+        projectCreateViewController.item = item
+        projectCreateViewController.delegate = self
+        
+        let navigationController = UINavigationController(rootViewController: projectCreateViewController)
+        navigationController.modalPresentationStyle = .formSheet
+        
+        return navigationController
+    }
+    
     @objc private func longPressGesture(sender: UILongPressGestureRecognizer) {
         guard sender.state == .ended else { return }
         
         if let indexPath = todoTableView.indexPathForRow(at: sender.location(in: todoTableView)) {
-            showAlert(view: todoTableView.cellForRow(at: indexPath),
-                      state: .todo,
+            showAlert(tableView: todoTableView,
                       indexPath: indexPath)
         } else if let indexPath = doingTableView.indexPathForRow(at: sender.location(in: doingTableView)) {
-            showAlert(view: doingTableView.cellForRow(at: indexPath),
-                      state: .doing,
+            showAlert(tableView: doingTableView,
                       indexPath: indexPath)
         } else if let indexPath = doneTabelView.indexPathForRow(at: sender.location(in: doneTabelView)) {
-            showAlert(view: doneTabelView.cellForRow(at: indexPath),
-                      state: .done,
+            showAlert(tableView: doneTabelView,
                       indexPath: indexPath)
         }
     }
     
     @objc private func rightBarButtonDidTap() {
-        let projectCreateViewController = ProjectUpdateViewController()
-        projectCreateViewController.delegate = self
+        let navigationController = configurePresentNavigationController(item: nil)
         
-        let navigationController = UINavigationController(rootViewController: projectCreateViewController)
-        navigationController.modalPresentationStyle = .formSheet
         present(navigationController, animated: true)
     }
     
@@ -210,16 +224,9 @@ final class ProjectManagerViewController: UIViewController {
 
 extension ProjectManagerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case todoTableView:
-            return dataManager.read(workState: .todo).count
-        case doingTableView:
-            return dataManager.read(workState: .doing).count
-        case doneTabelView:
-            return dataManager.read(workState: .done).count
-        default:
-            return Design.tableViewdefaultRow
-        }
+        guard let items = makeItem(tableView: tableView) else { return 0 }
+        
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -227,17 +234,7 @@ extension ProjectManagerViewController: UITableViewDataSource {
                 as? ProjectTableViewCell
         else { return UITableViewCell() }
         
-        var items: [ProjectDTO]?
-        
-        switch tableView {
-        case todoTableView:
-            items = dataManager.read(workState: .todo)
-        case doingTableView:
-            items = dataManager.read(workState: .doing)
-        case doneTabelView:
-            items = dataManager.read(workState: .done)
-        default: break
-        }
+        let items = makeItem(tableView: tableView)
         
         cell.setItems(title: items?[indexPath.row].title,
                       body: items?[indexPath.row].body,
@@ -249,16 +246,18 @@ extension ProjectManagerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = ProjectTableHeaderView()
         
+        let items = makeItem(tableView: tableView)
+        
         switch tableView {
         case todoTableView:
             view.setItems(title: ProjectState.todo.name,
-                          count: dataManager.read(workState: .todo).count.description)
+                          count: items?.count.description)
         case doingTableView:
             view.setItems(title: ProjectState.doing.name,
-                          count: dataManager.read(workState: .doing).count.description)
+                          count: items?.count.description)
         case doneTabelView:
             view.setItems(title: ProjectState.done.name,
-                          count: dataManager.read(workState: .done).count.description)
+                          count: items?.count.description)
         default: break
         }
         
@@ -271,35 +270,21 @@ extension ProjectManagerViewController: UITableViewDataSource {
 extension ProjectManagerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        let item = makeItem(tableView: tableView)?[indexPath.row]
         
-        let projectCreateViewController = ProjectUpdateViewController()
-        projectCreateViewController.item = dataManager.read()[indexPath.row]
-        projectCreateViewController.delegate = self
-        
-        let navigationController = UINavigationController(rootViewController: projectCreateViewController)
-        navigationController.modalPresentationStyle = .formSheet
+       let navigationController = configurePresentNavigationController(item: item)
         
         present(navigationController, animated: true)
     }
     
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        var items: ProjectDTO
-        
-        switch tableView {
-        case todoTableView:
-            items = dataManager.read(workState: .todo)[indexPath.row]
-        case doingTableView:
-            items = dataManager.read(workState: .doing)[indexPath.row]
-        case doneTabelView:
-            items = dataManager.read(workState: .done)[indexPath.row]
-        default: return nil
-        }
+        guard let item = makeItem(tableView: tableView)?[indexPath.row] else { return nil }
         
         let deleteSwipeAction = UIContextualAction(style: .destructive,
-                                                   title: "Delete",
+                                                   title: Design.deleteSwipeActionTitle,
                                                    handler: { [weak self] _, _, completionHaldler in
-            self?.dataManager.delete(id: items.id)
+            self?.dataManager.delete(id: item.id)
             self?.tableViewsReloadData(self?.todoTableView, self?.doingTableView, self?.doneTabelView)
             completionHaldler(true)
         })

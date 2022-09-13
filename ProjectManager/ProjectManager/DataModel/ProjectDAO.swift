@@ -18,10 +18,6 @@ struct ProjectDAO {
         return data
     }
     
-    func read(workState: ProjectState) -> [ProjectDTO] {
-        return data.filter { $0.workState == workState }
-    }
-    
     mutating func update(id: String, work: ProjectDTO) {
         delete(id: id)
         data.append(work)
