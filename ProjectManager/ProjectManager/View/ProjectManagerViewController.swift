@@ -33,14 +33,17 @@ class ProjectManagerViewController: UIViewController {
     
     @objc private func addWorkBarButtonTapped() {
         let manageViewController = UINavigationController(rootViewController: ManageWorkViewController())
-        modalPresentationStyle = .popover
         self.present(manageViewController, animated: true)
-
     }
     
     // MARK: - UI Binding
+        private func setupBinding() {
+        bindWorkTableView()
+        bindHeaderImage()
+        setWorkSelection()        
+    }
     
-    private func setupBinding() {
+    private func bindWorkTableView() {
         viewModel.todoWorks
             .observe(on: MainScheduler.instance)
             .bind(to: projectManagerView.toDoTableVeiw.rx.items(cellIdentifier: WorkTableViewCell.identifier,
@@ -64,7 +67,9 @@ class ProjectManagerViewController: UIViewController {
                cell.works.onNext(item)
            }
            .disposed(by: disposeBag)
-        
+    }
+    
+    private func bindHeaderImage() {
         viewModel.todoCountImage
             .observe(on: MainScheduler.instance)
             .bind(to: projectManagerView.toDoTitleView.countImageView.rx.image)
@@ -79,35 +84,36 @@ class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .bind(to: projectManagerView.doneTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func setWorkSelection() {
         projectManagerView.toDoTableVeiw.rx.itemSelected
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                let manageViewController = ManageWorkViewController()
-                manageViewController.configureWork((self.viewModel.todoWorks.value[index.row]))
-                let manageNavigationController = UINavigationController(rootViewController: manageViewController)
-                self.present(manageNavigationController, animated: true)
+                self.showManageWorkView(self, work: self.viewModel.todoWorks.value[index.row])
             }).disposed(by: disposeBag)
         
         projectManagerView.doingTableVeiw.rx.itemSelected
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                let manageViewController = ManageWorkViewController()
-                manageViewController.configureWork((self.viewModel.doingWorks.value[index.row]))
-                let manageNavigationController = UINavigationController(rootViewController: manageViewController)
-                self.present(manageNavigationController, animated: true)
+                self.showManageWorkView(self, work: self.viewModel.doingWorks.value[index.row])
             }).disposed(by: disposeBag)
         
         projectManagerView.doneTableVeiw.rx.itemSelected
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                let manageViewController = ManageWorkViewController()
-                manageViewController.configureWork((self.viewModel.doneWorks.value[index.row]))
-                let manageNavigationController = UINavigationController(rootViewController: manageViewController)
-                self.present(manageNavigationController, animated: true)
+                self.showManageWorkView(self, work: self.viewModel.doneWorks.value[index.row])
             }).disposed(by: disposeBag)
+    }
+    
+    // MARK: - Methods
+    private func showManageWorkView(_ view: UIViewController, work: Work) {
+        let manageViewController = ManageWorkViewController()
+        manageViewController.configureWork(work)
+        let manageNavigationController = UINavigationController(rootViewController: manageViewController)
+        view.present(manageNavigationController, animated: true)
     }
 }

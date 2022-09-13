@@ -100,5 +100,3 @@ class WorkManageView: UIView {
             .disposed(by: disposeBag)
     }
 }
-
-
