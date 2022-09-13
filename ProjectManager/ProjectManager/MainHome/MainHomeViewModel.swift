@@ -49,7 +49,7 @@ class MainHomeViewModel {
 
     func move(to state: String, _ index: Int) {
         var data = currentList[index]
-        data.taskState = TaskState.doing
+        data.taskState = state
         currentList.remove(at: index)
 
         currentState = state
@@ -69,5 +69,15 @@ class MainHomeViewModel {
             currentState = data.taskState
             currentList.append(data)
         }
+    }
+
+    func addTodo() {
+        let allData = databaseManager.readDatabase()
+
+        guard let data = allData.last else {
+            return
+        }
+
+        taskDataStore.todoList.append(data)
     }
 }

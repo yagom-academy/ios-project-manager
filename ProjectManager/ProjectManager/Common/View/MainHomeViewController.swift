@@ -28,12 +28,17 @@ class MainHomeViewController: UIViewController {
         viewModel.fetchDataList()
 
         setUpGestureEvent()
-        setUpListCount()
+        setUpTableViewCount()
 
         setUpTableViewDelegate()
         setUpTableViewDataSource()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(addModel), name: NSNotification.Name("모델 추가"), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(addModel),
+            name: NSNotification.Name("모델 추가"),
+            object: nil
+        )
     }
 
     private func setUpGestureEvent() {
@@ -56,6 +61,7 @@ class MainHomeViewController: UIViewController {
             }
 
             self.viewModel.move(to: TaskState.doing, self.selectedIndex)
+            self.reloadTableView()
         }
         let doneButton = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
             guard let self = self else {
@@ -63,6 +69,7 @@ class MainHomeViewController: UIViewController {
             }
 
             self.viewModel.move(to: TaskState.done, self.selectedIndex)
+            self.reloadTableView()
         }
         actionSheet.addAction(doingButton)
         actionSheet.addAction(doneButton)
@@ -74,7 +81,7 @@ class MainHomeViewController: UIViewController {
         present(actionSheet, animated: true)
     }
 
-    private func setUpListCount() {
+    private func setUpTableViewCount() {
         todoCount.setTitle(String(viewModel.todoCount), for: .normal)
         doingCount.setTitle(String(viewModel.doingCount), for: .normal)
         doneCount.setTitle(String(viewModel.doneCount), for: .normal)
@@ -93,9 +100,16 @@ class MainHomeViewController: UIViewController {
     }
 
     @objc private func addModel() {
+        viewModel.addTodo()
+        reloadTableView()
+    }
+
+    private func reloadTableView() {
         todoTableView.reloadData()
         doingTableView.reloadData()
         doneTableView.reloadData()
+
+        setUpTableViewCount()
     }
 }
 
