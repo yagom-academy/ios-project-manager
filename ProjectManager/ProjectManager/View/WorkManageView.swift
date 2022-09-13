@@ -20,6 +20,7 @@ class WorkManageView: UIView {
         textField.borderStyle = .roundedRect
         textField.font = .preferredFont(forTextStyle: .body)
         textField.adjustsFontForContentSizeCategory = true
+        textField.applyShadow()
         return textField
     }()
     
@@ -36,6 +37,7 @@ class WorkManageView: UIView {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .preferredFont(forTextStyle: .body)
         textView.adjustsFontForContentSizeCategory = true
+        textView.applyShadow()
         return textView
     }()
     
@@ -45,7 +47,7 @@ class WorkManageView: UIView {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 8
+        stackView.spacing = 16
         return stackView
     }()
     
@@ -76,7 +78,7 @@ class WorkManageView: UIView {
             verticalStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
             verticalStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             
-            contentTextView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5)
+            contentTextView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.6)
         ])
     }
     
@@ -98,3 +100,5 @@ class WorkManageView: UIView {
             .disposed(by: disposeBag)
     }
 }
+
+
