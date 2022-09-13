@@ -159,7 +159,7 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     @objc private func rightBarButtonDidTap() {
-        let projectCreateViewController = ProjectCreateViewController()
+        let projectCreateViewController = ProjectUpdateViewController()
         let navigationController = UINavigationController(rootViewController: projectCreateViewController)
         
         navigationController.modalPresentationStyle = .formSheet
@@ -262,7 +262,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        let projectCreateViewController = ProjectCreateViewController()
+        let projectCreateViewController = ProjectUpdateViewController()
         projectCreateViewController.item = dataManager.read()[indexPath.row]
         
         let navigationController = UINavigationController(rootViewController: projectCreateViewController)

@@ -1,5 +1,5 @@
 //
-//  ProjectCreateView.swift
+//  ProjectUpdateViewController.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/12.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class ProjectCreateViewController: UIViewController {
-    private let projectCreateView = ProjectCreateView()
+final class ProjectUpdateViewController: UIViewController {
+    private let projectCreateView = ProjectUpdateView()
     var item: WorkDTO?
     
     override func viewDidLoad() {

@@ -1,5 +1,5 @@
 //
-//  ProjectCreateView.swift
+//  ProjectUpdateView.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/12.
@@ -17,7 +17,7 @@ private enum Design {
     static let titleTextFieldPlaceholder = " Title"
 }
 
-final class ProjectCreateView: UIView {
+final class ProjectUpdateView: UIView {
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
