@@ -16,15 +16,15 @@ class WorkViewModel {
     let doneWorks = BehaviorRelay<[Work]>(value: [])
     
     lazy var todoCountImage = todoWorks.map {
-        UIImage(systemName: "\($0.count).circle.fill")!
+        UIImage(systemName: "\($0.count).circle.fill")
     }
     
     lazy var doingCountImage = doingWorks.map {
-        UIImage(systemName: "\($0.count).circle.fill")!
+        UIImage(systemName: "\($0.count).circle.fill")
     }
 
     lazy var doneCountImage = doneWorks.map {
-        UIImage(systemName: "\($0.count).circle.fill")!
+        UIImage(systemName: "\($0.count).circle.fill")
     }
     
     init() {
