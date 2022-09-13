@@ -32,8 +32,8 @@ class MainHomeViewController: UIViewController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(addModel),
-            name: NSNotification.Name("모델 추가"),
+            selector: #selector(reloadModel),
+            name: NSNotification.Name("모델 리로드 예정"),
             object: nil
         )
     }
@@ -56,8 +56,8 @@ class MainHomeViewController: UIViewController {
         doneTableView.delegate = self
     }
 
-    @objc private func addModel() {
-        viewModel.addTodo()
+    @objc private func reloadModel() {
+        viewModel.fetchDataList()
         reloadTableView()
     }
 

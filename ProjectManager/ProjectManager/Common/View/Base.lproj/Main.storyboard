@@ -250,12 +250,12 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="TODO" id="nD3-Rn-Yx6">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="41I-xR-qHg">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="41I-xR-qHg">
                                             <connections>
                                                 <action selector="didTapCancelButton:" destination="rQ3-C8-5HZ" id="cuh-cA-DLz"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="ULQ-yI-wNv">
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="ULQ-yI-wNv">
                                             <connections>
                                                 <action selector="didTapDoneButton:" destination="rQ3-C8-5HZ" id="NS6-dq-Tyi"/>
                                             </connections>
@@ -304,6 +304,8 @@
                     <connections>
                         <outlet property="datePicker" destination="R4g-T1-AXp" id="aU7-Az-str"/>
                         <outlet property="descriptionTextView" destination="bRE-xg-zGd" id="aJT-YL-DTK"/>
+                        <outlet property="leftBarButton" destination="41I-xR-qHg" id="kpa-Qe-PWo"/>
+                        <outlet property="rightBarButton" destination="ULQ-yI-wNv" id="Qtn-Fe-Pyx"/>
                         <outlet property="titleTextField" destination="aAv-dh-u3U" id="h9h-3u-uIb"/>
                     </connections>
                 </viewController>

@@ -11,6 +11,10 @@ class TodoFormViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var leftBarButton: UIBarButtonItem!
+    @IBOutlet weak var rightBarButton: UIBarButtonItem!
+
+    private var receivedModel: TaskModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +42,11 @@ class TodoFormViewController: UIViewController {
         )
 
         TaskData.shared.databaseManager.createDatabase(data: data)
-        NotificationCenter.default.post(name: NSNotification.Name("모델 추가"), object: nil)
+        notifyChangedModel()
+    }
+
+    private func notifyChangedModel() {
+        NotificationCenter.default.post(name: NSNotification.Name("모델 리로드 예정"), object: nil)
         self.dismiss(animated: true)
     }
 
@@ -64,6 +72,7 @@ class TodoFormViewController: UIViewController {
             return
         }
 
+        receivedModel = data
         titleTextField.text = data.taskTitle
         descriptionTextView.text = data.taskDescription
 
@@ -76,9 +85,29 @@ class TodoFormViewController: UIViewController {
         }
 
         datePicker.date = taskDate
+        setUpDescriptionForm()
+    }
 
-        titleTextField.isEnabled = false
-        descriptionTextView.isEditable = false
-        datePicker.isEnabled = false
+    private func setUpDescriptionForm() {
+        leftBarButton.title = "Edit"
+        leftBarButton.action = #selector(didTapEditButton)
+        rightBarButton.action = #selector(closeView)
+    }
+
+    @objc private func didTapEditButton() {
+        guard var data = receivedModel else {
+            return
+        }
+
+        data.taskTitle = titleTextField.text ?? ""
+        data.taskDescription = descriptionTextView.text ?? ""
+        data.taskDeadline = getCurrentDateTime()
+
+        TaskData.shared.databaseManager.updateDatabase(data: data)
+        notifyChangedModel()
+    }
+
+    @objc private func closeView() {
+        self.dismiss(animated: false)
     }
 }

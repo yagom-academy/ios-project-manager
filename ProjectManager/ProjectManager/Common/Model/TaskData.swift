@@ -14,9 +14,3 @@ class TaskData {
 
     private init() { }
 }
-
-class TaskDataStore {
-    var todoList = [TaskModel]()
-    var doingList = [TaskModel]()
-    var doneList = [TaskModel]()
-}

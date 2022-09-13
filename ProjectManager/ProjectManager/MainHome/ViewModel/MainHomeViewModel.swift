@@ -9,38 +9,40 @@ import Foundation
 
 class MainHomeViewModel {
     var todoCount: Int {
-        return taskDataStore.todoList.count
+        return todoList.count
     }
     var doingCount: Int {
-        return taskDataStore.doingList.count
+        return doingList.count
     }
     var doneCount: Int {
-        return taskDataStore.doneList.count
+        return doneList.count
     }
     var currentState: String = TaskState.todo
 
-    private var taskDataStore = TaskDataStore()
+    private var todoList = [TaskModel]()
+    private var doingList = [TaskModel]()
+    private var doneList = [TaskModel]()
     private var currentList: [TaskModel] {
         get {
             switch currentState {
             case TaskState.todo:
-                return taskDataStore.todoList
+                return todoList
             case TaskState.doing:
-                return taskDataStore.doingList
+                return doingList
             default:
-                return taskDataStore.doneList
+                return doneList
             }
         }
         set {
             switch currentState {
             case TaskState.todo:
-                taskDataStore.todoList = newValue
+                todoList = newValue
                 return
             case TaskState.doing:
-                taskDataStore.doingList = newValue
+                doingList = newValue
                 return
             default:
-                taskDataStore.doneList = newValue
+                doneList = newValue
                 return
             }
         }
@@ -67,21 +69,14 @@ class MainHomeViewModel {
 
     func fetchDataList() {
         let allData = TaskData.shared.databaseManager.readDatabase()
+        todoList = [TaskModel]()
+        doingList = [TaskModel]()
+        doneList = [TaskModel]()
 
         allData.forEach { data in
             currentState = data.taskState
             currentList.append(data)
         }
-    }
-
-    func addTodo() {
-        let allData = TaskData.shared.databaseManager.readDatabase()
-
-        guard let data = allData.last else {
-            return
-        }
-
-        taskDataStore.todoList.append(data)
     }
 
     func remove(index: Int) {
