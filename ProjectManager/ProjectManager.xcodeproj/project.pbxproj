@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		37038F7B28C77A9D008D3921 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 37038F7A28C77A9D008D3921 /* .swiftlint.yml */; };
 		37038F8328C8B9E3008D3921 /* ProjectManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8228C8B9E3008D3921 /* ProjectManagerViewController.swift */; };
-		37038F8828C9EC46008D3921 /* WorkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8728C9EC46008D3921 /* WorkDTO.swift */; };
-		37038F8A28C9EC83008D3921 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8928C9EC83008D3921 /* WorkState.swift */; };
-		37038F8F28C9EE8F008D3921 /* WorkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8E28C9EE8F008D3921 /* WorkDataManager.swift */; };
+		37038F8828C9EC46008D3921 /* ProjectDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8728C9EC46008D3921 /* ProjectDTO.swift */; };
+		37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8928C9EC83008D3921 /* ProjectState.swift */; };
+		37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */; };
 		37038F9428CA0F45008D3921 /* ProjectDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9328CA0F45008D3921 /* ProjectDAO.swift */; };
 		37038F9628CA1606008D3921 /* ProjectManagerDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */; };
 		37038F9928CA1FBD008D3921 /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9828CA1FBD008D3921 /* WorkTableViewCell.swift */; };
@@ -27,9 +27,9 @@
 /* Begin PBXFileReference section */
 		37038F7A28C77A9D008D3921 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		37038F8228C8B9E3008D3921 /* ProjectManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewController.swift; sourceTree = "<group>"; };
-		37038F8728C9EC46008D3921 /* WorkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDTO.swift; sourceTree = "<group>"; };
-		37038F8928C9EC83008D3921 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
-		37038F8E28C9EE8F008D3921 /* WorkDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDataManager.swift; sourceTree = "<group>"; };
+		37038F8728C9EC46008D3921 /* ProjectDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDTO.swift; sourceTree = "<group>"; };
+		37038F8928C9EC83008D3921 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
+		37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataManager.swift; sourceTree = "<group>"; };
 		37038F9328CA0F45008D3921 /* ProjectDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDAO.swift; sourceTree = "<group>"; };
 		37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerDataProtocol.swift; sourceTree = "<group>"; };
 		37038F9828CA1FBD008D3921 /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
@@ -90,9 +90,9 @@
 			children = (
 				37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */,
 				37038F9328CA0F45008D3921 /* ProjectDAO.swift */,
-				37038F8728C9EC46008D3921 /* WorkDTO.swift */,
-				37038F8928C9EC83008D3921 /* WorkState.swift */,
-				37038F8E28C9EE8F008D3921 /* WorkDataManager.swift */,
+				37038F8728C9EC46008D3921 /* ProjectDTO.swift */,
+				37038F8928C9EC83008D3921 /* ProjectState.swift */,
+				37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -230,10 +230,10 @@
 				37038F9628CA1606008D3921 /* ProjectManagerDataProtocol.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				37B39FB228CF2555008796AD /* ProjectUpdateView.swift in Sources */,
-				37038F8F28C9EE8F008D3921 /* WorkDataManager.swift in Sources */,
+				37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */,
 				37038F9928CA1FBD008D3921 /* WorkTableViewCell.swift in Sources */,
-				37038F8828C9EC46008D3921 /* WorkDTO.swift in Sources */,
-				37038F8A28C9EC83008D3921 /* WorkState.swift in Sources */,
+				37038F8828C9EC46008D3921 /* ProjectDTO.swift in Sources */,
+				37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */,
 				37038F8328C8B9E3008D3921 /* ProjectManagerViewController.swift in Sources */,
 				37B39FB028CF2153008796AD /* ProjectUpdateViewController.swift in Sources */,
 				37038F9428CA0F45008D3921 /* ProjectDAO.swift in Sources */,

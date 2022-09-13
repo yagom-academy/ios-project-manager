@@ -16,7 +16,7 @@ private enum Design {
 }
 
 final class ProjectManagerViewController: UIViewController {
-    private var dataManager = WorkDataManager().provider
+    private var dataManager = ProjectDataManager().provider
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -88,7 +88,7 @@ final class ProjectManagerViewController: UIViewController {
         }
     }
     
-    private func showAlert(view: UIView?, state: WorkState?, indexPath: IndexPath) {
+    private func showAlert(view: UIView?, state: ProjectState?, indexPath: IndexPath) {
         guard let state = state else { return }
         let alertController = UIAlertController(title: Design.alertControllerDefaultTitle,
                                                 message: nil,
@@ -102,7 +102,7 @@ final class ProjectManagerViewController: UIViewController {
         present(alertController, animated: false)
     }
     
-    private func makeAlertAction(state: WorkState, indexPath: IndexPath) -> [UIAlertAction] {
+    private func makeAlertAction(state: ProjectState, indexPath: IndexPath) -> [UIAlertAction] {
         var firstActionHandler: ((UIAlertAction) -> Void)?
         var secondActionHandler: ((UIAlertAction) -> Void)?
         let item = dataManager.read(workState: state)[indexPath.row]
@@ -135,8 +135,8 @@ final class ProjectManagerViewController: UIViewController {
         return [firstAction, secondAction]
     }
     
-    private func updateData(item: WorkDTO, state: WorkState) {
-        let newItem = WorkDTO(id: item.id,
+    private func updateData(item: ProjectDTO, state: ProjectState) {
+        let newItem = ProjectDTO(id: item.id,
                               title: item.title,
                               body: item.body,
                               date: item.date,
@@ -219,7 +219,7 @@ extension ProjectManagerViewController: UITableViewDataSource {
                 as? WorkTableViewCell
         else { return UITableViewCell() }
         
-        var items: [WorkDTO]?
+        var items: [ProjectDTO]?
         
         switch tableView {
         case todoTableView:
@@ -243,13 +243,13 @@ extension ProjectManagerViewController: UITableViewDataSource {
         
         switch tableView {
         case todoTableView:
-            view.setItems(title: WorkState.todo.name,
+            view.setItems(title: ProjectState.todo.name,
                           count: dataManager.read(workState: .todo).count.description)
         case doingTableView:
-            view.setItems(title: WorkState.doing.name,
+            view.setItems(title: ProjectState.doing.name,
                           count: dataManager.read(workState: .doing).count.description)
         case doneTabelView:
-            view.setItems(title: WorkState.done.name,
+            view.setItems(title: ProjectState.done.name,
                           count: dataManager.read(workState: .done).count.description)
         default: break
         }

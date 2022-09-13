@@ -9,7 +9,7 @@ import UIKit
 
 final class ProjectUpdateViewController: UIViewController {
     private let projectCreateView = ProjectUpdateView()
-    var item: WorkDTO?
+    var item: ProjectDTO?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ final class ProjectUpdateViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.leftBarButtonItem = leftBarButton
-        navigationItem.title = item == nil ? WorkState.todo.name : item?.workState.name
+        navigationItem.title = item == nil ? ProjectState.todo.name : item?.workState.name
     }
     
     @objc private func rightBarButtonDidTap() {

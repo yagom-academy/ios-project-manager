@@ -1,5 +1,5 @@
 //
-//  WorkDAO.swift
+//  ProjectDAO.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/08.
@@ -7,48 +7,48 @@
 
 import Foundation
 
-struct WorkDAO: ProjectManagerDataProtocol {
+struct ProjectDAO: ProjectManagerDataProtocol {
     private var data = [
-        WorkDTO(id: UUID().description,
+        ProjectDTO(id: UUID().description,
                 title: "test",
                 body: "testBody",
                 date: Date(),
                 workState: .todo),
-        WorkDTO(id: UUID().description,
+        ProjectDTO(id: UUID().description,
                 title: "test",
                 body: "testBody",
                 date: Date(),
                 workState: .todo),
-        WorkDTO(id: UUID().description,
+        ProjectDTO(id: UUID().description,
                 title: "test",
                 body: "testBody",
                 date: Date(),
                 workState: .todo),
-        WorkDTO(id: UUID().description,
+        ProjectDTO(id: UUID().description,
                 title: "test",
                 body: "testBody",
                 date: Date(),
                 workState: .done),
-        WorkDTO(id: UUID().description,
+        ProjectDTO(id: UUID().description,
                 title: "test",
                 body: "testBody",
                 date: Date(),
                 workState: .done)
     ]
     
-    mutating func append(work: WorkDTO) {
+    mutating func append(work: ProjectDTO) {
         data.append(work)
     }
                     
-    func read() -> [WorkDTO] {
+    func read() -> [ProjectDTO] {
         return data
     }
     
-    func read(workState: WorkState) -> [WorkDTO] {
+    func read(workState: ProjectState) -> [ProjectDTO] {
         return data.filter { $0.workState == workState }
     }
     
-    mutating func update(id: String, work: WorkDTO) {
+    mutating func update(id: String, work: ProjectDTO) {
         delete(id: id)
         data.append(work)
     }
