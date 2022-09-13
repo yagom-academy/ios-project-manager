@@ -15,6 +15,8 @@ class ProjectManagerCollectionViewCell: UICollectionViewCell {
     
     static let tableViewCellIdentifier = "todoListCell"
 
+    private var viewModel: ProjectManagerViewModel?
+    
     private var statusType: TodoStatus?
     private var disposeBag = DisposeBag()
     private var categorizedTodoList: Observable<[Todo]>? {
@@ -173,7 +175,7 @@ extension ProjectManagerCollectionViewCell {
     }
     
     private func moveToButtonTapped(from currentStatus: TodoStatus, indexPath: IndexPath, to destinationStatus: TodoStatus) {
-        print("\(currentStatus)로 부터 \(indexPath.row)번째 셀에서 \(destinationStatus)버튼 눌림!!")
+        viewModel?.changeStatusTodoData?.onNext((currentStatus, indexPath.row, destinationStatus))
     }
 }
 
@@ -226,8 +228,9 @@ extension ProjectManagerCollectionViewCell: UITableViewDelegate {
 // MARK: - Setter Methods
 
 extension ProjectManagerCollectionViewCell {
-    func set(status: TodoStatus, categorizedTodoList: Observable<[Todo]>) {
+    func set(status: TodoStatus, categorizedTodoList: Observable<[Todo]>, viewModel: ProjectManagerViewModel) {
         self.statusType = status
         self.categorizedTodoList = categorizedTodoList
+        self.viewModel = viewModel
     }
 }

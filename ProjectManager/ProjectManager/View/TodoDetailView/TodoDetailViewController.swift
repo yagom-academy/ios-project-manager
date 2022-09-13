@@ -13,6 +13,8 @@ class TodoDetailViewController: UIViewController {
 
     // MARK: - Properties
     
+    private var viewModel: ProjectManagerViewModel?
+    
     private var disposeBag = DisposeBag()
     private var todoData: Observable<Todo>? {
         didSet {
@@ -278,22 +280,11 @@ extension TodoDetailViewController {
     }
 }
 
-// MARK: - Objective-C Methods
-
-extension TodoDetailViewController {
-    @objc private func cancelButtonTapped() {
-        dismiss(animated: true)
-    }
-    
-    @objc private func doneButtonTapped() {
-        dismiss(animated: true)
-    }
-}
-
 // MARK: - Setter Methods
 
 extension TodoDetailViewController {
-    func set(by todoData: Observable<Todo>?) {
+    func set(todo todoData: Observable<Todo>?, viewModel: ProjectManagerViewModel?) {
         self.todoData = todoData
+        self.viewModel = viewModel
     }
 }
