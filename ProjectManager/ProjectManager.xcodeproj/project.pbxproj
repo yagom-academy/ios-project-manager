@@ -13,7 +13,7 @@
 		37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8928C9EC83008D3921 /* ProjectState.swift */; };
 		37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */; };
 		37038F9428CA0F45008D3921 /* ProjectDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9328CA0F45008D3921 /* ProjectDAO.swift */; };
-		37038F9628CA1606008D3921 /* ProjectManagerDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */; };
+		37038F9628CA1606008D3921 /* ProjectDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9528CA1606008D3921 /* ProjectDataManagerProtocol.swift */; };
 		37038F9928CA1FBD008D3921 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */; };
 		37038F9E28CA3241008D3921 /* ProjectTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */; };
 		378F990C28D06D0400B4B8D6 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378F990B28D06D0400B4B8D6 /* Date+Extension.swift */; };
@@ -32,7 +32,7 @@
 		37038F8928C9EC83008D3921 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
 		37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataManager.swift; sourceTree = "<group>"; };
 		37038F9328CA0F45008D3921 /* ProjectDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDAO.swift; sourceTree = "<group>"; };
-		37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerDataProtocol.swift; sourceTree = "<group>"; };
+		37038F9528CA1606008D3921 /* ProjectDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataManagerProtocol.swift; sourceTree = "<group>"; };
 		37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableHeaderView.swift; sourceTree = "<group>"; };
 		378F990B28D06D0400B4B8D6 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -71,9 +71,8 @@
 		37038F8428C8B9F4008D3921 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				37038F8628C9EC21008D3921 /* Model */,
-				37038F9728CA1F84008D3921 /* View */,
-				37038F8528C8BA08008D3921 /* Controller */,
+				378F990E28D079D900B4B8D6 /* ProjectManagerList */,
+				378F991028D079EC00B4B8D6 /* ProjectManagerUpdate */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -81,7 +80,6 @@
 		37038F8528C8BA08008D3921 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				37B39FAF28CF2153008796AD /* ProjectUpdateViewController.swift */,
 				37038F8228C8B9E3008D3921 /* ProjectManagerViewController.swift */,
 			);
 			path = Controller;
@@ -90,12 +88,8 @@
 		37038F8628C9EC21008D3921 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				37038F9528CA1606008D3921 /* ProjectManagerDataProtocol.swift */,
-				37038F9328CA0F45008D3921 /* ProjectDAO.swift */,
-				37038F8728C9EC46008D3921 /* ProjectDTO.swift */,
-				37038F8928C9EC83008D3921 /* ProjectState.swift */,
 				37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */,
-				378F990B28D06D0400B4B8D6 /* Date+Extension.swift */,
+				37038F9528CA1606008D3921 /* ProjectDataManagerProtocol.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -103,11 +97,63 @@
 		37038F9728CA1F84008D3921 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */,
 				37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */,
+				37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		378F990D28D079C300B4B8D6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				378F990B28D06D0400B4B8D6 /* Date+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		378F990E28D079D900B4B8D6 /* ProjectManagerList */ = {
+			isa = PBXGroup;
+			children = (
+				37038F8628C9EC21008D3921 /* Model */,
+				37038F9728CA1F84008D3921 /* View */,
+				37038F8528C8BA08008D3921 /* Controller */,
+			);
+			path = ProjectManagerList;
+			sourceTree = "<group>";
+		};
+		378F991028D079EC00B4B8D6 /* ProjectManagerUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				378F991228D07A0A00B4B8D6 /* Controller */,
+				378F991328D07A1700B4B8D6 /* View */,
+			);
+			path = ProjectManagerUpdate;
+			sourceTree = "<group>";
+		};
+		378F991228D07A0A00B4B8D6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				37B39FAF28CF2153008796AD /* ProjectUpdateViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		378F991328D07A1700B4B8D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				37B39FB128CF2555008796AD /* ProjectUpdateView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		378F991428D07A4600B4B8D6 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				37038F9328CA0F45008D3921 /* ProjectDAO.swift */,
+				37038F8728C9EC46008D3921 /* ProjectDTO.swift */,
+				37038F8928C9EC83008D3921 /* ProjectState.swift */,
+			);
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -130,6 +176,8 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				378F991428D07A4600B4B8D6 /* DataModel */,
+				378F990D28D079C300B4B8D6 /* Extension */,
 				37038F8428C8B9F4008D3921 /* Scene */,
 				37038F7C28C77B84008D3921 /* Resource */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -231,7 +279,7 @@
 				37038F9E28CA3241008D3921 /* ProjectTableHeaderView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				378F990C28D06D0400B4B8D6 /* Date+Extension.swift in Sources */,
-				37038F9628CA1606008D3921 /* ProjectManagerDataProtocol.swift in Sources */,
+				37038F9628CA1606008D3921 /* ProjectDataManagerProtocol.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				37B39FB228CF2555008796AD /* ProjectUpdateView.swift in Sources */,
 				37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */,

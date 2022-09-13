@@ -310,7 +310,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
 
 // MARK: - Extension ProjectManagerDataProtocol
 
-extension ProjectManagerViewController: ProjectManagerDataProtocol {
+extension ProjectManagerViewController: ProjectDataManagerProtocol {
     func create(data: ProjectDTO) {
         dataManager.append(work: data)
         

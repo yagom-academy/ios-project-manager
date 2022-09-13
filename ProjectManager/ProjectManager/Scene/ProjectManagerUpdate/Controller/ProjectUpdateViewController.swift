@@ -11,7 +11,7 @@ final class ProjectUpdateViewController: UIViewController {
     // MARK: - Properties
     
     private let projectUpdateView = ProjectUpdateView()
-    weak var delegate: ProjectManagerDataProtocol?
+    weak var delegate: ProjectDataManagerProtocol?
     var item: ProjectDTO?
     
     // MARK: - View Life Cycle
