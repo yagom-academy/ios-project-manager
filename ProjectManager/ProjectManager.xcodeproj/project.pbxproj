@@ -206,13 +206,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AFBBAE5E28D0480F00BAECFC /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AFEC097228CB022000628172 /* Coordinator.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		AFEF7F5E28CB1FCF0020FCBA /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				AFEC096828CAF9F100628172 /* AppAppearance.swift */,
 				AFEF7F5F28CB32E30020FCBA /* AppCoordinator.swift */,
-				AFEC097228CB022000628172 /* Coordinator.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -248,6 +255,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				AFBBAE5E28D0480F00BAECFC /* Protocols */,
 				AFEF7F7128CC229F0020FCBA /* Extensions */,
 				AFEF7F5E28CB1FCF0020FCBA /* Application */,
 				AF87FCC128CE37E700839018 /* MainScene */,
@@ -282,6 +290,7 @@
 				C7431EFF25F51E1D0094C4CF /* Frameworks */,
 				C7431F0025F51E1D0094C4CF /* Resources */,
 				AF2D5BD528C57B67009514B8 /* Swift Lint */,
+				75FDEE01B2B913CF6D9F0ABC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -338,6 +347,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		75FDEE01B2B913CF6D9F0ABC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AF2D5BD528C57B67009514B8 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
