@@ -63,6 +63,7 @@ final class ProjectAdditionScrollView: UIScrollView {
     private let scheduleDescriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isScrollEnabled = false
         textView.text = "Description"
         textView.font = UIFont.preferredFont(forTextStyle: .caption1)
         
@@ -82,6 +83,7 @@ final class ProjectAdditionScrollView: UIScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.alwaysBounceVertical = true
         
         configureView()
         configureUI()
@@ -105,10 +107,11 @@ final class ProjectAdditionScrollView: UIScrollView {
     
     private func configureUI() {
         NSLayoutConstraint.activate([
-            scheduleStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            scheduleStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            scheduleStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            scheduleStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
+            scheduleStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            scheduleStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            scheduleStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            scheduleStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            scheduleStackView.widthAnchor.constraint(equalTo: self.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
