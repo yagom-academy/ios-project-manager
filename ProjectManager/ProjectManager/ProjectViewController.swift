@@ -17,6 +17,12 @@ final class ProjectViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = Design.projectTitlePlaceholder
         textField.addLeftPadding()
+        textField.borderStyle = .roundedRect
+        textField.layer.masksToBounds = false
+        textField.layer.shadowColor = UIColor.gray.cgColor
+        textField.layer.shadowOffset = CGSize(width: 0, height: 3)
+        textField.layer.shadowOpacity = 0.8
+        textField.layer.shadowRadius = 3.0
         
         return textField
     }()
@@ -34,6 +40,11 @@ final class ProjectViewController: UIViewController {
     
     private let projectDescription: UITextView = {
         let textView = UITextView()
+        textView.layer.masksToBounds = false
+        textView.layer.shadowColor = UIColor.gray.cgColor
+        textView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        textView.layer.shadowOpacity = 0.8
+        textView.layer.shadowRadius = 3.0
         
         return textView
     }()
@@ -72,9 +83,9 @@ extension ProjectViewController {
         
         NSLayoutConstraint.activate([
             projectStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            projectStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant:  -4),
-            projectStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 4),
-            projectStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -4)
+            projectStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant:  -8),
+            projectStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            projectStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
     }
     
