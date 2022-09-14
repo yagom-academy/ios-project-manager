@@ -81,23 +81,8 @@ final class ProjectManagerController: UIViewController {
             return
         }
 
-        let unit = ProjectUnit(
-            id: UUID(),
-            title: "쥬스 메이커",
-            body: "쥬스 메이커 프로젝트입니다",
-            section: "ToDo",
-            deadLine: Date()
-        )
-        let unit2 = ProjectUnit(
-            id: UUID(),
-            title: "은행 창구 매니저",
-            body: "은행 창구 매니저 프로젝트입니다",
-            section: "ToDo",
-            deadLine: Date()
-        )
-
         toDoViewSnapshot.appendSections([.todo])
-        toDoViewSnapshot.appendItems([unit, unit2])
+        toDoViewSnapshot.appendItems([ProjectUnit.sample, ProjectUnit.sample2])
         toDoViewdataSource?.apply(toDoViewSnapshot)
     }
 }
