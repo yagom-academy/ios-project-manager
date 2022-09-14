@@ -1,6 +1,6 @@
 disabled_rules: # Default Rules에서 비활성화할 규칙
     - trailing_whitespace
-
+    - line_length
 opt_in_rules:
   - empty_count
   - empty_string
@@ -8,6 +8,5 @@ opt_in_rules:
 excluded:
   - Pods
 
-line_length: 125
 file_length: 250
 function_body_length: 15

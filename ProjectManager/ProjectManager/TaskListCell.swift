@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 class TaskListCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -95,4 +93,3 @@ class TaskListCell: UITableViewCell {
         bodyLabel.text = data.body
     }
 }
-

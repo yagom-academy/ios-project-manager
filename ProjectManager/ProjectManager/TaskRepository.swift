@@ -26,4 +26,3 @@ class TaskRepository: TaskRepositoryProtocol {
         data.removeValue(forKey: model.id)
     }
 }
-
