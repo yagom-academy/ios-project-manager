@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		421D547428D22CA100910524 /* TaskModelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D547328D22CA100910524 /* TaskModelDTO.swift */; };
+		421D547628D22CD900910524 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D547528D22CD900910524 /* ProjectState.swift */; };
 		42B6070528C6FA4900E86F62 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 42B6070428C6FA4900E86F62 /* .swiftlint.yml */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		421D547328D22CA100910524 /* TaskModelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModelDTO.swift; sourceTree = "<group>"; };
+		421D547528D22CD900910524 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
 		42B6070428C6FA4900E86F62 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				421D547328D22CA100910524 /* TaskModelDTO.swift */,
+				421D547528D22CD900910524 /* ProjectState.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -161,7 +167,9 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				421D547428D22CA100910524 /* TaskModelDTO.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				421D547628D22CD900910524 /* ProjectState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
