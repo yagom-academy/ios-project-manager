@@ -29,4 +29,18 @@ struct ProjectUnit: Hashable {
     let body: String
     let section: String
     let deadLine: Date
+    
+    init(
+        id: UUID,
+        title: String,
+        body: String,
+        section: String,
+        deadLine: Date
+    ) {
+        self.id = id
+        self.title = title
+        self.body = body
+        self.section = section
+        self.deadLine = deadLine
+    }
 }
