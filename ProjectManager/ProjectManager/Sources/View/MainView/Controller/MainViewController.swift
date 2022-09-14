@@ -22,6 +22,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupMainView()
         setupNavigationBarItem()
+        setupBinding()
     }
 }
 
@@ -61,5 +62,26 @@ private extension MainViewController {
         presentNavigationController.modalPresentationStyle = .pageSheet
         
         self.navigationController?.present(presentNavigationController, animated: true)
+    }
+    
+    //MARK: Binding ViewModel
+    
+    func setupBinding() {
+        setupTableViewBinding()
+        setupHeaderCountBinding()
+        setupTaskSelectedBinding()
+    }
+    
+    
+    func setupTableViewBinding() {
+        
+    }
+    
+    func setupHeaderCountBinding() {
+
+    }
+    
+    func setupTaskSelectedBinding() {
+        
     }
 }
