@@ -5,18 +5,19 @@
 //  Created by bonf on 2022/09/11.
 //
 
-import Foundation
+import RxSwift
 
 struct ViewModel {
-    var projects: [Project] = []
     
-    struct Input {
-        
+    // MARK: - properties
+
+    let todoList = BehaviorSubject<[Project]>(value: [])
+    let doingList = BehaviorSubject<[Project]>(value: [])
+    let doneList = BehaviorSubject<[Project]>(value: [])
+    
+    // MARK: - functions
+
+    func appendProject(project: Project) {
+        todoList.onNext([project])
     }
-    
-    struct Output {
-        
-    }
-    
-    
 }

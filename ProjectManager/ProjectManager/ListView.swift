@@ -6,25 +6,34 @@
 //
 
 import UIKit
-
-enum Status: String {
-    case todo = "TODO"
-    case doing = "DOING"
-    case done = "DONE"
-}
+import RxSwift
+import RxCocoa
 
 final class ListView: UIView {
+    
+    // MARK: - properties
+
+    var viewModel: ViewModel? {
+        didSet {
+            bindProjectLists()
+        }
+    }
+    
     private var status: Status
     
-    private let tableView: UITableView = {
+    private let disposeBag = DisposeBag()
+    
+    let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
         
         return tableView
     }()
     
     private let titleView: UIView = {
         let view = UIView()
+        
         return view
     }()
     
@@ -46,7 +55,7 @@ final class ListView: UIView {
         return label
     }()
     
-    let listCountLabel: UILabel = {
+    private let listCountLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title2)
         label.textColor = .white
@@ -60,6 +69,7 @@ final class ListView: UIView {
     
     private let emptyLabel: UILabel = {
         let label = UILabel()
+        
         return label
     }()
     
@@ -74,10 +84,12 @@ final class ListView: UIView {
         return stackView
     }()
     
+    // MARK: - initializers
+
     init(status: Status) {
         self.status = status
-        titleLabel.text = status.rawValue
-        listCountLabel.text = "\(tableView.visibleCells.count)"
+        titleLabel.text = status.upperCasedString
+        listCountLabel.text = "\(0)"
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         setupListView()
         setupTitleStackView()
@@ -88,6 +100,8 @@ final class ListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - functions
+
     private func setupListView() {
         self.addSubview(todoStackView)
         todoStackView.addArrangedSubview(titleView)
@@ -123,5 +137,39 @@ final class ListView: UIView {
         NSLayoutConstraint.activate([
             listCountLabel.widthAnchor.constraint(equalTo: listCountLabel.heightAnchor)
         ])
+    }
+    
+    private func bindProjectLists() {
+        switch status {
+        case .todo:
+            viewModel?.todoList
+                .scan([], accumulator: +)
+                .bind(to: tableView.rx.items(
+                    cellIdentifier: TodoTableViewCell.identifier,
+                    cellType: TodoTableViewCell.self))
+            { _, item, cell in
+                cell.setupDataSource(project: item)
+            }.disposed(by: disposeBag)
+            
+        case .doing:
+            viewModel?.doingList
+                .scan([], accumulator: +)
+                .bind(to: tableView.rx.items(
+                    cellIdentifier: TodoTableViewCell.identifier,
+                    cellType: TodoTableViewCell.self))
+            { _, item, cell in
+                cell.setupDataSource(project: item)
+            }.disposed(by: disposeBag)
+            
+        case .done:
+            viewModel?.doneList
+                .scan([], accumulator: +)
+                .bind(to: tableView.rx.items(
+                    cellIdentifier: TodoTableViewCell.identifier,
+                    cellType: TodoTableViewCell.self))
+            { _, item, cell in
+                cell.setupDataSource(project: item)
+            }.disposed(by: disposeBag)
+        }
     }
 }

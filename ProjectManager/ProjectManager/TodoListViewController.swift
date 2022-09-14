@@ -5,6 +5,7 @@
 // 
 
 import UIKit
+import RxSwift
 
 final class TodoListViewController: UIViewController {
     
@@ -33,6 +34,9 @@ final class TodoListViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationItem()
         setupListStackView()
+        todoView.viewModel = viewModel
+        doingView.viewModel = viewModel
+        doneView.viewModel = viewModel
     }
 }
 
@@ -68,6 +72,7 @@ extension TodoListViewController {
 extension TodoListViewController {
     @objc private func showAlert() {
         let projectViewController = ProjectViewController()
+        projectViewController.viewModel = viewModel
         projectViewController.modalPresentationStyle = .formSheet
         let projectAddViewController = UINavigationController(rootViewController: projectViewController)
         present(projectAddViewController, animated: true)

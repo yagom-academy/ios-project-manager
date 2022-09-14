@@ -11,6 +11,8 @@ final class ProjectViewController: UIViewController {
     
     // MARK: - properties
     
+    var viewModel: ViewModel?
+    
     private let projectTitle: UITextField = {
         let textField = UITextField()
         textField.placeholder = Design.projectTitlePlaceholder
@@ -32,7 +34,6 @@ final class ProjectViewController: UIViewController {
     
     private let projectDescription: UITextView = {
         let textView = UITextView()
-        textView.layer.borderWidth = 1
         
         return textView
     }()
