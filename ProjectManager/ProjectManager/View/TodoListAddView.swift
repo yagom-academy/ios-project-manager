@@ -8,19 +8,22 @@
 import SwiftUI
 
 struct TodoListAddView: View {
+    @StateObject var viewModel = ProjectAddViewModel()
+    @Binding var project: [Project]
     var body: some View {
         VStack {
-            TodoListAddTitleView()
-            TodoListAddTitleTextView()
-            TodoListAddDatePickerView()
-            TodoListAddDetailTextView()
+            TodoListAddTitleView(project: $project, viewModel: viewModel)
+            TodoListAddTitleTextView(viewModel: viewModel)
+            TodoListAddDatePickerView(viewModel: viewModel)
+            TodoListAddDetailTextView(viewModel: viewModel)
         }
     }
 }
 
 struct TodoListAddTitleView: View {
+    @Binding var project: [Project]
     @Environment(\.dismiss) var dismiss
-
+    @ObservedObject var viewModel: ProjectAddViewModel
     var body: some View {
         HStack {
             Button(action: {
@@ -41,12 +44,14 @@ struct TodoListAddTitleView: View {
                     .font(.title3)
                     .padding(10)
             })
+        }.onDisappear {
+            project.append(Project(id: viewModel.id, status: .todo, title: viewModel.title, detail: viewModel.detail, date: viewModel.date))
         }
     }
 }
 
 struct TodoListAddDatePickerView: View {
-    @ObservedObject private var viewModel = ProjectAddViewModel()
+    @ObservedObject var viewModel: ProjectAddViewModel
 
     var body: some View {
         DatePicker("",
@@ -58,7 +63,7 @@ struct TodoListAddDatePickerView: View {
 }
 
 struct TodoListAddDetailTextView: View {
-    @ObservedObject private var viewModel = ProjectAddViewModel()
+    @ObservedObject var viewModel: ProjectAddViewModel
 
     var body: some View {
 
@@ -79,7 +84,7 @@ struct TodoListAddDetailTextView: View {
 }
 
 struct TodoListAddTitleTextView: View {
-    @ObservedObject private var viewModel = ProjectAddViewModel()
+    @ObservedObject var viewModel: ProjectAddViewModel
 
     var body: some View {
         ZStack {
@@ -93,11 +98,5 @@ struct TodoListAddTitleTextView: View {
                 .background(Color(.systemBackground))
                 .padding(12)
         }
-    }
-}
-
-struct TodoListAddView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoListAddView()
     }
 }

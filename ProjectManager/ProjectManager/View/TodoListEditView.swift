@@ -90,9 +90,3 @@ struct TodoListEditDetailTextView: View {
         }
     }
 }
-
-struct TodoListEditView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoListAddView()
-    }
-}
