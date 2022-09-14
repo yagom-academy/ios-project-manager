@@ -38,6 +38,7 @@ final class ProjectAdditionScrollView: UIScrollView {
         textField.layer.shadowOpacity = 1
         textField.layer.shadowOffset = CGSize(width: 0, height: 2)
         textField.layer.shadowColor = UIColor.gray.cgColor
+        textField.clearButtonMode = .whileEditing
         
         return textField
     }()
