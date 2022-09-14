@@ -117,17 +117,26 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     private func bindHeaderImage() {
-        viewModel.todoCountImage
+        viewModel.todoWorks
+            .map {
+                UIImage(systemName: "\($0.count).circle.fill")
+            }
             .asDriver(onErrorJustReturn: nil)
             .drive(toDoTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
         
-        viewModel.doingCountImage
+        viewModel.doingWorks
+            .map {
+                UIImage(systemName: "\($0.count).circle.fill")
+            }
             .asDriver(onErrorJustReturn: nil)
             .drive(doingTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
         
-        viewModel.doneCountImage
+        viewModel.doneWorks
+            .map {
+                UIImage(systemName: "\($0.count).circle.fill")
+            }
             .asDriver(onErrorJustReturn: nil)
             .drive(doneTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
