@@ -40,6 +40,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FD24500528D226CA00D5C593 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FD24500628D22A0200D5C593 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FD6659C528C9B9C600934AF4 /* Preview Content */,
+				FD6659C328C9B9C600934AF4 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FD24500728D22ABD00D5C593 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */,
+				FD24500528D226CA00D5C593 /* Models */,
+				FD24500828D22B6600D5C593 /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		FD24500828D22B6600D5C593 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FD6659C128C9B9C400934AF4 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		FD6659B328C9B9C400934AF4 = {
 			isa = PBXGroup;
 			children = (
@@ -59,11 +93,9 @@
 		FD6659BE28C9B9C400934AF4 /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */,
-				FD6659C128C9B9C400934AF4 /* ContentView.swift */,
-				FD6659C328C9B9C600934AF4 /* Assets.xcassets */,
 				FD9C397B28C9F6C200B97B39 /* GoogleService-Info.plist */,
-				FD6659C528C9B9C600934AF4 /* Preview Content */,
+				FD24500628D22A0200D5C593 /* Resources */,
+				FD24500728D22ABD00D5C593 /* Sources */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
