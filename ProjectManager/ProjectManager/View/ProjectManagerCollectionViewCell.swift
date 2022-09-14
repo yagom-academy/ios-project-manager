@@ -17,7 +17,6 @@ class ProjectManagerCollectionViewCell: UICollectionViewCell {
     private var viewModel: ProjectManagerViewModel?
     
     private var statusType: TodoStatus?
-    private var disposeBag = DisposeBag()
     private var categorizedTodoList: Observable<[Todo]>? {
         didSet {
             configureObservable()
@@ -25,6 +24,8 @@ class ProjectManagerCollectionViewCell: UICollectionViewCell {
     }
     
     private var tableView: UITableView?
+    
+    private var disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
     

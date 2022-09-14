@@ -14,12 +14,13 @@ class TodoDetailViewController: UIViewController {
     
     private var viewModel: ProjectManagerViewModel?
     
-    private var disposeBag = DisposeBag()
     private var todoData: Observable<Todo>? {
         didSet {
             configureObservable()
         }
     }
+    
+    private var disposeBag = DisposeBag()
     
     private let titleTextField: UITextField = {
         let textField = UITextField()

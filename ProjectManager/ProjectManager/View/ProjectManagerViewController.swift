@@ -15,6 +15,7 @@ class ProjectManagerViewController: UIViewController {
     
     private var collectionView: UICollectionView?
     private var viewModel = ProjectManagerViewModel()
+    
     private var disposeBag = DisposeBag()
     
     // MARK: - Life Cycle

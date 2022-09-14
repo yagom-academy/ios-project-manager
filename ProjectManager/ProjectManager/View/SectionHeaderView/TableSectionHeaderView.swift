@@ -13,12 +13,13 @@ class TableSectionHeaderView: UIView {
     
     // MARK: - Properties
     
-    private var disposeBag = DisposeBag()
     private var categorizedTodoList: Observable<[Todo]>? {
         didSet {
             configureObservable()
         }
     }
+    
+    private var disposeBag = DisposeBag()
     
     private let titleLabel: UILabel = {
         let label = UILabel()

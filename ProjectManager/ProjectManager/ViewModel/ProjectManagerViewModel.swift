@@ -14,7 +14,6 @@ class ProjectManagerViewModel {
     
     static let firestoreCollectionName = "todo_list"
     
-    var disposeBag = DisposeBag()
     var allTodoList = BehaviorSubject<[Todo]>(value: [])
     var categorizedTodoList: [TodoStatus: Observable<[Todo]>] = [:]
     
@@ -23,6 +22,8 @@ class ProjectManagerViewModel {
     var changeStatusTodoData: PublishSubject<(TodoStatus, Int, TodoStatus)>?
     
     var alertError = PublishSubject<Error>()
+    
+    var disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
     
