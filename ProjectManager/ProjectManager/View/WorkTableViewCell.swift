@@ -67,7 +67,6 @@ final class WorkTableViewCell: UITableViewCell {
     private func setupView() {
         addSubView()
         setupConstraints()
-        self.selectionStyle = .none
     }
     
     private func addSubView() {

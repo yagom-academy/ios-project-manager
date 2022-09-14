@@ -139,6 +139,7 @@ final class ProjectManagerViewController: UIViewController {
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
                 self.showManageWorkView(self, work: self.viewModel.todoWorks.value[index.row])
+                self.todoTableView.deselectRow(at: index, animated: true)
             }).disposed(by: disposeBag)
         
         doingTableView.rx.itemSelected
@@ -146,13 +147,16 @@ final class ProjectManagerViewController: UIViewController {
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
                 self.showManageWorkView(self, work: self.viewModel.doingWorks.value[index.row])
+                self.doingTableView.deselectRow(at: index, animated: true)
             }).disposed(by: disposeBag)
         
         doneTableView.rx.itemSelected
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
+                
                 self.showManageWorkView(self, work: self.viewModel.doneWorks.value[index.row])
+                self.doneTableView.deselectRow(at: index, animated: true)
             }).disposed(by: disposeBag)
     }
     
