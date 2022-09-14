@@ -6,13 +6,10 @@
 //
 
 import UIKit
-import RxSwift
 
 final class WorkTableViewCell: UITableViewCell {
     // MARK: - Properties
     static let identifier = "WorkTableViewCell"
-    private var disposeBag = DisposeBag()
-    var works = PublishSubject<Work>()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -63,14 +60,13 @@ final class WorkTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        disposeBag = DisposeBag()
+        deadlineLabel.textColor = .black
     }
     
     // MARK: - Methods
     private func setupView() {
         addSubView()
         setupConstraints()
-        bind()
         self.selectionStyle = .none
     }
     
@@ -91,17 +87,13 @@ final class WorkTableViewCell: UITableViewCell {
         ])
     }
     
-    private func bind() {
-        works.observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] work in
-                guard let self = self else { return }
-                self.titleLabel.text = work.title
-                self.contentLabel.text = work.content
-                self.deadlineLabel.text = work.deadline.convertToRegion()
-                if DateManager().checkOverdue(date: work.deadline) {
-                    self.deadlineLabel.textColor = .systemRed
-                }
-            })
-            .disposed(by: disposeBag)
+    func configure(with work: Work) {
+        titleLabel.text = work.title
+        contentLabel.text = work.content
+        deadlineLabel.text = work.deadline.convertToRegion()
+       
+        if DateManager().checkOverdue(date: work.deadline) {
+            self.deadlineLabel.textColor = .systemRed
+        }
     }
 }

@@ -39,6 +39,6 @@ final class ManageWorkViewController: UIViewController {
     }
     
     func configureWork(_ work: Work) {
-        workManageView.work.onNext(work)
+        workManageView.configure(with: work)
     }
 }

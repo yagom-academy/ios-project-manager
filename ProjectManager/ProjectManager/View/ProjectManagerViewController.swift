@@ -95,7 +95,7 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .bind(to: todoTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
                                                                  cellType: WorkTableViewCell.self)) { _, item, cell in
-                cell.works.onNext(item)
+                cell.configure(with: item)
             }
             .disposed(by: disposeBag)
         
@@ -103,7 +103,7 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .bind(to: doingTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
                                                                 cellType: WorkTableViewCell.self)) { _, item, cell in
-               cell.works.onNext(item)
+                cell.configure(with: item)
            }
            .disposed(by: disposeBag)
         
@@ -111,7 +111,7 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .bind(to: doneTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
                                                                 cellType: WorkTableViewCell.self)) { _, item, cell in
-               cell.works.onNext(item)
+                cell.configure(with: item)
            }
            .disposed(by: disposeBag)
     }

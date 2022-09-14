@@ -6,13 +6,9 @@
 //
 
 import UIKit
-import RxSwift
 
 final class WorkManageView: UIView {
-    // MARK: - Properties
-    let disposeBag = DisposeBag()
-    let work = PublishSubject<Work>()
-    
+    // MARK: - Propertie
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +62,6 @@ final class WorkManageView: UIView {
     private func setupView() {
         addSubView()
         setupConstraints()
-        bind()
         self.backgroundColor = .systemGray6
     }
     
@@ -93,14 +88,9 @@ final class WorkManageView: UIView {
         ])
     }
     
-    private func bind() {
-        work.observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] work in
-                guard let self = self else { return }
-                self.titleTextField.text = work.title
-                self.contentTextView.text = work.content
-                self.deadlinePicker.date = work.deadline
-            })
-            .disposed(by: disposeBag)
+    func configure(with work: Work) {
+        titleTextField.text = work.title
+        contentTextView.text = work.content
+        deadlinePicker.date = work.deadline
     }
 }
