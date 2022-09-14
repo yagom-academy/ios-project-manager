@@ -18,11 +18,7 @@ final class ProjectViewController: UIViewController {
         textField.placeholder = Design.projectTitlePlaceholder
         textField.addLeftPadding()
         textField.borderStyle = .roundedRect
-        textField.layer.masksToBounds = false
-        textField.layer.shadowColor = UIColor.gray.cgColor
-        textField.layer.shadowOffset = CGSize(width: 0, height: 3)
-        textField.layer.shadowOpacity = 0.8
-        textField.layer.shadowRadius = 3.0
+        textField.appendShadow()
         
         return textField
     }()
@@ -40,11 +36,7 @@ final class ProjectViewController: UIViewController {
     
     private let projectDescription: UITextView = {
         let textView = UITextView()
-        textView.layer.masksToBounds = false
-        textView.layer.shadowColor = UIColor.gray.cgColor
-        textView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        textView.layer.shadowOpacity = 0.8
-        textView.layer.shadowRadius = 3.0
+        textView.appendShadow()
         
         return textView
     }()
