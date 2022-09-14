@@ -28,9 +28,7 @@ final class LocalDatabaseManager: DatabaseLogic {
         project.setValue(data.section, forKey: "section")
         project.setValue(data.id, forKey: "id")
         
-        if context.hasChanges {
-            try context.save()
-        }
+        try save(context)
     }
     
     func fetchSection(_ section: String) throws -> [ProjectUnit] {
@@ -74,9 +72,7 @@ final class LocalDatabaseManager: DatabaseLogic {
         project.deadLine = data.deadLine
         project.section = data.section
         
-        if context.hasChanges {
-            try context.save()
-        }
+        try save(context)
     }
     
     func delete(id: UUID) throws {
@@ -90,8 +86,18 @@ final class LocalDatabaseManager: DatabaseLogic {
         
         context.delete(project)
         
-        if context.hasChanges {
+        try save(context)
+    }
+    
+    private func save(_ context: NSManagedObjectContext) throws {
+        guard context.hasChanges else {
+            return
+        }
+        
+        do {
             try context.save()
+        } catch {
+            throw DatabaseError.failedContextSave
         }
     }
 }

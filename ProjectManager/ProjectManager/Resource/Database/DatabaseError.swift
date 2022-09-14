@@ -7,4 +7,5 @@
 
 enum DatabaseError: Error {
     case invalidFetchRequest
+    case failedContextSave
 }
