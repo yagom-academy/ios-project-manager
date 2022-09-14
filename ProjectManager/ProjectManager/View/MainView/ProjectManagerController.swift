@@ -33,11 +33,11 @@ final class ProjectManagerController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
-            action: #selector(didTappedAddButton)
+            action: #selector(didTapAddButton)
         )
     }
     
-    @objc func didTappedAddButton() {
+    @objc func didTapAddButton() {
         let projectAdditionController = UINavigationController(rootViewController: ProjectAdditionController())
         projectAdditionController.modalPresentationStyle = .formSheet
         

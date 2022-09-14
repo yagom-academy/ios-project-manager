@@ -64,10 +64,10 @@ final class SectionHeaderView: UIView {
         font: UIFont = .preferredFont(forTextStyle: .body)
     ) {
         sectionLabel.text = section
-        numberImageView.image = circleAroundDigit(number, diameter: 30, font: font)
+        numberImageView.image = circleBorderedDigit(number, diameter: 30, font: font)
     }
     
-    private func circleAroundDigit(
+    private func circleBorderedDigit(
         _ num: Int,
         diameter: CGFloat,
         font: UIFont

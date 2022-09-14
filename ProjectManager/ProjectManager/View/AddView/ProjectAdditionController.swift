@@ -12,23 +12,23 @@ final class ProjectAdditionController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configNavigationItems()
+        configureNavigationItems()
         configureUI()
     }
     
-    private func configNavigationItems() {
+    private func configureNavigationItems() {
         self.title = "TODO"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Done",
             style: .done,
             target: self,
-            action: #selector(didTappedDoneButton)
+            action: #selector(didTapDoneButton)
         )
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: "Cancel",
             style: .plain,
             target: self,
-            action: #selector(didTappedCancelButton)
+            action: #selector(didTapCancelButton)
         )
     }
     
@@ -44,11 +44,11 @@ final class ProjectAdditionController: UIViewController {
         ])
     }
     
-    @objc private func didTappedDoneButton() {
+    @objc private func didTapDoneButton() {
         self.dismiss(animated: true)
     }
     
-    @objc private func didTappedCancelButton() {
+    @objc private func didTapCancelButton() {
         self.dismiss(animated: true)
     }
 }
