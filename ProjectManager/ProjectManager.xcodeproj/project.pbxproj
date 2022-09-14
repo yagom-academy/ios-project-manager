@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD24500A28D22CB800D5C593 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24500928D22CB800D5C593 /* Task.swift */; };
+		FD24500D28D22E4800D5C593 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24500C28D22E4800D5C593 /* Status.swift */; };
 		FD6659C028C9B9C400934AF4 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */; };
 		FD6659C228C9B9C400934AF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6659C128C9B9C400934AF4 /* ContentView.swift */; };
 		FD6659C428C9B9C600934AF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD6659C328C9B9C600934AF4 /* Assets.xcassets */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD24500928D22CB800D5C593 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		FD24500C28D22E4800D5C593 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		FD6659BC28C9B9C400934AF4 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		FD6659C128C9B9C400934AF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -43,6 +47,7 @@
 		FD24500528D226CA00D5C593 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FD24500928D22CB800D5C593 /* Task.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -50,7 +55,6 @@
 		FD24500628D22A0200D5C593 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FD6659C528C9B9C600934AF4 /* Preview Content */,
 				FD6659C328C9B9C600934AF4 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -60,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */,
+				FD24500B28D22E3700D5C593 /* Common */,
 				FD24500528D226CA00D5C593 /* Models */,
 				FD24500828D22B6600D5C593 /* Views */,
 			);
@@ -72,6 +77,14 @@
 				FD6659C128C9B9C400934AF4 /* ContentView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		FD24500B28D22E3700D5C593 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				FD24500C28D22E4800D5C593 /* Status.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		FD6659B328C9B9C400934AF4 = {
@@ -96,6 +109,7 @@
 				FD9C397B28C9F6C200B97B39 /* GoogleService-Info.plist */,
 				FD24500628D22A0200D5C593 /* Resources */,
 				FD24500728D22ABD00D5C593 /* Sources */,
+				FD6659C528C9B9C600934AF4 /* Preview Content */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -189,7 +203,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD6659C228C9B9C400934AF4 /* ContentView.swift in Sources */,
+				FD24500A28D22CB800D5C593 /* Task.swift in Sources */,
 				FD6659C028C9B9C400934AF4 /* ProjectManagerApp.swift in Sources */,
+				FD24500D28D22E4800D5C593 /* Status.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
