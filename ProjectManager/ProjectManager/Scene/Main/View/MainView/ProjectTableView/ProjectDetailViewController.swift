@@ -20,20 +20,9 @@ final class ProjectDetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
     }
-
-    // MARK: - Functions
-
-    func loadData(of item: ToDoItem) {
-        toDoComponentsView.configure(of: item)
-    }
     
-    private func setupUI() {
-        setupNavigationController()
-        setupView()
-        setupSubviews()
-        setupConstraints()
-    }
-    
+    // MARK: - Initializers
+
     init(with tableView: UITableView) {
         self.tableView = tableView
         super.init(nibName: nil, bundle: nil)
@@ -44,6 +33,19 @@ final class ProjectDetailViewController: UIViewController {
     required init?(coder: NSCoder) {
         tableView = UITableView()
         super.init(coder: coder)
+    }
+    
+    // MARK: - Functions
+    
+    func loadData(of item: ToDoItem) {
+        toDoComponentsView.configure(of: item)
+    }
+    
+    private func setupUI() {
+        setupNavigationController()
+        setupView()
+        setupSubviews()
+        setupConstraints()
     }
     
     private func setupView() {
