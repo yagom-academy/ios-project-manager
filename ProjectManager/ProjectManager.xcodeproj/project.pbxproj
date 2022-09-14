@@ -75,6 +75,149 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		421D549228D2340F00910524 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		421D549328D2341C00910524 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				421D549428D2342C00910524 /* Entities */,
+				421D549528D2343500910524 /* Interfaces */,
+				421D549628D2344100910524 /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		421D549428D2342C00910524 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				421D547328D22CA100910524 /* TaskModelDTO.swift */,
+				421D54A028D2354300910524 /* Enum */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		421D549528D2343500910524 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				421D549728D2346200910524 /* Repositories */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		421D549628D2344100910524 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				421D547F28D22E8800910524 /* TaskUseCase.swift */,
+				421D549928D2348C00910524 /* Protocol */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		421D549728D2346200910524 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				421D547B28D22DDC00910524 /* TaskRepository.swift */,
+				421D549828D2347400910524 /* Protocol */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		421D549828D2347400910524 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				421D547928D22DB200910524 /* TaskRepositoryProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		421D549928D2348C00910524 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				421D547D28D22E7800910524 /* TaskUseCaseProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		421D549A28D2349F00910524 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				421D549B28D234B400910524 /* View */,
+				421D549C28D234BA00910524 /* ViewModel */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		421D549B28D234B400910524 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				421D548528D230F100910524 /* TaskTableView.swift */,
+				421D548728D2312700910524 /* TaskHeaderView.swift */,
+				421D548928D2321800910524 /* EditTaskViewController.swift */,
+				421D548D28D2325200910524 /* CreateTaskViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* MainTaskViewController.swift */,
+				421D549F28D2351800910524 /* Protocol */,
+				421D549D28D234C800910524 /* Cells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		421D549C28D234BA00910524 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				421D548328D22EEC00910524 /* TaskViewModel.swift */,
+				421D549E28D234EB00910524 /* Protocol */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		421D549D28D234C800910524 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				421D547728D22D4600910524 /* TaskListCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		421D549E28D234EB00910524 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				421D548128D22EDC00910524 /* TaskViewModelProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		421D549F28D2351800910524 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				421D548B28D2323000910524 /* MainTaskViewControllerDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		421D54A028D2354300910524 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				421D547528D22CD900910524 /* ProjectState.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		421D54A128D2356C00910524 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -96,26 +239,11 @@
 			isa = PBXGroup;
 			children = (
 				421D549128D2336F00910524 /* Fonts */,
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* MainTaskViewController.swift */,
-				421D548D28D2325200910524 /* CreateTaskViewController.swift */,
-				421D548928D2321800910524 /* EditTaskViewController.swift */,
-				421D548B28D2323000910524 /* MainTaskViewControllerDelegate.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				421D549228D2340F00910524 /* Application */,
+				421D549328D2341C00910524 /* Domain */,
+				421D549A28D2349F00910524 /* Presentation */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				421D547328D22CA100910524 /* TaskModelDTO.swift */,
-				421D547528D22CD900910524 /* ProjectState.swift */,
-				421D547728D22D4600910524 /* TaskListCell.swift */,
-				421D547928D22DB200910524 /* TaskRepositoryProtocol.swift */,
-				421D547B28D22DDC00910524 /* TaskRepository.swift */,
-				421D547D28D22E7800910524 /* TaskUseCaseProtocol.swift */,
-				421D547F28D22E8800910524 /* TaskUseCase.swift */,
-				421D548128D22EDC00910524 /* TaskViewModelProtocol.swift */,
-				421D548328D22EEC00910524 /* TaskViewModel.swift */,
-				421D548528D230F100910524 /* TaskTableView.swift */,
-				421D548728D2312700910524 /* TaskHeaderView.swift */,
+				421D54A128D2356C00910524 /* Resources */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";

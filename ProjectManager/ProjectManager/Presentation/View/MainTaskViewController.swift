@@ -267,4 +267,3 @@ extension MainTaskViewController: MainTaskViewControllerDelegate {
         reloadTableView()
     }
 }
-
