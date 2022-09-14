@@ -66,7 +66,6 @@ final class ListView: UIView {
         super.init(frame: frame)
         addUIComponents()
         setupListViewLayout()
-        print(0.5 * mainTitleLabel.frame.size.width)
     }
     
     required init?(coder: NSCoder) {

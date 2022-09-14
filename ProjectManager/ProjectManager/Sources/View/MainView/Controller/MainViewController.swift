@@ -13,6 +13,8 @@ final class MainViewController: UIViewController {
     //MARK: - UI Properties
     
     private lazy var mainView = MainView(frame: view.safeAreaLayoutGuide.layoutFrame)
+    private let viewModel = ProjectTaskViewModel()
+    private let disposeBad = DisposeBag()
     
     //MARK: - View Life Cycle
     
