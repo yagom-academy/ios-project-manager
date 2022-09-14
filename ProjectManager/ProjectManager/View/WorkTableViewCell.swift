@@ -67,6 +67,13 @@ final class WorkTableViewCell: UITableViewCell {
     }
     
     // MARK: - Methods
+    private func setupView() {
+        addSubView()
+        setupConstraints()
+        bind()
+        self.selectionStyle = .none
+    }
+    
     private func addSubView() {
         verticalStackView.addArrangedSubview(titleLabel)
         verticalStackView.addArrangedSubview(contentLabel)
@@ -82,13 +89,6 @@ final class WorkTableViewCell: UITableViewCell {
             verticalStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),
             verticalStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
         ])
-    }
-    
-    private func setupView() {
-        addSubView()
-        setupConstraints()
-        bind()
-        self.selectionStyle = .none
     }
     
     private func bind() {

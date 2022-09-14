@@ -86,6 +86,12 @@ final class ProjectManagerView: UIView {
     }
     
     // MARK: - Methods
+    private func setupView() {
+        addSubView()
+        setupConstraints()
+        self.backgroundColor = .systemGray6
+    }
+    
     private func addSubView() {
         toDoTitleView.configure(title: "TODO", count: 0)
         doingTitleView.configure(title: "DOING", count: 0)
@@ -116,11 +122,5 @@ final class ProjectManagerView: UIView {
             doingTitleView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05),
             doneTitleView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05)
         ])
-    }
-    
-    private func setupView() {
-        addSubView()
-        setupConstraints()
-        self.backgroundColor = .systemGray6
     }
 }

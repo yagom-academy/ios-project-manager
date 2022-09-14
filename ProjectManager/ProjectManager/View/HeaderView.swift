@@ -36,6 +36,12 @@ final class HeaderView: UIView {
     }
     
     // MARK: - Methods
+    private func setupView() {
+        addSubView()
+        setupConstraints()
+        self.backgroundColor = .systemBackground
+    }
+    
     private func addSubView() {
         self.addSubview(titleLabel)
         self.addSubview(countImageView)
@@ -52,12 +58,6 @@ final class HeaderView: UIView {
             countImageView.heightAnchor.constraint(equalTo: self.titleLabel.heightAnchor),
             countImageView.widthAnchor.constraint(equalTo: self.countImageView.heightAnchor)
         ])
-    }
-    
-    private func setupView() {
-        addSubView()
-        setupConstraints()
-        self.backgroundColor = .systemBackground
     }
     
     func configure(title: String, count: Int) {

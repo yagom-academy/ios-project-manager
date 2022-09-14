@@ -63,6 +63,13 @@ final class WorkManageView: UIView {
     }
     
     // MARK: - Methods
+    private func setupView() {
+        addSubView()
+        setupConstraints()
+        bind()
+        self.backgroundColor = .systemGray6
+    }
+    
     private func addSubView() {
         verticalStackView.addArrangedSubview(titleTextField)
         verticalStackView.addArrangedSubview(deadlinePicker)
@@ -84,13 +91,6 @@ final class WorkManageView: UIView {
             
             contentTextView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.6)
         ])
-    }
-    
-    private func setupView() {
-        addSubView()
-        setupConstraints()
-        bind()
-        self.backgroundColor = .systemGray6
     }
     
     private func bind() {
