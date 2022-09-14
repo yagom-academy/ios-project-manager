@@ -2,7 +2,7 @@
 //  ProjectType.swift
 //  ProjectManager
 //
-//  Created by 김동용 on 2022/09/13.
+//  Created by brad, bard on 2022/09/13.
 //
 
 import UIKit

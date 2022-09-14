@@ -41,7 +41,6 @@ final class MainViewController: UIViewController {
         setupVerticalStackViewLayout()
         setupView()
         setupDelegates()
-//        setupLongTapGesture()
     }
     
     private func setupDelegates() {
@@ -88,6 +87,31 @@ final class MainViewController: UIViewController {
                                              action: #selector(didPlusButtonTapped))
         
         navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    private func setupAlertController(_ alertController: UIAlertController, with tableView: UITableView) {
+        let todoAlertAction = UIAlertAction(title: Design.todoAlertActionTitle, style: .default) { _ in
+            
+        }
+        
+        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) { _ in
+            
+        }
+        
+        let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { _ in
+            
+        }
+        
+        if tableView == toDoListTableView {
+            alertController.addAction(doingAlertAction)
+            alertController.addAction(doingAlertAction)
+        } else if tableView == doingListTableView {
+            alertController.addAction(todoAlertAction)
+            alertController.addAction(doneAlertAction)
+        } else if tableView == doneListTableView {
+            alertController.addAction(todoAlertAction)
+            alertController.addAction(doingAlertAction)
+        }
     }
     
     // MARK: - objc Functions
@@ -167,10 +191,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, UIGest
         else { return UITableViewCell() }
         
         cell.configure(data: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(didCellTappedLong(_:)))
-        lpgr.minimumPressDuration = 2.0
-        lpgr.delegate = self
-        cell.addGestureRecognizer(lpgr)
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self,
+                                                               action: #selector(didCellTappedLong(_:)))
+        longPressRecognizer.minimumPressDuration = 2.0
+        longPressRecognizer.delegate = self
+        cell.addGestureRecognizer(longPressRecognizer)
         
         return cell
     }

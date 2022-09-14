@@ -2,7 +2,7 @@
 //  ProjectTableView.swift
 //  ProjectManager
 //
-//  Created by 김동용 on 2022/09/13.
+//  Created by brad, bard on 2022/09/13.
 //
 
 import UIKit
@@ -20,9 +20,9 @@ class ProjectTableView: UITableView {
     // MARK: Initializers
     
     init(for projectType: ProjectType, with manager: MockToDoItemManager) {
-        self.projectType = projectType // 해당 타입 설정
-        projectHeaderView = ProjectTableHeaderView(with: projectType) // 헤더뷰 설정
-        mockToDoItemManger = manager // 매니저 주입
+        self.projectType = projectType
+        projectHeaderView = ProjectTableHeaderView(with: projectType)
+        mockToDoItemManger = manager
         super.init(frame: .zero, style: .plain)
         commonInit()
     }
@@ -44,9 +44,9 @@ class ProjectTableView: UITableView {
     private func commonInit() {
         tableHeaderView = projectHeaderView
         backgroundColor = .systemGray5
-        register(ProjectTableViewCell.self, forCellReuseIdentifier: ProjectTableViewCell.identifier) // 셀 등록
-        mockToDoItemManger.loadData() // data 가져오기
-        layoutIfNeeded()  // 데이터 가져온 것으로 뷰 다시 그리기
-        projectHeaderView.setupIndexLabel(with: mockToDoItemManger.count()) // indexLabel 숫자 설정
+        register(ProjectTableViewCell.self, forCellReuseIdentifier: ProjectTableViewCell.identifier)
+        mockToDoItemManger.loadData()
+        layoutIfNeeded()
+        projectHeaderView.setupIndexLabel(with: mockToDoItemManger.count())
     }
 }

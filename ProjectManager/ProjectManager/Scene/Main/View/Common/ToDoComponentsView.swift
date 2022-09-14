@@ -97,7 +97,6 @@ class ToDoComponentsView: UIView {
     }
     
     private func setupStackViewLayout() {
-        
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleView.bottomAnchor.constraint(equalTo: timeLimitDatePicker.topAnchor, constant: -20),

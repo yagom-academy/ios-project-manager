@@ -2,7 +2,7 @@
 //  ProjectTableHeaderView.swift
 //  ProjectManager
 //
-//  Created by 김동용 on 2022/09/13.
+//  Created by brad, bard on 2022/09/13.
 //
 
 import UIKit
@@ -77,7 +77,7 @@ class ProjectTableHeaderView: UIView {
             indexLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor),
             indexLabel.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             indexLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
-            indexLabel.widthAnchor.constraint(equalTo: indexLabel.heightAnchor),
+            indexLabel.widthAnchor.constraint(equalTo: indexLabel.heightAnchor)
         ])
     }
     
@@ -85,7 +85,6 @@ class ProjectTableHeaderView: UIView {
         indexLabel.layoutIfNeeded()
         indexLabel.drawCircle()
     }
-    
     
     // MARK: - Name Space
     
