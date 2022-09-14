@@ -8,7 +8,10 @@
 import Foundation
 
 struct Project {
+    var status: Status = .todo
     let title: String
-    let decription: String
+    let description: String
     let date: Date
 }
+
+

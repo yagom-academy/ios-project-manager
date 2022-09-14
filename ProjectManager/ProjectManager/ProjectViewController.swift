@@ -12,11 +12,11 @@ final class ProjectViewController: UIViewController {
     // MARK: - properties
     
     private let projectTitle: UITextField = {
-        let textfield = UITextField()
-        textfield.placeholder = "Title"
-        textfield.addLeftPadding()
+        let textField = UITextField()
+        textField.placeholder = Design.projectTitlePlaceholder
+        textField.addLeftPadding()
         
-        return textfield
+        return textField
     }()
     
     private lazy var datePicker: UIDatePicker = {

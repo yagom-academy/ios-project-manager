@@ -30,7 +30,7 @@ final class TodoListViewController: UIViewController {
     // MARK: - life cycle
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
         setupNavigationItem()
         setupListStackView()
     }
