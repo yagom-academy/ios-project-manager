@@ -86,6 +86,10 @@ final class ProjectManagerController: UIViewController {
     private func configureToDoViewSnapshot() {
         toDoViewSnapshot = Snapshot()
 
+        guard var toDoViewSnapshot = toDoViewSnapshot else {
+            return
+        }
+
         let unit = ProjectUnit(
             id: UUID(),
             title: "쥬스 메이커",
@@ -101,9 +105,9 @@ final class ProjectManagerController: UIViewController {
             deadLine: Date()
         )
 
-        toDoViewSnapshot?.appendSections([.todo])
-        toDoViewSnapshot?.appendItems([unit, unit2])
-        toDoViewdataSource?.apply(toDoViewSnapshot!)
+        toDoViewSnapshot.appendSections([.todo])
+        toDoViewSnapshot.appendItems([unit, unit2])
+        toDoViewdataSource?.apply(toDoViewSnapshot)
     }
 }
 
