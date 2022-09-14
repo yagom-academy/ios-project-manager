@@ -82,7 +82,7 @@ extension ProjectViewController {
         navigationItem.title = Design.navigationItemTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self,
-                                                            action: nil)
+                                                            action: #selector(doneButtonDidTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(cancelButtonDidTapped))
@@ -93,7 +93,14 @@ extension ProjectViewController {
 
 extension ProjectViewController {
     @objc private func cancelButtonDidTapped() {
-        // TodoListVC로 데이터 전송
+        dismiss(animated: true)
+    }
+    
+    @objc private func doneButtonDidTapped() {
+        guard let title = projectTitle.text,
+              let description = projectDescription.text else { return }
+        let project = Project(title: "\(title)", description: "\(description)", date: datePicker.date)
+        viewModel?.appendProject(project: project)
         dismiss(animated: true)
     }
     
