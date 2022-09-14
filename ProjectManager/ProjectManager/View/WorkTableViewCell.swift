@@ -98,7 +98,7 @@ final class WorkTableViewCell: UITableViewCell {
                 self.titleLabel.text = work.title
                 self.contentLabel.text = work.content
                 self.deadlineLabel.text = work.deadline.convertToRegion()
-                if work.deadline.checkOverdue() {
+                if DateManager().checkOverdue(date: work.deadline) {
                     self.deadlineLabel.textColor = .systemRed
                 }
             })

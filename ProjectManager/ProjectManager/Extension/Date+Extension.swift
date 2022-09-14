@@ -15,11 +15,4 @@ extension Date {
         dateFormatter.timeStyle = .none
         return dateFormatter.string(from: self)
     }
-    
-    func checkOverdue() -> Bool {
-        let today = Date().convertToRegion()
-        let dateToCompare = self.convertToRegion()
-        
-        return today != dateToCompare && Date() >= self
-    }
 }
