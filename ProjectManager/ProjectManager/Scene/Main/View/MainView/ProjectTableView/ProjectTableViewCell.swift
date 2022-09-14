@@ -1,5 +1,5 @@
 //
-//  ToDoListTableViewCell.swift
+//  ProjectTableViewCell.swift
 //  ProjectManager
 //
 //  Created by brad, bard on 2022/09/06.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ToDoListTableViewCell: UITableViewCell {
+final class ProjectTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -20,7 +20,7 @@ final class ToDoListTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private let titleLabel: UILabel = {
+     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = Design.titleLabelLine
@@ -94,4 +94,4 @@ final class ToDoListTableViewCell: UITableViewCell {
 
 // MARK: - Extentions
 
-extension ToDoListTableViewCell: ReuseIdentifiable { }
+extension ProjectTableViewCell: ReuseIdentifiable { }

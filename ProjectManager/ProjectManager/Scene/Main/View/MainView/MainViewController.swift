@@ -9,10 +9,12 @@ import UIKit
 final class MainViewController: UIViewController {
     
     // MARK: - Properties
+    
+    private let mockToDoItemManger = MockToDoItemManager()
 
-    private let toDoListTableViewController = ToDoListViewController()
-    private let doingListTableViewController = DoingListViewController()
-    private let doneListTableViewController = DoneListViewController()
+    private lazy var toDoListTableView = ProjectTableView(for: .todo, with: mockToDoItemManger)
+    private lazy var doingListTableView = ProjectTableView(for: .doing, with: mockToDoItemManger)
+    private lazy var doneListTableView = ProjectTableView(for: .done, with: mockToDoItemManger)
     
     private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
@@ -38,15 +40,22 @@ final class MainViewController: UIViewController {
         setupSubviews()
         setupVerticalStackViewLayout()
         setupView()
+        setupDelegates()
+//        setupLongTapGesture()
+    }
+    
+    private func setupDelegates() {
+        [toDoListTableView, doingListTableView, doneListTableView]
+            .forEach { $0.delegate = self }
+        
+        [toDoListTableView, doingListTableView, doneListTableView]
+            .forEach { $0.dataSource = self }
     }
     
     private func setupSubviews() {
         view.addSubview(horizontalStackView)
         
-        [toDoListTableViewController, doingListTableViewController, doneListTableViewController]
-            .forEach { addChild($0) }
-        
-        [toDoListTableViewController.view, doingListTableViewController.view, doneListTableViewController.view]
+        [toDoListTableView, doingListTableView, doneListTableView]
             .forEach { horizontalStackView.addArrangedSubview($0) }
     }
     
@@ -81,6 +90,49 @@ final class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButton
     }
     
+    // MARK: - objc Functions
+    
+    @objc private func didCellTappedLong(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        guard gestureRecognizer.state == .began else { return }
+        
+        let alertController = UIAlertController()
+        
+        let todoAlertAction = UIAlertAction(title: Design.todoAlertActionTitle, style: .default) { _ in
+            
+        }
+        
+        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) { _ in
+            
+        }
+        
+        let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { _ in
+            
+        }
+        
+        alertController.addAction(doingAlertAction)
+        alertController.addAction(doneAlertAction)
+        
+        [toDoListTableView, doingListTableView, doneListTableView]
+            .forEach {
+                let touchPoint = gestureRecognizer.location(in: $0)
+                
+                guard let indexPath = $0.indexPathForRow(at: touchPoint),
+                      let popoverController = alertController.popoverPresentationController
+                else { return }
+                
+                let cell = $0.cellForRow(at: indexPath)
+                
+                popoverController.sourceView = cell
+                popoverController.sourceRect = cell?.bounds ?? Design.defaultRect
+                
+                present(alertController, animated: true)
+            }
+    }
+    
+    @objc func longPressAction(gestureRecognizer: UILongPressGestureRecognizer) {
+        print("Gesture recognized")
+    }
+    
     @objc private func didPlusButtonTapped() {
         let registrationViewController = RegistrationViewController()
         let navigationController = UINavigationController(rootViewController: registrationViewController)
@@ -96,5 +148,43 @@ final class MainViewController: UIViewController {
         static let navigationTitle = "Project Manager"
         static let navigationTitleFontSize: CGFloat = 20
         static let plusImage = "plus"
+        static let longTapDuration: TimeInterval = 1.5
+        static let todoAlertActionTitle = "Move to TODO"
+        static let doingAlertActionTitle = "Move to DOING"
+        static let doneAlertActionTitle = "Move to DONE"
+        static let defaultRect = CGRect(x: 0, y: 0, width: 50, height: 50)
     }
+}
+
+extension MainViewController: UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return mockToDoItemManger.count()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProjectTableViewCell.identifier, for: indexPath) as? ProjectTableViewCell
+        else { return UITableViewCell() }
+        
+        cell.configure(data: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(didCellTappedLong(_:)))
+        lpgr.minimumPressDuration = 2.0
+        lpgr.delegate = self
+        cell.addGestureRecognizer(lpgr)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let toDoListDetailViewController = ProjectDetailViewController(with: tableView)
+        let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
+        
+        toDoListDetailViewController.modalPresentationStyle = .formSheet
+        toDoListDetailViewController.loadData(of: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
+        
+        present(navigationController, animated: true)
+    }
+    
 }

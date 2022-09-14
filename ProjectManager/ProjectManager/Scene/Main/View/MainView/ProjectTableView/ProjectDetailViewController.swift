@@ -1,5 +1,5 @@
 //
-//  DoneListDetailViewController.swift
+//  ProjectDetailViewController.swift
 //  ProjectManager
 //
 //  Created by brad, bard on 2022/09/10.
@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class DoneListDetailViewController: UIViewController {
+final class ProjectDetailViewController: UIViewController {
     
     // MARK: - Properties
 
     private let toDoComponentsView = ToDoComponentsView()
+    private let tableView: UITableView
 
     // MARK: View Life Cycle
 
@@ -26,11 +27,23 @@ final class DoneListDetailViewController: UIViewController {
         toDoComponentsView.configure(of: item)
     }
     
-    private func         setupUI() {
+    private func setupUI() {
         setupNavigationController()
         setupView()
         setupSubviews()
         setupConstraints()
+    }
+    
+    init(with tableView: UITableView) {
+        self.tableView = tableView
+        super.init(nibName: nil, bundle: nil)
+        guard let tableView = self.tableView as? ProjectTableView else { return }
+        navigationItem.title = tableView.getTitle()
+    }
+    
+    required init?(coder: NSCoder) {
+        tableView = UITableView()
+        super.init(coder: coder)
     }
     
     private func setupView() {
@@ -42,7 +55,6 @@ final class DoneListDetailViewController: UIViewController {
     }
     
     private func setupNavigationController() {
-        navigationItem.title = Design.navigationTitle
         navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: Design.navigationTitleFontSize, weight: .bold)
         ]
@@ -85,7 +97,6 @@ final class DoneListDetailViewController: UIViewController {
     // MARK: - Name Space
     
     private enum Design {
-        static let navigationTitle = "DONE"
         static let navigationTitleFontSize: CGFloat = 20
     }
 }
