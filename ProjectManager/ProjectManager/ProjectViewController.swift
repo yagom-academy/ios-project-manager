@@ -23,7 +23,7 @@ final class ProjectViewController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "ko-KR")
+        datePicker.locale = Locale(identifier: Design.localeIdentifier)
         datePicker.timeZone = .autoupdatingCurrent
         datePicker.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
         
@@ -78,7 +78,7 @@ extension ProjectViewController {
     }
     
     private func setupNavigationItem() {
-        navigationItem.title = "Todo"
+        navigationItem.title = Design.navigationItemTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self,
                                                             action: nil)
@@ -99,4 +99,10 @@ extension ProjectViewController {
     @objc private func handleDatePicker(_ sender: UIDatePicker) {
         print(sender.date)
     }
+}
+
+private enum Design {
+    static let navigationItemTitle = "Todo"
+    static let localeIdentifier = "ko-KR"
+    static let projectTitlePlaceholder = "Title"
 }
