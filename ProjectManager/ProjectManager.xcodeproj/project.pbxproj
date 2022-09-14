@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1852988128C896BF00F7019E /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852988028C896BF00F7019E /* ListView.swift */; };
+		1889048828D1A5FE0074E6CD /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889048728D1A5FE0074E6CD /* Status.swift */; };
+		1889048A28D1BD0C0074E6CD /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889048928D1BD0C0074E6CD /* Extension+Date.swift */; };
 		18A4C57028C72BFF004E833F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 18A4C56F28C72BFF004E833F /* .swiftlint.yml */; };
 		18B3285628C8B601000BC914 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3285528C8B601000BC914 /* TodoTableViewCell.swift */; };
 		18B3287828CDE394000BC914 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3287728CDE394000BC914 /* ViewModel.swift */; };
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		08756A6F7B5D8E1C02BACB33 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		1852988028C896BF00F7019E /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		1889048728D1A5FE0074E6CD /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		1889048928D1BD0C0074E6CD /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		18A4C56F28C72BFF004E833F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		18B3285528C8B601000BC914 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		18B3287728CDE394000BC914 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -58,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				18C7C68E28CE16DE00C42A12 /* Extension+UITextField.swift */,
+				1889048928D1BD0C0074E6CD /* Extension+Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 				18B3287728CDE394000BC914 /* ViewModel.swift */,
 				18B3287928CDE3B3000BC914 /* Project.swift */,
 				18B3285528C8B601000BC914 /* TodoTableViewCell.swift */,
+				1889048728D1A5FE0074E6CD /* Status.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -250,9 +256,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1852988128C896BF00F7019E /* ListView.swift in Sources */,
+				1889048828D1A5FE0074E6CD /* Status.swift in Sources */,
 				18C7C68F28CE16DE00C42A12 /* Extension+UITextField.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				1889048A28D1BD0C0074E6CD /* Extension+Date.swift in Sources */,
 				18B3285628C8B601000BC914 /* TodoTableViewCell.swift in Sources */,
 				18B3287C28CDFCE7000BC914 /* ProjectViewController.swift in Sources */,
 				18B3287828CDE394000BC914 /* ViewModel.swift in Sources */,
