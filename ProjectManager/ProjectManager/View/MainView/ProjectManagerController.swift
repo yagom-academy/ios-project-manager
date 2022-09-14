@@ -59,23 +59,14 @@ final class ProjectManagerController: UIViewController {
     private func configureToDoViewDataSource() {
         let tableView = scheduleStackView.toDoListView
 
-        tableView.register(
-            ProjectManagerListCell.self,
-            forCellReuseIdentifier: ProjectManagerListCell.identifier
-        )
+        tableView.register(cellType: ProjectManagerListCell.self)
         
         tableView.delegate = self
         
         toDoViewdataSource = DataSource(
             tableView: tableView,
             cellProvider: { tableView, indexPath, _ in
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: ProjectManagerListCell.identifier,
-                    for: indexPath
-                ) as? ProjectManagerListCell else {
-                    return nil
-                }
-                
+                let cell: ProjectManagerListCell = tableView.dequeueReusableCell(for: indexPath)
                 cell.separatorInset = .zero
                 
                 return cell

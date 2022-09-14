@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProjectManagerListCell: UITableViewCell {
+final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     static let identifier = "ProjectManagerListCell"
     
     private var stackView: UIStackView = {
