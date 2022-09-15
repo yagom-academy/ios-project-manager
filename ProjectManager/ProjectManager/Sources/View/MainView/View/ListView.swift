@@ -64,6 +64,7 @@ final class ListView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.mainTableView.register(ProjectTaskCell.self, forCellReuseIdentifier: MainViewCommand.cellReuseIdentifier)
         addUIComponents()
         setupListViewLayout()
     }
