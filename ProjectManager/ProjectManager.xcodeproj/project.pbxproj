@@ -15,8 +15,9 @@
 		457D22DA28CF6C1A0000DE07 /* ProjectTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D22D928CF6C1A0000DE07 /* ProjectTask.swift */; };
 		457D22DD28CF70B40000DE07 /* TodoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D22DC28CF70B40000DE07 /* TodoAddView.swift */; };
 		457D22DF28CF786A0000DE07 /* TodoAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D22DE28CF786A0000DE07 /* TodoAddViewController.swift */; };
-		457D22E328CF79960000DE07 /* TaskCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D22E228CF79960000DE07 /* TaskCommand.swift */; };
+		457D22E328CF79960000DE07 /* ProjetTaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D22E228CF79960000DE07 /* ProjetTaskState.swift */; };
 		459FD6C928D0E5140032D1DC /* ProjectTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459FD6C828D0E5140032D1DC /* ProjectTaskViewModel.swift */; };
+		45F37C8C28D20C0400EF7934 /* ProjectTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F37C8B28D20C0400EF7934 /* ProjectTaskCell.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -30,8 +31,9 @@
 		457D22D928CF6C1A0000DE07 /* ProjectTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTask.swift; sourceTree = "<group>"; };
 		457D22DC28CF70B40000DE07 /* TodoAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAddView.swift; sourceTree = "<group>"; };
 		457D22DE28CF786A0000DE07 /* TodoAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAddViewController.swift; sourceTree = "<group>"; };
-		457D22E228CF79960000DE07 /* TaskCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCommand.swift; sourceTree = "<group>"; };
+		457D22E228CF79960000DE07 /* ProjetTaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjetTaskState.swift; sourceTree = "<group>"; };
 		459FD6C828D0E5140032D1DC /* ProjectTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTaskViewModel.swift; sourceTree = "<group>"; };
+		45F37C8B28D20C0400EF7934 /* ProjectTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTaskCell.swift; sourceTree = "<group>"; };
 		45FFFD4928CDD0CD00B1FA70 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			children = (
 				457D22D028CE8E570000DE07 /* MainView.swift */,
 				457D22D228CE8EBB0000DE07 /* ListView.swift */,
+				45F37C8B28D20C0400EF7934 /* ProjectTaskCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,7 +155,7 @@
 		457D22E128CF79820000DE07 /* TaskCommand */ = {
 			isa = PBXGroup;
 			children = (
-				457D22E228CF79960000DE07 /* TaskCommand.swift */,
+				457D22E228CF79960000DE07 /* ProjetTaskState.swift */,
 			);
 			path = TaskCommand;
 			sourceTree = "<group>";
@@ -278,7 +281,8 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				4518E47228CDCA19005CB548 /* MainViewCommand.swift in Sources */,
-				457D22E328CF79960000DE07 /* TaskCommand.swift in Sources */,
+				45F37C8C28D20C0400EF7934 /* ProjectTaskCell.swift in Sources */,
+				457D22E328CF79960000DE07 /* ProjetTaskState.swift in Sources */,
 				457D22D328CE8EBB0000DE07 /* ListView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				457D22D128CE8E570000DE07 /* MainView.swift in Sources */,

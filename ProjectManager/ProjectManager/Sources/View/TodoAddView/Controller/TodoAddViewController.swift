@@ -6,11 +6,23 @@
 //
 
 import UIKit
+import RxSwift
 
 class TodoAddViewController: UIViewController {
     
-    //MARK: - UI Properties
+    //MARK: - Dependancy Injection
+    
     var state: ProjetTaskState?
+    var projectTask: ProjectTask? {
+        didSet {
+            configure()
+        }
+    }
+    var viewModel: ProjectTaskViewModel?
+    
+    // MARK: - Properties
+    
+    private let disposedBag = DisposeBag()
     private lazy var todoAddView = TodoAddView(frame: .zero)
     
     //MARK: - View Life Cycle
@@ -26,6 +38,7 @@ class TodoAddViewController: UIViewController {
 private extension TodoAddViewController {
     
     //MARK: - Root View Setup
+    
     func setupTodoAddView() {
         todoAddView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(todoAddView)
@@ -36,7 +49,7 @@ private extension TodoAddViewController {
             todoAddView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
+    
     func setupNavigationBarItem() {
         navigationItem.title = state?.rawValue
         view.backgroundColor = .systemGray5
@@ -46,7 +59,12 @@ private extension TodoAddViewController {
     
     func setupRightBarButtonItem() {
         let rightBarButtonItem = UIBarButtonItem(systemItem: .done)
+        rightBarButtonItem.action = #selector(doneButtonDidTapped)
         navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    @objc func doneButtonDidTapped() {
+        
     }
     
     func setupLeftBarButtonItem() {
@@ -62,5 +80,14 @@ private extension TodoAddViewController {
             leftBarButtonItem = UIBarButtonItem(systemItem: .cancel)
         }
         navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+    
+    func configure() {
+        guard let projectTask = projectTask else {
+            return
+        }
+        todoAddView.titleTextField.text = projectTask.title
+        todoAddView.deadLineDatePicker.date = projectTask.date
+        todoAddView.descriptionTextView.text = projectTask.description
     }
 }

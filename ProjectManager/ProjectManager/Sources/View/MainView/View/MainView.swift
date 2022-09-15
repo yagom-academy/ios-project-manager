@@ -25,11 +25,11 @@ final class MainView: UIView {
     let doingListView = ListView(frame: .zero)
     let doneListView = ListView(frame: .zero)
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addUIComponents()
         setupListViewLayout()
+        setupListViewTitleLabel()
         
         todoListView.translatesAutoresizingMaskIntoConstraints = false
         doingListView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,5 +60,11 @@ private extension MainView {
             mainStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func setupListViewTitleLabel() {
+        todoListView.mainTitleLabel.text = ProjetTaskState.TODO.rawValue
+        doingListView.mainTitleLabel.text = ProjetTaskState.DOING.rawValue
+        doneListView.mainTitleLabel.text = ProjetTaskState.DONE.rawValue
     }
 }
