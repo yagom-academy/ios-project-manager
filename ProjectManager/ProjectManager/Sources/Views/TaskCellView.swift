@@ -12,15 +12,21 @@ struct TaskCellView: View {
     var task: Task
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(task.title)
-                .font(.headline)
+        ZStack {
+            TaskCellBackgroundView()
             
-            Text(task.description)
-                .foregroundColor(.gray)
-            
-            Text(task.dueDate.localizedFormat())
-        }.frame(maxWidth: .infinity, alignment: .leading)
+            VStack(alignment: .leading) {
+                Text(task.title)
+                    .font(.headline)
+                
+                Text(task.description)
+                    .foregroundColor(.gray)
+                
+                Text(task.dueDate.localizedFormat())
+            }
+            .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
     }
 }
 
