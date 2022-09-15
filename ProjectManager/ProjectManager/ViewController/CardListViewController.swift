@@ -32,7 +32,7 @@ final class CardListViewController: UIViewController, Coordinating {
         $0.backgroundColor = .systemGray4
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
-    
+
     init(viewModel: CardViewModelProtocol,
          coordinator: CoordinatorProtocol) {
         
@@ -57,6 +57,7 @@ final class CardListViewController: UIViewController, Coordinating {
         configureNavigationBarItem()
         applyDelegatePermission()
         bindDataSource()
+        bindSectionsHeader()
         initializeViewModel()
     }
     
