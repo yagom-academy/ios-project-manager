@@ -175,8 +175,10 @@ private extension CardListViewController {
                   let data = self?.viewModel?.convert(from: model) else {
                 return UITableViewCell()
             }
-            
+
+            cell.viewModel = self?.viewModel as? CardViewModel
             cell.model = model
+            cell.coodinator = self?.coordinator
             cell.bindUI(data)
 
             return cell
