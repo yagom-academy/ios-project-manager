@@ -79,8 +79,10 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     @objc private func addWorkBarButtonTapped() {
-        let manageViewController = UINavigationController(rootViewController: ManageWorkViewController())
-        self.present(manageViewController, animated: true)
+        let manageViewController = ManageWorkViewController()
+        manageViewController.configureAddMode(viewModel)
+        let manageNavigationController = UINavigationController(rootViewController: manageViewController)
+        self.present(manageNavigationController, animated: true)
     }
     
     // MARK: - UI Binding

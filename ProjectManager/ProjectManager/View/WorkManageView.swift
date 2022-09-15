@@ -94,4 +94,12 @@ final class WorkManageView: UIView {
         contentTextView.text = work.content
         deadlinePicker.date = work.deadline
     }
+    
+    func createNewWork() -> Work? {
+        guard let title = titleTextField.text,
+              let content = contentTextView.text else { return nil }
+        let deadline = deadlinePicker.date
+        
+        return Work(title: title, content: content, deadline: deadline)
+    }
 }

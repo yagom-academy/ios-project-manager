@@ -9,6 +9,7 @@ import UIKit
 
 final class ManageWorkViewController: UIViewController {
     private let workManageView = WorkManageView()
+    private var viewModel: WorkViewModel?
     
     override func loadView() {
         super.loadView()
@@ -29,13 +30,27 @@ final class ManageWorkViewController: UIViewController {
         let doneBarButton = UIBarButtonItem(title: "Done",
                                             style: .done,
                                             target: self,
-                                            action: #selector(cancelBarButtonTapped))
+                                            action: #selector(doneBarButtonTapped))
+        
         self.navigationItem.leftBarButtonItem = cancleBarButton
         self.navigationItem.rightBarButtonItem = doneBarButton
     }
     
+    @objc private func doneBarButtonTapped() {
+        guard let viewModel = viewModel else { return }
+        guard let newWork = workManageView.createNewWork() else { return }
+        
+        viewModel.todoWorks.accept([newWork] + viewModel.todoWorks.value)
+        
+        self.dismiss(animated: true)
+    }
+    
     @objc private func cancelBarButtonTapped() {
         self.dismiss(animated: true)
+    }
+    
+    func configureAddMode(_ viewModel: WorkViewModel) {
+        self.viewModel = viewModel
     }
     
     func configureWork(_ work: Work) {
