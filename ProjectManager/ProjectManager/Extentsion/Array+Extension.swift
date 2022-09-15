@@ -2,7 +2,7 @@
 //  Array+Extension.swift
 //  ProjectManager
 //
-//  Created by 김동용 on 2022/09/10.
+//  Created by brad, bard on 2022/09/10.
 //
 
 // MARK: - Extentions

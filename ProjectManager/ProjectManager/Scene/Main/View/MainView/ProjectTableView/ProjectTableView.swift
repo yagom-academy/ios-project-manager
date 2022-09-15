@@ -11,7 +11,7 @@ class ProjectTableView: UITableView {
     
     // MARK: - Properties
     
-    private let mockToDoItemManger: MockToDoItemManager
+    private let mockToDoItemManger: MainViewModel
     
     private let projectType: ProjectType
     
@@ -19,7 +19,7 @@ class ProjectTableView: UITableView {
     
     // MARK: Initializers
     
-    init(for projectType: ProjectType, with manager: MockToDoItemManager) {
+    init(for projectType: ProjectType, with manager: MainViewModel) {
         self.projectType = projectType
         projectHeaderView = ProjectTableHeaderView(with: projectType)
         mockToDoItemManger = manager
@@ -30,23 +30,32 @@ class ProjectTableView: UITableView {
     required init?(coder: NSCoder) {
         projectType = .todo
         projectHeaderView = ProjectTableHeaderView(with: .todo)
-        mockToDoItemManger = MockToDoItemManager()
+        mockToDoItemManger = MainViewModel()
         super.init(coder: coder)
-    }
-    
-        
-    // MARK: - Functions
-    
-    func getTitle() -> String {
-        return projectType.titleLabel
     }
     
     private func commonInit() {
         tableHeaderView = projectHeaderView
         backgroundColor = .systemGray5
         register(ProjectTableViewCell.self, forCellReuseIdentifier: ProjectTableViewCell.identifier)
-        mockToDoItemManger.loadData()
         layoutIfNeeded()
-        projectHeaderView.setupIndexLabel(with: mockToDoItemManger.count())
+        setupIndexLabel()
+    }
+    
+    // MARK: - Functions
+    
+    func getTitle() -> String {
+        return projectType.titleLabel
+    }
+    
+    func setupIndexLabel() {
+        switch projectType {
+        case .todo:
+            projectHeaderView.setupIndexLabel(with: mockToDoItemManger.count(of: .todo))
+        case .doing:
+            projectHeaderView.setupIndexLabel(with: mockToDoItemManger.count(of: .doing))
+        case .done:
+            projectHeaderView.setupIndexLabel(with: mockToDoItemManger.count(of: .done))
+        }
     }
 }

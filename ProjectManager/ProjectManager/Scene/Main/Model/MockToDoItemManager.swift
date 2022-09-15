@@ -8,17 +8,17 @@
 import Foundation
 
 final class MockToDoItemManager {
-    
+
     // MARK: - Properties
 
     private var mockToDoItemContent = [ToDoItem]()
     
     // MARK: - Functions
-
-    func loadData() {
-        guard let data: [ToDoItem]? = JSONDecoder.decodedJson(jsonName: Design.jsonName),
-              let mockItem = data else { return }
-        mockToDoItemContent = mockItem
+ 
+    func loadData() -> ItemListCatory {
+        guard let data: ItemListCatory? = JSONDecoder.decodedJson(jsonName: Design.jsonName),
+              let mockItem = data else { return ItemListCatory() }
+        return mockItem
     }
     
     func count() -> Int {
@@ -30,6 +30,10 @@ final class MockToDoItemManager {
     }
     
     private enum Design {
-        static let jsonName = "sample"
+        static let jsonName = "MockData"
     }
+}
+
+extension MockToDoItemManager: DataSandable {
+    func fetchData() { }
 }

@@ -10,11 +10,11 @@ final class MainViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let mockToDoItemManger = MockToDoItemManager()
-
-    private lazy var toDoListTableView = ProjectTableView(for: .todo, with: mockToDoItemManger)
-    private lazy var doingListTableView = ProjectTableView(for: .doing, with: mockToDoItemManger)
-    private lazy var doneListTableView = ProjectTableView(for: .done, with: mockToDoItemManger)
+    private let mainViewModel = MainViewModel()
+    
+    private lazy var toDoListTableView = ProjectTableView(for: .todo, with: mainViewModel)
+    private lazy var doingListTableView = ProjectTableView(for: .doing, with: mainViewModel)
+    private lazy var doneListTableView = ProjectTableView(for: .done, with: mainViewModel)
     
     private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
@@ -23,7 +23,7 @@ final class MainViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.spacing = Design.horizontalStackViewSpacing
         stackView.backgroundColor = .systemGray3
-
+        
         return stackView
     }()
     
@@ -32,6 +32,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupSubscripting()
     }
     
     // MARK: - Functions
@@ -41,6 +42,23 @@ final class MainViewController: UIViewController {
         setupVerticalStackViewLayout()
         setupView()
         setupDelegates()
+    }
+    
+    private func setupSubscripting() {
+        mainViewModel.todoSubscripting { [weak self] _ in
+            self?.toDoListTableView.reloadData()
+            self?.toDoListTableView.setupIndexLabel()
+        }
+        
+        mainViewModel.doingSubscripting { [weak self] _ in
+            self?.doingListTableView.reloadData()
+            self?.doingListTableView.setupIndexLabel()
+        }
+        
+        mainViewModel.doneSubscripting { [weak self] _ in
+            self?.doneListTableView.reloadData()
+            self?.doneListTableView.setupIndexLabel()
+        }
     }
     
     private func setupDelegates() {
@@ -183,21 +201,41 @@ final class MainViewController: UIViewController {
 extension MainViewController: UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return mockToDoItemManger.count()
+        switch tableView {
+        case toDoListTableView:
+            return mainViewModel.count(of: .todo)
+        case doingListTableView:
+            return mainViewModel.count(of: .doing)
+        case doneListTableView:
+            return mainViewModel.count(of: .done)
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ProjectTableViewCell.identifier, for: indexPath) as? ProjectTableViewCell
         else { return UITableViewCell() }
         
-        cell.configure(data: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
         let longPressRecognizer = UILongPressGestureRecognizer(target: self,
                                                                action: #selector(didCellTappedLong(_:)))
         longPressRecognizer.minimumPressDuration = 2.0
         longPressRecognizer.delegate = self
         cell.addGestureRecognizer(longPressRecognizer)
         
-        return cell
+        switch tableView {
+        case toDoListTableView:
+            cell.configure(data: mainViewModel.content(of: .todo, to: indexPath.row))
+            return cell
+        case doingListTableView:
+            cell.configure(data: mainViewModel.content(of: .doing, to: indexPath.row))
+            return cell
+        case doneListTableView:
+            cell.configure(data: mainViewModel.content(of: .done, to: indexPath.row))
+            return cell
+        default:
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -207,8 +245,16 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, UIGest
         let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
         
         toDoListDetailViewController.modalPresentationStyle = .formSheet
-        toDoListDetailViewController.loadData(of: mockToDoItemManger.content(index: indexPath.row) ?? ToDoItem())
-        
+        switch tableView {
+        case toDoListTableView:
+            toDoListDetailViewController.loadData(of: mainViewModel.content(of: .todo, to: indexPath.row))
+        case doingListTableView:
+            toDoListDetailViewController.loadData(of: mainViewModel.content(of: .doing, to: indexPath.row))
+        case doneListTableView:
+            toDoListDetailViewController.loadData(of: mainViewModel.content(of: .done, to: indexPath.row))
+        default:
+            return
+        }
         present(navigationController, animated: true)
     }
     
