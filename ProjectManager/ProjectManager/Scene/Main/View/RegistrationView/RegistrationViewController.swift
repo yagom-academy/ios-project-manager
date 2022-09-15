@@ -13,6 +13,8 @@ final class RegistrationViewController: UIViewController {
     
     private let toDoComponentsView = ToDoComponentsView()
     
+    var delegate: DataSenable?
+    
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
@@ -71,6 +73,7 @@ final class RegistrationViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didDoneButtonTapped() {
+        delegate?.sendData(of: toDoComponentsView.fetchData())
         dismissViewController()
     }
     
