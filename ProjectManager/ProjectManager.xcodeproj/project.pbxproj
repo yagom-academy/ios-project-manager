@@ -60,6 +60,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1865802A28D385A100EECD6A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18B3287728CDE394000BC914 /* ViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1865802B28D385AE00EECD6A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */,
+				18B3287B28CDFCE7000BC914 /* ProjectViewController.swift */,
+				1852988028C896BF00F7019E /* ListView.swift */,
+				18B3285528C8B601000BC914 /* TodoTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1865802C28D385B400EECD6A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18B3287928CDE3B3000BC914 /* Project.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1865802D28D3866F00EECD6A /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				1889048728D1A5FE0074E6CD /* Status.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		1865802F28D3867700EECD6A /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		18B3287D28CE161C000BC914 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,19 +156,12 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				1865802F28D3867700EECD6A /* App */,
+				1865802D28D3866F00EECD6A /* Enum */,
 				18B3287D28CE161C000BC914 /* Extension */,
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */,
-				18B3287B28CDFCE7000BC914 /* ProjectViewController.swift */,
-				1852988028C896BF00F7019E /* ListView.swift */,
-				18B3287728CDE394000BC914 /* ViewModel.swift */,
-				18B3287928CDE3B3000BC914 /* Project.swift */,
-				18B3285528C8B601000BC914 /* TodoTableViewCell.swift */,
-				1889048728D1A5FE0074E6CD /* Status.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				1865802C28D385B400EECD6A /* Model */,
+				1865802B28D385AE00EECD6A /* View */,
+				1865802A28D385A100EECD6A /* ViewModel */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
