@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TodoListView: View {
     
-    let todoTasks: [Todo]
+    @State var todoTasks: [Todo]
     
     var body: some View {
         VStack {
@@ -17,6 +17,10 @@ struct TodoListView: View {
             List {
                 ForEach(todoTasks) { task in
                     TodoListRow(todo: task)
+                }
+                .onDelete { index in
+                    print("delete Tapped")
+                    todoTasks.remove(atOffsets: index)
                 }
             }
             .listStyle(.plain)
