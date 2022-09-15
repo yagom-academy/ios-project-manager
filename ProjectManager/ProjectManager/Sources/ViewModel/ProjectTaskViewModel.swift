@@ -124,4 +124,14 @@ extension ProjectTaskViewModel {
             debugPrint("update error")
         }
     }
+    
+    func createTask(to task: ProjectTask) {
+        do {
+            var newTaskAppendedTasks = try todoTasks.value()
+            newTaskAppendedTasks.append(task)
+            todoTasks.onNext(newTaskAppendedTasks)
+        } catch {
+            debugPrint("create error")
+        }
+    }
 }

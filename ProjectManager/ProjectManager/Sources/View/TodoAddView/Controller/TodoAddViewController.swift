@@ -12,6 +12,7 @@ class TodoAddViewController: UIViewController {
     
     //MARK: - Dependancy Injection
     
+    var isNewTask: Bool?
     var state: ProjetTaskState?
     var projectTask: ProjectTask? {
         didSet {
@@ -67,18 +68,31 @@ private extension TodoAddViewController {
     }
     
     @objc func doneButtonDidTapped() {
-        guard let state = state,
-                let projectTask = projectTask else {
+        guard let state = state else {
             return
         }
-        viewModel?.updateTask(at: state, what: ProjectTask(
-            id: projectTask.id,
-            title: todoAddView.titleTextField.text!,
-            description: todoAddView.descriptionTextView.text,
-            date: todoAddView.deadLineDatePicker.date)
-        )
+        
+        if let isNewTask {
+            guard let extractedTask = extractCurrentTask() else {
+                return
+            }
+            
+            viewModel?.createTask(to: extractedTask)
+        } else {
+            guard let projectTask = projectTask else {
+                return
+            }
+            
+            viewModel?.updateTask(at: state, what: ProjectTask(
+                id: projectTask.id,
+                title: todoAddView.titleTextField.text!,
+                description: todoAddView.descriptionTextView.text,
+                date: todoAddView.deadLineDatePicker.date)
+            )
+        }
         self.dismiss(animated: true)
     }
+    
     
     func setupLeftBarButtonItem() {
         var leftBarButtonItem: UIBarButtonItem
@@ -102,5 +116,25 @@ private extension TodoAddViewController {
         todoAddView.titleTextField.text = projectTask.title
         todoAddView.deadLineDatePicker.date = projectTask.date
         todoAddView.descriptionTextView.text = projectTask.description
+    }
+    
+    func extractCurrentTask() -> ProjectTask? {
+        if isNewTask ?? false {
+            return ProjectTask(
+                id: UUID(),
+                title: todoAddView.titleTextField.text ?? "",
+                description: todoAddView.descriptionTextView.text,
+                date: todoAddView.deadLineDatePicker.date
+            )
+        }
+        guard let projectTask = projectTask else {
+            return nil
+        }
+        return ProjectTask(
+            id: projectTask.id,
+            title: todoAddView.titleTextField.text ?? "",
+            description: todoAddView.descriptionTextView.text,
+            date: todoAddView.deadLineDatePicker.date
+        )
     }
 }

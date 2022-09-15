@@ -57,6 +57,8 @@ private extension MainViewController {
     @objc func rightBarButtonDidTap() {
         let todoAddViewController = TodoAddViewController()
         todoAddViewController.state = .TODO
+        todoAddViewController.isNewTask = true
+        todoAddViewController.viewModel = viewModel
         
         let presentNavigationController = UINavigationController(rootViewController: todoAddViewController)
         presentNavigationController.modalPresentationStyle = .pageSheet
