@@ -30,6 +30,7 @@ class TodoAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
+        projectTask = viewModel?.selectedTask
         setupTodoAddView()
         setupNavigationBarItem()
     }
@@ -58,13 +59,25 @@ private extension TodoAddViewController {
     }
     
     func setupRightBarButtonItem() {
-        let rightBarButtonItem = UIBarButtonItem(systemItem: .done)
-        rightBarButtonItem.action = #selector(doneButtonDidTapped)
+        let rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(doneButtonDidTapped))
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     @objc func doneButtonDidTapped() {
-        
+        guard let state = state,
+                let projectTask = projectTask else {
+            return
+        }
+        viewModel?.updateTask(at: state, what: ProjectTask(
+            id: projectTask.id,
+            title: todoAddView.titleTextField.text!,
+            description: todoAddView.descriptionTextView.text,
+            date: todoAddView.deadLineDatePicker.date)
+        )
+        self.dismiss(animated: true)
     }
     
     func setupLeftBarButtonItem() {

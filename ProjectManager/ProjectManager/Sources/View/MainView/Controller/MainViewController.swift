@@ -68,12 +68,12 @@ private extension MainViewController {
     //MARK: - View Changed Method
     
     func pushViewControllerWithNavigationController(
-        with task: ProjectTask,
         projectState: ProjetTaskState,
         viewModel: ProjectTaskViewModel
     ) {
         let todoAddViewController = TodoAddViewController()
-        todoAddViewController.projectTask = task
+        todoAddViewController.viewModel = viewModel
+        todoAddViewController.state = projectState
         
         let presentNavigationController = UINavigationController(rootViewController: todoAddViewController)
         presentNavigationController.modalPresentationStyle = .pageSheet
@@ -150,8 +150,8 @@ private extension MainViewController {
             guard let self = self else {
                 return
             }
+            self.viewModel.selectedTask = item
             self.pushViewControllerWithNavigationController(
-                with: item,
                 projectState: .TODO,
                 viewModel: self.viewModel
             )
@@ -166,8 +166,8 @@ private extension MainViewController {
             guard let self = self else {
                 return
             }
+            self.viewModel.selectedTask = item
             self.pushViewControllerWithNavigationController(
-                with: item,
                 projectState: .DOING,
                 viewModel: self.viewModel
             )
@@ -182,8 +182,8 @@ private extension MainViewController {
             guard let self = self else {
                 return
             }
+            self.viewModel.selectedTask = item
             self.pushViewControllerWithNavigationController(
-                with: item,
                 projectState: .DONE,
                 viewModel: self.viewModel
             )

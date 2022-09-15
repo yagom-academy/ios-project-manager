@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ProjetTaskState: String {
+@frozen enum ProjetTaskState: String {
     case TODO = "TODO"
     case DOING = "DOING"
     case DONE = "DONE"

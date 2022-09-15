@@ -39,9 +39,6 @@ class TodoAddView: UIView {
         textView.sizeToFit()
         textView.font = .preferredFont(forTextStyle: .body)
         textView.adjustsFontForContentSizeCategory = true
-        
-        
-        
         textView.layer.masksToBounds = false
         textView.layer.shadowOpacity = 1
         textView.layer.shadowOffset = CGSize(width: 0, height: 3)

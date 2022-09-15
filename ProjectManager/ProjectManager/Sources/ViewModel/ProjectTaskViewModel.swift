@@ -76,24 +76,52 @@ final class ProjectTaskViewModel {
 }
 
 extension ProjectTaskViewModel {
-    func deleteTask(at state: ProjetTaskState, what target: Int) {
+    func deleteTask(at state: ProjetTaskState, what index: Int) {
         var targetInstance: ProjectTask
         do {
             switch state {
             case .TODO:
-                targetInstance = try todoTasks.value()[target]
+                targetInstance = try todoTasks.value()[index]
                 todoTasks.onNext(try todoTasks.value().filter{ $0.id != targetInstance.id })
             case .DOING:
-                let targetInstance = try doingTasks.value()[target]
+                let targetInstance = try doingTasks.value()[index]
                 doingTasks.onNext(try doingTasks.value().filter{ $0.id != targetInstance.id })
             case .DONE:
-                targetInstance = try doneTasks.value()[target]
+                targetInstance = try doneTasks.value()[index]
                 doneTasks.onNext(try doneTasks.value().filter{ $0.id != targetInstance.id })
-            default:
-                break
             }
         } catch {
             debugPrint("delete error")
+        }
+    }
+    
+    func updateTask(at state: ProjetTaskState, what target: ProjectTask) {
+        do {
+            switch state {
+            case .TODO:
+                todoTasks.onNext(try todoTasks.value().map({ task in
+                    if task.id == target.id {
+                        return target
+                    }
+                    return task
+                }))
+            case .DOING:
+                doingTasks.onNext(try doingTasks.value().map({ task in
+                    if task.id == target.id {
+                        return target
+                    }
+                    return task
+                }))
+            case .DONE:
+                doneTasks.onNext(try doneTasks.value().map({ task in
+                    if task.id == target.id {
+                        return target
+                    }
+                    return task
+                }))
+            }
+        } catch {
+            debugPrint("update error")
         }
     }
 }
