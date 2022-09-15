@@ -22,7 +22,8 @@ final class MainCoordinator: CoordinatorProtocol {
     }
     
     func presentEnrollmentViewController() {
-        let cardEnrollmentViewController = CardEnrollmentViewController(viewModel: cardViewModel)
+        let cardEnrollmentViewController = CardEnrollmentViewController(viewModel: cardViewModel,
+                                                                        coodinator: self)
         cardEnrollmentViewController.modalPresentationStyle = .formSheet
         
         navigationController?.present(cardEnrollmentViewController,
@@ -36,7 +37,12 @@ final class MainCoordinator: CoordinatorProtocol {
         navigationController?.present(cardDetailViewController,
                                       animated: true)
     }
-    
+
+    func presentAlertActionSheet(_ alertViewController: UIAlertController) {
+        navigationController?.present(alertViewController,
+                                      animated: true)
+    }
+
     func childDidFinish(_ child: CoordinatorProtocol?) {
         for (index, coordinator) in children.enumerated() where coordinator === child {
             children.remove(at: index)
