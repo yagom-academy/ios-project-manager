@@ -106,6 +106,7 @@
 		2037CD0428C8886100D712B3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7236B04B28C87A58009A7412 /* ProjectUnit.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				2037CD0428C8886100D712B3 /* Model */,
-				7236B04B28C87A58009A7412 /* ProjectUnit.swift */,
 				2037CD0A28C8898C00D712B3 /* View */,
 				2054633128D2F28B005FF658 /* ViewModel */,
 				2037CD0628C888C100D712B3 /* Resource */,
