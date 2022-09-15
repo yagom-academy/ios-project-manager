@@ -8,9 +8,9 @@
 import RealmSwift
 
 protocol DatabaseProtocol {
-    func createDatabase(data: Object)
-    func readDatabase() -> [TaskModel]
-    func updateDatabase(data: TaskModel)
-    func deleteDatabase(data: TaskModel)
-    func deleteAllDatabase()
+    func create(data: TaskModel)
+    func read() -> [TaskModel]
+    func update(data: TaskModel)
+    func delete(data: TaskModel)
+    func deleteAll()
 }

@@ -34,14 +34,14 @@ class TodoFormViewController: UIViewController {
     }
 
     @IBAction func didTapDoneButton(_ sender: Any) {
-        let data = RealmDatabaseModel(
-            title: titleTextField.text ?? "",
-            description: descriptionTextView.text ?? "",
-            deadline: getCurrentDateTime(),
-            state: TaskState.todo
+        let data = TaskModel(
+            taskTitle: titleTextField.text ?? "",
+            taskDescription: descriptionTextView.text ?? "",
+            taskDeadline: getCurrentDateTime(),
+            taskState: TaskState.todo
         )
 
-        TaskDataManager.shared.databaseManager.createDatabase(data: data)
+        TaskDataManager.shared.databaseManager.create(data: data)
         notifyChangedModel()
     }
 
@@ -103,7 +103,7 @@ class TodoFormViewController: UIViewController {
         data.taskDescription = descriptionTextView.text ?? ""
         data.taskDeadline = getCurrentDateTime()
 
-        TaskDataManager.shared.databaseManager.updateDatabase(data: data)
+        TaskDataManager.shared.databaseManager.update(data: data)
         notifyChangedModel()
     }
 

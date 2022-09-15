@@ -10,35 +10,47 @@ import RealmSwift
 class RealmDatabase: DatabaseProtocol {
     let realm = try? Realm()
 
-    func createDatabase(data: Object) {
-        guard let realm = realm,
-              ((try? realm.write({ realm.add(data) })) != nil) else {
+    func create(data: TaskModel) {
+        let data = RealmDatabaseModel(
+            title: data.taskTitle,
+            description: data.taskDescription,
+            deadline: data.taskDeadline,
+            state: data.taskState
+        )
+
+        guard let realm = realm else {
             return
+        }
+
+        do {
+            try realm.write({
+                realm.add(data)
+            })
+        } catch {
+            print("추가 실패")
         }
     }
 
-    func readDatabase() -> [TaskModel] {
+    func read() -> [TaskModel] {
         guard let realm = realm else {
             return [TaskModel]()
         }
 
-        var database = [TaskModel]()
-        let realmDatabase = realm.objects(RealmDatabaseModel.self)
-
-        realmDatabase.forEach { realmDatabaseModel in
-            var taskModel = TaskModel()
-            taskModel.taskTitle = realmDatabaseModel.taskTitle
-            taskModel.taskDescription = realmDatabaseModel.taskDescription
-            taskModel.taskDeadline = realmDatabaseModel.taskDeadline
-            taskModel.taskState = realmDatabaseModel.taskState
-            taskModel.id = realmDatabaseModel.id
-            database.append(taskModel)
+        let realmModels = Array(realm.objects(RealmDatabaseModel.self))
+        let taskModels = realmModels.map { model in
+            TaskModel(
+                taskTitle: model.taskTitle,
+                taskDescription: model.taskDescription,
+                taskDeadline: model.taskDeadline,
+                taskState: model.taskState,
+                id: model.id
+            )
         }
 
-        return database
+        return taskModels
     }
 
-    func updateDatabase(data: TaskModel) {
+    func update(data: TaskModel) {
         guard let realm = realm,
               let searchData = search(data: data) else {
             return
@@ -56,7 +68,7 @@ class RealmDatabase: DatabaseProtocol {
         }
     }
 
-    func deleteDatabase(data: TaskModel) {
+    func delete(data: TaskModel) {
         guard let realm = realm,
               let searchData = search(data: data) else {
             return
@@ -71,11 +83,17 @@ class RealmDatabase: DatabaseProtocol {
         }
     }
 
-    func deleteAllDatabase() {
-        guard let realm = realm,
-              ((try? realm.write({ realm.deleteAll() })) != nil)
-        else {
+    func deleteAll() {
+        guard let realm = realm else {
             return
+        }
+
+        do {
+            try realm.write({
+                realm.deleteAll()
+            })
+        } catch {
+            print("전체 삭제 실패")
         }
     }
 
