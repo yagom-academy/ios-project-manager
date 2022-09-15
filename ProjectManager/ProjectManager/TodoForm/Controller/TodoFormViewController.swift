@@ -41,7 +41,7 @@ class TodoFormViewController: UIViewController {
             state: TaskState.todo
         )
 
-        TaskData.shared.databaseManager.createDatabase(data: data)
+        TaskDataManager.shared.databaseManager.createDatabase(data: data)
         notifyChangedModel()
     }
 
@@ -103,7 +103,7 @@ class TodoFormViewController: UIViewController {
         data.taskDescription = descriptionTextView.text ?? ""
         data.taskDeadline = getCurrentDateTime()
 
-        TaskData.shared.databaseManager.updateDatabase(data: data)
+        TaskDataManager.shared.databaseManager.updateDatabase(data: data)
         notifyChangedModel()
     }
 

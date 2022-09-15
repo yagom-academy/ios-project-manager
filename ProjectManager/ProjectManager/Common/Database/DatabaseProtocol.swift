@@ -7,9 +7,10 @@
 
 import RealmSwift
 
-protocol DatabaseManager {
+protocol DatabaseProtocol {
     func createDatabase(data: Object)
     func readDatabase() -> [TaskModel]
     func updateDatabase(data: TaskModel)
     func deleteDatabase(data: TaskModel)
+    func deleteAllDatabase()
 }

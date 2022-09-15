@@ -56,7 +56,7 @@ class MainHomeViewModel {
         currentState = state
 
         currentList.append(data)
-        TaskData.shared.databaseManager.updateDatabase(data: data)
+        TaskDataManager.shared.databaseManager.updateDatabase(data: data)
     }
 
     func readData(index: Int) -> TaskModel {
@@ -68,7 +68,7 @@ class MainHomeViewModel {
     }
 
     func fetchDataList() {
-        let allData = TaskData.shared.databaseManager.readDatabase()
+        let allData = TaskDataManager.shared.databaseManager.readDatabase()
         todoList = [TaskModel]()
         doingList = [TaskModel]()
         doneList = [TaskModel]()
@@ -82,6 +82,6 @@ class MainHomeViewModel {
     func remove(index: Int) {
         let data = currentList[index]
         currentList.remove(at: index)
-        TaskData.shared.databaseManager.deleteDatabase(data: data)
+        TaskDataManager.shared.databaseManager.deleteDatabase(data: data)
     }
 }

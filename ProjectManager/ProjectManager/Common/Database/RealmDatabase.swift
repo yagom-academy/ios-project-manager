@@ -1,5 +1,5 @@
 //
-//  RealmDatabaseManager.swift
+//  RealmDatabase.swift
 //  ProjectManager
 //
 //  Created by seohyeon park on 2022/09/12.
@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class RealmDatabaseManager: DatabaseManager {
+class RealmDatabase: DatabaseProtocol {
     let realm = try? Realm()
 
     func createDatabase(data: Object) {
