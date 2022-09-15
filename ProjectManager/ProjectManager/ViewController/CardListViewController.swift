@@ -192,7 +192,15 @@ extension CardListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.coordinator?.presentDetailViewController(TodoListModel.sample[indexPath.row])
+
+        switch tableView {
+        case todoCardSectionView.tableView:
+            assignToDetailViewController(viewModel?.todoList?[indexPath.row])
+        case doingCardSectionView.tableView:
+            assignToDetailViewController(viewModel?.doingList?[indexPath.row])
+        default:
+            assignToDetailViewController(viewModel?.doneList?[indexPath.row])
+        }
     }
 
     func tableView(_ tableView: UITableView,
@@ -203,8 +211,28 @@ extension CardListViewController: UITableViewDelegate {
             self?.viewModel?.delete(card, at: indexPath.row)
             completionHandler(true)
         }
+
         delete.backgroundColor = .systemRed
 
         return UISwipeActionsConfiguration(actions: [delete])
+    }
+
+    private func search(_ tableView: UITableView) -> CardType? {
+        switch tableView {
+        case todoCardSectionView.tableView:
+            return .todo
+        case doingCardSectionView.tableView:
+            return .doing
+        case doneCardSectionView.tableView:
+            return .done
+        default:
+            return nil
+        }
+    }
+
+    private func assignToDetailViewController(_ data: CardModel?) {
+        if let data {
+            self.coordinator?.presentDetailViewController(data)
+        }
     }
 }
