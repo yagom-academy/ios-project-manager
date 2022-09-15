@@ -12,9 +12,13 @@
 
 - [🧑🏻‍💻🧑🏻‍💻 개발자 소개](#-개발자-소개)
 - [⏱ TimeLine](#-TimeLine)
+- [💡 키워드](#-키워드)
 - [🛠 기술 스택](#-기술-스택)
-
-
+- [📂 폴더 구조](#-폴더-구조)
+- [📱 화면 구현](#-화면-구현)
+- [📃 기능 설명](#-기능-설명)
+- [🚀 TroubleShooting](#-TroubleShooting)
+- [📚 참고문서](#-참고문서)
 
 ## 🧑🏻‍💻🧑🏻‍💻 개발자 소개
 
@@ -35,6 +39,30 @@
 - 2022.09.06 
     - STEP1 PR
 
+- 2022.09.07
+    - STEP2 하위 STEP 분리
+        - 2-1 : CoreData 구현
+        - 2-2 : 기본적인 화면 구현
+        - 2-3 : MVVM 구현 및 테스트 작성
+        - 2-4 : 최종 완성(View Event 처리 및 ViewModel과 연결)
+
+- 2022.09.08
+    - CollectionView를 이용해 화면 구현
+
+- 2022.09.09
+    - 추석 연휴
+    
+### Week 2
+> 2022.09.11 ~ 2022.09.17
+    
+- 2022.09.11
+    - 기본적인 화면 구현 완료
+    - STEP 2-1, 2-2 PR
+    
+## 💡 키워드
+
+- `UITableView`, `HeaderView`, `UIGraphicsImageRenderer`, `DatePicker`, `Core Data`, `SPM`, `firebase`
+    
 ## 🛠 기술 스택
 ### target version
 `iOS 14.0`, `iPadOS 14.0`
@@ -71,3 +99,88 @@ MVC 아키텍처보다는 View를 다루는 로직에 대하여 테스트하기 
 
 ### 의존성 관리도구
 - SPM(Swift Package Manager)
+
+## 📂 폴더 구조
+```
+.
+└── ProjectManager/
+    ├── Model/
+    │   └── ProjectUnit
+    ├── View/
+    │   ├── MainView/
+    │   │   ├── ProjectManagerController
+    │   │   ├── ProjectManagerListCell
+    │   │   ├── SectionHeaderView
+    │   │   └── ScheduleStackView
+    │   └── AddView/
+    │       ├── ProjectAdditionController
+    │       └── ProjectAdditionScrollView
+    └── Resource/
+        ├── CoreData/
+        │   ├── Project+CoreDataClass
+        │   └── Project+CoreDataProperties
+        └── Database/
+            ├── DatabaseError
+            ├── DatabaseLogic
+            └── LocalDatabaseManager
+```
+    
+## 📱 화면 구현
+
+- TODO, DOING, DONE 화면을 각각 TableView를 이용해 구현
+![](https://i.imgur.com/aw3o1ry.png)
+
+- Modal의 formSheet 스타일로 AddView 구현
+![](https://i.imgur.com/inAFoRU.png)
+
+## 📃 기능 설명
+    
+- MainView
+    - 3개의 Table View를 하나의 Custom StackView에 저장해 관리
+    - Table View의 header로 사용할 Custom View 구현
+    
+- AddView
+    - Modal Style 중 form sheet 사용
+    - Date Picker를 사용해 날짜를 선택하는 View 구현
+    - Text Field와 Text View에 shadow 효과 추가
+    
+## 🚀 TroubleShooting
+
+### STEP 2-1
+### STEP 2-2
+    
+## 📚 참고문서
+
+- [UIDatePicker](https://developer.apple.com/documentation/uikit/uidatepicker)
+    
+--- 
+    
+## 2️⃣ STEP 2-1, 2-2
+
+### STEP 2-2 Questions & Answers
+
+#### Q1. Collection View의 Section 가로 배치 문제
+- Collection View로 Section을 추가할 경우 세로 방향으로 추가되는 걸 확인했습니다. FlowLayout을 사용할 경우 scroll 방향을 horizontal로 해주면 가로 방향으로 추가되는 걸 확인할 수 있었지만 Section 별로 스크롤 방향을 주는 방법이 어려웠습니다. 
+혹시 이번 프로젝트의 View를 구현할 때 어떠한 방법을 주로 사용하는지 궁금합니다. 
+    
+#### Q2. TextView Shadow 적용 문제
+    
+- UITextField의 경우에는 아래의 코드와 같이 layer에 shadow를 넣어주기만 하면 정상적으로 작동하였습니다.
+    
+```swift
+private let scheduleTitleTextField: UITextField = {
+        let textField = UITextField()
+        ...
+        textField.layer.shadowOpacity = 1
+        textField.layer.shadowOffset = CGSize(width: 0, height: 2)
+        textField.layer.shadowColor = UIColor.gray.cgColor
+        
+        return textField
+}()
+```
+    
+- 이와 달리, UITextView의 경우에는 위와 동일한 방법으로 layer에 shadow를 적용하였으나, shadow가 정상적으로 화면에 표시되지 않는 문제를 발견하였습니다. 이를 해결하기 위하여 처음에는 clipsToBounds 프로퍼티를 true로 설정하면, 정상적으로 shadow가 표시되나 TextView의 내용이 길어지면, 위에 있는 글자가 TextView를 벗어나는 에러를 발견하였습니다. 
+- 현재는 이를 해결하기 위한 다른 방법으로 UIView를 하나 생성하여 shadow를 적용하고, 그 위에 TextView를 addSubview메서드를 통해 추가하였습니다.
+- 별도의 UIView 생성 없이 TextView 자체에 shadow를 정상적으로 적용하기 위한 방법이 있을지 질문드리고 싶습니다.
+- 추가로, UITextField와 UITextView의 차이가 아래의 View Hierarchy에서의 위치에서 비롯되는 것일지 의문이 듭니다.
+- ![](https://i.imgur.com/ZOXcoL2.jpg)

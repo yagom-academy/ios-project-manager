@@ -3,24 +3,62 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2015836728CDB0D8000CCC52 /* ProjectManagerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */; };
+		2015836928CDBA2E000CCC52 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */; };
+		20D66B5F28D1BD90001317E0 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D66B5E28D1BD90001317E0 /* ReusableCell.swift */; };
+		20D66B6128D1BE1B001317E0 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D66B6028D1BE1B001317E0 /* UITableView+Extension.swift */; };
+		20D66B6428D1D826001317E0 /* MockLocalDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D66B6328D1D826001317E0 /* MockLocalDatabaseManager.swift */; };
+		20D66B6628D1D85A001317E0 /* InMemoryCoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D66B6528D1D85A001317E0 /* InMemoryCoreDataContainer.swift */; };
+		20DFE5BC28C85E24003D42E5 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */; };
+		20DFE5C128C868A6003D42E5 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C028C868A6003D42E5 /* FirebaseAnalyticsSwift */; };
+		20DFE5C328C868A6003D42E5 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C228C868A6003D42E5 /* FirebaseDatabaseSwift */; };
+		20DFE5C528C868A6003D42E5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C428C868A6003D42E5 /* FirebaseFirestoreSwift */; };
+		20DFE5C728C868A6003D42E5 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C628C868A6003D42E5 /* FirebaseRemoteConfigSwift */; };
+		7236B03B28C86CCD009A7412 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */; };
+		7236B03E28C86D4B009A7412 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7236B03C28C86D4B009A7412 /* ProjectManager.xcdatamodeld */; };
+		7236B04428C86FB3009A7412 /* DatabaseLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04328C86FB3009A7412 /* DatabaseLogic.swift */; };
+		7236B04628C86FF9009A7412 /* LocalDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */; };
+		7236B04928C87A2A009A7412 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04728C87A2A009A7412 /* Project+CoreDataClass.swift */; };
+		7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */; };
+		7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04B28C87A58009A7412 /* ProjectUnit.swift */; };
+		7236B04E28C8844D009A7412 /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04D28C8844D009A7412 /* DatabaseError.swift */; };
+		72C61C6728CDAA550041CD12 /* ScheduleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6628CDAA550041CD12 /* ScheduleStackView.swift */; };
+		72C61C6928CDC63E0041CD12 /* ProjectAdditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */; };
+		72C61C6B28CDC88F0041CD12 /* ProjectAdditionScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
-		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
+		C7431F0A25F51E1D0094C4CF /* ProjectManagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerListCell.swift; sourceTree = "<group>"; };
+		2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		20D66B5E28D1BD90001317E0 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
+		20D66B6028D1BE1B001317E0 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		20D66B6328D1D826001317E0 /* MockLocalDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalDatabaseManager.swift; sourceTree = "<group>"; };
+		20D66B6528D1D85A001317E0 /* InMemoryCoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryCoreDataContainer.swift; sourceTree = "<group>"; };
+		20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7236B03D28C86D4B009A7412 /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
+		7236B04328C86FB3009A7412 /* DatabaseLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseLogic.swift; sourceTree = "<group>"; };
+		7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseManager.swift; sourceTree = "<group>"; };
+		7236B04728C87A2A009A7412 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7236B04B28C87A58009A7412 /* ProjectUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUnit.swift; sourceTree = "<group>"; };
+		7236B04D28C8844D009A7412 /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
+		72C61C6628CDAA550041CD12 /* ScheduleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStackView.swift; sourceTree = "<group>"; };
+		72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAdditionController.swift; sourceTree = "<group>"; };
+		72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAdditionScrollView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C7431F0C25F51E1D0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,15 +69,112 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20DFE5C328C868A6003D42E5 /* FirebaseDatabaseSwift in Frameworks */,
+				20DFE5C728C868A6003D42E5 /* FirebaseRemoteConfigSwift in Frameworks */,
+				20DFE5C128C868A6003D42E5 /* FirebaseAnalyticsSwift in Frameworks */,
+				20DFE5C528C868A6003D42E5 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2015836A28CDD885000CCC52 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */,
+				2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */,
+				2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */,
+				72C61C6628CDAA550041CD12 /* ScheduleStackView.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		2015836B28CDD89D000CCC52 /* AddView */ = {
+			isa = PBXGroup;
+			children = (
+				72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */,
+				72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */,
+			);
+			path = AddView;
+			sourceTree = "<group>";
+		};
+		2037CD0428C8886100D712B3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7236B04B28C87A58009A7412 /* ProjectUnit.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2037CD0528C8888A00D712B3 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				7236B04D28C8844D009A7412 /* DatabaseError.swift */,
+				7236B04328C86FB3009A7412 /* DatabaseLogic.swift */,
+				7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */,
+				20D66B6728D1D90A001317E0 /* MockDataBase */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		2037CD0628C888C100D712B3 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				2037CD0928C8892900D712B3 /* CoreData */,
+				2037CD0528C8888A00D712B3 /* Database */,
+				20D66B6228D1C153001317E0 /* Extensions */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		2037CD0928C8892900D712B3 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				7236B04728C87A2A009A7412 /* Project+CoreDataClass.swift */,
+				7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */,
+				7236B03C28C86D4B009A7412 /* ProjectManager.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		2037CD0A28C8898C00D712B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2015836A28CDD885000CCC52 /* MainView */,
+				2015836B28CDD89D000CCC52 /* AddView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		20D66B6228D1C153001317E0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				20D66B5E28D1BD90001317E0 /* ReusableCell.swift */,
+				20D66B6028D1BE1B001317E0 /* UITableView+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		20D66B6728D1D90A001317E0 /* MockDataBase */ = {
+			isa = PBXGroup;
+			children = (
+				20D66B6328D1D826001317E0 /* MockLocalDatabaseManager.swift */,
+				20D66B6528D1D85A001317E0 /* InMemoryCoreDataContainer.swift */,
+			);
+			path = MockDataBase;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 			);
@@ -56,13 +191,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				2037CD0428C8886100D712B3 /* Model */,
+				2037CD0A28C8898C00D712B3 /* View */,
+				2037CD0628C888C100D712B3 /* Resource */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -77,12 +208,19 @@
 				C7431EFE25F51E1D0094C4CF /* Sources */,
 				C7431EFF25F51E1D0094C4CF /* Frameworks */,
 				C7431F0025F51E1D0094C4CF /* Resources */,
+				20DFE5BA28C85DE7003D42E5 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = ProjectManager;
+			packageProductDependencies = (
+				20DFE5C028C868A6003D42E5 /* FirebaseAnalyticsSwift */,
+				20DFE5C228C868A6003D42E5 /* FirebaseDatabaseSwift */,
+				20DFE5C428C868A6003D42E5 /* FirebaseFirestoreSwift */,
+				20DFE5C628C868A6003D42E5 /* FirebaseRemoteConfigSwift */,
+			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
@@ -110,6 +248,9 @@
 				Base,
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
+			packageReferences = (
+				20DFE5BF28C868A6003D42E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -124,36 +265,65 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20DFE5BC28C85E24003D42E5 /* .swiftlint.yml in Resources */,
+				7236B03B28C86CCD009A7412 /* GoogleService-Info.plist in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
-				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20DFE5BA28C85DE7003D42E5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C7431EFE25F51E1D0094C4CF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				20D66B5F28D1BD90001317E0 /* ReusableCell.swift in Sources */,
+				7236B04628C86FF9009A7412 /* LocalDatabaseManager.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* ProjectManagerController.swift in Sources */,
+				7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */,
+				7236B04E28C8844D009A7412 /* DatabaseError.swift in Sources */,
+				72C61C6B28CDC88F0041CD12 /* ProjectAdditionScrollView.swift in Sources */,
+				20D66B6628D1D85A001317E0 /* InMemoryCoreDataContainer.swift in Sources */,
+				20D66B6128D1BE1B001317E0 /* UITableView+Extension.swift in Sources */,
+				72C61C6728CDAA550041CD12 /* ScheduleStackView.swift in Sources */,
+				7236B03E28C86D4B009A7412 /* ProjectManager.xcdatamodeld in Sources */,
+				7236B04928C87A2A009A7412 /* Project+CoreDataClass.swift in Sources */,
+				72C61C6928CDC63E0041CD12 /* ProjectAdditionController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				7236B04428C86FB3009A7412 /* DatabaseLogic.swift in Sources */,
+				7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				2015836928CDBA2E000CCC52 /* SectionHeaderView.swift in Sources */,
+				20D66B6428D1D826001317E0 /* MockLocalDatabaseManager.swift in Sources */,
+				2015836728CDB0D8000CCC52 /* ProjectManagerListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C7431F0B25F51E1D0094C4CF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C7431F0C25F51E1D0094C4CF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -216,7 +386,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -271,7 +441,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -287,12 +457,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -306,12 +477,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -341,6 +513,53 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		20DFE5BF28C868A6003D42E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		20DFE5C028C868A6003D42E5 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20DFE5BF28C868A6003D42E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		20DFE5C228C868A6003D42E5 /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20DFE5BF28C868A6003D42E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		20DFE5C428C868A6003D42E5 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20DFE5BF28C868A6003D42E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		20DFE5C628C868A6003D42E5 /* FirebaseRemoteConfigSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20DFE5BF28C868A6003D42E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfigSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		7236B03C28C86D4B009A7412 /* ProjectManager.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7236B03D28C86D4B009A7412 /* ProjectManager.xcdatamodel */,
+			);
+			currentVersion = 7236B03D28C86D4B009A7412 /* ProjectManager.xcdatamodel */;
+			path = ProjectManager.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
