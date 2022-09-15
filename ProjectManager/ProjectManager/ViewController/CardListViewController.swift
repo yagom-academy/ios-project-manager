@@ -115,6 +115,7 @@ final class CardListViewController: UIViewController, Coordinating {
 
         doneCardSectionView.headerView?.countLabel.text = viewModel?.doneList
             .map { "\($0.count)" }
+
     }
 
     private func initializeViewModel() {
@@ -123,6 +124,8 @@ final class CardListViewController: UIViewController, Coordinating {
             DispatchQueue.main.async {
                 self?.updateTableView(dataSource,
                                       by: card)
+
+                self?.todoCardSectionView.headerView?.countLabel.text = "\(card.count)"
             }
         }
 
@@ -132,14 +135,20 @@ final class CardListViewController: UIViewController, Coordinating {
             DispatchQueue.main.async {
                 self?.updateTableView(dataSource,
                                       by: card)
+
+                self?.doingCardSectionView.headerView?.countLabel.text = "\(card.count)"
             }
         }
 
         viewModel?.reloadDoneListTableViewClosure = { [weak self] (card: [CardModel]) in
             guard let dataSource = self?.doneCardDataSource else { return }
+            DispatchQueue.main.async {
+                
+                self?.updateTableView(dataSource,
+                                      by: card)
 
-            self?.updateTableView(dataSource,
-                                  by: card)
+                self?.doneCardSectionView.headerView?.countLabel.text = "\(card.count)"
+            }
         }
     }
     
