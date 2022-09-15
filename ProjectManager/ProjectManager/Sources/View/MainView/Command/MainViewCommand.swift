@@ -7,4 +7,5 @@
 
 enum MainViewCommand {
     static let mainViewNavigationBarTitle = "Project Manager"
+    static let cellReuseIdentifier = "ProjectTaskCell"
 }
