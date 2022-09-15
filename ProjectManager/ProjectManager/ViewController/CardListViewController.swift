@@ -104,6 +104,43 @@ final class CardListViewController: UIViewController, Coordinating {
                 updateTableView(dataSource, by: cardModel)
             }
     }
+
+    private func bindSectionsHeader() {
+        todoCardSectionView.headerView?.countLabel.text = viewModel?.todoList
+            .map { "\($0.count)" }
+
+        doingCardSectionView.headerView?.countLabel.text = viewModel?.doingList
+            .map { "\($0.count)" }
+
+        doneCardSectionView.headerView?.countLabel.text = viewModel?.doneList
+            .map { "\($0.count)" }
+    }
+
+    private func initializeViewModel() {
+        viewModel?.reloadTodoListTableViewClosure = { [weak self] (card: [CardModel]) in
+            guard let dataSource = self?.todoCardDataSource else { return }
+            DispatchQueue.main.async {
+                self?.updateTableView(dataSource,
+                                      by: card)
+            }
+        }
+
+        viewModel?.reloadDoingListTableViewClosure = { [weak self] (card: [CardModel]) in
+            guard let dataSource = self?.doingCardDataSource else { return }
+
+            DispatchQueue.main.async {
+                self?.updateTableView(dataSource,
+                                      by: card)
+            }
+        }
+
+        viewModel?.reloadDoneListTableViewClosure = { [weak self] (card: [CardModel]) in
+            guard let dataSource = self?.doneCardDataSource else { return }
+
+            self?.updateTableView(dataSource,
+                                  by: card)
+        }
+    }
     
     @objc private func plusButtonTapped(_ sender: UIBarButtonItem) {
         coordinator?.presentEnrollmentViewController()
