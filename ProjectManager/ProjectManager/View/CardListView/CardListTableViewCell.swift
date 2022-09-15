@@ -58,10 +58,15 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
         descriptionLabel.text = nil
         deadlineDateLabel.text = nil
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.contentView.layer.addBottomBorder()
+
+    override func draw(_ rect: CGRect) {
+        let separator = UIBezierPath()
+        separator.move(to: CGPoint(x: 0, y: bounds.maxY))
+        separator.addLine(to: CGPoint(x: bounds.maxX, y: bounds.maxY))
+        separator.lineWidth = 20
+        UIColor.systemGray6.setStroke()
+        separator.stroke()
+        separator.close()
     }
 
     func bindUI(_ model: CardEntity) {
