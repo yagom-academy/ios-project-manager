@@ -11,9 +11,21 @@ struct TaskListView: View {
     
     @StateObject var taskDashboardViewModel = TaskDashboardViewModel()
     
+    var statusForQuery: Status
+    var tasks: [Task] {
+        switch statusForQuery {
+        case .todo:
+            return taskDashboardViewModel.todo
+        case .doing:
+            return taskDashboardViewModel.doing
+        case .done:
+            return taskDashboardViewModel.done
+        }
+    }
+    
     var body: some View {
         List {
-            ForEach(taskDashboardViewModel.tasks) { task in
+            ForEach(tasks) { task in
                 ZStack {
                     TaskCellView(task: task)
                 }
@@ -29,7 +41,7 @@ struct TaskListView: View {
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            TaskListView()
+            TaskListView(statusForQuery: .todo)
         }
     }
 }

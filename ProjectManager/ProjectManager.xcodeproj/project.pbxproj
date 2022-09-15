@@ -21,6 +21,7 @@
 		FDEC498C28D3009B00C0C9F9 /* TaskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEC498B28D3009B00C0C9F9 /* TaskCellView.swift */; };
 		FDEC498E28D301EE00C0C9F9 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEC498D28D301EE00C0C9F9 /* Date+Extensions.swift */; };
 		FDEC499228D3116C00C0C9F9 /* TaskCellBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEC499128D3116C00C0C9F9 /* TaskCellBackgroundView.swift */; };
+		FDEC499428D33A1300C0C9F9 /* TaskDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEC499328D33A1300C0C9F9 /* TaskDashboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		FDEC498B28D3009B00C0C9F9 /* TaskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellView.swift; sourceTree = "<group>"; };
 		FDEC498D28D301EE00C0C9F9 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		FDEC499128D3116C00C0C9F9 /* TaskCellBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellBackgroundView.swift; sourceTree = "<group>"; };
+		FDEC499328D33A1300C0C9F9 /* TaskDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDashboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		FD24500828D22B6600D5C593 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FDEC499328D33A1300C0C9F9 /* TaskDashboardView.swift */,
 				FDEC498928D2FCBB00C0C9F9 /* TaskListView.swift */,
 				FDEC498B28D3009B00C0C9F9 /* TaskCellView.swift */,
 				FDEC499128D3116C00C0C9F9 /* TaskCellBackgroundView.swift */,
@@ -223,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD24501028D2379E00D5C593 /* TaskDashboardViewModel.swift in Sources */,
+				FDEC499428D33A1300C0C9F9 /* TaskDashboardView.swift in Sources */,
 				FD24500A28D22CB800D5C593 /* Task.swift in Sources */,
 				FDEC498A28D2FCBB00C0C9F9 /* TaskListView.swift in Sources */,
 				FD6659C028C9B9C400934AF4 /* ProjectManagerApp.swift in Sources */,

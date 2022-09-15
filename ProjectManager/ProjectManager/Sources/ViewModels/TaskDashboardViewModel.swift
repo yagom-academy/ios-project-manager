@@ -24,6 +24,6 @@ class TaskDashboardViewModel: ObservableObject {
     }
     
     var done: [Task] {
-        tasks.filter { $0.status == .doing }
+        tasks.filter { $0.status == .done }
     }
 }
