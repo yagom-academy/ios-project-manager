@@ -18,6 +18,16 @@ struct ContentView: View {
                 TodoListView(todoTasks: DummyData.dummyData)
             }
             .navigationTitle("Project Manager")
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        print("dddd")
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+
+                }
+            })
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
         }
