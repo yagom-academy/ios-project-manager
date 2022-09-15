@@ -39,7 +39,7 @@ final class HeaderView: UIView {
     private func setupView() {
         addSubView()
         setupConstraints()
-        self.backgroundColor = .systemBackground
+        self.backgroundColor = .systemGray6
         self.frame = CGRect(x: 0, y: 0, width: 0, height: 50)
     }
     

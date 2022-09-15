@@ -25,6 +25,7 @@ final class WorkManageView: UIView {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.backgroundColor = .systemBackground
+        datePicker.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ko")
         return datePicker
     }()
     
