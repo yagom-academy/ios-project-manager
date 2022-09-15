@@ -42,9 +42,9 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
             $0.spacing = Const.stackViewSpacing
         }
 
-    var model: CardModel?
     var viewModel: CardViewModel?
     var coodinator: CoordinatorProtocol?
+    var model: CardModel?
     
     override init(style: UITableViewCell.CellStyle,
                   reuseIdentifier: String?) {
@@ -110,52 +110,13 @@ extension CardListTableViewCell {
     }
 
     @objc private func didTapTableViewCellLongPress(_ guesture: UILongPressGestureRecognizer) {
+        guard let coodinator,
+              let model else { return }
+
         if guesture.state == .began {
-            coodinator?.presentAlertActionSheet(createActionSheet())
-        }
-    }
-
-    private func createActionSheet() -> UIAlertController {
-        let alertViewController = UIAlertController(title: nil,
-                                                    message: nil,
-                                                    preferredStyle: .actionSheet)
-
-        let (firstCard, secondCard) = distinguishCardType(of: model)
-
-        alertViewController.modalPresentationStyle = .popover
-        alertViewController.popoverPresentationController?.permittedArrowDirections = .up
-
-        alertViewController.popoverPresentationController?.sourceView = self
-        alertViewController.popoverPresentationController?.sourceRect = CGRect(x: self.contentView.frame.midX,
-                                                                               y: self.contentView.frame.midY,
-                                                                               width: 1,
-                                                                               height: 1)
-        let firstAction = UIAlertAction(title: firstCard.moveToAnotherSection,
-                                        style: .default) { [weak self] _ in
-            self?.viewModel?.move(self?.model,
-                                  to: firstCard)
-        }
-
-        let secondAction = UIAlertAction(title: secondCard.moveToAnotherSection,
-                                         style: .default) { [weak self] _ in
-            self?.viewModel?.move(self?.model,
-                                  to: secondCard)
-        }
-
-        alertViewController.addAction(firstAction)
-        alertViewController.addAction(secondAction)
-
-        return alertViewController
-    }
-
-    private func distinguishCardType(of model: CardModel?) -> (CardType, CardType) {
-        switch model?.cardType {
-        case .todo:
-            return (.doing, .done)
-        case .doing:
-            return (.todo, .done)
-        default:
-            return (.todo, .doing)
+            viewModel?.connectWithActionSheetForMoving(coordinator: coodinator,
+                                            model: model,
+                                            sourceView: self)
         }
     }
 }

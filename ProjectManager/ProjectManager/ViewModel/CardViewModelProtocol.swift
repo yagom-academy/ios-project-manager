@@ -13,6 +13,7 @@ protocol CardViewModelProtocol {
     func update(_ selectedCard: CardModel)
     func delete(_ cardType: CardType, at indextPath: Int)
     func move(_ card: CardModel?, to anotherCardSection: CardType)
+    func connectWithActionSheetForMoving(coordinator: CoordinatorProtocol, model: CardModel, sourceView: UIView)
 
     var todoList: [CardModel]? { get set }
     var doingList: [CardModel]? { get set }

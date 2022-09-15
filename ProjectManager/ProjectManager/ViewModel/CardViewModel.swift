@@ -66,6 +66,17 @@ final class CardViewModel {
                  || model.cardType == .doing)
                 && Date() > model.deadlineDate)
     }
+
+    private func distinguishCardType(of model: CardModel?) -> (CardType, CardType) {
+        switch model?.cardType {
+        case .todo:
+            return (.doing, .done)
+        case .doing:
+            return (.todo, .done)
+        default:
+            return (.todo, .doing)
+        }
+    }
 }
 
 extension CardViewModel: CardViewModelProtocol {
@@ -108,6 +119,16 @@ extension CardViewModel: CardViewModelProtocol {
             cardModel.cardType = anotherCardSection
             update(cardModel)
         }
+    }
+
+    func connectWithActionSheetForMoving(coordinator: CoordinatorProtocol,
+                                         model: CardModel,
+                                         sourceView: UIView) {
+        let (firstCard, secondCard) = distinguishCardType(of: model)
+        coordinator.presentAlertActionSheet(sourceView,
+                                            model: model,
+                                            firstCard: firstCard,
+                                            secondCard: secondCard)
     }
 }
 

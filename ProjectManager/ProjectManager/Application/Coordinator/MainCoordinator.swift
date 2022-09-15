@@ -38,7 +38,39 @@ final class MainCoordinator: CoordinatorProtocol {
                                       animated: true)
     }
 
-    func presentAlertActionSheet(_ alertViewController: UIAlertController) {
+    func presentAlertActionSheet(_ sourceView: UIView,
+                                 model: CardModel,
+                                 firstCard: CardType,
+                                 secondCard: CardType) {
+        guard let cell = sourceView.subviews.first else { return }
+
+        let alertViewController = UIAlertController(title: nil,
+                                                    message: nil,
+                                                    preferredStyle: .actionSheet)
+
+        alertViewController.modalPresentationStyle = .popover
+        alertViewController.popoverPresentationController?.permittedArrowDirections = .up
+
+        alertViewController.popoverPresentationController?.sourceView = sourceView
+        alertViewController.popoverPresentationController?.sourceRect = CGRect(x: cell.frame.midX,
+                                                                               y: cell.frame.midY,
+                                                                               width: 1,
+                                                                               height: 1)
+        let firstAction = UIAlertAction(title: firstCard.moveToAnotherSection,
+                                        style: .default) { [weak self] _ in
+            self?.cardViewModel.move(model,
+                                     to: firstCard)
+        }
+
+        let secondAction = UIAlertAction(title: secondCard.moveToAnotherSection,
+                                         style: .default) { [weak self] _ in
+            self?.cardViewModel.move(model,
+                                     to: secondCard)
+        }
+
+        alertViewController.addAction(firstAction)
+        alertViewController.addAction(secondAction)
+
         navigationController?.present(alertViewController,
                                       animated: true)
     }

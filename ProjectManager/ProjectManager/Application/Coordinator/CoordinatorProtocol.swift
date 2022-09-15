@@ -14,7 +14,10 @@ protocol CoordinatorProtocol: AnyObject {
     func start()
     func presentEnrollmentViewController()
     func presentDetailViewController(_ model: CardModel)
-    func presentAlertActionSheet(_ alertViewController: UIAlertController)
+    func presentAlertActionSheet(_ sourceView: UIView,
+                                 model: CardModel,
+                                 firstCard: CardType,
+                                 secondCard: CardType)
 }
 
 enum Event {
