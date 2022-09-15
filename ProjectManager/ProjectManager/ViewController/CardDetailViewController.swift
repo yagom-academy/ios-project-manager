@@ -26,7 +26,8 @@ final class CardDetailViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    init(viewModel: CardViewModelProtocol, model: CardModel) {
+    init(viewModel: CardViewModelProtocol,
+         model: CardModel) {
         self.viewModel = viewModel
         self.model = model
         super.init(nibName: nil, bundle: nil)
@@ -47,9 +48,20 @@ final class CardDetailViewController: UIViewController {
     private func setupDefault() {
         self.view.addSubview(cardModalView)
         cardModalView.descriptionTextView.delegate = self
+
         cardModalView.titleTextField.isUserInteractionEnabled = false
         cardModalView.descriptionTextView.isEditable = false
         cardModalView.datePicker.isUserInteractionEnabled = false
+
+        bindUI()
+    }
+
+    private func bindUI() {
+        guard let model else { return }
+
+        cardModalView.titleTextField.text = model.title
+        cardModalView.descriptionTextView.text = model.description
+        cardModalView.datePicker.date = model.deadlineDate
     }
     
     private func configureLayout() {
@@ -88,12 +100,27 @@ final class CardDetailViewController: UIViewController {
         let title = isClickedEdition ? Const.editing : Const.edit
         cardModalView.leftBarButtonItem.title = title
     }
+
+    private func updateData() {
+        guard let title = cardModalView.titleTextField.text,
+              let description = cardModalView.descriptionTextView.text,
+              let model else { return }
+        let deadlineDate = cardModalView.datePicker.date
+        let data = CardModel(id: model.id,
+                             title: title,
+                             description: description,
+                             deadlineDate: deadlineDate,
+                             cardType: model.cardType)
+
+        self.viewModel?.update(data)
+    }
     
     @objc func didTapEditButton() {
         toggleEditingMode()
     }
     
     @objc func didTapDoneButton() {
+        updateData()
         self.dismiss(animated: true)
     }
 }
