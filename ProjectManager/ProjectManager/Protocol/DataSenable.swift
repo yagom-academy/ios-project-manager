@@ -2,7 +2,9 @@
 //  DataSenable.swift
 //  ProjectManager
 //
-//  Created by 김동용 on 2022/09/15.
+//  Created by brad, bard on 2022/09/15.
 //
 
-import Foundation
+protocol DataSenable {
+    func sendData(of item: ToDoItem)
+}

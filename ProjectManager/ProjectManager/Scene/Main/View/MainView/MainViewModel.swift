@@ -5,7 +5,7 @@
 //  Created by brad, bard on 2022/09/15.
 //
 
-class MainViewModel: DataSandable {
+class MainViewModel: DataManagable {
             
     // MARK: - Properties
 
@@ -37,7 +37,6 @@ class MainViewModel: DataSandable {
         self.todoContent = todoContent
         self.doingContent = doingContent
         self.doneContent = doneContent
-        fetchData()
     }
 
     // MARK: - Functions
@@ -76,7 +75,7 @@ class MainViewModel: DataSandable {
         }
     }
     
-    func content(of type: ProjectType, to index: Int) -> ToDoItem {
+    func searchContent(from index: Int, of type: ProjectType) -> ToDoItem {
         switch type {
         case .todo:
             return todoContent.get(index: index) ?? ToDoItem()
@@ -84,6 +83,28 @@ class MainViewModel: DataSandable {
             return doingContent.get(index: index) ?? ToDoItem()
         case .done:
             return doneContent.get(index: index) ?? ToDoItem()
+        }
+    }
+    
+    func append(new item: ToDoItem, to type: ProjectType) {
+        switch type {
+        case .todo:
+            todoContent.append(item)
+        case .doing:
+            doingContent.append(item)
+        case .done:
+            doneContent.append(item)
+        }
+    }
+    
+    func delete(from index: Int, of type: ProjectType) {
+        switch type {
+        case .todo:
+            todoContent.remove(at: index)
+        case .doing:
+            doingContent.remove(at: index)
+        case .done:
+            doneContent.remove(at: index)
         }
     }
 }

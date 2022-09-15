@@ -16,6 +16,8 @@ final class MainViewController: UIViewController {
     private lazy var doingListTableView = ProjectTableView(for: .doing, with: mainViewModel)
     private lazy var doneListTableView = ProjectTableView(for: .done, with: mainViewModel)
     
+    private var newItem: ToDoItem?
+    
     private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,31 +109,6 @@ final class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    private func setupAlertController(_ alertController: UIAlertController, with tableView: UITableView) {
-        let todoAlertAction = UIAlertAction(title: Design.todoAlertActionTitle, style: .default) { _ in
-            
-        }
-        
-        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) { _ in
-            
-        }
-        
-        let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { _ in
-            
-        }
-        
-        if tableView == toDoListTableView {
-            alertController.addAction(doingAlertAction)
-            alertController.addAction(doingAlertAction)
-        } else if tableView == doingListTableView {
-            alertController.addAction(todoAlertAction)
-            alertController.addAction(doneAlertAction)
-        } else if tableView == doneListTableView {
-            alertController.addAction(todoAlertAction)
-            alertController.addAction(doingAlertAction)
-        }
-    }
-    
     // MARK: - objc Functions
     
     @objc private func didCellTappedLong(_ gestureRecognizer: UILongPressGestureRecognizer) {
@@ -143,41 +120,42 @@ final class MainViewController: UIViewController {
             
         }
         
-        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) { _ in
-            
-        }
-        
-        let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { _ in
-            
-        }
-        
-        alertController.addAction(doingAlertAction)
-        alertController.addAction(doneAlertAction)
-        
         [toDoListTableView, doingListTableView, doneListTableView]
-            .forEach {
-                let touchPoint = gestureRecognizer.location(in: $0)
-                
-                guard let indexPath = $0.indexPathForRow(at: touchPoint),
-                      let popoverController = alertController.popoverPresentationController
-                else { return }
-                
-                let cell = $0.cellForRow(at: indexPath)
-                
-                popoverController.sourceView = cell
-                popoverController.sourceRect = cell?.bounds ?? Design.defaultRect
-                
-                present(alertController, animated: true)
+            .forEach
+        {
+            let touchPoint = gestureRecognizer.location(in: $0)
+            
+            guard let indexPath = $0.indexPathForRow(at: touchPoint),
+                  let popoverController = alertController.popoverPresentationController
+            else { return }
+            
+            let cell = $0.cellForRow(at: indexPath)
+            
+            popoverController.sourceView = cell
+            popoverController.sourceRect = cell?.bounds ?? Design.defaultRect
+            
+            let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) {  [weak self] _ in
+                self?.mainViewModel.append(new: self?.mainViewModel.searchContent(from: indexPath.row, of: .todo) ?? ToDoItem(), to: .doing)
+                self?.mainViewModel.delete(from: indexPath.row, of: .todo)
             }
-    }
-    
-    @objc func longPressAction(gestureRecognizer: UILongPressGestureRecognizer) {
-        print("Gesture recognized")
+            
+            let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { [weak self] _ in
+                self?.mainViewModel.append(new: self?.mainViewModel.searchContent(from: indexPath.row, of: .todo) ?? ToDoItem(), to: .done)
+                self?.mainViewModel.delete(from: indexPath.row, of: .todo)
+            }
+            
+            alertController.addAction(doingAlertAction)
+            alertController.addAction(doneAlertAction)
+            
+            present(alertController, animated: true)
+        }
     }
     
     @objc private func didPlusButtonTapped() {
         let registrationViewController = RegistrationViewController()
         let navigationController = UINavigationController(rootViewController: registrationViewController)
+        
+        registrationViewController.delegate = self
         registrationViewController.modalPresentationStyle = .formSheet
         
         present(navigationController, animated: true)
@@ -225,13 +203,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, UIGest
         
         switch tableView {
         case toDoListTableView:
-            cell.configure(data: mainViewModel.content(of: .todo, to: indexPath.row))
+            cell.configure(data: mainViewModel.searchContent(from: indexPath.row, of: .todo))
             return cell
         case doingListTableView:
-            cell.configure(data: mainViewModel.content(of: .doing, to: indexPath.row))
+            cell.configure(data: mainViewModel.searchContent(from: indexPath.row, of: .doing))
             return cell
         case doneListTableView:
-            cell.configure(data: mainViewModel.content(of: .done, to: indexPath.row))
+            cell.configure(data: mainViewModel.searchContent(from: indexPath.row, of: .done))
             return cell
         default:
             return cell
@@ -245,17 +223,47 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, UIGest
         let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
         
         toDoListDetailViewController.modalPresentationStyle = .formSheet
+        
         switch tableView {
         case toDoListTableView:
-            toDoListDetailViewController.loadData(of: mainViewModel.content(of: .todo, to: indexPath.row))
+            toDoListDetailViewController.loadData(of: mainViewModel.searchContent(from: indexPath.row, of: .todo))
         case doingListTableView:
-            toDoListDetailViewController.loadData(of: mainViewModel.content(of: .doing, to: indexPath.row))
+            toDoListDetailViewController.loadData(of: mainViewModel.searchContent(from: indexPath.row, of: .doing))
         case doneListTableView:
-            toDoListDetailViewController.loadData(of: mainViewModel.content(of: .done, to: indexPath.row))
+            toDoListDetailViewController.loadData(of: mainViewModel.searchContent(from: indexPath.row, of: .done))
         default:
             return
         }
         present(navigationController, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] action, view, success in
+             
+            switch tableView {
+            case self?.toDoListTableView:
+                self?.mainViewModel.delete(from: indexPath.row, of: .todo)
+            case self?.doingListTableView:
+                self?.mainViewModel.delete(from: indexPath.row, of: .doing)
+            case self?.doneListTableView:
+                self?.mainViewModel.delete(from: indexPath.row, of: .done)
+            default:
+                break
+            }
+        }
+        deleteAction.backgroundColor = .red
+        
+        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
+        
+        return swipeAction
+       
+    }
+}
+
+extension MainViewController: DataSenable {
+    func sendData(of item: ToDoItem) {
+        newItem = item
+        mainViewModel.append(new: newItem ?? ToDoItem(), to: .todo)
+    }
 }

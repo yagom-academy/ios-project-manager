@@ -34,6 +34,6 @@ final class MockToDoItemManager {
     }
 }
 
-extension MockToDoItemManager: DataSandable {
+extension MockToDoItemManager: DataManagable {
     func fetchData() { }
 }

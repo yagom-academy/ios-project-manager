@@ -77,6 +77,12 @@ class ToDoComponentsView: UIView {
     
     // MARK: - Functions
     
+    func fetchData() -> ToDoItem {
+        return ToDoItem(title: titleTextView.text ?? "",
+                        description: descriptionTextView.text ?? "",
+                        timeLimit: timeLimitDatePicker.date)
+    }
+    
     func configure(of item: ToDoItem) {
         titleTextView.text = item.title
         descriptionTextView.text = item.description
