@@ -25,10 +25,10 @@ struct ProjectUnit: Hashable {
     )
 
     let id: UUID
-    let title: String
-    let body: String
-    let section: String
-    let deadLine: Date
+    var title: String
+    var body: String
+    var section: String
+    var deadLine: Date
     
     init(
         id: UUID,

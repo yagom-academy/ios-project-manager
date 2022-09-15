@@ -5,8 +5,8 @@
 //  Created by 수꿍, 휴 on 2022/09/15.
 //
 
-class Observable<T> {
-    private var value: T {
+final class Observable<T> {
+    var value: T {
         didSet {
             self.listener?(value)
         }
