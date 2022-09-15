@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxRelay
+import RxSwift
 
 final class ManageWorkViewController: UIViewController {
     private enum ViewMode {
@@ -13,6 +15,7 @@ final class ManageWorkViewController: UIViewController {
         case edit
     }
     
+    private let disposeBag = DisposeBag()
     private let workManageView = WorkManageView()
     private var viewMode: ViewMode = .edit
     private var viewModel: WorkViewModel?
@@ -52,22 +55,52 @@ final class ManageWorkViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = doneBarButton
     }
-    
-    @objc private func doneBarButtonTapped() {
-        guard let viewModel = viewModel else { return }
-        guard let newWork = workManageView.createNewWork() else { return }
-        
-        viewModel.todoWorks.accept([newWork] + viewModel.todoWorks.value)
-        
-        self.dismiss(animated: true)
-    }
-    
+
     @objc private func cancelBarButtonTapped() {
         self.dismiss(animated: true)
     }
     
     @objc private func editBarButtonTapped() {
         workManageView.changeEditMode(true)
+    }
+    
+    @objc private func doneBarButtonTapped() {
+        guard let viewModel = viewModel else { return }
+        
+        switch viewMode {
+        case .add:
+            guard let newWork = workManageView.createNewWork() else { return }
+            
+            viewModel.todoWorks.accept([newWork] + viewModel.todoWorks.value)
+        case .edit:
+            editWork(viewModel)
+        }
+        
+        self.dismiss(animated: true)
+    }
+    
+    private func editWork(_ viewModel: WorkViewModel) {
+        let works: BehaviorRelay<[Work]>
+        guard let work = work,
+              let newWork = self.workManageView.createNewWork(id: work.id, state: work.state) else { return }
+        
+        switch work.state {
+        case .todo:
+            works = viewModel.todoWorks
+        case .doing:
+            works = viewModel.doingWorks
+        case .done:
+            works = viewModel.doneWorks
+        }
+        
+        works.map {
+            $0.map {
+                return $0.id == work.id ? newWork : $0
+            }
+        }.observe(on: MainScheduler.asyncInstance)
+            .take(1)
+            .bind(to: works)
+            .disposed(by: disposeBag)
     }
     
     func configureAddMode(_ viewModel: WorkViewModel) {
