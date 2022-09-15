@@ -8,11 +8,23 @@
 import Foundation
 
 struct CardModel: Hashable {
-    let id = UUID().uuidString
+    let id: String
     let title: String
     let description: String
     let deadlineDate: Date
-    let cardType: CardType
+    var cardType: CardType
+
+    init(id: String = UUID().uuidString,
+         title: String,
+         description: String,
+         deadlineDate: Date,
+         cardType: CardType) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.deadlineDate = deadlineDate
+        self.cardType = cardType
+    }
 }
 
 extension CardModel {
