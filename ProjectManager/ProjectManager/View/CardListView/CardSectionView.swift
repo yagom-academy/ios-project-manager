@@ -10,7 +10,7 @@ import Then
 
 final class CardSectionView: UIView {
     private enum Const {
-        static let stackViewSpacing = 10.0
+        static let stackViewSpacing = 8.0
     }
     
     var headerView: CardHeaderView?
