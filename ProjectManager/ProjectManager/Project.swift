@@ -13,5 +13,3 @@ struct Project {
     let description: String
     let date: Date
 }
-
-

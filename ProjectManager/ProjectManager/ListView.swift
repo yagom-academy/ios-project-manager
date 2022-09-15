@@ -85,7 +85,7 @@ final class ListView: UIView {
     }()
     
     // MARK: - initializers
-
+    
     init(status: Status) {
         self.status = status
         titleLabel.text = status.upperCasedString
@@ -101,7 +101,7 @@ final class ListView: UIView {
     }
     
     // MARK: - functions
-
+    
     private func setupListView() {
         self.addSubview(todoStackView)
         todoStackView.addArrangedSubview(titleView)
@@ -109,7 +109,7 @@ final class ListView: UIView {
         
         NSLayoutConstraint.activate([
             todoStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            todoStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant:  -4),
+            todoStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -4),
             todoStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             todoStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
         ])
@@ -146,8 +146,7 @@ final class ListView: UIView {
                 .scan([], accumulator: +)
                 .bind(to: tableView.rx.items(
                     cellIdentifier: TodoTableViewCell.identifier,
-                    cellType: TodoTableViewCell.self))
-            { _, item, cell in
+                    cellType: TodoTableViewCell.self)) { _, item, cell in
                 cell.setupDataSource(project: item)
             }.disposed(by: disposeBag)
             
@@ -156,8 +155,7 @@ final class ListView: UIView {
                 .scan([], accumulator: +)
                 .bind(to: tableView.rx.items(
                     cellIdentifier: TodoTableViewCell.identifier,
-                    cellType: TodoTableViewCell.self))
-            { _, item, cell in
+                    cellType: TodoTableViewCell.self)) { _, item, cell in
                 cell.setupDataSource(project: item)
             }.disposed(by: disposeBag)
             
@@ -166,8 +164,7 @@ final class ListView: UIView {
                 .scan([], accumulator: +)
                 .bind(to: tableView.rx.items(
                     cellIdentifier: TodoTableViewCell.identifier,
-                    cellType: TodoTableViewCell.self))
-            { _, item, cell in
+                    cellType: TodoTableViewCell.self)) { _, item, cell in
                 cell.setupDataSource(project: item)
             }.disposed(by: disposeBag)
         }

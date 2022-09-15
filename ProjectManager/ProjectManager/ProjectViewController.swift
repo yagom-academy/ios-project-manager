@@ -75,7 +75,7 @@ extension ProjectViewController {
         
         NSLayoutConstraint.activate([
             projectStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            projectStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant:  -8),
+            projectStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             projectStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             projectStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
