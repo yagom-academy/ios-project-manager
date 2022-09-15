@@ -14,16 +14,22 @@ final class CardEnrollmentViewController: UIViewController {
         static let done = "Done"
         static let stackViewSpacing = 10.0
         static let limitedTextAmount = 1000
+        static let alertTitle = "글자수 제한"
+        static let exceedValue = "글자수가 초과되었습니다"
     }
-    
-    private var viewModel: CardViewModelProtocol?
+
     private let cardModalView = CardModalView().then {
         $0.backgroundColor = .systemBackground
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
-    
-    init(viewModel: CardViewModelProtocol) {
+
+    var coordinator: CoordinatorProtocol?
+    private var viewModel: CardViewModelProtocol?
+
+    init(viewModel: CardViewModelProtocol,
+         coodinator: CoordinatorProtocol) {
         self.viewModel = viewModel
+        self.coordinator = coodinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -71,6 +77,15 @@ final class CardEnrollmentViewController: UIViewController {
         cardModalView.navigationBar.items = [navigationItem]
     }
 
+    private func create() -> CardModel? {
+        guard let title = cardModalView.titleTextField.text,
+              let description = cardModalView.descriptionTextView.text else { return nil }
+        let deadlineDate = cardModalView.datePicker.date
+        let newData = CardModel(title: title,
+                                description: description,
+                                deadlineDate: deadlineDate,
+                                cardType: .todo)
+        return newData
     }
 
     @objc func didTapCancelButton() {
