@@ -197,10 +197,12 @@ extension CardListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .normal, title: Const.delete) { (_, _, completionHandler: @escaping (Bool) -> Void) in
+        let delete = UIContextualAction(style: .normal, title: Const.delete) { [weak self] (_, _, completionHandler: @escaping (Bool) -> Void) in
+
+            guard let card = self?.search(tableView) else { return }
+            self?.viewModel?.delete(card, at: indexPath.row)
             completionHandler(true)
         }
-        
         delete.backgroundColor = .systemRed
 
         return UISwipeActionsConfiguration(actions: [delete])
