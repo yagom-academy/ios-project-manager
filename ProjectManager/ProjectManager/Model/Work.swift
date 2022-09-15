@@ -8,7 +8,9 @@
 import Foundation
 
 struct Work {
+    let id: UUID
     let title: String
     let content: String
     let deadline: Date
+    let state: WorkState
 }

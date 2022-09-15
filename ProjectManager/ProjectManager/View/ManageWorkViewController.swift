@@ -14,8 +14,9 @@ final class ManageWorkViewController: UIViewController {
     }
     
     private let workManageView = WorkManageView()
-    private var viewModel: WorkViewModel?
     private var viewMode: ViewMode = .edit
+    private var viewModel: WorkViewModel?
+    private var work: Work?
     
     override func loadView() {
         super.loadView()
@@ -46,7 +47,7 @@ final class ManageWorkViewController: UIViewController {
             self.navigationItem.title = "TODO"
         case .edit:
             self.navigationItem.leftBarButtonItem = editBarButton
-            self.navigationItem.title = "Edit"
+            self.navigationItem.title = work?.state.rawValue
         }
         
         self.navigationItem.rightBarButtonItem = doneBarButton
@@ -78,5 +79,6 @@ final class ManageWorkViewController: UIViewController {
         workManageView.configure(with: work)
         workManageView.changeEditMode(false)
         self.viewModel = viewModel
+        self.work = work
     }
 }

@@ -95,12 +95,12 @@ final class WorkManageView: UIView {
         deadlinePicker.date = work.deadline
     }
     
-    func createNewWork() -> Work? {
+    func createNewWork(id: UUID = UUID(), state: WorkState = .todo) -> Work? {
         guard let title = titleTextField.text,
               let content = contentTextView.text else { return nil }
         let deadline = deadlinePicker.date
         
-        return Work(title: title, content: content, deadline: deadline)
+        return Work(id: id, title: title, content: content, deadline: deadline, state: state)
     }
     
     func changeEditMode(_ isOn: Bool) {
