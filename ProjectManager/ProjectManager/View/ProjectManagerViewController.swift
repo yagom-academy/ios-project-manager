@@ -174,7 +174,7 @@ final class ProjectManagerViewController: UIViewController {
     // MARK: - Methods
     private func showManageWorkView(_ view: UIViewController, work: Work) {
         let manageViewController = ManageWorkViewController()
-        manageViewController.configureWork(work)
+        manageViewController.configureEditMode(with: work, viewModel)
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         view.present(manageNavigationController, animated: true)
     }

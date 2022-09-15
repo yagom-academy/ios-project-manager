@@ -102,4 +102,10 @@ final class WorkManageView: UIView {
         
         return Work(title: title, content: content, deadline: deadline)
     }
+    
+    func changeEditMode(_ isOn: Bool) {
+        titleTextField.isEnabled = isOn
+        contentTextView.isEditable = isOn
+        deadlinePicker.isEnabled = isOn
+    }
 }

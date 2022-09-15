@@ -8,8 +8,14 @@
 import UIKit
 
 final class ManageWorkViewController: UIViewController {
+    private enum ViewMode {
+        case add
+        case edit
+    }
+    
     private let workManageView = WorkManageView()
     private var viewModel: WorkViewModel?
+    private var viewMode: ViewMode = .edit
     
     override func loadView() {
         super.loadView()
@@ -18,11 +24,10 @@ final class ManageWorkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "TODO"
-        configureBarButton()
+        configureUI()
     }
     
-    private func configureBarButton() {
+    private func configureUI() {
         let cancleBarButton = UIBarButtonItem(title: "Cancle",
                                               style: .plain,
                                               target: self,
@@ -31,8 +36,19 @@ final class ManageWorkViewController: UIViewController {
                                             style: .done,
                                             target: self,
                                             action: #selector(doneBarButtonTapped))
+        let editBarButton = UIBarButtonItem(title: "Edit",
+                                            style: .done,
+                                            target: self,
+                                            action: #selector(editBarButtonTapped))
+        switch viewMode {
+        case .add:
+            self.navigationItem.leftBarButtonItem = cancleBarButton
+            self.navigationItem.title = "TODO"
+        case .edit:
+            self.navigationItem.leftBarButtonItem = editBarButton
+            self.navigationItem.title = "Edit"
+        }
         
-        self.navigationItem.leftBarButtonItem = cancleBarButton
         self.navigationItem.rightBarButtonItem = doneBarButton
     }
     
@@ -49,11 +65,18 @@ final class ManageWorkViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    func configureAddMode(_ viewModel: WorkViewModel) {
-        self.viewModel = viewModel
+    @objc private func editBarButtonTapped() {
+        workManageView.changeEditMode(true)
     }
     
-    func configureWork(_ work: Work) {
+    func configureAddMode(_ viewModel: WorkViewModel) {
+        self.viewModel = viewModel
+        viewMode = .add
+    }
+    
+    func configureEditMode(with work: Work, _ viewModel: WorkViewModel) {
         workManageView.configure(with: work)
+        workManageView.changeEditMode(false)
+        self.viewModel = viewModel
     }
 }
