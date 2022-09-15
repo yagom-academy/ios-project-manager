@@ -15,6 +15,7 @@ class ProjectTaskCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
+        stackView.spacing = 5 
         return stackView
     }()
     
@@ -54,10 +55,10 @@ class ProjectTaskCell: UITableViewCell {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            taskInfoStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            taskInfoStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            taskInfoStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            taskInfoStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            taskInfoStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            taskInfoStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            taskInfoStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            taskInfoStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
     
