@@ -12,6 +12,8 @@ final class CardHeaderView: UIView {
         static let stackViewSpacing = 16.0
         static let baseConstraint = 16.0
         static let layerCornerRadius = 30.0
+        static let pointFive = 0.5
+        static let two = 2.0
     }
     
     private let subjectTitleLabel = UILabel().then {
@@ -25,7 +27,7 @@ final class CardHeaderView: UIView {
         $0.backgroundColor = .black
         $0.textColor = .systemBackground
         $0.textAlignment = .center
-        $0.layer.cornerRadius = Const.layerCornerRadius * 0.5
+        $0.layer.cornerRadius = Const.layerCornerRadius * Const.pointFive
         $0.layer.masksToBounds = true
     }
     
@@ -61,7 +63,7 @@ final class CardHeaderView: UIView {
                                                    constant: Const.baseConstraint),
             
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor),
-            countLabel.widthAnchor.constraint(equalToConstant: Const.baseConstraint * 2)
+            countLabel.widthAnchor.constraint(equalToConstant: Const.baseConstraint * Const.two)
         ])
     }
 }

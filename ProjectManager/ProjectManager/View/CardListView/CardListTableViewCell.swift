@@ -15,6 +15,8 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
         static let layerCornerRadius = 30.0
         static let numberOfLines = 3
         static let seperatorLineWidth = 16.0
+        static let minimumPressDuration = 1.0
+        static let zero = 0.0
     }
     
     private let titleLabel = UILabel().then {
@@ -68,8 +70,10 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
     override func draw(_ rect: CGRect) {
         let separator = UIBezierPath()
 
-        separator.move(to: CGPoint(x: 0, y: bounds.maxY))
-        separator.addLine(to: CGPoint(x: bounds.maxX, y: bounds.maxY))
+        separator.move(to: CGPoint(x: Const.zero,
+                                   y: bounds.maxY))
+        separator.addLine(to: CGPoint(x: bounds.maxX,
+                                      y: bounds.maxY))
 
         UIColor.systemGray6.setStroke()
         separator.lineWidth = Const.seperatorLineWidth
@@ -103,7 +107,7 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
 extension CardListTableViewCell {
     private func setupLongGesture() {
         let longPressGesture = UILongPressGestureRecognizer()
-        longPressGesture.minimumPressDuration = 1
+        longPressGesture.minimumPressDuration = Const.minimumPressDuration
         longPressGesture.addTarget(self,
                                    action: #selector(didTapTableViewCellLongPress))
         self.addGestureRecognizer(longPressGesture)

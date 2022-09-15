@@ -16,6 +16,7 @@ final class CardModalView: UIView {
         static let stackViewSpacing = 16.0
         static let baseConstraint = 16.0
         static let zero = 0.0
+        static let three = 3.0
     }
     
     var leftBarButtonItem = UIBarButtonItem()
@@ -114,7 +115,7 @@ final class CardModalView: UIView {
                                                   constant: -Const.baseConstraint),
             rootStackView.widthAnchor.constraint(equalTo: rootScrollView.widthAnchor),
             
-            titleTextField.heightAnchor.constraint(equalToConstant: Const.baseConstraint * 3)
+            titleTextField.heightAnchor.constraint(equalToConstant: Const.baseConstraint * Const.three)
         ])
     }
 }

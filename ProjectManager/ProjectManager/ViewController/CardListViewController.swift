@@ -143,7 +143,6 @@ final class CardListViewController: UIViewController, Coordinating {
         viewModel?.reloadDoneListTableViewClosure = { [weak self] (card: [CardModel]) in
             guard let dataSource = self?.doneCardDataSource else { return }
             DispatchQueue.main.async {
-                
                 self?.updateTableView(dataSource,
                                       by: card)
 
@@ -211,8 +210,10 @@ extension CardListViewController: UITableViewDelegate {
             assignToDetailViewController(viewModel?.todoList?[indexPath.row])
         case doingCardSectionView.tableView:
             assignToDetailViewController(viewModel?.doingList?[indexPath.row])
-        default:
+        case doneCardSectionView.tableView:
             assignToDetailViewController(viewModel?.doneList?[indexPath.row])
+        default:
+            break
         }
     }
 
@@ -221,7 +222,8 @@ extension CardListViewController: UITableViewDelegate {
         let delete = UIContextualAction(style: .normal, title: Const.delete) { [weak self] (_, _, completionHandler: @escaping (Bool) -> Void) in
 
             guard let card = self?.search(tableView) else { return }
-            self?.viewModel?.delete(card, at: indexPath.row)
+            self?.viewModel?.delete(card,
+                                    at: indexPath.row)
             completionHandler(true)
         }
 
