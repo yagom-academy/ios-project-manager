@@ -56,7 +56,8 @@ final class CardListViewController: UIViewController, Coordinating {
         configureLayout()
         configureNavigationBarItem()
         applyDelegatePermission()
-        applyTableViewDataSources()
+        bindDataSource()
+        initializeViewModel()
     }
     
     private func addSubViews() {
@@ -68,7 +69,7 @@ final class CardListViewController: UIViewController, Coordinating {
         rootStackView.addArrangedSubview(doingCardSectionView)
         rootStackView.addArrangedSubview(doneCardSectionView)
     }
-    
+
     private func applyDelegatePermission() {
         todoCardSectionView.tableView.delegate = self
         doingCardSectionView.tableView.delegate = self
@@ -90,16 +91,17 @@ final class CardListViewController: UIViewController, Coordinating {
                                                                  target: self,
                                                                  action: #selector(plusButtonTapped(_:)))
     }
-    
-    private func applyTableViewDataSources() {
-        let dataSources = [todoCardDataSource, doingCardDataSource, doneCardDataSource]
-        
-        dataSources
-            .forEach { dataSource in
-                guard let dataSource = dataSource else { return }
-                
-                updateTableView(dataSource,
-                                by: TodoListModel.sample)
+
+    private func bindDataSource() {
+        let dataDictionary = [todoCardDataSource: viewModel?.todoList,
+                             doingCardDataSource: viewModel?.doingList,
+                              doneCardDataSource: viewModel?.doneList]
+
+        dataDictionary
+            .forEach { dataSource, cardModel in
+                guard let dataSource = dataSource,
+                      let cardModel = cardModel else { return }
+                updateTableView(dataSource, by: cardModel)
             }
     }
     
@@ -130,13 +132,16 @@ private extension CardListViewController {
     }
     
     func configureDataSource(with tableView: UITableView) -> DataSource? {
-        let dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, model -> UITableViewCell? in
+        let dataSource = DataSource(tableView: tableView, cellProvider: { [weak self] tableView, indexPath, model -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CardListTableViewCell.reuseIdentifier,
-                                                           for: indexPath) as? CardListTableViewCell else {
+                                                           for: indexPath) as? CardListTableViewCell,
+                  let data = self?.viewModel?.convert(from: model) else {
                 return UITableViewCell()
             }
             
             cell.model = model
+            cell.bindUI(data)
+
             return cell
         })
         

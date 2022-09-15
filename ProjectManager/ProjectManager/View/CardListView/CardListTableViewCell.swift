@@ -41,7 +41,8 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
             $0.spacing = Const.stackViewSpacing
         }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle,
+                  reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupDefault()
     }
@@ -62,16 +63,18 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
         super.layoutSubviews()
         self.contentView.layer.addBottomBorder()
     }
-    
+
     func bindUI(_ model: CardEntity) {
         titleLabel.text = model.title
         descriptionLabel.text = model.description
         deadlineDateLabel.text = model.deadlineDate
+        deadlineDateLabel.textColor = model.isExpired ? .red : .black
     }
     
     private func setupDefault() {
         self.contentView.addSubview(rootStackView)
-        
+        backgroundColor = .white
+
         NSLayoutConstraint.activate([
             rootStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor,
                                                constant: Const.baseConstraint),
