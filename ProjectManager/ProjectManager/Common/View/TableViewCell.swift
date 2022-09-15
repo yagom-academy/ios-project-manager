@@ -24,22 +24,6 @@ class TableViewCell: UITableViewCell {
         titleLabel.text = data.taskTitle
         descriptionLabel.text = data.taskDescription
         deadlineLabel.text = data.taskDeadline
-
-        if checkPastDate(date: data.taskDeadline) {
-            deadlineLabel.textColor = .red
-        }
-    }
-
-    private func checkPastDate(date: String) -> Bool {
-        let deadline = Int(date.filter { $0.isNumber }) ?? 0
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd"
-        let currentDate = Int(formatter.string(from: Date())) ?? 0
-
-        if currentDate > deadline {
-            return true
-        }
-
-        return false
+        deadlineLabel.textColor = data.checkPastDate()
     }
 }
