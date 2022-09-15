@@ -20,7 +20,7 @@ struct TaskCellView: View {
                 .foregroundColor(.gray)
             
             Text(task.dueDate.localizedFormat())
-        }
+        }.frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

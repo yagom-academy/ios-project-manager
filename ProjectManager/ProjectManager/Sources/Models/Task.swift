@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Task {
+struct Task: Identifiable {
+    var id: String = UUID().uuidString
     var title, description: String
     var dueDate: Date
     var status: Status
