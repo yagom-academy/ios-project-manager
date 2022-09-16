@@ -123,9 +123,10 @@ private extension TodoAddViewController {
     //MARK: - Model configure
     
     func configure() {
-        guard let projectTask = projectTask else {
+        guard let projectTask = projectTask, isNewTask == nil else {
             return
         }
+        
         todoAddView.titleTextField.text = projectTask.title
         todoAddView.deadLineDatePicker.date = projectTask.date
         todoAddView.descriptionTextView.text = projectTask.description
