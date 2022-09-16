@@ -46,6 +46,7 @@ class ProjectTableView: UITableView {
         setupIndexLabel()
         setupDelegates()
         setupGesture()
+        separatorStyle = .none
     }
     
     // MARK: - Functions

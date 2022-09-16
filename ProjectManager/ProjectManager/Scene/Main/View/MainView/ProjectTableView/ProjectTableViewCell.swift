@@ -44,6 +44,14 @@ final class ProjectTableViewCell: UITableViewCell {
         return label
     }()
     
+    private let emptyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray5
+        
+        return view
+    }()
+    
     // MARK: - Initializers
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -70,7 +78,8 @@ final class ProjectTableViewCell: UITableViewCell {
     }
     
     private func setupSubviews() {
-        contentView.addSubview(verticalStackView)
+        [verticalStackView, emptyView]
+            .forEach { contentView.addSubview($0) }
         
         [titleLabel, descriptionLabel, timeLimitLabel]
             .forEach { verticalStackView.addArrangedSubview($0) }
@@ -78,10 +87,17 @@ final class ProjectTableViewCell: UITableViewCell {
  
     private func setupVerticalStackViewLayout() {
         NSLayoutConstraint.activate([
-            verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            verticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+        ])
+        
+        NSLayoutConstraint.activate([
+            emptyView.heightAnchor.constraint(equalToConstant: 12),
+            emptyView.topAnchor.constraint(equalTo: verticalStackView.bottomAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
     
