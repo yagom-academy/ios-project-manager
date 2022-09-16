@@ -5,6 +5,8 @@
 //  Created by brad, bard on 2022/09/10.
 //
 
+import Foundation
+
 extension Date {
     func formatDate() -> String {
         let formatter = DateFormatter()

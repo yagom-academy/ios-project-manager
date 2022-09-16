@@ -11,6 +11,8 @@ final class ProjectDetailViewController: UIViewController {
     
     // MARK: - Properties
 
+    var delegate: DataSenable?
+
     private let toDoComponentsView = ToDoComponentsView()
     private let tableView: UITableView
 
@@ -89,6 +91,7 @@ final class ProjectDetailViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didEditButtonTapped() {
+        delegate?.sendData(of: toDoComponentsView.fetchData())
         dismissViewController()
     }
     

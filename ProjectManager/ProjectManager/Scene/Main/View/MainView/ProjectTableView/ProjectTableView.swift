@@ -12,13 +12,14 @@ class ProjectTableView: UITableView {
     // MARK: - Properties
     
     var presetDelegate: Presentable?
-    
+
     private let mainViewModel: MainViewModel
     
     private let projectType: ProjectType
     
     private var projectHeaderView: ProjectTableHeaderView
-    
+    private var newItem: ToDoItem?
+
     // MARK: Initializers
     
     init(for projectType: ProjectType, with manager: MainViewModel) {
@@ -161,7 +162,7 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
         toDoListDetailViewController.modalPresentationStyle = .formSheet
         
         toDoListDetailViewController.loadData(of: mainViewModel.searchContent(from: indexPath.row, of: projectType))
-        
+        toDoListDetailViewController.delegate = self
         presetDelegate?.presentDetail(navigationController)
     }
     
@@ -175,5 +176,12 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
         let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
         
         return swipeAction
+    }
+}
+
+extension ProjectTableView: DataSenable {
+    func sendData(of item: ToDoItem) {
+        newItem = item
+        mainViewModel.append(new: newItem ?? ToDoItem(), to: projectType)
     }
 }
