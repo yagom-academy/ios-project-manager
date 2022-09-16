@@ -80,7 +80,6 @@
 |:---:|:---:|
 |<image src = "https://i.imgur.com/9ZCPNtP.gif" >|<image src = "https://i.imgur.com/OTlllvG.gif">|
 |테이블 뷰 간의 이동|스와이프 삭제|
-|:---:|:---:|
 |<image src = "https://i.imgur.com/SBHEauJ.gif" >|<image src = "https://i.imgur.com/WeBlTJH.gif">|
 
 ## 💡 키워드
