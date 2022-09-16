@@ -26,7 +26,7 @@ final class ProjectAdditionScrollView: UIScrollView {
         return stackView
     }()
     
-    private let scheduleTitleTextField: UITextField = {
+    let scheduleTitleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .systemBackground
@@ -43,7 +43,7 @@ final class ProjectAdditionScrollView: UIScrollView {
         return textField
     }()
     
-    private let datePicker: UIDatePicker? = {
+    let datePicker: UIDatePicker? = {
         let datePicker = UIDatePicker()
         
         guard let localeID = Locale.preferredLanguages.first,
@@ -60,7 +60,7 @@ final class ProjectAdditionScrollView: UIScrollView {
         return datePicker
     }()
     
-    private let scheduleDescriptionTextView: UITextView = {
+    let scheduleDescriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false

@@ -8,9 +8,9 @@
 import Foundation
 
 final class ViewModel {
-    private var toDoData: Observable<[ProjectUnit]> = Observable([])
-    private var doingData: Observable<[ProjectUnit]> = Observable([])
-    private var doneData: Observable<[ProjectUnit]> = Observable([])
+    var toDoData: Observable<[ProjectUnit]> = Observable([])
+    var doingData: Observable<[ProjectUnit]> = Observable([])
+    var doneData: Observable<[ProjectUnit]> = Observable([])
 
     let databaseManager: DatabaseLogic
 

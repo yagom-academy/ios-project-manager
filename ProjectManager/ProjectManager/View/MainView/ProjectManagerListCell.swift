@@ -21,7 +21,7 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
         return stackView
     }()
     
-    private var titleLabel: UILabel = {
+    var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "제목입니다"
@@ -31,7 +31,7 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
         return label
     }()
     
-    private var bodyLabel: UILabel = {
+    var bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = """
@@ -50,7 +50,7 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
         return label
     }()
     
-    private var dateLabel: UILabel = {
+    var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "날짜입니다"
