@@ -100,7 +100,17 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
         setUpTaskState(tableView: tableView)
         setUpGestureEvent(tableView)
 
-        NotificationCenter.default.post(name: NSNotification.Name("모델 수정"), object: viewModel.readData(index: indexPath.row))
+        guard let storyboard = storyboard,
+              let todoFormViewController = storyboard.instantiateViewController(
+                withIdentifier: TodoFormViewController.reuseIdentifier
+              ) as? TodoFormViewController else {
+            return
+        }
+
+        weak var sendDataDelegate: (SendDelegate)? = todoFormViewController
+        sendDataDelegate?.sendData(viewModel.readData(index: indexPath.row))
+        present(todoFormViewController, animated: true)
+
         tableView.deselectRow(at: indexPath, animated: false)
     }
 

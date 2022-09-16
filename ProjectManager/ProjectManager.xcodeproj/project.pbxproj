@@ -16,6 +16,8 @@
 		05A5775928CFC04F00E05133 /* TaskDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5775828CFC04F00E05133 /* TaskDataManager.swift */; };
 		05BAA00F28CE99680009BB06 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 05BAA00E28CE99680009BB06 /* .swiftlint.yml */; };
 		05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */; };
+		05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA128D445A100C7BA83 /* SendDelegate .swift */; };
+		05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */; };
 		7E25D6CB9B7CC70581D3BEAF /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -35,6 +37,8 @@
 		05A5775828CFC04F00E05133 /* TaskDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataManager.swift; sourceTree = "<group>"; };
 		05BAA00E28CE99680009BB06 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		05D5CBA128D445A100C7BA83 /* SendDelegate .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SendDelegate .swift"; sourceTree = "<group>"; };
+		05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
 		62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0257905294AE94EAFB553A4 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +100,7 @@
 		05A5775428CFBD5F00E05133 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				05D5CBA028D4449300C7BA83 /* Protocol */,
 				05A5775628CFBDF600E05133 /* Database */,
 				05A5775528CFBDCF00E05133 /* Model */,
 				05A5775728CFBE0900E05133 /* View */,
@@ -133,6 +138,15 @@
 				05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		05D5CBA028D4449300C7BA83 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				05D5CBA128D445A100C7BA83 /* SendDelegate .swift */,
+				05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		7059A1DCEB4D827E172AEA64 /* Pods */ = {
@@ -320,6 +334,8 @@
 				05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainHomeViewController.swift in Sources */,
 				05A5775928CFC04F00E05133 /* TaskDataManager.swift in Sources */,
+				05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */,
+				05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */,
 				0578628828D03DEF003CD311 /* MainHomeViewModel.swift in Sources */,
 				05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */,
 				05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */,

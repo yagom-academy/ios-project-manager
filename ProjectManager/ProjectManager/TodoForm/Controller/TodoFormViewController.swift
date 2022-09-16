@@ -20,13 +20,7 @@ class TodoFormViewController: UIViewController {
         super.viewDidLoad()
 
         setUpShadow()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(setUpForm),
-            name: NSNotification.Name("모델 수정"),
-            object: nil
-        )
+        setUpForm()
     }
 
     @IBAction func didTapCancelButton(_ sender: Any) {
@@ -67,12 +61,11 @@ class TodoFormViewController: UIViewController {
         return formatter.string(from: datePicker.date)
     }
 
-    @objc private func setUpForm(_ notification: Notification) {
-        guard let data = notification.object as? TaskModel else {
+    private func setUpForm() {
+        guard let data = receivedModel else {
             return
         }
 
-        receivedModel = data
         titleTextField.text = data.taskTitle
         descriptionTextView.text = data.taskDescription
 
@@ -109,5 +102,15 @@ class TodoFormViewController: UIViewController {
 
     @objc private func closeView() {
         dismiss(animated: false)
+    }
+}
+
+extension TodoFormViewController: SendDelegate, ReuseIdentifying {
+    func sendData<T>(_ data: T) {
+        guard let taskData = data as? TaskModel else {
+            return
+        }
+
+        receivedModel = taskData
     }
 }
