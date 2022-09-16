@@ -95,11 +95,23 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     private func bindWorkTableView() {
+        let longGesture: (WorkState) -> UILongPressGestureRecognizer = { state in
+            switch state {
+            case .todo:
+                return UILongPressGestureRecognizer(target: self, action: #selector(self.showTodoPopView))
+            case .doing:
+                return UILongPressGestureRecognizer(target: self, action: #selector(self.showDoingPopView))
+            case .done:
+                return UILongPressGestureRecognizer(target: self, action: #selector(self.showDonePopView))
+            }
+        }
+        
         viewModel.todoWorks
             .observe(on: MainScheduler.instance)
             .bind(to: todoTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
                                                                  cellType: WorkTableViewCell.self)) { _, item, cell in
                 cell.configure(with: item)
+                cell.addGestureRecognizer(longGesture(item.state))
             }
             .disposed(by: disposeBag)
         
@@ -108,6 +120,7 @@ final class ProjectManagerViewController: UIViewController {
             .bind(to: doingTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
                                                                 cellType: WorkTableViewCell.self)) { _, item, cell in
                 cell.configure(with: item)
+                cell.addGestureRecognizer(longGesture(item.state))
            }
            .disposed(by: disposeBag)
         
@@ -116,6 +129,7 @@ final class ProjectManagerViewController: UIViewController {
             .bind(to: doneTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
                                                                 cellType: WorkTableViewCell.self)) { _, item, cell in
                 cell.configure(with: item)
+                cell.addGestureRecognizer(longGesture(item.state))
            }
            .disposed(by: disposeBag)
     }
@@ -202,5 +216,37 @@ final class ProjectManagerViewController: UIViewController {
         manageViewController.configureEditMode(with: work, viewModel)
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         view.present(manageNavigationController, animated: true)
+    }
+    
+    @objc private func showTodoPopView(_ recognizer: UILongPressGestureRecognizer) {
+        let point = recognizer.location(in: todoTableView)
+        guard let index = todoTableView.indexPathForRow(at: point) else { return }
+        
+        showPopView(viewModel.todoWorks.value[index.row], recognizer)
+    }
+    
+    @objc private func showDoingPopView(_ recognizer: UILongPressGestureRecognizer) {
+        let point = recognizer.location(in: doingTableView)
+        guard let index = doingTableView.indexPathForRow(at: point) else { return }
+        
+        showPopView(viewModel.doingWorks.value[index.row], recognizer)
+    }
+    @objc private func showDonePopView(_ recognizer: UILongPressGestureRecognizer) {
+        let point = recognizer.location(in: doneTableView)
+        guard let index = doneTableView.indexPathForRow(at: point) else { return }
+        
+        showPopView(viewModel.doneWorks.value[index.row], recognizer)
+    }
+    
+    private func showPopView(_ work: Work, _ recognizer: UILongPressGestureRecognizer) {
+        let changeWorkStateViewController = ChangeWorkStateViewController()
+        changeWorkStateViewController.setupView(for: work)
+        changeWorkStateViewController.modalPresentationStyle = .popover
+        changeWorkStateViewController.preferredContentSize = CGSize(width: 250, height: 100)
+        
+        guard let popController = changeWorkStateViewController.popoverPresentationController else { return }
+        popController.permittedArrowDirections = .up
+        popController.sourceView = recognizer.view
+        self.navigationController?.present(changeWorkStateViewController, animated: true)
     }
 }
