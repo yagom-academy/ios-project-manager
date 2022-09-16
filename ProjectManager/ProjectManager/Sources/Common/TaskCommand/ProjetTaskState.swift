@@ -11,4 +11,15 @@ import Foundation
     case TODO = "TODO"
     case DOING = "DOING"
     case DONE = "DONE"
+    
+    func moveUpperActionTarget() -> (upper: ProjetTaskState, lower: ProjetTaskState) {
+        switch self {
+        case .TODO:
+            return (.DOING, .DOING)
+        case .DOING:
+            return (.TODO, .DONE)
+        case .DONE:
+            return (.TODO, .DOING)
+        }
+    }
 }

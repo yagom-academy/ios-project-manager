@@ -15,6 +15,7 @@ final class MainViewController: UIViewController {
     private lazy var mainView = MainView(frame: view.safeAreaLayoutGuide.layoutFrame)
     private let viewModel = ProjectTaskViewModel()
     private let disposedBag = DisposeBag()
+    private var longpressState: ProjetTaskState?
     
     //MARK: - View Life Cycle
     
@@ -100,19 +101,13 @@ private extension MainViewController {
             .observe(on: MainScheduler.instance)
             .bind(to: mainView.todoListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
                 (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
-                let longPressGestureRecognizer = UILongPressGestureRecognizer(
+                let longPressGestureRecognizer = CustomLongPressGesture(
                     target: self,
                     action: #selector(self.longPressCell)
                 )
-                cell.configureDeadLineLabel(date: element.date)
-                cell.setupData(element)
-            }
-            .disposed(by: disposedBag)
-        
-        viewModel.doneTasks
-            .observe(on: MainScheduler.instance)
-            .bind(to: mainView.doneListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
-                (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
+                longPressGestureRecognizer.taskState = .TODO
+                longPressGestureRecognizer.cellID = element.id
+                cell.addGestureRecognizer(longPressGestureRecognizer)
                 cell.configureDeadLineLabel(date: element.date)
                 cell.setupData(element)
             }
@@ -122,14 +117,65 @@ private extension MainViewController {
             .observe(on: MainScheduler.instance)
             .bind(to: mainView.doingListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
                 (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
+                let longPressGestureRecognizer = CustomLongPressGesture(
+                    target: self,
+                    action: #selector(self.longPressCell)
+                )
+                longPressGestureRecognizer.taskState = .DOING
+                longPressGestureRecognizer.cellID = element.id
+                cell.addGestureRecognizer(longPressGestureRecognizer)
                 cell.configureDeadLineLabel(date: element.date)
                 cell.setupData(element)
             }
             .disposed(by: disposedBag)
+        
+        viewModel.doneTasks
+            .observe(on: MainScheduler.instance)
+            .bind(to: mainView.doneListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
+                (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
+                let longPressGestureRecognizer = CustomLongPressGesture(
+                    target: self,
+                    action: #selector(self.longPressCell)
+                )
+                longPressGestureRecognizer.taskState = .DONE
+                longPressGestureRecognizer.cellID = element.id
+                cell.addGestureRecognizer(longPressGestureRecognizer)
+                cell.configureDeadLineLabel(date: element.date)
+                cell.setupData(element)
+            }
+            .disposed(by: disposedBag)
+        
     }
     
-    @objc func longPressCell() {
+    @objc func longPressCell(_ sender: CustomLongPressGesture) {
+        print("longpress")
+        guard let taskState = sender.taskState,
+              let cellID = sender.cellID else {
+            return
+        }
         
+        presentMoveAlert(at: taskState, id: cellID)
+    }
+    
+    func presentMoveAlert(at state: ProjetTaskState, id: UUID) {
+        let moveAlertViewController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .alert
+        )
+        let targetState = state.moveUpperActionTarget()
+        
+        let moveToUpperAction = UIAlertAction(title: "Move to \(targetState.upper)", style: .default) { (action) in
+            print("moveToUpperAction")
+        }
+        let moveToLowerAction = UIAlertAction(title: "Move to \(targetState.upper)", style: .default) { (action) in
+            print("moveToLowerAction")
+        }
+        
+        moveAlertViewController.addAction(moveToUpperAction)
+        moveAlertViewController.addAction(moveToLowerAction)
+        
+        self.present(moveAlertViewController, animated: true)
     }
     
     func setupHeaderCountBinding() {
