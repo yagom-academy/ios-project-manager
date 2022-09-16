@@ -144,11 +144,9 @@ private extension MainViewController {
                 cell.setupData(element)
             }
             .disposed(by: disposedBag)
-        
     }
     
     @objc func longPressCell(_ sender: CustomLongPressGesture) {
-        print("longpress")
         guard let taskState = sender.taskState,
               let cellID = sender.cellID else {
             return

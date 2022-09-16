@@ -15,7 +15,6 @@ final class ListView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        
         stackView.alignment = .center
         stackView.backgroundColor = .systemBackground
         return stackView

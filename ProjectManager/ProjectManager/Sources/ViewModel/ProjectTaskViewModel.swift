@@ -161,9 +161,6 @@ extension ProjectTaskViewModel {
     }
     
     func moveTask(to: ProjectTaskState, from: ProjectTaskState, id: UUID) {
-        print(from)
-        print(to)
-        print(id)
         var targetTask: ProjectTask?
         do {
             switch from {
