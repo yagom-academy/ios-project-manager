@@ -249,7 +249,7 @@ final class ProjectManagerViewController: UIViewController {
     
     private func showPopView(_ work: Work, _ sourceView: UIView?) {
         let changeWorkStateViewController = ChangeWorkStateViewController()
-        changeWorkStateViewController.setupView(for: work)
+        changeWorkStateViewController.setupView(for: work, viewModel)
         changeWorkStateViewController.modalPresentationStyle = .popover
         changeWorkStateViewController.preferredContentSize = CGSize(width: 250, height: 100)
         

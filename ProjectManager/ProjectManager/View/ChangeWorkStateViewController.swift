@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class ChangeWorkStateViewController: UIViewController {
     // MARK: - UI
@@ -31,13 +32,16 @@ class ChangeWorkStateViewController: UIViewController {
     private lazy var moveDoingButton = moveButton("Move To DOING")
     private lazy var moveDoneButton = moveButton("Move To DONE")
     
+    // MARK: - Properties
+    private let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
     }
     
     // MARK: - Methods
-    func setupView(for work: Work) {
+    func setupView(for work: Work, _ viewModel: WorkViewModel) {
         switch work.state {
         case .todo:
             verticalStackView.addArrangedSubview(moveDoingButton)
@@ -49,6 +53,8 @@ class ChangeWorkStateViewController: UIViewController {
             verticalStackView.addArrangedSubview(moveTodoButton)
             verticalStackView.addArrangedSubview(moveDoingButton)
         }
+        
+        bindButtonTap(work: work, viewModel: viewModel)
     }
     
     private func setupConstraints() {
@@ -64,5 +70,25 @@ class ChangeWorkStateViewController: UIViewController {
             verticalStackView.bottomAnchor
                 .constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
+    }
+    
+    private func bindButtonTap(work: Work, viewModel: WorkViewModel) {
+        moveTodoButton.rx.tap
+            .subscribe(onNext: {
+                viewModel.chnageWorkState(work, to: .todo)
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        moveDoingButton.rx.tap
+            .subscribe(onNext: {
+                viewModel.chnageWorkState(work, to: .doing)
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        moveDoneButton.rx.tap
+            .subscribe(onNext: {
+                viewModel.chnageWorkState(work, to: .done)
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
     }
 }

@@ -33,4 +33,21 @@ class WorkViewModel {
         .bind(to: works)
         .disposed(by: disposeBag)
     }
+    
+    func chnageWorkState(_ work: Work, to state: WorkState) {
+        
+        works.map {
+            $0.map {
+                if $0.id == work.id {
+                    return Work(id: $0.id, title: $0.title, content: $0.content, deadline: $0.deadline, state: state)
+                } else {
+                    return $0
+                }
+            }
+        }
+        .take(1)
+        .observe(on: MainScheduler.instance)
+        .bind(to: works)
+        .disposed(by: disposeBag)
+    }
 }
