@@ -42,16 +42,28 @@ final class ProjectManagerController: UIViewController {
             guard let self = self else {
                 return
             }
-            
-            self.configureToDoViewSnapshot(data: projectUnitArray)
+
+            self.toDoViewSnapshot = self.configureSnapshot(data: projectUnitArray, to: .todo)
+
+            guard let toDoViewSnapshot = self.toDoViewSnapshot else {
+                return
+            }
+
+            self.toDoViewdataSource?.apply(toDoViewSnapshot)
         }
         
         viewModel.doingData.subscribe { [weak self] projectUnitArray in
             guard let self = self else {
                 return
             }
-            
-            self.configureDoingViewSnapshot(data: projectUnitArray)
+
+            self.doingViewSnapshot = self.configureSnapshot(data: projectUnitArray, to: .doing)
+
+            guard let doingViewSnapshot = self.doingViewSnapshot else {
+                return
+            }
+
+            self.doingViewdataSource?.apply(doingViewSnapshot)
         }
         
         viewModel.doneData.subscribe { [weak self] projectUnitArray in
@@ -59,7 +71,13 @@ final class ProjectManagerController: UIViewController {
                 return
             }
             
-            self.configureDoneViewSnapshot(data: projectUnitArray)
+            self.doneViewSnapshot = self.configureSnapshot(data: projectUnitArray, to: .done)
+
+            guard let doneViewSnapshot = self.doneViewSnapshot else {
+                return
+            }
+
+            self.doneViewdataSource?.apply(doneViewSnapshot)
         }
     }
     
@@ -160,40 +178,12 @@ final class ProjectManagerController: UIViewController {
         )
     }
     
-    private func configureToDoViewSnapshot(data: [ProjectUnit]) {
-        toDoViewSnapshot = Snapshot()
+    private func configureSnapshot(data: [ProjectUnit], to section: Schedule) -> Snapshot {
+        var snapshot = Snapshot()
+        snapshot.appendSections([section])
+        snapshot.appendItems(data)
 
-        guard var toDoViewSnapshot = toDoViewSnapshot else {
-            return
-        }
-
-        toDoViewSnapshot.appendSections([.todo])
-        toDoViewSnapshot.appendItems(data)
-        toDoViewdataSource?.apply(toDoViewSnapshot)
-    }
-    
-    private func configureDoingViewSnapshot(data: [ProjectUnit]) {
-        doingViewSnapshot = Snapshot()
-
-        guard var doingViewSnapshot = doingViewSnapshot else {
-            return
-        }
-
-        doingViewSnapshot.appendSections([.doing])
-        doingViewSnapshot.appendItems(data)
-        doingViewdataSource?.apply(doingViewSnapshot)
-    }
-    
-    private func configureDoneViewSnapshot(data: [ProjectUnit]) {
-        doneViewSnapshot = Snapshot()
-
-        guard var doneViewSnapshot = doneViewSnapshot else {
-            return
-        }
-
-        doneViewSnapshot.appendSections([.done])
-        doneViewSnapshot.appendItems(data)
-        doneViewdataSource?.apply(doneViewSnapshot)
+        return snapshot
     }
 }
 
