@@ -14,11 +14,11 @@ final class MockToDoItemManager {
     private var mockToDoItemContent = [ToDoItem]()
     
     // MARK: - Functions
- 
-    func loadData() -> ItemListCategory {
-        guard let data: ItemListCategory? = JSONDecoder.decodedJson(jsonName: Design.jsonName),
-              let mockItem = data else { return ItemListCategory() }
-        return mockItem
+
+    func loadData() {
+        guard let data: [ToDoItem]? = JSONDecoder.decodedJson(jsonName: Design.jsonName),
+              let mockItem = data else { return }
+        mockToDoItemContent = mockItem
     }
     
     func count() -> Int {
@@ -30,6 +30,6 @@ final class MockToDoItemManager {
     }
     
     private enum Design {
-        static let jsonName = "MockData"
+        static let jsonName = "sample"
     }
 }

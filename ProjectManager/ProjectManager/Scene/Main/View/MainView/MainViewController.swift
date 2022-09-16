@@ -9,19 +9,23 @@ import UIKit
 final class MainViewController: UIViewController {
     
     // MARK: - Properties
-
-    private let toDoListTableViewController = ToDoListViewController()
-    private let doingListTableViewController = DoingListTableViewController()
-    private let doneListTableViewController = DoneListTableViewController()
+    
+    private let toDoViewModel = ToDoViewModel()
+    
+    private lazy var toDoListTableView = ProjectTableView(for: .todo, with: toDoViewModel)
+    private lazy var doingListTableView = ProjectTableView(for: .doing, with: toDoViewModel)
+    private lazy var doneListTableView = ProjectTableView(for: .done, with: toDoViewModel)
+    
+    private var newItem: ToDoItem?
     
     private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 8
+        stackView.spacing = Design.horizontalStackViewSpacing
         stackView.backgroundColor = .systemGray3
-
+        
         return stackView
     }()
     
@@ -29,17 +33,45 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSubscripting()
+        setupDelegates()
+        setupUI()
+    }
+    
+    // MARK: - Functions
+    
+    private func setupUI() {
         setupSubviews()
         setupVerticalStackViewLayout()
         setupView()
     }
     
-    // MARK: - Functions
+    private func setupSubscripting() {
+        toDoViewModel.todoSubscripting { [weak self] _ in
+            self?.toDoListTableView.reloadData()
+            self?.toDoListTableView.setupIndexLabel()
+        }
+        
+        toDoViewModel.doingSubscripting { [weak self] _ in
+            self?.doingListTableView.reloadData()
+            self?.doingListTableView.setupIndexLabel()
+        }
+        
+        toDoViewModel.doneSubscripting { [weak self] _ in
+            self?.doneListTableView.reloadData()
+            self?.doneListTableView.setupIndexLabel()
+        }
+    }
+    
+    private func setupDelegates() {
+        [toDoListTableView, doingListTableView, doneListTableView]
+            .forEach { $0.presetDelegate = self }
+    }
     
     private func setupSubviews() {
         view.addSubview(horizontalStackView)
         
-        [toDoListTableViewController.view, doingListTableViewController.view, doneListTableViewController.view]
+        [toDoListTableView, doingListTableView, doneListTableView]
             .forEach { horizontalStackView.addArrangedSubview($0) }
     }
     
@@ -61,24 +93,59 @@ final class MainViewController: UIViewController {
     }
     
     private func setupNavigationController() {
-        navigationController?.navigationBar.topItem?.title = "Project Manager"
+        navigationController?.navigationBar.topItem?.title = Design.navigationTitle
         navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Design.navigationTitleFontSize, weight: .bold)
         ]
         
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus"),
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: Design.plusImage),
                                              style: .plain,
                                              target: self,
                                              action: #selector(didPlusButtonTapped))
         
         navigationItem.rightBarButtonItem = rightBarButton
     }
+
+    // MARK: - objc Functions
     
     @objc private func didPlusButtonTapped() {
         let registrationViewController = RegistrationViewController()
         let navigationController = UINavigationController(rootViewController: registrationViewController)
-
+        
+        registrationViewController.delegate = self
         registrationViewController.modalPresentationStyle = .formSheet
-        view.window?.rootViewController?.present(navigationController, animated: true)
+        
+        present(navigationController, animated: true)
+    }
+    
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let horizontalStackViewSpacing: CGFloat = 8
+        static let navigationTitle = "Project Manager"
+        static let navigationTitleFontSize: CGFloat = 20
+        static let plusImage = "plus"
+        static let longTapDuration: TimeInterval = 1.5
+        static let todoAlertActionTitle = "Move to TODO"
+        static let doingAlertActionTitle = "Move to DOING"
+        static let doneAlertActionTitle = "Move to DONE"
+        static let defaultRect = CGRect(x: 0, y: 0, width: 50, height: 50)
+    }
+}
+
+extension MainViewController: DataSenable {
+    func sendData(of item: ToDoItem) {
+        newItem = item
+        toDoViewModel.append(new: newItem ?? ToDoItem(), to: .todo)
+    }
+}
+
+extension MainViewController: Presentable {
+    func presentAlert(_ viewController: UIViewController) {
+        present(viewController, animated: true)
+    }
+    
+    func presentDetail(_ viewController: UIViewController) {
+        present(viewController, animated: true)
     }
 }

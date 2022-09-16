@@ -7,8 +7,6 @@
 
 import Foundation
 
-// MARK: - Extentions
-
 extension Date {
     func formatDate() -> String {
         let formatter = DateFormatter()

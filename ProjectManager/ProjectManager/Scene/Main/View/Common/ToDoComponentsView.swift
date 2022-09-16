@@ -14,12 +14,12 @@ class ToDoComponentsView: UIView {
     private let titleView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.borderWidth = 1.0
+        view.layer.borderWidth = Design.titleViewLayerBorderWidth
         view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowRadius = 5.0
+        view.layer.shadowOffset = Design.titleViewLayerShaodwOffset
+        view.layer.shadowRadius = Design.titleViewLayerShaodwRadius
         view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowOpacity = 0.8
+        view.layer.shadowOpacity = Design.titleViewLayerShaodwOpacity
         view.backgroundColor = .systemBackground
         
         return view
@@ -28,12 +28,12 @@ class ToDoComponentsView: UIView {
     private let descriptionView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.borderWidth = 1.0
+        view.layer.borderWidth = Design.descriptionViewLayerBorderWidth
         view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowRadius = 5.0
+        view.layer.shadowOffset = Design.descriptionViewLayerShaodwOffset
+        view.layer.shadowRadius = Design.descriptionViewLayerShaodwRadius
         view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowOpacity = 0.8
+        view.layer.shadowOpacity = Design.descriptionViewLayerShaodwOpacity
         view.backgroundColor = .systemBackground
         
         return view
@@ -77,6 +77,13 @@ class ToDoComponentsView: UIView {
     
     // MARK: - Functions
     
+    func fetchItem() -> ToDoItem {
+        
+        return ToDoItem(title: titleTextView.text ?? "",
+                        description: descriptionTextView.text ?? "",
+                        timeLimit: timeLimitDatePicker.date)
+    }
+    
     func configure(of item: ToDoItem) {
         titleTextView.text = item.title
         descriptionTextView.text = item.description
@@ -97,12 +104,11 @@ class ToDoComponentsView: UIView {
     }
     
     private func setupStackViewLayout() {
-        
         NSLayoutConstraint.activate([
-            titleView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             titleView.bottomAnchor.constraint(equalTo: timeLimitDatePicker.topAnchor, constant: -20),
-            titleView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            titleView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            titleView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            titleView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
@@ -115,15 +121,15 @@ class ToDoComponentsView: UIView {
         NSLayoutConstraint.activate([
             timeLimitDatePicker.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
             timeLimitDatePicker.bottomAnchor.constraint(equalTo: descriptionView.topAnchor, constant: -20),
-            timeLimitDatePicker.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            timeLimitDatePicker.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            timeLimitDatePicker.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            timeLimitDatePicker.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
             descriptionView.topAnchor.constraint(equalTo: timeLimitDatePicker.bottomAnchor, constant: 20),
-            descriptionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            descriptionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            descriptionView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            descriptionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            descriptionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            descriptionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
@@ -134,5 +140,17 @@ class ToDoComponentsView: UIView {
         ])
     }
     
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let titleViewLayerBorderWidth = 1.0
+        static let titleViewLayerShaodwOffset = CGSize(width: 3, height: 3)
+        static let titleViewLayerShaodwRadius = 5.0
+        static let titleViewLayerShaodwOpacity: Float = 0.8
+        static let descriptionViewLayerBorderWidth = 1.0
+        static let descriptionViewLayerShaodwOffset = CGSize(width: 3, height: 3)
+        static let descriptionViewLayerShaodwRadius = 5.0
+        static let descriptionViewLayerShaodwOpacity: Float = 0.8
+    }
 }
 

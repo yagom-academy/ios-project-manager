@@ -1,5 +1,5 @@
 //
-//  ToDoListDetailViewController.swift
+//  ProjectDetailViewController.swift
 //  ProjectManager
 //
 //  Created by brad, bard on 2022/09/10.
@@ -7,26 +7,43 @@
 
 import UIKit
 
-final class ToDoListDetailViewController: UIViewController {
+final class ProjectDetailViewController: UIViewController {
     
     // MARK: - Properties
 
+    var delegate: DataSenable?
+    
     private let toDoComponentsView = ToDoComponentsView()
+    private let tableView: UITableView
 
     // MARK: View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        commonInit()
+        setupUI()
     }
+    
+    // MARK: - Initializers
 
+    init(with tableView: UITableView) {
+        self.tableView = tableView
+        super.init(nibName: nil, bundle: nil)
+        guard let tableView = tableView as? ProjectTableView else { return }
+        navigationItem.title = tableView.getTitle()
+    }
+    
+    required init?(coder: NSCoder) {
+        tableView = UITableView()
+        super.init(coder: coder)
+    }
+    
     // MARK: - Functions
-
+    
     func loadData(of item: ToDoItem) {
         toDoComponentsView.configure(of: item)
     }
     
-    private func commonInit() {
+    private func setupUI() {
         setupNavigationController()
         setupView()
         setupSubviews()
@@ -34,7 +51,7 @@ final class ToDoListDetailViewController: UIViewController {
     }
     
     private func setupView() {
-        self.view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
     }
     
     private func setupSubviews() {
@@ -42,9 +59,8 @@ final class ToDoListDetailViewController: UIViewController {
     }
     
     private func setupNavigationController() {
-        navigationItem.title = "TODO"
         navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Design.navigationTitleFontSize, weight: .bold)
         ]
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.9488992095, green: 0.9492433667, blue: 0.9632378221, alpha: 1)
         
@@ -75,10 +91,16 @@ final class ToDoListDetailViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didEditButtonTapped() {
-        dismissViewController()
+        delegate?.sendData(of: toDoComponentsView.fetchItem())
     }
     
     @objc private func didDoneButtonTapped() {
         dismissViewController()
+    }
+    
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let navigationTitleFontSize: CGFloat = 20
     }
 }

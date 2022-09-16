@@ -7,8 +7,6 @@
 
 import Foundation
 
-// MARK: - Extentions
-
 extension JSONDecoder {
     static func decodedJson<T: Decodable>(jsonName: String) -> T? {
         let decoder = JSONDecoder()
