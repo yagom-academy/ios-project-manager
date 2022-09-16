@@ -10,29 +10,21 @@ import RxCocoa
 
 class WorkViewModel {
     private let disposeBag = DisposeBag()
-    
-    let todoWorks = BehaviorRelay<[Work]>(value: [])
-    let doingWorks = BehaviorRelay<[Work]>(value: [])
-    let doneWorks = BehaviorRelay<[Work]>(value: [])
+    let works = BehaviorRelay<[Work]>(value: [])
     
     init() {
-        todoWorks.accept(SampleData.todoWorks)
-        doingWorks.accept(SampleData.doingWorks)
-        doneWorks.accept(SampleData.doneWorks)
+        works.accept(SampleData.todoWorks + SampleData.doingWorks + SampleData.doneWorks)
+    }
+    
+    func selectWork(by index: Int, _ state: WorkState) -> Work {
+        let stateWorks = works.value.filter {
+            $0.state == state
+        }
+        
+        return stateWorks[index]
     }
     
     func deleteWork(_ work: Work) {
-        let works: BehaviorRelay<[Work]>
-        
-        switch work.state {
-        case .todo:
-            works = todoWorks
-        case .doing:
-            works = doingWorks
-        case .done:
-            works = doneWorks
-        }
-        
         works.map {
             $0.filter { $0.id != work.id }
         }

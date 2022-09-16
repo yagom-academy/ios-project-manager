@@ -73,8 +73,8 @@ final class ManageWorkViewController: UIViewController {
         switch viewMode {
         case .add:
             guard let newWork = workManageView.createNewWork() else { return }
-            
-            viewModel.todoWorks.accept([newWork] + viewModel.todoWorks.value)
+
+            viewModel.works.accept([newWork] + viewModel.works.value)
         case .edit:
             editWork(viewModel)
         }
@@ -84,27 +84,17 @@ final class ManageWorkViewController: UIViewController {
     
     // MARK: - Methods
     private func editWork(_ viewModel: WorkViewModel) {
-        let works: BehaviorRelay<[Work]>
         guard let work = work,
               let newWork = self.workManageView.createNewWork(id: work.id, state: work.state) else { return }
-        
-        switch work.state {
-        case .todo:
-            works = viewModel.todoWorks
-        case .doing:
-            works = viewModel.doingWorks
-        case .done:
-            works = viewModel.doneWorks
-        }
-        
-        works.map {
+
+        viewModel.works.map {
             $0.map {
                 return $0.id == work.id ? newWork : $0
             }
         }.observe(on: MainScheduler.asyncInstance)
-            .take(1)
-            .bind(to: works)
-            .disposed(by: disposeBag)
+        .take(1)
+        .bind(to: viewModel.works)
+        .disposed(by: disposeBag)
     }
     
     func configureAddMode(_ viewModel: WorkViewModel) {
