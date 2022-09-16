@@ -11,9 +11,9 @@ class MainHomeViewController: UIViewController {
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
 
-    @IBOutlet weak var todoCount: UIButton!
-    @IBOutlet weak var doingCount: UIButton!
-    @IBOutlet weak var doneCount: UIButton!
+    @IBOutlet weak var todoCountLabel: UILabel!
+    @IBOutlet weak var doingCountLabel: UILabel!
+    @IBOutlet weak var doneCountLabel: UILabel!
 
     private let viewModel = MainHomeViewModel()
     private var selectedIndex: Int = 0
@@ -26,15 +26,23 @@ class MainHomeViewController: UIViewController {
 
         viewModel.fetchDataList()
 
+        setUpLabelShape()
         setUpTableViewCount()
         setUpTableViewDelegate()
         setUpTableViewDataSource()
     }
 
+    private func setUpLabelShape() {
+        [todoCountLabel, doingCountLabel, doneCountLabel].forEach {
+            $0?.clipsToBounds = true
+            $0?.layer.cornerRadius = 20
+        }
+    }
+
     private func setUpTableViewCount() {
-        todoCount.setTitle(String(viewModel.todoCount), for: .normal)
-        doingCount.setTitle(String(viewModel.doingCount), for: .normal)
-        doneCount.setTitle(String(viewModel.doneCount), for: .normal)
+        todoCountLabel.text = String(viewModel.todoCount)
+        doingCountLabel.text = String(viewModel.doingCount)
+        doneCountLabel.text = String(viewModel.doneCount)
     }
 
     private func setUpTableViewDataSource() {
