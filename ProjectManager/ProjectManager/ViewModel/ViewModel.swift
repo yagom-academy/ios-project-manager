@@ -16,54 +16,9 @@ final class ViewModel {
 
     init(databaseManager: DatabaseLogic) {
         self.databaseManager = databaseManager
-    }
-    
-    func fetchToDoData() -> [ProjectUnit] {
-        var data: [ProjectUnit] = []
-
-        do {
-            data = try databaseManager.fetchSection("TODO")
-
-            data.forEach { project in
-                toDoData.value.append(project)
-            }
-        } catch {
-            print(error)
-        }
-
-        return data
-    }
-
-    func fetchDoingData() -> [ProjectUnit] {
-        var data: [ProjectUnit] = []
-
-        do {
-            data = try databaseManager.fetchSection("DOING")
-
-            data.forEach { project in
-                doingData.value.append(project)
-            }
-        } catch {
-            print(error)
-        }
-
-        return data
-    }
-
-    func fetchDoneData() -> [ProjectUnit] {
-        var data: [ProjectUnit] = []
-
-        do {
-            data = try databaseManager.fetchSection("DONE")
-
-            data.forEach { project in
-                doneData.value.append(project)
-            }
-        } catch {
-            print(error)
-        }
-
-        return data
+        fetchToDoData()
+        fetchDoingData()
+        fetchDoneData()
     }
 
     func addProject(
@@ -141,6 +96,36 @@ final class ViewModel {
             try? databaseManager.update(data: data)
         default:
             return
+        }
+    }
+    
+    private func fetchToDoData() {
+        do {
+            try databaseManager.fetchSection("TODO").forEach { project in
+                toDoData.value.append(project)
+            }
+        } catch {
+            print(error)
+        }
+    }
+
+    private func fetchDoingData() {
+        do {
+            try databaseManager.fetchSection("DOING").forEach { project in
+                doingData.value.append(project)
+            }
+        } catch {
+            print(error)
+        }
+    }
+
+    private func fetchDoneData() {
+        do {
+            try databaseManager.fetchSection("DONE").forEach { project in
+                doneData.value.append(project)
+            }
+        } catch {
+            print(error)
         }
     }
 }
