@@ -52,6 +52,8 @@ private extension TodoAddViewController {
         ])
     }
     
+    //MARK: - Navigation Item Setup
+    
     func setupNavigationBarItem() {
         navigationItem.title = state?.rawValue
         view.backgroundColor = .systemGray5
@@ -67,47 +69,58 @@ private extension TodoAddViewController {
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
-    @objc func doneButtonDidTapped() {
-        guard let state = state else {
-            return
-        }
+    func setupLeftBarButtonItem() {
+        var leftBarButtonItem: UIBarButtonItem
         
-        if let isNewTask {
+        if isNewTask == nil {
+            leftBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .edit,
+                target: self,
+                action: #selector(editButtonDidTapped)
+            )
+        } else {
+            leftBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .cancel,
+                target: self,
+                action: #selector(cancelButtonDidTapped)
+            )
+        }
+        navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+    
+    @objc func doneButtonDidTapped() {
+        if isNewTask != nil {
             guard let extractedTask = extractCurrentTask() else {
                 return
             }
             
             viewModel?.createTask(to: extractedTask)
         } else {
-            guard let projectTask = projectTask else {
-                return
-            }
-            
-            viewModel?.updateTask(at: state, what: ProjectTask(
-                id: projectTask.id,
-                title: todoAddView.titleTextField.text!,
-                description: todoAddView.descriptionTextView.text,
-                date: todoAddView.deadLineDatePicker.date)
-            )
+            editButtonDidTapped()
         }
         self.dismiss(animated: true)
     }
     
-    
-    func setupLeftBarButtonItem() {
-        var leftBarButtonItem: UIBarButtonItem
-        switch state {
-        case .TODO:
-            leftBarButtonItem = UIBarButtonItem(systemItem: .cancel)
-        case .DOING:
-            leftBarButtonItem = UIBarButtonItem(systemItem: .edit)
-        case .DONE:
-            leftBarButtonItem = UIBarButtonItem(systemItem: .edit)
-        default:
-            leftBarButtonItem = UIBarButtonItem(systemItem: .cancel)
-        }
-        navigationItem.leftBarButtonItem = leftBarButtonItem
+    @objc func cancelButtonDidTapped() {
+        self.dismiss(animated: true)
     }
+    
+    @objc func editButtonDidTapped() {
+        guard let projectTask = projectTask,
+            let state = state else {
+            return
+        }
+        
+        viewModel?.updateTask(at: state, what: ProjectTask(
+            id: projectTask.id,
+            title: todoAddView.titleTextField.text!,
+            description: todoAddView.descriptionTextView.text,
+            date: todoAddView.deadLineDatePicker.date)
+        )
+        self.dismiss(animated: true)
+    }
+    
+    //MARK: - Model configure
     
     func configure() {
         guard let projectTask = projectTask else {

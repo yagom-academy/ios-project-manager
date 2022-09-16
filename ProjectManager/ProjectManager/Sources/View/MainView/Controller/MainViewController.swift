@@ -100,6 +100,11 @@ private extension MainViewController {
             .observe(on: MainScheduler.instance)
             .bind(to: mainView.todoListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
                 (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
+                let longPressGestureRecognizer = UILongPressGestureRecognizer(
+                    target: self,
+                    action: #selector(self.longPressCell)
+                )
+                cell.addGestureRecognizer(longPressGestureRecognizer)
                 cell.setupData(element)
             }
             .disposed(by: disposedBag)
@@ -119,6 +124,10 @@ private extension MainViewController {
                 cell.setupData(element)
             }
             .disposed(by: disposedBag)
+    }
+    
+    @objc func longPressCell() {
+        
     }
     
     func setupHeaderCountBinding() {
