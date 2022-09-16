@@ -64,15 +64,27 @@ final class ProjectTaskViewModel {
             title: "done test title7",
             description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
             date: Date()
+        ),
+        ProjectTask(
+            id: UUID(),
+            title: "done test title8",
+            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+            date: Date() + 100
+        ),
+        ProjectTask(
+            id: UUID(),
+            title: "done test title9",
+            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+            date: Date()
         )
     ])
 
     lazy var todoCount = todoTasks
-        .map { $0.map{_ in 1}.reduce(0,+) }
+        .map { $0.map{_ in 1 }.reduce(0,+) }
     lazy var doingCount = doingTasks
-        .map { $0.map{_ in 1}.reduce(0,+) }
+        .map { $0.map{_ in 1 }.reduce(0,+) }
     lazy var doneCount = doneTasks
-        .map { $0.map{_ in 1}.reduce(0,+) }
+        .map { $0.map{_ in 1 }.reduce(0,+) }
 }
 
 extension ProjectTaskViewModel {

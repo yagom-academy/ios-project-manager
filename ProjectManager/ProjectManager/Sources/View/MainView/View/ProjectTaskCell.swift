@@ -45,7 +45,7 @@ class ProjectTaskCell: UITableViewCell {
         return label
     }()
     
-    //MARK: Table View Cell Initializer
+    //MARK: - Table View Cell Initializer
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -83,7 +83,7 @@ class ProjectTaskCell: UITableViewCell {
     func setupData(_ data: ProjectTask) {
         titleLabel.text = data.title
         descriptionLabel.text = data.description
-        deadLineLabel.text = data.date.description
+        deadLineLabel.text = data.date.localizedDate()
     }
     
     func configureDeadLineLabel(date: Date) {
