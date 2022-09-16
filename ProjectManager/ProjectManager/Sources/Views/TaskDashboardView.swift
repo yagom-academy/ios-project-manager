@@ -13,9 +13,9 @@ struct TaskDashboardView: View {
     
     var body: some View {
         HStack {
-            TaskListView(tasks: $taskDashboardViewModel.todoTasks)
-            TaskListView(tasks: $taskDashboardViewModel.doingTasks)
-            TaskListView(tasks: $taskDashboardViewModel.doneTasks)
+            TaskListView(status: .todo, tasks: $taskDashboardViewModel.todoTasks)
+            TaskListView(status: .doing, tasks: $taskDashboardViewModel.doingTasks)
+            TaskListView(status: .done, tasks: $taskDashboardViewModel.doneTasks)
         }
     }
 }
