@@ -22,5 +22,9 @@ final class WorkTableView: UITableView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
         self.backgroundColor = .systemBackground
+        self.sectionHeaderHeight = 50
+        if #available(iOS 15.0, *) {
+            self.sectionHeaderTopPadding = .leastNormalMagnitude
+        }
     }
 }

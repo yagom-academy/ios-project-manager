@@ -13,9 +13,9 @@ final class ProjectManagerViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // MARK: - UI
-    private let todoTableView = WorkTableView(frame: .zero, style: .grouped)
-    private let doingTableView = WorkTableView(frame: .zero, style: .grouped)
-    private let doneTableView = WorkTableView(frame: .zero, style: .grouped)
+    private let todoTableView = WorkTableView(frame: .zero, style: .plain)
+    private let doingTableView = WorkTableView(frame: .zero, style: .plain)
+    private let doneTableView = WorkTableView(frame: .zero, style: .plain)
     
     private let toDoTitleView = HeaderView()
     private let doingTitleView = HeaderView()
@@ -51,11 +51,7 @@ final class ProjectManagerViewController: UIViewController {
         toDoTitleView.configure(title: "TODO", count: 0)
         doingTitleView.configure(title: "DOING", count: 0)
         doneTitleView.configure(title: "DONE", count: 0)
-        
-        todoTableView.tableHeaderView = toDoTitleView
-        doingTableView.tableHeaderView = doingTitleView
-        doneTableView.tableHeaderView = doneTitleView
-        
+             
         horizontalStackView.addArrangedSubview(todoTableView)
         horizontalStackView.addArrangedSubview(doingTableView)
         horizontalStackView.addArrangedSubview(doneTableView)
@@ -88,10 +84,25 @@ final class ProjectManagerViewController: UIViewController {
     
     // MARK: - UI Binding
     private func setupBinding() {
+        setupDelegate()
         bindWorkTableView()
         bindHeaderImage()
         setWorkSelection()
         setWorkDeletion()
+    }
+    
+    private func setupDelegate() {
+        todoTableView.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
+        
+        doingTableView.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
+        
+        doneTableView.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
     }
     
     private func bindWorkTableView() {
@@ -257,5 +268,20 @@ final class ProjectManagerViewController: UIViewController {
         popController.permittedArrowDirections = .up
         popController.sourceView = sourceView
         self.navigationController?.present(changeWorkStateViewController, animated: true)
+    }
+}
+
+extension ProjectManagerViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch tableView {
+        case todoTableView:
+            return toDoTitleView
+        case doingTableView:
+            return doingTitleView
+        case doneTableView:
+            return doneTitleView
+        default:
+            return toDoTitleView
+        }
     }
 }
