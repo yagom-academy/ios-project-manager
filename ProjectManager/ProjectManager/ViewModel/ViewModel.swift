@@ -18,20 +18,54 @@ final class ViewModel {
         self.databaseManager = databaseManager
     }
     
-    func fetchData() {
-        try? databaseManager.fetchSection("TODO").forEach { project in
-            toDoData.value.append(project)
+    func fetchToDoData() -> [ProjectUnit] {
+        var data: [ProjectUnit] = []
+
+        do {
+            data = try databaseManager.fetchSection("TODO")
+
+            data.forEach { project in
+                toDoData.value.append(project)
+            }
+        } catch {
+            print(error)
         }
-        
-        try? databaseManager.fetchSection("DOING").forEach { project in
-            doingData.value.append(project)
-        }
-        
-        try? databaseManager.fetchSection("DONE").forEach { project in
-            doneData.value.append(project)
-        }
+
+        return data
     }
-    
+
+    func fetchDoingData() -> [ProjectUnit] {
+        var data: [ProjectUnit] = []
+
+        do {
+            data = try databaseManager.fetchSection("DOING")
+
+            data.forEach { project in
+                doingData.value.append(project)
+            }
+        } catch {
+            print(error)
+        }
+
+        return data
+    }
+
+    func fetchDoneData() -> [ProjectUnit] {
+        var data: [ProjectUnit] = []
+
+        do {
+            data = try databaseManager.fetchSection("DONE")
+
+            data.forEach { project in
+                doneData.value.append(project)
+            }
+        } catch {
+            print(error)
+        }
+
+        return data
+    }
+
     func addProject(
         title: String,
         body: String,

@@ -9,7 +9,8 @@ import UIKit
 
 final class ProjectAdditionController: UIViewController {
     private let projectAdditionScrollView = ProjectAdditionScrollView()
-    
+    var viewModel: ViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItems()
@@ -45,6 +46,12 @@ final class ProjectAdditionController: UIViewController {
     }
     
     @objc private func didTapDoneButton() {
+        self.viewModel?.addProject(
+            title: projectAdditionScrollView.scheduleTitleTextField.text!,
+            body: projectAdditionScrollView.scheduleDescriptionTextView.text,
+            date: projectAdditionScrollView.datePicker!.date
+        )
+
         self.dismiss(animated: true)
     }
     

@@ -19,6 +19,8 @@ final class ProjectManagerController: UIViewController {
     private let scheduleStackView = ScheduleStackView()
     private var toDoViewdataSource: DataSource?
     private var toDoViewSnapshot: Snapshot?
+
+    private let viewModel = ViewModel(databaseManager: LocalDatabaseManager())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,21 @@ final class ProjectManagerController: UIViewController {
         configureUI()
         configureToDoViewDataSource()
         configureToDoViewSnapshot()
+
+        viewModel.toDoData.subscribe { [weak self] projectUnitArray in
+            guard let self = self else {
+                return
+            }
+
+            guard var toDoViewSnapshot = self.toDoViewSnapshot else {
+                return
+            }
+
+            toDoViewSnapshot.deleteAllItems()
+            toDoViewSnapshot.appendSections([.todo])
+            toDoViewSnapshot.appendItems(projectUnitArray)
+            self.toDoViewdataSource?.apply(toDoViewSnapshot)
+        }
     }
     
     private func configureNavigationItems() {
@@ -38,10 +55,13 @@ final class ProjectManagerController: UIViewController {
     }
     
     @objc func didTapAddButton() {
-        let projectAdditionController = UINavigationController(rootViewController: ProjectAdditionController())
-        projectAdditionController.modalPresentationStyle = .formSheet
-        
-        self.present(projectAdditionController, animated: true)
+        let projectAdditionController = ProjectAdditionController()
+        projectAdditionController.viewModel = self.viewModel
+
+        let navigationController = UINavigationController(rootViewController: projectAdditionController)
+        navigationController.modalPresentationStyle = .formSheet
+
+        self.present(navigationController, animated: true)
     }
     
     private func configureUI() {
@@ -65,8 +85,12 @@ final class ProjectManagerController: UIViewController {
         
         toDoViewdataSource = DataSource(
             tableView: tableView,
-            cellProvider: { tableView, indexPath, _ in
+            cellProvider: { tableView, indexPath, item in
                 let cell: ProjectManagerListCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.titleLabel.text = item.title
+                cell.dateLabel.text = item.body
+                cell.dateLabel.text = item.deadLine.localizedString
+
                 cell.separatorInset = .zero
                 
                 return cell
@@ -82,7 +106,7 @@ final class ProjectManagerController: UIViewController {
         }
 
         toDoViewSnapshot.appendSections([.todo])
-        toDoViewSnapshot.appendItems([ProjectUnit.sample, ProjectUnit.sample2])
+        toDoViewSnapshot.appendItems(viewModel.fetchToDoData())
         toDoViewdataSource?.apply(toDoViewSnapshot)
     }
 }

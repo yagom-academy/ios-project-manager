@@ -11,6 +11,7 @@
 		2015836928CDBA2E000CCC52 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */; };
 		2054633328D2F295005FF658 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054633228D2F295005FF658 /* ViewModel.swift */; };
 		2054633528D30110005FF658 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054633428D30110005FF658 /* Observable.swift */; };
+		20B3DBFF28D4508500A6386B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B3DBFE28D4508500A6386B /* Date+Extension.swift */; };
 		20D66B5F28D1BD90001317E0 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D66B5E28D1BD90001317E0 /* ReusableCell.swift */; };
 		20D66B6128D1BE1B001317E0 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D66B6028D1BE1B001317E0 /* UITableView+Extension.swift */; };
 		20D66B6428D1D826001317E0 /* MockLocalDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D66B6328D1D826001317E0 /* MockLocalDatabaseManager.swift */; };
@@ -43,6 +44,7 @@
 		2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		2054633228D2F295005FF658 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		2054633428D30110005FF658 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		20B3DBFE28D4508500A6386B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		20D66B5E28D1BD90001317E0 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 		20D66B6028D1BE1B001317E0 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		20D66B6328D1D826001317E0 /* MockLocalDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalDatabaseManager.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			children = (
 				20D66B5E28D1BD90001317E0 /* ReusableCell.swift */,
 				20D66B6028D1BE1B001317E0 /* UITableView+Extension.swift */,
+				20B3DBFE28D4508500A6386B /* Date+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20D66B5F28D1BD90001317E0 /* ReusableCell.swift in Sources */,
+				20B3DBFF28D4508500A6386B /* Date+Extension.swift in Sources */,
 				7236B04628C86FF9009A7412 /* LocalDatabaseManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerController.swift in Sources */,
 				7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */,
