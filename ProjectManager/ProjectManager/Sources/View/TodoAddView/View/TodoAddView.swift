@@ -27,6 +27,7 @@ class TodoAddView: UIView {
     let deadLineDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.locale = .autoupdatingCurrent
         datePicker.preferredDatePickerStyle = .wheels
         return datePicker
     }()
