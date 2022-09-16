@@ -175,7 +175,15 @@ private extension MainViewController {
         moveAlertViewController.addAction(moveToUpperAction)
         moveAlertViewController.addAction(moveToLowerAction)
         
-        self.present(moveAlertViewController, animated: true)
+        self.present(moveAlertViewController, animated: true) {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTappedOutside(_:)))
+            moveAlertViewController.view.superview?.isUserInteractionEnabled = true
+            moveAlertViewController.view.superview?.addGestureRecognizer(tap)
+        }
+    }
+    
+    @objc private func didTappedOutside(_ sender: UITapGestureRecognizer) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func setupHeaderCountBinding() {
