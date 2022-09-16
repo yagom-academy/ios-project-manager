@@ -12,10 +12,21 @@ struct TaskDashboardView: View {
     @StateObject var taskDashboardViewModel = TaskDashboardViewModel()
     
     var body: some View {
-        HStack {
-            TaskListView(status: .todo, tasks: $taskDashboardViewModel.todoTasks)
-            TaskListView(status: .doing, tasks: $taskDashboardViewModel.doingTasks)
-            TaskListView(status: .done, tasks: $taskDashboardViewModel.doneTasks)
+        
+        ZStack(alignment: .bottomTrailing) {
+            HStack {
+                TaskListView(status: .todo, tasks: $taskDashboardViewModel.todoTasks)
+                TaskListView(status: .doing, tasks: $taskDashboardViewModel.doingTasks)
+                TaskListView(status: .done, tasks: $taskDashboardViewModel.doneTasks)
+            }
+            
+            Button {
+                
+            } label: {
+                AddingTaskButtonView()
+                    .frame(width: 70, height: 70, alignment: .bottomTrailing)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
+            }
         }
     }
 }
