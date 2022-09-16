@@ -18,7 +18,7 @@ final class ScheduleStackView: UIStackView {
     }()
     
     let doingListView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
         tableView.sectionHeaderHeight = 50
@@ -27,7 +27,7 @@ final class ScheduleStackView: UIStackView {
     }()
     
     let doneListView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
         tableView.sectionHeaderHeight = 50
