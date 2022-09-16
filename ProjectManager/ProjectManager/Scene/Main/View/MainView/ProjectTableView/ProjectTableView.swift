@@ -12,14 +12,15 @@ class ProjectTableView: UITableView {
     // MARK: - Properties
     
     var presetDelegate: Presentable?
-
+    
     private let mainViewModel: MainViewModel
     
     private let projectType: ProjectType
     
     private var projectHeaderView: ProjectTableHeaderView
-    private var newItem: ToDoItem?
-
+    
+    private var selectedIndex: Int?
+    
     // MARK: Initializers
     
     init(for projectType: ProjectType, with manager: MainViewModel) {
@@ -76,7 +77,7 @@ class ProjectTableView: UITableView {
     }
     
     // MARK: - objc Functions
-
+    
     @objc private func didCellTappedLong(_ gestureRecognizer: UILongPressGestureRecognizer) {
         guard gestureRecognizer.state == .began else { return }
         
@@ -147,7 +148,7 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ProjectTableViewCell.identifier, for: indexPath) as? ProjectTableViewCell
         else { return UITableViewCell() }
- 
+        
         cell.configure(data: mainViewModel.searchContent(from: indexPath.row, of: projectType))
         
         return cell
@@ -155,7 +156,9 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
+        selectedIndex = indexPath.row
+
         let toDoListDetailViewController = ProjectDetailViewController(with: tableView)
         let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
         
@@ -163,6 +166,7 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
         
         toDoListDetailViewController.loadData(of: mainViewModel.searchContent(from: indexPath.row, of: projectType))
         toDoListDetailViewController.delegate = self
+
         presetDelegate?.presentDetail(navigationController)
     }
     
@@ -181,7 +185,6 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
 
 extension ProjectTableView: DataSenable {
     func sendData(of item: ToDoItem) {
-        newItem = item
-        mainViewModel.append(new: newItem ?? ToDoItem(), to: projectType)
+        mainViewModel.update(item: item, from: selectedIndex ?? 0, of: projectType)
     }
 }

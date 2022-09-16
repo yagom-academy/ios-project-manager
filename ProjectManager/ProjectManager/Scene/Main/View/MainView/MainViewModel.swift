@@ -5,7 +5,7 @@
 //  Created by brad, bard on 2022/09/15.
 //
 
-class MainViewModel: DataManagable {
+class MainViewModel {
             
     // MARK: - Properties
 
@@ -96,6 +96,17 @@ class MainViewModel: DataManagable {
             doingContent.append(item)
         case .done:
             doneContent.append(item)
+        }
+    }
+    
+    func update(item: ToDoItem, from index: Int, of type: ProjectType) {
+        switch type {
+        case .todo:
+            todoContent[index] = item
+        case .doing:
+            doingContent[index] = item
+        case .done:
+            doneContent[index] = item
         }
     }
     

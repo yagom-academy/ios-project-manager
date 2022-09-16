@@ -12,7 +12,7 @@ final class ProjectDetailViewController: UIViewController {
     // MARK: - Properties
 
     var delegate: DataSenable?
-
+    
     private let toDoComponentsView = ToDoComponentsView()
     private let tableView: UITableView
 
