@@ -19,6 +19,7 @@
 		FD84970F28D46D740028E81B /* AddingTaskButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD84970E28D46D740028E81B /* AddingTaskButtonView.swift */; };
 		FD9C397C28C9F6C200B97B39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD9C397B28C9F6C200B97B39 /* GoogleService-Info.plist */; };
 		FD9C397F28C9F74A00B97B39 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD9C397E28C9F74A00B97B39 /* FirebaseFirestoreSwift */; };
+		FDB5654D28D4B129002E8BAF /* SquareButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5654C28D4B129002E8BAF /* SquareButtonView.swift */; };
 		FDEC498A28D2FCBB00C0C9F9 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEC498928D2FCBB00C0C9F9 /* TaskListView.swift */; };
 		FDEC498C28D3009B00C0C9F9 /* TaskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEC498B28D3009B00C0C9F9 /* TaskCellView.swift */; };
 		FDEC498E28D301EE00C0C9F9 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEC498D28D301EE00C0C9F9 /* Date+Extensions.swift */; };
@@ -37,6 +38,7 @@
 		FD84970C28D463AD0028E81B /* TaskListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeaderView.swift; sourceTree = "<group>"; };
 		FD84970E28D46D740028E81B /* AddingTaskButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTaskButtonView.swift; sourceTree = "<group>"; };
 		FD9C397B28C9F6C200B97B39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FDB5654C28D4B129002E8BAF /* SquareButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareButtonView.swift; sourceTree = "<group>"; };
 		FDEC498928D2FCBB00C0C9F9 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		FDEC498B28D3009B00C0C9F9 /* TaskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellView.swift; sourceTree = "<group>"; };
 		FDEC498D28D301EE00C0C9F9 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				FDEC499128D3116C00C0C9F9 /* TaskCellBackgroundView.swift */,
 				FD84970C28D463AD0028E81B /* TaskListHeaderView.swift */,
 				FD84970E28D46D740028E81B /* AddingTaskButtonView.swift */,
+				FDB5654C28D4B129002E8BAF /* SquareButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				FD24500A28D22CB800D5C593 /* Task.swift in Sources */,
 				FDEC498A28D2FCBB00C0C9F9 /* TaskListView.swift in Sources */,
 				FD6659C028C9B9C400934AF4 /* ProjectManagerApp.swift in Sources */,
+				FDB5654D28D4B129002E8BAF /* SquareButtonView.swift in Sources */,
 				FD24500D28D22E4800D5C593 /* Status.swift in Sources */,
 				FDEC499228D3116C00C0C9F9 /* TaskCellBackgroundView.swift in Sources */,
 				FDEC498C28D3009B00C0C9F9 /* TaskCellView.swift in Sources */,
