@@ -1,5 +1,5 @@
 //
-//  ItemListCatory.swift
+//  ItemListCategory.swift
 //  ProjectManager
 //
 //  Created by brad, bard on 2022/09/15.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ItemListCatory: Codable {
+struct ItemListCategory: Codable {
     
     // MARK: - Properties
 

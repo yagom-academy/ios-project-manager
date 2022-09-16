@@ -92,7 +92,6 @@ final class ProjectDetailViewController: UIViewController {
     
     @objc private func didEditButtonTapped() {
         delegate?.sendData(of: toDoComponentsView.fetchItem())
-        dismissViewController()
     }
     
     @objc private func didDoneButtonTapped() {

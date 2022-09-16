@@ -10,7 +10,7 @@
 		A322F03D28D437CF00D4F503 /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A322F03C28D437CF00D4F503 /* Presentable.swift */; };
 		A334147E28C72F810059D133 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A334147D28C72F810059D133 /* .swiftlint.yml */; };
 		A334148028C779EC0059D133 /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334147F28C779EC0059D133 /* ReuseIdentifiable.swift */; };
-		A334148F28C86AA80059D133 /* ItemListCatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334148E28C86AA80059D133 /* ItemListCatory.swift */; };
+		A334148F28C86AA80059D133 /* ItemListCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334148E28C86AA80059D133 /* ItemListCategory.swift */; };
 		A3420F8E28CCD3F2004AFF56 /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3420F8D28CCD3F2004AFF56 /* ProjectDetailViewController.swift */; };
 		A35D6C2528D30EBB0056F6B8 /* ToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35D6C2428D30EBB0056F6B8 /* ToDoViewModel.swift */; };
 		A37C3BA528CCC2C300CE4F50 /* MockToDoItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */; };
@@ -41,7 +41,7 @@
 		A322F03C28D437CF00D4F503 /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
 		A334147D28C72F810059D133 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A334147F28C779EC0059D133 /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
-		A334148E28C86AA80059D133 /* ItemListCatory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListCatory.swift; sourceTree = "<group>"; };
+		A334148E28C86AA80059D133 /* ItemListCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListCategory.swift; sourceTree = "<group>"; };
 		A3420F8D28CCD3F2004AFF56 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		A35D6C2428D30EBB0056F6B8 /* ToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModel.swift; sourceTree = "<group>"; };
 		A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockToDoItemManager.swift; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 		A334148D28C86A9E0059D133 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A334148E28C86AA80059D133 /* ItemListCatory.swift */,
+				A334148E28C86AA80059D133 /* ItemListCategory.swift */,
 				A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */,
 				A37C3BA628CCC3D700CE4F50 /* MockData.json */,
 			);
@@ -356,7 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A334148F28C86AA80059D133 /* ItemListCatory.swift in Sources */,
+				A334148F28C86AA80059D133 /* ItemListCategory.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D7E75DA428D0AC8100C32947 /* ProjectTableHeaderView.swift in Sources */,

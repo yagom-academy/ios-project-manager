@@ -15,9 +15,9 @@ final class MockToDoItemManager {
     
     // MARK: - Functions
  
-    func loadData() -> ItemListCatory {
-        guard let data: ItemListCatory? = JSONDecoder.decodedJson(jsonName: Design.jsonName),
-              let mockItem = data else { return ItemListCatory() }
+    func loadData() -> ItemListCategory {
+        guard let data: ItemListCategory? = JSONDecoder.decodedJson(jsonName: Design.jsonName),
+              let mockItem = data else { return ItemListCategory() }
         return mockItem
     }
     
