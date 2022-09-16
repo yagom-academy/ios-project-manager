@@ -10,11 +10,13 @@ import RxRelay
 import RxSwift
 
 final class ManageWorkViewController: UIViewController {
+    // MARK: - Inner types
     private enum ViewMode {
         case add
         case edit
     }
     
+    // MARK: - Properties
     private let disposeBag = DisposeBag()
     private let workManageView = WorkManageView()
     private var viewMode: ViewMode = .edit
@@ -31,6 +33,7 @@ final class ManageWorkViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - UI setup
     private func configureUI() {
         let cancleBarButton = UIBarButtonItem(title: "Cancle",
                                               style: .plain,
@@ -79,6 +82,7 @@ final class ManageWorkViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    // MARK: - Methods
     private func editWork(_ viewModel: WorkViewModel) {
         let works: BehaviorRelay<[Work]>
         guard let work = work,

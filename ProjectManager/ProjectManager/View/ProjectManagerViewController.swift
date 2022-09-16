@@ -12,6 +12,7 @@ final class ProjectManagerViewController: UIViewController {
     private let viewModel = WorkViewModel()
     private let disposeBag = DisposeBag()
     
+    // MARK: - UI
     private let todoTableView = WorkTableView(frame: .zero, style: .grouped)
     private let doingTableView = WorkTableView(frame: .zero, style: .grouped)
     private let doneTableView = WorkTableView(frame: .zero, style: .grouped)
@@ -36,7 +37,7 @@ final class ProjectManagerViewController: UIViewController {
         setupBinding()
     }
     
-    // MARK: - UI
+    // MARK: - UI setup
     private func setupView() {
         self.navigationItem.title = "Project Manager"
         self.view.backgroundColor = .systemGray6
