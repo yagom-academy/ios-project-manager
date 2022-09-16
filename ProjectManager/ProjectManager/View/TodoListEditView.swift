@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct TodoListEditView: View {
-    @StateObject var viewModel = ProjectModalViewModel()
+    @ObservedObject var viewModel: ProjectModalViewModel
     @State var isDisabled = true
+    @Binding var projects: [Project]
 
     var body: some View {
         VStack {
-            TodoListEditTitleView(isDisabled: $isDisabled)
+            TodoListEditTitleView(viewModel: viewModel, isDisabled: $isDisabled, projects: $projects)
             TodoListEditTitleTextView(viewModel: viewModel, isDisabled: $isDisabled)
             TodoListEditDatePickerView(viewModel: viewModel, isDisabled: $isDisabled)
             TodoListEditDetailTextView(viewModel: viewModel, isDisabled: $isDisabled)
@@ -22,8 +23,10 @@ struct TodoListEditView: View {
 }
 
 struct TodoListEditTitleView: View {
-    @Binding var isDisabled: Bool
     @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: ProjectModalViewModel
+    @Binding var isDisabled: Bool
+    @Binding var projects: [Project]
 
     var body: some View {
         HStack {
@@ -39,6 +42,11 @@ struct TodoListEditTitleView: View {
                 .font(.title)
             Spacer()
             Button(action: {
+                projects = [Project(id: viewModel.id,
+                                        status: viewModel.status,
+                                        title: viewModel.title,
+                                        detail: viewModel.detail,
+                                        date: viewModel.date)]
                 dismiss()
             }, label: {
                 Text("Done")

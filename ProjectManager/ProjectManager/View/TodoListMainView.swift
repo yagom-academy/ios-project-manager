@@ -14,9 +14,9 @@ struct TodoListMainView: View {
         VStack {
             ProjectTitleView(model: $viewModel.model)
             HStack {
-                VStackView(viewModel: viewModel, title: Status.todo.rawValue, count: viewModel.todoArray.count, status: .todo)
-                VStackView(viewModel: viewModel, title: Status.doing.rawValue, count: viewModel.doingArray.count, status: .doing)
-                VStackView(viewModel: viewModel, title: Status.done.rawValue, count: viewModel.doneArray.count, status: .done)
+                VStackView(viewModel: viewModel, projects: $viewModel.model, title: Status.todo.rawValue, count: viewModel.todoArray.count, status: .todo)
+                VStackView(viewModel: viewModel, projects: $viewModel.model, title: Status.doing.rawValue, count: viewModel.doingArray.count, status: .doing)
+                VStackView(viewModel: viewModel, projects: $viewModel.model, title: Status.done.rawValue, count: viewModel.doneArray.count, status: .done)
             }
             .background(Color(UIColor.systemGray3))
         }
@@ -54,6 +54,7 @@ struct TodoListMainView: View {
     struct VStackView: View {
         @ObservedObject var viewModel: ProjectMainViewModel
         @State var selectedProject: Project?
+        @Binding var projects: [Project]
 
         let title: String
         let count: Int
@@ -96,7 +97,7 @@ struct TodoListMainView: View {
                         Text(memo.date!, formatter: dateFormatter)
                     }
                     .sheet(item: $selectedProject) { memo in
-                        TodoListEditView(viewModel: ProjectModalViewModel(project: memo))
+                        TodoListEditView(viewModel: ProjectModalViewModel(project: memo), projects: $projects)
                     }
                     .onTapGesture {
                         selectedProject = memo

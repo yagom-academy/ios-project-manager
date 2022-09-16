@@ -15,6 +15,7 @@ struct TodoListAddView: View {
         self.viewModel = viewModel
         self._project = project
     }
+
     var body: some View {
         VStack {
             TodoListAddTitleView(viewModel: viewModel, projects: $project)
@@ -44,18 +45,17 @@ struct TodoListAddTitleView: View {
                 .font(.title)
             Spacer()
             Button(action: {
+                projects.append(Project(id: viewModel.id,
+                                        status: .todo,
+                                        title: viewModel.title,
+                                        detail: viewModel.detail,
+                                        date: viewModel.date))
                 dismiss()
             }, label: {
                 Text("Done")
                     .font(.title3)
                     .padding(10)
             })
-        }.onDisappear {
-            projects.append(Project(id: viewModel.id,
-                                    status: .todo,
-                                    title: viewModel.title,
-                                    detail: viewModel.detail,
-                                    date: viewModel.date))
         }
     }
 }
