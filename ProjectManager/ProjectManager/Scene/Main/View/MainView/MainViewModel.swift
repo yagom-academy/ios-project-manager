@@ -5,6 +5,9 @@
 //  Created by brad, bard on 2022/09/15.
 //
 
+import Foundation
+import UIKit
+
 class MainViewModel {
             
     // MARK: - Properties
@@ -119,5 +122,12 @@ class MainViewModel {
         case .done:
             doneContent.remove(at: index)
         }
+    }
+    
+    func move(project: ProjectType, in index: IndexPath, to anotherProject: ProjectType) {
+        let movingContent = searchContent(from: index.row, of: project)
+        
+        append(new: movingContent, to: anotherProject)
+        delete(from: index.row, of: project)
     }
 }

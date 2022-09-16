@@ -92,20 +92,19 @@ class ProjectTableView: UITableView {
         let todoAlertAction = UIAlertAction(title: Design.todoAlertActionTitle, style: .default) { [weak self] _ in
             guard let projectType = self?.projectType else { return }
             
-            self?.mainViewModel.append(new: self?.mainViewModel.searchContent(from: indexPath.row, of: projectType) ?? ToDoItem(), to: .todo)
-            self?.mainViewModel.delete(from: indexPath.row, of: projectType)
+            self?.mainViewModel.move(project: projectType, in: indexPath, to: .todo)
         }
+        
         let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) {  [weak self] _ in
             guard let projectType = self?.projectType else { return }
             
-            self?.mainViewModel.append(new: self?.mainViewModel.searchContent(from: indexPath.row, of: projectType) ?? ToDoItem(), to: .doing)
-            self?.mainViewModel.delete(from: indexPath.row, of: projectType)
+            self?.mainViewModel.move(project: projectType, in: indexPath, to: .doing)
         }
+        
         let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { [weak self] _ in
             guard let projectType = self?.projectType else { return }
             
-            self?.mainViewModel.append(new: self?.mainViewModel.searchContent(from: indexPath.row, of: projectType) ?? ToDoItem(), to: .done)
-            self?.mainViewModel.delete(from: indexPath.row, of: projectType)
+            self?.mainViewModel.move(project: projectType, in: indexPath, to: .done)
         }
         
         switch projectType {
@@ -173,9 +172,9 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] _, _, _ in
-            
             self?.mainViewModel.delete(from: indexPath.row, of: self?.projectType ?? .todo)
         }
+        
         deleteAction.backgroundColor = .red
         let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
         
