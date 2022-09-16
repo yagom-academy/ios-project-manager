@@ -14,6 +14,8 @@ class ProjectManagerViewModel {
     
     static let firestoreCollectionName = "todo_list"
     
+//    var provider: DataProvider
+    
     var allTodoList = BehaviorSubject<[Todo]>(value: [])
     var categorizedTodoList: [TodoStatus: Observable<[Todo]>] = [:]
     

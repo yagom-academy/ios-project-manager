@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B43EB27628D4917000BD01A7 /* TodoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43EB27528D4917000BD01A7 /* TodoProvider.swift */; };
 		B452F37228CA111300953775 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452F37128CA111300953775 /* Todo.swift */; };
 		B452F37428CA117F00953775 /* ProjectManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452F37328CA117F00953775 /* ProjectManagerViewModel.swift */; };
 		B452F37628CA12AD00953775 /* TodoStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452F37528CA12AD00953775 /* TodoStatus.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B43EB27528D4917000BD01A7 /* TodoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoProvider.swift; sourceTree = "<group>"; };
 		B452F37128CA111300953775 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		B452F37328CA117F00953775 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
 		B452F37528CA12AD00953775 /* TodoStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatus.swift; sourceTree = "<group>"; };
@@ -69,10 +71,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B452F37028CA110500953775 /* Model */ = {
+		B43EB27128D4901900BD01A7 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+				B452F3A428CA5E1F00953775 /* TodoDetailViewController.swift */,
+				B4A6E1A128C9C2A80017AC34 /* View */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		B43EB27428D4913600BD01A7 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				B452F37128CA111300953775 /* Todo.swift */,
+				B452F37928CA286A00953775 /* Enum */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		B452F37028CA110500953775 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B43EB27528D4917000BD01A7 /* TodoProvider.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -94,22 +115,6 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		B455973528CB500B00F65E0C /* TodoDetailView */ = {
-			isa = PBXGroup;
-			children = (
-				B452F3A428CA5E1F00953775 /* TodoDetailViewController.swift */,
-			);
-			path = TodoDetailView;
-			sourceTree = "<group>";
-		};
-		B455973628CB502000F65E0C /* SectionHeaderView */ = {
-			isa = PBXGroup;
-			children = (
-				B452F3A228CA49B800953775 /* TableSectionHeaderView.swift */,
-			);
-			path = SectionHeaderView;
-			sourceTree = "<group>";
-		};
 		B455973F28CBB4CE00F65E0C /* FirebaseManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,11 +134,9 @@
 		B4A6E1A128C9C2A80017AC34 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
 				B4A6E1B228C9CF940017AC34 /* ProjectManagerCollectionViewCell.swift */,
+				B452F3A228CA49B800953775 /* TableSectionHeaderView.swift */,
 				B452F37728CA228300953775 /* TodoListTableViewCell.swift */,
-				B455973628CB502000F65E0C /* SectionHeaderView */,
-				B455973528CB500B00F65E0C /* TodoDetailView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,10 +183,10 @@
 			children = (
 				B4A6E19D28C9BD7A0017AC34 /* .swiftlint.yml */,
 				B4A6E1A228C9C2BF0017AC34 /* App */,
-				B452F37928CA286A00953775 /* Enum */,
-				B452F37028CA110500953775 /* Model */,
+				B43EB27428D4913600BD01A7 /* Entities */,
+				B43EB27128D4901900BD01A7 /* Scene */,
 				B4A6E1AF28C9CB0F0017AC34 /* ViewModel */,
-				B4A6E1A128C9C2A80017AC34 /* View */,
+				B452F37028CA110500953775 /* Model */,
 				B452F3A628CA818100953775 /* Extension */,
 				B455973F28CBB4CE00F65E0C /* FirebaseManager */,
 			);
@@ -303,6 +306,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				B4A6E1B328C9CF940017AC34 /* ProjectManagerCollectionViewCell.swift in Sources */,
 				B452F3A528CA5E1F00953775 /* TodoDetailViewController.swift in Sources */,
+				B43EB27628D4917000BD01A7 /* TodoProvider.swift in Sources */,
 				B452F37628CA12AD00953775 /* TodoStatus.swift in Sources */,
 				B452F3A328CA49B800953775 /* TableSectionHeaderView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
