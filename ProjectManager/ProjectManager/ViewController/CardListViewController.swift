@@ -246,7 +246,7 @@ extension CardListViewController: UITableViewDelegate {
     }
 
     private func assignToDetailViewController(_ data: CardModel?) {
-        if let data {
+        if let data = data {
             self.coordinator?.presentDetailViewController(data)
         }
     }

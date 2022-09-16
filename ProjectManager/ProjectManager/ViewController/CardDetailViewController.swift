@@ -57,7 +57,7 @@ final class CardDetailViewController: UIViewController {
     }
 
     private func bindUI() {
-        guard let model else { return }
+        guard let model = model else { return }
 
         cardModalView.titleTextField.text = model.title
         cardModalView.descriptionTextView.text = model.description
@@ -104,7 +104,7 @@ final class CardDetailViewController: UIViewController {
     private func updateData() {
         guard let title = cardModalView.titleTextField.text,
               let description = cardModalView.descriptionTextView.text,
-              let model else { return }
+              let model = model else { return }
         let deadlineDate = cardModalView.datePicker.date
         let data = CardModel(id: model.id,
                              title: title,
