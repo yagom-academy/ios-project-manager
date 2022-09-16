@@ -26,7 +26,13 @@ final class ViewModel {
         body: String,
         date: Date
     ) {
-        let project = ProjectUnit(id: UUID(), title: title, body: body, section: "TODO", deadLine: date)
+        let project = ProjectUnit(
+            id: UUID(),
+            title: title,
+            body: body,
+            section: "TODO",
+            deadLine: date
+        )
         toDoData.value.append(project)
         try? databaseManager.create(data: project)
     }

@@ -27,16 +27,21 @@ final class ProjectManagerController: UIViewController {
 
     private let viewModel = ViewModel(databaseManager: MockLocalDatabaseManager())
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItems()
         configureUI()
+        configureDataSource()
+        configureObserver()
+    }
+
+    private func configureDataSource() {
         configureToDoViewDataSource()
         configureDoingViewDataSource()
         configureDoneViewDataSource()
-        configureObserver()
     }
-    
+
     private func configureObserver() {
         viewModel.toDoData.subscribe { [weak self] projectUnitArray in
             guard let self = self else {
@@ -114,9 +119,7 @@ final class ProjectManagerController: UIViewController {
     
     private func configureToDoViewDataSource() {
         let tableView = scheduleStackView.toDoListView
-
         tableView.register(cellType: ProjectManagerListCell.self)
-        
         tableView.delegate = self
         
         toDoViewdataSource = DataSource(
@@ -126,7 +129,6 @@ final class ProjectManagerController: UIViewController {
                 cell.titleLabel.text = item.title
                 cell.bodyLabel.text = item.body
                 cell.dateLabel.text = item.deadLine.localizedString
-
                 cell.separatorInset = .zero
                 
                 return cell
@@ -136,9 +138,7 @@ final class ProjectManagerController: UIViewController {
     
     private func configureDoingViewDataSource() {
         let tableView = scheduleStackView.doingListView
-
         tableView.register(cellType: ProjectManagerListCell.self)
-        
         tableView.delegate = self
         
         doingViewdataSource = DataSource(
@@ -148,7 +148,6 @@ final class ProjectManagerController: UIViewController {
                 cell.titleLabel.text = item.title
                 cell.bodyLabel.text = item.body
                 cell.dateLabel.text = item.deadLine.localizedString
-
                 cell.separatorInset = .zero
                 
                 return cell
@@ -158,9 +157,7 @@ final class ProjectManagerController: UIViewController {
     
     private func configureDoneViewDataSource() {
         let tableView = scheduleStackView.doneListView
-
         tableView.register(cellType: ProjectManagerListCell.self)
-        
         tableView.delegate = self
         
         doneViewdataSource = DataSource(
@@ -170,7 +167,6 @@ final class ProjectManagerController: UIViewController {
                 cell.titleLabel.text = item.title
                 cell.bodyLabel.text = item.body
                 cell.dateLabel.text = item.deadLine.localizedString
-
                 cell.separatorInset = .zero
                 
                 return cell
