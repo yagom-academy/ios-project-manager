@@ -76,14 +76,12 @@
 
 ## 📱 동작 화면
 
-|새 프로젝트 등록|테이블 뷰 간의 이동|
+|새 프로젝트 등록|프로젝트 수정|
 |:---:|:---:|
-|<image src = "https://i.imgur.com/9ZCPNtP.gif" >|<image src = "https://i.imgur.com/SBHEauJ.gif">|
-
-|스와이프 삭제|
-|:---:|
-|<img src = "https://i.imgur.com/WeBlTJH.gif">|
-
+|<image src = "https://i.imgur.com/9ZCPNtP.gif" >|<image src = "https://i.imgur.com/OTlllvG.gif">|
+|테이블 뷰 간의 이동|스와이프 삭제|
+|:---:|:---:|
+|<image src = "https://i.imgur.com/SBHEauJ.gif" >|<image src = "https://i.imgur.com/WeBlTJH.gif">|
 
 ## 💡 키워드
 - MVVM
