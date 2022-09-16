@@ -27,7 +27,7 @@
         <!--Project Manager-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainHomeViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainHomeViewController" id="BYZ-38-t0r" customClass="MainHomeViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -13,7 +13,6 @@
 		05A5774828CF0AE600E05133 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774728CF0AE600E05133 /* RealmDatabase.swift */; };
 		05A5774A28CF13A300E05133 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774928CF13A300E05133 /* TaskModel.swift */; };
 		05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774B28CF807A00E05133 /* TodoFormViewController.swift */; };
-		05A5775928CFC04F00E05133 /* TaskDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5775828CFC04F00E05133 /* TaskDataManager.swift */; };
 		05BAA00F28CE99680009BB06 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 05BAA00E28CE99680009BB06 /* .swiftlint.yml */; };
 		05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */; };
 		05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA128D445A100C7BA83 /* SendDelegate .swift */; };
@@ -34,7 +33,6 @@
 		05A5774728CF0AE600E05133 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
 		05A5774928CF13A300E05133 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		05A5774B28CF807A00E05133 /* TodoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormViewController.swift; sourceTree = "<group>"; };
-		05A5775828CFC04F00E05133 /* TaskDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataManager.swift; sourceTree = "<group>"; };
 		05BAA00E28CE99680009BB06 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		05D5CBA128D445A100C7BA83 /* SendDelegate .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SendDelegate .swift"; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 			children = (
 				05A5774328CF088A00E05133 /* DatabaseProtocol.swift */,
 				05A5774728CF0AE600E05133 /* RealmDatabase.swift */,
-				05A5775828CFC04F00E05133 /* TaskDataManager.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -333,7 +330,6 @@
 			files = (
 				05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainHomeViewController.swift in Sources */,
-				05A5775928CFC04F00E05133 /* TaskDataManager.swift in Sources */,
 				05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */,
 				05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */,
 				0578628828D03DEF003CD311 /* MainHomeViewModel.swift in Sources */,

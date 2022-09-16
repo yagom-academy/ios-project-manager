@@ -35,12 +35,20 @@ class TodoFormViewController: UIViewController {
             taskState: TaskState.todo
         )
 
-        TaskDataManager.shared.databaseManager.create(data: data)
-        notifyChangedModel()
+        notifyChangedModel(data: data)
     }
 
-    private func notifyChangedModel() {
-        NotificationCenter.default.post(name: NSNotification.Name("모델 리로드 예정"), object: nil)
+    private func notifyChangedModel(data: TaskModel) {
+        guard let storyboard = storyboard,
+              let mainHomeViewController = storyboard.instantiateViewController(
+                withIdentifier: MainHomeViewController.reuseIdentifier
+              ) as? MainHomeViewController else {
+            return
+        }
+
+        weak var sendDelegate: (SendDelegate)? = mainHomeViewController
+        sendDelegate?.sendData(data)
+
         dismiss(animated: true)
     }
 
@@ -96,8 +104,7 @@ class TodoFormViewController: UIViewController {
         data.taskDescription = descriptionTextView.text ?? ""
         data.taskDeadline = getCurrentDateTime()
 
-        TaskDataManager.shared.databaseManager.update(data: data)
-        notifyChangedModel()
+        notifyChangedModel(data: data)
     }
 
     @objc private func closeView() {

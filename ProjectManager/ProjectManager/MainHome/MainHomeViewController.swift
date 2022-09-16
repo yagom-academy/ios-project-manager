@@ -29,13 +29,6 @@ class MainHomeViewController: UIViewController {
         setUpTableViewCount()
         setUpTableViewDelegate()
         setUpTableViewDataSource()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(reloadModel),
-            name: NSNotification.Name("모델 리로드 예정"),
-            object: nil
-        )
     }
 
     private func setUpTableViewCount() {
@@ -56,17 +49,22 @@ class MainHomeViewController: UIViewController {
         doneTableView.delegate = self
     }
 
-    @objc private func reloadModel() {
-        viewModel.fetchDataList()
-        reloadTableView()
-    }
-
     private func reloadTableView() {
         todoTableView.reloadData()
         doingTableView.reloadData()
         doneTableView.reloadData()
 
         setUpTableViewCount()
+    }
+}
+
+extension MainHomeViewController: SendDelegate, ReuseIdentifying {
+    func sendData<T>(_ data: T) {
+        guard let data = data as? TaskModel else {
+            return
+        }
+
+        viewModel.changeList(data: data)
     }
 }
 
@@ -107,8 +105,8 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
 
-        weak var sendDataDelegate: (SendDelegate)? = todoFormViewController
-        sendDataDelegate?.sendData(viewModel.readData(index: indexPath.row))
+        weak var sendDelegate: (SendDelegate)? = todoFormViewController
+        sendDelegate?.sendData(viewModel.readData(index: indexPath.row))
         present(todoFormViewController, animated: true)
 
         tableView.deselectRow(at: indexPath, animated: false)

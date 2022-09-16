@@ -52,7 +52,7 @@ class RealmDatabase: DatabaseProtocol {
 
     func update(data: TaskModel) {
         guard let realm = realm,
-              let searchData = search(data: data) else {
+              let searchData = search(data: data) as? RealmDatabaseModel else {
             return
         }
 
@@ -70,7 +70,7 @@ class RealmDatabase: DatabaseProtocol {
 
     func delete(data: TaskModel) {
         guard let realm = realm,
-              let searchData = search(data: data) else {
+              let searchData = search(data: data) as? RealmDatabaseModel else {
             return
         }
 
@@ -97,7 +97,7 @@ class RealmDatabase: DatabaseProtocol {
         }
     }
 
-    private func search(data: TaskModel) -> RealmDatabaseModel? {
+    func search(data: TaskModel) -> AnyObject? {
         guard let realm = realm,
                 let id = data.id else {
             return nil
