@@ -86,14 +86,16 @@
 
 
 ## 💡 키워드
+- MVVM
+- ViewModel
+- DataBinding
 - JSON
-- TableView
+- UITableView
 - UITextView
-- Keyboard layout
-- CoreData
-- Migration
-- URLSession
-- Core Location    
+- UIPopoverPresentationController
+- UILongPressGestureRecognizer
+- UIViewController.modalPresentationStyle
+- Delegate
 
     
 ## 📚 참고문서
@@ -108,16 +110,11 @@
 
   
 ## 📝 기능설명
-- 작성한 일기장의 목록을 보여주는 Table View 구현
-- UITextView를 활용하여 일기장 작성기능 구현
-- Json Parsing을 통한 Cell과의 Data 연동
-- Notification Center를 활용하여 키보드가 작성중인 화면을 가리지 않도록 기능 구현
-- CoreData CRUD 
-- UITextView `Title`, `Body` 구분 로직 
-- TableView Swipe
-- UIAlertAction
-- Core Location 기능 구현
-- URLSession을 통한 Open API와의 데이터 송신
+- 작성한 할 일의 목록을 보여주는 Table View 구현
+- UITextField, UIDatePicker ,UITextView를 활용하여 할 일 작성기능 구현
+- MVVM을 통한 Model View ViewModel 구현 
+- UITableView Swipe
+- UILongPressGestureRecognizer를 통한 UIAlertControler 구현
     
 ## 🚀 TroubleShooting
     
