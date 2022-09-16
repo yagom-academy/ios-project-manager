@@ -61,8 +61,8 @@ struct TodoListEditTitleTextView: View {
         ZStack {
             Rectangle()
                 .fill(Color(.systemBackground))
-                .frame(width: 670, height: 60, alignment: .center)
-                .shadow(color: .gray, radius: 5, x: 10, y: 10)
+                .frame(width: 680, height: 60, alignment: .center)
+                .shadow(color: .gray, radius: 8, x: 0, y: 0)
             TextField("Title", text: $viewModel.title)
                 .padding()
                 .background(Color(.systemBackground))
@@ -89,8 +89,9 @@ struct TodoListEditDetailTextView: View {
     var body: some View {
         TextEditor(text: $viewModel.detail)
             .font(.body)
-            .shadow(color: .gray, radius: 5, x: 10, y: 10)
-            .padding()
+            .frame(width: 680, height: 530, alignment: .center)
+            .shadow(color: .gray, radius: 8, x: 0, y: 0)
+            .padding(12)
             .disableAutocorrection(true)
     }
 }

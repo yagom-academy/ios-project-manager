@@ -67,8 +67,8 @@ struct TodoListAddTitleTextView: View {
         ZStack {
             Rectangle()
                 .fill(Color(.systemBackground))
-                .frame(width: 670, height: 60, alignment: .center)
-                .shadow(color: .gray, radius: 5, x: 10, y: 10)
+                .frame(width: 680, height: 60, alignment: .center)
+                .shadow(color: .gray, radius: 8, x: 0, y: 0)
             TextField("Title", text: $viewModel.title)
                 .padding()
                 .background(Color(.systemBackground))
@@ -96,8 +96,8 @@ struct TodoListAddDetailTextView: View {
         ZStack {
             Rectangle()
                 .fill(Color(.systemBackground))
-                .frame(width: 550, height: 500, alignment: .center)
-                .shadow(color: .gray, radius: 5, x: 10, y: 10)
+                .frame(width: 680, height: 530, alignment: .center)
+                .shadow(color: .gray, radius: 8, x: 0, y: 0)
             if viewModel.detail.isEmpty {
                 TextEditor(text: $viewModel.placeholder)
                     .font(.body)
@@ -105,6 +105,7 @@ struct TodoListAddDetailTextView: View {
             }
             TextEditor(text: $viewModel.detail)
                 .font(.body)
+                .frame(width: 680, height: 530, alignment: .center)
                 .background(Color(.systemBackground))
                 .opacity(viewModel.detail.isEmpty ? 0.15 : 1)
                 .padding(12)
