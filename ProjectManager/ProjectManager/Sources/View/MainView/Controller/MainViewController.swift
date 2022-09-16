@@ -15,7 +15,7 @@ final class MainViewController: UIViewController {
     private lazy var mainView = MainView(frame: view.safeAreaLayoutGuide.layoutFrame)
     private let viewModel = ProjectTaskViewModel()
     private let disposedBag = DisposeBag()
-    private var longpressState: ProjetTaskState?
+    private var longpressState: ProjectTaskState?
     
     //MARK: - View Life Cycle
     
@@ -71,7 +71,7 @@ private extension MainViewController {
     //MARK: - View Changed Method
     
     func pushViewControllerWithNavigationController(
-        projectState: ProjetTaskState,
+        projectState: ProjectTaskState,
         viewModel: ProjectTaskViewModel
     ) {
         let todoAddViewController = TodoAddViewController()
@@ -157,7 +157,7 @@ private extension MainViewController {
         presentMoveAlert(at: taskState, id: cellID)
     }
     
-    func presentMoveAlert(at state: ProjetTaskState, id: UUID) {
+    func presentMoveAlert(at state: ProjectTaskState, id: UUID) {
         let moveAlertViewController = UIAlertController(
             title: nil,
             message: nil,
@@ -165,11 +165,11 @@ private extension MainViewController {
         )
         let targetState = state.moveUpperActionTarget()
         
-        let moveToUpperAction = UIAlertAction(title: "Move to \(targetState.upper)", style: .default) { (action) in
-            print("moveToUpperAction")
+        let moveToUpperAction = UIAlertAction(title: "Move to \(targetState.upper)", style: .default) { [weak self] (action) in
+            self?.viewModel.moveTask(to: targetState.upper, from: state, id: id)
         }
-        let moveToLowerAction = UIAlertAction(title: "Move to \(targetState.upper)", style: .default) { (action) in
-            print("moveToLowerAction")
+        let moveToLowerAction = UIAlertAction(title: "Move to \(targetState.lower)", style: .default) { [weak self] (action) in
+            self?.viewModel.moveTask(to: targetState.lower, from: state, id: id)
         }
         
         moveAlertViewController.addAction(moveToUpperAction)

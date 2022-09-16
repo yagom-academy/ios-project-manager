@@ -13,7 +13,7 @@ class TodoAddViewController: UIViewController {
     //MARK: - Dependancy Injection
     
     var isNewTask: Bool?
-    var state: ProjetTaskState?
+    var state: ProjectTaskState?
     var projectTask: ProjectTask? {
         didSet {
             configure()
@@ -94,7 +94,7 @@ private extension TodoAddViewController {
                 return
             }
             
-            viewModel?.createTask(to: extractedTask)
+            viewModel?.createTask(to: extractedTask, at: .TODO)
         } else {
             editButtonDidTapped()
         }

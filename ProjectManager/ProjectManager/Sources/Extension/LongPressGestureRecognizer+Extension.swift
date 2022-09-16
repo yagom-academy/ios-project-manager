@@ -8,6 +8,6 @@
 import UIKit
 
 class CustomLongPressGesture: UILongPressGestureRecognizer {
-    var taskState: ProjetTaskState?
+    var taskState: ProjectTaskState?
     var cellID: UUID?
 }

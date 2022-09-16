@@ -63,8 +63,8 @@ private extension MainView {
     }
     
     func setupListViewTitleLabel() {
-        todoListView.mainTitleLabel.text = ProjetTaskState.TODO.rawValue
-        doingListView.mainTitleLabel.text = ProjetTaskState.DOING.rawValue
-        doneListView.mainTitleLabel.text = ProjetTaskState.DONE.rawValue
+        todoListView.mainTitleLabel.text = ProjectTaskState.TODO.rawValue
+        doingListView.mainTitleLabel.text = ProjectTaskState.DOING.rawValue
+        doneListView.mainTitleLabel.text = ProjectTaskState.DONE.rawValue
     }
 }

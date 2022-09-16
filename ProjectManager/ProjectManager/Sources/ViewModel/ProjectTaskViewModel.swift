@@ -88,7 +88,7 @@ final class ProjectTaskViewModel {
 }
 
 extension ProjectTaskViewModel {
-    func deleteTask(at state: ProjetTaskState, what index: Int) {
+    func deleteTask(at state: ProjectTaskState, what index: Int) {
         var targetInstance: ProjectTask
         do {
             switch state {
@@ -107,7 +107,7 @@ extension ProjectTaskViewModel {
         }
     }
     
-    func updateTask(at state: ProjetTaskState, what target: ProjectTask) {
+    func updateTask(at state: ProjectTaskState, what target: ProjectTask) {
         do {
             switch state {
             case .TODO:
@@ -137,13 +137,53 @@ extension ProjectTaskViewModel {
         }
     }
     
-    func createTask(to task: ProjectTask) {
+    func createTask(to task: ProjectTask, at state: ProjectTaskState) {
         do {
-            var newTaskAppendedTasks = try todoTasks.value()
-            newTaskAppendedTasks.append(task)
-            todoTasks.onNext(newTaskAppendedTasks)
+            var newTaskAppendedTasks: [ProjectTask]
+            switch state {
+            case .TODO:
+                newTaskAppendedTasks = try todoTasks.value()
+                newTaskAppendedTasks.append(task)
+                todoTasks.onNext(newTaskAppendedTasks)
+            case .DOING:
+                newTaskAppendedTasks = try doingTasks.value()
+                newTaskAppendedTasks.append(task)
+                doingTasks.onNext(newTaskAppendedTasks)
+            case .DONE:
+                newTaskAppendedTasks = try doneTasks.value()
+                newTaskAppendedTasks.append(task)
+                doneTasks.onNext(newTaskAppendedTasks)
+            }
+            
         } catch {
             debugPrint("create error")
         }
+    }
+    
+    func moveTask(to: ProjectTaskState, from: ProjectTaskState, id: UUID) {
+        print(from)
+        print(to)
+        print(id)
+        var targetTask: ProjectTask?
+        do {
+            switch from {
+            case .TODO:
+                targetTask = try todoTasks.value().filter{ $0.id == id }.first
+                todoTasks.onNext(try todoTasks.value().filter{ $0.id != id })
+            case .DOING:
+                targetTask = try doingTasks.value().filter{ $0.id == id }.first
+                doingTasks.onNext(try doingTasks.value().filter{ $0.id != id })
+            case .DONE:
+                targetTask = try doneTasks.value().filter{ $0.id == id }.first
+                doneTasks.onNext(try doneTasks.value().filter{ $0.id != id })
+            }
+            guard let targetTask = targetTask else {
+                return
+            }
+            createTask(to: targetTask , at: to)
+        } catch {
+            debugPrint("move - delete error")
+        }
+        
     }
 }

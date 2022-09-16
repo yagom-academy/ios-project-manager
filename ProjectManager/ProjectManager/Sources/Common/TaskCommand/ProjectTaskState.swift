@@ -7,15 +7,15 @@
 
 import Foundation
 
-@frozen enum ProjetTaskState: String {
+@frozen enum ProjectTaskState: String {
     case TODO = "TODO"
     case DOING = "DOING"
     case DONE = "DONE"
     
-    func moveUpperActionTarget() -> (upper: ProjetTaskState, lower: ProjetTaskState) {
+    func moveUpperActionTarget() -> (upper: ProjectTaskState, lower: ProjectTaskState) {
         switch self {
         case .TODO:
-            return (.DOING, .DOING)
+            return (.DOING, .DONE)
         case .DOING:
             return (.TODO, .DONE)
         case .DONE:
