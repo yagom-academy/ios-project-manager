@@ -10,6 +10,7 @@ import SwiftUI
 struct TodoListView: View {
     
     @State var todoTasks: [Todo]
+    @State private var showingSheet = false
     
     var body: some View {
         VStack {
@@ -23,7 +24,13 @@ struct TodoListView: View {
                     todoTasks.remove(atOffsets: index)
                 }
             }
+            .onTapGesture {
+                showingSheet.toggle()
+            }
             .listStyle(.plain)
+            .sheet(isPresented: $showingSheet, content: {
+                TodoContentView(buttonType: "Edit")
+            })
         }
         .background(Color(UIColor.systemGray6))
         Divider()

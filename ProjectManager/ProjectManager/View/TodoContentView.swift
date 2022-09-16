@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct RegisterView: View {
+struct TodoContentView: View {
+    @State var buttonType: String
+    
     var body: some View {
         NavigationView {
             RegisterElementsView()
@@ -25,9 +27,9 @@ struct RegisterView: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
-                            print("Donebutton")
+                            print("buttonTapped")
                         }, label: {
-                            Text("Done")
+                            Text(buttonType)
                         })
                     }
                 }
@@ -75,6 +77,6 @@ struct RegisterElementsView: View {
 
 struct ResisterView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView()
+        TodoContentView(buttonType: "Done")
     }
 }

@@ -34,7 +34,7 @@ struct ContentView: View {
             .navigationBarColor(.systemGray5)
         }
         .sheet(isPresented: $showingSheet, content: {
-            RegisterView()
+            TodoContentView(buttonType: "Done")
         })
         .navigationViewStyle(.stack)
     }
