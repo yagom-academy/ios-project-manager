@@ -114,8 +114,8 @@ extension CardListTableViewCell {
     }
 
     @objc private func didTapTableViewCellLongPress(_ guesture: UILongPressGestureRecognizer) {
-        guard let coodinator,
-              let model else { return }
+        guard let coodinator = coodinator,
+              let model = model else { return }
 
         if guesture.state == .began {
             viewModel?.connectWithActionSheetForMoving(coordinator: coodinator,
