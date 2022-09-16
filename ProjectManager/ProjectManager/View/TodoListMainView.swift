@@ -55,6 +55,7 @@ struct TodoListMainView: View {
         @ObservedObject var viewModel: ProjectMainViewModel
         @State var selectedProject: Project?
         @Binding var projects: [Project]
+        @State var isPopover = false
 
         let title: String
         let count: Int
@@ -96,11 +97,25 @@ struct TodoListMainView: View {
                         Text(memo.detail!)
                         Text(memo.date!, formatter: dateFormatter)
                     }
+                    .onTapGesture {
+                        selectedProject = memo
+                    }
+                    .onLongPressGesture(minimumDuration: 1) {
+                        isPopover = true
+                    }
                     .sheet(item: $selectedProject) { memo in
                         TodoListEditView(viewModel: ProjectModalViewModel(project: memo), projects: $projects)
                     }
-                    .onTapGesture {
-                        selectedProject = memo
+                    .popover(isPresented: $isPopover, attachmentAnchor: .rect(.bounds), arrowEdge: .bottom) {
+                        VStack {
+                            Button("move to Doing") {
+                                selectedProject?.status = .doing
+                            }
+                            Divider()
+                            Button("move to Done") {
+                                selectedProject?.status = .done
+                            }
+                        }
                     }
                 }
             }
