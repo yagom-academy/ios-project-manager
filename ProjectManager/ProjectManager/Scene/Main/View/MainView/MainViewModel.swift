@@ -33,6 +33,8 @@ class MainViewModel: DataManagable {
     private var doingListener: (([ToDoItem]) -> Void)?
     private var doneListener: (([ToDoItem]) -> Void)?
 
+    // MARK: - Initializers
+
     init(_ todoContent: [ToDoItem] = [], _ doingContent: [ToDoItem] = [], _ doneContent: [ToDoItem] = []) {
         self.todoContent = todoContent
         self.doingContent = doingContent

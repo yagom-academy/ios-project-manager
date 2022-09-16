@@ -7,8 +7,6 @@
 
 import Foundation
 
-// MARK: - ItemListCatory
-
 struct ItemListCatory: Codable {
     
     // MARK: - Properties
@@ -31,8 +29,6 @@ struct ItemListCatory: Codable {
         case done = "DONE"
     }
 }
-
-// MARK: - ToDoItem
 
 struct ToDoItem: Codable {
     

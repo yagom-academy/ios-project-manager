@@ -11,7 +11,9 @@ class ProjectTableView: UITableView {
     
     // MARK: - Properties
     
-    private let mockToDoItemManger: MainViewModel
+    var presetDelegate: Presentable?
+    
+    private let mainViewModel: MainViewModel
     
     private let projectType: ProjectType
     
@@ -22,7 +24,7 @@ class ProjectTableView: UITableView {
     init(for projectType: ProjectType, with manager: MainViewModel) {
         self.projectType = projectType
         projectHeaderView = ProjectTableHeaderView(with: projectType)
-        mockToDoItemManger = manager
+        mainViewModel = manager
         super.init(frame: .zero, style: .plain)
         commonInit()
     }
@@ -30,7 +32,7 @@ class ProjectTableView: UITableView {
     required init?(coder: NSCoder) {
         projectType = .todo
         projectHeaderView = ProjectTableHeaderView(with: .todo)
-        mockToDoItemManger = MainViewModel()
+        mainViewModel = MainViewModel()
         super.init(coder: coder)
     }
     
@@ -40,6 +42,8 @@ class ProjectTableView: UITableView {
         register(ProjectTableViewCell.self, forCellReuseIdentifier: ProjectTableViewCell.identifier)
         layoutIfNeeded()
         setupIndexLabel()
+        setupDelegates()
+        setupGesture()
     }
     
     // MARK: - Functions
@@ -51,11 +55,125 @@ class ProjectTableView: UITableView {
     func setupIndexLabel() {
         switch projectType {
         case .todo:
-            projectHeaderView.setupIndexLabel(with: mockToDoItemManger.count(of: .todo))
+            projectHeaderView.setupIndexLabel(with: mainViewModel.count(of: .todo))
         case .doing:
-            projectHeaderView.setupIndexLabel(with: mockToDoItemManger.count(of: .doing))
+            projectHeaderView.setupIndexLabel(with: mainViewModel.count(of: .doing))
         case .done:
-            projectHeaderView.setupIndexLabel(with: mockToDoItemManger.count(of: .done))
+            projectHeaderView.setupIndexLabel(with: mainViewModel.count(of: .done))
         }
+    }
+    
+    private func setupDelegates() {
+        self.delegate = self
+        self.dataSource = self
+    }
+    
+    private func setupGesture() {
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self,
+                                                               action: #selector(didCellTappedLong(_:)))
+        self.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    // MARK: - objc Functions
+
+    @objc private func didCellTappedLong(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        guard gestureRecognizer.state == .began else { return }
+        
+        let alertController = UIAlertController()
+        
+        let touchPoint = gestureRecognizer.location(in: self)
+        
+        guard let indexPath = self.indexPathForRow(at: touchPoint),
+              let popoverController = alertController.popoverPresentationController
+        else { return }
+        
+        let todoAlertAction = UIAlertAction(title: Design.todoAlertActionTitle, style: .default) { [weak self] _ in
+            guard let projectType = self?.projectType else { return }
+            
+            self?.mainViewModel.append(new: self?.mainViewModel.searchContent(from: indexPath.row, of: projectType) ?? ToDoItem(), to: .todo)
+            self?.mainViewModel.delete(from: indexPath.row, of: projectType)
+        }
+        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) {  [weak self] _ in
+            guard let projectType = self?.projectType else { return }
+            
+            self?.mainViewModel.append(new: self?.mainViewModel.searchContent(from: indexPath.row, of: projectType) ?? ToDoItem(), to: .doing)
+            self?.mainViewModel.delete(from: indexPath.row, of: projectType)
+        }
+        let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { [weak self] _ in
+            guard let projectType = self?.projectType else { return }
+            
+            self?.mainViewModel.append(new: self?.mainViewModel.searchContent(from: indexPath.row, of: projectType) ?? ToDoItem(), to: .done)
+            self?.mainViewModel.delete(from: indexPath.row, of: projectType)
+        }
+        
+        switch projectType {
+        case .todo:
+            alertController.addAction(doingAlertAction)
+            alertController.addAction(doneAlertAction)
+        case .doing:
+            alertController.addAction(todoAlertAction)
+            alertController.addAction(doneAlertAction)
+        case .done:
+            alertController.addAction(todoAlertAction)
+            alertController.addAction(doingAlertAction)
+        }
+        
+        let cell = cellForRow(at: indexPath)
+        
+        popoverController.sourceView = cell
+        popoverController.sourceRect = cell?.bounds ?? Design.defaultRect
+        
+        presetDelegate?.presentAlert(alertController)
+    }
+    
+    // MARK: - Name Space
+    
+    private enum Design {
+        static let longTapDuration: TimeInterval = 1.5
+        static let todoAlertActionTitle = "Move to TODO"
+        static let doingAlertActionTitle = "Move to DOING"
+        static let doneAlertActionTitle = "Move to DONE"
+        static let defaultRect = CGRect(x: 0, y: 0, width: 50, height: 50)
+    }
+}
+
+extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return mainViewModel.count(of: projectType)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProjectTableViewCell.identifier, for: indexPath) as? ProjectTableViewCell
+        else { return UITableViewCell() }
+ 
+        cell.configure(data: mainViewModel.searchContent(from: indexPath.row, of: projectType))
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let toDoListDetailViewController = ProjectDetailViewController(with: tableView)
+        let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
+        
+        toDoListDetailViewController.modalPresentationStyle = .formSheet
+        
+        toDoListDetailViewController.loadData(of: mainViewModel.searchContent(from: indexPath.row, of: projectType))
+        
+        presetDelegate?.presentDetail(navigationController)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] _, _, _ in
+            
+            self?.mainViewModel.delete(from: indexPath.row, of: self?.projectType ?? .todo)
+        }
+        deleteAction.backgroundColor = .red
+        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
+        
+        return swipeAction
     }
 }
