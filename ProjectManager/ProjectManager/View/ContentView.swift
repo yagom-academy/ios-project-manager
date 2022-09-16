@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var showingSheet = false
+    
     var body: some View {
         NavigationView {
             HStack {
@@ -21,16 +24,18 @@ struct ContentView: View {
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("dddd")
+                        self.showingSheet.toggle()
                     } label: {
                         Image(systemName: "plus")
                     }
-
                 }
             })
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
         }
+        .sheet(isPresented: $showingSheet, content: {
+            RegisterView()
+        })
         .navigationViewStyle(.stack)
     }
 }
