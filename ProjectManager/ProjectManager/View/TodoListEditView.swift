@@ -9,35 +9,30 @@ import SwiftUI
 
 struct TodoListEditView: View {
     @StateObject var viewModel = ProjectModalViewModel()
+    @State var isDisabled = true
 
     var body: some View {
         VStack {
-            TodoListEditTitleView()
-            TodoListEditTitleTextView(viewModel: viewModel)
-            TodoListEditDatePickerView(viewModel: viewModel)
-            TodoListEditDetailTextView(viewModel: viewModel)
+            TodoListEditTitleView(isDisabled: $isDisabled)
+            TodoListEditTitleTextView(viewModel: viewModel, isDisabled: $isDisabled)
+            TodoListEditDatePickerView(viewModel: viewModel, isDisabled: $isDisabled)
+            TodoListEditDetailTextView(viewModel: viewModel, isDisabled: $isDisabled)
         }
     }
 }
 
 struct TodoListEditTitleView: View {
+    @Binding var isDisabled: Bool
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
         HStack {
             Button(action: {
-                dismiss()
+                isDisabled = false
             }, label: {
                 Text("Edit")
                     .font(.title3)
             })
-            //            .onDisappear {
-            //                project = [Project(id: viewModel.id,
-            //                                   status: viewModel.status,
-            //                                   title: viewModel.title,
-            //                                   detail: viewModel.detail,
-            //                                   date: viewModel.date)]
-            //            }
             .padding(10)
             Spacer()
             Text("Project Manager")
@@ -56,6 +51,7 @@ struct TodoListEditTitleView: View {
 
 struct TodoListEditTitleTextView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
+    @Binding var isDisabled: Bool
 
     var body: some View {
         ZStack {
@@ -68,11 +64,13 @@ struct TodoListEditTitleTextView: View {
                 .background(Color(.systemBackground))
                 .padding(12)
         }
+        .disabled(isDisabled)
     }
 }
 
 struct TodoListEditDatePickerView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
+    @Binding var isDisabled: Bool
 
     var body: some View {
         DatePicker("",
@@ -80,11 +78,13 @@ struct TodoListEditDatePickerView: View {
                    displayedComponents: .date)
         .datePickerStyle(WheelDatePickerStyle())
         .labelsHidden()
+        .disabled(isDisabled)
     }
 }
 
 struct TodoListEditDetailTextView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
+    @Binding var isDisabled: Bool
 
     var body: some View {
         TextEditor(text: $viewModel.detail)
@@ -93,5 +93,6 @@ struct TodoListEditDetailTextView: View {
             .shadow(color: .gray, radius: 8, x: 0, y: 0)
             .padding(12)
             .disableAutocorrection(true)
+            .disabled(isDisabled)
     }
 }
