@@ -24,6 +24,17 @@ class WorkViewModel {
         return stateWorks[index]
     }
     
+    func editWork(_ work: Work, newWork: Work) {
+        works.map {
+            $0.map {
+                return $0.id == work.id ? newWork : $0
+            }
+        }.observe(on: MainScheduler.asyncInstance)
+        .take(1)
+        .bind(to: works)
+        .disposed(by: disposeBag)
+    }
+    
     func deleteWork(_ work: Work) {
         works.map {
             $0.filter { $0.id != work.id }
@@ -35,19 +46,14 @@ class WorkViewModel {
     }
     
     func chnageWorkState(_ work: Work, to state: WorkState) {
+        deleteWork(work)
+
+        let changedWork = Work(id: work.id,
+                               title: work.title,
+                               content: work.content,
+                               deadline: work.deadline,
+                               state: state)
         
-        works.map {
-            $0.map {
-                if $0.id == work.id {
-                    return Work(id: $0.id, title: $0.title, content: $0.content, deadline: $0.deadline, state: state)
-                } else {
-                    return $0
-                }
-            }
-        }
-        .take(1)
-        .observe(on: MainScheduler.instance)
-        .bind(to: works)
-        .disposed(by: disposeBag)
+        works.accept(works.value + [changedWork])
     }
 }

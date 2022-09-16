@@ -76,27 +76,16 @@ final class ManageWorkViewController: UIViewController {
 
             viewModel.works.accept([newWork] + viewModel.works.value)
         case .edit:
-            editWork(viewModel)
+            guard let work = work,
+                  let newWork = self.workManageView.createNewWork(id: work.id, state: work.state) else { return }
+
+            viewModel.editWork(work, newWork: newWork)
         }
         
         self.dismiss(animated: true)
     }
     
-    // MARK: - Methods
-    private func editWork(_ viewModel: WorkViewModel) {
-        guard let work = work,
-              let newWork = self.workManageView.createNewWork(id: work.id, state: work.state) else { return }
-
-        viewModel.works.map {
-            $0.map {
-                return $0.id == work.id ? newWork : $0
-            }
-        }.observe(on: MainScheduler.asyncInstance)
-        .take(1)
-        .bind(to: viewModel.works)
-        .disposed(by: disposeBag)
-    }
-    
+    // MARK: - Methods    
     func configureAddMode(_ viewModel: WorkViewModel) {
         self.viewModel = viewModel
         viewMode = .add
