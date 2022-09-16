@@ -9,7 +9,7 @@ import CoreData
 
 final class LocalDatabaseManager: DatabaseLogic {
     lazy private var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "ProjectUnit")
+        let container = NSPersistentContainer(name: "ProjectManager")
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")

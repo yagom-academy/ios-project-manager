@@ -24,7 +24,6 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "제목입니다"
         label.numberOfLines = 1
         label.font = .preferredFont(forTextStyle: .title3)
         
@@ -34,13 +33,6 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     var bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = """
-            바디입니다
-            바디입니다
-            바디입니다
-            바디입니다
-            바디입니다
-            """
         label.numberOfLines = 3
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .gray
