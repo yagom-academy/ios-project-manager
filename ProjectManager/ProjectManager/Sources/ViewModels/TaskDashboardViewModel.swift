@@ -9,21 +9,24 @@ import Foundation
 
 class TaskDashboardViewModel: ObservableObject {
     
-    @Published var tasks: [Task] = [
+    @Published var todoTasks: [Task] = [
+        //TODO: 더미데이터 추후 삭제
         Task(title: "Title 1", description: "Description 1", dueDate: Date.now, status: .todo),
-        Task(title: "Title 2", description: "Description 2", dueDate: Date.now, status: .doing),
-        Task(title: "Title 3", description: "Description 3", dueDate: Date.now, status: .done)
+        Task(title: "Title 2", description: "Description 2", dueDate: Date.now, status: .todo),
+        Task(title: "Title 3", description: "Description 3", dueDate: Date.now, status: .todo)
     ]
     
-    var todo: [Task] {
-        tasks.filter { $0.status == .todo }
-    }
+    @Published var doingTasks: [Task] = [
+        //TODO: 더미데이터 추후 삭제
+        Task(title: "Title 1", description: "Description 1", dueDate: Date.now, status: .doing),
+        Task(title: "Title 2", description: "Description 2", dueDate: Date.now, status: .doing),
+        Task(title: "Title 3", description: "Description 3", dueDate: Date.now, status: .doing)
+    ]
     
-    var doing: [Task] {
-        tasks.filter { $0.status == .doing }
-    }
-    
-    var done: [Task] {
-        tasks.filter { $0.status == .done }
-    }
+    @Published var doneTasks: [Task] = [
+        //TODO: 더미데이터 추후 삭제
+        Task(title: "Title 1", description: "Description 1", dueDate: Date.now, status: .done),
+        Task(title: "Title 2", description: "Description 2", dueDate: Date.now, status: .done),
+        Task(title: "Title 3", description: "Description 3", dueDate: Date.now, status: .done)
+    ]
 }

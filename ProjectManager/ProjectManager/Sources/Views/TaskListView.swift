@@ -9,19 +9,7 @@ import SwiftUI
 
 struct TaskListView: View {
     
-    @StateObject var taskDashboardViewModel = TaskDashboardViewModel()
-    
-    var statusForQuery: Status
-    var tasks: [Task] {
-        switch statusForQuery {
-        case .todo:
-            return taskDashboardViewModel.todo
-        case .doing:
-            return taskDashboardViewModel.doing
-        case .done:
-            return taskDashboardViewModel.done
-        }
-    }
+    @Binding var tasks: [Task]
     
     var body: some View {
         List {
@@ -33,15 +21,10 @@ struct TaskListView: View {
                 .listRowSeparator(.hidden)
                 //TODO: 높이가 description의 높이에 따라 유동적으로 변하도록 수정 (최대 3줄)
                 //FIXME: List 사이의 공간이 하얗게 보이는 문제 발생
+            }.onDelete { indexSet in
+                tasks.remove(atOffsets: indexSet)
             }
         }
-    }
-}
-
-struct TaskListView_Previews: PreviewProvider {
-    static var previews: some View {
-        HStack {
-            TaskListView(statusForQuery: .todo)
-        }
+        .listStyle(.plain)
     }
 }

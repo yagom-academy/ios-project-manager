@@ -9,11 +9,13 @@ import SwiftUI
 
 struct TaskDashboardView: View {
     
+    @StateObject var taskDashboardViewModel = TaskDashboardViewModel()
+    
     var body: some View {
         HStack {
-            TaskListView(statusForQuery: .todo)
-            TaskListView(statusForQuery: .doing)
-            TaskListView(statusForQuery: .done)
+            TaskListView(tasks: $taskDashboardViewModel.todoTasks)
+            TaskListView(tasks: $taskDashboardViewModel.doingTasks)
+            TaskListView(tasks: $taskDashboardViewModel.doneTasks)
         }
     }
 }
