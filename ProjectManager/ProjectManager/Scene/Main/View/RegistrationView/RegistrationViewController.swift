@@ -42,7 +42,8 @@ final class RegistrationViewController: UIViewController {
     private func setupNavigationController() {
         navigationItem.title = Design.navigationTitle
         navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Design.navigationTitleFontSize, weight: .bold)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Design.navigationTitleFontSize,
+                                                           weight: .bold)
         ]
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.9488992095, green: 0.9492433667, blue: 0.9632378221, alpha: 1)
         
@@ -73,7 +74,7 @@ final class RegistrationViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didDoneButtonTapped() {
-        delegate?.sendData(of: toDoComponentsView.fetchData())
+        delegate?.sendData(of: toDoComponentsView.fetchItem())
         dismissViewController()
     }
     

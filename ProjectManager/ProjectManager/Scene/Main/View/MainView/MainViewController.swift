@@ -10,11 +10,11 @@ final class MainViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let mainViewModel = MainViewModel()
+    private let toDoViewModel = ToDoViewModel()
     
-    private lazy var toDoListTableView = ProjectTableView(for: .todo, with: mainViewModel)
-    private lazy var doingListTableView = ProjectTableView(for: .doing, with: mainViewModel)
-    private lazy var doneListTableView = ProjectTableView(for: .done, with: mainViewModel)
+    private lazy var toDoListTableView = ProjectTableView(for: .todo, with: toDoViewModel)
+    private lazy var doingListTableView = ProjectTableView(for: .doing, with: toDoViewModel)
+    private lazy var doneListTableView = ProjectTableView(for: .done, with: toDoViewModel)
     
     private var newItem: ToDoItem?
     
@@ -47,17 +47,17 @@ final class MainViewController: UIViewController {
     }
     
     private func setupSubscripting() {
-        mainViewModel.todoSubscripting { [weak self] _ in
+        toDoViewModel.todoSubscripting { [weak self] _ in
             self?.toDoListTableView.reloadData()
             self?.toDoListTableView.setupIndexLabel()
         }
         
-        mainViewModel.doingSubscripting { [weak self] _ in
+        toDoViewModel.doingSubscripting { [weak self] _ in
             self?.doingListTableView.reloadData()
             self?.doingListTableView.setupIndexLabel()
         }
         
-        mainViewModel.doneSubscripting { [weak self] _ in
+        toDoViewModel.doneSubscripting { [weak self] _ in
             self?.doneListTableView.reloadData()
             self?.doneListTableView.setupIndexLabel()
         }
@@ -136,7 +136,7 @@ final class MainViewController: UIViewController {
 extension MainViewController: DataSenable {
     func sendData(of item: ToDoItem) {
         newItem = item
-        mainViewModel.append(new: newItem ?? ToDoItem(), to: .todo)
+        toDoViewModel.append(new: newItem ?? ToDoItem(), to: .todo)
     }
 }
 

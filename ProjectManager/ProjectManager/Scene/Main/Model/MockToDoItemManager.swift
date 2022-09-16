@@ -8,7 +8,7 @@
 import Foundation
 
 final class MockToDoItemManager {
-
+    
     // MARK: - Properties
 
     private var mockToDoItemContent = [ToDoItem]()
@@ -32,8 +32,4 @@ final class MockToDoItemManager {
     private enum Design {
         static let jsonName = "MockData"
     }
-}
-
-extension MockToDoItemManager: DataManagable {
-    func fetchData() { }
 }

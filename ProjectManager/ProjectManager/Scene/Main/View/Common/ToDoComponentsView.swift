@@ -77,7 +77,8 @@ class ToDoComponentsView: UIView {
     
     // MARK: - Functions
     
-    func fetchData() -> ToDoItem {
+    func fetchItem() -> ToDoItem {
+        
         return ToDoItem(title: titleTextView.text ?? "",
                         description: descriptionTextView.text ?? "",
                         timeLimit: timeLimitDatePicker.date)
@@ -104,10 +105,10 @@ class ToDoComponentsView: UIView {
     
     private func setupStackViewLayout() {
         NSLayoutConstraint.activate([
-            titleView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             titleView.bottomAnchor.constraint(equalTo: timeLimitDatePicker.topAnchor, constant: -20),
-            titleView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            titleView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            titleView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            titleView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
@@ -120,15 +121,15 @@ class ToDoComponentsView: UIView {
         NSLayoutConstraint.activate([
             timeLimitDatePicker.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
             timeLimitDatePicker.bottomAnchor.constraint(equalTo: descriptionView.topAnchor, constant: -20),
-            timeLimitDatePicker.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            timeLimitDatePicker.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            timeLimitDatePicker.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            timeLimitDatePicker.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
             descriptionView.topAnchor.constraint(equalTo: timeLimitDatePicker.bottomAnchor, constant: 20),
-            descriptionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            descriptionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            descriptionView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            descriptionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            descriptionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            descriptionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([

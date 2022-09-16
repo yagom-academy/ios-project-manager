@@ -28,7 +28,7 @@ final class ProjectDetailViewController: UIViewController {
     init(with tableView: UITableView) {
         self.tableView = tableView
         super.init(nibName: nil, bundle: nil)
-        guard let tableView = self.tableView as? ProjectTableView else { return }
+        guard let tableView = tableView as? ProjectTableView else { return }
         navigationItem.title = tableView.getTitle()
     }
     
@@ -51,7 +51,7 @@ final class ProjectDetailViewController: UIViewController {
     }
     
     private func setupView() {
-        self.view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
     }
     
     private func setupSubviews() {
@@ -91,7 +91,7 @@ final class ProjectDetailViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didEditButtonTapped() {
-        delegate?.sendData(of: toDoComponentsView.fetchData())
+        delegate?.sendData(of: toDoComponentsView.fetchItem())
         dismissViewController()
     }
     

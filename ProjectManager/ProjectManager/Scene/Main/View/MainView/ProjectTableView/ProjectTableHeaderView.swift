@@ -57,13 +57,13 @@ class ProjectTableHeaderView: UIView {
     }
     
     private func setupViewComponents() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = .systemGray5
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .systemGray5
     }
     
     private func setupSubviews() {
         [titleLabel, indexLabel]
-            .forEach { self.addSubview($0) }
+            .forEach { addSubview($0) }
     }
     
     private func setupConstraints() {

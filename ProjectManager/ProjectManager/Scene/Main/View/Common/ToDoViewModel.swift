@@ -1,18 +1,17 @@
 //
-//  MainViewModel.swift
+//  ToDoViewModel.swift
 //  ProjectManager
 //
 //  Created by brad, bard on 2022/09/15.
 //
 
 import Foundation
-import UIKit
 
-class MainViewModel {
+class ToDoViewModel {
             
     // MARK: - Properties
 
-    private let mockToDoItemManager = MockToDoItemManager()
+    private let itemManager = MockToDoItemManager()
 
     private var todoContent: [ToDoItem] {
         didSet {
@@ -62,11 +61,11 @@ class MainViewModel {
     }
     
     func fetchData() {
-        let mockItem = mockToDoItemManager.loadData()
+        let item = itemManager.loadData()
         
-        todoContent = mockItem.todo
-        doingContent = mockItem.doing
-        doneContent = mockItem.done
+        todoContent = item.todo
+        doingContent = item.doing
+        doneContent = item.done
     }
     
     func count(of type: ProjectType) -> Int {
