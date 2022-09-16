@@ -2,7 +2,7 @@
 //  ChangeWorkStateViewController.swift
 //  ProjectManager
 //
-//  Created by 김주영 on 2022/09/16.
+//  Created by Judy on 2022/09/16.
 //
 
 import UIKit
@@ -74,18 +74,21 @@ class ChangeWorkStateViewController: UIViewController {
     
     private func bindButtonTap(work: Work, viewModel: WorkViewModel) {
         moveTodoButton.rx.tap
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: {
                 viewModel.chnageWorkState(work, to: .todo)
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         moveDoingButton.rx.tap
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: {
                 viewModel.chnageWorkState(work, to: .doing)
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         moveDoneButton.rx.tap
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: {
                 viewModel.chnageWorkState(work, to: .done)
                 self.dismiss(animated: true)
