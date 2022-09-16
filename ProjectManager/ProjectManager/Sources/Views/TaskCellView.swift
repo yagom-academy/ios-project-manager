@@ -18,9 +18,11 @@ struct TaskCellView: View {
             VStack(alignment: .leading) {
                 Text(task.title)
                     .font(.headline)
+                    .lineLimit(1)
                 
                 Text(task.description)
                     .foregroundColor(.gray)
+                    .lineLimit(3)
                 
                 Text(task.dueDate.localizedFormat())
             }
