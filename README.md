@@ -11,12 +11,10 @@
 ## 📑 목차
 
 - [⏱ TimeLine](#-TimeLine)
-- [💡 키워드](#-키워드)
 - [🤔 핵심경험](#-핵심경험)
 - [🗂 폴더 구조](#-폴더-구조)
 - [📝 기능설명](#-기능설명)
 - [🚀 TroubleShooting](#-TroubleShooting)
-- [📚 참고문서](#-참고문서)
 
 ## ⏱ TimeLine
 
