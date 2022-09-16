@@ -13,7 +13,7 @@ struct Project: Identifiable {
     var title: String?
     var detail: String?
     var date: Date?
-    var placeholder = "내용을 입력하세요(글자수는 1000자로 제한합니다"
+    var placeholder = "내용을 입력하세요. (글자수는 1000자로 제한합니다)"
 }
 
 enum Status: String, CaseIterable {

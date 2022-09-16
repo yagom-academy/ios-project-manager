@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TodoListMainView: View {
     @StateObject var viewModel = ProjectMainViewModel()
+
     var body: some View {
         VStack {
             ProjectTitleView(model: $viewModel.model)
@@ -41,7 +42,7 @@ struct TodoListMainView: View {
                         Image(systemName: "plus")
                     })
                     .sheet(isPresented: self.$showModal, content: {
-                        TodoListAddView(project: $model)
+                        TodoListAddView(viewModel: ProjectModalViewModel(project: Project()), project: $model)
                     })
                     .font(.title)
                     .padding(10)
@@ -52,6 +53,7 @@ struct TodoListMainView: View {
 
     struct VStackView: View {
         @ObservedObject var viewModel: ProjectMainViewModel
+        @State var selectedProject: Project?
 
         let title: String
         let count: Int
@@ -93,17 +95,16 @@ struct TodoListMainView: View {
                         Text(memo.detail!)
                         Text(memo.date!, formatter: dateFormatter)
                     }
+                    .sheet(item: $selectedProject) { memo in
+                        TodoListEditView(viewModel: ProjectModalViewModel(project: memo))
+                    }
+                    .onTapGesture {
+                        selectedProject = memo
+                    }
                 }
             }
             .background(Color(UIColor.systemGray5))
             Divider()
-        }
-    }
-
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            TodoListMainView(viewModel: ProjectMainViewModel())
-                .previewInterfaceOrientation(.landscapeLeft)
         }
     }
 }

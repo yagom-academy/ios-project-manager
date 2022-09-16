@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct TodoListAddView: View {
-    @StateObject var viewModel = ProjectAddViewModel()
+    @ObservedObject var viewModel: ProjectModalViewModel
     @Binding var project: [Project]
+
+    init(viewModel: ProjectModalViewModel, project: Binding<[Project]>) {
+        self.viewModel = viewModel
+        self._project = project
+    }
     var body: some View {
         VStack {
-            TodoListAddTitleView(project: $project, viewModel: viewModel)
+            TodoListAddTitleView(viewModel: viewModel, projects: $project)
             TodoListAddTitleTextView(viewModel: viewModel)
             TodoListAddDatePickerView(viewModel: viewModel)
             TodoListAddDetailTextView(viewModel: viewModel)
@@ -21,9 +26,10 @@ struct TodoListAddView: View {
 }
 
 struct TodoListAddTitleView: View {
-    @Binding var project: [Project]
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: ProjectAddViewModel
+    @ObservedObject var viewModel: ProjectModalViewModel
+    @Binding var projects: [Project]
+
     var body: some View {
         HStack {
             Button(action: {
@@ -45,13 +51,34 @@ struct TodoListAddTitleView: View {
                     .padding(10)
             })
         }.onDisappear {
-            project.append(Project(id: viewModel.id, status: .todo, title: viewModel.title, detail: viewModel.detail, date: viewModel.date))
+            projects.append(Project(id: viewModel.id,
+                                    status: .todo,
+                                    title: viewModel.title,
+                                    detail: viewModel.detail,
+                                    date: viewModel.date))
+        }
+    }
+}
+
+struct TodoListAddTitleTextView: View {
+    @ObservedObject var viewModel: ProjectModalViewModel
+
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .fill(Color(.systemBackground))
+                .frame(width: 670, height: 60, alignment: .center)
+                .shadow(color: .gray, radius: 5, x: 10, y: 10)
+            TextField("Title", text: $viewModel.title)
+                .padding()
+                .background(Color(.systemBackground))
+                .padding(12)
         }
     }
 }
 
 struct TodoListAddDatePickerView: View {
-    @ObservedObject var viewModel: ProjectAddViewModel
+    @ObservedObject var viewModel: ProjectModalViewModel
 
     var body: some View {
         DatePicker("",
@@ -63,40 +90,25 @@ struct TodoListAddDatePickerView: View {
 }
 
 struct TodoListAddDetailTextView: View {
-    @ObservedObject var viewModel: ProjectAddViewModel
-
-    var body: some View {
-
-        ZStack {
-            if viewModel.detail.isEmpty {
-                TextEditor(text: $viewModel.placeholder)
-                    .font(.body)
-                    .disabled(true)
-                    .padding()
-            }
-            TextEditor(text: $viewModel.detail)
-                .font(.body)
-                .opacity(viewModel.detail.isEmpty ? 0.25 : 1)
-                .padding()
-                .disableAutocorrection(true)
-        }
-    }
-}
-
-struct TodoListAddTitleTextView: View {
-    @ObservedObject var viewModel: ProjectAddViewModel
+    @ObservedObject var viewModel: ProjectModalViewModel
 
     var body: some View {
         ZStack {
             Rectangle()
                 .fill(Color(.systemBackground))
-                .frame(width: 670, height: 60, alignment: .center)
+                .frame(width: 550, height: 500, alignment: .center)
                 .shadow(color: .gray, radius: 5, x: 10, y: 10)
-            TextField("Title", text: $viewModel.title)
-                .padding()
-                .frame(width: 670, height: 60, alignment: .center)
+            if viewModel.detail.isEmpty {
+                TextEditor(text: $viewModel.placeholder)
+                    .font(.body)
+                    .padding()
+            }
+            TextEditor(text: $viewModel.detail)
+                .font(.body)
                 .background(Color(.systemBackground))
+                .opacity(viewModel.detail.isEmpty ? 0.15 : 1)
                 .padding(12)
+                .disableAutocorrection(true)
         }
     }
 }

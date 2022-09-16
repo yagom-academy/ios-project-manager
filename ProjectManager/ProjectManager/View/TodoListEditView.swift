@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct TodoListEditView: View {
+    @StateObject var viewModel = ProjectModalViewModel()
+
     var body: some View {
         VStack {
             TodoListEditTitleView()
-            TodoListEditTitleTextView()
-            TodoListEditDatePickerView()
-            TodoListEditDetailTextView()
+            TodoListEditTitleTextView(viewModel: viewModel)
+            TodoListEditDatePickerView(viewModel: viewModel)
+            TodoListEditDetailTextView(viewModel: viewModel)
         }
     }
 }
@@ -29,6 +31,13 @@ struct TodoListEditTitleView: View {
                 Text("Edit")
                     .font(.title3)
             })
+            //            .onDisappear {
+            //                project = [Project(id: viewModel.id,
+            //                                   status: viewModel.status,
+            //                                   title: viewModel.title,
+            //                                   detail: viewModel.detail,
+            //                                   date: viewModel.date)]
+            //            }
             .padding(10)
             Spacer()
             Text("Project Manager")
@@ -46,23 +55,28 @@ struct TodoListEditTitleView: View {
 }
 
 struct TodoListEditTitleTextView: View {
-    @State var title: String = ""
+    @ObservedObject var viewModel: ProjectModalViewModel
 
     var body: some View {
-        TextField("Title", text: $title)
-            .padding()
-            .background(Color(.systemBackground))
-            .shadow(color: .gray, radius: 5, x: 10, y: 10)
-            .padding(12)
+        ZStack {
+            Rectangle()
+                .fill(Color(.systemBackground))
+                .frame(width: 670, height: 60, alignment: .center)
+                .shadow(color: .gray, radius: 5, x: 10, y: 10)
+            TextField("Title", text: $viewModel.title)
+                .padding()
+                .background(Color(.systemBackground))
+                .padding(12)
+        }
     }
 }
 
 struct TodoListEditDatePickerView: View {
-    @State var date = Date()
+    @ObservedObject var viewModel: ProjectModalViewModel
 
     var body: some View {
         DatePicker("",
-                   selection: $date,
+                   selection: $viewModel.date,
                    displayedComponents: .date)
         .datePickerStyle(WheelDatePickerStyle())
         .labelsHidden()
@@ -70,23 +84,13 @@ struct TodoListEditDatePickerView: View {
 }
 
 struct TodoListEditDetailTextView: View {
-    @State var textString: String = ""
-    @State var placeHolder: String = "해당 투두리스트의 내용이 들어올 예정"
+    @ObservedObject var viewModel: ProjectModalViewModel
 
     var body: some View {
-
-        ZStack {
-            if self.textString.isEmpty {
-                TextEditor(text: $placeHolder)
-                    .font(.body)
-                    .disabled(true)
-                    .padding()
-            }
-            TextEditor(text: $textString)
-                .font(.body)
-                .opacity(self.textString.isEmpty ? 0.25 : 1)
-                .padding()
-                .disableAutocorrection(true)
-        }
+        TextEditor(text: $viewModel.detail)
+            .font(.body)
+            .shadow(color: .gray, radius: 5, x: 10, y: 10)
+            .padding()
+            .disableAutocorrection(true)
     }
 }
