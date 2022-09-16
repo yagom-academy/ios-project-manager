@@ -9,13 +9,15 @@ import UIKit
 
 class ProjectTaskCell: UITableViewCell {
         
+    //MARK: - UI Properties
+    
     private let taskInfoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 5 
+        stackView.spacing = 5
         return stackView
     }()
     
@@ -43,6 +45,8 @@ class ProjectTaskCell: UITableViewCell {
         return label
     }()
     
+    //MARK: Table View Cell Initializer
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addUIComponents()
@@ -52,6 +56,12 @@ class ProjectTaskCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        self.deadLineLabel.textColor = .black
+    }
+    
+    //MARK: - Setup Cell
     
     private func setupLayout() {
         NSLayoutConstraint.activate([

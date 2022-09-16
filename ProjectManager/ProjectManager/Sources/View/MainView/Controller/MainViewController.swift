@@ -104,7 +104,7 @@ private extension MainViewController {
                     target: self,
                     action: #selector(self.longPressCell)
                 )
-                cell.addGestureRecognizer(longPressGestureRecognizer)
+                cell.configureDeadLineLabel(date: element.date)
                 cell.setupData(element)
             }
             .disposed(by: disposedBag)
@@ -113,6 +113,7 @@ private extension MainViewController {
             .observe(on: MainScheduler.instance)
             .bind(to: mainView.doneListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
                 (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
+                cell.configureDeadLineLabel(date: element.date)
                 cell.setupData(element)
             }
             .disposed(by: disposedBag)
@@ -121,6 +122,7 @@ private extension MainViewController {
             .observe(on: MainScheduler.instance)
             .bind(to: mainView.doingListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
                 (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
+                cell.configureDeadLineLabel(date: element.date)
                 cell.setupData(element)
             }
             .disposed(by: disposedBag)

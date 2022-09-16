@@ -132,7 +132,7 @@ private extension TodoAddViewController {
     }
     
     func extractCurrentTask() -> ProjectTask? {
-        if isNewTask ?? false {
+       if isNewTask != nil {
             return ProjectTask(
                 id: UUID(),
                 title: todoAddView.titleTextField.text ?? "",
@@ -140,9 +140,11 @@ private extension TodoAddViewController {
                 date: todoAddView.deadLineDatePicker.date
             )
         }
+        
         guard let projectTask = projectTask else {
             return nil
         }
+        
         return ProjectTask(
             id: projectTask.id,
             title: todoAddView.titleTextField.text ?? "",
