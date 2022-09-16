@@ -20,4 +20,25 @@ class WorkViewModel {
         doingWorks.accept(SampleData.doingWorks)
         doneWorks.accept(SampleData.doneWorks)
     }
+    
+    func deleteWork(_ work: Work) {
+        let works: BehaviorRelay<[Work]>
+        
+        switch work.state {
+        case .todo:
+            works = todoWorks
+        case .doing:
+            works = doingWorks
+        case .done:
+            works = doneWorks
+        }
+        
+        works.map {
+            $0.filter { $0.id != work.id }
+        }
+        .take(1)
+        .observe(on: MainScheduler.instance)
+        .bind(to: works)
+        .disposed(by: disposeBag)
+    }
 }

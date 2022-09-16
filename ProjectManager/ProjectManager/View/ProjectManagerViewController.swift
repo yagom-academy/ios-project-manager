@@ -89,7 +89,8 @@ final class ProjectManagerViewController: UIViewController {
     private func setupBinding() {
         bindWorkTableView()
         bindHeaderImage()
-        setWorkSelection()        
+        setWorkSelection()
+        setWorkDeletion()
     }
     
     private func bindWorkTableView() {
@@ -168,6 +169,29 @@ final class ProjectManagerViewController: UIViewController {
                 
                 self.showManageWorkView(self, work: self.viewModel.doneWorks.value[index.row])
                 self.doneTableView.deselectRow(at: index, animated: true)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func setWorkDeletion() {
+        todoTableView.rx.itemDeleted
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                self.viewModel.deleteWork(self.viewModel.todoWorks.value[index.row])
+            }).disposed(by: disposeBag)
+        
+        doingTableView.rx.itemDeleted
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                self.viewModel.deleteWork(self.viewModel.doingWorks.value[index.row])
+            }).disposed(by: disposeBag)
+        
+        doneTableView.rx.itemDeleted
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                self.viewModel.deleteWork(self.viewModel.doneWorks.value[index.row])
             }).disposed(by: disposeBag)
     }
     
