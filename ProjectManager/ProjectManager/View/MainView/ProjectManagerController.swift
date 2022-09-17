@@ -16,8 +16,6 @@ final class ProjectManagerController: UIViewController {
     typealias DataSource = UITableViewDiffableDataSource<Schedule, ProjectUnit>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Schedule, ProjectUnit>
     
-    private let scheduleStackView = ScheduleStackView()
-    
     private var toDoViewdataSource: DataSource?
     private var toDoViewSnapshot: Snapshot?
     private var doingViewdataSource: DataSource?
@@ -27,7 +25,8 @@ final class ProjectManagerController: UIViewController {
 
     private let viewModel = ViewModel(databaseManager: MockLocalDatabaseManager())
     
-
+    private let scheduleStackView = ScheduleStackView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItems()
@@ -126,9 +125,11 @@ final class ProjectManagerController: UIViewController {
             tableView: tableView,
             cellProvider: { tableView, indexPath, item in
                 let cell: ProjectManagerListCell = tableView.dequeueReusableCell(for: indexPath)
-                cell.titleLabel.text = item.title
-                cell.bodyLabel.text = item.body
-                cell.dateLabel.text = item.deadLine.localizedString
+                cell.setContents(
+                    title: item.title,
+                    body: item.body,
+                    date: item.deadLine.localizedString
+                )
                 cell.separatorInset = .zero
                 
                 return cell
@@ -145,9 +146,11 @@ final class ProjectManagerController: UIViewController {
             tableView: tableView,
             cellProvider: { tableView, indexPath, item in
                 let cell: ProjectManagerListCell = tableView.dequeueReusableCell(for: indexPath)
-                cell.titleLabel.text = item.title
-                cell.bodyLabel.text = item.body
-                cell.dateLabel.text = item.deadLine.localizedString
+                cell.setContents(
+                    title: item.title,
+                    body: item.body,
+                    date: item.deadLine.localizedString
+                )
                 cell.separatorInset = .zero
                 
                 return cell
@@ -164,9 +167,11 @@ final class ProjectManagerController: UIViewController {
             tableView: tableView,
             cellProvider: { tableView, indexPath, item in
                 let cell: ProjectManagerListCell = tableView.dequeueReusableCell(for: indexPath)
-                cell.titleLabel.text = item.title
-                cell.bodyLabel.text = item.body
-                cell.dateLabel.text = item.deadLine.localizedString
+                cell.setContents(
+                    title: item.title,
+                    body: item.body,
+                    date: item.deadLine.localizedString
+                )
                 cell.separatorInset = .zero
                 
                 return cell

@@ -21,7 +21,7 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
         return stackView
     }()
     
-    var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
@@ -30,7 +30,7 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
         return label
     }()
     
-    var bodyLabel: UILabel = {
+    private var bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
@@ -42,7 +42,7 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
         return label
     }()
     
-    var dateLabel: UILabel = {
+    private var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "날짜입니다"
@@ -61,6 +61,12 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func setContents(title: String, body: String, date: String?) {
+        titleLabel.text = title
+        bodyLabel.text = body
+        dateLabel.text = date
     }
     
     private func configureUI() {
