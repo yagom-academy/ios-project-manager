@@ -83,7 +83,7 @@ final class ListCell: UICollectionViewCell {
         ])
     }
     
-    func setup(with model: TodoModel) {
+    func setup(with model: Todo) {
         titleLabel.text = model.title
         bodyLabel.text = model.body
         dateLabel.text = model.date.timeIntervalSince1970.translateToDate()

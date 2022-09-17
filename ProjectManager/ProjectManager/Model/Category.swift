@@ -5,8 +5,8 @@
 //  Created by 이원빈 on 2022/09/09.
 //
 
-enum Category: String {
-    case todo = "TODO"
-    case doing = "DOING"
-    case done = "DONE"
+enum Category {
+    static let todo = "TODO"
+    static let doing = "DOING"
+    static let done = "DONE"
 }

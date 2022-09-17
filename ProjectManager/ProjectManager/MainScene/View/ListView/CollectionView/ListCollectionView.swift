@@ -12,12 +12,11 @@ final class ListCollectionView: UICollectionView {
     private enum Section {
         case main
     }
-    
-    private var todoDataSource: UICollectionViewDiffableDataSource<Section, TodoModel>?
-    private var snapshot = NSDiffableDataSourceSnapshot<Section, TodoModel>()
     private var viewModel: TodoListViewModel?
     private var currentLongPressedCell: ListCell?
-    var category: Category?
+    private var todoDataSource: UICollectionViewDiffableDataSource<Section, Todo>?
+    private var snapshot = NSDiffableDataSourceSnapshot<Section, Todo>()
+    var category: String
     
     // MARK: Initializer
     init(frame: CGRect, category: Category?, viewModel: TodoListViewModel?) {
@@ -70,7 +69,7 @@ extension ListCollectionView {
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
     
-    private func trailingSwipeActionConfigurationForListCellItem(_ item: TodoModel) -> UISwipeActionsConfiguration? {
+    private func trailingSwipeActionConfigurationForListCellItem(_ item: Todo) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "delete") { [weak self] (_, _, completion) in
             guard let self = self else {
                 completion(false)
@@ -83,12 +82,12 @@ extension ListCollectionView {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-    private func configureDataSource(with data: [TodoModel]?) {
+    private func configureDataSource(with data: [Todo]?) {
         guard let data = data else { return }
-        let cellRegistration = UICollectionView.CellRegistration<ListCell, TodoModel> { (cell, _, todo) in
+        let cellRegistration = UICollectionView.CellRegistration<ListCell, Todo> { (cell, _, todo) in
             cell.setup(with: todo)
         }
-        todoDataSource = UICollectionViewDiffableDataSource<Section, TodoModel>(collectionView: self) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: TodoModel) -> UICollectionViewCell? in
+        todoDataSource = UICollectionViewDiffableDataSource<Section, Todo>(collectionView: self) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Todo) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration,
                 for: indexPath,
@@ -100,17 +99,18 @@ extension ListCollectionView {
         todoDataSource?.apply(snapshot)
     }
     
-    func delete(_ item: [TodoModel]) {
-        snapshot.deleteItems(item)
+    func add(todo: Todo) {
+        snapshot.appendItems([todo], toSection: .main)
         todoDataSource?.apply(snapshot, animatingDifferences: true)
     }
     
-    func add(_ item: [TodoModel]) {
-        snapshot.appendItems(item)
+    func delete(todo: Todo) {
+        snapshot.deleteItems([todo])
         todoDataSource?.apply(snapshot, animatingDifferences: true)
+        viewModel.delete(todo: todo)
     }
     
-    func update(_ items: [TodoModel]) {
+    func update(_ items: [Todo]) {
         snapshot.deleteAllItems()
         snapshot.appendSections([.main])
         snapshot.appendItems(items, toSection: .main)
