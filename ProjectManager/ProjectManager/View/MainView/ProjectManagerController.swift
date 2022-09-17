@@ -7,7 +7,7 @@
 import UIKit
 
 final class ProjectManagerController: UIViewController {
-    enum Schedule {
+    enum Schedule: String {
         case todo
         case doing
         case done
@@ -188,17 +188,17 @@ extension ProjectManagerController: UITableViewDelegate {
         switch tableView {
         case scheduleStackView.toDoListView:
             let headerView = SectionHeaderView()
-            headerView.setupLabelText(section: "TODO", number: 2)
+            headerView.setupLabelText(section: Schedule.todo.rawValue.uppercased(), number: 2)
             
             return headerView
         case scheduleStackView.doingListView:
             let headerView = SectionHeaderView()
-            headerView.setupLabelText(section: "Doing", number: 0)
+            headerView.setupLabelText(section: Schedule.doing.rawValue.uppercased(), number: 0)
             
             return headerView
         case scheduleStackView.doneListView:
             let headerView = SectionHeaderView()
-            headerView.setupLabelText(section: "Done", number: 0)
+            headerView.setupLabelText(section: Schedule.done.rawValue.uppercased(), number: 0)
             
             return headerView
         default:
