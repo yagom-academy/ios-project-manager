@@ -7,11 +7,6 @@
 
 import UIKit
 
-struct Header {
-    let category: Category
-    let count: Int
-}
-
 final class HeaderView: UIView {
     // MARK: - UIComponents
     private let categoryLabel: UILabel = {
@@ -32,11 +27,14 @@ final class HeaderView: UIView {
         return label
     }()
     
+    private var viewModel: TodoListViewModel
+    
     // MARK: - Initializers
-    init(with model: Header) {
+    init(category: String, viewModel: TodoListViewModel) {
+        self.viewModel = viewModel
         super.init(frame: .zero)
-        setupInitialHeaderView()
-        setupData(with: model)
+        setupInitialHeaderView(with: category)
+        setupCountLabel(with: category)
     }
     
     required init?(coder: NSCoder) {
@@ -44,8 +42,9 @@ final class HeaderView: UIView {
     }
     
     // MARK: - Methods
-    private func setupInitialHeaderView() {
+    private func setupInitialHeaderView(with category: String) {
         backgroundColor = .systemGray6
+        categoryLabel.text = category
         addSubview(categoryLabel)
         addSubview(countLabel)
         NSLayoutConstraint.activate([
@@ -66,17 +65,17 @@ final class HeaderView: UIView {
         ])
     }
     
-    private func setupData(with model: Header) {
-        categoryLabel.text = model.category.rawValue
-        updateCount(number: model.count)
-    }
-    
-    func updateCount(number: Int) {
-        if number == 0 {
-            countLabel.text = ""
+    func setupCountLabel(with category: String) {
+        switch category {
+        case Category.todo:
+            countLabel.text = " \(viewModel.todoCount) "
+        case Category.doing:
+            countLabel.text = " \(viewModel.doingCount) "
+        case Category.done:
+            countLabel.text = " \(viewModel.doneCount) "
+        default:
             return
         }
-        countLabel.text = " \(number) "
     }
     
     override func draw(_ rect: CGRect) {

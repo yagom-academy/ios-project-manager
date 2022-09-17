@@ -8,24 +8,19 @@
 import UIKit
 
 final class ListView: UIView {
-    private var headerView: HeaderView?
-    private var collectionView: ListCollectionView?
-    private var viewModel: TodoListViewModel?
-    private var category: Category?
+    private var category: String
+    var headerView: HeaderView?
+    var collectionView: ListCollectionView?
+    var viewModel: TodoListViewModel
     
     // MARK: - Initializer
-    init(viewModel: TodoListViewModel?, category: Category) {
-        super.init(frame: .zero)
-        guard let viewModel = viewModel else { return }
-        
-        self.viewModel = viewModel
+    init(category: String, viewModel: TodoListViewModel) {
         self.category = category
+        self.viewModel = viewModel
+        super.init(frame: .zero)
         setupInitialView()
         setupHeaderView(category: category)
-        setupCollectionView(
-            category: category,
-            viewModel: viewModel
-        )
+        setupCollectionView(category: category)
         placeCollectionView()
         placeHeaderView()
     }
@@ -39,24 +34,15 @@ final class ListView: UIView {
         backgroundColor = .systemGray6
     }
     
-    private func setupHeaderView(category: Category?) {
-        guard let category = category else { return }
-        headerView = HeaderView(
-            with: Header(
-                category: category,
-                count: 0
-            )
-        )
+    private func setupHeaderView(category: String) {
+        headerView = HeaderView(category: category,
+                                viewModel: viewModel)
         headerView?.backgroundColor = .systemGray6
     }
     
-    private func setupCollectionView(category: Category?,
-                                     viewModel: TodoListViewModel) {
-        collectionView = ListCollectionView(
-            frame: .zero,
-            category: category,
-            viewModel: viewModel
-        )
+    private func setupCollectionView(category: String) {
+        collectionView = ListCollectionView(category: category,
+                                            viewModel: viewModel)
     }
     
     private func placeHeaderView() {
@@ -99,27 +85,5 @@ final class ListView: UIView {
                 equalTo: trailingAnchor
             )
         ])
-    }
-    
-    func refreshHeader() {
-        guard let numberOfRows = viewModel?.read(category)?.count else { return }
-        headerView?.updateCount(number: numberOfRows)
-    }
-    
-    func add(item: [TodoModel]) {
-        collectionView?.add(item)
-    }
-    
-    func delete(item: [TodoModel]) {
-        collectionView?.delete(item)
-    }
-    
-    func update() {
-        guard let items = viewModel?.read(category) else { return }
-        collectionView?.update(items)
-    }
-    
-    func reloadData() {
-        collectionView?.reloadData()
     }
 }
