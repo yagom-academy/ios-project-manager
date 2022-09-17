@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ToDoViewController: UIViewController {
+final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
     enum Schedule {
         case main
     }
@@ -35,6 +35,53 @@ final class ToDoViewController: UIViewController {
         configureUI()
         configureDataSource()
         configureObserver()
+        configureLongPressGesture()
+    }
+
+    private func configureLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didPressCell(_:))
+        )
+        longPressGesture.delegate = self
+        toDoListView.addGestureRecognizer(longPressGesture)
+    }
+
+    @objc func didPressCell(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == UIGestureRecognizer.State.ended else {
+            return
+        }
+
+        let longPressLocation = recognizer.location(in: self.toDoListView)
+
+        guard let tapIndexPath = self.toDoListView.indexPathForRow(at: longPressLocation),
+              let tappedCell = self.toDoListView.cellForRow(at: tapIndexPath) as? ProjectManagerListCell else {
+            return
+        }
+
+        configurePopoverController(in: tappedCell)
+    }
+
+    private func configurePopoverController(in cell: UITableViewCell) {
+        let controller = PopoverController()
+        controller.modalPresentationStyle = UIModalPresentationStyle.popover
+        controller.preferredContentSize = CGSize(width: 300, height: 120)
+
+        guard let popController = controller.popoverPresentationController else {
+            return
+        }
+        popController.permittedArrowDirections = .up
+
+        popController.delegate = self
+        popController.sourceView = view
+        popController.sourceRect = CGRect(
+            x: cell.frame.midX,
+            y: cell.frame.midY,
+            width: 0,
+            height: 0
+        )
+
+        self.present(controller, animated: true)
     }
 
     private func configureUI() {

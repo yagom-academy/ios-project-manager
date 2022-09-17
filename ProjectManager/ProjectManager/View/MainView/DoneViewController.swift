@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DoneViewController: UIViewController {
+final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
     enum Schedule {
         case main
     }
@@ -35,6 +35,7 @@ final class DoneViewController: UIViewController {
         configureUI()
         configureDataSource()
         configureObserver()
+        configureLongPressGesture()
     }
 
     private func configureUI() {
@@ -92,6 +93,52 @@ final class DoneViewController: UIViewController {
         snapshot.appendItems(data)
 
         return snapshot
+    }
+
+    private func configureLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didPressCell(_:))
+        )
+        longPressGesture.delegate = self
+        doneListView.addGestureRecognizer(longPressGesture)
+    }
+
+    @objc func didPressCell(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == UIGestureRecognizer.State.ended else {
+            return
+        }
+
+        let longPressLocation = recognizer.location(in: self.doneListView)
+
+        guard let tapIndexPath = self.doneListView.indexPathForRow(at: longPressLocation),
+              let tappedCell = self.doneListView.cellForRow(at: tapIndexPath) as? ProjectManagerListCell else {
+            return
+        }
+
+        configurePopoverController(in: tappedCell)
+    }
+
+    private func configurePopoverController(in cell: UITableViewCell) {
+        let controller = PopoverController()
+        controller.modalPresentationStyle = UIModalPresentationStyle.popover
+        controller.preferredContentSize = CGSize(width: 300, height: 120)
+
+        guard let popController = controller.popoverPresentationController else {
+            return
+        }
+        popController.permittedArrowDirections = .up
+
+        popController.delegate = self
+        popController.sourceView = view
+        popController.sourceRect = CGRect(
+            x: cell.frame.midX,
+            y: cell.frame.midY,
+            width: 0,
+            height: 0
+        )
+
+        self.present(controller, animated: true)
     }
 }
 
