@@ -8,6 +8,10 @@
 import CoreData
 
 final class MockLocalDatabaseManager: DatabaseLogic {
+    static let shared = MockLocalDatabaseManager()
+
+    private init() {}
+
     lazy private var persistentContainer: InMemoryCoreDataContainer = {
         let container = InMemoryCoreDataContainer(name: "ProjectManager")
         container.loadPersistentStores(completionHandler: { (_, error) in

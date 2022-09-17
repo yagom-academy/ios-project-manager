@@ -18,7 +18,7 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
     private var doneViewdataSource: DataSource?
     private var doneViewSnapshot: Snapshot?
 
-    private let viewModel = DoneViewModel(databaseManager: MockLocalDatabaseManager())
+    private let viewModel = DoneViewModel(databaseManager: MockLocalDatabaseManager.shared)
 
     private let doneListView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)

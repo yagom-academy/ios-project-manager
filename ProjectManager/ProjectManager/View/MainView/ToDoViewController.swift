@@ -18,7 +18,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
     private var toDoViewdataSource: DataSource?
     private var toDoViewSnapshot: Snapshot?
 
-    let viewModel = ToDoViewModel(databaseManager: MockLocalDatabaseManager())
+    let viewModel = ToDoViewModel(databaseManager: MockLocalDatabaseManager.shared)
 
     private let toDoListView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)

@@ -19,7 +19,7 @@ final class DoingViewController:
     private var doingViewdataSource: DataSource?
     private var doingViewSnapshot: Snapshot?
     
-    private let viewModel = DoingViewModel(databaseManager: MockLocalDatabaseManager())
+    private let viewModel = DoingViewModel(databaseManager: MockLocalDatabaseManager.shared)
     
     private let doingListView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
