@@ -123,7 +123,7 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
                                                        for: indexPath) as? ProjectTableViewCell
         else { return UITableViewCell() }
         
-        cell.configure(data: toDoViewModel.searchContent(from: indexPath.row, of: projectType))
+        cell.configure(data: toDoViewModel.searchContent(from: indexPath.row, of: projectType), type: projectType)
         
         return cell
     }

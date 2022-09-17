@@ -49,7 +49,6 @@ final class MainViewController: UIViewController {
     private func setupSubscripting() {
         toDoViewModel.todoSubscripting { [weak self] _ in
             self?.toDoListTableView.reloadData()
-            self?.toDoListTableView.setupIndexLabel()
         }
         
         toDoViewModel.doingSubscripting { [weak self] _ in

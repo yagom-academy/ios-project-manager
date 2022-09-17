@@ -66,10 +66,21 @@ final class ProjectTableViewCell: UITableViewCell {
     
     // MARK: - Functions
     
-    func configure(data: ToDoItem) {
+    func configure(data: ToDoItem, type: ProjectType) {
         titleLabel.text = data.title
         descriptionLabel.text = data.description
         timeLimitLabel.text = data.timeLimit.formatDate()
+        
+        guard type != .done else { return }
+        setuptimeLimitLabelColor(data)
+    }
+    
+    private func setuptimeLimitLabelColor(_ data: ToDoItem) {
+        guard data.timeLimit < Date() else {
+            timeLimitLabel.textColor = .black
+            return
+        }
+        timeLimitLabel.textColor = .red
     }
     
     private func commonInit() {
