@@ -9,13 +9,11 @@ import UIKit
 
 class PopoverViewController: UIViewController {
     
-    private enum Kind {
+    private enum Transition {
         static let moveToTodo = "Move to TODO"
         static let moveToDoing = "Move to DOING"
         static let moveToDone = "Move to DONE"
     }
-    
-    private var viewModel: PopoverViewModel?
     
     // MARK: - UIComponents
     private let verticalStackView: UIStackView = {
@@ -54,6 +52,21 @@ class PopoverViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Properties
+    private var viewModel: TodoListViewModel
+    private var selectedTodo: Todo
+    
+    // MARK: - Initializer
+    init(viewModel: TodoListViewModel, selectedTodo: Todo) {
+        self.viewModel = viewModel
+        self.selectedTodo = selectedTodo
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,12 +75,6 @@ class PopoverViewController: UIViewController {
     }
     
     // MARK: - Methods
-    static func create(with viewModel: PopoverViewModel) -> PopoverViewController {
-        let viewController = PopoverViewController()
-        viewController.viewModel = viewModel
-        return viewController
-    }
-
     private func setupInitialView() {
         view.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(firstButton)
@@ -89,35 +96,35 @@ class PopoverViewController: UIViewController {
     }
     
     private func setupButton() {
-        switch viewModel?.selectedCategory {
-        case .todo:
+        switch selectedTodo.category {
+        case Category.todo:
             setTitle(
-                firstButtonTitle: Kind.moveToDoing,
-                secondButtonTitle: Kind.moveToDone
+                firstButtonTitle: Transition.moveToDoing,
+                secondButtonTitle: Transition.moveToDone
             )
             addTarget(
                 firstButtonTarget: #selector(moveToDoing),
                 secondButtonTarget: #selector(moveToDone)
             )
-        case .doing:
+        case Category.doing:
             setTitle(
-                firstButtonTitle: Kind.moveToTodo,
-                secondButtonTitle: Kind.moveToDone
+                firstButtonTitle: Transition.moveToTodo,
+                secondButtonTitle: Transition.moveToDone
             )
             addTarget(
                 firstButtonTarget: #selector(moveToTodo),
                 secondButtonTarget: #selector(moveToDone)
             )
-        case .done:
+        case Category.done:
             setTitle(
-                firstButtonTitle: Kind.moveToTodo,
-                secondButtonTitle: Kind.moveToDoing
+                firstButtonTitle: Transition.moveToTodo,
+                secondButtonTitle: Transition.moveToDoing
             )
             addTarget(
                 firstButtonTarget: #selector(moveToTodo),
                 secondButtonTarget: #selector(moveToDoing)
             )
-        case .none:
+        default:
             return
         }
     }
@@ -132,18 +139,19 @@ class PopoverViewController: UIViewController {
         secondButton.addTarget(self, action: secondButtonTarget, for: .touchUpInside)
     }
     
+    // MARK: - @objc Methods
     @objc private func moveToDoing() {
-        viewModel?.move(to: .doing)
+        viewModel.move(selectedTodo, to: Category.doing)
         dismiss(animated: true)
     }
     
     @objc private func moveToDone() {
-        viewModel?.move(to: .done)
+        viewModel.move(selectedTodo, to: Category.done)
         dismiss(animated: true)
     }
     
     @objc private func moveToTodo() {
-        viewModel?.move(to: .todo)
+        viewModel.move(selectedTodo, to: Category.todo)
         dismiss(animated: true)
     }
 }
