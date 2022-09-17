@@ -5,18 +5,10 @@
 //  Created by seohyeon park on 2022/09/13.
 //
 
-import Foundation
-
 class MainHomeViewModel {
-    var todoCount: Int {
-        return todoList.count
-    }
-    var doingCount: Int {
-        return doingList.count
-    }
-    var doneCount: Int {
-        return doneList.count
-    }
+    var todoCount: Observable<Int> = Observable(0)
+    var doingCount: Observable<Int> = Observable(0)
+    var doneCount: Observable<Int> = Observable(0)
     var currentState: String = TaskState.todo
 
     private let databaseManager = RealmDatabase()
@@ -78,6 +70,10 @@ class MainHomeViewModel {
             currentState = data.taskState
             currentList.append(data)
         }
+
+        todoCount.value = todoList.count
+        doingCount.value = doingList.count
+        doneCount.value = doneList.count
     }
 
     func remove(index: Int) {

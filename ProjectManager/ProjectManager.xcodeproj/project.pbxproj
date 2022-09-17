@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0568B87128D5A53300FAC59B /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0568B87028D5A53300FAC59B /* Observable.swift */; };
 		0578628828D03DEF003CD311 /* MainHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578628728D03DEF003CD311 /* MainHomeViewModel.swift */; };
 		05A5774428CF088A00E05133 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774328CF088A00E05133 /* DatabaseProtocol.swift */; };
 		05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0568B87028D5A53300FAC59B /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		0578628728D03DEF003CD311 /* MainHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeViewModel.swift; sourceTree = "<group>"; };
 		05A5774328CF088A00E05133 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabaseModel.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				0578628728D03DEF003CD311 /* MainHomeViewModel.swift */,
+				0568B87028D5A53300FAC59B /* Observable.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0568B87128D5A53300FAC59B /* Observable.swift in Sources */,
 				05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainHomeViewController.swift in Sources */,
 				05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */,

@@ -27,9 +27,10 @@ class MainHomeViewController: UIViewController {
         viewModel.fetchDataList()
 
         setUpLabelShape()
-        setUpTableViewCount()
         setUpTableViewDelegate()
         setUpTableViewDataSource()
+
+        bind()
     }
 
     private func setUpLabelShape() {
@@ -37,12 +38,6 @@ class MainHomeViewController: UIViewController {
             $0?.clipsToBounds = true
             $0?.layer.cornerRadius = 20
         }
-    }
-
-    private func setUpTableViewCount() {
-        todoCountLabel.text = String(viewModel.todoCount)
-        doingCountLabel.text = String(viewModel.doingCount)
-        doneCountLabel.text = String(viewModel.doneCount)
     }
 
     private func setUpTableViewDataSource() {
@@ -61,8 +56,20 @@ class MainHomeViewController: UIViewController {
         todoTableView.reloadData()
         doingTableView.reloadData()
         doneTableView.reloadData()
+    }
 
-        setUpTableViewCount()
+    private func bind() {
+        viewModel.todoCount.bind { [weak self] count in
+            self?.todoCountLabel.text = count.description
+        }
+
+        viewModel.doingCount.bind { [weak self] count in
+            self?.doingCountLabel.text = count.description
+        }
+
+        viewModel.doneCount.bind { [weak self] count in
+            self?.doneCountLabel.text = count.description
+        }
     }
 }
 
@@ -79,11 +86,11 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
 extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == todoTableView {
-            return viewModel.todoCount
+            return viewModel.todoCount.value
         } else if tableView == doingTableView {
-            return viewModel.doingCount
+            return viewModel.doingCount.value
         } else {
-            return viewModel.doneCount
+            return viewModel.doneCount.value
         }
     }
 
