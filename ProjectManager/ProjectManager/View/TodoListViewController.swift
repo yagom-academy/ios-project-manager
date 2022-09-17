@@ -17,6 +17,8 @@ final class TodoListViewController: UIViewController {
     
     private var viewModel = ViewModel()
     
+    private var disposeBag = DisposeBag()
+    
     private let listStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +39,8 @@ final class TodoListViewController: UIViewController {
         todoView.viewModel = viewModel
         doingView.viewModel = viewModel
         doneView.viewModel = viewModel
+        
+        setupListsCellTouchEvent()
     }
 }
 
@@ -64,6 +68,42 @@ extension TodoListViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(showAlert))
+    }
+    
+    private func setupListsCellTouchEvent() {
+        todoView.tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.todoView.tableView.deselectRow(at: indexPath, animated: true)
+                print(indexPath.row)
+                let projectViewController = ProjectViewController()
+                projectViewController.modalPresentationStyle = .formSheet
+                let projectAddViewController = UINavigationController(rootViewController: projectViewController)
+                self?.present(projectAddViewController, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        doingView.tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.todoView.tableView.deselectRow(at: indexPath, animated: true)
+                print(indexPath.row)
+                let projectViewController = ProjectViewController()
+                projectViewController.modalPresentationStyle = .formSheet
+                let projectAddViewController = UINavigationController(rootViewController: projectViewController)
+                self?.present(projectAddViewController, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        doneView.tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.todoView.tableView.deselectRow(at: indexPath, animated: true)
+                print(indexPath.row)
+                let projectViewController = ProjectViewController()
+                projectViewController.modalPresentationStyle = .formSheet
+                let projectAddViewController = UINavigationController(rootViewController: projectViewController)
+                projectViewController.navigationItem.leftBarButtonItem?.
+                self?.present(projectAddViewController, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

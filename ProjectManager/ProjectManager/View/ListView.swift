@@ -144,7 +144,6 @@ final class ListView: UIView {
         switch status {
         case .todo:
             viewModel?.todoList?
-                .scan([], accumulator: +)
                 .bind(to: tableView.rx.items(
                     cellIdentifier: TodoTableViewCell.identifier,
                     cellType: TodoTableViewCell.self)) { _, item, cell in
@@ -153,7 +152,6 @@ final class ListView: UIView {
             
         case .doing:
             viewModel?.doingList?
-                .scan([], accumulator: +)
                 .bind(to: tableView.rx.items(
                     cellIdentifier: TodoTableViewCell.identifier,
                     cellType: TodoTableViewCell.self)) { _, item, cell in
@@ -162,7 +160,6 @@ final class ListView: UIView {
             
         case .done:
             viewModel?.doneList?
-                .scan([], accumulator: +)
                 .bind(to: tableView.rx.items(
                     cellIdentifier: TodoTableViewCell.identifier,
                     cellType: TodoTableViewCell.self)) { _, item, cell in

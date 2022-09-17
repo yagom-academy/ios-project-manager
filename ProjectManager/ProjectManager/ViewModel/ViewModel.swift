@@ -7,11 +7,11 @@
 
 import RxSwift
 
-struct ViewModel {
+class ViewModel {
     
     // MARK: - properties
 
-    private var projects: [Project] = [] {
+    var projects: [Project] = [] {
         didSet {
             print(projects)
             todoList?.onNext(projects)
@@ -30,7 +30,7 @@ struct ViewModel {
     
     // MARK: - functions
 
-    mutating func appendProject(project: Project) {
+    func appendProject(project: Project) {
         projects.append(project)
     }
 }
