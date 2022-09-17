@@ -82,6 +82,7 @@ final class ToDoViewController: UIViewController {
             }
 
             self.toDoViewdataSource?.apply(toDoViewSnapshot)
+            self.toDoListView.reloadData()
         }
     }
 
@@ -97,7 +98,7 @@ final class ToDoViewController: UIViewController {
 extension ToDoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = SectionHeaderView()
-        headerView.setupLabelText(section: "TODO", number: 2)
+        headerView.setupLabelText(section: "TODO", number: viewModel.count)
 
         return headerView
     }

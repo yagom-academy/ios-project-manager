@@ -82,6 +82,7 @@ final class DoingViewController: UIViewController {
             }
             
             self.doingViewdataSource?.apply(doingViewSnapshot)
+            self.doingListView.reloadData()
         }
     }
     
@@ -97,7 +98,7 @@ final class DoingViewController: UIViewController {
 extension DoingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = SectionHeaderView()
-        headerView.setupLabelText(section: "DOING", number: 0)
+        headerView.setupLabelText(section: "DOING", number: viewModel.count)
         
         return headerView
     }

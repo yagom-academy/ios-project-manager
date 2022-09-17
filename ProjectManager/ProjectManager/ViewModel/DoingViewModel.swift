@@ -9,6 +9,10 @@ import Foundation
 
 final class DoingViewModel {
     var doingData: Observable<[ProjectUnit]> = Observable([])
+    
+    var count: Int {
+        return doingData.value.count
+    }
 
     let databaseManager: DatabaseLogic
 

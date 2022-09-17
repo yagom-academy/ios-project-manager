@@ -9,6 +9,10 @@ import Foundation
 
 final class ToDoViewModel {
     var toDoData: Observable<[ProjectUnit]> = Observable([])
+    
+    var count: Int {
+        return toDoData.value.count
+    }
 
     let databaseManager: DatabaseLogic
 
@@ -52,4 +56,3 @@ final class ToDoViewModel {
         }
     }
 }
-
