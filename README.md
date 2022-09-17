@@ -27,6 +27,8 @@
 │   │   │   ├── AppAppearance
 │   │   │   └── AppCoordinator
 │   │   ├── MainScene
+│   │   │   ├── Coordinator
+│   │   │   │   └── TodoListCoordinator
 │   │   │   ├── ViewModel
 │   │   │   │   └── TodoListViewModel
 │   │   │   └── View
@@ -36,23 +38,29 @@
 │   │   │           │   └── HeaderView
 │   │   │           └── CollectionView
 │   │   │               ├── ListCollectionView
+│   │   │               ├── ListCollectionView+UIGestureRecognizerDelegate
 │   │   │               └── Cell
 │   │   │                   └── ListCell
 │   │   ├── ModalTransitionScene
+│   │   │   ├── Coordinator
+│   │   │   │   ├── CreateTodoListCoordinator
+│   │   │   │   └── EditTodoListCoordinator
 │   │   │   └── View
 │   │   │       ├── CreateTodoListViewController
 │   │   │       ├── EditTodoListViewController
 │   │   │       └── Template
 │   │   │           └── FormSheetTemplateView
 │   │   ├── PopoverScene
-│   │   │   ├── ViewModel
-│   │   │   │   └── PopoverViewModel
+│   │   │   ├── Coordinator
+│   │   │   │   └── PopoverViewCoordinator
 │   │   │   └── View
 │   │   │       └── PopoverViewController
 │   │   ├── Model
 │   │   │   ├── TodoModel
 │   │   │   └── Category
-│   │   ├── mockData
+│   │   ├── DataStore
+│   │   │   ├── Todo
+│   │   │   └── TodoDataManager
 │   │   ├── Assets
 │   │   ├── LaunchScreen
 │   │   └── Info
@@ -61,8 +69,120 @@
 │   └── Frameworks
 └── Pods
 ```
+
+## Coordinator
+![](https://i.imgur.com/1hf3BAG.png)
+
 ## 화면구성
 ![](https://i.imgur.com/aYpgYgB.png)
+
+## 데이터 구성
+### TodoListViewController( 메인 뷰컨트롤러 )
+![](https://i.imgur.com/7fLHWJM.png)
+
+
+### Model
+```swift
+
+class Todo: Object {
+    @objc dynamic var id: UUID = UUID()
+    @objc dynamic var category: String = Category.todo
+    @objc dynamic var title: String = ""
+    @objc dynamic var body: String = ""
+    @objc dynamic var date: Date = Date()
+}
+
+```
+
+### ViewModel
+```swift
+class TodoListViewModel {
+    var todoList: [Todo] = []
+    var doingList: [Todo] = []
+    var doneList: [Todo] = []
+    
+    var todoCount: Int {
+        todoList.count
+    }
+    var doingCount: Int {
+        doingList.count
+    }
+    var doneCount: Int {
+        doneList.count
+    }
+    
+    init() {
+        read()
+        didChangedCount?()
+    }
+    
+    var didCreatedTodo: ((Todo) -> Void)?
+    var didChangedCount: (() -> Void)?
+    var didUpdatedTodo: (([Todo]) -> Void)?
+    var didMovedTodo: (([[Todo]]) -> Void)?
+    
+    func read() {
+        todoList = TodoDataManager.shared.read(category: Category.todo) ?? []
+        doingList = TodoDataManager.shared.read(category: Category.doing) ?? []
+        doneList = TodoDataManager.shared.read(category: Category.done) ?? []
+    }
+    
+    func fetch(category: String, index: Int) -> Todo {
+        switch category {
+        case Category.todo:
+            return todoList[index]
+        case Category.doing:
+            return doingList[index]
+        case Category.done:
+            return doneList[index]
+        default:
+            return Todo()
+        }
+    }
+    
+    func create(todo: Todo) {
+        TodoDataManager.shared.create(with: todo)
+        read()
+        didCreatedTodo?(todo)
+        didChangedCount?()
+    }
+    
+    func delete(todo: Todo) {
+        TodoDataManager.shared.delete(todo)
+        read()
+        didChangedCount?()
+    }
+    
+    func update(todo: Todo, with model: Todo) {
+        TodoDataManager.shared.update(todo: todo, with: model)
+        read()
+        switch todo.category {
+        case Category.todo:
+            didUpdatedTodo?(todoList)
+        case Category.doing:
+            didUpdatedTodo?(doingList)
+        case Category.done:
+            didUpdatedTodo?(doneList)
+        default:
+            return
+        }
+    }
+    
+    func move(_ selectedTodo: Todo, to target: String ) {
+        let todo = Todo()
+        todo.title = selectedTodo.title
+        todo.body = selectedTodo.body
+        todo.date = selectedTodo.date
+        todo.category = target
+        TodoDataManager.shared.update(todo: selectedTodo, with: todo)
+        read()
+        didMovedTodo?([todoList, doingList, doneList]) // 모든 배열 업데이트
+        didChangedCount?()
+    }
+}
+```
+
+하나의 ViewModel을 ViewController 에서 사용
 
 ## 기능구현
 
@@ -105,7 +225,7 @@ static func create(with: ViewModel, coordinator: Coordinator) -> UIViewControlle
 
 ### - 기타
 - HeaderView
-    - 해당 리스트의 현재 셀 개수를 HeaderView.count에 표현
+    - 해당 리스트의 현재 셀 개수를 HeaderView.count에 동적 표현
 - ListCell
     - 날짜가 지나면 dateLabel의 색을 빨간색으로 변경
     - 제목이 길면 끝에 ...으로 표현
@@ -119,8 +239,43 @@ ViewModel의 view transition 파트에서 파라미터로 CGPoint를 받아오�
 [근거](https://dev200ok.blogspot.com/2021/07/006-float-double-cgfloat.html)
 > 추가적으로 Swift 5.5 버젼 이상에서는 CGFloat과 Double이 교환 가능하다고 합니다.
 
+### 2. 클로져에서 [weak self] 캡쳐
+
+습관적으로 클로저 사용 시, [weak self] 를 이용하여 캡쳐리스트를 가져왔는데, 리뷰어분의 질문에 의해 서칭을 한번 해보았다. 좋은 외국 아티클을 찾아 읽어보고 번역하며 내용을 이해해보았다.  [아티클 내용번역](https://hackmd.io/@gFY3eCCiRRKejwfOqnNr2g/BJCnWFbWj)
+
+[weak self] 캡쳐를 해서 self를 사용하려면 optional binding을 해주거나 optional chaining 을 이용해야 하는데, 이 둘의 차이점에 대한 설명이 나와있었다. 
+
+첫번째로, `guard let self = self else {return}` 구문이다. 이렇게 옵셔널 해제를 시켜주면 self가 클로저 scope동안 일시적인 강한참조를 유지하게 된다. 그래서 만약 self(=viewController로 생각해보면) 가 클로저 실행 중간에 dismiss가 된 상황을 생각 해보았을 때, 해제가 되지 않고 클로저 구문이 다 실행된 후에 할당해제가 될 것이다. delayed deallocated 가 되는것이다. 이는 나의 의도에 따라 좋을수도, 나쁠수도있다.
+
+두번째로, `self?.` 옵셔널 체이닝을 이용해 접근하는 것이다. 이 방법으로 self에 접근한다면 위에 말했던 것 처럼 클로저 실행 중간에 self가 dismiss가 된 상황을 생각해보면, 그 시점 이후에 클로저 내부 나머지 코드 중 self로 접근하는 메서드들이 있으면 nil check에서 모두 건너뛰어 질 것이다. 할당해제가 바로 되는 것이다. 이 또한 나의 의도가 어떤지에 따라 좋을수도 나쁠수도 있다. 필요에 따라 두가지 방법을 적절히 사용하는 것이 좋을 것 같다 
+
+아직 나머지 읽지 못한 부분이 있어 다 읽어본 후 내용이 추가 될 것이다.
+
+
+### 3. 클로져로 데이터 바인딩
+
+뷰 모델이 가지고 있는 클로저 프로퍼티를 어느 뷰에서 바인딩을 할 때, viewModel은 하나이지만 viewModel이 처리해주어야 하는 ListView 는 3개나 된다. 재활용 되는 ListView 한 곳에서 처리해주면 되겠지 싶어 그 안에 바인딩을 해주었는데 왠걸, doneListView에만 바인딩이 되는 것이다..ㅎ 이유는 아마 모두 같은 적용이 되었을 텐데 todoListView, doingListView, doneListView 순서대로 생성을 해주어 마지막에 생성된 doneListView에서 바인딩시켜준 didChangedCount() 가 최종적으로 할당이 된 것이라 생각이 된다.
+예시:
+``` swift
+var number: Int?
+number = 1
+number = 2
+number = 3
+
+//최종은 3이 할당됨
+```
+
+**해결방법** : 3개의 ListView를 모두 가지고 있는 ViewController에서 바인딩을 해 주었다. 
+
+### 4. 키보드가 텍스트뷰를 가림
+
+실기기에서 테스트 결과, 할일의 내용을 작성하는 textView에서 키보드가 textView를 가려 내용이 보이지 않았다. 이 오류해결을 위해 먼저, formSheet 뷰를 scroll뷰로 한번 감싼 뒤, 키보드가 올라와 가리는 높이 만큼 bottomInset을 주어서 작성중인 내용이 가려지지 않도록 구현.
+
+
+
 ## 참고 링크
 [Apple Article: Displaying transient content in a popover](https://developer.apple.com/documentation/uikit/windows_and_screens/displaying_transient_content_in_a_popover)
 [LongTouchGestureRecognizer사용법](http://yoonbumtae.com/?p=4418)
 [스크롤 시, 네비게이션 바 자동 숨김처리 비활성화](https://nemecek.be/blog/126/how-to-disable-automatic-transparent-navbar-in-ios-15)
 [UIView그림자 만들기](https://babbab2.tistory.com/41)
+[키보드가 텍스트뷰를 가릴때, 해결방법](https://seizze.github.io/2019/11/17/iOS에서-키보드에-동적인-스크롤뷰-만들기.html)
