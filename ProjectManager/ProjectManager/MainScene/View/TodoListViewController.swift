@@ -162,4 +162,24 @@ final class TodoListViewController: UIViewController {
             }
         }
     }
+// MARK: - UICollectionViewDelegate
+extension TodoListViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+
+        switch collectionView {
+        case todoListView.collectionView:
+            delegate?.cellDidTapped(at: indexPath.row,
+                                    in: Category.todo)
+        case doingListView.collectionView:
+            delegate?.cellDidTapped(at: indexPath.row,
+                                    in: Category.doing)
+        case doneListView.collectionView:
+            delegate?.cellDidTapped(at: indexPath.row,
+                                    in: Category.done)
+        default:
+            return
+        }
+    }
 }
