@@ -64,6 +64,11 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
                     body: item.body,
                     date: item.deadLine.localizedString
                 )
+
+                if self.viewModel.isPassDeadLine(item.deadLine) {
+                    cell.changeTextColor()
+                }
+
                 cell.separatorInset = .zero
 
                 return cell

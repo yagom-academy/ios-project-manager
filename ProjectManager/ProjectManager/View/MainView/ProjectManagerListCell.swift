@@ -45,10 +45,8 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     private var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "날짜입니다"
         label.numberOfLines = 1
         label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .gray
         
         return label
     }()
@@ -67,6 +65,10 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
         titleLabel.text = title
         bodyLabel.text = body
         dateLabel.text = date
+    }
+
+    func changeTextColor() {
+        dateLabel.textColor = .red
     }
     
     private func configureUI() {
@@ -95,5 +97,11 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
                 constant: -inset
             )
         ])
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        dateLabel.textColor = .gray
     }
 }

@@ -100,4 +100,12 @@ final class DoingViewModel: Readjustable, Editable {
             print(error)
         }
     }
+
+    func isPassDeadLine(_ deadLine: Date) -> Bool {
+        if deadLine < Date() {
+            return true
+        }
+
+        return false
+    }
 }
