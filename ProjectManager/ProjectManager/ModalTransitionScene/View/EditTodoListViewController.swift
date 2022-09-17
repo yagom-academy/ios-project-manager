@@ -13,6 +13,17 @@ final class EditTodoListViewController: UIViewController {
     private var viewModel: TodoListViewModel?
     private var cellData: TodoModel?
     
+    // MARK: - Initializer
+    init(viewModel: TodoListViewModel, category: String, index: Int) {
+        self.viewModel = viewModel
+        self.currentTodo = viewModel.fetchTodo(in: category, at: index)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - ViewLifeCyle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,14 +32,6 @@ final class EditTodoListViewController: UIViewController {
     }
     
     // MARK: - Methods
-    static func create(with viewModel: TodoListViewModel,
-                       cellData: TodoModel) -> EditTodoListViewController {
-        let viewController = EditTodoListViewController()
-        viewController.viewModel = viewModel
-        viewController.cellData = cellData
-        return viewController
-    }
-    
     private func setupInitialView() {
         editTemplateView.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground

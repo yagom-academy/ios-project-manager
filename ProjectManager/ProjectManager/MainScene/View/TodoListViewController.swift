@@ -22,6 +22,22 @@ final class TodoListViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Initializer
+    init(viewModel: TodoListViewModel) {
+        self.viewModel = viewModel
+        todoListView = ListView(category: Category.todo,
+                                viewModel: viewModel)
+        doingListView = ListView(category: Category.doing,
+                                 viewModel: viewModel)
+        doneListView = ListView(category: Category.done,
+                                viewModel: viewModel)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - ViewLifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +46,6 @@ final class TodoListViewController: UIViewController {
         placeListView()
         bind()
     }
-    
-    static func create(with viewModel: TodoListViewModel,
-                       coordinator: AppCoordinator) -> TodoListViewController {
-        let viewController = TodoListViewController()
-        viewModel.coordinator = coordinator
-        viewController.viewModel = viewModel
-        return viewController
     }
     
     private func setupInitialView() {

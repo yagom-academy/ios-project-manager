@@ -11,6 +11,15 @@ final class CreateTodoListViewController: UIViewController {
     
     private let createTemplateView = FormSheetTemplateView(frame: .zero)
     private var viewModel: TodoListViewModel?
+    // MARK: - Initializer
+    init(viewModel: TodoListViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - ViewLifeCycle
     override func viewDidLoad() {
@@ -20,12 +29,6 @@ final class CreateTodoListViewController: UIViewController {
     }
     
     // MARK: - Methods
-    static func create(with viewModel: TodoListViewModel) -> CreateTodoListViewController {
-        let viewController = CreateTodoListViewController()
-        viewController.viewModel = viewModel
-        return viewController
-    }
-    
     private func setupInitialView() {
         createTemplateView.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground
