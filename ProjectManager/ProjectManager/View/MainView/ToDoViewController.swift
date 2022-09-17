@@ -48,7 +48,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
     }
 
     @objc func didPressCell(_ recognizer: UITapGestureRecognizer) {
-        guard recognizer.state == UIGestureRecognizer.State.ended else {
+        guard recognizer.state == UIGestureRecognizer.State.began else {
             return
         }
 
@@ -66,6 +66,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
         let controller = PopoverController()
         controller.modalPresentationStyle = UIModalPresentationStyle.popover
         controller.preferredContentSize = CGSize(width: 300, height: 120)
+        controller.setTitle(firstButtonName: "DOING", secondButtonName: "DONE")
 
         guard let popController = controller.popoverPresentationController else {
             return

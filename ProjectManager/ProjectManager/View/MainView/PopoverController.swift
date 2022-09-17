@@ -8,7 +8,7 @@
 import UIKit
 
 final class PopoverController: UIViewController, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.backgroundColor = .systemGray4
@@ -27,20 +27,18 @@ final class PopoverController: UIViewController, UIGestureRecognizerDelegate, UI
         return stackView
     }()
 
-    let button1: UIButton = {
+    private let firstButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Move", for: .normal)
         button.backgroundColor = .white
         button.setTitleColor(.systemBlue, for: .normal)
 
         return button
     }()
 
-    let button2: UIButton = {
+    private let secondButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Move", for: .normal)
         button.backgroundColor = .white
         button.setTitleColor(.systemBlue, for: .normal)
 
@@ -54,8 +52,8 @@ final class PopoverController: UIViewController, UIGestureRecognizerDelegate, UI
     private func configureUI() {
         self.view.backgroundColor = .systemGray6
         self.view.addSubview(stackView)
-        stackView.addArrangedSubview(button1)
-        stackView.addArrangedSubview(button2)
+        stackView.addArrangedSubview(firstButton)
+        stackView.addArrangedSubview(secondButton)
 
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
@@ -63,5 +61,10 @@ final class PopoverController: UIViewController, UIGestureRecognizerDelegate, UI
             stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+    func setTitle(firstButtonName: String, secondButtonName: String) {
+        firstButton.setTitle("Move to \(firstButtonName)", for: .normal)
+        secondButton.setTitle("Move to \(secondButtonName)", for: .normal)
     }
 }
