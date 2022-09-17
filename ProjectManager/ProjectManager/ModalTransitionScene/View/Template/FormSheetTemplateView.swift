@@ -10,6 +10,11 @@ import UIKit
 final class FormSheetTemplateView: UIView {
     
     // MARK: - UIComponents
+    let mainScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,6 +55,7 @@ final class FormSheetTemplateView: UIView {
     private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isScrollEnabled = false
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.backgroundColor = .white
         textView.layer.masksToBounds = false
@@ -64,6 +70,7 @@ final class FormSheetTemplateView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        setupKeyboard()
     }
     
     required init?(coder: NSCoder) {
@@ -73,25 +80,59 @@ final class FormSheetTemplateView: UIView {
     // MARK: - Methods
     private func setupView() {
         backgroundColor = .systemBackground
-        addSubview(verticalStackView)
+        addSubview(mainScrollView)
+        mainScrollView.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(titleTextField)
         verticalStackView.addArrangedSubview(datePicker)
         verticalStackView.addArrangedSubview(bodyTextView)
         
         NSLayoutConstraint.activate([
-            verticalStackView.topAnchor.constraint(
-                equalTo: topAnchor
+            mainScrollView.topAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.topAnchor
             ),
-            verticalStackView.bottomAnchor.constraint(
-                equalTo: bottomAnchor
+            mainScrollView.bottomAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.bottomAnchor
             ),
-            verticalStackView.leadingAnchor.constraint(
-                equalTo: leadingAnchor
+            mainScrollView.leadingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.leadingAnchor
             ),
-            verticalStackView.trailingAnchor.constraint(
-                equalTo: trailingAnchor
+            mainScrollView.trailingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.trailingAnchor
             )
         ])
+     
+        NSLayoutConstraint.activate([
+            verticalStackView.topAnchor.constraint(
+                equalTo: mainScrollView.contentLayoutGuide.topAnchor
+            ),
+            verticalStackView.bottomAnchor.constraint(
+                equalTo: mainScrollView.contentLayoutGuide.bottomAnchor
+            ),
+            verticalStackView.leadingAnchor.constraint(
+                equalTo: mainScrollView.contentLayoutGuide.leadingAnchor
+            ),
+            verticalStackView.trailingAnchor.constraint(
+                equalTo: mainScrollView.contentLayoutGuide.trailingAnchor
+            ),
+            verticalStackView.widthAnchor.constraint(
+                equalTo: mainScrollView.widthAnchor
+            )
+        ])
+    }
+    
+    private func setupKeyboard() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillAppear(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillDisappear(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     func setupData(with model: Todo?) {
@@ -103,7 +144,7 @@ final class FormSheetTemplateView: UIView {
     
     func generateTodoModel(with category: String) -> Todo? {
         guard let title = titleTextField.text,
-                let body = bodyTextView.text else { return nil }
+              let body = bodyTextView.text else { return nil }
         let date = datePicker.date
         let todo = Todo()
         todo.category = category
@@ -111,5 +152,25 @@ final class FormSheetTemplateView: UIView {
         todo.body = body
         todo.date = date
         return todo
+    }
+    
+    @objc private func keyboardWillAppear(_ sender: Notification) {
+        guard let userInfo = sender.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: keyboardFrame.size.height-70,
+            right: 0.0)
+        mainScrollView.contentInset = contentInset
+        mainScrollView.scrollIndicatorInsets = contentInset
+    }
+    
+    @objc private func keyboardWillDisappear(_ sender: Notification) {
+        let contentInset = UIEdgeInsets.zero
+        mainScrollView.contentInset = contentInset
+        mainScrollView.scrollIndicatorInsets = contentInset
     }
 }

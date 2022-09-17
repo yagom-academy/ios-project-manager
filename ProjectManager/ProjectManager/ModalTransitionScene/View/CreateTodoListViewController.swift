@@ -67,6 +67,7 @@ final class CreateTodoListViewController: UIViewController {
     private func retrieveFormSheetData() -> Todo? {
         return createTemplateView.generateTodoModel(with: Category.todo)
     }
+    
     // MARK: - @objc Methods
     @objc func cancelButtonDidTapped() {
         self.dismiss(animated: true)
