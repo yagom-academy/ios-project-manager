@@ -102,7 +102,22 @@ final class ToDoViewModel: Readjustable, Editable {
         }
     }
 
-    func edit(title: String, body: String, date: Date) {
+    func edit(
+        indexPath: Int,
+        title: String,
+        body: String,
+        date: Date
+    ) {
+        var data = toDoData.value[indexPath]
+        data.title = title
+        data.body = body
+        data.deadLine = date
         
+        toDoData.value[indexPath] = data
+        do {
+            try databaseManager.update(data: data)
+        } catch {
+            print(error)
+        }
     }
 }

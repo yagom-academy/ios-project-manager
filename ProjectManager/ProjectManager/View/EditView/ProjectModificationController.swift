@@ -16,8 +16,18 @@ final class ProjectModificationController: UIViewController {
         super.viewDidLoad()
         configureNavigationItems()
         configureUI()
+        setContent()
     }
-
+    
+    private func setContent() {
+        guard let indexPath = indexPath,
+              let data = viewModel?.fetch(indexPath) else {
+            return
+        }
+        
+        projectAdditionScrollView.setContent(data: data)
+    }
+    
     private func configureNavigationItems() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Done",
@@ -29,7 +39,7 @@ final class ProjectModificationController: UIViewController {
             title: "Edit",
             style: .plain,
             target: self,
-            action: #selector(didTapCancelButton)
+            action: #selector(didTapEditButton)
         )
     }
 
@@ -49,7 +59,19 @@ final class ProjectModificationController: UIViewController {
         self.dismiss(animated: true)
     }
 
-    @objc private func didTapCancelButton() {
-        self.dismiss(animated: true)
+    @objc private func didTapEditButton() {
+        guard let indexPath = indexPath,
+              let title = projectAdditionScrollView.scheduleTitleTextField.text,
+              let date = projectAdditionScrollView.datePicker?.date else {
+            return
+        }
+
+        
+        viewModel?.edit(
+            indexPath: indexPath,
+            title: title,
+            body: projectAdditionScrollView.scheduleDescriptionTextView.text,
+            date: date
+        )
     }
 }

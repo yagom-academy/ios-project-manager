@@ -8,5 +8,6 @@
 import Foundation
 
 protocol Editable {
-    func edit(title: String, body: String, date: Date)
+    func fetch(_ indexPath: Int) -> ProjectUnit?
+    func edit(indexPath: Int, title: String, body: String, date: Date)
 }

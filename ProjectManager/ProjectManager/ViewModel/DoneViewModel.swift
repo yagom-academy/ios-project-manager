@@ -82,7 +82,22 @@ final class DoneViewModel: Readjustable, Editable {
         }
     }
 
-    func edit(title: String, body: String, date: Date) {
+    func edit(
+        indexPath: Int,
+        title: String,
+        body: String,
+        date: Date
+    ) {
+        var data = doneData.value[indexPath]
+        data.title = title
+        data.body = body
+        data.deadLine = date
         
+        doneData.value[indexPath] = data
+        do {
+            try databaseManager.update(data: data)
+        } catch {
+            print(error)
+        }
     }
 }
