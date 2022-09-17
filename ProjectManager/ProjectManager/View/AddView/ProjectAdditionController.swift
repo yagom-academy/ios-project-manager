@@ -46,10 +46,15 @@ final class ProjectAdditionController: UIViewController {
     }
     
     @objc private func didTapDoneButton() {
+        guard let title = projectAdditionScrollView.scheduleTitleTextField.text,
+              let date = projectAdditionScrollView.datePicker?.date else {
+            return
+        }
+        
         self.viewModel?.addProject(
-            title: projectAdditionScrollView.scheduleTitleTextField.text!,
+            title: title,
             body: projectAdditionScrollView.scheduleDescriptionTextView.text,
-            date: projectAdditionScrollView.datePicker!.date
+            date: date
         )
 
         self.dismiss(animated: true)

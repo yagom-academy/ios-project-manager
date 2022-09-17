@@ -121,4 +121,10 @@ final class ProjectAdditionScrollView: UIScrollView {
             scheduleDescriptionTextView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor)
         ])
     }
+    
+    func setContent(data: ProjectUnit) {
+        scheduleTitleTextField.text = data.title
+        scheduleDescriptionTextView.text = data.body
+        datePicker?.date = data.deadLine
+    }
 }
