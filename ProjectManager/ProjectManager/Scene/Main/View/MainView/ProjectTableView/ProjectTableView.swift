@@ -78,53 +78,19 @@ class ProjectTableView: UITableView {
         addGestureRecognizer(longPressRecognizer)
     }
     
-    private func setupAlertController(with index: IndexPath) -> UIAlertController? {
-        let alertController = UIAlertController()
-        
-        let todoAlertAction = UIAlertAction(title: Design.todoAlertActionTitle, style: .default) { [weak self] _ in
-            guard let project = self?.projectType else { return }
-            
-            self?.toDoViewModel.move(project: project, in: index, to: .todo)
-        }
-        
-        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) { [weak self] _ in
-            guard let project = self?.projectType else { return }
-            
-            self?.toDoViewModel.move(project: project, in: index, to: .doing)
-        }
-        
-        let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { [weak self] _ in
-            guard let project = self?.projectType else { return }
-            
-            self?.toDoViewModel.move(project: project, in: index, to: .done)
-        }
-        
-        switch projectType {
-        case .todo:
-            alertController.addAction(doingAlertAction)
-            alertController.addAction(doneAlertAction)
-        case .doing:
-            alertController.addAction(todoAlertAction)
-            alertController.addAction(doneAlertAction)
-        case .done:
-            alertController.addAction(todoAlertAction)
-            alertController.addAction(doingAlertAction)
-        }
-        
-        return alertController
-    }
-    
     // MARK: - objc Functions
     
     @objc private func didCellTappedLong(_ gestureRecognizer: UILongPressGestureRecognizer) {
         guard gestureRecognizer.state == .began else { return }
-        
         let touchPoint = gestureRecognizer.location(in: self)
         
-        guard let indexPath = indexPathForRow(at: touchPoint),
-              let alertController = setupAlertController(with: indexPath),
-              let popoverController = alertController.popoverPresentationController
-        else { return }
+        guard let indexPath = indexPathForRow(at: touchPoint) else { return }
+        
+        let alertController = AlertController(with: projectType,
+                                              by: indexPath,
+                                              tableView: self,
+                                              viewModel: toDoViewModel)
+        guard let popoverController = alertController.popoverPresentationController else { return }
         
         let cell = cellForRow(at: indexPath)
         
@@ -142,6 +108,7 @@ class ProjectTableView: UITableView {
         static let doingAlertActionTitle = "Move to DOING"
         static let doneAlertActionTitle = "Move to DONE"
         static let defaultRect = CGRect(x: 0, y: 0, width: 50, height: 50)
+        static let deleteActionTitle = "Delete"
     }
 }
 
@@ -180,7 +147,7 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] _, _, _ in
+        let deleteAction = UIContextualAction(style: .normal, title: Design.deleteActionTitle) { [weak self] _, _, _ in
             self?.toDoViewModel.delete(from: indexPath.row, of: self?.projectType ?? .todo)
         }
         

@@ -25,6 +25,7 @@
 		D7971F4828CCCA72008C7ADA /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7971F4728CCCA72008C7ADA /* Array+Extension.swift */; };
 		D7971F4A28CCCE16008C7ADA /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7971F4928CCCE16008C7ADA /* UILabel+Extension.swift */; };
 		D7971F5028CE196E008C7ADA /* ToDoComponentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7971F4F28CE196E008C7ADA /* ToDoComponentsView.swift */; };
+		D7A8DA6128D5B04F00968726 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A8DA6028D5B04F00968726 /* AlertController.swift */; };
 		D7C0094C28D35F7F00F3BD18 /* DataSenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0094B28D35F7F00F3BD18 /* DataSenable.swift */; };
 		D7C465D328C72286004B64F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */; };
 		D7C465DB28C76584004B64F7 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C465DA28C76584004B64F7 /* ProjectTableViewCell.swift */; };
@@ -58,6 +59,7 @@
 		D7971F4728CCCA72008C7ADA /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		D7971F4928CCCE16008C7ADA /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		D7971F4F28CE196E008C7ADA /* ToDoComponentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoComponentsView.swift; sourceTree = "<group>"; };
+		D7A8DA6028D5B04F00968726 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		D7C0094B28D35F7F00F3BD18 /* DataSenable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSenable.swift; sourceTree = "<group>"; };
 		D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7C465DA28C76584004B64F7 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			children = (
 				D7E75DA328D0AC8100C32947 /* ProjectTableHeaderView.swift */,
 				D7E75DA528D0C2EF00C32947 /* ProjectTableView.swift */,
+				D7A8DA6028D5B04F00968726 /* AlertController.swift */,
 				D7C465DA28C76584004B64F7 /* ProjectTableViewCell.swift */,
 			);
 			path = ProjectTableView;
@@ -360,6 +363,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D7E75DA428D0AC8100C32947 /* ProjectTableHeaderView.swift in Sources */,
+				D7A8DA6128D5B04F00968726 /* AlertController.swift in Sources */,
 				D7C0094C28D35F7F00F3BD18 /* DataSenable.swift in Sources */,
 				D7971F4828CCCA72008C7ADA /* Array+Extension.swift in Sources */,
 				D7C465DB28C76584004B64F7 /* ProjectTableViewCell.swift in Sources */,
