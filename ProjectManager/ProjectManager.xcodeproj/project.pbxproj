@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0568B87128D5A53300FAC59B /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0568B87028D5A53300FAC59B /* Observable.swift */; };
+		0568B87328D5B78600FAC59B /* TaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0568B87228D5B78600FAC59B /* TaskState.swift */; };
 		0578628828D03DEF003CD311 /* MainHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578628728D03DEF003CD311 /* MainHomeViewModel.swift */; };
 		05A5774428CF088A00E05133 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774328CF088A00E05133 /* DatabaseProtocol.swift */; };
 		05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		0568B87028D5A53300FAC59B /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		0568B87228D5B78600FAC59B /* TaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskState.swift; sourceTree = "<group>"; };
 		0578628728D03DEF003CD311 /* MainHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeViewModel.swift; sourceTree = "<group>"; };
 		05A5774328CF088A00E05133 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabaseModel.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			children = (
 				05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */,
 				05A5774928CF13A300E05133 /* TaskModel.swift */,
+				0568B87228D5B78600FAC59B /* TaskState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				0578628828D03DEF003CD311 /* MainHomeViewModel.swift in Sources */,
 				05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */,
 				05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */,
+				0568B87328D5B78600FAC59B /* TaskState.swift in Sources */,
 				05A5774428CF088A00E05133 /* DatabaseProtocol.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

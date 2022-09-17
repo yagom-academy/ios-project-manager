@@ -9,7 +9,7 @@ class MainHomeViewModel {
     var todoCount: Observable<Int> = Observable(0)
     var doingCount: Observable<Int> = Observable(0)
     var doneCount: Observable<Int> = Observable(0)
-    var currentState: String = TaskState.todo
+    var currentState: String = TaskState.todo.name
 
     private let databaseManager = RealmDatabase()
     private var todoList = [TaskModel]()
@@ -18,9 +18,9 @@ class MainHomeViewModel {
     private var currentList: [TaskModel] {
         get {
             switch currentState {
-            case TaskState.todo:
+            case TaskState.todo.name:
                 return todoList
-            case TaskState.doing:
+            case TaskState.doing.name:
                 return doingList
             default:
                 return doneList
@@ -28,10 +28,10 @@ class MainHomeViewModel {
         }
         set {
             switch currentState {
-            case TaskState.todo:
+            case TaskState.todo.name:
                 todoList = newValue
                 return
-            case TaskState.doing:
+            case TaskState.doing.name:
                 doingList = newValue
                 return
             default:

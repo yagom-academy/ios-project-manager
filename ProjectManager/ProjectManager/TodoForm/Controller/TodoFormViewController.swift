@@ -32,7 +32,7 @@ class TodoFormViewController: UIViewController {
             taskTitle: titleTextField.text ?? "",
             taskDescription: descriptionTextView.text ?? "",
             taskDeadline: getCurrentDateTime(),
-            taskState: TaskState.todo
+            taskState: TaskState.todo.name
         )
 
         notifyChangedModel(data: data)

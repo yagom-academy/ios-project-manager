@@ -41,21 +41,21 @@ class MainHomeViewController: UIViewController {
     }
 
     private func setUpTableViewDataSource() {
-        todoTableView.dataSource = self
-        doingTableView.dataSource = self
-        doneTableView.dataSource = self
+        [todoTableView, doingTableView, doneTableView].forEach {
+            $0.dataSource = self
+        }
     }
 
     private func setUpTableViewDelegate() {
-        todoTableView.delegate = self
-        doingTableView.delegate = self
-        doneTableView.delegate = self
+        [todoTableView, doingTableView, doneTableView].forEach {
+            $0.delegate = self
+        }
     }
 
     private func reloadTableView() {
-        todoTableView.reloadData()
-        doingTableView.reloadData()
-        doneTableView.reloadData()
+        [todoTableView, doingTableView, doneTableView].forEach {
+            $0.reloadData()
+        }
     }
 
     private func bind() {
@@ -149,11 +149,11 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     private func setUpTaskState(tableView: UITableView) {
         if tableView == todoTableView {
-            viewModel.currentState = TaskState.todo
+            viewModel.currentState = TaskState.todo.name
         } else if tableView == doingTableView {
-            viewModel.currentState = TaskState.doing
+            viewModel.currentState = TaskState.doing.name
         } else {
-            viewModel.currentState = TaskState.done
+            viewModel.currentState = TaskState.done.name
         }
     }
 }
@@ -181,7 +181,7 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
                 return
             }
 
-            self.viewModel.move(to: TaskState.todo, self.selectedIndex)
+            self.viewModel.move(to: TaskState.todo.name, self.selectedIndex)
             self.reloadTableView()
         }
         let doingButton = UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
@@ -189,7 +189,7 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
                 return
             }
 
-            self.viewModel.move(to: TaskState.doing, self.selectedIndex)
+            self.viewModel.move(to: TaskState.doing.name, self.selectedIndex)
             self.reloadTableView()
         }
         let doneButton = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
@@ -197,7 +197,7 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
                 return
             }
 
-            self.viewModel.move(to: TaskState.done, self.selectedIndex)
+            self.viewModel.move(to: TaskState.done.name, self.selectedIndex)
             self.reloadTableView()
         }
         actionSheet.addAction(todoButton)
