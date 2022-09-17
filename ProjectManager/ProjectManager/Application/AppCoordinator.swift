@@ -8,81 +8,20 @@
 import UIKit
 
 final class AppCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
-    var navigationController: UINavigationController
-    let viewModel = TodoListViewModel(models: [])
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    private var window: UIWindow?
+    var todoListCoordinator: TodoListCoordinator?
+    
+    init(window: UIWindow?) {
+        self.window = window
     }
     
-    func start() {
-        goToMainViewController()
+    @discardableResult
+    func start() -> UIViewController {
+        todoListCoordinator = TodoListCoordinator()
+        guard let mainVC = todoListCoordinator?.start() else { return UIViewController() }
+        self.window?.rootViewController = mainVC
+        self.window?.makeKeyAndVisible()
+        return mainVC
     }
-    
-    func goToMainViewController() {
-        let todoListViewController = TodoListViewController.create(with: viewModel, coordinator: self)
-        setupMainNavigationBar(in: todoListViewController)
-        navigationController.pushViewController(
-            todoListViewController,
-            animated: true
-        )
-    }
-    
-    private func setupMainNavigationBar(in viewController: UIViewController) {
-        viewController.navigationItem.title = "Project Manager"
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(addButtonDidTapped)
-        )
-    }
-    
-    @objc private func addButtonDidTapped() {
-        goToCreate()
-    }
-    
-    func goToEdit(_ model: TodoModel) {
-        let editVC = EditTodoListViewController.create(
-            with: viewModel,
-            cellData: model
-        )
-        let navCon = UINavigationController(
-            rootViewController: editVC
-        )
-        navCon.modalPresentationStyle = .formSheet
-        navigationController.present(navCon, animated: true)
-    }
-    
-    func goToCreate() {
-        let createVC = CreateTodoListViewController.create(with: viewModel)
-        let navCon = UINavigationController(
-            rootViewController: createVC
-        )
-        navCon.modalPresentationStyle = .formSheet
-        navigationController.present(navCon, animated: true)
-    }
-    
-    func showPopover<T: ListCollectionView>(in view: T, location: (x: Double, y: Double), item: TodoModel?) {
-            guard let item = item else { return }
-            
-            let popoverVM = PopoverViewModel(viewModel: viewModel, category: view.category, item: item)
-            let popoverVC = PopoverViewController.create(with: popoverVM)
-            popoverVC.preferredContentSize = CGSize(
-                width: 250,
-                height: 120
-            )
-            popoverVC.modalPresentationStyle = .popover
-            popoverVC.popoverPresentationController?.sourceView = view
-            popoverVC.popoverPresentationController?.sourceRect = CGRect(
-                x: location.x,
-                y: location.y,
-                width: 1,
-                height: 1
-            )
-            popoverVC.popoverPresentationController?.permittedArrowDirections = .up
-            popoverVC.popoverPresentationController?.delegate = view
-            navigationController.present(popoverVC, animated: true)
-        }
 }
