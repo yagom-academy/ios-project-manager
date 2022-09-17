@@ -101,5 +101,24 @@ extension ToDoViewController: UITableViewDelegate {
 
         return headerView
     }
-}
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(
+            style: .normal,
+            title: "Delete"
+        ) { [weak self] (_, _, success: @escaping (Bool) -> Void) in
+            guard let self = self else {
+                return
+            }
+            self.viewModel.delete(indexPath.row)
+            
+            success(true)
+        }
+        delete.backgroundColor = .systemRed
 
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+}
