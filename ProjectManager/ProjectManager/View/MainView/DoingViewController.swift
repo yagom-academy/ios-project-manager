@@ -1,0 +1,105 @@
+//
+//  DoingViewController.swift
+//  ProjectManager
+//
+//  Created by 수꿍, 휴 on 2022/09/17.
+//
+
+import UIKit
+
+final class DoingViewController: UIViewController {
+    enum Schedule {
+        case main
+    }
+
+    typealias DataSource = UITableViewDiffableDataSource<Schedule, ProjectUnit>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Schedule, ProjectUnit>
+
+    private var doingViewdataSource: DataSource?
+    private var doingViewSnapshot: Snapshot?
+
+    private let viewModel = DoingViewModel(databaseManager: MockLocalDatabaseManager())
+
+    private let doingListView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .systemGray6
+        tableView.sectionHeaderHeight = 50
+
+        return tableView
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        configureUI()
+        configureDataSource()
+        configureObserver()
+    }
+
+    private func configureUI() {
+        self.view.backgroundColor = .systemBackground
+        self.view.addSubview(doingListView)
+
+        NSLayoutConstraint.activate([
+            doingListView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            doingListView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            doingListView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            doingListView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+
+    private func configureDataSource() {
+        doingListView.register(cellType: ProjectManagerListCell.self)
+        doingListView.delegate = self
+
+        doingViewdataSource = DataSource(
+            tableView: doingListView,
+            cellProvider: { tableView, indexPath, item in
+                let cell: ProjectManagerListCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.setContents(
+                    title: item.title,
+                    body: item.body,
+                    date: item.deadLine.localizedString
+                )
+                cell.separatorInset = .zero
+
+                return cell
+            }
+        )
+    }
+
+    private func configureObserver() {
+        viewModel.doingData.subscribe { [weak self] projectUnitArray in
+            guard let self = self else {
+                return
+            }
+
+            self.doingViewSnapshot = self.configureSnapshot(data: projectUnitArray)
+
+            guard let doingViewSnapshot = self.doingViewSnapshot else {
+                return
+            }
+
+            self.doingViewdataSource?.apply(doingViewSnapshot)
+        }
+    }
+
+    private func configureSnapshot(data: [ProjectUnit]) -> Snapshot {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(data)
+
+        return snapshot
+    }
+}
+
+extension DoingViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = SectionHeaderView()
+        headerView.setupLabelText(section: "DOING", number: 0)
+
+        return headerView
+    }
+}
+

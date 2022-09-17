@@ -9,7 +9,7 @@ import UIKit
 
 final class ProjectAdditionController: UIViewController {
     private let projectAdditionScrollView = ProjectAdditionScrollView()
-    var viewModel: ViewModel?
+    var viewModel: ToDoViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
