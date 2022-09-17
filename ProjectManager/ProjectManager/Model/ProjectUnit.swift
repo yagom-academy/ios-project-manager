@@ -12,7 +12,7 @@ struct ProjectUnit: Hashable {
         id: UUID(),
         title: "쥬스 메이커",
         body: "쥬스 메이커 프로젝트입니다",
-        section: "ToDo",
+        section: "TODO",
         deadLine: Date()
     )
     
@@ -20,7 +20,7 @@ struct ProjectUnit: Hashable {
         id: UUID(),
         title: "은행 창구 매니저",
         body: "은행 창구 매니저 프로젝트입니다",
-        section: "ToDo",
+        section: "TODO",
         deadLine: Date()
     )
 

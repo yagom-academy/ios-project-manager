@@ -59,7 +59,7 @@ final class PopoverController: UIViewController, UIGestureRecognizerDelegate, UI
               let section = button.lastTitleText else {
             return
         }
-        
+
         viewModel?.readjust(index: indexPath, section: section)
         self.dismiss(animated: true)
     }

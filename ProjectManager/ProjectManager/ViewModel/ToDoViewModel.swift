@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ToDoViewModel: Readjustable {
+final class ToDoViewModel: Readjustable, Editable {
     var toDoData: Observable<[ProjectUnit]> = Observable([])
     
     var count: Int {
@@ -39,7 +39,7 @@ final class ToDoViewModel: Readjustable {
             return
         }
         
-        projectUnit.section = "DOING"
+        projectUnit.section = "TODO"
         
         toDoData.value.append(projectUnit)
         
@@ -63,7 +63,11 @@ final class ToDoViewModel: Readjustable {
             deadLine: date
         )
         toDoData.value.append(project)
-        try? databaseManager.create(data: project)
+        do {
+            try databaseManager.create(data: project)
+        } catch {
+            print(error)
+        }
     }
 
     func delete(_ indexPath: Int) {
@@ -88,12 +92,6 @@ final class ToDoViewModel: Readjustable {
     func readjust(index: Int, section: String) {
         let data = toDoData.value.remove(at: index)
         
-        do {
-            try databaseManager.delete(id: data.id)
-        } catch {
-            print(error)
-        }
-        
         switch section {
         case "DOING":
             NotificationCenter.default.post(name: Notification.Name("TODOtoDOING"), object: data)
@@ -102,5 +100,9 @@ final class ToDoViewModel: Readjustable {
         default:
             return
         }
+    }
+
+    func edit(title: String, body: String, date: Date) {
+        
     }
 }

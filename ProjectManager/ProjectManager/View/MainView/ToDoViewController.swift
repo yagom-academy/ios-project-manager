@@ -35,7 +35,43 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
         configureUI()
         configureDataSource()
         configureObserver()
+        configureTapGesture()
         configureLongPressGesture()
+    }
+
+    private func configureTapGesture() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(didTapCell(_:))
+        )
+        tapGesture.delegate = self
+        toDoListView.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func didTapCell(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == UIGestureRecognizer.State.ended else {
+            return
+        }
+
+        let tapLocation = recognizer.location(in: self.toDoListView)
+
+        guard let tapIndexPath = self.toDoListView.indexPathForRow(at: tapLocation) else {
+            return
+        }
+
+        presentModalEditView(indexPath: tapIndexPath.row)
+    }
+
+    private func presentModalEditView(indexPath: Int) {
+        let projectModificationController = ProjectModificationController()
+        projectModificationController.indexPath = indexPath
+        projectModificationController.viewModel = self.viewModel
+        projectModificationController.title = "TODO"
+
+        let navigationController = UINavigationController(rootViewController: projectModificationController)
+        navigationController.modalPresentationStyle = .formSheet
+
+        self.present(navigationController, animated: true)
     }
 
     private func configureLongPressGesture() {
@@ -48,7 +84,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
     }
 
     @objc func didPressCell(_ recognizer: UITapGestureRecognizer) {
-        guard recognizer.state == UIGestureRecognizer.State.began else {
+        guard recognizer.state == UIGestureRecognizer.State.ended else {
             return
         }
 

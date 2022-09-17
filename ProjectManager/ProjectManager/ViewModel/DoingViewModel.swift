@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DoingViewModel: Readjustable {
+final class DoingViewModel: Readjustable, Editable {
     var doingData: Observable<[ProjectUnit]> = Observable([])
     
     var count: Int {
@@ -71,13 +71,7 @@ final class DoingViewModel: Readjustable {
     
     func readjust(index: Int, section: String) {
         let data = doingData.value.remove(at: index)
-        
-        do {
-            try databaseManager.delete(id: data.id)
-        } catch {
-            print(error)
-        }
-        
+
         switch section {
         case "TODO":
             NotificationCenter.default.post(name: Notification.Name("DOINGtoTODO"), object: data)
@@ -86,5 +80,9 @@ final class DoingViewModel: Readjustable {
         default:
             return
         }
+    }
+
+    func edit(title: String, body: String, date: Date) {
+        
     }
 }

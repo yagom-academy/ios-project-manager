@@ -35,6 +35,7 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
         configureUI()
         configureDataSource()
         configureObserver()
+        configureTapGesture()
         configureLongPressGesture()
     }
 
@@ -93,6 +94,41 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
         snapshot.appendItems(data)
 
         return snapshot
+    }
+
+    private func configureTapGesture() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(didTapCell(_:))
+        )
+        tapGesture.delegate = self
+        doneListView.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func didTapCell(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == UIGestureRecognizer.State.ended else {
+            return
+        }
+
+        let tapLocation = recognizer.location(in: self.doneListView)
+
+        guard let tapIndexPath = self.doneListView.indexPathForRow(at: tapLocation) else {
+            return
+        }
+
+        presentModalEditView(indexPath: tapIndexPath.row)
+    }
+
+    private func presentModalEditView(indexPath: Int) {
+        let projectModificationController = ProjectModificationController()
+        projectModificationController.indexPath = indexPath
+        projectModificationController.viewModel = self.viewModel
+        projectModificationController.title = "DONE"
+
+        let navigationController = UINavigationController(rootViewController: projectModificationController)
+        navigationController.modalPresentationStyle = .formSheet
+
+        self.present(navigationController, animated: true)
     }
 
     private func configureLongPressGesture() {

@@ -7,8 +7,6 @@
 import UIKit
 
 final class ProjectManagerController: UIViewController {
-    private let viewModel = ToDoViewModel(databaseManager: MockLocalDatabaseManager())
-
     private let toDoViewController = ToDoViewController()
     private let doingViewController = DoingViewController()
     private let doneViewController = DoneViewController()

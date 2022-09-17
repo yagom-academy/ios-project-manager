@@ -11,6 +11,8 @@
 		2015836728CDB0D8000CCC52 /* ProjectManagerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */; };
 		2015836928CDBA2E000CCC52 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */; };
 		2054633528D30110005FF658 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054633428D30110005FF658 /* Observable.swift */; };
+		209C7F1E28D5B87900DA554D /* ProjectModificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209C7F1D28D5B87900DA554D /* ProjectModificationController.swift */; };
+		209C7F2028D5B8C000DA554D /* Editable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209C7F1F28D5B8C000DA554D /* Editable.swift */; };
 		20B3DBFF28D4508500A6386B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B3DBFE28D4508500A6386B /* Date+Extension.swift */; };
 		20B3DC0128D55A9400A6386B /* ToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B3DC0028D55A9400A6386B /* ToDoViewModel.swift */; };
 		20B3DC0328D55AA900A6386B /* DoingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B3DC0228D55AA900A6386B /* DoingViewModel.swift */; };
@@ -51,6 +53,8 @@
 		2015836628CDB0D8000CCC52 /* ProjectManagerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerListCell.swift; sourceTree = "<group>"; };
 		2015836828CDBA2E000CCC52 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		2054633428D30110005FF658 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		209C7F1D28D5B87900DA554D /* ProjectModificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModificationController.swift; sourceTree = "<group>"; };
+		209C7F1F28D5B8C000DA554D /* Editable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editable.swift; sourceTree = "<group>"; };
 		20B3DBFE28D4508500A6386B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		20B3DC0028D55A9400A6386B /* ToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModel.swift; sourceTree = "<group>"; };
 		20B3DC0228D55AA900A6386B /* DoingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingViewModel.swift; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 			children = (
 				2015836A28CDD885000CCC52 /* MainView */,
 				2015836B28CDD89D000CCC52 /* AddView */,
+				209C7F1C28D5B84C00DA554D /* EditView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -184,8 +189,17 @@
 				20B3DC0428D55AB100A6386B /* DoneViewModel.swift */,
 				2054633428D30110005FF658 /* Observable.swift */,
 				7269C2EA28D5921D0068424B /* Readjustable.swift */,
+				209C7F1F28D5B8C000DA554D /* Editable.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		209C7F1C28D5B84C00DA554D /* EditView */ = {
+			isa = PBXGroup;
+			children = (
+				209C7F1D28D5B87900DA554D /* ProjectModificationController.swift */,
+			);
+			path = EditView;
 			sourceTree = "<group>";
 		};
 		20D66B6228D1C153001317E0 /* Extensions */ = {
@@ -364,7 +378,9 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				20B3DC0328D55AA900A6386B /* DoingViewModel.swift in Sources */,
 				2015836928CDBA2E000CCC52 /* SectionHeaderView.swift in Sources */,
+				209C7F1E28D5B87900DA554D /* ProjectModificationController.swift in Sources */,
 				20D66B6428D1D826001317E0 /* MockLocalDatabaseManager.swift in Sources */,
+				209C7F2028D5B8C000DA554D /* Editable.swift in Sources */,
 				2015836728CDB0D8000CCC52 /* ProjectManagerListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
