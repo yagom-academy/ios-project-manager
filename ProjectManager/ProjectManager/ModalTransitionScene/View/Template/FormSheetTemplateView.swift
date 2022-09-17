@@ -70,7 +70,7 @@ final class FormSheetTemplateView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     private func setupView() {
         backgroundColor = .systemBackground
         addSubview(verticalStackView)

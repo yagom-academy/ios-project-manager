@@ -10,7 +10,8 @@ import UIKit
 final class CreateTodoListViewController: UIViewController {
     
     private let createTemplateView = FormSheetTemplateView(frame: .zero)
-    private var viewModel: TodoListViewModel?
+    var viewModel: TodoListViewModel
+    
     // MARK: - Initializer
     init(viewModel: TodoListViewModel) {
         self.viewModel = viewModel
@@ -63,17 +64,17 @@ final class CreateTodoListViewController: UIViewController {
         )
     }
     
-    private func retrieveFormSheetData() -> TodoModel? {
-        return createTemplateView.generateTodoModel()
+    private func retrieveFormSheetData() -> Todo? {
+        return createTemplateView.generateTodoModel(with: Category.todo)
     }
-    
+    // MARK: - @objc Methods
     @objc func cancelButtonDidTapped() {
         self.dismiss(animated: true)
     }
     
     @objc func doneButtonDidTapped() {
         guard let data = retrieveFormSheetData() else { return }
-        viewModel?.create(with: data)
+        viewModel.create(todo: data)
         self.dismiss(animated: true)
     }
 }

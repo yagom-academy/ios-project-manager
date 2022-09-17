@@ -10,8 +10,8 @@ import UIKit
 final class EditTodoListViewController: UIViewController {
     
     private let editTemplateView = FormSheetTemplateView(frame: .zero)
-    private var viewModel: TodoListViewModel?
-    private var cellData: TodoModel?
+    private var viewModel: TodoListViewModel
+    private var currentTodo: Todo
     
     // MARK: - Initializer
     init(viewModel: TodoListViewModel, category: String, index: Int) {
@@ -29,6 +29,7 @@ final class EditTodoListViewController: UIViewController {
         super.viewDidLoad()
         setupInitialView()
         setupNavigationBar()
+        setupData()
     }
     
     // MARK: - Methods
@@ -50,7 +51,6 @@ final class EditTodoListViewController: UIViewController {
                 equalTo: view.safeAreaLayoutGuide.trailingAnchor
             )
         ])
-        editTemplateView.setupData(with: cellData)
     }
     
     private func setupNavigationBar() {
@@ -67,14 +67,18 @@ final class EditTodoListViewController: UIViewController {
         )
     }
     
-    private func retrieveFormSheetData() -> TodoModel? {
-        return editTemplateView.generateTodoModel()
+    private func setupData() {
+        editTemplateView.setupData(with: currentTodo)
     }
     
+    private func retrieveFormSheetData() -> Todo? {
+        return editTemplateView.generateTodoModel(with: currentTodo.category)
+    }
+    
+    // MARK: - @objc Methods
     @objc private func editButtonDidTapped() {
-        guard let data = retrieveFormSheetData(),
-              let cellData = cellData else { return }
-        viewModel?.update(model: cellData, to: data)
+        guard let data = retrieveFormSheetData() else { return }
+        viewModel.edit(todo: currentTodo, with: data)
         self.dismiss(animated: true)
     }
     
