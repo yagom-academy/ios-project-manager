@@ -18,7 +18,7 @@ struct TaskDashboardView: View {
                 TaskListView(status: .todo, tasks: $taskDashboardViewModel.todoTasks)
                 TaskListView(status: .doing, tasks: $taskDashboardViewModel.doingTasks)
                 TaskListView(status: .done, tasks: $taskDashboardViewModel.doneTasks)
-            }
+            }.padding()
             
             Button {
                 isShowingSheet.toggle()
@@ -28,7 +28,7 @@ struct TaskDashboardView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
             }
             .sheet(isPresented: $isShowingSheet) {
-                TaskEditingView(isShowingSheet: $isShowingSheet, taskDashboardViewModel: taskDashboardViewModel)
+                TaskEditingView(isShowingSheet: $isShowingSheet, taskDashboardViewModel: taskDashboardViewModel, isNewTask: true)
             }
         }
     }

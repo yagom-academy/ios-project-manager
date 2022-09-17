@@ -17,10 +17,17 @@ struct TaskListHeaderView: View {
             Text(status.description)
                 .font(.largeTitle)
                 .fontWeight(.heavy)
-           
+            
+            HStack {
+                Spacer()
+                
                 Text(String(taskCount))
+                    .foregroundColor(.white)
                     .padding()
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .background(Color.accentColor)
+                    .frame(height: 30, alignment: .trailing)
+                    .cornerRadius(25)
+            }
         }
     }
 }

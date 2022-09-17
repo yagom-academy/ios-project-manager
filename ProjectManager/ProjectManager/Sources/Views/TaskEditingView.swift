@@ -12,6 +12,8 @@ struct TaskEditingView: View {
     @Binding var isShowingSheet: Bool
     @ObservedObject var taskDashboardViewModel: TaskDashboardViewModel
     @State private var task = Task(title: "", description: "", dueDate: Date.now, status: .todo)
+    @State private var isEditingDisable = true
+    @State var isNewTask: Bool
     
     var body: some View {
         VStack {
@@ -28,6 +30,7 @@ struct TaskEditingView: View {
                 TextField("할 일의 제목을 입력해주세요", text: $task.title)
                 TextField("필요한 경우 상세설명을 적어주세요", text: $task.description)
             }
+            .disabled(isNewTask ? !isEditingDisable : isEditingDisable)
             .padding(.horizontal)
             .frame(height: 55)
             .background(Color(UIColor.secondarySystemBackground))
@@ -36,7 +39,7 @@ struct TaskEditingView: View {
             
             HStack {
                 SquareButtonView(label: "수정", color: .gray) {
-                    //TODO: 수정 버튼 기능 구현
+                    isEditingDisable.toggle()
                 }
                 
                 SquareButtonView(label: "저장", color: Color.accentColor) {
@@ -54,6 +57,6 @@ struct TaskEditingView_Previews: PreviewProvider {
     static var taskDashboardView = TaskDashboardView()
     
     static var previews: some View {
-        TaskEditingView(isShowingSheet: taskDashboardView.$isShowingSheet, taskDashboardViewModel: TaskDashboardViewModel())
+        TaskEditingView(isShowingSheet: taskDashboardView.$isShowingSheet, taskDashboardViewModel: TaskDashboardViewModel(), isNewTask: true)
     }
 }
