@@ -35,6 +35,8 @@
 		7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */; };
 		7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04B28C87A58009A7412 /* ProjectUnit.swift */; };
 		7236B04E28C8844D009A7412 /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04D28C8844D009A7412 /* DatabaseError.swift */; };
+		7269C2EB28D5921D0068424B /* Readjustable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269C2EA28D5921D0068424B /* Readjustable.swift */; };
+		7269C2ED28D59EC50068424B /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269C2EC28D59EC50068424B /* UIButton+Extension.swift */; };
 		72C61C6928CDC63E0041CD12 /* ProjectAdditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */; };
 		72C61C6B28CDC88F0041CD12 /* ProjectAdditionScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -69,6 +71,8 @@
 		7236B04828C87A2A009A7412 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7236B04B28C87A58009A7412 /* ProjectUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUnit.swift; sourceTree = "<group>"; };
 		7236B04D28C8844D009A7412 /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
+		7269C2EA28D5921D0068424B /* Readjustable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Readjustable.swift; sourceTree = "<group>"; };
+		7269C2EC28D59EC50068424B /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAdditionController.swift; sourceTree = "<group>"; };
 		72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAdditionScrollView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +183,7 @@
 				20B3DC0228D55AA900A6386B /* DoingViewModel.swift */,
 				20B3DC0428D55AB100A6386B /* DoneViewModel.swift */,
 				2054633428D30110005FF658 /* Observable.swift */,
+				7269C2EA28D5921D0068424B /* Readjustable.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 				20D66B5E28D1BD90001317E0 /* ReusableCell.swift */,
 				20D66B6028D1BE1B001317E0 /* UITableView+Extension.swift */,
 				20B3DBFE28D4508500A6386B /* Date+Extension.swift */,
+				7269C2EC28D59EC50068424B /* UIButton+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -341,6 +347,7 @@
 				20B3DC0128D55A9400A6386B /* ToDoViewModel.swift in Sources */,
 				72C61C6B28CDC88F0041CD12 /* ProjectAdditionScrollView.swift in Sources */,
 				20D66B6628D1D85A001317E0 /* InMemoryCoreDataContainer.swift in Sources */,
+				7269C2ED28D59EC50068424B /* UIButton+Extension.swift in Sources */,
 				20D66B6128D1BE1B001317E0 /* UITableView+Extension.swift in Sources */,
 				7236B03E28C86D4B009A7412 /* ProjectManager.xcdatamodeld in Sources */,
 				2054633528D30110005FF658 /* Observable.swift in Sources */,
@@ -350,6 +357,7 @@
 				200203E728D57911003F2B64 /* PopoverController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				7236B04428C86FB3009A7412 /* DatabaseLogic.swift in Sources */,
+				7269C2EB28D5921D0068424B /* Readjustable.swift in Sources */,
 				7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */,
 				20B3DC0528D55AB100A6386B /* DoneViewModel.swift in Sources */,
 				20B3DC0B28D55F1100A6386B /* DoingViewController.swift in Sources */,

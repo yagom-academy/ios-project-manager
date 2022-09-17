@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DoingViewModel {
+final class DoingViewModel: Readjustable {
     var doingData: Observable<[ProjectUnit]> = Observable([])
     
     var count: Int {
@@ -18,7 +18,36 @@ final class DoingViewModel {
 
     init(databaseManager: DatabaseLogic) {
         self.databaseManager = databaseManager
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(addData(_:)),
+            name: Notification.Name("TODOtoDOING"),
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(addData(_:)),
+            name: Notification.Name("DONEtoDOING"),
+            object: nil
+        )
         fetchDoingData()
+    }
+    
+    @objc func addData(_ notification: Notification) {
+        guard var projectUnit = notification.object as? ProjectUnit else {
+            return
+        }
+        
+        projectUnit.section = "DOING"
+        
+        doingData.value.append(projectUnit)
+        
+        do {
+            try databaseManager.update(data: projectUnit)
+        } catch {
+            print(error)
+        }
     }
 
     func delete(_ indexPath: Int) {
@@ -37,6 +66,25 @@ final class DoingViewModel {
             }
         } catch {
             print(error)
+        }
+    }
+    
+    func readjust(index: Int, section: String) {
+        let data = doingData.value.remove(at: index)
+        
+        do {
+            try databaseManager.delete(id: data.id)
+        } catch {
+            print(error)
+        }
+        
+        switch section {
+        case "TODO":
+            NotificationCenter.default.post(name: Notification.Name("DOINGtoTODO"), object: data)
+        case "DONE":
+            NotificationCenter.default.post(name: Notification.Name("DOINGtoDONE"), object: data)
+        default:
+            return
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ToDoViewModel {
+final class ToDoViewModel: Readjustable {
     var toDoData: Observable<[ProjectUnit]> = Observable([])
     
     var count: Int {
@@ -18,7 +18,36 @@ final class ToDoViewModel {
 
     init(databaseManager: DatabaseLogic) {
         self.databaseManager = databaseManager
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(addData(_:)),
+            name: Notification.Name("DOINGtoTODO"),
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(addData(_:)),
+            name: Notification.Name("DONEtoTODO"),
+            object: nil
+        )
         fetchToDoData()
+    }
+    
+    @objc func addData(_ notification: Notification) {
+        guard var projectUnit = notification.object as? ProjectUnit else {
+            return
+        }
+        
+        projectUnit.section = "DOING"
+        
+        toDoData.value.append(projectUnit)
+        
+        do {
+            try databaseManager.update(data: projectUnit)
+        } catch {
+            print(error)
+        }
     }
 
     func addProject(
@@ -53,6 +82,25 @@ final class ToDoViewModel {
             }
         } catch {
             print(error)
+        }
+    }
+    
+    func readjust(index: Int, section: String) {
+        let data = toDoData.value.remove(at: index)
+        
+        do {
+            try databaseManager.delete(id: data.id)
+        } catch {
+            print(error)
+        }
+        
+        switch section {
+        case "DOING":
+            NotificationCenter.default.post(name: Notification.Name("TODOtoDOING"), object: data)
+        case "DONE":
+            NotificationCenter.default.post(name: Notification.Name("TODOtoDONE"), object: data)
+        default:
+            return
         }
     }
 }

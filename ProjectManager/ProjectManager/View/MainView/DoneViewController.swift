@@ -116,11 +116,13 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
             return
         }
 
-        configurePopoverController(in: tappedCell)
+        configurePopoverController(indexPath: tapIndexPath.row, in: tappedCell)
     }
 
-    private func configurePopoverController(in cell: UITableViewCell) {
+    private func configurePopoverController(indexPath: Int, in cell: UITableViewCell) {
         let controller = PopoverController()
+        controller.viewModel = self.viewModel
+        controller.indexPath = indexPath
         controller.modalPresentationStyle = UIModalPresentationStyle.popover
         controller.preferredContentSize = CGSize(width: 300, height: 120)
         controller.setTitle(firstButtonName: "TODO", secondButtonName: "DOING")

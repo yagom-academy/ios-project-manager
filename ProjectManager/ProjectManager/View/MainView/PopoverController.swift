@@ -8,6 +8,9 @@
 import UIKit
 
 final class PopoverController: UIViewController, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
+    var viewModel: Readjustable?
+    var indexPath: Int?
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +50,18 @@ final class PopoverController: UIViewController, UIGestureRecognizerDelegate, UI
 
     override func viewDidLoad() {
         configureUI()
+        firstButton.addTarget(self, action: #selector(didTap(_:)), for: .touchUpInside)
+        secondButton.addTarget(self, action: #selector(didTap(_:)), for: .touchUpInside)
+    }
+    
+    @objc func didTap(_ button: UIButton) {
+        guard let indexPath = indexPath,
+              let section = button.lastTitleText else {
+            return
+        }
+        
+        viewModel?.readjust(index: indexPath, section: section)
+        self.dismiss(animated: true)
     }
 
     private func configureUI() {
