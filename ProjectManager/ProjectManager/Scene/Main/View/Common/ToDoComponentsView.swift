@@ -153,4 +153,3 @@ class ToDoComponentsView: UIView {
         static let descriptionViewLayerShaodwOpacity: Float = 0.8
     }
 }
-

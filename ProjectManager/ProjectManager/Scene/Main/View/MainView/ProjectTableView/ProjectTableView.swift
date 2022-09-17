@@ -78,34 +78,25 @@ class ProjectTableView: UITableView {
         addGestureRecognizer(longPressRecognizer)
     }
     
-    // MARK: - objc Functions
-    
-    @objc private func didCellTappedLong(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        guard gestureRecognizer.state == .began else { return }
-        
+    private func setupAlertController(with index: IndexPath) -> UIAlertController? {
         let alertController = UIAlertController()
-        let touchPoint = gestureRecognizer.location(in: self)
-        
-        guard let indexPath = indexPathForRow(at: touchPoint),
-              let popoverController = alertController.popoverPresentationController
-        else { return }
         
         let todoAlertAction = UIAlertAction(title: Design.todoAlertActionTitle, style: .default) { [weak self] _ in
-            guard let projectType = self?.projectType else { return }
+            guard let project = self?.projectType else { return }
             
-            self?.toDoViewModel.move(project: projectType, in: indexPath, to: .todo)
+            self?.toDoViewModel.move(project: project, in: index, to: .todo)
         }
         
-        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) {  [weak self] _ in
-            guard let projectType = self?.projectType else { return }
+        let doingAlertAction = UIAlertAction(title: Design.doingAlertActionTitle, style: .default) { [weak self] _ in
+            guard let project = self?.projectType else { return }
             
-            self?.toDoViewModel.move(project: projectType, in: indexPath, to: .doing)
+            self?.toDoViewModel.move(project: project, in: index, to: .doing)
         }
         
         let doneAlertAction = UIAlertAction(title: Design.doneAlertActionTitle, style: .default) { [weak self] _ in
-            guard let projectType = self?.projectType else { return }
+            guard let project = self?.projectType else { return }
             
-            self?.toDoViewModel.move(project: projectType, in: indexPath, to: .done)
+            self?.toDoViewModel.move(project: project, in: index, to: .done)
         }
         
         switch projectType {
@@ -119,6 +110,21 @@ class ProjectTableView: UITableView {
             alertController.addAction(todoAlertAction)
             alertController.addAction(doingAlertAction)
         }
+        
+        return alertController
+    }
+    
+    // MARK: - objc Functions
+    
+    @objc private func didCellTappedLong(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        guard gestureRecognizer.state == .began else { return }
+        
+        let touchPoint = gestureRecognizer.location(in: self)
+        
+        guard let indexPath = indexPathForRow(at: touchPoint),
+              let alertController = setupAlertController(with: indexPath),
+              let popoverController = alertController.popoverPresentationController
+        else { return }
         
         let cell = cellForRow(at: indexPath)
         
