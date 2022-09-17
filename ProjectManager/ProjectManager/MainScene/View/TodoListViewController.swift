@@ -5,13 +5,26 @@
 // 
 
 import UIKit
+import RealmSwift
+
+protocol TodoListViewControllerDelegate: AnyObject {
+    func addButtonDidTapped()
+    func cellDidTapped(at index: Int, in category: String)
+    func cellDidLongPressed<T: ListCollectionView>(
+        in view: T,
+        location: (x: Double, y: Double),
+        item: Todo?
+    )
+}
 
 final class TodoListViewController: UIViewController {
-    weak var coordinator: AppCoordinator?
-    private var viewModel: TodoListViewModel?
-    private var todoListView: ListView?
-    private var doingListView: ListView?
-    private var doneListView: ListView?
+    
+    var viewModel: TodoListViewModel?
+    weak var delegate: TodoListViewControllerDelegate?
+    
+    var todoListView: ListView
+    var doingListView: ListView
+    var doneListView: ListView
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -42,35 +55,31 @@ final class TodoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitialView()
+        setupNavigationBar()
         setupListView()
         placeListView()
-        bind()
-    }
+        adoptCollectionViewDelegate()
+        bindCreateTodo()
+        bindHeaderUpdate()
+        bindEditTodo()
+        bindMoveTodo()
     }
     
+    // MARK: - Initial Setup
     private func setupInitialView() {
         view.backgroundColor = .systemBackground
     }
     
+    private func setupNavigationBar() {
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addButtonDidTapped)
+        )
+    }
+    
     private func setupListView() {
-        guard let viewModel = viewModel else { return }
-        todoListView = ListView(
-            viewModel: viewModel,
-            category: .todo
-        )
-        doingListView = ListView(
-            viewModel: viewModel,
-            category: .doing
-        )
-        doneListView = ListView(
-            viewModel: viewModel,
-            category: .done
-        )
-        guard let todoListView = todoListView,
-              let doingListView = doingListView,
-              let doneListView = doneListView else {
-            return
-        }
         todoListView.translatesAutoresizingMaskIntoConstraints = false
         doingListView.translatesAutoresizingMaskIntoConstraints = false
         doneListView.translatesAutoresizingMaskIntoConstraints = false
@@ -88,11 +97,6 @@ final class TodoListViewController: UIViewController {
     }
     
     private func placeListView() {
-        guard let todoListView = todoListView,
-              let doingListView = doingListView,
-              let doneListView = doneListView else {
-            return
-        }
         view.addSubview(stackView)
         stackView.addArrangedSubview(todoListView)
         stackView.addArrangedSubview(doingListView)
@@ -114,63 +118,60 @@ final class TodoListViewController: UIViewController {
         ])
     }
     
-    // MARK: - Bind Methods
-    private func bind() {
-        didCreatedItem()
-        didDeletedItem()
-        didUpdateItem()
+    private func adoptCollectionViewDelegate() {
+        todoListView.collectionView?.delegate = self
+        doingListView.collectionView?.delegate = self
+        doneListView.collectionView?.delegate = self
     }
     
-    private func didCreatedItem() {
-        viewModel?.didCreatedItem = { [weak self] (item) in
+    // MARK: - Bind ViewModel
+    private func bindCreateTodo() {
+        viewModel?.didCreatedTodo = { [weak self] (todo) in
             guard let self = self else { return }
-            switch item.category {
-            case .todo:
-                self.todoListView?.add(item: [item])
-                self.todoListView?.refreshHeader()
-            case .doing:
-                self.doingListView?.add(item: [item])
-                self.doingListView?.refreshHeader()
-            case .done:
-                self.doneListView?.add(item: [item])
-                self.doneListView?.refreshHeader()
+            self.todoListView.collectionView?.add(todo: todo)
+        }
+    }
+    
+    private func bindHeaderUpdate() {
+        viewModel?.didChangedCount = { [weak self] in
+            guard let self = self else { return }
+            self.todoListView.headerView?.setupCountLabel(with: Category.todo)
+            self.doingListView.headerView?.setupCountLabel(with: Category.doing)
+            self.doneListView.headerView?.setupCountLabel(with: Category.done)
+        }
+    }
+    
+    private func bindEditTodo() {
+        viewModel?.didEditedTodo = {[weak self] (list) in
+            guard let self = self else { return }
+            switch list.first?.category {
+            case Category.todo:
+                self.todoListView.collectionView?.update(list)
+            case Category.doing:
+                self.doingListView.collectionView?.update(list)
+            case Category.done:
+                self.doneListView.collectionView?.update(list)
+            default:
+                return
             }
         }
     }
     
-    private func didDeletedItem() {
-        viewModel?.didDeletedItem = { [weak self] (item) in
+    private func bindMoveTodo() {
+        viewModel?.didMovedTodo = { [weak self] (list) in
             guard let self = self else { return }
-            switch item.category {
-            case .todo:
-                self.todoListView?.delete(item: [item])
-                self.todoListView?.refreshHeader()
-            case .doing:
-                self.doingListView?.delete(item: [item])
-                self.doingListView?.refreshHeader()
-            case .done:
-                self.doneListView?.delete(item: [item])
-                self.doneListView?.refreshHeader()
-            }
+            self.todoListView.collectionView?.update(list[0])
+            self.doingListView.collectionView?.update(list[1])
+            self.doneListView.collectionView?.update(list[2])
         }
     }
     
-    private func didUpdateItem() {
-        viewModel?.didUpdateItem = { [weak self] (item) in
-            guard let self = self else { return }
-            switch item.category {
-            case .todo:
-                self.todoListView?.update()
-                self.todoListView?.reloadData()
-            case .doing:
-                self.doingListView?.update()
-                self.doingListView?.reloadData()
-            case .done:
-                self.doneListView?.update()
-                self.doneListView?.reloadData()
-            }
-        }
+    // MARK: - @objc Method
+    @objc private func addButtonDidTapped() {
+        delegate?.addButtonDidTapped()
     }
+}
+
 // MARK: - UICollectionViewDelegate
 extension TodoListViewController: UICollectionViewDelegate {
 
