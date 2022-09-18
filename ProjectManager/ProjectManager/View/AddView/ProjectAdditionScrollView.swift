@@ -80,7 +80,7 @@ final class ProjectAdditionScrollView: UIScrollView {
         
         return view
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +88,7 @@ final class ProjectAdditionScrollView: UIScrollView {
         
         configureView()
         configureUI()
+        configureInset()
     }
     
     required init?(coder: NSCoder) {
@@ -121,7 +122,11 @@ final class ProjectAdditionScrollView: UIScrollView {
             scheduleDescriptionTextView.leadingAnchor.constraint(equalTo: shadowView.leadingAnchor),
             scheduleDescriptionTextView.topAnchor.constraint(equalTo: shadowView.topAnchor),
             scheduleDescriptionTextView.trailingAnchor.constraint(equalTo: shadowView.trailingAnchor),
-            scheduleDescriptionTextView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor)
+            scheduleDescriptionTextView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor),
+            scheduleDescriptionTextView.heightAnchor.constraint(
+                greaterThanOrEqualTo: self.heightAnchor,
+                multiplier: 0.48
+            )
         ])
     }
     
@@ -129,5 +134,15 @@ final class ProjectAdditionScrollView: UIScrollView {
         scheduleTitleTextField.text = data.title
         scheduleDescriptionTextView.text = data.body
         datePicker?.date = data.deadLine
+    }
+
+    private func configureInset() {
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: 15,
+            right: 0.0)
+        self.contentInset = contentInset
+        self.scrollIndicatorInsets = contentInset
     }
 }
