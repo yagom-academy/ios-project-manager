@@ -98,8 +98,7 @@ private extension MainViewController {
     
     func setupTableViewBinding() {
         viewModel.todoTasks
-            .observe(on: MainScheduler.instance)
-            .bind(to: mainView.todoListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
+             .bind(to: mainView.todoListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
                 (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
                 let longPressGestureRecognizer = CustomLongPressGesture(
                     target: self,
@@ -114,7 +113,6 @@ private extension MainViewController {
             .disposed(by: disposedBag)
         
         viewModel.doingTasks
-            .observe(on: MainScheduler.instance)
             .bind(to: mainView.doingListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
                 (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
                 let longPressGestureRecognizer = CustomLongPressGesture(
@@ -130,7 +128,6 @@ private extension MainViewController {
             .disposed(by: disposedBag)
         
         viewModel.doneTasks
-            .observe(on: MainScheduler.instance)
             .bind(to: mainView.doneListView.mainTableView.rx.items(cellIdentifier: MainViewCommand.cellReuseIdentifier)) {
                 (index: Int, element: ProjectTask, cell: ProjectTaskCell) in
                 let longPressGestureRecognizer = CustomLongPressGesture(
@@ -186,21 +183,18 @@ private extension MainViewController {
     
     func setupHeaderCountBinding() {
         viewModel.todoCount
-            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] count in
                 self?.mainView.todoListView.countLabel.text = String(count)
             })
             .disposed(by: disposedBag)
         
         viewModel.doingCount
-            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] count in
                 self?.mainView.doingListView.countLabel.text = String(count)
             })
             .disposed(by: disposedBag)
         
         viewModel.doneCount
-            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] count in
                 self?.mainView.doneListView.countLabel.text = String(count)
             })
@@ -210,7 +204,6 @@ private extension MainViewController {
     func setupTaskSelectedBinding() {
         Observable.zip(mainView.todoListView.mainTableView.rx.modelSelected(ProjectTask.self),
                        mainView.todoListView.mainTableView.rx.itemSelected)
-        .observe(on: MainScheduler.instance)
         .subscribe(onNext: { [weak self] (item, indexPath) in
             guard let self = self else {
                 return
@@ -226,7 +219,6 @@ private extension MainViewController {
         
         Observable.zip(mainView.doingListView.mainTableView.rx.modelSelected(ProjectTask.self),
                        mainView.doingListView.mainTableView.rx.itemSelected)
-        .observe(on: MainScheduler.instance)
         .subscribe(onNext: { [weak self] (item, indexPath) in
             guard let self = self else {
                 return
@@ -242,7 +234,6 @@ private extension MainViewController {
         
         Observable.zip(mainView.doneListView.mainTableView.rx.modelSelected(ProjectTask.self),
                        mainView.doneListView.mainTableView.rx.itemSelected)
-        .observe(on: MainScheduler.instance)
         .subscribe(onNext: { [weak self] (item, indexPath) in
             guard let self = self else {
                 return
