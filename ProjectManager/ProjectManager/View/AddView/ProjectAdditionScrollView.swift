@@ -65,7 +65,6 @@ final class ProjectAdditionScrollView: UIScrollView {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
-        textView.text = "Description"
         textView.font = UIFont.preferredFont(forTextStyle: .caption1)
         
         return textView
@@ -94,7 +93,7 @@ final class ProjectAdditionScrollView: UIScrollView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        os_log(.default, log: .ui, "didn't use nib File")
+        os_log(.default, log: .ui, "Didn't use nib File")
     }
     
     private func configureView() {

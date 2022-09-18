@@ -221,10 +221,10 @@
 		2054633128D2F28B005FF658 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				2054633428D30110005FF658 /* Observable.swift */,
 				20B3DC0028D55A9400A6386B /* ToDoViewModel.swift */,
 				20B3DC0228D55AA900A6386B /* DoingViewModel.swift */,
 				20B3DC0428D55AB100A6386B /* DoneViewModel.swift */,
+				2054633428D30110005FF658 /* Observable.swift */,
 				72B5DDA328D708AC005D0544 /* Protocol */,
 			);
 			path = ViewModel;

@@ -40,6 +40,35 @@ final class DoingViewController:
         configureLongPressGesture()
         showAlert()
     }
+
+    @objc func didTapCell(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == UIGestureRecognizer.State.ended else {
+            return
+        }
+
+        let tapLocation = recognizer.location(in: self.doingListView)
+
+        guard let tapIndexPath = self.doingListView.indexPathForRow(at: tapLocation) else {
+            return
+        }
+
+        presentModalEditView(indexPath: tapIndexPath.row)
+    }
+
+    @objc func didPressCell(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == UIGestureRecognizer.State.began else {
+            return
+        }
+
+        let longPressLocation = recognizer.location(in: self.doingListView)
+
+        guard let tapIndexPath = self.doingListView.indexPathForRow(at: longPressLocation),
+              let tappedCell = self.doingListView.cellForRow(at: tapIndexPath) as? ProjectManagerListCell else {
+            return
+        }
+
+        configurePopoverController(indexPath: tapIndexPath.row, in: tappedCell)
+    }
     
     private func configureUI() {
         self.view.backgroundColor = .systemBackground
@@ -94,6 +123,24 @@ final class DoingViewController:
             self.doingListView.reloadData()
         }
     }
+
+    private func configureTapGesture() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(didTapCell(_:))
+        )
+        tapGesture.delegate = self
+        doingListView.addGestureRecognizer(tapGesture)
+    }
+
+    private func configureLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didPressCell(_:))
+        )
+        longPressGesture.delegate = self
+        doingListView.addGestureRecognizer(longPressGesture)
+    }
     
     private func showAlert() {
         viewModel.showAlert = { [weak self] in
@@ -117,29 +164,6 @@ final class DoingViewController:
         return snapshot
     }
 
-    private func configureTapGesture() {
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(didTapCell(_:))
-        )
-        tapGesture.delegate = self
-        doingListView.addGestureRecognizer(tapGesture)
-    }
-
-    @objc func didTapCell(_ recognizer: UITapGestureRecognizer) {
-        guard recognizer.state == UIGestureRecognizer.State.ended else {
-            return
-        }
-
-        let tapLocation = recognizer.location(in: self.doingListView)
-
-        guard let tapIndexPath = self.doingListView.indexPathForRow(at: tapLocation) else {
-            return
-        }
-
-        presentModalEditView(indexPath: tapIndexPath.row)
-    }
-
     private func presentModalEditView(indexPath: Int) {
         let projectModificationController = ProjectModificationController()
         projectModificationController.indexPath = indexPath
@@ -150,30 +174,6 @@ final class DoingViewController:
         navigationController.modalPresentationStyle = .formSheet
 
         self.present(navigationController, animated: true)
-    }
-
-    private func configureLongPressGesture() {
-        let longPressGesture = UILongPressGestureRecognizer(
-            target: self,
-            action: #selector(didPressCell(_:))
-        )
-        longPressGesture.delegate = self
-        doingListView.addGestureRecognizer(longPressGesture)
-    }
-
-    @objc func didPressCell(_ recognizer: UITapGestureRecognizer) {
-        guard recognizer.state == UIGestureRecognizer.State.began else {
-            return
-        }
-
-        let longPressLocation = recognizer.location(in: self.doingListView)
-
-        guard let tapIndexPath = self.doingListView.indexPathForRow(at: longPressLocation),
-              let tappedCell = self.doingListView.cellForRow(at: tapIndexPath) as? ProjectManagerListCell else {
-            return
-        }
-
-        configurePopoverController(indexPath: tapIndexPath.row, in: tappedCell)
     }
 
     private func configurePopoverController(indexPath: Int, in cell: UITableViewCell) {

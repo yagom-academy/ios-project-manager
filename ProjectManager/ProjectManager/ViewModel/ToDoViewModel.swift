@@ -45,22 +45,6 @@ final class ToDoViewModel: Readjustable, Editable {
         )
         fetchToDoData()
     }
-    
-    @objc func addData(_ notification: Notification) {
-        guard var projectUnit = notification.object as? ProjectUnit else {
-            return
-        }
-        
-        projectUnit.section = Section.todo
-        
-        toDoData.value.append(projectUnit)
-        
-        do {
-            try databaseManager.update(data: projectUnit)
-        } catch {
-            message = "Add Error"
-        }
-    }
 
     func addProject(
         title: String,
@@ -81,6 +65,22 @@ final class ToDoViewModel: Readjustable, Editable {
             message = "Add Entity Error"
         }
     }
+    
+    @objc func addData(_ notification: Notification) {
+        guard var projectUnit = notification.object as? ProjectUnit else {
+            return
+        }
+        
+        projectUnit.section = Section.todo
+        
+        toDoData.value.append(projectUnit)
+        
+        do {
+            try databaseManager.update(data: projectUnit)
+        } catch {
+            message = "Add Error"
+        }
+    }
 
     func delete(_ indexPath: Int) {
         let data = toDoData.value.remove(at: indexPath)
@@ -94,16 +94,6 @@ final class ToDoViewModel: Readjustable, Editable {
 
     func fetch(_ indexPath: Int) -> ProjectUnit? {
         toDoData.value[indexPath]
-    }
-
-    private func fetchToDoData() {
-        do {
-            try databaseManager.fetchSection(Section.todo).forEach { project in
-                toDoData.value.append(project)
-            }
-        } catch {
-            message = "Fetch Error"
-        }
     }
     
     func readjust(index: Int, section: String) {
@@ -144,5 +134,15 @@ final class ToDoViewModel: Readjustable, Editable {
         }
 
         return false
+    }
+
+    private func fetchToDoData() {
+        do {
+            try databaseManager.fetchSection(Section.todo).forEach { project in
+                toDoData.value.append(project)
+            }
+        } catch {
+            message = "Fetch Error"
+        }
     }
 }

@@ -18,14 +18,24 @@ final class ProjectModificationController: UIViewController {
         configureUI()
         setContent()
     }
-    
-    private func setContent() {
+
+    @objc private func didTapDoneButton() {
+        self.dismiss(animated: true)
+    }
+
+    @objc private func didTapEditButton() {
         guard let indexPath = indexPath,
-              let data = viewModel?.fetch(indexPath) else {
+              let title = projectAdditionScrollView.scheduleTitleTextField.text,
+              let date = projectAdditionScrollView.datePicker?.date else {
             return
         }
-        
-        projectAdditionScrollView.setContent(data: data)
+
+        viewModel?.edit(
+            indexPath: indexPath,
+            title: title,
+            body: projectAdditionScrollView.scheduleDescriptionTextView.text,
+            date: date
+        )
     }
     
     private func configureNavigationItems() {
@@ -55,22 +65,12 @@ final class ProjectModificationController: UIViewController {
         ])
     }
 
-    @objc private func didTapDoneButton() {
-        self.dismiss(animated: true)
-    }
-
-    @objc private func didTapEditButton() {
+    private func setContent() {
         guard let indexPath = indexPath,
-              let title = projectAdditionScrollView.scheduleTitleTextField.text,
-              let date = projectAdditionScrollView.datePicker?.date else {
+              let data = viewModel?.fetch(indexPath) else {
             return
         }
 
-        viewModel?.edit(
-            indexPath: indexPath,
-            title: title,
-            body: projectAdditionScrollView.scheduleDescriptionTextView.text,
-            date: date
-        )
+        projectAdditionScrollView.setContent(data: data)
     }
 }

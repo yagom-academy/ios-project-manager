@@ -16,6 +16,25 @@ final class ProjectAdditionController: UIViewController {
         configureNavigationItems()
         configureUI()
     }
+
+    @objc private func didTapDoneButton() {
+        guard let title = projectAdditionScrollView.scheduleTitleTextField.text,
+              let date = projectAdditionScrollView.datePicker?.date else {
+            return
+        }
+
+        self.viewModel?.addProject(
+            title: title,
+            body: projectAdditionScrollView.scheduleDescriptionTextView.text,
+            date: date
+        )
+
+        self.dismiss(animated: true)
+    }
+
+    @objc private func didTapCancelButton() {
+        self.dismiss(animated: true)
+    }
     
     private func configureNavigationItems() {
         self.title = Section.todo
@@ -43,24 +62,5 @@ final class ProjectAdditionController: UIViewController {
             projectAdditionScrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             projectAdditionScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
-    }
-    
-    @objc private func didTapDoneButton() {
-        guard let title = projectAdditionScrollView.scheduleTitleTextField.text,
-              let date = projectAdditionScrollView.datePicker?.date else {
-            return
-        }
-        
-        self.viewModel?.addProject(
-            title: title,
-            body: projectAdditionScrollView.scheduleDescriptionTextView.text,
-            date: date
-        )
-
-        self.dismiss(animated: true)
-    }
-    
-    @objc private func didTapCancelButton() {
-        self.dismiss(animated: true)
     }
 }

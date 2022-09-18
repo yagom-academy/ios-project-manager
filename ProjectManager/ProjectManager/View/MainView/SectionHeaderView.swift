@@ -53,12 +53,7 @@ final class SectionHeaderView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        os_log(.default, log: .ui, "didn't use nib File")
-    }
-
-    private func configurelayout() {
-        stackView.addArrangedSubview(sectionLabel)
-        stackView.addArrangedSubview(numberImageView)
+        os_log(.default, log: .ui, "Didn't use nib File")
     }
 
     func setupLabelText(
@@ -69,6 +64,12 @@ final class SectionHeaderView: UIView {
         sectionLabel.text = section
         numberImageView.image = circleBorderedDigit(number, diameter: 30, font: font)
     }
+    
+    private func configurelayout() {
+        stackView.addArrangedSubview(sectionLabel)
+        stackView.addArrangedSubview(numberImageView)
+    }
+
     
     private func circleBorderedDigit(
         _ num: Int,

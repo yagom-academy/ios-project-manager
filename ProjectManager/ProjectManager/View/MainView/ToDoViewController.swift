@@ -40,16 +40,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
         showAlert()
     }
 
-    private func configureTapGesture() {
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(didTapCell(_:))
-        )
-        tapGesture.delegate = self
-        toDoListView.addGestureRecognizer(tapGesture)
-    }
-
-    @objc func didTapCell(_ recognizer: UITapGestureRecognizer) {
+    @objc private func didTapCell(_ recognizer: UITapGestureRecognizer) {
         guard recognizer.state == UIGestureRecognizer.State.ended else {
             return
         }
@@ -63,28 +54,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
         presentModalEditView(indexPath: tapIndexPath.row)
     }
 
-    private func presentModalEditView(indexPath: Int) {
-        let projectModificationController = ProjectModificationController()
-        projectModificationController.indexPath = indexPath
-        projectModificationController.viewModel = self.viewModel
-        projectModificationController.title = Section.todo
-
-        let navigationController = UINavigationController(rootViewController: projectModificationController)
-        navigationController.modalPresentationStyle = .formSheet
-
-        self.present(navigationController, animated: true)
-    }
-
-    private func configureLongPressGesture() {
-        let longPressGesture = UILongPressGestureRecognizer(
-            target: self,
-            action: #selector(didPressCell(_:))
-        )
-        longPressGesture.delegate = self
-        toDoListView.addGestureRecognizer(longPressGesture)
-    }
-
-    @objc func didPressCell(_ recognizer: UITapGestureRecognizer) {
+    @objc private func didPressCell(_ recognizer: UITapGestureRecognizer) {
         guard recognizer.state == UIGestureRecognizer.State.ended else {
             return
         }
@@ -97,31 +67,6 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
         }
 
         configurePopoverController(indexPath: tapIndexPath.row, in: tappedCell)
-    }
-
-    private func configurePopoverController(indexPath: Int, in cell: UITableViewCell) {
-        let controller = PopoverController()
-        controller.viewModel = self.viewModel
-        controller.indexPath = indexPath
-        controller.modalPresentationStyle = UIModalPresentationStyle.popover
-        controller.preferredContentSize = CGSize(width: 300, height: 120)
-        controller.setTitle(firstButtonName: Section.doing, secondButtonName: Section.done)
-
-        guard let popController = controller.popoverPresentationController else {
-            return
-        }
-        popController.permittedArrowDirections = .up
-
-        popController.delegate = self
-        popController.sourceView = view
-        popController.sourceRect = CGRect(
-            x: cell.frame.midX,
-            y: cell.frame.midY,
-            width: 0,
-            height: 0
-        )
-
-        self.present(controller, animated: true)
     }
 
     private func configureUI() {
@@ -177,16 +122,34 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
             self.toDoListView.reloadData()
         }
     }
-    
+
+    private func configureTapGesture() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(didTapCell(_:))
+        )
+        tapGesture.delegate = self
+        toDoListView.addGestureRecognizer(tapGesture)
+    }
+
+    private func configureLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didPressCell(_:))
+        )
+        longPressGesture.delegate = self
+        toDoListView.addGestureRecognizer(longPressGesture)
+    }
+
     private func showAlert() {
         viewModel.showAlert = { [weak self] in
             guard let self = self else {
                 return
             }
-            
+
             let alert = UIAlertController(title: "Error", message: self.viewModel.message, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
-            
+
             alert.addAction(okAction)
             self.present(alert, animated: true)
         }
@@ -198,6 +161,43 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
         snapshot.appendItems(data)
 
         return snapshot
+    }
+
+    private func presentModalEditView(indexPath: Int) {
+        let projectModificationController = ProjectModificationController()
+        projectModificationController.indexPath = indexPath
+        projectModificationController.viewModel = self.viewModel
+        projectModificationController.title = Section.todo
+
+        let navigationController = UINavigationController(rootViewController: projectModificationController)
+        navigationController.modalPresentationStyle = .formSheet
+
+        self.present(navigationController, animated: true)
+    }
+
+    private func configurePopoverController(indexPath: Int, in cell: UITableViewCell) {
+        let controller = PopoverController()
+        controller.viewModel = self.viewModel
+        controller.indexPath = indexPath
+        controller.modalPresentationStyle = UIModalPresentationStyle.popover
+        controller.preferredContentSize = CGSize(width: 300, height: 120)
+        controller.setTitle(firstButtonName: Section.doing, secondButtonName: Section.done)
+
+        guard let popController = controller.popoverPresentationController else {
+            return
+        }
+        popController.permittedArrowDirections = .up
+
+        popController.delegate = self
+        popController.sourceView = view
+        popController.sourceRect = CGRect(
+            x: cell.frame.midX,
+            y: cell.frame.midY,
+            width: 0,
+            height: 0
+        )
+
+        self.present(controller, animated: true)
     }
 }
 

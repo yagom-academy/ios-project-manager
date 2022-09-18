@@ -61,7 +61,13 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        os_log(.default, log: .ui, "didn't use nib File")
+        os_log(.default, log: .ui, "Didn't use nib File")
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        dateLabel.textColor = .gray
     }
     
     func setContents(title: String, body: String, date: String?) {
@@ -100,11 +106,5 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
                 constant: -inset
             )
         ])
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        dateLabel.textColor = .gray
     }
 }

@@ -75,16 +75,6 @@ final class DoneViewModel: Readjustable, Editable {
     func fetch(_ indexPath: Int) -> ProjectUnit? {
         doneData.value[indexPath]
     }
-
-    private func fetchDoneData() {
-        do {
-            try databaseManager.fetchSection(Section.done).forEach { project in
-                doneData.value.append(project)
-            }
-        } catch {
-            message = "Fetch Error"
-        }
-    }
     
     func readjust(index: Int, section: String) {
         let data = doneData.value.remove(at: index)
@@ -124,5 +114,15 @@ final class DoneViewModel: Readjustable, Editable {
         }
 
         return false
+    }
+
+    private func fetchDoneData() {
+        do {
+            try databaseManager.fetchSection(Section.done).forEach { project in
+                doneData.value.append(project)
+            }
+        } catch {
+            message = "Fetch Error"
+        }
     }
 }

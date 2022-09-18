@@ -8,22 +8,6 @@
 import Foundation
 
 struct ProjectUnit: Hashable {
-    static let sample = ProjectUnit(
-        id: UUID(),
-        title: "쥬스 메이커",
-        body: "쥬스 메이커 프로젝트입니다",
-        section: "TODO",
-        deadLine: Date()
-    )
-    
-    static let sample2 = ProjectUnit(
-        id: UUID(),
-        title: "은행 창구 매니저",
-        body: "은행 창구 매니저 프로젝트입니다",
-        section: "TODO",
-        deadLine: Date()
-    )
-
     let id: UUID
     var title: String
     var body: String
@@ -43,4 +27,22 @@ struct ProjectUnit: Hashable {
         self.section = section
         self.deadLine = deadLine
     }
+
+    // MARK: Test Data
+
+    static let sample = ProjectUnit(
+        id: UUID(),
+        title: "쥬스 메이커",
+        body: "쥬스 메이커 프로젝트입니다",
+        section: "TODO",
+        deadLine: Date()
+    )
+
+    static let sample2 = ProjectUnit(
+        id: UUID(),
+        title: "은행 창구 매니저",
+        body: "은행 창구 매니저 프로젝트입니다",
+        section: "TODO",
+        deadLine: Date()
+    )
 }

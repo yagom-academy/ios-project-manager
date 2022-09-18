@@ -64,6 +64,11 @@ final class PopoverController: UIViewController, UIGestureRecognizerDelegate, UI
         self.dismiss(animated: true)
     }
 
+    func setTitle(firstButtonName: String, secondButtonName: String) {
+        firstButton.setTitle("Move to \(firstButtonName)", for: .normal)
+        secondButton.setTitle("Move to \(secondButtonName)", for: .normal)
+    }
+
     private func configureUI() {
         self.view.backgroundColor = .systemGray6
         self.view.addSubview(stackView)
@@ -76,10 +81,5 @@ final class PopoverController: UIViewController, UIGestureRecognizerDelegate, UI
             stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
-    }
-
-    func setTitle(firstButtonName: String, secondButtonName: String) {
-        firstButton.setTitle("Move to \(firstButtonName)", for: .normal)
-        secondButton.setTitle("Move to \(secondButtonName)", for: .normal)
     }
 }
