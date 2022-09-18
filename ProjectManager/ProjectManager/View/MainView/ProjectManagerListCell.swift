@@ -9,8 +9,6 @@ import UIKit
 import OSLog
 
 final class ProjectManagerListCell: UITableViewCell, ReusableCell {
-    static let identifier = "ProjectManagerListCell"
-    
     private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false

@@ -39,7 +39,6 @@ final class ProjectManagerController: UIViewController {
     
     @objc func didTapAddButton() {
         let projectAdditionController = ProjectAdditionController()
-
         projectAdditionController.viewModel = self.toDoViewController.viewModel
 
         let navigationController = UINavigationController(rootViewController: projectAdditionController)
