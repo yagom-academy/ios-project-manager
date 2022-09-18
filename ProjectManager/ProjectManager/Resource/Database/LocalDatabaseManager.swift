@@ -97,7 +97,7 @@ final class LocalDatabaseManager: DatabaseLogic {
         do {
             try context.save()
         } catch {
-            throw DatabaseError.failedContextSave
+            throw DatabaseError.failedContextSave(error: error)
         }
     }
 }
