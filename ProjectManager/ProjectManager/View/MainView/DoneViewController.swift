@@ -37,6 +37,7 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
         configureObserver()
         configureTapGesture()
         configureLongPressGesture()
+        showAlert()
     }
 
     private func configureUI() {
@@ -90,6 +91,20 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
 
             self.doneViewdataSource?.apply(doneViewSnapshot)
             self.doneListView.reloadData()
+        }
+    }
+    
+    private func showAlert() {
+        viewModel.showAlert = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            let alert = UIAlertController(title: "Error", message: self.viewModel.message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            
+            alert.addAction(okAction)
+            self.present(alert, animated: true)
         }
     }
 

@@ -38,6 +38,7 @@ final class DoingViewController:
         configureObserver()
         configureTapGesture()
         configureLongPressGesture()
+        showAlert()
     }
     
     private func configureUI() {
@@ -91,6 +92,20 @@ final class DoingViewController:
             
             self.doingViewdataSource?.apply(doingViewSnapshot)
             self.doingListView.reloadData()
+        }
+    }
+    
+    private func showAlert() {
+        viewModel.showAlert = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            let alert = UIAlertController(title: "Error", message: self.viewModel.message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            
+            alert.addAction(okAction)
+            self.present(alert, animated: true)
         }
     }
     

@@ -37,6 +37,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
         configureObserver()
         configureTapGesture()
         configureLongPressGesture()
+        showAlert()
     }
 
     private func configureTapGesture() {
@@ -174,6 +175,20 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
 
             self.toDoViewdataSource?.apply(toDoViewSnapshot)
             self.toDoListView.reloadData()
+        }
+    }
+    
+    private func showAlert() {
+        viewModel.showAlert = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            let alert = UIAlertController(title: "Error", message: self.viewModel.message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            
+            alert.addAction(okAction)
+            self.present(alert, animated: true)
         }
     }
 

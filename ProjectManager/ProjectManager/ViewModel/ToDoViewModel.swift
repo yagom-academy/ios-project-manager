@@ -13,8 +13,20 @@ final class ToDoViewModel: Readjustable, Editable {
     var count: Int {
         return toDoData.value.count
     }
+    
+    var message: String = "" {
+        didSet {
+            guard let showAlert = showAlert else {
+                return
+            }
+            
+            showAlert()
+        }
+    }
 
     let databaseManager: DatabaseLogic
+    
+    var showAlert: (() -> Void)?
 
     init(databaseManager: DatabaseLogic) {
         self.databaseManager = databaseManager
@@ -46,7 +58,7 @@ final class ToDoViewModel: Readjustable, Editable {
         do {
             try databaseManager.update(data: projectUnit)
         } catch {
-            print(error)
+            message = "Add Error"
         }
     }
 
@@ -66,13 +78,18 @@ final class ToDoViewModel: Readjustable, Editable {
         do {
             try databaseManager.create(data: project)
         } catch {
-            print(error)
+            message = "Add Entity Error"
         }
     }
 
     func delete(_ indexPath: Int) {
         let data = toDoData.value.remove(at: indexPath)
-        try? databaseManager.delete(id: data.id)
+        
+        do {
+            try databaseManager.delete(id: data.id)
+        } catch {
+            message = "Delete Error"
+        }
     }
 
     func fetch(_ indexPath: Int) -> ProjectUnit? {
@@ -85,7 +102,7 @@ final class ToDoViewModel: Readjustable, Editable {
                 toDoData.value.append(project)
             }
         } catch {
-            print(error)
+            message = "Fetch Error"
         }
     }
     
@@ -117,7 +134,7 @@ final class ToDoViewModel: Readjustable, Editable {
         do {
             try databaseManager.update(data: data)
         } catch {
-            print(error)
+            message = "Edit Error"
         }
     }
 
