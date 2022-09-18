@@ -59,10 +59,6 @@ final class TodoListViewController: UIViewController {
         setupListView()
         placeListView()
         adoptCollectionViewDelegate()
-        bindCreateTodo()
-        bindHeaderUpdate()
-        bindEditTodo()
-        bindMoveTodo()
     }
     
     // MARK: - Initial Setup
@@ -122,48 +118,6 @@ final class TodoListViewController: UIViewController {
         todoListView.collectionView?.delegate = self
         doingListView.collectionView?.delegate = self
         doneListView.collectionView?.delegate = self
-    }
-    
-    // MARK: - Bind ViewModel
-    private func bindCreateTodo() {
-        viewModel?.didCreatedTodo = { [weak self] (todo) in
-            guard let self = self else { return }
-            self.todoListView.collectionView?.add(todo: todo)
-        }
-    }
-    
-    private func bindHeaderUpdate() {
-        viewModel?.didChangedCount = { [weak self] in
-            guard let self = self else { return }
-            self.todoListView.headerView?.setupCountLabel(with: Category.todo)
-            self.doingListView.headerView?.setupCountLabel(with: Category.doing)
-            self.doneListView.headerView?.setupCountLabel(with: Category.done)
-        }
-    }
-    
-    private func bindEditTodo() {
-        viewModel?.didEditedTodo = {[weak self] (list) in
-            guard let self = self else { return }
-            switch list.first?.category {
-            case Category.todo:
-                self.todoListView.collectionView?.update(list)
-            case Category.doing:
-                self.doingListView.collectionView?.update(list)
-            case Category.done:
-                self.doneListView.collectionView?.update(list)
-            default:
-                return
-            }
-        }
-    }
-    
-    private func bindMoveTodo() {
-        viewModel?.didMovedTodo = { [weak self] (list) in
-            guard let self = self else { return }
-            self.todoListView.collectionView?.update(list[0])
-            self.doingListView.collectionView?.update(list[1])
-            self.doneListView.collectionView?.update(list[2])
-        }
     }
     
     // MARK: - @objc Method

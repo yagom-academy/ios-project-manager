@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PopoverViewController: UIViewController {
+final class PopoverViewController: UIViewController {
     
     private enum Transition {
         static let moveToTodo = "Move to TODO"

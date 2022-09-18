@@ -14,7 +14,7 @@
 		AFB2603928D1F1290024CE70 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603828D1F1290024CE70 /* Todo.swift */; };
 		AFB2603B28D1F2F10024CE70 /* TodoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603A28D1F2F10024CE70 /* TodoDataManager.swift */; };
 		AFB2603E28D20C300024CE70 /* TodoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603D28D20C300024CE70 /* TodoListCoordinator.swift */; };
-		AFB2604028D20DAD0024CE70 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603F28D20DAD0024CE70 /* TodoListViewModel.swift */; };
+		AFB2604028D20DAD0024CE70 /* DefaultTodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603F28D20DAD0024CE70 /* DefaultTodoListViewModel.swift */; };
 		AFB2604928D2A3210024CE70 /* CreateTodoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2604828D2A3210024CE70 /* CreateTodoListCoordinator.swift */; };
 		AFB2604B28D2A32B0024CE70 /* EditTodoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2604A28D2A32B0024CE70 /* EditTodoListCoordinator.swift */; };
 		AFB2605528D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2605428D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift */; };
@@ -45,7 +45,7 @@
 		AFB2603828D1F1290024CE70 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		AFB2603A28D1F2F10024CE70 /* TodoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDataManager.swift; sourceTree = "<group>"; };
 		AFB2603D28D20C300024CE70 /* TodoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCoordinator.swift; sourceTree = "<group>"; };
-		AFB2603F28D20DAD0024CE70 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
+		AFB2603F28D20DAD0024CE70 /* DefaultTodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTodoListViewModel.swift; sourceTree = "<group>"; };
 		AFB2604828D2A3210024CE70 /* CreateTodoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTodoListCoordinator.swift; sourceTree = "<group>"; };
 		AFB2604A28D2A32B0024CE70 /* EditTodoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoListCoordinator.swift; sourceTree = "<group>"; };
 		AFB2605428D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListCollectionView+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
@@ -156,12 +156,12 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		AFB2604528D297270024CE70 /* DataStore */ = {
+		AFB2604528D297270024CE70 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
 				AFB2603A28D1F2F10024CE70 /* TodoDataManager.swift */,
 			);
-			path = DataStore;
+			path = DataManager;
 			sourceTree = "<group>";
 		};
 		AFB640D328CF61110070C442 /* PopoverScene */ = {
@@ -185,7 +185,7 @@
 		AFB640D528CF63420070C442 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				AFB2603F28D20DAD0024CE70 /* TodoListViewModel.swift */,
+				AFB2603F28D20DAD0024CE70 /* DefaultTodoListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -298,7 +298,7 @@
 				AF87FCC228CE381A00839018 /* ModalTransitionScene */,
 				AFB640D328CF61110070C442 /* PopoverScene */,
 				AFB640DA28CF63CD0070C442 /* Model */,
-				AFB2604528D297270024CE70 /* DataStore */,
+				AFB2604528D297270024CE70 /* DataManager */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -460,7 +460,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				AF87FCB828CE110A00839018 /* ListView.swift in Sources */,
 				AFEF7F6828CB5EDB0020FCBA /* EditTodoListViewController.swift in Sources */,
-				AFB2604028D20DAD0024CE70 /* TodoListViewModel.swift in Sources */,
+				AFB2604028D20DAD0024CE70 /* DefaultTodoListViewModel.swift in Sources */,
 				AF8953DD28CDBA1000078F5B /* PopoverViewController.swift in Sources */,
 				AFEF7F7028CC1CEE0020FCBA /* TimeInterval+Extension.swift in Sources */,
 				AFB2603B28D1F2F10024CE70 /* TodoDataManager.swift in Sources */,

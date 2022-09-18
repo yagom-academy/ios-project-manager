@@ -37,6 +37,7 @@ final class HeaderView: UIView {
         super.init(frame: .zero)
         setupInitialHeaderView(with: category)
         setupCountLabel(with: category)
+        bindHeaderUpdate()
     }
     
     required init?(coder: NSCoder) {
@@ -44,6 +45,12 @@ final class HeaderView: UIView {
     }
     
     // MARK: - Methods
+    private func bindHeaderUpdate() {
+        viewModel.didChangedCount.append({ [weak self] in
+            guard let self = self else { return }
+            self.setupCountLabel(with: self.category)
+        })
+    }
     private func setupInitialHeaderView(with category: String) {
         backgroundColor = .systemGray6
         categoryLabel.text = category

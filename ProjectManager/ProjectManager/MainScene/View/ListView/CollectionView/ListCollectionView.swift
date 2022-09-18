@@ -27,6 +27,9 @@ final class ListCollectionView: UICollectionView {
         setupInitialView()
         configureDataSource(with: viewModel.fetchTodoList(in: category))
         setupLongGestureRecognizerOnCollection()
+        bindCreateTodo()
+        bindEditTodo()
+        bindMoveTodo()
     }
     
     required init?(coder: NSCoder) {
@@ -96,6 +99,29 @@ extension ListCollectionView {
         snapshot.appendSections([.main])
         snapshot.appendItems(data, toSection: .main)
         todoDataSource?.apply(snapshot)
+    }
+    // MARK: - Bind
+    private func bindCreateTodo() {
+        guard category == Category.todo else { return }
+        viewModel.didCreatedTodo = { [weak self] (todo) in
+            guard let self = self else { return }
+            self.add(todo: todo)
+        }
+    }
+
+    private func bindEditTodo() {
+        viewModel.didEditedTodo.append({[weak self] (list) in
+            guard let self = self else { return }
+            guard self.category == list.first?.category else { return }
+            self.update(list)
+        })
+    }
+    
+    private func bindMoveTodo() {
+        viewModel.didMovedTodo.append({ [weak self] in
+            guard let self = self else { return }
+            self.update(self.viewModel.fetchTodoList(in: self.category))
+        })
     }
     
     func add(todo: Todo) {
