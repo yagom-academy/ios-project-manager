@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     static let identifier = "ProjectManagerListCell"
@@ -59,6 +60,8 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        os_log(.default, log: .ui, "didn't use nib File")
     }
     
     func setContents(title: String, body: String, date: String?) {

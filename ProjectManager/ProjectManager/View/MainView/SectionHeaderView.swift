@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 final class SectionHeaderView: UIView {
     private let stackView: UIStackView = {
@@ -51,6 +52,8 @@ final class SectionHeaderView: UIView {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        os_log(.default, log: .ui, "didn't use nib File")
     }
 
     private func configurelayout() {
