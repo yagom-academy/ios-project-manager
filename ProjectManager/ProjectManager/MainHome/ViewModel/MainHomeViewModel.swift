@@ -62,13 +62,17 @@ class MainHomeViewModel {
 
     func fetchDataList() {
         let allData = databaseManager.read()
-        todoList = [TaskModel]()
-        doingList = [TaskModel]()
-        doneList = [TaskModel]()
 
-        allData.forEach { data in
-            currentState = data.taskState
-            currentList.append(data)
+        todoList = allData.filter {
+            $0.taskState == TaskState.todo.name
+        }
+
+        doingList = allData.filter {
+            $0.taskState == TaskState.doing.name
+        }
+
+        doneList = allData.filter {
+            $0.taskState == TaskState.done.name
         }
 
         todoCount.value = todoList.count
