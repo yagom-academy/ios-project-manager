@@ -82,19 +82,6 @@ extension ProjectManagerCollectionViewCell {
     private func configureObservable() {
         guard let tableView = self.tableView else { return }
         
-        categorizedTodoList?.bind(
-            to: tableView.rx.items(
-                cellType: TodoListTableViewCell.self
-            )
-        ) { _, item, cell in
-            let longPressGestureRecognizer = UILongPressGestureRecognizer(
-                target: self,
-                action: #selector(self.popoverMoveTo)
-            )
-            cell.addGestureRecognizer(longPressGestureRecognizer)
-            cell.set(by: item)
-        }
-        .disposed(by: disposeBag)
     }
 }
 
@@ -151,9 +138,15 @@ extension ProjectManagerCollectionViewCell {
                     to: selectedStatus
                 )
             }
+        let dataSource = RxTableViewSectionedAnimatedDataSource<DataSourceSection> { dataSource, tableView, indexPath, item in
+            guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: CellIdentifier.tableView,
+                for: indexPath
+            ) as? TodoListTableViewCell else { return UITableViewCell() }
             
-            alertController.addAction(newAction)
+            cell.set(by: item)
+            
+            return cell
         }
     }
     
@@ -175,6 +168,8 @@ extension ProjectManagerCollectionViewCell {
     
     private func moveToButtonTapped(from currentStatus: TodoStatus, indexPath: IndexPath, to destinationStatus: TodoStatus) {
         viewModel?.changeStatusTodoData?.onNext((currentStatus, indexPath.row, destinationStatus))
+        sectionSubject.bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
     }
 }
 

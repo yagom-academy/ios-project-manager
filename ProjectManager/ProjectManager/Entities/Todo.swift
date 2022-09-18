@@ -5,10 +5,11 @@
 //  Created by Finnn on 2022/09/08.
 //
 
+import RxDataSources
 import FirebaseFirestore
 
-struct Todo: Codable {
-    var todoId: UUID
+struct Todo: IdentifiableType, Equatable, Codable {
+    var identity: UUID
     var title: String
     var body: String
     var createdAt: Date
@@ -16,7 +17,7 @@ struct Todo: Codable {
     var isOutdated: Bool
     
     enum CodingKeys: String, CodingKey {
-        case todoId = "todo_id"
+        case identity = "todo_id"
         case title
         case body
         case createdAt = "created_at"
@@ -25,12 +26,12 @@ struct Todo: Codable {
     }
     
     init(todoId: UUID, title: String, body: String, createdAt: Date, status: TodoStatus, isOutdated: Bool) {
-        self.todoId = todoId
+        self.identity = todoId
         self.title = title
         self.body = body
-        self.createdAt = createdAt
         self.status = status
         self.isOutdated = isOutdated
+        self.createdAt = createdAt
     }
     
     init?(dictionary: [String: Any]) {
@@ -43,7 +44,7 @@ struct Todo: Codable {
               let status = TodoStatus(rawValue: statusInt),
               let isOutdated = dictionary["is_outdated"] as? Bool else { return nil }
         
-        self.todoId = todoId
+        self.identity = todoId
         self.title = title
         self.body = body
         self.createdAt = createdAt.dateValue()
