@@ -1,5 +1,5 @@
 //
-//  AddTodoViewController.swift
+//  TodoDetailViewController.swift
 //  ProjectManager
 //
 //  Created by Finnn on 2022/09/09.
@@ -8,21 +8,11 @@
 import UIKit
 import RxSwift
 
-class TodoDetailViewController: UIViewController {
+final class TodoDetailViewController: UIViewController {
 
     // MARK: - Properties
     
-    private var viewModel: ProjectManagerViewModel?
-    
-    private var todoData: Observable<Todo>? {
-        didSet {
-            configureObservable()
-        }
-    }
-    
-    private var disposeBag = DisposeBag()
-    
-    private let titleTextField: UITextField = {
+    let titleTextField: UITextField = {
         let textField = UITextField()
         let leftPaddingView = UIView(frame: CGRect(
             x: 0,
@@ -35,11 +25,11 @@ class TodoDetailViewController: UIViewController {
         textField.textAlignment = .left
         textField.leftViewMode = .always
         textField.leftView = leftPaddingView
-
+        
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.locale = .autoupdatingCurrent
@@ -49,7 +39,7 @@ class TodoDetailViewController: UIViewController {
         return datePicker
     }()
     
-    private let bodyTextView: UITextView = {
+    let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.adjustsFontForContentSizeCategory = true
         textView.font = .preferredFont(forTextStyle: .body)
@@ -81,24 +71,30 @@ class TodoDetailViewController: UIViewController {
         return stackView
     }()
     
+    let cancelButton = UIBarButtonItem(
+        barButtonSystemItem: .cancel,
+        target: nil,
+        action: nil
+    )
+    
+    let doneButton = UIBarButtonItem(
+        barButtonSystemItem: .done,
+        target: nil,
+        action: nil
+    )
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureBackgroundColor()
+        view.backgroundColor = .systemBackground
         configureHierarchy()
         configureLayout()
         configureNavigationBar()
         
         configureShadow(titleTextField)
         configureShadow(bodyTextShadowView)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        disposeBag = DisposeBag()
     }
 }
 
@@ -111,77 +107,8 @@ extension TodoDetailViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.backgroundColor = .systemGray6
         
-        let cancelButton = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: nil,
-            action: nil
-        )
-        let doneButton = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: nil,
-            action: nil
-        )
-        
-        configureBarbuttonItems(doneButton, cancelButton)
-        
         navigationItem.setLeftBarButton(cancelButton, animated: true)
         navigationItem.setRightBarButton(doneButton, animated: true)
-    }
-    
-    private func getCurrentTodoInfomation() -> Todo? {
-        guard let title = self.titleTextField.text,
-              let body = self.bodyTextView.text else { return nil }
-        let date = self.datePicker.date
-        
-        var todoId = UUID()
-        var status = TodoStatus.todo
-        var isOutdated = false
-        
-        if let todoData = self.todoData {
-            todoData
-                .take(1)
-                .subscribe(onNext: {
-                    todoId = $0.todoId
-                    status = $0.status
-                    isOutdated = $0.isOutdated
-                })
-                .disposed(by: self.disposeBag)
-        }
-        
-        let currentTodoInfomation = Todo(
-            todoId: todoId,
-            title: title,
-            body: body,
-            createdAt: date,
-            status: status,
-            isOutdated: isOutdated
-        )
-        
-        return currentTodoInfomation
-    }
-    
-    private func configureBarbuttonItems(_ doneButton: UIBarButtonItem, _ cancelButton: UIBarButtonItem) {
-        doneButton.rx.tap
-            .subscribe(onNext: {
-                guard let currentTodoInfo = self.getCurrentTodoInfomation() else { return }
-
-                self.viewModel?.saveTodoData?.onNext(currentTodoInfo)
-                self.viewModel?.saveTodoData?.subscribe(onCompleted: {
-                    self.dismiss(animated: true)
-                })
-                .disposed(by: self.disposeBag)
-            })
-            .disposed(by: disposeBag)
-        
-        cancelButton.rx.tap
-            .subscribe(onNext: {
-                self.dismiss(animated: true)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func configureBackgroundColor() {
-        view.backgroundColor = .systemBackground
     }
     
     private func configureHierarchy() {
@@ -261,30 +188,37 @@ extension TodoDetailViewController {
         )
         view.layer.shadowColor = UIColor.gray.cgColor
     }
-    
-    private func configureObservable() {
-        todoData?
-            .map { $0.title }
-            .bind(to: titleTextField.rx.text)
-            .disposed(by: disposeBag)
-        
-        todoData?
-            .map { $0.body }
-            .bind(to: bodyTextView.rx.text)
-            .disposed(by: disposeBag)
-        
-        todoData?
-            .map { $0.createdAt }
-            .bind(to: datePicker.rx.date)
-            .disposed(by: disposeBag)
-    }
 }
 
-// MARK: - Setter Methods
+// MARK: - Getter Methods
 
 extension TodoDetailViewController {
-    func set(todo todoData: Observable<Todo>?, viewModel: ProjectManagerViewModel?) {
-        self.todoData = todoData
-        self.viewModel = viewModel
+    func getCurrentTodoInfomation(todoId: UUID? = nil, status: TodoStatus? = nil, isOutdated: Bool? = nil) -> Todo? {
+        guard let title = self.titleTextField.text,
+              let body = self.bodyTextView.text else { return nil }
+        let date = self.datePicker.date
+        
+        var newTodoId = UUID()
+        var newStatus = TodoStatus.todo
+        var newIsOutdated = false
+        
+        if let todoId = todoId,
+           let status = status,
+           let isOutdated = isOutdated {
+            newTodoId = todoId
+            newStatus = status
+            newIsOutdated = isOutdated
+        }
+        
+        let currentTodoInfomation = Todo(
+            todoId: newTodoId,
+            title: title,
+            body: body,
+            createdAt: date,
+            status: newStatus,
+            isOutdated: newIsOutdated
+        )
+        
+        return currentTodoInfomation
     }
 }
