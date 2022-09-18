@@ -2,7 +2,7 @@
 //  ProjectModificationController.swift
 //  ProjectManager
 //
-//  Created by 전민수 on 2022/09/17.
+//  Created by 수꿍, 휴 on 2022/09/17.
 //
 
 import UIKit
@@ -66,7 +66,6 @@ final class ProjectModificationController: UIViewController {
             return
         }
 
-        
         viewModel?.edit(
             indexPath: indexPath,
             title: title,
