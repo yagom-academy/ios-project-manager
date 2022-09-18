@@ -15,48 +15,36 @@ class MainHomeViewModel {
     private var todoList = [TaskModel]()
     private var doingList = [TaskModel]()
     private var doneList = [TaskModel]()
-    private var currentList: [TaskModel] {
-        get {
-            switch currentState {
-            case TaskState.todo.name:
-                return todoList
-            case TaskState.doing.name:
-                return doingList
-            default:
-                return doneList
-            }
-        }
-        set {
-            switch currentState {
-            case TaskState.todo.name:
-                todoList = newValue
-                return
-            case TaskState.doing.name:
-                doingList = newValue
-                return
-            default:
-                doneList = newValue
-                return
-            }
+
+    func getCurrentList(state: TaskState) -> [TaskModel] {
+        switch state {
+        case .todo:
+            return todoList
+        case .doing:
+            return doingList
+        default:
+            return doneList
         }
     }
 
-    func move(to state: String, _ index: Int) {
+    func move(_ index: Int, to nowState: TaskState, from nextState: TaskState) {
+        var currentList = getCurrentList(state: nowState)
         var data = currentList[index]
-        data.taskState = state
+        data.taskState = nextState.name
         currentList.remove(at: index)
 
-        currentState = state
-
+        currentList = getCurrentList(state: nextState)
         currentList.append(data)
         databaseManager.update(data: data)
     }
 
-    func readData(index: Int) -> TaskModel {
+    func readData(index: Int, in state: TaskState) -> TaskModel {
+        let currentList = getCurrentList(state: state)
         return currentList[index]
     }
 
-    func getDataList() -> [TaskModel] {
+    func getDataList(of state: TaskState) -> [TaskModel] {
+        let currentList = getCurrentList(state: state)
         return currentList
     }
 
@@ -80,7 +68,8 @@ class MainHomeViewModel {
         doneCount.value = doneList.count
     }
 
-    func remove(index: Int) {
+    func remove(index: Int, in state: TaskState) {
+        var currentList = getCurrentList(state: state)
         let data = currentList[index]
         currentList.remove(at: index)
         databaseManager.delete(data: data)

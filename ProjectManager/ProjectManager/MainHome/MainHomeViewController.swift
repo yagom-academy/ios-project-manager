@@ -108,6 +108,8 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
 
 extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.fetchDataList()
+
         if tableView === todoTableView {
             return viewModel.todoCount.value
         } else if tableView === doingTableView {
@@ -126,20 +128,18 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
 
-        setUpTaskState(tableView: tableView)
-
-        let list = viewModel.getDataList()
+        let state = setUpTaskState(tableView: tableView)
+        let list = viewModel.getDataList(of: state)
         cell.setUpCell(data: list[indexPath.row])
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndex = indexPath.row
-        setUpTaskState(tableView: tableView)
         setUpGestureEvent(tableView)
 
-        let data = viewModel.readData(index: indexPath.row)
+        let state = setUpTaskState(tableView: tableView)
+        let data = viewModel.readData(index: indexPath.row, in: state)
         presentTodoForm(with: data)
 
         tableView.deselectRow(at: indexPath, animated: false)
@@ -157,21 +157,21 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
                 return
             }
 
-            self.setUpTaskState(tableView: tableView)
-            self.viewModel.remove(index: indexPath.row)
+            let state = self.setUpTaskState(tableView: tableView)
+            self.viewModel.remove(index: indexPath.row, in: state)
             self.reloadTableView()
         }
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 
-    private func setUpTaskState(tableView: UITableView) {
+    private func setUpTaskState(tableView: UITableView) -> TaskState {
         if tableView == todoTableView {
-            viewModel.currentState = TaskState.todo.name
+            return TaskState.todo
         } else if tableView == doingTableView {
-            viewModel.currentState = TaskState.doing.name
+            return TaskState.doing
         } else {
-            viewModel.currentState = TaskState.done.name
+            return TaskState.done
         }
     }
 }
@@ -194,30 +194,10 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
     @objc func handleLongPressGesture(recognizer: UITapGestureRecognizer) {
         let location = recognizer.location(in: recognizer.view)
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let todoButton = UIAlertAction(title: "Move to TODO", style: .default) { [weak self] _ in
-            guard let self = self else {
-                return
-            }
+        let todoButton = UIAlertAction(title: "Move to TODO", style: .default)
+        let doingButton = UIAlertAction(title: "Move to DOING", style: .default)
+        let doneButton = UIAlertAction(title: "Move to DONE", style: .default)
 
-            self.viewModel.move(to: TaskState.todo.name, self.selectedIndex)
-            self.reloadTableView()
-        }
-        let doingButton = UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
-            guard let self = self else {
-                return
-            }
-
-            self.viewModel.move(to: TaskState.doing.name, self.selectedIndex)
-            self.reloadTableView()
-        }
-        let doneButton = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
-            guard let self = self else {
-                return
-            }
-
-            self.viewModel.move(to: TaskState.done.name, self.selectedIndex)
-            self.reloadTableView()
-        }
         actionSheet.addAction(todoButton)
         actionSheet.addAction(doingButton)
         actionSheet.addAction(doneButton)
