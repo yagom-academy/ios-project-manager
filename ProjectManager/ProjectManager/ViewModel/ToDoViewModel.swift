@@ -21,14 +21,14 @@ final class ToDoViewModel: Readjustable, Editable {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(addData(_:)),
-            name: Notification.Name("DOINGtoTODO"),
+            name: Notification.Name.doingToToDo,
             object: nil
         )
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(addData(_:)),
-            name: Notification.Name("DONEtoTODO"),
+            name: Notification.Name.doneToToDo,
             object: nil
         )
         fetchToDoData()
@@ -94,9 +94,9 @@ final class ToDoViewModel: Readjustable, Editable {
         
         switch section {
         case Section.doing:
-            NotificationCenter.default.post(name: Notification.Name("TODOtoDOING"), object: data)
+            NotificationCenter.default.post(name: Notification.Name.toDoToDoing, object: data)
         case Section.done:
-            NotificationCenter.default.post(name: Notification.Name("TODOtoDONE"), object: data)
+            NotificationCenter.default.post(name: Notification.Name.toDoToDone, object: data)
         default:
             return
         }

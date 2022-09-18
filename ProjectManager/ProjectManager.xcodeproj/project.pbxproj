@@ -43,6 +43,7 @@
 		7269C2ED28D59EC50068424B /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7269C2EC28D59EC50068424B /* UIButton+Extension.swift */; };
 		72B5DDA228D6E552005D0544 /* OSLog+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B5DDA128D6E552005D0544 /* OSLog+Extension.swift */; };
 		72B5DDA628D709A8005D0544 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B5DDA528D709A8005D0544 /* Section.swift */; };
+		72B5DDA828D70BE4005D0544 /* Notification.Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B5DDA728D70BE4005D0544 /* Notification.Name+Extension.swift */; };
 		72C61C6928CDC63E0041CD12 /* ProjectAdditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */; };
 		72C61C6B28CDC88F0041CD12 /* ProjectAdditionScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -95,6 +96,7 @@
 		7269C2EC28D59EC50068424B /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		72B5DDA128D6E552005D0544 /* OSLog+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+Extension.swift"; sourceTree = "<group>"; };
 		72B5DDA528D709A8005D0544 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		72B5DDA728D70BE4005D0544 /* Notification.Name+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extension.swift"; sourceTree = "<group>"; };
 		72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAdditionController.swift; sourceTree = "<group>"; };
 		72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAdditionScrollView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +246,7 @@
 				20B3DBFE28D4508500A6386B /* Date+Extension.swift */,
 				7269C2EC28D59EC50068424B /* UIButton+Extension.swift */,
 				72B5DDA128D6E552005D0544 /* OSLog+Extension.swift */,
+				72B5DDA728D70BE4005D0544 /* Notification.Name+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72B5DDA828D70BE4005D0544 /* Notification.Name+Extension.swift in Sources */,
 				20B3DC0928D55E8200A6386B /* DoneViewController.swift in Sources */,
 				20D66B5F28D1BD90001317E0 /* ReusableCell.swift in Sources */,
 				20B3DBFF28D4508500A6386B /* Date+Extension.swift in Sources */,
