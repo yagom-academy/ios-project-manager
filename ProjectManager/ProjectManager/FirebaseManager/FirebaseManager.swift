@@ -9,7 +9,7 @@ import RxSwift
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class FirebaseManager {
+final class FirebaseManager {
     
     // MARK: - Properties
     

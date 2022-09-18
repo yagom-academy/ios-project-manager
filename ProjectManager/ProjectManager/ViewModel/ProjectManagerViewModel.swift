@@ -2,199 +2,122 @@
 //  ProjectManagerViewModel.swift
 //  ProjectManager
 //
-//  Created by Finnn on 2022/09/08.
+//  Created by Finnn on 2022/09/17.
 //
 
-import FirebaseFirestore
 import RxSwift
+import UIKit
 
-class ProjectManagerViewModel {
+final class ProjectManagerViewModel: ProjectManagerViewModelType {
     
     // MARK: - Properties
     
-    static let firestoreCollectionName = "todo_list"
+    private var provider = TodoDataProvider()
+    private var disposeBag = DisposeBag()
+
+    // MARK: - Transform Methods
     
-//    var provider: DataProvider
-    
-    var allTodoList = BehaviorSubject<[Todo]>(value: [])
-    var categorizedTodoList: [TodoStatus: Observable<[Todo]>] = [:]
-    
-    var saveTodoData: PublishSubject<Todo>?
-    var deleteTodoData: PublishSubject<Todo>?
-    var changeStatusTodoData: PublishSubject<(TodoStatus, Int, TodoStatus)>?
-    
-    var alertError = PublishSubject<Error>()
-    
-    var disposeBag = DisposeBag()
-    
-    // MARK: - Life Cycle
-    
-    init() {
-        configureSaveTodoData()
-        configureDeleteTodoData()
-        configureChangeStatusTodoData()
-        configureCategorizedTodoList()
+    func transform(viewInput: ProjectManagerViewInput) -> ProjectManagerViewOutput {
+        let error = PublishSubject<Error>()
+        let viewModels = BehaviorSubject<[TodoStatus: CellViewModelType]>(value: [:])
+        let alertController = PublishSubject<UIAlertController>()
+        var dummyViewModels: [TodoStatus: CellViewModelType] = [:]
         
-        fetchTodoData()
-    }
-    
-    deinit {
-        disposeBag = DisposeBag()
-    }
-}
-
-// MARK: - Configure Methods
-
-extension ProjectManagerViewModel {
-    private func configureCategorizedTodoList() {
         TodoStatus.allCases.forEach { status in
-            categorizedTodoList[status] = categorizeTodoList(by: status)
+            switch status {
+            case .todo:
+                dummyViewModels[status] = TodoViewModel(
+                    statusType: .todo,
+                    mainViewModel: self
+                )
+            case .doing:
+                dummyViewModels[status] = DoingViewModel(
+                    statusType: .doing,
+                    mainViewModel: self
+                )
+            case .done:
+                dummyViewModels[status] = DoneViewModel(
+                    statusType: .done,
+                    mainViewModel: self
+                )
+            }
         }
-    }
-    
-    private func configureSaveTodoData() {
-        saveTodoData = PublishSubject<Todo>()
+        viewModels.onNext(dummyViewModels)
         
-        saveTodoData?
-            .subscribe(onNext: { todoData in
-                self.requestSave(using: todoData)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func configureDeleteTodoData() {
-        deleteTodoData = PublishSubject<Todo>()
-        
-        deleteTodoData?
-            .subscribe(onNext: { todoData in
-                self.requestDelete(using: todoData)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func configureChangeStatusTodoData() {
-        changeStatusTodoData = PublishSubject<(TodoStatus, Int, TodoStatus)>()
-        
-        changeStatusTodoData?
-            .subscribe(onNext: { (currentStatus, indexPathRow, destinationStatus) in
-                self.requestChangeStatus(currentStatus, indexPathRow, destinationStatus)
-            })
-            .disposed(by: disposeBag)
-    }
-}
-
-// MARK: - Categorizer Methods
-
-extension ProjectManagerViewModel {
-    private func categorizeTodoList(by status: TodoStatus) -> Observable<[Todo]> {
-        let categorizedTodoList = allTodoList
-            .map { todoList -> [Todo] in
-                self.categorizeTodoList(whether: status, todoList: todoList)
-            }
-            .map { todoList -> [Todo] in
-                self.checkOutdated(of: todoList)
-            }
-        
-        return categorizedTodoList
-    }
-    
-    private func categorizeTodoList(whether status: TodoStatus, todoList: [Todo]) -> [Todo] {
-        return todoList.filter { todo in
-            todo.status == status
-        }
-    }
-}
-
-// MARK: - Request Methods
-
-extension ProjectManagerViewModel {
-    private func requestSave(using todoData: Todo) {
-            guard todoData.title.isEmpty == false else {
-                alertError.onNext(TodoError.emptyTitle)
-                return
-            }
-            
-            FirebaseManager.shared.sendData(
-                collection: ProjectManagerViewModel.firestoreCollectionName,
-                document: todoData.todoId.uuidString,
-                data: todoData
-            )
-            .take(1)
-            .subscribe(onError: { error in
-                self.alertError.onNext(error)
-            }, onCompleted: {
-                self.saveTodoData?.onCompleted()
-                self.configureSaveTodoData()
-                self.fetchTodoData()
-            })
-            .disposed(by: self.disposeBag)
-    }
-    
-    private func requestDelete(using todoData: Todo) {
-        FirebaseManager.shared.deleteTodoData(collection: ProjectManagerViewModel.firestoreCollectionName, document: todoData.todoId.uuidString)
-            .subscribe(onError: { error in
-                self.alertError.onNext(error)
-            }, onCompleted: {
-                self.deleteTodoData?.onCompleted()
-                self.configureDeleteTodoData()
-                self.fetchTodoData()
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func requestChangeStatus(_ currentStatus: TodoStatus, _ indexPathRow: Int, _ destinationStatus: TodoStatus) {
-        self.categorizedTodoList[currentStatus]?
-            .take(1)
-            .subscribe(onNext: { todoData in
-                var changedTodo = todoData[indexPathRow]
-                changedTodo.status = destinationStatus
-                self.saveTodoData?
-                    .subscribe(onCompleted: {
-                        self.changeStatusTodoData?.onCompleted()
-                        self.configureChangeStatusTodoData()
-                    })
-                .disposed(by: self.disposeBag)
+        viewInput.doneAction?
+            .subscribe(onNext: { todo in
+                guard let todo = todo else {
+                    error.onNext(TodoError.initializingFailed)
+                    return
+                }
                 
-                self.requestSave(using: changedTodo)
+                guard todo.title.isEmpty == false else {
+                    error.onNext(TodoError.emptyTitle)
+                    return
+                }
+                
+                self.provider.saveTodoData(
+                    document: todo.identity.uuidString,
+                    todoData: todo
+                )
             })
             .disposed(by: disposeBag)
-    }
-}
-
-// MARK: - Other Methods
-
-extension ProjectManagerViewModel {
-    private func fetchTodoData() {
-        FirebaseManager.shared.fetchData(collection: ProjectManagerViewModel.firestoreCollectionName)
-            .map { self.convertData($0) }
-            .map { $0.sorted { $0.createdAt < $1.createdAt } }
-            .take(1)
-            .subscribe(onNext: { todoList in
-                self.allTodoList.onNext(todoList)
+        
+        error
+            .subscribe(onNext: { error in
+                let newAlertController = UIAlertController(
+                    title: "Error",
+                    message: error.localizedDescription,
+                    preferredStyle: .alert
+                )
+                let newAction = UIAlertAction(title: "확인", style: .cancel)
+                newAlertController.addAction(newAction)
+                newAlertController.modalPresentationStyle = .formSheet
+                
+                alertController.onNext(newAlertController)
             })
             .disposed(by: disposeBag)
+        
+        return ProjectManagerViewOutput(allTodoList: provider.allTodoList, errorAlertContoller: alertController, viewModels: viewModels)
     }
     
-    private func checkOutdated(of todoList: [Todo]) -> [Todo] {
-        return todoList.map { todo -> Todo in
-            if todo.createdAt < Date() {
-                var outDatedTodo: Todo = todo
-                outDatedTodo.isOutdated = true
-                return outDatedTodo
-            }
-            
-            return todo
-        }
-    }
-    
-    private func convertData(_ firebaseSnapshot: [QueryDocumentSnapshot]) -> [Todo] {
-        var convertedTodoList: [Todo] = []
+    func transform(modelInput: ProjectManagerModelInput) -> ProjectManagerModelOutput {
+        let error = PublishSubject<Error>()
+
+        modelInput.saveAction?
+            .subscribe(onNext: { todo in
+                guard let todo = todo else {
+                    error.onNext(TodoError.initializingFailed)
+                    return
+                }
+                
+                guard todo.title.isEmpty == false else {
+                    error.onNext(TodoError.emptyTitle)
+                    return
+                }
+                
+                self.provider.saveTodoData(
+                    document: todo.identity.uuidString,
+                    todoData: todo
+                )
+            })
+            .disposed(by: disposeBag)
         
-        firebaseSnapshot.forEach { documents in
-            guard let todo = Todo(dictionary: documents.data()) else { return }
-            convertedTodoList.append(todo)
-        }
+        modelInput.deleteAction?
+            .subscribe(onNext: { todo in
+                self.provider.deleteTodoData(document: todo.identity.uuidString)
+            })
+            .disposed(by: disposeBag)
         
-        return convertedTodoList
+        modelInput.moveToAction?
+            .subscribe(onNext: { todo in
+                self.provider.saveTodoData(
+                    document: todo.identity.uuidString,
+                    todoData: todo
+                )
+            })
+            .disposed(by: disposeBag)
+        
+        return ProjectManagerModelOutput(allTodoList: provider.allTodoList, error: error)
     }
 }

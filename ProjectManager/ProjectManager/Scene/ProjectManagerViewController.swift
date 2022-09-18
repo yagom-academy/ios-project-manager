@@ -1,20 +1,28 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - ProjectManagerViewController.swift
 //  Created by Finnn.
 //  Copyright © Finnn. All rights reserved.
 // 
 
 import UIKit
 import RxSwift
+import RxCocoa
 
-class ProjectManagerViewController: UIViewController {
+final class ProjectManagerViewController: UIViewController {
     
     // MARK: - Properties
     
-    static let collectionViewCellIdentifier = "tableViewCell"
-    
     private var collectionView: UICollectionView?
     private var viewModel = ProjectManagerViewModel()
+    
+    private var detailViewDoneButtonTapped = PublishSubject<Todo?>()
+    private let addTodoButton = UIBarButtonItem(
+        barButtonSystemItem: .add,
+        target: nil,
+        action: nil
+    )
+
+    private var output: ProjectManagerViewOutput?
     
     private var disposeBag = DisposeBag()
     
@@ -23,7 +31,7 @@ class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureViewBackgroundColor()
+        view.backgroundColor = .systemBackground.withAlphaComponent(0.98)
         configureCollectionView()
         configureNavigationBar()
         configureHierarchy()
@@ -36,27 +44,15 @@ class ProjectManagerViewController: UIViewController {
         
         addCollectionViewBottomLine(borderWidth: 2, color: .systemGray5)
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        disposeBag = DisposeBag()
-    }
 }
 
 // MARK: - Configure Methods
 
 extension ProjectManagerViewController {
     private func configureNavigationBar() {
-        title = "Project Manager"
+        title = ProjectManager.title
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(rightBarButtonTapped)
-        )
-    }
-    
-    private func configureViewBackgroundColor() {
-        self.view.backgroundColor = .systemBackground.withAlphaComponent(0.98)
+        navigationItem.rightBarButtonItem = addTodoButton
     }
     
     private func configureCollectionView() {
@@ -69,10 +65,9 @@ extension ProjectManagerViewController {
         initialCollectionView.backgroundColor = .systemGray5
         initialCollectionView.register(
             ProjectManagerCollectionViewCell.self,
-            forCellWithReuseIdentifier: ProjectManagerViewController.collectionViewCellIdentifier
+            forCellWithReuseIdentifier: CellIdentifier.collectionView
         )
         initialCollectionView.isScrollEnabled = false
-        initialCollectionView.dataSource = self
         
         self.collectionView = initialCollectionView
     }
@@ -122,27 +117,48 @@ extension ProjectManagerViewController {
     }
     
     private func configureObservable() {
-        viewModel.alertError
-            .subscribe(onNext: {
-                self.presentAlert(error: $0)
-            })
+        guard let collectionView = self.collectionView else { return }
+        
+        let input = ProjectManagerViewInput(doneAction: detailViewDoneButtonTapped)
+        output = viewModel.transform(viewInput: input)
+        
+        output?.viewModels?
+            .map { $0.sorted { $0.key.rawValue < $1.key.rawValue } }
+            .bind(to: collectionView.rx.items(
+                cellIdentifier: CellIdentifier.collectionView,
+                cellType: ProjectManagerCollectionViewCell.self
+            )) { index, viewModel, cell in
+                guard let status = TodoStatus(rawValue: index) else { return }
+                cell.set(viewModel: viewModel.value, statusType: status)
+            }
             .disposed(by: disposeBag)
-    }
-}
-
-// MARK: - Objective-C Methods
-
-extension ProjectManagerViewController {
-    @objc private func rightBarButtonTapped(sender: UIView) {
-        let todoDetailViewController = TodoDetailViewController()
-        let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
         
-        todoDetailViewController.set(
-            todo: nil,
-            viewModel: viewModel
-        )
-        
-        present(todoDetailNavigationController, animated: true)
+        addTodoButton.rx.tap.subscribe(onNext: {
+            let todoDetailViewController = TodoDetailViewController()
+            let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
+            
+            todoDetailViewController.doneButton.rx.tap
+                .subscribe(onNext: {
+                    let currentTodo = todoDetailViewController.getCurrentTodoInfomation()
+                    self.detailViewDoneButtonTapped.onNext(currentTodo)
+                })
+                .disposed(by: self.disposeBag)
+            
+            self.output?.allTodoList?
+                .subscribe(onNext: { _ in
+                    todoDetailViewController.dismiss(animated: true)
+                })
+                .disposed(by: self.disposeBag)
+            
+            self.output?.errorAlertContoller?
+                .subscribe(onNext: { alertController in
+                    todoDetailViewController.present(alertController, animated: true)
+                })
+                .disposed(by: self.disposeBag)
+            
+            self.present(todoDetailNavigationController, animated: true)
+        })
+        .disposed(by: disposeBag)
     }
 }
 
@@ -151,71 +167,14 @@ extension ProjectManagerViewController {
 extension ProjectManagerViewController {
     private func addCollectionViewBottomLine(borderWidth: CGFloat, color: UIColor) {
         guard let collectionView = collectionView else { return }
-
+        
         let downBorder = CALayer()
         downBorder.frame = CGRect(
             x: 0, y: collectionView.frame.height - borderWidth,
             width: collectionView.frame.width, height: borderWidth
         )
         downBorder.backgroundColor = color.cgColor
-
+        
         collectionView.layer.addSublayer(downBorder)
-    }
-    
-    private func presentAlert(error: Error) {
-        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
-              let rootViewController = sceneDelegate.window?.rootViewController as? UINavigationController else { return }
-        
-        var errorMessage: String
-        
-        switch error {
-        case TodoError.emptyTitle:
-            errorMessage = "Title을 입력해주세요."
-        default:
-            errorMessage = error.localizedDescription
-        }
-        
-        let alertController = UIAlertController(
-            title: "Error",
-            message: errorMessage,
-            preferredStyle: .alert
-        )
-        let action = UIAlertAction(
-            title: "확인",
-            style: .cancel
-        )
-        
-        alertController.addAction(action)
-        
-        rootViewController.presentedViewController?.present(alertController, animated: true)
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension ProjectManagerViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return TodoStatus.allCases.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let collectionView = self.collectionView,
-              let status = TodoStatus(rawValue: indexPath.row),
-              let categoriedTodoList = self.viewModel.categorizedTodoList[status],
-              let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ProjectManagerViewController.collectionViewCellIdentifier,
-                for: indexPath
-              ) as? ProjectManagerCollectionViewCell else {
-            
-            return UICollectionViewCell()
-        }
-        
-        cell.set(
-            status: status,
-            categorizedTodoList: categoriedTodoList,
-            viewModel: viewModel
-        )
-        
-        return cell
     }
 }

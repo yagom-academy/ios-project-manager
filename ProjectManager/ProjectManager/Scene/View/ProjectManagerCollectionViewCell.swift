@@ -7,23 +7,27 @@
 
 import UIKit
 import RxSwift
+import RxGesture
+import RxDataSources
 
-class ProjectManagerCollectionViewCell: UICollectionViewCell {
+final class ProjectManagerCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    
-    static let tableViewCellIdentifier = "todoListCell"
-
-    private var viewModel: ProjectManagerViewModel?
-    
+        
     private var statusType: TodoStatus?
-    private var categorizedTodoList: Observable<[Todo]>? {
+    private var viewModel: CellViewModelType? {
         didSet {
             configureObservable()
         }
     }
     
     private var tableView: UITableView?
+    
+    private var deleteSubject = PublishSubject<Int>()
+    private var detailViewDoneButtonSubject = PublishSubject<(Todo?, IndexPath)>()
+    private var moveToSubject = PublishSubject<(UITableView, UIGestureRecognizer)>()
+    
+    private var output: CellViewOutput?
     
     private var disposeBag = DisposeBag()
     
@@ -68,7 +72,7 @@ extension ProjectManagerCollectionViewCell {
         )
         initialTableView.register(
             TodoListTableViewCell.self,
-            forCellReuseIdentifier: ProjectManagerCollectionViewCell.tableViewCellIdentifier
+            forCellReuseIdentifier: CellIdentifier.tableView
         )
         initialTableView.delegate = self
         
@@ -81,163 +85,135 @@ extension ProjectManagerCollectionViewCell {
     }
     
     private func configureObservable() {
-        guard let tableView = self.tableView else { return }
+        guard let tableView = self.tableView,
+              let statusType = self.statusType else { return }
         
-        categorizedTodoList?.bind(
-            to: tableView.rx.items(
-                cellIdentifier: ProjectManagerCollectionViewCell.tableViewCellIdentifier,
-                cellType: TodoListTableViewCell.self
-            )
-        ) { _, item, cell in
-            let longPressGestureRecognizer = UILongPressGestureRecognizer(
-                target: self,
-                action: #selector(self.popoverMoveTo)
-            )
-            cell.addGestureRecognizer(longPressGestureRecognizer)
-            cell.set(by: item)
-        }
-        .disposed(by: disposeBag)
-    }
-}
-
-// MARK: - Objective-C Methods
-
-extension ProjectManagerCollectionViewCell {
-    @objc private func popoverMoveTo(_ sender: Any) {
-        guard let gesture = sender as? UILongPressGestureRecognizer,
-              gesture.state == .began else { return }
-        
-        guard let rootViewController = self.window?.rootViewController,
-              let cell = gesture.view as? UITableViewCell,
-              let tableView = self.tableView,
-              let indexPath = tableView.indexPath(for: cell) else { return }
-        
-        let popoverAlertController = generatePopoverAlertController(tableView, indexPath)
-        rootViewController.present(
-            popoverAlertController,
-            animated: true
+        let input = CellViewInput(
+            doneAction: detailViewDoneButtonSubject,
+            deleteAction: deleteSubject,
+            moveToAction: moveToSubject
         )
-    }
-}
-
-// MARK: - PopoverAlert Methods
-
-extension ProjectManagerCollectionViewCell {
-    private func generatePopoverAlertController(_ tableView: UITableView, _ indexPath: IndexPath) -> UIAlertController {
-        let popoverAlertController = UIAlertController()
+        output = viewModel?.transform(viewInput: input)
         
-        addAlertActions(
-            to: popoverAlertController,
-            indexPath: indexPath
-        )
-        settingPopoverView(
-            of: popoverAlertController,
-            indexPath: indexPath
-        )
-        
-        return popoverAlertController
-    }
-    
-    private func addAlertActions(to alertController: UIAlertController, indexPath: IndexPath) {
-        guard let currentStatus = self.statusType else { return }
-        let statusList = TodoStatus.allCases.filter { $0 != currentStatus }
-        
-        statusList.forEach { selectedStatus in
-            let newAction = UIAlertAction(
-                title: "Move to \(selectedStatus.upperCasedString)",
-                style: .default
-            ) { [weak self] _ in
-                self?.moveToButtonTapped(
-                    from: currentStatus,
-                    indexPath: indexPath,
-                    to: selectedStatus
-                )
-            }
+        let dataSource = RxTableViewSectionedAnimatedDataSource<DataSourceSection> { dataSource, tableView, indexPath, item in
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifier.tableView,
+                for: indexPath
+            ) as? TodoListTableViewCell else { return UITableViewCell() }
             
-            alertController.addAction(newAction)
+            cell.set(by: item)
+            
+            return cell
         }
-    }
-    
-    private func settingPopoverView(of alertController: UIAlertController, indexPath: IndexPath) {
-        guard let selectedCellView = self.tableView?.cellForRow(at: indexPath) else { return }
         
-        let popoverPresentationController = alertController.popoverPresentationController
-        popoverPresentationController?.permittedArrowDirections = .up
-        popoverPresentationController?.sourceView = selectedCellView
-        popoverPresentationController?.sourceRect = CGRect(
-            x: 0,
-            y: 0,
-            width: selectedCellView.frame.width,
-            height: selectedCellView.frame.height / 2
-        )
+        dataSource.canEditRowAtIndexPath = { dataSource, index -> Bool in true }
+        tableView.rx.itemDeleted
+            .bind { indexPath in
+                self.deleteSubject.onNext(indexPath.row)
+            }
+            .disposed(by: disposeBag)
         
-        alertController.modalPresentationStyle = .popover
-    }
-    
-    private func moveToButtonTapped(from currentStatus: TodoStatus, indexPath: IndexPath, to destinationStatus: TodoStatus) {
-        viewModel?.changeStatusTodoData?.onNext((currentStatus, indexPath.row, destinationStatus))
+        tableView.rx.longPressGesture()
+            .subscribe(onNext: { gestureRecognizer in
+                self.moveToSubject.onNext((tableView, gestureRecognizer))
+            })
+            .disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                
+                guard let rootViewController = self.window?.rootViewController else { return }
+                
+                let todoDetailViewController = TodoDetailViewController()
+                let categorizedTodoList = self.output?.categorizedTodoList?
+                    .filter { $0.count > indexPath.row }
+                
+                self.output?.categorizedTodoList?
+                    .subscribe(onNext: { _ in
+                        todoDetailViewController.dismiss(animated: true)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                categorizedTodoList?
+                    .map { $0[indexPath.row].title }
+                    .bind(to: todoDetailViewController.titleTextField.rx.text)
+                    .disposed(by: self.disposeBag)
+                
+                categorizedTodoList?
+                    .map { $0[indexPath.row].createdAt }
+                    .bind(to: todoDetailViewController.datePicker.rx.date)
+                    .disposed(by: self.disposeBag)
+                
+                categorizedTodoList?
+                    .map { $0[indexPath.row].body }
+                    .bind(to: todoDetailViewController.bodyTextView.rx.text)
+                    .disposed(by: self.disposeBag)
+                
+                todoDetailViewController.doneButton.rx.tap
+                    .map { todoDetailViewController.getCurrentTodoInfomation() }
+                    .subscribe(onNext: { todo in
+                        self.detailViewDoneButtonSubject.onNext((todo, indexPath))
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                todoDetailViewController.cancelButton.rx.tap
+                    .subscribe(onNext: { todoDetailViewController.dismiss(animated: true) })
+                    .disposed(by: self.disposeBag)
+                
+                rootViewController.present(
+                    UINavigationController(rootViewController: todoDetailViewController),
+                    animated: true
+                )
+                
+                tableView.deselectRow(at: indexPath, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        let sectionSubject = BehaviorSubject<[DataSourceSection]>(value: [])
+        
+        output?.categorizedTodoList?
+            .map { DataSourceSection(
+                headerTitle: statusType.upperCasedString,
+                items: $0
+            )}
+            .subscribe(onNext: { sectionSubject.onNext([$0]) })
+            .disposed(by: disposeBag)
+        
+        sectionSubject.bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
+        
+        output?.moveToAlertController?
+            .subscribe(onNext: {
+                guard let rootViewController = self.window?.rootViewController else { return }
+                rootViewController.present($0, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 // MARK: - UITableViewDelegate
 
 extension ProjectManagerCollectionViewCell: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let rootViewController = self.window?.rootViewController else { return }
-        
-        let todoDetailViewController = TodoDetailViewController()
-        todoDetailViewController.set(
-            todo: categorizedTodoList?.map { $0[indexPath.row] },
-            viewModel: viewModel
-        )
-        
-        let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
-        rootViewController.present(
-            todoDetailNavigationController,
-            animated: true
-        )
-        
-        tableView.deselectRow(
-            at: indexPath,
-            animated: true
-        )
-    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let statusType = self.statusType else { return nil }
         
         let headerView = TableSectionHeaderView()
-        headerView.set(
-            by: categorizedTodoList,
-            status: statusType
-        )
+        headerView.set(title: statusType.upperCasedString)
+        
+        output?.categorizedTodoList?
+            .map { "\($0.count)" }
+            .bind(to: headerView.countLabel.rx.text)
+            .disposed(by: disposeBag)
         
         return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(
-            style: .destructive,
-            title: "Delete"
-        ) { _, _, completion in
-            self.categorizedTodoList?
-                .take(1)
-                .subscribe(onNext: { self.viewModel?.deleteTodoData?.onNext($0[indexPath.row]) })
-                .disposed(by: self.disposeBag)
-            
-            completion(true)
-        }
-        
-        return UISwipeActionsConfiguration(actions: [delete])
     }
 }
 
 // MARK: - Setter Methods
 
 extension ProjectManagerCollectionViewCell {
-    func set(status: TodoStatus, categorizedTodoList: Observable<[Todo]>, viewModel: ProjectManagerViewModel) {
-        self.statusType = status
-        self.categorizedTodoList = categorizedTodoList
+    func set(viewModel: CellViewModelType, statusType: TodoStatus) {
+        self.statusType = statusType
         self.viewModel = viewModel
     }
 }

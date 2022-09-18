@@ -9,17 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class TableSectionHeaderView: UIView {
+final class TableSectionHeaderView: UIView {
     
     // MARK: - Properties
-    
-    private var categorizedTodoList: Observable<[Todo]>? {
-        didSet {
-            configureObservable()
-        }
-    }
-    
-    private var disposeBag = DisposeBag()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -29,7 +21,7 @@ class TableSectionHeaderView: UIView {
         return label
     }()
     
-    private let countLabel: UILabel = {
+    let countLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.layer.cornerRadius = label.font.pointSize
@@ -69,8 +61,8 @@ class TableSectionHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        configureBackgroundColor()
+
+        backgroundColor = .systemGray6
         configureHierarchy()
         configureLayout()
     }
@@ -78,19 +70,11 @@ class TableSectionHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit {
-        disposeBag = DisposeBag()
-    }
 }
 
 // MARK: - Configure Methods
 
-extension TableSectionHeaderView {
-    private func configureBackgroundColor() {
-        backgroundColor = .systemGray6
-    }
-    
+extension TableSectionHeaderView {    
     private func configureHierarchy() {
         addSubview(stackView)
         addSubview(separatorView)
@@ -137,20 +121,12 @@ extension TableSectionHeaderView {
             )
         ])
     }
-    
-    private func configureObservable() {
-        categorizedTodoList?
-            .map { "\($0.count)" }
-            .bind(to: countLabel.rx.text)
-            .disposed(by: disposeBag)
-    }
 }
 
 // MARK: - Setter Methods
 
 extension TableSectionHeaderView {
-    func set(by categorizedTodoList: Observable<[Todo]>?, status: TodoStatus) {
-        self.categorizedTodoList = categorizedTodoList
-        self.titleLabel.text = status.upperCasedString
+    func set(title: String) {
+        self.titleLabel.text = title
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoListTableViewCell: UITableViewCell {
+final class TodoListTableViewCell: UITableViewCell {
 
     // MARK: - Properties
     
@@ -18,7 +18,7 @@ class TodoListTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
         label.text = "Default Title"
@@ -26,7 +26,7 @@ class TodoListTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let bodyLabel: UILabel = {
+    let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
@@ -36,7 +36,7 @@ class TodoListTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let createdAtLabel: UILabel = {
+    let createdAtLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.text = Date().formattedDate
