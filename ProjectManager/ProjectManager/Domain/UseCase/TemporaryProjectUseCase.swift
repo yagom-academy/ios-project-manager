@@ -1,5 +1,5 @@
 //
-//  ProjectDAO.swift
+//  TemporaryProjectUseCase.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/08.
@@ -11,17 +11,18 @@ struct TemporaryProjectUseCase: ProjectUseCaseProtocol {
     mutating func create(data: ProjectModel) {
         temporaryStore.append(data)
     }
-                    
+    
     func read() -> [ProjectModel] {
         return temporaryStore
     }
     
     mutating func update(id: String, data: ProjectModel) {
-        delete(id: id)
-        temporaryStore.append(data)
+        temporaryStore.indices.forEach {
+            temporaryStore[$0] = temporaryStore[$0].id == id ? data : temporaryStore[$0]
+        }
     }
     
     mutating func delete(id: String) {
-        temporaryStore = temporaryStore.filter { $0.id != id }
+        temporaryStore.removeAll(where: { $0.id == id })
     }
 }
