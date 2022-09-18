@@ -7,13 +7,18 @@
 
 import Foundation
 
-enum TodoError: Error, LocalizedError {
+enum TodoError: Error {
     case emptyTitle
-    
-    var errorDescription: String {
+    case initializingFailed
+}
+
+extension TodoError: LocalizedError {
+    public var errorDescription: String? {
         switch self {
         case .emptyTitle:
-            return "Title is Empty."
+            return NSLocalizedString("Title is Empty.", comment: "emptyTitle")
+        case .initializingFailed:
+            return NSLocalizedString("Initializing Failed.", comment: "initializingFailed")
         }
     }
 }
