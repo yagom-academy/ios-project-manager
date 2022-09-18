@@ -12,7 +12,6 @@ class ProjectManagerCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let tableViewCellIdentifier = "todoListCell"
 
     private var viewModel: ProjectManagerViewModel?
     
@@ -68,7 +67,7 @@ extension ProjectManagerCollectionViewCell {
         )
         initialTableView.register(
             TodoListTableViewCell.self,
-            forCellReuseIdentifier: ProjectManagerCollectionViewCell.tableViewCellIdentifier
+            forCellReuseIdentifier: CellIdentifier.tableView
         )
         initialTableView.delegate = self
         
@@ -85,7 +84,6 @@ extension ProjectManagerCollectionViewCell {
         
         categorizedTodoList?.bind(
             to: tableView.rx.items(
-                cellIdentifier: ProjectManagerCollectionViewCell.tableViewCellIdentifier,
                 cellType: TodoListTableViewCell.self
             )
         ) { _, item, cell in
@@ -153,6 +151,7 @@ extension ProjectManagerCollectionViewCell {
                     to: selectedStatus
                 )
             }
+                withIdentifier: CellIdentifier.tableView,
             
             alertController.addAction(newAction)
         }
