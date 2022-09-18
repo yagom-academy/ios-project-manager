@@ -70,7 +70,6 @@ final class SectionHeaderView: UIView {
         stackView.addArrangedSubview(numberImageView)
     }
 
-    
     private func circleBorderedDigit(
         _ num: Int,
         diameter: CGFloat,
