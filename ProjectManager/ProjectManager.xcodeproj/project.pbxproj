@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		37038F7B28C77A9D008D3921 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 37038F7A28C77A9D008D3921 /* .swiftlint.yml */; };
 		37038F8328C8B9E3008D3921 /* ProjectManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8228C8B9E3008D3921 /* ProjectManagerViewController.swift */; };
-		37038F8828C9EC46008D3921 /* ProjectDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8728C9EC46008D3921 /* ProjectDTO.swift */; };
+		37038F8828C9EC46008D3921 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8728C9EC46008D3921 /* ProjectModel.swift */; };
 		37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8928C9EC83008D3921 /* ProjectState.swift */; };
 		37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */; };
-		37038F9428CA0F45008D3921 /* ProjectDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9328CA0F45008D3921 /* ProjectDAO.swift */; };
+		37038F9428CA0F45008D3921 /* TemporaryProjectUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9328CA0F45008D3921 /* TemporaryProjectUseCase.swift */; };
 		37038F9628CA1606008D3921 /* ProjectDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9528CA1606008D3921 /* ProjectDataManagerProtocol.swift */; };
 		37038F9928CA1FBD008D3921 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */; };
 		37038F9E28CA3241008D3921 /* ProjectTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */; };
@@ -21,6 +21,7 @@
 		378F990C28D06D0400B4B8D6 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378F990B28D06D0400B4B8D6 /* Date+Extension.swift */; };
 		37B39FB028CF2153008796AD /* ProjectUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B39FAF28CF2153008796AD /* ProjectUpdateViewController.swift */; };
 		37B39FB228CF2555008796AD /* ProjectUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B39FB128CF2555008796AD /* ProjectUpdateView.swift */; };
+		37D3190628D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3190528D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -28,10 +29,10 @@
 /* Begin PBXFileReference section */
 		37038F7A28C77A9D008D3921 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		37038F8228C8B9E3008D3921 /* ProjectManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewController.swift; sourceTree = "<group>"; };
-		37038F8728C9EC46008D3921 /* ProjectDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDTO.swift; sourceTree = "<group>"; };
+		37038F8728C9EC46008D3921 /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 		37038F8928C9EC83008D3921 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
 		37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataManager.swift; sourceTree = "<group>"; };
-		37038F9328CA0F45008D3921 /* ProjectDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDAO.swift; sourceTree = "<group>"; };
+		37038F9328CA0F45008D3921 /* TemporaryProjectUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryProjectUseCase.swift; sourceTree = "<group>"; };
 		37038F9528CA1606008D3921 /* ProjectDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataManagerProtocol.swift; sourceTree = "<group>"; };
 		37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableHeaderView.swift; sourceTree = "<group>"; };
@@ -40,6 +41,7 @@
 		378F990B28D06D0400B4B8D6 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		37B39FAF28CF2153008796AD /* ProjectUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUpdateViewController.swift; sourceTree = "<group>"; };
 		37B39FB128CF2555008796AD /* ProjectUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUpdateView.swift; sourceTree = "<group>"; };
+		37D3190528D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUseCaseProtocol.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,14 +163,39 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		378F991428D07A4600B4B8D6 /* DataModel */ = {
+		378F991428D07A4600B4B8D6 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				37038F9328CA0F45008D3921 /* ProjectDAO.swift */,
-				37038F8728C9EC46008D3921 /* ProjectDTO.swift */,
+				37038F8728C9EC46008D3921 /* ProjectModel.swift */,
 				37038F8928C9EC83008D3921 /* ProjectState.swift */,
 			);
-			path = DataModel;
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		37D3190328D77D9B006A2DB0 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				37038F9328CA0F45008D3921 /* TemporaryProjectUseCase.swift */,
+				37D3190728D77E74006A2DB0 /* Protocol */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		37D3190428D77DB3006A2DB0 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				378F991428D07A4600B4B8D6 /* Entity */,
+				37D3190328D77D9B006A2DB0 /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		37D3190728D77E74006A2DB0 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				37D3190528D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -192,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				377454DF28D7739A00F9F293 /* Application */,
-				378F991428D07A4600B4B8D6 /* DataModel */,
+				37D3190428D77DB3006A2DB0 /* Domain */,
 				378F990D28D079C300B4B8D6 /* Extension */,
 				37038F8428C8B9F4008D3921 /* Scene */,
 				37038F7C28C77B84008D3921 /* Resources */,
@@ -300,11 +327,12 @@
 				37B39FB228CF2555008796AD /* ProjectUpdateView.swift in Sources */,
 				37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */,
 				37038F9928CA1FBD008D3921 /* ProjectTableViewCell.swift in Sources */,
-				37038F8828C9EC46008D3921 /* ProjectDTO.swift in Sources */,
+				37038F8828C9EC46008D3921 /* ProjectModel.swift in Sources */,
+				37D3190628D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift in Sources */,
 				37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */,
 				37038F8328C8B9E3008D3921 /* ProjectManagerViewController.swift in Sources */,
 				37B39FB028CF2153008796AD /* ProjectUpdateViewController.swift in Sources */,
-				37038F9428CA0F45008D3921 /* ProjectDAO.swift in Sources */,
+				37038F9428CA0F45008D3921 /* TemporaryProjectUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,14 +7,10 @@
 
 import Foundation
 
-struct ProjectDTO: Decodable {
+struct ProjectModel: Decodable {
     let id: String
     let title: String
     let body: String
     let date: Date
     let workState: ProjectState
-    
-    private enum CodingKeys: String, CodingKey {
-        case id, title, body, date, workState
-    }
 }

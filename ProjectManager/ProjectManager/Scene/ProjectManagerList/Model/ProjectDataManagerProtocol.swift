@@ -6,6 +6,6 @@
 //
 
 protocol ProjectDataManagerProtocol: AnyObject {
-    func create(data: ProjectDTO)
-    func update(id: String, data: ProjectDTO)
+    func create(data: ProjectModel)
+    func update(id: String, data: ProjectModel)
 }

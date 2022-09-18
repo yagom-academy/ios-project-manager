@@ -12,7 +12,7 @@ final class ProjectUpdateViewController: UIViewController {
     
     private let projectUpdateView = ProjectUpdateView()
     weak var delegate: ProjectDataManagerProtocol?
-    var item: ProjectDTO?
+    var item: ProjectModel?
     
     // MARK: - View Life Cycle
     
@@ -52,7 +52,7 @@ final class ProjectUpdateViewController: UIViewController {
         if item == nil {
             let newItem = projectUpdateView.makeItems()
             
-            let data = ProjectDTO(id: UUID().description,
+            let data = ProjectModel(id: UUID().description,
                                   title: newItem.textArray[0],
                                   body: newItem.textArray[1],
                                   date: newItem.date,
@@ -68,7 +68,7 @@ final class ProjectUpdateViewController: UIViewController {
         if let item = self.item {
             let newItem = projectUpdateView.makeItems()
             
-            let data = ProjectDTO(id: item.id,
+            let data = ProjectModel(id: item.id,
                                   title: newItem.textArray[0],
                                   body: newItem.textArray[1],
                                   date: newItem.date,

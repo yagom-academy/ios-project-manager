@@ -8,5 +8,5 @@
 import Foundation
 
 struct ProjectDataManager {
-    var provider = ProjectDAO()
+    var provider = TemporaryProjectUseCase()
 }

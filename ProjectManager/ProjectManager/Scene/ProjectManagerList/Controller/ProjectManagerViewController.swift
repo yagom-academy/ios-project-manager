@@ -107,7 +107,7 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     private func makeActionHandlers(tableView: UITableView,
-                                    item: ProjectDTO) -> [((UIAlertAction) -> Void)?] {
+                                    item: ProjectModel) -> [((UIAlertAction) -> Void)?] {
         switch tableView {
         case todoTableView:
             return [ makeHandlers(item: item, to: .doing), makeHandlers(item: item, to: .done) ]
@@ -119,18 +119,18 @@ final class ProjectManagerViewController: UIViewController {
         }
     }
     
-    private func makeHandlers(item: ProjectDTO, to state: ProjectState) -> ((UIAlertAction) -> Void)? {
+    private func makeHandlers(item: ProjectModel, to state: ProjectState) -> ((UIAlertAction) -> Void)? {
         return { [weak self] _ in self?.changeState(item: item, to: state) }
     }
     
-    private func changeState(item: ProjectDTO, to state: ProjectState) {
-        let newItem = ProjectDTO(id: item.id,
+    private func changeState(item: ProjectModel, to state: ProjectState) {
+        let newItem = ProjectModel(id: item.id,
                                  title: item.title,
                                  body: item.body,
                                  date: item.date,
                                  workState: state)
         
-        dataManager.update(id: item.id, work: newItem)
+        dataManager.update(id: item.id, data: newItem)
         
         tableViewsReloadData(todoTableView, doneTabelView, doingTableView)
     }
@@ -148,7 +148,7 @@ final class ProjectManagerViewController: UIViewController {
         tableViews.forEach { $0?.reloadData() }
     }
     
-    private func makeItem(tableView: UITableView) -> [ProjectDTO]? {
+    private func makeItem(tableView: UITableView) -> [ProjectModel]? {
         switch tableView {
         case todoTableView:
             return dataManager.read().filter { $0.workState == .todo}
@@ -160,7 +160,7 @@ final class ProjectManagerViewController: UIViewController {
         }
     }
     
-    private func configurePresentNavigationController(item: ProjectDTO?) -> UINavigationController {
+    private func configurePresentNavigationController(item: ProjectModel?) -> UINavigationController {
         let projectCreateViewController = ProjectUpdateViewController()
         projectCreateViewController.item = item
         projectCreateViewController.delegate = self
@@ -302,14 +302,14 @@ extension ProjectManagerViewController: UITableViewDelegate {
 // MARK: - Extension ProjectManagerDataProtocol
 
 extension ProjectManagerViewController: ProjectDataManagerProtocol {
-    func create(data: ProjectDTO) {
-        dataManager.append(work: data)
+    func create(data: ProjectModel) {
+        dataManager.create(data: data)
         
         tableViewsReloadData(todoTableView)
     }
     
-    func update(id: String, data: ProjectDTO) {
-        dataManager.update(id: id, work: data)
+    func update(id: String, data: ProjectModel) {
+        dataManager.update(id: id, data: data)
         
         tableViewsReloadData(todoTableView, doingTableView, doneTabelView)
     }
