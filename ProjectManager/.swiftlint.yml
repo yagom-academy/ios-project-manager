@@ -2,3 +2,5 @@ disabled_rules:
   - trailing_whitespace
   - identifier_name
 opt_in_rules:
+excluded:
+  - ProjectManagerTests
