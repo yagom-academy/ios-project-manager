@@ -19,7 +19,7 @@ protocol TodoListViewControllerDelegate: AnyObject {
 
 final class TodoListViewController: UIViewController {
     
-    var viewModel: TodoListViewModel?
+    var viewModel: DefaultTodoListViewModel?
     weak var delegate: TodoListViewControllerDelegate?
     
     var todoListView: ListView
@@ -36,7 +36,7 @@ final class TodoListViewController: UIViewController {
     }()
     
     // MARK: - Initializer
-    init(viewModel: TodoListViewModel) {
+    init(viewModel: DefaultTodoListViewModel) {
         self.viewModel = viewModel
         todoListView = ListView(category: Category.todo,
                                 viewModel: viewModel)

@@ -53,11 +53,11 @@ class PopoverViewController: UIViewController {
     }()
     
     // MARK: - Properties
-    private var viewModel: TodoListViewModel
+    private var viewModel: DefaultTodoListViewModel
     private var selectedTodo: Todo
     
     // MARK: - Initializer
-    init(viewModel: TodoListViewModel, selectedTodo: Todo) {
+    init(viewModel: DefaultTodoListViewModel, selectedTodo: Todo) {
         self.viewModel = viewModel
         self.selectedTodo = selectedTodo
         super.init(nibName: nil, bundle: nil)

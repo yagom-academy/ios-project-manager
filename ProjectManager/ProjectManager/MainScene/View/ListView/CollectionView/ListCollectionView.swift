@@ -16,11 +16,11 @@ final class ListCollectionView: UICollectionView {
     private var todoDataSource: UICollectionViewDiffableDataSource<Section, Todo>?
     private var snapshot = NSDiffableDataSourceSnapshot<Section, Todo>()
     var category: String
-    var viewModel: TodoListViewModel
+    var viewModel: DefaultTodoListViewModel
     var currentLongPressedCell: ListCell?
     
     // MARK: Initializer
-    init(category: String, viewModel: TodoListViewModel) {
+    init(category: String, viewModel: DefaultTodoListViewModel) {
         self.category = category
         self.viewModel = viewModel
         super.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())

@@ -10,11 +10,11 @@ import UIKit
 final class EditTodoListViewController: UIViewController {
     
     private let editTemplateView = FormSheetTemplateView(frame: .zero)
-    private var viewModel: TodoListViewModel
+    private var viewModel: DefaultTodoListViewModel
     private var currentTodo: Todo
     
     // MARK: - Initializer
-    init(viewModel: TodoListViewModel, category: String, index: Int) {
+    init(viewModel: DefaultTodoListViewModel, category: String, index: Int) {
         self.viewModel = viewModel
         self.currentTodo = viewModel.fetchTodo(in: category, at: index)
         super.init(nibName: nil, bundle: nil)

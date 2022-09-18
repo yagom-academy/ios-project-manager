@@ -8,9 +8,9 @@
 import UIKit
 
 final class CreateTodoListCoordinator: Coordinator {
-    var viewModel: TodoListViewModel
+    var viewModel: DefaultTodoListViewModel
 
-    init(viewModel: TodoListViewModel) {
+    init(viewModel: DefaultTodoListViewModel) {
         self.viewModel = viewModel
     }
     

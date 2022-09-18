@@ -9,7 +9,7 @@ import UIKit
 
 final class TodoListCoordinator: Coordinator, TodoListViewControllerDelegate {
     var rootViewController: UINavigationController?
-    let viewModel = TodoListViewModel()
+    let viewModel = DefaultTodoListViewModel()
     
     func start() -> UIViewController {
         let todoListViewController = TodoListViewController(viewModel: viewModel)

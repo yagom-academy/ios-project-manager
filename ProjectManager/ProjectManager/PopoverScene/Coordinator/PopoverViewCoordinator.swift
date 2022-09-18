@@ -8,12 +8,12 @@
 import UIKit
 
 final class PopoverViewCoordinator: Coordinator {
-    var viewModel: TodoListViewModel
+    var viewModel: DefaultTodoListViewModel
     var targetView: ListCollectionView
     var location: (x: Double, y: Double)
     var selectedTodo: Todo
     
-    init(viewModel: TodoListViewModel,
+    init(viewModel: DefaultTodoListViewModel,
          view: ListCollectionView,
          location: (x: Double, y: Double),
          selectedTodo: Todo) {

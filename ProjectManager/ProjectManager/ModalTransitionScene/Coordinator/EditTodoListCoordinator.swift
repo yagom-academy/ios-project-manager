@@ -8,11 +8,11 @@
 import UIKit
 
 final class EditTodoListCoordinator: Coordinator {
-    var viewModel: TodoListViewModel
+    var viewModel: DefaultTodoListViewModel
     var category: String
     var index: Int
     
-    init(viewModel: TodoListViewModel, category: String, index: Int) {
+    init(viewModel: DefaultTodoListViewModel, category: String, index: Int) {
         self.viewModel = viewModel
         self.category = category
         self.index = index

@@ -11,10 +11,10 @@ final class ListView: UIView {
     private var category: String
     var headerView: HeaderView?
     var collectionView: ListCollectionView?
-    var viewModel: TodoListViewModel
+    var viewModel: DefaultTodoListViewModel
     
     // MARK: - Initializer
-    init(category: String, viewModel: TodoListViewModel) {
+    init(category: String, viewModel: DefaultTodoListViewModel) {
         self.category = category
         self.viewModel = viewModel
         super.init(frame: .zero)

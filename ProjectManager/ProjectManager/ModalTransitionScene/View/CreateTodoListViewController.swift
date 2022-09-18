@@ -10,10 +10,10 @@ import UIKit
 final class CreateTodoListViewController: UIViewController {
     
     private let createTemplateView = FormSheetTemplateView(frame: .zero)
-    var viewModel: TodoListViewModel
+    var viewModel: DefaultTodoListViewModel
     
     // MARK: - Initializer
-    init(viewModel: TodoListViewModel) {
+    init(viewModel: DefaultTodoListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

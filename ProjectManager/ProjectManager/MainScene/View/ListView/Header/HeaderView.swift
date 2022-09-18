@@ -27,10 +27,12 @@ final class HeaderView: UIView {
         return label
     }()
     
-    private var viewModel: TodoListViewModel
+    private var viewModel: DefaultTodoListViewModel
+    private var category: String
     
     // MARK: - Initializers
-    init(category: String, viewModel: TodoListViewModel) {
+    init(category: String, viewModel: DefaultTodoListViewModel) {
+        self.category = category
         self.viewModel = viewModel
         super.init(frame: .zero)
         setupInitialHeaderView(with: category)
