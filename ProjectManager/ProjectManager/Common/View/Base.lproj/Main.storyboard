@@ -141,7 +141,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="448.5" height="865"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="todoTableViewCell" rowHeight="70" id="b6p-L9-HjZ" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="70" id="b6p-L9-HjZ" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.5" width="448.5" height="70"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b6p-L9-HjZ" id="u9C-dd-hmT">

@@ -85,9 +85,9 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
 
 extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == todoTableView {
+        if tableView === todoTableView {
             return viewModel.todoCount.value
-        } else if tableView == doingTableView {
+        } else if tableView === doingTableView {
             return viewModel.doingCount.value
         } else {
             return viewModel.doneCount.value
@@ -96,14 +96,17 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = todoTableView.dequeueReusableCell(withIdentifier: "todoTableViewCell", for: indexPath) as! TableViewCell
+        guard let cell = todoTableView.dequeueReusableCell(
+            withIdentifier: TableViewCell.reuseIdentifier,
+            for: indexPath
+        ) as? TableViewCell else {
+            return UITableViewCell()
+        }
 
         setUpTaskState(tableView: tableView)
 
         let list = viewModel.getDataList()
-        let data = list[indexPath.row]
-
-        cell.setUpCell(data: data)
+        cell.setUpCell(data: list[indexPath.row])
 
         return cell
     }

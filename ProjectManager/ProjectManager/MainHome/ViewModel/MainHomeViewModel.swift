@@ -80,6 +80,7 @@ class MainHomeViewModel {
         let data = currentList[index]
         currentList.remove(at: index)
         databaseManager.delete(data: data)
+        fetchDataList()
     }
 
     func changeList(data: TaskModel) {
