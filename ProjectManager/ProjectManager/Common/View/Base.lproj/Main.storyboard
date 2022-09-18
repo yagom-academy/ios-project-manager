@@ -220,7 +220,7 @@
                     <navigationItem key="navigationItem" title="Project Manager" id="wAW-FZ-WqI">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="EhE-tH-R89">
                             <connections>
-                                <segue destination="rQ3-C8-5HZ" kind="presentation" identifier="" id="TvG-j8-7nc"/>
+                                <action selector="didTapAddButton:" destination="BYZ-38-t0r" id="iP2-tb-q9f"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -242,11 +242,11 @@
             <objects>
                 <viewController storyboardIdentifier="TodoFormViewController" id="rQ3-C8-5HZ" customClass="TodoFormViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qjz-Dt-Yqe">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="944"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jab-ob-tMf">
-                                <rect key="frame" x="0.0" y="0.0" width="704" height="44"/>
+                                <rect key="frame" x="0.0" y="24" width="1366" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="m0Q-cH-GgF"/>
                                 </constraints>
@@ -266,10 +266,10 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="qZr-Rf-2wn">
-                                <rect key="frame" x="15" y="64" width="674" height="850"/>
+                                <rect key="frame" x="15" y="88" width="1336" height="886"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aAv-dh-u3U">
-                                        <rect key="frame" x="0.0" y="0.0" width="674" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1336" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="aed-sX-ftN"/>
@@ -278,10 +278,10 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="R4g-T1-AXp">
-                                        <rect key="frame" x="0.0" y="52" width="674" height="523"/>
+                                        <rect key="frame" x="0.0" y="52" width="1336" height="559"/>
                                     </datePicker>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRE-xg-zGd">
-                                        <rect key="frame" x="0.0" y="577" width="674" height="273"/>
+                                        <rect key="frame" x="0.0" y="613" width="1336" height="273"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>

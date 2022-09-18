@@ -15,6 +15,10 @@ class MainHomeViewController: UIViewController {
     @IBOutlet weak var doingCountLabel: UILabel!
     @IBOutlet weak var doneCountLabel: UILabel!
 
+    @IBAction func didTapAddButton(_ sender: Any) {
+        presentTodoForm()
+    }
+
     private let viewModel = MainHomeViewModel()
     private var selectedIndex: Int = 0
 
@@ -70,6 +74,24 @@ class MainHomeViewController: UIViewController {
         viewModel.doneCount.bind { [weak self] count in
             self?.doneCountLabel.text = count.description
         }
+
+        reloadTableView()
+    }
+
+    private func presentTodoForm(with data: TaskModel? = nil) {
+        guard let storyboard = storyboard,
+              let todoFormViewController = storyboard.instantiateViewController(
+                withIdentifier: TodoFormViewController.reuseIdentifier
+              ) as? TodoFormViewController else {
+            return
+        }
+
+        if data != nil {
+            todoFormViewController.sendData(data)
+        }
+
+        todoFormViewController.delegate = self
+        present(todoFormViewController, animated: true)
     }
 }
 
@@ -80,6 +102,7 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
         }
 
         viewModel.changeList(data: data)
+        bind()
     }
 }
 
@@ -116,16 +139,8 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
         setUpTaskState(tableView: tableView)
         setUpGestureEvent(tableView)
 
-        guard let storyboard = storyboard,
-              let todoFormViewController = storyboard.instantiateViewController(
-                withIdentifier: TodoFormViewController.reuseIdentifier
-              ) as? TodoFormViewController else {
-            return
-        }
-
-        weak var sendDelegate: (SendDelegate)? = todoFormViewController
-        sendDelegate?.sendData(viewModel.readData(index: indexPath.row))
-        present(todoFormViewController, animated: true)
+        let data = viewModel.readData(index: indexPath.row)
+        presentTodoForm(with: data)
 
         tableView.deselectRow(at: indexPath, animated: false)
     }

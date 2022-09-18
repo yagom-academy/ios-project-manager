@@ -85,7 +85,9 @@ class MainHomeViewModel {
 
     func changeList(data: TaskModel) {
         guard databaseManager.search(data: data) != nil else {
-             return databaseManager.create(data: data)
+            databaseManager.create(data: data)
+            fetchDataList()
+            return
         }
 
         databaseManager.update(data: data)

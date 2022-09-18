@@ -14,6 +14,7 @@ class TodoFormViewController: UIViewController {
     @IBOutlet weak var leftBarButton: UIBarButtonItem!
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
 
+    weak var delegate: SendDelegate?
     private var receivedModel: TaskModel?
 
     override func viewDidLoad() {
@@ -39,16 +40,7 @@ class TodoFormViewController: UIViewController {
     }
 
     private func notifyChangedModel(data: TaskModel) {
-        guard let storyboard = storyboard,
-              let mainHomeViewController = storyboard.instantiateViewController(
-                withIdentifier: MainHomeViewController.reuseIdentifier
-              ) as? MainHomeViewController else {
-            return
-        }
-
-        weak var sendDelegate: (SendDelegate)? = mainHomeViewController
-        sendDelegate?.sendData(data)
-
+        delegate?.sendData(data)
         dismiss(animated: true)
     }
 
