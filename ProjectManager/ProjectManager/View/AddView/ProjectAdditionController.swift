@@ -18,7 +18,7 @@ final class ProjectAdditionController: UIViewController {
     }
     
     private func configureNavigationItems() {
-        self.title = "TODO"
+        self.title = Section.todo
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Done",
             style: .done,

@@ -66,7 +66,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
         let projectModificationController = ProjectModificationController()
         projectModificationController.indexPath = indexPath
         projectModificationController.viewModel = self.viewModel
-        projectModificationController.title = "TODO"
+        projectModificationController.title = Section.todo
 
         let navigationController = UINavigationController(rootViewController: projectModificationController)
         navigationController.modalPresentationStyle = .formSheet
@@ -104,7 +104,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
         controller.indexPath = indexPath
         controller.modalPresentationStyle = UIModalPresentationStyle.popover
         controller.preferredContentSize = CGSize(width: 300, height: 120)
-        controller.setTitle(firstButtonName: "DOING", secondButtonName: "DONE")
+        controller.setTitle(firstButtonName: Section.doing, secondButtonName: Section.done)
 
         guard let popController = controller.popoverPresentationController else {
             return
@@ -189,7 +189,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
 extension ToDoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = SectionHeaderView()
-        headerView.setupLabelText(section: "TODO", number: viewModel.count)
+        headerView.setupLabelText(section: Section.todo, number: viewModel.count)
 
         return headerView
     }

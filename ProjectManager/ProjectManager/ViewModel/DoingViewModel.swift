@@ -39,7 +39,7 @@ final class DoingViewModel: Readjustable, Editable {
             return
         }
         
-        projectUnit.section = "DOING"
+        projectUnit.section = Section.doing
         
         doingData.value.append(projectUnit)
         
@@ -61,7 +61,7 @@ final class DoingViewModel: Readjustable, Editable {
 
     private func fetchDoingData() {
         do {
-            try databaseManager.fetchSection("DOING").forEach { project in
+            try databaseManager.fetchSection(Section.doing).forEach { project in
                 doingData.value.append(project)
             }
         } catch {
@@ -73,9 +73,9 @@ final class DoingViewModel: Readjustable, Editable {
         let data = doingData.value.remove(at: index)
 
         switch section {
-        case "TODO":
+        case Section.todo:
             NotificationCenter.default.post(name: Notification.Name("DOINGtoTODO"), object: data)
-        case "DONE":
+        case Section.done:
             NotificationCenter.default.post(name: Notification.Name("DOINGtoDONE"), object: data)
         default:
             return
