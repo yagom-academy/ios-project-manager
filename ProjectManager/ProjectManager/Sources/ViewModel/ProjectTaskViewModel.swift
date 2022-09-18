@@ -10,7 +10,6 @@ import Foundation
 
 final class ProjectTaskViewModel {
     
-    private let disposeBag = DisposeBag()
     var selectedTask: ProjectTask?
     
     let todoTasks = BehaviorSubject<[ProjectTask]>(value: [
@@ -154,7 +153,6 @@ extension ProjectTaskViewModel {
                 newTaskAppendedTasks.append(task)
                 doneTasks.onNext(newTaskAppendedTasks)
             }
-            
         } catch {
             debugPrint("create error")
         }
@@ -181,6 +179,5 @@ extension ProjectTaskViewModel {
         } catch {
             debugPrint("move - delete error")
         }
-        
     }
 }
