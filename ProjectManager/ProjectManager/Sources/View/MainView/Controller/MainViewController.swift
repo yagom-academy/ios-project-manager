@@ -158,11 +158,11 @@ private extension MainViewController {
         )
         let targetState = state.moveUpperActionTarget()
         
-        let moveToUpperAction = UIAlertAction(title: "Move to \(targetState.upper)", style: .default) { [weak self] (action) in
-            self?.viewModel.moveTask(to: targetState.upper, from: state, id: id)
+        let moveToUpperAction = UIAlertAction(title: "Move to \(targetState.upper)", style: .default) { (action) in
+            self.viewModel.moveTask(to: targetState.upper, from: state, id: id)
         }
-        let moveToLowerAction = UIAlertAction(title: "Move to \(targetState.lower)", style: .default) { [weak self] (action) in
-            self?.viewModel.moveTask(to: targetState.lower, from: state, id: id)
+        let moveToLowerAction = UIAlertAction(title: "Move to \(targetState.lower)", style: .default) { (action) in
+            self.viewModel.moveTask(to: targetState.lower, from: state, id: id)
         }
         
         moveAlertViewController.addAction(moveToUpperAction)
@@ -181,20 +181,20 @@ private extension MainViewController {
     
     func setupHeaderCountBinding() {
         viewModel.todoCount
-            .subscribe(onNext: { [weak self] count in
-                self?.mainView.todoListView.countLabel.text = String(count)
+            .subscribe(onNext: { count in
+                self.mainView.todoListView.countLabel.text = String(count)
             })
             .disposed(by: disposedBag)
         
         viewModel.doingCount
-            .subscribe(onNext: { [weak self] count in
-                self?.mainView.doingListView.countLabel.text = String(count)
+            .subscribe(onNext: { count in
+                self.mainView.doingListView.countLabel.text = String(count)
             })
             .disposed(by: disposedBag)
         
         viewModel.doneCount
-            .subscribe(onNext: { [weak self] count in
-                self?.mainView.doneListView.countLabel.text = String(count)
+            .subscribe(onNext: { count in
+                self.mainView.doneListView.countLabel.text = String(count)
             })
             .disposed(by: disposedBag)
     }
@@ -202,10 +202,7 @@ private extension MainViewController {
     func setupTaskSelectedBinding() {
         Observable.zip(mainView.todoListView.mainTableView.rx.modelSelected(ProjectTask.self),
                        mainView.todoListView.mainTableView.rx.itemSelected)
-        .subscribe(onNext: { [weak self] (item, indexPath) in
-            guard let self = self else {
-                return
-            }
+        .subscribe(onNext: { (item, indexPath) in
             self.viewModel.selectedTask = item
             self.pushViewControllerWithNavigationController(
                 projectState: .TODO,
@@ -217,10 +214,7 @@ private extension MainViewController {
         
         Observable.zip(mainView.doingListView.mainTableView.rx.modelSelected(ProjectTask.self),
                        mainView.doingListView.mainTableView.rx.itemSelected)
-        .subscribe(onNext: { [weak self] (item, indexPath) in
-            guard let self = self else {
-                return
-            }
+        .subscribe(onNext: { (item, indexPath) in
             self.viewModel.selectedTask = item
             self.pushViewControllerWithNavigationController(
                 projectState: .DOING,
@@ -232,10 +226,7 @@ private extension MainViewController {
         
         Observable.zip(mainView.doneListView.mainTableView.rx.modelSelected(ProjectTask.self),
                        mainView.doneListView.mainTableView.rx.itemSelected)
-        .subscribe(onNext: { [weak self] (item, indexPath) in
-            guard let self = self else {
-                return
-            }
+        .subscribe(onNext: { (item, indexPath) in
             self.viewModel.selectedTask = item
             self.pushViewControllerWithNavigationController(
                 projectState: .DONE,
