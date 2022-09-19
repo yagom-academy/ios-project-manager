@@ -55,21 +55,26 @@ private extension TodoAddViewController {
     //MARK: - Navigation Item Setup
     
     func setupNavigationBarItem() {
-        navigationItem.title = state?.rawValue
         view.backgroundColor = .systemGray5
-        setupRightBarButtonItem()
-        setupLeftBarButtonItem()
+        setupNavigationItems()
     }
     
-    func setupRightBarButtonItem() {
+    func setupNavigationItems() {
+        let naviItem = UINavigationItem(title: state?.rawValue ?? "")
+        naviItem.leftBarButtonItem = setupLeftBarButtonItem()
+        naviItem.rightBarButtonItem =  setupRightBarButtonItem()
+        todoAddView.navigationBar.setItems([naviItem], animated: true)
+    }
+    
+    func setupRightBarButtonItem() -> UIBarButtonItem {
         let rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
             action: #selector(doneButtonDidTapped))
-        navigationItem.rightBarButtonItem = rightBarButtonItem
+        return rightBarButtonItem
     }
     
-    func setupLeftBarButtonItem() {
+    func setupLeftBarButtonItem() -> UIBarButtonItem {
         var leftBarButtonItem: UIBarButtonItem
         
         if isNewTask == nil {
@@ -85,7 +90,7 @@ private extension TodoAddViewController {
                 action: #selector(cancelButtonDidTapped)
             )
         }
-        navigationItem.leftBarButtonItem = leftBarButtonItem
+        return leftBarButtonItem
     }
     
     @objc func doneButtonDidTapped() {

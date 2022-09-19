@@ -60,11 +60,9 @@ private extension MainViewController {
         todoAddViewController.state = .TODO
         todoAddViewController.isNewTask = true
         todoAddViewController.viewModel = viewModel
+        todoAddViewController.modalPresentationStyle = .pageSheet
         
-        let presentNavigationController = UINavigationController(rootViewController: todoAddViewController)
-        presentNavigationController.modalPresentationStyle = .pageSheet
-        
-        self.navigationController?.present(presentNavigationController, animated: true)
+        self.navigationController?.present(todoAddViewController, animated: true)
     }
     
     
@@ -78,10 +76,10 @@ private extension MainViewController {
         todoAddViewController.viewModel = viewModel
         todoAddViewController.state = projectState
         
-        let presentNavigationController = UINavigationController(rootViewController: todoAddViewController)
-        presentNavigationController.modalPresentationStyle = .pageSheet
+        //let presentNavigationController = UINavigationController(rootViewController: todoAddViewController)
+        todoAddViewController.modalPresentationStyle = .pageSheet
         
-        self.navigationController?.present(presentNavigationController, animated: true)
+        self.navigationController?.present(todoAddViewController, animated: true)
     }
 }
 

@@ -10,7 +10,15 @@ import UIKit
 class TodoAddView: UIView {
     
     //MARK: - UI Properties
-
+    
+    let navigationBar: UINavigationBar = {
+        let naviBar = UINavigationBar()
+        naviBar.translatesAutoresizingMaskIntoConstraints = false
+        naviBar.isTranslucent = false
+        naviBar.backgroundColor = .systemBackground
+        return naviBar
+    }()
+    
     let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -68,6 +76,7 @@ private extension TodoAddView {
     //MARK: - Setup List View Initial State
     
     func addUIComponents() {
+        self.addSubview(navigationBar)
         self.addSubview(titleTextField)
         self.addSubview(deadLineDatePicker)
         self.addSubview(descriptionTextView)
@@ -75,7 +84,13 @@ private extension TodoAddView {
     
     func setupListViewLayout() {
         NSLayoutConstraint.activate([
-            titleTextField.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
+            navigationBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            titleTextField.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 8),
             titleTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             titleTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -8),
         ])
