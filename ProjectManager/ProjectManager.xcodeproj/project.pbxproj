@@ -8,15 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		4D44198EF8AC8AA5D2AB049B /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A46B9A3ED16157AFD87E8F /* Pods_ProjectManager.framework */; };
+		AF0D210728D7EE51000B1FBD /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210628D7EE51000B1FBD /* HeaderViewModel.swift */; };
+		AF0D210928D7F76C000B1FBD /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210828D7F76C000B1FBD /* Observable.swift */; };
+		AF0D210B28D80470000B1FBD /* ListCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210A28D80470000B1FBD /* ListCollectionViewModel.swift */; };
+		AF0D210D28D82665000B1FBD /* ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210C28D82665000B1FBD /* ListCellViewModel.swift */; };
+		AF0D211028D82A28000B1FBD /* FormSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210F28D82A28000B1FBD /* FormSheetViewModel.swift */; };
+		AF0D211328D8372A000B1FBD /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D211228D8372A000B1FBD /* PopoverViewModel.swift */; };
 		AF2D5BD728C57BA5009514B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AF2D5BD628C57BA5009514B8 /* .swiftlint.yml */; };
 		AF87FCB828CE110A00839018 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF87FCB728CE110A00839018 /* ListView.swift */; };
 		AF8953DD28CDBA1000078F5B /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8953DC28CDBA1000078F5B /* PopoverViewController.swift */; };
 		AFB2603928D1F1290024CE70 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603828D1F1290024CE70 /* Todo.swift */; };
 		AFB2603B28D1F2F10024CE70 /* TodoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603A28D1F2F10024CE70 /* TodoDataManager.swift */; };
 		AFB2603E28D20C300024CE70 /* TodoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603D28D20C300024CE70 /* TodoListCoordinator.swift */; };
-		AFB2604028D20DAD0024CE70 /* DefaultTodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603F28D20DAD0024CE70 /* DefaultTodoListViewModel.swift */; };
-		AFB2604928D2A3210024CE70 /* CreateTodoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2604828D2A3210024CE70 /* CreateTodoListCoordinator.swift */; };
-		AFB2604B28D2A32B0024CE70 /* EditTodoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2604A28D2A32B0024CE70 /* EditTodoListCoordinator.swift */; };
+		AFB2604B28D2A32B0024CE70 /* FormSheetViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2604A28D2A32B0024CE70 /* FormSheetViewCoordinator.swift */; };
 		AFB2605528D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2605428D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift */; };
 		AFEC096328CAF6AA00628172 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEC096228CAF6AA00628172 /* HeaderView.swift */; };
 		AFEC096728CAF82400628172 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEC096628CAF82400628172 /* ListCell.swift */; };
@@ -25,8 +29,7 @@
 		AFEC096F28CAFC8200628172 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEC096E28CAFC8200628172 /* Category.swift */; };
 		AFEC097328CB022000628172 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEC097228CB022000628172 /* Coordinator.swift */; };
 		AFEF7F6028CB32E30020FCBA /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F5F28CB32E30020FCBA /* AppCoordinator.swift */; };
-		AFEF7F6628CB5ED50020FCBA /* CreateTodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F6528CB5ED50020FCBA /* CreateTodoListViewController.swift */; };
-		AFEF7F6828CB5EDB0020FCBA /* EditTodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F6728CB5EDB0020FCBA /* EditTodoListViewController.swift */; };
+		AFEF7F6828CB5EDB0020FCBA /* FormSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F6728CB5EDB0020FCBA /* FormSheetViewController.swift */; };
 		AFEF7F6A28CB5EDF0020FCBA /* FormSheetTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F6928CB5EDF0020FCBA /* FormSheetTemplateView.swift */; };
 		AFEF7F6C28CB5F830020FCBA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F6B28CB5F830020FCBA /* UITextField+Extension.swift */; };
 		AFEF7F7028CC1CEE0020FCBA /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F6F28CC1CEE0020FCBA /* TimeInterval+Extension.swift */; };
@@ -39,15 +42,19 @@
 
 /* Begin PBXFileReference section */
 		938CBA0AAC49F3FA22F64711 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
+		AF0D210628D7EE51000B1FBD /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
+		AF0D210828D7F76C000B1FBD /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		AF0D210A28D80470000B1FBD /* ListCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewModel.swift; sourceTree = "<group>"; };
+		AF0D210C28D82665000B1FBD /* ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellViewModel.swift; sourceTree = "<group>"; };
+		AF0D210F28D82A28000B1FBD /* FormSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetViewModel.swift; sourceTree = "<group>"; };
+		AF0D211228D8372A000B1FBD /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
 		AF2D5BD628C57BA5009514B8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		AF87FCB728CE110A00839018 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		AF8953DC28CDBA1000078F5B /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		AFB2603828D1F1290024CE70 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		AFB2603A28D1F2F10024CE70 /* TodoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDataManager.swift; sourceTree = "<group>"; };
 		AFB2603D28D20C300024CE70 /* TodoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCoordinator.swift; sourceTree = "<group>"; };
-		AFB2603F28D20DAD0024CE70 /* DefaultTodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTodoListViewModel.swift; sourceTree = "<group>"; };
-		AFB2604828D2A3210024CE70 /* CreateTodoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTodoListCoordinator.swift; sourceTree = "<group>"; };
-		AFB2604A28D2A32B0024CE70 /* EditTodoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoListCoordinator.swift; sourceTree = "<group>"; };
+		AFB2604A28D2A32B0024CE70 /* FormSheetViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetViewCoordinator.swift; sourceTree = "<group>"; };
 		AFB2605428D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListCollectionView+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		AFEC096228CAF6AA00628172 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		AFEC096628CAF82400628172 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
@@ -56,8 +63,7 @@
 		AFEC096E28CAFC8200628172 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		AFEC097228CB022000628172 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		AFEF7F5F28CB32E30020FCBA /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		AFEF7F6528CB5ED50020FCBA /* CreateTodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTodoListViewController.swift; sourceTree = "<group>"; };
-		AFEF7F6728CB5EDB0020FCBA /* EditTodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoListViewController.swift; sourceTree = "<group>"; };
+		AFEF7F6728CB5EDB0020FCBA /* FormSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetViewController.swift; sourceTree = "<group>"; };
 		AFEF7F6928CB5EDF0020FCBA /* FormSheetTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetTemplateView.swift; sourceTree = "<group>"; };
 		AFEF7F6B28CB5F830020FCBA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		AFEF7F6F28CC1CEE0020FCBA /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
@@ -91,6 +97,22 @@
 				938CBA0AAC49F3FA22F64711 /* Pods-ProjectManager.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		AF0D210E28D82A12000B1FBD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AF0D210F28D82A28000B1FBD /* FormSheetViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AF0D211128D8371A000B1FBD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AF0D211228D8372A000B1FBD /* PopoverViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		AF87FCBF28CE250500839018 /* CollectionView */ = {
@@ -127,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				AFB6992E28D2FBCC00471620 /* Coordinator */,
+				AF0D210E28D82A12000B1FBD /* ViewModel */,
 				AFB640D628CF63550070C442 /* View */,
 			);
 			path = ModalTransitionScene;
@@ -168,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				AFFFC06128D4970200E41C0A /* Coordinator */,
+				AF0D211128D8371A000B1FBD /* ViewModel */,
 				AFB640D728CF63640070C442 /* View */,
 			);
 			path = PopoverScene;
@@ -185,7 +209,9 @@
 		AFB640D528CF63420070C442 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				AFB2603F28D20DAD0024CE70 /* DefaultTodoListViewModel.swift */,
+				AF0D210628D7EE51000B1FBD /* HeaderViewModel.swift */,
+				AF0D210A28D80470000B1FBD /* ListCollectionViewModel.swift */,
+				AF0D210C28D82665000B1FBD /* ListCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -193,8 +219,7 @@
 		AFB640D628CF63550070C442 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AFEF7F6528CB5ED50020FCBA /* CreateTodoListViewController.swift */,
-				AFEF7F6728CB5EDB0020FCBA /* EditTodoListViewController.swift */,
+				AFEF7F6728CB5EDB0020FCBA /* FormSheetViewController.swift */,
 				AF87FCC328CE383200839018 /* Template */,
 			);
 			path = View;
@@ -228,8 +253,7 @@
 		AFB6992E28D2FBCC00471620 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				AFB2604828D2A3210024CE70 /* CreateTodoListCoordinator.swift */,
-				AFB2604A28D2A32B0024CE70 /* EditTodoListCoordinator.swift */,
+				AFB2604A28D2A32B0024CE70 /* FormSheetViewCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -300,6 +324,7 @@
 				AFB640DA28CF63CD0070C442 /* Model */,
 				AFB2604528D297270024CE70 /* DataManager */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				AF0D210828D7F76C000B1FBD /* Observable.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
@@ -447,29 +472,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF0D210928D7F76C000B1FBD /* Observable.swift in Sources */,
 				AFB2603E28D20C300024CE70 /* TodoListCoordinator.swift in Sources */,
+				AF0D210728D7EE51000B1FBD /* HeaderViewModel.swift in Sources */,
+				AF0D211328D8372A000B1FBD /* PopoverViewModel.swift in Sources */,
 				AFEF7F6028CB32E30020FCBA /* AppCoordinator.swift in Sources */,
 				AFEC096F28CAFC8200628172 /* Category.swift in Sources */,
 				AFEF7F6A28CB5EDF0020FCBA /* FormSheetTemplateView.swift in Sources */,
 				AFEC096B28CAFBC300628172 /* ListCollectionView.swift in Sources */,
-				AFB2604B28D2A32B0024CE70 /* EditTodoListCoordinator.swift in Sources */,
+				AFB2604B28D2A32B0024CE70 /* FormSheetViewCoordinator.swift in Sources */,
 				AFB2603928D1F1290024CE70 /* Todo.swift in Sources */,
-				AFB2604928D2A3210024CE70 /* CreateTodoListCoordinator.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				AFEC096728CAF82400628172 /* ListCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				AF87FCB828CE110A00839018 /* ListView.swift in Sources */,
-				AFEF7F6828CB5EDB0020FCBA /* EditTodoListViewController.swift in Sources */,
-				AFB2604028D20DAD0024CE70 /* DefaultTodoListViewModel.swift in Sources */,
+				AF0D210D28D82665000B1FBD /* ListCellViewModel.swift in Sources */,
+				AFEF7F6828CB5EDB0020FCBA /* FormSheetViewController.swift in Sources */,
 				AF8953DD28CDBA1000078F5B /* PopoverViewController.swift in Sources */,
 				AFEF7F7028CC1CEE0020FCBA /* TimeInterval+Extension.swift in Sources */,
+				AF0D211028D82A28000B1FBD /* FormSheetViewModel.swift in Sources */,
 				AFB2603B28D1F2F10024CE70 /* TodoDataManager.swift in Sources */,
 				AFFFC06028D4938000E41C0A /* PopoverViewCoordinator.swift in Sources */,
 				AFEC097328CB022000628172 /* Coordinator.swift in Sources */,
 				AFB2605528D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift in Sources */,
-				AFEF7F6628CB5ED50020FCBA /* CreateTodoListViewController.swift in Sources */,
 				AFEC096928CAF9F100628172 /* AppAppearance.swift in Sources */,
 				AFEC096328CAF6AA00628172 /* HeaderView.swift in Sources */,
+				AF0D210B28D80470000B1FBD /* ListCollectionViewModel.swift in Sources */,
 				AFEF7F6C28CB5F830020FCBA /* UITextField+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
