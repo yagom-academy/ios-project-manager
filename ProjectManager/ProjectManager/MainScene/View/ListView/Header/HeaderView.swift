@@ -9,14 +9,14 @@ import UIKit
 
 final class HeaderView: UIView {
     // MARK: - UIComponents
-    private let categoryLabel: UILabel = {
+    let categoryLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let countLabel: UILabel = {
+    let countLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -26,18 +26,18 @@ final class HeaderView: UIView {
         label.layer.backgroundColor = UIColor.black.cgColor
         return label
     }()
-    
-    private var viewModel: DefaultTodoListViewModel
+
+    private var viewModel: HeaderViewModel
     private var category: String
     
     // MARK: - Initializers
-    init(category: String, viewModel: DefaultTodoListViewModel) {
+    init(category: String) {
         self.category = category
-        self.viewModel = viewModel
+        self.viewModel = HeaderViewModel(category: category)
         super.init(frame: .zero)
-        setupInitialHeaderView(with: category)
-        setupCountLabel(with: category)
-        bindHeaderUpdate()
+        setupInitialHeaderView()
+        setupData()
+        bindDidChangedCount()
     }
     
     required init?(coder: NSCoder) {
@@ -45,15 +45,8 @@ final class HeaderView: UIView {
     }
     
     // MARK: - Methods
-    private func bindHeaderUpdate() {
-        viewModel.didChangedCount.append({ [weak self] in
-            guard let self = self else { return }
-            self.setupCountLabel(with: self.category)
-        })
-    }
-    private func setupInitialHeaderView(with category: String) {
+    private func setupInitialHeaderView() {
         backgroundColor = .systemGray6
-        categoryLabel.text = category
         addSubview(categoryLabel)
         addSubview(countLabel)
         NSLayoutConstraint.activate([
@@ -74,16 +67,13 @@ final class HeaderView: UIView {
         ])
     }
     
-    func setupCountLabel(with category: String) {
-        switch category {
-        case Category.todo:
-            countLabel.text = " \(viewModel.todoCount) "
-        case Category.doing:
-            countLabel.text = " \(viewModel.doingCount) "
-        case Category.done:
-            countLabel.text = " \(viewModel.doneCount) "
-        default:
-            return
+    func setupData() {
+        viewModel.configure(self)
+    }
+    
+    func bindDidChangedCount() {
+        viewModel.didChangedCount = {
+            self.setupData()
         }
     }
     

@@ -8,19 +8,18 @@
 import UIKit
 
 final class ListView: UIView {
-    private var category: String
-    var headerView: HeaderView?
-    var collectionView: ListCollectionView?
-    var viewModel: DefaultTodoListViewModel
+    private let category: String
+    let headerView: HeaderView
+    let collectionView: ListCollectionView
     
     // MARK: - Initializer
-    init(category: String, viewModel: DefaultTodoListViewModel) {
+    init(category: String) {
         self.category = category
-        self.viewModel = viewModel
+        self.headerView = HeaderView(category: category)
+        self.collectionView = ListCollectionView(category: category)
         super.init(frame: .zero)
         setupInitialView()
         setupHeaderView(category: category)
-        setupCollectionView(category: category)
         placeCollectionView()
         placeHeaderView()
     }
@@ -35,18 +34,10 @@ final class ListView: UIView {
     }
     
     private func setupHeaderView(category: String) {
-        headerView = HeaderView(category: category,
-                                viewModel: viewModel)
-        headerView?.backgroundColor = .systemGray6
-    }
-    
-    private func setupCollectionView(category: String) {
-        collectionView = ListCollectionView(category: category,
-                                            viewModel: viewModel)
+        headerView.backgroundColor = .systemGray6
     }
     
     private func placeHeaderView() {
-        guard let headerView = headerView else { return }
         headerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(headerView)
         NSLayoutConstraint.activate([
@@ -67,7 +58,6 @@ final class ListView: UIView {
     }
     
     private func placeCollectionView() {
-        guard let collectionView = collectionView else { return }
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(collectionView)
         NSLayoutConstraint.activate([

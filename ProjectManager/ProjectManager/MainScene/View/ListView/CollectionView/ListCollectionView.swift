@@ -15,21 +15,19 @@ final class ListCollectionView: UICollectionView {
     weak var transitionDelegate: TodoListViewControllerDelegate?
     private var todoDataSource: UICollectionViewDiffableDataSource<Section, Todo>?
     private var snapshot = NSDiffableDataSourceSnapshot<Section, Todo>()
-    var category: String
-    var viewModel: DefaultTodoListViewModel
+    let category: String
+    let viewModel: ListCollectionViewModel
     var currentLongPressedCell: ListCell?
     
     // MARK: Initializer
-    init(category: String, viewModel: DefaultTodoListViewModel) {
+    init(category: String) {
         self.category = category
-        self.viewModel = viewModel
+        self.viewModel = ListCollectionViewModel(category: category)
         super.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         setupInitialView()
-        configureDataSource(with: viewModel.fetchTodoList(in: category))
+        configureDataSource(with: viewModel.list)
         setupLongGestureRecognizerOnCollection()
-        bindCreateTodo()
-        bindEditTodo()
-        bindMoveTodo()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -101,38 +99,16 @@ extension ListCollectionView {
         todoDataSource?.apply(snapshot)
     }
     // MARK: - Bind
-    private func bindCreateTodo() {
-        guard category == Category.todo else { return }
-        viewModel.didCreatedTodo = { [weak self] (todo) in
-            guard let self = self else { return }
-            self.add(todo: todo)
+    private func bind() {
+        viewModel.didUpdatedList = { [weak self](list) in
+            self?.update(list)
         }
     }
 
-    private func bindEditTodo() {
-        viewModel.didEditedTodo.append({[weak self] (list) in
-            guard let self = self else { return }
-            guard self.category == list.first?.category else { return }
-            self.update(list)
-        })
-    }
-    
-    private func bindMoveTodo() {
-        viewModel.didMovedTodo.append({ [weak self] in
-            guard let self = self else { return }
-            self.update(self.viewModel.fetchTodoList(in: self.category))
-        })
-    }
-    
-    func add(todo: Todo) {
-        snapshot.appendItems([todo], toSection: .main)
-        todoDataSource?.apply(snapshot, animatingDifferences: true)
-    }
-    
     func delete(todo: Todo) {
         snapshot.deleteItems([todo])
         todoDataSource?.apply(snapshot, animatingDifferences: true)
-        viewModel.delete(todo: todo)
+        TodoDataManager.shared.delete(todo)
     }
     
     func update(_ items: [Todo]) {

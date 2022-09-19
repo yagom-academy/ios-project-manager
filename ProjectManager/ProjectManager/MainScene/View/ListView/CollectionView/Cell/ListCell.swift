@@ -19,14 +19,14 @@ final class ListCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
-    private let bodyLabel: UILabel = {
+    let bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -35,12 +35,14 @@ final class ListCell: UICollectionViewCell {
         return label
     }()
     
-    private let dateLabel: UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         return label
     }()
+    
+    private let viewModel = ListCellViewModel()
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -84,12 +86,7 @@ final class ListCell: UICollectionViewCell {
     }
     
     func setup(with model: Todo) {
-        titleLabel.text = model.title
-        bodyLabel.text = model.body
-        dateLabel.text = model.date.timeIntervalSince1970.translateToDate()
-        if model.date < Date() {
-            dateLabel.textColor = .red
-        }
+        viewModel.setupData(in: self, with: model)
     }
     
     override func prepareForReuse() {
