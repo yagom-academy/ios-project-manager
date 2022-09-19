@@ -10,7 +10,7 @@ import Foundation
 extension Date {
     func convertLocalization() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
+        dateFormatter.dateFormat = "yyyy. MM. dd."
         dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ko")
     
         return dateFormatter.string(from: self)
