@@ -24,6 +24,6 @@ class TableViewCell: UITableViewCell, ReuseIdentifying {
         titleLabel.text = data.taskTitle
         descriptionLabel.text = data.taskDescription
         deadlineLabel.text = data.taskDeadline
-        deadlineLabel.textColor = data.checkPastDate()
+        deadlineLabel.textColor = data.deadLineLabelTextColor
     }
 }

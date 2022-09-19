@@ -154,7 +154,9 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
         let state = setUpTaskState(tableView: tableView)
         let list = viewModel.getDataList(of: state)
-        cell.setUpCell(data: list[indexPath.row])
+        var data = list[indexPath.row]
+        data.deadLineLabelTextColor = data.checkPastDate()
+        cell.setUpCell(data: data)
 
         return cell
     }
