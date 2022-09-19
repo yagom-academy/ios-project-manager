@@ -1,5 +1,5 @@
 //
-//  ProjectUpdateViewController.swift
+//  ProjectManagementViewController.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/12.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class ProjectUpdateViewController: UIViewController {
+final class ProjectManagementViewController: UIViewController {
     // MARK: - Properties
     
-    private let projectUpdateView = ProjectUpdateView()
+    private let projectUpdateView = ProjectManagementView()
     weak var delegate: ProjectDataManagerProtocol?
     var item: ProjectModel?
     
@@ -45,7 +45,8 @@ final class ProjectUpdateViewController: UIViewController {
     private func configureViewItems() {
         guard let item = item else { return }
         
-        projectUpdateView.configureItem(title: item.title, body: item.body)
+        projectUpdateView.configureItem(title: item.title,
+                                        body: item.body)
     }
     
     @objc private func rightBarButtonDidTap() {
@@ -53,10 +54,10 @@ final class ProjectUpdateViewController: UIViewController {
             let newItem = projectUpdateView.makeItems()
             
             let data = ProjectModel(id: UUID().description,
-                                  title: newItem.textArray[0],
-                                  body: newItem.textArray[1],
-                                  date: newItem.date,
-                                  workState: .todo)
+                                    title: newItem.textArray[0],
+                                    body: newItem.textArray[1],
+                                    date: newItem.date,
+                                    workState: .todo)
             
             delegate?.create(data: data)
         }
@@ -69,12 +70,13 @@ final class ProjectUpdateViewController: UIViewController {
             let newItem = projectUpdateView.makeItems()
             
             let data = ProjectModel(id: item.id,
-                                  title: newItem.textArray[0],
-                                  body: newItem.textArray[1],
-                                  date: newItem.date,
-                                  workState: item.workState)
+                                    title: newItem.textArray[0],
+                                    body: newItem.textArray[1],
+                                    date: newItem.date,
+                                    workState: item.workState)
             
-            delegate?.update(id: item.id, data: data)
+            delegate?.update(id: item.id,
+                             data: data)
             
             return
         }

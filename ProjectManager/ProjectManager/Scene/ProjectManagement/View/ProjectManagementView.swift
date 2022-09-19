@@ -1,5 +1,5 @@
 //
-//  ProjectUpdateView.swift
+//  ProjectManagementView.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/12.
@@ -21,7 +21,7 @@ private enum Design {
     static let defaultText = ""
 }
 
-final class ProjectUpdateView: UIView {
+final class ProjectManagementView: UIView {
     // MARK: - Properties
     
     private let mainStackView: UIStackView = {
@@ -69,7 +69,6 @@ final class ProjectUpdateView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -79,12 +78,14 @@ final class ProjectUpdateView: UIView {
     
     // MARK: - Methods
     
-    func configureItem(title: String?, body: String?) {
+    func configureItem(title: String?,
+                       body: String?) {
         titleTextField.text = title
         bodyTextView.text = body
     }
     
-    func makeItems() -> (textArray: [String], date: Date) {
+    func makeItems() -> (textArray: [String],
+                         date: Date) {
         let textArray: [String] = [
             titleTextField.text ?? Design.defaultText,
             bodyTextView.text
@@ -110,7 +111,11 @@ final class ProjectUpdateView: UIView {
     }
     
     private func configureMainStackView() {
-        [titleTextField, datePicker, bodyTextView].forEach { mainStackView.addArrangedSubview($0) }
+        [titleTextField,
+         datePicker,
+         bodyTextView].forEach {
+            mainStackView.addArrangedSubview($0)
+        }
     }
     
     private func configureMainStackViewLayouts() {
@@ -135,7 +140,7 @@ final class ProjectUpdateView: UIView {
 
 // MARK: - Extension
 
-extension ProjectUpdateView: UITextViewDelegate {
+extension ProjectManagementView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         guard let textViewText = textView.text else { return }
         

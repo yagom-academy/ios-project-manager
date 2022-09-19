@@ -19,14 +19,15 @@ enum ProjectState: String, Decodable {
         }
     }
     
-    var actionTitles: (first: String, second: String) {
+    var actionTitles: (first: String,
+                       second: String) {
         switch self {
         case .todo:
-            return ("Move To DONING", "Move To DONE")
+            return ("Move To DOING", "Move To DONE")
         case .doing:
             return ("Move To TODO", "Move To DONE")
         case .done:
-            return ("Move To TODO", "Move To DONING")
+            return ("Move To TODO", "Move To DOING")
         }
     }
 }

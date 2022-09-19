@@ -8,40 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		37038F7B28C77A9D008D3921 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 37038F7A28C77A9D008D3921 /* .swiftlint.yml */; };
-		37038F8328C8B9E3008D3921 /* ProjectManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8228C8B9E3008D3921 /* ProjectManagerViewController.swift */; };
 		37038F8828C9EC46008D3921 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8728C9EC46008D3921 /* ProjectModel.swift */; };
 		37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8928C9EC83008D3921 /* ProjectState.swift */; };
-		37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */; };
 		37038F9428CA0F45008D3921 /* TemporaryProjectUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9328CA0F45008D3921 /* TemporaryProjectUseCase.swift */; };
-		37038F9628CA1606008D3921 /* ProjectDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9528CA1606008D3921 /* ProjectDataManagerProtocol.swift */; };
-		37038F9928CA1FBD008D3921 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */; };
-		37038F9E28CA3241008D3921 /* ProjectTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */; };
 		377454E528D777B800F9F293 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 377454E228D777B800F9F293 /* LaunchScreen.storyboard */; };
 		377454E828D777F400F9F293 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377454E728D777F400F9F293 /* Assets.xcassets */; };
 		378F990C28D06D0400B4B8D6 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378F990B28D06D0400B4B8D6 /* Date+Extension.swift */; };
-		37B39FB028CF2153008796AD /* ProjectUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B39FAF28CF2153008796AD /* ProjectUpdateViewController.swift */; };
-		37B39FB228CF2555008796AD /* ProjectUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B39FB128CF2555008796AD /* ProjectUpdateView.swift */; };
+		37B39FB028CF2153008796AD /* ProjectManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B39FAF28CF2153008796AD /* ProjectManagementViewController.swift */; };
+		37B39FB228CF2555008796AD /* ProjectManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B39FB128CF2555008796AD /* ProjectManagementView.swift */; };
 		37D3190628D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3190528D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift */; };
+		37D3191328D833BA006A2DB0 /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3190C28D833BA006A2DB0 /* ProjectListViewController.swift */; };
+		37D3191428D833BA006A2DB0 /* ProjectDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3190E28D833BA006A2DB0 /* ProjectDataManagerProtocol.swift */; };
+		37D3191528D833BA006A2DB0 /* ProjectDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3190F28D833BA006A2DB0 /* ProjectDataManager.swift */; };
+		37D3191628D833BA006A2DB0 /* ProjectTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3191128D833BA006A2DB0 /* ProjectTableHeaderView.swift */; };
+		37D3191728D833BA006A2DB0 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3191228D833BA006A2DB0 /* ProjectTableViewCell.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		37038F7A28C77A9D008D3921 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		37038F8228C8B9E3008D3921 /* ProjectManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewController.swift; sourceTree = "<group>"; };
 		37038F8728C9EC46008D3921 /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 		37038F8928C9EC83008D3921 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
-		37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataManager.swift; sourceTree = "<group>"; };
 		37038F9328CA0F45008D3921 /* TemporaryProjectUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryProjectUseCase.swift; sourceTree = "<group>"; };
-		37038F9528CA1606008D3921 /* ProjectDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataManagerProtocol.swift; sourceTree = "<group>"; };
-		37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
-		37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableHeaderView.swift; sourceTree = "<group>"; };
 		377454E328D777B800F9F293 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		377454E728D777F400F9F293 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		378F990B28D06D0400B4B8D6 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		37B39FAF28CF2153008796AD /* ProjectUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUpdateViewController.swift; sourceTree = "<group>"; };
-		37B39FB128CF2555008796AD /* ProjectUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUpdateView.swift; sourceTree = "<group>"; };
+		37B39FAF28CF2153008796AD /* ProjectManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagementViewController.swift; sourceTree = "<group>"; };
+		37B39FB128CF2555008796AD /* ProjectManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagementView.swift; sourceTree = "<group>"; };
 		37D3190528D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUseCaseProtocol.swift; sourceTree = "<group>"; };
+		37D3190C28D833BA006A2DB0 /* ProjectListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
+		37D3190E28D833BA006A2DB0 /* ProjectDataManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDataManagerProtocol.swift; sourceTree = "<group>"; };
+		37D3190F28D833BA006A2DB0 /* ProjectDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDataManager.swift; sourceTree = "<group>"; };
+		37D3191128D833BA006A2DB0 /* ProjectTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableHeaderView.swift; sourceTree = "<group>"; };
+		37D3191228D833BA006A2DB0 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,36 +71,10 @@
 		37038F8428C8B9F4008D3921 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				378F990E28D079D900B4B8D6 /* ProjectManagerList */,
-				378F991028D079EC00B4B8D6 /* ProjectManagerUpdate */,
+				37D3190A28D833BA006A2DB0 /* ProjectList */,
+				378F991028D079EC00B4B8D6 /* ProjectManagement */,
 			);
 			path = Scene;
-			sourceTree = "<group>";
-		};
-		37038F8528C8BA08008D3921 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				37038F8228C8B9E3008D3921 /* ProjectManagerViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		37038F8628C9EC21008D3921 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				37038F8E28C9EE8F008D3921 /* ProjectDataManager.swift */,
-				37038F9528CA1606008D3921 /* ProjectDataManagerProtocol.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		37038F9728CA1F84008D3921 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				37038F9D28CA3241008D3921 /* ProjectTableHeaderView.swift */,
-				37038F9828CA1FBD008D3921 /* ProjectTableViewCell.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		377454DF28D7739A00F9F293 /* Application */ = {
@@ -128,29 +102,19 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		378F990E28D079D900B4B8D6 /* ProjectManagerList */ = {
-			isa = PBXGroup;
-			children = (
-				37038F8628C9EC21008D3921 /* Model */,
-				37038F9728CA1F84008D3921 /* View */,
-				37038F8528C8BA08008D3921 /* Controller */,
-			);
-			path = ProjectManagerList;
-			sourceTree = "<group>";
-		};
-		378F991028D079EC00B4B8D6 /* ProjectManagerUpdate */ = {
+		378F991028D079EC00B4B8D6 /* ProjectManagement */ = {
 			isa = PBXGroup;
 			children = (
 				378F991228D07A0A00B4B8D6 /* Controller */,
 				378F991328D07A1700B4B8D6 /* View */,
 			);
-			path = ProjectManagerUpdate;
+			path = ProjectManagement;
 			sourceTree = "<group>";
 		};
 		378F991228D07A0A00B4B8D6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				37B39FAF28CF2153008796AD /* ProjectUpdateViewController.swift */,
+				37B39FAF28CF2153008796AD /* ProjectManagementViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -158,7 +122,7 @@
 		378F991328D07A1700B4B8D6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				37B39FB128CF2555008796AD /* ProjectUpdateView.swift */,
+				37B39FB128CF2555008796AD /* ProjectManagementView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,6 +160,42 @@
 				37D3190528D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		37D3190A28D833BA006A2DB0 /* ProjectList */ = {
+			isa = PBXGroup;
+			children = (
+				37D3190B28D833BA006A2DB0 /* Controller */,
+				37D3190D28D833BA006A2DB0 /* Model */,
+				37D3191028D833BA006A2DB0 /* View */,
+			);
+			path = ProjectList;
+			sourceTree = "<group>";
+		};
+		37D3190B28D833BA006A2DB0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				37D3190C28D833BA006A2DB0 /* ProjectListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		37D3190D28D833BA006A2DB0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37D3190E28D833BA006A2DB0 /* ProjectDataManagerProtocol.swift */,
+				37D3190F28D833BA006A2DB0 /* ProjectDataManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37D3191028D833BA006A2DB0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37D3191128D833BA006A2DB0 /* ProjectTableHeaderView.swift */,
+				37D3191228D833BA006A2DB0 /* ProjectTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -319,19 +319,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37038F9E28CA3241008D3921 /* ProjectTableHeaderView.swift in Sources */,
+				37D3191328D833BA006A2DB0 /* ProjectListViewController.swift in Sources */,
+				37D3191728D833BA006A2DB0 /* ProjectTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				378F990C28D06D0400B4B8D6 /* Date+Extension.swift in Sources */,
-				37038F9628CA1606008D3921 /* ProjectDataManagerProtocol.swift in Sources */,
+				37D3191528D833BA006A2DB0 /* ProjectDataManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				37B39FB228CF2555008796AD /* ProjectUpdateView.swift in Sources */,
-				37038F8F28C9EE8F008D3921 /* ProjectDataManager.swift in Sources */,
-				37038F9928CA1FBD008D3921 /* ProjectTableViewCell.swift in Sources */,
+				37D3191628D833BA006A2DB0 /* ProjectTableHeaderView.swift in Sources */,
+				37D3191428D833BA006A2DB0 /* ProjectDataManagerProtocol.swift in Sources */,
+				37B39FB228CF2555008796AD /* ProjectManagementView.swift in Sources */,
 				37038F8828C9EC46008D3921 /* ProjectModel.swift in Sources */,
 				37D3190628D77DD6006A2DB0 /* ProjectUseCaseProtocol.swift in Sources */,
 				37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */,
-				37038F8328C8B9E3008D3921 /* ProjectManagerViewController.swift in Sources */,
-				37B39FB028CF2153008796AD /* ProjectUpdateViewController.swift in Sources */,
+				37B39FB028CF2153008796AD /* ProjectManagementViewController.swift in Sources */,
 				37038F9428CA0F45008D3921 /* TemporaryProjectUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

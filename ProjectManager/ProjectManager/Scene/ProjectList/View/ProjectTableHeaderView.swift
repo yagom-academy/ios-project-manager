@@ -23,8 +23,7 @@ final class ProjectTableHeaderView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .center
-        stackView.distribution = .fill
-        stackView.axis  = .horizontal
+        stackView.axis = .horizontal
         stackView.spacing = Design.mainStackViewSpacing
         
         return stackView
@@ -49,7 +48,7 @@ final class ProjectTableHeaderView: UIView {
         label.layer.cornerRadius = Design.countLabelSize / 2
         label.textAlignment = .center
         label.textColor = .white
-
+        
         return label
     }()
     
@@ -67,7 +66,8 @@ final class ProjectTableHeaderView: UIView {
     
     // MARK: - Methods
     
-    func setItems(title: String?, count: String?) {
+    func setItems(title: String?,
+                  count: String?) {
         titleLabel.text = title
         countLabel.text = count
     }
@@ -80,12 +80,16 @@ final class ProjectTableHeaderView: UIView {
     private func configureView() {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(mainStackView)
-        [titleLabel, countLabel].forEach { mainStackView.addArrangedSubview($0) }
+        [
+            titleLabel,
+            countLabel
+        ].forEach { mainStackView.addArrangedSubview($0) }
     }
     
     private func configureMainStackViewLayouts() {
-        mainStackView.leadingAnchor
-            .constraint(equalTo: self.leadingAnchor,
-                        constant: Design.mainStackViewLeadingAnchor).isActive = true
+        NSLayoutConstraint.activate(
+            [mainStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor,
+                                                    constant: Design.mainStackViewLeadingAnchor)
+            ])
     }
 }

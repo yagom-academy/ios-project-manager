@@ -60,10 +60,11 @@ final class ProjectTableViewCell: UITableViewCell {
     
     // MARK: - Initializer
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(style: UITableViewCell.CellStyle,
+                  reuseIdentifier: String?) {
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
         commonInit()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -73,7 +74,9 @@ final class ProjectTableViewCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func setItems(title: String?, body: String?, date: Date?) {
+    func setItems(title: String?,
+                  body: String?,
+                  date: Date?) {
         titleLabel.text = title
         bodyLabel.text = body
         dateLabel.attributedText = convertToText(date: date)
@@ -100,7 +103,11 @@ final class ProjectTableViewCell: UITableViewCell {
     
     private func configureView() {
         contentView.addSubview(mainStackView)
-        [titleLabel, bodyLabel, dateLabel].forEach { mainStackView.addArrangedSubview($0) }
+        [
+            titleLabel,
+            bodyLabel,
+            dateLabel
+        ].forEach { mainStackView.addArrangedSubview($0) }
     }
     
     private func configureMainStackViewLayouts() {

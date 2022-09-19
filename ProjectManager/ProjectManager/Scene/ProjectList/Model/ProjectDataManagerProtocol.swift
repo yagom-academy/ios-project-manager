@@ -7,5 +7,6 @@
 
 protocol ProjectDataManagerProtocol: AnyObject {
     func create(data: ProjectModel)
-    func update(id: String, data: ProjectModel)
+    func update(id: String,
+                data: ProjectModel)
 }

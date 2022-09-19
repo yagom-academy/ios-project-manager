@@ -16,7 +16,8 @@ struct TemporaryProjectUseCase: ProjectUseCaseProtocol {
         return temporaryStore
     }
     
-    mutating func update(id: String, data: ProjectModel) {
+    mutating func update(id: String,
+                         data: ProjectModel) {
         temporaryStore.indices.forEach {
             temporaryStore[$0] = temporaryStore[$0].id == id ? data : temporaryStore[$0]
         }
