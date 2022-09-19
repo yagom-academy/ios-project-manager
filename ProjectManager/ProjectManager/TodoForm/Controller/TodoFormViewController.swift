@@ -9,14 +9,14 @@ import UIKit
 
 class TodoFormViewController: UIViewController {
     // MARK: Properties
+    weak var delegate: SendDelegate?
+    private var receivedModel: TaskModel?
+
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var leftBarButton: UIBarButtonItem!
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
-
-    weak var delegate: SendDelegate?
-    private var receivedModel: TaskModel?
 
     // MARK: IBAction
     @IBAction func didTapCancelButton(_ sender: Any) {
