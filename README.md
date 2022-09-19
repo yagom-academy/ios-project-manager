@@ -30,7 +30,9 @@
 │   │   │   ├── Coordinator
 │   │   │   │   └── TodoListCoordinator
 │   │   │   ├── ViewModel
-│   │   │   │   └── TodoListViewModel
+│   │   │   │   ├── HeaderViewModel
+│   │   │   │   ├── ListCollectionViewModel
+│   │   │   │   └── ListCellViewModel
 │   │   │   └── View
 │   │   │       ├── TodoListViewController
 │   │   │       └── ListView
@@ -43,16 +45,16 @@
 │   │   │                   └── ListCell
 │   │   ├── ModalTransitionScene
 │   │   │   ├── Coordinator
-│   │   │   │   ├── CreateTodoListCoordinator
-│   │   │   │   └── EditTodoListCoordinator
+│   │   │   │   └── FormSheetViewCoordinator
 │   │   │   └── View
-│   │   │       ├── CreateTodoListViewController
-│   │   │       ├── EditTodoListViewController
+│   │   │       ├── FormSheetViewController
 │   │   │       └── Template
 │   │   │           └── FormSheetTemplateView
 │   │   ├── PopoverScene
 │   │   │   ├── Coordinator
 │   │   │   │   └── PopoverViewCoordinator
+│   │   │   ├── ViewModel
+│   │   │   │   └── PopoverViewModel
 │   │   │   └── View
 │   │   │       └── PopoverViewController
 │   │   ├── Model
@@ -60,7 +62,8 @@
 │   │   │   └── Category
 │   │   ├── DataStore
 │   │   │   ├── Todo
-│   │   │   └── TodoDataManager
+│   │   │   ├── TodoDataManager
+│   │   │   └── Observable
 │   │   ├── Assets
 │   │   ├── LaunchScreen
 │   │   └── Info
@@ -78,7 +81,8 @@
 
 ## 데이터 구성
 ### TodoListViewController( 메인 뷰컨트롤러 )
-![](https://i.imgur.com/7fLHWJM.png)
+
+![](https://i.imgur.com/kY1BK2D.png)
 
 
 ### Model
@@ -95,94 +99,32 @@ class Todo: Object {
 ```
 
 ### ViewModel
+HeaderViewModel , ListCollectionViewModel, ListCellViewModel, PopoverViewModel
+
+### TodoDataManager
+싱글톤 패턴으로 만들어, 각 뷰모델에서의 액션으로 인해 각 카테고리별 배열이 변경되었을 때 특정 클로저s 실행을 위해 Observable 클래스를 만들어 사용.
 ```swift
-class TodoListViewModel {
-    var todoList: [Todo] = []
-    var doingList: [Todo] = []
-    var doneList: [Todo] = []
-    
-    var todoCount: Int {
-        todoList.count
-    }
-    var doingCount: Int {
-        doingList.count
-    }
-    var doneCount: Int {
-        doneList.count
-    }
-    
-    init() {
-        read()
-        didChangedCount?()
-    }
-    
-    var didCreatedTodo: ((Todo) -> Void)?
-    var didChangedCount: (() -> Void)?
-    var didUpdatedTodo: (([Todo]) -> Void)?
-    var didMovedTodo: (([[Todo]]) -> Void)?
-    
-    func read() {
-        todoList = TodoDataManager.shared.read(category: Category.todo) ?? []
-        doingList = TodoDataManager.shared.read(category: Category.doing) ?? []
-        doneList = TodoDataManager.shared.read(category: Category.done) ?? []
-    }
-    
-    func fetch(category: String, index: Int) -> Todo {
-        switch category {
-        case Category.todo:
-            return todoList[index]
-        case Category.doing:
-            return doingList[index]
-        case Category.done:
-            return doneList[index]
-        default:
-            return Todo()
+class Observable<T> {
+    var value: T? {
+        didSet {
+            listeners.forEach {
+                $0(value)
+            }
         }
     }
     
-    func create(todo: Todo) {
-        TodoDataManager.shared.create(with: todo)
-        read()
-        didCreatedTodo?(todo)
-        didChangedCount?()
+    init(_ value: T?) {
+        self.value = value
     }
     
-    func delete(todo: Todo) {
-        TodoDataManager.shared.delete(todo)
-        read()
-        didChangedCount?()
-    }
+    private var listeners: [((T?) -> Void)] = []
     
-    func update(todo: Todo, with model: Todo) {
-        TodoDataManager.shared.update(todo: todo, with: model)
-        read()
-        switch todo.category {
-        case Category.todo:
-            didUpdatedTodo?(todoList)
-        case Category.doing:
-            didUpdatedTodo?(doingList)
-        case Category.done:
-            didUpdatedTodo?(doneList)
-        default:
-            return
-        }
-    }
-    
-    func move(_ selectedTodo: Todo, to target: String ) {
-        let todo = Todo()
-        todo.title = selectedTodo.title
-        todo.body = selectedTodo.body
-        todo.date = selectedTodo.date
-        todo.category = target
-        TodoDataManager.shared.update(todo: selectedTodo, with: todo)
-        read()
-        didMovedTodo?([todoList, doingList, doneList]) // 모든 배열 업데이트
-        didChangedCount?()
+    func bind(_ listener: @escaping (T?) -> Void) {
+        listener(value)
+        self.listeners.append(listener)
     }
 }
 ```
-
-하나의 ViewModel을 ViewController 에서 사용
 
 ## 기능구현
 
@@ -266,6 +208,21 @@ number = 3
 ```
 
 **해결방법** : 3개의 ListView를 모두 가지고 있는 ViewController에서 바인딩을 해 주었다. 
+**수정** : 위처럼 해결하니 디미터법칙을 위반하게 되었다. 하여 직접 ListCollectionView 에서 바인딩을 해주는데, 할당이 아닌 배열에 추가해주는 방식으로 변경을 하여 3 객체 모두 등록이 되도록 만들었다. 그래서 뷰모델에서도 클로저타입 프로퍼티가 아닌, 클로저배열타입 프로퍼티로 변경해주었다.
+```swift
+var didChangedCount: [(() -> Void)] = []
+var didCreatedTodo: ((Todo) -> Void)?
+var didEditedTodo: [(([Todo]) -> Void)] = []
+var didMovedTodo: [(() -> Void)] = []
+```
+
+실행 시:
+```swift
+// in function
+
+didMovedTodo.forEach { $0() }
+didChangedCount.forEach { $0() }
+```
 
 ### 4. 키보드가 텍스트뷰를 가림
 
