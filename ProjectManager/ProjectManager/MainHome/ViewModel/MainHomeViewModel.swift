@@ -9,7 +9,6 @@ class MainHomeViewModel {
     var todoCount: Observable<Int> = Observable(0)
     var doingCount: Observable<Int> = Observable(0)
     var doneCount: Observable<Int> = Observable(0)
-    var selectedInfo = (state: TaskState.todo, index: 0)
 
     private let databaseManager = RealmDatabase()
     private var todoList = [TaskModel]()

@@ -8,6 +8,8 @@ import UIKit
 
 class MainHomeViewController: UIViewController {
     // MARK: Properties
+    private let viewModel = MainHomeViewModel()
+
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
@@ -20,8 +22,6 @@ class MainHomeViewController: UIViewController {
     @IBAction func didTapAddButton(_ sender: Any) {
         presentTodoForm()
     }
-
-    private let viewModel = MainHomeViewModel()
 
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -61,26 +61,22 @@ class MainHomeViewController: UIViewController {
     }
 
     private func setUpGestureEvent() {
-        let todoTap = UITapGestureRecognizer(target: self, action: #selector(didTapTableview))
-        todoTap.name = TaskState.todo.name
+        let todoLongPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+        todoLongPress.name = TaskState.todo.name
 
-        let doingTap = UITapGestureRecognizer(target: self, action: #selector(didTapTableview))
-        doingTap.name = TaskState.doing.name
+        let doingLongPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+        doingLongPress.name = TaskState.doing.name
 
-        let doneTap = UITapGestureRecognizer(target: self, action: #selector(didTapTableview))
-        doneTap.name = TaskState.done.name
+        let doneLongPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+        doneLongPress.name = TaskState.done.name
 
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
-        longPress.minimumPressDuration = 0.5
-
-        [todoTap, doneTap, doneTap, longPress].forEach {
-            $0.delegate = self
+        [todoLongPress, doingLongPress, doneLongPress].forEach {
+            $0.minimumPressDuration = 0.5
         }
 
-        todoTableView.addGestureRecognizer(todoTap)
-        doingTableView.addGestureRecognizer(doingTap)
-        doneTableView.addGestureRecognizer(doneTap)
-        view.addGestureRecognizer(longPress)
+        todoTableView.addGestureRecognizer(todoLongPress)
+        doingTableView.addGestureRecognizer(doingLongPress)
+        doneTableView.addGestureRecognizer(doneLongPress)
     }
 
     private func bind() {
@@ -149,7 +145,6 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         guard let cell = todoTableView.dequeueReusableCell(
             withIdentifier: TableViewCell.reuseIdentifier,
             for: indexPath
@@ -204,44 +199,13 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: extension - UIGestureRecognizerDelegate
-extension MainHomeViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
-    ) -> Bool {
-        return true
-    }
-}
-
 // MARK: extension - UIGestureRecognizer Method
 extension MainHomeViewController {
-    @objc private func didTapTableview(recognizer: UITapGestureRecognizer) {
-        let location = recognizer.location(in: recognizer.view)
-        viewModel.selectedInfo.state = getTaskState(state: recognizer.name ?? "")
-
-        if recognizer.name == TaskState.todo.name {
-            viewModel.selectedInfo.index = todoTableView.indexPathForRow(at: location)?.row ?? 0
-        } else if recognizer.name == TaskState.doing.name {
-            viewModel.selectedInfo.index = doingTableView.indexPathForRow(at: location)?.row ?? 0
-        } else {
-            viewModel.selectedInfo.index = doneTableView.indexPathForRow(at: location)?.row ?? 0
-        }
-    }
-
-    private func getTaskState(state: String) -> TaskState {
-        let taskState = TaskState.allCases.filter {
-            $0.name == state
-        }
-
-        return taskState.first ?? TaskState.todo
-    }
-
     @objc func handleLongPressGesture(recognizer: UILongPressGestureRecognizer) {
-        let location = recognizer.location(in: recognizer.view)
+        let cellInfo = getCellInfo(recognizer: recognizer)
         let actionButtons = getActionButton(
-            of: viewModel.selectedInfo.state,
-            viewModel.selectedInfo.index
+            of: cellInfo.state,
+            cellInfo.index
         )
         let actionSheet = UIAlertController(
             title: nil,
@@ -259,9 +223,38 @@ extension MainHomeViewController {
 
         let popover = actionSheet.popoverPresentationController
         popover?.sourceView = view
-        popover?.sourceRect = CGRect(x: location.x, y: location.y, width: 0, height: 0)
+        popover?.sourceRect = CGRect(
+            x: recognizer.view?.frame.midX ?? 0 ,
+            y: recognizer.location(in: recognizer.view).y + 140,
+            width: 0,
+            height: 0
+        )
 
         present(actionSheet, animated: true)
+    }
+
+    private func getCellInfo(recognizer: UILongPressGestureRecognizer) -> (state: TaskState, index: Int) {
+        let location = recognizer.location(in: recognizer.view)
+        let state = getTaskState(state: recognizer.name ?? "")
+        var index = 0
+
+        if recognizer.name == TaskState.todo.name {
+            index = todoTableView.indexPathForRow(at: location)?.row ?? 0
+        } else if recognizer.name == TaskState.doing.name {
+            index = doingTableView.indexPathForRow(at: location)?.row ?? 0
+        } else {
+            index = doneTableView.indexPathForRow(at: location)?.row ?? 0
+        }
+
+        return (state,index)
+    }
+
+    private func getTaskState(state: String) -> TaskState {
+        let taskState = TaskState.allCases.filter {
+            $0.name == state
+        }
+
+        return taskState.first ?? TaskState.todo
     }
 
     private func getActionButton(of taskState: TaskState, _ index: Int) -> [UIAlertAction] {
