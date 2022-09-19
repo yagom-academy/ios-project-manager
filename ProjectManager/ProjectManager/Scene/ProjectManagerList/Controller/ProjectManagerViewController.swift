@@ -63,6 +63,7 @@ final class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mainStackView)
+        view.backgroundColor = .systemBackground
         
         configureLongPressGestureRecognizer()
         configureNavigationItems()

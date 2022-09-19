@@ -14,8 +14,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         
         let mainViewController = ProjectManagerViewController()
-        mainViewController.view.backgroundColor = .systemBackground
-        
         let navigationController = UINavigationController(rootViewController: mainViewController)
         
         window = UIWindow(windowScene: windowScene)
