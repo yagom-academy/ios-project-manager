@@ -16,17 +16,6 @@ class MainHomeViewModel {
     private var doingList = [TaskModel]()
     private var doneList = [TaskModel]()
 
-    func getCurrentList(state: TaskState) -> [TaskModel] {
-        switch state {
-        case .todo:
-            return todoList
-        case .doing:
-            return doingList
-        default:
-            return doneList
-        }
-    }
-
     func move(_ index: Int, from nowState: TaskState, to nextState: TaskState) {
         var currentList = getCurrentList(state: nowState)
         var data = currentList[index]
@@ -36,11 +25,6 @@ class MainHomeViewModel {
         currentList = getCurrentList(state: nextState)
         currentList.append(data)
         databaseManager.update(data: data)
-    }
-
-    func readData(index: Int, in state: TaskState) -> TaskModel {
-        let currentList = getCurrentList(state: state)
-        return currentList[index]
     }
 
     func getDataList(of state: TaskState) -> [TaskModel] {
@@ -85,5 +69,16 @@ class MainHomeViewModel {
 
         databaseManager.update(data: data)
         fetchDataList()
+    }
+
+    private func getCurrentList(state: TaskState) -> [TaskModel] {
+        switch state {
+        case .todo:
+            return todoList
+        case .doing:
+            return doingList
+        default:
+            return doneList
+        }
     }
 }

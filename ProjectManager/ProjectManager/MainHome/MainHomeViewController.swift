@@ -7,6 +7,7 @@
 import UIKit
 
 class MainHomeViewController: UIViewController {
+    // MARK: Properties
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
@@ -15,12 +16,14 @@ class MainHomeViewController: UIViewController {
     @IBOutlet weak var doingCountLabel: UILabel!
     @IBOutlet weak var doneCountLabel: UILabel!
 
+    // MARK: IBAction
     @IBAction func didTapAddButton(_ sender: Any) {
         presentTodoForm()
     }
 
     private let viewModel = MainHomeViewModel()
 
+    // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +40,7 @@ class MainHomeViewController: UIViewController {
         bind()
     }
 
+    // MARK: Method
     private func setUpLabelShape() {
         [todoCountLabel, doingCountLabel, doneCountLabel].forEach {
             $0?.clipsToBounds = true
@@ -79,25 +83,6 @@ class MainHomeViewController: UIViewController {
         view.addGestureRecognizer(longPress)
     }
 
-    @objc func didTapTableview(recognizer: UITapGestureRecognizer) {
-        let location = recognizer.location(in: recognizer.view)
-        viewModel.selectedInfo.state = getTaskState(state: recognizer.name ?? "")
-
-        if recognizer.name == TaskState.todo.name {
-            viewModel.selectedInfo.index = todoTableView.indexPathForRow(at: location)?.row ?? 0
-        } else if recognizer.name == TaskState.doing.name {
-            viewModel.selectedInfo.index = doingTableView.indexPathForRow(at: location)?.row ?? 0
-        } else {
-            viewModel.selectedInfo.index = doneTableView.indexPathForRow(at: location)?.row ?? 0
-        }
-    }
-
-    private func reloadTableView() {
-        [todoTableView, doingTableView, doneTableView].forEach {
-            $0.reloadData()
-        }
-    }
-
     private func bind() {
         viewModel.todoCount.bind { [weak self] count in
             self?.todoCountLabel.text = count.description
@@ -112,6 +97,12 @@ class MainHomeViewController: UIViewController {
         }
 
         reloadTableView()
+    }
+
+    private func reloadTableView() {
+        [todoTableView, doingTableView, doneTableView].forEach {
+            $0.reloadData()
+        }
     }
 
     private func presentTodoForm(with data: TaskModel? = nil) {
@@ -131,6 +122,7 @@ class MainHomeViewController: UIViewController {
     }
 }
 
+// MARK: extension - SendDelegate
 extension MainHomeViewController: SendDelegate, ReuseIdentifying {
     func sendData<T>(_ data: T) {
         guard let data = data as? TaskModel else {
@@ -142,6 +134,7 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
     }
 }
 
+// MARK: extension - UITableViewDelegate
 extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.fetchDataList()
@@ -173,7 +166,8 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let state = setUpTaskState(tableView: tableView)
-        let data = viewModel.readData(index: indexPath.row, in: state)
+        let data = viewModel.getDataList(of: state)[indexPath.row]
+
         presentTodoForm(with: data)
 
         tableView.deselectRow(at: indexPath, animated: false)
@@ -207,6 +201,67 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return TaskState.done
         }
+    }
+}
+
+// MARK: extension - UIGestureRecognizerDelegate
+extension MainHomeViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
+        return true
+    }
+}
+
+// MARK: extension - UIGestureRecognizer Method
+extension MainHomeViewController {
+    @objc private func didTapTableview(recognizer: UITapGestureRecognizer) {
+        let location = recognizer.location(in: recognizer.view)
+        viewModel.selectedInfo.state = getTaskState(state: recognizer.name ?? "")
+
+        if recognizer.name == TaskState.todo.name {
+            viewModel.selectedInfo.index = todoTableView.indexPathForRow(at: location)?.row ?? 0
+        } else if recognizer.name == TaskState.doing.name {
+            viewModel.selectedInfo.index = doingTableView.indexPathForRow(at: location)?.row ?? 0
+        } else {
+            viewModel.selectedInfo.index = doneTableView.indexPathForRow(at: location)?.row ?? 0
+        }
+    }
+
+    private func getTaskState(state: String) -> TaskState {
+        let taskState = TaskState.allCases.filter {
+            $0.name == state
+        }
+
+        return taskState.first ?? TaskState.todo
+    }
+
+    @objc func handleLongPressGesture(recognizer: UILongPressGestureRecognizer) {
+        let location = recognizer.location(in: recognizer.view)
+        let actionButtons = getActionButton(
+            of: viewModel.selectedInfo.state,
+            viewModel.selectedInfo.index
+        )
+        let actionSheet = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        guard let first = actionButtons.first,
+              let second = actionButtons.last else {
+            return
+        }
+
+        actionSheet.addAction(first)
+        actionSheet.addAction(second)
+
+        let popover = actionSheet.popoverPresentationController
+        popover?.sourceView = view
+        popover?.sourceRect = CGRect(x: location.x, y: location.y, width: 0, height: 0)
+
+        present(actionSheet, animated: true)
     }
 
     private func getActionButton(of taskState: TaskState, _ index: Int) -> [UIAlertAction] {
@@ -243,49 +298,5 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         return [firstButton, secondButton]
-    }
-
-    func getTaskState(state: String) -> TaskState {
-        let taskState = TaskState.allCases.filter {
-            $0.name == state
-        }
-
-        return taskState.first ?? TaskState.todo
-    }
-}
-
-extension MainHomeViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
-    ) -> Bool {
-        return true
-    }
-
-    @objc func handleLongPressGesture(recognizer: UILongPressGestureRecognizer) {
-        let location = recognizer.location(in: recognizer.view)
-        let actionButtons = getActionButton(
-            of: viewModel.selectedInfo.state,
-            viewModel.selectedInfo.index
-        )
-        let actionSheet = UIAlertController(
-            title: nil,
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-
-        guard let first = actionButtons.first,
-              let second = actionButtons.last else {
-            return
-        }
-
-        actionSheet.addAction(first)
-        actionSheet.addAction(second)
-
-        let popover = actionSheet.popoverPresentationController
-        popover?.sourceView = view
-        popover?.sourceRect = CGRect(x: location.x, y: location.y, width: 0, height: 0)
-
-        present(actionSheet, animated: true)
     }
 }

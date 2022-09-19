@@ -8,6 +8,7 @@
 import UIKit
 
 class TodoFormViewController: UIViewController {
+    // MARK: Properties
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -17,13 +18,7 @@ class TodoFormViewController: UIViewController {
     weak var delegate: SendDelegate?
     private var receivedModel: TaskModel?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        setUpShadow()
-        setUpForm()
-    }
-
+    // MARK: IBAction
     @IBAction func didTapCancelButton(_ sender: Any) {
         dismiss(animated: true)
     }
@@ -39,6 +34,15 @@ class TodoFormViewController: UIViewController {
         notifyChangedModel(data: data)
     }
 
+    // MARK: View Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setUpShadow()
+        setUpForm()
+    }
+
+    // MARK: Method
     private func notifyChangedModel(data: TaskModel) {
         delegate?.sendData(data)
         dismiss(animated: true)
@@ -104,6 +108,7 @@ class TodoFormViewController: UIViewController {
     }
 }
 
+// MARK: extension - SendDelegate
 extension TodoFormViewController: SendDelegate, ReuseIdentifying {
     func sendData<T>(_ data: T) {
         guard let taskData = data as? TaskModel else {
