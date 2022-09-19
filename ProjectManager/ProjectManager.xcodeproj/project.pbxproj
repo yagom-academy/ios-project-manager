@@ -29,11 +29,23 @@
 		D7C0094C28D35F7F00F3BD18 /* DataSenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0094B28D35F7F00F3BD18 /* DataSenable.swift */; };
 		D7C465D328C72286004B64F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */; };
 		D7C465DB28C76584004B64F7 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C465DA28C76584004B64F7 /* ProjectTableViewCell.swift */; };
+		D7E1178228D8331E006F416C /* ToDoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E1178128D8331E006F416C /* ToDoViewModelTest.swift */; };
+		D7E1178B28D8395B006F416C /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E1178A28D8395B006F416C /* ToDoItem.swift */; };
 		D7E75DA228D0AB8F00C32947 /* ProjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E75DA128D0AB8F00C32947 /* ProjectType.swift */; };
 		D7E75DA428D0AC8100C32947 /* ProjectTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E75DA328D0AC8100C32947 /* ProjectTableHeaderView.swift */; };
 		D7E75DA628D0C2EF00C32947 /* ProjectTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E75DA528D0C2EF00C32947 /* ProjectTableView.swift */; };
 		DA2A56AAD2CDD12624D09692 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34C5D5EB4E541AF976BA0CEB /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D7E1178328D8331E006F416C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7431EFA25F51E1D0094C4CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C7431F0125F51E1D0094C4CF;
+			remoteInfo = ProjectManager;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		10CB3DEFF3ED30860F0B03FA /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
@@ -63,6 +75,9 @@
 		D7C0094B28D35F7F00F3BD18 /* DataSenable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSenable.swift; sourceTree = "<group>"; };
 		D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7C465DA28C76584004B64F7 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
+		D7E1177F28D8331E006F416C /* TestDouble.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestDouble.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7E1178128D8331E006F416C /* ToDoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModelTest.swift; sourceTree = "<group>"; };
+		D7E1178A28D8395B006F416C /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		D7E75DA128D0AB8F00C32947 /* ProjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectType.swift; sourceTree = "<group>"; };
 		D7E75DA328D0AC8100C32947 /* ProjectTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableHeaderView.swift; sourceTree = "<group>"; };
 		D7E75DA528D0C2EF00C32947 /* ProjectTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableView.swift; sourceTree = "<group>"; };
@@ -74,6 +89,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA2A56AAD2CDD12624D09692 /* Pods_ProjectManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7E1177C28D8331E006F416C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				A334148E28C86AA80059D133 /* ItemListCategory.swift */,
+				D7E1178A28D8395B006F416C /* ToDoItem.swift */,
 				A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */,
 				A37C3BA628CCC3D700CE4F50 /* MockData.json */,
 			);
@@ -134,6 +157,7 @@
 			children = (
 				A334147D28C72F810059D133 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
+				D7E1178028D8331E006F416C /* TestDouble */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 				867EA3EEB54B6FB66548AEE5 /* Pods */,
 				D43BD7F1E34D7FEBE11DEF48 /* Frameworks */,
@@ -144,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0225F51E1D0094C4CF /* ProjectManager.app */,
+				D7E1177F28D8331E006F416C /* TestDouble.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -244,6 +269,14 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		D7E1178028D8331E006F416C /* TestDouble */ = {
+			isa = PBXGroup;
+			children = (
+				D7E1178128D8331E006F416C /* ToDoViewModelTest.swift */,
+			);
+			path = TestDouble;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -266,17 +299,39 @@
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D7E1177E28D8331E006F416C /* TestDouble */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7E1178728D8331E006F416C /* Build configuration list for PBXNativeTarget "TestDouble" */;
+			buildPhases = (
+				D7E1177B28D8331E006F416C /* Sources */,
+				D7E1177C28D8331E006F416C /* Frameworks */,
+				D7E1177D28D8331E006F416C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D7E1178428D8331E006F416C /* PBXTargetDependency */,
+			);
+			name = TestDouble;
+			productName = TestDouble;
+			productReference = D7E1177F28D8331E006F416C /* TestDouble.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		C7431EFA25F51E1D0094C4CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					C7431F0125F51E1D0094C4CF = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					D7E1177E28D8331E006F416C = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = C7431F0125F51E1D0094C4CF;
 					};
 				};
 			};
@@ -294,6 +349,7 @@
 			projectRoot = "";
 			targets = (
 				C7431F0125F51E1D0094C4CF /* ProjectManager */,
+				D7E1177E28D8331E006F416C /* TestDouble */,
 			);
 		};
 /* End PBXProject section */
@@ -307,6 +363,13 @@
 				A37C3BA728CCC3D700CE4F50 /* MockData.json in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				D7C465D328C72286004B64F7 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7E1177D28D8331E006F416C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,13 +440,30 @@
 				A3420F8E28CCD3F2004AFF56 /* ProjectDetailViewController.swift in Sources */,
 				A39C1FD228CE1CB500009A15 /* RegistrationViewController.swift in Sources */,
 				D7971F5028CE196E008C7ADA /* ToDoComponentsView.swift in Sources */,
+				D7E1178B28D8395B006F416C /* ToDoItem.swift in Sources */,
 				A37C3BAC28CCC6B900CE4F50 /* Date+Extension.swift in Sources */,
 				A35D6C2528D30EBB0056F6B8 /* ToDoViewModel.swift in Sources */,
 				A322F03D28D437CF00D4F503 /* Presentable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D7E1177B28D8331E006F416C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7E1178228D8331E006F416C /* ToDoViewModelTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D7E1178428D8331E006F416C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C7431F0125F51E1D0094C4CF /* ProjectManager */;
+			targetProxy = D7E1178328D8331E006F416C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C7431F1425F51E1E0094C4CF /* Debug */ = {
@@ -542,6 +622,46 @@
 			};
 			name = Release;
 		};
+		D7E1178528D8331E006F416C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R92FDJTURC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Bard.TestDouble;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/ProjectManager";
+			};
+			name = Debug;
+		};
+		D7E1178628D8331E006F416C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R92FDJTURC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Bard.TestDouble;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/ProjectManager";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -559,6 +679,15 @@
 			buildConfigurations = (
 				C7431F1725F51E1E0094C4CF /* Debug */,
 				C7431F1825F51E1E0094C4CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7E1178728D8331E006F416C /* Build configuration list for PBXNativeTarget "TestDouble" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7E1178528D8331E006F416C /* Debug */,
+				D7E1178628D8331E006F416C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
