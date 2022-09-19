@@ -9,7 +9,7 @@ class MainHomeViewModel {
     var todoCount: Observable<Int> = Observable(0)
     var doingCount: Observable<Int> = Observable(0)
     var doneCount: Observable<Int> = Observable(0)
-    var currentState: String = TaskState.todo.name
+    var selectedInfo = (state: TaskState.todo, index: 0)
 
     private let databaseManager = RealmDatabase()
     private var todoList = [TaskModel]()
@@ -27,7 +27,7 @@ class MainHomeViewModel {
         }
     }
 
-    func move(_ index: Int, to nowState: TaskState, from nextState: TaskState) {
+    func move(_ index: Int, from nowState: TaskState, to nextState: TaskState) {
         var currentList = getCurrentList(state: nowState)
         var data = currentList[index]
         data.taskState = nextState.name

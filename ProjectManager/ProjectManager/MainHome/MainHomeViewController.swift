@@ -20,7 +20,6 @@ class MainHomeViewController: UIViewController {
     }
 
     private let viewModel = MainHomeViewModel()
-    private var selectedIndex: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +32,7 @@ class MainHomeViewController: UIViewController {
         setUpLabelShape()
         setUpTableViewDelegate()
         setUpTableViewDataSource()
+        setUpGestureEvent()
 
         bind()
     }
@@ -53,6 +53,42 @@ class MainHomeViewController: UIViewController {
     private func setUpTableViewDelegate() {
         [todoTableView, doingTableView, doneTableView].forEach {
             $0.delegate = self
+        }
+    }
+
+    private func setUpGestureEvent() {
+        let todoTap = UITapGestureRecognizer(target: self, action: #selector(didTapTableview))
+        todoTap.name = TaskState.todo.name
+
+        let doingTap = UITapGestureRecognizer(target: self, action: #selector(didTapTableview))
+        doingTap.name = TaskState.doing.name
+
+        let doneTap = UITapGestureRecognizer(target: self, action: #selector(didTapTableview))
+        doneTap.name = TaskState.done.name
+
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+        longPress.minimumPressDuration = 0.5
+
+        [todoTap, doneTap, doneTap, longPress].forEach {
+            $0.delegate = self
+        }
+
+        todoTableView.addGestureRecognizer(todoTap)
+        doingTableView.addGestureRecognizer(doingTap)
+        doneTableView.addGestureRecognizer(doneTap)
+        view.addGestureRecognizer(longPress)
+    }
+
+    @objc func didTapTableview(recognizer: UITapGestureRecognizer) {
+        let location = recognizer.location(in: recognizer.view)
+        viewModel.selectedInfo.state = getTaskState(state: recognizer.name ?? "")
+
+        if recognizer.name == TaskState.todo.name {
+            viewModel.selectedInfo.index = todoTableView.indexPathForRow(at: location)?.row ?? 0
+        } else if recognizer.name == TaskState.doing.name {
+            viewModel.selectedInfo.index = doingTableView.indexPathForRow(at: location)?.row ?? 0
+        } else {
+            viewModel.selectedInfo.index = doneTableView.indexPathForRow(at: location)?.row ?? 0
         }
     }
 
@@ -136,8 +172,6 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        setUpGestureEvent(tableView)
-
         let state = setUpTaskState(tableView: tableView)
         let data = viewModel.readData(index: indexPath.row, in: state)
         presentTodoForm(with: data)
@@ -174,6 +208,50 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
             return TaskState.done
         }
     }
+
+    private func getActionButton(of taskState: TaskState, _ index: Int) -> [UIAlertAction] {
+        let firstButton = UIAlertAction(
+            title: taskState.title.first,
+            style: .default) { [weak self] _ in
+                guard let self = self else {
+                    return
+                }
+
+                self.viewModel.move(
+                    index,
+                    from:taskState,
+                    to: taskState.other.first ?? taskState
+                )
+
+                self.reloadTableView()
+            }
+        let secondButton = UIAlertAction(
+            title: taskState.title.last,
+            style: .default
+        ) { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+
+            self.viewModel.move(
+                index,
+                from:taskState,
+                to: taskState.other.last ?? taskState
+            )
+
+            self.reloadTableView()
+        }
+
+        return [firstButton, secondButton]
+    }
+
+    func getTaskState(state: String) -> TaskState {
+        let taskState = TaskState.allCases.filter {
+            $0.name == state
+        }
+
+        return taskState.first ?? TaskState.todo
+    }
 }
 
 extension MainHomeViewController: UIGestureRecognizerDelegate {
@@ -184,27 +262,29 @@ extension MainHomeViewController: UIGestureRecognizerDelegate {
         return true
     }
 
-    private func setUpGestureEvent(_ tableView: UITableView) {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
-        longPress.minimumPressDuration = 0.5
-        longPress.delegate = self
-        tableView.addGestureRecognizer(longPress)
-    }
-
-    @objc func handleLongPressGesture(recognizer: UITapGestureRecognizer) {
+    @objc func handleLongPressGesture(recognizer: UILongPressGestureRecognizer) {
         let location = recognizer.location(in: recognizer.view)
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let todoButton = UIAlertAction(title: "Move to TODO", style: .default)
-        let doingButton = UIAlertAction(title: "Move to DOING", style: .default)
-        let doneButton = UIAlertAction(title: "Move to DONE", style: .default)
+        let actionButtons = getActionButton(
+            of: viewModel.selectedInfo.state,
+            viewModel.selectedInfo.index
+        )
+        let actionSheet = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
 
-        actionSheet.addAction(todoButton)
-        actionSheet.addAction(doingButton)
-        actionSheet.addAction(doneButton)
+        guard let first = actionButtons.first,
+              let second = actionButtons.last else {
+            return
+        }
+
+        actionSheet.addAction(first)
+        actionSheet.addAction(second)
 
         let popover = actionSheet.popoverPresentationController
         popover?.sourceView = view
-        popover?.sourceRect = CGRect(x: location.x, y: location.y + 120 , width: 60, height: 60)
+        popover?.sourceRect = CGRect(x: location.x, y: location.y, width: 0, height: 0)
 
         present(actionSheet, animated: true)
     }
