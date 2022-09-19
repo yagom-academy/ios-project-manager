@@ -10,11 +10,12 @@ import UIKit
 final class FormSheetTemplateView: UIView {
     
     // MARK: - UIComponents
-    let mainScrollView: UIScrollView = {
+    private let mainScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
+    
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +28,7 @@ final class FormSheetTemplateView: UIView {
         return stackView
     }()
     
-    private let titleTextField: UITextField = {
+    let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -42,7 +43,7 @@ final class FormSheetTemplateView: UIView {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.preferredDatePickerStyle = .wheels
@@ -52,7 +53,7 @@ final class FormSheetTemplateView: UIView {
         return datePicker
     }()
     
-    private let bodyTextView: UITextView = {
+    let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
@@ -120,6 +121,7 @@ final class FormSheetTemplateView: UIView {
         ])
     }
     
+    // MARK: - Keyboard Settings
     private func setupKeyboard() {
         NotificationCenter.default.addObserver(
             self,
@@ -133,25 +135,6 @@ final class FormSheetTemplateView: UIView {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-    }
-    
-    func setupData(with model: Todo?) {
-        guard let model = model else { return }
-        titleTextField.text = model.title
-        datePicker.date = model.date
-        bodyTextView.text = model.body
-    }
-    
-    func generateTodoModel(with category: String) -> Todo? {
-        guard let title = titleTextField.text,
-              let body = bodyTextView.text else { return nil }
-        let date = datePicker.date
-        let todo = Todo()
-        todo.category = category
-        todo.title = title
-        todo.body = body
-        todo.date = date
-        return todo
     }
     
     @objc private func keyboardWillAppear(_ sender: Notification) {
