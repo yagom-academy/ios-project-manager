@@ -66,34 +66,33 @@ private extension TodoAddViewController {
         todoAddView.navigationBar.setItems([naviItem], animated: true)
     }
     
-    func setupRightBarButtonItem() -> UIBarButtonItem {
-        let rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(doneButtonDidTapped))
-        return rightBarButtonItem
-    }
-    
     func setupLeftBarButtonItem() -> UIBarButtonItem {
         var leftBarButtonItem: UIBarButtonItem
         
         if isNewTask == nil {
-            leftBarButtonItem = UIBarButtonItem(
-                barButtonSystemItem: .edit,
-                target: self,
-                action: #selector(editButtonDidTapped)
-            )
+            leftBarButtonItem = UIBarButtonItem(systemItem: .edit)
+            leftBarButtonItem.rx.tap.bind {
+                self.editButtonDidTapped()
+            }.disposed(by: disposedBag)
         } else {
-            leftBarButtonItem = UIBarButtonItem(
-                barButtonSystemItem: .cancel,
-                target: self,
-                action: #selector(cancelButtonDidTapped)
-            )
+            leftBarButtonItem = UIBarButtonItem(systemItem: .cancel)
+            leftBarButtonItem.rx.tap.bind {
+                self.cancelButtonDidTapped()
+            }.disposed(by: disposedBag)
         }
         return leftBarButtonItem
     }
     
-    @objc func doneButtonDidTapped() {
+    func setupRightBarButtonItem() -> UIBarButtonItem {
+        let rightBarButtonItem = UIBarButtonItem(systemItem: .done)
+        rightBarButtonItem.rx.tap.bind {
+            self.doneButtonDidTapped()
+        }.disposed(by: disposedBag)
+        
+        return rightBarButtonItem
+    }
+    
+    func doneButtonDidTapped() {
         if isNewTask != nil {
             guard let extractedTask = extractCurrentTask() else {
                 return
@@ -106,11 +105,11 @@ private extension TodoAddViewController {
         self.dismiss(animated: true)
     }
     
-    @objc func cancelButtonDidTapped() {
+    func cancelButtonDidTapped() {
         self.dismiss(animated: true)
     }
     
-    @objc func editButtonDidTapped() {
+    func editButtonDidTapped() {
         guard let projectTask = projectTask,
             let state = state else {
             return

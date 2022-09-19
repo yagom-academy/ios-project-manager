@@ -49,13 +49,15 @@ private extension MainViewController {
     
     func setupRightBarButtonItem() {
         let rightBarButtonItem = UIBarButtonItem(systemItem: .add)
-        rightBarButtonItem.target = self
-        rightBarButtonItem.action = #selector(rightBarButtonDidTap)
-        navigationItem.rightBarButtonItem = rightBarButtonItem
         
+        rightBarButtonItem.rx.tap.bind {
+            self.rightBarButtonDidTap()
+        }.disposed(by: disposedBag)
+        
+        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
-    @objc func rightBarButtonDidTap() {
+    func rightBarButtonDidTap() {
         let todoAddViewController = TodoAddViewController()
         todoAddViewController.state = .TODO
         todoAddViewController.isNewTask = true
@@ -75,8 +77,6 @@ private extension MainViewController {
         let todoAddViewController = TodoAddViewController()
         todoAddViewController.viewModel = viewModel
         todoAddViewController.state = projectState
-        
-        //let presentNavigationController = UINavigationController(rootViewController: todoAddViewController)
         todoAddViewController.modalPresentationStyle = .pageSheet
         
         self.navigationController?.present(todoAddViewController, animated: true)
