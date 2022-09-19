@@ -10,6 +10,15 @@ import RealmSwift
 
 final class TodoDataManager {
     private let realm = try? Realm()
+    static let shared = TodoDataManager()
+    
+    var todoList: Observable<[Todo]> = Observable([])
+    var doingList: Observable<[Todo]> = Observable([])
+    var doneList: Observable<[Todo]> = Observable([])
+    
+    private init() {
+        read()
+    }
     
     // MARK: - CRUD
     func create(with model: Todo) {
@@ -17,28 +26,30 @@ final class TodoDataManager {
             try realm?.write {
                 realm?.add(model)
             }
+            read()
         } catch {
             print(error.localizedDescription)
         }
     }
     
     func read(category: String) -> [Todo]? {
-        guard let savedList = realm?.objects(Todo.self) else { return [] }
         switch category {
         case Category.todo:
-            return Array(savedList.filter("category == 'TODO'"))
+            return todoList.value
         case Category.doing:
-            return Array(savedList.filter("category == 'DOING'"))
+            return doingList.value
         case Category.done:
-            return Array(savedList.filter("category == 'DONE'"))
+            return doneList.value
         default:
             return nil
         }
     }
     
-    func readAll() -> Results<Todo>? {
-        let savedList = realm?.objects(Todo.self)
-        return savedList
+    func read() {
+        guard let savedList = realm?.objects(Todo.self) else { return }
+        todoList.value = Array(savedList.filter("category == 'TODO'"))
+        doingList.value = Array(savedList.filter("category == 'DOING'"))
+        doneList.value = Array(savedList.filter("category == 'DONE'"))
     }
     
     func update(todo: Todo, with model: Todo) {
@@ -49,6 +60,18 @@ final class TodoDataManager {
                 todo.date = model.date
                 todo.category = model.category
             }
+            read()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func move(todo: Todo, to target: String) {
+        do {
+            try realm?.write {
+                todo.category = target
+            }
+            read()
         } catch {
             print(error.localizedDescription)
         }
@@ -59,6 +82,7 @@ final class TodoDataManager {
             try realm?.write {
                 realm?.delete(todo)
             }
+            read()
         } catch {
             print(error.localizedDescription)
         }
@@ -69,6 +93,7 @@ final class TodoDataManager {
             try realm?.write {
                 realm?.deleteAll()
             }
+            read()
         } catch {
             print(error.localizedDescription)
         }

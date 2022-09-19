@@ -53,7 +53,7 @@ extension ListCollectionView: UIGestureRecognizerDelegate {
             self.transitionDelegate?.cellDidLongPressed(
                 in: self,
                 location: (Double(location.x), Double(location.y)),
-                item: self.viewModel.fetchTodo(in: self.category, at: indexPath.row)
+                item: self.viewModel.list[indexPath.row]
             )
         }
     }

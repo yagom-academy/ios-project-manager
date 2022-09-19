@@ -18,13 +18,11 @@ protocol TodoListViewControllerDelegate: AnyObject {
 }
 
 final class TodoListViewController: UIViewController {
-    
-    var viewModel: DefaultTodoListViewModel?
     weak var delegate: TodoListViewControllerDelegate?
     
-    var todoListView: ListView
-    var doingListView: ListView
-    var doneListView: ListView
+    let todoListView = ListView(category: Category.todo)
+    let doingListView = ListView(category: Category.doing)
+    let doneListView = ListView(category: Category.done)
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -34,22 +32,6 @@ final class TodoListViewController: UIViewController {
         stackView.spacing = 6
         return stackView
     }()
-    
-    // MARK: - Initializer
-    init(viewModel: DefaultTodoListViewModel) {
-        self.viewModel = viewModel
-        todoListView = ListView(category: Category.todo,
-                                viewModel: viewModel)
-        doingListView = ListView(category: Category.doing,
-                                 viewModel: viewModel)
-        doneListView = ListView(category: Category.done,
-                                viewModel: viewModel)
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - ViewLifeCycles
     override func viewDidLoad() {
@@ -72,6 +54,12 @@ final class TodoListViewController: UIViewController {
             barButtonSystemItem: .add,
             target: self,
             action: #selector(addButtonDidTapped)
+        )
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "History",
+            style: .done,
+            target: self,
+            action: #selector(historyButtonDidTapped)
         )
     }
     
@@ -115,23 +103,27 @@ final class TodoListViewController: UIViewController {
     }
     
     private func adoptCollectionViewDelegate() {
-        todoListView.collectionView?.delegate = self
-        doingListView.collectionView?.delegate = self
-        doneListView.collectionView?.delegate = self
+        todoListView.collectionView.delegate = self
+        doingListView.collectionView.delegate = self
+        doneListView.collectionView.delegate = self
     }
     
     // MARK: - @objc Method
     @objc private func addButtonDidTapped() {
         delegate?.addButtonDidTapped()
     }
+    
+    @objc private func historyButtonDidTapped() {
+        print(#function)
+    }
 }
 
 // MARK: - UICollectionViewDelegate
 extension TodoListViewController: UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-
+        
         switch collectionView {
         case todoListView.collectionView:
             delegate?.cellDidTapped(at: indexPath.row,

@@ -29,7 +29,7 @@ final class PopoverViewController: UIViewController {
                                                right: 10)
         return stackView
     }()
-
+    
     private var firstButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +40,7 @@ final class PopoverViewController: UIViewController {
         button.backgroundColor = .white
         return button
     }()
-
+    
     private var secondButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -53,13 +53,11 @@ final class PopoverViewController: UIViewController {
     }()
     
     // MARK: - Properties
-    private var viewModel: DefaultTodoListViewModel
-    private var selectedTodo: Todo
+    private var viewModel: PopoverViewModel
     
     // MARK: - Initializer
-    init(viewModel: DefaultTodoListViewModel, selectedTodo: Todo) {
+    init(viewModel: PopoverViewModel) {
         self.viewModel = viewModel
-        self.selectedTodo = selectedTodo
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -96,7 +94,7 @@ final class PopoverViewController: UIViewController {
     }
     
     private func setupButton() {
-        switch selectedTodo.category {
+        switch viewModel.selectedTodo.category {
         case Category.todo:
             setTitle(
                 firstButtonTitle: Transition.moveToDoing,
@@ -129,29 +127,41 @@ final class PopoverViewController: UIViewController {
         }
     }
     
-    private func setTitle(firstButtonTitle: String, secondButtonTitle: String) {
-        firstButton.setTitle(firstButtonTitle, for: .normal)
-        secondButton.setTitle(secondButtonTitle, for: .normal)
+    private func setTitle(firstButtonTitle: String,
+                          secondButtonTitle: String) {
+        firstButton.setTitle(firstButtonTitle,
+                             for: .normal)
+        secondButton.setTitle(secondButtonTitle,
+                              for: .normal)
     }
     
-    private func addTarget(firstButtonTarget: Selector, secondButtonTarget: Selector) {
-        firstButton.addTarget(self, action: firstButtonTarget, for: .touchUpInside)
-        secondButton.addTarget(self, action: secondButtonTarget, for: .touchUpInside)
+    private func addTarget(firstButtonTarget: Selector,
+                           secondButtonTarget: Selector) {
+        firstButton.addTarget(
+            self,
+            action: firstButtonTarget,
+            for: .touchUpInside
+        )
+        secondButton.addTarget(
+            self,
+            action: secondButtonTarget,
+            for: .touchUpInside
+        )
     }
     
     // MARK: - @objc Methods
     @objc private func moveToDoing() {
-        viewModel.move(selectedTodo, to: Category.doing)
+        viewModel.move(to: Category.doing)
         dismiss(animated: true)
     }
     
     @objc private func moveToDone() {
-        viewModel.move(selectedTodo, to: Category.done)
+        viewModel.move(to: Category.done)
         dismiss(animated: true)
     }
     
     @objc private func moveToTodo() {
-        viewModel.move(selectedTodo, to: Category.todo)
+        viewModel.move(to: Category.todo)
         dismiss(animated: true)
     }
 }
