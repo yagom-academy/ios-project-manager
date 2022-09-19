@@ -3,16 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4D8933FCB0BB3E6C61AA373B /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F84A939871DBA7F76250A67 /* Pods_ProjectManager.framework */; };
+		8AB5710928CB2DB400A9B30E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AB5710828CB2DB400A9B30E /* GoogleService-Info.plist */; };
+		8AB5710C28CB305800A9B30E /* ProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5710B28CB305800A9B30E /* ProjectManagerView.swift */; };
+		8AB5713C28D086D500A9B30E /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5713B28D086D500A9B30E /* TodoListCell.swift */; };
+		8AB5713F28D08A4300A9B30E /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5713E28D08A4300A9B30E /* ReuseIdentifying.swift */; };
+		8AB5714228D0918300A9B30E /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5714128D0918300A9B30E /* TodoModel.swift */; };
+		8AB5714528D093F000A9B30E /* TodoCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5714428D093F000A9B30E /* TodoCategory.swift */; };
+		8AB5714828D0973C00A9B30E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5714728D0973C00A9B30E /* String+Extension.swift */; };
 		8AFBE25928C70462003F2A50 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8AFBE25828C70462003F2A50 /* .swiftlint.yml */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
-		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -20,12 +26,18 @@
 /* Begin PBXFileReference section */
 		2F84A939871DBA7F76250A67 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD48C15A2B0CE4A2CB23CD2 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		8AB5710828CB2DB400A9B30E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8AB5710B28CB305800A9B30E /* ProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerView.swift; sourceTree = "<group>"; };
+		8AB5713B28D086D500A9B30E /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
+		8AB5713E28D08A4300A9B30E /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
+		8AB5714128D0918300A9B30E /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
+		8AB5714428D093F000A9B30E /* TodoCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCategory.swift; sourceTree = "<group>"; };
+		8AB5714728D0973C00A9B30E /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		8AFBE25828C70462003F2A50 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C7431F0C25F51E1D0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,6 +73,47 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8AB5710A28CB2F7000A9B30E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8AB5710B28CB305800A9B30E /* ProjectManagerView.swift */,
+				8AB5713B28D086D500A9B30E /* TodoListCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8AB5713D28D08A2400A9B30E /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				8AB5713E28D08A4300A9B30E /* ReuseIdentifying.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		8AB5714028D0915E00A9B30E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8AB5714128D0918300A9B30E /* TodoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8AB5714328D093C400A9B30E /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				8AB5714428D093F000A9B30E /* TodoCategory.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		8AB5714628D0971B00A9B30E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8AB5714728D0973C00A9B30E /* String+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -83,13 +136,18 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				8AB5714628D0971B00A9B30E /* Extension */,
+				8AB5714328D093C400A9B30E /* Enum */,
+				8AB5714028D0915E00A9B30E /* Model */,
+				8AB5713D28D08A2400A9B30E /* Protocol */,
+				8AB5710A28CB2F7000A9B30E /* View */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				8AB5710828CB2DB400A9B30E /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -106,6 +164,7 @@
 				C7431EFF25F51E1D0094C4CF /* Frameworks */,
 				C7431F0025F51E1D0094C4CF /* Resources */,
 				8AFBE25728C70352003F2A50 /* ShellScript */,
+				E349701BEE644B1119CAF91F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,8 +214,8 @@
 			files = (
 				8AFBE25928C70462003F2A50 /* .swiftlint.yml in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
+				8AB5710928CB2DB400A9B30E /* GoogleService-Info.plist in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
-				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +261,23 @@
 			shellPath = /bin/sh;
 			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
+		E349701BEE644B1119CAF91F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -209,8 +285,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AB5710C28CB305800A9B30E /* ProjectManagerView.swift in Sources */,
+				8AB5714828D0973C00A9B30E /* String+Extension.swift in Sources */,
+				8AB5714528D093F000A9B30E /* TodoCategory.swift in Sources */,
+				8AB5713F28D08A4300A9B30E /* ReuseIdentifying.swift in Sources */,
+				8AB5713C28D086D500A9B30E /* TodoListCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				8AB5714228D0918300A9B30E /* TodoModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,14 +300,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C7431F0B25F51E1D0094C4CF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C7431F0C25F51E1D0094C4CF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
