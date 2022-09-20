@@ -38,7 +38,6 @@ class AlertController: UIAlertController {
         self.index = index
         self.tableView = tableView
         self.toDoViewModel = viewModel
-        // super.init(title: nil, message: nil, preferredStyle: .alert)
         super.init(nibName: nil, bundle: nil)
         self.title = nil
         self.message = nil
