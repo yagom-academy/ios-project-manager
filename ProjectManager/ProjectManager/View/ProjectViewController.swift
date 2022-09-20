@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import RxSwift
 
 final class ProjectViewController: UIViewController {
     
     // MARK: - properties
     
-    var viewModel: ViewModel?
+    var addButtonAction = PublishSubject<Project>()
+    var viewModel: ViewModelType?
     
     private let projectTitle: UITextField = {
         let textField = UITextField()
@@ -103,7 +105,7 @@ extension ProjectViewController {
         guard let title = projectTitle.text,
               let description = projectDescription.text else { return }
         let project = Project(title: "\(title)", description: "\(description)", date: datePicker.date)
-        viewModel?.appendProject(project: project)
+        addButtonAction.onNext(project)
         dismiss(animated: true)
     }
     

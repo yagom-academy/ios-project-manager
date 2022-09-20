@@ -13,9 +13,8 @@ final class ListView: UIView {
     
     // MARK: - properties
 
-    var viewModel: ViewModel? {
+    var viewModel: ViewModelType? {
         didSet {
-            bindProjectLists()
             bindListCount()
         }
     }
@@ -140,50 +139,22 @@ final class ListView: UIView {
         ])
     }
     
-    private func bindProjectLists() {
-        switch status {
-        case .todo:
-            viewModel?.todoList?
-                .bind(to: tableView.rx.items(
-                    cellIdentifier: TodoTableViewCell.identifier,
-                    cellType: TodoTableViewCell.self)) { _, item, cell in
-                cell.setupDataSource(project: item)
-            }.disposed(by: disposeBag)
-            
-        case .doing:
-            viewModel?.doingList?
-                .bind(to: tableView.rx.items(
-                    cellIdentifier: TodoTableViewCell.identifier,
-                    cellType: TodoTableViewCell.self)) { _, item, cell in
-                cell.setupDataSource(project: item)
-            }.disposed(by: disposeBag)
-            
-        case .done:
-            viewModel?.doneList?
-                .bind(to: tableView.rx.items(
-                    cellIdentifier: TodoTableViewCell.identifier,
-                    cellType: TodoTableViewCell.self)) { _, item, cell in
-                cell.setupDataSource(project: item)
-            }.disposed(by: disposeBag)
-        }
-    }
-    
     private func bindListCount() {
         switch status {
         case .todo:
-            viewModel?.todoList?
+            viewModel?.todoList
                 .map { $0.count }
                 .map { "\($0)" }
                 .bind(to: listCountLabel.rx.text)
                 .disposed(by: disposeBag)
         case .doing:
-            viewModel?.doingList?
+            viewModel?.todoList
                 .map { $0.count }
                 .map { "\($0)" }
                 .bind(to: listCountLabel.rx.text)
                 .disposed(by: disposeBag)
         case .done:
-            viewModel?.doneList?
+            viewModel?.todoList
                 .map { $0.count }
                 .map { "\($0)" }
                 .bind(to: listCountLabel.rx.text)
