@@ -19,7 +19,7 @@ final class ManageWorkViewController: UIViewController {
     // MARK: - Properties
     private let disposeBag = DisposeBag()
     private let workManageView = WorkManageView()
-    private var viewMode: ViewMode = .edit
+    private var viewMode: ViewMode?
     private var viewModel: WorkViewModel?
     private var work: Work?
     
@@ -35,6 +35,8 @@ final class ManageWorkViewController: UIViewController {
     
     // MARK: - UI setup
     private func configureUI() {
+        guard let viewMode = viewMode else { return }
+
         let cancleBarButton = UIBarButtonItem(title: "Cancle",
                                               style: .plain,
                                               target: self,
@@ -47,6 +49,7 @@ final class ManageWorkViewController: UIViewController {
                                             style: .done,
                                             target: self,
                                             action: #selector(editBarButtonTapped))
+        
         switch viewMode {
         case .add:
             self.navigationItem.leftBarButtonItem = cancleBarButton
@@ -68,7 +71,8 @@ final class ManageWorkViewController: UIViewController {
     }
     
     @objc private func doneBarButtonTapped() {
-        guard let viewModel = viewModel else { return }
+        guard let viewModel = viewModel,
+              let viewMode = viewMode else { return }
         
         switch viewMode {
         case .add:
@@ -94,6 +98,7 @@ final class ManageWorkViewController: UIViewController {
     func configureEditMode(with work: Work, _ viewModel: WorkViewModel) {
         workManageView.configure(with: work)
         workManageView.changeEditMode(false)
+        self.viewMode = .edit
         self.viewModel = viewModel
         self.work = work
     }
