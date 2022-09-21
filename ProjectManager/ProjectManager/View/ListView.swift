@@ -6,22 +6,13 @@
 //
 
 import UIKit
-import RxSwift
 import RxCocoa
 
 final class ListView: UIView {
     
     // MARK: - properties
-
-    var viewModel: ViewModelType? {
-        didSet {
-            bindListCount()
-        }
-    }
     
     private var status: Status
-    
-    private let disposeBag = DisposeBag()
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -55,7 +46,7 @@ final class ListView: UIView {
         return label
     }()
     
-    private let listCountLabel: UILabel = {
+    let listCountLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title2)
         label.textColor = .white
@@ -89,7 +80,6 @@ final class ListView: UIView {
     init(status: Status) {
         self.status = status
         titleLabel.text = status.upperCasedString
-        listCountLabel.text = "\(0)"
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         setupListView()
         setupTitleStackView()
@@ -137,28 +127,5 @@ final class ListView: UIView {
         NSLayoutConstraint.activate([
             listCountLabel.widthAnchor.constraint(equalTo: listCountLabel.heightAnchor)
         ])
-    }
-    
-    private func bindListCount() {
-        switch status {
-        case .todo:
-            viewModel?.todoList
-                .map { $0.count }
-                .map { "\($0)" }
-                .bind(to: listCountLabel.rx.text)
-                .disposed(by: disposeBag)
-        case .doing:
-            viewModel?.todoList
-                .map { $0.count }
-                .map { "\($0)" }
-                .bind(to: listCountLabel.rx.text)
-                .disposed(by: disposeBag)
-        case .done:
-            viewModel?.todoList
-                .map { $0.count }
-                .map { "\($0)" }
-                .bind(to: listCountLabel.rx.text)
-                .disposed(by: disposeBag)
-        }
     }
 }

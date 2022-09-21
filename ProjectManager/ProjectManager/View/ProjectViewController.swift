@@ -92,6 +92,12 @@ extension ProjectViewController {
                                                            target: self,
                                                            action: #selector(cancelButtonDidTapped))
     }
+    
+    func setupData(project: Project) {
+        self.projectTitle.text = project.title
+        self.datePicker.date = project.date
+        self.projectDescription.text = project.description
+    }
 }
 
 // MARK: - objc functions

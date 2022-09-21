@@ -54,6 +54,7 @@ final class AllTodoViewModel {
 
 struct Input {
     var addButtonAction: Observable<Project>
+    var changeStatus: Observable<UIGestureRecognizer>?
 }
 
 struct Output {
