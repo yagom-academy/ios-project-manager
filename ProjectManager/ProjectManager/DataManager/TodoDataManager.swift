@@ -9,6 +9,7 @@ import Foundation
 import RealmSwift
 
 final class TodoDataManager {
+    private let firebaseManager = RemoteDataManager()
     private let realm = try? Realm()
     static let shared = TodoDataManager()
     
@@ -22,6 +23,7 @@ final class TodoDataManager {
     
     // MARK: - CRUD
     func create(with model: Todo) {
+        firebaseManager.add(todo: model)
         do {
             try realm?.write {
                 realm?.add(model)
@@ -53,6 +55,7 @@ final class TodoDataManager {
     }
     
     func update(todo: Todo, with model: Todo) {
+        firebaseManager.update(todo: todo, with: model)
         do {
             try realm?.write {
                 todo.title = model.title
@@ -67,6 +70,7 @@ final class TodoDataManager {
     }
     
     func move(todo: Todo, to target: String) {
+        firebaseManager.move(todo: todo, to: target)
         do {
             try realm?.write {
                 todo.category = target
@@ -78,6 +82,7 @@ final class TodoDataManager {
     }
     
     func delete(_ todo: Todo) {
+        firebaseManager.delete(todo: todo)
         do {
             try realm?.write {
                 realm?.delete(todo)
