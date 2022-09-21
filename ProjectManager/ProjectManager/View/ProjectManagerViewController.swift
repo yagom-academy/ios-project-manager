@@ -127,7 +127,7 @@ final class ProjectManagerViewController: UIViewController {
                 cell.addGestureRecognizer(longGesture(item.state))
             }.disposed(by: disposeBag)
         
-        viewModel.works
+        viewModel.worksObservable
             .map {
                 $0.filter { $0.state == .doing }
             }.observe(on: MainScheduler.instance)
@@ -137,7 +137,7 @@ final class ProjectManagerViewController: UIViewController {
                 cell.addGestureRecognizer(longGesture(item.state))
            }.disposed(by: disposeBag)
         
-        viewModel.works
+        viewModel.worksObservable
             .map {
                 $0.filter { $0.state == .done }
             }.observe(on: MainScheduler.instance)
@@ -149,7 +149,7 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     private func bindHeaderImage() {
-        viewModel.works
+        viewModel.worksObservable
             .map {
                 $0.filter { $0.state == .todo }
             }.map {
@@ -158,7 +158,7 @@ final class ProjectManagerViewController: UIViewController {
             .drive(toDoTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
         
-        viewModel.works
+        viewModel.worksObservable
             .map {
                 $0.filter { $0.state == .doing }
             }.map {
@@ -168,7 +168,7 @@ final class ProjectManagerViewController: UIViewController {
             .drive(doingTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
         
-        viewModel.works
+        viewModel.worksObservable
             .map {
                 $0.filter { $0.state == .done }
             }.map {

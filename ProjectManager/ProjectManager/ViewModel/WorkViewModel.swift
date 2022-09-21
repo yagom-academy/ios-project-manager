@@ -10,10 +10,12 @@ import RxCocoa
 
 class WorkViewModel {
     private let disposeBag = DisposeBag()
-    let works = BehaviorRelay<[Work]>(value: [])
+    private let works = BehaviorSubject<[Work]>(value: [])
+    let worksObservable: Observable<[Work]>
     
     init() {
-        works.accept(SampleData.todoWorks + SampleData.doingWorks + SampleData.doneWorks)
+        works.onNext(SampleData.todoWorks + SampleData.doingWorks + SampleData.doneWorks)
+        worksObservable = works
     }
     
     func selectWork(by index: Int, _ state: WorkState) -> Work {
@@ -34,9 +36,10 @@ class WorkViewModel {
                 return $0.id == work.id ? newWork : $0
             }
         }.observe(on: MainScheduler.asyncInstance)
-        .take(1)
-        .bind(to: works)
-        .disposed(by: disposeBag)
+            .take(1)
+            .subscribe(onNext: {
+                self.works.onNext($0)
+            }).disposed(by: disposeBag)
     }
     
     func deleteWork(_ work: Work) {
@@ -45,8 +48,9 @@ class WorkViewModel {
         }
         .take(1)
         .observe(on: MainScheduler.instance)
-        .bind(to: works)
-        .disposed(by: disposeBag)
+        .subscribe(onNext: {
+            self.works.onNext($0)
+        }).disposed(by: disposeBag)
     }
     
     func chnageWorkState(_ work: Work, to state: WorkState) {
@@ -58,6 +62,6 @@ class WorkViewModel {
                                deadline: work.deadline,
                                state: state)
         
-        works.accept(works.value + [changedWork])
+        works.onNext(value + [changedWork])
     }
 }
