@@ -8,16 +8,21 @@
 import Foundation
 
 struct TodoModel {
-    let id: UUID = UUID()
+    let id: UUID
     let category: TodoCategory
     let title: String
     let body: String
     let createdAt: Date
     
-    init(category: TodoCategory, title: String, body: String, createdAt: Date) {
+    init(id: UUID, category: TodoCategory, title: String, body: String, createdAt: Date) {
+        self.id = id
         self.category = category
         self.title = title
         self.body = body
         self.createdAt = createdAt
+    }
+    
+    func convertDatabaseTodo() -> TodoLocalModel {
+        return TodoLocalModel(id: self.id, category: self.category, title: self.title, body: self.body, createdAt: self.createdAt)
     }
 }
