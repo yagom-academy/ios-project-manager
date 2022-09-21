@@ -181,12 +181,10 @@ private extension CardListViewController {
         let dataSource = DataSource(tableView: tableView, cellProvider: { [weak self] tableView, indexPath, model -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CardListTableViewCell.reuseIdentifier,
                                                            for: indexPath) as? CardListTableViewCell,
-                  let viewModel = self?.viewModel as? CardViewModel,
                   let data = self?.viewModel?.convert(from: model) else {
                 return UITableViewCell()
             }
 
-            cell.viewModel = viewModel
             cell.model = model
             cell.coodinator = self?.coordinator
             cell.bindUI(data)

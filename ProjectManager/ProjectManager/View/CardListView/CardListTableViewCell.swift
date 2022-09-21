@@ -44,7 +44,7 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
             $0.spacing = Const.stackViewSpacing
         }
 
-    var viewModel: CardViewModel?
+    private let viewModel: CardViewModel = CardViewModel()
     var coodinator: CoordinatorProtocol?
     var model: CardModel?
     
@@ -118,7 +118,7 @@ extension CardListTableViewCell {
               let model = model else { return }
 
         if guesture.state == .began {
-            viewModel?.connectWithActionSheetForMoving(coordinator: coodinator,
+            viewModel.connectWithActionSheetForMoving(coordinator: coodinator,
                                             model: model,
                                             sourceView: self)
         }
