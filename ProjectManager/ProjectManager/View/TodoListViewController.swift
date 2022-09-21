@@ -15,11 +15,11 @@ final class TodoListViewController: UIViewController {
     private var doingView = ListView(status: .doing)
     private var doneView = ListView(status: .done)
     
-    private var allTodoViewModel = AllTodoViewModel()
+    private let allTodoViewModel = AllTodoViewModel()
     
-    private var todoViewModel = TodoViewModel()
-    private var doingViewModel = DoingViewModel()
-    private var doneViewModel = DoneViewModel()
+    private let todoViewModel = TodoViewModel()
+    private let doingViewModel = DoingViewModel()
+    private let doneViewModel = DoneViewModel()
     
     var addButtonAction = PublishSubject<Project>()
     

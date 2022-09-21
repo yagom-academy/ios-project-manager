@@ -13,30 +13,11 @@ final class AllTodoViewModel {
     
     private var provider = TodoProvider()
     
-    var todoList = BehaviorSubject<[Project]>(value: [])
-    var doingList = BehaviorSubject<[Project]>(value: [])
-    var doneList = BehaviorSubject<[Project]>(value: [])
+    let todoList = BehaviorSubject<[Project]>(value: [])
+    let doingList = BehaviorSubject<[Project]>(value: [])
+    let doneList = BehaviorSubject<[Project]>(value: [])
     
-    var disposeBag = DisposeBag()
-    
-    // MARK: - initializer
-
-    init() {
-//        provider.todoList.subscribe(onNext: { [weak self] in
-//            self?.todoList.onNext($0)
-//        })
-//        .disposed(by: disposeBag)
-//
-//        provider.doingList.subscribe(onNext: { [weak self] in
-//            self?.doingList.onNext($0)
-//        })
-//        .disposed(by: disposeBag)
-//
-//        provider.doneList.subscribe(onNext: { [weak self] in
-//            self?.doneList.onNext($0)
-//        })
-//        .disposed(by: disposeBag)
-    }
+    let disposeBag = DisposeBag()
     
     // MARK: - functions
 

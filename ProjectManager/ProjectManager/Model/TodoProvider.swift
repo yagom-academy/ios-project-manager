@@ -8,16 +8,21 @@
 import RxSwift
 
 final class TodoProvider {
-    var allTodoData = BehaviorSubject<[Project]>(value: [])
     
-    var todoList = BehaviorSubject<[Project]>(value: [])
-    var doingList = BehaviorSubject<[Project]>(value: [])
-    var doneList = BehaviorSubject<[Project]>(value: [])
+    // MARK: - properties
+
+    let allTodoData = BehaviorSubject<[Project]>(value: [])
+    
+    let todoList = BehaviorSubject<[Project]>(value: [])
+    let doingList = BehaviorSubject<[Project]>(value: [])
+    let doneList = BehaviorSubject<[Project]>(value: [])
     
     private var testProjects: [Project]
     
     private let disposeBag = DisposeBag()
     
+    // MARK: - initializer
+
     init() {
         testProjects = Project.generateSampleData(count: 10,
                                                   maxBodyLine: 10,
@@ -38,6 +43,8 @@ final class TodoProvider {
         .disposed(by: disposeBag)
     }
     
+    // MARK: - functions
+
     func saveData(project: Project) {
         testProjects.append(project)
         allTodoData.onNext(testProjects)

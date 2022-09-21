@@ -15,7 +15,6 @@ struct Project {
 }
 
 extension Date {
-
     static func randomBetween(start: String, end: String, format: String = "yyyy-MM-dd") -> Date {
         let date1 = Date.parse(string: start, format: format)
         let date2 = Date.parse(string: end, format: format)
