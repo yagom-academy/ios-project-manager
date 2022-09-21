@@ -117,7 +117,7 @@ final class ProjectManagerViewController: UIViewController {
             }
         }
         
-        viewModel.works
+        viewModel.worksObservable
             .map {
                 $0.filter { $0.state == .todo }
             }.observe(on: MainScheduler.instance)
@@ -184,7 +184,9 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                self.showManageWorkView(self, work: self.viewModel.selectWork(by: index.row, .todo))
+                guard let selectedCell = self.todoTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                
+                self.showManageWorkView(self, id: selectedCell.cellID)
                 self.todoTableView.deselectRow(at: index, animated: true)
             }).disposed(by: disposeBag)
         
@@ -192,7 +194,9 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                self.showManageWorkView(self, work: self.viewModel.selectWork(by: index.row, .doing))
+                guard let selectedCell = self.doingTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                
+                self.showManageWorkView(self, id: selectedCell.cellID)
                 self.doingTableView.deselectRow(at: index, animated: true)
             }).disposed(by: disposeBag)
         
@@ -200,8 +204,9 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
+                guard let selectedCell = self.doneTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
                 
-                self.showManageWorkView(self, work: self.viewModel.selectWork(by: index.row, .done))
+                self.showManageWorkView(self, id: selectedCell.cellID)
                 self.doneTableView.deselectRow(at: index, animated: true)
             }).disposed(by: disposeBag)
     }
@@ -211,54 +216,62 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                self.viewModel.deleteWork(self.viewModel.selectWork(by: index.row, .todo))
+                guard let deletedCell = self.todoTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                self.viewModel.deleteWork(id: deletedCell.cellID)
             }).disposed(by: disposeBag)
         
         doingTableView.rx.itemDeleted
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                self.viewModel.deleteWork(self.viewModel.selectWork(by: index.row, .doing))
+                guard let deletedCell = self.doingTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                self.viewModel.deleteWork(id: deletedCell.cellID)
             }).disposed(by: disposeBag)
         
         doneTableView.rx.itemDeleted
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                self.viewModel.deleteWork(self.viewModel.selectWork(by: index.row, .done))
+                guard let deletedCell = self.doneTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                self.viewModel.deleteWork(id: deletedCell.cellID)
             }).disposed(by: disposeBag)
     }
     
     // MARK: - Methods
-    private func showManageWorkView(_ view: UIViewController, work: Work) {
+    private func showManageWorkView(_ view: UIViewController, id: UUID) {
         let manageViewController = ManageWorkViewController()
+        guard let work = viewModel.selectWork(id: id) else { return }
         manageViewController.configureEditMode(with: work, viewModel)
+
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         view.present(manageNavigationController, animated: true)
     }
     
     @objc private func showTodoPopView(_ recognizer: UILongPressGestureRecognizer) {
         let point = recognizer.location(in: todoTableView)
-        guard let index = todoTableView.indexPathForRow(at: point) else { return }
-        
-        showPopView(viewModel.selectWork(by: index.row, .todo), recognizer.view)
+        guard let index = todoTableView.indexPathForRow(at: point),
+              let seletedCell = todoTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+        showPopView(seletedCell.cellID, recognizer.view)
     }
     
     @objc private func showDoingPopView(_ recognizer: UILongPressGestureRecognizer) {
         let point = recognizer.location(in: doingTableView)
-        guard let index = doingTableView.indexPathForRow(at: point) else { return }
+        guard let index = doingTableView.indexPathForRow(at: point),
+              let seletedCell = doingTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
         
-        showPopView(viewModel.selectWork(by: index.row, .doing), recognizer.view)
+        showPopView(seletedCell.cellID, recognizer.view)
     }
     
     @objc private func showDonePopView(_ recognizer: UILongPressGestureRecognizer) {
         let point = recognizer.location(in: doneTableView)
-        guard let index = doneTableView.indexPathForRow(at: point) else { return }
+        guard let index = doneTableView.indexPathForRow(at: point),
+              let seletedCell = doneTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
         
-        showPopView(viewModel.selectWork(by: index.row, .done), recognizer.view)
+        showPopView(seletedCell.cellID, recognizer.view)
     }
     
-    private func showPopView(_ work: Work, _ sourceView: UIView?) {
+    private func showPopView(_ id: UUID, _ sourceView: UIView?) {
+        guard let work = viewModel.selectWork(id: id) else { return }
         let changeWorkStateViewController = ChangeWorkStateViewController()
         changeWorkStateViewController.setupView(for: work, viewModel)
         changeWorkStateViewController.modalPresentationStyle = .popover

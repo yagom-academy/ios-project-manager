@@ -18,12 +18,16 @@ class WorkViewModel {
         worksObservable = works
     }
     
-    func selectWork(by index: Int, _ state: WorkState) -> Work {
-        let stateWorks = works.value.filter {
-            $0.state == state
+    func selectWork(id: UUID) -> Work? {
+        guard let value = try? works.value() else { return nil }
+        
+        let selectedWork = value.filter {
+            $0.id == id
         }
         
-        return stateWorks[index]
+        return selectedWork.first
+    }
+    
     func addWork(_ work: Work) {
         guard let value = try? works.value() else { return }
         
@@ -42,9 +46,9 @@ class WorkViewModel {
             }).disposed(by: disposeBag)
     }
     
-    func deleteWork(_ work: Work) {
+    func deleteWork(id: UUID) {
         works.map {
-            $0.filter { $0.id != work.id }
+            $0.filter { $0.id != id }
         }
         .take(1)
         .observe(on: MainScheduler.instance)
@@ -54,8 +58,9 @@ class WorkViewModel {
     }
     
     func chnageWorkState(_ work: Work, to state: WorkState) {
-        deleteWork(work)
-
+        deleteWork(id: work.id)
+        
+        guard let value = try? works.value() else { return }
         let changedWork = Work(id: work.id,
                                title: work.title,
                                content: work.content,
