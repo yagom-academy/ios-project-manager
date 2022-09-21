@@ -9,5 +9,4 @@ import RxSwift
 
 protocol ViewModelType {
     var todoList: BehaviorSubject<[Project]> { get set }
-    
 }

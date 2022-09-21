@@ -65,7 +65,10 @@ extension Project {
                   let randomString = randomStringList.randomElement() else { break }
             let randomDate = Date.randomBetween(start: "2022-09-01", end: "2022-09-30")
             
-            let todo = Project(status: randomStatus, title: "\(index)번째 할 일", description: "\(index)번째 : " + randomString, date: randomDate)
+            let todo = Project(status: randomStatus,
+                               title: "\(index)번째 할 일",
+                               description: "\(index)번째 : " + randomString,
+                               date: randomDate)
             
             initialTodoList.append(todo)
         }

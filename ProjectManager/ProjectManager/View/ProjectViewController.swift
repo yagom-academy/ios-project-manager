@@ -13,7 +13,7 @@ final class ProjectViewController: UIViewController {
     // MARK: - properties
     
     let addButtonAction = PublishSubject<Project>()
-    var viewModel: ViewModelType?
+    private var viewModel: ViewModelType?
     
     private let projectTitle: UITextField = {
         let textField = UITextField()
