@@ -9,8 +9,9 @@ import UIKit
 
 protocol CoordinatorProtocol: AnyObject {
     var navigationController: UINavigationController? { get set }
-    var children: [CoordinatorProtocol] { get set }
-    
+    var childCoordinators: [CoordinatorProtocol] { get set }
+    var parentCoordinator: CoordinatorProtocol? { get set }
+
     func start()
     func presentEnrollmentViewController()
     func presentDetailViewController(_ model: CardModel)

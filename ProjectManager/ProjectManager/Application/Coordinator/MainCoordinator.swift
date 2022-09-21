@@ -9,15 +9,17 @@ import UIKit
 
 final class MainCoordinator: CoordinatorProtocol {
     var navigationController: UINavigationController?
-    var children = [CoordinatorProtocol]()
+    var childCoordinators: [CoordinatorProtocol] = []
+    var parentCoordinator: CoordinatorProtocol?
+
     private var cardViewModel = CardViewModel()
     
     func start() {
-        let cardLisitViewController = CardListViewController(viewModel: cardViewModel,
+        let cardListViewController = CardListViewController(viewModel: cardViewModel,
                                                              coordinator: self)
-        cardLisitViewController.coordinator = self
-        children.append(self)
-        navigationController?.setViewControllers([cardLisitViewController],
+        cardListViewController.coordinator = self
+        childCoordinators.append(self)
+        navigationController?.setViewControllers([cardListViewController],
                                                  animated: true)
     }
     
@@ -76,8 +78,8 @@ final class MainCoordinator: CoordinatorProtocol {
     }
 
     func childDidFinish(_ child: CoordinatorProtocol?) {
-        for (index, coordinator) in children.enumerated() where coordinator === child {
-            children.remove(at: index)
+        for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
+            childCoordinators.remove(at: index)
             break
         }
     }
