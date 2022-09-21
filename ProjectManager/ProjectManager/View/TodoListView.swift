@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProjectManagerView: UIView {
+final class TodoListView: UIView {
     private let registTableView: UITableView
     private let todoStatus: TodoCategory
     
@@ -73,7 +73,7 @@ final class ProjectManagerView: UIView {
             
 }
 
-extension ProjectManagerView {
+extension TodoListView {
     private func commonInit() {
         self.addSubview()
         self.setupConstraint()

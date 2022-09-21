@@ -5,11 +5,13 @@
 // 
 
 import UIKit
+import RealmSwift
 
-class ViewController: UIViewController {
-    private let todoListView: ProjectManagerView
-    private let doingListView: ProjectManagerView
-    private let doneListView: ProjectManagerView
+class TodoListViewController: UIViewController {
+    private let todoListView: TodoListView
+    private let doingListView: TodoListView
+    private let doneListView: TodoListView
+    private let realm = try! Realm()
     
     private let todoTableStackView: UIStackView = {
         let stackView = UIStackView()
@@ -23,9 +25,9 @@ class ViewController: UIViewController {
     }()
     
     init() {
-        self.todoListView = ProjectManagerView(todoStatus: .todo)
-        self.doingListView = ProjectManagerView(todoStatus: .doing)
-        self.doneListView = ProjectManagerView(todoStatus: .done)
+        self.todoListView = TodoListView(todoStatus: .todo)
+        self.doingListView = TodoListView(todoStatus: .doing)
+        self.doneListView = TodoListView(todoStatus: .done)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,7 +43,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController {
+extension TodoListViewController {
     private func configureUI() {
         self.view.addSubview(self.todoTableStackView)
         self.todoTableStackView.addArrangedSubview(todoListView)
