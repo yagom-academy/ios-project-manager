@@ -78,7 +78,7 @@ final class ManageWorkViewController: UIViewController {
         case .add:
             guard let newWork = workManageView.createNewWork() else { return }
 
-            viewModel.works.accept([newWork] + viewModel.works.value)
+            viewModel.addWork(newWork)
         case .edit:
             guard let work = work,
                   let newWork = self.workManageView.createNewWork(id: work.id, state: work.state) else { return }

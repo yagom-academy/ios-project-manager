@@ -22,6 +22,10 @@ class WorkViewModel {
         }
         
         return stateWorks[index]
+    func addWork(_ work: Work) {
+        guard let value = try? works.value() else { return }
+        
+        works.onNext([work] + value)
     }
     
     func editWork(_ work: Work, newWork: Work) {
