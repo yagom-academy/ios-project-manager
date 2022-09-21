@@ -80,7 +80,7 @@ final class HeaderView: UIView {
     override func draw(_ rect: CGRect) {
         let separator = UIBezierPath()
         separator.move(to: CGPoint(x: 0, y: 60))
-        separator.addLine(to: CGPoint(x: 360, y: 60))
+        separator.addLine(to: CGPoint(x: bounds.width, y: 60))
         separator.lineWidth = 1
         UIColor.lightGray.setStroke()
         separator.stroke()

@@ -48,11 +48,11 @@ final class ListView: UIView {
                 equalTo: safeAreaLayoutGuide.topAnchor,
                 constant: 70
             ),
-            headerView.widthAnchor.constraint(
-                equalToConstant: 355
-            ),
             headerView.leadingAnchor.constraint(
                 equalTo: leadingAnchor
+            ),
+            headerView.trailingAnchor.constraint(
+                equalTo: trailingAnchor
             )
         ])
     }

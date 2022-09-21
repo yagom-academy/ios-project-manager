@@ -69,13 +69,13 @@ final class TodoListViewController: UIViewController {
         doneListView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             todoListView.widthAnchor.constraint(
-                equalToConstant: 356
+                equalToConstant: view.bounds.width/3 - 4
             ),
             doingListView.widthAnchor.constraint(
-                equalToConstant: 356
+                equalToConstant: view.bounds.width/3 - 4
             ),
             doneListView.widthAnchor.constraint(
-                equalToConstant: 356
+                equalToConstant: view.bounds.width/3 - 4
             )
         ])
     }
