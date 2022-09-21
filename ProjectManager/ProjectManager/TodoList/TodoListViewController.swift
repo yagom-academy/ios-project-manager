@@ -11,6 +11,7 @@ class TodoListViewController: UIViewController {
     private let todoListView: TodoListView
     private let doingListView: TodoListView
     private let doneListView: TodoListView
+    private var coordinator: ApplyCoordinator?
     private let realm = try! Realm()
     
     private let todoTableStackView: UIStackView = {
@@ -24,10 +25,11 @@ class TodoListViewController: UIViewController {
         return stackView
     }()
     
-    init() {
+    init(coordinator: ApplyCoordinator) {
         self.todoListView = TodoListView(todoStatus: .todo)
         self.doingListView = TodoListView(todoStatus: .doing)
         self.doneListView = TodoListView(todoStatus: .done)
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
