@@ -106,11 +106,8 @@ extension TodoListViewController {
                     cell.setupDataSource(project: item)
                 }
                 .disposed(by: disposeBag)
-        
-        bindListCount(output: todoOutput)
     }
     
-    private func bindListCount(output: Output) {
     private func setupListCount() {
         guard let output = output else { return }
 
