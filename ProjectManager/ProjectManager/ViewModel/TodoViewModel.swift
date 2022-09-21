@@ -16,11 +16,11 @@ final class TodoViewModel: ViewModelType {
     let disposeBag = DisposeBag()
     
     init() {
-        viewModel.todoList
-            .subscribe(onNext: { [weak self] projects in
-                self?.todoList.onNext(projects)
-//                print(projects)
-            })
-            .disposed(by: disposeBag)
+//        viewModel.todoList
+//            .subscribe(onNext: { [weak self] in
+//                print($0)
+//                self?.todoList.onNext($0)
+//            })
+//            .disposed(by: disposeBag)
     }
 }

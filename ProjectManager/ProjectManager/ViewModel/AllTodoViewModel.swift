@@ -13,9 +13,9 @@ final class AllTodoViewModel {
     
     private var provider = TodoProvider()
     
-    let todoList = BehaviorSubject<[Project]>(value: [])
-    let doingList = BehaviorSubject<[Project]>(value: [])
-    let doneList = BehaviorSubject<[Project]>(value: [])
+//    let todoList = BehaviorSubject<[Project]>(value: [])
+//    let doingList = BehaviorSubject<[Project]>(value: [])
+//    let doneList = BehaviorSubject<[Project]>(value: [])
     
     let disposeBag = DisposeBag()
     

@@ -17,9 +17,9 @@ final class TodoListViewController: UIViewController {
     
     private let allTodoViewModel = AllTodoViewModel()
     
-    private let todoViewModel = TodoViewModel()
-    private let doingViewModel = DoingViewModel()
-    private let doneViewModel = DoneViewModel()
+//    private let todoViewModel = TodoViewModel()
+//    private let doingViewModel = DoingViewModel()
+//    private let doneViewModel = DoneViewModel()
     
     private var addButtonAction = PublishSubject<Project>()
     
@@ -106,8 +106,11 @@ extension TodoListViewController {
                     cell.setupDataSource(project: item)
                 }
                 .disposed(by: disposeBag)
+        
+        bindListCount(output: todoOutput)
     }
     
+    private func bindListCount(output: Output) {
     private func setupListCount() {
         guard let output = output else { return }
 
