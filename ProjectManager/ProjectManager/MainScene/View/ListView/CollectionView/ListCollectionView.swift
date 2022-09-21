@@ -25,7 +25,8 @@ final class ListCollectionView: UICollectionView {
         self.viewModel = ListCollectionViewModel(category: category)
         super.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         setupInitialView()
-        configureDataSource(with: viewModel.list)
+        configureDataSource()
+        update(viewModel.list)
         setupLongGestureRecognizerOnCollection()
         bind()
     }
@@ -82,8 +83,7 @@ extension ListCollectionView {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-    private func configureDataSource(with data: [Todo]?) {
-        guard let data = data else { return }
+    private func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<ListCell, Todo> { (cell, _, todo) in
             cell.setup(with: todo)
         }
@@ -94,9 +94,6 @@ extension ListCollectionView {
                 item: itemIdentifier
             )
         }
-        snapshot.appendSections([.main])
-        snapshot.appendItems(data, toSection: .main)
-        todoDataSource?.apply(snapshot)
     }
     // MARK: - Bind
     private func bind() {
