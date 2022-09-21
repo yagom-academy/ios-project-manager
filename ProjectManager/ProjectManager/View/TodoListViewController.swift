@@ -17,9 +17,9 @@ final class TodoListViewController: UIViewController {
     
     private let allTodoViewModel = AllTodoViewModel()
     
-    private let todoViewModel = TodoViewModel()
-    private let doingViewModel = DoingViewModel()
-    private let doneViewModel = DoneViewModel()
+//    private let todoViewModel = TodoViewModel()
+//    private let doingViewModel = DoingViewModel()
+//    private let doneViewModel = DoneViewModel()
     
     var addButtonAction = PublishSubject<Project>()
     
@@ -44,7 +44,6 @@ final class TodoListViewController: UIViewController {
         setupListStackView()
         
         setupListsCell()
-        bindListCount()
         setupListsCellTouchEvent()
     }
 }
@@ -101,25 +100,26 @@ extension TodoListViewController {
                     cell.setupDataSource(project: item)
                 }
                 .disposed(by: disposeBag)
+        
+        bindListCount(output: todoOutput)
     }
     
-    private func bindListCount() {
-        
-        todoViewModel.todoList
+    private func bindListCount(output: Output) {
+        output.todoList
             .map { $0.count }
-            .map { "\($0)" }
+            .map { "\($0)"}
             .bind(to: todoView.listCountLabel.rx.text)
             .disposed(by: disposeBag)
 
-        doingViewModel.todoList
+        output.doingList
             .map { $0.count }
-            .map { "\($0)" }
+            .map { "\($0)"}
             .bind(to: doingView.listCountLabel.rx.text)
             .disposed(by: disposeBag)
-
-        doneViewModel.todoList
+        
+        output.doneList
             .map { $0.count }
-            .map { "\($0)" }
+            .map { "\($0)"}
             .bind(to: doneView.listCountLabel.rx.text)
             .disposed(by: disposeBag)
     }
@@ -172,7 +172,7 @@ extension TodoListViewController {
             })
             .disposed(by: disposeBag)
         
-        projectViewController.viewModel = todoViewModel
+//        projectViewController.viewModel = todoViewModel
         projectViewController.modalPresentationStyle = .formSheet
         let projectAddViewController = UINavigationController(rootViewController: projectViewController)
         present(projectAddViewController, animated: true)

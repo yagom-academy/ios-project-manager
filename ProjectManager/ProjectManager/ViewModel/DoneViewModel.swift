@@ -11,5 +11,5 @@ final class DoneViewModel: ViewModelType {
     
     // MARK: - properties
     
-    let todoList = BehaviorSubject<[Project]>(value: [])
+    var todoList = BehaviorSubject<[Project]>(value: [])
 }

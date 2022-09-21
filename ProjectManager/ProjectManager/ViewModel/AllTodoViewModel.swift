@@ -13,9 +13,9 @@ final class AllTodoViewModel {
     
     private var provider = TodoProvider()
     
-    let todoList = BehaviorSubject<[Project]>(value: [])
-    let doingList = BehaviorSubject<[Project]>(value: [])
-    let doneList = BehaviorSubject<[Project]>(value: [])
+//    let todoList = BehaviorSubject<[Project]>(value: [])
+//    let doingList = BehaviorSubject<[Project]>(value: [])
+//    let doneList = BehaviorSubject<[Project]>(value: [])
     
     let disposeBag = DisposeBag()
     
@@ -27,6 +27,7 @@ final class AllTodoViewModel {
         let doneList: BehaviorSubject<[Project]> = BehaviorSubject(value: [])
         provider.todoList
             .subscribe(onNext: { project in
+                print(project)
                 todoList.onNext(project)
             })
             .disposed(by: disposeBag)

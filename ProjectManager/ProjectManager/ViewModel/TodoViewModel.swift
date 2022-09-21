@@ -12,14 +12,15 @@ final class TodoViewModel: ViewModelType {
     // MARK: - properties
     
     let viewModel = AllTodoViewModel()
-    let todoList = BehaviorSubject<[Project]>(value: [])
+    var todoList = BehaviorSubject<[Project]>(value: [])
     let disposeBag = DisposeBag()
     
     init() {
-        viewModel.todoList
-            .subscribe(onNext: { [weak self] in
-                self?.todoList.onNext($0)
-            })
-            .disposed(by: disposeBag)
+//        viewModel.todoList
+//            .subscribe(onNext: { [weak self] in
+//                print($0)
+//                self?.todoList.onNext($0)
+//            })
+//            .disposed(by: disposeBag)
     }
 }
