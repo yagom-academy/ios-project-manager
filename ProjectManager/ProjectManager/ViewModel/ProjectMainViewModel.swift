@@ -20,4 +20,14 @@ final class ProjectMainViewModel: ObservableObject {
     var doneArray: [Project] {
         model.filter { $0.status == .done }
     }
+
+    func delete(at offsets: IndexSet, status: Status) {
+        let filteredArray = model.filter { todo in
+            todo.status == status
+        }
+        guard let remove = offsets.first else { return }
+        model.removeAll { todo in
+            todo.id == filteredArray[remove].id
+        }
+    }
 }

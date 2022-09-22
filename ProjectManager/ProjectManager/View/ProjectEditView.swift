@@ -9,15 +9,14 @@ import SwiftUI
 
 struct ProjectEditView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
-    @State var isDisabled = true
     @Binding var projects: [Project]
 
     var body: some View {
         VStack {
-            ProjectEditTitleView(viewModel: viewModel, isDisabled: $isDisabled, projects: $projects)
-            ProjectEditTitleTextView(viewModel: viewModel, isDisabled: $isDisabled)
-            ProjectEditDatePickerView(viewModel: viewModel, isDisabled: $isDisabled)
-            ProjectEditDetailTextView(viewModel: viewModel, isDisabled: $isDisabled)
+            ProjectEditTitleView(viewModel: viewModel, projects: $projects)
+            ProjectEditTitleTextView(viewModel: viewModel)
+            ProjectEditDatePickerView(viewModel: viewModel)
+            ProjectEditDetailTextView(viewModel: viewModel)
         }
     }
 }
@@ -25,13 +24,12 @@ struct ProjectEditView: View {
 struct ProjectEditTitleView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: ProjectModalViewModel
-    @Binding var isDisabled: Bool
     @Binding var projects: [Project]
 
     var body: some View {
         HStack {
             Button(action: {
-                isDisabled = false
+                viewModel.isTappedEditButton()
             }, label: {
                 Text("Edit")
                     .font(.title3)
@@ -62,7 +60,6 @@ struct ProjectEditTitleView: View {
 
 struct ProjectEditTitleTextView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
-    @Binding var isDisabled: Bool
 
     var body: some View {
         ZStack {
@@ -74,14 +71,14 @@ struct ProjectEditTitleTextView: View {
                 .padding()
                 .background(Color(.systemBackground))
                 .padding(12)
+                .disableAutocorrection(true)
         }
-        .disabled(isDisabled)
+        .disabled(viewModel.isDisable)
     }
 }
 
 struct ProjectEditDatePickerView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
-    @Binding var isDisabled: Bool
 
     var body: some View {
         DatePicker("",
@@ -89,13 +86,12 @@ struct ProjectEditDatePickerView: View {
                    displayedComponents: .date)
         .datePickerStyle(WheelDatePickerStyle())
         .labelsHidden()
-        .disabled(isDisabled)
+        .disabled(viewModel.isDisable)
     }
 }
 
 struct ProjectEditDetailTextView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
-    @Binding var isDisabled: Bool
 
     var body: some View {
         TextEditor(text: $viewModel.detail)
@@ -104,6 +100,6 @@ struct ProjectEditDetailTextView: View {
             .shadow(color: .gray, radius: 8, x: 0, y: 0)
             .padding(12)
             .disableAutocorrection(true)
-            .disabled(isDisabled)
+            .disabled(viewModel.isDisable)
     }
 }

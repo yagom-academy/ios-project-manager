@@ -2,7 +2,7 @@
 //  ProjectAddView.swift
 //  ProjectManager
 //
-//  Created by 재재, 언체인 on 2022/09/12.
+//  Created by 재재, 언체인  on 2022/09/12.
 //
 
 import SwiftUI
@@ -73,6 +73,7 @@ struct ProjectAddTitleTextView: View {
                 .padding()
                 .background(Color(.systemBackground))
                 .padding(12)
+                .disableAutocorrection(true)
         }
     }
 }

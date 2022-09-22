@@ -1,5 +1,5 @@
 //
-//  ProjectMainView.swift
+//  ProjectView.swift
 //  ProjectManager
 //
 //  Created by 재재, 언체인 on 2022/09/08.
@@ -12,18 +12,18 @@ struct ProjectMainView: View {
 
     var body: some View {
         VStack(alignment: .center) {
-            ProjectTitleView(model: $viewModel.model)
+            ProjectMainTitleView(viewModel: viewModel)
             HStack {
-                ProjectStatusListView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.todo.rawValue, count: viewModel.todoArray.count, status: .todo)
-                ProjectStatusListView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.doing.rawValue, count: viewModel.doingArray.count, status: .doing)
-                ProjectStatusListView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.done.rawValue, count: viewModel.doneArray.count, status: .done)
+                ProjectStatusListView(viewModel: viewModel, title: Status.todo.rawValue, status: .todo)
+                ProjectStatusListView(viewModel: viewModel, title: Status.doing.rawValue, status: .doing)
+                ProjectStatusListView(viewModel: viewModel, title: Status.done.rawValue, status: .done)
             }
             .background(Color(UIColor.systemGray3))
         }
     }
 
-    struct ProjectTitleView: View {
-        @Binding var model: [Project]
+    struct ProjectMainTitleView: View {
+        @ObservedObject var viewModel: ProjectMainViewModel
         @State private var showModal = false
 
         var body: some View {
@@ -42,7 +42,7 @@ struct ProjectMainView: View {
                         Image(systemName: "plus")
                     })
                     .sheet(isPresented: self.$showModal, content: {
-                        ProjectAddView(viewModel: ProjectModalViewModel(project: Project()), project: $model)
+                        ProjectAddView(viewModel: ProjectModalViewModel(project: Project()), project: $viewModel.model)
                     })
                     .font(.title)
                     .padding(10)
@@ -53,13 +53,9 @@ struct ProjectMainView: View {
 
     struct ProjectStatusListView: View {
         @ObservedObject var viewModel: ProjectMainViewModel
-        @State var selectedProject: Project?
-        @Binding var selectedProject2: Project?
-        @Binding var projects: [Project]
         @State var isPopover = false
 
-        let title: String
-        let count: Int
+        var title: String
         var status: Status
         var array: [Project] {
             switch status {
@@ -82,7 +78,7 @@ struct ProjectMainView: View {
                         Circle()
                             .fill(.black)
                             .frame(width: 30, height: 30)
-                        Text("\(count)")
+                        Text("\(array.count)")
                             .font(.title3)
                             .foregroundColor(.white)
                     }
@@ -92,25 +88,15 @@ struct ProjectMainView: View {
                 Spacer()
                 List {
                     ForEach(array, id: \.self) { memo in
-                        ProjectContentView(viewModel: viewModel, selectedProject2: $selectedProject2, projects: $projects, memo: memo)
+                        ProjectContentView(viewModel: viewModel, memo: memo)
                     }
                     .onDelete { index in
-                        removeRows(at: index)
+                        viewModel.delete(at: index, status: status)
                     }
                 }
             }
             .background(Color(UIColor.systemGray5))
             Divider()
-        }
-
-        func removeRows(at offsets: IndexSet) {
-            let filteredArray = projects.filter { todo in
-                todo.status == status
-            }
-            guard let remove = offsets.first else { return }
-            projects.removeAll { todo in
-                todo.id == filteredArray[remove].id
-            }
         }
     }
 }
@@ -118,9 +104,8 @@ struct ProjectMainView: View {
 struct ProjectContentView: View {
     @ObservedObject var viewModel: ProjectMainViewModel
     @State var selectedProject: Project?
-    @Binding var selectedProject2: Project?
-    @Binding var projects: [Project]
     @State var isPopover = false
+
     var memo: Project
     let today = Calendar.current.startOfDay(for: Date())
 
@@ -141,20 +126,20 @@ struct ProjectContentView: View {
             selectedProject = memo
         }
         .onLongPressGesture(minimumDuration: 1, perform: {
-            selectedProject2 = memo
+            viewModel.project = memo
             isPopover = true
         })
         .sheet(item: $selectedProject) { memo in
-            ProjectEditView(viewModel: ProjectModalViewModel(project: memo), projects: $projects)
+            ProjectEditView(viewModel: ProjectModalViewModel(project: memo), projects: $viewModel.model)
         }
         .popover(isPresented: $isPopover) {
             VStack {
                 ForEach(Status.allCases
-                    .filter { $0 != selectedProject2?.status }, id: \.self) { status in
+                    .filter { $0 != viewModel.project?.status }, id: \.self) { status in
                         Button("move to \(status.rawValue)", action: {
                             isPopover = false
-                            projects = projects.map({ project in
-                                guard project.id == selectedProject2?.id else { return project }
+                            viewModel.model = viewModel.model.map({ project in
+                                guard project.id == viewModel.project?.id else { return project }
                                 var changedProject = project
                                 changedProject.status = status
                                 return changedProject
