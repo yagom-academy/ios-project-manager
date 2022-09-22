@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - UIGestureRecognizerDelegate
 extension ListCollectionView: UIGestureRecognizerDelegate {
     
     func setupLongGestureRecognizerOnCollection() {

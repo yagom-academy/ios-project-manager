@@ -21,16 +21,16 @@ final class TodoListCoordinator: Coordinator, TodoListViewControllerDelegate {
     }
     
     func addButtonDidTapped() {
-        let createTodoListCoordinator = FormSheetViewCoordinator(mode: .create)
-        let creatVC = createTodoListCoordinator.start()
+        let formSheetViewCoordinator = FormSheetViewCoordinator(mode: .create)
+        let creatVC = formSheetViewCoordinator.start()
         rootViewController?.present(creatVC, animated: true)
     }
     
     func cellDidTapped(at index: Int, in category: String) {
-        let editTodoListCoordinator = FormSheetViewCoordinator(mode: .edit,
+        let formSheetViewCoordinator = FormSheetViewCoordinator(mode: .edit,
                                                                category: category,
                                                                index: index)
-        let editVC = editTodoListCoordinator.start()
+        let editVC = formSheetViewCoordinator.start()
         rootViewController?.present(editVC, animated: true)
     }
     
@@ -45,5 +45,11 @@ final class TodoListCoordinator: Coordinator, TodoListViewControllerDelegate {
         )
         let popoverVC = popoverViewCoordinator.start()
         rootViewController?.present(popoverVC, animated: true)
+    }
+    
+    func historyButtonDidTapped(in viewController: TodoListViewController) {
+        let historyViewCoordinator = HistoryViewCoordinator(viewController: viewController)
+        let historyVC = historyViewCoordinator.start()
+        rootViewController?.present(historyVC, animated: true)
     }
 }

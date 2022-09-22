@@ -15,6 +15,7 @@ protocol TodoListViewControllerDelegate: AnyObject {
         location: (x: Double, y: Double),
         item: Todo?
     )
+    func historyButtonDidTapped(in viewController: TodoListViewController)
 }
 
 final class TodoListViewController: UIViewController {
@@ -113,7 +114,7 @@ final class TodoListViewController: UIViewController {
     }
     
     @objc private func historyButtonDidTapped() {
-        print(#function)
+        delegate?.historyButtonDidTapped(in: self)
     }
 }
 
@@ -136,5 +137,13 @@ extension TodoListViewController: UICollectionViewDelegate {
         default:
             return
         }
+    }
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+extension TodoListViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }

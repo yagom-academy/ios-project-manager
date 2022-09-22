@@ -37,11 +37,14 @@ final class HeaderViewModel {
         view.categoryLabel.text = title
         switch title {
         case Category.todo:
-            view.countLabel.text = " \(TodoDataManager.shared.todoList.value!.count) "
+            let todoListCount = TodoDataManager.shared.todoList.value?.count ?? 0
+            view.countLabel.text = " \(todoListCount) "
         case Category.doing:
-            view.countLabel.text = " \(TodoDataManager.shared.doingList.value!.count) "
+            let doingListCount = TodoDataManager.shared.doingList.value?.count ?? 0
+            view.countLabel.text = " \(doingListCount) "
         case Category.done:
-            view.countLabel.text = " \(TodoDataManager.shared.doneList.value!.count) "
+            let doneListCount = TodoDataManager.shared.doneList.value?.count ?? 0
+            view.countLabel.text = " \(doneListCount) "
         default:
             return
         }
