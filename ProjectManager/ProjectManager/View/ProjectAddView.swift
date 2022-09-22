@@ -1,37 +1,43 @@
 //
-//  ProjectEditView.swift
+//  ProjectAddView.swift
 //  ProjectManager
 //
-//  Created by 재재, 언체인 on 2022/09/12.
+//  Created by 재재, 언체인  on 2022/09/12.
 //
 
 import SwiftUI
 
-struct ProjectEditView: View {
+struct ProjectAddView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
-    @Binding var projects: [Project]
-    @Binding var selectedProject: Project?
+    @Binding var project: [Project]
+    @Binding var showModal: Bool
+
+    init(viewModel: ProjectModalViewModel, project: Binding<[Project]>, showModal: Binding<Bool>) {
+        self.viewModel = viewModel
+        self._project = project
+        self._showModal = showModal
+    }
 
     var body: some View {
         VStack {
-            ProjectEditTitleView(viewModel: viewModel, projects: $projects, selectedProject: $selectedProject)
-            ProjectEditTitleTextView(viewModel: viewModel)
-            ProjectEditDatePickerView(viewModel: viewModel)
-            ProjectEditDetailTextView(viewModel: viewModel)
+            ProjectAddTitleView(viewModel: viewModel, projects: $project, showModal: $showModal)
+            ProjectAddTitleTextView(viewModel: viewModel)
+            ProjectAddDatePickerView(viewModel: viewModel)
+            ProjectAddDetailTextView(viewModel: viewModel)
         }
     }
 
-    struct ProjectEditTitleView: View {
+    struct ProjectAddTitleView: View {
         @ObservedObject var viewModel: ProjectModalViewModel
         @Binding var projects: [Project]
-        @Binding var selectedProject: Project?
+        @Binding var showModal: Bool
 
         var body: some View {
             HStack {
                 Button(action: {
-                    viewModel.isTappedEditButton()
+                    showModal = false
                 }, label: {
-                    Text(NameSpace.editButton)
+                    Text(NameSpace.cancelButton)
                         .font(.title3.monospacedDigit().bold())
                 })
                 .padding(15)
@@ -40,16 +46,12 @@ struct ProjectEditView: View {
                     .font(.title.monospacedDigit().bold())
                 Spacer()
                 Button(action: {
-                    projects = projects.map { project in
-                        guard project.id == viewModel.id else { return project }
-                        let changedProject = Project(id: viewModel.id,
-                                                     status: viewModel.status,
-                                                     title: viewModel.title,
-                                                     detail: viewModel.detail,
-                                                     date: viewModel.date)
-                        return changedProject
-                    }
-                    selectedProject = nil
+                    projects.append(Project(id: viewModel.id,
+                                            status: .todo,
+                                            title: viewModel.title,
+                                            detail: viewModel.detail,
+                                            date: viewModel.date))
+                    showModal = false
                 }, label: {
                     Text(NameSpace.doneButton)
                         .font(.title3.monospacedDigit().bold())
@@ -60,7 +62,7 @@ struct ProjectEditView: View {
         }
     }
 
-    struct ProjectEditTitleTextView: View {
+    struct ProjectAddTitleTextView: View {
         @ObservedObject var viewModel: ProjectModalViewModel
 
         var body: some View {
@@ -70,11 +72,10 @@ struct ProjectEditView: View {
                 .disableAutocorrection(true)
                 .border(Color("BorderColor"), width: 3)
                 .padding([.leading, .trailing], 10)
-                .disabled(viewModel.isDisable)
         }
     }
 
-    struct ProjectEditDatePickerView: View {
+    struct ProjectAddDatePickerView: View {
         @ObservedObject var viewModel: ProjectModalViewModel
 
         var body: some View {
@@ -83,28 +84,36 @@ struct ProjectEditView: View {
                        displayedComponents: .date)
             .datePickerStyle(WheelDatePickerStyle())
             .labelsHidden()
-            .disabled(viewModel.isDisable)
         }
     }
 
-    struct ProjectEditDetailTextView: View {
+    struct ProjectAddDetailTextView: View {
         @ObservedObject var viewModel: ProjectModalViewModel
 
         var body: some View {
-            TextEditor(text: $viewModel.detail)
-                .font(.body)
-                .disableAutocorrection(true)
-                .border(Color("BorderColor"), width: 3)
-                .padding([.leading, .bottom, .trailing], 10)
-                .disabled(viewModel.isDisable)
+            ZStack {
+                if viewModel.detail.isEmpty {
+                    TextEditor(text: $viewModel.placeholder)
+                        .font(.body)
+                        .border(Color("BorderColor"), width: 3)
+                        .padding([.leading, .bottom, .trailing], 10)
+                }
+                TextEditor(text: $viewModel.detail)
+                    .font(.body)
+                    .background(Color(.systemBackground))
+                    .opacity(viewModel.detail.isEmpty ? 0.15 : 1)
+                    .disableAutocorrection(true)
+                    .border(Color("BorderColor"), width: 3)
+                    .padding([.leading, .bottom, .trailing], 10)
+            }
         }
     }
 }
 
-extension ProjectEditView {
+extension ProjectAddView {
     enum NameSpace {
         static let projectTitle = "PROJECT MANAGER"
-        static let editButton = "EDIT"
+        static let cancelButton = "CANCEL"
         static let doneButton = "DONE"
         static let titleSpaceHolder = "TITLE"
     }
