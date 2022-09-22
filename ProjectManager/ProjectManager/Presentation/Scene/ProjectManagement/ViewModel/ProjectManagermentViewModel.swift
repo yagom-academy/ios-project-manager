@@ -11,7 +11,7 @@ private enum Design {
     static let defaultText = ""
 }
 
-class ProjectManagermentViewModel {
+final class ProjectManagermentViewModel {
 // MARK: - Output to View
     
     func makeProjectViewModel(id: String,

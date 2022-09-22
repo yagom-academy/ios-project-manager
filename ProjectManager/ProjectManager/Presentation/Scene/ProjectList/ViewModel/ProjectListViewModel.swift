@@ -12,7 +12,7 @@ private enum Design {
     static let deleteSwipeActionTitle = "DELETE"
 }
 
-class ProjectListViewModel {
+final class ProjectListViewModel {
     // MARK: - Properties
     
     private var useCase: ProjectUseCaseProtocol
@@ -59,7 +59,7 @@ class ProjectListViewModel {
         doneListObserver.bind(closure)
     }
     
-    func retrieveDateLabelColor(data stringDate: String) -> UIColor {
+    private func retrieveDateLabelColor(data stringDate: String) -> UIColor {
         let date = stringDate.toDate()
         let currentDate = Date()
         
