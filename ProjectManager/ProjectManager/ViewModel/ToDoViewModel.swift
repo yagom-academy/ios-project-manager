@@ -24,11 +24,11 @@ final class ToDoViewModel: Readjustable, Editable {
         }
     }
 
-    let databaseManager: DatabaseLogic
+    let databaseManager: LocalDatabaseManager
     
     var showAlert: (() -> Void)?
 
-    init(databaseManager: DatabaseLogic) {
+    init(databaseManager: LocalDatabaseManager) {
         self.databaseManager = databaseManager
         NotificationCenter.default.addObserver(
             self,

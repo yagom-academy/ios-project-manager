@@ -1,5 +1,5 @@
 //
-//  InMemoryCoreDataContainer.swift
+//  CoreDataContainer.swift
 //  ProjectManager
 //
 //  Created by 수꿍, 휴 on 2022/09/14.
@@ -7,7 +7,7 @@
 
 import CoreData
 
-final class InMemoryCoreDataContainer: NSPersistentContainer {
+final class CoreDataContainer: NSPersistentContainer {
     init(name: String, bundle: Bundle = .main, inMemory: Bool = true) {
         guard let model = NSManagedObjectModel.mergedModel(from: [bundle]) else {
             fatalError("Failed to create model")
