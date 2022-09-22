@@ -14,7 +14,10 @@ class WorkViewModel {
     let worksObservable: Observable<[Work]>
     
     init() {
-        works.onNext(FirebaseManager.shared.fetchWork())
+        FirebaseManager.shared.fetchWork()
+            .subscribe(onNext: works.onNext)
+            .disposed(by: disposeBag)
+
         worksObservable = works
     }
     
@@ -29,6 +32,7 @@ class WorkViewModel {
     }
     
     func addWork(_ work: Work) {
+        FirebaseManager.shared.saveWork(work)
         guard let value = try? works.value() else { return }
         
         works.onNext([work] + value)

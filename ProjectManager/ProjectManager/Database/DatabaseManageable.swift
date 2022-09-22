@@ -5,11 +5,12 @@
 //  Created by Judy on 2022/09/22.
 //
 
+import RxSwift
 import Foundation
 
 protocol DatabaseManageable {
     func saveWork(_ work: Work)
     func deleteWork(id: UUID)
-    func fetchWork() -> [Work]
+    func fetchWork() -> Observable<[Work]>
     func updateWork()
 }

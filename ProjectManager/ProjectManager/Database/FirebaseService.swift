@@ -30,12 +30,14 @@ class FirebaseService {
     }
     
     func convert(form document: QueryDocumentSnapshot) -> Work? {
-        guard let id = document["id"] as? UUID,
+        guard let uuid = document["id"] as? String,
               let title = document["title"] as? String,
+              let stateValue = document["state"] as? String,
               let content = document["content"] as? String,
-              let deadline = document["deadline"] as? Date,
-              let state = document["state"] as? WorkState else { return nil }
+              let deadline = document["deadline"] as? Timestamp,
+              let id = UUID(uuidString: uuid),
+              let state = WorkState(rawValue: stateValue) else { return nil }
         
-        return Work(id: id, title: title, content: content, deadline: deadline, state: state)
+        return Work(id: id, title: title, content: content, deadline: deadline.dateValue(), state: state)
     }
 }

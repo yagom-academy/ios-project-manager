@@ -25,14 +25,20 @@ class FirebaseManager: DatabaseManageable {
     
     func saveWork(_ work: Work) {
         let workData: [String: Any] = [
-            "id": work.id,
+            "id": work.id.uuidString,
             "title": work.title,
             "content": work.content,
             "deadline": work.deadline,
-            "state": work.state
+            "state": work.state.rawValue
         ]
         
-        database.collection(collectioinId).document(work.id.uuidString).setData(workData)
+        database.collection(collectioinId).document(work.id.uuidString).setData(workData) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
     }
     
     func deleteWork(id: UUID) {
@@ -43,17 +49,12 @@ class FirebaseManager: DatabaseManageable {
         }
     }
     
-    func fetchWork() -> [Work] {
+    func fetchWork() -> Observable<[Work]> {
         let firebaseService = FirebaseService()
-        var works: [Work] = []
         
-        firebaseService.loadData(collectioinId).map {
+        return firebaseService.loadData(collectioinId).map {
             $0.compactMap { firebaseService.convert(form: $0) }
-        }.subscribe(onNext: {
-            works = $0
-        }).disposed(by: DisposeBag())
-        
-        return works
+        }
     }
     
     func updateWork() {
