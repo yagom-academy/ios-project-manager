@@ -1,6 +1,9 @@
 disabled_rules: # Default Rules에서 비활성화할 규칙
     - trailing_whitespace
     - line_length
+    - redundant_void_return
+    - force_cast
+    - identifier_name
 opt_in_rules:
   - empty_count
   - empty_string

@@ -8,9 +8,9 @@
 import UIKit
 
 class TaskTableView: UITableView, UITableViewDelegate {
-    let projectState: ProjectState?
+    let projectState: TaskState?
     
-    init(projectState: ProjectState) {
+    init(projectState: TaskState) {
         self.projectState = projectState
         super.init(frame: .zero, style: .plain)
         

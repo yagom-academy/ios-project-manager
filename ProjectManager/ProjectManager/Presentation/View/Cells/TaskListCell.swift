@@ -72,24 +72,9 @@ class TaskListCell: UITableViewCell {
         ])
     }
     
-    func configureUI(data: TaskModelDTO) {
+    func configureUI(data: TaskViewModel) {
         titleLabel.text = data.title
-        
-        let hasDate = data.date
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy. MM. dd."
-        
-        let dateString = formatter.string(from: hasDate)
-        
-        if Int(hasDate.timeIntervalSince(Date())) > 0 {
-            datelabel.text = dateString
-            datelabel.textColor = .black
-            bodyLabel.text = data.body
-            return
-        }
-        
-        datelabel.text = dateString
-        datelabel.textColor = .red
+        datelabel.text = data.date
         bodyLabel.text = data.body
     }
 }

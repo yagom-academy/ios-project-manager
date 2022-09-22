@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ProjectState {
+enum TaskState {
     case todo
     case doing
     case done

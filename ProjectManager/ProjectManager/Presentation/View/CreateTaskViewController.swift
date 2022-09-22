@@ -8,7 +8,7 @@
 import UIKit
 
 class CreateTaskViewController: UIViewController {
-    weak var delegate: MainTaskViewControllerDelegate?
+    weak var delegate: CreateTaskViewControllerDelegate?
     
     private let titleTextField: UITextField = {
        let textfield = UITextField()
@@ -54,26 +54,24 @@ class CreateTaskViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = "Todo"
+        navigationItem.title = TaskState.todo.header
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
-            action: #selector(didTapCancel)
+            action: #selector(cancelButtonDidTap)
         )
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
-            action: #selector(didTapDone)
+            action: #selector(doneButtonDidTap)
         )
-        navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 236/256, green: 192/256, blue: 224/256, alpha: 1)
-        navigationItem.leftBarButtonItem?.tintColor = UIColor(red: 236/256, green: 192/256, blue: 224/256, alpha: 1)
     }
     
-    @objc private func didTapCancel() {
+    @objc private func cancelButtonDidTap() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func didTapDone() {
+    @objc private func doneButtonDidTap() {
         guard let body = bodyTextView.text,
               let title = titleTextField.text else {
             return
