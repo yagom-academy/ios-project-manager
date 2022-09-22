@@ -25,6 +25,7 @@ final class WorkManageView: UIView {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.backgroundColor = .systemBackground
+        datePicker.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ko")
         return datePicker
     }()
     
@@ -92,5 +93,19 @@ final class WorkManageView: UIView {
         titleTextField.text = work.title
         contentTextView.text = work.content
         deadlinePicker.date = work.deadline
+    }
+    
+    func createNewWork(id: UUID = UUID(), state: WorkState = .todo) -> Work? {
+        guard let title = titleTextField.text,
+              let content = contentTextView.text else { return nil }
+        let deadline = deadlinePicker.date
+        
+        return Work(id: id, title: title, content: content, deadline: deadline, state: state)
+    }
+    
+    func changeEditMode(_ isOn: Bool) {
+        titleTextField.isEnabled = isOn
+        contentTextView.isEditable = isOn
+        deadlinePicker.isEnabled = isOn
     }
 }

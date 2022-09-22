@@ -10,6 +10,7 @@ import UIKit
 final class WorkTableViewCell: UITableViewCell {
     // MARK: - Properties
     static let identifier = "WorkTableViewCell"
+    var cellID: UUID = UUID()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -87,6 +88,8 @@ final class WorkTableViewCell: UITableViewCell {
     }
     
     func configure(with work: Work) {
+        cellID = work.id
+        
         titleLabel.text = work.title
         contentLabel.text = work.content
         deadlineLabel.text = work.deadline.convertToRegion()

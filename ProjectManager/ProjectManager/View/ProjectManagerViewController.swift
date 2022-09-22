@@ -12,9 +12,10 @@ final class ProjectManagerViewController: UIViewController {
     private let viewModel = WorkViewModel()
     private let disposeBag = DisposeBag()
     
-    private let todoTableView = WorkTableView(frame: .zero, style: .grouped)
-    private let doingTableView = WorkTableView(frame: .zero, style: .grouped)
-    private let doneTableView = WorkTableView(frame: .zero, style: .grouped)
+    // MARK: - UI
+    private let todoTableView = WorkTableView(frame: .zero, style: .plain)
+    private let doingTableView = WorkTableView(frame: .zero, style: .plain)
+    private let doneTableView = WorkTableView(frame: .zero, style: .plain)
     
     private let toDoTitleView = HeaderView()
     private let doingTitleView = HeaderView()
@@ -36,7 +37,7 @@ final class ProjectManagerViewController: UIViewController {
         setupBinding()
     }
     
-    // MARK: - UI
+    // MARK: - UI setup
     private func setupView() {
         self.navigationItem.title = "Project Manager"
         self.view.backgroundColor = .systemGray6
@@ -50,11 +51,7 @@ final class ProjectManagerViewController: UIViewController {
         toDoTitleView.configure(title: "TODO", count: 0)
         doingTitleView.configure(title: "DOING", count: 0)
         doneTitleView.configure(title: "DONE", count: 0)
-        
-        todoTableView.tableHeaderView = toDoTitleView
-        doingTableView.tableHeaderView = doingTitleView
-        doneTableView.tableHeaderView = doneTitleView
-        
+             
         horizontalStackView.addArrangedSubview(todoTableView)
         horizontalStackView.addArrangedSubview(doingTableView)
         horizontalStackView.addArrangedSubview(doneTableView)
@@ -79,62 +76,102 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     @objc private func addWorkBarButtonTapped() {
-        let manageViewController = UINavigationController(rootViewController: ManageWorkViewController())
-        self.present(manageViewController, animated: true)
+        let manageViewController = ManageWorkViewController()
+        manageViewController.configureAddMode(viewModel)
+        let manageNavigationController = UINavigationController(rootViewController: manageViewController)
+        self.present(manageNavigationController, animated: true)
     }
     
     // MARK: - UI Binding
     private func setupBinding() {
+        setupDelegate()
         bindWorkTableView()
         bindHeaderImage()
-        setWorkSelection()        
+        setWorkSelection()
+        setWorkDeletion()
+    }
+    
+    private func setupDelegate() {
+        todoTableView.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
+        
+        doingTableView.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
+        
+        doneTableView.rx
+            .setDelegate(self)
+            .disposed(by: disposeBag)
     }
     
     private func bindWorkTableView() {
-        viewModel.todoWorks
-            .observe(on: MainScheduler.instance)
-            .bind(to: todoTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
-                                                                 cellType: WorkTableViewCell.self)) { _, item, cell in
-                cell.configure(with: item)
+        let longGesture: (WorkState) -> UILongPressGestureRecognizer = { state in
+            switch state {
+            case .todo:
+                return UILongPressGestureRecognizer(target: self, action: #selector(self.showTodoPopView))
+            case .doing:
+                return UILongPressGestureRecognizer(target: self, action: #selector(self.showDoingPopView))
+            case .done:
+                return UILongPressGestureRecognizer(target: self, action: #selector(self.showDonePopView))
             }
-            .disposed(by: disposeBag)
+        }
         
-        viewModel.doingWorks
-            .observe(on: MainScheduler.instance)
+        viewModel.worksObservable
+            .map {
+                $0.filter { $0.state == .todo }
+            }.observe(on: MainScheduler.instance)
+            .bind(to: todoTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
+                                             cellType: WorkTableViewCell.self)) { _, item, cell in
+                cell.configure(with: item)
+                cell.addGestureRecognizer(longGesture(item.state))
+            }.disposed(by: disposeBag)
+        
+        viewModel.worksObservable
+            .map {
+                $0.filter { $0.state == .doing }
+            }.observe(on: MainScheduler.instance)
             .bind(to: doingTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
                                                                 cellType: WorkTableViewCell.self)) { _, item, cell in
                 cell.configure(with: item)
-           }
-           .disposed(by: disposeBag)
+                cell.addGestureRecognizer(longGesture(item.state))
+           }.disposed(by: disposeBag)
         
-        viewModel.doneWorks
-            .observe(on: MainScheduler.instance)
+        viewModel.worksObservable
+            .map {
+                $0.filter { $0.state == .done }
+            }.observe(on: MainScheduler.instance)
             .bind(to: doneTableView.rx.items(cellIdentifier: WorkTableViewCell.identifier,
-                                                                cellType: WorkTableViewCell.self)) { _, item, cell in
+                                             cellType: WorkTableViewCell.self)) { _, item, cell in
                 cell.configure(with: item)
-           }
-           .disposed(by: disposeBag)
+                cell.addGestureRecognizer(longGesture(item.state))
+            }.disposed(by: disposeBag)
     }
     
     private func bindHeaderImage() {
-        viewModel.todoWorks
+        viewModel.worksObservable
             .map {
+                $0.filter { $0.state == .todo }
+            }.map {
                 UIImage(systemName: "\($0.count).circle.fill")
-            }
-            .asDriver(onErrorJustReturn: nil)
+            }.asDriver(onErrorJustReturn: nil)
             .drive(toDoTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
         
-        viewModel.doingWorks
+        viewModel.worksObservable
             .map {
+                $0.filter { $0.state == .doing }
+            }.map {
                 UIImage(systemName: "\($0.count).circle.fill")
             }
             .asDriver(onErrorJustReturn: nil)
             .drive(doingTitleView.countImageView.rx.image)
             .disposed(by: disposeBag)
         
-        viewModel.doneWorks
+        viewModel.worksObservable
             .map {
+                $0.filter { $0.state == .done }
+            }.map {
                 UIImage(systemName: "\($0.count).circle.fill")
             }
             .asDriver(onErrorJustReturn: nil)
@@ -147,7 +184,9 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                self.showManageWorkView(self, work: self.viewModel.todoWorks.value[index.row])
+                guard let selectedCell = self.todoTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                
+                self.showManageWorkView(self, id: selectedCell.cellID)
                 self.todoTableView.deselectRow(at: index, animated: true)
             }).disposed(by: disposeBag)
         
@@ -155,7 +194,9 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
-                self.showManageWorkView(self, work: self.viewModel.doingWorks.value[index.row])
+                guard let selectedCell = self.doingTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                
+                self.showManageWorkView(self, id: selectedCell.cellID)
                 self.doingTableView.deselectRow(at: index, animated: true)
             }).disposed(by: disposeBag)
         
@@ -163,17 +204,108 @@ final class ProjectManagerViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
+                guard let selectedCell = self.doneTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
                 
-                self.showManageWorkView(self, work: self.viewModel.doneWorks.value[index.row])
+                self.showManageWorkView(self, id: selectedCell.cellID)
                 self.doneTableView.deselectRow(at: index, animated: true)
             }).disposed(by: disposeBag)
     }
     
+    private func setWorkDeletion() {
+        todoTableView.rx.itemDeleted
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                guard let deletedCell = self.todoTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                self.viewModel.deleteWork(id: deletedCell.cellID)
+            }).disposed(by: disposeBag)
+        
+        doingTableView.rx.itemDeleted
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                guard let deletedCell = self.doingTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                self.viewModel.deleteWork(id: deletedCell.cellID)
+            }).disposed(by: disposeBag)
+        
+        doneTableView.rx.itemDeleted
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                guard let deletedCell = self.doneTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+                self.viewModel.deleteWork(id: deletedCell.cellID)
+            }).disposed(by: disposeBag)
+    }
+    
     // MARK: - Methods
-    private func showManageWorkView(_ view: UIViewController, work: Work) {
+    private func showManageWorkView(_ view: UIViewController, id: UUID) {
         let manageViewController = ManageWorkViewController()
-        manageViewController.configureWork(work)
+        guard let work = viewModel.selectWork(id: id) else { return }
+        manageViewController.configureEditMode(with: work, viewModel)
+
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         view.present(manageNavigationController, animated: true)
+    }
+}
+
+extension ProjectManagerViewController {
+    @objc private func showTodoPopView(_ recognizer: UILongPressGestureRecognizer) {
+        let point = recognizer.location(in: todoTableView)
+        guard let index = todoTableView.indexPathForRow(at: point),
+              let seletedCell = todoTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+        showPopView(seletedCell.cellID, recognizer.view)
+    }
+    
+    @objc private func showDoingPopView(_ recognizer: UILongPressGestureRecognizer) {
+        let point = recognizer.location(in: doingTableView)
+        guard let index = doingTableView.indexPathForRow(at: point),
+              let seletedCell = doingTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+        
+        showPopView(seletedCell.cellID, recognizer.view)
+    }
+    
+    @objc private func showDonePopView(_ recognizer: UILongPressGestureRecognizer) {
+        let point = recognizer.location(in: doneTableView)
+        guard let index = doneTableView.indexPathForRow(at: point),
+              let seletedCell = doneTableView.cellForRow(at: index) as? WorkTableViewCell else { return }
+        
+        showPopView(seletedCell.cellID, recognizer.view)
+    }
+    
+    private func showPopView(_ id: UUID, _ sourceView: UIView?) {
+        guard let work = viewModel.selectWork(id: id) else { return }
+        let changeWorkStateViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        changeWorkStateViewController.modalPresentationStyle = .popover
+        
+        WorkState.allCases.filter {
+            $0 != work.state
+        }.forEach { state in
+            let action = UIAlertAction(title: "Move To " + state.rawValue, style: .default) { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.changeWorkState(work, to: state)
+                self.dismiss(animated: true)
+            }
+            changeWorkStateViewController.addAction(action)
+        }
+
+        guard let popController = changeWorkStateViewController.popoverPresentationController else { return }
+        popController.permittedArrowDirections = .up
+        popController.sourceView = sourceView
+        self.navigationController?.present(changeWorkStateViewController, animated: true)
+    }
+}
+
+extension ProjectManagerViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch tableView {
+        case todoTableView:
+            return toDoTitleView
+        case doingTableView:
+            return doingTitleView
+        case doneTableView:
+            return doneTitleView
+        default:
+            return toDoTitleView
+        }
     }
 }
