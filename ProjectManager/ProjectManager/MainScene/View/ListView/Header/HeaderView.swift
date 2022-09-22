@@ -8,24 +8,21 @@
 import UIKit
 
 final class HeaderView: UIView {
-    // MARK: - UIComponents
-    let categoryLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     
-    let countLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = 10
-        label.textColor = .white
-        label.layer.backgroundColor = UIColor.black.cgColor
-        return label
-    }()
+    // MARK: - UIComponents
+    let categoryLabel = DefaultLabelBuilder()
+        .useAutoLayout()
+        .setPreferredFont(.largeTitle)
+        .label
+    
+    let countLabel = DefaultLabelBuilder()
+        .useAutoLayout()
+        .setPreferredFont(.title3)
+        .useLayerMaskToBound()
+        .layerCornerRadius(10)
+        .setTextColor(with: .white)
+        .layerBackground(color: UIColor.black.cgColor)
+        .label
 
     private var viewModel: HeaderViewModel
     private var category: String

@@ -24,14 +24,12 @@ final class TodoListViewController: UIViewController {
     let doingListView = ListView(category: Category.doing)
     let doneListView = ListView(category: Category.done)
     
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.backgroundColor = .systemGray3
-        stackView.spacing = 6
-        return stackView
-    }()
+    private let stackView = DefaultStackViewBuilder()
+        .useAutoLayout()
+        .setAxis(.horizontal)
+        .setBackgroundColor(.systemGray3)
+        .setSpacing(6)
+        .stackView
     
     // MARK: - ViewLifeCycles
     override func viewDidLoad() {

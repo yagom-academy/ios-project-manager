@@ -16,19 +16,17 @@ final class PopoverViewController: UIViewController {
     }
     
     // MARK: - UIComponents
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 5
-        stackView.distribution = .fillEqually
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 10,
-                                               left: 10,
-                                               bottom: 10,
-                                               right: 10)
-        return stackView
-    }()
+    private let verticalStackView = DefaultStackViewBuilder()
+        .useAutoLayout()
+        .setAxis(.vertical)
+        .setSpacing(5)
+        .setDistribution(.fillEqually)
+        .useLayoutMargin()
+        .setLayoutMargin(top: 10,
+                         left: 10,
+                         bottom: 10,
+                         right: 10)
+        .stackView
     
     private var firstButton: UIButton = {
         let button = UIButton()
