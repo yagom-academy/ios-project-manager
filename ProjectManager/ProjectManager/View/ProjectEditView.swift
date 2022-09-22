@@ -32,14 +32,15 @@ struct ProjectEditView: View {
                     .font(.title)
                 Spacer()
                 Button(action: {
-                    let index = projects.firstIndex { project in
-                        project.id == viewModel.id
+                    projects = projects.map { project in
+                        guard project.id == viewModel.id else { return project }
+                        let changedProject = Project(id: viewModel.id,
+                                                     status: viewModel.status,
+                                                     title: viewModel.title,
+                                                     detail: viewModel.detail,
+                                                     date: viewModel.date)
+                        return changedProject
                     }
-                    projects[index ?? .zero] = Project(id: viewModel.id,
-                                                       status: viewModel.status,
-                                                       title: viewModel.title,
-                                                       detail: viewModel.detail,
-                                                       date: viewModel.date)
                     dismiss()
                 }, label: {
                     Text(NameSpace.doneButton)

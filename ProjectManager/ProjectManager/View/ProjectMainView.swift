@@ -53,7 +53,6 @@ struct ProjectMainView: View {
 
     struct ProjectStatusListView: View {
         @ObservedObject var viewModel: ProjectMainViewModel
-        @State var isPopover = false
 
         var title: String
         var status: Status

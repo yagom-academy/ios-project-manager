@@ -22,10 +22,10 @@ final class ProjectMainViewModel: ObservableObject {
     }
 
     func delete(at offsets: IndexSet, status: Status) {
+        guard let remove = offsets.first else { return }
         let filteredArray = model.filter { todo in
             todo.status == status
         }
-        guard let remove = offsets.first else { return }
         model.removeAll { todo in
             todo.id == filteredArray[remove].id
         }
