@@ -168,7 +168,7 @@ final class DoingViewController:
         let projectModificationController = ProjectModificationController()
         projectModificationController.indexPath = indexPath
         projectModificationController.viewModel = self.viewModel
-        projectModificationController.title = Section.doing
+        projectModificationController.title = ProjectStatus.doing
 
         let navigationController = UINavigationController(rootViewController: projectModificationController)
         navigationController.modalPresentationStyle = .formSheet
@@ -182,7 +182,7 @@ final class DoingViewController:
         controller.indexPath = indexPath
         controller.modalPresentationStyle = UIModalPresentationStyle.popover
         controller.preferredContentSize = CGSize(width: 300, height: 120)
-        controller.setTitle(firstButtonName: Section.todo, secondButtonName: Section.done)
+        controller.setTitle(firstButtonName: ProjectStatus.todo, secondButtonName: ProjectStatus.done)
 
         guard let popController = controller.popoverPresentationController else {
             return
@@ -205,7 +205,7 @@ final class DoingViewController:
 extension DoingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = SectionHeaderView()
-        headerView.setupLabelText(section: Section.doing, number: viewModel.count)
+        headerView.setupLabelText(section: ProjectStatus.doing, number: viewModel.count)
         
         return headerView
     }

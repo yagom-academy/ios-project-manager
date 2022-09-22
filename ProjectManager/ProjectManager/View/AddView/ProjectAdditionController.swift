@@ -37,7 +37,7 @@ final class ProjectAdditionController: UIViewController {
     }
     
     private func configureNavigationItems() {
-        self.title = Section.todo
+        self.title = ProjectStatus.todo
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Done",
             style: .done,

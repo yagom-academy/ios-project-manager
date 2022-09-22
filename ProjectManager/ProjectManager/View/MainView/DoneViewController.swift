@@ -167,7 +167,7 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
         let projectModificationController = ProjectModificationController()
         projectModificationController.indexPath = indexPath
         projectModificationController.viewModel = self.viewModel
-        projectModificationController.title = Section.done
+        projectModificationController.title = ProjectStatus.done
 
         let navigationController = UINavigationController(rootViewController: projectModificationController)
         navigationController.modalPresentationStyle = .formSheet
@@ -181,7 +181,7 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
         controller.indexPath = indexPath
         controller.modalPresentationStyle = UIModalPresentationStyle.popover
         controller.preferredContentSize = CGSize(width: 300, height: 120)
-        controller.setTitle(firstButtonName: Section.todo, secondButtonName: Section.doing)
+        controller.setTitle(firstButtonName: ProjectStatus.todo, secondButtonName: ProjectStatus.doing)
 
         guard let popController = controller.popoverPresentationController else {
             return
@@ -204,7 +204,7 @@ final class DoneViewController: UIViewController, UIGestureRecognizerDelegate, U
 extension DoneViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = SectionHeaderView()
-        headerView.setupLabelText(section: Section.done, number: viewModel.count)
+        headerView.setupLabelText(section: ProjectStatus.done, number: viewModel.count)
 
         return headerView
     }

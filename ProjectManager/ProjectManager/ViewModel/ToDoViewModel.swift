@@ -55,7 +55,7 @@ final class ToDoViewModel: Readjustable, Editable {
             id: UUID(),
             title: title,
             body: body,
-            section: Section.todo,
+            section: ProjectStatus.todo,
             deadLine: date
         )
         toDoData.value.append(project)
@@ -71,7 +71,7 @@ final class ToDoViewModel: Readjustable, Editable {
             return
         }
         
-        projectUnit.section = Section.todo
+        projectUnit.section = ProjectStatus.todo
         
         toDoData.value.append(projectUnit)
         
@@ -100,9 +100,9 @@ final class ToDoViewModel: Readjustable, Editable {
         let data = toDoData.value.remove(at: index)
         
         switch section {
-        case Section.doing:
+        case ProjectStatus.doing:
             NotificationCenter.default.post(name: Notification.Name.toDoToDoing, object: data)
-        case Section.done:
+        case ProjectStatus.done:
             NotificationCenter.default.post(name: Notification.Name.toDoToDone, object: data)
         default:
             return
@@ -138,7 +138,7 @@ final class ToDoViewModel: Readjustable, Editable {
 
     private func fetchToDoData() {
         do {
-            try databaseManager.fetchSection(Section.todo).forEach { project in
+            try databaseManager.fetchSection(ProjectStatus.todo).forEach { project in
                 toDoData.value.append(project)
             }
         } catch {
