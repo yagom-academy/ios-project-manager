@@ -32,6 +32,9 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
             .background(Color(UIColor.systemGray3))
+            .sheet(isPresented: $showingSheet, content: {
+                TodoContentView(buttonType: "Done")
+            })
         }
         .navigationViewStyle(.stack)
     }

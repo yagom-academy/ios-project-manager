@@ -36,7 +36,7 @@ struct TodoListRow: View {
             showingSheet.toggle()
         }
         .sheet(isPresented: $showingSheet, content: {
-            TodoContentView(buttonType: "Done")
+            TodoContentView(buttonType: "Edit")
         })
     }
 }
