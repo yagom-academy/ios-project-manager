@@ -7,17 +7,18 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
     @State private var showingSheet = false
+    @StateObject var viewModel = MainViewModel(data: DummyData.dummyData)
     
     var body: some View {
         NavigationView {
             HStack {
-                TodoListView(todoTasks: DummyData.dummyData)
+                TodoListView(title: "TODO", todoTasks: $viewModel.todo)
 
-                TodoListView(todoTasks: DummyData.dummyData)
+                TodoListView(title: "DOING", todoTasks: $viewModel.doing)
 
-                TodoListView(todoTasks: DummyData.dummyData)
+                TodoListView(title: "DONE", todoTasks: $viewModel.done)
             }
             .navigationTitle("Project Manager")
             .toolbar(content: {
@@ -42,7 +43,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainView()
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

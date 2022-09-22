@@ -20,10 +20,10 @@ struct DummyData {
         Todo(title: "3번 할일",
              body: "1줄",
              date: Date(timeIntervalSinceNow: 86400),
-             status: .todo),
+             status: .doing),
         Todo(title: "4번 할일",
              body: "1줄\n2줄\n3줄\n4줄",
              date: Date(timeIntervalSinceNow: 86400 * 2),
-             status: .todo)
+             status: .done)
     ]
 }

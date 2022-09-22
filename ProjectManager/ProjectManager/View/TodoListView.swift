@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct TodoListView: View {
-    
-    @State var todoTasks: [Todo]
+    var title: String
+    @Binding var todoTasks: [Todo]
     
     var body: some View {
         VStack {
-            HeaderView(todoTasks: todoTasks)
+            titleHeaderView(title: title, taskCount: $todoTasks.count)
             List {
                 ForEach(todoTasks) { task in
                     TodoListRow(todo: task)
                 }
                 .onDelete { index in
-                    print("delete Tapped")
                     todoTasks.remove(atOffsets: index)
                 }
             }
@@ -28,17 +27,12 @@ struct TodoListView: View {
         .background(Color(UIColor.systemGray6))
         Divider()
     }
-}
-
-struct HeaderView: View {
     
-    let todoTasks: [Todo]
-    
-    var body: some View {
+    private func titleHeaderView(title: String, taskCount: Int) -> some View {
         HStack(spacing: 10) {
-            Text("TODO")
+            Text(title)
                 .font(.largeTitle)
-            Text("\(todoTasks.count)")
+            Text("\(taskCount)")
                 .font(.title3)
                 .frame(width: 28.5, height: 24)
                 .padding(.all, 3)
@@ -53,7 +47,7 @@ struct HeaderView: View {
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView(todoTasks: DummyData.dummyData)
+        TodoListView(title: "TODO", todoTasks: .constant(DummyData.dummyData))
             .previewInterfaceOrientation(.landscapeRight)
     }
 }
