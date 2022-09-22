@@ -7,10 +7,4 @@
 
 import Foundation
 
-struct TaskModelDTO {
-    let id: UUID
-    let title: String
-    let body: String
-    let date: Date
-    let state: ProjectState
-}
+typealias TaskModelDTO = [String: Any]
