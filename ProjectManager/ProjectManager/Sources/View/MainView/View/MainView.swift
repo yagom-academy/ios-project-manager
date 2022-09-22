@@ -10,6 +10,13 @@ import UIKit
 final class MainView: UIView {
     
     //MARK: - UI Properties
+    let navigationBar: UINavigationBar = {
+        let naviBar = UINavigationBar()
+        naviBar.translatesAutoresizingMaskIntoConstraints = false
+        naviBar.isTranslucent = false
+        naviBar.barTintColor = .systemGray5
+        return naviBar
+    }()
     
     let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -46,6 +53,7 @@ private extension MainView {
     //MARK: - Setup List View Initial State
     
     func addUIComponents() {
+        self.addSubview(navigationBar)
         self.addSubview(mainStackView)
         
         mainStackView.addArrangedSubview(todoListView)
@@ -55,7 +63,13 @@ private extension MainView {
     
     func setupListViewLayout() {
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            navigationBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 8),
             mainStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)

@@ -32,6 +32,7 @@ private extension MainViewController {
     //MARK: - Root View Setup
     func setupMainView() {
         view.addSubview(mainView)
+        view.backgroundColor = .systemGray5
         mainView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -42,19 +43,31 @@ private extension MainViewController {
     }
     
     func setupNavigationBarItem() {
-        navigationItem.title = MainViewCommand.mainViewNavigationBarTitle
-        view.backgroundColor = .systemGray5
-        setupRightBarButtonItem()
+        let naviItem = UINavigationItem(title: MainViewCommand.mainViewNavigationBarTitle)
+        naviItem.leftBarButtonItem = setupLeftBarButtonItem()
+        naviItem.rightBarButtonItem =  setupRightBarButtonItem()
+        mainView.navigationBar.setItems([naviItem], animated: true)
     }
     
-    func setupRightBarButtonItem() {
+    func setupLeftBarButtonItem() -> UIBarButtonItem{
+        let leftBarButtonItem = UIBarButtonItem(title: "History")
+        
+        leftBarButtonItem.rx.tap.bind {
+            print("Tapped MainView - History Button ")
+        }.disposed(by: disposedBag)
+        
+        return leftBarButtonItem
+
+    }
+    
+    func setupRightBarButtonItem() -> UIBarButtonItem{
         let rightBarButtonItem = UIBarButtonItem(systemItem: .add)
         
         rightBarButtonItem.rx.tap.bind {
             self.rightBarButtonDidTap()
         }.disposed(by: disposedBag)
         
-        navigationItem.rightBarButtonItem = rightBarButtonItem
+        return rightBarButtonItem
     }
     
     func rightBarButtonDidTap() {
@@ -64,13 +77,13 @@ private extension MainViewController {
         todoAddViewController.viewModel = viewModel
         todoAddViewController.modalPresentationStyle = .pageSheet
         
-        self.navigationController?.present(todoAddViewController, animated: true)
+        self.present(todoAddViewController, animated: true)
     }
     
     
     //MARK: - View Changed Method
     
-    func pushViewControllerWithNavigationController(
+    func pushViewControllerToDetailViewController(
         projectState: ProjectTaskState,
         viewModel: ProjectTaskViewModel
     ) {
@@ -79,7 +92,7 @@ private extension MainViewController {
         todoAddViewController.state = projectState
         todoAddViewController.modalPresentationStyle = .pageSheet
         
-        self.navigationController?.present(todoAddViewController, animated: true)
+        self.present(todoAddViewController, animated: true)
     }
 }
 
@@ -204,7 +217,7 @@ private extension MainViewController {
                        mainView.todoListView.mainTableView.rx.itemSelected)
         .subscribe(onNext: { (item, indexPath) in
             self.viewModel.selectedTask = item
-            self.pushViewControllerWithNavigationController(
+            self.pushViewControllerToDetailViewController(
                 projectState: .TODO,
                 viewModel: self.viewModel
             )
@@ -216,7 +229,7 @@ private extension MainViewController {
                        mainView.doingListView.mainTableView.rx.itemSelected)
         .subscribe(onNext: { (item, indexPath) in
             self.viewModel.selectedTask = item
-            self.pushViewControllerWithNavigationController(
+            self.pushViewControllerToDetailViewController(
                 projectState: .DOING,
                 viewModel: self.viewModel
             )
@@ -228,7 +241,7 @@ private extension MainViewController {
                        mainView.doneListView.mainTableView.rx.itemSelected)
         .subscribe(onNext: { (item, indexPath) in
             self.viewModel.selectedTask = item
-            self.pushViewControllerWithNavigationController(
+            self.pushViewControllerToDetailViewController(
                 projectState: .DONE,
                 viewModel: self.viewModel
             )
