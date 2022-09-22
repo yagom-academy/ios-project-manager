@@ -27,12 +27,19 @@ final class RemoteDataManager {
     }
     
     func read() {
-        dataBase.collection("users").getDocuments { (querySnapshot, err) in
+        dataBase.collection("Todo").getDocuments { (querySnapshot, err) in
             if let err = err {
                 print("Error getting document: \(err)")
             } else {
                 for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
+                    let todo = Todo()
+                    todo.id = UUID(uuidString: document.documentID) ?? UUID()
+                    todo.category = document.data()["category"] as? String ?? ""
+                    todo.title = document.data()["title"] as? String ?? ""
+                    todo.body = document.data()["body"] as? String ?? ""
+                    let timestamp = document.data()["date"] as? Timestamp ?? Timestamp()
+                    todo.date = timestamp.dateValue()
+                    TodoDataManager.shared.setupInitialData(with: todo)
                 }
             }
         }
