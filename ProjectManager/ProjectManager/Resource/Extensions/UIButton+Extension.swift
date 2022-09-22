@@ -8,14 +8,13 @@
 import UIKit
 
 extension UIButton {
+    /// This property gets the last word from the button title.
     var lastTitleText: String? {
         guard let text = self.titleLabel?.text else {
             return nil
         }
-        
-        var splitedText = text.split(separator: " ").map {
-            String($0)
-        }
+
+        var splitedText = text.split(separator: " ").map(String.init)
         
         return splitedText.removeLast()
     }
