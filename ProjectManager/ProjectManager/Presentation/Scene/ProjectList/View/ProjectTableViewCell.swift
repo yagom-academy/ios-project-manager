@@ -91,9 +91,11 @@ final class ProjectTableViewCell: UITableViewCell {
     
     private func configureView() {
         contentView.addSubview(mainStackView)
-        [titleLabel,
-         bodyLabel,
-         dateLabel].forEach {
+        [
+            titleLabel,
+            bodyLabel,
+            dateLabel
+        ].forEach {
             mainStackView.addArrangedSubview($0)
         }
     }

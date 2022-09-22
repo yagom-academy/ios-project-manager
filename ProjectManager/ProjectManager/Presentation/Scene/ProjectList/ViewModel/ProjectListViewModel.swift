@@ -13,14 +13,14 @@ private enum Design {
 }
 
 class ProjectListViewModel {
-// MARK: - Properties
+    // MARK: - Properties
     
     private var useCase: ProjectUseCaseProtocol
     private var todoListObserver: Observable<[ProjectViewModel]>
     private var doingListObserver: Observable<[ProjectViewModel]>
     private var doneListObserver: Observable<[ProjectViewModel]>
     
-// MARK: - Initializer
+    // MARK: - Initializer
     
     init() {
         useCase = ProjectUseCase()
@@ -29,7 +29,7 @@ class ProjectListViewModel {
         doneListObserver = Observable([ProjectViewModel]())
     }
     
-// MARK: - Methods
+    // MARK: - Methods
     
     private func fatch() {
         todoListObserver.value = read().filter {
@@ -45,7 +45,7 @@ class ProjectListViewModel {
         }
     }
     
-// MARK: - Output to View
+    // MARK: - Output to View
     
     func todoListObserverBind(closure: @escaping ([ProjectViewModel]) -> Void) {
         todoListObserver.bind(closure)
@@ -182,7 +182,7 @@ class ProjectListViewModel {
         return handler
     }
     
-// MARK: - Input from View
+    // MARK: - Input from View
     
     func create(data: ProjectViewModel) {
         useCase.create(data: data)
@@ -195,7 +195,8 @@ class ProjectListViewModel {
     
     func update(id: String,
                 data: ProjectViewModel) {
-        useCase.update(id: id, data: data)
+        useCase.update(id: id,
+                       data: data)
         fatch()
     }
     

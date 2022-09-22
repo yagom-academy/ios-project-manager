@@ -54,9 +54,11 @@ final class ProjcetListView: UIView {
     }
     
     func configureTableViews() {
-        [todoTableView,
-         doingTableView,
-         doneTabelView].forEach {
+        [
+            todoTableView,
+            doingTableView,
+            doneTabelView
+        ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.backgroundColor = .systemGray6
             $0.dataSource = rootViewController as? UITableViewDataSource

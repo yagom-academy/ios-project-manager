@@ -111,9 +111,11 @@ final class ProjectManagementView: UIView {
     }
     
     private func configureMainStackView() {
-        [titleTextField,
-         datePicker,
-         bodyTextView].forEach {
+        [
+            titleTextField,
+            datePicker,
+            bodyTextView
+        ].forEach {
             mainStackView.addArrangedSubview($0)
         }
     }
