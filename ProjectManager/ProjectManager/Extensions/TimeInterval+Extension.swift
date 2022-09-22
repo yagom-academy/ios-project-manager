@@ -17,4 +17,14 @@ extension TimeInterval {
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
+    
+    func translateToTime() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .medium
+        dateFormatter.timeZone = TimeZone.current
+        let date = Date(timeIntervalSince1970: self)
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
 }
