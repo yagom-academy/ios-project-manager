@@ -8,8 +8,8 @@
 import UIKit
 
 class EditTaskViewController: UIViewController, UITextFieldDelegate {
-    weak var delegate: MainTaskViewControllerDelegate?
-    private var model: TaskModelDTO?
+    weak var delegate: EditTaskViewControllerDelegate?
+    private var viewModel: TaskViewModel?
     
     private let titleTextField: UITextField = {
        let textfield = UITextField()
@@ -53,36 +53,44 @@ class EditTaskViewController: UIViewController, UITextFieldDelegate {
         titleTextField.delegate = self
     }
     
-    func configureModel(_ model: TaskModelDTO) {
-        self.model = model
+    func configureModel(_ viewModel: TaskViewModel) {
+        self.viewModel = viewModel
         
-        titleTextField.text = model.title
-        datePicker.date = model.date
-        bodyTextView.text = model.body
+        titleTextField.text = viewModel.title
+        datePicker.date = viewModel.date.toDate()
+        bodyTextView.text = viewModel.body
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = model?.state.header
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
-        navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 236/256, green: 192/256, blue: 224/256, alpha: 1)
-        navigationItem.leftBarButtonItem?.tintColor = UIColor(red: 236/256, green: 192/256, blue: 224/256, alpha: 1)
+        navigationItem.title = viewModel?.state.header
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .edit,
+            target: self,
+            action: nil
+        )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(doneButtonDidTap)
+        )
     }
     
-    @objc private func didTapDone() {
-        guard let model = model,
-              let title = titleTextField.text else {
+    @objc private func doneButtonDidTap() {
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text,
+              let viewModel = viewModel else {
             return
         }
 
-        let content = TaskModelDTO(id: model.id,
-                               title: title,
-                               body: bodyTextView.text,
-                               date: datePicker.date,
-                               state: model.state)
-        
-        delegate?.didFinishEditData(content: content)
-        self.dismiss(animated: true, completion: nil)
+        let changedViewModel = TaskViewModel.init(
+            id: viewModel.id,
+            title: title,
+            body: body,
+            date: datePicker.date,
+            state: viewModel.state
+        )
+        delegate?.doneButtonDidTap(viewModel: viewModel, changedViewModel: changedViewModel)
+        self.dismiss(animated: true)
     }
     
     private func configureView() {
@@ -96,10 +104,22 @@ class EditTaskViewController: UIViewController, UITextFieldDelegate {
     
     private func configureUI() {
         NSLayoutConstraint.activate([
-            verticalStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            verticalStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            verticalStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            verticalStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
+            verticalStackView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 10
+            ),
+            verticalStackView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -10
+            ),
+            verticalStackView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: 10
+            ),
+            verticalStackView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -10
+            )
         ])
     }
 }
