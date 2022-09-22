@@ -16,7 +16,7 @@ struct Project: Identifiable, Hashable {
     var placeholder = "내용을 입력하세요. (글자수는 1000자로 제한합니다)"
 }
 
-enum Status: String, CaseIterable{
+enum Status: String, CaseIterable {
 
     case todo = "TODO"
     case doing = "DOING"

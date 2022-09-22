@@ -110,9 +110,8 @@ struct TodoListMainView: View {
             guard let remove = offsets.first else { return }
             projects.removeAll { todo in
                 todo.id == filteredArray[remove].id
-               }
+            }
         }
-
     }
 }
 
@@ -123,17 +122,20 @@ struct ProjectContentView: View {
     @Binding var projects: [Project]
     @State var isPopover = false
     var memo: Project
+    let today = Calendar.current.startOfDay(for: Date())
 
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         return formatter
     }()
+
     var body: some View {
         VStack(alignment: .leading) {
             Text(memo.title ?? "")
             Text(memo.detail ?? "")
             Text(memo.date ?? Date(), formatter: dateFormatter)
+                .foregroundColor(memo.date! >= today ? .black : .red)
         }
         .onTapGesture {
             selectedProject = memo
@@ -149,18 +151,17 @@ struct ProjectContentView: View {
             VStack {
                 ForEach(Status.allCases
                     .filter { $0 != selectedProject2?.status }, id: \.self) { status in
-                    Button("move to \(status.rawValue)", action: {
-                        projects = projects.map({ project in
-                            guard project.id == selectedProject2?.id else { return project }
-                            var changedProject = project
-                            changedProject.status = status
-                            return changedProject
+                        Button("move to \(status.rawValue)", action: {
+                            projects = projects.map({ project in
+                                guard project.id == selectedProject2?.id else { return project }
+                                var changedProject = project
+                                changedProject.status = status
+                                return changedProject
+                            })
                         })
-                    })
-                    Divider()
-                }
+                        Divider()
+                    }
             }
         }
     }
 }
-
