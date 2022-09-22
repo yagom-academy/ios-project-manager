@@ -15,9 +15,7 @@ final class MainViewController: UIViewController {
     private lazy var toDoListTableView = ProjectTableView(for: .todo, with: toDoViewModel)
     private lazy var doingListTableView = ProjectTableView(for: .doing, with: toDoViewModel)
     private lazy var doneListTableView = ProjectTableView(for: .done, with: toDoViewModel)
-    
-    private var newItem: ToDoItem?
-    
+        
     private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -134,8 +132,7 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: DataSenable {
     func sendData(of item: ToDoItem) {
-        newItem = item
-        toDoViewModel.append(new: newItem ?? ToDoItem(), to: .todo)
+        toDoViewModel.append(new: item, to: .todo)
     }
 }
 
