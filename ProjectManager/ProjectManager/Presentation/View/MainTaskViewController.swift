@@ -256,14 +256,22 @@ extension MainTaskViewController {
     }
 }
 
-extension MainTaskViewController: MainTaskViewControllerDelegate {
-    func didFinishEditData(content: TaskModelDTO) {
-        taskViewModel.update(data: content)
-        reloadTableView()
+extension MainTaskViewController: CreateTaskViewControllerDelegate {
+    func doneButtonDidTap(_ viewModel: TaskViewModel) {
+        mainService.input.doneButtonDidTap(viewModel)
     }
-    
-    func didFinishSaveData(content: TaskModelDTO) {
-        taskViewModel.insertContents(data: content)
+}
+
+extension MainTaskViewController: EditTaskViewControllerDelegate {
+    func doneButtonDidTap(viewModel: TaskViewModel, changedViewModel: TaskViewModel) {
+        let newTask = Task.init(viewModel: changedViewModel)
+        guard let index = fetchedViewModels?.firstIndex(of: viewModel) else {
+            return
+        }
+        
+        mainService.taskUseCase.update(task: newTask)
+        fetchedViewModels?.remove(at: index)
+        fetchedViewModels?.insert(changedViewModel, at: index)
         reloadTableView()
     }
 }

@@ -103,3 +103,7 @@ class EditTaskViewController: UIViewController, UITextFieldDelegate {
         ])
     }
 }
+
+protocol EditTaskViewControllerDelegate: AnyObject {
+    func doneButtonDidTap(viewModel: TaskViewModel, changedViewModel: TaskViewModel)
+}
