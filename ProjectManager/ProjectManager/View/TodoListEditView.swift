@@ -42,11 +42,14 @@ struct TodoListEditTitleView: View {
                 .font(.title)
             Spacer()
             Button(action: {
-                projects = [Project(id: viewModel.id,
-                                        status: viewModel.status,
-                                        title: viewModel.title,
-                                        detail: viewModel.detail,
-                                        date: viewModel.date)]
+                let index = projects.firstIndex { project in
+                    project.id == viewModel.id
+                }
+                projects[index ?? .zero] = Project(id: viewModel.id,
+                                          status: viewModel.status,
+                                          title: viewModel.title,
+                                          detail: viewModel.detail,
+                                          date: viewModel.date)
                 dismiss()
             }, label: {
                 Text("Done")

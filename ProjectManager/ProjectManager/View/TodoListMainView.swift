@@ -11,7 +11,7 @@ struct TodoListMainView: View {
     @StateObject var viewModel = ProjectMainViewModel()
 
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             ProjectTitleView(model: $viewModel.model)
             HStack {
                 VStackView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.todo.rawValue, count: viewModel.todoArray.count, status: .todo)
@@ -31,7 +31,7 @@ struct TodoListMainView: View {
                 HStack {
                     Spacer()
                     Text("Project Manager")
-                        .font(.title)
+                        .font(.largeTitle)
                     Spacer()
                 }
                 HStack {
@@ -73,11 +73,11 @@ struct TodoListMainView: View {
         }
 
         var body: some View {
-            VStack(alignment: .leading) {
+            VStack(alignment: .center, spacing: 0) {
                 HStack {
                     Spacer().frame(width: 10)
                     Text(title)
-                        .font(.largeTitle)
+                        .font(.largeTitle.bold())
                     ZStack {
                         Circle()
                             .fill(.black)
@@ -86,11 +86,13 @@ struct TodoListMainView: View {
                             .font(.title3)
                             .foregroundColor(.white)
                     }
+                    .frame(height: 60, alignment: .center)
                 }
+                Divider()
+                Spacer()
                 List(array) { memo in
                     ProjectContentView(viewModel: viewModel, selectedProject2: $selectedProject2, projects: $projects, memo: memo)
                 }
-
             }
             .background(Color(UIColor.systemGray5))
             Divider()
@@ -129,20 +131,24 @@ struct ProjectContentView: View {
         }
         .popover(isPresented: $isPopover) {
             VStack {
-                Button("move to DOING", action: {
-                    projects.indices.filter { projects[$0].status == Status.todo }.forEach { projects[$0].status = Status.doing }
-                    projects.indices.filter { projects[$0].status == Status.done }.forEach { projects[$0].status = Status.doing }
-                })
-                Divider()
-                Button("move to DONE", action: {
-                    projects.indices.filter { projects[$0].status == Status.todo }.forEach { projects[$0].status = Status.done }
-                    projects.indices.filter { projects[$0].status == Status.doing }.forEach { projects[$0].status = Status.done }
-                })
-                Divider()
-                Button("move to Todo", action: {
-                    projects.indices.filter { projects[$0].status == Status.doing }.forEach { projects[$0].status = Status.todo }
-                    projects.indices.filter { projects[$0].status == Status.done }.forEach { projects[$0].status = Status.todo }
-                })
+                if selectedProject2?.status != .todo {
+                    Button("move to TODO", action: {
+                        projects.indices.filter { projects[$0].id == selectedProject2?.id }.forEach { projects[$0].status = Status.todo }
+                    })
+                    Divider()
+                }
+                if selectedProject2?.status != .doing {
+                    Button("move to DOING", action: {
+                        projects.indices.filter { projects[$0].id == selectedProject2?.id }.forEach { projects[$0].status = Status.doing }
+                    })
+                    Divider()
+                }
+                if selectedProject2?.status != .done {
+                    Button("move to DONE", action: {
+                        projects.indices.filter { projects[$0].id == selectedProject2?.id }.forEach { projects[$0].status = Status.done }
+                    })
+                    Divider()
+                }
             }
         }
     }
