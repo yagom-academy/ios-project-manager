@@ -140,7 +140,8 @@ final class ProjectAdditionScrollView: UIScrollView {
             top: 0.0,
             left: 0.0,
             bottom: 15,
-            right: 0.0)
+            right: 0.0
+        )
         self.contentInset = contentInset
         self.scrollIndicatorInsets = contentInset
     }

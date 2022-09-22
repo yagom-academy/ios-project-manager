@@ -44,6 +44,7 @@
 		72B5DDA828D70BE4005D0544 /* Notification.Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B5DDA728D70BE4005D0544 /* Notification.Name+Extension.swift */; };
 		72C61C6928CDC63E0041CD12 /* ProjectAdditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */; };
 		72C61C6B28CDC88F0041CD12 /* ProjectAdditionScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */; };
+		72D81B3528DC877F0089C734 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D81B3428DC877F0089C734 /* DateFormatterManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectManagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectManagerController.swift */; };
@@ -95,6 +96,7 @@
 		72B5DDA728D70BE4005D0544 /* Notification.Name+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extension.swift"; sourceTree = "<group>"; };
 		72C61C6828CDC63E0041CD12 /* ProjectAdditionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAdditionController.swift; sourceTree = "<group>"; };
 		72C61C6A28CDC88F0041CD12 /* ProjectAdditionScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAdditionScrollView.swift; sourceTree = "<group>"; };
+		72D81B3428DC877F0089C734 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				72D81B3328DC87690089C734 /* DateFormatter */,
 				72B5DDA428D70963005D0544 /* NameSpace */,
 				2037CD0928C8892900D712B3 /* CoreData */,
 				2037CD0528C8888A00D712B3 /* Database */,
@@ -261,6 +264,14 @@
 				72B5DDA528D709A8005D0544 /* ProjectStatus.swift */,
 			);
 			path = NameSpace;
+			sourceTree = "<group>";
+		};
+		72D81B3328DC87690089C734 /* DateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				72D81B3428DC877F0089C734 /* DateFormatterManager.swift */,
+			);
+			path = DateFormatter;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -457,6 +468,7 @@
 				200203E728D57911003F2B64 /* PopoverController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				7269C2EB28D5921D0068424B /* Readjustable.swift in Sources */,
+				72D81B3528DC877F0089C734 /* DateFormatterManager.swift in Sources */,
 				7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */,
 				20B3DC0528D55AB100A6386B /* DoneViewModel.swift in Sources */,
 				20B3DC0B28D55F1100A6386B /* DoingViewController.swift in Sources */,
