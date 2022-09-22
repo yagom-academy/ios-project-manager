@@ -8,8 +8,8 @@
 import Foundation
 
 protocol TaskUseCaseProtocol {
-    func insertContents(data: TaskModelDTO)
-    func fetch() -> [TaskModelDTO]
-    func update(data: TaskModelDTO)
-    func delete(data: TaskModelDTO)
+    func insertContent(task: Task)
+    func fetch() -> [Task]
+    func update(task: Task)
+    func delete(task: Task)
 }
