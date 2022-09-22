@@ -39,7 +39,7 @@ class ToDoComponentsView: UIView {
         return view
     }()
     
-    private let titleTextView: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         
@@ -79,13 +79,13 @@ class ToDoComponentsView: UIView {
     
     func fetchItem() -> ToDoItem {
         
-        return ToDoItem(title: titleTextView.text ?? "",
+        return ToDoItem(title: titleTextField.text ?? "",
                         description: descriptionTextView.text ?? "",
                         timeLimit: timeLimitDatePicker.date)
     }
     
     func configure(of item: ToDoItem) {
-        titleTextView.text = item.title
+        titleTextField.text = item.title
         descriptionTextView.text = item.description
         timeLimitDatePicker.setDate(item.timeLimit, animated: true)
     }
@@ -96,7 +96,7 @@ class ToDoComponentsView: UIView {
     }
     
     private func setupSubviews() {
-        titleView.addSubview(titleTextView)
+        titleView.addSubview(titleTextField)
         descriptionView.addSubview(descriptionTextView)
         
         [titleView, timeLimitDatePicker, descriptionView]
@@ -112,10 +112,10 @@ class ToDoComponentsView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            titleTextView.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 20),
-            titleTextView.bottomAnchor.constraint(equalTo: titleView.bottomAnchor, constant: -20),
-            titleTextView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 20),
-            titleTextView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor, constant: -20)
+            titleTextField.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 20),
+            titleTextField.bottomAnchor.constraint(equalTo: titleView.bottomAnchor, constant: -20),
+            titleTextField.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 20),
+            titleTextField.trailingAnchor.constraint(equalTo: titleView.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([

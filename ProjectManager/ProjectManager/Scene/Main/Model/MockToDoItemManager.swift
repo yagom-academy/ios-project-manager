@@ -21,14 +21,6 @@ final class MockToDoItemManager {
         return mockItem
     }
     
-    func count() -> Int {
-        return mockToDoItemContent.count
-    }
-    
-    func content(index: Int) -> ToDoItem? {
-        return mockToDoItemContent.get(index: index)
-    }
-    
     private enum Design {
         static let jsonName = "MockData"
     }
