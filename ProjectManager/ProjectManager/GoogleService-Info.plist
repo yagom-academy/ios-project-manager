@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>434870268233-50auo13hu0qq0auamdmq5l1n98mcbarq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.434870268233-50auo13hu0qq0auamdmq5l1n98mcbarq</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCKaNwQ-mrvM3rezwCFgoac9H1NO7-5f2s</string>
+	<key>GCM_SENDER_ID</key>
+	<string>434870268233</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>project.WeThereProject</string>
+	<key>PROJECT_ID</key>
+	<string>wethere-2935d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>wethere-2935d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:434870268233:ios:33d80502e321bca14baa98</string>
+</dict>
+</plist>
