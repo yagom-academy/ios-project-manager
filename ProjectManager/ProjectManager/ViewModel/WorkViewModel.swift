@@ -39,6 +39,8 @@ class WorkViewModel {
     }
     
     func editWork(_ work: Work, newWork: Work) {
+        FirebaseManager.shared.saveWork(newWork)
+        
         works.map {
             $0.map {
                 return $0.id == work.id ? newWork : $0
@@ -51,6 +53,8 @@ class WorkViewModel {
     }
     
     func deleteWork(id: UUID) {
+        FirebaseManager.shared.deleteWork(id: id)
+        
         works.map {
             $0.filter { $0.id != id }
         }
@@ -67,7 +71,9 @@ class WorkViewModel {
                                content: work.content,
                                deadline: work.deadline,
                                state: state)
-
+        
+        FirebaseManager.shared.saveWork(changedWork)
+        
         works.map {
             $0.map {
                 $0.id == work.id ? changedWork : $0

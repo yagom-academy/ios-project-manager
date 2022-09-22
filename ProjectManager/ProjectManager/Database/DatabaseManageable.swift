@@ -12,5 +12,4 @@ protocol DatabaseManageable {
     func saveWork(_ work: Work)
     func deleteWork(id: UUID)
     func fetchWork() -> Observable<[Work]>
-    func updateWork()
 }

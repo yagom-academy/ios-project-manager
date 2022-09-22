@@ -56,8 +56,4 @@ class FirebaseManager: DatabaseManageable {
             $0.compactMap { firebaseService.convert(form: $0) }
         }
     }
-    
-    func updateWork() {
-        
-    }
 }
