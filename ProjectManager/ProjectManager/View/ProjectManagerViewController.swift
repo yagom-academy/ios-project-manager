@@ -272,11 +272,20 @@ final class ProjectManagerViewController: UIViewController {
     
     private func showPopView(_ id: UUID, _ sourceView: UIView?) {
         guard let work = viewModel.selectWork(id: id) else { return }
-        let changeWorkStateViewController = ChangeWorkStateViewController()
-        changeWorkStateViewController.setupView(for: work, viewModel)
+        let changeWorkStateViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         changeWorkStateViewController.modalPresentationStyle = .popover
-        changeWorkStateViewController.preferredContentSize = CGSize(width: 250, height: 100)
         
+        WorkState.allCases.filter {
+            $0 != work.state
+        }.forEach { state in
+            let action = UIAlertAction(title: "Move To " + state.rawValue, style: .default) { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.changeWorkState(work, to: state)
+                self.dismiss(animated: true)
+            }
+            changeWorkStateViewController.addAction(action)
+        }
+
         guard let popController = changeWorkStateViewController.popoverPresentationController else { return }
         popController.permittedArrowDirections = .up
         popController.sourceView = sourceView
