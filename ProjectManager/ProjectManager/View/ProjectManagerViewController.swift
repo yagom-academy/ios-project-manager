@@ -246,7 +246,9 @@ final class ProjectManagerViewController: UIViewController {
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         view.present(manageNavigationController, animated: true)
     }
-    
+}
+
+extension ProjectManagerViewController {
     @objc private func showTodoPopView(_ recognizer: UILongPressGestureRecognizer) {
         let point = recognizer.location(in: todoTableView)
         guard let index = todoTableView.indexPathForRow(at: point),
