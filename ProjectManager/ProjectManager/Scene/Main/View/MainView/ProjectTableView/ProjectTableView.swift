@@ -86,7 +86,7 @@ class ProjectTableView: UITableView {
         
         guard let indexPath = indexPathForRow(at: touchPoint) else { return }
         
-        let alertController = AlertController(with: projectType,
+        let alertController = AlertViewController(with: projectType,
                                               by: indexPath,
                                               tableView: self,
                                               viewModel: toDoViewModel)
