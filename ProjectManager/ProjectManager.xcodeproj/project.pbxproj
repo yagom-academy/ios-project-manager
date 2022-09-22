@@ -11,6 +11,7 @@
 		2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */; };
 		2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47328CB100F0091D087 /* Date+Extension.swift */; };
 		2041B00928DC2F8600636D06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2041B00828DC2F8600636D06 /* GoogleService-Info.plist */; };
+		2041B01228DC7F3000636D06 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01028DC7F3000636D06 /* FirebaseService.swift */; };
 		2054FB7628D1B30B0007AF1E /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7528D1B30B0007AF1E /* DateManager.swift */; };
 		2054FB7828D1DAEC0007AF1E /* WorkTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */; };
 		209F976528D37178004CBAF5 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F976428D37178004CBAF5 /* WorkState.swift */; };
@@ -35,6 +36,7 @@
 		2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageWorkViewController.swift; sourceTree = "<group>"; };
 		2021C47328CB100F0091D087 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2041B00828DC2F8600636D06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2041B01028DC7F3000636D06 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		2054FB7528D1B30B0007AF1E /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableView.swift; sourceTree = "<group>"; };
 		209F976428D37178004CBAF5 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
@@ -84,6 +86,15 @@
 			);
 			path = Extension;
 			sourceTree = "<group>";
+		};
+		2041B00F28DC7F3000636D06 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2041B01028DC7F3000636D06 /* FirebaseService.swift */,
+			);
+			name = Database;
+			path = ProjectManager/Database;
+			sourceTree = SOURCE_ROOT;
 		};
 		2054FB7428D1B2660007AF1E /* Util */ = {
 			isa = PBXGroup;
@@ -179,6 +190,7 @@
 				20F670F628C7149B0069CB46 /* Application */,
 				2021C47228CB0FE70091D087 /* Extension */,
 				20E1A88828C8C9940074364A /* ViewModel */,
+				2041B00F28DC7F3000636D06 /* Database */,
 				20E1A87828C872080074364A /* View */,
 				20E1A88028C8A1A30074364A /* Model */,
 				2054FB7428D1B2660007AF1E /* Util */,
@@ -319,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2041B01228DC7F3000636D06 /* FirebaseService.swift in Sources */,
 				20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */,
 				20E1A88428C8A22A0074364A /* Work.swift in Sources */,
 				20E1A88A28C8C9B50074364A /* WorkViewModel.swift in Sources */,
