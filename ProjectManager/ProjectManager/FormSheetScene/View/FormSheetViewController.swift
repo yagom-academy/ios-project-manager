@@ -56,33 +56,41 @@ final class FormSheetViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        // edit모드와 create모드 분리
         navigationItem.title = "TODO"
-        if viewModel.mode == .edit {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(
-                barButtonSystemItem: .edit,
-                target: self,
-                action: #selector(editButtonDidTapped)
-            )
-            navigationItem.rightBarButtonItem = UIBarButtonItem(
-                barButtonSystemItem: .done,
-                target: self,
-                action: #selector(dismissView)
-            )
-        } else {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(
-                barButtonSystemItem: .cancel,
-                target: self,
-                action: #selector(dismissView)
-            )
-            navigationItem.rightBarButtonItem = UIBarButtonItem(
-                barButtonSystemItem: .done,
-                target: self,
-                action: #selector(doneButtonDidTapped)
-            )
+        switch viewModel.mode {
+        case .create:
+            setupCreateModeNavigationBar()
+        case .edit:
+            setupEditModeNavigationBar()
         }
     }
     
+    private func setupCreateModeNavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(dismissView)
+        )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(doneButtonDidTapped)
+        )
+    }
+    
+    private func setupEditModeNavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .edit,
+            target: self,
+            action: #selector(editButtonDidTapped)
+        )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(dismissView)
+        )
+    }
+
     // MARK: - @objc Methods
     @objc private func editButtonDidTapped() {
         guard let data = viewModel.generateTodoModel(in: formSheetView) else { return }

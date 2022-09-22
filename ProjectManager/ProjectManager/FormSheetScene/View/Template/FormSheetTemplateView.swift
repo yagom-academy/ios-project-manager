@@ -16,17 +16,15 @@ final class FormSheetTemplateView: UIView {
         return scrollView
     }()
     
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.axis = .vertical
-        stackView.layoutMargins = UIEdgeInsets(top: 10,
-                                               left: 10,
-                                               bottom: 20,
-                                               right: 10)
-        return stackView
-    }()
+    private let verticalStackView = DefaultStackViewBuilder()
+        .useAutoLayout()
+        .useLayoutMargin()
+        .setAxis(.vertical)
+        .setLayoutMargin(top: 10,
+                         left: 10,
+                         bottom: 20,
+                         right: 10)
+        .stackView
     
     let titleTextField: UITextField = {
         let textField = UITextField()
@@ -101,7 +99,7 @@ final class FormSheetTemplateView: UIView {
                 equalTo: safeAreaLayoutGuide.trailingAnchor
             )
         ])
-     
+        
         NSLayoutConstraint.activate([
             verticalStackView.topAnchor.constraint(
                 equalTo: mainScrollView.contentLayoutGuide.topAnchor

@@ -23,7 +23,8 @@ final class FormSheetViewModel {
         case .create:
             return
         case .edit:
-            setupData(with: currentTodo, in: viewController.formSheetView)
+            setupData(with: currentTodo,
+                      in: viewController.formSheetView)
         }
     }
     
