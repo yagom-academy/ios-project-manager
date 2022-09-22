@@ -95,7 +95,6 @@
 			children = (
 				424B6DE828DC8BF100102DAC /* Extensions */,
 				421D549428D2342C00910524 /* Entities */,
-				421D549528D2343500910524 /* Repositories */,
 				421D549628D2344100910524 /* UseCases */,
 				424B6DED28DC905B00102DAC /* ViewModel */,
 			);
@@ -235,6 +234,14 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		424B6DF428DCA9C800102DAC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				421D549528D2343500910524 /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -255,10 +262,11 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				421D549128D2336F00910524 /* Fonts */,
-				421D549228D2340F00910524 /* Application */,
 				421D549328D2341C00910524 /* Domain */,
 				421D549A28D2349F00910524 /* Presentation */,
+				424B6DF428DCA9C800102DAC /* Data */,
+				421D549128D2336F00910524 /* Fonts */,
+				421D549228D2340F00910524 /* Application */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				421D54A128D2356C00910524 /* Resources */,
 			);
