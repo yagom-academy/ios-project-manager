@@ -13,7 +13,7 @@ struct ProjectManagerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ProjectMainView(viewModel: ProjectMainViewModel())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
