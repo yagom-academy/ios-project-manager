@@ -8,8 +8,8 @@
 import Foundation
 
 protocol TaskRepositoryProtocol {
-    func insertContent(model: TaskModelDTO)
+    func insertContent(entity: TaskModelDTO)
     func fetch() -> [TaskModelDTO]
-    func update(model: TaskModelDTO)
-    func delete(model: TaskModelDTO)
+    func update(entity: TaskModelDTO)
+    func delete(id: UUID)
 }
