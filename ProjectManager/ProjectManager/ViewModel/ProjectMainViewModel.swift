@@ -8,7 +8,8 @@
 import SwiftUI
 
 final class ProjectMainViewModel: ObservableObject {
-    @Published var model = [Project()]
+    @Published var model: [Project] = []
+    @Published var project: Project?
 
     var todoArray: [Project] {
         model.filter { $0.status == .todo }
