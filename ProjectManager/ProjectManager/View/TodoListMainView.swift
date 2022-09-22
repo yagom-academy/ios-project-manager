@@ -90,13 +90,29 @@ struct TodoListMainView: View {
                 }
                 Divider()
                 Spacer()
-                List(array) { memo in
-                    ProjectContentView(viewModel: viewModel, selectedProject2: $selectedProject2, projects: $projects, memo: memo)
+                List {
+                    ForEach(array, id: \.self) { memo in
+                        ProjectContentView(viewModel: viewModel, selectedProject2: $selectedProject2, projects: $projects, memo: memo)
+                    }
+                    .onDelete { index in
+                        removeRows(at: index)
+                    }
                 }
             }
             .background(Color(UIColor.systemGray5))
             Divider()
         }
+
+        func removeRows(at offsets: IndexSet) {
+            let filteredArray = projects.filter { todo in
+                todo.status == status
+            }
+            guard let remove = offsets.first else { return }
+            projects.removeAll { todo in
+                todo.id == filteredArray[remove].id
+               }
+        }
+
     }
 }
 
@@ -131,21 +147,15 @@ struct ProjectContentView: View {
         }
         .popover(isPresented: $isPopover) {
             VStack {
-                if selectedProject2?.status != .todo {
-                    Button("move to TODO", action: {
-                        projects.indices.filter { projects[$0].id == selectedProject2?.id }.forEach { projects[$0].status = Status.todo }
-                    })
-                    Divider()
-                }
-                if selectedProject2?.status != .doing {
-                    Button("move to DOING", action: {
-                        projects.indices.filter { projects[$0].id == selectedProject2?.id }.forEach { projects[$0].status = Status.doing }
-                    })
-                    Divider()
-                }
-                if selectedProject2?.status != .done {
-                    Button("move to DONE", action: {
-                        projects.indices.filter { projects[$0].id == selectedProject2?.id }.forEach { projects[$0].status = Status.done }
+                ForEach(Status.allCases
+                    .filter { $0 != selectedProject2?.status }, id: \.self) { status in
+                    Button("move to \(status.rawValue)", action: {
+                        projects = projects.map({ project in
+                            guard project.id == selectedProject2?.id else { return project }
+                            var changedProject = project
+                            changedProject.status = status
+                            return changedProject
+                        })
                     })
                     Divider()
                 }
@@ -153,3 +163,4 @@ struct ProjectContentView: View {
         }
     }
 }
+
