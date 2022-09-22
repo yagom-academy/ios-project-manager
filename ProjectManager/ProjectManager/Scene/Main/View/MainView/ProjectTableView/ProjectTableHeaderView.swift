@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProjectTableHeaderView: UIView {
+final class ProjectTableHeaderView: UIView {
    
     // MARK: - Properties
     

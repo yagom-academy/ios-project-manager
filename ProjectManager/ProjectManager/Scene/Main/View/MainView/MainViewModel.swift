@@ -7,10 +7,14 @@
 
 import Foundation
 
-class MainViewModel {
+final class MainViewModel {
+    
+    // MARK: - Singletone
     
     static let shared = MainViewModel()
 
+    // MARK: - Properties
+    
     var todoContent: [ToDoItem] = [] {
         didSet {
             todoListener?(todoContent)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ToDoComponentsView: UIView {
+final class ToDoComponentsView: UIView {
     
     // MARK: - Properties
     

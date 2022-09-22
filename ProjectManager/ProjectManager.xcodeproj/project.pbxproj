@@ -213,7 +213,6 @@
 			children = (
 				D7E75DA128D0AB8F00C32947 /* ProjectType.swift */,
 				D7971F4F28CE196E008C7ADA /* ToDoComponentsView.swift */,
-				A3169DFD28DC9D9B002E2DC1 /* MainViewModel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -259,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				A3169DFD28DC9D9B002E2DC1 /* MainViewModel.swift */,
 				A334149728C8EEA10059D133 /* ProjectTableView */,
 			);
 			path = MainView;

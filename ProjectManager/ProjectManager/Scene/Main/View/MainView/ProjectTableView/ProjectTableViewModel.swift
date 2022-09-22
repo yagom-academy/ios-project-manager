@@ -7,9 +7,9 @@
 
 import Foundation
 
-class ProjectTableViewModel {
+final class ProjectTableViewModel {
     
-    // MARK: - Properties
+    // MARK: - Singletone
 
     private let mainViewModel = MainViewModel.shared
     

@@ -5,9 +5,9 @@
 //  Created by brad, bard on 2022/09/22.
 //
 
-class RegistrationViewModel {
+final class RegistrationViewModel {
 
-    // MARK: - Properties
+    // MARK: - Singletone
 
     private let mainViewModel = MainViewModel.shared
     

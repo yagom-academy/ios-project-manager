@@ -7,9 +7,9 @@
 
 import Foundation
 
-class AlertViewModel {
+final class AlertViewModel {
     
-    // MARK: - Properties
+    // MARK: - Singletone
 
     private let mainViewModel = MainViewModel.shared
     

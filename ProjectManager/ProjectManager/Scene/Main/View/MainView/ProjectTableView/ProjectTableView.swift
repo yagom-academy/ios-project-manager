@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProjectTableView: UITableView {
+final class ProjectTableView: UITableView {
     
     // MARK: - Properties
     
