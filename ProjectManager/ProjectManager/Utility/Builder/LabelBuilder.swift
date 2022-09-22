@@ -14,6 +14,7 @@ protocol LabelBuilder {
     func setPreferredFont(_ font: UIFont.TextStyle) -> LabelBuilder
     func setText(with text: String) -> LabelBuilder
     func setTextColor(with textColor: UIColor) -> LabelBuilder
+    func setTextAlignment(_ alignment: NSTextAlignment) -> LabelBuilder
     func numberOfLines(_ number: Int) -> LabelBuilder
     func useLayerMaskToBound() -> LabelBuilder
     func layerCornerRadius(_ number: CGFloat) -> LabelBuilder
@@ -40,6 +41,11 @@ final class DefaultLabelBuilder: LabelBuilder {
     
     func setTextColor(with textColor: UIColor) -> LabelBuilder {
         label.textColor = textColor
+        return self
+    }
+    
+    func setTextAlignment(_ alignment: NSTextAlignment) -> LabelBuilder {
+        label.textAlignment = alignment
         return self
     }
     
