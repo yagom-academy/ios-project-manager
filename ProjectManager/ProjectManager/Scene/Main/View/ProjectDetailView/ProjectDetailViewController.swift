@@ -91,10 +91,11 @@ final class ProjectDetailViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didEditButtonTapped() {
-        delegate?.sendData(of: toDoComponentsView.fetchItem())
+        toDoComponentsView.setupEditable(is: true)
     }
     
     @objc private func didDoneButtonTapped() {
+        delegate?.sendData(of: toDoComponentsView.fetchItem())
         dismissViewController()
     }
     

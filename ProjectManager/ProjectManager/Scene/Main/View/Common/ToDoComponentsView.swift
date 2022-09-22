@@ -42,6 +42,7 @@ class ToDoComponentsView: UIView {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.isUserInteractionEnabled = false
         
         return textField
     }()
@@ -49,7 +50,8 @@ class ToDoComponentsView: UIView {
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-
+        textView.isUserInteractionEnabled = false
+        
         return textView
     }()
     
@@ -58,7 +60,8 @@ class ToDoComponentsView: UIView {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
-
+        datePicker.isUserInteractionEnabled = false
+        
         return datePicker
     }()
     
@@ -88,6 +91,14 @@ class ToDoComponentsView: UIView {
         titleTextField.text = item.title
         descriptionTextView.text = item.description
         timeLimitDatePicker.setDate(item.timeLimit, animated: true)
+    }
+    
+    func setupEditable(is tapped: Bool) {
+        if tapped {
+            titleTextField.isUserInteractionEnabled = true
+            timeLimitDatePicker.isUserInteractionEnabled = true
+            descriptionTextView.isUserInteractionEnabled = true
+        }
     }
     
     private func commonInit() {

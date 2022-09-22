@@ -37,6 +37,7 @@ final class RegistrationViewController: UIViewController {
     
     private func setupSubviews() {
         view.addSubview(toDoComponentsView)
+        toDoComponentsView.setupEditable(is: true)
     }
     
     private func setupNavigationController() {
