@@ -23,20 +23,14 @@ final class PopoverViewCoordinator: Coordinator {
     func start() -> UIViewController {
         let popoverVM = PopoverViewModel(selectedTodo: selectedTodo)
         let popoverVC = PopoverViewController(viewModel: popoverVM)
-        popoverVC.preferredContentSize = CGSize(
-            width: 250,
-            height: 120
-        )
         popoverVC.modalPresentationStyle = .popover
-        popoverVC.popoverPresentationController?.sourceView = targetView
-        popoverVC.popoverPresentationController?.sourceRect = CGRect(
-            x: location.x,
-            y: location.y,
-            width: 1,
-            height: 1
-        )
         popoverVC.popoverPresentationController?.permittedArrowDirections = .up
         popoverVC.popoverPresentationController?.delegate = targetView
+        popoverVC.popoverPresentationController?.sourceView = targetView
+        popoverVC.popoverPresentationController?.sourceRect = CGRect(x: location.x,
+                                                                     y: location.y,
+                                                                     width: 1,
+                                                                     height: 1)
         return popoverVC
     }
 }

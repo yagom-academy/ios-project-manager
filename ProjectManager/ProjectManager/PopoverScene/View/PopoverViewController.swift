@@ -57,6 +57,7 @@ final class PopoverViewController: UIViewController {
     init(viewModel: PopoverViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        setupContentSize()
     }
     
     required init?(coder: NSCoder) {
@@ -71,6 +72,12 @@ final class PopoverViewController: UIViewController {
     }
     
     // MARK: - Methods
+    private func setupContentSize() {
+        preferredContentSize = CGSize(
+            width: 250,
+            height: 120
+        )
+    }
     private func setupInitialView() {
         view.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(firstButton)
