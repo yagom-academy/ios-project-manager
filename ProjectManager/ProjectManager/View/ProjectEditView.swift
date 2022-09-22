@@ -1,92 +1,81 @@
 //
-//  ProjectEditView.swift
+//  ProjectAddView.swift
 //  ProjectManager
 //
-//  Created by 재재, 언체인 on 2022/09/12.
+//  Created by 재재, 언체인  on 2022/09/12.
 //
 
 import SwiftUI
 
-struct ProjectEditView: View {
+struct ProjectAddView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
-    @Binding var projects: [Project]
+    @Binding var project: [Project]
+    @Binding var showModal: Bool
+
+    init(viewModel: ProjectModalViewModel, project: Binding<[Project]>, showModal: Binding<Bool>) {
+        self.viewModel = viewModel
+        self._project = project
+        self._showModal = showModal
+    }
 
     var body: some View {
         VStack {
-            ProjectEditTitleView(viewModel: viewModel, projects: $projects)
-            ProjectEditTitleTextView(viewModel: viewModel)
-            ProjectEditDatePickerView(viewModel: viewModel)
-            ProjectEditDetailTextView(viewModel: viewModel)
+            ProjectAddTitleView(viewModel: viewModel, projects: $project, showModal: $showModal)
+            ProjectAddTitleTextView(viewModel: viewModel)
+            ProjectAddDatePickerView(viewModel: viewModel)
+            ProjectAddDetailTextView(viewModel: viewModel)
         }
     }
 
-    struct ProjectEditTitleView: View {
-        @Environment(\.dismiss) var dismiss
+    struct ProjectAddTitleView: View {
         @ObservedObject var viewModel: ProjectModalViewModel
         @Binding var projects: [Project]
+        @Binding var showModal: Bool
 
         var body: some View {
-            ZStack {
-                Rectangle()
-                    .frame(width: 710, height: 80, alignment: .center)
-                    .foregroundColor(Color("ZEZEColor"))
-                HStack {
-                    Button(action: {
-                        viewModel.isTappedEditButton()
-                    }, label: {
-                        Text(NameSpace.editButton)
-                            .font(.title3.monospacedDigit().bold())
-                            .foregroundColor(Color.white)
-                    })
-                    .padding(15)
-                    Spacer()
-                    Text(NameSpace.projectTitle)
-                        .font(.title.monospacedDigit().bold())
-                        .foregroundColor(Color.white)
-                    Spacer()
-                    Button(action: {
-                        projects = projects.map { project in
-                            guard project.id == viewModel.id else { return project }
-                            let changedProject = Project(id: viewModel.id,
-                                                         status: viewModel.status,
-                                                         title: viewModel.title,
-                                                         detail: viewModel.detail,
-                                                         date: viewModel.date)
-                            return changedProject
-                        }
-                        dismiss()
-                    }, label: {
-                        Text(NameSpace.doneButton)
-                            .font(.title3.monospacedDigit().bold())
-                            .foregroundColor(Color.white)
-                            .padding(15)
-                    })
-                }
+            HStack {
+                Button(action: {
+                    showModal = false
+                }, label: {
+                    Text(NameSpace.cancelButton)
+                        .font(.title3.monospacedDigit().bold())
+                })
+                .padding(15)
+                Spacer()
+                Text(NameSpace.projectTitle)
+                    .font(.title.monospacedDigit().bold())
+                Spacer()
+                Button(action: {
+                    projects.append(Project(id: viewModel.id,
+                                            status: .todo,
+                                            title: viewModel.title,
+                                            detail: viewModel.detail,
+                                            date: viewModel.date))
+                    showModal = false
+                }, label: {
+                    Text(NameSpace.doneButton)
+                        .font(.title3.monospacedDigit().bold())
+                        .padding(15)
+                })
             }
+            .foregroundColor(Color("ZEZEColor"))
         }
     }
 
-    struct ProjectEditTitleTextView: View {
+    struct ProjectAddTitleTextView: View {
         @ObservedObject var viewModel: ProjectModalViewModel
 
         var body: some View {
-            ZStack {
-                Rectangle()
-                    .frame(width: 655, height: 55, alignment: .center)
-                    .foregroundColor(Color("BorderColor"))
-                TextField(NameSpace.titleSpaceHolder, text: $viewModel.title)
-                    .padding()
-                    .frame(width: 650, height: 50, alignment: .center)
-                    .cornerRadius(30)
-                    .background(Color(.systemBackground))
-                    .padding(12)
-                    .disableAutocorrection(true)
-            }
-            .disabled(viewModel.isDisable)
+            TextField(NameSpace.titleSpaceHolder, text: $viewModel.title)
+                .padding()
+                .background(Color(.systemBackground))
+                .disableAutocorrection(true)
+                .border(Color("BorderColor"), width: 3)
+                .padding([.leading, .trailing], 10)
         }
     }
 
-    struct ProjectEditDatePickerView: View {
+    struct ProjectAddDatePickerView: View {
         @ObservedObject var viewModel: ProjectModalViewModel
 
         var body: some View {
@@ -95,34 +84,37 @@ struct ProjectEditView: View {
                        displayedComponents: .date)
             .datePickerStyle(WheelDatePickerStyle())
             .labelsHidden()
-            .disabled(viewModel.isDisable)
         }
     }
 
-    struct ProjectEditDetailTextView: View {
+    struct ProjectAddDetailTextView: View {
         @ObservedObject var viewModel: ProjectModalViewModel
 
         var body: some View {
             ZStack {
-                Rectangle()
-                    .fill(Color("BorderColor"))
-                    .frame(width: 685, height: 535, alignment: .center)
+                if viewModel.detail.isEmpty {
+                    TextEditor(text: $viewModel.placeholder)
+                        .font(.body)
+                        .border(Color("BorderColor"), width: 3)
+                        .padding([.leading, .bottom, .trailing], 10)
+                }
                 TextEditor(text: $viewModel.detail)
                     .font(.body)
-                    .frame(width: 680, height: 530, alignment: .center)
-                    .padding(12)
+                    .background(Color(.systemBackground))
+                    .opacity(viewModel.detail.isEmpty ? 0.15 : 1)
                     .disableAutocorrection(true)
-                    .disabled(viewModel.isDisable)
+                    .border(Color("BorderColor"), width: 3)
+                    .padding([.leading, .bottom, .trailing], 10)
             }
         }
     }
 }
 
-extension ProjectEditView {
+extension ProjectAddView {
     enum NameSpace {
         static let projectTitle = "PROJECT MANAGER"
-        static let editButton = "EDIT"
+        static let cancelButton = "CANCEL"
         static let doneButton = "DONE"
-        static let titleSpaceHolder = "Title"
+        static let titleSpaceHolder = "TITLE"
     }
 }

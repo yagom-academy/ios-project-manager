@@ -9,12 +9,11 @@ import SwiftUI
 
 struct ProjectContentView: View {
     @ObservedObject var viewModel: ProjectMainViewModel
-    @State var selectedProject: Project?
-    @State var isPopover = false
+    @State private var selectedProject: Project?
+    @State private var isPopover = false
 
     var project: Project
     let today = Calendar.current.startOfDay(for: Date())
-
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
@@ -22,10 +21,11 @@ struct ProjectContentView: View {
     }()
 
     var body: some View {
-        VStack {
+        HStack {
             VStack(alignment: .leading) {
                 Text(project.title ?? "")
-                    .font(.title3.monospacedDigit().bold())
+                    .font(.title3.italic().bold())
+                    .lineLimit(1)
                 Text(project.detail ?? "")
                     .font(.body.monospacedDigit())
                     .foregroundColor(Color(.systemGray))
@@ -34,10 +34,10 @@ struct ProjectContentView: View {
                     .font(.body.monospacedDigit())
                     .foregroundColor(project.date! >= today ? .black : .red)
             }
-            .padding()
+            Spacer()
         }
-        .listRowInsets(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4))
-        .frame(width: 410, alignment: .leading)
+        .padding()
+        .contentShape(Rectangle())
         .onTapGesture {
             selectedProject = project
         }
@@ -45,13 +45,15 @@ struct ProjectContentView: View {
             viewModel.project = project
             isPopover = true
         })
-        .sheet(item: $selectedProject) { ProjectEditView(viewModel: ProjectModalViewModel(project: $0), projects: $viewModel.model) }
+        .sheet(item: $selectedProject) { ProjectEditView(viewModel: ProjectModalViewModel(project: $0),
+                                                         projects: $viewModel.model,
+                                                         selectedProject: $selectedProject) }
         .popover(isPresented: $isPopover) {
             VStack(alignment: .center) {
                 Divider()
                 ForEach(Status.allCases
                     .filter { $0 != viewModel.project?.status }, id: \.self) { status in
-                        Button("move to (status.rawValue)", action: {
+                        Button("move to \(status.rawValue)", action: {
                             isPopover = false
                             viewModel.model = viewModel.model.map({ project in
                                 guard project.id == viewModel.project?.id else { return project }

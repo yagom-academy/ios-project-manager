@@ -1,3 +1,10 @@
+//
+//  ProjectMainView.swift
+//  ProjectManager
+//
+//  Created by 재재, 언체인 on 2022/09/08.
+//
+
 import SwiftUI
 
 struct ProjectMainView: View {
@@ -8,9 +15,9 @@ struct ProjectMainView: View {
             ProjectMainTitleView(viewModel: viewModel)
             HStack {
                 ProjectStatusListView(viewModel: viewModel, title: Status.todo.rawValue, status: .todo)
-                Divider()
+                Divider().hidden()
                 ProjectStatusListView(viewModel: viewModel, title: Status.doing.rawValue, status: .doing)
-                Divider()
+                Divider().hidden()
                 ProjectStatusListView(viewModel: viewModel, title: Status.done.rawValue, status: .done)
             }
             .background(Color(UIColor.systemGray3))
@@ -39,7 +46,9 @@ struct ProjectMainView: View {
                     })
                     .foregroundColor(Color("ZEZEColor"))
                     .sheet(isPresented: self.$showModal, content: {
-                        ProjectAddView(viewModel: ProjectModalViewModel(project: Project()), project: $viewModel.model)
+                        ProjectAddView(viewModel: ProjectModalViewModel(project: Project()),
+                                       project: $viewModel.model,
+                                       showModal: $showModal)
                     })
                     .font(.title)
                     .padding(10)
@@ -67,7 +76,6 @@ struct ProjectMainView: View {
         var body: some View {
             VStack(alignment: .center, spacing: 0) {
                 HStack {
-                    Spacer().frame(width: 10)
                     Text(title)
                         .font(.largeTitle.bold())
                         .foregroundColor(Color.white)
@@ -79,10 +87,8 @@ struct ProjectMainView: View {
                             .font(.title2.bold())
                             .foregroundColor(Color("ZEZEColor"))
                     }
-                    .frame(height: 60, alignment: .center)
                 }
-                Divider()
-                Spacer()
+                .padding()
                 List {
                     ForEach(array, id: \.self) { project in
                         ProjectContentView(viewModel: viewModel, project: project)
