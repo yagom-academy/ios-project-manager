@@ -24,9 +24,7 @@ struct TodoListView: View {
                     todoTasks.remove(atOffsets: index)
                 }
             }
-            .onTapGesture {
-                showingSheet.toggle()
-            }
+            
             .listStyle(.plain)
             .sheet(isPresented: $showingSheet, content: {
                 TodoContentView(buttonType: "Edit")
@@ -46,8 +44,8 @@ struct HeaderView: View {
             Text("TODO")
                 .font(.largeTitle)
             Text("\(todoTasks.count)")
-                .frame(width: 28.5, height: 24)
                 .font(.title3)
+                .frame(width: 28.5, height: 24)
                 .padding(.all, 3)
                 .colorInvert()
                 .background(Color.primary)
