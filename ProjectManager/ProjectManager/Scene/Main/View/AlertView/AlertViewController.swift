@@ -14,7 +14,7 @@ class AlertViewController: UIViewController {
     private let project: ProjectType
     private let index: IndexPath
     private let tableView: ProjectTableView
-    private let toDoViewModel: ToDoViewModel
+    private let alertViewModel = AlertViewModel()
     
     private let firstAlertButton: UIButton = {
         let button = UIButton()
@@ -34,7 +34,7 @@ class AlertViewController: UIViewController {
     
     private lazy var todoAlertAction = UIAction(title: Design.todoAlertActionTitle, state: .off) { [weak self] _ in
         
-        self?.toDoViewModel.move(project: self?.project ?? .todo,
+        self?.alertViewModel.move(project: self?.project ?? .todo,
                                  in: self?.index ?? IndexPath(),
                                  to: .todo)
         self?.dismiss(animated: true)
@@ -42,14 +42,14 @@ class AlertViewController: UIViewController {
     
     private lazy var doingAlertAction = UIAction(title: Design.doingAlertActionTitle, state: .off) { [weak self] _ in
         
-        self?.toDoViewModel.move(project: self?.project ?? .todo,
+        self?.alertViewModel.move(project: self?.project ?? .todo,
                                  in: self?.index ?? IndexPath(),
                                  to: .doing)
         self?.dismiss(animated: true)
     }
     
     private lazy var doneAlertAction = UIAction(title: Design.doneAlertActionTitle, state: .off) { [weak self] _ in
-        self?.toDoViewModel.move(project: self?.project ?? .todo,
+        self?.alertViewModel.move(project: self?.project ?? .todo,
                                  in: self?.index ?? IndexPath(),
                                  to: .done)
         self?.dismiss(animated: true)
@@ -57,11 +57,10 @@ class AlertViewController: UIViewController {
 
     // MARK: Initializers
 
-    init(with project: ProjectType, by index: IndexPath, tableView: ProjectTableView, viewModel: ToDoViewModel) {
+    init(with project: ProjectType, by index: IndexPath, tableView: ProjectTableView) {
         self.project = project
         self.index = index
         self.tableView = tableView
-        self.toDoViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         commonInit()
     }
@@ -69,8 +68,7 @@ class AlertViewController: UIViewController {
     required init?(coder: NSCoder) {
         self.project = .todo
         self.index = IndexPath()
-        self.tableView = ProjectTableView(for: .todo, with: ToDoViewModel())
-        self.toDoViewModel = ToDoViewModel()
+        self.tableView = ProjectTableView(for: .todo)
         super.init(coder: coder)
         commonInit()
     }

@@ -6,15 +6,15 @@
 
 import UIKit
 
-final class MainViewController: UIViewController {
+class MainViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let toDoViewModel = ToDoViewModel()
+    private let mainViewModel = MainViewModel.shared
     
-    private lazy var toDoListTableView = ProjectTableView(for: .todo, with: toDoViewModel)
-    private lazy var doingListTableView = ProjectTableView(for: .doing, with: toDoViewModel)
-    private lazy var doneListTableView = ProjectTableView(for: .done, with: toDoViewModel)
+    private lazy var toDoListTableView = ProjectTableView(for: .todo)
+    private lazy var doingListTableView = ProjectTableView(for: .doing)
+    private lazy var doneListTableView = ProjectTableView(for: .done)
         
     private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
@@ -45,16 +45,17 @@ final class MainViewController: UIViewController {
     }
     
     private func setupSubscripting() {
-        toDoViewModel.todoSubscripting { [weak self] _ in
+        mainViewModel.todoSubscripting { [weak self] _ in
             self?.toDoListTableView.reloadData()
+            self?.toDoListTableView.setupIndexLabel()
         }
         
-        toDoViewModel.doingSubscripting { [weak self] _ in
+        mainViewModel.doingSubscripting { [weak self] _ in
             self?.doingListTableView.reloadData()
             self?.doingListTableView.setupIndexLabel()
         }
         
-        toDoViewModel.doneSubscripting { [weak self] _ in
+        mainViewModel.doneSubscripting { [weak self] _ in
             self?.doneListTableView.reloadData()
             self?.doneListTableView.setupIndexLabel()
         }
@@ -109,7 +110,6 @@ final class MainViewController: UIViewController {
         let registrationViewController = RegistrationViewController()
         let navigationController = UINavigationController(rootViewController: registrationViewController)
         
-        registrationViewController.delegate = self
         registrationViewController.modalPresentationStyle = .formSheet
         
         present(navigationController, animated: true)
@@ -127,12 +127,6 @@ final class MainViewController: UIViewController {
         static let doingAlertActionTitle = "Move to DOING"
         static let doneAlertActionTitle = "Move to DONE"
         static let defaultRect = CGRect(x: 0, y: 0, width: 50, height: 50)
-    }
-}
-
-extension MainViewController: DataSenable {
-    func sendData(of item: ToDoItem) {
-        toDoViewModel.append(new: item, to: .todo)
     }
 }
 
