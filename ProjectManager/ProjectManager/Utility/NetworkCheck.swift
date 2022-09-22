@@ -36,8 +36,16 @@ final class NetworkCheck {
                 print("연결됨")
             } else {
                 print("연결안됨")
-                let alert = UIAlertController(title: "인터넷 연결이 원활하지 않습니다.", message: "Wifi 또는 셀룰러를 활성화 해주세요.", preferredStyle: .alert)
-                let confirm = UIAlertAction(title: "확인", style: .default, handler: nil)
+                let alert = UIAlertController(
+                    title: "인터넷 연결이 원활하지 않습니다.",
+                    message: "Wifi 또는 셀룰러를 활성화 해주세요.",
+                    preferredStyle: .alert
+                )
+                let confirm = UIAlertAction(
+                    title: "확인",
+                    style: .default,
+                    handler: nil
+                )
                 alert.addAction(confirm)
                 DispatchQueue.main.async {
                     viewController.present(alert, animated: true)

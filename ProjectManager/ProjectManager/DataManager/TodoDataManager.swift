@@ -91,7 +91,9 @@ final class TodoDataManager {
     }
     
     func move(todo: Todo, to target: String) {
-        historyManager.addHistory(todo: todo, moveTarget: target, with: .moved)
+        historyManager.addHistory(todo: todo,
+                                  moveTarget: target,
+                                  with: .moved)
         firebaseManager.move(todo: todo, to: target)
         do {
             try realm?.write {
@@ -104,7 +106,8 @@ final class TodoDataManager {
     }
     
     func delete(_ todo: Todo) {
-        historyManager.addHistory(todo: todo, with: .removed)
+        historyManager.addHistory(todo: todo,
+                                  with: .removed)
         firebaseManager.delete(todo: todo)
         do {
             try realm?.write {
