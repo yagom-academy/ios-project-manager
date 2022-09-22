@@ -6,9 +6,10 @@
 //
 
 protocol ProjectUseCaseProtocol {
-    mutating func create(data: ProjectModel)
-    func read() -> [ProjectModel]
+    var repository: ProjectRepositoryProtocol { get }
+    mutating func create(data: ProjectViewModel)
+    func read() -> [ProjectViewModel]
     mutating func update(id: String,
-                         data: ProjectModel)
+                         data: ProjectViewModel)
     mutating func delete(id: String)
 }

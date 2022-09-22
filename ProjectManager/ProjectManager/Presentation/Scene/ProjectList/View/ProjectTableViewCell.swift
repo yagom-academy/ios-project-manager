@@ -76,24 +76,12 @@ final class ProjectTableViewCell: UITableViewCell {
     
     func setItems(title: String?,
                   body: String?,
-                  date: Date?) {
+                  date: String?,
+                  dateColor: UIColor?) {
         titleLabel.text = title
         bodyLabel.text = body
-        dateLabel.attributedText = convertToText(date: date)
-    }
-    
-    private func convertToText(date: Date?) -> NSAttributedString? {
-        guard let date = date else { return nil }
-        let currentDate = Date()
-        
-        if date.convertLocalization() != currentDate.convertLocalization() && date < currentDate {
-            let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.systemRed]
-            let attributedString = (NSAttributedString(string: date.convertLocalization(),
-                                                       attributes: attributes))
-            return attributedString
-        }
-        
-        return NSAttributedString(string: date.convertLocalization())
+        dateLabel.text = date
+        dateLabel.textColor = dateColor
     }
     
     private func commonInit() {
@@ -103,11 +91,11 @@ final class ProjectTableViewCell: UITableViewCell {
     
     private func configureView() {
         contentView.addSubview(mainStackView)
-        [
-            titleLabel,
-            bodyLabel,
-            dateLabel
-        ].forEach { mainStackView.addArrangedSubview($0) }
+        [titleLabel,
+         bodyLabel,
+         dateLabel].forEach {
+            mainStackView.addArrangedSubview($0)
+        }
     }
     
     private func configureMainStackViewLayouts() {

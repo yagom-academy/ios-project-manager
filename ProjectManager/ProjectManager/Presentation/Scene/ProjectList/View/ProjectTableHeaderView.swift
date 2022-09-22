@@ -80,10 +80,10 @@ final class ProjectTableHeaderView: UIView {
     private func configureView() {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(mainStackView)
-        [
-            titleLabel,
-            countLabel
-        ].forEach { mainStackView.addArrangedSubview($0) }
+        [titleLabel,
+         countLabel].forEach {
+            mainStackView.addArrangedSubview($0)
+        }
     }
     
     private func configureMainStackViewLayouts() {

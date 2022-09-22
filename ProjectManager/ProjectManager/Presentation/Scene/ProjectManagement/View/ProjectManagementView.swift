@@ -122,16 +122,16 @@ final class ProjectManagementView: UIView {
         NSLayoutConstraint.activate(
             [
                 mainStackView.topAnchor
-                    .constraint(equalTo: self.topAnchor,
+                    .constraint(equalTo: safeAreaLayoutGuide.topAnchor,
                                 constant: Design.mainStackViewTopAnchor),
                 mainStackView.bottomAnchor
-                    .constraint(equalTo: self.bottomAnchor,
+                    .constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
                                 constant: Design.mainStackViewBottomAnchor),
                 mainStackView.leadingAnchor
-                    .constraint(equalTo: self.leadingAnchor,
+                    .constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
                                 constant: Design.mainStackViewLeadingAnchor),
                 mainStackView.trailingAnchor
-                    .constraint(equalTo: self.trailingAnchor,
+                    .constraint(equalTo: safeAreaLayoutGuide.trailingAnchor,
                                 constant: Design.mainStackViewTrailngAnchor)
             ]
         )

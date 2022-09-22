@@ -5,7 +5,7 @@
 //  Created by Groot on 2022/09/08.
 //
 
-enum ProjectState: String, Decodable {
+enum ProjectState: String, Decodable, CaseIterable {
     case todo, doing, done
     
     var name: String {

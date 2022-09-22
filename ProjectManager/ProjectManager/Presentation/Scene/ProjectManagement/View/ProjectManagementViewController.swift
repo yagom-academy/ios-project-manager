@@ -10,15 +10,16 @@ import UIKit
 final class ProjectManagementViewController: UIViewController {
     // MARK: - Properties
     
-    private let projectUpdateView = ProjectManagementView()
-    weak var delegate: ProjectDataManagerProtocol?
-    var item: ProjectModel?
+    private let projectManagementView = ProjectManagementView()
+    private let projectManagermentViewModel = ProjectManagermentViewModel()
+    weak var delegate: ProjectManagementViewControllerDelegate?
+    var item: ProjectViewModel?
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(projectUpdateView)
+        view.addSubview(projectManagementView)
         view.backgroundColor = .systemBackground
         
         configureNavigationItems()
@@ -45,21 +46,20 @@ final class ProjectManagementViewController: UIViewController {
     private func configureViewItems() {
         guard let item = item else { return }
         
-        projectUpdateView.configureItem(title: item.title,
-                                        body: item.body)
+        projectManagementView.configureItem(title: item.title,
+                                            body: item.body)
     }
     
     @objc private func rightBarButtonDidTap() {
         if item == nil {
-            let newItem = projectUpdateView.makeItems()
+            let newItem = projectManagementView.makeItems()
             
-            let data = ProjectModel(id: UUID().description,
-                                    title: newItem.textArray[0],
-                                    body: newItem.textArray[1],
-                                    date: newItem.date,
-                                    workState: .todo)
+            let data = projectManagermentViewModel.makeProjectViewModel(id: UUID().description,
+                                                                        state: .todo,
+                                                                        newItem: newItem)
             
-            delegate?.create(data: data)
+            delegate?.projectManagementViewController(self,
+                                                      createData: data)
         }
         
         dismiss(animated: true)
@@ -67,16 +67,13 @@ final class ProjectManagementViewController: UIViewController {
     
     @objc private func leftBarButtonDidTap() {
         if let item = self.item {
-            let newItem = projectUpdateView.makeItems()
+            let newItem = projectManagementView.makeItems()
+            let data = projectManagermentViewModel.makeProjectViewModel(id: item.id,
+                                                                        state: item.workState,
+                                                                        newItem: newItem)
             
-            let data = ProjectModel(id: item.id,
-                                    title: newItem.textArray[0],
-                                    body: newItem.textArray[1],
-                                    date: newItem.date,
-                                    workState: item.workState)
-            
-            delegate?.update(id: item.id,
-                             data: data)
+            delegate?.projectManagementViewController(self,
+                                                      updateData: data)
             
             return
         }
@@ -87,13 +84,13 @@ final class ProjectManagementViewController: UIViewController {
     private func configureViewLayout() {
         NSLayoutConstraint.activate(
             [
-                projectUpdateView.topAnchor
+                projectManagementView.topAnchor
                     .constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                projectUpdateView.bottomAnchor
+                projectManagementView.bottomAnchor
                     .constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                projectUpdateView.leadingAnchor
+                projectManagementView.leadingAnchor
                     .constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                projectUpdateView.trailingAnchor
+                projectManagementView.trailingAnchor
                     .constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
             ]
         )

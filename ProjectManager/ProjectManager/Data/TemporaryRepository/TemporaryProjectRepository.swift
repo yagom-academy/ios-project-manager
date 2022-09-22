@@ -1,12 +1,16 @@
 //
-//  TemporaryProjectUseCase.swift
+//  TemporaryProjectRepository.swift
 //  ProjectManager
 //
-//  Created by Groot on 2022/09/08.
+//  Created by Groot on 2022/09/19.
 //
 
-struct TemporaryProjectUseCase: ProjectUseCaseProtocol {
-    private var temporaryStore = [ProjectModel]()
+struct TemporaryProjectRepository: ProjectRepositoryProtocol {
+    private var temporaryStore: [ProjectModel]
+    
+    init() {
+        temporaryStore = [ProjectModel]()
+    }
     
     mutating func create(data: ProjectModel) {
         temporaryStore.append(data)
