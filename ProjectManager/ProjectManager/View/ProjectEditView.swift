@@ -1,5 +1,5 @@
 //
-//  TodoListEditView.swift
+//  ProjectEditView.swift
 //  ProjectManager
 //
 //  Created by 재재, 언체인 on 2022/09/12.
@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-struct TodoListEditView: View {
+struct ProjectEditView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
     @State var isDisabled = true
     @Binding var projects: [Project]
 
     var body: some View {
         VStack {
-            TodoListEditTitleView(viewModel: viewModel, isDisabled: $isDisabled, projects: $projects)
-            TodoListEditTitleTextView(viewModel: viewModel, isDisabled: $isDisabled)
-            TodoListEditDatePickerView(viewModel: viewModel, isDisabled: $isDisabled)
-            TodoListEditDetailTextView(viewModel: viewModel, isDisabled: $isDisabled)
+            ProjectEditTitleView(viewModel: viewModel, isDisabled: $isDisabled, projects: $projects)
+            ProjectEditTitleTextView(viewModel: viewModel, isDisabled: $isDisabled)
+            ProjectEditDatePickerView(viewModel: viewModel, isDisabled: $isDisabled)
+            ProjectEditDetailTextView(viewModel: viewModel, isDisabled: $isDisabled)
         }
     }
 }
 
-struct TodoListEditTitleView: View {
+struct ProjectEditTitleView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: ProjectModalViewModel
     @Binding var isDisabled: Bool
@@ -60,7 +60,7 @@ struct TodoListEditTitleView: View {
     }
 }
 
-struct TodoListEditTitleTextView: View {
+struct ProjectEditTitleTextView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
     @Binding var isDisabled: Bool
 
@@ -79,7 +79,7 @@ struct TodoListEditTitleTextView: View {
     }
 }
 
-struct TodoListEditDatePickerView: View {
+struct ProjectEditDatePickerView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
     @Binding var isDisabled: Bool
 
@@ -93,7 +93,7 @@ struct TodoListEditDatePickerView: View {
     }
 }
 
-struct TodoListEditDetailTextView: View {
+struct ProjectEditDetailTextView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
     @Binding var isDisabled: Bool
 

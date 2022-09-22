@@ -8,17 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		7E967C0328C9D41100970577 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0228C9D41100970577 /* ProjectManagerApp.swift */; };
-		7E967C0528C9D41100970577 /* TodoListMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0428C9D41100970577 /* TodoListMainView.swift */; };
+		7E967C0528C9D41100970577 /* ProjectMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0428C9D41100970577 /* ProjectMainView.swift */; };
 		7E967C0728C9D41200970577 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E967C0628C9D41200970577 /* Assets.xcassets */; };
 		7E967C0A28C9D41200970577 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E967C0928C9D41200970577 /* Preview Assets.xcassets */; };
 		7E967C0C28C9D41200970577 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0B28C9D41200970577 /* Persistence.swift */; };
 		7E967C0F28C9D41200970577 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C0D28C9D41200970577 /* ProjectManager.xcdatamodeld */; };
 		7E967C1928C9D41200970577 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E967C1828C9D41200970577 /* ProjectManagerTests.swift */; };
-		7EF8466A28CF1EC0001475E1 /* TodoListEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF8466928CF1EC0001475E1 /* TodoListEditView.swift */; };
+		7EF8466A28CF1EC0001475E1 /* ProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF8466928CF1EC0001475E1 /* ProjectEditView.swift */; };
 		7EF8469C28D05AAA001475E1 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF8469B28D05AAA001475E1 /* Project.swift */; };
-		7EF8469E28D05D23001475E1 /* DummyProjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF8469D28D05D23001475E1 /* DummyProjects.swift */; };
 		7EF846A128D06C2C001475E1 /* ProjectMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF846A028D06C2B001475E1 /* ProjectMainViewModel.swift */; };
-		8FBFB27F28CF0A9000600C4B /* TodoListAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBFB27E28CF0A9000600C4B /* TodoListAddView.swift */; };
+		8FBFB27F28CF0A9000600C4B /* ProjectAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBFB27E28CF0A9000600C4B /* ProjectAddView.swift */; };
 		8FBFB2CB28D0AD3600600C4B /* ProjectModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBFB2CA28D0AD3600600C4B /* ProjectModalViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +41,7 @@
 /* Begin PBXFileReference section */
 		7E967BFF28C9D41100970577 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E967C0228C9D41100970577 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
-		7E967C0428C9D41100970577 /* TodoListMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListMainView.swift; sourceTree = "<group>"; };
+		7E967C0428C9D41100970577 /* ProjectMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainView.swift; sourceTree = "<group>"; };
 		7E967C0628C9D41200970577 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E967C0928C9D41200970577 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7E967C0B28C9D41200970577 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -50,11 +49,10 @@
 		7E967C1428C9D41200970577 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E967C1828C9D41200970577 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
 		7E967C1E28C9D41200970577 /* ProjectManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7EF8466928CF1EC0001475E1 /* TodoListEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListEditView.swift; sourceTree = "<group>"; };
+		7EF8466928CF1EC0001475E1 /* ProjectEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditView.swift; sourceTree = "<group>"; };
 		7EF8469B28D05AAA001475E1 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		7EF8469D28D05D23001475E1 /* DummyProjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyProjects.swift; sourceTree = "<group>"; };
 		7EF846A028D06C2B001475E1 /* ProjectMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainViewModel.swift; sourceTree = "<group>"; };
-		8FBFB27E28CF0A9000600C4B /* TodoListAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListAddView.swift; sourceTree = "<group>"; };
+		8FBFB27E28CF0A9000600C4B /* ProjectAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAddView.swift; sourceTree = "<group>"; };
 		8FBFB2CA28D0AD3600600C4B /* ProjectModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModalViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,9 +134,9 @@
 		7EF8469928D05A82001475E1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7E967C0428C9D41100970577 /* TodoListMainView.swift */,
-				7EF8466928CF1EC0001475E1 /* TodoListEditView.swift */,
-				8FBFB27E28CF0A9000600C4B /* TodoListAddView.swift */,
+				7E967C0428C9D41100970577 /* ProjectMainView.swift */,
+				7EF8466928CF1EC0001475E1 /* ProjectEditView.swift */,
+				8FBFB27E28CF0A9000600C4B /* ProjectAddView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -147,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				7EF8469B28D05AAA001475E1 /* Project.swift */,
-				7EF8469D28D05D23001475E1 /* DummyProjects.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -314,14 +311,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FBFB2CB28D0AD3600600C4B /* ProjectModalViewModel.swift in Sources */,
-				7EF8469E28D05D23001475E1 /* DummyProjects.swift in Sources */,
 				7EF8469C28D05AAA001475E1 /* Project.swift in Sources */,
 				7E967C0C28C9D41200970577 /* Persistence.swift in Sources */,
 				7E967C0F28C9D41200970577 /* ProjectManager.xcdatamodeld in Sources */,
-				7EF8466A28CF1EC0001475E1 /* TodoListEditView.swift in Sources */,
-				8FBFB27F28CF0A9000600C4B /* TodoListAddView.swift in Sources */,
+				7EF8466A28CF1EC0001475E1 /* ProjectEditView.swift in Sources */,
+				8FBFB27F28CF0A9000600C4B /* ProjectAddView.swift in Sources */,
 				7EF846A128D06C2C001475E1 /* ProjectMainViewModel.swift in Sources */,
-				7E967C0528C9D41100970577 /* TodoListMainView.swift in Sources */,
+				7E967C0528C9D41100970577 /* ProjectMainView.swift in Sources */,
 				7E967C0328C9D41100970577 /* ProjectManagerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

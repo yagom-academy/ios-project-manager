@@ -1,5 +1,5 @@
 //
-//  TodoListMainView.swift
+//  ProjectMainView.swift
 //  ProjectManager
 //
 //  Created by 재재, 언체인 on 2022/09/08.
@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct TodoListMainView: View {
+struct ProjectMainView: View {
     @StateObject var viewModel = ProjectMainViewModel()
 
     var body: some View {
         VStack(alignment: .center) {
             ProjectTitleView(model: $viewModel.model)
             HStack {
-                VStackView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.todo.rawValue, count: viewModel.todoArray.count, status: .todo)
-                VStackView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.doing.rawValue, count: viewModel.doingArray.count, status: .doing)
-                VStackView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.done.rawValue, count: viewModel.doneArray.count, status: .done)
+                ProjectStatusListView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.todo.rawValue, count: viewModel.todoArray.count, status: .todo)
+                ProjectStatusListView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.doing.rawValue, count: viewModel.doingArray.count, status: .doing)
+                ProjectStatusListView(viewModel: viewModel, selectedProject2: $viewModel.project, projects: $viewModel.model, title: Status.done.rawValue, count: viewModel.doneArray.count, status: .done)
             }
             .background(Color(UIColor.systemGray3))
         }
@@ -42,7 +42,7 @@ struct TodoListMainView: View {
                         Image(systemName: "plus")
                     })
                     .sheet(isPresented: self.$showModal, content: {
-                        TodoListAddView(viewModel: ProjectModalViewModel(project: Project()), project: $model)
+                        ProjectAddView(viewModel: ProjectModalViewModel(project: Project()), project: $model)
                     })
                     .font(.title)
                     .padding(10)
@@ -51,7 +51,7 @@ struct TodoListMainView: View {
         }
     }
 
-    struct VStackView: View {
+    struct ProjectStatusListView: View {
         @ObservedObject var viewModel: ProjectMainViewModel
         @State var selectedProject: Project?
         @Binding var selectedProject2: Project?
@@ -145,7 +145,7 @@ struct ProjectContentView: View {
             isPopover = true
         })
         .sheet(item: $selectedProject) { memo in
-            TodoListEditView(viewModel: ProjectModalViewModel(project: memo), projects: $projects)
+            ProjectEditView(viewModel: ProjectModalViewModel(project: memo), projects: $projects)
         }
         .popover(isPresented: $isPopover) {
             VStack {

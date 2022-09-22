@@ -1,5 +1,5 @@
 //
-//  TodoListAddView.swift
+//  ProjectAddView.swift
 //  ProjectManager
 //
 //  Created by 재재, 언체인 on 2022/09/12.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TodoListAddView: View {
+struct ProjectAddView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
     @Binding var project: [Project]
 
@@ -18,15 +18,15 @@ struct TodoListAddView: View {
 
     var body: some View {
         VStack {
-            TodoListAddTitleView(viewModel: viewModel, projects: $project)
-            TodoListAddTitleTextView(viewModel: viewModel)
-            TodoListAddDatePickerView(viewModel: viewModel)
-            TodoListAddDetailTextView(viewModel: viewModel)
+            ProjectAddTitleView(viewModel: viewModel, projects: $project)
+            ProjectAddTitleTextView(viewModel: viewModel)
+            ProjectAddDatePickerView(viewModel: viewModel)
+            ProjectAddDetailTextView(viewModel: viewModel)
         }
     }
 }
 
-struct TodoListAddTitleView: View {
+struct ProjectAddTitleView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: ProjectModalViewModel
     @Binding var projects: [Project]
@@ -60,7 +60,7 @@ struct TodoListAddTitleView: View {
     }
 }
 
-struct TodoListAddTitleTextView: View {
+struct ProjectAddTitleTextView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
 
     var body: some View {
@@ -77,7 +77,7 @@ struct TodoListAddTitleTextView: View {
     }
 }
 
-struct TodoListAddDatePickerView: View {
+struct ProjectAddDatePickerView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
 
     var body: some View {
@@ -89,7 +89,7 @@ struct TodoListAddDatePickerView: View {
     }
 }
 
-struct TodoListAddDetailTextView: View {
+struct ProjectAddDetailTextView: View {
     @ObservedObject var viewModel: ProjectModalViewModel
 
     var body: some View {
