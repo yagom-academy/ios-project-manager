@@ -76,15 +76,15 @@ class CreateTaskViewController: UIViewController {
               let title = titleTextField.text else {
             return
         }
+        let viewModel = TaskViewModel.init(
+            id: UUID(),
+            title: title,
+            body: body,
+            date: datePicker.date,
+            state: .todo
+        )
         
-        let todoContent = TaskModelDTO(id: UUID(),
-                                   title: title,
-                                   body: body,
-                                   date: datePicker.date,
-                                   state: .todo)
-        
-        delegate?.didFinishSaveData(content: todoContent)
-        
+        delegate?.doneButtonDidTap(viewModel)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -117,4 +117,8 @@ class CreateTaskViewController: UIViewController {
             )
         ])
     }
+}
+
+protocol CreateTaskViewControllerDelegate: AnyObject {
+    func doneButtonDidTap(_ viewModel: TaskViewModel)
 }
