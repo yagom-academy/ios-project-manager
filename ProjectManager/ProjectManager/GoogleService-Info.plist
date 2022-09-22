@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>434870268233-50auo13hu0qq0auamdmq5l1n98mcbarq.apps.googleusercontent.com</string>
+	<string>651155123381-4qboq4uk025j888r2krgetflk6gj5le6.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.434870268233-50auo13hu0qq0auamdmq5l1n98mcbarq</string>
+	<string>com.googleusercontent.apps.651155123381-4qboq4uk025j888r2krgetflk6gj5le6</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCKaNwQ-mrvM3rezwCFgoac9H1NO7-5f2s</string>
+	<string>AIzaSyAp6Sb7TfttBmBNp6SAn5mFQSFNldFKeQ4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>434870268233</string>
+	<string>651155123381</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>project.WeThereProject</string>
+	<string>net.yagom.ProjectManager</string>
 	<key>PROJECT_ID</key>
-	<string>wethere-2935d</string>
+	<string>projectmanager-72ef1</string>
 	<key>STORAGE_BUCKET</key>
-	<string>wethere-2935d.appspot.com</string>
+	<string>projectmanager-72ef1.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:434870268233:ios:33d80502e321bca14baa98</string>
+	<string>1:651155123381:ios:5c621f53da2c705b55a2fc</string>
 </dict>
 </plist>

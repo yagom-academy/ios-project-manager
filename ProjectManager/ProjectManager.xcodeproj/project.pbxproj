@@ -10,10 +10,10 @@
 		2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C46E28CAA46E0091D087 /* WorkManageView.swift */; };
 		2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */; };
 		2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47328CB100F0091D087 /* Date+Extension.swift */; };
-		2041B00928DC2F8600636D06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2041B00828DC2F8600636D06 /* GoogleService-Info.plist */; };
 		2041B00E28DC3FEB00636D06 /* DatabaseManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */; };
 		2041B01228DC7F3000636D06 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01028DC7F3000636D06 /* FirebaseService.swift */; };
 		2041B01328DC7F3000636D06 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01128DC7F3000636D06 /* FirebaseManager.swift */; };
+		2041B01928DC8B2B00636D06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2041B01828DC8B2B00636D06 /* GoogleService-Info.plist */; };
 		2054FB7628D1B30B0007AF1E /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7528D1B30B0007AF1E /* DateManager.swift */; };
 		2054FB7828D1DAEC0007AF1E /* WorkTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */; };
 		209F976528D37178004CBAF5 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F976428D37178004CBAF5 /* WorkState.swift */; };
@@ -37,10 +37,10 @@
 		2021C46E28CAA46E0091D087 /* WorkManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManageView.swift; sourceTree = "<group>"; };
 		2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageWorkViewController.swift; sourceTree = "<group>"; };
 		2021C47328CB100F0091D087 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		2041B00828DC2F8600636D06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManageable.swift; sourceTree = "<group>"; };
 		2041B01028DC7F3000636D06 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		2041B01128DC7F3000636D06 /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		2041B01828DC8B2B00636D06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2054FB7528D1B30B0007AF1E /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableView.swift; sourceTree = "<group>"; };
 		209F976428D37178004CBAF5 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				2041B00828DC2F8600636D06 /* GoogleService-Info.plist */,
+				2041B01828DC8B2B00636D06 /* GoogleService-Info.plist */,
 				20F670F728C714AB0069CB46 /* Resources */,
 				20F670F628C7149B0069CB46 /* Application */,
 				2021C47228CB0FE70091D087 /* Extension */,
@@ -265,7 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20F670FA28C7154C0069CB46 /* .swiftlint.yml in Resources */,
-				2041B00928DC2F8600636D06 /* GoogleService-Info.plist in Resources */,
+				2041B01928DC8B2B00636D06 /* GoogleService-Info.plist in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
