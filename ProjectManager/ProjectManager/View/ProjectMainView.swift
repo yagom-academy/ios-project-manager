@@ -1,5 +1,5 @@
 //
-//  ProjectView.swift
+//  ProjectMainView.swift
 //  ProjectManager
 //
 //  Created by 재재, 언체인 on 2022/09/08.
@@ -30,7 +30,7 @@ struct ProjectMainView: View {
             ZStack {
                 HStack {
                     Spacer()
-                    Text("Project Manager")
+                    Text(NameSpace.projectTitle)
                         .font(.largeTitle)
                     Spacer()
                 }
@@ -39,7 +39,7 @@ struct ProjectMainView: View {
                     Button(action: {
                         self.showModal = true
                     }, label: {
-                        Image(systemName: "plus")
+                        Image(systemName: NameSpace.plusButton)
                     })
                     .sheet(isPresented: self.$showModal, content: {
                         ProjectAddView(viewModel: ProjectModalViewModel(project: Project()), project: $viewModel.model)
@@ -87,8 +87,8 @@ struct ProjectMainView: View {
                 Divider()
                 Spacer()
                 List {
-                    ForEach(array, id: \.self) { memo in
-                        ProjectContentView(viewModel: viewModel, memo: memo)
+                    ForEach(array, id: \.self) { project in
+                        ProjectContentView(viewModel: viewModel, project: project)
                     }
                     .onDelete { index in
                         viewModel.delete(at: index, status: status)
@@ -101,53 +101,9 @@ struct ProjectMainView: View {
     }
 }
 
-struct ProjectContentView: View {
-    @ObservedObject var viewModel: ProjectMainViewModel
-    @State var selectedProject: Project?
-    @State var isPopover = false
-
-    var memo: Project
-    let today = Calendar.current.startOfDay(for: Date())
-
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
-        return formatter
-    }()
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(memo.title ?? "")
-            Text(memo.detail ?? "")
-            Text(memo.date ?? Date(), formatter: dateFormatter)
-                .foregroundColor(memo.date! >= today ? .black : .red)
-        }
-        .onTapGesture {
-            selectedProject = memo
-        }
-        .onLongPressGesture(minimumDuration: 1, perform: {
-            viewModel.project = memo
-            isPopover = true
-        })
-        .sheet(item: $selectedProject) { memo in
-            ProjectEditView(viewModel: ProjectModalViewModel(project: memo), projects: $viewModel.model)
-        }
-        .popover(isPresented: $isPopover) {
-            VStack {
-                ForEach(Status.allCases
-                    .filter { $0 != viewModel.project?.status }, id: \.self) { status in
-                        Button("move to \(status.rawValue)", action: {
-                            isPopover = false
-                            viewModel.model = viewModel.model.map({ project in
-                                guard project.id == viewModel.project?.id else { return project }
-                                var changedProject = project
-                                changedProject.status = status
-                                return changedProject
-                            })
-                        })
-                        Divider()
-                    }
-            }
-        }
+extension ProjectMainView {
+    enum NameSpace {
+        static let projectTitle = "Project Manager"
+        static let plusButton = "plus"
     }
 }
