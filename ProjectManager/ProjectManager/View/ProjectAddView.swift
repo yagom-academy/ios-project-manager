@@ -1,3 +1,10 @@
+//
+//  ProjectAddView.swift
+//  ProjectManager
+//
+//  Created by 재재, 언체인  on 2022/09/12.
+//
+
 import SwiftUI
 
 struct ProjectAddView: View {
@@ -24,30 +31,38 @@ struct ProjectAddView: View {
         @Binding var projects: [Project]
 
         var body: some View {
-            HStack {
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Text(NameSpace.cancelButton)
-                        .font(.title3)
-                })
-                .padding(10)
-                Spacer()
-                Text(NameSpace.projectTitle)
-                    .font(.title)
-                Spacer()
-                Button(action: {
-                    projects.append(Project(id: viewModel.id,
-                                            status: .todo,
-                                            title: viewModel.title,
-                                            detail: viewModel.detail,
-                                            date: viewModel.date))
-                    dismiss()
-                }, label: {
-                    Text(NameSpace.doneButton)
-                        .font(.title3)
-                        .padding(10)
-                })
+            ZStack {
+                Rectangle()
+                    .frame(width: 710, height: 80, alignment: .center)
+                    .foregroundColor(Color("ZEZEColor"))
+                HStack {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Text(NameSpace.cancelButton)
+                            .font(.title3.monospacedDigit().bold())
+                            .foregroundColor(Color.white)
+                    })
+                    .padding(15)
+                    Spacer()
+                    Text(NameSpace.projectTitle)
+                        .font(.title.monospacedDigit().bold())
+                        .foregroundColor(Color.white)
+                    Spacer()
+                    Button(action: {
+                        projects.append(Project(id: viewModel.id,
+                                                status: .todo,
+                                                title: viewModel.title,
+                                                detail: viewModel.detail,
+                                                date: viewModel.date))
+                        dismiss()
+                    }, label: {
+                        Text(NameSpace.doneButton)
+                            .font(.title3.monospacedDigit().bold())
+                            .foregroundColor(Color.white)
+                            .padding(15)
+                    })
+                }
             }
         }
     }
@@ -58,11 +73,11 @@ struct ProjectAddView: View {
         var body: some View {
             ZStack {
                 Rectangle()
-                    .fill(Color(.systemBackground))
-                    .frame(width: 680, height: 60, alignment: .center)
-                    .shadow(color: .gray, radius: 8, x: 0, y: 0)
+                    .frame(width: 655, height: 55, alignment: .center)
+                    .foregroundColor(Color("BorderColor"))
                 TextField(NameSpace.titleSpaceHolder, text: $viewModel.title)
                     .padding()
+                    .frame(width: 650, height: 50, alignment: .center)
                     .background(Color(.systemBackground))
                     .padding(12)
                     .disableAutocorrection(true)
@@ -88,11 +103,11 @@ struct ProjectAddView: View {
         var body: some View {
             ZStack {
                 Rectangle()
-                    .fill(Color(.systemBackground))
-                    .frame(width: 680, height: 530, alignment: .center)
-                    .shadow(color: .gray, radius: 8, x: 0, y: 0)
+                    .fill(Color("BorderColor"))
+                    .frame(width: 685, height: 535, alignment: .center)
                 if viewModel.detail.isEmpty {
                     TextEditor(text: $viewModel.placeholder)
+                        .frame(width: 680, height: 530, alignment: .center)
                         .font(.body)
                         .padding()
                 }
@@ -110,9 +125,9 @@ struct ProjectAddView: View {
 
 extension ProjectAddView {
     enum NameSpace {
-        static let projectTitle = "Project Manager"
-        static let cancelButton = "Cancel"
-        static let doneButton = "Done"
+        static let projectTitle = "PROJECT MANAGER"
+        static let cancelButton = "CANCEL"
+        static let doneButton = "DONE"
         static let titleSpaceHolder = "Title"
     }
 }

@@ -1,10 +1,3 @@
-//
-//  ProjectMainView.swift
-//  ProjectManager
-//
-//  Created by 재재, 언체인 on 2022/09/08.
-//
-
 import SwiftUI
 
 struct ProjectMainView: View {
@@ -15,7 +8,9 @@ struct ProjectMainView: View {
             ProjectMainTitleView(viewModel: viewModel)
             HStack {
                 ProjectStatusListView(viewModel: viewModel, title: Status.todo.rawValue, status: .todo)
+                Divider()
                 ProjectStatusListView(viewModel: viewModel, title: Status.doing.rawValue, status: .doing)
+                Divider()
                 ProjectStatusListView(viewModel: viewModel, title: Status.done.rawValue, status: .done)
             }
             .background(Color(UIColor.systemGray3))
@@ -31,7 +26,8 @@ struct ProjectMainView: View {
                 HStack {
                     Spacer()
                     Text(NameSpace.projectTitle)
-                        .font(.largeTitle)
+                        .font(.largeTitle.monospacedDigit().bold())
+                        .foregroundColor(Color("ZEZEColor"))
                     Spacer()
                 }
                 HStack {
@@ -41,6 +37,7 @@ struct ProjectMainView: View {
                     }, label: {
                         Image(systemName: NameSpace.plusButton)
                     })
+                    .foregroundColor(Color("ZEZEColor"))
                     .sheet(isPresented: self.$showModal, content: {
                         ProjectAddView(viewModel: ProjectModalViewModel(project: Project()), project: $viewModel.model)
                     })
@@ -73,13 +70,14 @@ struct ProjectMainView: View {
                     Spacer().frame(width: 10)
                     Text(title)
                         .font(.largeTitle.bold())
+                        .foregroundColor(Color.white)
                     ZStack {
                         Circle()
-                            .fill(.black)
-                            .frame(width: 30, height: 30)
+                            .fill(Color.white)
+                            .frame(width: 33, height: 33)
                         Text("\(array.count)")
-                            .font(.title3)
-                            .foregroundColor(.white)
+                            .font(.title2.bold())
+                            .foregroundColor(Color("ZEZEColor"))
                     }
                     .frame(height: 60, alignment: .center)
                 }
@@ -88,21 +86,23 @@ struct ProjectMainView: View {
                 List {
                     ForEach(array, id: \.self) { project in
                         ProjectContentView(viewModel: viewModel, project: project)
+                            .border(Color("BorderColor"), width: 3)
+                            .cornerRadius(5)
                     }
                     .onDelete { index in
                         viewModel.delete(at: index, status: status)
                     }
                 }
+                .listStyle(.sidebar)
             }
-            .background(Color(UIColor.systemGray5))
-            Divider()
+            .background(Color("ZEZEColor"))
         }
     }
 }
 
 extension ProjectMainView {
     enum NameSpace {
-        static let projectTitle = "Project Manager"
+        static let projectTitle = "PROJECT MANAGER"
         static let plusButton = "plus"
     }
 }
