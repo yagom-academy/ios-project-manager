@@ -6,9 +6,25 @@
 //
 
 class MainHomeViewModel {
-    var todoCount: Observable<Int> = Observable(0)
-    var doingCount: Observable<Int> = Observable(0)
-    var doneCount: Observable<Int> = Observable(0)
+    var change: () -> Void = {}
+
+    var todoCount: Int = 0 {
+        didSet {
+            self.change()
+        }
+    }
+
+    var doingCount: Int = 0 {
+        didSet {
+            self.change()
+        }
+    }
+
+    var doneCount: Int = 0 {
+        didSet {
+            self.change()
+        }
+    }
 
     private let databaseManager = RealmDatabase()
     private var todoList = [TaskModel]()
@@ -46,9 +62,9 @@ class MainHomeViewModel {
             $0.taskState == TaskState.done.name
         }
 
-        todoCount.value = todoList.count
-        doingCount.value = doingList.count
-        doneCount.value = doneList.count
+        todoCount = todoList.count
+        doingCount = doingList.count
+        doneCount = doneList.count
     }
 
     func remove(index: Int, in state: TaskState) {

@@ -80,19 +80,11 @@ class MainHomeViewController: UIViewController {
     }
 
     private func bind() {
-        viewModel.todoCount.bind { [weak self] count in
-            self?.todoCountLabel.text = count.description
+        viewModel.change = { [weak self] in
+            self?.todoCountLabel.text = self?.viewModel.todoCount.description
+            self?.doingCountLabel.text = self?.viewModel.doingCount.description
+            self?.doneCountLabel.text = self?.viewModel.doneCount.description
         }
-
-        viewModel.doingCount.bind { [weak self] count in
-            self?.doingCountLabel.text = count.description
-        }
-
-        viewModel.doneCount.bind { [weak self] count in
-            self?.doneCountLabel.text = count.description
-        }
-
-        reloadTableView()
     }
 
     private func reloadTableView() {
@@ -126,7 +118,7 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
         }
 
         viewModel.changeList(data: data)
-        bind()
+        reloadTableView()
     }
 }
 
@@ -136,11 +128,11 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
         viewModel.fetchDataList()
 
         if tableView === todoTableView {
-            return viewModel.todoCount.value
+            return viewModel.todoCount
         } else if tableView === doingTableView {
-            return viewModel.doingCount.value
+            return viewModel.doingCount
         } else {
-            return viewModel.doneCount.value
+            return viewModel.doneCount
         }
     }
 
