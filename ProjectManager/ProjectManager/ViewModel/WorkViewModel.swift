@@ -14,7 +14,7 @@ class WorkViewModel {
     let worksObservable: Observable<[Work]>
     
     init() {
-        works.onNext(SampleData.todoWorks + SampleData.doingWorks + SampleData.doneWorks)
+        works.onNext(FirebaseManager.shared.fetchWork())
         worksObservable = works
     }
     
