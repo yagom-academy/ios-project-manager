@@ -19,8 +19,8 @@ final class ManageWorkViewController: UIViewController {
     // MARK: - Properties
     private let disposeBag = DisposeBag()
     private let workManageView = WorkManageView()
+    private let viewModel: WorkViewModel
     private var viewMode: ViewMode?
-    private var viewModel: WorkViewModel?
     private var work: Work?
     
     override func loadView() {
@@ -31,6 +31,16 @@ final class ManageWorkViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+    
+    // MARK: - initializer
+    init(viewModel: WorkViewModel = WorkViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - UI setup
@@ -62,6 +72,7 @@ final class ManageWorkViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = doneBarButton
     }
 
+    // MARK: - Methods
     @objc private func cancelBarButtonTapped() {
         self.dismiss(animated: true)
     }
@@ -71,8 +82,7 @@ final class ManageWorkViewController: UIViewController {
     }
     
     @objc private func doneBarButtonTapped() {
-        guard let viewModel = viewModel,
-              let viewMode = viewMode else { return }
+        guard let viewMode = viewMode else { return }
         
         switch viewMode {
         case .add:
@@ -89,17 +99,14 @@ final class ManageWorkViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    // MARK: - Methods    
-    func configureAddMode(_ viewModel: WorkViewModel) {
-        self.viewModel = viewModel
-        viewMode = .add
+    func configureAddMode() {
+        self.viewMode = .add
     }
     
-    func configureEditMode(with work: Work, _ viewModel: WorkViewModel) {
+    func configureEditMode(with work: Work) {
         workManageView.configure(with: work)
         workManageView.changeEditMode(false)
         self.viewMode = .edit
-        self.viewModel = viewModel
         self.work = work
     }
 }

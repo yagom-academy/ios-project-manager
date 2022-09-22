@@ -76,8 +76,8 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     @objc private func addWorkBarButtonTapped() {
-        let manageViewController = ManageWorkViewController()
-        manageViewController.configureAddMode(viewModel)
+        let manageViewController = ManageWorkViewController(viewModel: viewModel)
+        manageViewController.configureAddMode()
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         self.present(manageNavigationController, animated: true)
     }
@@ -239,9 +239,9 @@ final class ProjectManagerViewController: UIViewController {
     
     // MARK: - Methods
     private func showManageWorkView(_ view: UIViewController, id: UUID) {
-        let manageViewController = ManageWorkViewController()
+        let manageViewController = ManageWorkViewController(viewModel: viewModel)
         guard let work = viewModel.selectWork(id: id) else { return }
-        manageViewController.configureEditMode(with: work, viewModel)
+        manageViewController.configureEditMode(with: work)
 
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         view.present(manageNavigationController, animated: true)
@@ -280,7 +280,7 @@ extension ProjectManagerViewController {
         WorkState.allCases.filter {
             $0 != work.state
         }.forEach { state in
-            let action = UIAlertAction(title: "Move To " + state.rawValue, style: .default) { [weak self] _ in
+            let action = UIAlertAction(title: "Move to " + state.rawValue, style: .default) { [weak self] _ in
                 guard let self = self else { return }
                 self.viewModel.changeWorkState(work, to: state)
                 self.dismiss(animated: true)
