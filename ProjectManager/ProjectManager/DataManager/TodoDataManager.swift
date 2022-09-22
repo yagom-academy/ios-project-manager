@@ -5,11 +5,12 @@
 //  Created by 이원빈 on 2022/09/14.
 //
 
-import Foundation
 import RealmSwift
 
 final class TodoDataManager {
     private let firebaseManager = RemoteDataManager()
+    private let historyManager = HistoryManager()
+    
     private let realm = try? Realm()
     static let shared = TodoDataManager()
     
@@ -21,9 +22,25 @@ final class TodoDataManager {
         read()
     }
     
+    func setupInitialData(with todo: Todo) {
+        do {
+            try realm?.write {
+                realm?.add(todo)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        read()
+    }
+    
+    func fetchHistory() -> [History] {
+        historyManager.fetchHistories()
+    }
+    
     // MARK: - CRUD
     func create(with model: Todo) {
         firebaseManager.add(todo: model)
+        historyManager.addHistory(todo: model, with: .added)
         do {
             try realm?.write {
                 realm?.add(model)
@@ -49,9 +66,13 @@ final class TodoDataManager {
     
     func read() {
         guard let savedList = realm?.objects(Todo.self) else { return }
-        todoList.value = Array(savedList.filter("category == 'TODO'"))
-        doingList.value = Array(savedList.filter("category == 'DOING'"))
-        doneList.value = Array(savedList.filter("category == 'DONE'"))
+        if savedList.isEmpty {
+            firebaseManager.read()
+        } else {
+            todoList.value = Array(savedList.filter("category == 'TODO'"))
+            doingList.value = Array(savedList.filter("category == 'DOING'"))
+            doneList.value = Array(savedList.filter("category == 'DONE'"))
+        }
     }
     
     func update(todo: Todo, with model: Todo) {
@@ -70,6 +91,7 @@ final class TodoDataManager {
     }
     
     func move(todo: Todo, to target: String) {
+        historyManager.addHistory(todo: todo, moveTarget: target, with: .moved)
         firebaseManager.move(todo: todo, to: target)
         do {
             try realm?.write {
@@ -82,6 +104,7 @@ final class TodoDataManager {
     }
     
     func delete(_ todo: Todo) {
+        historyManager.addHistory(todo: todo, with: .removed)
         firebaseManager.delete(todo: todo)
         do {
             try realm?.write {
