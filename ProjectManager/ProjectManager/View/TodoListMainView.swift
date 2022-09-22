@@ -152,6 +152,7 @@ struct ProjectContentView: View {
                 ForEach(Status.allCases
                     .filter { $0 != selectedProject2?.status }, id: \.self) { status in
                         Button("move to \(status.rawValue)", action: {
+                            isPopover = false
                             projects = projects.map({ project in
                                 guard project.id == selectedProject2?.id else { return project }
                                 var changedProject = project
