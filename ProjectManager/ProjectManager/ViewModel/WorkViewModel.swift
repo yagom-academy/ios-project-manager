@@ -57,16 +57,21 @@ class WorkViewModel {
         }).disposed(by: disposeBag)
     }
     
-    func chnageWorkState(_ work: Work, to state: WorkState) {
-        deleteWork(id: work.id)
-        
-        guard let value = try? works.value() else { return }
+    func changeWorkState(_ work: Work, to state: WorkState) {
         let changedWork = Work(id: work.id,
                                title: work.title,
                                content: work.content,
                                deadline: work.deadline,
                                state: state)
-        
-        works.onNext(value + [changedWork])
+
+        works.map {
+            $0.map {
+                $0.id == work.id ? changedWork : $0
+            }
+        }.take(1)
+        .observe(on: MainScheduler.asyncInstance)
+        .subscribe(onNext: {
+            self.works.onNext($0)
+        }).disposed(by: disposeBag)
     }
 }
