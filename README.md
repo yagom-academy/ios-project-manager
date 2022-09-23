@@ -29,15 +29,18 @@
 ## 📦 파일 구조
 
 ```
-.
 ├── Extentsion
 │   ├── Array+Extension.swift
 │   ├── Date+Extension.swift
 │   ├── JSONDecoder+Extentsion.swift
 │   └── UILabel+Extension.swift
+├── Model
+│   ├── ItemListCategory.swift
+│   ├── MockData.json
+│   ├── MockToDoItemManager.swift
+│   ├── ProjectType.swift
+│   └── ToDoItem.swift
 ├── Protocol
-│   ├── DataManagable.swift
-│   ├── DataSenable.swift
 │   ├── Presentable.swift
 │   └── ReuseIdentifiable.swift
 ├── Resources
@@ -52,25 +55,37 @@
 │   ├── LaunchScreen.storyboard
 │   └── SceneDelegate.swift
 └── Scene
-    └── Main
-        ├── Model
-        │   ├── ItemListCatory.swift
-        │   ├── MockData.json
-        │   └── MockToDoItemManager.swift
-        └── View
-            ├── Common
-            │   ├── ProjectType.swift
-            │   └── ToDoComponentsView.swift
-            ├── MainView
-            │   ├── MainViewController.swift
-            │   ├── MainViewModel.swift
-            │   └── ProjectTableView
-            │       ├── ProjectDetailViewController.swift
-            │       ├── ProjectTableHeaderView.swift
-            │       ├── ProjectTableView.swift
-            │       └── ProjectTableViewCell.swift
-            └── RegistrationView
-                └── RegistrationViewController.swift
+    ├── Alert
+    │   ├── View
+    │   │   └── AlertViewController.swift
+    │   └── ViewModel
+    │       └── AlertViewModel.swift
+    ├── Common
+    │   ├── MainViewModel.swift
+    │   └── ToDoComponentsView.swift
+    ├── Main
+    │   ├── ProjectTableView
+    │   │   ├── Cell
+    │   │   │   └── ProjectTableViewCell.swift
+    │   │   ├── ProjectDetailViewController 2.swift
+    │   │   ├── ProjectTableHeaderView.swift
+    │   │   ├── ProjectTableView.swift
+    │   │   └── ViewModel
+    │   │       └── ProjectTableViewModel.swift
+    │   ├── View
+    │   │   └── MainViewController.swift
+    │   └── ViewModel
+    │       └── MainViewModel.swift
+    ├── ProjectDetailView
+    │   ├── View
+    │   │   └── ProjectDetailViewController.swift
+    │   └── ViewModel
+    │       └── ProjectDetailViewModel.swift
+    └── Registration
+        ├── View
+        │   └── RegistrationViewController.swift
+        └── ViewModel
+            └── RegistrationViewModel.swift
 ```
 
 
@@ -78,9 +93,9 @@
 
 |새 프로젝트 등록|프로젝트 수정|
 |:---:|:---:|
-|<image src = "https://i.imgur.com/9ZCPNtP.gif" >|<image src = "https://i.imgur.com/OTlllvG.gif">|
+|<img src = "https://i.imgur.com/9ZCPNtP.gif" >|<img src = "https://i.imgur.com/OTlllvG.gif">|
 |테이블 뷰 간의 이동|스와이프 삭제|
-|<image src = "https://i.imgur.com/SBHEauJ.gif" >|<image src = "https://i.imgur.com/WeBlTJH.gif">|
+|<img src = "https://i.imgur.com/SBHEauJ.gif" >|<img src = "https://i.imgur.com/WeBlTJH.gif">|
 
 ## 💡 키워드
 - MVVM
@@ -151,3 +166,36 @@
 - 데이터 바인딩이 각 프로퍼티 옵저버가 발생되는 것이 아닌 한개의 프로퍼티 옵저버 `todoContent` 발생함
 - 문제 발생에 대해서 생각해보니 해당 매개변수가 `클로저`이기에 계속해서 하나의 값만 가지고 있어 발생된 문제
 - 해결 방법으로는 이스케이핑 클로저 함수를 만들어주고 각 프로퍼티마다 설정을 해줘서 해결해줌
+
+### 🚀 STEP 2
+
+#### T1. 데이터 전달 - IndexPath
+
+##### 문제점 
+
+- 해당 테이블뷰 셀 클릭한 `IndexPath` 값을 전달해 주기 위해 델리게이트 패턴을 사용해서 "하위뷰 -> 상위뷰"로 데이터 전달을 해주고 `IndexPath`값을 활용하기 위해 전역변수로 설정 
+    -> 전역변수를 활용하게 되면 코드가 커질 시 어디서, 어떻게 활용되는 지 파악하기 어렵기 때문에 최대한 안쓰는 스타일로 정해줌
+
+|전역 변수 설정|Delegate 설정|
+|:---:|:---:|
+|<img src = "https://i.imgur.com/ykuCEqj.png">|<img src = "https://i.imgur.com/WeW8sj5.png" >|
+
+
+
+##### 해결방법
+
+- 각 `View`마다 `ViewModel`을 만들어주고 이미 해당 `View`로 넘어가기 위한 `ViewController`를 알고 있어 델리게이트 패턴 필요 없다는 결과를 도출
+- `IndexPath`에 대한 전역 변수가 필요가 없어졌고 테이블 뷰 클릭 시 해당 `IndexPath`값을 자연스럽게 넘기기 위한 메소드를 구현을 해주는 기능으로 코드 리팩토링 진행
+
+|UITableView 메소드에서 호출|ViewController 메소드 설정|
+|:---:|:---:|
+|<img src = "https://i.imgur.com/ri27SkB.png">|<img src = "https://i.imgur.com/aw1soxr.png">|
+
+#### T2. ViewModel
+
+##### 문제점 
+
+- 하나의 `ViewModel`을 파라미터로 넘겨주어서 모든 `View`를 하나의 `ViewModel`로 값을 넘겨주어 `ViewModel` 보다는 `Domain Model`의 느낌이 강했음
+
+##### 해결방법
+- `ViewModel`에서 추적해주는 값을 `Singletone`으로 활용하여 각 `View`마다 `ViewModel`을 설정해주도록 하여 뷰마다의 상태값에 따라 값들을 변경할 수 있도록 리팩토링
