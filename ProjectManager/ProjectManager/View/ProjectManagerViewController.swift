@@ -43,7 +43,7 @@ final class ProjectManagerViewController: UIViewController {
         
         addSubView()
         setupConstraints()
-        configureAddBarButton()
+        configureBarButton()
     }
     
     private func addSubView() {
@@ -67,11 +67,17 @@ final class ProjectManagerViewController: UIViewController {
         ])
     }
     
-    private func configureAddBarButton() {
+    // MARK: - Bar Button
+    private func configureBarButton() {
         let addWorkBarButton = UIBarButtonItem(image: UIImage(systemName: "plus"),
                                                style: .plain, target: self,
                                                action: #selector(addWorkBarButtonTapped))
+        let historyBarButton = UIBarButtonItem(title: "History",
+                                               style: .plain, target: self,
+                                               action: #selector(historyBarButtonTapped))
+        
         self.navigationItem.rightBarButtonItem = addWorkBarButton
+        self.navigationItem.leftBarButtonItem = historyBarButton
     }
     
     @objc private func addWorkBarButtonTapped() {
@@ -79,6 +85,16 @@ final class ProjectManagerViewController: UIViewController {
         manageViewController.configureAddMode()
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         self.present(manageNavigationController, animated: true)
+    }
+    
+    @objc private func historyBarButtonTapped(_ button: UIBarButtonItem) {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        controller.modalPresentationStyle = .popover
+        controller.addAction(UIAlertAction(title: "Move", style: .default))
+       
+        guard let popover = controller.popoverPresentationController else { return }
+        popover.barButtonItem = button
+        present(controller, animated: true)
     }
     
     // MARK: - UI Binding
