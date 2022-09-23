@@ -22,4 +22,8 @@ final class Observable<T> {
         listener(value)
         self.listener = listener
     }
+    
+    func unsubscribe() {
+        self.listener = nil
+    }
 }
