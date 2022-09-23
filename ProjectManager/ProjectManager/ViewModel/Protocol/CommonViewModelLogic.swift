@@ -10,10 +10,11 @@ import Foundation
 protocol CommonViewModelLogic: AnyObject {
     var identifier: String { get }
     var data: Observable<[ProjectUnit]> { get }
+    var databaseManager: LocalDatabaseManager { get }
     var count: Int { get }
+    var otherTitles: [String] { get }
     var message: String { get set }
     var showAlert: (() -> Void)? { get set }
-    var databaseManager: LocalDatabaseManager { get }
 
     func delete(_ indexPath: Int)
     func isPassDeadLine(_ deadLine: Date) -> Bool
@@ -22,6 +23,12 @@ protocol CommonViewModelLogic: AnyObject {
 extension CommonViewModelLogic {
     var count: Int {
         return data.value.count
+    }
+    
+    var otherTitles: [String] {
+        return [ProjectStatus.todo, ProjectStatus.doing, ProjectStatus.done].filter {
+            $0 != self.identifier
+        }
     }
 
     func delete(_ indexPath: Int) {
