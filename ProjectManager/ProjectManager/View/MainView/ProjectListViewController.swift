@@ -1,5 +1,5 @@
 //
-//  ToDoViewController.swift
+//  ProjectListViewController.swift
 //  ProjectManager
 //
 //  Created by 수꿍, 휴 on 2022/09/17.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
+final class ProjectListViewController: UIViewController, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
     enum Schedule {
         case main
     }
@@ -15,12 +15,12 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
     typealias DataSource = UITableViewDiffableDataSource<Schedule, ProjectUnit>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Schedule, ProjectUnit>
 
-    private var toDoViewdataSource: DataSource?
-    private var toDoViewSnapshot: Snapshot?
+    private var dataSource: DataSource?
+    private var snapshot: Snapshot?
 
     let viewModel = ToDoViewModel(databaseManager: LocalDatabaseManager.inMemory)
 
-    private let toDoListView: UITableView = {
+    private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
@@ -28,6 +28,16 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
 
         return tableView
     }()
+
+    init(viewModel: DiaryViewModelLogic) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,9 +55,9 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
             return
         }
 
-        let tapLocation = recognizer.location(in: self.toDoListView)
+        let tapLocation = recognizer.location(in: self.tableView)
 
-        guard let tapIndexPath = self.toDoListView.indexPathForRow(at: tapLocation) else {
+        guard let tapIndexPath = self.tableView.indexPathForRow(at: tapLocation) else {
             return
         }
 
@@ -59,10 +69,10 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
             return
         }
 
-        let longPressLocation = recognizer.location(in: self.toDoListView)
+        let longPressLocation = recognizer.location(in: self.tableView)
 
-        guard let tapIndexPath = self.toDoListView.indexPathForRow(at: longPressLocation),
-              let tappedCell = self.toDoListView.cellForRow(at: tapIndexPath) as? ProjectManagerListCell else {
+        guard let tapIndexPath = self.tableView.indexPathForRow(at: longPressLocation),
+              let tappedCell = self.tableView.cellForRow(at: tapIndexPath) as? ProjectManagerListCell else {
             return
         }
 
@@ -71,22 +81,22 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
 
     private func configureUI() {
         self.view.backgroundColor = .systemBackground
-        self.view.addSubview(toDoListView)
+        self.view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
-            toDoListView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            toDoListView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            toDoListView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            toDoListView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
     private func configureDataSource() {
-        toDoListView.register(cellType: ProjectManagerListCell.self)
-        toDoListView.delegate = self
+        tableView.register(cellType: ProjectManagerListCell.self)
+        tableView.delegate = self
 
-        toDoViewdataSource = DataSource(
-            tableView: toDoListView,
+        dataSource = DataSource(
+            tableView: tableView,
             cellProvider: { tableView, indexPath, item in
                 let cell: ProjectManagerListCell = tableView.dequeueReusableCell(for: indexPath)
                 cell.setContents(
@@ -112,14 +122,14 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
                 return
             }
 
-            self.toDoViewSnapshot = self.configureSnapshot(data: projectUnitArray)
+            self.snapshot = self.configureSnapshot(data: projectUnitArray)
 
-            guard let toDoViewSnapshot = self.toDoViewSnapshot else {
+            guard let snapshot = self.snapshot else {
                 return
             }
 
-            self.toDoViewdataSource?.apply(toDoViewSnapshot)
-            self.toDoListView.reloadData()
+            self.dataSource?.apply(snapshot)
+            self.tableView.reloadData()
         }
     }
 
@@ -129,7 +139,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
             action: #selector(didTapCell(_:))
         )
         tapGesture.delegate = self
-        toDoListView.addGestureRecognizer(tapGesture)
+        tableView.addGestureRecognizer(tapGesture)
     }
 
     private func configureLongPressGesture() {
@@ -138,7 +148,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
             action: #selector(didPressCell(_:))
         )
         longPressGesture.delegate = self
-        toDoListView.addGestureRecognizer(longPressGesture)
+        tableView.addGestureRecognizer(longPressGesture)
     }
 
     private func showAlert() {
@@ -201,7 +211,7 @@ final class ToDoViewController: UIViewController, UIGestureRecognizerDelegate, U
     }
 }
 
-extension ToDoViewController: UITableViewDelegate {
+extension ProjectListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = SectionHeaderView()
         headerView.setupLabelText(section: ProjectStatus.todo, number: viewModel.count)

@@ -7,9 +7,9 @@
 import UIKit
 
 final class ProjectManagerController: UIViewController {
-    private let toDoViewController = ToDoViewController()
-    private let doingViewController = DoingViewController()
-    private let doneViewController = DoneViewController()
+    private let toDoViewController = ProjectListViewController()
+    private let doingViewController = ProjectListViewController()
+    private let doneViewController = ProjectListViewController()
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
