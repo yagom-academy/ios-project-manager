@@ -123,17 +123,42 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		20804A0528DD9C62002A8119 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				20E1A87B28C875EC0074364A /* HeaderView.swift */,
+				2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */,
+				20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */,
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		20804A0628DD9C67002A8119 /* Manage */ = {
+			isa = PBXGroup;
+			children = (
+				2021C46E28CAA46E0091D087 /* WorkManageView.swift */,
+				2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */,
+			);
+			name = Manage;
+			path = ProjectManager/View/Manage;
+			sourceTree = SOURCE_ROOT;
+		};
+		20804A0728DD9C6D002A8119 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */,
+				208049FB28DD926D002A8119 /* HistoryViewController.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		20E1A87828C872080074364A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */,
-				20E1A87B28C875EC0074364A /* HeaderView.swift */,
-				20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */,
-				2021C46E28CAA46E0091D087 /* WorkManageView.swift */,
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
-				2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */,
-				208049FB28DD926D002A8119 /* HistoryViewController.swift */,
-				208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */,
+				20804A0528DD9C62002A8119 /* Main */,
+				20804A0628DD9C67002A8119 /* Manage */,
+				20804A0728DD9C6D002A8119 /* History */,
 			);
 			path = View;
 			sourceTree = "<group>";
