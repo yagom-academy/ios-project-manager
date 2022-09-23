@@ -45,7 +45,7 @@ final class ProjectManagerController: UIViewController {
     
     @objc func didTapAddButton() {
         let projectAdditionController = ProjectAdditionController()
-        projectAdditionController.viewModel = self.toDoViewController.viewModel as? ContentAddible 
+        projectAdditionController.viewModel = self.toDoViewController.viewModel as? ContentAddible
 
         let navigationController = UINavigationController(rootViewController: projectAdditionController)
         navigationController.modalPresentationStyle = .formSheet

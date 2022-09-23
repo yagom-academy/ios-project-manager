@@ -55,7 +55,8 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
         
         configureUI()
     }
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         

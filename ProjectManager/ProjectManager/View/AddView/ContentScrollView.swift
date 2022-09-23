@@ -1,5 +1,5 @@
 //
-//  ProjectAdditionScrollView.swift
+//  ContentScrollView.swift
 //  ProjectManager
 //
 //  Created by 수꿍, 휴 on 2022/09/11.
@@ -8,7 +8,7 @@
 import UIKit
 import OSLog
 
-final class ProjectAdditionScrollView: UIScrollView {
+final class ContentScrollView: UIScrollView {
     private let scheduleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +89,8 @@ final class ProjectAdditionScrollView: UIScrollView {
         configureUI()
         configureInset()
     }
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         

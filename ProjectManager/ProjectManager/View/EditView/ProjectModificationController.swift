@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProjectModificationController: UIViewController {
-    private let projectAdditionScrollView = ProjectAdditionScrollView()
+    private let scrollView = ContentScrollView()
     var viewModel: ContentEditable?
     var indexPath: Int?
 
@@ -25,19 +25,19 @@ final class ProjectModificationController: UIViewController {
 
     @objc private func didTapEditButton() {
         guard let indexPath = indexPath,
-              let title = projectAdditionScrollView.scheduleTitleTextField.text,
-              let date = projectAdditionScrollView.datePicker?.date else {
+              let title = scrollView.scheduleTitleTextField.text,
+              let date = scrollView.datePicker?.date else {
             return
         }
 
-        viewModel?.edit(
+        self.viewModel?.edit(
             indexPath: indexPath,
             title: title,
-            body: projectAdditionScrollView.scheduleDescriptionTextView.text,
+            body: scrollView.scheduleDescriptionTextView.text,
             date: date
         )
     }
-    
+
     private func configureNavigationItems() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Done",
@@ -55,13 +55,13 @@ final class ProjectModificationController: UIViewController {
 
     private func configureUI() {
         self.view.backgroundColor = .systemBackground
-        self.view.addSubview(projectAdditionScrollView)
+        self.view.addSubview(scrollView)
 
         NSLayoutConstraint.activate([
-            projectAdditionScrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            projectAdditionScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            projectAdditionScrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            projectAdditionScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
@@ -71,6 +71,6 @@ final class ProjectModificationController: UIViewController {
             return
         }
 
-        projectAdditionScrollView.setContent(data: data)
+        scrollView.setContent(data: data)
     }
 }

@@ -17,8 +17,7 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
 
     private var dataSource: DataSource?
     private var snapshot: Snapshot?
-
-    var viewModel: CommonViewModelLogic!
+    let viewModel: CommonViewModelLogic
 
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -34,6 +33,7 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

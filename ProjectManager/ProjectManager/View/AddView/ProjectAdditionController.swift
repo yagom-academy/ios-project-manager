@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProjectAdditionController: UIViewController {
-    private let projectAdditionScrollView = ProjectAdditionScrollView()
+    private let scrollView = ContentScrollView()
     var viewModel: ContentAddible?
 
     override func viewDidLoad() {
@@ -18,14 +18,14 @@ final class ProjectAdditionController: UIViewController {
     }
 
     @objc private func didTapDoneButton() {
-        guard let title = projectAdditionScrollView.scheduleTitleTextField.text,
-              let date = projectAdditionScrollView.datePicker?.date else {
+        guard let title = scrollView.scheduleTitleTextField.text,
+              let date = scrollView.datePicker?.date else {
             return
         }
 
         self.viewModel?.addContent(
             title: title,
-            body: projectAdditionScrollView.scheduleDescriptionTextView.text,
+            body: scrollView.scheduleDescriptionTextView.text,
             date: date
         )
 
@@ -54,13 +54,13 @@ final class ProjectAdditionController: UIViewController {
     
     private func configureUI() {
         self.view.backgroundColor = .systemBackground
-        self.view.addSubview(projectAdditionScrollView)
+        self.view.addSubview(scrollView)
         
         NSLayoutConstraint.activate([
-            projectAdditionScrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            projectAdditionScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            projectAdditionScrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            projectAdditionScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
