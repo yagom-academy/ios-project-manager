@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ToDoViewModel: Readjustable, Editable {
+final class ToDoViewModel: StatusChangable, ContentEditable {
     var toDoData: Observable<[ProjectUnit]> = Observable([])
     
     var count: Int {
@@ -46,7 +46,7 @@ final class ToDoViewModel: Readjustable, Editable {
         fetchToDoData()
     }
 
-    func addProject(
+    func addContent(
         title: String,
         body: String,
         date: Date
@@ -96,10 +96,10 @@ final class ToDoViewModel: Readjustable, Editable {
         toDoData.value[indexPath]
     }
     
-    func readjust(index: Int, section: String) {
+    func change(index: Int, status: String) {
         let data = toDoData.value.remove(at: index)
         
-        switch section {
+        switch status {
         case ProjectStatus.doing:
             NotificationCenter.default.post(name: Notification.Name.toDoToDoing, object: data)
         case ProjectStatus.done:

@@ -64,7 +64,7 @@ final class ProjectManagerTests: XCTestCase {
         let expectationDate = Date()
 
         // when
-        sut.addProject(title: expectationTitle, body: expectationBody, date: expectationDate)
+        sut.addContent(title: expectationTitle, body: expectationBody, date: expectationDate)
         let result = sut.fetch(0)
 
         // then
@@ -75,8 +75,8 @@ final class ProjectManagerTests: XCTestCase {
 
     func test_viewModel이_코어데이터에_저장된_projectUnit을_정상적으로_삭제하는지_테스트() {
         // given
-        let _ = sut.addProject(title: "타이틀1", body: "바디1", date: Date())
-        let _ = sut.addProject(title: "타이틀2", body: "바디2", date: Date())
+        let _ = sut.addContent(title: "타이틀1", body: "바디1", date: Date())
+        let _ = sut.addContent(title: "타이틀2", body: "바디2", date: Date())
         let expectation = 1
 
         // when
@@ -89,7 +89,7 @@ final class ProjectManagerTests: XCTestCase {
 
     func test_viewModel이_코어데이터에_저장된_projectUnit을_정상적으로_업데이트하는지_테스트() {
         // given
-        let _ = sut.addProject(title: "타이틀", body: "바디", date: Date())
+        let _ = sut.addContent(title: "타이틀", body: "바디", date: Date())
         let expectationTitle = "새로운 타이틀"
         let expectationBody = "새로운 바디"
         let expectationDate = Date()
@@ -107,11 +107,11 @@ final class ProjectManagerTests: XCTestCase {
     func test_toDoViewModel의_데이터가_doingViewModel로_정상적으로_이동하는지_테스트() {
         // given
         countOfDoing = 0
-        let _ = sut.addProject(title: "타이틀", body: "바디", date: Date())
+        let _ = sut.addContent(title: "타이틀", body: "바디", date: Date())
         let expectation = 1
 
         // when
-        sut.readjust(index: 0, section: "DOING")
+        sut.change(index: 0, status: "DOING")
 
         // then
         XCTAssertEqual(expectation, countOfDoing)

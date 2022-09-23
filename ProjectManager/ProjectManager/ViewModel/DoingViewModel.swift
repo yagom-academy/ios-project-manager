@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DoingViewModel: Readjustable, Editable {
+final class DoingViewModel: StatusChangable, ContentEditable {
     var doingData: Observable<[ProjectUnit]> = Observable([])
     
     var count: Int {
@@ -76,10 +76,10 @@ final class DoingViewModel: Readjustable, Editable {
         doingData.value[indexPath]
     }
 
-    func readjust(index: Int, section: String) {
+    func change(index: Int, status: String) {
         let data = doingData.value.remove(at: index)
 
-        switch section {
+        switch status {
         case ProjectStatus.todo:
             NotificationCenter.default.post(name: Notification.Name.doingToToDo, object: data)
         case ProjectStatus.done:

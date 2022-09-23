@@ -23,7 +23,7 @@ final class ProjectAdditionController: UIViewController {
             return
         }
 
-        self.viewModel?.addProject(
+        self.viewModel?.addContent(
             title: title,
             body: projectAdditionScrollView.scheduleDescriptionTextView.text,
             date: date
