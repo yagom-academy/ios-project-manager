@@ -8,13 +8,13 @@
 import Foundation
 
 extension Date {
-    func convertToRegion() -> String {
+    func convertToRegion(timeStyle: DateFormatter.Style = .none) -> String {
         let localeLanguage = Locale.preferredLanguages.first ?? "ko"
         let dateFormatter = DateFormatter()
         
         dateFormatter.locale = Locale(identifier: localeLanguage)
         dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .none
+        dateFormatter.timeStyle = timeStyle
         return dateFormatter.string(from: self)
     }
 }
