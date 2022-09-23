@@ -9,15 +9,18 @@ import RxSwift
 import RxCocoa
 
 class WorkViewModel {
+    private let database: DatabaseManageable
     private let disposeBag = DisposeBag()
     private let works = BehaviorSubject<[Work]>(value: [])
     let worksObservable: Observable<[Work]>
     
-    init() {
-        FirebaseManager.shared.fetchWork()
+    init(dbType: DatabaseManageable) {
+        database = dbType
+        
+        database.fetchWork()
             .subscribe(onNext: works.onNext)
             .disposed(by: disposeBag)
-
+        
         worksObservable = works
     }
     
@@ -32,14 +35,14 @@ class WorkViewModel {
     }
     
     func addWork(_ work: Work) {
-        FirebaseManager.shared.saveWork(work)
+        database.saveWork(work)
         guard let value = try? works.value() else { return }
         
         works.onNext([work] + value)
     }
     
     func editWork(_ work: Work, newWork: Work) {
-        FirebaseManager.shared.saveWork(newWork)
+        database.saveWork(newWork)
         
         works.map {
             $0.map {
@@ -53,7 +56,7 @@ class WorkViewModel {
     }
     
     func deleteWork(id: UUID) {
-        FirebaseManager.shared.deleteWork(id: id)
+        database.deleteWork(id: id)
         
         works.map {
             $0.filter { $0.id != id }
@@ -72,7 +75,7 @@ class WorkViewModel {
                                deadline: work.deadline,
                                state: state)
         
-        FirebaseManager.shared.saveWork(changedWork)
+        database.saveWork(changedWork)
         
         works.map {
             $0.map {

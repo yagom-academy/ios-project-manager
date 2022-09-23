@@ -9,7 +9,7 @@ import RxSwift
 
 final class ProjectManagerViewController: UIViewController {
     // MARK: - Properties
-    private let viewModel = WorkViewModel()
+    private let viewModel = WorkViewModel(dbType: CoreDataManager.shared)
     private let disposeBag = DisposeBag()
     
     // MARK: - UI

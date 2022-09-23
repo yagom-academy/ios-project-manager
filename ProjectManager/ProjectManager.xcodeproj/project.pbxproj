@@ -14,6 +14,7 @@
 		2041B01228DC7F3000636D06 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01028DC7F3000636D06 /* FirebaseService.swift */; };
 		2041B01328DC7F3000636D06 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01128DC7F3000636D06 /* FirebaseManager.swift */; };
 		2041B01928DC8B2B00636D06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2041B01828DC8B2B00636D06 /* GoogleService-Info.plist */; };
+		2041B01B28DC9F5100636D06 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01A28DC9F5100636D06 /* CoreDataManager.swift */; };
 		2054FB7628D1B30B0007AF1E /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7528D1B30B0007AF1E /* DateManager.swift */; };
 		2054FB7828D1DAEC0007AF1E /* WorkTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */; };
 		208049EC28DD4887002A8119 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 208049EA28DD4887002A8119 /* ProjectManager.xcdatamodeld */; };
@@ -44,6 +45,7 @@
 		2041B01028DC7F3000636D06 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		2041B01128DC7F3000636D06 /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		2041B01828DC8B2B00636D06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2041B01A28DC9F5100636D06 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		2054FB7528D1B30B0007AF1E /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableView.swift; sourceTree = "<group>"; };
 		208049EB28DD4887002A8119 /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
@@ -100,9 +102,10 @@
 		2041B00F28DC7F3000636D06 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */,
 				2041B01028DC7F3000636D06 /* FirebaseService.swift */,
 				2041B01128DC7F3000636D06 /* FirebaseManager.swift */,
-				2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */,
+				2041B01A28DC9F5100636D06 /* CoreDataManager.swift */,
 			);
 			name = Database;
 			path = ProjectManager/Database;
@@ -350,6 +353,7 @@
 				2041B00E28DC3FEB00636D06 /* DatabaseManageable.swift in Sources */,
 				20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */,
 				208049F928DD4C8F002A8119 /* WorkEntity+CoreDataClass.swift in Sources */,
+				2041B01B28DC9F5100636D06 /* CoreDataManager.swift in Sources */,
 				20E1A88428C8A22A0074364A /* Work.swift in Sources */,
 				208049EC28DD4887002A8119 /* ProjectManager.xcdatamodeld in Sources */,
 				208049FA28DD4C8F002A8119 /* WorkEntity+CoreDataProperties.swift in Sources */,

@@ -34,7 +34,7 @@ final class ManageWorkViewController: UIViewController {
     }
     
     // MARK: - initializer
-    init(viewModel: WorkViewModel = WorkViewModel()) {
+    init(viewModel: WorkViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
