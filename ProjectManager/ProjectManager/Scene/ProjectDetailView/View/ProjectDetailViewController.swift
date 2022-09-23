@@ -10,23 +10,27 @@ import UIKit
 final class ProjectDetailViewController: UIViewController {
     
     // MARK: - Properties
-
-    var delegate: DataSenable?
     
     private let toDoComponentsView = ToDoComponentsView()
+    private let projectDetailViewModel = ProjectDetailViewModel()
     private let tableView: UITableView
-
+    
+    private var selectedIndex: Int?
+    private var selectedProjectType: ProjectType?
+    private var isEditable: Bool = false
+    
     // MARK: View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
     // MARK: - Initializers
-
+    
     init(with tableView: UITableView) {
         self.tableView = tableView
+        
         super.init(nibName: nil, bundle: nil)
         guard let tableView = tableView as? ProjectTableView else { return }
         navigationItem.title = tableView.getTitle()
@@ -41,6 +45,11 @@ final class ProjectDetailViewController: UIViewController {
     
     func loadData(of item: ToDoItem) {
         toDoComponentsView.configure(of: item)
+    }
+    
+    func sendData(of project: ProjectType, in row: Int) {
+        selectedProjectType = project
+        selectedIndex = row
     }
     
     private func setupUI() {
@@ -68,7 +77,7 @@ final class ProjectDetailViewController: UIViewController {
                                                  target: self,
                                                  action: #selector(didDoneButtonTapped))
         let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
-                                                 target: self,
+                                                target: self,
                                                 action: #selector(didEditButtonTapped))
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
@@ -91,10 +100,19 @@ final class ProjectDetailViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didEditButtonTapped() {
-        delegate?.sendData(of: toDoComponentsView.fetchItem())
+        if isEditable == false {
+            toDoComponentsView.setupEditable(is: true)
+            isEditable = true
+        } else {
+            toDoComponentsView.setupEditable(is: false)
+            isEditable = false
+        }
     }
     
     @objc private func didDoneButtonTapped() {
+        projectDetailViewModel.update(item: toDoComponentsView.fetchItem(),
+                                      from: selectedIndex ?? .zero,
+                                      of: selectedProjectType ?? .todo)
         dismissViewController()
     }
     

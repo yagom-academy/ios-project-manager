@@ -12,8 +12,7 @@ final class RegistrationViewController: UIViewController {
     // MARK: - Properties
     
     private let toDoComponentsView = ToDoComponentsView()
-    
-    var delegate: DataSenable?
+    private let registrationViewModel = RegistrationViewModel()
     
     // MARK: View Life Cycle
     
@@ -37,6 +36,7 @@ final class RegistrationViewController: UIViewController {
     
     private func setupSubviews() {
         view.addSubview(toDoComponentsView)
+        toDoComponentsView.setupEditable(is: true)
     }
     
     private func setupNavigationController() {
@@ -74,7 +74,7 @@ final class RegistrationViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didDoneButtonTapped() {
-        delegate?.sendData(of: toDoComponentsView.fetchItem())
+        registrationViewModel.append(new: toDoComponentsView.fetchItem(), to: .todo)
         dismissViewController()
     }
     

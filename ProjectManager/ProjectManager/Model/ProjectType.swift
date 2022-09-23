@@ -5,8 +5,6 @@
 //  Created by brad, bard on 2022/09/13.
 //
 
-import UIKit
-
 enum ProjectType: CaseIterable {
     case todo
     case doing

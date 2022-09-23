@@ -7,26 +7,23 @@
 
 import UIKit
 
-class ProjectTableView: UITableView {
+final class ProjectTableView: UITableView {
     
     // MARK: - Properties
     
     var presetDelegate: Presentable?
     
-    private let toDoViewModel: ToDoViewModel
-    
     private let projectType: ProjectType
     
     private var projectHeaderView: ProjectTableHeaderView
     
-    private var selectedIndex: Int?
+    private let projectTableViewModel = ProjectTableViewModel()
     
     // MARK: Initializers
     
-    init(for projectType: ProjectType, with manager: ToDoViewModel) {
+    init(for projectType: ProjectType) {
         self.projectType = projectType
         projectHeaderView = ProjectTableHeaderView(with: projectType)
-        toDoViewModel = manager
         super.init(frame: .zero, style: .plain)
         commonInit()
     }
@@ -34,7 +31,6 @@ class ProjectTableView: UITableView {
     required init?(coder: NSCoder) {
         projectType = .todo
         projectHeaderView = ProjectTableHeaderView(with: .todo)
-        toDoViewModel = ToDoViewModel()
         super.init(coder: coder)
     }
     
@@ -59,11 +55,11 @@ class ProjectTableView: UITableView {
     func setupIndexLabel() {
         switch projectType {
         case .todo:
-            projectHeaderView.setupIndexLabel(with: toDoViewModel.count(of: .todo))
+            projectHeaderView.setupIndexLabel(with: projectTableViewModel.count(of: .todo))
         case .doing:
-            projectHeaderView.setupIndexLabel(with: toDoViewModel.count(of: .doing))
+            projectHeaderView.setupIndexLabel(with: projectTableViewModel.count(of: .doing))
         case .done:
-            projectHeaderView.setupIndexLabel(with: toDoViewModel.count(of: .done))
+            projectHeaderView.setupIndexLabel(with: projectTableViewModel.count(of: .done))
         }
     }
     
@@ -87,9 +83,8 @@ class ProjectTableView: UITableView {
         guard let indexPath = indexPathForRow(at: touchPoint) else { return }
         
         let alertController = AlertViewController(with: projectType,
-                                              by: indexPath,
-                                              tableView: self,
-                                              viewModel: toDoViewModel)
+                                                  by: indexPath,
+                                                  tableView: self)
         guard let popoverController = alertController.popoverPresentationController else { return }
         
         let cell = cellForRow(at: indexPath)
@@ -112,10 +107,12 @@ class ProjectTableView: UITableView {
     }
 }
 
+// MARK: - Extensions
+
 extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return toDoViewModel.count(of: projectType)
+        return projectTableViewModel.count(of: projectType)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -123,43 +120,34 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
                                                        for: indexPath) as? ProjectTableViewCell
         else { return UITableViewCell() }
         
-        cell.configure(data: toDoViewModel.searchContent(from: indexPath.row, of: projectType), type: projectType)
+        cell.configure(data: projectTableViewModel.searchContent(from: indexPath.row, of: projectType), type: projectType)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        selectedIndex = indexPath.row
-
+        
         let toDoListDetailViewController = ProjectDetailViewController(with: tableView)
         let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
         
         toDoListDetailViewController.modalPresentationStyle = .formSheet
         
-        toDoListDetailViewController.loadData(of: toDoViewModel.searchContent(from: indexPath.row,
-                                                                              of: projectType))
-        toDoListDetailViewController.delegate = self
-
+        toDoListDetailViewController.loadData(of: projectTableViewModel.searchContent(from: indexPath.row,
+                                                                                      of: projectType))
+        toDoListDetailViewController.sendData(of: projectType, in: indexPath.row)
         presetDelegate?.presentDetail(navigationController)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .normal, title: Design.deleteActionTitle) { [weak self] _, _, _ in
-            self?.toDoViewModel.delete(from: indexPath.row, of: self?.projectType ?? .todo)
+            self?.projectTableViewModel.delete(from: indexPath.row, of: self?.projectType ?? .todo)
         }
         
         deleteAction.backgroundColor = .red
         let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
         
         return swipeAction
-    }
-}
-
-extension ProjectTableView: DataSenable {
-    func sendData(of item: ToDoItem) {
-        toDoViewModel.update(item: item, from: selectedIndex ?? 0, of: projectType)
     }
 }
