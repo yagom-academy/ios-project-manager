@@ -25,30 +25,29 @@ final class TodoDataProvider {
     
     // MARK: - Methods
     
-    func saveTodoData(document: String, todoData: Todo) {
+    func saveTodoData(document: UUID, todoData: Todo) {
         FirebaseManager.shared.sendData(
             collection: "todo_list",
-            document: document,
+            document: document.uuidString,
             data: todoData
         )
         .subscribe(onError: { error in
-        }, onCompleted: {
-            self.fetchTodoData()
+        }, onCompleted: { [weak self] in
+            self?.fetchTodoData()
         })
-        .disposed(by: self.disposeBag)
+        .disposed(by: disposeBag)
     }
     
-    func deleteTodoData(document: String) {
+    func deleteTodoData(document: UUID) {
         FirebaseManager.shared.deleteTodoData(
             collection: "todo_list",
-            document: document
+            document: document.uuidString
         )
         .subscribe(onError: { error in
-        }, onCompleted: {
-            self.fetchTodoData()
+        }, onCompleted: { [weak self] in
+            self?.fetchTodoData()
         })
-        .disposed(by: self.disposeBag)
-        
+        .disposed(by: disposeBag)
     }
     
     func fetchTodoData() {
@@ -56,8 +55,8 @@ final class TodoDataProvider {
             .map { self.convertData($0) }
             .map { $0.sorted { $0.createdAt < $1.createdAt } }
             .take(1)
-            .subscribe(onNext: { todoList in
-                self.allTodoList.onNext(todoList)
+            .subscribe(onNext: { [weak self] todoList in
+                self?.allTodoList.onNext(todoList)
             })
             .disposed(by: disposeBag)
     }

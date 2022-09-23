@@ -42,9 +42,9 @@ extension FirebaseManager {
     }
     
     func sendData(collection: String, document: String, data: Todo) -> Observable<Void> {
-        Observable.create { emitter in
+        Observable.create { [weak self] emitter in
             do {
-                try self.firestore.collection(collection).document(document).setData(from: data) { error in
+                try self?.firestore.collection(collection).document(document).setData(from: data) { error in
                     if let error = error {
                         emitter.onError(error)
                     }
@@ -58,8 +58,8 @@ extension FirebaseManager {
     }
     
     func deleteTodoData(collection: String, document: String) -> Observable<Void> {
-        Observable.create { emitter in
-            self.firestore.collection(collection).document(document).delete { error in
+        Observable.create { [weak self] emitter in
+            self?.firestore.collection(collection).document(document).delete { error in
                 if let error = error {
                     emitter.onError(error)
                 }

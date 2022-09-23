@@ -64,10 +64,11 @@ extension CellViewModelType {
                 newTodo?.identity = oldTodo.identity
                 newTodo?.status = oldTodo.status
                 newTodo?.isOutdated = oldTodo.isOutdated
+
                 return newTodo
             }
-            .subscribe(onNext: { todo in
-                self.saveSubject.onNext(todo)
+            .subscribe(onNext: { [weak self] todo in
+                self?.provider.saveTodoData(document: todo.identity, todoData: todo)
             })
             .disposed(by: disposeBag)
         
@@ -75,8 +76,8 @@ extension CellViewModelType {
             .withLatestFrom(categorizedTodoList) { todoIndex, categorizedTodoList in
                 categorizedTodoList[todoIndex]
             }
-            .subscribe(onNext: { todo in
-                self.deleteSubject.onNext(todo)
+            .subscribe(onNext: { [weak self] todo in
+                self?.provider.deleteTodoData(document: todo.identity)
             })
             .disposed(by: disposeBag)
         
@@ -85,7 +86,7 @@ extension CellViewModelType {
             .map { ($0.0, $0.1.location(in: $0.0)) }
             .map { ($0.0, $0.0.indexPathForRow(at: $0.1)) }
             .withLatestFrom(categorizedTodoList) { ($0.0, $0.1, $1) }
-            .subscribe(onNext: { (tableView, indexPath, categorizedTodoList) in
+            .subscribe(onNext: { [weak self] (tableView, indexPath, categorizedTodoList) in
                 guard let indexPath = indexPath else { return }
 
                 let currentCell = tableView.cellForRow(at: indexPath)
@@ -108,7 +109,7 @@ extension CellViewModelType {
                     newAlertContoller.addAction(newAction)
                 }
                 
-                self.setupPopup(
+                self?.setupPopup(
                     alertController: newAlertContoller,
                     selectedCell: currentCell
                 )

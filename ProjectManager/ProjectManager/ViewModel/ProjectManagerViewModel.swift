@@ -22,7 +22,7 @@ final class ProjectManagerViewModel: ProjectManagerViewModelType {
         let alertController = PublishSubject<UIAlertController>()
         
         viewInput.doneAction?
-            .subscribe(onNext: { todo in
+            .subscribe(onNext: { [weak self] todo in
                 guard let todo = todo else {
                     error.onNext(TodoError.initializingFailed)
                     return
@@ -33,8 +33,8 @@ final class ProjectManagerViewModel: ProjectManagerViewModelType {
                     return
                 }
                 
-                self.provider.saveTodoData(
-                    document: todo.identity.uuidString,
+                self?.provider.saveTodoData(
+                    document: todo.identity,
                     todoData: todo
                 )
             })

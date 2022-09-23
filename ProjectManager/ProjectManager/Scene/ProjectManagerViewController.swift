@@ -67,7 +67,7 @@ extension ProjectManagerViewController {
         )
         initialCollectionView.isScrollEnabled = false
         
-        self.collectionView = initialCollectionView
+        collectionView = initialCollectionView
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -95,12 +95,12 @@ extension ProjectManagerViewController {
     }
     
     private func configureHierarchy() {
-        guard let collectionView = self.collectionView else { return }
+        guard let collectionView = collectionView else { return }
         view.addSubview(collectionView)
     }
     
     private func configureLayout() {
-        guard let collectionView = self.collectionView else { return }
+        guard let collectionView = collectionView else { return }
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -113,9 +113,13 @@ extension ProjectManagerViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
-    
     private func configureObservable() {
-        guard let collectionView = self.collectionView else { return }
+}
+
+// MARK: - Bind Method
+
+extension ProjectManagerViewController {
+        guard let collectionView = collectionView else { return }
         
         let input = ProjectManagerViewInput(doneAction: detailViewDoneButtonTapped)
         let output = viewModel.transform(viewInput: input)

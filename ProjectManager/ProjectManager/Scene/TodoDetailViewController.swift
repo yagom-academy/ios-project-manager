@@ -194,9 +194,9 @@ extension TodoDetailViewController {
 
 extension TodoDetailViewController {
     func getCurrentTodoInfomation(todoId: UUID? = nil, status: TodoStatus? = nil, isOutdated: Bool? = nil) -> Todo? {
-        guard let title = self.titleTextField.text,
-              let body = self.bodyTextView.text else { return nil }
-        let date = self.datePicker.date
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text else { return nil }
+        let date = datePicker.date
         
         var newTodoId = UUID()
         var newStatus = TodoStatus.todo

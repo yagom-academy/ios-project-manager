@@ -89,17 +89,21 @@ extension ProjectManagerCollectionViewCell {
         )
         initialTableView.delegate = self
         
-        self.tableView = initialTableView
+        tableView = initialTableView
     }
     
     private func configureHierarchy() {
-        guard let tableView = self.tableView else { return }
+        guard let tableView = tableView else { return }
         addSubview(tableView)
     }
-    
     private func configureObservable() {
-        guard let tableView = self.tableView,
-              let statusType = self.statusType else { return }
+}
+
+// MARK: - Bind Method
+
+extension ProjectManagerCollectionViewCell {
+        guard let tableView = tableView,
+              let statusType = statusType else { return }
         
         let input = CellViewInput(
             doneAction: detailViewDoneButtonSubject,
@@ -135,21 +139,22 @@ extension ProjectManagerCollectionViewCell {
         
         dataSource.canEditRowAtIndexPath = { dataSource, index -> Bool in true }
         tableView.rx.itemDeleted
-            .bind { indexPath in
-                self.deleteSubject.onNext(indexPath.row)
+            .bind { [weak self] indexPath in
+                self?.deleteSubject.onNext(indexPath.row)
             }
             .disposed(by: disposeBag)
         
         tableView.rx.longPressGesture()
-            .subscribe(onNext: { gestureRecognizer in
-                self.moveToSubject.onNext((tableView, gestureRecognizer))
+            .subscribe(onNext: { [weak self] gestureRecognizer in
+                self?.moveToSubject.onNext((tableView, gestureRecognizer))
             })
             .disposed(by: disposeBag)
         
         tableView.rx.itemSelected
-            .subscribe(onNext: { indexPath in
+            .subscribe(onNext: { [weak self] indexPath in
                 
-                guard let rootViewController = self.window?.rootViewController else { return }
+                guard let self = self,
+                      let rootViewController = self.window?.rootViewController else { return }
                 
                 let todoDetailViewController = TodoDetailViewController()
                 let categorizedTodoList = output.categorizedTodoList?
@@ -209,9 +214,9 @@ extension ProjectManagerCollectionViewCell {
         sectionSubject.bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
-        output?.moveToAlertController?
-            .subscribe(onNext: {
-                guard let rootViewController = self.window?.rootViewController else { return }
+        output.moveToAlertController?
+            .subscribe(onNext: { [weak self] in
+                guard let rootViewController = self?.window?.rootViewController else { return }
                 rootViewController.present($0, animated: true)
             })
             .disposed(by: disposeBag)
