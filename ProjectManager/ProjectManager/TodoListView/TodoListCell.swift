@@ -64,7 +64,6 @@ extension TodoListCell: ReuseIdentifying {
     private func commonInit() {
         addSubView()
         setupConstraint()
-        configure()
     }
     
     private func addSubView() {
@@ -83,12 +82,9 @@ extension TodoListCell: ReuseIdentifying {
         ])
     }
     
-    func configure() {
-        //        self.titleLabel.text = data.title
-        //        self.bodyLabel.text = data.body
-        //        self.dateLabel.text = DateManager().formatted(date: Date(timeIntervalSince1970: data.createdAt))
-        self.titleLabel.text = "테스트"
-        self.bodyLabel.text = "내용"
-        self.dateLabel.text = "날짜"
+    func configure(todoData: TodoModel) {
+        self.titleLabel.text = todoData.title
+        self.bodyLabel.text = todoData.body
+        self.dateLabel.text = DateManager().formatted(date: todoData.createdAt)
     }
 }

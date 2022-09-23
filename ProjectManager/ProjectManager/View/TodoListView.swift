@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class TodoListView: UIView {
     private let registTableView: UITableView
     private let todoStatus: TodoCategory
+    private let todoListViewModel: TodoListViewModel
+    private let disposeBag = DisposeBag()
+    private var coordinator: ApplyCoordinator?
     
     private let todoHeaderStackView: UIStackView = {
         let stackView = UIStackView()
@@ -59,12 +64,15 @@ final class TodoListView: UIView {
         return todoVerticalStackView
     }()
     
-    init(todoStatus: TodoCategory) {
+    init(todoStatus: TodoCategory, todoListViewModel: TodoListViewModel, coordinator: ApplyCoordinator) {
         self.todoStatus = todoStatus
         self.registTableView = UITableView()
+        self.todoListViewModel = todoListViewModel
+        self.coordinator = coordinator
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.fetchTodoListCell()
         self.commonInit()
+        self.bind()
     }
     
     required init?(coder: NSCoder) {
