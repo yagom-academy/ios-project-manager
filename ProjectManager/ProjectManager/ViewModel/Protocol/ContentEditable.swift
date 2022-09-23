@@ -10,3 +10,24 @@ import Foundation
 protocol ContentEditable {
     func edit(indexPath: Int, title: String, body: String, date: Date)
 }
+
+extension ContentEditable where Self: CommonViewModelLogic {
+    func edit(
+        indexPath: Int,
+        title: String,
+        body: String,
+        date: Date
+    ) {
+        var data = data.value[indexPath]
+        data.title = title
+        data.body = body
+        data.deadLine = date
+        
+        self.data.value[indexPath] = data
+        do {
+            try databaseManager.update(data: data)
+        } catch {
+            message = "Edit Error"
+        }
+    }
+}
