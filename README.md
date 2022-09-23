@@ -187,7 +187,7 @@ MVVM 구조로 구현할 때, View와 Service 사이에서 데이터 변화를 �
 
 <br/>
 
-2️⃣  화면마다 하나의 Service 생성
+### 2️⃣  화면마다 하나의 Service 생성
 
 각 뷰컨트롤러마다 `Service` 타입을 만들어주어 사용하고 싶었으나 메인 뷰컨트롤러가 아닌 다른 뷰컨트롤러에서는 크게 데이터 전달이 필요한 로직이 많이 요구되지 않아 하나의 `Service`만 생성해주었음.
 
@@ -195,7 +195,7 @@ MVVM 구조로 구현할 때, View와 Service 사이에서 데이터 변화를 �
 
 <br/>
 
-3️⃣ 뷰모델 내부의 input과 output 구현
+### 3️⃣ 뷰모델 내부의 input과 output 구현
 
 Service 내부에 `Input`과 `Output` 타입을 구현해주었다.
 
@@ -206,7 +206,7 @@ Service 내부에 `Input`과 `Output` 타입을 구현해주었다.
 
 <br/>
 
-4️⃣ Repository 및 Usecase 추상화
+### 4️⃣ Repository 및 Usecase 추상화
 
 추후에 프로젝트 매니저2를 진행할 때 `Remote`의 `Repository`도 구현하게 될텐데, 이를` RepositoryProtocol` 타입을 채택하여 구현하면 나중에 갈아끼우기만 해도 코드가 작동할 수 있도록 추상화해주었다. 
 
@@ -239,7 +239,7 @@ class MainTaskService: TaskServiceProtocol {
 
 <br/>
 
-5️⃣ 데이터의 전달 방식 고민
+### 5️⃣ 데이터의 전달 방식 고민
 
 - 메인 뷰컨트롤러 -> 수정 뷰컨트롤러 or 생성 뷰컨트롤러: 의존성 주입을 통해 데이터를 바로 전달
 - 수정 뷰컨트롤러 or 생성 뷰컨트롤러 -> 메인 뷰컨트롤러: `delegate` 패턴을 통해 데이터를 전달하여 의존 관계를 역전
