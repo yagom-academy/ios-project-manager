@@ -96,12 +96,12 @@ extension ProjectManagerCollectionViewCell {
         guard let tableView = tableView else { return }
         addSubview(tableView)
     }
-    private func configureObservable() {
 }
 
 // MARK: - Bind Method
 
 extension ProjectManagerCollectionViewCell {
+    private func bindViewModel() {
         guard let tableView = tableView,
               let statusType = statusType else { return }
         

@@ -34,7 +34,7 @@ final class ProjectManagerViewController: UIViewController {
         configureNavigationBar()
         configureHierarchy()
         configureLayout()
-        configureObservable()
+        bindViewModel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,12 +113,12 @@ extension ProjectManagerViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
-    private func configureObservable() {
 }
 
 // MARK: - Bind Method
 
 extension ProjectManagerViewController {
+    private func bindViewModel() {
         guard let collectionView = collectionView else { return }
         
         let input = ProjectManagerViewInput(doneAction: detailViewDoneButtonTapped)
