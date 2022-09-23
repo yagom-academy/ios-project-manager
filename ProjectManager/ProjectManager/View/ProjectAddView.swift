@@ -34,29 +34,33 @@ struct ProjectAddView: View {
 
         var body: some View {
             HStack {
-                Button(action: {
-                    showModal = false
-                }, label: {
-                    Text(NameSpace.cancelButton)
-                        .font(.title3.monospacedDigit().bold())
-                })
+                Button(
+                    action: {
+                        showModal = false
+                    },
+                    label: {
+                        Text(NameSpace.cancelButton)
+                            .font(.title3.monospacedDigit().bold())
+                    })
                 .padding(15)
                 Spacer()
                 Text(NameSpace.projectTitle)
                     .font(.title.monospacedDigit().bold())
                 Spacer()
-                Button(action: {
-                    projects.append(Project(id: viewModel.id,
-                                            status: .todo,
-                                            title: viewModel.title,
-                                            detail: viewModel.detail,
-                                            date: viewModel.date))
-                    showModal = false
-                }, label: {
-                    Text(NameSpace.doneButton)
-                        .font(.title3.monospacedDigit().bold())
-                        .padding(15)
-                })
+                Button(
+                    action: {
+                        projects.append(Project(id: viewModel.id,
+                                                status: .todo,
+                                                title: viewModel.title,
+                                                detail: viewModel.detail,
+                                                date: viewModel.date))
+                        showModal = false
+                    },
+                    label: {
+                        Text(NameSpace.doneButton)
+                            .font(.title3.monospacedDigit().bold())
+                            .padding(15)
+                    })
             }
             .foregroundColor(Color("ZEZEColor"))
         }
@@ -92,18 +96,18 @@ struct ProjectAddView: View {
 
         var body: some View {
             ZStack {
-                if viewModel.detail.isEmpty {
-                    TextEditor(text: $viewModel.placeholder)
-                        .font(.body)
-                        .border(Color("BorderColor"), width: 3)
-                        .padding([.leading, .bottom, .trailing], 10)
-                }
                 TextEditor(text: $viewModel.detail)
                     .font(.body)
                     .background(Color(.systemBackground))
                     .opacity(viewModel.detail.isEmpty ? 0.15 : 1)
                     .disableAutocorrection(true)
                     .border(Color("BorderColor"), width: 3)
+                    .overlay(alignment: .topLeading) {
+                        if viewModel.detail.isEmpty {
+                            Text("\(viewModel.placeholder)")
+                                .font(.body)
+                        }
+                    }
                     .padding([.leading, .bottom, .trailing], 10)
             }
         }

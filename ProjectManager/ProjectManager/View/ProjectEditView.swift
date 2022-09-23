@@ -28,33 +28,37 @@ struct ProjectEditView: View {
 
         var body: some View {
             HStack {
-                Button(action: {
-                    viewModel.isTappedEditButton()
-                }, label: {
-                    Text(NameSpace.editButton)
-                        .font(.title3.monospacedDigit().bold())
-                })
+                Button(
+                    action: {
+                        viewModel.isTappedEditButton()
+                    },
+                    label: {
+                        Text(NameSpace.editButton)
+                            .font(.title3.monospacedDigit().bold())
+                    })
                 .padding(15)
                 Spacer()
                 Text(NameSpace.projectTitle)
                     .font(.title.monospacedDigit().bold())
                 Spacer()
-                Button(action: {
-                    projects = projects.map { project in
-                        guard project.id == viewModel.id else { return project }
-                        let changedProject = Project(id: viewModel.id,
-                                                     status: viewModel.status,
-                                                     title: viewModel.title,
-                                                     detail: viewModel.detail,
-                                                     date: viewModel.date)
-                        return changedProject
-                    }
-                    selectedProject = nil
-                }, label: {
-                    Text(NameSpace.doneButton)
-                        .font(.title3.monospacedDigit().bold())
-                        .padding(15)
-                })
+                Button(
+                    action: {
+                        projects = projects.map { project in
+                            guard project.id == viewModel.id else { return project }
+                            let changedProject = Project(id: viewModel.id,
+                                                         status: viewModel.status,
+                                                         title: viewModel.title,
+                                                         detail: viewModel.detail,
+                                                         date: viewModel.date)
+                            return changedProject
+                        }
+                        selectedProject = nil
+                    },
+                    label: {
+                        Text(NameSpace.doneButton)
+                            .font(.title3.monospacedDigit().bold())
+                            .padding(15)
+                    })
             }
             .foregroundColor(Color("ZEZEColor"))
         }
@@ -70,7 +74,7 @@ struct ProjectEditView: View {
                 .disableAutocorrection(true)
                 .border(Color("BorderColor"), width: 3)
                 .padding([.leading, .trailing], 10)
-                .disabled(viewModel.isDisable)
+                .disabled(viewModel.isEditable)
         }
     }
 
@@ -83,7 +87,7 @@ struct ProjectEditView: View {
                        displayedComponents: .date)
             .datePickerStyle(WheelDatePickerStyle())
             .labelsHidden()
-            .disabled(viewModel.isDisable)
+            .disabled(viewModel.isEditable)
         }
     }
 
@@ -96,7 +100,7 @@ struct ProjectEditView: View {
                 .disableAutocorrection(true)
                 .border(Color("BorderColor"), width: 3)
                 .padding([.leading, .bottom, .trailing], 10)
-                .disabled(viewModel.isDisable)
+                .disabled(viewModel.isEditable)
         }
     }
 }

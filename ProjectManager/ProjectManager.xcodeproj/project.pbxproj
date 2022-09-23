@@ -17,6 +17,7 @@
 		7EF8466A28CF1EC0001475E1 /* ProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF8466928CF1EC0001475E1 /* ProjectEditView.swift */; };
 		7EF8469C28D05AAA001475E1 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF8469B28D05AAA001475E1 /* Project.swift */; };
 		7EF846A128D06C2C001475E1 /* ProjectMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF846A028D06C2B001475E1 /* ProjectMainViewModel.swift */; };
+		8F75271828DD534100D6233A /* Date + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75271728DD534100D6233A /* Date + extension.swift */; };
 		8FBFB27F28CF0A9000600C4B /* ProjectAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBFB27E28CF0A9000600C4B /* ProjectAddView.swift */; };
 		8FBFB2CB28D0AD3600600C4B /* ProjectModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBFB2CA28D0AD3600600C4B /* ProjectModalViewModel.swift */; };
 		8FF5C92B28DC5AEF007B3A7B /* ProjectContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF5C92A28DC5AEF007B3A7B /* ProjectContentView.swift */; };
@@ -53,6 +54,7 @@
 		7EF8466928CF1EC0001475E1 /* ProjectEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditView.swift; sourceTree = "<group>"; };
 		7EF8469B28D05AAA001475E1 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		7EF846A028D06C2B001475E1 /* ProjectMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainViewModel.swift; sourceTree = "<group>"; };
+		8F75271728DD534100D6233A /* Date + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + extension.swift"; sourceTree = "<group>"; };
 		8FBFB27E28CF0A9000600C4B /* ProjectAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAddView.swift; sourceTree = "<group>"; };
 		8FBFB2CA28D0AD3600600C4B /* ProjectModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModalViewModel.swift; sourceTree = "<group>"; };
 		8FF5C92A28DC5AEF007B3A7B /* ProjectContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectContentView.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				7EF8469B28D05AAA001475E1 /* Project.swift */,
+				8F75271728DD534100D6233A /* Date + extension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F75271828DD534100D6233A /* Date + extension.swift in Sources */,
 				8FBFB2CB28D0AD3600600C4B /* ProjectModalViewModel.swift in Sources */,
 				7EF8469C28D05AAA001475E1 /* Project.swift in Sources */,
 				7E967C0C28C9D41200970577 /* Persistence.swift in Sources */,

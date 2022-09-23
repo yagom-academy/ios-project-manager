@@ -16,7 +16,7 @@ final class ProjectModalViewModel: ObservableObject {
     @Published var id: UUID
     @Published var status: Status
     @Published var placeholder: String
-    @Published var isDisable = true
+    @Published var isEditable = true
 
     init(project: Project = Project()) {
         self.project = project
@@ -29,6 +29,6 @@ final class ProjectModalViewModel: ObservableObject {
     }
 
     func isTappedEditButton() {
-        isDisable = false
+        isEditable = false
     }
 }

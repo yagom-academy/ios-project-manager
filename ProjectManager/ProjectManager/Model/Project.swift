@@ -17,7 +17,6 @@ struct Project: Identifiable, Hashable {
 }
 
 enum Status: String, CaseIterable {
-
     case todo = "TODO"
     case doing = "DOING"
     case done = "DONE"

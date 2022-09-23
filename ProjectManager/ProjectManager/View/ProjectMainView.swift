@@ -15,9 +15,7 @@ struct ProjectMainView: View {
             ProjectMainTitleView(viewModel: viewModel)
             HStack {
                 ProjectStatusListView(viewModel: viewModel, title: Status.todo.rawValue, status: .todo)
-                Divider().hidden()
                 ProjectStatusListView(viewModel: viewModel, title: Status.doing.rawValue, status: .doing)
-                Divider().hidden()
                 ProjectStatusListView(viewModel: viewModel, title: Status.done.rawValue, status: .done)
             }
             .background(Color(UIColor.systemGray3))
@@ -39,11 +37,13 @@ struct ProjectMainView: View {
                 }
                 HStack {
                     Spacer()
-                    Button(action: {
-                        self.showModal = true
-                    }, label: {
-                        Image(systemName: NameSpace.plusButton)
-                    })
+                    Button(
+                        action: {
+                            self.showModal = true
+                        },
+                        label: {
+                            Image(systemName: NameSpace.plusButton)
+                        })
                     .foregroundColor(Color("ZEZEColor"))
                     .sheet(isPresented: self.$showModal, content: {
                         ProjectAddView(viewModel: ProjectModalViewModel(project: Project()),
@@ -62,7 +62,7 @@ struct ProjectMainView: View {
 
         var title: String
         var status: Status
-        var array: [Project] {
+        var distinguishProjects: [Project] {
             switch status {
             case .todo:
                 return viewModel.todoArray
@@ -83,14 +83,14 @@ struct ProjectMainView: View {
                         Circle()
                             .fill(Color.white)
                             .frame(width: 33, height: 33)
-                        Text("\(array.count)")
+                        Text("\(distinguishProjects.count)")
                             .font(.title2.bold())
                             .foregroundColor(Color("ZEZEColor"))
                     }
                 }
                 .padding()
                 List {
-                    ForEach(array, id: \.self) { project in
+                    ForEach(distinguishProjects, id: \.self) { project in
                         ProjectContentView(viewModel: viewModel, project: project)
                             .border(Color("BorderColor"), width: 3)
                             .cornerRadius(5)
