@@ -116,4 +116,39 @@ extension TodoListView {
     private func fetchTodoListCell() {
         self.registTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.reuseIdentifier)
     }
+    
+    func bind() {
+        Observable.of(
+            (TodoCategory.todo, self.todoListViewModel.todoData),
+            (TodoCategory.doing, self.todoListViewModel.doingData),
+            (TodoCategory.done, self.todoListViewModel.doneData)
+        )
+        .observe(on: MainScheduler.instance)
+        .filter { $0.0 == self.todoStatus }
+        .flatMap { $0.1 }
+        .map { String($0.count) }
+        .bind(to: self.todoCircleNumber.rx.text)
+        .disposed(by: self.disposeBag)
+        
+        Observable.of(
+            (TodoCategory.todo, self.todoListViewModel.todoData),
+            (TodoCategory.doing, self.todoListViewModel.doingData),
+            (TodoCategory.done, self.todoListViewModel.doneData)
+        )
+        .observe(on: MainScheduler.instance)
+        .filter { $0.0 == self.todoStatus }
+        .flatMap { $0.1 }
+        .asDriver(onErrorJustReturn: [])
+        .drive(self.registTableView.rx.items) { registTableView, row, tododata in
+            guard let cell = registTableView.dequeueReusableCell(withIdentifier: TodoListCell.reuseIdentifier,
+                                                                 for: IndexPath(row: row, section: .zero)) as? TodoListCell
+            else {
+                return UITableViewCell()
+            }
+            cell.configure(todoData: tododata)
+            
+            return cell
+        }
+        .disposed(by: disposeBag)
+    }
 }
