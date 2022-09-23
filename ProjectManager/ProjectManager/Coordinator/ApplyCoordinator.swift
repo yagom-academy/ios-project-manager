@@ -11,6 +11,7 @@ import UIKit
 class ApplyCoordinator: Coordinator {
     var coordinatorController: UINavigationController
     private var todoDetailViewController: TodoDetailViewController?
+    private let database = DatabaseManager()
     
     init(navigationController: UINavigationController) {
         self.coordinatorController = navigationController
@@ -21,11 +22,26 @@ class ApplyCoordinator: Coordinator {
     }
     
     private func passAwayTodoListView() {
-        let todoViewController = TodoListViewController(coordinator: self)
+        let todoListViewModel = TodoListViewModel(database: self.database)
+        let todoViewController = TodoListViewController(todoListModelView: todoListViewModel, coordinator: self)
         self.coordinatorController.pushViewController(todoViewController, animated: true)
     }
     
-    func passAwayTodoDetailView() {
+    func passAwayTodoDetailView(pickTodo: TodoModel? = nil, detailType: TodoDetailType, categoryType: TodoCategory?) {
+        guard let todoCategory = categoryType else {
+            return
+        }
+        let todoDetailViewModel = TodoDetailViewModel(database: self.database)
+        
+        self.todoDetailViewController = TodoDetailViewController(pickTodo: pickTodo, todoCategory: todoCategory, todoDetailType: detailType, todoDetailViewModel: todoDetailViewModel, coordinator: self)
+        
+        guard let todoDetailViewController = todoDetailViewController else {
+            return
+        }
+        
+        let navigationController = UINavigationController(rootViewController: todoDetailViewController)
+        navigationController.modalPresentationStyle = .formSheet
+        self.coordinatorController.present(navigationController, animated: false)
         
     }
     
