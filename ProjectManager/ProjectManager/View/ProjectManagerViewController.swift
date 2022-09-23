@@ -88,10 +88,10 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     @objc private func historyBarButtonTapped(_ button: UIBarButtonItem) {
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let controller = HistoryViewController(viewModel: viewModel)
         controller.modalPresentationStyle = .popover
-        controller.addAction(UIAlertAction(title: "Move", style: .default))
-       
+        controller.preferredContentSize = CGSize(width: 600, height: 600)
+        
         guard let popover = controller.popoverPresentationController else { return }
         popover.barButtonItem = button
         present(controller, animated: true)
