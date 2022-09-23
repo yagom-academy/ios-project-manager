@@ -108,6 +108,8 @@ final class ProjectTableView: UITableView {
     }
 }
 
+// MARK: - Extensions
+
 extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         

@@ -94,11 +94,9 @@ final class ToDoComponentsView: UIView {
     }
     
     func setupEditable(is tapped: Bool) {
-        if tapped {
-            titleTextField.isUserInteractionEnabled = true
-            timeLimitDatePicker.isUserInteractionEnabled = true
-            descriptionTextView.isUserInteractionEnabled = true
-        }
+        titleTextField.isUserInteractionEnabled = tapped
+        timeLimitDatePicker.isUserInteractionEnabled = tapped
+        descriptionTextView.isUserInteractionEnabled = tapped
     }
     
     private func commonInit() {

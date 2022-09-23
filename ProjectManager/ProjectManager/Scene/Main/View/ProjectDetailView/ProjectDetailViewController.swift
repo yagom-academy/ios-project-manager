@@ -17,6 +17,7 @@ final class ProjectDetailViewController: UIViewController {
     
     private var uploadedIndex: Int?
     private var uploadedProjectType: ProjectType?
+    private var isEditable: Bool = false
     
     // MARK: View Life Cycle
 
@@ -95,7 +96,13 @@ final class ProjectDetailViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didEditButtonTapped() {
-        toDoComponentsView.setupEditable(is: true)
+        if isEditable == false {
+            toDoComponentsView.setupEditable(is: true)
+            isEditable = true
+        } else {
+            toDoComponentsView.setupEditable(is: false)
+            isEditable = false
+        } 
     }
     
     @objc private func didDoneButtonTapped() {
