@@ -31,7 +31,7 @@ final class ProjectListViewModel {
     
     // MARK: - Methods
     
-    private func fatch() {
+    private func fetch() {
         todoListObserver.value = read().filter {
             $0.workState == .todo
         }
@@ -110,7 +110,8 @@ final class ProjectListViewModel {
         return view
     }
     
-    func makeSwipeActions(state: ProjectState, indexPath: IndexPath) -> [UIContextualAction] {
+    func makeSwipeActions(state: ProjectState,
+                          indexPath: IndexPath) -> [UIContextualAction] {
         let item = retrieveItems(state: state)[indexPath.row]
         let deleteSwipeAction = UIContextualAction(style: .destructive,
                                                    title: Design.deleteSwipeActionTitle,
@@ -186,7 +187,7 @@ final class ProjectListViewModel {
     
     func create(data: ProjectViewModel) {
         useCase.create(data: data)
-        fatch()
+        fetch()
     }
     
     private func read() -> [ProjectViewModel] {
@@ -197,12 +198,12 @@ final class ProjectListViewModel {
                 data: ProjectViewModel) {
         useCase.update(id: id,
                        data: data)
-        fatch()
+        fetch()
     }
     
     private func delete(id: String) {
         useCase.delete(id: id)
-        fatch()
+        fetch()
     }
     
     private func changeState(item: ProjectViewModel,

@@ -67,7 +67,8 @@ final class ProjectListViewController: UIViewController {
     }
     
     private func configureLongPressGestureRecognizer() {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressDidTap))
+        let longPress = UILongPressGestureRecognizer(target: self,
+                                                     action: #selector(longPressDidTap))
         longPress.minimumPressDuration = Design.longPressGestureMinimumPressDuration
         
         view.addGestureRecognizer(longPress)
