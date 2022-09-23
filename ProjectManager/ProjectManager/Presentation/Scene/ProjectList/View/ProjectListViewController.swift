@@ -109,7 +109,7 @@ final class ProjectListViewController: UIViewController {
     
     private func makeNavigationController(item: ProjectViewModel?) -> UINavigationController {
         let projectManagementViewController = ProjectManagementViewController()
-        projectManagementViewController.item = item
+        projectManagementViewController.configureViewItems(item: item)
         projectManagementViewController.delegate = self
         
         let navigationController = UINavigationController(rootViewController: projectManagementViewController)

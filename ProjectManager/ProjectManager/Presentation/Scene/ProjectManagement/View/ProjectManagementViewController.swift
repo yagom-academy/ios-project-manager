@@ -12,8 +12,8 @@ final class ProjectManagementViewController: UIViewController {
     
     private let projectManagementView = ProjectManagementView()
     private let projectManagermentViewModel = ProjectManagermentViewModel()
+    private var item: ProjectViewModel?
     weak var delegate: ProjectManagementViewControllerDelegate?
-    var item: ProjectViewModel?
     
     // MARK: - View Life Cycle
     
@@ -28,6 +28,15 @@ final class ProjectManagementViewController: UIViewController {
     
     // MARK: - Methods
     
+    func configureViewItem(item: ProjectViewModel?) {
+        guard let item = item else { return }
+        
+        self.item = item
+        
+        projectManagementView.configureItem(title: item.title,
+                                            body: item.body)
+    }
+    
     private func configureNavigationItems() {
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .done,
                                              target: self,
@@ -39,14 +48,6 @@ final class ProjectManagementViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.title = item == nil ? ProjectState.todo.name : item?.workState.name
-    }
-    
-    func configureViewItems(item: ProjectViewModel?) {
-        guard let item = item else { return }
-        self.item = item
-        
-        projectManagementView.configureItem(title: item.title,
-                                            body: item.body)
     }
     
     @objc
