@@ -6,6 +6,8 @@
 
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 class TodoListViewController: UIViewController {
     private let todoListView: TodoListView
@@ -13,6 +15,7 @@ class TodoListViewController: UIViewController {
     private let doneListView: TodoListView
     private var coordinator: ApplyCoordinator?
     private let realm = try! Realm()
+    private let disposeBag = DisposeBag()
     
     private let todoTableStackView: UIStackView = {
         let stackView = UIStackView()
@@ -25,10 +28,10 @@ class TodoListViewController: UIViewController {
         return stackView
     }()
     
-    init(coordinator: ApplyCoordinator) {
-        self.todoListView = TodoListView(todoStatus: .todo)
-        self.doingListView = TodoListView(todoStatus: .doing)
-        self.doneListView = TodoListView(todoStatus: .done)
+    init(todoListModelView: TodoListViewModel, coordinator: ApplyCoordinator) {
+        self.todoListView = TodoListView(todoStatus: .todo, todoListViewModel: todoListModelView, coordinator: coordinator)
+        self.doingListView = TodoListView(todoStatus: .doing, todoListViewModel: todoListModelView, coordinator: coordinator)
+        self.doneListView = TodoListView(todoStatus: .done, todoListViewModel: todoListModelView, coordinator: coordinator)
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -42,10 +45,16 @@ class TodoListViewController: UIViewController {
         addNavigationBar()
         configureUI()
         setupConstraint()
+        bind()
     }
 }
 
 extension TodoListViewController {
+    private func addNavigationBar() {
+        self.title = "Project Manager"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: nil, action: nil)
+    }
+    
     private func configureUI() {
         self.view.addSubview(self.todoTableStackView)
         self.todoTableStackView.addArrangedSubview(todoListView)
@@ -64,8 +73,19 @@ extension TodoListViewController {
         ])
     }
     
-    private func addNavigationBar() {
-        self.title = "Project Manager"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: nil, action: nil)
+    private func bind() {
+        self.navigationItem.rightBarButtonItem?.rx.tap.asObservable()
+            .subscribe({ result in
+                switch result {
+                case .next:
+                    self.coordinator?.passAwayTodoDetailView(detailType: .newTodo, categoryType: .todo)
+                    
+                case let .error(err):
+                    print(err.localizedDescription)
+                case .completed:
+                    print("Complete")
+                }
+            })
+            .disposed(by: self.disposeBag)
     }
 }
