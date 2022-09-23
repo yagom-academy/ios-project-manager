@@ -7,27 +7,22 @@
 
 import Foundation
 
-final class DoneViewModel: StatusChangable, ContentEditable {
-    var doneData: Observable<[ProjectUnit]> = Observable([])
-    
-    var count: Int {
-        return doneData.value.count
-    }
+final class DoneViewModel: CommonViewModelLogic, ContentEditable, StatusChangable {
+    let identifier: String = ProjectStatus.done
+    let data: Observable<[ProjectUnit]> = Observable([])
+    let databaseManager: LocalDatabaseManager
     
     var message: String = "" {
         didSet {
-            guard let showAlert = showAlert else {
+            guard let showAlert = self.showAlert else {
                 return
             }
-            
             showAlert()
         }
     }
-
-    let databaseManager: LocalDatabaseManager
     
     var showAlert: (() -> Void)?
-
+    
     init(databaseManager: LocalDatabaseManager) {
         self.databaseManager = databaseManager
         NotificationCenter.default.addObserver(
@@ -43,7 +38,6 @@ final class DoneViewModel: StatusChangable, ContentEditable {
             name: Notification.Name.doingToDone,
             object: nil
         )
-        fetchDoneData()
     }
     
     @objc func addData(_ notification: Notification) {
@@ -51,9 +45,9 @@ final class DoneViewModel: StatusChangable, ContentEditable {
             return
         }
         
-        projectUnit.section = ProjectStatus.done
+        projectUnit.section = identifier
         
-        doneData.value.append(projectUnit)
+        self.data.value.append(projectUnit)
         
         do {
             try databaseManager.update(data: projectUnit)
@@ -62,22 +56,8 @@ final class DoneViewModel: StatusChangable, ContentEditable {
         }
     }
 
-    func delete(_ indexPath: Int) {
-        let data = doneData.value.remove(at: indexPath)
-        
-        do {
-            try databaseManager.delete(id: data.id)
-        } catch {
-            message = "Delete Error"
-        }
-    }
-
-    func fetch(_ indexPath: Int) -> ProjectUnit? {
-        doneData.value[indexPath]
-    }
-    
     func change(index: Int, status: String) {
-        let data = doneData.value.remove(at: index)
+        let data = data.value.remove(at: index)
 
         switch status {
         case ProjectStatus.todo:
@@ -86,43 +66,6 @@ final class DoneViewModel: StatusChangable, ContentEditable {
             NotificationCenter.default.post(name: Notification.Name.doneToDoing, object: data)
         default:
             return
-        }
-    }
-
-    func edit(
-        indexPath: Int,
-        title: String,
-        body: String,
-        date: Date
-    ) {
-        var data = doneData.value[indexPath]
-        data.title = title
-        data.body = body
-        data.deadLine = date
-        
-        doneData.value[indexPath] = data
-        do {
-            try databaseManager.update(data: data)
-        } catch {
-            message = "Edit Error"
-        }
-    }
-
-    func isPassDeadLine(_ deadLine: Date) -> Bool {
-        if deadLine < Date() {
-            return true
-        }
-
-        return false
-    }
-
-    private func fetchDoneData() {
-        do {
-            try databaseManager.fetchSection(ProjectStatus.done).forEach { project in
-                doneData.value.append(project)
-            }
-        } catch {
-            message = "Fetch Error"
         }
     }
 }

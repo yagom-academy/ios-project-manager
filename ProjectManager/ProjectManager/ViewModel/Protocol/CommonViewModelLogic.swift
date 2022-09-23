@@ -16,7 +16,6 @@ protocol CommonViewModelLogic: AnyObject {
     var databaseManager: LocalDatabaseManager { get }
 
     func delete(_ indexPath: Int)
-    func fetch(_ indexPath: Int) -> ProjectUnit?
     func isPassDeadLine(_ deadLine: Date) -> Bool
 }
 
@@ -34,11 +33,7 @@ extension CommonViewModelLogic {
             message = "Delete Error"
         }
     }
-
-    func fetch(_ indexPath: Int) -> ProjectUnit? {
-        data.value[indexPath]
-    }
-
+    
     func isPassDeadLine(_ deadLine: Date) -> Bool {
         if deadLine < Date() {
             return true
@@ -55,28 +50,5 @@ extension CommonViewModelLogic {
         } catch {
             message = "Fetch Error"
         }
-    }
-}
-
-class A: CommonViewModelLogic {
-    let identifier: String = ProjectStatus.todo
-    var data: Observable<[ProjectUnit]> = Observable([])
-
-    var message: String = "" {
-        didSet {
-            guard let showAlert = showAlert else {
-                return
-            }
-
-            showAlert()
-        }
-    }
-
-    var showAlert: (() -> Void)?
-
-    let databaseManager: LocalDatabaseManager
-
-    init(databaseManager: LocalDatabaseManager) {
-        self.databaseManager = databaseManager
     }
 }

@@ -8,10 +8,15 @@
 import Foundation
 
 protocol ContentEditable {
+    func fetch(_ indexPath: Int) -> ProjectUnit?
     func edit(indexPath: Int, title: String, body: String, date: Date)
 }
 
 extension ContentEditable where Self: CommonViewModelLogic {
+    func fetch(_ indexPath: Int) -> ProjectUnit? {
+        data.value[indexPath]
+    }
+
     func edit(
         indexPath: Int,
         title: String,
