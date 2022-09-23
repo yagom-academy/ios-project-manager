@@ -23,71 +23,82 @@
 |[그루트](https://github.com/Groot-94)|
 ## 프로젝트 소개
 - 로컬, 리모트 DB를 통해 프로젝트(제목, 내용, 기한)를 관리할 수 있는 프로젝트 매니저 앱
-
 ## UML
-
 ### ClassDiagram
-![](https://i.imgur.com/2QKDW7n.png)
+![](https://i.imgur.com/jDAe1ES.jpg)
 ## 폴더 구조
 ```
 ├── ProjectManager
-│   ├── ProjectManager
-│   │   ├── AppDelegate
-│   │   │   └── AppDelegate.swift
-│   │   ├── Base.lproj
-│   │   ├── Extension
-│   │   │   └── Date+Extension.swift
-│   │   ├── Info.plist
-│   │   ├── Model
-│   │   │   ├── ProjectDTO.swift
+│   ├── AppDelegate.swift
+│   ├── Data
+│   │   ├── Protocol
+│   │   │   └── ProjectRepositoryProtocol.swift
+│   │   └── TemporaryRepository
+│   │       └── TemporaryProjectRepository.swift
+│   ├── Domain
+│   │   ├── Entity
+│   │   │   ├── ProjectModel.swift
 │   │   │   └── ProjectState.swift
-│   │   ├── Resource
-│   │   │   └── Assets.xcassets
-│   │   │       ├── AccentColor.colorset
-│   │   │       │   └── Contents.json
-│   │   │       ├── AppIcon.appiconset
-│   │   │       │   └── Contents.json
-│   │   │       └── Contents.json
-│   │   ├── Util
-│   │   │   ├── Observer.swift
-│   │   │   ├── ProjectDAO.swift
-│   │   │   ├── ProjectDataManager.swift
-│   │   │   └── ProjectDataManagerProtocol.swift
-│   │   ├── View
-│   │   │   ├── Base.lproj
-│   │   │   │   └── LaunchScreen.storyboard
-│   │   │   ├── Scene
-│   │   │   │   ├── ProjectDataManager
-│   │   │   │   │   ├── ProjectDataManagerView.swift
-│   │   │   │   │   └── ProjectDataManagerViewController.swift
-│   │   │   │   └── ProjectManagerList
-│   │   │   │       ├── ProjectManagerViewController.swift
-│   │   │   │       ├── ProjectTableHeaderView.swift
-│   │   │   │       ├── ProjectTableView.swift
-│   │   │   │       └── ProjectTableViewCell.swift
-│   │   │   └── SceneDelegate.swift
-│   │   └── ViewModel
-│   │       └── ProjectViewModel.swift
-│   └── ProjectManager.xcodeproj
-│       ├── project.pbxproj
-│       ├── project.xcworkspace
-│       │   ├── contents.xcworkspacedata
-│       │   ├── xcshareddata
-│       │   │   ├── IDEWorkspaceChecks.plist
-│       │   │   └── swiftpm
-│       │   └── xcuserdata
-│       │       └── NAMU.xcuserdatad
-│       │           └── UserInterfaceState.xcuserstate
-│       ├── xcshareddata
-│       │   └── xcschemes
-│       │       └── ProjectManager.xcscheme
-│       └── xcuserdata
-│           └── NAMU.xcuserdatad
-│               ├── xcdebugger
-│               │   └── Breakpoints_v2.xcbkptlist
-│               └── xcschemes
-│                   └── xcschememanagement.plist
-└── README.md
+│   │   └── UseCase
+│   │       ├── ProjectTranslater.swift
+│   │       ├── ProjectUseCase.swift
+│   │       ├── ProjectViewModel.swift
+│   │       └── Protocol
+│   │           └── ProjectUseCaseProtocol.swift
+│   ├── Info.plist
+│   ├── Presentation
+│   │   └── Scene
+│   │       ├── ProjectList
+│   │       │   ├── View
+│   │       │   │   ├── ProjcetListView.swift
+│   │       │   │   ├── ProjectListViewController.swift
+│   │       │   │   ├── ProjectTableHeaderView.swift
+│   │       │   │   └── ProjectTableViewCell.swift
+│   │       │   └── ViewModel
+│   │       │       └── ProjectListViewModel.swift
+│   │       └── ProjectManagement
+│   │           ├── View
+│   │           │   ├── ProjectManagementView.swift
+│   │           │   └── ProjectManagementViewController.swift
+│   │           └── ViewModel
+│   │               └── ProjectManagermentViewModel.swift
+│   ├── Resources
+│   │   ├── Assets.xcassets
+│   │   │   ├── AccentColor.colorset
+│   │   │   │   └── Contents.json
+│   │   │   ├── AppIcon.appiconset
+│   │   │   │   └── Contents.json
+│   │   │   └── Contents.json
+│   │   └── Base.lproj
+│   │       └── LaunchScreen.storyboard
+│   ├── SceneDelegate.swift
+│   └── Util
+│       ├── Class
+│       │   └── Observable.swift
+│       ├── Extension
+│       │   ├── Date+convertLocalization.swift
+│       │   └── String+toDate.swift
+│       └── Porotocol
+│           └── ProjectManagementViewControllerDelegate.swift
+└── ProjectManager.xcodeproj
+    ├── project.pbxproj
+    ├── project.xcworkspace
+    │   ├── contents.xcworkspacedata
+    │   ├── xcshareddata
+    │   │   ├── IDEWorkspaceChecks.plist
+    │   │   └── swiftpm
+    │   └── xcuserdata
+    │       └── NAMU.xcuserdatad
+    │           └── UserInterfaceState.xcuserstate
+    ├── xcshareddata
+    │   └── xcschemes
+    │       └── ProjectManager.xcscheme
+    └── xcuserdata
+        └── NAMU.xcuserdatad
+            ├── xcdebugger
+            │   └── Breakpoints_v2.xcbkptlist
+            └── xcschemes
+                └── xcschememanagement.plist
 ```
 ## 구현화면
 ||
@@ -108,12 +119,31 @@
 - TableView
 - Design Pattern
 - Localization
+- MVVM
+- MVC
+- Clean Architecture
 ## 핵심경험
 - [x] 로컬과 리모트(클라우드)의 데이터 동기화 및 로컬 데이터 저장을 위한 적합한 기술을 선정하기 위해 기술에 대한 조사와 차이점 분석 후 선정해보는 경험을 할 수 있었다.
 - [x] 기술선정에 대한 기준을 고민해볼 수 있었다.
 - [x] MVVM, MVC 등 Disign Pattern에 어떤 차이가 있는지 고민해보고 적용해보는 경험을 할 수 있었다. 
+- [x] MVVM, Clean Architecture를 직접 구현할 수 있었다.
 ## 기능설명
-- 전반적인 리팩토링 중
+### ProjectModel
+- Entity를 Decode하기 위한 모델
+### ProjectViewModel
+- View에 데이터를 보여주기 위한 모델
+### ProjectRepositoryProtocol
+- Repository를 추상화 한 Protocol
+### TemporaryProjectRepository
+- 앱 종료 시 사라지는 데이터를 저장하고 있는 임시 저장소
+### ProjectTranslater
+- ProjectModel과 ProjectViewModel를 서로 변환해주는 기능을 갖고있는 프로토콜
+### ProjectUseCaseProtocol
+- UseCase를 추상화 한 Protocol
+### ProjectUseCase
+- 할 일 목록 데이터를 관리 할 수 있는 Business 로직
+### ProjectListViewModel
+- 할 일 목록을 ListView로 사용자에게 보여줄 수 있도록 View를 관리하는 View Model
 ## 프로젝트_후기
 - 프로젝트 종료 후 작성예정
 ## TroubleShooting
