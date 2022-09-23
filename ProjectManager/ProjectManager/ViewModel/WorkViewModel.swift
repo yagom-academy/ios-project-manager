@@ -13,6 +13,7 @@ class WorkViewModel {
     private let disposeBag = DisposeBag()
     private let works = BehaviorSubject<[Work]>(value: [])
     let worksObservable: Observable<[Work]>
+    let histories = BehaviorSubject<[String]>(value: [])
     
     init(dbType: DatabaseManageable) {
         database = dbType
@@ -39,6 +40,13 @@ class WorkViewModel {
         guard let value = try? works.value() else { return }
         
         works.onNext([work] + value)
+        
+        histories
+            .take(1)
+            .observe(on: MainScheduler.instance)
+            .subscribe {
+            self.histories.onNext($0 + ["Added '\(work.title)'."])
+        }.disposed(by: disposeBag)
     }
     
     func editWork(_ work: Work, newWork: Work) {
@@ -53,6 +61,12 @@ class WorkViewModel {
             .subscribe(onNext: {
                 self.works.onNext($0)
             }).disposed(by: disposeBag)
+
+        histories.take(1)
+            .observe(on: MainScheduler.instance)
+            .subscribe {
+            self.histories.onNext($0 + ["Edited '\(work.title)'."])
+        }.disposed(by: disposeBag)
     }
     
     func deleteWork(id: UUID) {
@@ -66,6 +80,14 @@ class WorkViewModel {
         .subscribe(onNext: {
             self.works.onNext($0)
         }).disposed(by: disposeBag)
+        
+        guard let work = selectWork(id: id) else { return }
+        
+        histories.take(1)
+            .observe(on: MainScheduler.instance)
+            .subscribe {
+            self.histories.onNext($0 + ["Removed '\(work.title)'."])
+        }.disposed(by: disposeBag)
     }
     
     func changeWorkState(_ work: Work, to state: WorkState) {
@@ -86,5 +108,12 @@ class WorkViewModel {
         .subscribe(onNext: {
             self.works.onNext($0)
         }).disposed(by: disposeBag)
+        
+        histories
+            .take(1)
+            .observe(on: MainScheduler.instance)
+            .subscribe {
+            self.histories.onNext($0 + ["Moved '\(work.title)' from \(work.state.rawValue) to \(state.rawValue)."])
+        }.disposed(by: disposeBag)
     }
 }
