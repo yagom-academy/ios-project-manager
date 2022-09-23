@@ -10,12 +10,14 @@ import UIKit
 final class ProjectDetailViewController: UIViewController {
     
     // MARK: - Properties
-
-    var delegate: DataSenable?
     
     private let toDoComponentsView = ToDoComponentsView()
+    private let projectDetailViewModel = ProjectDetailViewModel()
     private let tableView: UITableView
-
+    
+    private var uploadedIndex: Int?
+    private var uploadedProjectType: ProjectType?
+    
     // MARK: View Life Cycle
 
     override func viewDidLoad() {
@@ -27,9 +29,11 @@ final class ProjectDetailViewController: UIViewController {
 
     init(with tableView: UITableView) {
         self.tableView = tableView
+        
         super.init(nibName: nil, bundle: nil)
         guard let tableView = tableView as? ProjectTableView else { return }
         navigationItem.title = tableView.getTitle()
+        tableView.dataSenable = self
     }
     
     required init?(coder: NSCoder) {
@@ -95,7 +99,9 @@ final class ProjectDetailViewController: UIViewController {
     }
     
     @objc private func didDoneButtonTapped() {
-        delegate?.sendData(of: toDoComponentsView.fetchItem())
+        projectDetailViewModel.update(item: toDoComponentsView.fetchItem(),
+                                      from: uploadedIndex ?? .zero,
+                                      of: uploadedProjectType ?? .todo)
         dismissViewController()
     }
     
@@ -103,5 +109,12 @@ final class ProjectDetailViewController: UIViewController {
     
     private enum Design {
         static let navigationTitleFontSize: CGFloat = 20
+    }
+}
+
+extension ProjectDetailViewController: DataSenable {
+    func sendData(of project: ProjectType, order: Int) {
+        uploadedProjectType = project
+        uploadedIndex = order
     }
 }

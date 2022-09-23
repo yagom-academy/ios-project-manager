@@ -6,5 +6,5 @@
 //
 
 protocol DataSenable {
-    func sendData(of item: ToDoItem)
+    func sendData(of project: ProjectType, order: Int)
 }

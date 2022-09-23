@@ -12,13 +12,12 @@ final class ProjectTableView: UITableView {
     // MARK: - Properties
     
     var presetDelegate: Presentable?
-        
+    var dataSenable: DataSenable?
+
     private let projectType: ProjectType
     
     private var projectHeaderView: ProjectTableHeaderView
     
-    private var selectedIndex: Int?
-
     private let projectTableViewModel = ProjectTableViewModel()
 
     // MARK: Initializers
@@ -127,17 +126,15 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        selectedIndex = indexPath.row
-
+        
         let toDoListDetailViewController = ProjectDetailViewController(with: tableView)
         let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
         
         toDoListDetailViewController.modalPresentationStyle = .formSheet
-        
+
         toDoListDetailViewController.loadData(of: projectTableViewModel.searchContent(from: indexPath.row,
                                                                               of: projectType))
-        toDoListDetailViewController.delegate = self
+        dataSenable?.sendData(of: projectType, order: indexPath.row)
 
         presetDelegate?.presentDetail(navigationController)
     }
@@ -152,11 +149,5 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
         let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
         
         return swipeAction
-    }
-}
-
-extension ProjectTableView: DataSenable {
-    func sendData(of item: ToDoItem) {
-        projectTableViewModel.update(item: item, from: selectedIndex ?? 0, of: projectType)
     }
 }
