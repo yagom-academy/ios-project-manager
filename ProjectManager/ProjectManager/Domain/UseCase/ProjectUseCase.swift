@@ -27,7 +27,8 @@ struct ProjectUseCase: ProjectUseCaseProtocol, ProjectTranslater {
     mutating func update(id: String,
                          data: ProjectViewModel) {
         
-        repository.update(id: id, data: translateToProjectModel(with: data))
+        repository.update(id: id,
+                          data: translateToProjectModel(with: data))
     }
     
     mutating func delete(id: String) {

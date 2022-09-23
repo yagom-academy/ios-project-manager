@@ -74,7 +74,8 @@ final class ProjectListViewController: UIViewController {
         view.addGestureRecognizer(longPress)
     }
     
-    @objc private func longPressDidTap(sender: UILongPressGestureRecognizer) {
+    @objc
+    private func longPressDidTap(sender: UILongPressGestureRecognizer) {
         guard sender.state == .ended else { return }
         
         ProjectState.allCases.forEach {
@@ -99,7 +100,8 @@ final class ProjectListViewController: UIViewController {
         navigationItem.title = Design.navigationTitle
     }
     
-    @objc private func rightBarButtonDidTap() {
+    @objc
+    private func rightBarButtonDidTap() {
         let navigationController = makeNavigationController(item: nil)
         
         present(navigationController, animated: true)

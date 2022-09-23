@@ -24,7 +24,6 @@ final class ProjectManagementViewController: UIViewController {
         
         configureNavigationItems()
         configureViewLayout()
-        configureViewItems()
     }
     
     // MARK: - Methods
@@ -33,7 +32,6 @@ final class ProjectManagementViewController: UIViewController {
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .done,
                                              target: self,
                                              action: #selector(rightBarButtonDidTap))
-        
         let leftBarButton = UIBarButtonItem(barButtonSystemItem: item == nil ? .cancel : .edit,
                                             target: self,
                                             action: #selector(leftBarButtonDidTap))
@@ -43,17 +41,18 @@ final class ProjectManagementViewController: UIViewController {
         navigationItem.title = item == nil ? ProjectState.todo.name : item?.workState.name
     }
     
-    private func configureViewItems() {
+    func configureViewItems(item: ProjectViewModel?) {
         guard let item = item else { return }
+        self.item = item
         
         projectManagementView.configureItem(title: item.title,
                                             body: item.body)
     }
     
-    @objc private func rightBarButtonDidTap() {
+    @objc
+    private func rightBarButtonDidTap() {
         if item == nil {
             let newItem = projectManagementView.makeItems()
-            
             let data = projectManagermentViewModel.makeProjectViewModel(id: UUID().description,
                                                                         state: .todo,
                                                                         newItem: newItem)
@@ -65,7 +64,8 @@ final class ProjectManagementViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc private func leftBarButtonDidTap() {
+    @objc
+    private func leftBarButtonDidTap() {
         if let item = self.item {
             let newItem = projectManagementView.makeItems()
             let data = projectManagermentViewModel.makeProjectViewModel(id: item.id,
