@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import RxRelay
 
 protocol TodoDatabaseManager {
+    var todoListViewBehaviorRelay: BehaviorRelay<[TodoModel]> { get set }
+    
     func create(todoData: TodoModel)
-    func read() -> [TodoModel]
-    func update(updateTodoData: TodoModel) -> Bool
-    func delete(deleteTodoData: UUID) -> Bool
+    func read()
+    func update(updateTodoData: TodoModel)
+    func delete(deleteTodoData: UUID)
 }

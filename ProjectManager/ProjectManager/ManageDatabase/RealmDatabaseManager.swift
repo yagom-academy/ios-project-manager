@@ -18,6 +18,7 @@ class RealmDatabaseManager {
     func create(todoData: TodoModel) {
         try? realm?.write {
             realm?.add(todoData.convertDatabaseTodo())
+            print(Realm.Configuration.defaultConfiguration.fileURL!)
         }
     }
     
@@ -26,11 +27,10 @@ class RealmDatabaseManager {
         realm?.objects(TodoLocalModel.self).forEach {
             todoListArray.append($0.convertTodoModel())
         }
-        
         return todoListArray
     }
     
-    func update(updateData: TodoModel) -> Bool {
+    func update(updateData: TodoModel) {
         let checkData = realm?.objects(TodoLocalModel.self).filter({$0.id == updateData.id}).first
         
         if checkData != nil {
@@ -41,18 +41,14 @@ class RealmDatabaseManager {
                 checkData?.body = updateData.body
                 checkData?.createdAt = updateData.createdAt
             })
-            return true
         }
-        return false
     }
     
-    func delete(deleteID: UUID) -> Bool {
+    func delete(deleteID: UUID) {
         guard let checkData = realm?.objects(TodoLocalModel.self).filter({ $0.id == deleteID }).first else {
-            return false
+            return
         }
         
         try? realm?.write({ realm?.delete(checkData)})
-        
-        return true
     }
 }
