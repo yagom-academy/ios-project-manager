@@ -7,9 +7,15 @@
 import UIKit
 
 final class ProjectManagerController: UIViewController {
-    private let toDoViewController = ProjectListViewController()
-    private let doingViewController = ProjectListViewController()
-    private let doneViewController = ProjectListViewController()
+    private let toDoViewController = ProjectListViewController(
+        viewModel: ToDoViewModel(databaseManager: LocalDatabaseManager.inMemory)
+    )
+    private let doingViewController = ProjectListViewController(
+        viewModel: DoingViewModel(databaseManager: LocalDatabaseManager.inMemory)
+    )
+    private let doneViewController = ProjectListViewController(
+        viewModel: DoneViewModel(databaseManager: LocalDatabaseManager.inMemory)
+    )
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +45,7 @@ final class ProjectManagerController: UIViewController {
     
     @objc func didTapAddButton() {
         let projectAdditionController = ProjectAdditionController()
-        projectAdditionController.viewModel = self.toDoViewController.viewModel
+        projectAdditionController.viewModel = self.toDoViewController.viewModel as? ContentAddible 
 
         let navigationController = UINavigationController(rootViewController: projectAdditionController)
         navigationController.modalPresentationStyle = .formSheet

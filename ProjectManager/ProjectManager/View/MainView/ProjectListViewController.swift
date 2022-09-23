@@ -18,7 +18,7 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
     private var dataSource: DataSource?
     private var snapshot: Snapshot?
 
-    let viewModel = ToDoViewModel(databaseManager: LocalDatabaseManager.inMemory)
+    var viewModel: CommonViewModelLogic!
 
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -29,16 +29,15 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
         return tableView
     }()
 
-    init(viewModel: DiaryViewModelLogic) {
+    init(viewModel: CommonViewModelLogic) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
-    @available(*, unavailable)
+    
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -117,7 +116,7 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
     }
 
     private func configureObserver() {
-        viewModel.toDoData.subscribe { [weak self] projectUnitArray in
+        viewModel.data.subscribe { [weak self] projectUnitArray in
             guard let self = self else {
                 return
             }
@@ -176,8 +175,8 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
     private func presentModalEditView(indexPath: Int) {
         let projectModificationController = ProjectModificationController()
         projectModificationController.indexPath = indexPath
-        projectModificationController.viewModel = self.viewModel
-        projectModificationController.title = ProjectStatus.todo
+        projectModificationController.viewModel = self.viewModel as? ContentEditable
+        projectModificationController.title = viewModel.identifier
 
         let navigationController = UINavigationController(rootViewController: projectModificationController)
         navigationController.modalPresentationStyle = .formSheet
@@ -187,11 +186,11 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
 
     private func configurePopoverController(indexPath: Int, in cell: UITableViewCell) {
         let controller = PopoverController()
-        controller.viewModel = self.viewModel
+        controller.viewModel = self.viewModel as? StatusChangable
         controller.indexPath = indexPath
         controller.modalPresentationStyle = UIModalPresentationStyle.popover
         controller.preferredContentSize = CGSize(width: 300, height: 120)
-        controller.setTitle(firstButtonName: ProjectStatus.doing, secondButtonName: ProjectStatus.done)
+        controller.setTitle(firstButtonName: viewModel.otherTitles[0], secondButtonName: viewModel.otherTitles[1])
 
         guard let popController = controller.popoverPresentationController else {
             return
@@ -214,7 +213,7 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
 extension ProjectListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = SectionHeaderView()
-        headerView.setupLabelText(section: ProjectStatus.todo, number: viewModel.count)
+        headerView.setupLabelText(section: viewModel.identifier, number: viewModel.count)
 
         return headerView
     }
