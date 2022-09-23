@@ -104,7 +104,7 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
                     date: item.deadLine.localizedString
                 )
 
-                if self.viewModel.isPassDeadLine(item.deadLine) {
+                if item.isDeadlinePassed {
                     cell.changeTextColor()
                 }
 

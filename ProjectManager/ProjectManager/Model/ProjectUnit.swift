@@ -27,7 +27,11 @@ struct ProjectUnit: Hashable {
         self.section = section
         self.deadLine = deadLine
     }
-
+    
+    var isDeadlinePassed: Bool {
+        return self.deadLine < Date()
+    }
+    
     // MARK: Test Data
 
     static let sample = ProjectUnit(

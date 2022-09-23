@@ -17,7 +17,6 @@ protocol CommonViewModelLogic: AnyObject {
     var showAlert: (() -> Void)? { get set }
 
     func delete(_ indexPath: Int)
-    func isPassDeadLine(_ deadLine: Date) -> Bool
 }
 
 extension CommonViewModelLogic {
@@ -39,14 +38,6 @@ extension CommonViewModelLogic {
         } catch {
             message = "Delete Error"
         }
-    }
-    
-    func isPassDeadLine(_ deadLine: Date) -> Bool {
-        if deadLine < Date() {
-            return true
-        }
-
-        return false
     }
 
     private func fetchProjectData() {
