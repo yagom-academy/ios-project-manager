@@ -15,26 +15,25 @@ final class ProjectDetailViewController: UIViewController {
     private let projectDetailViewModel = ProjectDetailViewModel()
     private let tableView: UITableView
     
-    private var uploadedIndex: Int?
-    private var uploadedProjectType: ProjectType?
+    private var selectedIndex: Int?
+    private var selectedProjectType: ProjectType?
     private var isEditable: Bool = false
     
     // MARK: View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
     // MARK: - Initializers
-
+    
     init(with tableView: UITableView) {
         self.tableView = tableView
         
         super.init(nibName: nil, bundle: nil)
         guard let tableView = tableView as? ProjectTableView else { return }
         navigationItem.title = tableView.getTitle()
-        tableView.dataSenable = self
     }
     
     required init?(coder: NSCoder) {
@@ -46,6 +45,11 @@ final class ProjectDetailViewController: UIViewController {
     
     func loadData(of item: ToDoItem) {
         toDoComponentsView.configure(of: item)
+    }
+    
+    func sendData(of project: ProjectType, in row: Int) {
+        selectedProjectType = project
+        selectedIndex = row
     }
     
     private func setupUI() {
@@ -73,7 +77,7 @@ final class ProjectDetailViewController: UIViewController {
                                                  target: self,
                                                  action: #selector(didDoneButtonTapped))
         let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
-                                                 target: self,
+                                                target: self,
                                                 action: #selector(didEditButtonTapped))
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
@@ -102,13 +106,13 @@ final class ProjectDetailViewController: UIViewController {
         } else {
             toDoComponentsView.setupEditable(is: false)
             isEditable = false
-        } 
+        }
     }
     
     @objc private func didDoneButtonTapped() {
         projectDetailViewModel.update(item: toDoComponentsView.fetchItem(),
-                                      from: uploadedIndex ?? .zero,
-                                      of: uploadedProjectType ?? .todo)
+                                      from: selectedIndex ?? .zero,
+                                      of: selectedProjectType ?? .todo)
         dismissViewController()
     }
     
@@ -116,12 +120,5 @@ final class ProjectDetailViewController: UIViewController {
     
     private enum Design {
         static let navigationTitleFontSize: CGFloat = 20
-    }
-}
-
-extension ProjectDetailViewController: DataSenable {
-    func sendData(of project: ProjectType, order: Int) {
-        uploadedProjectType = project
-        uploadedIndex = order
     }
 }

@@ -12,14 +12,13 @@ final class ProjectTableView: UITableView {
     // MARK: - Properties
     
     var presetDelegate: Presentable?
-    var dataSenable: DataSenable?
-
+    
     private let projectType: ProjectType
     
     private var projectHeaderView: ProjectTableHeaderView
     
     private let projectTableViewModel = ProjectTableViewModel()
-
+    
     // MARK: Initializers
     
     init(for projectType: ProjectType) {
@@ -84,8 +83,8 @@ final class ProjectTableView: UITableView {
         guard let indexPath = indexPathForRow(at: touchPoint) else { return }
         
         let alertController = AlertViewController(with: projectType,
-                                              by: indexPath,
-                                              tableView: self)
+                                                  by: indexPath,
+                                                  tableView: self)
         guard let popoverController = alertController.popoverPresentationController else { return }
         
         let cell = cellForRow(at: indexPath)
@@ -133,11 +132,10 @@ extension ProjectTableView: UITableViewDelegate, UITableViewDataSource {
         let navigationController = UINavigationController(rootViewController: toDoListDetailViewController)
         
         toDoListDetailViewController.modalPresentationStyle = .formSheet
-
+        
         toDoListDetailViewController.loadData(of: projectTableViewModel.searchContent(from: indexPath.row,
-                                                                              of: projectType))
-        dataSenable?.sendData(of: projectType, order: indexPath.row)
-
+                                                                                      of: projectType))
+        toDoListDetailViewController.sendData(of: projectType, in: indexPath.row)
         presetDelegate?.presentDetail(navigationController)
     }
     

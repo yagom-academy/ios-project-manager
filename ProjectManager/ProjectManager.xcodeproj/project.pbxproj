@@ -30,7 +30,6 @@
 		D7971F4A28CCCE16008C7ADA /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7971F4928CCCE16008C7ADA /* UILabel+Extension.swift */; };
 		D7971F5028CE196E008C7ADA /* ToDoComponentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7971F4F28CE196E008C7ADA /* ToDoComponentsView.swift */; };
 		D7A8DA6128D5B04F00968726 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A8DA6028D5B04F00968726 /* AlertViewController.swift */; };
-		D7C0094C28D35F7F00F3BD18 /* DataSenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0094B28D35F7F00F3BD18 /* DataSenable.swift */; };
 		D7C465D328C72286004B64F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */; };
 		D7C465DB28C76584004B64F7 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C465DA28C76584004B64F7 /* ProjectTableViewCell.swift */; };
 		D7E1178228D8331E006F416C /* ToDoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E1178128D8331E006F416C /* ToDoViewModelTest.swift */; };
@@ -80,7 +79,6 @@
 		D7971F4928CCCE16008C7ADA /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		D7971F4F28CE196E008C7ADA /* ToDoComponentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoComponentsView.swift; sourceTree = "<group>"; };
 		D7A8DA6028D5B04F00968726 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
-		D7C0094B28D35F7F00F3BD18 /* DataSenable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSenable.swift; sourceTree = "<group>"; };
 		D7C465D228C72286004B64F7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7C465DA28C76584004B64F7 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		D7E1177F28D8331E006F416C /* TestDouble.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestDouble.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -283,7 +281,6 @@
 			isa = PBXGroup;
 			children = (
 				A334147F28C779EC0059D133 /* ReuseIdentifiable.swift */,
-				D7C0094B28D35F7F00F3BD18 /* DataSenable.swift */,
 				A322F03C28D437CF00D4F503 /* Presentable.swift */,
 			);
 			path = Protocol;
@@ -448,7 +445,6 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D7E75DA428D0AC8100C32947 /* ProjectTableHeaderView.swift in Sources */,
 				D7A8DA6128D5B04F00968726 /* AlertViewController.swift in Sources */,
-				D7C0094C28D35F7F00F3BD18 /* DataSenable.swift in Sources */,
 				D7971F4828CCCA72008C7ADA /* Array+Extension.swift in Sources */,
 				A3169E0228DCACB4002E2DC1 /* AlertViewModel.swift in Sources */,
 				A3169E0428DCACE7002E2DC1 /* RegistrationViewModel.swift in Sources */,
