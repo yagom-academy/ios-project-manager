@@ -9,14 +9,22 @@
 ## 기술스택
 | Dependency | UI | Design Pattern |
 |:---:|:---:|:---:|
-|Realm, FireBase, SwiftLint|UIKit|MVVM + Coordinator|
+|Realm, FireBase, SwiftLint|UIKit|MVVM + Coordinator, BuilderPattern|
 
 ## File Tree
+<details>
+    
 ```
 .
 ├── ProjectManager
 │   ├── swiftlint
 │   ├── ProjectManager
+│   │   ├── Utility
+│   │   │   ├── Observable
+│   │   │   ├── NetworkCheck
+│   │   │   └── Builder
+│   │   │       ├── LabelBuilder
+│   │   │       └── StackViewBuilder
 │   │   ├── Protocol
 │   │   │   └── Coordinator
 │   │   ├── Extensions
@@ -43,13 +51,23 @@
 │   │   │               ├── ListCollectionView+UIGestureRecognizerDelegate
 │   │   │               └── Cell
 │   │   │                   └── ListCell
-│   │   ├── ModalTransitionScene
+│   │   ├── FormSheetScene
 │   │   │   ├── Coordinator
 │   │   │   │   └── FormSheetViewCoordinator
+│   │   │   ├── ViewModel
+│   │   │   │   └── FormSheetViewModel
 │   │   │   └── View
 │   │   │       ├── FormSheetViewController
 │   │   │       └── Template
 │   │   │           └── FormSheetTemplateView
+│   │   ├── HistoryScene
+│   │   │   ├── Coordinator
+│   │   │   │   └── HistoryViewCoordinator
+│   │   │   ├── ViewModel
+│   │   │   │   └── HistoryViewModel
+│   │   │   └── View
+│   │   │       ├── HistoryViewController
+│   │   │       └── HistoryCell
 │   │   ├── PopoverScene
 │   │   │   ├── Coordinator
 │   │   │   │   └── PopoverViewCoordinator
@@ -58,12 +76,13 @@
 │   │   │   └── View
 │   │   │       └── PopoverViewController
 │   │   ├── Model
-│   │   │   ├── TodoModel
-│   │   │   └── Category
-│   │   ├── DataStore
+│   │   │   ├── History
 │   │   │   ├── Todo
+│   │   │   └── Category
+│   │   ├── DataManager
 │   │   │   ├── TodoDataManager
-│   │   │   └── Observable
+│   │   │   ├── RemoteDataManager
+│   │   │   └── HistoryManager
 │   │   ├── Assets
 │   │   ├── LaunchScreen
 │   │   └── Info
@@ -72,9 +91,11 @@
 │   └── Frameworks
 └── Pods
 ```
+</details>
 
 ## Coordinator
-![](https://i.imgur.com/1hf3BAG.png)
+
+![](https://i.imgur.com/98QhJPA.png)
 
 ## 화면구성
 ![](https://i.imgur.com/aYpgYgB.png)
@@ -128,14 +149,6 @@ class Observable<T> {
 
 ## 기능구현
 
-### - AppCoordinator
-- 뷰 전환을 AppCoordinator에서 관리 하도록 구현
-- 각 ViewController 에 
-```swift
-static func create(with: ViewModel, coordinator: Coordinator) -> UIViewController
-``` 
-위와 같은 형태의 메서드를 이용하여 ViewController를 생성할 때, ViewModel과 Coordinator 를 주입
-
 ### - 할 일 추가
 - "TodoListViewController" 에서 네비게이션 바의 우측상단 "+" 버튼을 누르면 modalTransitionStyle 이 .formSheet 형태로 입력양식을 띄움
     - 입력 양식에서 우측상단의 Done 버튼 탭시, 입력된 데이터를 저장 후 셀 생성
@@ -165,6 +178,13 @@ static func create(with: ViewModel, coordinator: Coordinator) -> UIViewControlle
 
 <img src="https://i.imgur.com/58NYrYN.gif" width=500>
 
+### - 네트워크 상태체크
+- 네트워크가 끊겼을 때, Alert를 이용한 알림
+<img src="https://i.imgur.com/kIxMzJV.png" width="500">
+
+### - History 기록
+- 상품의 추가, 삭제, 이동이 이루어진 내역을 history에 저장
+<img src="https://i.imgur.com/rc1WXig.png" width="500">
 ### - 기타
 - HeaderView
     - 해당 리스트의 현재 셀 개수를 HeaderView.count에 동적 표현
@@ -228,6 +248,49 @@ didChangedCount.forEach { $0() }
 
 실기기에서 테스트 결과, 할일의 내용을 작성하는 textView에서 키보드가 textView를 가려 내용이 보이지 않았다. 이 오류해결을 위해 먼저, formSheet 뷰를 scroll뷰로 한번 감싼 뒤, 키보드가 올라와 가리는 높이 만큼 bottomInset을 주어서 작성중인 내용이 가려지지 않도록 구현.
 
+### 5. 로컬저장소와 원격저장소의 활용 (해결중...)
+
+로컬저장소를 통하면 네트워크가 없이도 작업이 가능한데, 원격저장소는 왜 필요할까? 라는 의문에서 어떤방식으로 이 둘을 활용할지 케이스 별로 고민
+1. 한 어플을 여러개의 기기에서 사용 할 경우 - **해결중**
+3. 어플을 지웠다가 다시 설치한 경우 - **해결**
+이 경우 로컬에 저장되어 있던 데이터가 모두 지워진다. 따라서, 앱이 설치되고 처음 실행 시, 기존의 원격저장소의 데이터를 불러와주었다.
+
+
+### 6. 네트워크 연결이 끊겼을 때, 작업을 진행 후 앱을 껐다가 다시 켤 때 (해결)
+앱이 켜저있는 상태에서 네트워크가 끊겼다가 다시 연결되면, 원격저장소로 보내지는 작업들이 밀려있다가 실행되는 반면, 중간에 앱이 꺼졌다가 다시 켜지면 원격저장소로 동기화가 되지 않는다.
+------------------------수정----------------------------
+이후 원격저장소로 가는 어떠한 작업을 수행 시 밀렸던 작업과 함께 수행된다.
+
+### 7. 네트워크 연결상태 확인 (해결)
+
+와이파이를 끊으면, .satisfied 상태가 되고 , 와이파이를 연결하면 .unsatisfied 상태가 된다.
+정확히 반대로 동작한다. 시뮬레이터의 오류인지 아직 이유를 알 수 없다..!
+------------------------수정----------------------------
+리뷰어 제임스도 같은 경험이 있었고, 이는 시뮬레이터 오류라고 말씀해주셨다! 
+**결론**: 실기기에서는 잘 동작한다 !
+
+```swift
+// Network MOnitoring 시작
+    public func startMonitoring(in viewController: UIViewController) { // 상태값이 반대로 된다 ..
+        monitor.start(queue: queue)
+        monitor.pathUpdateHandler = { [weak self] path in
+            self?.isConnected = path.status == .satisfied
+            self?.getConnectionType(path)
+
+            if self?.isConnected == true {
+                print("연결됨")
+            } else {
+                print("연결안됨")
+                let alert = UIAlertController(title: "인터넷 연결이 원활하지 않습니다.", message: "Wifi 또는 셀룰러를 활성화 해주세요.", preferredStyle: .alert)
+                let confirm = UIAlertAction(title: "확인", style: .default, handler: nil)
+                alert.addAction(confirm)
+                DispatchQueue.main.async {
+                    viewController.present(alert, animated: true)
+                }
+            }
+        }
+    }
+```
 
 
 ## 참고 링크
