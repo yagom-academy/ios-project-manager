@@ -117,13 +117,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		A3169E0528DCAD32002E2DC1 /* AlertView */ = {
+		A3169E0528DCAD32002E2DC1 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
-				D7A8DA6028D5B04F00968726 /* AlertViewController.swift */,
-				A3169E0128DCACB4002E2DC1 /* AlertViewModel.swift */,
+				C461C00528DD837E00C1C6EF /* View */,
+				C461C00628DD838600C1C6EF /* ViewModel */,
 			);
-			path = AlertView;
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		A334148D28C86A9E0059D133 /* Model */ = {
@@ -132,6 +132,7 @@
 				A334148E28C86AA80059D133 /* ItemListCategory.swift */,
 				D7E1178A28D8395B006F416C /* ToDoItem.swift */,
 				A37C3BA428CCC2C300CE4F50 /* MockToDoItemManager.swift */,
+				D7E75DA128D0AB8F00C32947 /* ProjectType.swift */,
 				A37C3BA628CCC3D700CE4F50 /* MockData.json */,
 			);
 			path = Model;
@@ -142,8 +143,8 @@
 			children = (
 				D7E75DA328D0AC8100C32947 /* ProjectTableHeaderView.swift */,
 				D7E75DA528D0C2EF00C32947 /* ProjectTableView.swift */,
-				D7C465DA28C76584004B64F7 /* ProjectTableViewCell.swift */,
-				A3169DFF28DCA2AE002E2DC1 /* ProjectTableViewModel.swift */,
+				C461BFFF28DD833E00C1C6EF /* Cell */,
+				C461C00028DD834600C1C6EF /* ViewModel */,
 			);
 			path = ProjectTableView;
 			sourceTree = "<group>";
@@ -159,13 +160,93 @@
 			path = Extentsion;
 			sourceTree = "<group>";
 		};
-		A39C1FD328CE1CD000009A15 /* RegistrationView */ = {
+		A39C1FD328CE1CD000009A15 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				C461C00128DD835900C1C6EF /* View */,
+				C461C00228DD835C00C1C6EF /* ViewModel */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		C461BFFD28DD830400C1C6EF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C461BFFE28DD830A00C1C6EF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A3169DFD28DC9D9B002E2DC1 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C461BFFF28DD833E00C1C6EF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D7C465DA28C76584004B64F7 /* ProjectTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		C461C00028DD834600C1C6EF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A3169DFF28DCA2AE002E2DC1 /* ProjectTableViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C461C00128DD835900C1C6EF /* View */ = {
 			isa = PBXGroup;
 			children = (
 				A39C1FD128CE1CB500009A15 /* RegistrationViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C461C00228DD835C00C1C6EF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
 				A3169E0328DCACE7002E2DC1 /* RegistrationViewModel.swift */,
 			);
-			path = RegistrationView;
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C461C00328DD836700C1C6EF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A3420F8D28CCD3F2004AFF56 /* ProjectDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C461C00428DD836A00C1C6EF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A3169E0828DD3FF7002E2DC1 /* ProjectDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C461C00528DD837E00C1C6EF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D7A8DA6028D5B04F00968726 /* AlertViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C461C00628DD838600C1C6EF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A3169E0128DCACB4002E2DC1 /* AlertViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -194,6 +275,7 @@
 			children = (
 				A37C3BA828CCC5D600CE4F50 /* Extentsion */,
 				D7C465DC28C7719E004B64F7 /* Protocol */,
+				A334148D28C86A9E0059D133 /* Model */,
 				D7C465C828C71E09004B64F7 /* Scene */,
 				D7C465C728C71E03004B64F7 /* Resources */,
 			);
@@ -211,7 +293,6 @@
 		D7971F5128CE1982008C7ADA /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				D7E75DA128D0AB8F00C32947 /* ProjectType.swift */,
 				D7971F4F28CE196E008C7ADA /* ToDoComponentsView.swift */,
 			);
 			path = Common;
@@ -220,8 +301,8 @@
 		D7B3BC7528D49FEA00997D34 /* ProjectDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				A3420F8D28CCD3F2004AFF56 /* ProjectDetailViewController.swift */,
-				A3169E0828DD3FF7002E2DC1 /* ProjectDetailViewModel.swift */,
+				C461C00328DD836700C1C6EF /* View */,
+				C461C00428DD836A00C1C6EF /* ViewModel */,
 			);
 			path = ProjectDetailView;
 			sourceTree = "<group>";
@@ -241,40 +322,23 @@
 		D7C465C828C71E09004B64F7 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				D7C465CE28C71EEC004B64F7 /* Main */,
+				D7971F5128CE1982008C7ADA /* Common */,
+				D7C465D128C71F15004B64F7 /* Main */,
+				A39C1FD328CE1CD000009A15 /* Registration */,
+				D7B3BC7528D49FEA00997D34 /* ProjectDetailView */,
+				A3169E0528DCAD32002E2DC1 /* Alert */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
 		};
-		D7C465CE28C71EEC004B64F7 /* Main */ = {
+		D7C465D128C71F15004B64F7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				A334148D28C86A9E0059D133 /* Model */,
-				D7C465D728C763C7004B64F7 /* View */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		D7C465D128C71F15004B64F7 /* MainView */ = {
-			isa = PBXGroup;
-			children = (
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				A3169DFD28DC9D9B002E2DC1 /* MainViewModel.swift */,
+				C461BFFD28DD830400C1C6EF /* View */,
+				C461BFFE28DD830A00C1C6EF /* ViewModel */,
 				A334149728C8EEA10059D133 /* ProjectTableView */,
 			);
-			path = MainView;
-			sourceTree = "<group>";
-		};
-		D7C465D728C763C7004B64F7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D7971F5128CE1982008C7ADA /* Common */,
-				D7C465D128C71F15004B64F7 /* MainView */,
-				A39C1FD328CE1CD000009A15 /* RegistrationView */,
-				D7B3BC7528D49FEA00997D34 /* ProjectDetailView */,
-				A3169E0528DCAD32002E2DC1 /* AlertView */,
-			);
-			path = View;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		D7C465DC28C7719E004B64F7 /* Protocol */ = {
