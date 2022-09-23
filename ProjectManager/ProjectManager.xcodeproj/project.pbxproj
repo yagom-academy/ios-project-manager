@@ -33,7 +33,6 @@
 		B4B74C4F28D5D9F800F6C4DC /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B4B74C4E28D5D9F800F6C4DC /* FirebaseFirestoreSwift */; };
 		B4B74C5528D61DC100F6C4DC /* ProjectManagerViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B74C5428D61DC100F6C4DC /* ProjectManagerViewModelType.swift */; };
 		B4ED131328D7016D002AD982 /* ProjectManagerViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ED131228D7016D002AD982 /* ProjectManagerViewIO.swift */; };
-		B4ED131528D701C6002AD982 /* ProjectManagerModelIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ED131428D701C6002AD982 /* ProjectManagerModelIO.swift */; };
 		B4ED131728D701F4002AD982 /* CellViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ED131628D701F4002AD982 /* CellViewIO.swift */; };
 		B4ED131A28D704DE002AD982 /* CellIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ED131928D704DE002AD982 /* CellIdentifier.swift */; };
 		B4ED131C28D70845002AD982 /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4ED131B28D70845002AD982 /* ProjectManager.swift */; };
@@ -65,7 +64,6 @@
 		B4A6E1B228C9CF940017AC34 /* ProjectManagerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerCollectionViewCell.swift; sourceTree = "<group>"; };
 		B4B74C5428D61DC100F6C4DC /* ProjectManagerViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModelType.swift; sourceTree = "<group>"; };
 		B4ED131228D7016D002AD982 /* ProjectManagerViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewIO.swift; sourceTree = "<group>"; };
-		B4ED131428D701C6002AD982 /* ProjectManagerModelIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerModelIO.swift; sourceTree = "<group>"; };
 		B4ED131628D701F4002AD982 /* CellViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewIO.swift; sourceTree = "<group>"; };
 		B4ED131928D704DE002AD982 /* CellIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellIdentifier.swift; sourceTree = "<group>"; };
 		B4ED131B28D70845002AD982 /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				B4ED131228D7016D002AD982 /* ProjectManagerViewIO.swift */,
-				B4ED131428D701C6002AD982 /* ProjectManagerModelIO.swift */,
 				B4ED131628D701F4002AD982 /* CellViewIO.swift */,
 			);
 			path = InputOutput;
@@ -379,7 +376,6 @@
 				B452F37628CA12AD00953775 /* TodoStatus.swift in Sources */,
 				B452F3A328CA49B800953775 /* TableSectionHeaderView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				B4ED131528D701C6002AD982 /* ProjectManagerModelIO.swift in Sources */,
 				B4550D8028D5CC20000A8747 /* DataSourceSection.swift in Sources */,
 				B452F37828CA228300953775 /* TodoListTableViewCell.swift in Sources */,
 				B4ED131328D7016D002AD982 /* ProjectManagerViewIO.swift in Sources */,

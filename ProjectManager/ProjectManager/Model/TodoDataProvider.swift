@@ -12,12 +12,14 @@ final class TodoDataProvider {
     
     // MARK: - Properties
     
+    static let shared = TodoDataProvider()
+    
     var allTodoList = BehaviorSubject<[Todo]>(value: [])
     var disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
     
-    init() {
+    private init() {
         fetchTodoData()
     }
     

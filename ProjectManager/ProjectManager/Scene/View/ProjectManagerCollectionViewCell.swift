@@ -14,10 +14,11 @@ final class ProjectManagerCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
         
-    private var statusType: TodoStatus?
-    private var viewModel: CellViewModelType? {
+    private var viewModel: CellViewModelType?
+    private var statusType: TodoStatus? {
         didSet {
-            configureObservable()
+            configureViewModel()
+            bindViewModel()
         }
     }
     
@@ -54,6 +55,19 @@ final class ProjectManagerCollectionViewCell: UICollectionViewCell {
 // MARK: - Configure Methods
 
 extension ProjectManagerCollectionViewCell {
+    private func configureViewModel() {
+        guard let statusType = statusType else { return }
+        
+        switch statusType {
+        case .todo:
+            viewModel = TodoViewModel(statusType: statusType)
+        case .doing:
+            viewModel = DoingViewModel(statusType: statusType)
+        case .done:
+            viewModel = DoneViewModel(statusType: statusType)
+        }
+    }
+    
     private func configureTableView() {
         let initialTableView = UITableView(
             frame: bounds,
@@ -212,8 +226,7 @@ extension ProjectManagerCollectionViewCell: UITableViewDelegate {
 // MARK: - Setter Methods
 
 extension ProjectManagerCollectionViewCell {
-    func set(viewModel: CellViewModelType, statusType: TodoStatus) {
+    func set(statusType: TodoStatus) {
         self.statusType = statusType
-        self.viewModel = viewModel
     }
 }

@@ -122,14 +122,14 @@ extension ProjectManagerViewController {
         let input = ProjectManagerViewInput(doneAction: detailViewDoneButtonTapped)
         output = viewModel.transform(viewInput: input)
         
-        output?.viewModels?
-            .map { $0.sorted { $0.key.rawValue < $1.key.rawValue } }
+        let items = Observable.just(TodoStatus.allCases)
+        items
             .bind(to: collectionView.rx.items(
                 cellIdentifier: CellIdentifier.collectionView,
                 cellType: ProjectManagerCollectionViewCell.self
             )) { index, viewModel, cell in
                 guard let status = TodoStatus(rawValue: index) else { return }
-                cell.set(viewModel: viewModel.value, statusType: status)
+                cell.set(statusType: status)
             }
             .disposed(by: disposeBag)
         

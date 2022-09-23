@@ -17,5 +17,4 @@ struct ProjectManagerViewInput {
 struct ProjectManagerViewOutput {
     var allTodoList: Observable<[Todo]>?
     var errorAlertContoller: Observable<UIAlertController>?
-    var viewModels: Observable<[TodoStatus: CellViewModelType]>?
 }
