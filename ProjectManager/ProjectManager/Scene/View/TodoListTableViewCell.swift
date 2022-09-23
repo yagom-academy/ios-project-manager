@@ -84,7 +84,7 @@ extension TodoListTableViewCell {
         let separatorRect = CGRect(
             x: 0,
             y: 0,
-            width: self.bounds.width * 10,
+            width: bounds.width * 10,
             height: 10
         )
         separatorView.frame = separatorRect

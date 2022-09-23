@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G72" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="RequestCache" representedClassName="RequestCache" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Transformable"/>
+        <attribute name="request" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="TodoData" representedClassName="TodoData" syncable="YES">
+        <attribute name="body" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identity" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isOutdated" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="status" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="TodoData" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="RequestCache" positionX="-63" positionY="27" width="128" height="59"/>
+    </elements>
+</model>

@@ -14,20 +14,20 @@ final class ProjectManagerCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
         
-    private var statusType: TodoStatus?
-    private var viewModel: CellViewModelType? {
+    private var viewModel: CellViewModelType?
+    private var statusType: TodoStatus? {
         didSet {
-            configureObservable()
+            configureViewModel()
+            bindViewModel()
         }
     }
     
     private var tableView: UITableView?
+    private var configureTableViewHeader: (() -> UIView)?
     
     private var deleteSubject = PublishSubject<Int>()
     private var detailViewDoneButtonSubject = PublishSubject<(Todo?, IndexPath)>()
     private var moveToSubject = PublishSubject<(UITableView, UIGestureRecognizer)>()
-    
-    private var output: CellViewOutput?
     
     private var disposeBag = DisposeBag()
     
@@ -54,6 +54,19 @@ final class ProjectManagerCollectionViewCell: UICollectionViewCell {
 // MARK: - Configure Methods
 
 extension ProjectManagerCollectionViewCell {
+    private func configureViewModel() {
+        guard let statusType = statusType else { return }
+        
+        switch statusType {
+        case .todo:
+            viewModel = TodoViewModel(statusType: statusType)
+        case .doing:
+            viewModel = DoingViewModel(statusType: statusType)
+        case .done:
+            viewModel = DoneViewModel(statusType: statusType)
+        }
+    }
+    
     private func configureTableView() {
         let initialTableView = UITableView(
             frame: bounds,
@@ -76,24 +89,42 @@ extension ProjectManagerCollectionViewCell {
         )
         initialTableView.delegate = self
         
-        self.tableView = initialTableView
+        tableView = initialTableView
     }
     
     private func configureHierarchy() {
-        guard let tableView = self.tableView else { return }
+        guard let tableView = tableView else { return }
         addSubview(tableView)
     }
-    
-    private func configureObservable() {
-        guard let tableView = self.tableView,
-              let statusType = self.statusType else { return }
+}
+
+// MARK: - Bind Method
+
+extension ProjectManagerCollectionViewCell {
+    private func bindViewModel() {
+        guard let tableView = tableView,
+              let statusType = statusType else { return }
         
         let input = CellViewInput(
             doneAction: detailViewDoneButtonSubject,
             deleteAction: deleteSubject,
             moveToAction: moveToSubject
         )
-        output = viewModel?.transform(viewInput: input)
+        guard let output = viewModel?.transform(viewInput: input) else { return }
+        
+        configureTableViewHeader = { [weak self] in
+            guard let self = self else { return UIView() }
+            
+            let headerView = TableSectionHeaderView()
+            headerView.set(title: statusType.upperCasedString)
+            
+            output.categorizedTodoList?
+                .map { "\($0.count)" }
+                .bind(to: headerView.countLabel.rx.text)
+                .disposed(by: self.disposeBag)
+            
+            return headerView
+        }
         
         let dataSource = RxTableViewSectionedAnimatedDataSource<DataSourceSection> { dataSource, tableView, indexPath, item in
             guard let cell = tableView.dequeueReusableCell(
@@ -108,27 +139,28 @@ extension ProjectManagerCollectionViewCell {
         
         dataSource.canEditRowAtIndexPath = { dataSource, index -> Bool in true }
         tableView.rx.itemDeleted
-            .bind { indexPath in
-                self.deleteSubject.onNext(indexPath.row)
+            .bind { [weak self] indexPath in
+                self?.deleteSubject.onNext(indexPath.row)
             }
             .disposed(by: disposeBag)
         
         tableView.rx.longPressGesture()
-            .subscribe(onNext: { gestureRecognizer in
-                self.moveToSubject.onNext((tableView, gestureRecognizer))
+            .subscribe(onNext: { [weak self] gestureRecognizer in
+                self?.moveToSubject.onNext((tableView, gestureRecognizer))
             })
             .disposed(by: disposeBag)
         
         tableView.rx.itemSelected
-            .subscribe(onNext: { indexPath in
+            .subscribe(onNext: { [weak self] indexPath in
                 
-                guard let rootViewController = self.window?.rootViewController else { return }
+                guard let self = self,
+                      let rootViewController = self.window?.rootViewController else { return }
                 
                 let todoDetailViewController = TodoDetailViewController()
-                let categorizedTodoList = self.output?.categorizedTodoList?
+                let categorizedTodoList = output.categorizedTodoList?
                     .filter { $0.count > indexPath.row }
                 
-                self.output?.categorizedTodoList?
+                output.categorizedTodoList?
                     .subscribe(onNext: { _ in
                         todoDetailViewController.dismiss(animated: true)
                     })
@@ -171,7 +203,7 @@ extension ProjectManagerCollectionViewCell {
         
         let sectionSubject = BehaviorSubject<[DataSourceSection]>(value: [])
         
-        output?.categorizedTodoList?
+        output.categorizedTodoList?
             .map { DataSourceSection(
                 headerTitle: statusType.upperCasedString,
                 items: $0
@@ -182,9 +214,9 @@ extension ProjectManagerCollectionViewCell {
         sectionSubject.bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
-        output?.moveToAlertController?
-            .subscribe(onNext: {
-                guard let rootViewController = self.window?.rootViewController else { return }
+        output.moveToAlertController?
+            .subscribe(onNext: { [weak self] in
+                guard let rootViewController = self?.window?.rootViewController else { return }
                 rootViewController.present($0, animated: true)
             })
             .disposed(by: disposeBag)
@@ -195,16 +227,7 @@ extension ProjectManagerCollectionViewCell {
 
 extension ProjectManagerCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let statusType = self.statusType else { return nil }
-        
-        let headerView = TableSectionHeaderView()
-        headerView.set(title: statusType.upperCasedString)
-        
-        output?.categorizedTodoList?
-            .map { "\($0.count)" }
-            .bind(to: headerView.countLabel.rx.text)
-            .disposed(by: disposeBag)
-        
+        let headerView = configureTableViewHeader?()
         return headerView
     }
 }
@@ -212,8 +235,7 @@ extension ProjectManagerCollectionViewCell: UITableViewDelegate {
 // MARK: - Setter Methods
 
 extension ProjectManagerCollectionViewCell {
-    func set(viewModel: CellViewModelType, statusType: TodoStatus) {
+    func set(statusType: TodoStatus) {
         self.statusType = statusType
-        self.viewModel = viewModel
     }
 }

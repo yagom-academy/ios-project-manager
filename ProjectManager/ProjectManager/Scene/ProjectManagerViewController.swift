@@ -21,8 +21,6 @@ final class ProjectManagerViewController: UIViewController {
         target: nil,
         action: nil
     )
-
-    private var output: ProjectManagerViewOutput?
     
     private var disposeBag = DisposeBag()
     
@@ -36,7 +34,7 @@ final class ProjectManagerViewController: UIViewController {
         configureNavigationBar()
         configureHierarchy()
         configureLayout()
-        configureObservable()
+        bindViewModel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,7 +67,7 @@ extension ProjectManagerViewController {
         )
         initialCollectionView.isScrollEnabled = false
         
-        self.collectionView = initialCollectionView
+        collectionView = initialCollectionView
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -97,12 +95,12 @@ extension ProjectManagerViewController {
     }
     
     private func configureHierarchy() {
-        guard let collectionView = self.collectionView else { return }
+        guard let collectionView = collectionView else { return }
         view.addSubview(collectionView)
     }
     
     private func configureLayout() {
-        guard let collectionView = self.collectionView else { return }
+        guard let collectionView = collectionView else { return }
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -115,50 +113,57 @@ extension ProjectManagerViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
-    
-    private func configureObservable() {
-        guard let collectionView = self.collectionView else { return }
+}
+
+// MARK: - Bind Method
+
+extension ProjectManagerViewController {
+    private func bindViewModel() {
+        guard let collectionView = collectionView else { return }
         
         let input = ProjectManagerViewInput(doneAction: detailViewDoneButtonTapped)
-        output = viewModel.transform(viewInput: input)
+        let output = viewModel.transform(viewInput: input)
         
-        output?.viewModels?
-            .map { $0.sorted { $0.key.rawValue < $1.key.rawValue } }
+        let items = Observable.just(TodoStatus.allCases)
+        items
             .bind(to: collectionView.rx.items(
                 cellIdentifier: CellIdentifier.collectionView,
                 cellType: ProjectManagerCollectionViewCell.self
             )) { index, viewModel, cell in
                 guard let status = TodoStatus(rawValue: index) else { return }
-                cell.set(viewModel: viewModel.value, statusType: status)
+                cell.set(statusType: status)
             }
             .disposed(by: disposeBag)
         
-        addTodoButton.rx.tap.subscribe(onNext: {
-            let todoDetailViewController = TodoDetailViewController()
-            let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
-            
-            todoDetailViewController.doneButton.rx.tap
-                .subscribe(onNext: {
-                    let currentTodo = todoDetailViewController.getCurrentTodoInfomation()
-                    self.detailViewDoneButtonTapped.onNext(currentTodo)
-                })
-                .disposed(by: self.disposeBag)
-            
-            self.output?.allTodoList?
-                .subscribe(onNext: { _ in
-                    todoDetailViewController.dismiss(animated: true)
-                })
-                .disposed(by: self.disposeBag)
-            
-            self.output?.errorAlertContoller?
-                .subscribe(onNext: { alertController in
-                    todoDetailViewController.present(alertController, animated: true)
-                })
-                .disposed(by: self.disposeBag)
-            
-            self.present(todoDetailNavigationController, animated: true)
-        })
-        .disposed(by: disposeBag)
+        addTodoButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                let todoDetailViewController = TodoDetailViewController()
+                let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
+                
+                todoDetailViewController.doneButton.rx.tap
+                    .subscribe(onNext: {
+                        let currentTodo = todoDetailViewController.getCurrentTodoInfomation()
+                        self.detailViewDoneButtonTapped.onNext(currentTodo)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                output.allTodoList?
+                    .subscribe(onNext: { _ in
+                        todoDetailViewController.dismiss(animated: true)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                output.errorAlertContoller?
+                    .subscribe(onNext: { alertController in
+                        todoDetailViewController.present(alertController, animated: true)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                self.present(todoDetailNavigationController, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

@@ -9,6 +9,5 @@ protocol ProjectManagerViewModelType: AnyObject {
     
     // MARK: - Properties
     
-    func transform(modelInput: ProjectManagerModelInput) -> ProjectManagerModelOutput
     func transform(viewInput: ProjectManagerViewInput) -> ProjectManagerViewOutput
 }

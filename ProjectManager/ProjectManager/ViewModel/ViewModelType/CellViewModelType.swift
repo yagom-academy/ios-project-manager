@@ -12,19 +12,12 @@ protocol CellViewModelType: AnyObject {
     
     // MARK: - Properties
     
+    var provider: TodoDataProvider { get set }
     var statusType: TodoStatus? { get set }
-    
-    var mainViewModel: ProjectManagerViewModelType? { get set }
-    
-    var saveSubject: PublishSubject<Todo?> { get set }
-    var deleteSubject: PublishSubject<Todo> { get set }
-    var moveToSubject: PublishSubject<Todo> { get set }
-    
-    var modelOutput: ProjectManagerModelOutput? { get set }
     var disposeBag: DisposeBag { get set }
     
     init()
-    init(statusType: TodoStatus, mainViewModel: ProjectManagerViewModelType)
+    init(statusType: TodoStatus)
 
     func transform(viewInput: CellViewInput) -> CellViewOutput
 }
@@ -33,33 +26,22 @@ extension CellViewModelType {
     
     // MARK: - Life Cycle
     
-    init(statusType: TodoStatus, mainViewModel: ProjectManagerViewModelType) {
+    init(statusType: TodoStatus) {
         self.init()
         
-        saveSubject = PublishSubject<Todo?>()
-        deleteSubject = PublishSubject<Todo>()
-        moveToSubject = PublishSubject<Todo>()
+        provider = TodoDataProvider.shared
         disposeBag = DisposeBag()
-        
-        guard let mainViewModel = mainViewModel as? ProjectManagerViewModel else { return }
-        self.mainViewModel = mainViewModel
+
         self.statusType = statusType
-        
-        let modelInput = ProjectManagerModelInput(
-            saveAction: saveSubject,
-            deleteAction: deleteSubject,
-            moveToAction: moveToSubject
-        )
-        modelOutput = mainViewModel.transform(modelInput: modelInput)
     }
     
     // MARK: - Transform Method
     
     func transform(viewInput: CellViewInput) -> CellViewOutput {
-        let categorizedTodoList = BehaviorSubject<[Todo]>(value: [])
+        var categorizedTodoList: Observable<[Todo]>
         let alertContoller = PublishSubject<UIAlertController>()
         
-        modelOutput?.allTodoList?
+        categorizedTodoList = provider.allTodoList
             .map { $0.filter { $0.status == self.statusType } }
             .map { $0.map { todo in
                 var newTodo = todo
@@ -73,22 +55,20 @@ extension CellViewModelType {
 
                 return newTodo
             }}
-            .subscribe(onNext: { categorizedTodoList.onNext($0) })
-            .disposed(by: disposeBag)
         
         viewInput.doneAction?
             .withLatestFrom(categorizedTodoList) { ($0.0, $1[$0.1.row]) }
-            .map { todo, oldTodo in
+            .compactMap { todo, oldTodo in
                 var newTodo = todo
-                
+
                 newTodo?.identity = oldTodo.identity
                 newTodo?.status = oldTodo.status
                 newTodo?.isOutdated = oldTodo.isOutdated
-                
+
                 return newTodo
             }
-            .subscribe(onNext: { todo in
-                self.saveSubject.onNext(todo)
+            .subscribe(onNext: { [weak self] todo in
+                self?.provider.saveTodoData(document: todo.identity, todoData: todo)
             })
             .disposed(by: disposeBag)
         
@@ -96,8 +76,8 @@ extension CellViewModelType {
             .withLatestFrom(categorizedTodoList) { todoIndex, categorizedTodoList in
                 categorizedTodoList[todoIndex]
             }
-            .subscribe(onNext: { todo in
-                self.deleteSubject.onNext(todo)
+            .subscribe(onNext: { [weak self] todo in
+                self?.provider.deleteTodoData(document: todo.identity)
             })
             .disposed(by: disposeBag)
         
@@ -106,7 +86,7 @@ extension CellViewModelType {
             .map { ($0.0, $0.1.location(in: $0.0)) }
             .map { ($0.0, $0.0.indexPathForRow(at: $0.1)) }
             .withLatestFrom(categorizedTodoList) { ($0.0, $0.1, $1) }
-            .subscribe(onNext: { (tableView, indexPath, categorizedTodoList) in
+            .subscribe(onNext: { [weak self] (tableView, indexPath, categorizedTodoList) in
                 guard let indexPath = indexPath else { return }
 
                 let currentCell = tableView.cellForRow(at: indexPath)
@@ -124,12 +104,12 @@ extension CellViewModelType {
                         style: .default
                     ) { _ in
                         newTodo.status = todoStatus
-                        self.moveToSubject.onNext(newTodo)
+                        self?.provider.saveTodoData(document: newTodo.identity, todoData: newTodo)
                     }
                     newAlertContoller.addAction(newAction)
                 }
                 
-                self.setupPopup(
+                self?.setupPopup(
                     alertController: newAlertContoller,
                     selectedCell: currentCell
                 )
