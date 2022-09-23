@@ -23,12 +23,11 @@ final class ProjectManagerCollectionViewCell: UICollectionViewCell {
     }
     
     private var tableView: UITableView?
+    private var configureTableViewHeader: (() -> UIView)?
     
     private var deleteSubject = PublishSubject<Int>()
     private var detailViewDoneButtonSubject = PublishSubject<(Todo?, IndexPath)>()
     private var moveToSubject = PublishSubject<(UITableView, UIGestureRecognizer)>()
-    
-    private var output: CellViewOutput?
     
     private var disposeBag = DisposeBag()
     
@@ -107,7 +106,21 @@ extension ProjectManagerCollectionViewCell {
             deleteAction: deleteSubject,
             moveToAction: moveToSubject
         )
-        output = viewModel?.transform(viewInput: input)
+        guard let output = viewModel?.transform(viewInput: input) else { return }
+        
+        configureTableViewHeader = { [weak self] in
+            guard let self = self else { return UIView() }
+            
+            let headerView = TableSectionHeaderView()
+            headerView.set(title: statusType.upperCasedString)
+            
+            output.categorizedTodoList?
+                .map { "\($0.count)" }
+                .bind(to: headerView.countLabel.rx.text)
+                .disposed(by: self.disposeBag)
+            
+            return headerView
+        }
         
         let dataSource = RxTableViewSectionedAnimatedDataSource<DataSourceSection> { dataSource, tableView, indexPath, item in
             guard let cell = tableView.dequeueReusableCell(
@@ -139,10 +152,10 @@ extension ProjectManagerCollectionViewCell {
                 guard let rootViewController = self.window?.rootViewController else { return }
                 
                 let todoDetailViewController = TodoDetailViewController()
-                let categorizedTodoList = self.output?.categorizedTodoList?
+                let categorizedTodoList = output.categorizedTodoList?
                     .filter { $0.count > indexPath.row }
                 
-                self.output?.categorizedTodoList?
+                output.categorizedTodoList?
                     .subscribe(onNext: { _ in
                         todoDetailViewController.dismiss(animated: true)
                     })
@@ -185,7 +198,7 @@ extension ProjectManagerCollectionViewCell {
         
         let sectionSubject = BehaviorSubject<[DataSourceSection]>(value: [])
         
-        output?.categorizedTodoList?
+        output.categorizedTodoList?
             .map { DataSourceSection(
                 headerTitle: statusType.upperCasedString,
                 items: $0
@@ -209,16 +222,7 @@ extension ProjectManagerCollectionViewCell {
 
 extension ProjectManagerCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let statusType = self.statusType else { return nil }
-        
-        let headerView = TableSectionHeaderView()
-        headerView.set(title: statusType.upperCasedString)
-        
-        output?.categorizedTodoList?
-            .map { "\($0.count)" }
-            .bind(to: headerView.countLabel.rx.text)
-            .disposed(by: disposeBag)
-        
+        let headerView = configureTableViewHeader?()
         return headerView
     }
 }

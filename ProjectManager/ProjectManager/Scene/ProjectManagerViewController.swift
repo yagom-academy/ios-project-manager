@@ -21,8 +21,6 @@ final class ProjectManagerViewController: UIViewController {
         target: nil,
         action: nil
     )
-
-    private var output: ProjectManagerViewOutput?
     
     private var disposeBag = DisposeBag()
     
@@ -120,7 +118,7 @@ extension ProjectManagerViewController {
         guard let collectionView = self.collectionView else { return }
         
         let input = ProjectManagerViewInput(doneAction: detailViewDoneButtonTapped)
-        output = viewModel.transform(viewInput: input)
+        let output = viewModel.transform(viewInput: input)
         
         let items = Observable.just(TodoStatus.allCases)
         items
@@ -133,32 +131,35 @@ extension ProjectManagerViewController {
             }
             .disposed(by: disposeBag)
         
-        addTodoButton.rx.tap.subscribe(onNext: {
-            let todoDetailViewController = TodoDetailViewController()
-            let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
-            
-            todoDetailViewController.doneButton.rx.tap
-                .subscribe(onNext: {
-                    let currentTodo = todoDetailViewController.getCurrentTodoInfomation()
-                    self.detailViewDoneButtonTapped.onNext(currentTodo)
-                })
-                .disposed(by: self.disposeBag)
-            
-            self.output?.allTodoList?
-                .subscribe(onNext: { _ in
-                    todoDetailViewController.dismiss(animated: true)
-                })
-                .disposed(by: self.disposeBag)
-            
-            self.output?.errorAlertContoller?
-                .subscribe(onNext: { alertController in
-                    todoDetailViewController.present(alertController, animated: true)
-                })
-                .disposed(by: self.disposeBag)
-            
-            self.present(todoDetailNavigationController, animated: true)
-        })
-        .disposed(by: disposeBag)
+        addTodoButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                let todoDetailViewController = TodoDetailViewController()
+                let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
+                
+                todoDetailViewController.doneButton.rx.tap
+                    .subscribe(onNext: {
+                        let currentTodo = todoDetailViewController.getCurrentTodoInfomation()
+                        self.detailViewDoneButtonTapped.onNext(currentTodo)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                output.allTodoList?
+                    .subscribe(onNext: { _ in
+                        todoDetailViewController.dismiss(animated: true)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                output.errorAlertContoller?
+                    .subscribe(onNext: { alertController in
+                        todoDetailViewController.present(alertController, animated: true)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                self.present(todoDetailNavigationController, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
