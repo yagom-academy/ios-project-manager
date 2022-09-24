@@ -2,12 +2,12 @@
 //  DateFormatterManager.swift
 //  ProjectManager
 //
-//  Created by dhoney96 on 2022/09/22.
+//  Created by 수꿍, 휴 on 2022/09/22.
 //
 
 import Foundation
 
-class DateFormatterManager {
+final class DateFormatterManager {
     private let formatter = DateFormatter()
     private let locale = Locale(identifier: Locale.preferredLanguages.first ?? "ko")
     
