@@ -22,6 +22,7 @@
 		208049FA28DD4C8F002A8119 /* WorkEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049F828DD4C8F002A8119 /* WorkEntity+CoreDataProperties.swift */; };
 		208049FC28DD926D002A8119 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049FB28DD926D002A8119 /* HistoryViewController.swift */; };
 		208049FF28DD9967002A8119 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */; };
+		20804A0928DDA123002A8119 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804A0828DDA123002A8119 /* NetworkMonitor.swift */; };
 		209F976528D37178004CBAF5 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F976428D37178004CBAF5 /* WorkState.swift */; };
 		20C11A6D28D051A0003B1BBE /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C11A6C28D051A0003B1BBE /* View+Extension.swift */; };
 		20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87B28C875EC0074364A /* HeaderView.swift */; };
@@ -55,6 +56,7 @@
 		208049F828DD4C8F002A8119 /* WorkEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WorkEntity+CoreDataProperties.swift"; path = "ProjectManager/WorkEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		208049FB28DD926D002A8119 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		20804A0828DDA123002A8119 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		209F976428D37178004CBAF5 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
 		20C11A6C28D051A0003B1BBE /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		20E1A87B28C875EC0074364A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				20E1A87828C872080074364A /* View */,
 				20E1A88028C8A1A30074364A /* Model */,
 				2054FB7428D1B2660007AF1E /* Util */,
+				20804A0828DDA123002A8119 /* NetworkMonitor.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				20E1A88A28C8C9B50074364A /* WorkViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */,
+				20804A0928DDA123002A8119 /* NetworkMonitor.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				2054FB7628D1B30B0007AF1E /* DateManager.swift in Sources */,
 				2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */,
