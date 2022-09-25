@@ -34,6 +34,7 @@ final class ProjectManagerViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupBinding()
+        setupDelegate()
     }
     
     // MARK: - UI setup
@@ -99,41 +100,19 @@ final class ProjectManagerViewController: UIViewController {
     
     // MARK: - UI Binding
     private func setupBinding() {
-        setupDelegate()
-        bindWorkTableView()
-        bindHeaderImage()
-        setWorkSelection()
-        setWorkDeletion()
-    }
-    
-    private func bindWorkTableView() {
         let workTables = [todoTableView, doingTableView, doneTableView]
-        let longGesture: (WorkState) -> UILongPressGestureRecognizer = { state in
-            switch state {
-            case .todo:
-                return UILongPressGestureRecognizer(target: self, action: #selector(self.showTodoPopView))
-            case .doing:
-                return UILongPressGestureRecognizer(target: self, action: #selector(self.showDoingPopView))
-            case .done:
-                return UILongPressGestureRecognizer(target: self, action: #selector(self.showDonePopView))
-            }
-        }
-        
+        let headerViews = [toDoTitleView, doingTitleView, doneTitleView]
+    
         zip(workTables, WorkState.allCases).forEach { workTable, state in
             viewModel.worksObservable
                 .map {
                     $0.filter { $0.state == state }
-                }.observe(on: MainScheduler.instance)
-                .bind(to: workTable.rx.items(cellIdentifier: WorkTableViewCell.identifier,
-                                                 cellType: WorkTableViewCell.self)) { _, item, cell in
+                }.bind(to: workTable.rx.items(cellIdentifier: WorkTableViewCell.identifier,
+                                              cellType: WorkTableViewCell.self)) { _, item, cell in
                     cell.configure(with: item)
-                    cell.addGestureRecognizer(longGesture(state))
+                    cell.addGestureRecognizer(self.longGesture(state))
                 }.disposed(by: disposeBag)
         }
-    }
-    
-    private func bindHeaderImage() {
-        let headerViews = [toDoTitleView, doingTitleView, doneTitleView]
         
         zip(headerViews, WorkState.allCases).forEach { header, state in
             viewModel.worksObservable
@@ -144,10 +123,8 @@ final class ProjectManagerViewController: UIViewController {
                 }.bind(to: header.countImageView.rx.image)
                 .disposed(by: disposeBag)
         }
-    }
-    
-    private func setWorkSelection() {
-        [todoTableView, doingTableView, doneTableView].forEach { workTable in
+        
+        workTables.forEach { workTable in
             workTable.rx.itemSelected
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] index in
@@ -158,10 +135,8 @@ final class ProjectManagerViewController: UIViewController {
                     workTable.deselectRow(at: index, animated: true)
                 }).disposed(by: disposeBag)
         }
-    }
-    
-    private func setWorkDeletion() {
-        [todoTableView, doingTableView, doneTableView].forEach { workTable in
+        
+        workTables.forEach { workTable in
             workTable.rx.itemDeleted
                 .observe(on: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] index in
@@ -180,6 +155,17 @@ final class ProjectManagerViewController: UIViewController {
 
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         view.present(manageNavigationController, animated: true)
+    }
+    
+    private func longGesture(_ state: WorkState) -> UILongPressGestureRecognizer {
+        switch state {
+        case .todo:
+            return UILongPressGestureRecognizer(target: self, action: #selector(self.showTodoPopView))
+        case .doing:
+            return UILongPressGestureRecognizer(target: self, action: #selector(self.showDoingPopView))
+        case .done:
+            return UILongPressGestureRecognizer(target: self, action: #selector(self.showDonePopView))
+        }
     }
 }
 
