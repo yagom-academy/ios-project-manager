@@ -7,18 +7,9 @@
 
 import Foundation
 
-final class TodoDataManager: DBManagerable {
-    
-    private(set) var todoData: [Todo] = .init()
-    var todoTasks: [Todo] {
-        return todoData.filter { $0.status == .todo }
-    }
-    var doingTasks: [Todo] {
-        return todoData.filter { $0.status == .doing }
-    }
-    var doneTasks: [Todo] {
-        return todoData.filter { $0.status == .done }
-    }
+final class TodoDataManager: DBManagerable, ObservableObject {
+ 
+    @Published var todoData: [Todo] = .init()
     
     func fetch() -> [Todo] {
         return todoData
@@ -33,16 +24,17 @@ final class TodoDataManager: DBManagerable {
     }
     
     func update(id: UUID, title: String, body: String, date: Date) {
-        guard var selectedData = todoData.filter({ $0.id == id }).last else { return }
+        guard let index = todoData.firstIndex(where: { $0.id == id }) else { return }
         
-        selectedData.title = title
-        selectedData.body = body
+        todoData[index].title = title
+        todoData[index].body = body
+        todoData[index].date = date
     }
     
     func changeStatus(id: UUID, to status: Status) {
-        guard var selectedData = todoData.filter({ $0.id == id }).last else { return }
-        
-        selectedData.status = status
+        guard let index = todoData.firstIndex(where: { $0.id == id }) else { return }
+        print(index)
+        todoData[index].status = status
     }
     
 }

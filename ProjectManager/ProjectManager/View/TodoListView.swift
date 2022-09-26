@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct TodoListView: View {
-    var title: String
-    @Binding var todoTasks: [Todo]
+    
+    @EnvironmentObject var dataManager: DataManager
+    @StateObject private var todoListViewModel: TodoListViewModel
+    
+    init(status: Status) {
+        _todoListViewModel = StateObject(wrappedValue: TodoListViewModel(status: status))
+    }
     
     var body: some View {
         VStack {
-            titleHeaderView(title: title, taskCount: $todoTasks.count)
+            titleHeaderView(status: todoListViewModel.status, taskCount: todoListViewModel.countTodoData(dataManager: dataManager))
             List {
-                ForEach(Array(zip(todoTasks.indices, todoTasks)), id: \.0) { index, task in
+                ForEach(Array(zip(todoListViewModel.fetchTodoData(dataManager: dataManager).indices, todoListViewModel.fetchTodoData(dataManager: dataManager))), id: \.0) { index, task in
                     TodoListRow(todo: task, index: index)
                 }
                 .onDelete { index in
-                    todoTasks.remove(atOffsets: index)
+                    todoListViewModel.removeData(dataManager: dataManager, indexSet: index)
                 }
             }
             .listStyle(.plain)
@@ -28,9 +33,9 @@ struct TodoListView: View {
         Divider()
     }
     
-    private func titleHeaderView(title: String, taskCount: Int) -> some View {
+    private func titleHeaderView(status: Status, taskCount: Int) -> some View {
         HStack(spacing: 10) {
-            Text(title)
+            Text(status.text)
                 .font(.largeTitle)
             Text("\(taskCount)")
                 .font(.title3)
@@ -42,12 +47,5 @@ struct TodoListView: View {
             Spacer()
         }
         .padding(EdgeInsets(top: 10, leading: 20, bottom: -1, trailing: 0))
-    }
-}
-
-struct TodoListView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoListView(title: "TODO", todoTasks: .constant(DummyData.dummyData))
-            .previewInterfaceOrientation(.landscapeRight)
     }
 }

@@ -12,8 +12,8 @@ struct TodoContentView: View {
     @EnvironmentObject private var dataManager: DataManager
     @StateObject private var todoContentViewModel: TodoContentViewModel
     
-    init(todo: Todo?, buttonType: String, index: Int?) {
-        _todoContentViewModel = StateObject(wrappedValue: TodoContentViewModel(todo: todo, buttonType: buttonType, index: index))
+    init(todo: Todo?, buttonType: String, index: Int?, showingSheet: Bool) {
+        _todoContentViewModel = StateObject(wrappedValue: TodoContentViewModel(todo: todo, buttonType: buttonType, index: index, showingSheet: showingSheet))
     }
     
     var body: some View {
@@ -33,7 +33,8 @@ struct TodoContentView: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
-                            todoContentViewModel.manageTask(dataManger: dataManager, index: todoContentViewModel.index)
+                            todoContentViewModel.manageTask(dataManager: dataManager)
+                            print(todoContentViewModel.showingSheet)
                         }, label: {
                             Text(todoContentViewModel.buttonType)
                         })

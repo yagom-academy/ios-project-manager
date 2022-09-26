@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var showingSheet = false
-    @StateObject var viewModel = MainViewModel(data: DummyData.dummyData)
+    
+    @StateObject private var mainViewModel = MainViewModel()
+    @EnvironmentObject var dataManager: DataManager
     
     var body: some View {
         NavigationView {
             HStack {
-                TodoListView(title: "TODO", todoTasks: $viewModel.todo)
-
-                TodoListView(title: "DOING", todoTasks: $viewModel.doing)
-
-                TodoListView(title: "DONE", todoTasks: $viewModel.done)
+                ForEach(Status.allCases, id: \.self) { status in
+                    TodoListView(status: status)
+                }
             }
             .navigationTitle("Project Manager")
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        self.showingSheet.toggle()
+                        mainViewModel.showingSheet.toggle()
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -33,8 +32,8 @@ struct MainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
             .background(Color(UIColor.systemGray3))
-            .sheet(isPresented: $showingSheet, content: {
-                TodoContentView(todo: nil, buttonType: "Done", index: nil)
+            .sheet(isPresented: $mainViewModel.showingSheet, content: {
+                TodoContentView(todo: nil, buttonType: "Done", index: nil, showingSheet: mainViewModel.showingSheet)
             })
         }
         .navigationViewStyle(.stack)

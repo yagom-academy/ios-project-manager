@@ -40,7 +40,7 @@ struct TodoListRow: View {
             todoListRowViewModel.showingSheet.toggle()
         }
         .sheet(isPresented: $todoListRowViewModel.showingSheet, content: {
-            TodoContentView(todo: todoListRowViewModel.todo, buttonType: "Edit", index: todoListRowViewModel.index)
+            TodoContentView(todo: todoListRowViewModel.todo, buttonType: "Edit", index: todoListRowViewModel.index, showingSheet: todoListRowViewModel.showingSheet)
         })
         .onLongPressGesture(perform: {
             todoListRowViewModel.statusChanging.toggle()
@@ -53,7 +53,7 @@ struct TodoListRow: View {
                     ForEach(Status.allCases, id: \.self) { status in
                         if status != todoListRowViewModel.todo.status {
                             Button {
-                                todoListRowViewModel.changeStatus(status: status, dataManager: dataManager, index: todoListRowViewModel.index)
+                                todoListRowViewModel.changeStatus(status: status, dataManager: dataManager)
                             } label: {
                                 Text("Move to \(status.text)")
                                     .frame(width: 250, height: 50)

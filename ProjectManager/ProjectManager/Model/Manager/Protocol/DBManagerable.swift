@@ -9,9 +9,7 @@ import Foundation
 
 protocol DBManagerable {
     
-    var todoTasks: [Todo] { get }
-    var doingTasks: [Todo] { get }
-    var doneTasks: [Todo] { get }
+    var todoData: [Todo] { get }
     
     func fetch() -> [Todo]
     func add(title: String, body: String, date: Date, status: Status)

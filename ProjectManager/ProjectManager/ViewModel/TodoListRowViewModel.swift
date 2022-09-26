@@ -18,7 +18,7 @@ class TodoListRowViewModel: ObservableObject {
         self.index = index
     }
     
-    func changeStatus(status: Status, dataManager: DataManager, index: Int) {
+    func changeStatus(status: Status, dataManager: DataManager) {
         let id = dataManager.fetch()[index].id
         
         dataManager.changeStatus(id: id, to: status)

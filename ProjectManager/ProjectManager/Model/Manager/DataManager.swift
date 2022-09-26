@@ -10,16 +10,10 @@ import Foundation
 final class DataManager: ObservableObject {
     
     let dbManager: DBManagerable
-    var todoTasks: [Todo] {
-        return self.dbManager.todoTasks
+    var todoData: [Todo] {
+        return self.dbManager.todoData
     }
-    var doingTasks: [Todo] {
-        return self.dbManager.doingTasks
-    }
-    var doneTasks: [Todo] {
-        return self.dbManager.doneTasks
-    }
-    
+
     init(dbManager: DBManagerable = TodoDataManager()) {
         self.dbManager = dbManager
     }

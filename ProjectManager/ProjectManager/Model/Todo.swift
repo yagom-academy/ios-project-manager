@@ -10,7 +10,7 @@ import Foundation
 struct Todo: Equatable, Identifiable {
     let id: UUID = .init()
     var title, body: String
-    let date: Date
+    var date: Date
     var status: Status
     
     static func == (lhs: Todo, rhs: Todo) -> Bool {
