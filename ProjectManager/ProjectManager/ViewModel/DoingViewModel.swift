@@ -11,5 +11,28 @@ final class DoingViewModel: ViewModelType {
     
     // MARK: - properties
     
-    var todoList = BehaviorSubject<[Project]>(value: [])
+    let provider = TodoProvider.shared
+    
+    var projectList = BehaviorSubject<[Project]>(value: [])
+    let disposeBag = DisposeBag()
+    
+    init() {
+        provider.allTodoData.subscribe(onNext: { [weak self] projects in
+            let todoProjects = projects.filter { $0.status == .doing }
+            self?.projectList.onNext(todoProjects)
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    func transform(_ input: DoingViewInput) -> DoingViewOutput {
+        
+        return DoingViewOutput(doingList: projectList)
+    }
+}
+
+struct DoingViewInput {
+}
+
+struct DoingViewOutput {
+    var doingList: Observable<[Project]>
 }

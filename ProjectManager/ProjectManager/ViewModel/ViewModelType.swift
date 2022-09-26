@@ -8,5 +8,6 @@
 import RxSwift
 
 protocol ViewModelType {
-    var todoList: BehaviorSubject<[Project]> { get set }
+    var provider: TodoProvider { get }
+    var projectList: BehaviorSubject<[Project]> { get set }
 }

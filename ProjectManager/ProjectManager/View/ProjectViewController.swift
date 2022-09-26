@@ -12,8 +12,15 @@ final class ProjectViewController: UIViewController {
     
     // MARK: - properties
     
-    let addButtonAction = PublishSubject<Project>()
-    private var viewModel: ViewModelType?
+    let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                       target: nil,
+                                       action: nil)
+    
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                       target: nil,
+                                       action: nil)
+    
+    var viewModel: ViewModelType?
     
     private let projectTitle: UITextField = {
         let textField = UITextField()
@@ -31,7 +38,6 @@ final class ProjectViewController: UIViewController {
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: Design.localeIdentifier)
         datePicker.timeZone = .autoupdatingCurrent
-        datePicker.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
         
         return datePicker
     }()
@@ -85,12 +91,13 @@ extension ProjectViewController {
     
     private func setupNavigationItem() {
         navigationItem.title = Design.navigationItemTitle
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
-                                                            target: self,
-                                                            action: #selector(doneButtonDidTapped))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                                           target: self,
-                                                           action: #selector(cancelButtonDidTapped))
+        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.leftBarButtonItem = cancelButton
+    }
+    
+    func getProjectData() -> Project? {
+        guard let title = projectTitle.text else { return nil }
+        return Project(title: title, description: self.projectDescription.text, date: self.datePicker.date)
     }
     
     func setupData(project: Project) {
@@ -100,25 +107,7 @@ extension ProjectViewController {
     }
 }
 
-// MARK: - objc functions
-
-extension ProjectViewController {
-    @objc private func cancelButtonDidTapped() {
-        dismiss(animated: true)
-    }
-    
-    @objc private func doneButtonDidTapped() {
-        guard let title = projectTitle.text,
-              let description = projectDescription.text else { return }
-        let project = Project(title: "\(title)", description: "\(description)", date: datePicker.date)
-        addButtonAction.onNext(project)
-        dismiss(animated: true)
-    }
-    
-    @objc private func handleDatePicker(_ sender: UIDatePicker) {
-        print(sender.date)
-    }
-}
+// MARK: - Design
 
 private enum Design {
     static let navigationItemTitle = "Todo"

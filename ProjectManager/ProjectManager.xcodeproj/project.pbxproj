@@ -18,7 +18,6 @@
 		188E557128D861C30078C70A /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E557028D861C30078C70A /* ViewModelType.swift */; };
 		18A4C57028C72BFF004E833F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 18A4C56F28C72BFF004E833F /* .swiftlint.yml */; };
 		18B3285628C8B601000BC914 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3285528C8B601000BC914 /* TodoTableViewCell.swift */; };
-		18B3287828CDE394000BC914 /* AllTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3287728CDE394000BC914 /* AllTodoViewModel.swift */; };
 		18B3287A28CDE3B3000BC914 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3287928CDE3B3000BC914 /* Project.swift */; };
 		18B3287C28CDFCE7000BC914 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B3287B28CDFCE7000BC914 /* ProjectViewController.swift */; };
 		18C7C68F28CE16DE00C42A12 /* Extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7C68E28CE16DE00C42A12 /* Extension+UITextField.swift */; };
@@ -43,7 +42,6 @@
 		188E557028D861C30078C70A /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		18A4C56F28C72BFF004E833F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		18B3285528C8B601000BC914 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
-		18B3287728CDE394000BC914 /* AllTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTodoViewModel.swift; sourceTree = "<group>"; };
 		18B3287928CDE3B3000BC914 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		18B3287B28CDFCE7000BC914 /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		18C7C68E28CE16DE00C42A12 /* Extension+UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITextField.swift"; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				188E557028D861C30078C70A /* ViewModelType.swift */,
-				18B3287728CDE394000BC914 /* AllTodoViewModel.swift */,
 				187BA72328DA066F00815938 /* TodoViewModel.swift */,
 				188E556C28D861850078C70A /* DoingViewModel.swift */,
 				188E556E28D8619D0078C70A /* DoneViewModel.swift */,
@@ -325,7 +322,6 @@
 				18B3285628C8B601000BC914 /* TodoTableViewCell.swift in Sources */,
 				18B3287C28CDFCE7000BC914 /* ProjectViewController.swift in Sources */,
 				187BA72628DA0F1B00815938 /* TodoProvider.swift in Sources */,
-				18B3287828CDE394000BC914 /* AllTodoViewModel.swift in Sources */,
 				187BA72428DA066F00815938 /* TodoViewModel.swift in Sources */,
 				18B3287A28CDE3B3000BC914 /* Project.swift in Sources */,
 				188E556F28D8619D0078C70A /* DoneViewModel.swift in Sources */,

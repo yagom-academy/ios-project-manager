@@ -11,16 +11,33 @@ final class TodoViewModel: ViewModelType {
     
     // MARK: - properties
     
-    let viewModel = AllTodoViewModel()
-    var todoList = BehaviorSubject<[Project]>(value: [])
+    let provider = TodoProvider.shared
+    
+    var projectList = BehaviorSubject<[Project]>(value: [])
     let disposeBag = DisposeBag()
     
     init() {
-//        viewModel.todoList
-//            .subscribe(onNext: { [weak self] in
-//                print($0)
-//                self?.todoList.onNext($0)
-//            })
-//            .disposed(by: disposeBag)
+        provider.allTodoData.subscribe(onNext: { [weak self] projects in
+            let todoProjects = projects.filter { $0.status == .todo }
+            self?.projectList.onNext(todoProjects)
+        })
+        .disposed(by: disposeBag)
     }
+    
+    func transform(_ input: TodoViewInput) -> TodoViewOutput {
+        input.addButtonAction
+            .bind(onNext: { [weak self] project in
+                self?.provider.saveData(project: project)
+            })
+            .disposed(by: disposeBag)
+        return TodoViewOutput(todoList: projectList)
+    }
+}
+
+struct TodoViewInput {
+    let addButtonAction: Observable<Project>
+}
+
+struct TodoViewOutput {
+    var todoList: Observable<[Project]>
 }

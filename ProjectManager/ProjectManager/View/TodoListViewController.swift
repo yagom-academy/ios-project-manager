@@ -6,6 +6,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 final class TodoListViewController: UIViewController {
     
@@ -15,15 +16,15 @@ final class TodoListViewController: UIViewController {
     private var doingView = ListView(status: .doing)
     private var doneView = ListView(status: .done)
     
-    private let allTodoViewModel = AllTodoViewModel()
-    
-//    private let todoViewModel = TodoViewModel()
-//    private let doingViewModel = DoingViewModel()
-//    private let doneViewModel = DoneViewModel()
+    private let todoViewModel = TodoViewModel()
+    private let doingViewModel = DoingViewModel()
+    private let doneViewModel = DoneViewModel()
     
     private var addButtonAction = PublishSubject<Project>()
     
-    private var output: Output?
+    private var todoViewOutput: TodoViewOutput?
+    private var doingViewOutput: DoingViewOutput?
+    private var doneViewOutput: DoneViewOutput?
     
     private var disposeBag = DisposeBag()
     
@@ -78,28 +79,33 @@ extension TodoListViewController {
     }
     
     private func setupListsCell() {
-        let input = Input(addButtonAction: addButtonAction)
-        output = allTodoViewModel.transform(input: input)
+        let todoInput = TodoViewInput(addButtonAction: addButtonAction)
+        let doingInput = DoingViewInput()
+        let doneInput = DoneViewInput()
+        todoViewOutput = todoViewModel.transform(todoInput)
+        doingViewOutput = doingViewModel.transform(doingInput)
+        doneViewOutput = doneViewModel.transform(doneInput)
+        guard let todoViewOutput = todoViewOutput,
+              let doingViewOutput = doingViewOutput,
+              let doneViewOutput = doneViewOutput else { return }
         
-        guard let output = output else { return }
-        
-        output.todoList
+        todoViewOutput.todoList
             .bind(to: todoView.tableView.rx.items(
                 cellIdentifier: TodoTableViewCell.identifier,
                 cellType: TodoTableViewCell.self)) { _, item, cell in
                     cell.setupDataSource(project: item)
                 }
                 .disposed(by: disposeBag)
-        
-        output.doingList
+
+        doingViewOutput.doingList
             .bind(to: doingView.tableView.rx.items(
                 cellIdentifier: TodoTableViewCell.identifier,
                 cellType: TodoTableViewCell.self)) { _, item, cell in
                     cell.setupDataSource(project: item)
                 }
                 .disposed(by: disposeBag)
-        
-        output.doneList
+
+        doneViewOutput.doneList
             .bind(to: doneView.tableView.rx.items(
                 cellIdentifier: TodoTableViewCell.identifier,
                 cellType: TodoTableViewCell.self)) { _, item, cell in
@@ -109,21 +115,23 @@ extension TodoListViewController {
     }
     
     private func setupListCount() {
-        guard let output = output else { return }
+        guard let todoViewOutput = todoViewOutput,
+              let doingViewOutput = doingViewOutput,
+              let doneViewOutput = doneViewOutput else { return }
 
-        output.todoList
+        todoViewOutput.todoList
             .map { $0.count }
             .map { "\($0)"}
             .bind(to: todoView.listCountLabel.rx.text)
             .disposed(by: disposeBag)
 
-        output.doingList
+        doingViewOutput.doingList
             .map { $0.count }
             .map { "\($0)"}
             .bind(to: doingView.listCountLabel.rx.text)
             .disposed(by: disposeBag)
-        
-        output.doneList
+
+        doneViewOutput.doneList
             .map { $0.count }
             .map { "\($0)"}
             .bind(to: doneView.listCountLabel.rx.text)
@@ -137,7 +145,7 @@ extension TodoListViewController {
                 print(indexPath.row)
                 let projectViewController = ProjectViewController()
                 projectViewController.modalPresentationStyle = .formSheet
-//                                projectViewController.setupData(project: project)
+//                projectViewController.setupData(project: project)
                 let projectAddViewController = UINavigationController(rootViewController: projectViewController)
                 self?.present(projectAddViewController, animated: true)
             })
@@ -172,9 +180,16 @@ extension TodoListViewController {
 extension TodoListViewController {
     @objc private func showAddView() {
         let projectViewController = ProjectViewController()
-        projectViewController.addButtonAction
-            .subscribe(onNext: { project in
-                self.addButtonAction.onNext(project)
+        projectViewController.doneButton.rx.tap
+            .subscribe(onNext: { _ in
+                guard let todo = projectViewController.getProjectData() else { return }
+                self.addButtonAction.onNext(todo)
+                projectViewController.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+        projectViewController.cancelButton.rx.tap
+            .subscribe(onNext: { _ in
+                projectViewController.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
         
