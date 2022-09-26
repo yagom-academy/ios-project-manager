@@ -6,7 +6,7 @@
 //
 
 struct UseCase: ProjectUseCase, ProjectTranslator {
-    var repository: ProjectRepository
+    private var repository: ProjectRepository
     
     init(repository: ProjectRepository) {
         self.repository = repository

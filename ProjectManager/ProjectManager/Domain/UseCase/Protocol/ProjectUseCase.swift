@@ -6,7 +6,6 @@
 //
 
 protocol ProjectUseCase {
-    var repository: ProjectRepository { get }
     mutating func create(data: ProjectViewModel)
     func read() -> [ProjectViewModel]
     mutating func update(id: String,
