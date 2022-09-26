@@ -1,0 +1,9 @@
+disabled_rules:
+    - leading_whitespace
+    - trailing_whitespace
+    - line_length
+    - large_tuple
+    
+force_cast: warning
+force_try:
+    severity: warning
