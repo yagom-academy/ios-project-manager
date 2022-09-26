@@ -146,9 +146,12 @@ extension TodoListViewController {
                 self.todoView.tableView.deselectRow(at: indexPath, animated: true)
                 let projectViewController = ProjectViewController()
                 projectViewController.modalPresentationStyle = .formSheet
+                
                 self.todoViewModel.projectList.subscribe(onNext: { projects in
                     projectViewController.setupData(project: projects[indexPath.row])
-                }).disposed(by: self.disposeBag)
+                })
+                .disposed(by: self.disposeBag)
+                
                 let projectAddViewController = UINavigationController(rootViewController: projectViewController)
                 self.present(projectAddViewController, animated: true)
             })
@@ -162,9 +165,12 @@ extension TodoListViewController {
                 
                 let projectViewController = ProjectViewController()
                 projectViewController.modalPresentationStyle = .formSheet
+                
                 self.doingViewModel.projectList.subscribe(onNext: { projects in
                     projectViewController.setupData(project: projects[indexPath.row])
-                }).disposed(by: self.disposeBag)
+                })
+                .disposed(by: self.disposeBag)
+                
                 let projectAddViewController = UINavigationController(rootViewController: projectViewController)
                 self.present(projectAddViewController, animated: true)
             })
@@ -177,9 +183,12 @@ extension TodoListViewController {
                 self.doneView.tableView.deselectRow(at: indexPath, animated: true)
                 let projectViewController = ProjectViewController()
                 projectViewController.modalPresentationStyle = .formSheet
+                
                 self.doneViewModel.projectList.subscribe(onNext: { projects in
                     projectViewController.setupData(project: projects[indexPath.row])
-                }).disposed(by: self.disposeBag)
+                })
+                .disposed(by: self.disposeBag)
+                
                 let projectAddViewController = UINavigationController(rootViewController: projectViewController)
                 self.present(projectAddViewController, animated: true)
             })

@@ -9,6 +9,7 @@ import RxSwift
 
 final class TodoProvider {
     static let shared = TodoProvider()
+    
     // MARK: - properties
 
     let allTodoData = BehaviorSubject<[Project]>(value: [])
