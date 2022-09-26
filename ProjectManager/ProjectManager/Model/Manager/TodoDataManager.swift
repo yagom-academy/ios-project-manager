@@ -16,7 +16,7 @@ final class TodoDataManager: DBManagerable, ObservableObject {
     }
     
     func add(title: String, body: String, date: Date, status: Status) {
-        self.todoData.append(Todo(title: title, body: body, date: date, status: .todo))
+        self.todoData.append(Todo(title: title, body: body, date: date, status: status))
     }
     
     func delete(id: UUID) {
@@ -33,7 +33,6 @@ final class TodoDataManager: DBManagerable, ObservableObject {
     
     func changeStatus(id: UUID, to status: Status) {
         guard let index = todoData.firstIndex(where: { $0.id == id }) else { return }
-        print(index)
         todoData[index].status = status
     }
     

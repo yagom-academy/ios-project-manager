@@ -36,6 +36,10 @@ struct MainView: View {
                 TodoContentView(todo: nil, buttonType: "Done", index: nil, showingSheet: mainViewModel.showingSheet)
             })
         }
+        .onAppear {
+            dataManager.add(title: "33", body: "3333", date: Date(), status: .todo)
+            dataManager.add(title: "444", body: "4444", date: Date(), status: .done)
+        }
         .navigationViewStyle(.stack)
     }
 }

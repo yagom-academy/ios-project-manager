@@ -34,7 +34,6 @@ struct TodoContentView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
                             todoContentViewModel.manageTask(dataManager: dataManager)
-                            print(todoContentViewModel.showingSheet)
                         }, label: {
                             Text(todoContentViewModel.buttonType)
                         })
