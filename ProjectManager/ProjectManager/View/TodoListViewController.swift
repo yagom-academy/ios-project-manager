@@ -159,7 +159,7 @@ extension TodoListViewController {
                 guard let self = self else { return }
                 
                 self.doingView.tableView.deselectRow(at: indexPath, animated: true)
-                print(indexPath.row)
+                
                 let projectViewController = ProjectViewController()
                 projectViewController.modalPresentationStyle = .formSheet
                 self.doingViewModel.projectList.subscribe(onNext: { projects in
