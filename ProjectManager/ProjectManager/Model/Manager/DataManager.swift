@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DataManager {
+final class DataManager: ObservableObject {
     
     let dbManager: DBManagerable
     var todoTasks: [Todo] {

@@ -9,6 +9,7 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    private var dataManager = DataManager()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -17,9 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         if let windowSecene = (scene as? UIWindowScene) {
-            let contentView = MainView()
+            let mainView = MainView()
             window = UIWindow(windowScene: windowSecene)
-            window?.rootViewController = UIHostingController(rootView: contentView)
+            window?.rootViewController = UIHostingController(rootView: mainView.environmentObject(dataManager))
             window?.makeKeyAndVisible()
         }
     }
