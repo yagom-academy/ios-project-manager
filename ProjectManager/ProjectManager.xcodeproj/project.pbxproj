@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		201D822428E17264005EEB4A /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201D822328E17264005EEB4A /* AlertManager.swift */; };
 		2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C46E28CAA46E0091D087 /* WorkManageView.swift */; };
 		2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */; };
 		2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47328CB100F0091D087 /* Date+Extension.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		1BA66A5555EF5D11E54B0D98 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		201D822328E17264005EEB4A /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		2021C46E28CAA46E0091D087 /* WorkManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManageView.swift; sourceTree = "<group>"; };
 		2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageWorkViewController.swift; sourceTree = "<group>"; };
 		2021C47328CB100F0091D087 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				2054FB7528D1B30B0007AF1E /* DateManager.swift */,
+				201D822328E17264005EEB4A /* AlertManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */,
 				20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */,
 				2041B01328DC7F3000636D06 /* FirebaseManager.swift in Sources */,
+				201D822428E17264005EEB4A /* AlertManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				208049FF28DD9967002A8119 /* HistoryTableViewCell.swift in Sources */,
 				20C11A6D28D051A0003B1BBE /* View+Extension.swift in Sources */,
