@@ -10,8 +10,8 @@ import UIKit
 final class ProjectManagementViewController: UIViewController {
     // MARK: - Properties
     
-    private let projectManagementView = ProjectManagementView()
-    private let projectManagermentViewModel = ProjectManagermentViewModel()
+    private let detailView = ProjectDetailView()
+    private let viewModel = ProjectManagermentViewModel()
     private var item: ProjectViewModel?
     weak var delegate: ProjectManagementViewControllerDelegate?
     
@@ -19,7 +19,6 @@ final class ProjectManagementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(projectManagementView)
         view.backgroundColor = .systemBackground
         
         configureNavigationItems()
@@ -33,7 +32,7 @@ final class ProjectManagementViewController: UIViewController {
         
         self.item = item
         
-        projectManagementView.configureItem(title: item.title,
+        detailView.configureItem(title: item.title,
                                             body: item.body)
     }
     
@@ -53,8 +52,8 @@ final class ProjectManagementViewController: UIViewController {
     @objc
     private func rightBarButtonDidTap() {
         if item == nil {
-            let newItem = projectManagementView.makeItems()
-            let data = projectManagermentViewModel.makeProjectViewModel(id: UUID().description,
+            let newItem = detailView.makeItems()
+            let data = viewModel.makeProjectViewModel(id: UUID().description,
                                                                         state: .todo,
                                                                         newItem: newItem)
             
@@ -68,8 +67,8 @@ final class ProjectManagementViewController: UIViewController {
     @objc
     private func leftBarButtonDidTap() {
         if let item = self.item {
-            let newItem = projectManagementView.makeItems()
-            let data = projectManagermentViewModel.makeProjectViewModel(id: item.id,
+            let newItem = detailView.makeItems()
+            let data = viewModel.makeProjectViewModel(id: item.id,
                                                                         state: item.workState,
                                                                         newItem: newItem)
             
@@ -83,15 +82,17 @@ final class ProjectManagementViewController: UIViewController {
     }
     
     private func configureViewLayout() {
+        view.addSubview(detailView)
+        
         NSLayoutConstraint.activate(
             [
-                projectManagementView.topAnchor
+                detailView.topAnchor
                     .constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                projectManagementView.bottomAnchor
+                detailView.bottomAnchor
                     .constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                projectManagementView.leadingAnchor
+                detailView.leadingAnchor
                     .constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                projectManagementView.trailingAnchor
+                detailView.trailingAnchor
                     .constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
             ]
         )

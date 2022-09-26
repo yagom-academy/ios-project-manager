@@ -17,8 +17,8 @@ private enum Design {
 final class ProjectListViewController: UIViewController {
     // MARK: - Properties
     
+    private let listView = ProjectListView()
     private var viewModel = ProjectListViewModel()
-    private let mainView = ProjcetListView()
     
     // MARK: - View Life Cycle
     
@@ -34,35 +34,22 @@ final class ProjectListViewController: UIViewController {
     // MARK: - Methods
     
     private func configureObserverBind() {
-        viewModel.todoListObserverBind { [weak self] _ in
+        viewModel.bindTodoList { [weak self] _ in
             DispatchQueue.main.async {
-                self?.mainView.retrieveTableView(with: .todo).reloadData()
+                self?.listView.retrieveTableView(with: .todo).reloadData()
             }
         }
         
-        viewModel.doingListObserverBind { [weak self] _ in
+        viewModel.bindDoingList { [weak self] _ in
             DispatchQueue.main.async {
-                self?.mainView.retrieveTableView(with: .doing).reloadData()
+                self?.listView.retrieveTableView(with: .doing).reloadData()
             }
         }
         
-        viewModel.doneListObserverBind { [weak self] _ in
+        viewModel.bindDoneList { [weak self] _ in
             DispatchQueue.main.async {
-                self?.mainView.retrieveTableView(with: .done).reloadData()
+                self?.listView.retrieveTableView(with: .done).reloadData()
             }
-        }
-    }
-    
-    private func retrieveState(tableView: UITableView) -> ProjectState? {
-        switch tableView {
-        case mainView.retrieveTableView(with: .todo):
-            return .todo
-        case mainView.retrieveTableView(with: .doing):
-            return .doing
-        case mainView.retrieveTableView(with: .done):
-            return .done
-        default:
-            return nil
         }
     }
     
@@ -79,7 +66,7 @@ final class ProjectListViewController: UIViewController {
         guard sender.state == .ended else { return }
         
         ProjectState.allCases.forEach {
-            let tableView = mainView.retrieveTableView(with: $0)
+            let tableView = listView.retrieveTableView(with: $0)
             guard let indexPath = tableView.indexPathForRow(at: sender.location(in: tableView))
             else { return }
             
@@ -119,11 +106,25 @@ final class ProjectListViewController: UIViewController {
     }
     
     private func configureMainView() {
-        view = mainView
-        mainView.backgroundColor = .systemBackground
-        mainView.rootViewController = self
-        mainView.configureTableViews()
+        view = listView
+        listView.backgroundColor = .systemBackground
+        listView.rootViewController = self
+        listView.configureTableViews()
     }
+    
+    private func retrieveState(tableView: UITableView) -> ProjectState? {
+        switch tableView {
+        case listView.retrieveTableView(with: .todo):
+            return .todo
+        case listView.retrieveTableView(with: .doing):
+            return .doing
+        case listView.retrieveTableView(with: .done):
+            return .done
+        default:
+            return nil
+        }
+    }
+    
 }
 
 // MARK: - Extension UITableViewDataSource
@@ -133,7 +134,7 @@ extension ProjectListViewController: UITableViewDataSource {
                    numberOfRowsInSection section: Int) -> Int {
         guard let state = retrieveState(tableView: tableView) else { return 0 }
         
-        return viewModel.configureNumberOfRow(state: state)
+        return viewModel.numberOfRow(state: state)
     }
     
     func tableView(_ tableView: UITableView,
@@ -154,7 +155,7 @@ extension ProjectListViewController: UITableViewDataSource {
                    viewForHeaderInSection section: Int) -> UIView? {
         guard let state = retrieveState(tableView: tableView) else { return nil }
         
-        return viewModel.makeTableHaederView(state: state)
+        return viewModel.makeTableHeaderView(state: state)
     }
 }
 
@@ -179,10 +180,10 @@ extension ProjectListViewController: UITableViewDelegate {
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let state = retrieveState(tableView: tableView) else { return nil }
         
-        let deleteSwipeActions = viewModel.makeSwipeActions(state: state,
+        let deleteSwipeAction = viewModel.makeSwipeActions(state: state,
                                                             indexPath: indexPath)
         
-        return UISwipeActionsConfiguration(actions: deleteSwipeActions)
+        return UISwipeActionsConfiguration(actions: deleteSwipeAction)
     }
 }
 

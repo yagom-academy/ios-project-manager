@@ -1,14 +1,14 @@
 //
-//  ProjectUseCase.swift
+//  UseCase.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/08.
 //
 
-struct ProjectUseCase: ProjectUseCaseProtocol, ProjectTranslater {
-    var repository: ProjectRepositoryProtocol
+struct UseCase: ProjectUseCase, ProjectTranslator {
+    var repository: ProjectRepository
     
-    init(repository: ProjectRepositoryProtocol) {
+    init(repository: ProjectRepository) {
         self.repository = repository
     }
     

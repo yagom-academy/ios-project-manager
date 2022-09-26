@@ -21,14 +21,14 @@ private enum Design {
     static let defaultText = ""
 }
 
-final class ProjectManagementView: UIView {
+final class ProjectDetailView: UIView {
     // MARK: - Properties
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.backgroundColor = .systemBackground
-        stackView.axis  = .vertical
+        stackView.axis = .vertical
         
         return stackView
     }()
@@ -142,7 +142,7 @@ final class ProjectManagementView: UIView {
 
 // MARK: - Extension
 
-extension ProjectManagementView: UITextViewDelegate {
+extension ProjectDetailView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         guard let textViewText = textView.text else { return }
         

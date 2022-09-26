@@ -1,5 +1,5 @@
 //
-//  ProjcetMainView.swift
+//  ProjectListView.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/22.
@@ -11,7 +11,7 @@ private enum Design {
     static let mainStackViewSpacing: CGFloat = 8
 }
 
-final class ProjcetListView: UIView {
+final class ProjectListView: UIView {
     // MARK: - Properties
     private let todoTableView = UITableView()
     private let doingTableView = UITableView()

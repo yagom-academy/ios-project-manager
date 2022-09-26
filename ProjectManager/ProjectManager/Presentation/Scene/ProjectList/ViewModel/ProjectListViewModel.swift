@@ -1,5 +1,5 @@
 //
-//  ProjectDataManager.swift
+//  ProjectListViewModel.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/08.
@@ -15,113 +15,32 @@ private enum Design {
 final class ProjectListViewModel {
     // MARK: - Properties
     
-    private var useCase: ProjectUseCaseProtocol
-    private var todoListObserver: Observable<[ProjectViewModel]>
-    private var doingListObserver: Observable<[ProjectViewModel]>
-    private var doneListObserver: Observable<[ProjectViewModel]>
+    private var useCase: ProjectUseCase
+    private var todoList: Observable<[ProjectViewModel]>
+    private var doingList: Observable<[ProjectViewModel]>
+    private var doneList: Observable<[ProjectViewModel]>
     
     // MARK: - Initializer
     
     init() {
-        useCase = ProjectUseCase(repository: TemporaryProjectRepository(temporaryStore: [ProjectModel]()))
-        todoListObserver = Observable([ProjectViewModel]())
-        doingListObserver = Observable([ProjectViewModel]())
-        doneListObserver = Observable([ProjectViewModel]())
-    }
-    
-    // MARK: - Methods
-    
-    private func fetch() {
-        todoListObserver.value = read().filter {
-            $0.workState == .todo
-        }
-        
-        doingListObserver.value = read().filter {
-            $0.workState == .doing
-        }
-        
-        doneListObserver.value = read().filter {
-            $0.workState == .done
-        }
+        useCase = UseCase(repository: TemporaryProjectRepository(projectModels: [ProjectModel]()))
+        todoList = Observable([ProjectViewModel]())
+        doingList = Observable([ProjectViewModel]())
+        doneList = Observable([ProjectViewModel]())
     }
     
     // MARK: - Output to View
     
-    func todoListObserverBind(closure: @escaping ([ProjectViewModel]) -> Void) {
-        todoListObserver.bind(closure)
+    func bindTodoList(closure: @escaping ([ProjectViewModel]) -> Void) {
+        todoList.bind(closure)
     }
     
-    func doingListObserverBind(closure: @escaping ([ProjectViewModel]) -> Void) {
-        doingListObserver.bind(closure)
+    func bindDoingList(closure: @escaping ([ProjectViewModel]) -> Void) {
+        doingList.bind(closure)
     }
     
-    func doneListObserverBind(closure: @escaping ([ProjectViewModel]) -> Void) {
-        doneListObserver.bind(closure)
-    }
-    
-    private func retrieveDateLabelColor(data stringDate: String) -> UIColor {
-        let date = stringDate.toDate()
-        let currentDate = Date()
-        
-        if stringDate != currentDate.convertLocalization() && date < currentDate {
-            return .systemRed
-        }
-        
-        return .black
-    }
-    
-    func retrieveItems(state: ProjectState) -> [ProjectViewModel] {
-        switch state {
-        case .todo:
-            return todoListObserver.value
-        case .doing:
-            return doingListObserver.value
-        case .done:
-            return doneListObserver.value
-        }
-    }
-    
-    func configureNumberOfRow(state: ProjectState) -> Int {
-        return retrieveItems(state: state).count
-    }
-    
-    func configureCellItem(cell: ProjectTableViewCell,
-                           state: ProjectState,
-                           indexPath: IndexPath) {
-        
-        let item = retrieveItems(state: state)[indexPath.row]
-        cell.setItems(title: item.title,
-                      body: item.body,
-                      date: item.date,
-                      dateColor: retrieveDateLabelColor(data: item.date))
-    }
-    
-    func makeTableHaederView(state: ProjectState) -> ProjectTableHeaderView {
-        let items = retrieveItems(state: state)
-        let view = ProjectTableHeaderView()
-        
-        ProjectState.allCases.filter {
-            $0 == state
-        }.forEach {
-            view.setItems(title: $0.name,
-                          count: items.count.description)
-        }
-        
-        return view
-    }
-    
-    func makeSwipeActions(state: ProjectState,
-                          indexPath: IndexPath) -> [UIContextualAction] {
-        let item = retrieveItems(state: state)[indexPath.row]
-        let deleteSwipeAction = UIContextualAction(style: .destructive,
-                                                   title: Design.deleteSwipeActionTitle,
-                                                   handler: { [weak self] _, _, completionHaldler in
-            self?.delete(id: item.id)
-            
-            completionHaldler(true)
-        })
-        
-        return [deleteSwipeAction]
+    func bindDoneList(closure: @escaping ([ProjectViewModel]) -> Void) {
+        doneList.bind(closure)
     }
     
     func makeAlertContoller(tableView: UITableView,
@@ -183,11 +102,76 @@ final class ProjectListViewModel {
         return handler
     }
     
+    func numberOfRow(state: ProjectState) -> Int {
+        return retrieveItems(state: state).count
+    }
+    
+    func configureCellItem(cell: ProjectTableViewCell,
+                           state: ProjectState,
+                           indexPath: IndexPath) {
+        
+        let item = retrieveItems(state: state)[indexPath.row]
+        cell.setItems(title: item.title,
+                      body: item.body,
+                      date: item.date,
+                      dateColor: retrieveDateLabelColor(data: item.date))
+    }
+    
+    private func retrieveDateLabelColor(data stringDate: String) -> UIColor {
+        let date = stringDate.toDate()
+        let currentDate = Date()
+        
+        if stringDate != currentDate.convertLocalization() && date < currentDate {
+            return .systemRed
+        }
+        
+        return .black
+    }
+    
+    func retrieveItems(state: ProjectState) -> [ProjectViewModel] {
+        switch state {
+        case .todo:
+            return todoList.value
+        case .doing:
+            return doingList.value
+        case .done:
+            return doneList.value
+        }
+    }
+    
+    func makeTableHeaderView(state: ProjectState) -> ProjectTableHeaderView {
+        let items = retrieveItems(state: state)
+        let view = ProjectTableHeaderView()
+        
+        ProjectState.allCases.filter {
+            $0 == state
+        }.forEach {
+            view.setItems(title: $0.name,
+                          count: items.count.description)
+        }
+        
+        return view
+    }
+    
+    func makeSwipeActions(state: ProjectState,
+                          indexPath: IndexPath) -> [UIContextualAction] {
+        let item = retrieveItems(state: state)[indexPath.row]
+        let deleteSwipeAction = UIContextualAction(style: .destructive,
+                                                   title: Design.deleteSwipeActionTitle,
+                                                   handler: { [weak self] _, _, completionHaldler in
+            self?.delete(id: item.id)
+            
+            completionHaldler(true)
+        })
+        
+        return [deleteSwipeAction]
+    }
+    
     // MARK: - Input from View
     
     func create(data: ProjectViewModel) {
         useCase.create(data: data)
-        fetch()
+        reloadLists()
     }
     
     private func read() -> [ProjectViewModel] {
@@ -198,12 +182,12 @@ final class ProjectListViewModel {
                 data: ProjectViewModel) {
         useCase.update(id: id,
                        data: data)
-        fetch()
+        reloadLists()
     }
     
     private func delete(id: String) {
         useCase.delete(id: id)
-        fetch()
+        reloadLists()
     }
     
     private func changeState(item: ProjectViewModel,
@@ -216,5 +200,21 @@ final class ProjectListViewModel {
         
         update(id: item.id,
                data: newItem)
+    }
+    
+    // MARK: - Methods
+    
+    private func reloadLists() {
+        todoList.value = read().filter {
+            $0.workState == .todo
+        }
+        
+        doingList.value = read().filter {
+            $0.workState == .doing
+        }
+        
+        doneList.value = read().filter {
+            $0.workState == .done
+        }
     }
 }

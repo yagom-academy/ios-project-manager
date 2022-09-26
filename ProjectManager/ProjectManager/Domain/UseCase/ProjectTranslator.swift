@@ -1,5 +1,5 @@
 //
-//  ProjectTranslater.swift
+//  ProjectTranslator.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/19.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol ProjectTranslater {
+protocol ProjectTranslator {
     func translateToProjectModel(with data: ProjectViewModel) -> ProjectModel
     func translateToProjectViewModel(with data: ProjectModel) -> ProjectViewModel
 }
 
-extension ProjectTranslater {
+extension ProjectTranslator {
     func translateToProjectModel(with data: ProjectViewModel) -> ProjectModel {
         let model = ProjectModel(id: data.id,
                                  title: data.title,
