@@ -9,7 +9,7 @@ import RxSwift
 import CoreData
 import Foundation
 
-class CoreDataManager: DatabaseManageable {
+final class CoreDataManager: DatabaseManageable {
     static let shared = CoreDataManager()
     
     private init() { }

@@ -9,7 +9,7 @@ import UIKit
 import RxRelay
 import RxSwift
 
-final class ManageWorkViewController: UIViewController {
+final class WorkDetailViewController: UIViewController {
     // MARK: - Inner types
     private enum ViewMode {
         case add
@@ -18,14 +18,14 @@ final class ManageWorkViewController: UIViewController {
     
     // MARK: - Properties
     private let disposeBag = DisposeBag()
-    private let workManageView = WorkManageView()
+    private let workDetailView = WorkDetailView()
     private let viewModel: WorkViewModel
     private var viewMode: ViewMode?
     private var work: Work?
     
     override func loadView() {
         super.loadView()
-        self.view = workManageView
+        self.view = workDetailView
     }
     
     override func viewDidLoad() {
@@ -78,7 +78,7 @@ final class ManageWorkViewController: UIViewController {
     }
     
     @objc private func editBarButtonTapped() {
-        workManageView.changeEditMode(true)
+        workDetailView.changeEditMode(true)
     }
     
     @objc private func doneBarButtonTapped() {
@@ -86,12 +86,12 @@ final class ManageWorkViewController: UIViewController {
         
         switch viewMode {
         case .add:
-            guard let newWork = workManageView.createNewWork() else { return }
+            guard let newWork = workDetailView.createNewWork() else { return }
 
             viewModel.addWork(newWork)
         case .edit:
             guard let work = work,
-                  let newWork = self.workManageView.createNewWork(id: work.id, state: work.state) else { return }
+                  let newWork = self.workDetailView.createNewWork(id: work.id, state: work.state) else { return }
 
             viewModel.editWork(work, newWork: newWork)
         }
@@ -104,8 +104,8 @@ final class ManageWorkViewController: UIViewController {
     }
     
     func configureEditMode(with work: Work) {
-        workManageView.configure(with: work)
-        workManageView.changeEditMode(false)
+        workDetailView.configure(with: work)
+        workDetailView.changeEditMode(false)
         self.viewMode = .edit
         self.work = work
     }

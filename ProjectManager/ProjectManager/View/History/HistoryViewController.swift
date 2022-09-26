@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class HistoryViewController: UIViewController {
+final class HistoryViewController: UIViewController {
     // MARK: - UI
     private let historyTableView: UITableView = {
         let tableView = UITableView()

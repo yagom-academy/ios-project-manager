@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HistoryTableViewCell: UITableViewCell {
+final class HistoryTableViewCell: UITableViewCell {
     // MARK: - Properties
     static let identifier = "HistoryTableViewCell"
     

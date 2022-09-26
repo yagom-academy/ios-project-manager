@@ -83,7 +83,7 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     @objc private func addWorkBarButtonTapped() {
-        let manageViewController = ManageWorkViewController(viewModel: viewModel)
+        let manageViewController = WorkDetailViewController(viewModel: viewModel)
         manageViewController.configureAddMode()
         let manageNavigationController = UINavigationController(rootViewController: manageViewController)
         self.present(manageNavigationController, animated: true)
@@ -164,7 +164,7 @@ final class ProjectManagerViewController: UIViewController {
     
     // MARK: - Methods
     private func showManageWorkView(_ view: UIViewController, id: UUID) {
-        let manageViewController = ManageWorkViewController(viewModel: viewModel)
+        let manageViewController = WorkDetailViewController(viewModel: viewModel)
         guard let work = viewModel.selectWork(id: id) else { return }
         manageViewController.configureEditMode(with: work)
 

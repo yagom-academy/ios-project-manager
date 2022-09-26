@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-class WorkViewModel {
+final class WorkViewModel {
     private var database: DatabaseManageable
     private let disposeBag = DisposeBag()
     private let works = BehaviorSubject<[Work]>(value: [])

@@ -9,7 +9,7 @@ import RxSwift
 import FirebaseFirestore
 import Foundation
 
-class FirebaseManager: DatabaseManageable {
+final class FirebaseManager: DatabaseManageable {
     static let shared = FirebaseManager()
     private let collectioinId: String
     

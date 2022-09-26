@@ -8,7 +8,7 @@
 import FirebaseFirestore
 import RxSwift
 
-class FirebaseService {
+struct FirebaseService {
     func loadData(_ collectionId: String) -> Observable<[QueryDocumentSnapshot]> {
         return Observable.create { emitter in
             let database = Firestore.firestore()

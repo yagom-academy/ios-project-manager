@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class WorkManageView: UIView {
+final class WorkDetailView: UIView {
     // MARK: - Propertie
     private let titleTextField: UITextField = {
         let textField = UITextField()

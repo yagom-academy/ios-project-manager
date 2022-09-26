@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		201D822428E17264005EEB4A /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201D822328E17264005EEB4A /* AlertManager.swift */; };
-		2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C46E28CAA46E0091D087 /* WorkManageView.swift */; };
-		2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */; };
 		2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47328CB100F0091D087 /* Date+Extension.swift */; };
 		2041B00E28DC3FEB00636D06 /* DatabaseManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */; };
 		2041B01228DC7F3000636D06 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01028DC7F3000636D06 /* FirebaseService.swift */; };
@@ -24,12 +22,13 @@
 		208049FC28DD926D002A8119 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049FB28DD926D002A8119 /* HistoryViewController.swift */; };
 		208049FF28DD9967002A8119 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */; };
 		20804A0928DDA123002A8119 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804A0828DDA123002A8119 /* NetworkMonitor.swift */; };
+		2097D97C28E1770400AC7AB2 /* WorkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2097D97A28E1770400AC7AB2 /* WorkDetailViewController.swift */; };
+		2097D97D28E1770400AC7AB2 /* WorkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2097D97B28E1770400AC7AB2 /* WorkDetailView.swift */; };
 		209F976528D37178004CBAF5 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F976428D37178004CBAF5 /* WorkState.swift */; };
 		20C11A6D28D051A0003B1BBE /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C11A6C28D051A0003B1BBE /* View+Extension.swift */; };
 		20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87B28C875EC0074364A /* HeaderView.swift */; };
 		20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */; };
 		20E1A88428C8A22A0074364A /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88328C8A22A0074364A /* Work.swift */; };
-		20E1A88628C8A4EE0074364A /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88528C8A4EE0074364A /* SampleData.swift */; };
 		20E1A88A28C8C9B50074364A /* WorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88928C8C9B50074364A /* WorkViewModel.swift */; };
 		20F670FA28C7154C0069CB46 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 20F670F928C7154C0069CB46 /* .swiftlint.yml */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -43,8 +42,6 @@
 /* Begin PBXFileReference section */
 		1BA66A5555EF5D11E54B0D98 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		201D822328E17264005EEB4A /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
-		2021C46E28CAA46E0091D087 /* WorkManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManageView.swift; sourceTree = "<group>"; };
-		2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageWorkViewController.swift; sourceTree = "<group>"; };
 		2021C47328CB100F0091D087 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManageable.swift; sourceTree = "<group>"; };
 		2041B01028DC7F3000636D06 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
@@ -59,12 +56,13 @@
 		208049FB28DD926D002A8119 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		20804A0828DDA123002A8119 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		2097D97A28E1770400AC7AB2 /* WorkDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDetailViewController.swift; sourceTree = "<group>"; };
+		2097D97B28E1770400AC7AB2 /* WorkDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDetailView.swift; sourceTree = "<group>"; };
 		209F976428D37178004CBAF5 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
 		20C11A6C28D051A0003B1BBE /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		20E1A87B28C875EC0074364A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
 		20E1A88328C8A22A0074364A /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
-		20E1A88528C8A4EE0074364A /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		20E1A88928C8C9B50074364A /* WorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkViewModel.swift; sourceTree = "<group>"; };
 		20F670F928C7154C0069CB46 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6ECD53AFD7F818F72F4ABD72 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,16 +145,6 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		20804A0628DD9C67002A8119 /* Manage */ = {
-			isa = PBXGroup;
-			children = (
-				2021C46E28CAA46E0091D087 /* WorkManageView.swift */,
-				2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */,
-			);
-			name = Manage;
-			path = ProjectManager/View/Manage;
-			sourceTree = SOURCE_ROOT;
-		};
 		20804A0728DD9C6D002A8119 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,11 +154,20 @@
 			path = History;
 			sourceTree = "<group>";
 		};
+		2097D97928E1770400AC7AB2 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				2097D97A28E1770400AC7AB2 /* WorkDetailViewController.swift */,
+				2097D97B28E1770400AC7AB2 /* WorkDetailView.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		20E1A87828C872080074364A /* View */ = {
 			isa = PBXGroup;
 			children = (
 				20804A0528DD9C62002A8119 /* Main */,
-				20804A0628DD9C67002A8119 /* Manage */,
+				2097D97928E1770400AC7AB2 /* Detail */,
 				20804A0728DD9C6D002A8119 /* History */,
 			);
 			path = View;
@@ -179,7 +176,6 @@
 		20E1A88028C8A1A30074364A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				20E1A88528C8A4EE0074364A /* SampleData.swift */,
 				20E1A88328C8A22A0074364A /* Work.swift */,
 				209F976428D37178004CBAF5 /* WorkState.swift */,
 			);
@@ -409,16 +405,15 @@
 				20804A0928DDA123002A8119 /* NetworkMonitor.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				2054FB7628D1B30B0007AF1E /* DateManager.swift in Sources */,
-				2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */,
 				20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */,
 				2041B01328DC7F3000636D06 /* FirebaseManager.swift in Sources */,
 				201D822428E17264005EEB4A /* AlertManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				208049FF28DD9967002A8119 /* HistoryTableViewCell.swift in Sources */,
 				20C11A6D28D051A0003B1BBE /* View+Extension.swift in Sources */,
-				2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */,
+				2097D97C28E1770400AC7AB2 /* WorkDetailViewController.swift in Sources */,
 				209F976528D37178004CBAF5 /* WorkState.swift in Sources */,
-				20E1A88628C8A4EE0074364A /* SampleData.swift in Sources */,
+				2097D97D28E1770400AC7AB2 /* WorkDetailView.swift in Sources */,
 				2054FB7828D1DAEC0007AF1E /* WorkTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

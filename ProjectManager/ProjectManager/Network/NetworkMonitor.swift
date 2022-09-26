@@ -8,7 +8,7 @@
 import RxSwift
 import Network
 
-class NetWorkMonitor {
+final class NetWorkMonitor {
     static let shared = NetWorkMonitor()
     private let isOnNetwork = PublishSubject<Bool>()
     let networkObservable: Observable<Bool>
