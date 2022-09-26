@@ -13,7 +13,7 @@ final class MainViewController: UIViewController {
     //MARK: - UI Properties
     
     private lazy var mainView = MainView(frame: view.safeAreaLayoutGuide.layoutFrame)
-    private let viewModel = ProjectTaskViewModel()
+    private let viewModel = ProjectTaskViewModel(inputDataManager: CoreDataManager())
     private let disposedBag = DisposeBag()
     private var longpressState: ProjectTaskState?
     

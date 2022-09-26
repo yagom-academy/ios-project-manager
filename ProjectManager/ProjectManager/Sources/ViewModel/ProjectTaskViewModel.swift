@@ -9,98 +9,50 @@ import RxSwift
 import Foundation
 
 final class ProjectTaskViewModel {
-    
     var selectedTask: ProjectTask?
+    var dataManager: CoreDataManagerInterface?
     
-    let todoTasks = BehaviorSubject<[ProjectTask]>(value: [
-        ProjectTask(
-            id: UUID(),
-            title: "todo test title",
-            description: "todo description@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date()
-        )
-    ])
-    let doingTasks = BehaviorSubject<[ProjectTask]>(value: [
-        ProjectTask(
-            id: UUID(),
-            title: "doing test title1",
-            description: "doing description@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date()
-        )])
-    let doneTasks = BehaviorSubject<[ProjectTask]>(value: [
-        ProjectTask(
-            id: UUID(),
-            title: "done test title2",
-            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date()
-        ),
-        ProjectTask(
-            id: UUID(),
-            title: "done test title3",
-            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date()
-        ),
-        ProjectTask(
-            id: UUID(),
-            title: "done test title4",
-            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date()
-        ),
-        ProjectTask(
-            id: UUID(),
-            title: "done test title5",
-            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date()
-        ),
-        ProjectTask(
-            id: UUID(),
-            title: "done test title6",
-            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date()
-        ),
-        ProjectTask(
-            id: UUID(),
-            title: "done test title7",
-            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date()
-        ),
-        ProjectTask(
-            id: UUID(),
-            title: "done test title8",
-            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date() + 100
-        ),
-        ProjectTask(
-            id: UUID(),
-            title: "done test title9",
-            description: "done description@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
-            date: Date()
-        )
-    ])
-
+    var todoTasks: BehaviorSubject<[ProjectTask]>
+    var doingTasks: BehaviorSubject<[ProjectTask]>
+    var doneTasks: BehaviorSubject<[ProjectTask]>
+    
     lazy var todoCount = todoTasks
         .map { $0.map{_ in 1 }.reduce(0,+) }
     lazy var doingCount = doingTasks
         .map { $0.map{_ in 1 }.reduce(0,+) }
     lazy var doneCount = doneTasks
         .map { $0.map{_ in 1 }.reduce(0,+) }
+    
+    init(inputDataManager: CoreDataManagerInterface) {
+        dataManager = inputDataManager
+        todoTasks = BehaviorSubject<[ProjectTask]>(value: inputDataManager.fetchTaskList(state: .TODO))
+        doingTasks = BehaviorSubject<[ProjectTask]>(value: inputDataManager.fetchTaskList(state: .DOING))
+        doneTasks = BehaviorSubject<[ProjectTask]>(value: inputDataManager.fetchTaskList(state: .DONE))
+    }
 }
+
+//MARK: - View Model Data Handling Method
 
 extension ProjectTaskViewModel {
     func deleteTask(at state: ProjectTaskState, what index: Int) {
         var targetInstance: ProjectTask
+        var targetId: UUID
         do {
             switch state {
             case .TODO:
                 targetInstance = try todoTasks.value()[index]
                 todoTasks.onNext(try todoTasks.value().filter{ $0.id != targetInstance.id })
+                targetId = targetInstance.id
             case .DOING:
                 let targetInstance = try doingTasks.value()[index]
                 doingTasks.onNext(try doingTasks.value().filter{ $0.id != targetInstance.id })
+                targetId = targetInstance.id
             case .DONE:
                 targetInstance = try doneTasks.value()[index]
                 doneTasks.onNext(try doneTasks.value().filter{ $0.id != targetInstance.id })
+                targetId = targetInstance.id
             }
+            dataManager?.deleteTask(id: targetId)
         } catch {
             debugPrint("delete error")
         }
@@ -131,6 +83,7 @@ extension ProjectTaskViewModel {
                     return task
                 }))
             }
+            dataManager?.updateTask(projectTask: target, state: state)
         } catch {
             debugPrint("update error")
         }
@@ -153,6 +106,7 @@ extension ProjectTaskViewModel {
                 newTaskAppendedTasks.append(task)
                 doneTasks.onNext(newTaskAppendedTasks)
             }
+            dataManager?.saveTask(projectTask: task, state: state)
         } catch {
             debugPrint("create error")
         }
@@ -175,9 +129,12 @@ extension ProjectTaskViewModel {
             guard let targetTask = targetTask else {
                 return
             }
+            dataManager?.deleteTask(id: id)
             createTask(to: targetTask , at: to)
         } catch {
             debugPrint("move - delete error")
         }
     }
 }
+
+
