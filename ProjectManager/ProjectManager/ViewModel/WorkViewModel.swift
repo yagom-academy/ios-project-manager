@@ -12,8 +12,9 @@ final class WorkViewModel {
     private var database: DatabaseManageable
     private let disposeBag = DisposeBag()
     private let works = BehaviorSubject<[Work]>(value: [])
+    private let histories = BehaviorSubject<[String]>(value: [])
     let worksObservable: Observable<[Work]>
-    let histories = BehaviorSubject<[String]>(value: [])
+    let historiesObservable: Observable<[String]>
     
     init(dbType: DatabaseManageable) {
         database = dbType
@@ -23,6 +24,7 @@ final class WorkViewModel {
             .disposed(by: disposeBag)
         
         worksObservable = works
+        historiesObservable = histories
     }
     
     func changeDatabase(_ isConnected: Bool) {
@@ -64,7 +66,7 @@ final class WorkViewModel {
             .take(1)
             .observe(on: MainScheduler.instance)
             .subscribe {
-            self.histories.onNext($0 + ["Added '\(work.title)'."])
+            self.histories.onNext(["Added '\(work.title)'."] + $0)
         }.disposed(by: disposeBag)
     }
     
@@ -84,7 +86,7 @@ final class WorkViewModel {
         histories.take(1)
             .observe(on: MainScheduler.instance)
             .subscribe {
-            self.histories.onNext($0 + ["Edited '\(work.title)'."])
+            self.histories.onNext(["Edited '\(work.title)'."] + $0)
         }.disposed(by: disposeBag)
     }
     
@@ -105,7 +107,7 @@ final class WorkViewModel {
         histories.take(1)
             .observe(on: MainScheduler.instance)
             .subscribe {
-            self.histories.onNext($0 + ["Removed '\(work.title)'."])
+            self.histories.onNext(["Removed '\(work.title)'."] + $0)
         }.disposed(by: disposeBag)
     }
     
@@ -132,7 +134,7 @@ final class WorkViewModel {
             .take(1)
             .observe(on: MainScheduler.instance)
             .subscribe {
-            self.histories.onNext($0 + ["Moved '\(work.title)' from \(work.state.rawValue) to \(state.rawValue)."])
+            self.histories.onNext(["Moved '\(work.title)' from \(work.state.rawValue) to \(state.rawValue)."] + $0)
         }.disposed(by: disposeBag)
     }
 }

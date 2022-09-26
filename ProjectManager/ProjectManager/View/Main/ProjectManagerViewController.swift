@@ -148,6 +148,7 @@ final class ProjectManagerViewController: UIViewController {
         }
     }
     
+    // MARK: - Methods
     private func checkNetwork() {
         NetWorkMonitor.shared.networkObservable
             .observe(on: MainScheduler.instance)
@@ -162,7 +163,6 @@ final class ProjectManagerViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    // MARK: - Methods
     private func showManageWorkView(_ view: UIViewController, id: UUID) {
         let manageViewController = WorkDetailViewController(viewModel: viewModel)
         guard let work = viewModel.selectWork(id: id) else { return }

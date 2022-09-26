@@ -50,7 +50,7 @@ final class HistoryViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.histories
+        viewModel.historiesObservable
             .asDriver(onErrorJustReturn: [])
             .drive(historyTableView.rx.items(cellIdentifier: HistoryTableViewCell.identifier,
                                          cellType: HistoryTableViewCell.self)) { _, item, cell in
