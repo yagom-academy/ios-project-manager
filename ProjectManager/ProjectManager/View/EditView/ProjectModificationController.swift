@@ -1,43 +1,44 @@
 //
-//  ProjectAdditionController.swift
+//  ProjectModificationController.swift
 //  ProjectManager
 //
-//  Created by 수꿍, 휴 on 2022/09/11.
+//  Created by 수꿍, 휴 on 2022/09/17.
 //
 
 import UIKit
 
-final class ProjectAdditionController: UIViewController {
+final class ProjectModificationController: UIViewController {
     private let scrollView = ContentScrollView()
-    var viewModel: ContentAddible?
+    var viewModel: ContentEditable?
+    var indexPath: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItems()
         configureUI()
+        setContent()
     }
 
     @objc private func didTapDoneButton() {
-        guard let title = scrollView.scheduleTitleTextField.text,
+        self.dismiss(animated: true)
+    }
+
+    @objc private func didTapEditButton() {
+        guard let indexPath = indexPath,
+              let title = scrollView.scheduleTitleTextField.text,
               let date = scrollView.datePicker?.date else {
             return
         }
 
-        self.viewModel?.addContent(
+        self.viewModel?.edit(
+            indexPath: indexPath,
             title: title,
             body: scrollView.scheduleDescriptionTextView.text,
             date: date
         )
-
-        self.dismiss(animated: true)
     }
 
-    @objc private func didTapCancelButton() {
-        self.dismiss(animated: true)
-    }
-    
     private func configureNavigationItems() {
-        self.title = ProjectStatus.todo
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Done",
             style: .done,
@@ -45,22 +46,31 @@ final class ProjectAdditionController: UIViewController {
             action: #selector(didTapDoneButton)
         )
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "Cancel",
+            title: "Edit",
             style: .plain,
             target: self,
-            action: #selector(didTapCancelButton)
+            action: #selector(didTapEditButton)
         )
     }
-    
+
     private func configureUI() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(scrollView)
-        
+
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+    private func setContent() {
+        guard let indexPath = indexPath,
+              let data = viewModel?.fetch(indexPath) else {
+            return
+        }
+
+        scrollView.setContent(data: data)
     }
 }

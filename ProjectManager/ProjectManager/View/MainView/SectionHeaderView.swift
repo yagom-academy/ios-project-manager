@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 final class SectionHeaderView: UIView {
     private let stackView: UIStackView = {
@@ -49,13 +50,11 @@ final class SectionHeaderView: UIView {
         configurelayout()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-
-    private func configurelayout() {
-        stackView.addArrangedSubview(sectionLabel)
-        stackView.addArrangedSubview(numberImageView)
+        
+        os_log(.default, log: .ui, "Didn't use nib File")
     }
 
     func setupLabelText(
@@ -67,6 +66,11 @@ final class SectionHeaderView: UIView {
         numberImageView.image = circleBorderedDigit(number, diameter: 30, font: font)
     }
     
+    private func configurelayout() {
+        stackView.addArrangedSubview(sectionLabel)
+        stackView.addArrangedSubview(numberImageView)
+    }
+
     private func circleBorderedDigit(
         _ num: Int,
         diameter: CGFloat,

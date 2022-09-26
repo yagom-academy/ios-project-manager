@@ -1,13 +1,14 @@
 //
-//  ProjectAdditionScrollView.swift
+//  ContentScrollView.swift
 //  ProjectManager
 //
 //  Created by 수꿍, 휴 on 2022/09/11.
 //
 
 import UIKit
+import OSLog
 
-final class ProjectAdditionScrollView: UIScrollView {
+final class ContentScrollView: UIScrollView {
     private let scheduleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +27,7 @@ final class ProjectAdditionScrollView: UIScrollView {
         return stackView
     }()
     
-    private let scheduleTitleTextField: UITextField = {
+    let scheduleTitleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .systemBackground
@@ -43,7 +44,7 @@ final class ProjectAdditionScrollView: UIScrollView {
         return textField
     }()
     
-    private let datePicker: UIDatePicker? = {
+    let datePicker: UIDatePicker? = {
         let datePicker = UIDatePicker()
         
         guard let localeID = Locale.preferredLanguages.first,
@@ -60,11 +61,10 @@ final class ProjectAdditionScrollView: UIScrollView {
         return datePicker
     }()
     
-    private let scheduleDescriptionTextView: UITextView = {
+    let scheduleDescriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
-        textView.text = "Description"
         textView.font = UIFont.preferredFont(forTextStyle: .caption1)
         
         return textView
@@ -79,7 +79,7 @@ final class ProjectAdditionScrollView: UIScrollView {
         
         return view
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -87,10 +87,14 @@ final class ProjectAdditionScrollView: UIScrollView {
         
         configureView()
         configureUI()
+        configureInset()
     }
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        os_log(.default, log: .ui, "Didn't use nib File")
     }
     
     private func configureView() {
@@ -118,7 +122,28 @@ final class ProjectAdditionScrollView: UIScrollView {
             scheduleDescriptionTextView.leadingAnchor.constraint(equalTo: shadowView.leadingAnchor),
             scheduleDescriptionTextView.topAnchor.constraint(equalTo: shadowView.topAnchor),
             scheduleDescriptionTextView.trailingAnchor.constraint(equalTo: shadowView.trailingAnchor),
-            scheduleDescriptionTextView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor)
+            scheduleDescriptionTextView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor),
+            scheduleDescriptionTextView.heightAnchor.constraint(
+                greaterThanOrEqualTo: self.heightAnchor,
+                multiplier: 0.48
+            )
         ])
+    }
+    
+    func setContent(data: ProjectUnit) {
+        scheduleTitleTextField.text = data.title
+        scheduleDescriptionTextView.text = data.body
+        datePicker?.date = data.deadLine
+    }
+
+    private func configureInset() {
+        let contentInset = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: 15,
+            right: 0.0
+        )
+        self.contentInset = contentInset
+        self.scrollIndicatorInsets = contentInset
     }
 }

@@ -6,10 +6,9 @@
 //
 
 import UIKit
+import OSLog
 
 final class ProjectManagerListCell: UITableViewCell, ReusableCell {
-    static let identifier = "ProjectManagerListCell"
-    
     private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +23,6 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "제목입니다"
         label.numberOfLines = 1
         label.font = .preferredFont(forTextStyle: .title3)
         
@@ -34,13 +32,6 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     private var bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = """
-            바디입니다
-            바디입니다
-            바디입니다
-            바디입니다
-            바디입니다
-            """
         label.numberOfLines = 3
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .gray
@@ -53,10 +44,8 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
     private var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "날짜입니다"
         label.numberOfLines = 1
         label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .gray
         
         return label
     }()
@@ -66,9 +55,28 @@ final class ProjectManagerListCell: UITableViewCell, ReusableCell {
         
         configureUI()
     }
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        os_log(.default, log: .ui, "Didn't use nib File")
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        dateLabel.textColor = .gray
+    }
+    
+    func setContents(title: String, body: String, date: String?) {
+        titleLabel.text = title
+        bodyLabel.text = body
+        dateLabel.text = date
+    }
+
+    func changeTextColor() {
+        dateLabel.textColor = .red
     }
     
     private func configureUI() {
