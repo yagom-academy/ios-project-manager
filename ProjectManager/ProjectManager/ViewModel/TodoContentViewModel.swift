@@ -13,7 +13,7 @@ class TodoContentViewModel: ObservableObject {
     @Published var date: Date
     @Published var body: String
     @Published var buttonType: String
-    @Published var showingSheet = false
+    @Published var showingSheet: Bool = false
     @Published var index: Int?
     
     init(todo: Todo?, buttonType: String, index: Int?) {

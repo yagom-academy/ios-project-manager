@@ -9,35 +9,62 @@ import SwiftUI
 
 struct TodoListRow: View {
     
-    let todo: Todo
-    @State private var showingSheet = false
-    @State var index: Int
+    @EnvironmentObject private var dataManager: DataManager
+    @StateObject private var todoListRowViewModel: TodoListRowViewModel
+    
+    init(todo: Todo, index: Int) {
+        _todoListRowViewModel = StateObject(wrappedValue: TodoListRowViewModel(todo: todo, index: index))
+    }
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
-                Text(todo.title)
+                Text(todoListRowViewModel.todo.title)
                     .font(.title3)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                Text(todo.body)
+                Text(todoListRowViewModel.todo.body)
                     .font(.body)
                     .foregroundColor(.gray)
                     .lineLimit(3)
                     .truncationMode(.tail)
-                Text(todo.date.dateString)
+                Text(todoListRowViewModel.todo.date.dateString)
                     .font(.callout)
-                    .foregroundColor(todo.date.isOverdue ? .red : .black)
+                    .foregroundColor(todoListRowViewModel.todo.date.isOverdue ? .red : .black)
             }
             Spacer()
         }
         .padding(.all, 5)
         .contentShape(Rectangle())
         .onTapGesture {
-            showingSheet.toggle()
+            todoListRowViewModel.showingSheet.toggle()
         }
-        .sheet(isPresented: $showingSheet, content: {
-            TodoContentView(todo: todo, buttonType: "Edit", index: index)
+        .sheet(isPresented: $todoListRowViewModel.showingSheet, content: {
+            TodoContentView(todo: todoListRowViewModel.todo, buttonType: "Edit", index: todoListRowViewModel.index)
         })
+        .onLongPressGesture(perform: {
+            todoListRowViewModel.statusChanging.toggle()
+        })
+        .popover(isPresented: $todoListRowViewModel.statusChanging) {
+            ZStack {
+                Color(UIColor.quaternarySystemFill)
+                    .scaleEffect(1.5)
+                VStack(spacing: 6) {
+                    ForEach(Status.allCases, id: \.self) { status in
+                        if status != todoListRowViewModel.todo.status {
+                            Button {
+                                todoListRowViewModel.changeStatus(status: status, dataManager: dataManager, index: todoListRowViewModel.index)
+                            } label: {
+                                Text("Move to \(status.text)")
+                                    .frame(width: 250, height: 50)
+                                    .background(Color(UIColor.systemBackground))
+                            }
+                        }
+                    }
+                }
+                .padding(.all, 10)
+                .font(.title2)
+            }
+        }
     }
 }
