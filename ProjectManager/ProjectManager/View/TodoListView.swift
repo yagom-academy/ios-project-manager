@@ -15,8 +15,8 @@ struct TodoListView: View {
         VStack {
             titleHeaderView(title: title, taskCount: $todoTasks.count)
             List {
-                ForEach(todoTasks) { task in
-                    TodoListRow(todo: task)
+                ForEach(Array(zip(todoTasks.indices, todoTasks)), id: \.0) { index, task in
+                    TodoListRow(todo: task, index: index)
                 }
                 .onDelete { index in
                     todoTasks.remove(atOffsets: index)

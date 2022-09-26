@@ -14,28 +14,30 @@ class TodoContentViewModel: ObservableObject {
     @Published var body: String
     @Published var buttonType: String
     @Published var showingSheet = false
+    @Published var index: Int?
     
-    init(todo: Todo?, buttonType: String) {
+    init(todo: Todo?, buttonType: String, index: Int?) {
         if let todo = todo, buttonType == "Edit" {
             self.todo = todo
             self.title = todo.title
             self.date = todo.date
             self.body = todo.body
-            self.buttonType = "Edit"
+            self.buttonType = buttonType
+            self.index = index
         } else {
             self.todo = nil
             self.title = ""
             self.date = Date()
             self.body = ""
-            self.buttonType = "Done"
+            self.buttonType = buttonType
         }
     }
     
-    func manageTask(dataManger: DataManager, index: IndexSet?) {
+    func manageTask(dataManger: DataManager, index: Int?) {
         if buttonType == "Done", index == nil {
             dataManger.add(title: title, body: body, date: date, status: .todo)
         } else {
-            guard let index = index?.first else { return }
+            guard let index = index else { return }
             
             let id = dataManger.fetch()[index].id
             dataManger.update(id: id, title: title, body: body, date: date)

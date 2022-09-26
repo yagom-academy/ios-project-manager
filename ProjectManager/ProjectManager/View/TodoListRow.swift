@@ -11,6 +11,7 @@ struct TodoListRow: View {
     
     let todo: Todo
     @State private var showingSheet = false
+    @State var index: Int
     
     var body: some View {
         HStack {
@@ -36,13 +37,7 @@ struct TodoListRow: View {
             showingSheet.toggle()
         }
         .sheet(isPresented: $showingSheet, content: {
-            TodoContentView(buttonType: "Edit")
+            TodoContentView(todo: todo, buttonType: "Edit", index: index)
         })
-    }
-}
-
-struct TodoListRow_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoListRow(todo: Todo(title: "제목", body: "내용", date: Date(), status: .todo))
     }
 }

@@ -8,18 +8,24 @@
 import SwiftUI
 
 struct TodoContentView: View {
-    @State var buttonType: String
+    
+    @EnvironmentObject private var dataManager: DataManager
+    @StateObject private var todoContentViewModel: TodoContentViewModel
+    
+    init(todo: Todo?, buttonType: String, index: Int?) {
+        _todoContentViewModel = StateObject(wrappedValue: TodoContentViewModel(todo: todo, buttonType: buttonType, index: index))
+    }
     
     var body: some View {
         NavigationView {
-            RegisterElementsView()
+            RegisterElementsView(todoContentViewModel: todoContentViewModel)
                 .navigationTitle("TODO")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarColor(.systemGray5)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {
-                            print("Cancelbutton")
+                            todoContentViewModel.showingSheet.toggle()
                         }, label: {
                             Text("Cancel")
                         })
@@ -27,28 +33,26 @@ struct TodoContentView: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
-                            print("buttonTapped")
+                            todoContentViewModel.manageTask(dataManger: dataManager, index: todoContentViewModel.index)
                         }, label: {
-                            Text(buttonType)
+                            Text(todoContentViewModel.buttonType)
                         })
                     }
                 }
         }
         .navigationViewStyle(.stack)
     }
+    
 }
 
 struct RegisterElementsView: View {
-    @State private var title = ""
-    @State private var date = Date()
-    @State private var text: String = "내용을 입력하세요."
+    @ObservedObject var todoContentViewModel: TodoContentViewModel
     
     var body: some View {
         VStack {
             Spacer()
             
-            TextField("제목", text: $title)
-                .foregroundColor(Color.gray)
+            TextField("제목", text: $todoContentViewModel.title)
                 .padding(.all)
                 .background(
                     Color(UIColor.systemBackground)
@@ -59,24 +63,26 @@ struct RegisterElementsView: View {
                 .padding(.trailing)
                 .font(.title2)
             
-            DatePicker("", selection: $date, displayedComponents: .date)
+            DatePicker("", selection: $todoContentViewModel.date, displayedComponents: .date)
                 .datePickerStyle(.wheel)
                 .labelsHidden()
             
-            TextEditor(text: $text)
-                .border(.gray)
-                .background(
-                    Color(UIColor.systemBackground)
-                        .shadow(color: Color.primary.opacity(0.4), radius: 5, x: 0, y: 5)
-                )
-                .padding(.all)
-                .foregroundColor(Color.gray)
+            ZStack(alignment: .topLeading) {
+                Group {
+                    TextEditor(text: $todoContentViewModel.body)
+                    Text("내용을 입력하세요.")
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 8)
+                        .opacity(todoContentViewModel.body.isEmpty ? 1 : 0)
+                }
+            }
+            .border(.gray)
+            .background(
+                Color(UIColor.systemBackground)
+                    .shadow(color: Color.primary.opacity(0.2), radius: 5, x: 0, y: 5)
+            )
+            .padding(.all, 10)
         }
-    }
-}
-
-struct ResisterView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoContentView(buttonType: "Done")
     }
 }

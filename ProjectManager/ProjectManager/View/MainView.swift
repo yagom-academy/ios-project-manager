@@ -34,7 +34,7 @@ struct MainView: View {
             .navigationBarColor(.systemGray5)
             .background(Color(UIColor.systemGray3))
             .sheet(isPresented: $showingSheet, content: {
-                TodoContentView(buttonType: "Done")
+                TodoContentView(todo: nil, buttonType: "Done", index: nil)
             })
         }
         .navigationViewStyle(.stack)
