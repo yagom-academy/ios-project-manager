@@ -23,7 +23,7 @@ final class ProjectListViewModel {
     // MARK: - Initializer
     
     init() {
-        useCase = ProjectUseCase()
+        useCase = ProjectUseCase(repository: TemporaryProjectRepository(temporaryStore: [ProjectModel]()))
         todoListObserver = Observable([ProjectViewModel]())
         doingListObserver = Observable([ProjectViewModel]())
         doneListObserver = Observable([ProjectViewModel]())

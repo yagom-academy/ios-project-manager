@@ -8,8 +8,8 @@
 struct ProjectUseCase: ProjectUseCaseProtocol, ProjectTranslater {
     var repository: ProjectRepositoryProtocol
     
-    init() {
-        repository = TemporaryProjectRepository()
+    init(repository: ProjectRepositoryProtocol) {
+        self.repository = repository
     }
     
     mutating func create(data: ProjectViewModel) {

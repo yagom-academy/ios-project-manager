@@ -8,8 +8,8 @@
 struct TemporaryProjectRepository: ProjectRepositoryProtocol {
     private var temporaryStore: [ProjectModel]
     
-    init() {
-        temporaryStore = [ProjectModel]()
+    init(temporaryStore: [ProjectModel]) {
+        self.temporaryStore = temporaryStore
     }
     
     mutating func create(data: ProjectModel) {
