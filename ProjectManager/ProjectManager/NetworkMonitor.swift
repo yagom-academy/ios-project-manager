@@ -8,26 +8,25 @@
 import RxSwift
 import Network
 
-class NextWorkMonitor {
-    static let shared = NextWorkMonitor()
-    private let monitor = NWPathMonitor()
-    private var isOnNetwork: Bool = false
+class NetWorkMonitor {
+    static let shared = NetWorkMonitor()
+    private let isOnNetwork = PublishSubject<Bool>()
+    let networkObservable: Observable<Bool>
     
-    private init() { }
-    
-    func startCheckingNetwork() {
-        monitor.start(queue: .global())
-        
-        monitor.pathUpdateHandler = { path in
-            if path.status == .satisfied {
-                self.isOnNetwork = true
-            } else {
-                self.isOnNetwork = false
-            }
-        }
+    private init() {
+        networkObservable = isOnNetwork
     }
     
-    func checkNetwork() -> Observable<Bool> {
-        return Observable.just(isOnNetwork)
+    func startCheckingNetwork() {
+        let monitor = NWPathMonitor()
+        
+        monitor.start(queue: .global())
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                self.isOnNetwork.onNext(true)
+            } else {
+                self.isOnNetwork.onNext(false)
+            }
+        }
     }
 }
