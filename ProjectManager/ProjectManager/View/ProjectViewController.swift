@@ -22,7 +22,7 @@ final class ProjectViewController: UIViewController {
     
     var viewModel: ViewModelType?
     
-    private let projectTitle: UITextField = {
+    let projectTitle: UITextField = {
         let textField = UITextField()
         textField.placeholder = Design.projectTitlePlaceholder
         textField.addLeftPadding()
@@ -32,7 +32,7 @@ final class ProjectViewController: UIViewController {
         return textField
     }()
     
-    private lazy var datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
