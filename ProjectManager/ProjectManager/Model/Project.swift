@@ -8,6 +8,7 @@
 import Foundation
 
 struct Project {
+    let uuid: UUID
     var status: Status = .todo
     let title: String
     let description: String
@@ -65,7 +66,8 @@ extension Project {
                   let randomString = randomStringList.randomElement() else { break }
             let randomDate = Date.randomBetween(start: "2022-09-01", end: "2022-09-30")
             
-            let todo = Project(status: randomStatus,
+            let todo = Project(uuid: UUID(),
+                               status: randomStatus,
                                title: "\(index)번째 할 일",
                                description: "\(index)번째 : " + randomString,
                                date: randomDate)

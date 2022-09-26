@@ -20,7 +20,8 @@ final class TodoListViewController: UIViewController {
     private let doingViewModel = DoingViewModel()
     private let doneViewModel = DoneViewModel()
     
-    private var doneButtonAction = PublishSubject<Project>()
+    private var doneAction = PublishSubject<Project>()
+    private var editAction = PublishSubject<Project>()
     
     private var todoViewOutput: TodoViewOutput?
     private var doingViewOutput: DoingViewOutput?
@@ -79,7 +80,7 @@ extension TodoListViewController {
     }
     
     private func setupListsCell() {
-        let todoInput = TodoViewInput(addButtonAction: doneButtonAction)
+        let todoInput = TodoViewInput(addAction: doneAction, updateAction: editAction)
         let doingInput = DoingViewInput()
         let doneInput = DoneViewInput()
         todoViewOutput = todoViewModel.transform(todoInput)
@@ -137,60 +138,60 @@ extension TodoListViewController {
             .bind(to: doneView.listCountLabel.rx.text)
             .disposed(by: disposeBag)
     }
-    
+
     private func setupListsCellTouchEvent() {
-        todoView.tableView.rx.itemSelected
+        tableViewItemSelected(view: todoView, viewModel: todoViewModel)
+        tableViewItemSelected(view: doingView, viewModel: doingViewModel)
+        tableViewItemSelected(view: doneView, viewModel: doneViewModel)
+    }
+    
+    private func tableViewItemSelected(view: ListView, viewModel: ViewModelType) {
+        view.tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
-                
-                self.todoView.tableView.deselectRow(at: indexPath, animated: true)
+
+                view.tableView.deselectRow(at: indexPath, animated: true)
                 let projectViewController = ProjectViewController()
                 projectViewController.modalPresentationStyle = .formSheet
-                
-                self.todoViewModel.projectList.subscribe(onNext: { projects in
+
+                viewModel.projectList.subscribe(onNext: { projects in
                     projectViewController.setupData(project: projects[indexPath.row])
                 })
                 .disposed(by: self.disposeBag)
-                
+
+                self.editButtonAction(viewController: projectViewController)
+                self.cancelButtonAction(viewController: projectViewController)
+
                 let projectAddViewController = UINavigationController(rootViewController: projectViewController)
                 self.present(projectAddViewController, animated: true)
             })
             .disposed(by: disposeBag)
-        
-        doingView.tableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                
-                self.doingView.tableView.deselectRow(at: indexPath, animated: true)
-                
-                let projectViewController = ProjectViewController()
-                projectViewController.modalPresentationStyle = .formSheet
-                
-                self.doingViewModel.projectList.subscribe(onNext: { projects in
-                    projectViewController.setupData(project: projects[indexPath.row])
-                })
-                .disposed(by: self.disposeBag)
-                
-                let projectAddViewController = UINavigationController(rootViewController: projectViewController)
-                self.present(projectAddViewController, animated: true)
+    }
+    
+    private func doneButtonAction(viewController: ProjectViewController) {
+        viewController.doneButton.rx.tap
+            .subscribe(onNext: { _ in
+                guard let todo = viewController.getProjectData() else { return }
+                self.doneAction.onNext(todo)
+                viewController.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
-        
-        doneView.tableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                
-                self.doneView.tableView.deselectRow(at: indexPath, animated: true)
-                let projectViewController = ProjectViewController()
-                projectViewController.modalPresentationStyle = .formSheet
-                
-                self.doneViewModel.projectList.subscribe(onNext: { projects in
-                    projectViewController.setupData(project: projects[indexPath.row])
-                })
-                .disposed(by: self.disposeBag)
-                
-                let projectAddViewController = UINavigationController(rootViewController: projectViewController)
-                self.present(projectAddViewController, animated: true)
+    }
+    
+    private func editButtonAction(viewController: ProjectViewController) {
+        viewController.editButton.rx.tap
+            .subscribe(onNext: { _ in
+                guard let todo = viewController.getProjectData() else { return }
+                self.editAction.onNext(todo)
+                viewController.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func cancelButtonAction(viewController: ProjectViewController) {
+        viewController.cancelButton.rx.tap
+            .subscribe(onNext: { _ in
+                viewController.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
     }
@@ -201,20 +202,8 @@ extension TodoListViewController {
 extension TodoListViewController {
     @objc private func addButtonDidTapped() {
         let projectViewController = ProjectViewController()
-        projectViewController.doneButton.rx.tap
-            .subscribe(onNext: { _ in
-                guard let todo = projectViewController.getProjectData() else { return }
-                self.doneButtonAction.onNext(todo)
-                projectViewController.dismiss(animated: true)
-            })
-            .disposed(by: disposeBag)
-        projectViewController.cancelButton.rx.tap
-            .subscribe(onNext: { _ in
-                projectViewController.dismiss(animated: true)
-            })
-            .disposed(by: disposeBag)
-        
-//        projectViewController.viewModel = todoViewModel
+        doneButtonAction(viewController: projectViewController)
+        cancelButtonAction(viewController: projectViewController)
         projectViewController.modalPresentationStyle = .formSheet
         let projectAddViewController = UINavigationController(rootViewController: projectViewController)
         present(projectAddViewController, animated: true)

@@ -35,4 +35,11 @@ final class TodoProvider {
         testProjects.append(project)
         allTodoData.onNext(testProjects)
     }
+    
+    func updateData(project: Project) {
+        guard let index = testProjects.firstIndex(where: {$0.uuid == project.uuid}) else { return }
+        self.testProjects.remove(at: index)
+        testProjects.insert(project, at: index)
+        allTodoData.onNext(testProjects)
+    }
 }

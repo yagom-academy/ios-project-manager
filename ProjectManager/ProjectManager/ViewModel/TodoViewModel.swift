@@ -25,9 +25,15 @@ final class TodoViewModel: ViewModelType {
     }
     
     func transform(_ input: TodoViewInput) -> TodoViewOutput {
-        input.addButtonAction
+        input.addAction
             .bind(onNext: { [weak self] project in
                 self?.provider.saveData(project: project)
+            })
+            .disposed(by: disposeBag)
+        
+        input.updateAction
+            .bind(onNext: { project in
+                self.provider.updateData(project: project)
             })
             .disposed(by: disposeBag)
         return TodoViewOutput(todoList: projectList)
@@ -35,9 +41,11 @@ final class TodoViewModel: ViewModelType {
 }
 
 struct TodoViewInput {
-    let addButtonAction: Observable<Project>
+    let addAction: Observable<Project>
+    let updateAction: Observable<Project>
 }
 
 struct TodoViewOutput {
     var todoList: Observable<[Project]>
+    var updateAction: Observable<Void>?
 }

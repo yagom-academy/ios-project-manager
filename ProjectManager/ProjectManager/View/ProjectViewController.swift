@@ -20,7 +20,14 @@ final class ProjectViewController: UIViewController {
                                        target: nil,
                                        action: nil)
     
+    let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
+                                       target: nil,
+                                       action: nil)
+    
     var viewModel: ViewModelType?
+    
+    private var id: UUID?
+    private var status: Status?
     
     let projectTitle: UITextField = {
         let textField = UITextField()
@@ -91,16 +98,27 @@ extension ProjectViewController {
     
     private func setupNavigationItem() {
         navigationItem.title = Design.navigationItemTitle
-        navigationItem.rightBarButtonItem = doneButton
+        
+        if id == nil {
+            navigationItem.rightBarButtonItem = doneButton
+        } else {
+            navigationItem.rightBarButtonItem = editButton
+        }
         navigationItem.leftBarButtonItem = cancelButton
     }
     
     func getProjectData() -> Project? {
         guard let title = projectTitle.text else { return nil }
-        return Project(title: title, description: self.projectDescription.text, date: self.datePicker.date)
+        return Project(uuid: id ?? UUID(),
+                       status: status ?? .todo,
+                       title: title,
+                       description: self.projectDescription.text,
+                       date: self.datePicker.date)
     }
     
     func setupData(project: Project) {
+        self.id = project.uuid
+        self.status = project.status
         self.projectTitle.text = project.title
         self.datePicker.date = project.date
         self.projectDescription.text = project.description
