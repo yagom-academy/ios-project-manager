@@ -28,9 +28,20 @@ class WorkViewModel {
     func changeDatabase(_ isConnected: Bool) {
         if isConnected {
             database = FirebaseManager.shared
+            backupWorks()
         } else {
             database = CoreDataManager.shared
         }
+    }
+    
+    private func backupWorks() {
+        CoreDataManager.shared.fetchWork()
+            .subscribe(onNext: {
+                $0.forEach {
+                    FirebaseManager.shared.saveWork($0)
+                    CoreDataManager.shared.deleteWork(id: $0.id)
+                }
+            }).disposed(by: disposeBag)
     }
     
     func selectWork(id: UUID) -> Work? {

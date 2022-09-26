@@ -14,11 +14,11 @@ class FirebaseManager: DatabaseManageable {
     private let collectioinId: String
     
     private init() {
-        guard let deviceid = UIDevice.current.identifierForVendor?.uuidString else {
+        guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
             collectioinId = ""
             return
         }
-        collectioinId = deviceid
+        collectioinId = deviceId
     }
     
     private let database = Firestore.firestore()

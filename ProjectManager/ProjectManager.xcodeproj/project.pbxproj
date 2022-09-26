@@ -96,6 +96,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		201D822228E16FE4005EEB4A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				20804A0828DDA123002A8119 /* NetworkMonitor.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		2021C47228CB0FE70091D087 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,11 +249,11 @@
 				20F670F628C7149B0069CB46 /* Application */,
 				2021C47228CB0FE70091D087 /* Extension */,
 				20E1A88828C8C9940074364A /* ViewModel */,
+				201D822228E16FE4005EEB4A /* Network */,
 				2041B00F28DC7F3000636D06 /* Database */,
 				20E1A87828C872080074364A /* View */,
 				20E1A88028C8A1A30074364A /* Model */,
 				2054FB7428D1B2660007AF1E /* Util */,
-				20804A0828DDA123002A8119 /* NetworkMonitor.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";

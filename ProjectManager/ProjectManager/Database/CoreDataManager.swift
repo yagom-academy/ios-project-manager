@@ -53,6 +53,7 @@ class CoreDataManager: DatabaseManageable {
             guard let updateObject = try context.fetch(fetchRequest).first as? NSManagedObject else {
                 let newEntity = NSEntityDescription.insertNewObject(forEntityName: "WorkEntity", into: context)
                 newEntity.setValuesForKeys(saveEntity)
+                saveContext()
                 return
             }
             
