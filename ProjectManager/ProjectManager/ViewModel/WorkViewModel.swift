@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 class WorkViewModel {
-    private let database: DatabaseManageable
+    private var database: DatabaseManageable
     private let disposeBag = DisposeBag()
     private let works = BehaviorSubject<[Work]>(value: [])
     let worksObservable: Observable<[Work]>
@@ -23,6 +23,14 @@ class WorkViewModel {
             .disposed(by: disposeBag)
         
         worksObservable = works
+    }
+    
+    func changeDatabase(_ isConnected: Bool) {
+        if isConnected {
+            database = FirebaseManager.shared
+        } else {
+            database = CoreDataManager.shared
+        }
     }
     
     func selectWork(id: UUID) -> Work? {

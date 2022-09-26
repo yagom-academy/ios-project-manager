@@ -9,7 +9,7 @@ import RxSwift
 
 final class ProjectManagerViewController: UIViewController {
     // MARK: - Properties
-    private let viewModel = WorkViewModel(dbType: CoreDataManager.shared)
+    private let viewModel = WorkViewModel(dbType: FirebaseManager.shared)
     private let disposeBag = DisposeBag()
     
     // MARK: - UI
@@ -35,6 +35,7 @@ final class ProjectManagerViewController: UIViewController {
         setupView()
         setupBinding()
         setupDelegate()
+        checkNetwork()
     }
     
     // MARK: - UI setup
@@ -145,6 +146,12 @@ final class ProjectManagerViewController: UIViewController {
                     self.viewModel.deleteWork(id: deletedCell.cellID)
                 }).disposed(by: disposeBag)
         }
+    }
+    
+    private func checkNetwork() {
+        NetWorkMonitor.shared.networkObservable
+            .subscribe(onNext: viewModel.changeDatabase)
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Methods
