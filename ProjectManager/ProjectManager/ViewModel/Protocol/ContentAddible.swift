@@ -8,11 +8,14 @@
 import Foundation
 
 protocol ContentAddible {
-    func addContent(title: String, body: String, date: Date)
+    var calledContentsOfAddition: String? { get set }
+    var registerAdditionHistory: ((String) -> Void)? { get set }
+
+    mutating func addContent(title: String, body: String, date: Date)
 }
 
 extension ContentAddible where Self: CommonViewModelLogic {
-    func addContent(
+    mutating func addContent(
         title: String,
         body: String,
         date: Date
@@ -24,6 +27,9 @@ extension ContentAddible where Self: CommonViewModelLogic {
             section: ProjectStatus.todo,
             deadLine: date
         )
+
+        calledContentsOfAddition = title
+
         data.value.append(project)
         do {
             try databaseManager.create(data: project)

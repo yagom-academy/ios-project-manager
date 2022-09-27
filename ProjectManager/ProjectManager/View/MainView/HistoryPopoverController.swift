@@ -18,38 +18,43 @@ final class HistoryPopoverController: UIViewController {
     var dataSource: DataSource?
     var snapshot: Snapshot?
     
-    private let historyTableView: UITableView = {
-        let tableView = UITableView()
+    let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
         
         return tableView
     }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
         configureUI()
         configureDataSource()
         configureSnapshotSection()
     }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private func configureUI() {
-        self.view.addSubview(historyTableView)
+        self.view.backgroundColor = .systemBackground
+        self.view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            historyTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            historyTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            historyTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            historyTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 
     private func configureDataSource() {
-        historyTableView.register(cellType: HistoryListCell.self)
+        tableView.register(cellType: HistoryListCell.self)
 
         dataSource = DataSource(
-            tableView: historyTableView,
+            tableView: tableView,
             cellProvider: { tableView, indexPath, item in
                 let cell: HistoryListCell = tableView.dequeueReusableCell(for: indexPath)
                 cell.setContent(

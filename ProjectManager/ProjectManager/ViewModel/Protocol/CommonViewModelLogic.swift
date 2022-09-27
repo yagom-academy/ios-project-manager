@@ -15,6 +15,10 @@ protocol CommonViewModelLogic: AnyObject {
     var otherTitles: [String] { get }
     var message: String { get set }
     var showAlert: (() -> Void)? { get set }
+    var calledContentsOfMoving: (String, String)? { get set }
+    var calledContentsOfDeletion: (String, String)? { get set }
+    var registerDeletionHistory: ((String, String) -> Void)? { get set }
+    var registerMovingHistory: ((String, String, String) -> Void)? { get set }
 
     func delete(_ indexPath: Int)
 }
@@ -32,6 +36,8 @@ extension CommonViewModelLogic {
 
     func delete(_ indexPath: Int) {
         let data = data.value.remove(at: indexPath)
+
+        calledContentsOfDeletion = (data.title, self.identifier)
 
         do {
             try databaseManager.delete(id: data.id)
