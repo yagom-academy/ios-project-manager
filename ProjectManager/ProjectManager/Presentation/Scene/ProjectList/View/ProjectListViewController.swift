@@ -136,7 +136,7 @@ extension ProjectListViewController: UITableViewDataSource {
                    numberOfRowsInSection section: Int) -> Int {
         guard let state = retrieveState(tableView: tableView) else { return 0 }
         
-        return viewModel.numberOfRow(state: state)
+        return viewModel.numberOfRow(with: state)
     }
     
     func tableView(_ tableView: UITableView,

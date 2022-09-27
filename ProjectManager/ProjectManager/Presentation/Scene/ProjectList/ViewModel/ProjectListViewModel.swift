@@ -104,7 +104,7 @@ final class ProjectListViewModel {
         return handler
     }
     
-    func numberOfRow(state: ProjectState) -> Int {
+    func numberOfRow(with state: ProjectState) -> Int {
         return retrieveItems(state: state).count
     }
     

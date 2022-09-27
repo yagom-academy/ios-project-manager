@@ -10,7 +10,7 @@ import UIKit
 final class ProjectManagementViewController: UIViewController {
     // MARK: - Properties
     
-    private let detailView = ProjectDetailView()
+    private let detailView = ProjectManagementView()
     private let viewModel = ProjectManagermentViewModel()
     private var item: ProjectViewModel?
     weak var delegate: ProjectManagementViewControllerDelegate?

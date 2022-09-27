@@ -21,7 +21,7 @@ private enum Design {
     static let defaultText = ""
 }
 
-final class ProjectDetailView: UIView {
+final class ProjectManagementView: UIView {
     // MARK: - Properties
     
     private let mainStackView: UIStackView = {
@@ -142,7 +142,7 @@ final class ProjectDetailView: UIView {
 
 // MARK: - Extension
 
-extension ProjectDetailView: UITextViewDelegate {
+extension ProjectManagementView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         guard let textViewText = textView.text else { return }
         
