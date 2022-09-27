@@ -6,45 +6,34 @@
 //
 
 final class HeaderViewModel {
-    private let title: String
+    let category: String
+    private(set) var count: Int = 0 {
+        didSet {
+            didChangedCount?()
+        }
+    }
+    
     var didChangedCount: (() -> Void)?
     
     init(category: String) {
-        self.title = category
+        self.category = category
         bind(at: category)
     }
     
     func bind(at category: String) {
         switch category {
         case Category.todo:
-            TodoDataManager.shared.todoList.bind { [weak self] _ in
-                self?.didChangedCount?()
+            TodoDataManager.shared.todoList.bind { [weak self] (list) in
+                self?.count = list?.count ?? 0
             }
         case Category.doing:
-            TodoDataManager.shared.doingList.bind { [weak self] _ in
-                self?.didChangedCount?()
+            TodoDataManager.shared.doingList.bind { [weak self] (list) in
+                self?.count = list?.count ?? 0
             }
         case Category.done:
-            TodoDataManager.shared.doneList.bind { [weak self] _ in
-                self?.didChangedCount?()
+            TodoDataManager.shared.doneList.bind { [weak self] (list) in
+                self?.count = list?.count ?? 0
             }
-        default:
-            return
-        }
-    }
-    
-    func configure(_ view: HeaderView) {
-        view.categoryLabel.text = title
-        switch title {
-        case Category.todo:
-            let todoListCount = TodoDataManager.shared.todoList.value?.count ?? 0
-            view.countLabel.text = " \(todoListCount) "
-        case Category.doing:
-            let doingListCount = TodoDataManager.shared.doingList.value?.count ?? 0
-            view.countLabel.text = " \(doingListCount) "
-        case Category.done:
-            let doneListCount = TodoDataManager.shared.doneList.value?.count ?? 0
-            view.countLabel.text = " \(doneListCount) "
         default:
             return
         }

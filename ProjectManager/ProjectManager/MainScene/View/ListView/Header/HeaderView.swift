@@ -10,12 +10,12 @@ import UIKit
 final class HeaderView: UIView {
     
     // MARK: - UIComponents
-    let categoryLabel = DefaultLabelBuilder()
+    private let categoryLabel = DefaultLabelBuilder()
         .useAutoLayout()
         .setPreferredFont(.largeTitle)
         .label
     
-    let countLabel = DefaultLabelBuilder()
+    private let countLabel = DefaultLabelBuilder()
         .useAutoLayout()
         .setPreferredFont(.title3)
         .setLayerMaskToBounds(true)
@@ -23,17 +23,16 @@ final class HeaderView: UIView {
         .setTextColor(with: .white)
         .setLayerBackgroundColor(.black)
         .label
-
+    
     private var viewModel: HeaderViewModel
-    private var category: String
     
     // MARK: - Initializers
-    init(category: String) {
-        self.category = category
-        self.viewModel = HeaderViewModel(category: category)
+    init(viewModel: HeaderViewModel) {
+        self.viewModel = viewModel
         super.init(frame: .zero)
         setupInitialHeaderView()
-        setupData()
+        setupCategoryLabel()
+        updateHeaderCount()
         bindDidChangedCount()
     }
     
@@ -64,13 +63,17 @@ final class HeaderView: UIView {
         ])
     }
     
-    func setupData() {
-        viewModel.configure(self)
+    private func setupCategoryLabel() {
+        categoryLabel.text = viewModel.category
     }
     
-    func bindDidChangedCount() {
-        viewModel.didChangedCount = {
-            self.setupData()
+    private func updateHeaderCount() {
+        countLabel.text = " \(viewModel.count) "
+    }
+    
+    private func bindDidChangedCount() {
+        viewModel.didChangedCount = { [weak self] in
+            self?.updateHeaderCount()
         }
     }
     
