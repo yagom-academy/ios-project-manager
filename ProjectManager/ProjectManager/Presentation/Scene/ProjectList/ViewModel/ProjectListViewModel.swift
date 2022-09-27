@@ -22,11 +22,13 @@ final class ProjectListViewModel {
     
     // MARK: - Initializer
     
-    init() {
+    init(todoList: Observable<[ProjectViewModel]>,
+         doingList: Observable<[ProjectViewModel]>,
+         doneList: Observable<[ProjectViewModel]>) {
         useCase = UseCase(repository: TemporaryProjectRepository(projectModels: [ProjectModel]()))
-        todoList = Observable([ProjectViewModel]())
-        doingList = Observable([ProjectViewModel]())
-        doneList = Observable([ProjectViewModel]())
+        self.todoList = todoList
+        self.doingList = doingList
+        self.doneList = doneList
     }
     
     // MARK: - Output to View

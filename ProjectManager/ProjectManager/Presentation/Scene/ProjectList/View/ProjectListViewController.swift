@@ -18,7 +18,9 @@ final class ProjectListViewController: UIViewController {
     // MARK: - Properties
     
     private let listView = ProjectListView()
-    private var viewModel = ProjectListViewModel()
+    private var viewModel = ProjectListViewModel(todoList: Observable([ProjectViewModel]()),
+                                                 doingList: Observable([ProjectViewModel]()),
+                                                 doneList: Observable([ProjectViewModel]()))
     
     // MARK: - View Life Cycle
     
