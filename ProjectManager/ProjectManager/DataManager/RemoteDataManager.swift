@@ -27,21 +27,25 @@ final class RemoteDataManager {
     }
     
     func read() {
-        dataBase.collection("Todo").getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting document: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    let todo = Todo()
-                    todo.id = UUID(uuidString: document.documentID) ?? UUID()
-                    todo.category = document.data()["category"] as? String ?? ""
-                    todo.title = document.data()["title"] as? String ?? ""
-                    todo.body = document.data()["body"] as? String ?? ""
-                    let timestamp = document.data()["date"] as? Timestamp ?? Timestamp()
-                    todo.date = timestamp.dateValue()
-                    TodoDataManager.shared.setupInitialData(with: todo)
-                }
+        dataBase.collection("Todo").getDocuments { [weak self] (querySnapshot, err) in
+            guard err == nil, let querySnapshot = querySnapshot else {
+                print(err!)
+                return
             }
+            self?.translateRemoteData(querySnapshot.documents)
+        }
+    }
+    
+    private func translateRemoteData(_ list: [QueryDocumentSnapshot]) {
+        for document in list {
+            let timestamp = document.data()["date"] as? Timestamp ?? Timestamp()
+            let todo = Todo()
+            todo.id = UUID(uuidString: document.documentID) ?? UUID()
+            todo.category = document.data()["category"] as? String ?? ""
+            todo.title = document.data()["title"] as? String ?? ""
+            todo.body = document.data()["body"] as? String ?? ""
+            todo.date = timestamp.dateValue()
+            TodoDataManager.shared.setupInitialData(with: todo)
         }
     }
     
@@ -80,7 +84,7 @@ final class RemoteDataManager {
             if let err = err {
                 print(err)
             } else {
-                print("success add")
+                print("success move")
             }
         }
     }
