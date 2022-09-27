@@ -30,11 +30,6 @@ final class DoingViewModel: ViewModelType {
         
         return DoingViewOutput(doingList: projectList)
     }
-    
-    func resetProjectList(status: Status) {
-        let projects = provider.testProjects.filter { $0.status == status }
-        projectList.onNext(projects)
-    }
 }
 
 struct DoingViewInput {

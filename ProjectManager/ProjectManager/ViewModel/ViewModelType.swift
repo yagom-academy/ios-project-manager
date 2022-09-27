@@ -13,3 +13,10 @@ protocol ViewModelType {
     
     func resetProjectList(status: Status)
 }
+
+extension ViewModelType {
+    func resetProjectList(status: Status) {
+        let projects = provider.testProjects.filter { $0.status == status }
+        projectList.onNext(projects)
+    }
+}

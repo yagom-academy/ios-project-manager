@@ -37,11 +37,6 @@ final class TodoViewModel: ViewModelType {
         
         return TodoViewOutput(todoList: projectList)
     }
-    
-    func resetProjectList(status: Status) {
-        let projects = provider.testProjects.filter { $0.status == status }
-        projectList.onNext(projects)
-    }
 }
 
 struct TodoViewInput {
