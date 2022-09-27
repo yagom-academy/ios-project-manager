@@ -41,7 +41,8 @@ final class FormSheetViewController: UIViewController {
         view.addSubview(formSheetView)
         NSLayoutConstraint.activate([
             formSheetView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 60
             ),
             formSheetView.bottomAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor
@@ -65,7 +66,6 @@ final class FormSheetViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = Category.todo
         switch viewModel.mode {
         case .create:
             setupCreateModeNavigationBar()
@@ -75,29 +75,49 @@ final class FormSheetViewController: UIViewController {
     }
     
     private func setupCreateModeNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
+        let navigationBar = UINavigationBar(
+            frame: .init(x: 0, y: 0, width: 580, height: 60)
+        )
+        navigationBar.isTranslucent = false
+        navigationBar.backgroundColor = .systemBackground
+
+        let naviItem = UINavigationItem(title: "Todo")
+        naviItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
             action: #selector(dismissView)
         )
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        naviItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
             action: #selector(doneButtonDidTapped)
         )
+        navigationBar.items = [naviItem]
+
+        view.addSubview(navigationBar)
     }
     
     private func setupEditModeNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .edit,
+        let navigationBar = UINavigationBar(
+            frame: .init(x: 0, y: 0, width: 580, height: 60)
+        )
+        navigationBar.isTranslucent = false
+        navigationBar.backgroundColor = .systemBackground
+
+        let naviItem = UINavigationItem(title: "Todo")
+        naviItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
             target: self,
             action: #selector(editButtonDidTapped)
         )
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        naviItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
             action: #selector(dismissView)
         )
+        navigationBar.items = [naviItem]
+
+        view.addSubview(navigationBar)
     }
 
     // MARK: - @objc Methods

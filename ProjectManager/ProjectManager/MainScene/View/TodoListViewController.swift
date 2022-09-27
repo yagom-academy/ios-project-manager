@@ -24,6 +24,7 @@ final class TodoListViewController: UIViewController {
     let todoListView = ListView(category: Category.todo)
     let doingListView = ListView(category: Category.doing)
     let doneListView = ListView(category: Category.done)
+    var navigationBar = UINavigationBar()
     
     private let stackView = DefaultStackViewBuilder()
         .useAutoLayout()
@@ -49,18 +50,30 @@ final class TodoListViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        // safe area
+        var statusBarHeight: CGFloat = 0
+        statusBarHeight = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
+
+        // navigationBar
+        navigationBar = UINavigationBar(frame: .init(x: 0, y: statusBarHeight, width: view.frame.width, height: statusBarHeight+30))
+        navigationBar.isTranslucent = false
+        navigationBar.backgroundColor = .systemBackground
+
+        let naviItem = UINavigationItem(title: "Project Manager")
+        naviItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
             action: #selector(addButtonDidTapped)
         )
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
+        naviItem.leftBarButtonItem = UIBarButtonItem(
             title: "History",
             style: .done,
             target: self,
             action: #selector(historyButtonDidTapped)
         )
+        navigationBar.items = [naviItem]
+
+        view.addSubview(navigationBar)
     }
     
     private func setupListView() {
@@ -88,7 +101,8 @@ final class TodoListViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 50
             ),
             stackView.bottomAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor

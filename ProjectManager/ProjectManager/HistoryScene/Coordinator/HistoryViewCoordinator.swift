@@ -20,7 +20,7 @@ final class HistoryViewCoordinator: Coordinator {
         historyVC.modalPresentationStyle = .popover
         historyVC.popoverPresentationController?.permittedArrowDirections = .up
         historyVC.popoverPresentationController?.delegate = viewController
-        historyVC.popoverPresentationController?.barButtonItem = viewController.navigationItem.leftBarButtonItem
+        historyVC.popoverPresentationController?.barButtonItem = viewController.navigationBar.topItem?.leftBarButtonItem
         return historyVC
     }
 }

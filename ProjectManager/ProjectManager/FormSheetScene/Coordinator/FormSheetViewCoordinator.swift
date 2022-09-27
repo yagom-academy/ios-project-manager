@@ -23,10 +23,7 @@ final class FormSheetViewCoordinator: Coordinator {
                                         category: category,
                                         index: index)
         let formSheetVC = FormSheetViewController(viewModel: formSheetVM)
-        let navCon = UINavigationController(
-            rootViewController: formSheetVC
-        )
-        navCon.modalPresentationStyle = .formSheet
-        return navCon
+        formSheetVC.modalPresentationStyle = .formSheet
+        return formSheetVC
     }
 }

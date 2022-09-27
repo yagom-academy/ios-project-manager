@@ -8,7 +8,7 @@
 import UIKit
 
 final class TodoListCoordinator: Coordinator, TodoListViewControllerDelegate {
-    var rootViewController: UINavigationController?
+    var rootViewController: UIViewController?
     
     func start() -> UIViewController {
         let todoListViewController = TodoListViewController()
@@ -16,7 +16,7 @@ final class TodoListCoordinator: Coordinator, TodoListViewControllerDelegate {
         todoListViewController.todoListView.collectionView.transitionDelegate = self
         todoListViewController.doingListView.collectionView.transitionDelegate = self
         todoListViewController.doneListView.collectionView.transitionDelegate = self
-        rootViewController = UINavigationController(rootViewController: todoListViewController)
+        rootViewController = todoListViewController
         return rootViewController ?? UIViewController()
     }
     
