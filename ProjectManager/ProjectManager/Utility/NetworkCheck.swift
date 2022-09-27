@@ -9,11 +9,6 @@ import UIKit
 import Network
 
 final class NetworkCheck {
-    static let shared = NetworkCheck()
-    private let queue = DispatchQueue.global()
-    private let monitor: NWPathMonitor
-    public private(set) var isConnected: Bool = false
-    public private(set) var connectionType: ConnectionType = .unknown
     
     enum ConnectionType {
         case wifi
@@ -21,6 +16,12 @@ final class NetworkCheck {
         case ethernet
         case unknown
     }
+    
+    private let queue = DispatchQueue.global()
+    private let monitor: NWPathMonitor
+    private(set) var isConnected: Bool = false
+    private(set) var connectionType: ConnectionType = .unknown
+    static let shared = NetworkCheck()
     
     private init() {
         monitor = NWPathMonitor()
@@ -32,25 +33,26 @@ final class NetworkCheck {
             self?.isConnected = path.status == .satisfied
             self?.getConnectionType(path)
 
-            if self?.isConnected == true {
-                print("연결됨")
-            } else {
-                print("연결안됨")
-                let alert = UIAlertController(
-                    title: "인터넷 연결이 원활하지 않습니다.",
-                    message: "Wifi 또는 셀룰러를 활성화 해주세요.",
-                    preferredStyle: .alert
-                )
-                let confirm = UIAlertAction(
-                    title: "확인",
-                    style: .default,
-                    handler: nil
-                )
-                alert.addAction(confirm)
-                DispatchQueue.main.async {
-                    viewController.present(alert, animated: true)
-                }
+            if self?.isConnected == false {
+                self?.showAlert(in: viewController)
             }
+        }
+    }
+    
+    private func showAlert(in viewController: UIViewController) {
+        let alert = UIAlertController(
+            title: "인터넷 연결이 원활하지 않습니다.",
+            message: "Wifi 또는 셀룰러를 활성화 해주세요.",
+            preferredStyle: .alert
+        )
+        let confirm = UIAlertAction(
+            title: "확인",
+            style: .default,
+            handler: nil
+        )
+        alert.addAction(confirm)
+        DispatchQueue.main.async {
+            viewController.present(alert, animated: true)
         }
     }
     
