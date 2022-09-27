@@ -68,4 +68,31 @@ final class TasksDataSource: ObservableObject {
                 doneTasks.remove(at: index!)
         }
     }
+    
+    func newTask(copiedFrom originalTask: Task, withNewStatus newStatus: Status) -> Task {
+        let taskWithNewStatus = Task(
+            title: originalTask.title,
+            description: originalTask.description,
+            dueDate: originalTask.dueDate,
+            status: newStatus
+        )
+        
+        return taskWithNewStatus
+    }
+    
+    func transfer(selectedTask: Task, to newCategory: Status) {
+        deleteOriginalTask(equivalentTo: selectedTask)
+        
+        switch newCategory {
+        case .todo:
+            let newTask = newTask(copiedFrom: selectedTask, withNewStatus: .todo)
+            todoTasks.append(newTask)
+        case .doing:
+            let newTask = newTask(copiedFrom: selectedTask, withNewStatus: .doing)
+            doingTasks.append(newTask)
+        case .done:
+            let newTask = newTask(copiedFrom: selectedTask, withNewStatus: .done)
+            doneTasks.append(newTask)
+        }
+    }
 }

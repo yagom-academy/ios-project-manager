@@ -28,10 +28,27 @@ struct TaskListView: View {
                                 selectedTask = task
                                 isShowingEditingView.toggle()
                             }
+                            .swipeActions(edge: .leading) {
+                                switch status {
+                                case .todo:
+                                    swipeButtonForChangingStatus(of: task, to: .doing)
+                                    swipeButtonForChangingStatus(of: task, to: .done)
+                                case .doing:
+                                    swipeButtonForChangingStatus(of: task, to: .todo)
+                                    swipeButtonForChangingStatus(of: task, to: .done)
+                                case .done:
+                                    swipeButtonForChangingStatus(of: task, to: .todo)
+                                    swipeButtonForChangingStatus(of: task, to: .doing)
+                                }
+                            }
+                            .swipeActions(edge: .trailing) {
+                                swipeButtonForDeletion(of: task)
+                            }
                     }
                     .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                     .listRowSeparator(.hidden)
-                }.onDelete { indexSet in
+                }
+                .onDelete { indexSet in
                     tasks.remove(atOffsets: indexSet)
                 }
             }
@@ -39,6 +56,32 @@ struct TaskListView: View {
             .sheet(isPresented: $isShowingEditingView) {
                 TaskEditingView(isShowingSheet: $isShowingEditingView, selectedTask: $selectedTask)
             }
+        }
+    }
+
+    func swipeButtonForChangingStatus(of task: Task, to status: Status) -> some View {
+        switch status {
+        case .todo:
+            return Button {
+                tasksDataSource.transfer(selectedTask: task, to: .todo)
+            } label: {
+                Label("Move to\nTODO", systemImage: "circle")
+            }
+            .tint(.red)
+        case .doing:
+            return Button {
+                tasksDataSource.transfer(selectedTask: task, to: .doing)
+            } label: {
+                Label("Move to\nDOING", systemImage: "circle.circle")
+            }
+            .tint(.yellow)
+        case .done:
+            return Button {
+                tasksDataSource.transfer(selectedTask: task, to: .done)
+            } label: {
+                Label("Move to\nDONE", systemImage: "circle.inset.filled")
+            }
+            .tint(.green)
         }
     }
     
