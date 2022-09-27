@@ -18,6 +18,7 @@
 		05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */; };
 		05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA128D445A100C7BA83 /* SendDelegate .swift */; };
 		05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */; };
+		05EB16C128E2D2B100E16FD4 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EB16C028E2D2B100E16FD4 /* RealmManager.swift */; };
 		7E25D6CB9B7CC70581D3BEAF /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -39,6 +40,7 @@
 		05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		05D5CBA128D445A100C7BA83 /* SendDelegate .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SendDelegate .swift"; sourceTree = "<group>"; };
 		05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
+		05EB16C028E2D2B100E16FD4 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0257905294AE94EAFB553A4 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,7 @@
 			children = (
 				05A5774328CF088A00E05133 /* DatabaseProtocol.swift */,
 				05A5774728CF0AE600E05133 /* RealmDatabase.swift */,
+				05EB16C028E2D2B100E16FD4 /* RealmManager.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */,
 				05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */,
 				0578628828D03DEF003CD311 /* MainHomeViewModel.swift in Sources */,
+				05EB16C128E2D2B100E16FD4 /* RealmManager.swift in Sources */,
 				05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */,
 				05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */,
 				0568B87328D5B78600FAC59B /* TaskState.swift in Sources */,
