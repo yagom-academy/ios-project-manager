@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HistoryListCell: UITableViewCell {
+final class HistoryListCell: UITableViewCell, ReusableCell {
 
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -16,6 +16,7 @@ final class HistoryListCell: UITableViewCell {
         stackView.alignment = .leading
         stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
+
         return stackView
     }()
     
@@ -24,6 +25,7 @@ final class HistoryListCell: UITableViewCell {
         label.numberOfLines = 1
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.translatesAutoresizingMaskIntoConstraints = false
+
         return label
     }()
     
@@ -33,6 +35,7 @@ final class HistoryListCell: UITableViewCell {
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
@@ -44,6 +47,11 @@ final class HistoryListCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    func setContent(description: String, date: String?) {
+        descriptionLabel.text = description
+        dateLabel.text = date
     }
     
     private func configureUI() {
