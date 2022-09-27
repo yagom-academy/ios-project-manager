@@ -2,7 +2,7 @@
 //  TodoListView.swift
 //  ProjectManager
 //
-//  Created by Kiwon Song on 2022/09/12.
+//  Created by Kiwi on 2022/09/12.
 //
 
 import SwiftUI

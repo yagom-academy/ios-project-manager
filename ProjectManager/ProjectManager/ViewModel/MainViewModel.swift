@@ -2,7 +2,7 @@
 //  MainViewModel.swift
 //  ProjectManager
 //
-//  Created by Kiwon Song on 2022/09/22.
+//  Created by Kiwi on 2022/09/22.
 //
 
 import SwiftUI
