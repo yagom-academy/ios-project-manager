@@ -12,9 +12,7 @@ final class TodoProvider {
     
     // MARK: - properties
 
-    let allTodoData = BehaviorSubject<[Project]>(value: [])
-    
-    private var testProjects: [Project]
+    var testProjects: [Project]
     
     private let disposeBag = DisposeBag()
     
@@ -25,21 +23,17 @@ final class TodoProvider {
                                                   maxBodyLine: 10,
                                                   startDate: "2022-09-01",
                                                   endData: "2022-09-30")
-        
-        allTodoData.onNext(testProjects)
     }
     
     // MARK: - functions
 
     func saveData(project: Project) {
         testProjects.append(project)
-        allTodoData.onNext(testProjects)
     }
     
     func updateData(project: Project) {
         guard let index = testProjects.firstIndex(where: {$0.uuid == project.uuid}) else { return }
         self.testProjects.remove(at: index)
         testProjects.insert(project, at: index)
-        allTodoData.onNext(testProjects)
     }
 }

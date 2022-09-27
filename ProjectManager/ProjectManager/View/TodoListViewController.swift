@@ -81,8 +81,8 @@ extension TodoListViewController {
     
     private func setupListsCell() {
         let todoInput = TodoViewInput(addAction: doneAction, updateAction: editAction)
-        let doingInput = DoingViewInput()
-        let doneInput = DoneViewInput()
+        let doingInput = DoingViewInput(updateAction: editAction)
+        let doneInput = DoneViewInput(updateAction: editAction)
         todoViewOutput = todoViewModel.transform(todoInput)
         doingViewOutput = doingViewModel.transform(doingInput)
         doneViewOutput = doneViewModel.transform(doneInput)

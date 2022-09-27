@@ -10,4 +10,6 @@ import RxSwift
 protocol ViewModelType {
     var provider: TodoProvider { get }
     var projectList: BehaviorSubject<[Project]> { get set }
+    
+    func resetProjectList(status: Status)
 }

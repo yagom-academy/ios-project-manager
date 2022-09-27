@@ -17,20 +17,28 @@ final class DoingViewModel: ViewModelType {
     let disposeBag = DisposeBag()
     
     init() {
-        provider.allTodoData.subscribe(onNext: { [weak self] projects in
-            let todoProjects = projects.filter { $0.status == .doing }
-            self?.projectList.onNext(todoProjects)
-        })
-        .disposed(by: disposeBag)
+        resetProjectList(status: .doing)
     }
     
     func transform(_ input: DoingViewInput) -> DoingViewOutput {
+        input.updateAction
+            .bind(onNext: { [weak self] project in
+                self?.provider.updateData(project: project)
+                self?.resetProjectList(status: .doing)
+            })
+            .disposed(by: disposeBag)
         
         return DoingViewOutput(doingList: projectList)
+    }
+    
+    func resetProjectList(status: Status) {
+        let projects = provider.testProjects.filter { $0.status == status }
+        projectList.onNext(projects)
     }
 }
 
 struct DoingViewInput {
+    let updateAction: Observable<Project>
 }
 
 struct DoingViewOutput {
