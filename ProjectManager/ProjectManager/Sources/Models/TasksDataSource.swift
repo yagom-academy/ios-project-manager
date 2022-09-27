@@ -52,4 +52,20 @@ final class TasksDataSource: ObservableObject {
             }
         }
     }
+    
+    func deleteOriginalTask(equivalentTo selectedTask: Task) {
+        switch selectedTask.status {
+        case .todo:
+            let index = todoTasks.firstIndex { $0.id == selectedTask.id }
+                todoTasks.remove(at: index!)
+            
+        case .doing:
+            let index = doingTasks.firstIndex { $0.id == selectedTask.id }
+                doingTasks.remove(at: index!)
+            
+        case .done:
+            let index = doneTasks.firstIndex { $0.id == selectedTask.id }
+                doneTasks.remove(at: index!)
+        }
+    }
 }

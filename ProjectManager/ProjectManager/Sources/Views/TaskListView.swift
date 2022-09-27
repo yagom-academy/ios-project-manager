@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TaskListView: View {
+    @EnvironmentObject private var tasksDataSource: TasksDataSource
     
     var status: Status
     @Binding var tasks: [Task]
@@ -38,6 +39,14 @@ struct TaskListView: View {
             .sheet(isPresented: $isShowingEditingView) {
                 TaskEditingView(isShowingSheet: $isShowingEditingView, selectedTask: $selectedTask)
             }
+        }
+    }
+    
+    func swipeButtonForDeletion(of task: Task) -> some View {
+        Button(role: .destructive) {
+            tasksDataSource.deleteOriginalTask(equivalentTo: task)
+        } label: {
+            Label("Delete", systemImage: "trash.circle.fill")
         }
     }
 }
