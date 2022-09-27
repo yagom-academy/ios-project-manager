@@ -7,7 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9003104228D8549400C3CD77 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9003104128D8549400C3CD77 /* FirebaseAnalytics */; };
+		9017927C28E087B000DA31FB /* RemoteStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017927B28E087B000DA31FB /* RemoteStorageProtocol.swift */; };
+		9017927E28E08C0900DA31FB /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017927D28E08C0900DA31FB /* Date+Extensions.swift */; };
+		9017928028E08C8200DA31FB /* CardHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017927F28E08C8200DA31FB /* CardHistoryTableViewCell.swift */; };
+		9017928228E0943100DA31FB /* CardHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017928128E0943100DA31FB /* CardHistoryViewModel.swift */; };
+		9017928428E0944600DA31FB /* CardHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017928328E0944600DA31FB /* CardHistoryModel.swift */; };
+		9018F19D28DBFB0F00301041 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9018F19C28DBFB0F00301041 /* Realm */; };
+		9018F19F28DBFB0F00301041 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9018F19E28DBFB0F00301041 /* RealmSwift */; };
+		9018F1A328DBFC9700301041 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		9018F1AE28DC00EF00301041 /* CardLocalDataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9018F1AD28DC00EF00301041 /* CardLocalDataEntity.swift */; };
+		9018F1B028DC016000301041 /* LocalStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9018F1AF28DC016000301041 /* LocalStorageProtocol.swift */; };
+		9018F1B228DC02AB00301041 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9018F1B128DC02AB00301041 /* RealmService.swift */; };
+		9018F1B528DC052000301041 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9018F1B428DC052000301041 /* FirebaseService.swift */; };
+		902E2ED628E1989400F40FB8 /* CardHistoryDataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902E2ED528E1989400F40FB8 /* CardHistoryDataEntity.swift */; };
+		902E2ED828E1A45100F40FB8 /* CardHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902E2ED728E1A45100F40FB8 /* CardHistoryViewController.swift */; };
+		902E2EDB28E2843800F40FB8 /* CardRemoteHistoryDataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902E2EDA28E2843800F40FB8 /* CardRemoteHistoryDataEntity.swift */; };
+		902E2EDD28E29D1700F40FB8 /* CardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902E2EDC28E29D1700F40FB8 /* CardState.swift */; };
+		902E2EDF28E2DA3400F40FB8 /* CardHistoryViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902E2EDE28E2DA3400F40FB8 /* CardHistoryViewCellModel.swift */; };
+		902E2EE328E31E6300F40FB8 /* RepositoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902E2EE228E31E6300F40FB8 /* RepositoryService.swift */; };
 		903C904A28D07CBD007A6F20 /* CardEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903C904928D07CBD007A6F20 /* CardEntity.swift */; };
 		906399C828CEDBE7000ACBE3 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906399C728CEDBE7000ACBE3 /* ReuseIdentifying.swift */; };
 		9074F72728D5CEC700EB1B31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9074F72628D5CEC700EB1B31 /* GoogleService-Info.plist */; };
@@ -24,7 +41,10 @@
 		9097B5CB28C9A93400A46DB8 /* CardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5CA28C9A93400A46DB8 /* CardHeaderView.swift */; };
 		9097B5CD28C9D13300A46DB8 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5CC28C9D13300A46DB8 /* CardSectionView.swift */; };
 		9097B5CF28C9D33A00A46DB8 /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097B5CE28C9D33A00A46DB8 /* CardType.swift */; };
+		90C209A828DDF35000E26C57 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 90C209A728DDF35000E26C57 /* FirebaseDatabase */; };
+		90C209AC28DE923000E26C57 /* CardRemoteDataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C209AB28DE923000E26C57 /* CardRemoteDataEntity.swift */; };
 		90E7FA7828CB3387003336B2 /* CardModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E7FA7728CB3387003336B2 /* CardModalView.swift */; };
+		90FFB63928DC25FB006E6751 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FFB63828DC25FB006E6751 /* NetworkManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* CardListViewController.swift */; };
@@ -33,6 +53,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9017927B28E087B000DA31FB /* RemoteStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageProtocol.swift; sourceTree = "<group>"; };
+		9017927D28E08C0900DA31FB /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		9017927F28E08C8200DA31FB /* CardHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		9017928128E0943100DA31FB /* CardHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewModel.swift; sourceTree = "<group>"; };
+		9017928328E0944600DA31FB /* CardHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryModel.swift; sourceTree = "<group>"; };
+		9018F1AD28DC00EF00301041 /* CardLocalDataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLocalDataEntity.swift; sourceTree = "<group>"; };
+		9018F1AF28DC016000301041 /* LocalStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageProtocol.swift; sourceTree = "<group>"; };
+		9018F1B128DC02AB00301041 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		9018F1B428DC052000301041 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		902E2ED528E1989400F40FB8 /* CardHistoryDataEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryDataEntity.swift; sourceTree = "<group>"; };
+		902E2ED728E1A45100F40FB8 /* CardHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewController.swift; sourceTree = "<group>"; };
+		902E2EDA28E2843800F40FB8 /* CardRemoteHistoryDataEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRemoteHistoryDataEntity.swift; sourceTree = "<group>"; };
+		902E2EDC28E29D1700F40FB8 /* CardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardState.swift; sourceTree = "<group>"; };
+		902E2EDE28E2DA3400F40FB8 /* CardHistoryViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewCellModel.swift; sourceTree = "<group>"; };
+		902E2EE228E31E6300F40FB8 /* RepositoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryService.swift; sourceTree = "<group>"; };
 		903C904928D07CBD007A6F20 /* CardEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEntity.swift; sourceTree = "<group>"; };
 		906399C728CEDBE7000ACBE3 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
 		9074F72628D5CEC700EB1B31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -48,7 +83,9 @@
 		9097B5CA28C9A93400A46DB8 /* CardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHeaderView.swift; sourceTree = "<group>"; };
 		9097B5CC28C9D13300A46DB8 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
 		9097B5CE28C9D33A00A46DB8 /* CardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
+		90C209AB28DE923000E26C57 /* CardRemoteDataEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRemoteDataEntity.swift; sourceTree = "<group>"; };
 		90E7FA7728CB3387003336B2 /* CardModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModalView.swift; sourceTree = "<group>"; };
+		90FFB63828DC25FB006E6751 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,7 +100,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9003104228D8549400C3CD77 /* FirebaseAnalytics in Frameworks */,
+				9018F19F28DBFB0F00301041 /* RealmSwift in Frameworks */,
+				9018F19D28DBFB0F00301041 /* Realm in Frameworks */,
+				90C209A828DDF35000E26C57 /* FirebaseDatabase in Frameworks */,
 				9097B5B128C756DD00A46DB8 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,11 +110,96 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9003104328D8661A00C3CD77 /* Networking */ = {
+		9018F1A428DBFEE200301041 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Networking;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9018F1AB28DC00EF00301041 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				902E2EE228E31E6300F40FB8 /* RepositoryService.swift */,
+				90FFB63728DC25A3006E6751 /* NetworkMonitor */,
+				9018F1B628DC074800301041 /* Storage */,
+			);
+			name = Repository;
+			path = ProjectManager/Repository;
+			sourceTree = SOURCE_ROOT;
+		};
+		9018F1AC28DC00EF00301041 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				902E2EE528E322E900F40FB8 /* Entity */,
+				9018F1AF28DC016000301041 /* LocalStorageProtocol.swift */,
+				9018F1B128DC02AB00301041 /* RealmService.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		9018F1B328DC051100301041 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				902E2EE428E322DC00F40FB8 /* Entity */,
+				9017927B28E087B000DA31FB /* RemoteStorageProtocol.swift */,
+				9018F1B428DC052000301041 /* FirebaseService.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		9018F1B628DC074800301041 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				9018F1B328DC051100301041 /* Firebase */,
+				9018F1AC28DC00EF00301041 /* Realm */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		902E2ED928E1A55E00F40FB8 /* CardHistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				9017927F28E08C8200DA31FB /* CardHistoryTableViewCell.swift */,
+			);
+			path = CardHistoryView;
+			sourceTree = "<group>";
+		};
+		902E2EE028E2DC7000F40FB8 /* CardModel */ = {
+			isa = PBXGroup;
+			children = (
+				903C904928D07CBD007A6F20 /* CardEntity.swift */,
+				9097B5C828C9A7E700A46DB8 /* CardModel.swift */,
+				9097B5CE28C9D33A00A46DB8 /* CardType.swift */,
+			);
+			path = CardModel;
+			sourceTree = "<group>";
+		};
+		902E2EE128E2DC7800F40FB8 /* CardHistoryModel */ = {
+			isa = PBXGroup;
+			children = (
+				9017928328E0944600DA31FB /* CardHistoryModel.swift */,
+				902E2EDC28E29D1700F40FB8 /* CardState.swift */,
+			);
+			path = CardHistoryModel;
+			sourceTree = "<group>";
+		};
+		902E2EE428E322DC00F40FB8 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				90C209AB28DE923000E26C57 /* CardRemoteDataEntity.swift */,
+				902E2EDA28E2843800F40FB8 /* CardRemoteHistoryDataEntity.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		902E2EE528E322E900F40FB8 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				9018F1AD28DC00EF00301041 /* CardLocalDataEntity.swift */,
+				902E2ED528E1989400F40FB8 /* CardHistoryDataEntity.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		906399C628CEDBDF000ACBE3 /* Cell */ = {
@@ -109,9 +233,8 @@
 		9097B5AC28C7482B00A46DB8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				903C904928D07CBD007A6F20 /* CardEntity.swift */,
-				9097B5C828C9A7E700A46DB8 /* CardModel.swift */,
-				9097B5CE28C9D33A00A46DB8 /* CardType.swift */,
+				902E2EE128E2DC7800F40FB8 /* CardHistoryModel */,
+				902E2EE028E2DC7000F40FB8 /* CardModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -121,6 +244,8 @@
 			children = (
 				9097B5B528C7575500A46DB8 /* CardViewModel.swift */,
 				9097B5C628C8EAB700A46DB8 /* CardViewModelProtocol.swift */,
+				9017928128E0943100DA31FB /* CardHistoryViewModel.swift */,
+				902E2EDE28E2DA3400F40FB8 /* CardHistoryViewCellModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -129,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
+				902E2ED728E1A45100F40FB8 /* CardHistoryViewController.swift */,
 				9097B5C228C8E8B200A46DB8 /* CardEnrollmentViewController.swift */,
 				9097B5C428C8E8C200A46DB8 /* CardDetailViewController.swift */,
 			);
@@ -147,6 +273,7 @@
 		9097B5BD28C8208700A46DB8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				902E2ED928E1A55E00F40FB8 /* CardHistoryView */,
 				90E7FA7928CB4F3E003336B2 /* CardModalView */,
 				9097B5D128C9D58800A46DB8 /* CardListView */,
 			);
@@ -167,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				906399C628CEDBDF000ACBE3 /* Cell */,
+				9017927D28E08C0900DA31FB /* Date+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -179,11 +307,20 @@
 			path = CardModalView;
 			sourceTree = "<group>";
 		};
+		90FFB63728DC25A3006E6751 /* NetworkMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				90FFB63828DC25FB006E6751 /* NetworkManager.swift */,
+			);
+			path = NetworkMonitor;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
+				9018F1A428DBFEE200301041 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -205,7 +342,7 @@
 				9097B5BD28C8208700A46DB8 /* View */,
 				9097B5AE28C7484500A46DB8 /* ViewController */,
 				9097B5AC28C7482B00A46DB8 /* Model */,
-				9003104328D8661A00C3CD77 /* Networking */,
+				9018F1AB28DC00EF00301041 /* Repository */,
 				90E7FA7428CAD06C003336B2 /* Utilities */,
 				9097B5AA28C70B4900A46DB8 /* Resources */,
 			);
@@ -231,7 +368,9 @@
 			name = ProjectManager;
 			packageProductDependencies = (
 				9097B5B028C756DD00A46DB8 /* Then */,
-				9003104128D8549400C3CD77 /* FirebaseAnalytics */,
+				9018F19C28DBFB0F00301041 /* Realm */,
+				9018F19E28DBFB0F00301041 /* RealmSwift */,
+				90C209A728DDF35000E26C57 /* FirebaseDatabase */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -243,7 +382,7 @@
 		C7431EFA25F51E1D0094C4CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					C7431F0125F51E1D0094C4CF = {
@@ -262,7 +401,8 @@
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
 				9097B5AF28C756DD00A46DB8 /* XCRemoteSwiftPackageReference "Then" */,
-				9003104028D8549400C3CD77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9018F19B28DBFB0F00301041 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				90C209A628DDF35000E26C57 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -315,22 +455,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				90E7FA7828CB3387003336B2 /* CardModalView.swift in Sources */,
+				902E2EDB28E2843800F40FB8 /* CardRemoteHistoryDataEntity.swift in Sources */,
 				906399C828CEDBE7000ACBE3 /* ReuseIdentifying.swift in Sources */,
 				9097B5BF28C8E2E200A46DB8 /* CardListTableViewCell.swift in Sources */,
 				9097B5CB28C9A93400A46DB8 /* CardHeaderView.swift in Sources */,
 				9097B5CD28C9D13300A46DB8 /* CardSectionView.swift in Sources */,
 				9097B5CF28C9D33A00A46DB8 /* CardType.swift in Sources */,
+				902E2ED828E1A45100F40FB8 /* CardHistoryViewController.swift in Sources */,
+				9018F1A328DBFC9700301041 /* (null) in Sources */,
+				9018F1B028DC016000301041 /* LocalStorageProtocol.swift in Sources */,
+				9017928428E0944600DA31FB /* CardHistoryModel.swift in Sources */,
+				9018F1B228DC02AB00301041 /* RealmService.swift in Sources */,
 				9097B5C128C8E70000A46DB8 /* MainCoordinator.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
+				902E2EDD28E29D1700F40FB8 /* CardState.swift in Sources */,
+				9017927E28E08C0900DA31FB /* Date+Extensions.swift in Sources */,
+				90C209AC28DE923000E26C57 /* CardRemoteDataEntity.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				9097B5C528C8E8C200A46DB8 /* CardDetailViewController.swift in Sources */,
 				9097B5B928C81A5200A46DB8 /* CoordinatorProtocol.swift in Sources */,
+				902E2EDF28E2DA3400F40FB8 /* CardHistoryViewCellModel.swift in Sources */,
+				9017928028E08C8200DA31FB /* CardHistoryTableViewCell.swift in Sources */,
+				9018F1AE28DC00EF00301041 /* CardLocalDataEntity.swift in Sources */,
 				9097B5B628C7575500A46DB8 /* CardViewModel.swift in Sources */,
+				9017928228E0943100DA31FB /* CardHistoryViewModel.swift in Sources */,
 				903C904A28D07CBD007A6F20 /* CardEntity.swift in Sources */,
+				9018F1B528DC052000301041 /* FirebaseService.swift in Sources */,
+				902E2ED628E1989400F40FB8 /* CardHistoryDataEntity.swift in Sources */,
 				9097B5C328C8E8B200A46DB8 /* CardEnrollmentViewController.swift in Sources */,
+				9017927C28E087B000DA31FB /* RemoteStorageProtocol.swift in Sources */,
 				9097B5C728C8EAB700A46DB8 /* CardViewModelProtocol.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				9097B5C928C9A7E700A46DB8 /* CardModel.swift in Sources */,
+				90FFB63928DC25FB006E6751 /* NetworkManager.swift in Sources */,
+				902E2EE328E31E6300F40FB8 /* RepositoryService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +629,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GDKDK6KP5Z;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				INFOPLIST_FILE = ProjectManager/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -492,6 +651,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GDKDK6KP5Z;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				INFOPLIST_FILE = ProjectManager/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -530,12 +690,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9003104028D8549400C3CD77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		9018F19B28DBFB0F00301041 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 		9097B5AF28C756DD00A46DB8 /* XCRemoteSwiftPackageReference "Then" */ = {
@@ -546,18 +706,36 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		90C209A628DDF35000E26C57 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9003104128D8549400C3CD77 /* FirebaseAnalytics */ = {
+		9018F19C28DBFB0F00301041 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9003104028D8549400C3CD77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
+			package = 9018F19B28DBFB0F00301041 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		9018F19E28DBFB0F00301041 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9018F19B28DBFB0F00301041 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
 		};
 		9097B5B028C756DD00A46DB8 /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9097B5AF28C756DD00A46DB8 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		90C209A728DDF35000E26C57 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90C209A628DDF35000E26C57 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
