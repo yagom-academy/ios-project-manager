@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class ProjectManagerController: UIViewController {
+final class ProjectManagerController: UIViewController, UIPopoverPresentationControllerDelegate {
     private let toDoViewController = ProjectListViewController(
         viewModel: ToDoViewModel(databaseManager: LocalDatabaseManager.inMemory)
     )
@@ -41,9 +41,32 @@ final class ProjectManagerController: UIViewController {
             target: self,
             action: #selector(didTapAddButton)
         )
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "History",
+            style: .plain,
+            target: self,
+            action: #selector(didTapHistoryButton)
+        )
     }
     
-    @objc func didTapAddButton() {
+    @objc private func didTapHistoryButton() {
+        let historyViewController = HistoryPopoverController()
+        historyViewController.modalPresentationStyle = .popover
+        historyViewController.preferredContentSize = CGSize(width: 600, height: 600)
+        
+        guard let popoverController = historyViewController.popoverPresentationController else {
+            return
+        }
+        
+        popoverController.delegate = self
+        popoverController.permittedArrowDirections = .up
+        popoverController.sourceView = self.view
+        popoverController.barButtonItem = navigationItem.leftBarButtonItem
+        
+        self.present(historyViewController, animated: true)
+    }
+    
+    @objc private func didTapAddButton() {
         let projectAdditionController = ProjectAdditionController()
         projectAdditionController.viewModel = self.toDoViewController.viewModel as? ContentAddible
 
