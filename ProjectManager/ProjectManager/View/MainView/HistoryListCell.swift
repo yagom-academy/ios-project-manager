@@ -6,9 +6,9 @@
 //
 
 import UIKit
+import OSLog
 
 final class HistoryListCell: UITableViewCell, ReusableCell {
-
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -45,8 +45,11 @@ final class HistoryListCell: UITableViewCell, ReusableCell {
         configureUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+
+        os_log(.default, log: .ui, "Didn't use nib File")
     }
 
     func setContent(description: String, date: String?) {
@@ -63,9 +66,9 @@ final class HistoryListCell: UITableViewCell, ReusableCell {
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: inset),
-            stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: inset),
+            stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -inset),
             stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: inset),
-            stackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: inset)
+            stackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -inset)
         ])
     }
 }
