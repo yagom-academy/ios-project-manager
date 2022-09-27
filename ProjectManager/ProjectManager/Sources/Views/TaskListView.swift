@@ -12,6 +12,9 @@ struct TaskListView: View {
     var status: Status
     @Binding var tasks: [Task]
     
+    @State private var isShowingEditingView = false
+    @State private var selectedTask: Task = Task(title: "", description: "", dueDate: Date.now, status: .todo)
+    
     var body: some View {
         VStack {
             TaskListHeaderView(status: status, taskCount: tasks.count)
@@ -20,16 +23,35 @@ struct TaskListView: View {
                 ForEach(tasks) { task in
                     ZStack {
                         TaskCellView(task: task)
+                            .onTapGesture {
+                                selectedTask = task
+                                isShowingEditingView.toggle()
+                            }
                     }
                     .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                     .listRowSeparator(.hidden)
-                    //TODO: 높이가 description의 높이에 따라 유동적으로 변하도록 수정 (최대 3줄)
-                    //FIXME: List 사이의 공간이 하얗게 보이는 문제 발생
                 }.onDelete { indexSet in
                     tasks.remove(atOffsets: indexSet)
                 }
             }
             .listStyle(.plain)
+            .sheet(isPresented: $isShowingEditingView) {
+                TaskEditingView(isShowingSheet: $isShowingEditingView, selectedTask: $selectedTask)
+            }
         }
+    }
+}
+
+struct TaskListView_Previews: PreviewProvider {
+    
+    @State static var dummyTodoTasks: [Task] = [
+        Task(title: "Title 1", description: "Description 1", dueDate: Date.now, status: .todo),
+        Task(title: "Title 2", description: "Description 2", dueDate: Date.now, status: .todo),
+        Task(title: "Title 3", description: "Description 3", dueDate: Date.now, status: .todo)
+    ]
+    
+    
+    static var previews: some View {
+        TaskListView(status: .todo, tasks: $dummyTodoTasks)
     }
 }

@@ -9,29 +9,29 @@ import SwiftUI
 
 struct TaskEditingView: View {
     
-    @Binding var isShowingSheet: Bool
     @EnvironmentObject private var tasksDataSource: TasksDataSource
     
-    @State private var task = Task(title: "", description: "", dueDate: Date.now, status: .todo)
+    @Binding var isShowingSheet: Bool
+    @Binding var selectedTask: Task
+    
     @State private var isEditingDisable = true
-    @State var isNewTask: Bool
     
     var body: some View {
         VStack {
             HStack() {
                 Image(systemName: "calendar")
                 
-                DatePicker("", selection: $task.dueDate, in: Date()..., displayedComponents: .date)
+                DatePicker("", selection: $selectedTask.dueDate, in: Date()..., displayedComponents: .date)
                     .labelsHidden()
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.horizontal)
             
             Group {
-                TextField("할 일의 제목을 입력해주세요", text: $task.title)
-                TextField("필요한 경우 상세설명을 적어주세요", text: $task.description)
+                TextField("할 일의 제목을 입력해주세요", text: $selectedTask.title)
+                TextField("필요한 경우 상세설명을 적어주세요", text: $selectedTask.description)
             }
-            .disabled(isNewTask ? !isEditingDisable : isEditingDisable)
+            .disabled(isEditingDisable)
             .padding(.horizontal)
             .frame(height: 55)
             .background(Color(UIColor.secondarySystemBackground))
@@ -44,7 +44,7 @@ struct TaskEditingView: View {
                 }
                 
                 SquareButtonView(label: "저장", color: Color.accentColor) {
-                    tasksDataSource.todoTasks.append(task)
+                    tasksDataSource.replaceOriginalTask(with: selectedTask)
                     isShowingSheet.toggle()
                 }
             }
@@ -56,8 +56,9 @@ struct TaskEditingView: View {
 struct TaskEditingView_Previews: PreviewProvider {
     
     static var taskDashboardView = TaskDashboardView()
+    @State static var dummyTask = Task(title: "Test Title", description: "Test Description", dueDate: Date.now, status: .todo)
     
     static var previews: some View {
-        TaskEditingView(isShowingSheet: taskDashboardView.$isShowingSheet, isNewTask: true)
+        TaskEditingView(isShowingSheet: taskDashboardView.$isShowingSheet, selectedTask: $dummyTask)
     }
 }

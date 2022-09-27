@@ -28,15 +28,16 @@ struct TaskDashboardView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
             }
             .sheet(isPresented: $isShowingSheet) {
-                TaskEditingView(isShowingSheet: $isShowingSheet, isNewTask: true)
+                //TODO: TaskCreatingView
             }
         }
     }
 }
 
 struct TaskDashboardView_Previews: PreviewProvider {
+    
     static var previews: some View {
         TaskDashboardView()
-            .previewInterfaceOrientation(.landscapeLeft)
+            .environmentObject(TasksDataSource())
     }
 }
