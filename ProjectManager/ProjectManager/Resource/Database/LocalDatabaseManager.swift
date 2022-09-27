@@ -9,22 +9,21 @@ import CoreData
 
 final class LocalDatabaseManager {
     static let inMemory = LocalDatabaseManager(isInMemory: true)
+    static let onDisk = LocalDatabaseManager(isInMemory: false)
 
-    private var isInMemory: Bool
+    private var persistentContainer: CoreDataContainer = CoreDataContainer(name: "ProjectManager")
 
-    init(isInMemory: Bool) {
-        self.isInMemory = isInMemory
-    }
+    init() {}
 
-    private lazy var persistentContainer: CoreDataContainer = {
-        let container = CoreDataContainer(name: "ProjectManager", inMemory: isInMemory)
-        container.loadPersistentStores(completionHandler: { (_, error) in
+    convenience init(isInMemory: Bool) {
+        self.init()
+        persistentContainer = CoreDataContainer(name: "ProjectManager", inMemory: isInMemory)
+        persistentContainer.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        return container
-    }()
+    }
 
     func create(data: ProjectUnit) throws {
         let context = persistentContainer.viewContext
