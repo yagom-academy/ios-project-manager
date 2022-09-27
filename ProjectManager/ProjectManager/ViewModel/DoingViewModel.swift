@@ -47,7 +47,7 @@ final class DoingViewModel:
 
             let locationChange = changes.1.components(separatedBy: ["t", "o"])
 
-            registerMovingHistory(changes.0, locationChange[0], locationChange[1])
+            registerMovingHistory(changes.0, locationChange[0], locationChange[2])
         }
     }
 
@@ -66,7 +66,6 @@ final class DoingViewModel:
     var registerDeletionHistory: ((String, String) -> Void)?
     var registerMovingHistory: ((String, String, String) -> Void)?
 
-    
     init(databaseManager: LocalDatabaseManager) {
         self.databaseManager = databaseManager
         NotificationCenter.default.addObserver(

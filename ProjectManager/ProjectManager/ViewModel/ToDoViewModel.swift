@@ -48,7 +48,7 @@ final class ToDoViewModel:
 
             let locationChange = changes.1.components(separatedBy: ["t", "o"])
 
-            registerMovingHistory(changes.0, locationChange[0], locationChange[1])
+            registerMovingHistory(changes.0, locationChange[0], locationChange[2])
         }
     }
 
