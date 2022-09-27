@@ -10,7 +10,8 @@ import SwiftUI
 struct TaskEditingView: View {
     
     @Binding var isShowingSheet: Bool
-    @ObservedObject var taskDashboardViewModel: TaskDashboardViewModel
+    @EnvironmentObject private var tasksDataSource: TasksDataSource
+    
     @State private var task = Task(title: "", description: "", dueDate: Date.now, status: .todo)
     @State private var isEditingDisable = true
     @State var isNewTask: Bool
@@ -43,7 +44,7 @@ struct TaskEditingView: View {
                 }
                 
                 SquareButtonView(label: "저장", color: Color.accentColor) {
-                    taskDashboardViewModel.todoTasks.append(task)
+                    tasksDataSource.todoTasks.append(task)
                     isShowingSheet.toggle()
                 }
             }
@@ -57,6 +58,6 @@ struct TaskEditingView_Previews: PreviewProvider {
     static var taskDashboardView = TaskDashboardView()
     
     static var previews: some View {
-        TaskEditingView(isShowingSheet: taskDashboardView.$isShowingSheet, taskDashboardViewModel: TaskDashboardViewModel(), isNewTask: true)
+        TaskEditingView(isShowingSheet: taskDashboardView.$isShowingSheet, isNewTask: true)
     }
 }

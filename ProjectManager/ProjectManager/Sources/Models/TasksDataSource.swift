@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TaskDashboardViewModel: ObservableObject {
+final class TasksDataSource: ObservableObject {
     
     @Published var todoTasks: [Task] = [
         //TODO: 더미데이터 추후 삭제

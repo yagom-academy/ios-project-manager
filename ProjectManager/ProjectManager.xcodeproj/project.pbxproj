@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		FD24500A28D22CB800D5C593 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24500928D22CB800D5C593 /* Task.swift */; };
 		FD24500D28D22E4800D5C593 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24500C28D22E4800D5C593 /* Status.swift */; };
-		FD24501028D2379E00D5C593 /* TaskDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24500F28D2379E00D5C593 /* TaskDashboardViewModel.swift */; };
+		FD24501028D2379E00D5C593 /* TasksDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24500F28D2379E00D5C593 /* TasksDataSource.swift */; };
 		FD6659C028C9B9C400934AF4 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */; };
 		FD6659C428C9B9C600934AF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD6659C328C9B9C600934AF4 /* Assets.xcassets */; };
 		FD6659C728C9B9C600934AF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD6659C628C9B9C600934AF4 /* Preview Assets.xcassets */; };
@@ -31,7 +31,7 @@
 /* Begin PBXFileReference section */
 		FD24500928D22CB800D5C593 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FD24500C28D22E4800D5C593 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
-		FD24500F28D2379E00D5C593 /* TaskDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDashboardViewModel.swift; sourceTree = "<group>"; };
+		FD24500F28D2379E00D5C593 /* TasksDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDataSource.swift; sourceTree = "<group>"; };
 		FD6659BC28C9B9C400934AF4 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		FD6659C328C9B9C600934AF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				FD24500928D22CB800D5C593 /* Task.swift */,
+				FD24500F28D2379E00D5C593 /* TasksDataSource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -86,7 +87,6 @@
 				FD24500B28D22E3700D5C593 /* Common */,
 				FD24500528D226CA00D5C593 /* Models */,
 				FD24500828D22B6600D5C593 /* Views */,
-				FD24500E28D2378500D5C593 /* ViewModels */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -112,14 +112,6 @@
 				FD24500C28D22E4800D5C593 /* Status.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		FD24500E28D2378500D5C593 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				FD24500F28D2379E00D5C593 /* TaskDashboardViewModel.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		FD6659B328C9B9C400934AF4 = {
@@ -237,7 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD24501028D2379E00D5C593 /* TaskDashboardViewModel.swift in Sources */,
+				FD24501028D2379E00D5C593 /* TasksDataSource.swift in Sources */,
 				FD84970F28D46D740028E81B /* AddingTaskButtonView.swift in Sources */,
 				FD84971128D48D210028E81B /* TaskEditingView.swift in Sources */,
 				FDEC499428D33A1300C0C9F9 /* TaskDashboardView.swift in Sources */,

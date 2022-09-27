@@ -9,15 +9,15 @@ import SwiftUI
 
 struct TaskDashboardView: View {
     
-    @StateObject var taskDashboardViewModel = TaskDashboardViewModel()
+    @EnvironmentObject private var tasksDataSource: TasksDataSource
     @State var isShowingSheet = false
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             HStack {
-                TaskListView(status: .todo, tasks: $taskDashboardViewModel.todoTasks)
-                TaskListView(status: .doing, tasks: $taskDashboardViewModel.doingTasks)
-                TaskListView(status: .done, tasks: $taskDashboardViewModel.doneTasks)
+                TaskListView(status: .todo, tasks: $tasksDataSource.todoTasks)
+                TaskListView(status: .doing, tasks: $tasksDataSource.doingTasks)
+                TaskListView(status: .done, tasks: $tasksDataSource.doneTasks)
             }.padding()
             
             Button {
@@ -28,7 +28,7 @@ struct TaskDashboardView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
             }
             .sheet(isPresented: $isShowingSheet) {
-                TaskEditingView(isShowingSheet: $isShowingSheet, taskDashboardViewModel: taskDashboardViewModel, isNewTask: true)
+                TaskEditingView(isShowingSheet: $isShowingSheet, isNewTask: true)
             }
         }
     }

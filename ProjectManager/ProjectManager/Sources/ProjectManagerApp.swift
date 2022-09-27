@@ -12,6 +12,7 @@ struct ProjectManagerApp: App {
     var body: some Scene {
         WindowGroup {
             TaskDashboardView()
+                .environmentObject(TasksDataSource())
         }
     }
 }
