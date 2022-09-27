@@ -13,18 +13,14 @@ final class HistoryViewCoordinator: Coordinator {
     init(viewController: TodoListViewController) {
         self.viewController = viewController
     }
-    
+
     func start() -> UIViewController {
         let historyVM = HistoryViewModel(histories: TodoDataManager.shared.fetchHistory())
-        let historyVC = HistoryViewController(viewModel: historyVM)
+        let historyVC = HistoryTableViewController(viewModel: historyVM)
         historyVC.modalPresentationStyle = .popover
         historyVC.popoverPresentationController?.permittedArrowDirections = .up
         historyVC.popoverPresentationController?.delegate = viewController
-        historyVC.popoverPresentationController?.sourceView = viewController.view
-        historyVC.popoverPresentationController?.sourceRect = CGRect(x: 60,
-                                                                     y: 60,
-                                                                     width: 1,
-                                                                     height: 1)
+        historyVC.popoverPresentationController?.barButtonItem = viewController.navigationItem.leftBarButtonItem
         return historyVC
     }
 }
