@@ -14,15 +14,15 @@ final class TodoListViewModel {
         self.status = status
     }
     
-    func countTodoData(dataManager: TodoDataManager) -> Int {
+    func countTodoData(dataManager: DataManager) -> Int {
             return dataManager.fetch(by: status).count
         }
     
-    func fetchTodoData(dataManager: TodoDataManager) -> [Todo] {
+    func fetchTodoData(dataManager: DataManager) -> [Todo] {
            return dataManager.fetch(by: status)
        }
 
-    func removeData(dataManager: TodoDataManager, indexSet: IndexSet) {
+    func removeData(dataManager: DataManager, indexSet: IndexSet) {
         let data = dataManager.fetch(by: status)
         guard let index = indexSet.first else { return }
         

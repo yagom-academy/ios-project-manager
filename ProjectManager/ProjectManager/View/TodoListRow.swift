@@ -10,7 +10,7 @@ import SwiftUI
 struct TodoListRow: View {
     
     @ObservedObject private var todoListRowViewModel: TodoListRowViewModel
-    @EnvironmentObject private var dataManager: TodoDataManager
+    @EnvironmentObject private var dataManager: DataManager
     
     init(todo: Todo, index: Int) {
         _todoListRowViewModel = ObservedObject(wrappedValue: TodoListRowViewModel(todo: todo, index: index))

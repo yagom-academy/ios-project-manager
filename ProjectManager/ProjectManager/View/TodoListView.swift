@@ -10,7 +10,7 @@ import SwiftUI
 struct TodoListView: View {
     
     private var todoListViewModel: TodoListViewModel
-    @EnvironmentObject private var dataManager: TodoDataManager
+    @EnvironmentObject private var dataManager: DataManager
     
     init(status: Status) {
         self.todoListViewModel = TodoListViewModel(status: status)

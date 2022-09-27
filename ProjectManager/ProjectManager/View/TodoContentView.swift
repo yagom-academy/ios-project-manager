@@ -10,7 +10,7 @@ import SwiftUI
 struct TodoContentView: View {
     
     @StateObject private var todoContentViewModel: TodoContentViewModel
-    @EnvironmentObject private var dataManager: TodoDataManager
+    @EnvironmentObject private var dataManager: DataManager
     
     init(todo: Todo?, buttonType: String, index: Int?, showingSheet: Binding<Bool>) {
         _todoContentViewModel = StateObject(wrappedValue: TodoContentViewModel(todo: todo, buttonType: buttonType, index: index, showingSheet: showingSheet))

@@ -35,7 +35,7 @@ final class TodoContentViewModel: ObservableObject {
         }
     }
     
-    func manageTask(dataManager: TodoDataManager) {
+    func manageTask(dataManager: DataManager) {
         if buttonType == "Done", index == nil {
             dataManager.add(title: title, body: body, date: date, status: .todo)
         } else {
