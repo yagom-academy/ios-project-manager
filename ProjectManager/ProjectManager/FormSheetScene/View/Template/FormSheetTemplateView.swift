@@ -113,6 +113,25 @@ final class FormSheetTemplateView: UIView {
         ])
     }
     
+    func setupData(with model: Todo?) {
+        guard let model = model else { return }
+        titleTextField.text = model.title
+        datePicker.date = model.date
+        bodyTextView.text = model.body
+    }
+    
+    func generateTodoModel(with category: String?) -> Todo? {
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text else { return nil }
+        let date = datePicker.date
+        let todo = Todo()
+        todo.category = category ?? Category.todo
+        todo.title = title
+        todo.body = body
+        todo.date = date
+        return todo
+    }
+    
     // MARK: - Keyboard Settings
     private func setupKeyboard() {
         NotificationCenter.default.addObserver(

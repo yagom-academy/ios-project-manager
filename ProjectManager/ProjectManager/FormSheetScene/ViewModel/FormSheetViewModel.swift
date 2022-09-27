@@ -7,7 +7,7 @@
 
 final class FormSheetViewModel {
     let mode: PageMode
-    private var currentTodo: Todo?
+    var currentTodo: Todo?
     
     init(mode: PageMode, category: String?, index: Int?) {
         self.mode = mode
@@ -16,35 +16,6 @@ final class FormSheetViewModel {
             return
         }
         self.currentTodo = TodoDataManager.shared.read(category: category)?[index]
-    }
-    
-    func viewDidLoad(_ viewController: FormSheetViewController) {
-        switch mode {
-        case .create:
-            return
-        case .edit:
-            setupData(with: currentTodo,
-                      in: viewController.formSheetView)
-        }
-    }
-    
-    func setupData(with model: Todo?, in view: FormSheetTemplateView) {
-        guard let model = model else { return }
-        view.titleTextField.text = model.title
-        view.datePicker.date = model.date
-        view.bodyTextView.text = model.body
-    }
-    
-    func generateTodoModel(in view: FormSheetTemplateView) -> Todo? {
-        guard let title = view.titleTextField.text,
-              let body = view.bodyTextView.text else { return nil }
-        let date = view.datePicker.date
-        let todo = Todo()
-        todo.category = currentTodo?.category ?? Category.todo
-        todo.title = title
-        todo.body = body
-        todo.date = date
-        return todo
     }
     
     func edit(to nextTodo: Todo) {

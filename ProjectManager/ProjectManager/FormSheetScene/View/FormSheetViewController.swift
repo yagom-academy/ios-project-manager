@@ -13,7 +13,7 @@ enum PageMode {
 }
 
 final class FormSheetViewController: UIViewController {
-    let formSheetView = FormSheetTemplateView(frame: .zero)
+    private let formSheetView = FormSheetTemplateView(frame: .zero)
     private var viewModel: FormSheetViewModel
     
     // MARK: - Initializer
@@ -30,8 +30,8 @@ final class FormSheetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInitialView()
+        setupInitialData()
         setupNavigationBar()
-        viewModel.viewDidLoad(self)
     }
     
     // MARK: - Methods
@@ -55,8 +55,17 @@ final class FormSheetViewController: UIViewController {
         ])
     }
     
+    private func setupInitialData() {
+        switch viewModel.mode {
+        case .create:
+            return
+        case .edit:
+            formSheetView.setupData(with: viewModel.currentTodo)
+        }
+    }
+    
     private func setupNavigationBar() {
-        navigationItem.title = "TODO"
+        navigationItem.title = Category.todo
         switch viewModel.mode {
         case .create:
             setupCreateModeNavigationBar()
@@ -93,13 +102,13 @@ final class FormSheetViewController: UIViewController {
 
     // MARK: - @objc Methods
     @objc private func editButtonDidTapped() {
-        guard let data = viewModel.generateTodoModel(in: formSheetView) else { return }
+        guard let data = formSheetView.generateTodoModel(with: viewModel.currentTodo?.category) else { return }
         viewModel.edit(to: data)
         self.dismiss(animated: true)
     }
     
     @objc private func doneButtonDidTapped() {
-        guard let data = viewModel.generateTodoModel(in: formSheetView) else { return }
+        guard let data = formSheetView.generateTodoModel(with: Category.todo) else { return }
         viewModel.create(data)
         self.dismiss(animated: true)
     }
