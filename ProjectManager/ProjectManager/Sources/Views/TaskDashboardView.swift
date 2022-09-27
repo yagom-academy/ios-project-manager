@@ -11,6 +11,7 @@ struct TaskDashboardView: View {
     
     @EnvironmentObject private var tasksDataSource: TasksDataSource
     @State var isShowingSheet = false
+    @State private var newTask = Task(title: "", description: "", dueDate: Date.now, status: .todo)
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -28,7 +29,7 @@ struct TaskDashboardView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
             }
             .sheet(isPresented: $isShowingSheet) {
-                //TODO: TaskCreatingView
+                TaskCreatingView(isShowingSheet: $isShowingSheet)
             }
         }
     }
