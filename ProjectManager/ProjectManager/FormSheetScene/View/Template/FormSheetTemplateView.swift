@@ -26,44 +26,38 @@ final class FormSheetTemplateView: UIView {
                          right: 10)
         .stackView
     
-    let titleTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont.preferredFont(forTextStyle: .title3)
-        textField.placeholder = "Title"
-        textField.backgroundColor = .white
-        textField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        textField.addLeftPadding()
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.systemGray6.cgColor
-        textField.layer.shadowOffset = CGSize(width: 0, height: 2)
-        textField.layer.shadowOpacity = 0.5
-        return textField
-    }()
+    let titleTextField = DefaultTextFieldBuilder()
+        .useAutoLayout()
+        .setFont(UIFont.preferredFont(forTextStyle: .title3))
+        .setPlaceholder("Title")
+        .setBackgroundColor(.white)
+        .setHeightAnchor(50)
+        .addLeftPadding()
+        .setLayerBorderWidth(1)
+        .setLayerBorderColor(.systemGray6)
+        .setLayerShadowOffset(width: 0, height: 2)
+        .setLayerShadowOpacity(0.5)
+        .textField
     
-    let datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "ko-KR")
-        datePicker.timeZone = .autoupdatingCurrent
-        return datePicker
-    }()
+    let datePicker = DefaultDatePickerBuilder()
+        .useAutoLayout()
+        .setStyle(.wheels)
+        .setMode(.date)
+        .setLocale("ko-KR")
+        .setTimeZone(.autoupdatingCurrent)
+        .datePicker
     
-    let bodyTextView: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isScrollEnabled = false
-        textView.font = UIFont.preferredFont(forTextStyle: .body)
-        textView.backgroundColor = .white
-        textView.layer.masksToBounds = false
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.systemGray6.cgColor
-        textView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        textView.layer.shadowOpacity = 0.5
-        return textView
-    }()
+    let bodyTextView = DefaultTextViewBuilder()
+        .useAutoLayout()
+        .isScrollEnable(false)
+        .setFont(UIFont.preferredFont(forTextStyle: .body))
+        .setBackgroundColor(.white)
+        .setLayerMaskToBounds(false)
+        .setLayerBorderWidth(1)
+        .setLayerBorderColor(.systemGray6)
+        .setLayerShadowOffset(width: 0, height: 2)
+        .setLayerShadowOpacity(0.5)
+        .textView
     
     // MARK: - Initializer
     override init(frame: CGRect) {
@@ -143,7 +137,7 @@ final class FormSheetTemplateView: UIView {
         let contentInset = UIEdgeInsets(
             top: 0.0,
             left: 0.0,
-            bottom: keyboardFrame.size.height-70,
+            bottom: keyboardFrame.size.height-300,
             right: 0.0)
         mainScrollView.contentInset = contentInset
         mainScrollView.scrollIndicatorInsets = contentInset

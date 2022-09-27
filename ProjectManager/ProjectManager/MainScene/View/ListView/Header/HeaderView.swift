@@ -18,10 +18,10 @@ final class HeaderView: UIView {
     let countLabel = DefaultLabelBuilder()
         .useAutoLayout()
         .setPreferredFont(.title3)
-        .useLayerMaskToBound()
-        .layerCornerRadius(10)
+        .setLayerMaskToBounds(true)
+        .setLayerCornerRadius(10)
         .setTextColor(with: .white)
-        .layerBackground(color: UIColor.black.cgColor)
+        .setLayerBackgroundColor(.black)
         .label
 
     private var viewModel: HeaderViewModel
