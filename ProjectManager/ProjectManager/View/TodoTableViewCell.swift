@@ -67,13 +67,15 @@ extension TodoTableViewCell {
         titleLabel.text = project.title
         descriptionLabel.text = project.description
         dateLabel.text = project.date.dateString()
-        if isCheckDate(project.date) {
-            dateLabel.textColor = .systemRed
-        }
+        changeDateTextColor(project.date)
     }
     
-    private func isCheckDate(_ date: Date) -> Bool {
-        return date < Date()
+    private func changeDateTextColor(_ date: Date) {
+        if date < Date() {
+            dateLabel.textColor = .systemRed
+        } else {
+            dateLabel.textColor = .black
+        }
     }
     
     private func setupConstraints() {
