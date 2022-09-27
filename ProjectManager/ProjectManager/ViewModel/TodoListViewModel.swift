@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TodoListViewModel: ObservableObject {
+class TodoListViewModel {
     let status: Status
     
     init(status: Status) {
