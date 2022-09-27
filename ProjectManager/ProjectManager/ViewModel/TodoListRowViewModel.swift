@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TodoListRowViewModel: ObservableObject {
+final class TodoListRowViewModel: ObservableObject {
     @Published var todo: Todo
     @Published var statusChanging: Bool = false
     @Published var showingSheet: Bool = false

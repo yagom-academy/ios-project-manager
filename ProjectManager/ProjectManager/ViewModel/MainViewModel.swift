@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class MainViewModel: ObservableObject {
+final class MainViewModel: ObservableObject {
     
     @Published var showingSheet: Bool = false
 }

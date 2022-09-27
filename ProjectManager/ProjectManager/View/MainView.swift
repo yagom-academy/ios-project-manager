@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @StateObject private var mainViewModel = MainViewModel()
-    @EnvironmentObject var dataManager: TodoDataManager
+    @EnvironmentObject private var dataManager: TodoDataManager
     
     var body: some View {
         NavigationView {

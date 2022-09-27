@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TodoContentViewModel: ObservableObject {
+final class TodoContentViewModel: ObservableObject {
     @Binding var showingSheet: Bool
     @Published var todo: Todo?
     @Published var title: String

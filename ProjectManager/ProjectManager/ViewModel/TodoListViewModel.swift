@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TodoListViewModel {
+final class TodoListViewModel {
     let status: Status
     
     init(status: Status) {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NavigationBarModifier: ViewModifier {
     
-    var backgroundColor: UIColor?
+    private var backgroundColor: UIColor?
     
     init( backgroundColor: UIColor?) {
         self.backgroundColor = backgroundColor
