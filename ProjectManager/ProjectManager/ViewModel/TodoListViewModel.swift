@@ -14,32 +14,19 @@ class TodoListViewModel: ObservableObject {
         self.status = status
     }
     
-    func countTodoData(dataManager: DataManager) -> Int {
-        switch status {
-        case .todo:
-            return dataManager.todoData.filter { $0.status == .todo }.count
-        case .doing:
-            return dataManager.todoData.filter { $0.status == .doing }.count
-        case .done:
-            return dataManager.todoData.filter { $0.status == .done }.count
+    func countTodoData(dataManager: TodoDataManager) -> Int {
+            return dataManager.fetch(by: status).count
         }
-    }
     
-    func fetchTodoData(dataManager: DataManager) -> [Todo] {
-        switch status {
-        case .todo:
-            return dataManager.todoData.filter { $0.status == .todo }
-        case .doing:
-            return dataManager.todoData.filter { $0.status == .doing }
-        case .done:
-            return dataManager.todoData.filter { $0.status == .done }
-        }
-    }
-    
-    func removeData(dataManager: DataManager, indexSet: IndexSet) {
+    func fetchTodoData(dataManager: TodoDataManager) -> [Todo] {
+           return dataManager.fetch(by: status)
+       }
+
+    func removeData(dataManager: TodoDataManager, indexSet: IndexSet) {
+        let data = dataManager.fetch(by: status)
         guard let index = indexSet.first else { return }
         
-        let id = dataManager.fetch()[index].id
+        let id = data[index].id
         dataManager.delete(id: id)
     }
 }

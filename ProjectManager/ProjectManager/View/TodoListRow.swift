@@ -9,11 +9,11 @@ import SwiftUI
 
 struct TodoListRow: View {
     
-    @EnvironmentObject private var dataManager: DataManager
-    @StateObject private var todoListRowViewModel: TodoListRowViewModel
+    @EnvironmentObject private var dataManager: TodoDataManager
+    @ObservedObject private var todoListRowViewModel: TodoListRowViewModel
     
     init(todo: Todo, index: Int) {
-        _todoListRowViewModel = StateObject(wrappedValue: TodoListRowViewModel(todo: todo, index: index))
+        _todoListRowViewModel = ObservedObject(wrappedValue: TodoListRowViewModel(todo: todo, index: index))
     }
     
     var body: some View {
@@ -40,7 +40,7 @@ struct TodoListRow: View {
             todoListRowViewModel.showingSheet.toggle()
         }
         .sheet(isPresented: $todoListRowViewModel.showingSheet, content: {
-            TodoContentView(todo: todoListRowViewModel.todo, buttonType: "Edit", index: todoListRowViewModel.index, showingSheet: todoListRowViewModel.showingSheet)
+            TodoContentView(todo: todoListRowViewModel.todo, buttonType: "Edit", index: todoListRowViewModel.index, showingSheet: $todoListRowViewModel.showingSheet)
         })
         .onLongPressGesture(perform: {
             todoListRowViewModel.statusChanging.toggle()

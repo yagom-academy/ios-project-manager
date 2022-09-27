@@ -9,11 +9,11 @@ import SwiftUI
 
 struct TodoListView: View {
     
-    @EnvironmentObject var dataManager: DataManager
-    @StateObject private var todoListViewModel: TodoListViewModel
+    @EnvironmentObject var dataManager: TodoDataManager
+    private var todoListViewModel: TodoListViewModel
     
     init(status: Status) {
-        _todoListViewModel = StateObject(wrappedValue: TodoListViewModel(status: status))
+        self.todoListViewModel = TodoListViewModel(status: status)
     }
     
     var body: some View {

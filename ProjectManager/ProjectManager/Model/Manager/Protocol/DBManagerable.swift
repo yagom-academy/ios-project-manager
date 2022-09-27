@@ -12,6 +12,7 @@ protocol DBManagerable {
     var todoData: [Todo] { get }
     
     func fetch() -> [Todo]
+    func fetch(by status: Status) -> [Todo]
     func add(title: String, body: String, date: Date, status: Status)
     func delete(id: UUID)
     func update(id: UUID, title: String, body: String, date: Date)

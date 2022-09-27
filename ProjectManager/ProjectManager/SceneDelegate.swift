@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowSecene = (scene as? UIWindowScene) {
             let mainView = MainView()
-            let dataManager = DataManager()
+            let dataManager = TodoDataManager()
             window = UIWindow(windowScene: windowSecene)
             window?.rootViewController = UIHostingController(rootView: mainView.environmentObject(dataManager))
             window?.makeKeyAndVisible()

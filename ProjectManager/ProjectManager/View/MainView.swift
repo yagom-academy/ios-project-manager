@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @StateObject private var mainViewModel = MainViewModel()
-    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var dataManager: TodoDataManager
     
     var body: some View {
         NavigationView {
@@ -33,12 +33,8 @@ struct MainView: View {
             .navigationBarColor(.systemGray5)
             .background(Color(UIColor.systemGray3))
             .sheet(isPresented: $mainViewModel.showingSheet, content: {
-                TodoContentView(todo: nil, buttonType: "Done", index: nil, showingSheet: mainViewModel.showingSheet)
+                TodoContentView(todo: nil, buttonType: "Done", index: nil, showingSheet: $mainViewModel.showingSheet)
             })
-        }
-        .onAppear {
-            dataManager.add(title: "33", body: "3333", date: Date(), status: .todo)
-            dataManager.add(title: "444", body: "4444", date: Date(), status: .done)
         }
         .navigationViewStyle(.stack)
     }

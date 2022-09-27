@@ -15,6 +15,13 @@ final class TodoDataManager: DBManagerable, ObservableObject {
         return todoData
     }
     
+    func fetch(by status: Status) -> [Todo] {
+            let data = self.fetch()
+            let filteredData = data.filter { $0.status == status }
+
+            return filteredData
+        }
+    
     func add(title: String, body: String, date: Date, status: Status) {
         self.todoData.append(Todo(title: title, body: body, date: date, status: status))
     }
