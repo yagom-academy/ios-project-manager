@@ -15,7 +15,7 @@ class RealmManager: ObservableObject {
     var realm: Realm?
 
     private init() {
-        self.app = App(id: "project_manager-lhgyv")
+        self.app = App(id: "application-0-rynak")
     }
 
     func initialize() {
@@ -25,6 +25,7 @@ class RealmManager: ObservableObject {
                 return
             }
 
+            print("🤯 \(user.id)")
             await openSyncedRealm(user: user)
 
             guard let realm = realm else {
@@ -32,15 +33,15 @@ class RealmManager: ObservableObject {
                 return
             }
 
-            let subscriptions = realm.subscriptions
-            try await subscriptions.update {
-                subscriptions.append(QuerySubscription<RealmDatabaseModel>(name: "all_RealmDatabaseModels"))
-            }
+//            let subscriptions = realm.subscriptions
+//            try await subscriptions.update {
+//                subscriptions.append(QuerySubscription<RealmDatabaseModel>(name: "all_RealmDatabaseModels"))
+//            }
 
             let model = RealmDatabaseModel(
-                title: "테스트",
-                description: "테스트중",
-                deadline: "2022.09.27",
+                title: "유유아이디1",
+                description: "테스트중4",
+                deadline: "2022.09.28",
                 state: TaskState.todo.name
             )
 
@@ -57,7 +58,7 @@ class RealmManager: ObservableObject {
     }
 
     func getUser() async throws -> User {
-        let user = try await app.login(credentials: Credentials.anonymous)
+        let user = try await app.login(credentials: .emailPassword(email: "admin@test.com", password: "test1234"))
         return user
     }
 
@@ -70,9 +71,9 @@ class RealmManager: ObservableObject {
             }
 
             config.objectTypes = [RealmDatabaseModel.self]
-            realm = try await Realm(configuration: config, downloadBeforeOpen: .always)
+            realm = try await Realm(configuration: config)
         } catch {
-            print("Error opening realm: \(error.localizedDescription)")
+            print("💖 Error opening realm: \(error.localizedDescription)")
         }
     }
 }

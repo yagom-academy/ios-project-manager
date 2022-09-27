@@ -23,7 +23,7 @@ class MainHomeViewController: UIViewController {
         presentTodoForm()
     }
 
-    private var realmManager = RealmManager.shared
+    //private var realmManager = RealmManager.shared
 
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -41,7 +41,7 @@ class MainHomeViewController: UIViewController {
 
         bind()
 
-        realmManager.initialize()
+        //realmManager.initialize()
     }
 
     // MARK: Method

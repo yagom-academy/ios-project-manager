@@ -42,7 +42,8 @@ class RealmDatabase: DatabaseProtocol {
                 taskTitle: model.taskTitle,
                 taskDescription: model.taskDescription,
                 taskDeadline: model.taskDeadline,
-                taskState: model.taskState
+                taskState: model.taskState,
+                id: model._id
             )
         }
 
@@ -98,14 +99,14 @@ class RealmDatabase: DatabaseProtocol {
 
     func search(data: TaskModel) -> AnyObject? {
         guard let realm = realm,
-              let id = data.uuid else {
+              let id = data.id else {
             return nil
         }
 
-        let relamData = realm.objects(RealmDatabaseModel.self).where {
-            $0.uuid == id
+        let realmData = realm.objects(RealmDatabaseModel.self).where {
+            $0._id == id
         }.first
 
-        return relamData
+        return realmData
     }
 }
