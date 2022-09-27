@@ -32,8 +32,7 @@ final class HeaderView: UIView {
         super.init(frame: .zero)
         setupInitialHeaderView()
         setupCategoryLabel()
-        updateHeaderCount()
-        bindDidChangedCount()
+        bindViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -67,13 +66,13 @@ final class HeaderView: UIView {
         categoryLabel.text = viewModel.category
     }
     
-    private func updateHeaderCount() {
-        countLabel.text = " \(viewModel.count) "
+    private func updateHeader(count: Int) {
+        countLabel.text = " \(count) "
     }
     
-    private func bindDidChangedCount() {
-        viewModel.didChangedCount = { [weak self] in
-            self?.updateHeaderCount()
+    private func bindViewModel() {
+        viewModel.bindListCount { [weak self] (number) in
+            self?.updateHeader(count: number)
         }
     }
     
