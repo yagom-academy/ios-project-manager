@@ -24,7 +24,7 @@ final class PopoverViewCoordinator: Coordinator {
         let popoverVM = PopoverViewModel(selectedTodo: selectedTodo)
         let popoverVC = PopoverViewController(viewModel: popoverVM)
         popoverVC.modalPresentationStyle = .popover
-        popoverVC.popoverPresentationController?.permittedArrowDirections = .up
+        popoverVC.popoverPresentationController?.permittedArrowDirections = .any
         popoverVC.popoverPresentationController?.delegate = targetView
         popoverVC.popoverPresentationController?.sourceView = targetView
         popoverVC.popoverPresentationController?.sourceRect = CGRect(x: location.x,

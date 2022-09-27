@@ -8,6 +8,7 @@
 import Foundation
 
 extension TimeInterval {
+    
     func translateToDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long

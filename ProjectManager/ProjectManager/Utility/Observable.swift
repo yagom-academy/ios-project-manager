@@ -5,7 +5,7 @@
 //  Created by 이원빈 on 2022/09/19.
 //
 
-class Observable<T> {
+final class Observable<T> {
     var value: T? {
         didSet {
             listeners.forEach {
