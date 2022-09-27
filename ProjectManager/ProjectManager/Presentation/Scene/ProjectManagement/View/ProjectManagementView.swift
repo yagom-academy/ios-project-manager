@@ -79,9 +79,11 @@ final class ProjectManagementView: UIView {
     // MARK: - Methods
     
     func configureItem(title: String?,
-                       body: String?) {
+                       body: String?,
+                       date: Date) {
         titleTextField.text = title
         bodyTextView.text = body
+        datePicker.date = date
     }
     
     func makeItems() -> (textArray: [String],

@@ -33,7 +33,8 @@ final class ProjectManagementViewController: UIViewController {
         self.item = item
         
         detailView.configureItem(title: item.title,
-                                            body: item.body)
+                                 body: item.body,
+                                 date: item.date.toDate())
     }
     
     private func configureNavigationItems() {
@@ -54,8 +55,8 @@ final class ProjectManagementViewController: UIViewController {
         if item == nil {
             let newItem = detailView.makeItems()
             let data = viewModel.makeProjectViewModel(id: UUID().description,
-                                                                        state: .todo,
-                                                                        newItem: newItem)
+                                                      state: .todo,
+                                                      newItem: newItem)
             
             delegate?.projectManagementViewController(self,
                                                       createData: data)
@@ -69,8 +70,8 @@ final class ProjectManagementViewController: UIViewController {
         if let item = self.item {
             let newItem = detailView.makeItems()
             let data = viewModel.makeProjectViewModel(id: item.id,
-                                                                        state: item.workState,
-                                                                        newItem: newItem)
+                                                      state: item.workState,
+                                                      newItem: newItem)
             
             delegate?.projectManagementViewController(self,
                                                       updateData: data)
