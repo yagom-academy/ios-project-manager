@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class DoneViewModel: CommonViewModelLogic, ContentEditable, StatusChangable {
+final class DoneViewModel:
+    CommonViewModelLogic,
+    ContentEditable,
+    StatusChangable
+{
     let identifier: String = ProjectStatus.done
     let data: Observable<[ProjectUnit]> = Observable([])
     let databaseManager: LocalDatabaseManager

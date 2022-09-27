@@ -7,7 +7,11 @@
 
 import UIKit
 
-final class ProjectListViewController: UIViewController, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
+final class ProjectListViewController:
+    UIViewController,
+    UIGestureRecognizerDelegate,
+    UIPopoverPresentationControllerDelegate
+{
     enum Schedule {
         case main
     }

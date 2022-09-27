@@ -7,7 +7,12 @@
 
 import Foundation
 
-final class ToDoViewModel: CommonViewModelLogic, ContentAddible, ContentEditable, StatusChangable {
+final class ToDoViewModel:
+    CommonViewModelLogic,
+    ContentAddible,
+    ContentEditable,
+    StatusChangable
+{
     let identifier: String = ProjectStatus.todo
     let data: Observable<[ProjectUnit]> = Observable([])
     let databaseManager: LocalDatabaseManager
