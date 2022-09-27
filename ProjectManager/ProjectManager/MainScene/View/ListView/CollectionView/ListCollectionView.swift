@@ -26,9 +26,10 @@ final class ListCollectionView: UICollectionView {
         super.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         setupInitialView()
         configureDataSource()
-        update(viewModel.list)
+        setupDataSource(with: viewModel.list)
         setupLongGestureRecognizerOnCollection()
-        bind()
+        bindUpdateBehavior()
+        bindMoveBehavior()
     }
     
     required init?(coder: NSCoder) {
@@ -72,12 +73,8 @@ extension ListCollectionView {
     }
     
     private func trailingSwipeActionConfigurationForListCellItem(_ item: Todo) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "delete") { [weak self] (_, _, completion) in
-            guard let self = self else {
-                completion(false)
-                return
-            }
-            self.delete(todo: item)
+        let deleteAction = UIContextualAction(style: .destructive, title: "delete") { (_, _, completion) in
+            TodoDataManager.shared.delete(item)
             completion(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -95,23 +92,41 @@ extension ListCollectionView {
             )
         }
     }
-    // MARK: - Bind
-    private func bind() {
-        viewModel.didUpdatedList = { [weak self](list) in
-            self?.update(list)
-        }
-    }
-
-    func delete(todo: Todo) {
-        snapshot.deleteItems([todo])
-        todoDataSource?.apply(snapshot, animatingDifferences: true)
-        TodoDataManager.shared.delete(todo)
-    }
     
-    func update(_ items: [Todo]) {
+    private func setupDataSource(with items: [Todo]?) {
+        guard let items = items else { return }
         snapshot.deleteAllItems()
         snapshot.appendSections([.main])
         snapshot.appendItems(items, toSection: .main)
+        todoDataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    // MARK: - Bind
+    private func bindUpdateBehavior() {
+        viewModel.performAdd.append({ [weak self] (todo) in
+            self?.add(todo: [todo], in: todo.category)
+        })
+        viewModel.performDelete.append({ [weak self] (todo) in
+            self?.delete(todo: [todo], in: todo.category)
+        })
+    }
+    
+    private func bindMoveBehavior() {
+        viewModel.didMovedList.append { [weak self] (list) in
+            guard list?.first?.category == self?.category else { return }
+            self?.setupDataSource(with: list)
+        }
+    }
+    
+    private func add(todo: [Todo], in category: String) {
+        guard category == self.category else { return }
+        snapshot.appendItems(todo, toSection: .main)
+        todoDataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func delete(todo: [Todo], in category: String) {
+        guard category == self.category else { return }
+        snapshot.deleteItems(todo)
         todoDataSource?.apply(snapshot, animatingDifferences: true)
     }
 }

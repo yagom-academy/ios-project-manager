@@ -18,6 +18,9 @@ final class TodoDataManager {
     var doingList: Observable<[Todo]> = Observable([])
     var doneList: Observable<[Todo]> = Observable([])
     
+    var willDeleteItem: [((Todo) -> Void)?] = []
+    var willAppendItem: [((Todo) -> Void)?] = []
+    
     private init() {
         read()
     }
@@ -38,12 +41,14 @@ final class TodoDataManager {
     }
     
     // MARK: - CRUD
-    func create(with model: Todo) {
-        firebaseManager.add(todo: model)
-        historyManager.addHistory(todo: model, with: .added)
+    func create(with todo: Todo) {
+        willAppendItem.forEach { $0?(todo) }
+        
+        firebaseManager.add(todo: todo)
+        historyManager.addHistory(todo: todo, with: .added)
         do {
             try realm?.write {
-                realm?.add(model)
+                realm?.add(todo)
             }
             read()
         } catch {
@@ -106,6 +111,8 @@ final class TodoDataManager {
     }
     
     func delete(_ todo: Todo) {
+        willDeleteItem.forEach { $0?(todo) }
+        
         historyManager.addHistory(todo: todo,
                                   with: .removed)
         firebaseManager.delete(todo: todo)

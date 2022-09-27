@@ -6,38 +6,47 @@
 //
 
 final class ListCollectionViewModel {
-    var category: String
-    var list: [Todo] = [] {
+    private var category: String
+    var list: [Todo]? = [] {
         didSet {
-            didUpdatedList?(list)
+            didMovedList.forEach { $0?(list) }
         }
     }
-    var didUpdatedList: (([Todo]) -> Void)?
+    var didMovedList: [(([Todo]?) -> Void)?] = []
+    var performAdd: [((Todo) -> Void)?] = []
+    var performDelete: [((Todo) -> Void)?] = []
+    
     init(category: String) {
         self.category = category
-        bind(at: category)
+        bindData(at: category)
+        bindUpdateBehavior()
     }
     
-    func bind(at category: String) {
+    private func bindData(at category: String) {
         switch category {
         case Category.todo:
-            TodoDataManager.shared.todoList.bind { [weak self] (list) in
-                self?.list = list ?? []
+            TodoDataManager.shared.todoList.bind { [weak self] (todoList) in
+                self?.list = todoList
             }
         case Category.doing:
-            TodoDataManager.shared.doingList.bind { [weak self] (list) in
-                self?.list = list ?? []
+            TodoDataManager.shared.doingList.bind { [weak self] (doingList) in
+                self?.list = doingList
             }
         case Category.done:
-            TodoDataManager.shared.doneList.bind { [weak self] (list) in
-                self?.list = list ?? []
+            TodoDataManager.shared.doneList.bind { [weak self] (doneList) in
+                self?.list = doneList
             }
         default:
             return
         }
     }
     
-    func configure(_ view: ListCollectionView) {
-        
+    private func bindUpdateBehavior() {
+        TodoDataManager.shared.willAppendItem.append({ [weak self] (todo) in
+            self?.performAdd.forEach { $0?(todo) }
+        })
+        TodoDataManager.shared.willDeleteItem.append({ [weak self] (todo) in
+            self?.performDelete.forEach { $0?(todo) }
+        })
     }
 }
