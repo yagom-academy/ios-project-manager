@@ -35,8 +35,6 @@ final class ListCell: UICollectionViewCell {
         .setPreferredFont(.footnote)
         .label
     
-    private let viewModel = ListCellViewModel()
-    
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,8 +76,13 @@ final class ListCell: UICollectionViewCell {
         ])
     }
     
-    func setup(with model: Todo) {
-        viewModel.setupData(in: self, with: model)
+    func setupData(with model: Todo) {
+        titleLabel.text = model.title
+        bodyLabel.text = model.body
+        dateLabel.text = model.date.timeIntervalSince1970.translateToDate()
+        if model.date < Date() {
+            dateLabel.textColor = .red
+        }
     }
     
     override func prepareForReuse() {

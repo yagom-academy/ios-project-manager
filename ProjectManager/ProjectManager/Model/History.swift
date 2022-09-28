@@ -12,6 +12,7 @@ enum HistoryStyle {
     case removed
     case moved
 }
+
 struct History {
     let title: String
     let date: Date
