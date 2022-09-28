@@ -13,21 +13,14 @@ final class HeaderViewModel {
     }
     
     func bindListCount(_ completion: @escaping (Int) -> Void) {
-        switch category {
-        case Category.todo:
-            TodoDataManager.shared.todoList.bind { (list) in
-                completion(list?.count ?? 0)
-            }
-        case Category.doing:
-            TodoDataManager.shared.doingList.bind { (list) in
-                completion(list?.count ?? 0)
-            }
-        case Category.done:
-            TodoDataManager.shared.doneList.bind { (list) in
-                completion(list?.count ?? 0)
-            }
-        default:
-            return
+        TodoDataManager.shared.didChangedData.append { [weak self] in
+            guard let self = self else { return }
+            let count = self.fetchCount()
+            completion(count)
         }
+    }
+    
+    func fetchCount() -> Int {
+        TodoDataManager.shared.read(category: category).count
     }
 }
