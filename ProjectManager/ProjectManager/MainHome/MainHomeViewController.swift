@@ -41,9 +41,8 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let value = UIInterfaceOrientation.landscapeLeft.rawValue
-        UIDevice.current.setValue(value, forKey: "orientation")
-
+        fixScreenOrientation()
+        checkNetWork()
         viewModel.fetchDataList()
 
         setUpLabelShape()
@@ -56,6 +55,26 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
     }
 
     // MARK: Method
+    private func fixScreenOrientation() {
+        let value = UIInterfaceOrientation.landscapeLeft.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+    }
+
+    private func checkNetWork() {
+        if NetworkMonitor.shared.isConnected == false {
+            let alertController = UIAlertController(
+                title: "네트워크에 접속할 수 없습니다.",
+                message: "네트워크 연결 상태를 확인해주세요.",
+                preferredStyle: .alert
+            )
+
+            let confirmAction = UIAlertAction(title: "확인", style: .default)
+
+            alertController.addAction(confirmAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+
     private func setUpLabelShape() {
         [todoCountLabel, doingCountLabel, doneCountLabel].forEach {
             $0?.clipsToBounds = true

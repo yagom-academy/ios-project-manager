@@ -16,6 +16,7 @@
 		05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774B28CF807A00E05133 /* TodoFormViewController.swift */; };
 		05BAA00F28CE99680009BB06 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 05BAA00E28CE99680009BB06 /* .swiftlint.yml */; };
 		05BAA01B28CEE67C0009BB06 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA01A28CEE67C0009BB06 /* TaskTableViewCell.swift */; };
+		05BC15BF28E4865B00432AAA /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC15BE28E4865B00432AAA /* NetworkMonitor.swift */; };
 		05C6273128E43C4400B9CBCC /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273028E43C4400B9CBCC /* HistoryViewController.swift */; };
 		05C6273428E43D8000B9CBCC /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273328E43D8000B9CBCC /* HistoryTableViewCell.swift */; };
 		05C6273728E4425A00B9CBCC /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273628E4425A00B9CBCC /* HistoryViewModel.swift */; };
@@ -43,6 +44,7 @@
 		05A5774B28CF807A00E05133 /* TodoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormViewController.swift; sourceTree = "<group>"; };
 		05BAA00E28CE99680009BB06 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		05BAA01A28CEE67C0009BB06 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		05BC15BE28E4865B00432AAA /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		05C6273028E43C4400B9CBCC /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		05C6273328E43D8000B9CBCC /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		05C6273628E4425A00B9CBCC /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		05A5775428CFBD5F00E05133 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				05BC15BD28E4863C00432AAA /* Util */,
 				05D5CBA028D4449300C7BA83 /* Protocol */,
 				05A5775628CFBDF600E05133 /* Database */,
 				05A5775528CFBDCF00E05133 /* Model */,
@@ -151,6 +154,14 @@
 				05BAA01A28CEE67C0009BB06 /* TaskTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		05BC15BD28E4863C00432AAA /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				05BC15BE28E4865B00432AAA /* NetworkMonitor.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		05C6273228E43D4E00B9CBCC /* History */ = {
@@ -398,6 +409,7 @@
 				05A5774428CF088A00E05133 /* DatabaseProtocol.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				05BC15BF28E4865B00432AAA /* NetworkMonitor.swift in Sources */,
 				05A5774A28CF13A300E05133 /* TaskModel.swift in Sources */,
 				05A5774828CF0AE600E05133 /* RealmDatabase.swift in Sources */,
 			);
