@@ -19,4 +19,11 @@ extension ViewModelType {
         let projects = provider.testProjects.filter { $0.status == status }
         projectList.onNext(projects)
     }
+    
+    func selectProject(id: UUID) -> Project? {
+        guard let projects = try? projectList.value() else { return nil }
+        let selectedProject = projects.filter { $0.uuid == id }
+        
+        return selectedProject.first
+    }
 }

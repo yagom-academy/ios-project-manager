@@ -35,6 +35,15 @@ final class TodoViewModel: ViewModelType {
             })
             .disposed(by: disposeBag)
         
+        input.changeStatusAction
+            .bind(onNext: { [weak self] (id, status) in
+                guard var selectedProject = self?.selectProject(id: id) else { return }
+                selectedProject.status = status
+                self?.provider.updateData(project: selectedProject)
+                self?.resetProjectList(status: .todo)
+            })
+            .disposed(by: disposeBag)
+        
         return TodoViewOutput(todoList: projectList)
     }
 }
@@ -42,9 +51,9 @@ final class TodoViewModel: ViewModelType {
 struct TodoViewInput {
     let addAction: Observable<Project>
     let updateAction: Observable<Project>
+    let changeStatusAction: Observable<(UUID, Status)>
 }
 
 struct TodoViewOutput {
     var todoList: Observable<[Project]>
-    var updateAction: Observable<Void>?
 }

@@ -11,6 +11,8 @@ final class TodoTableViewCell: UITableViewCell {
     static let identifier = "CustumCell"
     
     // MARK: - properties
+    
+    var cellID: UUID?
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -64,6 +66,7 @@ final class TodoTableViewCell: UITableViewCell {
 
 extension TodoTableViewCell {
     func setupDataSource(project: Project) {
+        cellID = project.uuid
         titleLabel.text = project.title
         descriptionLabel.text = project.description
         dateLabel.text = project.date.dateString()

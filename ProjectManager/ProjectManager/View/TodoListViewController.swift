@@ -22,6 +22,7 @@ final class TodoListViewController: UIViewController {
     
     private var doneAction = PublishSubject<Project>()
     private var editAction = PublishSubject<Project>()
+    private var changeStatusAction = PublishSubject<(UUID, Status)>()
     
     private var todoViewOutput: TodoViewOutput?
     private var doingViewOutput: DoingViewOutput?
@@ -80,9 +81,14 @@ extension TodoListViewController {
     }
     
     private func setupListsCell() {
-        let todoInput = TodoViewInput(addAction: doneAction, updateAction: editAction)
-        let doingInput = DoingViewInput(updateAction: editAction)
-        let doneInput = DoneViewInput(updateAction: editAction)
+        let todoInput = TodoViewInput(addAction: doneAction,
+                                      updateAction: editAction,
+                                      changeStatusAction: changeStatusAction)
+        let doingInput = DoingViewInput(updateAction: editAction,
+                                        changeStatusAction: changeStatusAction)
+        let doneInput = DoneViewInput(updateAction: editAction,
+                                      changeStatusAction: changeStatusAction)
+        
         todoViewOutput = todoViewModel.transform(todoInput)
         doingViewOutput = doingViewModel.transform(doingInput)
         doneViewOutput = doneViewModel.transform(doneInput)
@@ -138,11 +144,13 @@ extension TodoListViewController {
             .bind(to: doneView.listCountLabel.rx.text)
             .disposed(by: disposeBag)
     }
-
+    
     private func setupListsCellTouchEvent() {
         tableViewItemSelected(view: todoView, viewModel: todoViewModel)
         tableViewItemSelected(view: doingView, viewModel: doingViewModel)
         tableViewItemSelected(view: doneView, viewModel: doneViewModel)
+        
+        setupLongPressAction()
     }
     
     private func tableViewItemSelected(view: ListView, viewModel: ViewModelType) {
@@ -195,6 +203,40 @@ extension TodoListViewController {
             })
             .disposed(by: disposeBag)
     }
+    
+    private func setupLongPressAction() {
+        let todoViewLongPress = UILongPressGestureRecognizer(target: self, action: #selector(todoViewLongPress(_:)))
+        self.todoView.tableView.addGestureRecognizer(todoViewLongPress)
+        todoViewLongPress.minimumPressDuration = 1
+        
+        let doingViewLongPress = UILongPressGestureRecognizer(target: self, action: #selector(doingViewLongPress(_:)))
+        self.doingView.tableView.addGestureRecognizer(doingViewLongPress)
+        doingViewLongPress.minimumPressDuration = 1
+        
+        let doneViewLongPress = UILongPressGestureRecognizer(target: self, action: #selector(doneViewLongPress(_:)))
+        self.doneView.tableView.addGestureRecognizer(doneViewLongPress)
+        doneViewLongPress.minimumPressDuration = 1
+    }
+    
+    private func longPressAction(status: Status, cell: TodoTableViewCell, sourceView: UIView?) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.modalPresentationStyle = .popover
+        
+        Status.allCases.filter { $0 != status }
+            .forEach { status in
+                let moveToAction = UIAlertAction(title: "moveTo\(status.upperCasedString)",
+                                                 style: .default) { [weak self] _ in
+                    guard let id = cell.cellID else { return }
+                    self?.changeStatusAction.onNext((id, status))
+                }
+                alertController.addAction(moveToAction)
+            }
+        
+        guard let popController = alertController.popoverPresentationController else { return }
+        popController.permittedArrowDirections = []
+        popController.sourceView = sourceView
+        self.navigationController?.present(alertController, animated: true)
+    }
 }
 
 // MARK: - objc functions
@@ -207,6 +249,33 @@ extension TodoListViewController {
         projectViewController.modalPresentationStyle = .formSheet
         let projectAddViewController = UINavigationController(rootViewController: projectViewController)
         present(projectAddViewController, animated: true)
+    }
+    
+    @objc func todoViewLongPress(_ guesture: UILongPressGestureRecognizer) {
+        let point = guesture.location(in: todoView.tableView)
+        guard let indexPath = self.todoView.tableView.indexPathForRow(at: point),
+        let cell = self.todoView.tableView.cellForRow(at: indexPath) as? TodoTableViewCell else { return }
+        if guesture.state == UIGestureRecognizer.State.began {
+            longPressAction(status: .todo, cell: cell, sourceView: guesture.view)
+        }
+    }
+    
+    @objc func doingViewLongPress(_ guesture: UILongPressGestureRecognizer) {
+        let point = guesture.location(in: doingView.tableView)
+        guard let indexPath = self.doingView.tableView.indexPathForRow(at: point),
+        let cell = self.doingView.tableView.cellForRow(at: indexPath) as? TodoTableViewCell else { return }
+        if guesture.state == UIGestureRecognizer.State.began {
+            longPressAction(status: .doing, cell: cell, sourceView: guesture.view)
+        }
+    }
+    
+    @objc func doneViewLongPress(_ guesture: UILongPressGestureRecognizer) {
+        let point = guesture.location(in: doneView.tableView)
+        guard let indexPath = self.doneView.tableView.indexPathForRow(at: point),
+        let cell = self.doneView.tableView.cellForRow(at: indexPath) as? TodoTableViewCell else { return }
+        if guesture.state == UIGestureRecognizer.State.began {
+            longPressAction(status: .done, cell: cell, sourceView: guesture.view)
+        }
     }
 }
 

@@ -5,7 +5,7 @@
 //  Created by bonf on 2022/09/14.
 //
 
-enum Status: Int {
+enum Status: Int, CaseIterable {
     case todo
     case doing
     case done

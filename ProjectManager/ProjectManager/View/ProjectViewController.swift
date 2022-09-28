@@ -23,9 +23,6 @@ final class ProjectViewController: UIViewController {
     let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
                                        target: nil,
                                        action: nil)
-    
-    var viewModel: ViewModelType?
-    
     private var id: UUID?
     private var status: Status?
     

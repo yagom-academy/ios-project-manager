@@ -28,12 +28,22 @@ final class DoingViewModel: ViewModelType {
             })
             .disposed(by: disposeBag)
         
+        input.changeStatusAction
+            .bind(onNext: { [weak self] (id, status) in
+                guard var selectedProject = self?.selectProject(id: id) else { return }
+                selectedProject.status = status
+                self?.provider.updateData(project: selectedProject)
+                self?.resetProjectList(status: .doing)
+            })
+            .disposed(by: disposeBag)
+        
         return DoingViewOutput(doingList: projectList)
     }
 }
 
 struct DoingViewInput {
     let updateAction: Observable<Project>
+    let changeStatusAction: Observable<(UUID, Status)>
 }
 
 struct DoingViewOutput {
