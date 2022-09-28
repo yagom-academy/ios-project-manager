@@ -124,7 +124,8 @@ extension TodoListView {
             (TodoCategory.done, self.todoListViewModel.doneData)
         )
         .observe(on: MainScheduler.instance)
-        .filter { $0.0 == self.todoStatus }
+        .filter { (todoCategory) -> Bool in
+            todoCategory.0 == self.todoStatus }
         .flatMap { $0.1 }
         .map { String($0.count) }
         .bind(to: self.todoCircleNumber.rx.text)
@@ -136,7 +137,8 @@ extension TodoListView {
             (TodoCategory.done, self.todoListViewModel.doneData)
         )
         .observe(on: MainScheduler.instance)
-        .filter { $0.0 == self.todoStatus }
+        .filter { (todoCategory) -> Bool in
+            todoCategory.0 == self.todoStatus }
         .flatMap { $0.1 }
         .asDriver(onErrorJustReturn: [])
         .drive(self.registTableView.rx.items) { registTableView, row, tododata in
