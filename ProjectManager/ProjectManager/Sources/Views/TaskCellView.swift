@@ -25,10 +25,19 @@ struct TaskCellView: View {
                     .lineLimit(3)
                 
                 Text(task.dueDate, formatter: Date.formatter)
+                    .foregroundColor(isOver(task.dueDate) ? .red : .primary)
             }
             .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+    
+    private func isOver(_ dueDate: Date) -> Bool {
+        if dueDate < Date.now && !Calendar.current.isDateInToday(dueDate) {
+            return true
+        }
+        
+        return false
     }
 }
 
