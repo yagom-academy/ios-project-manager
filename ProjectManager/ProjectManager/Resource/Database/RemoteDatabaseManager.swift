@@ -23,17 +23,15 @@ final class RemoteDatabaseManager {
     func fetch(completion: @escaping (([ProjectUnit]) -> Void)) {
         reference.child("ProjectList").getData { error, snapshot in
             guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
-
-            let sample: [String: Any] = snapshot?.value as? [String: Any] ?? ["": ""]
-            
-            guard let fetchedData: [ProjectUnit] = JSONManager.shared.decodeToArray(data: sample) else {
                 return
             }
             
-            completion(fetchedData)
+            guard let fetchedData: [String: Any] = snapshot?.value as? [String: Any],
+                  let decodedData: [ProjectUnit] = JSONManager.shared.decodeToArray(data: fetchedData) else {
+                return
+            }
+            
+            completion(decodedData)
         }
     }
 
