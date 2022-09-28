@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectUnit: Hashable {
+struct ProjectUnit: Hashable, Codable {
     let id: UUID
     var title: String
     var body: String
