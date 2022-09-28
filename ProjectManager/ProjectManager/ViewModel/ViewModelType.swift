@@ -16,7 +16,8 @@ protocol ViewModelType {
 
 extension ViewModelType {
     func resetProjectList(status: Status) {
-        let projects = provider.testProjects.filter { $0.status == status }
+        guard let allProjects = try? provider.allProjectList.value() else { return }
+        let projects = allProjects.filter { $0.status == status }
         projectList.onNext(projects)
     }
     

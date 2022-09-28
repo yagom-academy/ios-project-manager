@@ -17,8 +17,7 @@ final class DoneViewModel: ViewModelType {
     let disposeBag = DisposeBag()
     
     init() {
-        let projects = provider.testProjects.filter { $0.status == .done }
-        self.projectList.onNext(projects)
+        resetProjectList(status: .done)
     }
     
     func transform(_ input: DoneViewInput) -> DoneViewOutput {
