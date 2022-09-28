@@ -16,17 +16,18 @@ struct UseCase: ProjectUseCase, ProjectTranslator {
         repository.create(data: translateToProjectModel(with: data))
     }
     
-    func read() -> [ProjectViewModel] {
-        let models = repository.read().map {
-            translateToProjectViewModel(with: $0)
+    func read(completionHandler: @escaping ([ProjectViewModel]) -> Void) {
+        repository.read { models in
+            let viewModels = models.map {
+                translateToProjectViewModel(with: $0)
+            }
+           
+            completionHandler(viewModels)
         }
-        
-        return models
     }
     
     mutating func update(id: String,
                          data: ProjectViewModel) {
-        
         repository.update(id: id,
                           data: translateToProjectModel(with: data))
     }

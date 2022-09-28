@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectModel: Decodable {
+struct ProjectModel: Codable {
     let id: String
     let title: String
     let body: String

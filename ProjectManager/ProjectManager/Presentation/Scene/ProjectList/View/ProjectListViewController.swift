@@ -31,6 +31,7 @@ final class ProjectListViewController: UIViewController {
         configureLongPressGestureRecognizer()
         configureNavigationItems()
         configureMainView()
+        viewModel.reloadLists()
     }
     
     // MARK: - Methods
@@ -60,7 +61,7 @@ final class ProjectListViewController: UIViewController {
                                                      action: #selector(longPressDidTap))
         longPress.minimumPressDuration = Design.longPressGestureMinimumPressDuration
         
-        view.addGestureRecognizer(longPress)
+        listView.addGestureRecognizer(longPress)
     }
     
     @objc
@@ -183,7 +184,7 @@ extension ProjectListViewController: UITableViewDelegate {
         guard let state = retrieveState(tableView: tableView) else { return nil }
         
         let deleteSwipeAction = viewModel.makeSwipeActions(state: state,
-                                                            indexPath: indexPath)
+                                                           indexPath: indexPath)
         
         return UISwipeActionsConfiguration(actions: deleteSwipeAction)
     }
@@ -196,6 +197,7 @@ extension ProjectListViewController: ProjectManagementViewControllerDelegate {
                                          createData: ProjectViewModel) {
         viewModel.create(data: createData)
     }
+    
     func projectManagementViewController(_ viewController: ProjectManagementViewController,
                                          updateData: ProjectViewModel) {
         viewModel.update(id: updateData.id,

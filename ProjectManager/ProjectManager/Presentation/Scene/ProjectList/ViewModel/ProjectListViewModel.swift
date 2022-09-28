@@ -115,7 +115,7 @@ final class ProjectListViewModel {
         let item = retrieveItems(state: state)[indexPath.row]
         cell.setItems(title: item.title,
                       body: item.body,
-                      date: item.date,
+                      date: item.date.convertDateLocalization(),
                       dateColor: retrieveDateLabelColor(data: item.date))
     }
     
@@ -123,7 +123,7 @@ final class ProjectListViewModel {
         let date = stringDate.toDate()
         let currentDate = Date()
         
-        if stringDate != currentDate.convertLocalization() && date < currentDate {
+        if stringDate.convertDateLocalization() != currentDate.convertLocalization() && date < currentDate {
             return .systemRed
         }
         
@@ -176,8 +176,10 @@ final class ProjectListViewModel {
         reloadLists()
     }
     
-    private func read() -> [ProjectViewModel] {
-        return useCase.read()
+    private func read(completionHandler: @escaping ([ProjectViewModel]) -> Void) {
+        useCase.read { viewModels in
+            completionHandler(viewModels)
+        }
     }
     
     func update(id: String,
@@ -206,17 +208,23 @@ final class ProjectListViewModel {
     
     // MARK: - Methods
     
-    private func reloadLists() {
-        todoList.value = read().filter {
-            $0.workState == .todo
-        }
-        
-        doingList.value = read().filter {
-            $0.workState == .doing
-        }
-        
-        doneList.value = read().filter {
-            $0.workState == .done
+    func reloadLists() {
+        read { [weak self] viewModels in
+            let list = viewModels.sorted {
+                $0.date.toDate() < $1.date.toDate()
+            }
+            
+            self?.todoList.value = list.filter {
+                $0.workState == .todo
+            }
+            
+            self?.doingList.value = list.filter {
+                $0.workState == .doing
+            }
+            
+            self?.doneList.value = list.filter {
+                $0.workState == .done
+            }
         }
     }
 }

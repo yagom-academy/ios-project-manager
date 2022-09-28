@@ -27,7 +27,7 @@ extension ProjectTranslator {
         let model = ProjectViewModel(id: data.id,
                                      title: data.title,
                                      body: data.body,
-                                     date: data.date.convertLocalization(),
+                                     date: data.date.toString(),
                                      workState: data.workState)
         
         return model

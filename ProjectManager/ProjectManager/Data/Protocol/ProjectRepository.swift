@@ -7,7 +7,7 @@
 
 protocol ProjectRepository {
     mutating func create(data: ProjectModel)
-    func read() -> [ProjectModel]
+    func read(completionHandler: @escaping ([ProjectModel]) -> Void) 
     mutating func update(id: String,
                          data: ProjectModel)
     mutating func delete(id: String)

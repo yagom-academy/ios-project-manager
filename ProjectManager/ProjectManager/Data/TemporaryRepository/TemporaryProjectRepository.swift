@@ -16,8 +16,8 @@ struct TemporaryProjectRepository: ProjectRepository {
         projectModels.append(data)
     }
     
-    func read() -> [ProjectModel] {
-        return projectModels
+    func read(completionHandler: @escaping ([ProjectModel]) -> Void) {
+        completionHandler(projectModels)
     }
     
     mutating func update(id: String,

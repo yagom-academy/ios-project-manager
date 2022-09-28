@@ -7,7 +7,7 @@
 
 protocol ProjectUseCase {
     mutating func create(data: ProjectViewModel)
-    func read() -> [ProjectViewModel]
+    func read(completionHandler: @escaping ([ProjectViewModel]) -> Void)
     mutating func update(id: String,
                          data: ProjectViewModel)
     mutating func delete(id: String)

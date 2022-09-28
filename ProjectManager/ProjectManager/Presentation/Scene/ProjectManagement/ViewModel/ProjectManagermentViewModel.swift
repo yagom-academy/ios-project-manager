@@ -21,7 +21,7 @@ final class ProjectManagermentViewModel {
         let data = ProjectViewModel(id: id,
                                     title: newItem.textArray.first ?? Design.defaultText,
                                     body: newItem.textArray.last ?? Design.defaultText,
-                                    date: newItem.date.convertLocalization(),
+                                    date: newItem.date.toString(),
                                     workState: state)
         
         return data
