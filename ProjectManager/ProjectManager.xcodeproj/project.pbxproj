@@ -36,6 +36,9 @@
 		37ECB00D28E2F6E6005A557A /* FirebaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECB00C28E2F6E6005A557A /* FirebaseRepository.swift */; };
 		37ECB01028E2F8B7005A557A /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECB00F28E2F8B7005A557A /* FirebaseError.swift */; };
 		37ECB01428E2FB01005A557A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37ECB01328E2FB01005A557A /* GoogleService-Info.plist */; };
+		37ECB02028E41983005A557A /* ProjectCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37ECB01E28E41983005A557A /* ProjectCoreDataModel.xcdatamodeld */; };
+		37ECB02328E41A0E005A557A /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECB02128E41A0E005A557A /* Project+CoreDataClass.swift */; };
+		37ECB02428E41A0E005A557A /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECB02228E41A0E005A557A /* Project+CoreDataProperties.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -68,6 +71,9 @@
 		37ECB00C28E2F6E6005A557A /* FirebaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRepository.swift; sourceTree = "<group>"; };
 		37ECB00F28E2F8B7005A557A /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		37ECB01328E2FB01005A557A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		37ECB01F28E41983005A557A /* ProjectCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		37ECB02128E41A0E005A557A /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		37ECB02228E41A0E005A557A /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -233,6 +239,7 @@
 		37D3191828D85024006A2DB0 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				37ECB01D28E4195E005A557A /* CoreData */,
 				37ECB00928E2F650005A557A /* Firebase */,
 				37D3191C28D850AF006A2DB0 /* Protocol */,
 				37D3191928D85036006A2DB0 /* TemporaryRepository */,
@@ -300,9 +307,19 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		37ECB01D28E4195E005A557A /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				37ECB01E28E41983005A557A /* ProjectCoreDataModel.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				37ECB02128E41A0E005A557A /* Project+CoreDataClass.swift */,
+				37ECB02228E41A0E005A557A /* Project+CoreDataProperties.swift */,
 				37038F7A28C77A9D008D3921 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
@@ -434,12 +451,14 @@
 				37D3191328D833BA006A2DB0 /* ProjectListViewController.swift in Sources */,
 				37ECB00B28E2F66B005A557A /* FirebaseManager.swift in Sources */,
 				37D3191728D833BA006A2DB0 /* ProjectTableViewCell.swift in Sources */,
+				37ECB02328E41A0E005A557A /* Project+CoreDataClass.swift in Sources */,
 				37ECB00D28E2F6E6005A557A /* FirebaseRepository.swift in Sources */,
 				37BEFC8E28DC1CD60026F8CC /* String+toDate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				37BEFC9328DC4C7A0026F8CC /* ProjectManagermentViewModel.swift in Sources */,
 				378F990C28D06D0400B4B8D6 /* Date+toString.swift in Sources */,
 				37BEFC8C28DBDB770026F8CC /* Observable.swift in Sources */,
+				37ECB02428E41A0E005A557A /* Project+CoreDataProperties.swift in Sources */,
 				37ECB01028E2F8B7005A557A /* FirebaseError.swift in Sources */,
 				37D3191528D833BA006A2DB0 /* ProjectListViewModel.swift in Sources */,
 				37D3191E28D850BC006A2DB0 /* TemporaryProjectRepository.swift in Sources */,
@@ -453,6 +472,7 @@
 				37038F8828C9EC46008D3921 /* ProjectModel.swift in Sources */,
 				37D3192628D85708006A2DB0 /* ProjectTranslator.swift in Sources */,
 				37D3190628D77DD6006A2DB0 /* ProjectUseCase.swift in Sources */,
+				37ECB02028E41983005A557A /* ProjectCoreDataModel.xcdatamodeld in Sources */,
 				37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */,
 				37B39FB028CF2153008796AD /* ProjectManagementViewController.swift in Sources */,
 				37038F9428CA0F45008D3921 /* UseCase.swift in Sources */,
@@ -673,6 +693,19 @@
 			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		37ECB01E28E41983005A557A /* ProjectCoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				37ECB01F28E41983005A557A /* ProjectCoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 37ECB01F28E41983005A557A /* ProjectCoreDataModel.xcdatamodel */;
+			path = ProjectCoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
