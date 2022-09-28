@@ -85,6 +85,6 @@ extension TodoListCell: ReuseIdentifying {
     func configure(todoData: TodoModel) {
         self.titleLabel.text = todoData.title
         self.bodyLabel.text = todoData.body
-        self.dateLabel.text = DateManager().formatted(date: todoData.createdAt)
+        self.dateLabel.text = todoData.createdAt.formatted()
     }
 }

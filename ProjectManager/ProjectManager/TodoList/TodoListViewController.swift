@@ -14,7 +14,6 @@ class TodoListViewController: UIViewController {
     private let doingListView: TodoListView
     private let doneListView: TodoListView
     private var coordinator: ApplyCoordinator?
-    private let realm = try! Realm()
     private let disposeBag = DisposeBag()
     
     private let todoTableStackView: UIStackView = {

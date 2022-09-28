@@ -18,7 +18,6 @@ class RealmDatabaseManager {
     func create(todoData: TodoModel) {
         try? realm?.write {
             realm?.add(todoData.convertDatabaseTodo())
-            print(Realm.Configuration.defaultConfiguration.fileURL!)
         }
     }
     
