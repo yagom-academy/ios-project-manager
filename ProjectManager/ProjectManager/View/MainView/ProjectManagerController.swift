@@ -35,6 +35,7 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        observeNetworkConnect()
         configureNavigationItems()
         configureUI()
         configureObservers()
@@ -148,5 +149,22 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
         configureObserver(in: toDoViewModel)
         configureObserver(in: doingViewModel)
         configureObserver(in: doneViewModel)
+    }
+    
+    private func observeNetworkConnect() {
+        NetworkObserver.shared.startObserving(completion: { isConnected in
+            if isConnected == true {
+                return
+            } else {
+                let alert = UIAlertController(title: "연결 실패", message: "네트워트 연결에 실패했습니다.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+                
+                alert.addAction(action)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true)
+                }
+            }
+        })
+        NetworkObserver.shared.stopObserving()
     }
 }
