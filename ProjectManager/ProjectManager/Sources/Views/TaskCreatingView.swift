@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskCreatingView: View {
+struct TaskCreatingView: View, TaskWritableView {
     
     @EnvironmentObject private var tasksDataSource: TasksDataSource
     
@@ -17,44 +17,24 @@ struct TaskCreatingView: View {
     
     var body: some View {
         VStack {
-            HStack() {
-                Image(systemName: "calendar")
-                
-                DatePicker("", selection: $newTask.dueDate, in: Date()..., displayedComponents: .date)
-                    .environment(\.locale, Locale.init(identifier: "ko"))
-                    .labelsHidden()
-            }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding(.horizontal)
-            .padding(.bottom, 1)
+            datePickerView(withSelection: $newTask.dueDate)
             
-            Group {
-                TextField("할 일의 제목을 입력해주세요", text: $newTask.title)
-                    .frame(height: 55)
-                    .padding(.horizontal, 4)
-                
-                TaskDescriptionView(description: $newTask.description)
-                    .frame(maxHeight: 500)
-                    .padding(.top, 10)
-                    .overlay(alignment: .topLeading) {
-                        if newTask.description.isEmpty {
-                            Text("필요한 경우 상세설명을 적어주세요")
-                                .foregroundColor(.gray.opacity(0.5))
-                                .padding(.top, 20)
-                        }
-                    }
-            }
-            .padding(.horizontal)
-            .background(Color(UIColor.secondarySystemBackground))
-            .cornerRadius(10)
-            .padding(.horizontal)
+            taskWritingViews(title: $newTask.title, description: $newTask.description)
             
-            SquareButtonView(label: "저장", color: Color.accentColor) {
-                tasksDataSource.todoTasks.append(newTask)
-                isShowingSheet.toggle()
-            }
-            .padding(.horizontal)
+            saveButton()
+                .padding(.horizontal)
         }
+    }
+}
+
+private extension TaskCreatingView {
+    
+    func saveButton() -> some View {
+        SquareButtonView(label: "저장", color: Color.accentColor) {
+            tasksDataSource.todoTasks.append(newTask)
+            isShowingSheet.toggle()
+        }
+        .padding(.horizontal)
     }
 }
 

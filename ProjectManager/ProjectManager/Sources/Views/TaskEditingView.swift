@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskEditingView: View {
+struct TaskEditingView: View, TaskWritableView {
     
     @EnvironmentObject private var tasksDataSource: TasksDataSource
     
@@ -18,50 +18,35 @@ struct TaskEditingView: View {
     
     var body: some View {
         VStack {
-            HStack() {
-                Image(systemName: "calendar")
-                
-                DatePicker("", selection: $selectedTask.dueDate, in: Date()..., displayedComponents: .date)
-                    .environment(\.locale, Locale.init(identifier: "ko"))
-                    .labelsHidden()
-            }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding(.horizontal)
-            .padding(.bottom, 1)
-            
             Group {
-                TextField("할 일의 제목을 입력해주세요", text: $selectedTask.title)
-                    .frame(height: 55)
-                    .padding(.horizontal, 4)
+                datePickerView(withSelection: $selectedTask.dueDate)
                 
-                TaskDescriptionView(description: $selectedTask.description)
-                    .frame(maxHeight: 500)
-                    .padding(.top, 10)
-                    .overlay(alignment: .topLeading) {
-                        if selectedTask.description.isEmpty {
-                            Text("필요한 경우 상세설명을 적어주세요")
-                                .foregroundColor(.gray.opacity(0.5))
-                                .padding(.top, 20)
-                        }
-                    }
+                taskWritingViews(title: $selectedTask.title, description: $selectedTask.description)
             }
             .disabled(isEditingDisable)
-            .padding(.horizontal)
-            .background(Color(UIColor.secondarySystemBackground))
-            .cornerRadius(10)
-            .padding(.horizontal)
             
             HStack {
-                SquareButtonView(label: "수정", color: .gray) {
-                    isEditingDisable.toggle()
-                }
+                editButton()
                 
-                SquareButtonView(label: "저장", color: Color.accentColor) {
-                    tasksDataSource.replaceOriginalTask(with: selectedTask)
-                    isShowingSheet.toggle()
-                }
+                saveButton()
             }
             .padding(.horizontal)
+        }
+    }
+}
+
+private extension TaskEditingView {
+    
+    func saveButton() -> some View {
+        SquareButtonView(label: "저장", color: Color.accentColor) {
+            tasksDataSource.replaceOriginalTask(with: selectedTask)
+            isShowingSheet.toggle()
+        }
+    }
+    
+    func editButton() -> some View {
+        SquareButtonView(label: "수정", color: .gray) {
+            isEditingDisable.toggle()
         }
     }
 }
