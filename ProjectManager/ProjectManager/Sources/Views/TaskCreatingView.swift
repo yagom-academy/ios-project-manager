@@ -31,7 +31,9 @@ private extension TaskCreatingView {
     
     func saveButton() -> some View {
         SquareButtonView(label: "저장", color: Color.accentColor) {
-            tasksDataSource.todoTasks.append(newTask)
+            withAnimation(.spring()) {
+                tasksDataSource.todoTasks.append(newTask)
+            }
             isShowingSheet.toggle()
         }
         .padding(.horizontal)

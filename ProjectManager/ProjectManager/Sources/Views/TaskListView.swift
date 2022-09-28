@@ -63,21 +63,27 @@ struct TaskListView: View {
         switch status {
         case .todo:
             return Button {
-                tasksDataSource.transfer(selectedTask: task, to: .todo)
+                withAnimation(.spring()) {
+                    tasksDataSource.transfer(selectedTask: task, to: .todo)
+                }
             } label: {
                 Label("Move to\nTODO", systemImage: "circle")
             }
             .tint(.red)
         case .doing:
             return Button {
-                tasksDataSource.transfer(selectedTask: task, to: .doing)
+                withAnimation(.spring()) {
+                    tasksDataSource.transfer(selectedTask: task, to: .doing)
+                }
             } label: {
                 Label("Move to\nDOING", systemImage: "circle.circle")
             }
             .tint(.yellow)
         case .done:
             return Button {
-                tasksDataSource.transfer(selectedTask: task, to: .done)
+                withAnimation(.spring()) {
+                    tasksDataSource.transfer(selectedTask: task, to: .done)
+                }
             } label: {
                 Label("Move to\nDONE", systemImage: "circle.inset.filled")
             }
@@ -87,7 +93,9 @@ struct TaskListView: View {
     
     func swipeButtonForDeletion(of task: Task) -> some View {
         Button(role: .destructive) {
-            tasksDataSource.deleteOriginalTask(equivalentTo: task)
+            withAnimation(.spring())  {
+                tasksDataSource.deleteOriginalTask(equivalentTo: task)
+            }
         } label: {
             Label("Delete", systemImage: "trash.circle.fill")
         }

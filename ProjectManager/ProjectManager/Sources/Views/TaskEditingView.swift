@@ -39,7 +39,9 @@ private extension TaskEditingView {
     
     func saveButton() -> some View {
         SquareButtonView(label: "저장", color: Color.accentColor) {
-            tasksDataSource.replaceOriginalTask(with: selectedTask)
+            withAnimation(.spring())  {
+                tasksDataSource.replaceOriginalTask(with: selectedTask)
+            }
             isShowingSheet.toggle()
         }
     }
