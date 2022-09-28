@@ -22,7 +22,7 @@ struct TodoModel {
         self.createdAt = createdAt
     }
     
-    func convertDatabaseTodo() -> TodoLocalModel {
-        return TodoLocalModel(id: self.id, category: self.category, title: self.title, body: self.body, createdAt: self.createdAt)
+    func convertDatabaseTodo() -> TodoEntityModel {
+        return TodoEntityModel(id: self.id, category: self.category, title: self.title, body: self.body, createdAt: self.createdAt)
     }
 }

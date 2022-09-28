@@ -24,14 +24,14 @@ class RealmDatabaseManager {
     
     func read() -> [TodoModel] {
         var todoListArray: [TodoModel] = []
-        realm?.objects(TodoLocalModel.self).forEach {
+        realm?.objects(TodoEntityModel.self).forEach {
             todoListArray.append($0.convertTodoModel())
         }
         return todoListArray
     }
     
     func update(updateData: TodoModel) {
-        let checkData = realm?.objects(TodoLocalModel.self).filter({$0.id == updateData.id}).first
+        let checkData = realm?.objects(TodoEntityModel.self).filter({$0.id == updateData.id}).first
         
         if checkData != nil {
             try? realm?.write({
@@ -45,7 +45,7 @@ class RealmDatabaseManager {
     }
     
     func delete(deleteID: UUID) {
-        guard let checkData = realm?.objects(TodoLocalModel.self).filter({ $0.id == deleteID }).first else {
+        guard let checkData = realm?.objects(TodoEntityModel.self).filter({ $0.id == deleteID }).first else {
             return
         }
         

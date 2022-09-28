@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class TodoLocalModel: Object {
+class TodoEntityModel: Object {
     @Persisted dynamic var id: UUID
     @Persisted dynamic var category: String
     @Persisted dynamic var title: String

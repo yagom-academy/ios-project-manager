@@ -64,7 +64,7 @@ class TodoDetailViewController: UIViewController {
     
     private let rightBarButton = UIBarButtonItem( title: TodoDetailButtonType.done, style: .plain, target: nil, action: nil)
     
-    init(pickTodo: TodoModel?,todoCategory: TodoCategory, todoDetailType: TodoDetailType, todoDetailViewModel: TodoDetailViewModel, coordinator: ApplyCoordinator) {
+    init(pickTodo: TodoModel?, todoCategory: TodoCategory, todoDetailType: TodoDetailType, todoDetailViewModel: TodoDetailViewModel, coordinator: ApplyCoordinator) {
         self.pickTodo = pickTodo
         self.todoCategory = todoCategory
         self.todoDetailType = todoDetailType
@@ -82,7 +82,7 @@ class TodoDetailViewController: UIViewController {
         self.addNavigationBar()
         self.addTodoDetailStackView()
         self.setupConstraint()
-        self.fetchNavigationBarButton()
+        self.fetchLeftNavigationBarButtonTitle()
         self.prepareTodoUI()
         self.bind()
     }
@@ -93,7 +93,7 @@ class TodoDetailViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = self.rightBarButton
     }
     
-    private func fetchNavigationBarButton() {
+    private func fetchLeftNavigationBarButtonTitle() {
         self.leftBarButton.title = self.todoDetailType == .newTodo ? TodoDetailButtonType.cancel : TodoDetailButtonType.edit
     }
     
