@@ -9,14 +9,8 @@ import RealmSwift
 import Combine
 
 class RealmManager: ObservableObject {
-    private let app: App
-    static let shared = RealmManager()
-
+    private let app: App = App(id: "application-0-rynak")
     var realm: Realm?
-
-    private init() {
-        self.app = App(id: "application-0-rynak")
-    }
 
     func initialize() {
         Task {
@@ -28,41 +22,19 @@ class RealmManager: ObservableObject {
             print("🤯 \(user.id)")
             await openSyncedRealm(user: user)
 
-            guard let realm = realm else {
-                print("❌ realm nil")
-                return
-            }
-
 //            let subscriptions = realm.subscriptions
 //            try await subscriptions.update {
 //                subscriptions.append(QuerySubscription<RealmDatabaseModel>(name: "all_RealmDatabaseModels"))
 //            }
-
-            let model = RealmDatabaseModel(
-                title: "유유아이디1",
-                description: "테스트중4",
-                deadline: "2022.09.28",
-                state: TaskState.todo.name
-            )
-
-            do {
-                try realm.write({
-                    realm.add(model)
-                    print("🤩")
-                })
-                print("🥳")
-            } catch {
-                print("❌ 추가 실패")
-            }
         }
     }
 
-    func getUser() async throws -> User {
+    private func getUser() async throws -> User {
         let user = try await app.login(credentials: .emailPassword(email: "admin@test.com", password: "test1234"))
         return user
     }
 
-    func openSyncedRealm(user: User) async {
+    private func openSyncedRealm(user: User) async {
         do {
             var config = user.flexibleSyncConfiguration { sub in
                 sub.append(QuerySubscription<RealmDatabaseModel> {

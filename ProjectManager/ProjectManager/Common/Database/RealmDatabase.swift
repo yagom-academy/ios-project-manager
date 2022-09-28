@@ -19,6 +19,7 @@ class RealmDatabase: DatabaseProtocol {
         )
 
         guard let realm = realm else {
+            print("❌ create 메서드 realm 가져오기 실패")
             return
         }
 
@@ -33,6 +34,7 @@ class RealmDatabase: DatabaseProtocol {
 
     func read() -> [TaskModel] {
         guard let realm = realm else {
+            print("❌ read 메서드 realm 가져오기 실패")
             return [TaskModel]()
         }
 
@@ -53,6 +55,7 @@ class RealmDatabase: DatabaseProtocol {
     func update(data: TaskModel) {
         guard let realm = realm,
               let searchData = search(data: data) as? RealmDatabaseModel else {
+            print("❌ update 메서드 realm 가져오기 실패")
             return
         }
 
@@ -71,6 +74,7 @@ class RealmDatabase: DatabaseProtocol {
     func delete(data: TaskModel) {
         guard let realm = realm,
               let searchData = search(data: data) as? RealmDatabaseModel else {
+            print("❌ delete 메서드 realm 가져오기 실패")
             return
         }
 
@@ -85,6 +89,7 @@ class RealmDatabase: DatabaseProtocol {
 
     func deleteAll() {
         guard let realm = realm else {
+            print("❌ deleteAll 메서드 realm 가져오기 실패")
             return
         }
 
@@ -100,6 +105,7 @@ class RealmDatabase: DatabaseProtocol {
     func search(data: TaskModel) -> AnyObject? {
         guard let realm = realm,
               let id = data.id else {
+            print("❌ search 메서드 realm 가져오기 실패")
             return nil
         }
 

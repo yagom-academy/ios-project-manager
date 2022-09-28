@@ -23,8 +23,6 @@ class MainHomeViewController: UIViewController {
         presentTodoForm()
     }
 
-    //private var realmManager = RealmManager.shared
-
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +38,6 @@ class MainHomeViewController: UIViewController {
         setUpGestureEvent()
 
         bind()
-
-        //realmManager.initialize()
     }
 
     // MARK: Method
