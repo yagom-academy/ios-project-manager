@@ -25,7 +25,7 @@ final class RemoteDatabaseManager {
         if let jsonData = jsonData,
            let jsonString = String(data: jsonData, encoding: .utf8),
            let dicData = try? JSONSerialization.jsonObject(with: Data(jsonString.utf8), options: []) as? [String: Any] {
-            reference.child("ProjectList").child("\(data.id)").setValue(jsonString)
+            reference.child("ProjectList").child("\(data.id)").setValue(dicData)
         }
     }
 
@@ -59,7 +59,7 @@ final class RemoteDatabaseManager {
         if let jsonData = jsonData,
            let jsonString = String(data: jsonData, encoding: .utf8),
            let dicData = try? JSONSerialization.jsonObject(with: Data(jsonString.utf8), options: []) as? [String: Any] {
-            reference.child("ProjectList").child("\(data.id)").setValue(jsonString)
+            reference.child("ProjectList").child("\(data.id)").setValue(dicData)
         }
     }
 
