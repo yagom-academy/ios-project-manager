@@ -24,7 +24,7 @@ struct TaskCellView: View {
                     .foregroundColor(.gray)
                     .lineLimit(3)
                 
-                Text(task.dueDate.localizedFormat())
+                Text(task.dueDate, formatter: Date.formatter)
             }
             .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
             .frame(maxWidth: .infinity, alignment: .leading)
