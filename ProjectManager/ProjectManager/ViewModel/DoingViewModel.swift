@@ -37,6 +37,14 @@ final class DoingViewModel: ViewModelType {
             })
             .disposed(by: disposeBag)
         
+        input.deleteAction
+            .bind(onNext: { [weak self] id in
+                guard let selectedProject = self?.selectProject(id: id) else { return }
+                self?.provider.deleteData(project: selectedProject)
+                self?.resetProjectList(status: .doing)
+            })
+            .disposed(by: disposeBag)
+        
         return DoingViewOutput(doingList: projectList)
     }
 }
@@ -44,6 +52,7 @@ final class DoingViewModel: ViewModelType {
 struct DoingViewInput {
     let updateAction: Observable<Project>
     let changeStatusAction: Observable<(UUID, Status)>
+    let deleteAction: Observable<UUID>
 }
 
 struct DoingViewOutput {

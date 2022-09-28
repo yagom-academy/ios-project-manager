@@ -23,6 +23,7 @@ final class TodoListViewController: UIViewController {
     private var doneAction = PublishSubject<Project>()
     private var editAction = PublishSubject<Project>()
     private var changeStatusAction = PublishSubject<(UUID, Status)>()
+    private var deleteAction = PublishSubject<UUID>()
     
     private var todoViewOutput: TodoViewOutput?
     private var doingViewOutput: DoingViewOutput?
@@ -51,6 +52,7 @@ final class TodoListViewController: UIViewController {
         setupListsCell()
         setupListCount()
         setupListsCellTouchEvent()
+        setupDeleteAction()
     }
 }
 
@@ -83,11 +85,14 @@ extension TodoListViewController {
     private func setupListsCell() {
         let todoInput = TodoViewInput(addAction: doneAction,
                                       updateAction: editAction,
-                                      changeStatusAction: changeStatusAction)
+                                      changeStatusAction: changeStatusAction,
+                                      deleteAction: deleteAction)
         let doingInput = DoingViewInput(updateAction: editAction,
-                                        changeStatusAction: changeStatusAction)
+                                        changeStatusAction: changeStatusAction,
+                                        deleteAction: deleteAction)
         let doneInput = DoneViewInput(updateAction: editAction,
-                                      changeStatusAction: changeStatusAction)
+                                      changeStatusAction: changeStatusAction,
+                                      deleteAction: deleteAction)
         
         todoViewOutput = todoViewModel.transform(todoInput)
         doingViewOutput = doingViewModel.transform(doingInput)
@@ -236,6 +241,32 @@ extension TodoListViewController {
         popController.permittedArrowDirections = []
         popController.sourceView = sourceView
         self.navigationController?.present(alertController, animated: true)
+    }
+    
+    private func setupDeleteAction() {
+        todoView.tableView.rx.itemDeleted
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let cell = self?.todoView.tableView.cellForRow(at: indexPath) as? TodoTableViewCell,
+                      let id = cell.cellID else { return }
+                self?.deleteAction.onNext(id)
+            })
+            .disposed(by: disposeBag)
+        
+        doingView.tableView.rx.itemDeleted
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let cell = self?.doingView.tableView.cellForRow(at: indexPath) as? TodoTableViewCell,
+                      let id = cell.cellID else { return }
+                self?.deleteAction.onNext(id)
+            })
+            .disposed(by: disposeBag)
+        
+        doneView.tableView.rx.itemDeleted
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let cell = self?.doneView.tableView.cellForRow(at: indexPath) as? TodoTableViewCell,
+                      let id = cell.cellID else { return }
+                self?.deleteAction.onNext(id)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

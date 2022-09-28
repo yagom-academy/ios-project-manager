@@ -41,4 +41,11 @@ final class TodoProvider {
         allProjects.insert(project, at: index)
         allProjectList.onNext(allProjects)
     }
+    
+    func deleteData(project: Project) {
+        guard var allProjects = try? allProjectList.value() else { return }
+        guard let index = allProjects.firstIndex(where: {$0.uuid == project.uuid}) else { return }
+        allProjects.remove(at: index)
+        allProjectList.onNext(allProjects)
+    }
 }
