@@ -14,6 +14,10 @@ struct ProjectUnit: Hashable, Codable {
     var section: String
     var deadLine: Date
     
+    var isDeadlinePassed: Bool {
+        return self.deadLine < Date()
+    }
+    
     init(
         id: UUID,
         title: String,
@@ -28,8 +32,8 @@ struct ProjectUnit: Hashable, Codable {
         self.deadLine = deadLine
     }
     
-    var isDeadlinePassed: Bool {
-        return self.deadLine < Date()
+    func convertToDictionary() -> [String: Any]? {
+        return JSONManager.shared.encodeToDictionary(data: self)
     }
     
     // MARK: Test Data
