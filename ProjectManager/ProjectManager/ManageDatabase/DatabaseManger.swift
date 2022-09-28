@@ -19,7 +19,7 @@ class DatabaseManager: TodoDatabaseManager {
     
     func create(todoData: TodoModel) {
         self.realm.create(todoData: todoData)
-        self.todoListViewBehaviorRelay.accept(self.todoListViewBehaviorRelay.value + [todoData])
+        self.read()
     }
     
     func read() {
@@ -28,18 +28,11 @@ class DatabaseManager: TodoDatabaseManager {
     
     func update(updateTodoData: TodoModel) {
         self.realm.update(updateData: updateTodoData)
-        
-        var todoList = self.todoListViewBehaviorRelay.value
-        if let todoindex = todoList.firstIndex(where: { $0.id == updateTodoData.id}) {
-            todoList[todoindex] = updateTodoData
-        }
-        self.todoListViewBehaviorRelay.accept(todoList)
+        self.read()
     }
     
     func delete(deleteTodoData: UUID) {
         self.realm.delete(deleteID: deleteTodoData)
-        
-        let deleteTodoData = self.todoListViewBehaviorRelay.value.filter({ $0.id != deleteTodoData })
-        self.todoListViewBehaviorRelay.accept(deleteTodoData)
+        self.read()
     }
 }
