@@ -25,7 +25,7 @@ final class ProjectListViewModel {
     init(todoList: Observable<[ProjectViewModel]>,
          doingList: Observable<[ProjectViewModel]>,
          doneList: Observable<[ProjectViewModel]>) {
-        useCase = UseCase(repository: TemporaryProjectRepository(projectModels: [ProjectModel]()))
+        useCase = UseCase(repository: TemporaryRepository(projectModels: [ProjectModel]()))
         self.todoList = todoList
         self.doingList = doingList
         self.doneList = doneList

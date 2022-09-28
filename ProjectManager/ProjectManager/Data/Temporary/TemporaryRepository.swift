@@ -5,7 +5,7 @@
 //  Created by Groot on 2022/09/19.
 //
 
-struct TemporaryProjectRepository: ProjectRepository {
+struct TemporaryRepository: ProjectRepository {
     private var projectModels: [ProjectModel]
     
     init(projectModels: [ProjectModel]) {

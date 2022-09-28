@@ -27,7 +27,7 @@
 		37D3191628D833BA006A2DB0 /* ProjectTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3191128D833BA006A2DB0 /* ProjectTableHeaderView.swift */; };
 		37D3191728D833BA006A2DB0 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3191228D833BA006A2DB0 /* ProjectTableViewCell.swift */; };
 		37D3191B28D85088006A2DB0 /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3191A28D85088006A2DB0 /* ProjectRepository.swift */; };
-		37D3191E28D850BC006A2DB0 /* TemporaryProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3191D28D850BC006A2DB0 /* TemporaryProjectRepository.swift */; };
+		37D3191E28D850BC006A2DB0 /* TemporaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3191D28D850BC006A2DB0 /* TemporaryRepository.swift */; };
 		37D3192428D8542E006A2DB0 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3192328D8542E006A2DB0 /* ProjectViewModel.swift */; };
 		37D3192628D85708006A2DB0 /* ProjectTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3192528D85708006A2DB0 /* ProjectTranslator.swift */; };
 		37ECB00628E2F5D3005A557A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 37ECB00528E2F5D3005A557A /* FirebaseAnalytics */; };
@@ -67,7 +67,7 @@
 		37D3191128D833BA006A2DB0 /* ProjectTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableHeaderView.swift; sourceTree = "<group>"; };
 		37D3191228D833BA006A2DB0 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		37D3191A28D85088006A2DB0 /* ProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepository.swift; sourceTree = "<group>"; };
-		37D3191D28D850BC006A2DB0 /* TemporaryProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryProjectRepository.swift; sourceTree = "<group>"; };
+		37D3191D28D850BC006A2DB0 /* TemporaryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryRepository.swift; sourceTree = "<group>"; };
 		37D3192328D8542E006A2DB0 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		37D3192528D85708006A2DB0 /* ProjectTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTranslator.swift; sourceTree = "<group>"; };
 		37ECB00A28E2F66B005A557A /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -191,7 +191,6 @@
 			children = (
 				37038F9328CA0F45008D3921 /* UseCase.swift */,
 				37D3192328D8542E006A2DB0 /* ProjectViewModel.swift */,
-				37D3192528D85708006A2DB0 /* ProjectTranslator.swift */,
 				37D3190728D77E74006A2DB0 /* Protocol */,
 			);
 			path = UseCase;
@@ -209,6 +208,7 @@
 		37D3190728D77E74006A2DB0 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				37D3192528D85708006A2DB0 /* ProjectTranslator.swift */,
 				37D3190528D77DD6006A2DB0 /* ProjectUseCase.swift */,
 			);
 			path = Protocol;
@@ -248,17 +248,17 @@
 				37ECB01D28E4195E005A557A /* CoreData */,
 				37ECB00928E2F650005A557A /* Firebase */,
 				37D3191C28D850AF006A2DB0 /* Protocol */,
-				37D3191928D85036006A2DB0 /* TemporaryRepository */,
+				37D3191928D85036006A2DB0 /* Temporary */,
 			);
 			path = Data;
 			sourceTree = "<group>";
 		};
-		37D3191928D85036006A2DB0 /* TemporaryRepository */ = {
+		37D3191928D85036006A2DB0 /* Temporary */ = {
 			isa = PBXGroup;
 			children = (
-				37D3191D28D850BC006A2DB0 /* TemporaryProjectRepository.swift */,
+				37D3191D28D850BC006A2DB0 /* TemporaryRepository.swift */,
 			);
-			path = TemporaryRepository;
+			path = Temporary;
 			sourceTree = "<group>";
 		};
 		37D3191C28D850AF006A2DB0 /* Protocol */ = {
@@ -298,9 +298,8 @@
 		37ECB00928E2F650005A557A /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				37ECB00A28E2F66B005A557A /* FirebaseManager.swift */,
 				37ECB00C28E2F6E6005A557A /* FirebaseRepository.swift */,
-				37ECB00E28E2F8A3005A557A /* Error */,
+				37FF8F0928E42DD700A7B9AF /* Module */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -316,10 +315,8 @@
 		37ECB01D28E4195E005A557A /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				37ECB01E28E41983005A557A /* ProjectCoreDataModel.xcdatamodeld */,
-				37FF8F0028E41FE000A7B9AF /* CoreDataManager.swift */,
 				37FF8F0528E4223000A7B9AF /* CoreDataRepository.swift */,
-				37FF8F0228E420FA00A7B9AF /* Error */,
+				37FF8F0828E42D7B00A7B9AF /* Module */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -332,11 +329,30 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		37FF8F0828E42D7B00A7B9AF /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				37FF8F0228E420FA00A7B9AF /* Error */,
+				37ECB01E28E41983005A557A /* ProjectCoreDataModel.xcdatamodeld */,
+				37ECB02128E41A0E005A557A /* Project+CoreDataClass.swift */,
+				37ECB02228E41A0E005A557A /* Project+CoreDataProperties.swift */,
+				37FF8F0028E41FE000A7B9AF /* CoreDataManager.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		37FF8F0928E42DD700A7B9AF /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				37ECB00A28E2F66B005A557A /* FirebaseManager.swift */,
+				37ECB00E28E2F8A3005A557A /* Error */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
-				37ECB02128E41A0E005A557A /* Project+CoreDataClass.swift */,
-				37ECB02228E41A0E005A557A /* Project+CoreDataProperties.swift */,
 				37038F7A28C77A9D008D3921 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
@@ -479,7 +495,7 @@
 				37ECB01028E2F8B7005A557A /* FirebaseError.swift in Sources */,
 				37FF8F0628E4223000A7B9AF /* CoreDataRepository.swift in Sources */,
 				37D3191528D833BA006A2DB0 /* ProjectListViewModel.swift in Sources */,
-				37D3191E28D850BC006A2DB0 /* TemporaryProjectRepository.swift in Sources */,
+				37D3191E28D850BC006A2DB0 /* TemporaryRepository.swift in Sources */,
 				37BEFC9028DC2CFB0026F8CC /* ProjectListView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				37D3191628D833BA006A2DB0 /* ProjectTableHeaderView.swift in Sources */,
