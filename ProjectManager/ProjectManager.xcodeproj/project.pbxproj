@@ -11,15 +11,20 @@
 		AF0D210728D7EE51000B1FBD /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210628D7EE51000B1FBD /* HeaderViewModel.swift */; };
 		AF0D210928D7F76C000B1FBD /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210828D7F76C000B1FBD /* Observable.swift */; };
 		AF0D210B28D80470000B1FBD /* ListCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210A28D80470000B1FBD /* ListCollectionViewModel.swift */; };
-		AF0D210D28D82665000B1FBD /* ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210C28D82665000B1FBD /* ListCellViewModel.swift */; };
 		AF0D211028D82A28000B1FBD /* FormSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210F28D82A28000B1FBD /* FormSheetViewModel.swift */; };
 		AF0D211328D8372A000B1FBD /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D211228D8372A000B1FBD /* PopoverViewModel.swift */; };
 		AF1792FA28DBDF370093DBCE /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1792F928DBDF370093DBCE /* NetworkCheck.swift */; };
 		AF2D5BD728C57BA5009514B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AF2D5BD628C57BA5009514B8 /* .swiftlint.yml */; };
+		AF4FBF0828DD7BE6005C4B03 /* TextFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4FBF0728DD7BE6005C4B03 /* TextFieldBuilder.swift */; };
+		AF4FBF0A28DD834E005C4B03 /* DatePickerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4FBF0928DD834E005C4B03 /* DatePickerBuilder.swift */; };
+		AF4FBF0C28DD9217005C4B03 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4FBF0B28DD9217005C4B03 /* HistoryTableViewController.swift */; };
+		AF4FBF0E28DD928A005C4B03 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4FBF0D28DD928A005C4B03 /* HistoryTableViewCell.swift */; };
+		AF6152E328DD416D0049EA08 /* TextViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6152E228DD416D0049EA08 /* TextViewBuilder.swift */; };
+		AF6152E728DD47BC0049EA08 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6152E628DD47BC0049EA08 /* Protocols.swift */; };
 		AF66F29728D9F460005D7999 /* RemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66F29628D9F460005D7999 /* RemoteDataManager.swift */; };
+		AF75C1E628E1E09E007EA7EF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF75C1E528E1E09D007EA7EF /* GoogleService-Info.plist */; };
 		AF87FCB828CE110A00839018 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF87FCB728CE110A00839018 /* ListView.swift */; };
 		AF8953DD28CDBA1000078F5B /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8953DC28CDBA1000078F5B /* PopoverViewController.swift */; };
-		AFAF71B328D876D000B4BA1B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAF71B228D876D000B4BA1B /* HistoryViewController.swift */; };
 		AFAF71B628D876FF00B4BA1B /* HistoryViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAF71B528D876FF00B4BA1B /* HistoryViewCoordinator.swift */; };
 		AFAF71B828D87A2A00B4BA1B /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAF71B728D87A2A00B4BA1B /* HistoryViewModel.swift */; };
 		AFAF71BA28D87A7400B4BA1B /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAF71B928D87A7400B4BA1B /* History.swift */; };
@@ -28,7 +33,6 @@
 		AFB2603E28D20C300024CE70 /* TodoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2603D28D20C300024CE70 /* TodoListCoordinator.swift */; };
 		AFB2604B28D2A32B0024CE70 /* FormSheetViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2604A28D2A32B0024CE70 /* FormSheetViewCoordinator.swift */; };
 		AFB2605528D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB2605428D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift */; };
-		AFCDC5F628DB0DD400339971 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCDC5F528DB0DD400339971 /* HistoryCell.swift */; };
 		AFCDC5F828DB287200339971 /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCDC5F728DB287200339971 /* HistoryManager.swift */; };
 		AFCDC5FD28DB3F5A00339971 /* LabelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCDC5FC28DB3F5A00339971 /* LabelBuilder.swift */; };
 		AFCDC5FF28DB478F00339971 /* StackViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCDC5FE28DB478F00339971 /* StackViewBuilder.swift */; };
@@ -43,7 +47,6 @@
 		AFEF7F6A28CB5EDF0020FCBA /* FormSheetTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F6928CB5EDF0020FCBA /* FormSheetTemplateView.swift */; };
 		AFEF7F6C28CB5F830020FCBA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F6B28CB5F830020FCBA /* UITextField+Extension.swift */; };
 		AFEF7F7028CC1CEE0020FCBA /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEF7F6F28CC1CEE0020FCBA /* TimeInterval+Extension.swift */; };
-		AFFC358B28D9E39D0023F0A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFFC358A28D9E39D0023F0A9 /* GoogleService-Info.plist */; };
 		AFFFC06028D4938000E41C0A /* PopoverViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFC05F28D4938000E41C0A /* PopoverViewCoordinator.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */; };
@@ -56,15 +59,20 @@
 		AF0D210628D7EE51000B1FBD /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
 		AF0D210828D7F76C000B1FBD /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		AF0D210A28D80470000B1FBD /* ListCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewModel.swift; sourceTree = "<group>"; };
-		AF0D210C28D82665000B1FBD /* ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellViewModel.swift; sourceTree = "<group>"; };
 		AF0D210F28D82A28000B1FBD /* FormSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetViewModel.swift; sourceTree = "<group>"; };
 		AF0D211228D8372A000B1FBD /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
 		AF1792F928DBDF370093DBCE /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
 		AF2D5BD628C57BA5009514B8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		AF4FBF0728DD7BE6005C4B03 /* TextFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldBuilder.swift; sourceTree = "<group>"; };
+		AF4FBF0928DD834E005C4B03 /* DatePickerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerBuilder.swift; sourceTree = "<group>"; };
+		AF4FBF0B28DD9217005C4B03 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		AF4FBF0D28DD928A005C4B03 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		AF6152E228DD416D0049EA08 /* TextViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewBuilder.swift; sourceTree = "<group>"; };
+		AF6152E628DD47BC0049EA08 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		AF66F29628D9F460005D7999 /* RemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManager.swift; sourceTree = "<group>"; };
+		AF75C1E528E1E09D007EA7EF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF87FCB728CE110A00839018 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		AF8953DC28CDBA1000078F5B /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
-		AFAF71B228D876D000B4BA1B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		AFAF71B528D876FF00B4BA1B /* HistoryViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewCoordinator.swift; sourceTree = "<group>"; };
 		AFAF71B728D87A2A00B4BA1B /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		AFAF71B928D87A7400B4BA1B /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -73,7 +81,6 @@
 		AFB2603D28D20C300024CE70 /* TodoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCoordinator.swift; sourceTree = "<group>"; };
 		AFB2604A28D2A32B0024CE70 /* FormSheetViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetViewCoordinator.swift; sourceTree = "<group>"; };
 		AFB2605428D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListCollectionView+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
-		AFCDC5F528DB0DD400339971 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		AFCDC5F728DB287200339971 /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		AFCDC5FC28DB3F5A00339971 /* LabelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBuilder.swift; sourceTree = "<group>"; };
 		AFCDC5FE28DB478F00339971 /* StackViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewBuilder.swift; sourceTree = "<group>"; };
@@ -88,7 +95,6 @@
 		AFEF7F6928CB5EDF0020FCBA /* FormSheetTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetTemplateView.swift; sourceTree = "<group>"; };
 		AFEF7F6B28CB5F830020FCBA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		AFEF7F6F28CC1CEE0020FCBA /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
-		AFFC358A28D9E39D0023F0A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFFFC05F28D4938000E41C0A /* PopoverViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewCoordinator.swift; sourceTree = "<group>"; };
 		B6A46B9A3ED16157AFD87E8F /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +242,10 @@
 			children = (
 				AFCDC5FC28DB3F5A00339971 /* LabelBuilder.swift */,
 				AFCDC5FE28DB478F00339971 /* StackViewBuilder.swift */,
+				AF6152E228DD416D0049EA08 /* TextViewBuilder.swift */,
+				AF4FBF0728DD7BE6005C4B03 /* TextFieldBuilder.swift */,
+				AF4FBF0928DD834E005C4B03 /* DatePickerBuilder.swift */,
+				AF6152E628DD47BC0049EA08 /* Protocols.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -264,7 +274,6 @@
 			children = (
 				AF0D210628D7EE51000B1FBD /* HeaderViewModel.swift */,
 				AF0D210A28D80470000B1FBD /* ListCollectionViewModel.swift */,
-				AF0D210C28D82665000B1FBD /* ListCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -339,8 +348,8 @@
 		AFCDC5FB28DB31FB00339971 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AFAF71B228D876D000B4BA1B /* HistoryViewController.swift */,
-				AFCDC5F528DB0DD400339971 /* HistoryCell.swift */,
+				AF4FBF0B28DD9217005C4B03 /* HistoryTableViewController.swift */,
+				AF4FBF0D28DD928A005C4B03 /* HistoryTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -407,7 +416,7 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				AFFC358A28D9E39D0023F0A9 /* GoogleService-Info.plist */,
+				AF75C1E528E1E09D007EA7EF /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -481,7 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF2D5BD728C57BA5009514B8 /* .swiftlint.yml in Resources */,
-				AFFC358B28D9E39D0023F0A9 /* GoogleService-Info.plist in Resources */,
+				AF75C1E628E1E09E007EA7EF /* GoogleService-Info.plist in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
@@ -557,11 +566,14 @@
 				AF0D210928D7F76C000B1FBD /* Observable.swift in Sources */,
 				AFB2603E28D20C300024CE70 /* TodoListCoordinator.swift in Sources */,
 				AF0D210728D7EE51000B1FBD /* HeaderViewModel.swift in Sources */,
+				AF6152E328DD416D0049EA08 /* TextViewBuilder.swift in Sources */,
 				AF0D211328D8372A000B1FBD /* PopoverViewModel.swift in Sources */,
 				AFEF7F6028CB32E30020FCBA /* AppCoordinator.swift in Sources */,
 				AFEC096F28CAFC8200628172 /* Category.swift in Sources */,
 				AFEF7F6A28CB5EDF0020FCBA /* FormSheetTemplateView.swift in Sources */,
 				AFEC096B28CAFBC300628172 /* ListCollectionView.swift in Sources */,
+				AF6152E728DD47BC0049EA08 /* Protocols.swift in Sources */,
+				AF4FBF0A28DD834E005C4B03 /* DatePickerBuilder.swift in Sources */,
 				AFB2604B28D2A32B0024CE70 /* FormSheetViewCoordinator.swift in Sources */,
 				AFCDC5FD28DB3F5A00339971 /* LabelBuilder.swift in Sources */,
 				AFB2603928D1F1290024CE70 /* Todo.swift in Sources */,
@@ -570,27 +582,27 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				AF87FCB828CE110A00839018 /* ListView.swift in Sources */,
 				AFAF71B628D876FF00B4BA1B /* HistoryViewCoordinator.swift in Sources */,
-				AF0D210D28D82665000B1FBD /* ListCellViewModel.swift in Sources */,
 				AFEF7F6828CB5EDB0020FCBA /* FormSheetViewController.swift in Sources */,
 				AF8953DD28CDBA1000078F5B /* PopoverViewController.swift in Sources */,
 				AFEF7F7028CC1CEE0020FCBA /* TimeInterval+Extension.swift in Sources */,
 				AF66F29728D9F460005D7999 /* RemoteDataManager.swift in Sources */,
 				AF0D211028D82A28000B1FBD /* FormSheetViewModel.swift in Sources */,
-				AFCDC5F628DB0DD400339971 /* HistoryCell.swift in Sources */,
 				AFB2603B28D1F2F10024CE70 /* TodoDataManager.swift in Sources */,
 				AFFFC06028D4938000E41C0A /* PopoverViewCoordinator.swift in Sources */,
-				AFAF71B328D876D000B4BA1B /* HistoryViewController.swift in Sources */,
 				AFAF71BA28D87A7400B4BA1B /* History.swift in Sources */,
 				AF1792FA28DBDF370093DBCE /* NetworkCheck.swift in Sources */,
 				AFEC097328CB022000628172 /* Coordinator.swift in Sources */,
+				AF4FBF0C28DD9217005C4B03 /* HistoryTableViewController.swift in Sources */,
 				AFB2605528D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift in Sources */,
 				AFCDC5FF28DB478F00339971 /* StackViewBuilder.swift in Sources */,
+				AF4FBF0828DD7BE6005C4B03 /* TextFieldBuilder.swift in Sources */,
 				AFAF71B828D87A2A00B4BA1B /* HistoryViewModel.swift in Sources */,
 				AFEC096928CAF9F100628172 /* AppAppearance.swift in Sources */,
 				AFCDC5F828DB287200339971 /* HistoryManager.swift in Sources */,
 				AFEC096328CAF6AA00628172 /* HeaderView.swift in Sources */,
 				AF0D210B28D80470000B1FBD /* ListCollectionViewModel.swift in Sources */,
 				AFEF7F6C28CB5F830020FCBA /* UITextField+Extension.swift in Sources */,
+				AF4FBF0E28DD928A005C4B03 /* HistoryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,6 +742,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SWPBG3YXG5;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
@@ -740,6 +753,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.wongbingg.ProjectManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -751,6 +765,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SWPBG3YXG5;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
@@ -761,6 +776,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.wongbingg.ProjectManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
