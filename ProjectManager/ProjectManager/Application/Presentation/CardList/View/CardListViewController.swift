@@ -10,20 +10,29 @@ final class CardListViewController: UIViewController, Coordinating {
     private enum Const {
         static let title = "Project Manager"
         static let plus = "plus"
-        static let delete = "삭제"
+        static let history = "History"
         static let stackViewSpacing = 10.0
+        static let tableViewFirstTag = 1
+        static let tableViewSecondTag = 2
+        static let tableViewThirdTag = 3
     }
-    
+
     var coordinator: CoordinatorProtocol?
-    private var viewModel: CardViewModelProtocol?
+    private var viewModel: CardViewModelProtocol
     
     private lazy var todoCardDataSource = self.configureDataSource(with: todoCardSectionView.tableView)
     private lazy var doingCardDataSource = self.configureDataSource(with: doingCardSectionView.tableView)
     private lazy var doneCardDataSource = self.configureDataSource(with: doneCardSectionView.tableView)
     
-    private let todoCardSectionView = CardSectionView(type: .todo)
-    private let doingCardSectionView = CardSectionView(type: .doing)
-    private let doneCardSectionView = CardSectionView(type: .done)
+    private lazy var todoCardSectionView = CardSectionView(coordinator: coordinator ?? MainCoordinator(),
+                                                           viewModel: viewModel,
+                                                           type: .todo)
+    private lazy var doingCardSectionView = CardSectionView(coordinator: coordinator ?? MainCoordinator(),
+                                                            viewModel: viewModel,
+                                                            type: .doing)
+    private lazy var doneCardSectionView = CardSectionView(coordinator: coordinator ?? MainCoordinator(),
+                                                           viewModel: viewModel,
+                                                           type: .done)
     
     private let rootStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -43,7 +52,7 @@ final class CardListViewController: UIViewController, Coordinating {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError()
     }
     
     override func viewDidLoad() {
@@ -55,7 +64,7 @@ final class CardListViewController: UIViewController, Coordinating {
         addSubViews()
         configureLayout()
         configureNavigationBarItem()
-        applyDelegatePermission()
+        applyTableViewTag()
         bindDataSource()
         bindSectionsHeader()
         initializeViewModel()
@@ -71,10 +80,10 @@ final class CardListViewController: UIViewController, Coordinating {
         rootStackView.addArrangedSubview(doneCardSectionView)
     }
 
-    private func applyDelegatePermission() {
-        todoCardSectionView.tableView.delegate = self
-        doingCardSectionView.tableView.delegate = self
-        doneCardSectionView.tableView.delegate = self
+    private func applyTableViewTag() {
+        todoCardSectionView.tableView.tag = Const.tableViewFirstTag
+        doingCardSectionView.tableView.tag = Const.tableViewSecondTag
+        doneCardSectionView.tableView.tag = Const.tableViewThirdTag
     }
     
     private func configureLayout() {
@@ -87,72 +96,86 @@ final class CardListViewController: UIViewController, Coordinating {
     }
     
     private func configureNavigationBarItem() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Const.history,
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(didTapHistoryButton(_:)))
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Const.plus),
                                                                  style: .plain,
                                                                  target: self,
-                                                                 action: #selector(plusButtonTapped(_:)))
+                                                                 action: #selector(didTapPlusButton(_:)))
     }
 
     private func bindDataSource() {
-        let dataDictionary = [todoCardDataSource: viewModel?.todoList,
-                             doingCardDataSource: viewModel?.doingList,
-                              doneCardDataSource: viewModel?.doneList]
+        let dataDictionary = [todoCardDataSource: viewModel.todoList,
+                             doingCardDataSource: viewModel.doingList,
+                              doneCardDataSource: viewModel.doneList]
 
         dataDictionary
             .forEach { dataSource, cardModel in
                 guard let dataSource = dataSource,
                       let cardModel = cardModel else { return }
-                updateTableView(dataSource, by: cardModel)
+                updateTableView(dataSource,
+                                by: cardModel)
             }
     }
 
     private func bindSectionsHeader() {
-        todoCardSectionView.headerView?.countLabel.text = viewModel?.todoList
+        todoCardSectionView.headerView.countLabel.text = viewModel.todoList
             .map { "\($0.count)" }
 
-        doingCardSectionView.headerView?.countLabel.text = viewModel?.doingList
+        doingCardSectionView.headerView.countLabel.text = viewModel.doingList
             .map { "\($0.count)" }
 
-        doneCardSectionView.headerView?.countLabel.text = viewModel?.doneList
+        doneCardSectionView.headerView.countLabel.text = viewModel.doneList
             .map { "\($0.count)" }
-
     }
 
     private func initializeViewModel() {
-        viewModel?.reloadTodoListTableViewClosure = { [weak self] (card: [CardModel]) in
+        viewModel.reloadTodoListTableViewClosure = { [weak self] (card: [CardModel]) in
             guard let dataSource = self?.todoCardDataSource else { return }
             DispatchQueue.main.async {
                 self?.updateTableView(dataSource,
                                       by: card)
 
-                self?.todoCardSectionView.headerView?.countLabel.text = "\(card.count)"
+                self?.todoCardSectionView.headerView.countLabel.text = "\(card.count)"
             }
         }
 
-        viewModel?.reloadDoingListTableViewClosure = { [weak self] (card: [CardModel]) in
+        viewModel.reloadDoingListTableViewClosure = { [weak self] (card: [CardModel]) in
             guard let dataSource = self?.doingCardDataSource else { return }
 
             DispatchQueue.main.async {
                 self?.updateTableView(dataSource,
                                       by: card)
 
-                self?.doingCardSectionView.headerView?.countLabel.text = "\(card.count)"
+                self?.doingCardSectionView.headerView.countLabel.text = "\(card.count)"
             }
         }
 
-        viewModel?.reloadDoneListTableViewClosure = { [weak self] (card: [CardModel]) in
+        viewModel.reloadDoneListTableViewClosure = { [weak self] (card: [CardModel]) in
             guard let dataSource = self?.doneCardDataSource else { return }
             DispatchQueue.main.async {
                 self?.updateTableView(dataSource,
                                       by: card)
 
-                self?.doneCardSectionView.headerView?.countLabel.text = "\(card.count)"
+                self?.doneCardSectionView.headerView.countLabel.text = "\(card.count)"
             }
+        }
+
+        viewModel.presentNetworkingAlert = { [weak self] in
+            guard let message = self?.viewModel.alertMessage else { return }
+            self?.presentAlertConfirmAction(title: "알림", message: message)
         }
     }
     
-    @objc private func plusButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func didTapPlusButton(_ sender: UIBarButtonItem) {
         coordinator?.presentEnrollmentViewController()
+    }
+
+    @objc private func didTapHistoryButton(_ sender: UIBarButtonItem) {
+        coordinator?.presentHistoryViewActionSheet(sender)
     }
 }
 
@@ -181,71 +204,16 @@ private extension CardListViewController {
         let dataSource = DataSource(tableView: tableView, cellProvider: { [weak self] tableView, indexPath, model -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CardListTableViewCell.reuseIdentifier,
                                                            for: indexPath) as? CardListTableViewCell,
-                  let data = self?.viewModel?.convert(from: model) else {
+                  let coordinator = self?.coordinator else {
                 return UITableViewCell()
             }
-
-            cell.model = model
-            cell.coodinator = self?.coordinator
-            cell.bindUI(data)
-
+            let viewModel = CardListItemViewModel(coordinator: coordinator,
+                                                  model: model)
+            cell.viewModel = viewModel
+            cell.bindUI()
             return cell
         })
         
         return dataSource
-    }
-}
-
-// MARK: TableView Action
-
-extension CardListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView,
-                   didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        switch tableView {
-        case todoCardSectionView.tableView:
-            assignToDetailViewController(viewModel?.todoList?[indexPath.row])
-        case doingCardSectionView.tableView:
-            assignToDetailViewController(viewModel?.doingList?[indexPath.row])
-        case doneCardSectionView.tableView:
-            assignToDetailViewController(viewModel?.doneList?[indexPath.row])
-        default:
-            break
-        }
-    }
-
-    func tableView(_ tableView: UITableView,
-                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .normal, title: Const.delete) { [weak self] (_, _, completionHandler: @escaping (Bool) -> Void) in
-
-            guard let card = self?.search(tableView) else { return }
-            self?.viewModel?.delete(card,
-                                    at: indexPath.row)
-            completionHandler(true)
-        }
-
-        delete.backgroundColor = .systemRed
-
-        return UISwipeActionsConfiguration(actions: [delete])
-    }
-
-    private func search(_ tableView: UITableView) -> CardType? {
-        switch tableView {
-        case todoCardSectionView.tableView:
-            return .todo
-        case doingCardSectionView.tableView:
-            return .doing
-        case doneCardSectionView.tableView:
-            return .done
-        default:
-            return nil
-        }
-    }
-
-    private func assignToDetailViewController(_ data: CardModel?) {
-        if let data = data {
-            self.coordinator?.presentDetailViewController(data)
-        }
     }
 }

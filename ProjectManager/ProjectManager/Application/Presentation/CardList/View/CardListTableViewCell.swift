@@ -44,9 +44,7 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
             $0.spacing = Const.stackViewSpacing
         }
 
-    private let viewModel: CardViewModel = CardViewModel()
-    var coodinator: CoordinatorProtocol?
-    var model: CardModel?
+    var viewModel: CardListItemViewModel?
     
     override init(style: UITableViewCell.CellStyle,
                   reuseIdentifier: String?) {
@@ -80,11 +78,12 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
         separator.stroke()
     }
 
-    func bindUI(_ model: CardEntity) {
-        titleLabel.text = model.title
-        descriptionLabel.text = model.description
-        deadlineDateLabel.text = model.deadlineDate
-        deadlineDateLabel.textColor = model.isExpired ? .red : .black
+    func bindUI() {
+        guard let viewModel = viewModel else { return }
+        titleLabel.text = viewModel.title
+        descriptionLabel.text = viewModel.description
+        deadlineDateLabel.text = viewModel.date
+        deadlineDateLabel.textColor = viewModel.isExpired ? .red : .black
     }
     
     private func setupDefault() {
@@ -114,13 +113,8 @@ extension CardListTableViewCell {
     }
 
     @objc private func didTapTableViewCellLongPress(_ guesture: UILongPressGestureRecognizer) {
-        guard let coodinator = coodinator,
-              let model = model else { return }
-
         if guesture.state == .began {
-            viewModel.connectWithActionSheetForMoving(coordinator: coodinator,
-                                            model: model,
-                                            sourceView: self)
+            viewModel?.connectWithActionSheetForMoving(sourceView: self)
         }
     }
 }
