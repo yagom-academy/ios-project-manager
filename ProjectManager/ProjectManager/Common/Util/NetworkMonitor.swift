@@ -20,14 +20,21 @@ class NetworkMonitor {
     }
 
     func startMonitoring() {
-        let queue = DispatchQueue.global()
-        monitor.start(queue: queue)
-        monitor.pathUpdateHandler = { [weak self] path in
-            self?.isConnected = (path.status == .satisfied)
-        }
-    }
+       monitor.start(queue: .global())
+       monitor.pathUpdateHandler = { [weak self] path in
+           self?.isConnected = (path.status == .satisfied)
 
-    func stopMonitoring() {
-        monitor.cancel()
-    }
+           if self?.isConnected == false {
+               self?.notifyDisconnect()
+           }
+       }
+   }
+
+   func stopMonitoring() {
+       monitor.cancel()
+   }
+
+   private func notifyDisconnect() {
+       NotificationCenter.default.post(name: NSNotification.Name("disconnect"), object: nil)
+   }
 }

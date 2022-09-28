@@ -61,16 +61,26 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
     }
 
     private func checkNetWork() {
-        if NetworkMonitor.shared.isConnected == false {
-            let alertController = UIAlertController(
-                title: "네트워크에 접속할 수 없습니다.",
-                message: "네트워크 연결 상태를 확인해주세요.",
-                preferredStyle: .alert
-            )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showAlert),
+            name: NSNotification.Name("disconnect"),
+            object: nil
+        )
+    }
 
-            let confirmAction = UIAlertAction(title: "확인", style: .default)
+    @objc private func showAlert() {
+        let alertController = UIAlertController(
+            title: "네트워크에 접속할 수 없습니다.",
+            message: "네트워크 연결 상태를 확인해주세요.",
+            preferredStyle: .alert
+        )
 
-            alertController.addAction(confirmAction)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+
+        alertController.addAction(confirmAction)
+
+        DispatchQueue.main.async {
             self.present(alertController, animated: true, completion: nil)
         }
     }
