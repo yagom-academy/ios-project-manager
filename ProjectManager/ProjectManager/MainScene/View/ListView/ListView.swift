@@ -8,15 +8,15 @@
 import UIKit
 
 final class ListView: UIView {
-    private let category: String
     let headerView: HeaderView
     let collectionView: ListCollectionView
     
     // MARK: - Initializer
     init(category: String) {
-        self.category = category
-        self.headerView = HeaderView(category: category)
-        self.collectionView = ListCollectionView(category: category)
+        let headerVM = HeaderViewModel(category: category)
+        self.headerView = HeaderView(viewModel: headerVM)
+        let listCollectionVM = ListCollectionViewModel(category: category)
+        self.collectionView = ListCollectionView(viewModel: listCollectionVM)
         super.init(frame: .zero)
         setupInitialView()
         setupHeaderView(category: category)
