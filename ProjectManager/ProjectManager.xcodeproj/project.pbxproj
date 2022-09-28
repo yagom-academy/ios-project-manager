@@ -15,7 +15,12 @@
 		05A5774A28CF13A300E05133 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774928CF13A300E05133 /* TaskModel.swift */; };
 		05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774B28CF807A00E05133 /* TodoFormViewController.swift */; };
 		05BAA00F28CE99680009BB06 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 05BAA00E28CE99680009BB06 /* .swiftlint.yml */; };
-		05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */; };
+		05BAA01B28CEE67C0009BB06 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BAA01A28CEE67C0009BB06 /* TaskTableViewCell.swift */; };
+		05C6273128E43C4400B9CBCC /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273028E43C4400B9CBCC /* HistoryViewController.swift */; };
+		05C6273428E43D8000B9CBCC /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273328E43D8000B9CBCC /* HistoryTableViewCell.swift */; };
+		05C6273728E4425A00B9CBCC /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273628E4425A00B9CBCC /* HistoryViewModel.swift */; };
+		05C6273A28E4430700B9CBCC /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273928E4430700B9CBCC /* HistoryModel.swift */; };
+		05C6273F28E462B100B9CBCC /* SendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273E28E462B100B9CBCC /* SendModel.swift */; };
 		05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA128D445A100C7BA83 /* SendDelegate .swift */; };
 		05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */; };
 		05EB16C128E2D2B100E16FD4 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EB16C028E2D2B100E16FD4 /* RealmManager.swift */; };
@@ -37,7 +42,12 @@
 		05A5774928CF13A300E05133 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		05A5774B28CF807A00E05133 /* TodoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormViewController.swift; sourceTree = "<group>"; };
 		05BAA00E28CE99680009BB06 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		05BAA01A28CEE67C0009BB06 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		05C6273028E43C4400B9CBCC /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		05C6273328E43D8000B9CBCC /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		05C6273628E4425A00B9CBCC /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		05C6273928E4430700B9CBCC /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
+		05C6273E28E462B100B9CBCC /* SendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendModel.swift; sourceTree = "<group>"; };
 		05D5CBA128D445A100C7BA83 /* SendDelegate .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SendDelegate .swift"; sourceTree = "<group>"; };
 		05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
 		05EB16C028E2D2B100E16FD4 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -138,7 +148,43 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				05BAA01A28CEE67C0009BB06 /* TableViewCell.swift */,
+				05BAA01A28CEE67C0009BB06 /* TaskTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		05C6273228E43D4E00B9CBCC /* History */ = {
+			isa = PBXGroup;
+			children = (
+				05C6273B28E4435A00B9CBCC /* View */,
+				05C6273828E442F500B9CBCC /* Model */,
+				05C6273528E4424400B9CBCC /* ViewModel */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		05C6273528E4424400B9CBCC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				05C6273628E4425A00B9CBCC /* HistoryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		05C6273828E442F500B9CBCC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				05C6273928E4430700B9CBCC /* HistoryModel.swift */,
+				05C6273E28E462B100B9CBCC /* SendModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		05C6273B28E4435A00B9CBCC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				05C6273328E43D8000B9CBCC /* HistoryTableViewCell.swift */,
+				05C6273028E43C4400B9CBCC /* HistoryViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -193,6 +239,7 @@
 			children = (
 				05A5775428CFBD5F00E05133 /* Common */,
 				0578628528D03D81003CD311 /* MainHome */,
+				05C6273228E43D4E00B9CBCC /* History */,
 				0578628C28D09B8E003CD311 /* TodoForm */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
@@ -336,13 +383,18 @@
 			files = (
 				05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainHomeViewController.swift in Sources */,
+				05C6273A28E4430700B9CBCC /* HistoryModel.swift in Sources */,
+				05C6273F28E462B100B9CBCC /* SendModel.swift in Sources */,
 				05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */,
+				05C6273128E43C4400B9CBCC /* HistoryViewController.swift in Sources */,
+				05C6273728E4425A00B9CBCC /* HistoryViewModel.swift in Sources */,
 				05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */,
 				0578628828D03DEF003CD311 /* MainHomeViewModel.swift in Sources */,
 				05EB16C128E2D2B100E16FD4 /* RealmManager.swift in Sources */,
-				05BAA01B28CEE67C0009BB06 /* TableViewCell.swift in Sources */,
+				05BAA01B28CEE67C0009BB06 /* TaskTableViewCell.swift in Sources */,
 				05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */,
 				0568B87328D5B78600FAC59B /* TaskState.swift in Sources */,
+				05C6273428E43D8000B9CBCC /* HistoryTableViewCell.swift in Sources */,
 				05A5774428CF088A00E05133 /* DatabaseProtocol.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

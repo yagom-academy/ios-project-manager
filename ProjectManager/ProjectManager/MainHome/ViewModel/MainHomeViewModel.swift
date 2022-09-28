@@ -75,15 +75,16 @@ class MainHomeViewModel {
         fetchDataList()
     }
 
-    func changeList(data: TaskModel) {
+    func changeList(data: TaskModel) -> Activity? {
         guard databaseManager.search(data: data) != nil else {
             databaseManager.create(data: data)
             fetchDataList()
-            return
+            return Activity.added
         }
 
         databaseManager.update(data: data)
         fetchDataList()
+        return nil
     }
 
     private func getCurrentList(state: TaskState) -> [TaskModel] {

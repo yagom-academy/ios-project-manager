@@ -6,9 +6,10 @@
 
 import UIKit
 
-class MainHomeViewController: UIViewController {
+class MainHomeViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     // MARK: Properties
     private let viewModel = MainHomeViewModel()
+    private var historyViewController: HistoryViewController?
 
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var todoTableView: UITableView!
@@ -21,6 +22,19 @@ class MainHomeViewController: UIViewController {
     // MARK: IBAction
     @IBAction func didTapAddButton(_ sender: Any) {
         presentTodoForm()
+    }
+
+    @IBAction func didTapHistoryButton(_ sender: Any) {
+        guard let historyViewController = historyViewController else {
+            return
+        }
+
+        historyViewController.modalPresentationStyle = .popover
+        let popover = historyViewController.popoverPresentationController
+        popover?.delegate = self
+        popover?.sourceView = self.view
+        popover?.sourceRect = CGRect(x: 70, y: 70, width: 0, height: 0)
+        present(historyViewController, animated: true)
     }
 
     // MARK: View Life Cycle
@@ -36,6 +50,7 @@ class MainHomeViewController: UIViewController {
         setUpTableViewDelegate()
         setUpTableViewDataSource()
         setUpGestureEvent()
+        setUpHistoryViewController()
 
         bind()
     }
@@ -79,6 +94,17 @@ class MainHomeViewController: UIViewController {
         doneTableView.addGestureRecognizer(doneLongPress)
     }
 
+    private func setUpHistoryViewController() {
+        guard let storyboard = storyboard,
+              let historyVC = storyboard.instantiateViewController(
+                withIdentifier: HistoryViewController.reuseIdentifier
+              ) as? HistoryViewController else {
+            return
+        }
+
+        self.historyViewController = historyVC
+    }
+
     private func bind() {
         viewModel.change = { [weak self] in
             self?.todoCountLabel.text = self?.viewModel.todoCount.description
@@ -117,8 +143,20 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
             return
         }
 
-        viewModel.changeList(data: data)
+        let activity = viewModel.changeList(data: data)
         reloadTableView()
+
+        guard let activity = activity else {
+            return
+        }
+
+        let sendData = SendModel(
+            activity: activity,
+            title: data.taskTitle,
+            from: data.taskState,
+            date: Date()
+        )
+        self.historyViewController?.sendData(sendData)
     }
 }
 
@@ -138,9 +176,9 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = todoTableView.dequeueReusableCell(
-            withIdentifier: TableViewCell.reuseIdentifier,
+            withIdentifier: TaskTableViewCell.reuseIdentifier,
             for: indexPath
-        ) as? TableViewCell else {
+        ) as? TaskTableViewCell else {
             return UITableViewCell()
         }
 
@@ -175,8 +213,17 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
             }
 
             let state = self.setUpTaskState(tableView: tableView)
+            let removedData = self.viewModel.getDataList(of: state)[indexPath.row]
             self.viewModel.remove(index: indexPath.row, in: state)
             self.reloadTableView()
+
+            let sendData = SendModel(
+                activity: Activity.removed,
+                title: removedData.taskTitle,
+                from: state.name,
+                date: Date()
+            )
+            self.historyViewController?.sendData(sendData)
         }
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -252,6 +299,7 @@ extension MainHomeViewController {
     }
 
     private func getActionButton(of taskState: TaskState, _ index: Int) -> [UIAlertAction] {
+        let data = viewModel.getDataList(of: taskState)[index]
         let firstButton = UIAlertAction(
             title: taskState.title.first,
             style: .default) { [weak self] _ in
@@ -266,6 +314,15 @@ extension MainHomeViewController {
                 )
 
                 self.reloadTableView()
+
+                let sendData = SendModel(
+                    activity: Activity.moved,
+                    title: data.taskTitle,
+                    from: taskState.name,
+                    to: taskState.other.first?.name,
+                    date: Date()
+                )
+                self.historyViewController?.sendData(sendData)
             }
         let secondButton = UIAlertAction(
             title: taskState.title.last,
@@ -282,6 +339,15 @@ extension MainHomeViewController {
             )
 
             self.reloadTableView()
+
+            let sendData = SendModel(
+                activity: Activity.moved,
+                title: data.taskTitle,
+                from: taskState.name,
+                to: taskState.other.last?.name,
+                date: Date()
+            )
+            self.historyViewController?.sendData(sendData)
         }
 
         return [firstButton, secondButton]
