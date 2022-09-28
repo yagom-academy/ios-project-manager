@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct DateManager {
-    func formatted(date: Date) -> String {
+extension Date {
+    func formatted() -> String {
         let formatterDate = DateFormatter()
         formatterDate.dateStyle = .long
         formatterDate.timeStyle = .none
         formatterDate.locale = Locale.current
         
-        return formatterDate.string(from: date)
+        return formatterDate.string(from: self)
     }
 }
