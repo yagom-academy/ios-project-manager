@@ -10,15 +10,18 @@ import RxSwift
 protocol ViewModelType {
     var provider: TodoProvider { get }
     var projectList: BehaviorSubject<[Project]> { get set }
+    var disposeBag: DisposeBag { get }
     
     func resetProjectList(status: Status)
 }
 
 extension ViewModelType {
     func resetProjectList(status: Status) {
-        guard let allProjects = try? provider.allProjectList.value() else { return }
-        let projects = allProjects.filter { $0.status == status }
-        projectList.onNext(projects)
+        provider.allProjectList.bind(onNext: { projectList in
+            let projects = projectList.filter { $0.status == status }
+            self.projectList.onNext(projects)
+        })
+        .disposed(by: disposeBag)
     }
     
     func selectProject(id: UUID) -> Project? {
