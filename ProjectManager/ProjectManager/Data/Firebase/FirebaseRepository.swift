@@ -31,7 +31,6 @@ class FirebaseRepository: ProjectRepository {
                 return
             case .failure(let error):
                 print(error)
-                
                 completionHandler([])
             }
         }

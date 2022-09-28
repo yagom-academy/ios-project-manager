@@ -162,7 +162,6 @@ final class ProjectListViewModel {
                                                    title: Design.deleteSwipeActionTitle,
                                                    handler: { [weak self] _, _, completionHaldler in
             self?.delete(id: item.id)
-            
             completionHaldler(true)
         })
         

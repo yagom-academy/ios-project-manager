@@ -39,6 +39,9 @@
 		37ECB02028E41983005A557A /* ProjectCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37ECB01E28E41983005A557A /* ProjectCoreDataModel.xcdatamodeld */; };
 		37ECB02328E41A0E005A557A /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECB02128E41A0E005A557A /* Project+CoreDataClass.swift */; };
 		37ECB02428E41A0E005A557A /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECB02228E41A0E005A557A /* Project+CoreDataProperties.swift */; };
+		37FF8F0128E41FE000A7B9AF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF8F0028E41FE000A7B9AF /* CoreDataManager.swift */; };
+		37FF8F0428E4210600A7B9AF /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF8F0328E4210600A7B9AF /* CoreDataError.swift */; };
+		37FF8F0628E4223000A7B9AF /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF8F0528E4223000A7B9AF /* CoreDataRepository.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -74,6 +77,9 @@
 		37ECB01F28E41983005A557A /* ProjectCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		37ECB02128E41A0E005A557A /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		37ECB02228E41A0E005A557A /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		37FF8F0028E41FE000A7B9AF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		37FF8F0328E4210600A7B9AF /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
+		37FF8F0528E4223000A7B9AF /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -311,8 +317,19 @@
 			isa = PBXGroup;
 			children = (
 				37ECB01E28E41983005A557A /* ProjectCoreDataModel.xcdatamodeld */,
+				37FF8F0028E41FE000A7B9AF /* CoreDataManager.swift */,
+				37FF8F0528E4223000A7B9AF /* CoreDataRepository.swift */,
+				37FF8F0228E420FA00A7B9AF /* Error */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		37FF8F0228E420FA00A7B9AF /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				37FF8F0328E4210600A7B9AF /* CoreDataError.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -460,11 +477,13 @@
 				37BEFC8C28DBDB770026F8CC /* Observable.swift in Sources */,
 				37ECB02428E41A0E005A557A /* Project+CoreDataProperties.swift in Sources */,
 				37ECB01028E2F8B7005A557A /* FirebaseError.swift in Sources */,
+				37FF8F0628E4223000A7B9AF /* CoreDataRepository.swift in Sources */,
 				37D3191528D833BA006A2DB0 /* ProjectListViewModel.swift in Sources */,
 				37D3191E28D850BC006A2DB0 /* TemporaryProjectRepository.swift in Sources */,
 				37BEFC9028DC2CFB0026F8CC /* ProjectListView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				37D3191628D833BA006A2DB0 /* ProjectTableHeaderView.swift in Sources */,
+				37FF8F0428E4210600A7B9AF /* CoreDataError.swift in Sources */,
 				37D3191B28D85088006A2DB0 /* ProjectRepository.swift in Sources */,
 				37D3191428D833BA006A2DB0 /* ProjectManagementViewControllerDelegate.swift in Sources */,
 				37B39FB228CF2555008796AD /* ProjectManagementView.swift in Sources */,
@@ -473,6 +492,7 @@
 				37D3192628D85708006A2DB0 /* ProjectTranslator.swift in Sources */,
 				37D3190628D77DD6006A2DB0 /* ProjectUseCase.swift in Sources */,
 				37ECB02028E41983005A557A /* ProjectCoreDataModel.xcdatamodeld in Sources */,
+				37FF8F0128E41FE000A7B9AF /* CoreDataManager.swift in Sources */,
 				37038F8A28C9EC83008D3921 /* ProjectState.swift in Sources */,
 				37B39FB028CF2153008796AD /* ProjectManagementViewController.swift in Sources */,
 				37038F9428CA0F45008D3921 /* UseCase.swift in Sources */,
