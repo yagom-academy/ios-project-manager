@@ -19,7 +19,7 @@ final class RepositoryService {
     private func synchronizeData() {
         let localData = self.realmService.fetchCardModel()
         Task {
-            guard let romoteData = try? await firebaseService.fetchCardModel() else { return }
+            let romoteData = try await firebaseService.fetchCardModel()
             self.combine(between: localData,
                          and: romoteData)
         }
@@ -86,7 +86,7 @@ final class RepositoryService {
     func saveHistory(_ card: CardModel) throws {
         try realmService.saveHistoryModel(CardHistoryModel(id: card.id,
                                                            title: card.title,
-                                                           date: card.deadlineDate,
+                                                           date: Date(),
                                                            cardTypeDescription: card.cardType.moveToAnotherSection,
                                                            cardState: .moved))
     }
@@ -95,7 +95,7 @@ final class RepositoryService {
         do {
             try realmService.saveHistoryModel(CardHistoryModel(id: card.id,
                                                                title: card.title,
-                                                               date: card.deadlineDate,
+                                                               date: Date(),
                                                                cardTypeDescription: card.cardType.rawValue,
                                                                cardState: .removed))
             try realmService.delete(card)
