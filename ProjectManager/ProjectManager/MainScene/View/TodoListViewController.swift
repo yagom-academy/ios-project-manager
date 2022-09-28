@@ -21,9 +21,9 @@ protocol TodoListViewControllerDelegate: AnyObject {
 final class TodoListViewController: UIViewController {
     weak var delegate: TodoListViewControllerDelegate?
     
-    let todoListView = ListView(category: Category.todo)
-    let doingListView = ListView(category: Category.doing)
-    let doneListView = ListView(category: Category.done)
+    let todoListView: ListView
+    let doingListView: ListView
+    let doneListView: ListView
     var navigationBar = UINavigationBar()
     
     private let stackView = DefaultStackViewBuilder()
@@ -32,6 +32,18 @@ final class TodoListViewController: UIViewController {
         .setBackgroundColor(.systemGray3)
         .setSpacing(6)
         .stackView
+    
+    init(delegate: TodoListViewControllerDelegate) {
+        self.delegate = delegate
+        self.todoListView = ListView(category: Category.todo, delegate: delegate)
+        self.doingListView = ListView(category: Category.doing, delegate: delegate)
+        self.doneListView = ListView(category: Category.done, delegate: delegate)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - ViewLifeCycles
     override func viewDidLoad() {

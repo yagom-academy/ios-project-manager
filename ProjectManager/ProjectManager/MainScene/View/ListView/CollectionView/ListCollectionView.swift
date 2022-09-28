@@ -19,8 +19,9 @@ final class ListCollectionView: UICollectionView {
     var currentLongPressedCell: ListCell?
     
     // MARK: Initializer
-    init(viewModel: ListCollectionViewModel) {
+    init(viewModel: ListCollectionViewModel, delegate: TodoListViewControllerDelegate?) {
         self.viewModel = viewModel
+        transitionDelegate = delegate
         super.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         setupInitialView()
         configureDataSource()

@@ -12,11 +12,11 @@ final class ListView: UIView {
     let collectionView: ListCollectionView
     
     // MARK: - Initializer
-    init(category: String) {
+    init(category: String, delegate: TodoListViewControllerDelegate?) {
         let headerVM = HeaderViewModel(category: category)
         self.headerView = HeaderView(viewModel: headerVM)
         let listCollectionVM = ListCollectionViewModel(category: category)
-        self.collectionView = ListCollectionView(viewModel: listCollectionVM)
+        self.collectionView = ListCollectionView(viewModel: listCollectionVM, delegate: delegate)
         super.init(frame: .zero)
         setupInitialView()
         setupHeaderView(category: category)

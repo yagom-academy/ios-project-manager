@@ -11,11 +11,7 @@ final class TodoListCoordinator: Coordinator, TodoListViewControllerDelegate {
     var rootViewController: UIViewController?
     
     func start() -> UIViewController {
-        let todoListViewController = TodoListViewController()
-        todoListViewController.delegate = self
-        todoListViewController.todoListView.collectionView.transitionDelegate = self
-        todoListViewController.doingListView.collectionView.transitionDelegate = self
-        todoListViewController.doneListView.collectionView.transitionDelegate = self
+        let todoListViewController = TodoListViewController(delegate: self)
         rootViewController = todoListViewController
         return rootViewController ?? UIViewController()
     }
