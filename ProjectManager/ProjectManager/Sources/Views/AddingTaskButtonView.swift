@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct AddingTaskButtonView: View {
+    
     var body: some View {
+        
         Circle()
             .overlay(alignment: .bottomTrailing) {
                 Image(systemName: "plus")
@@ -17,7 +19,6 @@ struct AddingTaskButtonView: View {
                     .foregroundColor(.white)
                     .padding()
             }
-
     }
 }
 

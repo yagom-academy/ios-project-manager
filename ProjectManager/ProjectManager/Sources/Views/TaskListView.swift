@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TaskListView: View {
+    
     @EnvironmentObject private var tasksDataSource: TasksDataSource
     
     var status: Status
@@ -58,7 +59,10 @@ struct TaskListView: View {
             }
         }
     }
+}
 
+private extension TaskListView {
+    
     func swipeButtonForChangingStatus(of task: Task, to status: Status) -> some View {
         switch status {
         case .todo:

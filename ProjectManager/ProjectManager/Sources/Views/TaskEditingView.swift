@@ -57,9 +57,10 @@ struct TaskEditingView_Previews: PreviewProvider {
     
     static var taskDashboardView = TaskDashboardView()
     @State static var dummyTask = Task(title: "Test Title", description: "Test Description", dueDate: Date.now, status: .todo)
+    @State static var isShowingSheet = false
     
     static var previews: some View {
-        TaskEditingView(isShowingSheet: taskDashboardView.$isShowingSheet, selectedTask: $dummyTask)
+        TaskEditingView(isShowingSheet: $isShowingSheet, selectedTask: $dummyTask)
             
     }
 }

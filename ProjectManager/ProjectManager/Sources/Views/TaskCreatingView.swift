@@ -43,8 +43,9 @@ private extension TaskCreatingView {
 struct TaskCreatingView_Previews: PreviewProvider {
     
     static var taskDashboardView = TaskDashboardView()
+    @State static var isShowingSheet = false
     
     static var previews: some View {
-        TaskCreatingView(isShowingSheet: taskDashboardView.$isShowingSheet)
+        TaskCreatingView(isShowingSheet: $isShowingSheet)
     }
 }

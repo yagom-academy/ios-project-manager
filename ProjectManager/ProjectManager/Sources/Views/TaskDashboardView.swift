@@ -10,7 +10,8 @@ import SwiftUI
 struct TaskDashboardView: View {
     
     @EnvironmentObject private var tasksDataSource: TasksDataSource
-    @State var isShowingSheet = false
+    
+    @State private var isShowingSheet = false
     @State private var newTask = Task(title: "", description: "", dueDate: Date.now, status: .todo)
     
     var body: some View {

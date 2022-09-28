@@ -31,8 +31,11 @@ struct TaskCellView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
+}
+
+private extension TaskCellView {
     
-    private func isOver(_ dueDate: Date) -> Bool {
+    func isOver(_ dueDate: Date) -> Bool {
         if dueDate < Date.now && !Calendar.current.isDateInToday(dueDate) {
             return true
         }
