@@ -30,7 +30,7 @@ struct SquareButtonView: View {
 
 struct SquareButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        SquareButtonView(label: "버튼", color: Color.purple) {
+        SquareButtonView(label: "버튼", color: Color.accentColor) {
         
         }
     }

@@ -11,7 +11,7 @@ struct TaskCellBackgroundView: View {
     
     var body: some View {
         Rectangle()
-            .foregroundColor(.gray.opacity(0.1))
+            .foregroundColor(Color(UIColor.secondarySystemBackground))
             .cornerRadius(20)
     }
 }

@@ -45,7 +45,7 @@ private extension TaskEditingView {
     }
     
     func editButton() -> some View {
-        SquareButtonView(label: "수정", color: .gray) {
+        SquareButtonView(label: "수정", color: .secondary) {
             isEditingDisable.toggle()
         }
     }
@@ -58,5 +58,6 @@ struct TaskEditingView_Previews: PreviewProvider {
     
     static var previews: some View {
         TaskEditingView(isShowingSheet: taskDashboardView.$isShowingSheet, selectedTask: $dummyTask)
+            
     }
 }

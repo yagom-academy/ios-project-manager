@@ -21,7 +21,7 @@ struct TaskCellView: View {
                     .lineLimit(1)
                 
                 Text(task.description)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                     .lineLimit(3)
                 
                 Text(task.dueDate, formatter: Date.formatter)
@@ -49,5 +49,6 @@ struct TaskCellView_Previews: PreviewProvider {
                        dueDate: Date.now,
                        status: .todo)
         )
+        
     }
 }
