@@ -17,8 +17,8 @@ final class CardDetailViewController: UIViewController {
         static let limitedTextAmount = 1000
     }
     
-    private var viewModel: CardViewModelProtocol?
-    private var model: CardModel?
+    private let viewModel: CardViewModelProtocol
+    private let model: CardModel
     private var isClickedEdition = false
     
     private let cardModalView = CardModalView().then {
@@ -35,7 +35,7 @@ final class CardDetailViewController: UIViewController {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError()
     }
     
     override func viewDidLoad() {
@@ -57,8 +57,6 @@ final class CardDetailViewController: UIViewController {
     }
 
     private func bindUI() {
-        guard let model = model else { return }
-
         cardModalView.titleTextField.text = model.title
         cardModalView.descriptionTextView.text = model.description
         cardModalView.datePicker.date = model.deadlineDate
@@ -103,8 +101,7 @@ final class CardDetailViewController: UIViewController {
 
     private func updateData() {
         guard let title = cardModalView.titleTextField.text,
-              let description = cardModalView.descriptionTextView.text,
-              let model = model else { return }
+              let description = cardModalView.descriptionTextView.text else { return }
         let deadlineDate = cardModalView.datePicker.date
         let data = CardModel(id: model.id,
                              title: title,
@@ -112,7 +109,7 @@ final class CardDetailViewController: UIViewController {
                              deadlineDate: deadlineDate,
                              cardType: model.cardType)
 
-        self.viewModel?.update(data)
+        self.viewModel.update(data)
     }
     
     @objc func didTapEditButton() {

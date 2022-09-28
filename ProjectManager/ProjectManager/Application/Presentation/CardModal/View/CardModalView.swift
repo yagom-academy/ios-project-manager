@@ -158,7 +158,7 @@ extension CardModalView {
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
-        
+
         let contentInset = UIEdgeInsets(
             top: Const.zero,
             left: Const.zero,

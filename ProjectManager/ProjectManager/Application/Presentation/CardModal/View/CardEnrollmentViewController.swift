@@ -17,15 +17,15 @@ final class CardEnrollmentViewController: UIViewController {
         static let alertTitle = "글자수 제한"
         static let exceedValue = "글자수가 초과되었습니다"
     }
-
+    
     private let cardModalView = CardModalView().then {
         $0.backgroundColor = .systemBackground
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
-
+    
     var coordinator: CoordinatorProtocol?
-    private var viewModel: CardViewModelProtocol?
-
+    private let viewModel: CardViewModelProtocol
+    
     init(viewModel: CardViewModelProtocol,
          coodinator: CoordinatorProtocol) {
         self.viewModel = viewModel
@@ -35,7 +35,7 @@ final class CardEnrollmentViewController: UIViewController {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError()
     }
     
     override func viewDidLoad() {
@@ -65,7 +65,7 @@ final class CardEnrollmentViewController: UIViewController {
                                                           style: .plain,
                                                           target: self,
                                                           action: #selector(didTapCancelButton))
-
+        
         cardModalView.rightBarButtonItem = UIBarButtonItem(title: Const.done,
                                                            style: .done,
                                                            target: self,
@@ -76,26 +76,28 @@ final class CardEnrollmentViewController: UIViewController {
         
         cardModalView.navigationBar.items = [navigationItem]
     }
-
+    
     private func create() -> CardModel? {
         guard let title = cardModalView.titleTextField.text,
               let description = cardModalView.descriptionTextView.text else { return nil }
         let deadlineDate = cardModalView.datePicker.date
-        let newData = CardModel(title: title,
+        let newData = CardModel(id: UUID().uuidString,
+                                title: title,
                                 description: description,
                                 deadlineDate: deadlineDate,
                                 cardType: .todo)
         return newData
     }
-
+    
     @objc func didTapCancelButton() {
         self.dismiss(animated: true)
     }
     
     @objc func didTapDoneButton() {
         guard let newCard = create() else { return }
+    
+        viewModel.append(newCard)
 
-        viewModel?.append(newCard)
         self.dismiss(animated: true)
     }
 }

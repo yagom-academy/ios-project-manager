@@ -11,14 +11,15 @@ protocol CoordinatorProtocol: AnyObject {
     var navigationController: UINavigationController? { get set }
     var childCoordinators: [CoordinatorProtocol] { get set }
     var parentCoordinator: CoordinatorProtocol? { get set }
-
+    
     func start()
     func presentEnrollmentViewController()
     func presentDetailViewController(_ model: CardModel)
-    func presentAlertActionSheet(_ sourceView: UIView,
-                                 model: CardModel,
-                                 firstCard: CardType,
-                                 secondCard: CardType)
+    func presentTableViewCellActionSheet(_ sourceView: UIView,
+                                         model: CardModel,
+                                         firstCard: CardType,
+                                         secondCard: CardType)
+    func presentHistoryViewActionSheet(_ barButton: UIBarButtonItem)
 }
 
 enum Event {
