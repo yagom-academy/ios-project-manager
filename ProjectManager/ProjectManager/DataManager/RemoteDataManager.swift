@@ -8,8 +8,12 @@
 import FirebaseCore
 import FirebaseFirestore
 
-final class RemoteDataManager {
+final class RemoteDataManager: RemoteRepositoryConnectable {
     private let dataBase = Firestore.firestore()
+    
+    init() {
+        TodoDataManager.shared.delegate = self
+    }
 
     func add(todo: Todo) {
         dataBase.collection("Todo").document("\(todo.id)").setData([
@@ -26,26 +30,28 @@ final class RemoteDataManager {
         }
     }
     
-    func read() {
+    func read(_ completion: @escaping (Todo) -> Void) {
         dataBase.collection("Todo").getDocuments { [weak self] (querySnapshot, err) in
             guard err == nil, let querySnapshot = querySnapshot else {
                 print(err!)
                 return
             }
-            self?.translateRemoteData(querySnapshot.documents)
+            self?.translateRemoteData(querySnapshot.documents) { todo in
+                completion(todo)
+            }
         }
     }
     
-    private func translateRemoteData(_ list: [QueryDocumentSnapshot]) {
+    private func translateRemoteData(_ list: [QueryDocumentSnapshot],
+                                     _ completion: @escaping (Todo) -> Void) {
         for document in list {
             let timestamp = document.data()["date"] as? Timestamp ?? Timestamp()
-            let todo = Todo()
-            todo.id = UUID(uuidString: document.documentID) ?? UUID()
-            todo.category = document.data()["category"] as? String ?? ""
-            todo.title = document.data()["title"] as? String ?? ""
-            todo.body = document.data()["body"] as? String ?? ""
-            todo.date = timestamp.dateValue()
-            TodoDataManager.shared.setupInitialData(with: todo)
+            let todo = Todo(id: UUID(uuidString: document.documentID) ?? UUID(),
+                            category: document.data()["category"] as? String ?? "",
+                            title: document.data()["title"] as? String ?? "",
+                            body: document.data()["body"] as? String ?? "",
+                            date: timestamp.dateValue())
+            completion(todo)
         }
     }
     

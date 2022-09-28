@@ -14,4 +14,13 @@ class Todo: Object {
     @objc dynamic var title: String = ""
     @objc dynamic var body: String = ""
     @objc dynamic var date: Date = Date()
+    
+    convenience init(id: UUID, category: String, title: String, body: String, date: Date) {
+        self.init()
+        self.id = id
+        self.category = category
+        self.title = title
+        self.body = body
+        self.date = date
+    }
 }

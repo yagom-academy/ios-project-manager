@@ -7,8 +7,16 @@
 
 import RealmSwift
 
+protocol RemoteRepositoryConnectable: AnyObject {
+    func add(todo: Todo)
+    func read(_ completion: @escaping (Todo) -> Void)
+    func delete(todo: Todo)
+    func update(todo: Todo, with model: Todo)
+    func move(todo: Todo, to target: String)
+}
+
 final class TodoDataManager {
-    private let firebaseManager = RemoteDataManager()
+    weak var delegate: RemoteRepositoryConnectable?
     private let historyManager = HistoryManager()
     
     private let realm = try! Realm()
@@ -16,9 +24,7 @@ final class TodoDataManager {
 
     var didChangedData: [(() -> Void)?] = []
     
-    private init() {
-        readRemoteData()
-    }
+    private init() {}
     
     func setupInitialData(with todo: Todo) {
         do {
@@ -36,7 +42,7 @@ final class TodoDataManager {
     
     // MARK: - CRUD
     func create(with todo: Todo) {
-        firebaseManager.add(todo: todo)
+        delegate?.add(todo: todo)
         historyManager.addHistory(todo: todo, with: .added)
         do {
             try realm.write {
@@ -65,12 +71,14 @@ final class TodoDataManager {
     func readRemoteData() {
         let savedList = realm.objects(Todo.self)
         if savedList.isEmpty {
-            firebaseManager.read()
+            delegate?.read { [weak self] (todo) in
+                self?.setupInitialData(with: todo)
+            }
         }
     }
     
     func update(todo: Todo, with model: Todo) {
-        firebaseManager.update(todo: todo, with: model)
+        delegate?.update(todo: todo, with: model)
         do {
             try realm.write {
                 todo.title = model.title
@@ -85,7 +93,7 @@ final class TodoDataManager {
     }
     
     func move(todo: Todo, to target: String) {
-        firebaseManager.move(todo: todo, to: target)
+        delegate?.move(todo: todo, to: target)
         historyManager.addHistory(todo: todo,
                                   moveTarget: target,
                                   with: .moved)
@@ -100,7 +108,7 @@ final class TodoDataManager {
     }
     
     func delete(_ todo: Todo) {
-        firebaseManager.delete(todo: todo)
+        delegate?.delete(todo: todo)
         historyManager.addHistory(todo: todo,
                                   with: .removed)
         do {

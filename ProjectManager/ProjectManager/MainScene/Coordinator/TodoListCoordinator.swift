@@ -9,8 +9,10 @@ import UIKit
 
 final class TodoListCoordinator: Coordinator, TodoListViewControllerDelegate {
     var rootViewController: UIViewController?
+    let remoteDataManager = RemoteDataManager()
     
     func start() -> UIViewController {
+        TodoDataManager.shared.readRemoteData()
         let todoListViewController = TodoListViewController(delegate: self)
         rootViewController = todoListViewController
         return rootViewController ?? UIViewController()
