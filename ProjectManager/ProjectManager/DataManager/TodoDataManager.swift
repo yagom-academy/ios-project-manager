@@ -11,29 +11,23 @@ final class TodoDataManager {
     private let firebaseManager = RemoteDataManager()
     private let historyManager = HistoryManager()
     
-    private let realm = try? Realm()
+    private let realm = try! Realm()
     static let shared = TodoDataManager()
-    
-    var todoList: Observable<[Todo]> = Observable([])
-    var doingList: Observable<[Todo]> = Observable([])
-    var doneList: Observable<[Todo]> = Observable([])
-    
-    var willDeleteItem: [((Todo) -> Void)?] = []
-    var willAppendItem: [((Todo) -> Void)?] = []
+
+    var didChangedData: [(() -> Void)?] = []
     
     private init() {
-        read()
+        readRemoteData()
     }
     
     func setupInitialData(with todo: Todo) {
         do {
-            try realm?.write {
-                realm?.add(todo)
+            try realm.write {
+                realm.add(todo)
             }
         } catch {
             print(error.localizedDescription)
         }
-        read()
     }
     
     func fetchHistory() -> [History] {
@@ -42,96 +36,78 @@ final class TodoDataManager {
     
     // MARK: - CRUD
     func create(with todo: Todo) {
-        willAppendItem.forEach { $0?(todo) }
-        
         firebaseManager.add(todo: todo)
         historyManager.addHistory(todo: todo, with: .added)
         do {
-            try realm?.write {
-                realm?.add(todo)
+            try realm.write {
+                realm.add(todo)
             }
-            read()
+            didChangedData.forEach { $0?() }
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    func read(category: String) -> [Todo]? {
+    func read(category: String) -> [Todo] {
+        let savedList = realm.objects(Todo.self)
         switch category {
         case Category.todo:
-            return todoList.value
+            return Array(savedList.filter("category == 'TODO'"))
         case Category.doing:
-            return doingList.value
+            return Array(savedList.filter("category == 'DOING'"))
         case Category.done:
-            return doneList.value
+            return Array(savedList.filter("category == 'DONE'"))
         default:
-            return nil
+            return []
         }
     }
     
-    func read() {
-        guard let savedList = realm?.objects(Todo.self) else { return }
+    func readRemoteData() {
+        let savedList = realm.objects(Todo.self)
         if savedList.isEmpty {
             firebaseManager.read()
-        } else {
-            todoList.value = Array(savedList.filter("category == 'TODO'"))
-            doingList.value = Array(savedList.filter("category == 'DOING'"))
-            doneList.value = Array(savedList.filter("category == 'DONE'"))
         }
     }
     
     func update(todo: Todo, with model: Todo) {
         firebaseManager.update(todo: todo, with: model)
         do {
-            try realm?.write {
+            try realm.write {
                 todo.title = model.title
                 todo.body = model.body
                 todo.date = model.date
                 todo.category = model.category
             }
-            read()
+            didChangedData.forEach { $0?() }
         } catch {
             print(error.localizedDescription)
         }
     }
     
     func move(todo: Todo, to target: String) {
+        firebaseManager.move(todo: todo, to: target)
         historyManager.addHistory(todo: todo,
                                   moveTarget: target,
                                   with: .moved)
-        firebaseManager.move(todo: todo, to: target)
         do {
-            try realm?.write {
+            try realm.write {
                 todo.category = target
             }
-            read()
+            didChangedData.forEach { $0?() }
         } catch {
             print(error.localizedDescription)
         }
     }
     
     func delete(_ todo: Todo) {
-        willDeleteItem.forEach { $0?(todo) }
-        
+        firebaseManager.delete(todo: todo)
         historyManager.addHistory(todo: todo,
                                   with: .removed)
-        firebaseManager.delete(todo: todo)
         do {
-            try realm?.write {
-                realm?.delete(todo)
+            try realm.write {
+                realm.delete(todo)
             }
-            read()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func deleteAll() {
-        do {
-            try realm?.write {
-                realm?.deleteAll()
-            }
-            read()
+            didChangedData.forEach { $0?() }
         } catch {
             print(error.localizedDescription)
         }

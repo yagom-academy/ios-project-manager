@@ -15,7 +15,7 @@ final class FormSheetViewModel {
               let index = index else {
             return
         }
-        self.currentTodo = TodoDataManager.shared.read(category: category)?[index]
+        self.currentTodo = TodoDataManager.shared.read(category: category)[index]
     }
     
     func edit(to nextTodo: Todo) {

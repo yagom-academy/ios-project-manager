@@ -106,7 +106,7 @@ final class FormSheetViewController: UIViewController {
 
         let naviItem = UINavigationItem(title: "Todo")
         naviItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
+            barButtonSystemItem: .edit,
             target: self,
             action: #selector(editButtonDidTapped)
         )

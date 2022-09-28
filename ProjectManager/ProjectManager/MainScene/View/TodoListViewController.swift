@@ -50,11 +50,9 @@ final class TodoListViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        // safe area
         var statusBarHeight: CGFloat = 0
         statusBarHeight = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
 
-        // navigationBar
         navigationBar = UINavigationBar(frame: .init(x: 0, y: statusBarHeight, width: view.frame.width, height: statusBarHeight+30))
         navigationBar.isTranslucent = false
         navigationBar.backgroundColor = .systemBackground
