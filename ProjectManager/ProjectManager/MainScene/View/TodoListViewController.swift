@@ -35,9 +35,12 @@ final class TodoListViewController: UIViewController {
     
     init(delegate: TodoListViewControllerDelegate) {
         self.delegate = delegate
-        self.todoListView = ListView(category: Category.todo, delegate: delegate)
-        self.doingListView = ListView(category: Category.doing, delegate: delegate)
-        self.doneListView = ListView(category: Category.done, delegate: delegate)
+        self.todoListView = ListView(category: Category.todo,
+                                     delegate: delegate)
+        self.doingListView = ListView(category: Category.doing,
+                                      delegate: delegate)
+        self.doneListView = ListView(category: Category.done,
+                                     delegate: delegate)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,6 +53,7 @@ final class TodoListViewController: UIViewController {
         super.viewDidLoad()
         setupInitialView()
         setupNavigationBar()
+        setupToolBar()
         setupListView()
         placeListView()
         adoptCollectionViewDelegate()
@@ -65,7 +69,11 @@ final class TodoListViewController: UIViewController {
         var statusBarHeight: CGFloat = 0
         statusBarHeight = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
 
-        navigationBar = UINavigationBar(frame: .init(x: 0, y: statusBarHeight, width: view.frame.width, height: statusBarHeight+30))
+        navigationBar = UINavigationBar(
+            frame: .init(x: 0, y: statusBarHeight,
+                         width: view.frame.width,
+                         height: statusBarHeight+30)
+        )
         navigationBar.isTranslucent = false
         navigationBar.backgroundColor = .systemBackground
 
@@ -84,6 +92,32 @@ final class TodoListViewController: UIViewController {
         navigationBar.items = [naviItem]
 
         view.addSubview(navigationBar)
+    }
+    
+    private func setupToolBar() {
+        let toolBar = UIToolbar(
+            frame: .init(x: 0,
+                         y: view.frame.height-60,
+                         width: view.frame.width,
+                         height: 50)
+        )
+        toolBar.backgroundColor = .systemBackground
+        let undoItem = UIBarButtonItem(
+            title: "undo",
+            style: .plain,
+            target: self,
+            action: #selector(undoButtonDidTapped)
+        )
+        let redoItem = UIBarButtonItem(
+            title: "redo",
+            style: .plain,
+            target: self,
+            action: #selector(redoButtonDidTapped)
+        )
+        undoItem.isEnabled = false
+        redoItem.isEnabled = false
+        toolBar.setItems([undoItem, redoItem], animated: false)
+        view.addSubview(toolBar)
     }
     
     private func setupListView() {
@@ -115,7 +149,8 @@ final class TodoListViewController: UIViewController {
                 constant: 50
             ),
             stackView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -40
             ),
             stackView.leadingAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.leadingAnchor
