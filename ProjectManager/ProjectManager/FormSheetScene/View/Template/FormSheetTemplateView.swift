@@ -120,16 +120,15 @@ final class FormSheetTemplateView: UIView {
         bodyTextView.text = model.body
     }
     
-    func generateTodoModel(with category: String?) -> Todo? {
+    func generateTodoModel(with category: String?) -> TodoModel? {
         guard let title = titleTextField.text,
               let body = bodyTextView.text else { return nil }
         let date = datePicker.date
-        let todo = Todo()
-        todo.category = category ?? Category.todo
-        todo.title = title
-        todo.body = body
-        todo.date = date
-        return todo
+        let todoModel = TodoModel(category: category ?? Category.todo,
+                             title: title,
+                             body: body,
+                             date: date)
+        return todoModel
     }
     
     // MARK: - Keyboard Settings

@@ -117,6 +117,10 @@ final class TodoListViewController: UIViewController {
         undoItem.isEnabled = false
         redoItem.isEnabled = false
         toolBar.setItems([undoItem, redoItem], animated: false)
+        TodoDataManager.shared.didChangedData.append {
+            undoItem.isEnabled = TodoDataManager.shared.canUndo()
+            redoItem.isEnabled = TodoDataManager.shared.canRedo()
+        }
         view.addSubview(toolBar)
     }
     
@@ -174,6 +178,14 @@ final class TodoListViewController: UIViewController {
     
     @objc private func historyButtonDidTapped() {
         delegate?.historyButtonDidTapped(in: self)
+    }
+    
+    @objc private func undoButtonDidTapped(_ sender: UIBarButtonItem) {
+        TodoDataManager.shared.undo()
+    }
+    
+    @objc private func redoButtonDidTapped(_ sender: UIBarButtonItem) {
+        TodoDataManager.shared.redo()
     }
 }
 

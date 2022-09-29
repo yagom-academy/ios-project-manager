@@ -5,6 +5,8 @@
 //  Created by 이원빈 on 2022/09/19.
 //
 
+import Foundation
+
 final class FormSheetViewModel {
     let mode: PageMode
     var currentTodo: Todo?
@@ -18,14 +20,14 @@ final class FormSheetViewModel {
         self.currentTodo = TodoDataManager.shared.read(category: category)[index]
     }
     
-    func edit(to nextTodo: Todo) {
+    func edit(to nextTodo: TodoModel) {
         guard let currentTodo = currentTodo else {
             return
         }
         TodoDataManager.shared.update(todo: currentTodo, with: nextTodo)
     }
     
-    func create(_ todo: Todo) {
-        TodoDataManager.shared.create(with: todo)
+    func create(_ todoModel: TodoModel) {
+        TodoDataManager.shared.create(with: todoModel)
     }
 }

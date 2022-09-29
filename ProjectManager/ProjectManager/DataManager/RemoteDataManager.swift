@@ -65,7 +65,7 @@ final class RemoteDataManager: RemoteRepositoryConnectable {
         }
     }
     
-    func update(todo: Todo, with model: Todo) {
+    func update(todo: Todo, with model: TodoModel) {
         dataBase.collection("Todo").document("\(todo.id)").setData([
             "category": "\(model.category)",
             "title": "\(model.title)",
