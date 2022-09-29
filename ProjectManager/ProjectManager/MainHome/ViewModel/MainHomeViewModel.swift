@@ -27,7 +27,7 @@ class MainHomeViewModel {
         }
     }
 
-    let remoteManager = RemoteRealm()
+    private let remoteManager = RemoteRealm()
     private let databaseManager = DatabaseManagerRealm()
     private var todoList = [TaskModel]()
     private var doingList = [TaskModel]()

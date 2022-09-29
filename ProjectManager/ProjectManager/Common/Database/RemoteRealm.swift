@@ -18,11 +18,9 @@ class RemoteRealm: ObservableObject {
     func initialize() {
         Task {
             guard let user = try? await getUser() else {
-                print("❌ 유저 못 가져옴")
                 return
             }
 
-            print("🤯 \(user.id)")
             await openSyncedRealm(user: user)
 
             guard realm?.subscriptions != nil else {
@@ -52,7 +50,7 @@ class RemoteRealm: ObservableObject {
             realm = try await Realm(configuration: config)
             databaseManager = DatabaseManagerRealm(realm: realm)
         } catch {
-            print("💖 Error opening realm: \(error.localizedDescription)")
+            print("Error: \(error.localizedDescription)")
         }
     }
 }

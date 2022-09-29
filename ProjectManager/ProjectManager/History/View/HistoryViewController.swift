@@ -8,10 +8,13 @@
 import UIKit
 
 class HistoryViewController: UIViewController {
+    // MARK: Properties
     var viewModel = HistoryViewModel()
 
+    // MARK: IBAction
     @IBOutlet weak var historyTableView: UITableView!
 
+    // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTableView.dataSource = self
@@ -23,6 +26,7 @@ class HistoryViewController: UIViewController {
     }
 }
 
+// MARK: extension - SendDelegate
 extension HistoryViewController: SendDelegate,ReuseIdentifying {
     func sendData<T>(_ data: T) {
         guard let data = data as? SendModel else {
@@ -33,6 +37,7 @@ extension HistoryViewController: SendDelegate,ReuseIdentifying {
     }
 }
 
+// MARK: extension - UITableViewDelegate
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.contents.count
