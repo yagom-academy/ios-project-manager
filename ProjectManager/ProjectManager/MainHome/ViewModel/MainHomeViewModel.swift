@@ -43,6 +43,7 @@ class MainHomeViewModel {
         currentList.append(data)
         databaseManager.update(data: data)
         remoteManager.databaseManager?.update(data: data)
+        notifyChangeTableView()
     }
 
     func getDataList(of state: TaskState) -> [TaskModel] {
@@ -77,6 +78,7 @@ class MainHomeViewModel {
         databaseManager.delete(data: data)
         remoteManager.databaseManager?.delete(data: data)
         fetchDataList()
+        notifyChangeTableView()
     }
 
     func changeList(data: TaskModel) -> Activity? {
@@ -84,17 +86,27 @@ class MainHomeViewModel {
             databaseManager.create(data: data)
             remoteManager.databaseManager?.create(data: data)
             fetchDataList()
+            notifyChangeTableView()
+
             return Activity.added
         }
 
         databaseManager.update(data: data)
         remoteManager.databaseManager?.update(data: data)
         fetchDataList()
+        notifyChangeTableView()
         return nil
     }
 
     func synchronize() {
         remoteManager.initialize()
+    }
+
+    private func notifyChangeTableView() {
+        NotificationCenter.default.post(
+            name: NSNotification.Name("changeTableView"),
+            object: nil
+        )
     }
 
     private func getCurrentList(state: TaskState) -> [TaskModel] {

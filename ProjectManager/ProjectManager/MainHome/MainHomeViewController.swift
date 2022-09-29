@@ -141,9 +141,16 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
             self?.doingCountLabel.text = self?.viewModel.doingCount.description
             self?.doneCountLabel.text = self?.viewModel.doneCount.description
         }
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadTableView),
+            name: NSNotification.Name("changeTableView"),
+            object: nil
+        )
     }
 
-    private func reloadTableView() {
+    @objc private func reloadTableView() {
         [todoTableView, doingTableView, doneTableView].forEach {
             $0.reloadData()
         }
@@ -174,7 +181,6 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
         }
 
         let activity = viewModel.changeList(data: data)
-        reloadTableView()
 
         guard let activity = activity else {
             return
@@ -245,7 +251,6 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
             let state = self.setUpTaskState(tableView: tableView)
             let removedData = self.viewModel.getDataList(of: state)[indexPath.row]
             self.viewModel.remove(index: indexPath.row, in: state)
-            self.reloadTableView()
 
             let sendData = SendModel(
                 activity: Activity.removed,
@@ -343,8 +348,6 @@ extension MainHomeViewController {
                     to: taskState.other.first ?? taskState
                 )
 
-                self.reloadTableView()
-
                 let sendData = SendModel(
                     activity: Activity.moved,
                     title: data.taskTitle,
@@ -367,8 +370,6 @@ extension MainHomeViewController {
                 from:taskState,
                 to: taskState.other.last ?? taskState
             )
-
-            self.reloadTableView()
 
             let sendData = SendModel(
                 activity: Activity.moved,
