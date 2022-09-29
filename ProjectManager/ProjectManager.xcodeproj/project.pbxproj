@@ -34,6 +34,10 @@
 		20DFE5C328C868A6003D42E5 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C228C868A6003D42E5 /* FirebaseDatabaseSwift */; };
 		20DFE5C528C868A6003D42E5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C428C868A6003D42E5 /* FirebaseFirestoreSwift */; };
 		20DFE5C728C868A6003D42E5 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 20DFE5C628C868A6003D42E5 /* FirebaseRemoteConfigSwift */; };
+		20F7ABE728E5849C00199393 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F7ABE628E5849C00199393 /* UIViewController+Extension.swift */; };
+		20F7ABE928E5851300199393 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F7ABE828E5851300199393 /* Alert.swift */; };
+		20F7ABEC28E586D400199393 /* JSONError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F7ABEB28E586D400199393 /* JSONError.swift */; };
+		20F7ABEE28E5872A00199393 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F7ABED28E5872A00199393 /* NetworkError.swift */; };
 		7236B03B28C86CCD009A7412 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */; };
 		7236B03E28C86D4B009A7412 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7236B03C28C86D4B009A7412 /* ProjectManager.xcdatamodeld */; };
 		7236B04628C86FF9009A7412 /* LocalDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */; };
@@ -94,6 +98,10 @@
 		20D66B6028D1BE1B001317E0 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		20D66B6528D1D85A001317E0 /* CoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContainer.swift; sourceTree = "<group>"; };
 		20DFE5BB28C85E24003D42E5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		20F7ABE628E5849C00199393 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		20F7ABE828E5851300199393 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		20F7ABEB28E586D400199393 /* JSONError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONError.swift; sourceTree = "<group>"; };
+		20F7ABED28E5872A00199393 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		7236B03A28C86CCD009A7412 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7236B03D28C86D4B009A7412 /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
 		7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseManager.swift; sourceTree = "<group>"; };
@@ -195,6 +203,7 @@
 				7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */,
 				203901D728E4137400419C49 /* RemoteDatabaseManager.swift */,
 				20D66B6528D1D85A001317E0 /* CoreDataContainer.swift */,
+				20F7ABEB28E586D400199393 /* JSONError.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -267,6 +276,7 @@
 				7269C2EC28D59EC50068424B /* UIButton+Extension.swift */,
 				72B5DDA128D6E552005D0544 /* OSLog+Extension.swift */,
 				72B5DDA728D70BE4005D0544 /* Notification.Name+Extension.swift */,
+				20F7ABE628E5849C00199393 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -275,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				72AB5C7C28E3E20600BAB111 /* NetworkObserver.swift */,
+				20F7ABED28E5872A00199393 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -294,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				72B5DDA528D709A8005D0544 /* ProjectStatus.swift */,
+				20F7ABE828E5851300199393 /* Alert.swift */,
 			);
 			path = NameSpace;
 			sourceTree = "<group>";
@@ -488,6 +500,7 @@
 				7236B04A28C87A2A009A7412 /* Project+CoreDataProperties.swift in Sources */,
 				7236B04E28C8844D009A7412 /* DatabaseError.swift in Sources */,
 				20B241AD28E2C4130098712B /* HistoryLog.swift in Sources */,
+				20F7ABE728E5849C00199393 /* UIViewController+Extension.swift in Sources */,
 				20B3DC0128D55A9400A6386B /* ToDoViewModel.swift in Sources */,
 				72C61C6B28CDC88F0041CD12 /* ContentScrollView.swift in Sources */,
 				72AB5C7F28E4378B00BAB111 /* JSONManager.swift in Sources */,
@@ -504,16 +517,19 @@
 				200203E728D57911003F2B64 /* PopoverController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				7269C2EB28D5921D0068424B /* StatusChangable.swift in Sources */,
+				20F7ABE928E5851300199393 /* Alert.swift in Sources */,
 				72D81B3528DC877F0089C734 /* DateFormatterManager.swift in Sources */,
 				2037F2E528DD46F700ADE953 /* CommonViewModelLogic.swift in Sources */,
 				72AB5C7D28E3E20600BAB111 /* NetworkObserver.swift in Sources */,
 				7236B04C28C87A58009A7412 /* ProjectUnit.swift in Sources */,
 				20B3DC0528D55AB100A6386B /* DoneViewModel.swift in Sources */,
 				2037F2E728DD51CF00ADE953 /* ContentAddible.swift in Sources */,
+				20F7ABEE28E5872A00199393 /* NetworkError.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				20B3DC0328D55AA900A6386B /* DoingViewModel.swift in Sources */,
 				2015836928CDBA2E000CCC52 /* SectionHeaderView.swift in Sources */,
 				209C7F1E28D5B87900DA554D /* ProjectModificationController.swift in Sources */,
+				20F7ABEC28E586D400199393 /* JSONError.swift in Sources */,
 				72B5DDA228D6E552005D0544 /* OSLog+Extension.swift in Sources */,
 				209C7F2028D5B8C000DA554D /* ContentEditable.swift in Sources */,
 				7296439828E2BD350076006A /* HistoryPopoverController.swift in Sources */,

@@ -163,13 +163,7 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
             if isConnected == true {
                 self.synchronizeDatabase()
             } else {
-                let alert = UIAlertController(title: "연결 실패", message: "네트워트 연결에 실패했습니다.", preferredStyle: .alert)
-                let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-                
-                alert.addAction(action)
-                DispatchQueue.main.async {
-                    self.present(alert, animated: true)
-                }
+                self.presentErrorAlert(NetworkError.failedToConnect)
             }
         })
         NetworkObserver.shared.stopObserving()

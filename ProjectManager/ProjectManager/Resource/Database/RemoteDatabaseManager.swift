@@ -41,8 +41,3 @@ final class RemoteDatabaseManager {
         reference.child("ProjectList").child("\(id)").setValue(nil)
     }
 }
-
-enum JSONError: Error {
-    case defaultError
-    case emptyError
-}

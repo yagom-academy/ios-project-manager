@@ -160,7 +160,11 @@ final class ProjectListViewController:
                 return
             }
 
-            let alert = UIAlertController(title: "Error", message: self.viewModel.message, preferredStyle: .alert)
+            let alert = UIAlertController(
+                title: "Error",
+                message: self.viewModel.message,
+                preferredStyle: .alert
+            )
             let okAction = UIAlertAction(title: "OK", style: .default)
 
             alert.addAction(okAction)
