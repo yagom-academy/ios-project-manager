@@ -15,21 +15,19 @@ final class ListCollectionView: UICollectionView {
     weak var transitionDelegate: TodoListViewControllerDelegate?
     private var todoDataSource: UICollectionViewDiffableDataSource<Section, Todo>?
     private var snapshot = NSDiffableDataSourceSnapshot<Section, Todo>()
-    var category: String
-    var viewModel: DefaultTodoListViewModel
+    let viewModel: ListCollectionViewModel
     var currentLongPressedCell: ListCell?
     
     // MARK: Initializer
-    init(category: String, viewModel: DefaultTodoListViewModel) {
-        self.category = category
+    init(viewModel: ListCollectionViewModel, delegate: TodoListViewControllerDelegate?) {
         self.viewModel = viewModel
+        transitionDelegate = delegate
         super.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         setupInitialView()
-        configureDataSource(with: viewModel.fetchTodoList(in: category))
+        configureDataSource()
+        setupDataSource(with: viewModel.fetchList())
         setupLongGestureRecognizerOnCollection()
-        bindCreateTodo()
-        bindEditTodo()
-        bindMoveTodo()
+        bindUI()
     }
     
     required init?(coder: NSCoder) {
@@ -74,20 +72,15 @@ extension ListCollectionView {
     
     private func trailingSwipeActionConfigurationForListCellItem(_ item: Todo) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "delete") { [weak self] (_, _, completion) in
-            guard let self = self else {
-                completion(false)
-                return
-            }
-            self.delete(todo: item)
+            self?.viewModel.delete(todo: item)
             completion(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-    private func configureDataSource(with data: [Todo]?) {
-        guard let data = data else { return }
+    private func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<ListCell, Todo> { (cell, _, todo) in
-            cell.setup(with: todo)
+            cell.setupData(with: todo)
         }
         todoDataSource = UICollectionViewDiffableDataSource<Section, Todo>(collectionView: self) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Todo) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(
@@ -96,49 +89,20 @@ extension ListCollectionView {
                 item: itemIdentifier
             )
         }
-        snapshot.appendSections([.main])
-        snapshot.appendItems(data, toSection: .main)
-        todoDataSource?.apply(snapshot)
-    }
-    // MARK: - Bind
-    private func bindCreateTodo() {
-        guard category == Category.todo else { return }
-        viewModel.didCreatedTodo = { [weak self] (todo) in
-            guard let self = self else { return }
-            self.add(todo: todo)
-        }
-    }
-
-    private func bindEditTodo() {
-        viewModel.didEditedTodo.append({[weak self] (list) in
-            guard let self = self else { return }
-            guard self.category == list.first?.category else { return }
-            self.update(list)
-        })
     }
     
-    private func bindMoveTodo() {
-        viewModel.didMovedTodo.append({ [weak self] in
-            guard let self = self else { return }
-            self.update(self.viewModel.fetchTodoList(in: self.category))
-        })
-    }
-    
-    func add(todo: Todo) {
-        snapshot.appendItems([todo], toSection: .main)
-        todoDataSource?.apply(snapshot, animatingDifferences: true)
-    }
-    
-    func delete(todo: Todo) {
-        snapshot.deleteItems([todo])
-        todoDataSource?.apply(snapshot, animatingDifferences: true)
-        viewModel.delete(todo: todo)
-    }
-    
-    func update(_ items: [Todo]) {
+    private func setupDataSource(with items: [Todo]?) {
+        guard let items = items else { return }
         snapshot.deleteAllItems()
         snapshot.appendSections([.main])
         snapshot.appendItems(items, toSection: .main)
         todoDataSource?.apply(snapshot, animatingDifferences: true)
+    }
+   
+    // MARK: - Bind
+    private func bindUI() {
+        viewModel.bindList { [weak self] (list) in
+            self?.setupDataSource(with: list)
+        }
     }
 }

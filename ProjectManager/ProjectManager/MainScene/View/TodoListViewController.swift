@@ -15,35 +15,29 @@ protocol TodoListViewControllerDelegate: AnyObject {
         location: (x: Double, y: Double),
         item: Todo?
     )
+    func historyButtonDidTapped(in viewController: TodoListViewController)
 }
 
 final class TodoListViewController: UIViewController {
-    
-    var viewModel: DefaultTodoListViewModel?
     weak var delegate: TodoListViewControllerDelegate?
     
-    var todoListView: ListView
-    var doingListView: ListView
-    var doneListView: ListView
+    let todoListView: ListView
+    let doingListView: ListView
+    let doneListView: ListView
+    var navigationBar = UINavigationBar()
     
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.backgroundColor = .systemGray3
-        stackView.spacing = 6
-        return stackView
-    }()
+    private let stackView = DefaultStackViewBuilder()
+        .useAutoLayout()
+        .setAxis(.horizontal)
+        .setBackgroundColor(.systemGray3)
+        .setSpacing(6)
+        .stackView
     
-    // MARK: - Initializer
-    init(viewModel: DefaultTodoListViewModel) {
-        self.viewModel = viewModel
-        todoListView = ListView(category: Category.todo,
-                                viewModel: viewModel)
-        doingListView = ListView(category: Category.doing,
-                                 viewModel: viewModel)
-        doneListView = ListView(category: Category.done,
-                                viewModel: viewModel)
+    init(delegate: TodoListViewControllerDelegate) {
+        self.delegate = delegate
+        self.todoListView = ListView(category: Category.todo, delegate: delegate)
+        self.doingListView = ListView(category: Category.doing, delegate: delegate)
+        self.doneListView = ListView(category: Category.done, delegate: delegate)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,6 +53,7 @@ final class TodoListViewController: UIViewController {
         setupListView()
         placeListView()
         adoptCollectionViewDelegate()
+        NetworkCheck.shared.startMonitoring(in: self)
     }
     
     // MARK: - Initial Setup
@@ -67,12 +62,28 @@ final class TodoListViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        var statusBarHeight: CGFloat = 0
+        statusBarHeight = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
+
+        navigationBar = UINavigationBar(frame: .init(x: 0, y: statusBarHeight, width: view.frame.width, height: statusBarHeight+30))
+        navigationBar.isTranslucent = false
+        navigationBar.backgroundColor = .systemBackground
+
+        let naviItem = UINavigationItem(title: "Project Manager")
+        naviItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
             action: #selector(addButtonDidTapped)
         )
+        naviItem.leftBarButtonItem = UIBarButtonItem(
+            title: "History",
+            style: .done,
+            target: self,
+            action: #selector(historyButtonDidTapped)
+        )
+        navigationBar.items = [naviItem]
+
+        view.addSubview(navigationBar)
     }
     
     private func setupListView() {
@@ -81,13 +92,13 @@ final class TodoListViewController: UIViewController {
         doneListView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             todoListView.widthAnchor.constraint(
-                equalToConstant: 356
+                equalToConstant: view.bounds.width/3 - 4
             ),
             doingListView.widthAnchor.constraint(
-                equalToConstant: 356
+                equalToConstant: view.bounds.width/3 - 4
             ),
             doneListView.widthAnchor.constraint(
-                equalToConstant: 356
+                equalToConstant: view.bounds.width/3 - 4
             )
         ])
     }
@@ -100,7 +111,8 @@ final class TodoListViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 50
             ),
             stackView.bottomAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor
@@ -115,23 +127,27 @@ final class TodoListViewController: UIViewController {
     }
     
     private func adoptCollectionViewDelegate() {
-        todoListView.collectionView?.delegate = self
-        doingListView.collectionView?.delegate = self
-        doneListView.collectionView?.delegate = self
+        todoListView.collectionView.delegate = self
+        doingListView.collectionView.delegate = self
+        doneListView.collectionView.delegate = self
     }
     
     // MARK: - @objc Method
     @objc private func addButtonDidTapped() {
         delegate?.addButtonDidTapped()
     }
+    
+    @objc private func historyButtonDidTapped() {
+        delegate?.historyButtonDidTapped(in: self)
+    }
 }
 
 // MARK: - UICollectionViewDelegate
 extension TodoListViewController: UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-
+        
         switch collectionView {
         case todoListView.collectionView:
             delegate?.cellDidTapped(at: indexPath.row,
@@ -145,5 +161,13 @@ extension TodoListViewController: UICollectionViewDelegate {
         default:
             return
         }
+    }
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+extension TodoListViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }

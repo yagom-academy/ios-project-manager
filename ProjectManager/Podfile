@@ -8,4 +8,6 @@ target 'ProjectManager' do
   # Pods for ProjectManager
 pod 'SwiftLint'
 pod 'RealmSwift'
+pod 'FirebaseAuth'
+pod 'FirebaseFirestore'
 end

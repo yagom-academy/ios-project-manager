@@ -16,20 +16,18 @@ final class PopoverViewController: UIViewController {
     }
     
     // MARK: - UIComponents
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 5
-        stackView.distribution = .fillEqually
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 10,
-                                               left: 10,
-                                               bottom: 10,
-                                               right: 10)
-        return stackView
-    }()
-
+    private let verticalStackView = DefaultStackViewBuilder()
+        .useAutoLayout()
+        .setAxis(.vertical)
+        .setSpacing(5)
+        .setDistribution(.fillEqually)
+        .useLayoutMargin()
+        .setLayoutMargin(top: 10,
+                         left: 10,
+                         bottom: 10,
+                         right: 10)
+        .stackView
+    
     private var firstButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +38,7 @@ final class PopoverViewController: UIViewController {
         button.backgroundColor = .white
         return button
     }()
-
+    
     private var secondButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -53,14 +51,13 @@ final class PopoverViewController: UIViewController {
     }()
     
     // MARK: - Properties
-    private var viewModel: DefaultTodoListViewModel
-    private var selectedTodo: Todo
+    private var viewModel: PopoverViewModel
     
     // MARK: - Initializer
-    init(viewModel: DefaultTodoListViewModel, selectedTodo: Todo) {
+    init(viewModel: PopoverViewModel) {
         self.viewModel = viewModel
-        self.selectedTodo = selectedTodo
         super.init(nibName: nil, bundle: nil)
+        setupContentSize()
     }
     
     required init?(coder: NSCoder) {
@@ -75,6 +72,12 @@ final class PopoverViewController: UIViewController {
     }
     
     // MARK: - Methods
+    private func setupContentSize() {
+        preferredContentSize = CGSize(
+            width: 250,
+            height: 120
+        )
+    }
     private func setupInitialView() {
         view.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(firstButton)
@@ -96,7 +99,7 @@ final class PopoverViewController: UIViewController {
     }
     
     private func setupButton() {
-        switch selectedTodo.category {
+        switch viewModel.selectedTodo.category {
         case Category.todo:
             setTitle(
                 firstButtonTitle: Transition.moveToDoing,
@@ -129,29 +132,41 @@ final class PopoverViewController: UIViewController {
         }
     }
     
-    private func setTitle(firstButtonTitle: String, secondButtonTitle: String) {
-        firstButton.setTitle(firstButtonTitle, for: .normal)
-        secondButton.setTitle(secondButtonTitle, for: .normal)
+    private func setTitle(firstButtonTitle: String,
+                          secondButtonTitle: String) {
+        firstButton.setTitle(firstButtonTitle,
+                             for: .normal)
+        secondButton.setTitle(secondButtonTitle,
+                              for: .normal)
     }
     
-    private func addTarget(firstButtonTarget: Selector, secondButtonTarget: Selector) {
-        firstButton.addTarget(self, action: firstButtonTarget, for: .touchUpInside)
-        secondButton.addTarget(self, action: secondButtonTarget, for: .touchUpInside)
+    private func addTarget(firstButtonTarget: Selector,
+                           secondButtonTarget: Selector) {
+        firstButton.addTarget(
+            self,
+            action: firstButtonTarget,
+            for: .touchUpInside
+        )
+        secondButton.addTarget(
+            self,
+            action: secondButtonTarget,
+            for: .touchUpInside
+        )
     }
     
     // MARK: - @objc Methods
     @objc private func moveToDoing() {
-        viewModel.move(selectedTodo, to: Category.doing)
+        viewModel.move(to: Category.doing)
         dismiss(animated: true)
     }
     
     @objc private func moveToDone() {
-        viewModel.move(selectedTodo, to: Category.done)
+        viewModel.move(to: Category.done)
         dismiss(animated: true)
     }
     
     @objc private func moveToTodo() {
-        viewModel.move(selectedTodo, to: Category.todo)
+        viewModel.move(to: Category.todo)
         dismiss(animated: true)
     }
 }

@@ -8,19 +8,18 @@
 import UIKit
 
 final class ListView: UIView {
-    private var category: String
-    var headerView: HeaderView?
-    var collectionView: ListCollectionView?
-    var viewModel: DefaultTodoListViewModel
+    let headerView: HeaderView
+    let collectionView: ListCollectionView
     
     // MARK: - Initializer
-    init(category: String, viewModel: DefaultTodoListViewModel) {
-        self.category = category
-        self.viewModel = viewModel
+    init(category: String, delegate: TodoListViewControllerDelegate?) {
+        let headerVM = HeaderViewModel(category: category)
+        self.headerView = HeaderView(viewModel: headerVM)
+        let listCollectionVM = ListCollectionViewModel(category: category)
+        self.collectionView = ListCollectionView(viewModel: listCollectionVM, delegate: delegate)
         super.init(frame: .zero)
         setupInitialView()
         setupHeaderView(category: category)
-        setupCollectionView(category: category)
         placeCollectionView()
         placeHeaderView()
     }
@@ -35,18 +34,10 @@ final class ListView: UIView {
     }
     
     private func setupHeaderView(category: String) {
-        headerView = HeaderView(category: category,
-                                viewModel: viewModel)
-        headerView?.backgroundColor = .systemGray6
-    }
-    
-    private func setupCollectionView(category: String) {
-        collectionView = ListCollectionView(category: category,
-                                            viewModel: viewModel)
+        headerView.backgroundColor = .systemGray6
     }
     
     private func placeHeaderView() {
-        guard let headerView = headerView else { return }
         headerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(headerView)
         NSLayoutConstraint.activate([
@@ -57,17 +48,16 @@ final class ListView: UIView {
                 equalTo: safeAreaLayoutGuide.topAnchor,
                 constant: 70
             ),
-            headerView.widthAnchor.constraint(
-                equalToConstant: 355
-            ),
             headerView.leadingAnchor.constraint(
                 equalTo: leadingAnchor
+            ),
+            headerView.trailingAnchor.constraint(
+                equalTo: trailingAnchor
             )
         ])
     }
     
     private func placeCollectionView() {
-        guard let collectionView = collectionView else { return }
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(collectionView)
         NSLayoutConstraint.activate([

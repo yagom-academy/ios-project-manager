@@ -8,39 +8,32 @@
 import UIKit
 
 final class ListCell: UICollectionViewCell {
+    
     // MARK: - UIComponents
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        stackView.spacing = 5
-        return stackView
-    }()
+    private let verticalStackView = DefaultStackViewBuilder()
+        .useAutoLayout()
+        .setAxis(.vertical)
+        .setDistribution(.fill)
+        .setAlignment(.fill)
+        .setSpacing(5)
+        .stackView
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
-        return label
-    }()
+    let titleLabel = DefaultLabelBuilder()
+        .useAutoLayout()
+        .setPreferredFont(.title3)
+        .label
     
-    private let bodyLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.numberOfLines = 3
-        label.textColor = .systemGray
-        return label
-    }()
+    let bodyLabel = DefaultLabelBuilder()
+        .useAutoLayout()
+        .setPreferredFont(.body)
+        .numberOfLines(3)
+        .setTextColor(with: .systemGray)
+        .label
     
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        return label
-    }()
+    let dateLabel = DefaultLabelBuilder()
+        .useAutoLayout()
+        .setPreferredFont(.footnote)
+        .label
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -83,7 +76,7 @@ final class ListCell: UICollectionViewCell {
         ])
     }
     
-    func setup(with model: Todo) {
+    func setupData(with model: Todo) {
         titleLabel.text = model.title
         bodyLabel.text = model.body
         dateLabel.text = model.date.timeIntervalSince1970.translateToDate()
