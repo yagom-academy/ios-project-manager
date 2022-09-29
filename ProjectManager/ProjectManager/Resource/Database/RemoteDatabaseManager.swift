@@ -16,7 +16,7 @@ final class RemoteDatabaseManager {
         self.reference = Database.database().reference()
     }
 
-    func save(data: ProjectUnit) throws {
+    func save(data: ProjectUnit) {
         reference.child("ProjectList").child("\(data.id)").setValue(data.convertToDictionary())
     }
 
@@ -37,7 +37,7 @@ final class RemoteDatabaseManager {
         }
     }
 
-    func delete(id: UUID) throws {
-        reference.child("ProjectList").child("\(id)").setValue(nil)
+    func deleteAll() {
+        reference.child("ProjectList").setValue(nil)
     }
 }

@@ -7,10 +7,9 @@
 import UIKit
 
 final class ProjectManagerController: UIViewController, UIPopoverPresentationControllerDelegate {
-
-    private let toDoViewModel = ToDoViewModel(databaseManager: LocalDatabaseManager.onDisk)
-    private let doingViewModel = DoingViewModel(databaseManager: LocalDatabaseManager.onDisk)
-    private let doneViewModel = DoneViewModel(databaseManager: LocalDatabaseManager.onDisk)
+    private var toDoViewModel: ToDoViewModel!
+    private var doingViewModel: DoingViewModel!
+    private var doneViewModel: DoneViewModel!
 
     private lazy var toDoViewController = ProjectListViewController(
         viewModel: toDoViewModel
@@ -38,10 +37,14 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         observeNetworkConnect()
-        configureNavigationItems()
-        configureUI()
-        configureObservers()
+    }
+
+    private func configureViewModel() {
+        toDoViewModel = ToDoViewModel(databaseManager: LocalDatabaseManager.onDisk)
+        doingViewModel = DoingViewModel(databaseManager: LocalDatabaseManager.onDisk)
+        doneViewModel = DoneViewModel(databaseManager: LocalDatabaseManager.onDisk)
     }
     
     private func configureNavigationItems() {
@@ -172,11 +175,31 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
     private func synchronizeDatabase() {
         if LocalDatabaseManager.onDisk.isEmpty() {
             RemoteDatabaseManager.shared.fetch { [weak self] result in
-                self?.synchronizeLocalDatabase(using: result)
+                guard let self = self else {
+                    return
+                }
+
+                self.synchronizeLocalDatabase(using: result)
+                self.configureViewModel()
+                DispatchQueue.main.async {
+                    self.configureNavigationItems()
+                    self.configureUI()
+                }
+                self.configureObservers()
             }
         } else {
             RemoteDatabaseManager.shared.fetch { [weak self] result in
-                self?.synchronizeRemoteDatabase(using: result)
+                guard let self = self else {
+                    return
+                }
+
+                self.synchronizeRemoteDatabase(using: result)
+                self.configureViewModel()
+                DispatchQueue.main.async {
+                    self.configureNavigationItems()
+                    self.configureUI()
+                }
+                self.configureObservers()
             }
         }
     }
@@ -201,21 +224,24 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
 
         switch result {
         case .success(let remoteData):
-            if localData.count == remoteData.count {
-                self.synchronizeIfDifferent(localData, and: remoteData)
+            if isEqual(localData, and: remoteData) {
+                return
+            } else {
+                RemoteDatabaseManager.shared.deleteAll()
+                localData.forEach { project in
+                    RemoteDatabaseManager.shared.save(data: project)
+                }
             }
         default:
             break
         }
     }
 
-    private func synchronizeIfDifferent(_ localData: [ProjectUnit], and remoteData: [ProjectUnit]) {
-        for i in 0..<localData.count {
-            if localData[i] == remoteData[i] {
-                continue
-            } else {
-                try? RemoteDatabaseManager.shared.save(data: localData[i])
-            }
+    private func isEqual(_ localData: [ProjectUnit], and remoteData: [ProjectUnit]) -> Bool {
+        if localData == remoteData {
+            return true
+        } else {
+            return false
         }
     }
 }
