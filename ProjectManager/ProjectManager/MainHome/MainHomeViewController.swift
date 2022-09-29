@@ -43,7 +43,6 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
 
         fixScreenOrientation()
         checkNetWork()
-        viewModel.fetchDataList()
 
         setUpLabelShape()
         setUpTableViewDelegate()
@@ -52,6 +51,8 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
         setUpHistoryViewController()
 
         bind()
+
+        viewModel.synchronize()
     }
 
     // MARK: Method
@@ -65,13 +66,6 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
             self,
             selector: #selector(showAlert),
             name: NSNotification.Name("disconnect"),
-            object: nil
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(synchronizeWithRemote),
-            name: NSNotification.Name("connect"),
             object: nil
         )
     }
@@ -90,10 +84,6 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion: nil)
         }
-    }
-
-    @objc private func synchronizeWithRemote() {
-        viewModel.synchronize()
     }
 
     private func setUpLabelShape() {

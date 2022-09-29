@@ -13,7 +13,7 @@ struct TaskModel {
     var taskDescription: String = ""
     var taskDeadline: String = ""
     var taskState: String = TaskState.todo.name
-    var id: UUID?
+    var id: UUID = UUID()
     var deadLineLabelTextColor: UIColor?
 }
 

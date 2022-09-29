@@ -7,7 +7,6 @@
 
 import Foundation
 import Network
-import UIKit
 
 class NetworkMonitor {
     static let shared = NetworkMonitor()
@@ -26,8 +25,6 @@ class NetworkMonitor {
 
             if self?.isConnected == false {
                 self?.notifyDisconnect()
-            } else {
-                self?.notifyConnect()
             }
         }
     }
@@ -38,9 +35,5 @@ class NetworkMonitor {
 
     private func notifyDisconnect() {
         NotificationCenter.default.post(name: NSNotification.Name("disconnect"), object: nil)
-    }
-
-    private func notifyConnect() {
-        NotificationCenter.default.post(name: NSNotification.Name("connect"), object: nil)
     }
 }

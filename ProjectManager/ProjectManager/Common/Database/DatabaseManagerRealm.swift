@@ -8,7 +8,7 @@
 import RealmSwift
 
 class DatabaseManagerRealm: DatabaseProtocol {
-    var realm: Realm?
+    private var realm: Realm?
 
     init(realm: Realm? = try? Realm()) {
         self.realm = realm
@@ -16,6 +16,7 @@ class DatabaseManagerRealm: DatabaseProtocol {
 
     func create(data: TaskModel) {
         let data = RealmDatabaseModel(
+            id: data.id,
             title: data.taskTitle,
             description: data.taskDescription,
             deadline: data.taskDeadline,
@@ -107,14 +108,13 @@ class DatabaseManagerRealm: DatabaseProtocol {
     }
 
     func search(data: TaskModel) -> AnyObject? {
-        guard let realm = realm,
-              let id = data.id else {
+        guard let realm = realm else {
             print("❌ search 메서드 realm 가져오기 실패")
             return nil
         }
 
         let realmData = realm.objects(RealmDatabaseModel.self).where {
-            $0._id == id
+            $0._id == data.id
         }.first
 
         return realmData

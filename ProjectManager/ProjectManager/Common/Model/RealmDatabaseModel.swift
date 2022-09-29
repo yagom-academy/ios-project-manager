@@ -15,8 +15,9 @@ class RealmDatabaseModel: Object {
     @Persisted var taskState: String = TaskState.todo.name
     @Persisted var ownerId: String = "6333442a8b9212a3107bb5af"
 
-    convenience init(title: String, description: String, deadline: String, state: String) {
+    convenience init(id: UUID, title: String, description: String, deadline: String, state: String) {
         self.init()
+        self._id = id
         self.taskTitle = title
         self.taskDescription = description
         self.taskDeadline = deadline

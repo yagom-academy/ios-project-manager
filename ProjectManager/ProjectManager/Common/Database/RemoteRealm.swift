@@ -10,8 +10,10 @@ import Combine
 
 class RemoteRealm: ObservableObject {
     private let app: App = App(id: "application-0-rynak")
-    private var databaseManager: DatabaseManagerRealm?
-    var realm: Realm?
+    private var realm: Realm?
+
+    var databaseManager: DatabaseManagerRealm?
+    var data = [TaskModel]()
 
     func initialize() {
         Task {
@@ -23,20 +25,13 @@ class RemoteRealm: ObservableObject {
             print("🤯 \(user.id)")
             await openSyncedRealm(user: user)
 
-//            let subscriptions = realm.subscriptions
-//            try await subscriptions.update {
-//                subscriptions.append(QuerySubscription<RealmDatabaseModel>(name: "all_RealmDatabaseModels"))
-//            }
-        }
-    }
-    func upload(data: [TaskModel]) {
-        guard databaseManager != nil else {
-            print("❌ 데이터베이스 못 가져옴")
-            return
-        }
-
-        data.forEach { task in
-            databaseManager?.create(data: task)
+            guard realm?.subscriptions != nil else {
+                let subscriptions = realm?.subscriptions
+                try await subscriptions?.update {
+                    subscriptions?.append(QuerySubscription<RealmDatabaseModel>(name: "all_RealmDatabaseModels"))
+                }
+                return
+            }
         }
     }
 

@@ -4,6 +4,7 @@
 //
 //  Created by seohyeon park on 2022/09/13.
 //
+import Foundation
 
 class MainHomeViewModel {
     var change: () -> Void = {}
@@ -26,8 +27,8 @@ class MainHomeViewModel {
         }
     }
 
+    let remoteManager = RemoteRealm()
     private let databaseManager = DatabaseManagerRealm()
-    private let remoteManager = RemoteRealm()
     private var todoList = [TaskModel]()
     private var doingList = [TaskModel]()
     private var doneList = [TaskModel]()
@@ -41,6 +42,7 @@ class MainHomeViewModel {
         currentList = getCurrentList(state: nextState)
         currentList.append(data)
         databaseManager.update(data: data)
+        remoteManager.databaseManager?.update(data: data)
     }
 
     func getDataList(of state: TaskState) -> [TaskModel] {
@@ -73,24 +75,26 @@ class MainHomeViewModel {
         let data = currentList[index]
         currentList.remove(at: index)
         databaseManager.delete(data: data)
+        remoteManager.databaseManager?.delete(data: data)
         fetchDataList()
     }
 
     func changeList(data: TaskModel) -> Activity? {
         guard databaseManager.search(data: data) != nil else {
             databaseManager.create(data: data)
+            remoteManager.databaseManager?.create(data: data)
             fetchDataList()
             return Activity.added
         }
 
         databaseManager.update(data: data)
+        remoteManager.databaseManager?.update(data: data)
         fetchDataList()
         return nil
     }
 
     func synchronize() {
         remoteManager.initialize()
-        remoteManager.upload(data: databaseManager.read())
     }
 
     private func getCurrentList(state: TaskState) -> [TaskModel] {
