@@ -23,7 +23,7 @@ class TodoAddViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let disposedBag = DisposeBag()
+    private var disposedBag = DisposeBag()
     private lazy var todoAddView = TodoAddView(frame: .zero)
     
     //MARK: - View Life Cycle
@@ -34,6 +34,10 @@ class TodoAddViewController: UIViewController {
         projectTask = viewModel?.selectedTask
         setupTodoAddView()
         setupNavigationBarItem()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.disposedBag = DisposeBag()
     }
 }
 
