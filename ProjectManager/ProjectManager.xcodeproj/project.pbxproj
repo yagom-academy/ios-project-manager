@@ -143,10 +143,10 @@
 		A334149728C8EEA10059D133 /* ProjectTableView */ = {
 			isa = PBXGroup;
 			children = (
-				D7E75DA328D0AC8100C32947 /* ProjectTableHeaderView.swift */,
-				D7E75DA528D0C2EF00C32947 /* ProjectTableView.swift */,
-				C461BFFF28DD833E00C1C6EF /* Cell */,
+				C460FA7D28E5D86D008CDE35 /* View */,
 				C461C00028DD834600C1C6EF /* ViewModel */,
+				C460FA7B28E5D7D5008CDE35 /* ProjectTableHeaderView */,
+				C461BFFF28DD833E00C1C6EF /* Cell */,
 			);
 			path = ProjectTableView;
 			sourceTree = "<group>";
@@ -188,6 +188,39 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		C460FA7B28E5D7D5008CDE35 /* ProjectTableHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				C460FA7E28E5D87B008CDE35 /* View */,
+				C460FA7C28E5D819008CDE35 /* ViewModel */,
+			);
+			path = ProjectTableHeaderView;
+			sourceTree = "<group>";
+		};
+		C460FA7C28E5D819008CDE35 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A3CEE1E828E5D15D005F7BD8 /* ProjectTableHeaderViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C460FA7D28E5D86D008CDE35 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D7E75DA528D0C2EF00C32947 /* ProjectTableView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C460FA7E28E5D87B008CDE35 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D7E75DA328D0AC8100C32947 /* ProjectTableHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C461BFFD28DD830400C1C6EF /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,7 +249,6 @@
 			isa = PBXGroup;
 			children = (
 				A3169DFF28DCA2AE002E2DC1 /* ProjectTableViewModel.swift */,
-				A3CEE1E828E5D15D005F7BD8 /* ProjectTableHeaderViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
