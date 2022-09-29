@@ -103,8 +103,9 @@ final class ProjectManagerViewController: UIViewController {
     private func setupBinding() {
         let workTables = [todoTableView, doingTableView, doneTableView]
         let headerViews = [toDoTitleView, doingTitleView, doneTitleView]
+        let workStates = [WorkState.todo, WorkState.doing, WorkState.done]
     
-        zip(workTables, WorkState.allCases).forEach { workTable, state in
+        zip(workTables, workStates).forEach { workTable, state in
             viewModel.worksObservable
                 .map {
                     $0.filter { $0.state == state }
@@ -115,7 +116,7 @@ final class ProjectManagerViewController: UIViewController {
                 }.disposed(by: disposeBag)
         }
         
-        zip(headerViews, WorkState.allCases).forEach { header, state in
+        zip(headerViews, workStates).forEach { header, state in
             viewModel.worksObservable
                 .map {
                     $0.filter { $0.state == state }
