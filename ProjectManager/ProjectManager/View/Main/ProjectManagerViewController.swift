@@ -153,14 +153,13 @@ final class ProjectManagerViewController: UIViewController {
     private func checkNetwork() {
         NetWorkMonitor.shared.networkObservable
             .observe(on: MainScheduler.instance)
-            .do(onNext: { isConnected in
+            .subscribe(onNext: { isConnected in
                 if isConnected == false {
                     AlertManager().showAlert(self,
                                              title: "인터넷 연결 확인",
                                              message: "인터넷 연결을 확인해주세요.\n재연결되지 않으면 데이터가 분실될 수 있습니다.")
                 }
             })
-            .subscribe(onNext: viewModel.changeDatabase)
             .disposed(by: disposeBag)
     }
     

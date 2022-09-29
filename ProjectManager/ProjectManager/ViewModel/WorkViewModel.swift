@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 final class WorkViewModel {
-    private var database: DatabaseManageable
+    private let database = DatabaseManager()
     private let disposeBag = DisposeBag()
     private let works = BehaviorSubject<[Work]>(value: [])
     private let histories = BehaviorSubject<[String]>(value: [])
@@ -18,23 +18,12 @@ final class WorkViewModel {
     let newWork = BehaviorSubject<Work>(value: Work(id: UUID(), title: "", content: "", deadline: Date(), state: .todo))
     
     init(dbType: DatabaseManageable) {
-        database = dbType
-        
         database.fetchWork()
             .subscribe(onNext: works.onNext)
             .disposed(by: disposeBag)
         
         worksObservable = works
         historiesObservable = histories
-    }
-    
-    func changeDatabase(_ isConnected: Bool) {
-        if isConnected {
-            database = FirebaseManager.shared
-            backupWorks()
-        } else {
-            database = CoreDataManager.shared
-        }
     }
     
     private func backupWorks() {
