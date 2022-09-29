@@ -16,7 +16,10 @@ class FirebaseManager<T: Codable> {
     
     init(rootChildID: String) {
         self.rootChildID = rootChildID
-        reference = Database.database().reference()
+        let database = Database.database()
+        database.isPersistenceEnabled = true
+        
+        reference = database.reference()
     }
     
     func setValue(childId: String,
