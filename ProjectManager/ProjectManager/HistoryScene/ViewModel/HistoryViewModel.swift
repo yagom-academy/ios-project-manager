@@ -9,6 +9,6 @@ final class HistoryViewModel {
     var histories: [History]
     
     init(histories: [History]) {
-        self.histories = histories
+        self.histories = histories.reversed()
     }
 }

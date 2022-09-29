@@ -84,11 +84,14 @@ final class TodoDataManager {
         let savedList = realm.objects(Todo.self)
         switch category {
         case Category.todo:
-            return Array(savedList.filter("category == 'TODO'"))
+            return Array(savedList.filter("category == 'TODO'")
+                .sorted { $0.date < $1.date })
         case Category.doing:
-            return Array(savedList.filter("category == 'DOING'"))
+            return Array(savedList.filter("category == 'DOING'")
+                .sorted { $0.date < $1.date })
         case Category.done:
-            return Array(savedList.filter("category == 'DONE'"))
+            return Array(savedList.filter("category == 'DONE'")
+                .sorted { $0.date < $1.date })
         default:
             return []
         }

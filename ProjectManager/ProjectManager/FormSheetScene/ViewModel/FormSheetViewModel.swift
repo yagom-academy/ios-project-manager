@@ -9,7 +9,7 @@ import Foundation
 
 final class FormSheetViewModel {
     let mode: PageMode
-    var currentTodo: Todo?
+    private(set) var currentTodo: Todo?
     
     init(mode: PageMode, category: String?, index: Int?) {
         self.mode = mode

@@ -75,7 +75,7 @@ final class RemoteDataManager: RemoteRepositoryConnectable {
             if let err = err {
                 print(err)
             } else {
-                print("success add")
+                print("success update")
             }
         }
     }

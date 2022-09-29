@@ -12,6 +12,7 @@ final class ListCollectionView: UICollectionView {
     private enum Section {
         case main
     }
+
     weak var transitionDelegate: TodoListViewControllerDelegate?
     private var todoDataSource: UICollectionViewDiffableDataSource<Section, Todo>?
     private var snapshot = NSDiffableDataSourceSnapshot<Section, Todo>()
@@ -19,7 +20,8 @@ final class ListCollectionView: UICollectionView {
     var currentLongPressedCell: ListCell?
     
     // MARK: Initializer
-    init(viewModel: ListCollectionViewModel, delegate: TodoListViewControllerDelegate?) {
+    init(viewModel: ListCollectionViewModel,
+         delegate: TodoListViewControllerDelegate?) {
         self.viewModel = viewModel
         transitionDelegate = delegate
         super.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())
@@ -36,7 +38,7 @@ final class ListCollectionView: UICollectionView {
 }
 
 extension ListCollectionView {
-    
+ 
     private func setupInitialView() {
         showsVerticalScrollIndicator = false
         setCollectionViewLayout(createListLayout(), animated: false)
