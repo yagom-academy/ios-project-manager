@@ -11,6 +11,7 @@ import UIKit
 
 private enum Design {
     static let navigationTitle = "PROJECT MANAGER"
+    static let leftBarButtonItem = "History"
     static let longPressGestureMinimumPressDuration = 1.0
     static let networkUnsatisfiedAlertTitle = "네트워크 오류🚨"
     static let networkUnsatisfiedAlertmessage =
@@ -124,8 +125,13 @@ final class ProjectListViewController: UIViewController {
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add,
                                              target: self,
                                              action: #selector(rightBarButtonDidTap))
+        let leftBarButton = UIBarButtonItem(title: Design.leftBarButtonItem,
+                                            style: .plain,
+                                            target: self,
+                                            action: #selector(letfBarButtonDidTap))
         
         navigationItem.rightBarButtonItem = rightBarButton
+        navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.title = Design.navigationTitle
     }
     
@@ -134,6 +140,17 @@ final class ProjectListViewController: UIViewController {
         let navigationController = makeNavigationController(item: nil)
         
         present(navigationController, animated: true)
+    }
+    
+    @objc
+    private func letfBarButtonDidTap() {
+        let popover = HistoryTableViewController()
+        popover.setHistory(viewModel.retrieveHistory())
+        popover.modalPresentationStyle = .popover
+        popover.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
+        popover.popoverPresentationController?.permittedArrowDirections = [.down]
+        
+        self.present(popover, animated: false)
     }
     
     private func makeNavigationController(item: ProjectViewModel?) -> UINavigationController {

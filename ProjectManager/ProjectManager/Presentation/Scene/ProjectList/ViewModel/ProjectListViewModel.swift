@@ -47,6 +47,10 @@ final class ProjectListViewModel {
         doneList.bind(closure)
     }
     
+    func retrieveHistory() -> [String] {
+        return history
+    }
+    
     func makeAlertContoller(tableView: UITableView,
                             indexPath: IndexPath,
                             state: ProjectState) -> UIAlertController {
@@ -176,7 +180,9 @@ final class ProjectListViewModel {
     func create(data: ProjectViewModel) {
         useCase.create(data: data)
         reloadLists()
-        history.append("Removed '\(data.title) from \(data.workState.name).\n\(Date())")
+        history.append(
+            "Added '\(data.title)'.\n\(Date().convertLocalization())"
+        )
     }
     
     private func read(completionHandler: @escaping ([ProjectViewModel]) -> Void) {
@@ -196,7 +202,9 @@ final class ProjectListViewModel {
                         data: ProjectViewModel) {
         useCase.delete(id: id)
         reloadLists()
-        history.append("Added '\(data.title).\n\(Date())")
+        history.append(
+            "Removed '\(data.title)' from \(data.workState.name).\n\(Date().convertLocalization())"
+        )
     }
     
     private func changeState(data: ProjectViewModel,
@@ -209,7 +217,9 @@ final class ProjectListViewModel {
         
         update(id: data.id,
                data: newData)
-        history.append("Moved '\(data.title) from \(data.workState.name) to \(state.name).\n\(Date())")
+        history.append(
+            "Moved '\(data.title)' from \(data.workState.name) to \(state.name).\n\(Date().convertLocalization())"
+        )
     }
     
     // MARK: - Methods
