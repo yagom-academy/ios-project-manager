@@ -174,47 +174,53 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
         })
         NetworkObserver.shared.stopObserving()
     }
-    
+
     private func synchronizeDatabase() {
         if LocalDatabaseManager.onDisk.isEmpty() {
-            RemoteDatabaseManager.shared.fetch { result in
-                switch result {
-                case .success(let data):
-                    data.forEach { project in
-                        try? LocalDatabaseManager.onDisk.create(data: project)
-                    }
-                case .failure(.defaultError):
-                    let alert = UIAlertController(title: "에러 발생", message: "원격 데이터 베이스 에러 발생", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-                    
-                    alert.addAction(action)
-                    DispatchQueue.main.async {
-                        self.present(alert, animated: true)
-                    }
-                case .failure(.emptyError):
-                    return
-                }
+            RemoteDatabaseManager.shared.fetch { [weak self] result in
+                self?.synchronizeLocalDatabase(using: result)
             }
         } else {
-            guard let localData = try? LocalDatabaseManager.onDisk.fetchAllData() else {
-                return
+            RemoteDatabaseManager.shared.fetch { [weak self] result in
+                self?.synchronizeRemoteDatabase(using: result)
             }
+        }
+    }
 
-            RemoteDatabaseManager.shared.fetch { result in
-                switch result {
-                case .success(let remoteData):
-                    if localData.count == remoteData.count {
-                        for i in 0..<localData.count {
-                            if localData[i] == remoteData[i] {
-                                continue
-                            } else {
-                                try? RemoteDatabaseManager.shared.save(data: localData[i])
-                            }
-                        }
-                    }
-                default:
-                    break
-                }
+    private func synchronizeLocalDatabase(using result: Result<[ProjectUnit], JSONError>) {
+        switch result {
+        case .success(let data):
+            data.forEach { project in
+                try? LocalDatabaseManager.onDisk.create(data: project)
+            }
+        case .failure(.defaultError):
+            presentErrorAlert(JSONError.defaultError)
+        case .failure(.emptyError):
+            presentErrorAlert(JSONError.emptyError)
+        }
+    }
+
+    private func synchronizeRemoteDatabase(using result: Result<[ProjectUnit], JSONError>) {
+        guard let localData = try? LocalDatabaseManager.onDisk.fetchAllData() else {
+            return
+        }
+
+        switch result {
+        case .success(let remoteData):
+            if localData.count == remoteData.count {
+                self.synchronizeIfDifferent(localData, and: remoteData)
+            }
+        default:
+            break
+        }
+    }
+
+    private func synchronizeIfDifferent(_ localData: [ProjectUnit], and remoteData: [ProjectUnit]) {
+        for i in 0..<localData.count {
+            if localData[i] == remoteData[i] {
+                continue
+            } else {
+                try? RemoteDatabaseManager.shared.save(data: localData[i])
             }
         }
     }
