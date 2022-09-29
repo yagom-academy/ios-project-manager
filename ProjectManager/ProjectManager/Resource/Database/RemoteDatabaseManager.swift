@@ -21,7 +21,7 @@ final class RemoteDatabaseManager {
     }
 
     func fetch(completion: @escaping ((Result<[ProjectUnit], JSONError>) -> Void)) {
-        reference.child("ProjectList").getData { error, snapshot in
+        reference.child("ProjectList").queryOrderedByKey().getData { error, snapshot in
             guard error == nil else {
                 completion(.failure(.defaultError))
                 return

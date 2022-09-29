@@ -195,6 +195,27 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
                     return
                 }
             }
+        } else {
+            guard let localData = try? LocalDatabaseManager.onDisk.fetchAllData() else {
+                return
+            }
+
+            RemoteDatabaseManager.shared.fetch { result in
+                switch result {
+                case .success(let remoteData):
+                    if localData.count == remoteData.count {
+                        for i in 0..<localData.count {
+                            if localData[i] == remoteData[i] {
+                                continue
+                            } else {
+                                try? RemoteDatabaseManager.shared.save(data: localData[i])
+                            }
+                        }
+                    }
+                default:
+                    break
+                }
+            }
         }
     }
 }

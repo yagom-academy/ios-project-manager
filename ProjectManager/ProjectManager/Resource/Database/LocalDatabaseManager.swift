@@ -95,6 +95,34 @@ final class LocalDatabaseManager {
 
         try save(context)
     }
+
+    func fetchAllData() throws -> [ProjectUnit] {
+        let context = persistentContainer.viewContext
+        let request = NSFetchRequest<Project>(entityName: "Project")
+        let sort = NSSortDescriptor(key: #keyPath(Project.id), ascending: false)
+        request.sortDescriptors = [sort]
+
+        let projects = try context.fetch(request)
+        let result = projects.compactMap { data -> ProjectUnit? in
+            guard let title = data.title,
+                  let body = data.body,
+                  let deadLine = data.deadLine,
+                  let section = data.section,
+                  let id = data.id else {
+                return nil
+            }
+
+            return ProjectUnit(
+                id: id,
+                title: title,
+                body: body,
+                section: section,
+                deadLine: deadLine
+            )
+        }
+
+        return result
+    }
     
     func isEmpty() -> Bool {
         let context = persistentContainer.viewContext
