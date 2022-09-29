@@ -26,16 +26,6 @@ final class WorkViewModel {
         historiesObservable = histories
     }
     
-    private func backupWorks() {
-        CoreDataManager.shared.fetchWork()
-            .subscribe(onNext: {
-                $0.forEach {
-                    FirebaseManager.shared.saveWork($0)
-                    CoreDataManager.shared.deleteWork(id: $0.id)
-                }
-            }).disposed(by: disposeBag)
-    }
-    
     func selectWork(id: UUID) -> Work? {
         guard let value = try? works.value() else { return nil }
         
