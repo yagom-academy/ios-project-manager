@@ -42,6 +42,7 @@
 		37FF8F0128E41FE000A7B9AF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF8F0028E41FE000A7B9AF /* CoreDataManager.swift */; };
 		37FF8F0428E4210600A7B9AF /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF8F0328E4210600A7B9AF /* CoreDataError.swift */; };
 		37FF8F0628E4223000A7B9AF /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF8F0528E4223000A7B9AF /* CoreDataRepository.swift */; };
+		37FF8F0B28E57A7F00A7B9AF /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF8F0A28E57A7F00A7B9AF /* NetworkObserver.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,7 @@
 		37FF8F0028E41FE000A7B9AF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		37FF8F0328E4210600A7B9AF /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		37FF8F0528E4223000A7B9AF /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
+		37FF8F0A28E57A7F00A7B9AF /* NetworkObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				37BEFC8B28DBDB770026F8CC /* Observable.swift */,
+				37FF8F0A28E57A7F00A7B9AF /* NetworkObserver.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 			files = (
 				37D3191328D833BA006A2DB0 /* ProjectListViewController.swift in Sources */,
 				37ECB00B28E2F66B005A557A /* FirebaseManager.swift in Sources */,
+				37FF8F0B28E57A7F00A7B9AF /* NetworkObserver.swift in Sources */,
 				37D3191728D833BA006A2DB0 /* ProjectTableViewCell.swift in Sources */,
 				37ECB02328E41A0E005A557A /* Project+CoreDataClass.swift in Sources */,
 				37ECB00D28E2F6E6005A557A /* FirebaseRepository.swift in Sources */,

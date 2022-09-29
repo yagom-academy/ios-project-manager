@@ -12,11 +12,22 @@ import UIKit
 private enum Design {
     static let navigationTitle = "PROJECT MANAGER"
     static let longPressGestureMinimumPressDuration = 1.0
+    static let networkUnsatisfiedAlertTitle = "네트워크 오류🚨"
+    static let networkUnsatisfiedAlertmessage =
+                                                """
+                                                네트워크에 연결되지 않았습니다.
+                                                내부 저장소를 사용합니다.
+                                                (네트워크 연결 시 자동으로 동기화 됩니다.)
+                                                네트워크 연결 확인을 종료하시겠습니까?
+                                                """
+    static let networkUnsatisfiedAlertEndActionTitle = "종료"
+    static let networkUnsatisfiedAlertCancelActionTitle = "확인"
 }
 
 final class ProjectListViewController: UIViewController {
     // MARK: - Properties
     
+    private var networkObserver = NetworkObserver()
     private let listView = ProjectListView()
     private var viewModel = ProjectListViewModel(todoList: Observable([ProjectViewModel]()),
                                                  doingList: Observable([ProjectViewModel]()),
@@ -27,6 +38,7 @@ final class ProjectListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        monitoringNetwork()
         configureObserverBind()
         configureLongPressGestureRecognizer()
         configureNavigationItems()
@@ -35,6 +47,33 @@ final class ProjectListViewController: UIViewController {
     }
     
     // MARK: - Methods
+    
+    private func monitoringNetwork() {
+        networkObserver.startMonitoring { [weak self] path in
+            if path.status == .unsatisfied {
+                DispatchQueue.main.async {
+                    self?.showNetworkUnsatisfiedAlert()
+                }
+            }
+        }
+    }
+    
+    private func showNetworkUnsatisfiedAlert() {
+        let alertController = UIAlertController(title: Design.networkUnsatisfiedAlertTitle,
+                                                message: Design.networkUnsatisfiedAlertmessage,
+                                                preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: Design.networkUnsatisfiedAlertCancelActionTitle,
+                                         style: .cancel)
+        let endAction = UIAlertAction(title: Design.networkUnsatisfiedAlertEndActionTitle,
+                                      style: .default) { [weak self] _ in
+            self?.networkObserver.stopMonitoring()
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(endAction)
+        
+        present(alertController, animated: true)
+    }
     
     private func configureObserverBind() {
         viewModel.bindTodoList { [weak self] _ in
