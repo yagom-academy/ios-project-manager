@@ -19,6 +19,7 @@ final class ProjectListViewModel {
     private var todoList: Observable<[ProjectViewModel]>
     private var doingList: Observable<[ProjectViewModel]>
     private var doneList: Observable<[ProjectViewModel]>
+    private var history: [String]
     
     // MARK: - Initializer
     
@@ -26,6 +27,7 @@ final class ProjectListViewModel {
          doingList: Observable<[ProjectViewModel]>,
          doneList: Observable<[ProjectViewModel]>) {
         useCase = UseCase(repository: FirebaseRepository())
+        history = [String]()
         self.todoList = todoList
         self.doingList = doingList
         self.doneList = doneList
@@ -98,7 +100,7 @@ final class ProjectListViewModel {
     private func makeHandler(item: ProjectViewModel,
                              state: ProjectState) -> ((UIAlertAction) -> Void)? {
         let handler: ((UIAlertAction) -> Void) = { [self] ( _: UIAlertAction) in
-            changeState(item: item, state: state)
+            changeState(data: item, state: state)
         }
         
         return handler
@@ -161,7 +163,8 @@ final class ProjectListViewModel {
         let deleteSwipeAction = UIContextualAction(style: .destructive,
                                                    title: Design.deleteSwipeActionTitle,
                                                    handler: { [weak self] _, _, completionHaldler in
-            self?.delete(id: item.id)
+            self?.delete(id: item.id,
+                         data: item)
             completionHaldler(true)
         })
         
@@ -173,6 +176,7 @@ final class ProjectListViewModel {
     func create(data: ProjectViewModel) {
         useCase.create(data: data)
         reloadLists()
+        history.append("Removed '\(data.title) from \(data.workState.name).\n\(Date())")
     }
     
     private func read(completionHandler: @escaping ([ProjectViewModel]) -> Void) {
@@ -188,21 +192,24 @@ final class ProjectListViewModel {
         reloadLists()
     }
     
-    private func delete(id: String) {
+    private func delete(id: String,
+                        data: ProjectViewModel) {
         useCase.delete(id: id)
         reloadLists()
+        history.append("Added '\(data.title).\n\(Date())")
     }
     
-    private func changeState(item: ProjectViewModel,
+    private func changeState(data: ProjectViewModel,
                              state: ProjectState) {
-        let newItem = ProjectViewModel(id: item.id,
-                                       title: item.title,
-                                       body: item.body,
-                                       date: item.date,
+        let newData = ProjectViewModel(id: data.id,
+                                       title: data.title,
+                                       body: data.body,
+                                       date: data.date,
                                        workState: state)
         
-        update(id: item.id,
-               data: newItem)
+        update(id: data.id,
+               data: newData)
+        history.append("Moved '\(data.title) from \(data.workState.name) to \(state.name).\n\(Date())")
     }
     
     // MARK: - Methods
