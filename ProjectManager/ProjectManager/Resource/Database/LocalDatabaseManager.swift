@@ -95,6 +95,23 @@ final class LocalDatabaseManager {
 
         try save(context)
     }
+    
+    func isEmpty() -> Bool {
+        let context = persistentContainer.viewContext
+        let request = NSFetchRequest<Project>(entityName: "Project")
+        
+        do {
+            let projects = try context.fetch(request)
+            
+            if projects.isEmpty {
+                return true
+            }
+        } catch {
+            print(error)
+        }
+        
+        return false
+    }
 
     private func save(_ context: NSManagedObjectContext) throws {
         guard context.hasChanges else {

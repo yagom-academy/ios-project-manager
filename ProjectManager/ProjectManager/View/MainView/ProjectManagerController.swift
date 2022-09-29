@@ -8,16 +8,19 @@ import UIKit
 
 final class ProjectManagerController: UIViewController, UIPopoverPresentationControllerDelegate {
 
-    private let toDoViewModel = ToDoViewModel(databaseManager: LocalDatabaseManager.inMemory)
-    private let doingViewModel = DoingViewModel(databaseManager: LocalDatabaseManager.inMemory)
-    private let doneViewModel = DoneViewModel(databaseManager: LocalDatabaseManager.inMemory)
+    private let toDoViewModel = ToDoViewModel(databaseManager: LocalDatabaseManager.onDisk)
+    private let doingViewModel = DoingViewModel(databaseManager: LocalDatabaseManager.onDisk)
+    private let doneViewModel = DoneViewModel(databaseManager: LocalDatabaseManager.onDisk)
 
     private lazy var toDoViewController = ProjectListViewController(
-        viewModel: toDoViewModel)
+        viewModel: toDoViewModel
+    )
     private lazy var doingViewController = ProjectListViewController(
-        viewModel: doingViewModel)
+        viewModel: doingViewModel
+    )
     private lazy var doneViewController = ProjectListViewController(
-        viewModel: doneViewModel)
+        viewModel: doneViewModel
+    )
 
     private let historyController = HistoryPopoverController()
 
@@ -152,9 +155,13 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
     }
     
     private func observeNetworkConnect() {
-        NetworkObserver.shared.startObserving(completion: { isConnected in
-            if isConnected == true {
+        NetworkObserver.shared.startObserving(completion: { [weak self] isConnected in
+            guard let self = self else {
                 return
+            }
+            
+            if isConnected == true {
+                self.synchronizeDatabase()
             } else {
                 let alert = UIAlertController(title: "연결 실패", message: "네트워트 연결에 실패했습니다.", preferredStyle: .alert)
                 let action = UIAlertAction(title: "확인", style: .default, handler: nil)
@@ -166,5 +173,28 @@ final class ProjectManagerController: UIViewController, UIPopoverPresentationCon
             }
         })
         NetworkObserver.shared.stopObserving()
+    }
+    
+    private func synchronizeDatabase() {
+        if LocalDatabaseManager.onDisk.isEmpty() {
+            RemoteDatabaseManager.shared.fetch { result in
+                switch result {
+                case .success(let data):
+                    data.forEach { project in
+                        try? LocalDatabaseManager.onDisk.create(data: project)
+                    }
+                case .failure(.defaultError):
+                    let alert = UIAlertController(title: "에러 발생", message: "원격 데이터 베이스 에러 발생", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+                    
+                    alert.addAction(action)
+                    DispatchQueue.main.async {
+                        self.present(alert, animated: true)
+                    }
+                case .failure(.emptyError):
+                    return
+                }
+            }
+        }
     }
 }

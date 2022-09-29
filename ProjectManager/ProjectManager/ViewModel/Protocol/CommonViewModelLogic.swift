@@ -46,7 +46,7 @@ extension CommonViewModelLogic {
         }
     }
 
-    private func fetchProjectData() {
+    func fetchProjectData() {
         do {
             try databaseManager.fetchSection(identifier).forEach { project in
                 data.value.append(project)

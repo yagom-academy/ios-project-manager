@@ -20,22 +20,29 @@ final class RemoteDatabaseManager {
         reference.child("ProjectList").child("\(data.id)").setValue(data.convertToDictionary())
     }
 
-    func fetch(completion: @escaping (([ProjectUnit]) -> Void)) {
+    func fetch(completion: @escaping ((Result<[ProjectUnit], JSONError>) -> Void)) {
         reference.child("ProjectList").getData { error, snapshot in
             guard error == nil else {
+                completion(.failure(.defaultError))
                 return
             }
             
             guard let fetchedData: [String: Any] = snapshot?.value as? [String: Any],
                   let decodedData: [ProjectUnit] = JSONManager.shared.decodeToArray(data: fetchedData) else {
+                completion(.failure(.emptyError))
                 return
             }
             
-            completion(decodedData)
+            completion(.success(decodedData))
         }
     }
 
     func delete(id: UUID) throws {
         reference.child("ProjectList").child("\(id)").setValue(nil)
     }
+}
+
+enum JSONError: Error {
+    case defaultError
+    case emptyError
 }

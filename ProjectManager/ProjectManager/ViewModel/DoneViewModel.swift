@@ -81,6 +81,7 @@ final class DoneViewModel:
             name: Notification.Name.doingToDone,
             object: nil
         )
+        fetchProjectData()
     }
     
     @objc func addData(_ notification: Notification) {
