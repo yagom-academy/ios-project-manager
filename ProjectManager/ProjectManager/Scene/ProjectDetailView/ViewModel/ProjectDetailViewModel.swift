@@ -9,27 +9,17 @@ import Foundation
 
 class ProjectDetailViewModel {
     
-    let mainViewModel = MainViewModel.shared
+    private let dataManager: DataManagable
+    
+    init(dataManager: DataManagable) {
+        self.dataManager = dataManager
+    }
     
     func append(new item: ToDoItem, to type: ProjectType) {
-        switch type {
-        case .todo:
-            mainViewModel.todoContent.append(item)
-        case .doing:
-            mainViewModel.doingContent.append(item)
-        case .done:
-            mainViewModel.doneContent.append(item)
-        }
+        dataManager.create(with: item, to: type)
     }
     
     func update(item: ToDoItem, from index: Int, of type: ProjectType) {
-        switch type {
-        case .todo:
-            mainViewModel.todoContent[index] = item
-        case .doing:
-            mainViewModel.doingContent[index] = item
-        case .done:
-            mainViewModel.doneContent[index] = item
-        }
+        dataManager.update(item: item, from: index, of: type)
     }
 }

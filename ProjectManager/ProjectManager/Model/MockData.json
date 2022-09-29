@@ -2,36 +2,36 @@
     "TODO" : [
         {
             "title": "TODO모니터 사줭",
-            "description": "개 비쌈",
+            "toDoDescription": "개 비쌈",
             "timeLimit": 1608651333
         }
     ],
     "DOING" :  [
         {
             "title": "DOING모니터 사줭",
-            "description": "개 비쌈",
+            "toDoDescription": "개 비쌈",
             "timeLimit": 1608651333
         },
         {
             "title": "DOING모니터 사줭",
-            "description": "개 비쌈",
+            "toDoDescription": "개 비쌈",
             "timeLimit": 1608651333
         }
     ],
     "DONE" :  [
         {
             "title": "DONE모니터 사줭",
-            "description": "개 비쌈",
+            "toDoDescription": "개 비쌈",
             "timeLimit": 1608651333
         },
         {
             "title": "DONE모니터 사줭",
-            "description": "개 비쌈",
+            "toDoDescription": "개 비쌈",
             "timeLimit": 1608651333
         },
         {
             "title": "DONE모니터 사줭",
-            "description": "개 비쌈",
+            "toDoDescription": "개 비쌈",
             "timeLimit": 1608651333
         }
     ]

@@ -7,20 +7,17 @@
 
 final class RegistrationViewModel {
 
-    // MARK: - Singletone
-
-    private let mainViewModel = MainViewModel.shared
+    // MARK: - Properties
+    
+    private let dataManager: DataManagable
+    
+    init(dataManager: DataManagable) {
+        self.dataManager = dataManager
+    }
     
     // MARK: - Functions
 
     func append(new item: ToDoItem, to type: ProjectType) {
-        switch type {
-        case .todo:
-            mainViewModel.todoContent.append(item)
-        case .doing:
-            mainViewModel.doingContent.append(item)
-        case .done:
-            mainViewModel.doneContent.append(item)
-        }
+        dataManager.create(with: item, to: type)
     }
 }

@@ -12,7 +12,7 @@ final class ProjectDetailViewController: UIViewController {
     // MARK: - Properties
     
     private let toDoComponentsView = ToDoComponentsView()
-    private let projectDetailViewModel = ProjectDetailViewModel()
+    private let projectDetailViewModel: ProjectDetailViewModel
     private let tableView: UITableView
     
     private var selectedIndex: Int?
@@ -28,15 +28,16 @@ final class ProjectDetailViewController: UIViewController {
     
     // MARK: - Initializers
     
-    init(with tableView: UITableView) {
+    init(with tableView: UITableView, viewModel: ProjectTableViewModel) {
         self.tableView = tableView
-        
+        self.projectDetailViewModel = viewModel.projectDetailViewModel
         super.init(nibName: nil, bundle: nil)
         guard let tableView = tableView as? ProjectTableView else { return }
         navigationItem.title = tableView.getTitle()
     }
     
     required init?(coder: NSCoder) {
+        projectDetailViewModel = ProjectDetailViewModel(dataManager: FakeToDoItemManager())
         tableView = UITableView()
         super.init(coder: coder)
     }

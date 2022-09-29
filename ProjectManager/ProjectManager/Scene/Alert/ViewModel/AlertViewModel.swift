@@ -9,48 +9,31 @@ import Foundation
 
 final class AlertViewModel {
     
-    // MARK: - Singletone
+    // MARK: - Properties
 
-    private let mainViewModel = MainViewModel.shared
+    private let dataManager: DataManagable
+    
+    init(dataManager: DataManagable) {
+        self.dataManager = dataManager
+    }
     
     // MARK: - Functions
 
     func searchContent(from index: Int, of type: ProjectType) -> ToDoItem {
-        switch type {
-        case .todo:
-            return mainViewModel.todoContent.get(index: index) ?? ToDoItem()
-        case .doing:
-            return mainViewModel.doingContent.get(index: index) ?? ToDoItem()
-        case .done:
-            return mainViewModel.doneContent.get(index: index) ?? ToDoItem()
-        }
+        dataManager.read(from: index, of: type)
     }
     
     func append(new item: ToDoItem, to type: ProjectType) {
-        switch type {
-        case .todo:
-            mainViewModel.todoContent.append(item)
-        case .doing:
-            mainViewModel.doingContent.append(item)
-        case .done:
-            mainViewModel.doneContent.append(item)
-        }
+        dataManager.create(with: item, to: type)
     }
     
     func delete(from index: Int, of type: ProjectType) {
-        switch type {
-        case .todo:
-            mainViewModel.todoContent.remove(at: index)
-        case .doing:
-            mainViewModel.doingContent.remove(at: index)
-        case .done:
-            mainViewModel.doneContent.remove(at: index)
-        }
+        dataManager.delete(index: index, with: type)
     }
     
     func move(project: ProjectType, in index: IndexPath, to anotherProject: ProjectType) {
         let movingContent = searchContent(from: index.row, of: project)
-        
+
         append(new: movingContent, to: anotherProject)
         delete(from: index.row, of: project)
     }

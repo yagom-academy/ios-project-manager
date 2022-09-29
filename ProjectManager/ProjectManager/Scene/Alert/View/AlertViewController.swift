@@ -14,7 +14,7 @@ final class AlertViewController: UIViewController {
     private let project: ProjectType
     private let index: IndexPath
     private let tableView: ProjectTableView
-    private let alertViewModel = AlertViewModel()
+    private let alertViewModel: AlertViewModel
     
     private let firstAlertButton: UIButton = {
         let button = UIButton()
@@ -57,10 +57,11 @@ final class AlertViewController: UIViewController {
 
     // MARK: Initializers
 
-    init(with project: ProjectType, by index: IndexPath, tableView: ProjectTableView) {
+    init(with project: ProjectType, by index: IndexPath, tableView: ProjectTableView, viewModel: AlertViewModel) {
         self.project = project
         self.index = index
         self.tableView = tableView
+        self.alertViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         commonInit()
     }
@@ -68,7 +69,8 @@ final class AlertViewController: UIViewController {
     required init?(coder: NSCoder) {
         self.project = .todo
         self.index = IndexPath()
-        self.tableView = ProjectTableView(for: .todo)
+        self.tableView = ProjectTableView(for: .todo, to: ProjectTableViewModel(dataManager: FakeToDoItemManager()))
+        self.alertViewModel = AlertViewModel(dataManager: FakeToDoItemManager())
         super.init(coder: coder)
         commonInit()
     }

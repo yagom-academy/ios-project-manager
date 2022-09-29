@@ -83,13 +83,13 @@ final class ToDoComponentsView: UIView {
     func fetchItem() -> ToDoItem {
         
         return ToDoItem(title: titleTextField.text ?? "",
-                        description: descriptionTextView.text ?? "",
+                        toDoDescription: descriptionTextView.text ?? "",
                         timeLimit: timeLimitDatePicker.date)
     }
     
     func configure(of item: ToDoItem) {
         titleTextField.text = item.title
-        descriptionTextView.text = item.description
+        descriptionTextView.text = item.toDoDescription
         timeLimitDatePicker.setDate(item.timeLimit, animated: true)
     }
     

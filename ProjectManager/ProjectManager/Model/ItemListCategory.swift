@@ -10,11 +10,13 @@ import Foundation
 struct ItemListCategory: Codable {
     
     // MARK: - Properties
-
-    let todo, doing, done: [ToDoItem]
+    
+    let todo: [ToDoItem]
+    let doing: [ToDoItem]
+    let done: [ToDoItem]
     
     // MARK: - Initializers
-
+    
     init(todo: [ToDoItem] = [], doing: [ToDoItem] = [], done: [ToDoItem] = []) {
         self.todo = todo
         self.doing = doing
@@ -22,7 +24,7 @@ struct ItemListCategory: Codable {
     }
     
     // MARK: - CodingKey
-
+    
     enum CodingKeys: String, CodingKey {
         case todo = "TODO"
         case doing = "DOING"

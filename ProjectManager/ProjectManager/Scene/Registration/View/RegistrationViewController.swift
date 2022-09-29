@@ -12,13 +12,23 @@ final class RegistrationViewController: UIViewController {
     // MARK: - Properties
     
     private let toDoComponentsView = ToDoComponentsView()
-    private let registrationViewModel = RegistrationViewModel()
+    private let registrationViewModel: RegistrationViewModel
     
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+    
+    init(with viewModel: RegistrationViewModel) {
+        self.registrationViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.registrationViewModel = RegistrationViewModel(dataManager: FakeToDoItemManager())
+        super.init(nibName: nil, bundle: nil)
     }
     
     // MARK: - Functions

@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct ToDoItem: Codable, Equatable {
+struct ToDoItem: Codable {
     
     // MARK: - Properties
     
     private let uuid = UUID()
     let title: String
-    let description: String
+    let toDoDescription: String
     let timeLimit: Date
     
     // MARK: - Initializers
@@ -22,13 +22,13 @@ struct ToDoItem: Codable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         title = try container.decode(String.self, forKey: .title)
-        description = try container.decode(String.self, forKey: .description)
+        toDoDescription = try container.decode(String.self, forKey: .toDoDescription)
         timeLimit = try container.decode(Date.self, forKey: .timeLimit)
     }
     
-    init(title: String = "", description: String = "", timeLimit: Date = Date()) {
+    init(title: String = "", toDoDescription: String = "", timeLimit: Date = Date()) {
         self.title = title
-        self.description = description
+        self.toDoDescription = toDoDescription
         self.timeLimit = timeLimit
     }
     
@@ -37,7 +37,7 @@ struct ToDoItem: Codable, Equatable {
     private enum CodingKeys: CodingKey {
         
         case title
-        case description
+        case toDoDescription
         case timeLimit
     }
 }

@@ -9,53 +9,31 @@ import Foundation
 
 final class ProjectTableViewModel {
     
-    // MARK: - Singletone
-
-    private let mainViewModel = MainViewModel.shared
+    // MARK: - Properties
+    
+    private let dataManager: DataManagable
+    lazy var projectDetailViewModel = ProjectDetailViewModel(dataManager: dataManager)
+    lazy var alertViewModel = AlertViewModel(dataManager: dataManager)
+    
+    init(dataManager: DataManagable) {
+        self.dataManager = dataManager
+    }
     
     // MARK: - Functions
 
     func count(of type: ProjectType) -> Int {
-        switch type {
-        case .todo:
-            return mainViewModel.todoContent.count
-        case .doing:
-            return mainViewModel.doingContent.count
-        case .done:
-            return mainViewModel.doneContent.count
-        }
+        return dataManager.count(with: type)
     }
     
     func searchContent(from index: Int, of type: ProjectType) -> ToDoItem {
-        switch type {
-        case .todo:
-            return mainViewModel.todoContent.get(index: index) ?? ToDoItem()
-        case .doing:
-            return mainViewModel.doingContent.get(index: index) ?? ToDoItem()
-        case .done:
-            return mainViewModel.doneContent.get(index: index) ?? ToDoItem()
-        }
+        return dataManager.read(from: index, of: type)
     }
     
     func update(item: ToDoItem, from index: Int, of type: ProjectType) {
-        switch type {
-        case .todo:
-            mainViewModel.todoContent[index] = item
-        case .doing:
-            mainViewModel.doingContent[index] = item
-        case .done:
-            mainViewModel.doneContent[index] = item
-        }
+        dataManager.update(item: item, from: index, of: type)
     }
     
     func delete(from index: Int, of type: ProjectType) {
-        switch type {
-        case .todo:
-            mainViewModel.todoContent.remove(at: index)
-        case .doing:
-            mainViewModel.doingContent.remove(at: index)
-        case .done:
-            mainViewModel.doneContent.remove(at: index)
-        }
+        dataManager.delete(index: index, with: type)
     }
 }

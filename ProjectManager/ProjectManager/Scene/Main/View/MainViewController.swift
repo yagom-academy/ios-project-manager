@@ -10,11 +10,12 @@ final class MainViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let mainViewModel = MainViewModel.shared
+    private let dataManager = FakeToDoItemManager()
+    private lazy var mainViewModel = MainViewModel(with: dataManager)
     
-    private lazy var toDoListTableView = ProjectTableView(for: .todo)
-    private lazy var doingListTableView = ProjectTableView(for: .doing)
-    private lazy var doneListTableView = ProjectTableView(for: .done)
+    private lazy var toDoListTableView = ProjectTableView(for: .todo, to: mainViewModel.projectTableViewModel)
+    private lazy var doingListTableView = ProjectTableView(for: .doing, to: mainViewModel.projectTableViewModel)
+    private lazy var doneListTableView = ProjectTableView(for: .done, to: mainViewModel.projectTableViewModel)
         
     private let horizontalStackView: UIStackView = {
         let stackView = UIStackView()
@@ -45,17 +46,17 @@ final class MainViewController: UIViewController {
     }
     
     private func setupSubscripting() {
-        mainViewModel.todoSubscripting { [weak self] _ in
+        dataManager.todoSubscripting { [weak self] _ in
             self?.toDoListTableView.reloadData()
             self?.toDoListTableView.setupIndexLabel()
         }
         
-        mainViewModel.doingSubscripting { [weak self] _ in
+        dataManager.doingSubscripting { [weak self] _ in
             self?.doingListTableView.reloadData()
             self?.doingListTableView.setupIndexLabel()
         }
         
-        mainViewModel.doneSubscripting { [weak self] _ in
+        dataManager.doneSubscripting { [weak self] _ in
             self?.doneListTableView.reloadData()
             self?.doneListTableView.setupIndexLabel()
         }
@@ -63,7 +64,7 @@ final class MainViewController: UIViewController {
     
     private func setupDelegates() {
         [toDoListTableView, doingListTableView, doneListTableView]
-            .forEach { $0.presetDelegate = self }
+            .forEach { $0.presentDelegate = self }
     }
     
     private func setupSubviews() {
@@ -107,7 +108,7 @@ final class MainViewController: UIViewController {
     // MARK: - objc Functions
     
     @objc private func didPlusButtonTapped() {
-        let registrationViewController = RegistrationViewController()
+        let registrationViewController = RegistrationViewController(with: mainViewModel.registrationViewModel)
         let navigationController = UINavigationController(rootViewController: registrationViewController)
         
         registrationViewController.modalPresentationStyle = .formSheet
