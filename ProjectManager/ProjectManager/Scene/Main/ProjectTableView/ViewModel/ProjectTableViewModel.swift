@@ -12,6 +12,8 @@ final class ProjectTableViewModel {
     // MARK: - Properties
     
     private let dataManager: DataManagable
+    
+    lazy var projectHeaderViewModel = ProjectTableHeaderViewModel(dataManager: dataManager)
     lazy var projectDetailViewModel = ProjectDetailViewModel(dataManager: dataManager)
     lazy var alertViewModel = AlertViewModel(dataManager: dataManager)
     

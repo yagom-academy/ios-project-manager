@@ -24,7 +24,7 @@ final class ProjectTableView: UITableView {
     init(for projectType: ProjectType, to viewModel: ProjectTableViewModel) {
         self.projectType = projectType
         self.projectTableViewModel = viewModel
-        projectHeaderView = ProjectTableHeaderView(with: projectType)
+        projectHeaderView = ProjectTableHeaderView(with: projectType, to: viewModel.projectHeaderViewModel)
         super.init(frame: .zero, style: .plain)
         commonInit()
     }
@@ -32,7 +32,7 @@ final class ProjectTableView: UITableView {
     required init?(coder: NSCoder) {
         projectType = .todo
         projectTableViewModel = ProjectTableViewModel(dataManager: FakeToDoItemManager())
-        projectHeaderView = ProjectTableHeaderView(with: .todo)
+        projectHeaderView = ProjectTableHeaderView(with: .todo, to: ProjectTableHeaderViewModel(dataManager: FakeToDoItemManager()))
         super.init(coder: coder)
     }
     
@@ -57,11 +57,11 @@ final class ProjectTableView: UITableView {
     func setupIndexLabel() {
         switch projectType {
         case .todo:
-            projectHeaderView.setupIndexLabel(with: projectTableViewModel.count(of: .todo))
+            projectHeaderView.setupLabel()
         case .doing:
-            projectHeaderView.setupIndexLabel(with: projectTableViewModel.count(of: .doing))
+            projectHeaderView.setupLabel()
         case .done:
-            projectHeaderView.setupIndexLabel(with: projectTableViewModel.count(of: .done))
+            projectHeaderView.setupLabel()
         }
     }
     

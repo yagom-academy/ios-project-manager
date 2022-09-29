@@ -22,6 +22,7 @@
 		A37C3BAA28CCC5F800CE4F50 /* JSONDecoder+Extentsion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BA928CCC5F800CE4F50 /* JSONDecoder+Extentsion.swift */; };
 		A37C3BAC28CCC6B900CE4F50 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37C3BAB28CCC6B900CE4F50 /* Date+Extension.swift */; };
 		A39C1FD228CE1CB500009A15 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39C1FD128CE1CB500009A15 /* RegistrationViewController.swift */; };
+		A3CEE1E928E5D15D005F7BD8 /* ProjectTableHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CEE1E828E5D15D005F7BD8 /* ProjectTableHeaderViewModel.swift */; };
 		C460FA7A28E5C4AE008CDE35 /* DataManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C460FA7928E5C4AE008CDE35 /* DataManageable.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -70,6 +71,7 @@
 		A37C3BA928CCC5F800CE4F50 /* JSONDecoder+Extentsion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extentsion.swift"; sourceTree = "<group>"; };
 		A37C3BAB28CCC6B900CE4F50 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		A39C1FD128CE1CB500009A15 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		A3CEE1E828E5D15D005F7BD8 /* ProjectTableHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableHeaderViewModel.swift; sourceTree = "<group>"; };
 		C460FA7928E5C4AE008CDE35 /* DataManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManageable.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,9 +135,7 @@
 			children = (
 				A334148E28C86AA80059D133 /* ItemListCategory.swift */,
 				D7E1178A28D8395B006F416C /* ToDoItem.swift */,
-				A37C3BA428CCC2C300CE4F50 /* FakeToDoItemManager.swift */,
-				D7E75DA128D0AB8F00C32947 /* ProjectType.swift */,
-				A37C3BA628CCC3D700CE4F50 /* MockData.json */,
+				A3CEE1E728E5D05F005F7BD8 /* Enum */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,6 +171,23 @@
 			path = Registration;
 			sourceTree = "<group>";
 		};
+		A3CEE1E628E5CFD9005F7BD8 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				A37C3BA428CCC2C300CE4F50 /* FakeToDoItemManager.swift */,
+				A37C3BA628CCC3D700CE4F50 /* MockData.json */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		A3CEE1E728E5D05F005F7BD8 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				D7E75DA128D0AB8F00C32947 /* ProjectType.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		C461BFFD28DD830400C1C6EF /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				A3169DFF28DCA2AE002E2DC1 /* ProjectTableViewModel.swift */,
+				A3CEE1E828E5D15D005F7BD8 /* ProjectTableHeaderViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -278,6 +296,7 @@
 				A37C3BA828CCC5D600CE4F50 /* Extentsion */,
 				D7C465DC28C7719E004B64F7 /* Protocol */,
 				A334148D28C86A9E0059D133 /* Model */,
+				A3CEE1E628E5CFD9005F7BD8 /* Manager */,
 				D7C465C828C71E09004B64F7 /* Scene */,
 				D7C465C728C71E03004B64F7 /* Resources */,
 			);
@@ -507,6 +526,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A334148F28C86AA80059D133 /* ItemListCategory.swift in Sources */,
+				A3CEE1E928E5D15D005F7BD8 /* ProjectTableHeaderViewModel.swift in Sources */,
 				A3169E0028DCA2AE002E2DC1 /* ProjectTableViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
