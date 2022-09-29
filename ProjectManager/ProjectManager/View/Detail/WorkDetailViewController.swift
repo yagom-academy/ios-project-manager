@@ -16,21 +16,60 @@ final class WorkDetailViewController: UIViewController {
         case edit
     }
     
+    // MARK: - UI
+    private let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Title"
+        textField.borderStyle = .roundedRect
+        textField.font = .preferredFont(forTextStyle: .body)
+        textField.adjustsFontForContentSizeCategory = true
+        textField.isEnabled = false
+        textField.applyShadow()
+        return textField
+    }()
+    
+    private let deadlinePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.backgroundColor = .systemBackground
+        datePicker.isEnabled = false
+        datePicker.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ko")
+        return datePicker
+    }()
+    
+    private let contentTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = .preferredFont(forTextStyle: .body)
+        textView.adjustsFontForContentSizeCategory = true
+        textView.isEditable = false
+        textView.applyShadow()
+        return textView
+    }()
+    
+    private let verticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 16
+        return stackView
+    }()
+    
     // MARK: - Properties
     private let disposeBag = DisposeBag()
-    private let workDetailView = WorkDetailView()
     private let viewModel: WorkViewModel
     private var viewMode: ViewMode?
     private var work: Work?
     
-    override func loadView() {
-        super.loadView()
-        self.view = workDetailView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        addSubView()
+        setupConstraints()
     }
     
     // MARK: - initializer
@@ -44,6 +83,31 @@ final class WorkDetailViewController: UIViewController {
     }
     
     // MARK: - UI setup
+    private func addSubView() {
+        self.view.backgroundColor = .systemGray6
+        
+        verticalStackView.addArrangedSubview(titleTextField)
+        verticalStackView.addArrangedSubview(deadlinePicker)
+        verticalStackView.addArrangedSubview(contentTextView)
+        
+        self.view.addSubview(verticalStackView)
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            verticalStackView.leadingAnchor
+                .constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            verticalStackView.trailingAnchor
+                .constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            verticalStackView.topAnchor
+                .constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            verticalStackView.bottomAnchor
+                .constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            
+            contentTextView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.6)
+        ])
+    }
+    
     private func configureUI() {
         guard let viewMode = viewMode else { return }
 
@@ -78,22 +142,17 @@ final class WorkDetailViewController: UIViewController {
     }
     
     @objc private func editBarButtonTapped() {
-        workDetailView.changeEditMode(true)
+        switchEditable()
     }
     
     @objc private func doneBarButtonTapped() {
         guard let viewMode = viewMode else { return }
         
         switch viewMode {
-        case .add:
-            guard let newWork = workDetailView.createNewWork() else { return }
-
-            viewModel.addWork(newWork)
+        case .add:   
+            viewModel.addWork()
         case .edit:
-            guard let work = work,
-                  let newWork = self.workDetailView.createNewWork(id: work.id, state: work.state) else { return }
-
-            viewModel.editWork(work, newWork: newWork)
+            viewModel.editWork()
         }
         
         self.dismiss(animated: true)
@@ -101,12 +160,35 @@ final class WorkDetailViewController: UIViewController {
     
     func configureAddMode() {
         self.viewMode = .add
+        switchEditable()
+        createNewWork()
     }
     
     func configureEditMode(with work: Work) {
-        workDetailView.configure(with: work)
-        workDetailView.changeEditMode(false)
+        configure(with: work)
+        createNewWork(id: work.id, state: work.state)
         self.viewMode = .edit
         self.work = work
+    }
+    
+    private func configure(with work: Work) {
+        titleTextField.text = work.title
+        contentTextView.text = work.content
+        deadlinePicker.date = work.deadline
+    }
+    
+    private func switchEditable() {
+        titleTextField.isEnabled = true
+        contentTextView.isEditable = true
+        deadlinePicker.isEnabled = true
+    }
+        
+    private func createNewWork(id: UUID = UUID(), state: WorkState = .todo) {
+        Observable.combineLatest(titleTextField.rx.text.orEmpty,
+                                 contentTextView.rx.text.orEmpty,
+                                 deadlinePicker.rx.date)
+            .subscribe(onNext: { title, content, deadline in
+                self.viewModel.createWork(id, title, content, deadline, state)
+            }).disposed(by: disposeBag)
     }
 }

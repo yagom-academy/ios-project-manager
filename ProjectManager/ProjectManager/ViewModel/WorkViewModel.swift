@@ -15,6 +15,7 @@ final class WorkViewModel {
     private let histories = BehaviorSubject<[String]>(value: [])
     let worksObservable: Observable<[Work]>
     let historiesObservable: Observable<[String]>
+    let newWork = BehaviorSubject<Work>(value: Work(id: UUID(), title: "", content: "", deadline: Date(), state: .todo))
     
     init(dbType: DatabaseManageable) {
         database = dbType
@@ -59,6 +60,8 @@ final class WorkViewModel {
     func addWork(_ work: Work) {
         database.saveWork(work)
         guard let value = try? works.value() else { return }
+    func createWork(_ id: UUID, _ title: String, _ content: String, _ deadline: Date, _ state: WorkState) {
+        let work = Work(id: id, title: title, content: content, deadline: deadline, state: state)
         
         works.onNext([work] + value)
         
