@@ -67,6 +67,13 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
             name: NSNotification.Name("disconnect"),
             object: nil
         )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(synchronizeWithRemote),
+            name: NSNotification.Name("connect"),
+            object: nil
+        )
     }
 
     @objc private func showAlert() {
@@ -83,6 +90,10 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion: nil)
         }
+    }
+
+    @objc private func synchronizeWithRemote() {
+        viewModel.synchronize()
     }
 
     private func setUpLabelShape() {

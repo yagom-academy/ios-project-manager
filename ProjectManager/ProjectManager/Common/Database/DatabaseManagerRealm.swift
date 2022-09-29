@@ -7,8 +7,12 @@
 
 import RealmSwift
 
-class RealmDatabase: DatabaseProtocol {
-    let realm = try? Realm()
+class DatabaseManagerRealm: DatabaseProtocol {
+    var realm: Realm?
+
+    init(realm: Realm? = try? Realm()) {
+        self.realm = realm
+    }
 
     func create(data: TaskModel) {
         let data = RealmDatabaseModel(

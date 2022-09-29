@@ -11,7 +11,7 @@
 		0578628828D03DEF003CD311 /* MainHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578628728D03DEF003CD311 /* MainHomeViewModel.swift */; };
 		05A5774428CF088A00E05133 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774328CF088A00E05133 /* DatabaseProtocol.swift */; };
 		05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */; };
-		05A5774828CF0AE600E05133 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774728CF0AE600E05133 /* RealmDatabase.swift */; };
+		05A5774828CF0AE600E05133 /* DatabaseManagerRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774728CF0AE600E05133 /* DatabaseManagerRealm.swift */; };
 		05A5774A28CF13A300E05133 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774928CF13A300E05133 /* TaskModel.swift */; };
 		05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A5774B28CF807A00E05133 /* TodoFormViewController.swift */; };
 		05BAA00F28CE99680009BB06 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 05BAA00E28CE99680009BB06 /* .swiftlint.yml */; };
@@ -24,7 +24,7 @@
 		05C6273F28E462B100B9CBCC /* SendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273E28E462B100B9CBCC /* SendModel.swift */; };
 		05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA128D445A100C7BA83 /* SendDelegate .swift */; };
 		05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */; };
-		05EB16C128E2D2B100E16FD4 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EB16C028E2D2B100E16FD4 /* RealmManager.swift */; };
+		05EB16C128E2D2B100E16FD4 /* RemoteRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EB16C028E2D2B100E16FD4 /* RemoteRealm.swift */; };
 		7E25D6CB9B7CC70581D3BEAF /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -39,7 +39,7 @@
 		0578628728D03DEF003CD311 /* MainHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeViewModel.swift; sourceTree = "<group>"; };
 		05A5774328CF088A00E05133 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		05A5774528CF08EE00E05133 /* RealmDatabaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabaseModel.swift; sourceTree = "<group>"; };
-		05A5774728CF0AE600E05133 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
+		05A5774728CF0AE600E05133 /* DatabaseManagerRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerRealm.swift; sourceTree = "<group>"; };
 		05A5774928CF13A300E05133 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		05A5774B28CF807A00E05133 /* TodoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormViewController.swift; sourceTree = "<group>"; };
 		05BAA00E28CE99680009BB06 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		05C6273E28E462B100B9CBCC /* SendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendModel.swift; sourceTree = "<group>"; };
 		05D5CBA128D445A100C7BA83 /* SendDelegate .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SendDelegate .swift"; sourceTree = "<group>"; };
 		05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
-		05EB16C028E2D2B100E16FD4 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		05EB16C028E2D2B100E16FD4 /* RemoteRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRealm.swift; sourceTree = "<group>"; };
 		62D893AE1F014D0F8E5D7D44 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0257905294AE94EAFB553A4 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,8 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				05A5774328CF088A00E05133 /* DatabaseProtocol.swift */,
-				05A5774728CF0AE600E05133 /* RealmDatabase.swift */,
-				05EB16C028E2D2B100E16FD4 /* RealmManager.swift */,
+				05A5774728CF0AE600E05133 /* DatabaseManagerRealm.swift */,
+				05EB16C028E2D2B100E16FD4 /* RemoteRealm.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -401,7 +401,7 @@
 				05C6273728E4425A00B9CBCC /* HistoryViewModel.swift in Sources */,
 				05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */,
 				0578628828D03DEF003CD311 /* MainHomeViewModel.swift in Sources */,
-				05EB16C128E2D2B100E16FD4 /* RealmManager.swift in Sources */,
+				05EB16C128E2D2B100E16FD4 /* RemoteRealm.swift in Sources */,
 				05BAA01B28CEE67C0009BB06 /* TaskTableViewCell.swift in Sources */,
 				05A5774628CF08EE00E05133 /* RealmDatabaseModel.swift in Sources */,
 				0568B87328D5B78600FAC59B /* TaskState.swift in Sources */,
@@ -411,7 +411,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				05BC15BF28E4865B00432AAA /* NetworkMonitor.swift in Sources */,
 				05A5774A28CF13A300E05133 /* TaskModel.swift in Sources */,
-				05A5774828CF0AE600E05133 /* RealmDatabase.swift in Sources */,
+				05A5774828CF0AE600E05133 /* DatabaseManagerRealm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

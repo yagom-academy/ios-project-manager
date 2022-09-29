@@ -8,8 +8,9 @@
 import RealmSwift
 import Combine
 
-class RealmManager: ObservableObject {
+class RemoteRealm: ObservableObject {
     private let app: App = App(id: "application-0-rynak")
+    private var databaseManager: DatabaseManagerRealm?
     var realm: Realm?
 
     func initialize() {
@@ -28,6 +29,16 @@ class RealmManager: ObservableObject {
 //            }
         }
     }
+    func upload(data: [TaskModel]) {
+        guard databaseManager != nil else {
+            print("❌ 데이터베이스 못 가져옴")
+            return
+        }
+
+        data.forEach { task in
+            databaseManager?.create(data: task)
+        }
+    }
 
     private func getUser() async throws -> User {
         let user = try await app.login(credentials: .emailPassword(email: "admin@test.com", password: "test1234"))
@@ -44,6 +55,7 @@ class RealmManager: ObservableObject {
 
             config.objectTypes = [RealmDatabaseModel.self]
             realm = try await Realm(configuration: config)
+            databaseManager = DatabaseManagerRealm(realm: realm)
         } catch {
             print("💖 Error opening realm: \(error.localizedDescription)")
         }

@@ -26,7 +26,8 @@ class MainHomeViewModel {
         }
     }
 
-    private let databaseManager = RealmDatabase()
+    private let databaseManager = DatabaseManagerRealm()
+    private let remoteManager = RemoteRealm()
     private var todoList = [TaskModel]()
     private var doingList = [TaskModel]()
     private var doneList = [TaskModel]()
@@ -85,6 +86,11 @@ class MainHomeViewModel {
         databaseManager.update(data: data)
         fetchDataList()
         return nil
+    }
+
+    func synchronize() {
+        remoteManager.initialize()
+        remoteManager.upload(data: databaseManager.read())
     }
 
     private func getCurrentList(state: TaskState) -> [TaskModel] {
