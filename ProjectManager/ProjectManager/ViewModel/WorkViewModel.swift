@@ -57,61 +57,40 @@ final class WorkViewModel {
         return selectedWork.first
     }
     
-    func addWork(_ work: Work) {
-        database.saveWork(work)
-        guard let value = try? works.value() else { return }
     func createWork(_ id: UUID, _ title: String, _ content: String, _ deadline: Date, _ state: WorkState) {
         let work = Work(id: id, title: title, content: content, deadline: deadline, state: state)
         
-        works.onNext([work] + value)
-        
-        histories
-            .take(1)
-            .observe(on: MainScheduler.instance)
-            .subscribe {
-            self.histories.onNext(["Added '\(work.title)'."] + $0)
-        }.disposed(by: disposeBag)
+        newWork.onNext(work)
     }
     
-    func editWork(_ work: Work, newWork: Work) {
-        database.saveWork(newWork)
-        
-        works.map {
-            $0.map {
-                return $0.id == work.id ? newWork : $0
-            }
-        }.observe(on: MainScheduler.asyncInstance)
+    private func fetchWork() {
+        database.fetchWork()
+            .subscribe(onNext: works.onNext)
+            .disposed(by: disposeBag)
+    }
+    
+    func addWork() {
+        newWork
             .take(1)
-            .subscribe(onNext: {
-                self.works.onNext($0)
-            }).disposed(by: disposeBag)
+            .subscribe(onNext: { self.database.saveWork($0) })
+            .disposed(by: disposeBag)
+        
+        fetchWork()
+    }
+    
+    func editWork() {
+        newWork
+            .take(1)
+            .subscribe(onNext: { self.database.saveWork($0) })
+            .disposed(by: disposeBag)
 
-        histories.take(1)
-            .observe(on: MainScheduler.instance)
-            .subscribe {
-            self.histories.onNext(["Edited '\(work.title)'."] + $0)
-        }.disposed(by: disposeBag)
+        fetchWork()
     }
     
     func deleteWork(id: UUID) {
         database.deleteWork(id: id)
         
-        works.map {
-            $0.filter { $0.id != id }
-        }
-        .take(1)
-        .observe(on: MainScheduler.instance)
-        .subscribe(onNext: {
-            self.works.onNext($0)
-        }).disposed(by: disposeBag)
-        
-        guard let work = selectWork(id: id) else { return }
-        
-        histories.take(1)
-            .observe(on: MainScheduler.instance)
-            .subscribe {
-            self.histories.onNext(["Removed '\(work.title)'."] + $0)
-        }.disposed(by: disposeBag)
+        fetchWork()
     }
     
     func changeWorkState(_ work: Work, to state: WorkState) {
@@ -122,15 +101,8 @@ final class WorkViewModel {
                                state: state)
         
         database.saveWork(changedWork)
+        fetchWork()
         
-        works.map {
-            $0.map {
-                $0.id == work.id ? changedWork : $0
-            }
-        }.take(1)
-        .observe(on: MainScheduler.asyncInstance)
-        .subscribe(onNext: {
-            self.works.onNext($0)
         }).disposed(by: disposeBag)
         
         histories
