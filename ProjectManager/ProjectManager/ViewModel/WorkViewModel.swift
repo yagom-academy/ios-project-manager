@@ -76,6 +76,7 @@ final class WorkViewModel {
             .disposed(by: disposeBag)
         
         fetchWork()
+        updateHistory(type: .add)
     }
     
     func editWork() {
@@ -85,12 +86,14 @@ final class WorkViewModel {
             .disposed(by: disposeBag)
 
         fetchWork()
+        updateHistory(type: .edit)
     }
     
     func deleteWork(id: UUID) {
         database.deleteWork(id: id)
         
         fetchWork()
+        updateHistory(type: .delete)
     }
     
     func changeWorkState(_ work: Work, to state: WorkState) {
@@ -103,13 +106,29 @@ final class WorkViewModel {
         database.saveWork(changedWork)
         fetchWork()
         
+        histories
+            .take(1)
+            .subscribe(onNext: {
+            self.histories.onNext(["Moved '\(work.title)' from \(work.state.rawValue) to \(state.rawValue)."] + $0)
         }).disposed(by: disposeBag)
+    }
+    
+    private func updateHistory(type: HistoryType) {
+        guard let work = try? newWork.value() else { return }
         
         histories
             .take(1)
-            .observe(on: MainScheduler.instance)
-            .subscribe {
-            self.histories.onNext(["Moved '\(work.title)' from \(work.state.rawValue) to \(state.rawValue)."] + $0)
-        }.disposed(by: disposeBag)
+            .subscribe(onNext: {
+                self.histories.onNext(["\(type.rawValue) '\(work.title)'."] + $0)
+            }).disposed(by: disposeBag)
+    }
+}
+
+extension WorkViewModel {
+    private enum HistoryType: String {
+        case add = "Added"
+        case edit = "Edited"
+        case delete = "Removed"
+        case move = "Moved"
     }
 }
