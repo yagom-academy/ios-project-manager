@@ -192,6 +192,7 @@
 				7236B04B28C87A58009A7412 /* ProjectUnit.swift */,
 				20B241AC28E2C4130098712B /* HistoryLog.swift */,
 				72AB5C7E28E4378B00BAB111 /* JSONManager.swift */,
+				20F7ABEB28E586D400199393 /* JSONError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -203,7 +204,6 @@
 				7236B04528C86FF9009A7412 /* LocalDatabaseManager.swift */,
 				203901D728E4137400419C49 /* RemoteDatabaseManager.swift */,
 				20D66B6528D1D85A001317E0 /* CoreDataContainer.swift */,
-				20F7ABEB28E586D400199393 /* JSONError.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
