@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4D44198EF8AC8AA5D2AB049B /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A46B9A3ED16157AFD87E8F /* Pods_ProjectManager.framework */; };
 		AF0D210728D7EE51000B1FBD /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210628D7EE51000B1FBD /* HeaderViewModel.swift */; };
-		AF0D210928D7F76C000B1FBD /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210828D7F76C000B1FBD /* Observable.swift */; };
 		AF0D210B28D80470000B1FBD /* ListCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210A28D80470000B1FBD /* ListCollectionViewModel.swift */; };
 		AF0D211028D82A28000B1FBD /* FormSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210F28D82A28000B1FBD /* FormSheetViewModel.swift */; };
 		AF0D211328D8372A000B1FBD /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D211228D8372A000B1FBD /* PopoverViewModel.swift */; };
@@ -36,6 +35,7 @@
 		AFCDC5F828DB287200339971 /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCDC5F728DB287200339971 /* HistoryManager.swift */; };
 		AFCDC5FD28DB3F5A00339971 /* LabelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCDC5FC28DB3F5A00339971 /* LabelBuilder.swift */; };
 		AFCDC5FF28DB478F00339971 /* StackViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCDC5FE28DB478F00339971 /* StackViewBuilder.swift */; };
+		AFE808AC28E5D7B200D58128 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE808AB28E5D7B200D58128 /* TodoModel.swift */; };
 		AFEC096328CAF6AA00628172 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEC096228CAF6AA00628172 /* HeaderView.swift */; };
 		AFEC096728CAF82400628172 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEC096628CAF82400628172 /* ListCell.swift */; };
 		AFEC096928CAF9F100628172 /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEC096828CAF9F100628172 /* AppAppearance.swift */; };
@@ -57,7 +57,6 @@
 /* Begin PBXFileReference section */
 		938CBA0AAC49F3FA22F64711 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		AF0D210628D7EE51000B1FBD /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
-		AF0D210828D7F76C000B1FBD /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		AF0D210A28D80470000B1FBD /* ListCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewModel.swift; sourceTree = "<group>"; };
 		AF0D210F28D82A28000B1FBD /* FormSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetViewModel.swift; sourceTree = "<group>"; };
 		AF0D211228D8372A000B1FBD /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
@@ -84,6 +83,7 @@
 		AFCDC5F728DB287200339971 /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		AFCDC5FC28DB3F5A00339971 /* LabelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelBuilder.swift; sourceTree = "<group>"; };
 		AFCDC5FE28DB478F00339971 /* StackViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewBuilder.swift; sourceTree = "<group>"; };
+		AFE808AB28E5D7B200D58128 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		AFEC096228CAF6AA00628172 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		AFEC096628CAF82400628172 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		AFEC096828CAF9F100628172 /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
@@ -230,7 +230,6 @@
 		AFB43ABB28DC75AD00D9B3A9 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				AF0D210828D7F76C000B1FBD /* Observable.swift */,
 				AF1792F928DBDF370093DBCE /* NetworkCheck.swift */,
 				AFB43ABC28DC78CC00D9B3A9 /* Builder */,
 			);
@@ -240,12 +239,12 @@
 		AFB43ABC28DC78CC00D9B3A9 /* Builder */ = {
 			isa = PBXGroup;
 			children = (
+				AF6152E628DD47BC0049EA08 /* Protocols.swift */,
 				AFCDC5FC28DB3F5A00339971 /* LabelBuilder.swift */,
 				AFCDC5FE28DB478F00339971 /* StackViewBuilder.swift */,
 				AF6152E228DD416D0049EA08 /* TextViewBuilder.swift */,
 				AF4FBF0728DD7BE6005C4B03 /* TextFieldBuilder.swift */,
 				AF4FBF0928DD834E005C4B03 /* DatePickerBuilder.swift */,
-				AF6152E628DD47BC0049EA08 /* Protocols.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -308,6 +307,7 @@
 			children = (
 				AFAF71B928D87A7400B4BA1B /* History.swift */,
 				AFB2603828D1F1290024CE70 /* Todo.swift */,
+				AFE808AB28E5D7B200D58128 /* TodoModel.swift */,
 				AFEC096E28CAFC8200628172 /* Category.swift */,
 			);
 			path = Model;
@@ -563,7 +563,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF0D210928D7F76C000B1FBD /* Observable.swift in Sources */,
 				AFB2603E28D20C300024CE70 /* TodoListCoordinator.swift in Sources */,
 				AF0D210728D7EE51000B1FBD /* HeaderViewModel.swift in Sources */,
 				AF6152E328DD416D0049EA08 /* TextViewBuilder.swift in Sources */,
@@ -589,6 +588,7 @@
 				AF0D211028D82A28000B1FBD /* FormSheetViewModel.swift in Sources */,
 				AFB2603B28D1F2F10024CE70 /* TodoDataManager.swift in Sources */,
 				AFFFC06028D4938000E41C0A /* PopoverViewCoordinator.swift in Sources */,
+				AFE808AC28E5D7B200D58128 /* TodoModel.swift in Sources */,
 				AFAF71BA28D87A7400B4BA1B /* History.swift in Sources */,
 				AF1792FA28DBDF370093DBCE /* NetworkCheck.swift in Sources */,
 				AFEC097328CB022000628172 /* Coordinator.swift in Sources */,
