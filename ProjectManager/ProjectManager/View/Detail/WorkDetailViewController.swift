@@ -130,7 +130,7 @@ final class WorkDetailViewController: UIViewController {
             self.navigationItem.title = "TODO"
         case .edit:
             self.navigationItem.leftBarButtonItem = editBarButton
-            self.navigationItem.title = work?.state.rawValue
+            self.navigationItem.title = work?.state.title
         }
         
         self.navigationItem.rightBarButtonItem = doneBarButton

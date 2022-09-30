@@ -88,7 +88,7 @@ final class WorkViewModel {
         histories
             .take(1)
             .subscribe(onNext: {
-            self.histories.onNext(["Moved '\(work.title)' from \(work.state.rawValue) to \(state.rawValue)."] + $0)
+            self.histories.onNext(["Moved '\(work.title)' from \(work.state.title) to \(state.title)."] + $0)
         }).disposed(by: disposeBag)
     }
     

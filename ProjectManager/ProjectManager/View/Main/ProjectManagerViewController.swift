@@ -217,7 +217,7 @@ extension ProjectManagerViewController {
         WorkState.allCases.filter {
             $0 != work.state
         }.forEach { state in
-            let action = UIAlertAction(title: "Move to " + state.rawValue, style: .default) { [weak self] _ in
+            let action = UIAlertAction(title: "Move to " + state.title, style: .default) { [weak self] _ in
                 guard let self = self else { return }
                 self.viewModel.changeWorkState(work, to: state)
                 self.dismiss(animated: true)
