@@ -20,7 +20,7 @@
 		45F37C8C28D20C0400EF7934 /* ProjectTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F37C8B28D20C0400EF7934 /* ProjectTaskCell.swift */; };
 		45F37C8F28D44DE300EF7934 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F37C8E28D44DE300EF7934 /* Date+Extension.swift */; };
 		45F37C9128D4585D00EF7934 /* LongPressGestureRecognizer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F37C9028D4585D00EF7934 /* LongPressGestureRecognizer+Extension.swift */; };
-		45F37CB628DC541000EF7934 /* CoreMataManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F37CB528DC541000EF7934 /* CoreMataManagerInterface.swift */; };
+		45F37CB628DC541000EF7934 /* CoreMataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F37CB528DC541000EF7934 /* CoreMataManager.swift */; };
 		45F37CB928DC577100EF7934 /* ProjectTask.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 45F37CB728DC577100EF7934 /* ProjectTask.xcdatamodeld */; };
 		45F37CC128DD34AC00EF7934 /* TaskEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F37CBF28DD34AC00EF7934 /* TaskEntity+CoreDataClass.swift */; };
 		45F37CC228DD34AC00EF7934 /* TaskEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F37CC028DD34AC00EF7934 /* TaskEntity+CoreDataProperties.swift */; };
@@ -43,7 +43,7 @@
 		45F37C8B28D20C0400EF7934 /* ProjectTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTaskCell.swift; sourceTree = "<group>"; };
 		45F37C8E28D44DE300EF7934 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		45F37C9028D4585D00EF7934 /* LongPressGestureRecognizer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LongPressGestureRecognizer+Extension.swift"; sourceTree = "<group>"; };
-		45F37CB528DC541000EF7934 /* CoreMataManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMataManagerInterface.swift; sourceTree = "<group>"; };
+		45F37CB528DC541000EF7934 /* CoreMataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMataManager.swift; sourceTree = "<group>"; };
 		45F37CB828DC577100EF7934 /* ProjectTask.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectTask.xcdatamodel; sourceTree = "<group>"; };
 		45F37CBF28DD34AC00EF7934 /* TaskEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		45F37CC028DD34AC00EF7934 /* TaskEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 		45F37CB428DC49F100EF7934 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
-				45F37CB528DC541000EF7934 /* CoreMataManagerInterface.swift */,
+				45F37CB528DC541000EF7934 /* CoreMataManager.swift */,
 				45F37CC328DD34CE00EF7934 /* CoreDataInterface.swift */,
 			);
 			path = LocalDB;
@@ -339,7 +339,7 @@
 				457D22DA28CF6C1A0000DE07 /* ProjectTask.swift in Sources */,
 				457D22DF28CF786A0000DE07 /* TodoAddViewController.swift in Sources */,
 				45F37CB928DC577100EF7934 /* ProjectTask.xcdatamodeld in Sources */,
-				45F37CB628DC541000EF7934 /* CoreMataManagerInterface.swift in Sources */,
+				45F37CB628DC541000EF7934 /* CoreMataManager.swift in Sources */,
 				459FD6C928D0E5140032D1DC /* ProjectTaskViewModel.swift in Sources */,
 				457D22DD28CF70B40000DE07 /* TodoAddView.swift in Sources */,
 				45F37CC228DD34AC00EF7934 /* TaskEntity+CoreDataProperties.swift in Sources */,
