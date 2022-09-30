@@ -13,9 +13,9 @@ final class ProjectManagerViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // MARK: - UI
-    private let todoTableView = WorkTableView(frame: .zero, style: .plain)
-    private let doingTableView = WorkTableView(frame: .zero, style: .plain)
-    private let doneTableView = WorkTableView(frame: .zero, style: .plain)
+    private let todoTableView = WorkTableView(state: .todo, frame: .zero, style: .plain)
+    private let doingTableView = WorkTableView(state: .doing, frame: .zero, style: .plain)
+    private let doneTableView = WorkTableView(state: .done, frame: .zero, style: .plain)
     private let toDoTitleView = HeaderView()
     private let doingTitleView = HeaderView()
     private let doneTitleView = HeaderView()
@@ -49,9 +49,9 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     private func addSubView() {
-        toDoTitleView.configure(title: "TODO", count: 0)
-        doingTitleView.configure(title: "DOING", count: 0)
-        doneTitleView.configure(title: "DONE", count: 0)
+        toDoTitleView.configure(state: WorkState.todo, count: 0)
+        doingTitleView.configure(state: WorkState.doing, count: 0)
+        doneTitleView.configure(state: WorkState.done, count: 0)
              
         horizontalStackView.addArrangedSubview(todoTableView)
         horizontalStackView.addArrangedSubview(doingTableView)
@@ -101,9 +101,9 @@ final class ProjectManagerViewController: UIViewController {
     
     // MARK: - UI Binding
     private func setupBinding() {
-        let workTables = [todoTableView, doingTableView, doneTableView]
-        let headerViews = [toDoTitleView, doingTitleView, doneTitleView]
-        let workStates = [WorkState.todo, WorkState.doing, WorkState.done]
+        let workTables = [todoTableView, doingTableView, doneTableView].sorted(by: { $0.tag < $1.tag })
+        let headerViews = [toDoTitleView, doingTitleView, doneTitleView].sorted(by: { $0.tag < $1.tag })
+        let workStates = WorkState.allCases.sorted(by: { $0.rawValue < $1.rawValue })
     
         zip(workTables, workStates).forEach { workTable, state in
             viewModel.worksObservable

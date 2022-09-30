@@ -88,7 +88,7 @@ final class CoreDataManager: DatabaseManageable {
             
             return Observable.just(
                 workEntities.compactMap {
-                    guard let state = WorkState(rawValue: $0.state) else { return nil }
+                    guard let state = WorkState(rawValue: Int($0.state)) else { return nil }
                     return Work(id: $0.id, title: $0.title, content: $0.content, deadline: $0.deadline, state: state)
                 }
             )

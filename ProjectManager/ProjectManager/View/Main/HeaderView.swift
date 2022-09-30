@@ -60,10 +60,11 @@ final class HeaderView: UIView {
         ])
     }
     
-    func configure(title: String, count: Int) {
+    func configure(state: WorkState, count: Int) {
         let numberImageName = "\(count).circle.fill"
         
-        titleLabel.text = title
+        titleLabel.text = state.title
         countImageView.image = UIImage(systemName: numberImageName)
+        self.tag = state.rawValue
     }
 }

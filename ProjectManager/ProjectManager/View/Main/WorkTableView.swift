@@ -10,11 +10,16 @@ import UIKit
 final class WorkTableView: UITableView {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
-        setupView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setupView()
+    }
+    
+    init(state: WorkState, frame: CGRect, style: UITableView.Style) {
+        super.init(frame: frame, style: style)
+        self.tag = state.rawValue
         setupView()
     }
     

@@ -32,7 +32,7 @@ struct FirebaseService {
     func convert(form document: QueryDocumentSnapshot) -> Work? {
         guard let uuid = document["id"] as? String,
               let title = document["title"] as? String,
-              let stateValue = document["state"] as? String,
+              let stateValue = document["state"] as? Int,
               let content = document["content"] as? String,
               let deadline = document["deadline"] as? Timestamp,
               let id = UUID(uuidString: uuid),

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2009D87528E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2009D87328E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift */; };
+		2009D87628E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2009D87428E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift */; };
 		201D822428E17264005EEB4A /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201D822328E17264005EEB4A /* AlertManager.swift */; };
 		2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47328CB100F0091D087 /* Date+Extension.swift */; };
 		2041B00E28DC3FEB00636D06 /* DatabaseManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */; };
@@ -18,8 +20,6 @@
 		2054FB7628D1B30B0007AF1E /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7528D1B30B0007AF1E /* DateManager.swift */; };
 		2054FB7828D1DAEC0007AF1E /* WorkTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */; };
 		208049EC28DD4887002A8119 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 208049EA28DD4887002A8119 /* ProjectManager.xcdatamodeld */; };
-		208049F928DD4C8F002A8119 /* WorkEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049F728DD4C8F002A8119 /* WorkEntity+CoreDataClass.swift */; };
-		208049FA28DD4C8F002A8119 /* WorkEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049F828DD4C8F002A8119 /* WorkEntity+CoreDataProperties.swift */; };
 		208049FC28DD926D002A8119 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049FB28DD926D002A8119 /* HistoryViewController.swift */; };
 		208049FF28DD9967002A8119 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */; };
 		20804A0928DDA123002A8119 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804A0828DDA123002A8119 /* NetworkMonitor.swift */; };
@@ -41,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		1BA66A5555EF5D11E54B0D98 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		2009D87328E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WorkEntity+CoreDataClass.swift"; path = "ProjectManager/WorkEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2009D87428E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WorkEntity+CoreDataProperties.swift"; path = "ProjectManager/WorkEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		201D822328E17264005EEB4A /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		2021C47328CB100F0091D087 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManageable.swift; sourceTree = "<group>"; };
@@ -52,8 +54,6 @@
 		2054FB7528D1B30B0007AF1E /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableView.swift; sourceTree = "<group>"; };
 		208049EB28DD4887002A8119 /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
-		208049F728DD4C8F002A8119 /* WorkEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WorkEntity+CoreDataClass.swift"; path = "ProjectManager/WorkEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		208049F828DD4C8F002A8119 /* WorkEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WorkEntity+CoreDataProperties.swift"; path = "ProjectManager/WorkEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		208049FB28DD926D002A8119 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		20804A0828DDA123002A8119 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
@@ -221,8 +221,8 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
-				208049F728DD4C8F002A8119 /* WorkEntity+CoreDataClass.swift */,
-				208049F828DD4C8F002A8119 /* WorkEntity+CoreDataProperties.swift */,
+				2009D87328E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift */,
+				2009D87428E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift */,
 				20F670F928C7154C0069CB46 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
@@ -394,12 +394,11 @@
 				208049FC28DD926D002A8119 /* HistoryViewController.swift in Sources */,
 				2041B00E28DC3FEB00636D06 /* DatabaseManageable.swift in Sources */,
 				20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */,
-				208049F928DD4C8F002A8119 /* WorkEntity+CoreDataClass.swift in Sources */,
 				2041B01B28DC9F5100636D06 /* CoreDataManager.swift in Sources */,
 				20E1A88428C8A22A0074364A /* Work.swift in Sources */,
+				2009D87628E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift in Sources */,
 				204B3F4B28E587C000E43ACE /* DatabaseManager.swift in Sources */,
 				208049EC28DD4887002A8119 /* ProjectManager.xcdatamodeld in Sources */,
-				208049FA28DD4C8F002A8119 /* WorkEntity+CoreDataProperties.swift in Sources */,
 				20E1A88A28C8C9B50074364A /* WorkViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */,
@@ -413,6 +412,7 @@
 				208049FF28DD9967002A8119 /* HistoryTableViewCell.swift in Sources */,
 				20C11A6D28D051A0003B1BBE /* View+Extension.swift in Sources */,
 				2097D97C28E1770400AC7AB2 /* WorkDetailViewController.swift in Sources */,
+				2009D87528E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift in Sources */,
 				209F976528D37178004CBAF5 /* WorkState.swift in Sources */,
 				2054FB7828D1DAEC0007AF1E /* WorkTableView.swift in Sources */,
 			);

@@ -15,11 +15,11 @@ extension WorkEntity {
         return NSFetchRequest<WorkEntity>(entityName: "WorkEntity")
     }
 
-    @NSManaged public var id: UUID
-    @NSManaged public var title: String
     @NSManaged public var content: String
     @NSManaged public var deadline: Date
-    @NSManaged public var state: String
+    @NSManaged public var id: UUID
+    @NSManaged public var state: Int64
+    @NSManaged public var title: String
 
 }
 
