@@ -41,7 +41,6 @@ final class ListView: UIView {
     
     private let titleSpacingView: UIView = {
         let view = UIView()
-        //view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemGray5
         return view
       }()

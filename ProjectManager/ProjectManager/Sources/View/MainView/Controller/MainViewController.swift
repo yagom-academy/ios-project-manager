@@ -57,7 +57,6 @@ private extension MainViewController {
         }.disposed(by: disposedBag)
         
         return leftBarButtonItem
-
     }
     
     func setupRightBarButtonItem() -> UIBarButtonItem{
