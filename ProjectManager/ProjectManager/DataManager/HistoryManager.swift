@@ -10,8 +10,10 @@ import Foundation
 final class HistoryManager {
     private var histories: [History] = []
     
-    func addHistory(todo: Todo, moveTarget: String = "", with style: HistoryStyle) {
+    func addHistory(todo: Todo, moveTarget: String = "",
+                    with style: HistoryStyle) {
         var history: History = History(title: "", date: Date())
+        
         switch style {
         case .added:
             history = History(

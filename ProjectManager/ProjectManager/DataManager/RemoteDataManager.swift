@@ -11,10 +11,6 @@ import FirebaseFirestore
 final class RemoteDataManager: RemoteRepositoryConnectable {
     private let dataBase = Firestore.firestore()
     
-    init() {
-        TodoDataManager.shared.delegate = self
-    }
-
     func add(todo: Todo) {
         dataBase.collection("Todo").document("\(todo.id)").setData([
             "category": "\(todo.category)",
@@ -30,29 +26,31 @@ final class RemoteDataManager: RemoteRepositoryConnectable {
         }
     }
     
-    func read(_ completion: @escaping (Todo) -> Void) {
+    func read(_ completion: @escaping ([Todo]) -> Void) {
         dataBase.collection("Todo").getDocuments { [weak self] (querySnapshot, err) in
+            guard let self = self else { return }
             guard err == nil, let querySnapshot = querySnapshot else {
                 print(err!)
                 return
             }
-            self?.translateRemoteData(querySnapshot.documents) { todo in
-                completion(todo)
-            }
+            completion(self.translateRemoteData(querySnapshot.documents))
         }
     }
     
-    private func translateRemoteData(_ list: [QueryDocumentSnapshot],
-                                     _ completion: @escaping (Todo) -> Void) {
+    private func translateRemoteData(_ list: [QueryDocumentSnapshot]) -> [Todo] {
+        var todoList: [Todo] = []
         for document in list {
             let timestamp = document.data()["date"] as? Timestamp ?? Timestamp()
-            let todo = Todo(id: UUID(uuidString: document.documentID) ?? UUID(),
-                            category: document.data()["category"] as? String ?? "",
-                            title: document.data()["title"] as? String ?? "",
-                            body: document.data()["body"] as? String ?? "",
-                            date: timestamp.dateValue())
-            completion(todo)
+            let todo = Todo(
+                id: UUID(uuidString: document.documentID) ?? UUID(),
+                category: document.data()["category"] as? String ?? "",
+                title: document.data()["title"] as? String ?? "",
+                body: document.data()["body"] as? String ?? "",
+                date: timestamp.dateValue()
+            )
+            todoList.append(todo)
         }
+        return todoList
     }
     
     func delete(todo: Todo) {

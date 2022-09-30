@@ -12,7 +12,7 @@ final class TodoListCoordinator: Coordinator, TodoListViewControllerDelegate {
     let remoteDataManager = RemoteDataManager()
     
     func start() -> UIViewController {
-        TodoDataManager.shared.readRemoteData()
+        TodoDataManager.shared.synchronizeData()
         let todoListViewController = TodoListViewController(delegate: self)
         rootViewController = todoListViewController
         return rootViewController ?? UIViewController()

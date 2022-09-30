@@ -5,40 +5,30 @@
 //  Created by 이원빈 on 2022/09/14.
 //
 
-import RealmSwift
-
-protocol RemoteRepositoryConnectable: AnyObject {
-    func add(todo: Todo)
-    func read(_ completion: @escaping (Todo) -> Void)
-    func delete(todo: Todo)
-    func update(todo: Todo, with model: TodoModel)
-    func move(todo: Todo, to target: String)
-}
+import Foundation
 
 final class TodoDataManager {
-    weak var delegate: RemoteRepositoryConnectable?
+    private let localDataManager = LocalDataManager()
+    private let remoteDataManager = RemoteDataManager()
     private let historyManager = HistoryManager()
+    private let notificationManager = NotificationManager()
     private let undoManager = UndoManager()
-    
-    private let realm = try! Realm()
     static let shared = TodoDataManager()
 
     var didChangedData: [(() -> Void)?] = []
     
-    private init() {}
-    
-    func setupInitialData(with todo: Todo) {
-        do {
-            try realm.write {
-                realm.add(todo)
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
+    private init() {
+        localDataManager.delegate = remoteDataManager
     }
     
+    // MARK: - HistoryManager
     func fetchHistory() -> [History] {
         historyManager.fetchHistories()
+    }
+    
+    // MARK: - NotificationManger
+    func requestAuthNoti() {
+        notificationManager.requestAuthNoti()
     }
     
     // MARK: - UndoManager
@@ -65,107 +55,64 @@ final class TodoDataManager {
                         title: todoModel.title,
                         body: todoModel.body,
                         date: todoModel.date)
-        delegate?.add(todo: todo)
+        localDataManager.create(with: todo)
         historyManager.addHistory(todo: todo, with: .added)
+        notificationManager.requestSendNoti(with: todo)
         undoManager.registerUndo(withTarget: self) { selfType in
             selfType.delete(todo)
         }
-        do {
-            try realm.write {
-                realm.add(todo)
-            }
-            didChangedData.forEach { $0?() }
-        } catch {
-            print(error.localizedDescription)
-        }
+        didChangedData.forEach { $0?() }
     }
     
     func read(category: String) -> [Todo] {
-        let savedList = realm.objects(Todo.self)
-        switch category {
-        case Category.todo:
-            return Array(savedList.filter("category == 'TODO'")
-                .sorted { $0.date < $1.date })
-        case Category.doing:
-            return Array(savedList.filter("category == 'DOING'")
-                .sorted { $0.date < $1.date })
-        case Category.done:
-            return Array(savedList.filter("category == 'DONE'")
-                .sorted { $0.date < $1.date })
-        default:
-            return []
-        }
+        localDataManager.read(category: category)
     }
     
-    func readRemoteData() {
-        let savedList = realm.objects(Todo.self)
-        if savedList.isEmpty {
-            delegate?.read { [weak self] (todo) in
-                self?.setupInitialData(with: todo)
-            }
+    func synchronizeData() {
+        localDataManager.synchronizeData {
+            self.didChangedData.forEach { $0?() }
         }
     }
     
     func update(todo: Todo, with model: TodoModel) {
-        delegate?.update(todo: todo, with: model)
         let oldModel = TodoModel(category: todo.category,
                                  title: todo.title,
                                  body: todo.body,
                                  date: todo.date)
+        notificationManager.requestCancelNoti(with: todo.id.uuidString)
+        localDataManager.update(todo: todo, with: model)
+        notificationManager.requestSendNoti(with: todo)
         undoManager.registerUndo(withTarget: self) { selfType in
             selfType.update(todo: todo, with: oldModel)
         }
-        do {
-            try realm.write {
-                todo.title = model.title
-                todo.body = model.body
-                todo.date = model.date
-                todo.category = model.category
-            }
-            didChangedData.forEach { $0?() }
-        } catch {
-            print(error.localizedDescription)
-        }
+        didChangedData.forEach { $0?() }
     }
     
     func move(todo: Todo, to target: String) {
-        delegate?.move(todo: todo, to: target)
+        let oldTarget = todo.category
+        localDataManager.move(todo: todo, to: target)
         historyManager.addHistory(todo: todo,
                                   moveTarget: target,
                                   with: .moved)
-        let oldTarget = todo.category
         undoManager.registerUndo(withTarget: self) { selfType in
             selfType.move(todo: todo, to: oldTarget)
         }
-        do {
-            try realm.write {
-                todo.category = target
-            }
-            didChangedData.forEach { $0?() }
-        } catch {
-            print(error.localizedDescription)
-        }
+        didChangedData.forEach { $0?() }
     }
     
     func delete(_ todo: Todo) {
-        delegate?.delete(todo: todo)
-        historyManager.addHistory(todo: todo,
-                                  with: .removed)
         let oldTodo = TodoModel(id: todo.id,
                                 category: todo.category,
                                 title: todo.title,
                                 body: todo.body,
                                 date: todo.date)
+        historyManager.addHistory(todo: todo,
+                                  with: .removed)
+        notificationManager.requestCancelNoti(with: todo.id.uuidString)
         undoManager.registerUndo(withTarget: self) { selfType in
             selfType.create(with: oldTodo)
         }
-        do {
-            try realm.write {
-                realm.delete(todo)
-            }
-            didChangedData.forEach { $0?() }
-        } catch {
-            print(error.localizedDescription)
-        }
+        localDataManager.delete(todo)
+        didChangedData.forEach { $0?() }
     }
 }

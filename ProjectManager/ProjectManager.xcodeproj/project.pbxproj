@@ -13,6 +13,8 @@
 		AF0D211028D82A28000B1FBD /* FormSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D210F28D82A28000B1FBD /* FormSheetViewModel.swift */; };
 		AF0D211328D8372A000B1FBD /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D211228D8372A000B1FBD /* PopoverViewModel.swift */; };
 		AF1792FA28DBDF370093DBCE /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1792F928DBDF370093DBCE /* NetworkCheck.swift */; };
+		AF2B69D628E6AE57001769D8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B69D528E6AE57001769D8 /* NotificationManager.swift */; };
+		AF2B69D828E6B0A9001769D8 /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B69D728E6B0A9001769D8 /* LocalDataManager.swift */; };
 		AF2D5BD728C57BA5009514B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AF2D5BD628C57BA5009514B8 /* .swiftlint.yml */; };
 		AF4FBF0828DD7BE6005C4B03 /* TextFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4FBF0728DD7BE6005C4B03 /* TextFieldBuilder.swift */; };
 		AF4FBF0A28DD834E005C4B03 /* DatePickerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4FBF0928DD834E005C4B03 /* DatePickerBuilder.swift */; };
@@ -61,6 +63,8 @@
 		AF0D210F28D82A28000B1FBD /* FormSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetViewModel.swift; sourceTree = "<group>"; };
 		AF0D211228D8372A000B1FBD /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
 		AF1792F928DBDF370093DBCE /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
+		AF2B69D528E6AE57001769D8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		AF2B69D728E6B0A9001769D8 /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		AF2D5BD628C57BA5009514B8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		AF4FBF0728DD7BE6005C4B03 /* TextFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldBuilder.swift; sourceTree = "<group>"; };
 		AF4FBF0928DD834E005C4B03 /* DatePickerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerBuilder.swift; sourceTree = "<group>"; };
@@ -221,7 +225,9 @@
 			isa = PBXGroup;
 			children = (
 				AFB2603A28D1F2F10024CE70 /* TodoDataManager.swift */,
+				AF2B69D728E6B0A9001769D8 /* LocalDataManager.swift */,
 				AF66F29628D9F460005D7999 /* RemoteDataManager.swift */,
+				AF2B69D528E6AE57001769D8 /* NotificationManager.swift */,
 				AFCDC5F728DB287200339971 /* HistoryManager.swift */,
 			);
 			path = DataManager;
@@ -583,6 +589,7 @@
 				AFAF71B628D876FF00B4BA1B /* HistoryViewCoordinator.swift in Sources */,
 				AFEF7F6828CB5EDB0020FCBA /* FormSheetViewController.swift in Sources */,
 				AF8953DD28CDBA1000078F5B /* PopoverViewController.swift in Sources */,
+				AF2B69D628E6AE57001769D8 /* NotificationManager.swift in Sources */,
 				AFEF7F7028CC1CEE0020FCBA /* TimeInterval+Extension.swift in Sources */,
 				AF66F29728D9F460005D7999 /* RemoteDataManager.swift in Sources */,
 				AF0D211028D82A28000B1FBD /* FormSheetViewModel.swift in Sources */,
@@ -591,6 +598,7 @@
 				AFE808AC28E5D7B200D58128 /* TodoModel.swift in Sources */,
 				AFAF71BA28D87A7400B4BA1B /* History.swift in Sources */,
 				AF1792FA28DBDF370093DBCE /* NetworkCheck.swift in Sources */,
+				AF2B69D828E6B0A9001769D8 /* LocalDataManager.swift in Sources */,
 				AFEC097328CB022000628172 /* Coordinator.swift in Sources */,
 				AF4FBF0C28DD9217005C4B03 /* HistoryTableViewController.swift in Sources */,
 				AFB2605528D2C7460024CE70 /* ListCollectionView+UIGestureRecognizerDelegate.swift in Sources */,
