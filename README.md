@@ -23,8 +23,12 @@
 │   │   │   ├── Observable
 │   │   │   ├── NetworkCheck
 │   │   │   └── Builder
+│   │   │       ├── Protocols
 │   │   │       ├── LabelBuilder
-│   │   │       └── StackViewBuilder
+│   │   │       ├── StackViewBuilder
+│   │   │       ├── TextViewBuilder
+│   │   │       ├── TextFieldBuilder
+│   │   │       └── DatePickerBuilder
 │   │   ├── Protocol
 │   │   │   └── Coordinator
 │   │   ├── Extensions
@@ -48,7 +52,7 @@
 │   │   │           │   └── HeaderView
 │   │   │           └── CollectionView
 │   │   │               ├── ListCollectionView
-│   │   │               ├── ListCollectionView+UIGestureRecognizerDelegate
+│   │   │               ├──ListCollectionView+UIGestureRecognizerDelegate
 │   │   │               └── Cell
 │   │   │                   └── ListCell
 │   │   ├── FormSheetScene
@@ -78,10 +82,13 @@
 │   │   ├── Model
 │   │   │   ├── History
 │   │   │   ├── Todo
+│   │   │   ├── TodoModel
 │   │   │   └── Category
 │   │   ├── DataManager
 │   │   │   ├── TodoDataManager
+│   │   │   ├── LocalDataManager
 │   │   │   ├── RemoteDataManager
+│   │   │   ├── NotificationManager
 │   │   │   └── HistoryManager
 │   │   ├── Assets
 │   │   ├── LaunchScreen
@@ -90,6 +97,7 @@
 │   ├── Pods
 │   └── Frameworks
 └── Pods
+    
 ```
 </details>
 
@@ -106,7 +114,7 @@
 ![](https://i.imgur.com/kY1BK2D.png)
 
 
-### Model
+### Realm Model
 ```swift
 
 class Todo: Object {
@@ -118,34 +126,28 @@ class Todo: Object {
 }
 
 ```
+### Model
+Realm 객체를 잠시 복사해서 갖고있을 모델타입
+```swift
+struct TodoModel {
+    var id: UUID = UUID()
+    let category: String
+    let title: String
+    let body: String
+    let date: Date
+}
+
+```
 
 ### ViewModel
 HeaderViewModel , ListCollectionViewModel, ListCellViewModel, PopoverViewModel
 
+클로저 데이터 바인딩 사용
+
 ### TodoDataManager
-싱글톤 패턴으로 만들어, 각 뷰모델에서의 액션으로 인해 각 카테고리별 배열이 변경되었을 때 특정 클로저s 실행을 위해 Observable 클래스를 만들어 사용.
-```swift
-class Observable<T> {
-    var value: T? {
-        didSet {
-            listeners.forEach {
-                $0(value)
-            }
-        }
-    }
-    
-    init(_ value: T?) {
-        self.value = value
-    }
-    
-    private var listeners: [((T?) -> Void)] = []
-    
-    func bind(_ listener: @escaping (T?) -> Void) {
-        listener(value)
-        self.listeners.append(listener)
-    }
-}
-```
+- 싱글톤 패턴 구현
+- 프로젝트의 전반에 걸친 CRUD 액션을 담당
+- 안에서 `LocalDataManager`, `RemoteDataManager`, `NotificationManager`, `HistoryManager`, `UndoManager` 가 각 CRUD에서 상호작용 
 
 ## 기능구현
 
@@ -185,6 +187,55 @@ class Observable<T> {
 ### - History 기록
 - 상품의 추가, 삭제, 이동이 이루어진 내역을 history에 저장
 <img src="https://i.imgur.com/rc1WXig.png" width="500">
+
+### - UndoManager
+<img src="https://i.imgur.com/HxGu7U8.png" width="500">
+
+- Toolbar 를 추가해 undo 와 redo 작업 추가
+- 각 작업에서 반대의 작업을 undoManager.registerUndo() 메서드를 이용해 등록
+- undoManager.canUndo 와 undoManager.canRedo 를 통해 버튼의 isEnable Bool값을 조절 
+
+### - Local Notification
+<img src="https://i.imgur.com/kXLp3gL.jpg" width="500">
+
+
+- 아이템이 생성됨과 동시에 해당 날짜의 오전 9시에 Notification이 오도록 request
+```swift
+func requestSendNoti(with todo: Todo) {
+        let notiContent = UNMutableNotificationContent()
+        notiContent.title = todo.title
+        notiContent.body = todo.body
+        
+        var notiDate = Calendar.current.dateComponents(
+            [.year, .month, .day],
+            from: todo.date
+        )
+        notiDate.hour = 9
+
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: notiDate,
+            repeats: true
+        )
+        
+        let request = UNNotificationRequest(
+            identifier: todo.id.uuidString,
+            content: notiContent,
+            trigger: trigger
+        )
+        
+        notificationCenter.add(request) { (error) in
+            print(#function, error as Any)
+        }
+    }
+```
+- 아이템이 삭제되면 예약했던 알림을 지움 (해당 request 생성 시 사용했던 id 값으로 식별)
+```swift
+func requestCancelNoti(with id: String) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [id])
+    }
+```
+
+
 ### - 기타
 - HeaderView
     - 해당 리스트의 현재 셀 개수를 HeaderView.count에 동적 표현
@@ -216,7 +267,7 @@ ViewModel의 view transition 파트에서 파라미터로 CGPoint를 받아오�
 
 ### 3. 클로져로 데이터 바인딩
 
-뷰 모델이 가지고 있는 클로저 프로퍼티를 어느 뷰에서 바인딩을 할 때, viewModel은 하나이지만 viewModel이 처리해주어야 하는 ListView 는 3개나 된다. 재활용 되는 ListView 한 곳에서 처리해주면 되겠지 싶어 그 안에 바인딩을 해주었는데 왠걸, doneListView에만 바인딩이 되는 것이다..ㅎ 이유는 아마 모두 같은 적용이 되었을 텐데 todoListView, doingListView, doneListView 순서대로 생성을 해주어 마지막에 생성된 doneListView에서 바인딩시켜준 didChangedCount() 가 최종적으로 할당이 된 것이라 생각이 된다.
+뷰 모델이 가지고 있는 클로저 프로퍼티를 어느 뷰에서 바인딩을 할 때, 클로저 프로퍼티는 하나이지만 처리해주어야 하는 ListView 는 3개나 된다. 재활용 되는 ListView 한 곳에서 처리해주면 되겠지 싶어 그 안에 바인딩을 해주었는데 왠걸, doneListView에만 바인딩이 되는 것이다..ㅎ 이유는 아마 모두 같은 적용이 되었을 텐데 todoListView, doingListView, doneListView 순서대로 생성을 해주어 마지막에 생성된 doneListView에서 바인딩시켜준 didChangedCount() 가 최종적으로 할당이 된 것이라 생각이 된다.
 예시:
 ``` swift
 var number: Int?
@@ -246,12 +297,13 @@ didChangedCount.forEach { $0() }
 
 ### 4. 키보드가 텍스트뷰를 가림
 
-실기기에서 테스트 결과, 할일의 내용을 작성하는 textView에서 키보드가 textView를 가려 내용이 보이지 않았다. 이 오류해결을 위해 먼저, formSheet 뷰를 scroll뷰로 한번 감싼 뒤, 키보드가 올라와 가리는 높이 만큼 bottomInset을 주어서 작성중인 내용이 가려지지 않도록 구현.
+실기기에서 테스트 결과, 할일의 내용을 작성하는 textView에서 키보드가 textView를 가려 내용이 보이지 않았다. 이 오류해결을 위해 먼저, formSheet 뷰를 scroll뷰로 한번 감싼 뒤, 키보드가 올라와 가리는 높이 만큼 bottomInset을 주어서 작성중인 내용이 가려지지 않도록 구현했다.
 
-### 5. 로컬저장소와 원격저장소의 활용 (해결중...)
+### 5. 로컬저장소와 원격저장소의 활용 (해결)
 
 로컬저장소를 통하면 네트워크가 없이도 작업이 가능한데, 원격저장소는 왜 필요할까? 라는 의문에서 어떤방식으로 이 둘을 활용할지 케이스 별로 고민
-1. 한 어플을 여러개의 기기에서 사용 할 경우 - **해결중**
+1. 한 어플을 여러개의 기기에서 사용 할 경우 - **해결**
+리모트저장소를 기준으로 하여 여러대의 기기에서 CRUD가 일어난 내역을 저장하고 최종적으로  무작위 기기에서 실행할 때는 , 로컬데이터와 리모트데이터가 다를 경우 리모트데이터를 받아오도록 설정
 3. 어플을 지웠다가 다시 설치한 경우 - **해결**
 이 경우 로컬에 저장되어 있던 데이터가 모두 지워진다. 따라서, 앱이 설치되고 처음 실행 시, 기존의 원격저장소의 데이터를 불러와주었다.
 
@@ -292,6 +344,18 @@ didChangedCount.forEach { $0() }
     }
 ```
 
+### 8. 로컬과 리모트 저장소 동기화
+
+- 여러대의 기기를 사용할 경우 로컬 데이터와 리모트 데이터가 달라진다 (각 기기의 로컬데이터가 다르기 때문)
+- 앱을 시작할 때, 로컬 데이터와 리모트 데이터가 다를 경우 로컬 데이터를 지워준 후, 원격에서 데이터를 받아와서 해결했다
+
+### 9. TodoDataManger의 비대
+
+기능이 추가될 수록 Singleton 패턴으로 사용중인 TodoDataManger가 비대해졌다. TodoManager안에서는 Realm, Firebase, HistoryManager, UndoManager, Notification 총 5가지 기능이 처리되고 있다. 비대해진 TodoDataManager에서 각각의 기능들을 Manager로 독립 시킨 후, 인스턴스화 해서 사용하는 방식으로 코드수정을 했다. 
+Realm 과 Firebase는 데이터관리라는 공통점이 있으므로 delegate로 연관을 지어주었다. 
+
+
+
 
 ## 참고 링크
 [Apple Article: Displaying transient content in a popover](https://developer.apple.com/documentation/uikit/windows_and_screens/displaying_transient_content_in_a_popover)
@@ -299,3 +363,8 @@ didChangedCount.forEach { $0() }
 [스크롤 시, 네비게이션 바 자동 숨김처리 비활성화](https://nemecek.be/blog/126/how-to-disable-automatic-transparent-navbar-in-ios-15)
 [UIView그림자 만들기](https://babbab2.tistory.com/41)
 [키보드가 텍스트뷰를 가릴때, 해결방법](https://seizze.github.io/2019/11/17/iOS에서-키보드에-동적인-스크롤뷰-만들기.html)
+[Coden 님의 블로그 MVVM 패턴](https://velog.io/@ictechgy/MVVM-디자인-패턴)
+[realm 공식 사이트](https://www.mongodb.com/docs/realm/sdk/swift/quick-start/)
+[Apple Docs - UndoManager](https://developer.apple.com/documentation/foundation/undomanager)
+[Registering Undo Operations](https://developer.apple.com/documentation/foundation/undomanager#1663976)
+[Apple Article - Notification](https://developer.apple.com/documentation/usernotifications/handling_notifications_and_notification-related_actions)
