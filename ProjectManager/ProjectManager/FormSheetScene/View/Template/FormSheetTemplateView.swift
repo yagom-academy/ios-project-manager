@@ -125,13 +125,16 @@ final class FormSheetTemplateView: UIView {
               let body = bodyTextView.text else { return nil }
         let date = datePicker.date
         let todoModel = TodoModel(category: category ?? Category.todo,
-                             title: title,
-                             body: body,
-                             date: date)
+                                  title: title,
+                                  body: body,
+                                  date: date)
         return todoModel
     }
+}
+
+// MARK: - Keyboard Settings
+extension FormSheetTemplateView {
     
-    // MARK: - Keyboard Settings
     private func setupKeyboard() {
         NotificationCenter.default.addObserver(
             self,
@@ -155,7 +158,7 @@ final class FormSheetTemplateView: UIView {
         let contentInset = UIEdgeInsets(
             top: 0.0,
             left: 0.0,
-            bottom: keyboardFrame.size.height-300,
+            bottom: keyboardFrame.size.height,
             right: 0.0)
         mainScrollView.contentInset = contentInset
         mainScrollView.scrollIndicatorInsets = contentInset

@@ -31,6 +31,10 @@ final class FormSheetViewController: UIViewController {
         super.viewDidLoad()
         setupInitialView()
         setupInitialData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupNavigationBar()
     }
     
@@ -76,7 +80,7 @@ final class FormSheetViewController: UIViewController {
     
     private func setupCreateModeNavigationBar() {
         let navigationBar = UINavigationBar(
-            frame: .init(x: 0, y: 0, width: 580, height: 60)
+            frame: .init(x: 0, y: 0, width: view.frame.width, height: 60)
         )
         navigationBar.isTranslucent = false
         navigationBar.backgroundColor = .systemBackground
@@ -99,7 +103,7 @@ final class FormSheetViewController: UIViewController {
     
     private func setupEditModeNavigationBar() {
         let navigationBar = UINavigationBar(
-            frame: .init(x: 0, y: 0, width: 580, height: 60)
+            frame: .init(x: 0, y: 0, width: view.frame.width, height: 60)
         )
         navigationBar.isTranslucent = false
         navigationBar.backgroundColor = .systemBackground

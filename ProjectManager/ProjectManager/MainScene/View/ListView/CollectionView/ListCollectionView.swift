@@ -100,7 +100,7 @@ extension ListCollectionView {
         snapshot.appendItems(items, toSection: .main)
         todoDataSource?.apply(snapshot, animatingDifferences: true)
     }
-   
+
     // MARK: - Bind
     private func bindUI() {
         viewModel.bindList { [weak self] (list) in
