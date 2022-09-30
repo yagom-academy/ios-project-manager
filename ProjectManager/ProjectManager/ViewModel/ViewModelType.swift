@@ -17,14 +17,14 @@ protocol ViewModelType {
 
 extension ViewModelType {
     func transform(_ input: TodoViewInput) -> TodoViewOutput {
-        input.addAction
+        input.doneAction
             .bind(onNext: { project in
                 provider.saveData(project: project)
                 resetProjectList()
             })
             .disposed(by: disposeBag)
         
-        input.updateAction
+        input.editAction
             .bind(onNext: { project in
                 provider.updateData(project: project)
                 resetProjectList()

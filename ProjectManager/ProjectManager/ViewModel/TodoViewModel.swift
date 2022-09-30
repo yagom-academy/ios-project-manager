@@ -17,8 +17,8 @@ final class TodoViewModel: ViewModelType {
 }
 
 struct TodoViewInput {
-    let addAction: Observable<Project>
-    let updateAction: Observable<Project>
+    let doneAction: Observable<Project>
+    let editAction: Observable<Project>
     let changeStatusAction: Observable<(UUID, Status)>
     let deleteAction: Observable<UUID>
 }

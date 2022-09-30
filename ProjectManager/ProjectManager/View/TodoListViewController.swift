@@ -79,8 +79,8 @@ extension TodoListViewController {
     }
     
     private func setupListsCell() {
-        let todoInput = TodoViewInput(addAction: doneAction,
-                                      updateAction: editAction,
+        let todoInput = TodoViewInput(doneAction: doneAction,
+                                      editAction: editAction,
                                       changeStatusAction: changeStatusAction,
                                       deleteAction: deleteAction)
         
