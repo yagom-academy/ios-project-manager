@@ -7,14 +7,10 @@
 
 import UIKit
 
-private enum Design {
-    static let historySeparatedText = "\n"
-}
-
 final class ProjectHistoryTableViewController: UITableViewController {
     // MARK: - Properties
     
-    private var history = [String]()
+    private var viewModel = ProjectHistoryViewModel()
     
     // MARK: - View Life Cycle
     
@@ -28,12 +24,11 @@ final class ProjectHistoryTableViewController: UITableViewController {
     // MARK: - Methods
     
     func setHistory(_ history: [String]) {
-        self.history = history
+        viewModel.setHistory(history)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
-        return history.count
+        return viewModel.numberOfRow()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,10 +36,8 @@ final class ProjectHistoryTableViewController: UITableViewController {
                                                        for: indexPath) as? ProjectHistroyTableViewCell
         else { return UITableViewCell() }
         
-        let texts = history[indexPath.row].components(separatedBy: Design.historySeparatedText)
-        
-        cell.setItems(history: texts.first,
-                      date: texts.last)
+        viewModel.configureCellItem(cell: cell,
+                                    indexPath: indexPath)
         
         return cell
     }
