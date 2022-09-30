@@ -58,6 +58,7 @@ final class TodoListViewController: UIViewController {
         placeListView()
         adoptCollectionViewDelegate()
         NetworkCheck.shared.startMonitoring(in: self)
+        TodoDataManager.shared.requestAuthNoti()
     }
     
     // MARK: - Initial Setup
