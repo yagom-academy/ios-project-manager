@@ -33,11 +33,14 @@ struct FirebaseService {
         guard let uuid = document["id"] as? String,
               let title = document["title"] as? String,
               let stateValue = document["state"] as? Int,
-              let content = document["content"] as? String,
               let deadline = document["deadline"] as? Timestamp,
               let id = UUID(uuidString: uuid),
               let state = WorkState(rawValue: stateValue) else { return nil }
         
-        return Work(id: id, title: title, content: content, deadline: deadline.dateValue(), state: state)
+        if let content = document["content"] as? String {
+            return Work(id: id, title: title, content: content, deadline: deadline.dateValue(), state: state)
+        } else {
+            return Work(id: id, title: title, content: "", deadline: deadline.dateValue(), state: state)
+        }
     }
 }

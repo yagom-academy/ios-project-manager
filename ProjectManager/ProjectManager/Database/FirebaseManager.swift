@@ -24,13 +24,16 @@ final class FirebaseManager: DatabaseManageable {
     private let database = Firestore.firestore()
     
     func saveWork(_ work: Work) {
-        let workData: [String: Any] = [
+        var workData: [String: Any] = [
             "id": work.id.uuidString,
             "title": work.title,
-            "content": work.content,
             "deadline": work.deadline,
             "state": work.state.rawValue
         ]
+
+        if work.content != "" {
+            workData.updateValue(work.content, forKey: "content")
+        }
         
         database.collection(collectioinId).document(work.id.uuidString).setData(workData) { err in
             if let err = err {

@@ -41,13 +41,16 @@ final class CoreDataManager: DatabaseManageable {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "WorkEntity")
         fetchRequest.predicate = NSPredicate(format: "id = %@", work.id as CVarArg)
         
-        let saveEntity: [String: Any] = [
+        var saveEntity: [String: Any] = [
             "id": work.id,
             "title": work.title,
-            "content": work.content,
             "deadline": work.deadline,
             "state": work.state.rawValue
         ]
+        
+        if work.content != "" {
+            saveEntity.updateValue(work.content, forKey: "content")
+        }
         
         do {
             guard let updateObject = try context.fetch(fetchRequest).first as? NSManagedObject else {
@@ -89,7 +92,12 @@ final class CoreDataManager: DatabaseManageable {
             return Observable.just(
                 workEntities.compactMap {
                     guard let state = WorkState(rawValue: Int($0.state)) else { return nil }
-                    return Work(id: $0.id, title: $0.title, content: $0.content, deadline: $0.deadline, state: state)
+                    
+                    if let content = $0.content {
+                        return Work(id: $0.id, title: $0.title, content: content, deadline: $0.deadline, state: state)
+                    } else {
+                        return Work(id: $0.id, title: $0.title, content: "", deadline: $0.deadline, state: state)
+                    }
                 }
             )
         } catch {
