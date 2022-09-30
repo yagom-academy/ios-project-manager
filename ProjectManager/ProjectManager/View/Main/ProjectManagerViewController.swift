@@ -9,7 +9,7 @@ import RxSwift
 
 final class ProjectManagerViewController: UIViewController {
     // MARK: - Properties
-    private let viewModel = WorkViewModel(dbType: FirebaseManager.shared)
+    private let viewModel = WorkViewModel()
     private let disposeBag = DisposeBag()
     
     // MARK: - UI

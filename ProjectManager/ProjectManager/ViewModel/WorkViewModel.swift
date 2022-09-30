@@ -17,7 +17,7 @@ final class WorkViewModel {
     let historiesObservable: Observable<[String]>
     let newWork = BehaviorSubject<Work>(value: Work(id: UUID(), title: "", content: "", deadline: Date(), state: .todo))
     
-    init(dbType: DatabaseManageable) {
+    init() {
         database.fetchWork()
             .subscribe(onNext: works.onNext)
             .disposed(by: disposeBag)
