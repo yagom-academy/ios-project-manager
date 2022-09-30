@@ -16,16 +16,6 @@ final class TodoProvider {
     
     private let disposeBag = DisposeBag()
     
-    // MARK: - initializer
-
-    init() {
-        let testProjects = Project.generateSampleData(count: 10,
-                                                  maxBodyLine: 10,
-                                                  startDate: "2022-09-01",
-                                                  endData: "2022-09-30")
-        allProjectList.onNext(testProjects)
-    }
-    
     // MARK: - functions
 
     func saveData(project: Project) {
