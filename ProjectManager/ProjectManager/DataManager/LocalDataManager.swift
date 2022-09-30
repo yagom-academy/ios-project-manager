@@ -35,21 +35,22 @@ final class LocalDataManager {
         }
     }
     
-    func synchronizeData(_ completion: @escaping () -> Void) {
-        delegate?.read { [weak self] remoteData in
-            self?.compareData(with: remoteData) {
-                completion()
-            }
-        }
-    }
-    
-    private func compareData(with remoteData: [Todo], _ completion: @escaping () -> Void) {
+    private func compareData(with remoteData: [Todo],
+                             _ completion: @escaping () -> Void) {
         let localData = realm.objects(Todo.self)
         if localData.count != remoteData.count {
             deleteAllLocalData()
             setupLocalData(with: remoteData)
         }
         completion()
+    }
+    
+    func synchronizeData(_ completion: @escaping () -> Void) {
+        delegate?.read { [weak self] remoteData in
+            self?.compareData(with: remoteData) {
+                completion()
+            }
+        }
     }
     
     func create(with todo: Todo) {
