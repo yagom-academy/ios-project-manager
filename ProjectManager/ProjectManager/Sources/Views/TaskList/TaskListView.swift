@@ -59,75 +59,6 @@ struct TaskListView: View {
             }
         }
     }
-//
-//    func test(of task: Task, to status: Status) -> [some View] {
-//
-//        let todoButton = Button {
-//            tasksDataSource.transfer(selectedTask: task, to: .todo)
-//        } label: {
-//            Label("Move to\nTODO", systemImage: "circle")
-//        }
-//        .tint(.red)
-//
-//        let doingButton = Button {
-//            tasksDataSource.transfer(selectedTask: task, to: .doing)
-//        } label: {
-//            Label("Move to\nDOING", systemImage: "circle.circle")
-//        }
-//        .tint(.yellow)
-//
-//        let doneButton = Button {
-//            tasksDataSource.transfer(selectedTask: task, to: .done)
-//        } label: {
-//            Label("Move to\nDONE", systemImage: "circle.inset.filled")
-//        }
-//        .tint(.green)
-//
-//        switch status {
-//        case .todo:
-//            return [doingButton, doneButton]
-//        case .doing:
-//            return [todoButton, doneButton]
-//        case .done:
-//            return [todoButton, doingButton]
-//        }
-//    }
-//
-    
-    //
-    //    func aa(task: Task, status: Status) {
-    //        var buttons: [some View] = [
-    //            Button {
-    //                tasksDataSource.transfer(selectedTask: task, to: .todo)
-    //            } label: {
-    //                Label("Move to\nTODO", systemImage: "circle")
-    //            }
-    //            .tint(.red),
-    //
-    //            Button {
-    //                tasksDataSource.transfer(selectedTask: task, to: .doing)
-    //            } label: {
-    //                Label("Move to\nDOING", systemImage: "circle.circle")
-    //            }
-    //            .tint(.yellow),
-    //
-    //            Button {
-    //                tasksDataSource.transfer(selectedTask: task, to: .done)
-    //            } label: {
-    //                Label("Move to\nDONE", systemImage: "circle.inset.filled")
-    //            }
-    //            .tint(.green)
-    //        ]
-    //
-    ////        switch status {
-    ////        case .todo:
-    ////            buttons.remove(at: 0)
-    ////        case .doing:
-    ////            buttons.remove(at: 1)
-    ////        case .done:
-    ////            buttons.remove(at: 2)
-    ////        }
-    //    }
 }
 
 private extension TaskListView {
@@ -142,7 +73,7 @@ private extension TaskListView {
             } label: {
                 Label("Move to\nTODO", systemImage: "circle")
             }
-            .tint(.red)
+            .tint(Color("customRed"))
         case .doing:
             return Button {
                 withAnimation(.spring()) {
@@ -151,7 +82,7 @@ private extension TaskListView {
             } label: {
                 Label("Move to\nDOING", systemImage: "circle.circle")
             }
-            .tint(.yellow)
+            .tint(Color("customGray"))
         case .done:
             return Button {
                 withAnimation(.spring()) {
@@ -160,7 +91,7 @@ private extension TaskListView {
             } label: {
                 Label("Move to\nDONE", systemImage: "circle.inset.filled")
             }
-            .tint(.green)
+            .tint(Color("customGreen"))
         }
     }
     
@@ -182,7 +113,6 @@ struct TaskListView_Previews: PreviewProvider {
         Task(title: "Title 2", description: "Description 2", dueDate: Date.now, status: .todo),
         Task(title: "Title 3", description: "Description 3", dueDate: Date.now, status: .todo)
     ]
-    
     
     static var previews: some View {
         TaskListView(status: .todo, tasks: $dummyTodoTasks)

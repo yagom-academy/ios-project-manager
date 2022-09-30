@@ -22,7 +22,6 @@ struct TaskCreatingView: View, TaskWritableView {
             taskWritingViews(title: $newTask.title, description: $newTask.description)
             
             saveButton()
-                .padding(.horizontal)
         }
     }
 }
