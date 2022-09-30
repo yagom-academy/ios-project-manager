@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Todo: Equatable, Identifiable {
+struct Todo {
     let id: UUID = .init()
     var title, body: String
     var date: Date
