@@ -12,14 +12,48 @@ protocol ViewModelType {
     var projectList: BehaviorSubject<[Project]> { get set }
     var disposeBag: DisposeBag { get }
     
-    func resetProjectList(status: Status)
+    func resetProjectList()
 }
 
 extension ViewModelType {
-    func resetProjectList(status: Status) {
+    func transform(_ input: TodoViewInput) -> TodoViewOutput {
+        input.addAction
+            .bind(onNext: { project in
+                provider.saveData(project: project)
+                resetProjectList()
+            })
+            .disposed(by: disposeBag)
+        
+        input.updateAction
+            .bind(onNext: { project in
+                provider.updateData(project: project)
+                resetProjectList()
+            })
+            .disposed(by: disposeBag)
+        
+        input.changeStatusAction
+            .bind(onNext: { (id, status) in
+                guard var selectedProject = selectProject(id: id) else { return }
+                selectedProject.status = status
+                provider.updateData(project: selectedProject)
+                resetProjectList()
+            })
+            .disposed(by: disposeBag)
+        
+        input.deleteAction
+            .bind(onNext: { id in
+                guard let selectedProject = selectProject(id: id) else { return }
+                provider.deleteData(project: selectedProject)
+                resetProjectList()
+            })
+            .disposed(by: disposeBag)
+        
+        return TodoViewOutput(projectList: projectList)
+    }
+    
+    func resetProjectList() {
         provider.allProjectList.bind(onNext: { projectList in
-            let projects = projectList.filter { $0.status == status }
-            self.projectList.onNext(projects)
+            self.projectList.onNext(projectList)
         })
         .disposed(by: disposeBag)
     }

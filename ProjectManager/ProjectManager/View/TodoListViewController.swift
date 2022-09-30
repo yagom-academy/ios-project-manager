@@ -17,8 +17,6 @@ final class TodoListViewController: UIViewController {
     private var doneView = ListView(status: .done)
     
     private let todoViewModel = TodoViewModel()
-    private let doingViewModel = DoingViewModel()
-    private let doneViewModel = DoneViewModel()
     
     private var doneAction = PublishSubject<Project>()
     private var editAction = PublishSubject<Project>()
@@ -26,8 +24,6 @@ final class TodoListViewController: UIViewController {
     private var deleteAction = PublishSubject<UUID>()
     
     private var todoViewOutput: TodoViewOutput?
-    private var doingViewOutput: DoingViewOutput?
-    private var doneViewOutput: DoneViewOutput?
     
     private var disposeBag = DisposeBag()
     
@@ -87,37 +83,30 @@ extension TodoListViewController {
                                       updateAction: editAction,
                                       changeStatusAction: changeStatusAction,
                                       deleteAction: deleteAction)
-        let doingInput = DoingViewInput(updateAction: editAction,
-                                        changeStatusAction: changeStatusAction,
-                                        deleteAction: deleteAction)
-        let doneInput = DoneViewInput(updateAction: editAction,
-                                      changeStatusAction: changeStatusAction,
-                                      deleteAction: deleteAction)
         
         todoViewOutput = todoViewModel.transform(todoInput)
-        doingViewOutput = doingViewModel.transform(doingInput)
-        doneViewOutput = doneViewModel.transform(doneInput)
-        guard let todoViewOutput = todoViewOutput,
-              let doingViewOutput = doingViewOutput,
-              let doneViewOutput = doneViewOutput else { return }
+        guard let todoViewOutput = todoViewOutput else { return }
         
-        todoViewOutput.todoList
+        todoViewOutput.projectList
+            .map { $0.filter { $0.status == .todo } }
             .bind(to: todoView.tableView.rx.items(
                 cellIdentifier: TodoTableViewCell.identifier,
                 cellType: TodoTableViewCell.self)) { _, item, cell in
                     cell.setupDataSource(project: item)
                 }
                 .disposed(by: disposeBag)
-
-        doingViewOutput.doingList
+        
+        todoViewOutput.projectList
+            .map { $0.filter { $0.status == .doing } }
             .bind(to: doingView.tableView.rx.items(
                 cellIdentifier: TodoTableViewCell.identifier,
                 cellType: TodoTableViewCell.self)) { _, item, cell in
                     cell.setupDataSource(project: item)
                 }
                 .disposed(by: disposeBag)
-
-        doneViewOutput.doneList
+        
+        todoViewOutput.projectList
+            .map { $0.filter { $0.status == .done } }
             .bind(to: doneView.tableView.rx.items(
                 cellIdentifier: TodoTableViewCell.identifier,
                 cellType: TodoTableViewCell.self)) { _, item, cell in
@@ -127,38 +116,39 @@ extension TodoListViewController {
     }
     
     private func setupListCount() {
-        guard let todoViewOutput = todoViewOutput,
-              let doingViewOutput = doingViewOutput,
-              let doneViewOutput = doneViewOutput else { return }
+        guard let todoViewOutput = todoViewOutput else { return }
 
-        todoViewOutput.todoList
-            .map { $0.count }
-            .map { "\($0)"}
-            .bind(to: todoView.listCountLabel.rx.text)
+        todoViewOutput.projectList
+            .bind(onNext: { [weak self] in
+                let doingProjects = $0.filter { $0.status == .todo }
+                self?.todoView.listCountLabel.rx.text.onNext("\(doingProjects.count)")
+            })
             .disposed(by: disposeBag)
 
-        doingViewOutput.doingList
-            .map { $0.count }
-            .map { "\($0)"}
-            .bind(to: doingView.listCountLabel.rx.text)
+        todoViewOutput.projectList
+            .bind(onNext: { [weak self] in
+                let doingProjects = $0.filter { $0.status == .doing }
+                self?.doingView.listCountLabel.rx.text.onNext("\(doingProjects.count)")
+            })
             .disposed(by: disposeBag)
 
-        doneViewOutput.doneList
-            .map { $0.count }
-            .map { "\($0)"}
-            .bind(to: doneView.listCountLabel.rx.text)
+        todoViewOutput.projectList
+            .bind(onNext: { [weak self] in
+                let doingProjects = $0.filter { $0.status == .done }
+                self?.doneView.listCountLabel.rx.text.onNext("\(doingProjects.count)")
+            })
             .disposed(by: disposeBag)
     }
     
     private func setupListsCellTouchEvent() {
-        tableViewItemSelected(view: todoView, viewModel: todoViewModel)
-        tableViewItemSelected(view: doingView, viewModel: doingViewModel)
-        tableViewItemSelected(view: doneView, viewModel: doneViewModel)
+        tableViewItemSelected(view: todoView)
+        tableViewItemSelected(view: doingView)
+        tableViewItemSelected(view: doneView)
         
         setupLongPressAction()
     }
     
-    private func tableViewItemSelected(view: ListView, viewModel: ViewModelType) {
+    private func tableViewItemSelected(view: ListView) {
         view.tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
@@ -167,7 +157,7 @@ extension TodoListViewController {
                 let projectViewController = ProjectViewController()
                 projectViewController.modalPresentationStyle = .formSheet
 
-                viewModel.projectList.subscribe(onNext: { projects in
+                self.todoViewModel.projectList.subscribe(onNext: { projects in
                     projectViewController.setupData(project: projects[indexPath.row])
                 })
                 .disposed(by: self.disposeBag)
