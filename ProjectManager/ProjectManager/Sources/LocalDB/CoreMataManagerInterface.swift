@@ -11,38 +11,8 @@ class CoreDataManager: CoreDataManagerInterface {
     
     //MARK: - Properties
     
-    //    private lazy var persistentContainer: NSPersistentContainer = {
-    //        let container = NSPersistentContainer(name: "ProjectTask")
-    //        container.loadPersistentStores { description, error in
-    //            if let error = error {
-    //                fatalError("Unable to load persistent stores: \(error)")
-    //            }
-    //        }
-    //        return container
-    //    }()
-    
     private lazy var persistentContainer: NSPersistentCloudKitContainer = {
         let container = NSPersistentCloudKitContainer(name: "ProjectTask")
-        //        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-        //            if let error = error as NSError? {
-        //                fatalError("Unresolved error \(error), \(error.userInfo)")
-        //            }
-        //        })
-        
-//        let localStoreLocation = URL(fileURLWithPath: "/path/to/local.store")
-//        let localStoreDescription = NSPersistentStoreDescription(url: localStoreLocation)
-//        localStoreDescription.configuration = "Local"
-//        
-//        let cloudStoreLocation = URL(fileURLWithPath: "/path/to/cloud.store")
-//        let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreLocation)
-//        cloudStoreDescription.configuration = "Cloud"
-//        
-//        cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "net.borysarang.ProjectManager")
-//        
-//        container.persistentStoreDescriptions = [
-//            localStoreDescription,
-//            cloudStoreDescription
-//        ]
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
