@@ -1,7 +1,8 @@
 excluded:
     - Pods
-    - ProjectManager/Application/AppDelegate.swift
-    - ProjectManager/Application/SceneDelegate.swift
+    - ProjectManager/AppDelegate.swift
+    - ProjectManager/SceneDelegate.swift
+    - ProjectManager/TodoList/TodoListViewController.swift
 disabled_rules:
     - trailing_whitespace
     - line_length
