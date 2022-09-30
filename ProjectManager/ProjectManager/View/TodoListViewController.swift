@@ -23,7 +23,7 @@ final class TodoListViewController: UIViewController {
     private var changeStatusAction = PublishSubject<(UUID, Status)>()
     private var deleteAction = PublishSubject<UUID>()
     
-    private var todoViewOutput: TodoViewOutput?
+    private var todoViewOutput: TodoViewModel.Output?
     
     private var disposeBag = DisposeBag()
     
@@ -79,7 +79,7 @@ extension TodoListViewController {
     }
     
     private func setupListsCell() {
-        let todoInput = TodoViewInput(doneAction: doneAction,
+        let todoInput = TodoViewModel.Input(doneAction: doneAction,
                                       editAction: editAction,
                                       changeStatusAction: changeStatusAction,
                                       deleteAction: deleteAction)
@@ -155,12 +155,8 @@ extension TodoListViewController {
 
                 view.tableView.deselectRow(at: indexPath, animated: true)
                 let projectViewController = ProjectViewController()
+                projectViewController.index = indexPath.row
                 projectViewController.modalPresentationStyle = .formSheet
-
-                self.todoViewModel.projectList.subscribe(onNext: { projects in
-                    projectViewController.setupData(project: projects[indexPath.row])
-                })
-                .disposed(by: self.disposeBag)
 
                 self.editButtonAction(viewController: projectViewController)
                 self.cancelButtonAction(viewController: projectViewController)

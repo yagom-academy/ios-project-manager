@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		184C0F9028E6D7BA001E3880 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C0F8F28E6D7BA001E3880 /* ProjectViewModel.swift */; };
 		1852988128C896BF00F7019E /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852988028C896BF00F7019E /* ListView.swift */; };
 		187BA72428DA066F00815938 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BA72328DA066F00815938 /* TodoViewModel.swift */; };
 		187BA72628DA0F1B00815938 /* TodoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BA72528DA0F1B00815938 /* TodoProvider.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		08756A6F7B5D8E1C02BACB33 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		184C0F8F28E6D7BA001E3880 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		1852988028C896BF00F7019E /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		187BA72328DA066F00815938 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		187BA72528DA0F1B00815938 /* TodoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoProvider.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			children = (
 				188E557028D861C30078C70A /* ViewModelType.swift */,
 				187BA72328DA066F00815938 /* TodoViewModel.swift */,
+				184C0F8F28E6D7BA001E3880 /* ProjectViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				1889048A28D1BD0C0074E6CD /* Extension+Date.swift in Sources */,
 				188E557128D861C30078C70A /* ViewModelType.swift in Sources */,
+				184C0F9028E6D7BA001E3880 /* ProjectViewModel.swift in Sources */,
 				18B3285628C8B601000BC914 /* TodoTableViewCell.swift in Sources */,
 				18B3287C28CDFCE7000BC914 /* ProjectViewController.swift in Sources */,
 				187BA72628DA0F1B00815938 /* TodoProvider.swift in Sources */,

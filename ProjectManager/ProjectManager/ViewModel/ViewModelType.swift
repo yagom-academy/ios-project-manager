@@ -8,57 +8,26 @@
 import RxSwift
 
 protocol ViewModelType {
+    
+    associatedtype Input
+    associatedtype Output
+    
     var provider: TodoProvider { get }
-    var projectList: BehaviorSubject<[Project]> { get set }
     var disposeBag: DisposeBag { get }
     
-    func resetProjectList()
+    func resetProjectList(projectList: BehaviorSubject<[Project]>)
 }
 
 extension ViewModelType {
-    func transform(_ input: TodoViewInput) -> TodoViewOutput {
-        input.doneAction
-            .bind(onNext: { project in
-                provider.saveData(project: project)
-                resetProjectList()
-            })
-            .disposed(by: disposeBag)
-        
-        input.editAction
-            .bind(onNext: { project in
-                provider.updateData(project: project)
-                resetProjectList()
-            })
-            .disposed(by: disposeBag)
-        
-        input.changeStatusAction
-            .bind(onNext: { (id, status) in
-                guard var selectedProject = selectProject(id: id) else { return }
-                selectedProject.status = status
-                provider.updateData(project: selectedProject)
-                resetProjectList()
-            })
-            .disposed(by: disposeBag)
-        
-        input.deleteAction
-            .bind(onNext: { id in
-                guard let selectedProject = selectProject(id: id) else { return }
-                provider.deleteData(project: selectedProject)
-                resetProjectList()
-            })
-            .disposed(by: disposeBag)
-        
-        return TodoViewOutput(projectList: projectList)
-    }
     
-    func resetProjectList() {
-        provider.allProjectList.bind(onNext: { projectList in
-            self.projectList.onNext(projectList)
+    func resetProjectList(projectList: BehaviorSubject<[Project]>) {
+        provider.allProjectList.bind(onNext: { projects in
+            projectList.onNext(projects)
         })
         .disposed(by: disposeBag)
     }
-    
-    func selectProject(id: UUID) -> Project? {
+
+    func selectProject(id: UUID, projectList: BehaviorSubject<[Project]>) -> Project? {
         guard let projects = try? projectList.value() else { return nil }
         let selectedProject = projects.filter { $0.uuid == id }
         

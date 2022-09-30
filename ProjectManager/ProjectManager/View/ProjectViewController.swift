@@ -12,6 +12,8 @@ final class ProjectViewController: UIViewController {
     
     // MARK: - properties
     
+    let viewModel = ProjectViewModel()
+    
     let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                        target: nil,
                                        action: nil)
@@ -25,6 +27,7 @@ final class ProjectViewController: UIViewController {
                                        action: nil)
     private var id: UUID?
     private var status: Status?
+    private let disposeBag = DisposeBag()
     
     let projectTitle: UITextField = {
         let textField = UITextField()
@@ -64,12 +67,29 @@ final class ProjectViewController: UIViewController {
         return stackView
     }()
     
+    var index: Int? {
+        didSet {
+            bindViewModel()
+        }
+    }
+    
     // MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStackView()
         setupNavigationItem()
+        
+    }
+    
+    private func bindViewModel() {
+        let input = ProjectViewModel.Input(showTouchData: index!)
+        let output = viewModel.transform(input: input)
+        output?.projectList
+            .subscribe(onNext: { [weak self] in
+                self?.setupData(project: $0)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -113,7 +133,7 @@ extension ProjectViewController {
                        date: self.datePicker.date)
     }
     
-    func setupData(project: Project) {
+    private func setupData(project: Project) {
         self.id = project.uuid
         self.status = project.status
         self.projectTitle.text = project.title
