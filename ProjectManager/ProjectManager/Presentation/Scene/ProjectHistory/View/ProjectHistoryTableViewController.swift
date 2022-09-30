@@ -1,5 +1,5 @@
 //
-//  HistoryTableViewController.swift
+//  ProjectHistoryTableViewController.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/29.
@@ -11,7 +11,7 @@ private enum Design {
     static let historySeparatedText = "\n"
 }
 
-final class HistoryTableViewController: UITableViewController {
+final class ProjectHistoryTableViewController: UITableViewController {
     // MARK: - Properties
     
     private var history = [String]()
@@ -21,8 +21,8 @@ final class HistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        tableView.register(HistroyTableViewCell.self,
-                           forCellReuseIdentifier: HistroyTableViewCell.reuseIdentifier)
+        tableView.register(ProjectHistroyTableViewCell.self,
+                           forCellReuseIdentifier: ProjectHistroyTableViewCell.reuseIdentifier)
     }
     
     // MARK: - Methods
@@ -32,13 +32,13 @@ final class HistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+       
         return history.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HistroyTableViewCell.reuseIdentifier,
-                                                       for: indexPath) as? HistroyTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProjectHistroyTableViewCell.reuseIdentifier,
+                                                       for: indexPath) as? ProjectHistroyTableViewCell
         else { return UITableViewCell() }
         
         let texts = history[indexPath.row].components(separatedBy: Design.historySeparatedText)

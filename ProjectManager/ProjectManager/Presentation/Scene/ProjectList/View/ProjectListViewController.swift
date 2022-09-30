@@ -144,13 +144,13 @@ final class ProjectListViewController: UIViewController {
     
     @objc
     private func letfBarButtonDidTap() {
-        let popover = HistoryTableViewController()
-        popover.setHistory(viewModel.retrieveHistory())
-        popover.modalPresentationStyle = .popover
-        popover.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
-        popover.popoverPresentationController?.permittedArrowDirections = [.down]
+        let historyViewController = ProjectHistoryTableViewController()
+        historyViewController.setHistory(viewModel.retrieveHistory())
+        historyViewController.modalPresentationStyle = .popover
+        historyViewController.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
+        historyViewController.popoverPresentationController?.permittedArrowDirections = [.down]
         
-        self.present(popover, animated: false)
+        self.present(historyViewController, animated: false)
     }
     
     private func makeNavigationController(item: ProjectViewModel?) -> UINavigationController {
@@ -183,7 +183,6 @@ final class ProjectListViewController: UIViewController {
             return nil
         }
     }
-    
 }
 
 // MARK: - Extension UITableViewDataSource

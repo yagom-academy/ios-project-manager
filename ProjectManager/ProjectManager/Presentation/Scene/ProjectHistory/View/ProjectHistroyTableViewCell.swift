@@ -1,5 +1,5 @@
 //
-//  HistroyTableViewCell.swift
+//  ProjectHistroyTableViewCell.swift
 //  ProjectManager
 //
 //  Created by Groot on 2022/09/29.
@@ -17,7 +17,7 @@ private enum Design {
     static let mainStackViewTrailingAnchor: CGFloat = -4
 }
 
-final class HistroyTableViewCell: UITableViewCell {
+final class ProjectHistroyTableViewCell: UITableViewCell {
     // MARK: - Properties
     
     static let reuseIdentifier = Design.cellReuseIdentifier
