@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CardListItemViewModel {
+class CardListItemViewModel: CardListItemViewModelProtocol {
     private let model: CardModel
     
     private let coordinator: CoordinatorProtocol

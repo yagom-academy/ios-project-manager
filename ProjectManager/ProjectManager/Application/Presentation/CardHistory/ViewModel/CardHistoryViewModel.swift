@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CardHistoryViewModel {
+class CardHistoryViewModel: CardHistoryViewModelProtocol {
     private let repositoryService = RepositoryService.shared
 
     var cardHistoryModelList: [CardHistoryModel] = [] {
