@@ -17,9 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         if let windowSecene = (scene as? UIWindowScene) {
-            let contentView = ContentView()
+            let mainView = MainView()
+            let dataManager = DataManager()
             window = UIWindow(windowScene: windowSecene)
-            window?.rootViewController = UIHostingController(rootView: contentView)
+            window?.rootViewController = UIHostingController(rootView: mainView.environmentObject(dataManager))
             window?.makeKeyAndVisible()
         }
     }
