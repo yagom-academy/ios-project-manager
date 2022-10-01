@@ -64,35 +64,14 @@ struct TaskListView: View {
 private extension TaskListView {
     
     func swipeButtonForChangingStatus(of task: Task, to status: Status) -> some View {
-        switch status {
-        case .todo:
-            return Button {
-                withAnimation(.spring()) {
-                    tasksDataSource.transfer(selectedTask: task, to: .todo)
-                }
-            } label: {
-                Label("Move to\nTODO", systemImage: "circle")
+        return Button {
+            withAnimation(.spring()) {
+                tasksDataSource.transfer(selectedTask: task, to: status)
             }
-            .tint(Color("customRed"))
-        case .doing:
-            return Button {
-                withAnimation(.spring()) {
-                    tasksDataSource.transfer(selectedTask: task, to: .doing)
-                }
-            } label: {
-                Label("Move to\nDOING", systemImage: "circle.circle")
-            }
-            .tint(Color("customGray"))
-        case .done:
-            return Button {
-                withAnimation(.spring()) {
-                    tasksDataSource.transfer(selectedTask: task, to: .done)
-                }
-            } label: {
-                Label("Move to\nDONE", systemImage: "circle.inset.filled")
-            }
-            .tint(Color("customGreen"))
+        } label: {
+            Label("Move to\n\(status.description)", systemImage: status.image)
         }
+        .tint(Color(status.color))
     }
     
     func swipeButtonForDeletion(of task: Task) -> some View {
