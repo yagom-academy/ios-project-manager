@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CardHistoryItemViewModel {
+class CardHistoryItemViewModel: CardHistoryItemViewModelProtocol {
     private let cardHistoryModel: CardHistoryModel
 
     init(cardHistoryModel: CardHistoryModel) {

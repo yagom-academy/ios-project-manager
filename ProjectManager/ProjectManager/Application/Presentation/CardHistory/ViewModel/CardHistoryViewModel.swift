@@ -23,6 +23,6 @@ class CardHistoryViewModel: CardHistoryViewModelProtocol {
     }
 
     func fetchData() {
-        self.cardHistoryModelList = repositoryService.fetchCardHistoryModel().sorted {$0.date > $1.date}
+        cardHistoryModelList = repositoryService.fetchCardHistoryModel().sorted {$0.date > $1.date}
     }
 }

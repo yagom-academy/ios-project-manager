@@ -67,13 +67,13 @@ class CardViewModel {
     }
 
     private func fetchData() {
-        self.cardList = repositoryService.fetchCardModel()
+        cardList = repositoryService.fetchCardModel()
     }
     
     private func configureTableView() {
-        self.todoList = sortList(by: .todo)
-        self.doingList = sortList(by: .doing)
-        self.doneList = sortList(by: .done)
+        todoList = sortList(by: .todo)
+        doingList = sortList(by: .doing)
+        doneList = sortList(by: .done)
     }
 
     private func sortList(by cardType: CardType) -> [CardModel]? {

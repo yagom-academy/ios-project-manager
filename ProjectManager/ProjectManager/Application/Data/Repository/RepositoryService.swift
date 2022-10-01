@@ -17,10 +17,10 @@ final class RepositoryService {
     }
 
     private func synchronizeData() {
-        let localData = self.realmService.fetchCardModel()
+        let localData = realmService.fetchCardModel()
         Task {
             let romoteData = try await firebaseService.fetchCardModel()
-            self.combine(between: localData,
+            combine(between: localData,
                          and: romoteData)
         }
     }
@@ -45,7 +45,7 @@ final class RepositoryService {
 
     private func saveDifferentData(between localData: [CardModel], and remoteDatum: CardModel) {
         for localDatum in localData where localDatum != remoteDatum {
-            try? self.realmService.saveCardModel(localDatum)
+            try? realmService.saveCardModel(localDatum)
         }
     }
 

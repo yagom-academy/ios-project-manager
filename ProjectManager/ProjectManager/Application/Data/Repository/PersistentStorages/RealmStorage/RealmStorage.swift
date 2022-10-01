@@ -13,6 +13,8 @@ final class RealmStorage: LocalStorageProtocol {
 
     init() {
         realmManager = try? Realm()
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
+
     }
 
     func saveCardModel(_ model: CardModel) throws {

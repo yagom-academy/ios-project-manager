@@ -20,9 +20,9 @@ final class CardListViewController: UIViewController, Coordinating {
     var coordinator: CoordinatorProtocol?
     private var viewModel: CardViewModelProtocol
     
-    private lazy var todoCardDataSource = self.configureDataSource(with: todoCardSectionView.tableView)
-    private lazy var doingCardDataSource = self.configureDataSource(with: doingCardSectionView.tableView)
-    private lazy var doneCardDataSource = self.configureDataSource(with: doneCardSectionView.tableView)
+    private lazy var todoCardDataSource = configureDataSource(with: todoCardSectionView.tableView)
+    private lazy var doingCardDataSource = configureDataSource(with: doingCardSectionView.tableView)
+    private lazy var doneCardDataSource = configureDataSource(with: doneCardSectionView.tableView)
     
     private lazy var todoCardSectionView = CardSectionView(coordinator: coordinator ?? MainCoordinator(),
                                                            viewModel: viewModel,
@@ -88,20 +88,20 @@ final class CardListViewController: UIViewController, Coordinating {
     
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            rootStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            rootStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            rootStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            rootStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            rootStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            rootStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            rootStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            rootStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
     private func configureNavigationBarItem() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Const.history,
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: Const.history,
                                                                 style: .plain,
                                                                 target: self,
                                                                 action: #selector(didTapHistoryButton(_:)))
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Const.plus),
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Const.plus),
                                                                  style: .plain,
                                                                  target: self,
                                                                  action: #selector(didTapPlusButton(_:)))

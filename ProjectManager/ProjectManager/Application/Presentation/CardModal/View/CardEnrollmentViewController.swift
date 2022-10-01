@@ -46,16 +46,16 @@ final class CardEnrollmentViewController: UIViewController {
     }
     
     private func setupDefault() {
-        self.view.addSubview(cardModalView)
-        self.cardModalView.descriptionTextView.delegate = self
+        view.addSubview(cardModalView)
+        cardModalView.descriptionTextView.delegate = self
     }
     
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            cardModalView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            cardModalView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            cardModalView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            cardModalView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+            cardModalView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            cardModalView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            cardModalView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            cardModalView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
@@ -90,7 +90,7 @@ final class CardEnrollmentViewController: UIViewController {
     }
     
     @objc func didTapCancelButton() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     @objc func didTapDoneButton() {
@@ -98,7 +98,7 @@ final class CardEnrollmentViewController: UIViewController {
     
         viewModel.append(newCard)
 
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 

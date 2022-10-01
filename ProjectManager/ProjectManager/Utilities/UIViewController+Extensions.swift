@@ -13,11 +13,11 @@ extension UIViewController {
                                       message: message,
                                       preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "확인",
-                                      style: .default,
-                                      handler: nil)
+                                        style: .default,
+                                        handler: nil)
         alert.addAction(alertAction)
 
-        self.present(alert,
-                     animated: true)
+        present(alert,
+                animated: true)
     }
 }

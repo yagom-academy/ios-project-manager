@@ -38,7 +38,7 @@ class CardListItemViewModel: CardListItemViewModelProtocol {
         let (firstCard, secondCard) = distinguishCardType(of: model)
         
         coordinator.presentTableViewCellActionSheet(sourceView,
-                                                    model: self.model,
+                                                    model: model,
                                                     firstCard: firstCard,
                                                     secondCard: secondCard)
     }

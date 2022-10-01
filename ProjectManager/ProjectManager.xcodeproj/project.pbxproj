@@ -11,6 +11,9 @@
 		9017928028E08C8200DA31FB /* CardHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017927F28E08C8200DA31FB /* CardHistoryTableViewCell.swift */; };
 		9017928228E0943100DA31FB /* CardHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017928128E0943100DA31FB /* CardHistoryViewModel.swift */; };
 		9017928428E0944600DA31FB /* CardHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9017928328E0944600DA31FB /* CardHistoryModel.swift */; };
+		90184AD128E7E088001F3B97 /* CardListItemViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90184AD028E7E088001F3B97 /* CardListItemViewModelProtocol.swift */; };
+		90184AD328E7E0BA001F3B97 /* CardHistoryViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90184AD228E7E0BA001F3B97 /* CardHistoryViewModelProtocol.swift */; };
+		90184AD528E7E0C9001F3B97 /* CardHistoryItemViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90184AD428E7E0C9001F3B97 /* CardHistoryItemViewModelProtocol.swift */; };
 		9018F19D28DBFB0F00301041 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9018F19C28DBFB0F00301041 /* Realm */; };
 		9018F19F28DBFB0F00301041 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9018F19E28DBFB0F00301041 /* RealmSwift */; };
 		9018F1A328DBFC9700301041 /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -59,6 +62,9 @@
 		9017927F28E08C8200DA31FB /* CardHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		9017928128E0943100DA31FB /* CardHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewModel.swift; sourceTree = "<group>"; };
 		9017928328E0944600DA31FB /* CardHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryModel.swift; sourceTree = "<group>"; };
+		90184AD028E7E088001F3B97 /* CardListItemViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListItemViewModelProtocol.swift; sourceTree = "<group>"; };
+		90184AD228E7E0BA001F3B97 /* CardHistoryViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryViewModelProtocol.swift; sourceTree = "<group>"; };
+		90184AD428E7E0C9001F3B97 /* CardHistoryItemViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHistoryItemViewModelProtocol.swift; sourceTree = "<group>"; };
 		902D64A328E3DC1900FD4BA6 /* RealmStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmStorage.swift; sourceTree = "<group>"; };
 		902D64A528E3DC1900FD4BA6 /* CardLocalDataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLocalDataEntity.swift; sourceTree = "<group>"; };
 		902D64A628E3DC1900FD4BA6 /* CardHistoryDataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardHistoryDataEntity.swift; sourceTree = "<group>"; };
@@ -164,6 +170,8 @@
 			children = (
 				9017928128E0943100DA31FB /* CardHistoryViewModel.swift */,
 				902E2EDE28E2DA3400F40FB8 /* CardHistoryItemViewModel.swift */,
+				90184AD228E7E0BA001F3B97 /* CardHistoryViewModelProtocol.swift */,
+				90184AD428E7E0C9001F3B97 /* CardHistoryItemViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -283,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				902D64BB28E3E50800FD4BA6 /* CardListItemViewModel.swift */,
+				90184AD028E7E088001F3B97 /* CardListItemViewModelProtocol.swift */,
 			);
 			path = CardListViewCell;
 			sourceTree = "<group>";
@@ -525,6 +534,7 @@
 			files = (
 				90E7FA7828CB3387003336B2 /* CardModalView.swift in Sources */,
 				906399C828CEDBE7000ACBE3 /* ReuseIdentifying.swift in Sources */,
+				90184AD528E7E0C9001F3B97 /* CardHistoryItemViewModelProtocol.swift in Sources */,
 				9097B5BF28C8E2E200A46DB8 /* CardListTableViewCell.swift in Sources */,
 				9097B5CB28C9A93400A46DB8 /* CardHeaderView.swift in Sources */,
 				902D64BC28E3E50900FD4BA6 /* CardListItemViewModel.swift in Sources */,
@@ -538,12 +548,14 @@
 				9018F1A328DBFC9700301041 /* (null) in Sources */,
 				9017928428E0944600DA31FB /* CardHistoryModel.swift in Sources */,
 				9097B5C128C8E70000A46DB8 /* MainCoordinator.swift in Sources */,
+				90184AD128E7E088001F3B97 /* CardListItemViewModelProtocol.swift in Sources */,
 				902D64B228E3DC1900FD4BA6 /* CardLocalDataEntity.swift in Sources */,
 				902D64C228E3F9DE00FD4BA6 /* FetchError.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
 				902E2EDD28E29D1700F40FB8 /* CardState.swift in Sources */,
 				9017927E28E08C0900DA31FB /* Date+Extensions.swift in Sources */,
 				902D64BA28E3DC1900FD4BA6 /* NetworkManager.swift in Sources */,
+				90184AD328E7E0BA001F3B97 /* CardHistoryViewModelProtocol.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				9097B5C528C8E8C200A46DB8 /* CardDetailViewController.swift in Sources */,
 				9097B5B928C81A5200A46DB8 /* CoordinatorProtocol.swift in Sources */,

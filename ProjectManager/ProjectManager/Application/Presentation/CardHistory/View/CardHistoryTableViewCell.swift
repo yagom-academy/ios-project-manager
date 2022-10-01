@@ -53,16 +53,16 @@ final class CardHistoryTableViewCell: UITableViewCell, ReuseIdentifying {
     }
     
     private func setupDefault() {
-        self.contentView.addSubview(rootScrollView)
+        contentView.addSubview(rootScrollView)
         rootScrollView.addSubview(rootStackView)
     }
 
     private func configureLayouts() {
         NSLayoutConstraint.activate([
-            rootScrollView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            rootScrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-            rootScrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            rootScrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor)
+            rootScrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            rootScrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            rootScrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            rootScrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor)
         ])
     }
     

@@ -46,7 +46,7 @@ final class CardDetailViewController: UIViewController {
     }
     
     private func setupDefault() {
-        self.view.addSubview(cardModalView)
+        view.addSubview(cardModalView)
         cardModalView.descriptionTextView.delegate = self
 
         cardModalView.titleTextField.isUserInteractionEnabled = false
@@ -64,10 +64,10 @@ final class CardDetailViewController: UIViewController {
     
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            cardModalView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            cardModalView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            cardModalView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            cardModalView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+            cardModalView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            cardModalView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            cardModalView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            cardModalView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
@@ -109,7 +109,7 @@ final class CardDetailViewController: UIViewController {
                              deadlineDate: deadlineDate,
                              cardType: model.cardType)
 
-        self.viewModel.update(data)
+        viewModel.update(data)
     }
     
     @objc func didTapEditButton() {
@@ -118,7 +118,7 @@ final class CardDetailViewController: UIViewController {
     
     @objc func didTapDoneButton() {
         updateData()
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 

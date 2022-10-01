@@ -87,17 +87,17 @@ final class CardListTableViewCell: UITableViewCell, ReuseIdentifying {
     }
     
     private func setupDefault() {
-        self.contentView.addSubview(rootStackView)
+        contentView.addSubview(rootStackView)
         backgroundColor = .white
 
         NSLayoutConstraint.activate([
-            rootStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor,
+            rootStackView.topAnchor.constraint(equalTo: contentView.topAnchor,
                                                constant: Const.baseConstraint),
-            rootStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,
+            rootStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
                                                   constant: -Const.baseConstraint),
-            rootStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,
+            rootStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                                    constant: Const.baseConstraint),
-            rootStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,
+            rootStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
                                                     constant: -Const.baseConstraint)
         ])
     }
@@ -109,7 +109,7 @@ extension CardListTableViewCell {
         longPressGesture.minimumPressDuration = Const.minimumPressDuration
         longPressGesture.addTarget(self,
                                    action: #selector(didTapTableViewCellLongPress))
-        self.addGestureRecognizer(longPressGesture)
+        addGestureRecognizer(longPressGesture)
     }
 
     @objc private func didTapTableViewCellLongPress(_ guesture: UILongPressGestureRecognizer) {

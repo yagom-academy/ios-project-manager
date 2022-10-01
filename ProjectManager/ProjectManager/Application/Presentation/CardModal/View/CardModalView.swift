@@ -74,8 +74,8 @@ final class CardModalView: UIView {
     }
     
     private func addSubViews() {
-        self.addSubview(navigationBar)
-        self.addSubview(rootScrollView)
+        addSubview(navigationBar)
+        addSubview(rootScrollView)
         rootScrollView.addSubview(rootStackView)
     }
     
@@ -87,9 +87,9 @@ final class CardModalView: UIView {
     
     private func configureNavigationBarLayout() {
         NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor)
+            navigationBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
@@ -97,11 +97,11 @@ final class CardModalView: UIView {
         NSLayoutConstraint.activate([
             rootScrollView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor,
                                                 constant: Const.baseConstraint),
-            rootScrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor,
+            rootScrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor,
                                                    constant: -Const.baseConstraint),
-            rootScrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor,
+            rootScrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
                                                     constant: Const.baseConstraint),
-            rootScrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor,
+            rootScrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor,
                                                      constant: -Const.baseConstraint)
         ])
     }

@@ -43,7 +43,7 @@ final class CardHeaderView: UIView {
         super.init(frame: .zero)
         setupDefault()
         
-        self.subjectTitleLabel.text = cardType.rawValue
+        subjectTitleLabel.text = cardType.rawValue
     }
     
     @available(*, unavailable)
@@ -52,14 +52,14 @@ final class CardHeaderView: UIView {
     }
     
     private func setupDefault() {
-        self.addSubview(rootStackView)
+        addSubview(rootStackView)
 
         NSLayoutConstraint.activate([
-            rootStackView.topAnchor.constraint(equalTo: self.topAnchor,
+            rootStackView.topAnchor.constraint(equalTo: topAnchor,
                                                constant: Const.baseConstraint),
-            rootStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor,
+            rootStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
                                                   constant: -Const.baseConstraint),
-            rootStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor,
+            rootStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                    constant: Const.baseConstraint),
             
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor),

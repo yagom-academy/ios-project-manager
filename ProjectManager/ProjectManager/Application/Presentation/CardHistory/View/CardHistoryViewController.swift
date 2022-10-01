@@ -22,7 +22,7 @@ final class CardHistoryViewController: UIViewController, Coordinating {
 
     var coordinator: CoordinatorProtocol?
 
-    private lazy var dataSource = self.configureDataSource(with: historyTableView)
+    private lazy var dataSource = configureDataSource(with: historyTableView)
     private var viewModel: CardHistoryViewModel
 
     init(viewModel: CardHistoryViewModel,
@@ -57,14 +57,14 @@ final class CardHistoryViewController: UIViewController, Coordinating {
     }
 
     func addSubViews() {
-        self.view.addSubview(historyTableView)
+        view.addSubview(historyTableView)
     }
 
     private func bindDataSource() {
         guard let dataSource = dataSource else { return }
         let cardHistoryList = viewModel.cardHistoryModelList
 
-        self.updateTableView(dataSource,
+        updateTableView(dataSource,
                              by: cardHistoryList)
     }
 
@@ -81,13 +81,13 @@ final class CardHistoryViewController: UIViewController, Coordinating {
 
     func configureLayout() {
         NSLayoutConstraint.activate([
-            historyTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,
+            historyTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
                                                   constant: Const.baseConstraint),
-            historyTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
+            historyTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                                                      constant: -Const.baseConstraint),
-            historyTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,
+            historyTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
                                                       constant: Const.baseConstraint),
-            historyTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,
+            historyTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
                                                        constant: -Const.baseConstraint)
         ])
     }

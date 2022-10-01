@@ -57,7 +57,7 @@ final class CardSectionView: UIView {
     }
     
     private func setupDefault() {
-        self.addSubview(rootStackView)
+        addSubview(rootStackView)
 
         tableView.delegate = self
         
@@ -67,10 +67,10 @@ final class CardSectionView: UIView {
     
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            rootStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            rootStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            rootStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            rootStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            rootStackView.topAnchor.constraint(equalTo: topAnchor),
+            rootStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            rootStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            rootStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }
@@ -82,7 +82,7 @@ extension CardSectionView: UITableViewDelegate {
                    didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        didSelectCell(self.cardType,
+        didSelectCell(cardType,
                       at: indexPath.row)
     }
 
