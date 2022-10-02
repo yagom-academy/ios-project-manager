@@ -8,14 +8,22 @@
 import RxSwift
 import RxCocoa
 
-class WorkViewModel {
+final class WorkViewModel {
+    private let database = DatabaseManager()
     private let disposeBag = DisposeBag()
     private let works = BehaviorSubject<[Work]>(value: [])
+    private let histories = BehaviorSubject<[String]>(value: [])
     let worksObservable: Observable<[Work]>
+    let historiesObservable: Observable<[String]>
+    let newWork = BehaviorSubject<Work>(value: Work(id: UUID(), title: "", content: "", deadline: Date(), state: .todo))
     
     init() {
-        works.onNext(SampleData.todoWorks + SampleData.doingWorks + SampleData.doneWorks)
+        database.fetchWork()
+            .subscribe(onNext: works.onNext)
+            .disposed(by: disposeBag)
+        
         worksObservable = works
+        historiesObservable = histories
     }
     
     func selectWork(id: UUID) -> Work? {
@@ -28,33 +36,43 @@ class WorkViewModel {
         return selectedWork.first
     }
     
-    func addWork(_ work: Work) {
-        guard let value = try? works.value() else { return }
+    func createWork(_ id: UUID, _ title: String, _ content: String, _ deadline: Date, _ state: WorkState) {
+        let work = Work(id: id, title: title, content: content, deadline: deadline, state: state)
         
-        works.onNext([work] + value)
+        newWork.onNext(work)
     }
     
-    func editWork(_ work: Work, newWork: Work) {
-        works.map {
-            $0.map {
-                return $0.id == work.id ? newWork : $0
-            }
-        }.observe(on: MainScheduler.asyncInstance)
+    private func fetchWork() {
+        database.fetchWork()
+            .subscribe(onNext: works.onNext)
+            .disposed(by: disposeBag)
+    }
+    
+    func addWork() {
+        newWork
             .take(1)
-            .subscribe(onNext: {
-                self.works.onNext($0)
-            }).disposed(by: disposeBag)
+            .subscribe(onNext: { self.database.saveWork($0) })
+            .disposed(by: disposeBag)
+        
+        fetchWork()
+        updateHistory(type: .add)
+    }
+    
+    func editWork() {
+        newWork
+            .take(1)
+            .subscribe(onNext: { self.database.saveWork($0) })
+            .disposed(by: disposeBag)
+
+        fetchWork()
+        updateHistory(type: .edit)
     }
     
     func deleteWork(id: UUID) {
-        works.map {
-            $0.filter { $0.id != id }
-        }
-        .take(1)
-        .observe(on: MainScheduler.instance)
-        .subscribe(onNext: {
-            self.works.onNext($0)
-        }).disposed(by: disposeBag)
+        database.deleteWork(id: id)
+        
+        fetchWork()
+        updateHistory(type: .delete)
     }
     
     func changeWorkState(_ work: Work, to state: WorkState) {
@@ -63,15 +81,33 @@ class WorkViewModel {
                                content: work.content,
                                deadline: work.deadline,
                                state: state)
-
-        works.map {
-            $0.map {
-                $0.id == work.id ? changedWork : $0
-            }
-        }.take(1)
-        .observe(on: MainScheduler.asyncInstance)
-        .subscribe(onNext: {
-            self.works.onNext($0)
+        
+        database.saveWork(changedWork)
+        fetchWork()
+        
+        histories
+            .take(1)
+            .subscribe(onNext: {
+            self.histories.onNext(["Moved '\(work.title)' from \(work.state.title) to \(state.title)."] + $0)
         }).disposed(by: disposeBag)
+    }
+    
+    private func updateHistory(type: HistoryType) {
+        guard let work = try? newWork.value() else { return }
+        
+        histories
+            .take(1)
+            .subscribe(onNext: {
+                self.histories.onNext(["\(type.rawValue) '\(work.title)'."] + $0)
+            }).disposed(by: disposeBag)
+    }
+}
+
+extension WorkViewModel {
+    private enum HistoryType: String {
+        case add = "Added"
+        case edit = "Edited"
+        case delete = "Removed"
+        case move = "Moved"
     }
 }

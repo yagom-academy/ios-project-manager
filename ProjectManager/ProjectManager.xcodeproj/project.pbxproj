@@ -7,17 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C46E28CAA46E0091D087 /* WorkManageView.swift */; };
-		2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */; };
+		2009D87528E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2009D87328E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift */; };
+		2009D87628E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2009D87428E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift */; };
+		201D822428E17264005EEB4A /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201D822328E17264005EEB4A /* AlertManager.swift */; };
 		2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C47328CB100F0091D087 /* Date+Extension.swift */; };
+		2041B00E28DC3FEB00636D06 /* DatabaseManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */; };
+		2041B01228DC7F3000636D06 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01028DC7F3000636D06 /* FirebaseService.swift */; };
+		2041B01328DC7F3000636D06 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01128DC7F3000636D06 /* FirebaseManager.swift */; };
+		2041B01928DC8B2B00636D06 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2041B01828DC8B2B00636D06 /* GoogleService-Info.plist */; };
+		2041B01B28DC9F5100636D06 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2041B01A28DC9F5100636D06 /* CoreDataManager.swift */; };
+		204B3F4B28E587C000E43ACE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B3F4A28E587C000E43ACE /* DatabaseManager.swift */; };
 		2054FB7628D1B30B0007AF1E /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7528D1B30B0007AF1E /* DateManager.swift */; };
 		2054FB7828D1DAEC0007AF1E /* WorkTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */; };
+		208049EC28DD4887002A8119 /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 208049EA28DD4887002A8119 /* ProjectManager.xcdatamodeld */; };
+		208049FC28DD926D002A8119 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049FB28DD926D002A8119 /* HistoryViewController.swift */; };
+		208049FF28DD9967002A8119 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */; };
+		20804A0928DDA123002A8119 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20804A0828DDA123002A8119 /* NetworkMonitor.swift */; };
+		2097D97C28E1770400AC7AB2 /* WorkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2097D97A28E1770400AC7AB2 /* WorkDetailViewController.swift */; };
 		209F976528D37178004CBAF5 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F976428D37178004CBAF5 /* WorkState.swift */; };
 		20C11A6D28D051A0003B1BBE /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C11A6C28D051A0003B1BBE /* View+Extension.swift */; };
 		20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A87B28C875EC0074364A /* HeaderView.swift */; };
 		20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */; };
 		20E1A88428C8A22A0074364A /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88328C8A22A0074364A /* Work.swift */; };
-		20E1A88628C8A4EE0074364A /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88528C8A4EE0074364A /* SampleData.swift */; };
 		20E1A88A28C8C9B50074364A /* WorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1A88928C8C9B50074364A /* WorkViewModel.swift */; };
 		20F670FA28C7154C0069CB46 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 20F670F928C7154C0069CB46 /* .swiftlint.yml */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -30,17 +41,28 @@
 
 /* Begin PBXFileReference section */
 		1BA66A5555EF5D11E54B0D98 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
-		2021C46E28CAA46E0091D087 /* WorkManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManageView.swift; sourceTree = "<group>"; };
-		2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageWorkViewController.swift; sourceTree = "<group>"; };
+		2009D87328E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WorkEntity+CoreDataClass.swift"; path = "ProjectManager/WorkEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2009D87428E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "WorkEntity+CoreDataProperties.swift"; path = "ProjectManager/WorkEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		201D822328E17264005EEB4A /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		2021C47328CB100F0091D087 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManageable.swift; sourceTree = "<group>"; };
+		2041B01028DC7F3000636D06 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		2041B01128DC7F3000636D06 /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		2041B01828DC8B2B00636D06 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2041B01A28DC9F5100636D06 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		204B3F4A28E587C000E43ACE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		2054FB7528D1B30B0007AF1E /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableView.swift; sourceTree = "<group>"; };
+		208049EB28DD4887002A8119 /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
+		208049FB28DD926D002A8119 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		20804A0828DDA123002A8119 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		2097D97A28E1770400AC7AB2 /* WorkDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDetailViewController.swift; sourceTree = "<group>"; };
 		209F976428D37178004CBAF5 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
 		20C11A6C28D051A0003B1BBE /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		20E1A87B28C875EC0074364A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
 		20E1A88328C8A22A0074364A /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
-		20E1A88528C8A4EE0074364A /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		20E1A88928C8C9B50074364A /* WorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkViewModel.swift; sourceTree = "<group>"; };
 		20F670F928C7154C0069CB46 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6ECD53AFD7F818F72F4ABD72 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +96,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		201D822228E16FE4005EEB4A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				20804A0828DDA123002A8119 /* NetworkMonitor.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		2021C47228CB0FE70091D087 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,23 +113,62 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		2041B00F28DC7F3000636D06 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2041B00D28DC3FEB00636D06 /* DatabaseManageable.swift */,
+				2041B01028DC7F3000636D06 /* FirebaseService.swift */,
+				2041B01128DC7F3000636D06 /* FirebaseManager.swift */,
+				2041B01A28DC9F5100636D06 /* CoreDataManager.swift */,
+				204B3F4A28E587C000E43ACE /* DatabaseManager.swift */,
+			);
+			name = Database;
+			path = ProjectManager/Database;
+			sourceTree = SOURCE_ROOT;
+		};
 		2054FB7428D1B2660007AF1E /* Util */ = {
 			isa = PBXGroup;
 			children = (
 				2054FB7528D1B30B0007AF1E /* DateManager.swift */,
+				201D822328E17264005EEB4A /* AlertManager.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		20804A0528DD9C62002A8119 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				20E1A87B28C875EC0074364A /* HeaderView.swift */,
+				2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */,
+				20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */,
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		20804A0728DD9C6D002A8119 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				208049FE28DD9967002A8119 /* HistoryTableViewCell.swift */,
+				208049FB28DD926D002A8119 /* HistoryViewController.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		2097D97928E1770400AC7AB2 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				2097D97A28E1770400AC7AB2 /* WorkDetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		20E1A87828C872080074364A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2054FB7728D1DAEC0007AF1E /* WorkTableView.swift */,
-				20E1A87B28C875EC0074364A /* HeaderView.swift */,
-				20E1A88128C8A1E30074364A /* WorkTableViewCell.swift */,
-				2021C46E28CAA46E0091D087 /* WorkManageView.swift */,
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
-				2021C47028CAA7AA0091D087 /* ManageWorkViewController.swift */,
+				20804A0528DD9C62002A8119 /* Main */,
+				2097D97928E1770400AC7AB2 /* Detail */,
+				20804A0728DD9C6D002A8119 /* History */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -107,7 +176,6 @@
 		20E1A88028C8A1A30074364A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				20E1A88528C8A4EE0074364A /* SampleData.swift */,
 				20E1A88328C8A22A0074364A /* Work.swift */,
 				209F976428D37178004CBAF5 /* WorkState.swift */,
 			);
@@ -136,6 +204,7 @@
 			children = (
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				208049EA28DD4887002A8119 /* ProjectManager.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -152,6 +221,8 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				2009D87328E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift */,
+				2009D87428E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift */,
 				20F670F928C7154C0069CB46 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
@@ -172,10 +243,13 @@
 			isa = PBXGroup;
 			children = (
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				2041B01828DC8B2B00636D06 /* GoogleService-Info.plist */,
 				20F670F728C714AB0069CB46 /* Resources */,
 				20F670F628C7149B0069CB46 /* Application */,
 				2021C47228CB0FE70091D087 /* Extension */,
 				20E1A88828C8C9940074364A /* ViewModel */,
+				201D822228E16FE4005EEB4A /* Network */,
+				2041B00F28DC7F3000636D06 /* Database */,
 				20E1A87828C872080074364A /* View */,
 				20E1A88028C8A1A30074364A /* Model */,
 				2054FB7428D1B2660007AF1E /* Util */,
@@ -244,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20F670FA28C7154C0069CB46 /* .swiftlint.yml in Resources */,
+				2041B01928DC8B2B00636D06 /* GoogleService-Info.plist in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
@@ -315,20 +390,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2041B01228DC7F3000636D06 /* FirebaseService.swift in Sources */,
+				208049FC28DD926D002A8119 /* HistoryViewController.swift in Sources */,
+				2041B00E28DC3FEB00636D06 /* DatabaseManageable.swift in Sources */,
 				20E1A87C28C875ED0074364A /* HeaderView.swift in Sources */,
+				2041B01B28DC9F5100636D06 /* CoreDataManager.swift in Sources */,
 				20E1A88428C8A22A0074364A /* Work.swift in Sources */,
+				2009D87628E5EFC200B4E9A4 /* WorkEntity+CoreDataProperties.swift in Sources */,
+				204B3F4B28E587C000E43ACE /* DatabaseManager.swift in Sources */,
+				208049EC28DD4887002A8119 /* ProjectManager.xcdatamodeld in Sources */,
 				20E1A88A28C8C9B50074364A /* WorkViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				2021C47428CB100F0091D087 /* Date+Extension.swift in Sources */,
+				20804A0928DDA123002A8119 /* NetworkMonitor.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				2054FB7628D1B30B0007AF1E /* DateManager.swift in Sources */,
-				2021C46F28CAA46E0091D087 /* WorkManageView.swift in Sources */,
 				20E1A88228C8A1E40074364A /* WorkTableViewCell.swift in Sources */,
+				2041B01328DC7F3000636D06 /* FirebaseManager.swift in Sources */,
+				201D822428E17264005EEB4A /* AlertManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				208049FF28DD9967002A8119 /* HistoryTableViewCell.swift in Sources */,
 				20C11A6D28D051A0003B1BBE /* View+Extension.swift in Sources */,
-				2021C47128CAA7AA0091D087 /* ManageWorkViewController.swift in Sources */,
+				2097D97C28E1770400AC7AB2 /* WorkDetailViewController.swift in Sources */,
+				2009D87528E5EFC200B4E9A4 /* WorkEntity+CoreDataClass.swift in Sources */,
 				209F976528D37178004CBAF5 /* WorkState.swift in Sources */,
-				20E1A88628C8A4EE0074364A /* SampleData.swift in Sources */,
 				2054FB7828D1DAEC0007AF1E /* WorkTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,6 +610,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		208049EA28DD4887002A8119 /* ProjectManager.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				208049EB28DD4887002A8119 /* ProjectManager.xcdatamodel */,
+			);
+			currentVersion = 208049EB28DD4887002A8119 /* ProjectManager.xcdatamodel */;
+			path = ProjectManager.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
