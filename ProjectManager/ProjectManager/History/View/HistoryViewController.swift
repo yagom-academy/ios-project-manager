@@ -42,6 +42,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.contents.count
     }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = historyTableView.dequeueReusableCell(
             withIdentifier: HistoryTableViewCell.reuseIdentifier,

@@ -42,7 +42,7 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
         super.viewDidLoad()
 
         fixScreenOrientation()
-        checkNetWork()
+        addObservers()
 
         setUpLabelShape()
         setUpTableViewDelegate()
@@ -61,11 +61,18 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
         UIDevice.current.setValue(value, forKey: "orientation")
     }
 
-    private func checkNetWork() {
+    private func addObservers() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(showAlert),
             name: NSNotification.Name("disconnect"),
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadTableView),
+            name: NSNotification.Name("changeTableView"),
             object: nil
         )
     }
@@ -141,13 +148,6 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
             self?.doingCountLabel.text = self?.viewModel.doingCount.description
             self?.doneCountLabel.text = self?.viewModel.doneCount.description
         }
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(reloadTableView),
-            name: NSNotification.Name("changeTableView"),
-            object: nil
-        )
     }
 
     @objc private func reloadTableView() {
