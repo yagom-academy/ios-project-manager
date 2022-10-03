@@ -2,17 +2,20 @@
 //  ContentAddible.swift
 //  ProjectManager
 //
-//  Created by 전민수 on 2022/09/23.
+//  Created by 수꿍, 휴 on 2022/09/23.
 //
 
 import Foundation
 
 protocol ContentAddible {
-    func addContent(title: String, body: String, date: Date)
+    var calledContentsOfAddition: String? { get set }
+    var registerAdditionHistory: ((String) -> Void)? { get set }
+
+    mutating func addContent(title: String, body: String, date: Date)
 }
 
 extension ContentAddible where Self: CommonViewModelLogic {
-    func addContent(
+    mutating func addContent(
         title: String,
         body: String,
         date: Date
@@ -24,6 +27,9 @@ extension ContentAddible where Self: CommonViewModelLogic {
             section: ProjectStatus.todo,
             deadLine: date
         )
+
+        calledContentsOfAddition = title
+
         data.value.append(project)
         do {
             try databaseManager.create(data: project)

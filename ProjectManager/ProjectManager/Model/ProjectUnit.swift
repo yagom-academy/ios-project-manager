@@ -7,12 +7,16 @@
 
 import Foundation
 
-struct ProjectUnit: Hashable {
+struct ProjectUnit: Hashable, Codable {
     let id: UUID
     var title: String
     var body: String
     var section: String
     var deadLine: Date
+    
+    var isDeadlinePassed: Bool {
+        return self.deadLine < Date()
+    }
     
     init(
         id: UUID,
@@ -28,8 +32,8 @@ struct ProjectUnit: Hashable {
         self.deadLine = deadLine
     }
     
-    var isDeadlinePassed: Bool {
-        return self.deadLine < Date()
+    func convertToDictionary() -> [String: Any]? {
+        return JSONManager.shared.encodeToDictionary(data: self)
     }
     
     // MARK: Test Data

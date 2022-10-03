@@ -7,7 +7,11 @@
 
 import UIKit
 
-final class ProjectListViewController: UIViewController, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
+final class ProjectListViewController:
+    UIViewController,
+    UIGestureRecognizerDelegate,
+    UIPopoverPresentationControllerDelegate
+{
     enum Schedule {
         case main
     }
@@ -69,13 +73,13 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
         }
 
         let longPressLocation = recognizer.location(in: self.tableView)
+        let currentCursorLocation = recognizer.location(in: self.view)
 
-        guard let tapIndexPath = self.tableView.indexPathForRow(at: longPressLocation),
-              let tappedCell = self.tableView.cellForRow(at: tapIndexPath) as? ProjectManagerListCell else {
+        guard let tapIndexPath = self.tableView.indexPathForRow(at: longPressLocation) else {
             return
         }
 
-        configurePopoverController(indexPath: tapIndexPath.row, in: tappedCell)
+        configurePopoverController(indexPath: tapIndexPath.row, at: currentCursorLocation)
     }
 
     private func configureUI() {
@@ -156,7 +160,11 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
                 return
             }
 
-            let alert = UIAlertController(title: "Error", message: self.viewModel.message, preferredStyle: .alert)
+            let alert = UIAlertController(
+                title: "Error",
+                message: self.viewModel.message,
+                preferredStyle: .alert
+            )
             let okAction = UIAlertAction(title: "OK", style: .default)
 
             alert.addAction(okAction)
@@ -184,7 +192,7 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
         self.present(navigationController, animated: true)
     }
 
-    private func configurePopoverController(indexPath: Int, in cell: UITableViewCell) {
+    private func configurePopoverController(indexPath: Int, at current: CGPoint) {
         let controller = PopoverController()
         controller.viewModel = self.viewModel as? StatusChangable
         controller.indexPath = indexPath
@@ -195,13 +203,12 @@ final class ProjectListViewController: UIViewController, UIGestureRecognizerDele
         guard let popController = controller.popoverPresentationController else {
             return
         }
-        popController.permittedArrowDirections = .up
-
+        popController.permittedArrowDirections = .any
         popController.delegate = self
         popController.sourceView = view
         popController.sourceRect = CGRect(
-            x: cell.frame.midX,
-            y: cell.frame.midY,
+            x: current.x,
+            y: current.y,
             width: 0,
             height: 0
         )

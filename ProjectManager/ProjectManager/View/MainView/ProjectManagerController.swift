@@ -6,16 +6,23 @@
 
 import UIKit
 
-final class ProjectManagerController: UIViewController {
-    private let toDoViewController = ProjectListViewController(
-        viewModel: ToDoViewModel(databaseManager: LocalDatabaseManager.inMemory)
+final class ProjectManagerController: UIViewController, UIPopoverPresentationControllerDelegate {
+    private var toDoViewModel: ToDoViewModel!
+    private var doingViewModel: DoingViewModel!
+    private var doneViewModel: DoneViewModel!
+
+    private lazy var toDoViewController = ProjectListViewController(
+        viewModel: toDoViewModel
     )
-    private let doingViewController = ProjectListViewController(
-        viewModel: DoingViewModel(databaseManager: LocalDatabaseManager.inMemory)
+    private lazy var doingViewController = ProjectListViewController(
+        viewModel: doingViewModel
     )
-    private let doneViewController = ProjectListViewController(
-        viewModel: DoneViewModel(databaseManager: LocalDatabaseManager.inMemory)
+    private lazy var doneViewController = ProjectListViewController(
+        viewModel: doneViewModel
     )
+
+    private let historyController = HistoryPopoverController()
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,15 +34,27 @@ final class ProjectManagerController: UIViewController {
 
         return stackView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationItems()
-        configureUI()
+
+        observeNetworkConnect()
+    }
+
+    private func configureViewModel() {
+        toDoViewModel = ToDoViewModel(databaseManager: LocalDatabaseManager.onDisk)
+        doingViewModel = DoingViewModel(databaseManager: LocalDatabaseManager.onDisk)
+        doneViewModel = DoneViewModel(databaseManager: LocalDatabaseManager.onDisk)
     }
     
     private func configureNavigationItems() {
         self.title = "Project Manager"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "History",
+            style: .plain,
+            target: self,
+            action: #selector(didTapHistoryButton)
+        )
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
@@ -43,7 +62,23 @@ final class ProjectManagerController: UIViewController {
         )
     }
     
-    @objc func didTapAddButton() {
+    @objc private func didTapHistoryButton() {
+        historyController.modalPresentationStyle = .popover
+        historyController.preferredContentSize = CGSize(width: 600, height: 600)
+        
+        guard let popoverController = historyController.popoverPresentationController else {
+            return
+        }
+        
+        popoverController.delegate = self
+        popoverController.permittedArrowDirections = .up
+        popoverController.sourceView = self.view
+        popoverController.barButtonItem = navigationItem.leftBarButtonItem
+        
+        self.present(historyController, animated: true)
+    }
+    
+    @objc private func didTapAddButton() {
         let projectAdditionController = ProjectAdditionController()
         projectAdditionController.viewModel = self.toDoViewController.viewModel as? ContentAddible
 
@@ -66,5 +101,147 @@ final class ProjectManagerController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+    private func configureObserver(in viewModel: CommonViewModelLogic) {
+        viewModel.registerMovingHistory = { [weak self] (title, previous, next) in
+            self?.historyController.configureSnapshotItem(data: HistoryLog(
+                content: "Moved '\(title)' from \(previous) to \(next).",
+                time: Date())
+            )
+
+            guard let snapshot = self?.historyController.snapshot else {
+                return
+            }
+
+            self?.historyController.dataSource?.apply(snapshot)
+            self?.historyController.tableView.reloadData()
+        }
+
+        viewModel.registerDeletionHistory = { [weak self] (title, schedule) in
+            self?.historyController.configureSnapshotItem(data: HistoryLog(
+                content: "Removed '\(title)' from \(schedule)",
+                time: Date())
+            )
+
+            guard let snapshot = self?.historyController.snapshot else {
+                return
+            }
+
+            self?.historyController.dataSource?.apply(snapshot)
+            self?.historyController.tableView.reloadData()
+        }
+
+        guard var viewModel = viewModel as? ContentAddible else {
+            return
+        }
+
+        viewModel.registerAdditionHistory = { [weak self] (title) in
+            self?.historyController.configureSnapshotItem(data: HistoryLog(
+                content: "Added '\(title)'.",
+                time: Date())
+            )
+
+            guard let snapshot = self?.historyController.snapshot else {
+                return
+            }
+
+            self?.historyController.dataSource?.apply(snapshot)
+            self?.historyController.tableView.reloadData()
+        }
+    }
+
+    private func configureObservers() {
+        configureObserver(in: toDoViewModel)
+        configureObserver(in: doingViewModel)
+        configureObserver(in: doneViewModel)
+    }
+    
+    private func observeNetworkConnect() {
+        NetworkObserver.shared.startObserving(completion: { [weak self] isConnected in
+            guard let self = self else {
+                return
+            }
+            
+            if isConnected == true {
+                self.synchronizeDatabase()
+            } else {
+                self.presentErrorAlert(NetworkError.failedToConnect)
+            }
+        })
+        NetworkObserver.shared.stopObserving()
+    }
+
+    private func synchronizeDatabase() {
+        if LocalDatabaseManager.onDisk.isEmpty() {
+            RemoteDatabaseManager.shared.fetch { [weak self] result in
+                guard let self = self else {
+                    return
+                }
+
+                self.synchronizeLocalDatabase(using: result)
+                self.configureViewModel()
+                DispatchQueue.main.async {
+                    self.configureNavigationItems()
+                    self.configureUI()
+                }
+                self.configureObservers()
+            }
+        } else {
+            RemoteDatabaseManager.shared.fetch { [weak self] result in
+                guard let self = self else {
+                    return
+                }
+
+                self.synchronizeRemoteDatabase(using: result)
+                self.configureViewModel()
+                DispatchQueue.main.async {
+                    self.configureNavigationItems()
+                    self.configureUI()
+                }
+                self.configureObservers()
+            }
+        }
+    }
+
+    private func synchronizeLocalDatabase(using result: Result<[ProjectUnit], JSONError>) {
+        switch result {
+        case .success(let data):
+            data.forEach { project in
+                try? LocalDatabaseManager.onDisk.create(data: project)
+            }
+        case .failure(.defaultError):
+            presentErrorAlert(JSONError.defaultError)
+        case .failure(.emptyError):
+            presentErrorAlert(JSONError.emptyError)
+        }
+    }
+
+    private func synchronizeRemoteDatabase(using result: Result<[ProjectUnit], JSONError>) {
+        guard let localData = try? LocalDatabaseManager.onDisk.fetchAllData() else {
+            return
+        }
+
+        switch result {
+        case .success(let remoteData):
+            if isEqual(localData, and: remoteData) {
+                return
+            } else {
+                RemoteDatabaseManager.shared.deleteAll()
+                localData.forEach { project in
+                    RemoteDatabaseManager.shared.save(data: project)
+                }
+            }
+        default:
+            break
+        }
+    }
+
+    private func isEqual(_ localData: [ProjectUnit], and remoteData: [ProjectUnit]) -> Bool {
+        if localData == remoteData {
+            return true
+        } else {
+            return false
+        }
     }
 }

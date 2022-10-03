@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class DoneViewModel: CommonViewModelLogic, ContentEditable, StatusChangable {
+final class DoneViewModel:
+    CommonViewModelLogic,
+    ContentEditable,
+    StatusChangable
+{
     let identifier: String = ProjectStatus.done
     let data: Observable<[ProjectUnit]> = Observable([])
     let databaseManager: LocalDatabaseManager
@@ -22,7 +26,46 @@ final class DoneViewModel: CommonViewModelLogic, ContentEditable, StatusChangabl
     }
     
     var showAlert: (() -> Void)?
-    
+
+    var calledContentsOfAddition: String? {
+        didSet {
+            guard let registerAdditionHistory = self.registerAdditionHistory,
+                  let newProject = calledContentsOfAddition else {
+                return
+            }
+
+            registerAdditionHistory(newProject)
+        }
+    }
+
+    var calledContentsOfMoving: (String, String)? {
+        didSet {
+            guard let registerMovingHistory = self.registerMovingHistory,
+                  let changes = calledContentsOfMoving else {
+                return
+            }
+
+            let locationChange = changes.1.components(separatedBy: ["t", "o"])
+
+            registerMovingHistory(changes.0, locationChange[0], locationChange[2])
+        }
+    }
+
+    var calledContentsOfDeletion: (String, String)? {
+        didSet {
+            guard let registerDeletionHistory = self.registerDeletionHistory,
+                  let removedProject = calledContentsOfDeletion else {
+                return
+            }
+
+            registerDeletionHistory(removedProject.0, removedProject.1)
+        }
+    }
+
+    var registerAdditionHistory: ((String) -> Void)?
+    var registerDeletionHistory: ((String, String) -> Void)?
+    var registerMovingHistory: ((String, String, String) -> Void)?
+
     init(databaseManager: LocalDatabaseManager) {
         self.databaseManager = databaseManager
         NotificationCenter.default.addObserver(
@@ -38,6 +81,7 @@ final class DoneViewModel: CommonViewModelLogic, ContentEditable, StatusChangabl
             name: Notification.Name.doingToDone,
             object: nil
         )
+        fetchProjectData()
     }
     
     @objc func addData(_ notification: Notification) {
@@ -46,6 +90,8 @@ final class DoneViewModel: CommonViewModelLogic, ContentEditable, StatusChangabl
         }
         
         projectUnit.section = identifier
+
+        calledContentsOfMoving = (projectUnit.title, notification.name.rawValue)
         
         self.data.value.append(projectUnit)
         

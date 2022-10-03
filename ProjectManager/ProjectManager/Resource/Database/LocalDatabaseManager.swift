@@ -9,22 +9,21 @@ import CoreData
 
 final class LocalDatabaseManager {
     static let inMemory = LocalDatabaseManager(isInMemory: true)
+    static let onDisk = LocalDatabaseManager(isInMemory: false)
 
-    private var isInMemory: Bool
+    private var persistentContainer: CoreDataContainer = CoreDataContainer(name: "ProjectManager")
 
-    init(isInMemory: Bool) {
-        self.isInMemory = isInMemory
-    }
+    init() {}
 
-    private lazy var persistentContainer: CoreDataContainer = {
-        let container = CoreDataContainer(name: "ProjectManager", inMemory: isInMemory)
-        container.loadPersistentStores(completionHandler: { (_, error) in
+    convenience init(isInMemory: Bool) {
+        self.init()
+        persistentContainer = CoreDataContainer(name: "ProjectManager", inMemory: isInMemory)
+        persistentContainer.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        return container
-    }()
+    }
 
     func create(data: ProjectUnit) throws {
         let context = persistentContainer.viewContext
@@ -95,6 +94,51 @@ final class LocalDatabaseManager {
         context.delete(project)
 
         try save(context)
+    }
+
+    func fetchAllData() throws -> [ProjectUnit] {
+        let context = persistentContainer.viewContext
+        let request = NSFetchRequest<Project>(entityName: "Project")
+        let sort = NSSortDescriptor(key: #keyPath(Project.id), ascending: false)
+        request.sortDescriptors = [sort]
+
+        let projects = try context.fetch(request)
+        let result = projects.compactMap { data -> ProjectUnit? in
+            guard let title = data.title,
+                  let body = data.body,
+                  let deadLine = data.deadLine,
+                  let section = data.section,
+                  let id = data.id else {
+                return nil
+            }
+
+            return ProjectUnit(
+                id: id,
+                title: title,
+                body: body,
+                section: section,
+                deadLine: deadLine
+            )
+        }
+
+        return result
+    }
+    
+    func isEmpty() -> Bool {
+        let context = persistentContainer.viewContext
+        let request = NSFetchRequest<Project>(entityName: "Project")
+        
+        do {
+            let projects = try context.fetch(request)
+            
+            if projects.isEmpty {
+                return true
+            }
+        } catch {
+            print(error)
+        }
+        
+        return false
     }
 
     private func save(_ context: NSManagedObjectContext) throws {
