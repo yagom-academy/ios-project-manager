@@ -9,7 +9,6 @@ import Foundation
 
 final class TodoDataManager {
     private let localDataManager = LocalDataManager()
-    private let remoteDataManager = RemoteDataManager()
     private let historyManager = HistoryManager()
     private let notificationManager = NotificationManager()
     private let undoManager = UndoManager()
@@ -18,6 +17,7 @@ final class TodoDataManager {
     var didChangedData: [(() -> Void)?] = []
     
     private init() {
+        let remoteDataManager = RemoteDataManager()
         localDataManager.delegate = remoteDataManager
     }
     
