@@ -12,7 +12,7 @@ struct TaskCellView: View {
     var task: Task
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .leading) {
             TaskCellBackgroundView()
             
             VStack(alignment: .leading) {
@@ -28,7 +28,6 @@ struct TaskCellView: View {
                     .foregroundColor(isOver(task.dueDate) ? .red : .primary)
             }
             .padding(16)
-            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
