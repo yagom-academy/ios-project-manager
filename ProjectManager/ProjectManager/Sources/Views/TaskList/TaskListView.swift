@@ -23,31 +23,29 @@ struct TaskListView: View {
             
             List {
                 ForEach(tasks) { task in
-                    ZStack {
-                        TaskCellView(task: task)
-                            .onTapGesture {
-                                selectedTask = task
-                                isShowingEditingView.toggle()
+                    TaskCellView(task: task)
+                        .onTapGesture {
+                            selectedTask = task
+                            isShowingEditingView.toggle()
+                        }
+                        .swipeActions(edge: .leading) {
+                            switch status {
+                            case .todo:
+                                swipeButtonForChangingStatus(of: task, to: .doing)
+                                swipeButtonForChangingStatus(of: task, to: .done)
+                            case .doing:
+                                swipeButtonForChangingStatus(of: task, to: .todo)
+                                swipeButtonForChangingStatus(of: task, to: .done)
+                            case .done:
+                                swipeButtonForChangingStatus(of: task, to: .todo)
+                                swipeButtonForChangingStatus(of: task, to: .doing)
                             }
-                            .swipeActions(edge: .leading) {
-                                switch status {
-                                case .todo:
-                                    swipeButtonForChangingStatus(of: task, to: .doing)
-                                    swipeButtonForChangingStatus(of: task, to: .done)
-                                case .doing:
-                                    swipeButtonForChangingStatus(of: task, to: .todo)
-                                    swipeButtonForChangingStatus(of: task, to: .done)
-                                case .done:
-                                    swipeButtonForChangingStatus(of: task, to: .todo)
-                                    swipeButtonForChangingStatus(of: task, to: .doing)
-                                }
-                            }
-                            .swipeActions(edge: .trailing) {
-                                swipeButtonForDeletion(of: task)
-                            }
-                    }
-                    .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
-                    .listRowSeparator(.hidden)
+                        }
+                        .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
+                        .listRowSeparator(.hidden)
+                        .swipeActions(edge: .trailing) {
+                            swipeButtonForDeletion(of: task)
+                        }
                 }
                 .onDelete { indexSet in
                     tasks.remove(atOffsets: indexSet)
