@@ -60,15 +60,22 @@ extension TasksDataSource {
         switch selectedTask.status {
         case .todo:
             let index = todoTasks.firstIndex { $0.id == selectedTask.id }
-                todoTasks.remove(at: index!)
             
+            if let index = index {
+                todoTasks.remove(at: index)
+            }
         case .doing:
             let index = doingTasks.firstIndex { $0.id == selectedTask.id }
-                doingTasks.remove(at: index!)
             
+            if let index = index {
+                doingTasks.remove(at: index)
+            }
         case .done:
             let index = doneTasks.firstIndex { $0.id == selectedTask.id }
-                doneTasks.remove(at: index!)
+            
+            if let index = index {
+                doneTasks.remove(at: index)
+            }
         }
     }
 
