@@ -27,7 +27,7 @@ struct TaskCellView: View {
                 Text(task.dueDate, formatter: Date.formatter)
                     .foregroundColor(isOver(task.dueDate) ? .red : .primary)
             }
-            .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+            .padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
