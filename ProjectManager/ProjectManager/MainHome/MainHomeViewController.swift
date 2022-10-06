@@ -6,7 +6,7 @@
 
 import UIKit
 
-class MainHomeViewController: UIViewController {
+class MainHomeViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     // MARK: Properties
     private let viewModel = MainHomeViewModel()
 
@@ -23,14 +23,29 @@ class MainHomeViewController: UIViewController {
         presentTodoForm()
     }
 
+    @IBAction func didTapHistoryButton(_ sender: Any) {
+        guard let storyboard = storyboard,
+              let historyViewController = storyboard.instantiateViewController(
+                withIdentifier: HistoryViewController.reuseIdentifier
+              ) as? HistoryViewController else {
+            return
+        }
+        historyViewController.sendData(viewModel.getHistoryList())
+
+        historyViewController.modalPresentationStyle = .popover
+        let popover = historyViewController.popoverPresentationController
+        popover?.delegate = self
+        popover?.sourceView = self.view
+        popover?.sourceRect = CGRect(x: 70, y: 70, width: 0, height: 0)
+        present(historyViewController, animated: true)
+    }
+
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let value = UIInterfaceOrientation.landscapeLeft.rawValue
-        UIDevice.current.setValue(value, forKey: "orientation")
-
-        viewModel.fetchDataList()
+        fixScreenOrientation()
+        addObservers()
 
         setUpLabelShape()
         setUpTableViewDelegate()
@@ -38,9 +53,48 @@ class MainHomeViewController: UIViewController {
         setUpGestureEvent()
 
         bind()
+
+        viewModel.synchronize()
     }
 
     // MARK: Method
+    private func fixScreenOrientation() {
+        let value = UIInterfaceOrientation.landscapeLeft.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+    }
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showAlert),
+            name: NSNotification.Name("disconnect"),
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadTableView),
+            name: NSNotification.Name("changeTableView"),
+            object: nil
+        )
+    }
+
+    @objc private func showAlert() {
+        let alertController = UIAlertController(
+            title: "네트워크에 접속할 수 없습니다.",
+            message: "네트워크 연결 상태를 확인해주세요.",
+            preferredStyle: .alert
+        )
+
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+
+        alertController.addAction(confirmAction)
+
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+
     private func setUpLabelShape() {
         [todoCountLabel, doingCountLabel, doneCountLabel].forEach {
             $0?.clipsToBounds = true
@@ -87,7 +141,7 @@ class MainHomeViewController: UIViewController {
         }
     }
 
-    private func reloadTableView() {
+    @objc private func reloadTableView() {
         [todoTableView, doingTableView, doneTableView].forEach {
             $0.reloadData()
         }
@@ -118,7 +172,11 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
         }
 
         viewModel.changeList(data: data)
-        reloadTableView()
+        viewModel.addHistoryList(
+            activity: Activity.added,
+            title: data.taskTitle,
+            from: data.taskState
+        )
     }
 }
 
@@ -138,9 +196,9 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = todoTableView.dequeueReusableCell(
-            withIdentifier: TableViewCell.reuseIdentifier,
+            withIdentifier: TaskTableViewCell.reuseIdentifier,
             for: indexPath
-        ) as? TableViewCell else {
+        ) as? TaskTableViewCell else {
             return UITableViewCell()
         }
 
@@ -175,8 +233,14 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
             }
 
             let state = self.setUpTaskState(tableView: tableView)
+            let removedData = self.viewModel.getDataList(of: state)[indexPath.row]
             self.viewModel.remove(index: indexPath.row, in: state)
-            self.reloadTableView()
+
+            self.viewModel.addHistoryList(
+                activity: Activity.removed,
+                title: removedData.taskTitle,
+                from: state.name
+            )
         }
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -252,6 +316,7 @@ extension MainHomeViewController {
     }
 
     private func getActionButton(of taskState: TaskState, _ index: Int) -> [UIAlertAction] {
+        let data = viewModel.getDataList(of: taskState)[index]
         let firstButton = UIAlertAction(
             title: taskState.title.first,
             style: .default) { [weak self] _ in
@@ -265,7 +330,12 @@ extension MainHomeViewController {
                     to: taskState.other.first ?? taskState
                 )
 
-                self.reloadTableView()
+                self.viewModel.addHistoryList(
+                    activity: Activity.moved,
+                    title: data.taskTitle,
+                    from: taskState.name,
+                    to: taskState.other.first?.name
+                )
             }
         let secondButton = UIAlertAction(
             title: taskState.title.last,
@@ -281,7 +351,12 @@ extension MainHomeViewController {
                 to: taskState.other.last ?? taskState
             )
 
-            self.reloadTableView()
+            self.viewModel.addHistoryList(
+                activity: Activity.moved,
+                title: data.taskTitle,
+                from: taskState.name,
+                to: taskState.other.last?.name
+            )
         }
 
         return [firstButton, secondButton]

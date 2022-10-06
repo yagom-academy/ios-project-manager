@@ -4,6 +4,7 @@ disabled_rules:
   - control_statement
   - force_cast
   - unused_optional_binding
+  - identifier_name
 
 excluded:
   - Pods

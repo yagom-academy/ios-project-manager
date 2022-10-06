@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-
+        NetworkMonitor.shared.stopMonitoring()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

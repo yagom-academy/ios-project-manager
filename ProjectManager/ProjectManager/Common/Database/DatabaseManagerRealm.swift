@@ -7,11 +7,16 @@
 
 import RealmSwift
 
-class RealmDatabase: DatabaseProtocol {
-    let realm = try? Realm()
+class DatabaseManagerRealm: DatabaseProtocol {
+    private var realm: Realm?
+
+    init(realm: Realm? = try? Realm()) {
+        self.realm = realm
+    }
 
     func create(data: TaskModel) {
         let data = RealmDatabaseModel(
+            id: data.id,
             title: data.taskTitle,
             description: data.taskDescription,
             deadline: data.taskDeadline,
@@ -27,7 +32,7 @@ class RealmDatabase: DatabaseProtocol {
                 realm.add(data)
             })
         } catch {
-            print("추가 실패")
+            print("Error: \(error.localizedDescription)")
         }
     }
 
@@ -43,7 +48,7 @@ class RealmDatabase: DatabaseProtocol {
                 taskDescription: model.taskDescription,
                 taskDeadline: model.taskDeadline,
                 taskState: model.taskState,
-                id: model.id
+                id: model._id
             )
         }
 
@@ -64,7 +69,7 @@ class RealmDatabase: DatabaseProtocol {
                 searchData.taskState = data.taskState
             })
         } catch {
-            print("업데이트 실패")
+            print("Error: \(error.localizedDescription)")
         }
     }
 
@@ -79,7 +84,7 @@ class RealmDatabase: DatabaseProtocol {
                 realm.delete(searchData)
             })
         } catch {
-            print("삭제 실패")
+            print("Error: \(error.localizedDescription)")
         }
     }
 
@@ -93,20 +98,19 @@ class RealmDatabase: DatabaseProtocol {
                 realm.deleteAll()
             })
         } catch {
-            print("전체 삭제 실패")
+            print("Error: \(error.localizedDescription)")
         }
     }
 
     func search(data: TaskModel) -> AnyObject? {
-        guard let realm = realm,
-                let id = data.id else {
+        guard let realm = realm else {
             return nil
         }
 
-        let relamData = realm.objects(RealmDatabaseModel.self).where {
-            $0.id == id
+        let realmData = realm.objects(RealmDatabaseModel.self).where {
+            $0._id == data.id
         }.first
 
-        return relamData
+        return realmData
     }
 }

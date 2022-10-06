@@ -1,5 +1,5 @@
 //
-//  TableViewCell.swift
+//  TaskTableViewCell.swift
 //  ProjectManager
 //
 //  Created by seohyeon park on 2022/09/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell, ReuseIdentifying {
+class TaskTableViewCell: UITableViewCell, ReuseIdentifying {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var deadlineLabel: UILabel!
