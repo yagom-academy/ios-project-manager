@@ -29,7 +29,7 @@ class HistoryViewController: UIViewController {
 // MARK: extension - SendDelegate
 extension HistoryViewController: SendDelegate,ReuseIdentifying {
     func sendData<T>(_ data: T) {
-        guard let data = data as? SendModel else {
+        guard let data = data as? [History] else {
             return
         }
 

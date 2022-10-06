@@ -32,8 +32,13 @@ class MainHomeViewModel {
     private var todoList = [TaskModel]()
     private var doingList = [TaskModel]()
     private var doneList = [TaskModel]()
+    private var historyList = [History]()
 
-    func move(_ index: Int, from nowState: TaskState, to nextState: TaskState) {
+    func move(
+        _ index: Int,
+        from nowState: TaskState,
+        to nextState: TaskState
+    ) {
         var currentList = getCurrentList(state: nowState)
         var data = currentList[index]
         data.taskState = nextState.name
@@ -49,6 +54,10 @@ class MainHomeViewModel {
     func getDataList(of state: TaskState) -> [TaskModel] {
         let currentList = getCurrentList(state: state)
         return currentList
+    }
+
+    func getHistoryList() -> [History] {
+        return historyList
     }
 
     func fetchDataList() {
@@ -81,25 +90,40 @@ class MainHomeViewModel {
         notifyChangeTableView()
     }
 
-    func changeList(data: TaskModel) -> Activity? {
+    func changeList(data: TaskModel) {
         guard databaseManager.search(data: data) != nil else {
             databaseManager.create(data: data)
             remoteManager.databaseManager?.create(data: data)
             fetchDataList()
             notifyChangeTableView()
-
-            return Activity.added
+            return
         }
 
         databaseManager.update(data: data)
         remoteManager.databaseManager?.update(data: data)
         fetchDataList()
         notifyChangeTableView()
-        return nil
     }
 
     func synchronize() {
         remoteManager.initialize()
+    }
+
+    func addHistoryList(
+        activity: Activity,
+        title: String,
+        from: String,
+        to: String? = nil
+    ) {
+        let data = History(
+            activity: activity,
+            title: title,
+            from: from,
+            to: to,
+            date: Date()
+        )
+
+        historyList.append(data)
     }
 
     private func notifyChangeTableView() {

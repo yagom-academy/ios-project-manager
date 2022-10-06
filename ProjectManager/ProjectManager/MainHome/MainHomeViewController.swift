@@ -9,7 +9,6 @@ import UIKit
 class MainHomeViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     // MARK: Properties
     private let viewModel = MainHomeViewModel()
-    private var historyViewController: HistoryViewController?
 
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var todoTableView: UITableView!
@@ -25,9 +24,13 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
     }
 
     @IBAction func didTapHistoryButton(_ sender: Any) {
-        guard let historyViewController = historyViewController else {
+        guard let storyboard = storyboard,
+              let historyViewController = storyboard.instantiateViewController(
+                withIdentifier: HistoryViewController.reuseIdentifier
+              ) as? HistoryViewController else {
             return
         }
+        historyViewController.sendData(viewModel.getHistoryList())
 
         historyViewController.modalPresentationStyle = .popover
         let popover = historyViewController.popoverPresentationController
@@ -48,7 +51,6 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
         setUpTableViewDelegate()
         setUpTableViewDataSource()
         setUpGestureEvent()
-        setUpHistoryViewController()
 
         bind()
 
@@ -131,17 +133,6 @@ class MainHomeViewController: UIViewController, UIPopoverPresentationControllerD
         doneTableView.addGestureRecognizer(doneLongPress)
     }
 
-    private func setUpHistoryViewController() {
-        guard let storyboard = storyboard,
-              let historyVC = storyboard.instantiateViewController(
-                withIdentifier: HistoryViewController.reuseIdentifier
-              ) as? HistoryViewController else {
-            return
-        }
-
-        self.historyViewController = historyVC
-    }
-
     private func bind() {
         viewModel.change = { [weak self] in
             self?.todoCountLabel.text = self?.viewModel.todoCount.description
@@ -180,19 +171,12 @@ extension MainHomeViewController: SendDelegate, ReuseIdentifying {
             return
         }
 
-        let activity = viewModel.changeList(data: data)
-
-        guard let activity = activity else {
-            return
-        }
-
-        let sendData = SendModel(
-            activity: activity,
+        viewModel.changeList(data: data)
+        viewModel.addHistoryList(
+            activity: Activity.added,
             title: data.taskTitle,
-            from: data.taskState,
-            date: Date()
+            from: data.taskState
         )
-        self.historyViewController?.sendData(sendData)
     }
 }
 
@@ -252,13 +236,11 @@ extension MainHomeViewController: UITableViewDelegate, UITableViewDataSource {
             let removedData = self.viewModel.getDataList(of: state)[indexPath.row]
             self.viewModel.remove(index: indexPath.row, in: state)
 
-            let sendData = SendModel(
+            self.viewModel.addHistoryList(
                 activity: Activity.removed,
                 title: removedData.taskTitle,
-                from: state.name,
-                date: Date()
+                from: state.name
             )
-            self.historyViewController?.sendData(sendData)
         }
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -348,14 +330,12 @@ extension MainHomeViewController {
                     to: taskState.other.first ?? taskState
                 )
 
-                let sendData = SendModel(
+                self.viewModel.addHistoryList(
                     activity: Activity.moved,
                     title: data.taskTitle,
                     from: taskState.name,
-                    to: taskState.other.first?.name,
-                    date: Date()
+                    to: taskState.other.first?.name
                 )
-                self.historyViewController?.sendData(sendData)
             }
         let secondButton = UIAlertAction(
             title: taskState.title.last,
@@ -371,14 +351,12 @@ extension MainHomeViewController {
                 to: taskState.other.last ?? taskState
             )
 
-            let sendData = SendModel(
+            self.viewModel.addHistoryList(
                 activity: Activity.moved,
                 title: data.taskTitle,
                 from: taskState.name,
-                to: taskState.other.last?.name,
-                date: Date()
+                to: taskState.other.last?.name
             )
-            self.historyViewController?.sendData(sendData)
         }
 
         return [firstButton, secondButton]

@@ -10,15 +10,20 @@ import Foundation
 class HistoryViewModel {
     var contents = [HistoryModel]()
 
-    func add(data: SendModel) {
-        let body = makeBody(data)
-        let date = makeDate(data)
-        let model = HistoryModel(body: body, date: date)
+    func add(data: [History]) {
+        var allHistory = [HistoryModel]()
+        data.forEach { history in
+            let body = makeBody(history)
+            let date = makeDate(history)
+            let model = HistoryModel(body: body, date: date)
 
-        contents.append(model)
+            allHistory.append(model)
+        }
+
+        contents = allHistory
     }
 
-    private func makeBody(_ model: SendModel) -> String {
+    private func makeBody(_ model: History) -> String {
         var body = model.activity.name
         body += " \'\(model.title)\'"
         body += " from \(model.from)"
@@ -32,7 +37,7 @@ class HistoryViewModel {
         return body
     }
 
-    private func makeDate(_ model: SendModel) -> String {
+    private func makeDate(_ model: History) -> String {
         let localizedDate = DateFormatter.localizedString(
             from: model.date,
             dateStyle: .long,

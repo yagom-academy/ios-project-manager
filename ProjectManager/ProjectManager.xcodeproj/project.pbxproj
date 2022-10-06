@@ -21,7 +21,7 @@
 		05C6273428E43D8000B9CBCC /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273328E43D8000B9CBCC /* HistoryTableViewCell.swift */; };
 		05C6273728E4425A00B9CBCC /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273628E4425A00B9CBCC /* HistoryViewModel.swift */; };
 		05C6273A28E4430700B9CBCC /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273928E4430700B9CBCC /* HistoryModel.swift */; };
-		05C6273F28E462B100B9CBCC /* SendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273E28E462B100B9CBCC /* SendModel.swift */; };
+		05C6273F28E462B100B9CBCC /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6273E28E462B100B9CBCC /* History.swift */; };
 		05D5CBA228D445A100C7BA83 /* SendDelegate .swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA128D445A100C7BA83 /* SendDelegate .swift */; };
 		05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */; };
 		05EB16C128E2D2B100E16FD4 /* RemoteRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EB16C028E2D2B100E16FD4 /* RemoteRealm.swift */; };
@@ -49,7 +49,7 @@
 		05C6273328E43D8000B9CBCC /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		05C6273628E4425A00B9CBCC /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		05C6273928E4430700B9CBCC /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
-		05C6273E28E462B100B9CBCC /* SendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendModel.swift; sourceTree = "<group>"; };
+		05C6273E28E462B100B9CBCC /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		05D5CBA128D445A100C7BA83 /* SendDelegate .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SendDelegate .swift"; sourceTree = "<group>"; };
 		05D5CBA328D44B8B00C7BA83 /* ReuseIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifying.swift; sourceTree = "<group>"; };
 		05EB16C028E2D2B100E16FD4 /* RemoteRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRealm.swift; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				05C6273928E4430700B9CBCC /* HistoryModel.swift */,
-				05C6273E28E462B100B9CBCC /* SendModel.swift */,
+				05C6273E28E462B100B9CBCC /* History.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -395,7 +395,7 @@
 				05A5774C28CF807A00E05133 /* TodoFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainHomeViewController.swift in Sources */,
 				05C6273A28E4430700B9CBCC /* HistoryModel.swift in Sources */,
-				05C6273F28E462B100B9CBCC /* SendModel.swift in Sources */,
+				05C6273F28E462B100B9CBCC /* History.swift in Sources */,
 				05D5CBA428D44B8B00C7BA83 /* ReuseIdentifying.swift in Sources */,
 				05C6273128E43C4400B9CBCC /* HistoryViewController.swift in Sources */,
 				05C6273728E4425A00B9CBCC /* HistoryViewModel.swift in Sources */,

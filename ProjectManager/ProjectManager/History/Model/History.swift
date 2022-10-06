@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SendModel {
+struct History {
     var activity: Activity
     var title: String
     var from: String
