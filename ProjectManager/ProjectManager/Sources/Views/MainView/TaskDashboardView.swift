@@ -21,16 +21,30 @@ struct TaskDashboardView: View {
                 TaskListView(status: .done, tasks: $tasksDataSource.doneTasks)
             }.padding()
             
-            Button {
-                isShowingSheet.toggle()
-            } label: {
-                AddingTaskButtonView()
-                    .frame(width: 70, height: 70, alignment: .bottomTrailing)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
-            }
-            .sheet(isPresented: $isShowingSheet) {
-                TaskCreatingView(isShowingSheet: $isShowingSheet)
-            }
+            addingTaskButton()
+        }
+    }
+}
+
+private extension TaskDashboardView {
+    
+    func addingTaskButton() -> some View {
+        return Button {
+            isShowingSheet.toggle()
+        } label: {
+            Circle()
+                .overlay(alignment: .bottomTrailing) {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(.white)
+                        .padding()
+                }
+                .frame(width: 70, height: 70, alignment: .bottomTrailing)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 40))
+        }
+        .sheet(isPresented: $isShowingSheet) {
+            TaskCreatingView(isShowingSheet: $isShowingSheet)
         }
     }
 }
