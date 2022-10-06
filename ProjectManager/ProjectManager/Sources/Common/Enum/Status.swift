@@ -5,6 +5,8 @@
 //  Created by minsson on 2022/09/15.
 //
 
+import SwiftUI
+
 enum Status {
     case todo
     case doing
@@ -21,14 +23,14 @@ enum Status {
         }
     }
     
-    var color: String {
+    var color: Color {
         switch self {
         case .todo:
-            return "customRed"
+            return Color("customRed")
         case .doing:
-            return "customGray"
+            return Color("customGray")
         case .done:
-            return "customGreen"
+            return Color("customGreen")
         }
     }
     

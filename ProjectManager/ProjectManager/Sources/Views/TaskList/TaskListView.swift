@@ -69,7 +69,7 @@ private extension TaskListView {
         } label: {
             Label("Move to\n\(status.description)", systemImage: status.image)
         }
-        .tint(Color(status.color))
+        .tint(status.color)
     }
     
     func swipeButtonForDeletion(of task: Task) -> some View {
