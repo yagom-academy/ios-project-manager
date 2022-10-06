@@ -32,12 +32,10 @@ extension TaskWritableView {
             TaskDescriptionView(description: description)
                 .frame(maxHeight: 500)
                 .padding(.top, 10)
-                .overlay(alignment: .topLeading) {
-                    if description.wrappedValue.isEmpty {
-                        Text("필요한 경우 상세설명을 적어주세요")
-                            .foregroundColor(.gray.opacity(0.5))
-                            .padding(.top, 20)
-                    }
+                .placeholder(when: description.wrappedValue.isEmpty, alignment: .topLeading) {
+                    Text("필요한 경우 상세설명을 적어주세요")
+                        .foregroundColor(.gray.opacity(0.5))
+                        .padding(.top, 20)
                 }
         }
         .padding(.horizontal)
