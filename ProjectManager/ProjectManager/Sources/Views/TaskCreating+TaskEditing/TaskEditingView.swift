@@ -32,6 +32,9 @@ struct TaskEditingView: View, TaskWritableView {
             }
             .padding(.horizontal)
         }
+        .alert(isPresented: $tasksDataSource.shouldShowErrorAlert) {
+            ErrorAlertManager.presentError()
+        }
     }
 }
 

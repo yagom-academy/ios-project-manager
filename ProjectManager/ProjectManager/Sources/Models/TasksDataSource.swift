@@ -29,6 +29,8 @@ final class TasksDataSource: ObservableObject {
         Task(title: "Title 2", description: "Description 2", dueDate: Date.now, status: .done),
         Task(title: "Title 3", description: "Description 3", dueDate: Date.now, status: .done)
     ]
+    
+    @Published var shouldShowErrorAlert = false
 }
 
 extension TasksDataSource {
@@ -38,21 +40,30 @@ extension TasksDataSource {
         case .todo:
             let index = todoTasks.firstIndex { $0.id == selectedTask.id }
             
-            if let index = index {
-                todoTasks[index] = selectedTask
+            guard let index = index else {
+                requestErrorHandling(on: .replaceOriginalTask)
+                return
             }
+            
+            todoTasks[index] = selectedTask
         case .doing:
             let index = doingTasks.firstIndex { $0.id == selectedTask.id }
             
-            if let index = index {
-                doingTasks[index] = selectedTask
+            guard let index = index else {
+                requestErrorHandling(on: .replaceOriginalTask)
+                return
             }
+            
+            doingTasks[index] = selectedTask
         case .done:
             let index = doneTasks.firstIndex { $0.id == selectedTask.id }
             
-            if let index = index {
-                doneTasks[index] = selectedTask
+            guard let index = index else {
+                requestErrorHandling(on: .replaceOriginalTask)
+                return
             }
+            
+            doneTasks[index] = selectedTask
         }
     }
     
@@ -61,21 +72,30 @@ extension TasksDataSource {
         case .todo:
             let index = todoTasks.firstIndex { $0.id == selectedTask.id }
             
-            if let index = index {
-                todoTasks.remove(at: index)
+            guard let index = index else {
+                requestErrorHandling(on: .deleteOriginalTask)
+                return
             }
+            
+            todoTasks.remove(at: index)
         case .doing:
             let index = doingTasks.firstIndex { $0.id == selectedTask.id }
             
-            if let index = index {
-                doingTasks.remove(at: index)
+            guard let index = index else {
+                requestErrorHandling(on: .deleteOriginalTask)
+                return
             }
+            
+            doingTasks.remove(at: index)
         case .done:
             let index = doneTasks.firstIndex { $0.id == selectedTask.id }
             
-            if let index = index {
-                doneTasks.remove(at: index)
+            guard let index = index else {
+                requestErrorHandling(on: .deleteOriginalTask)
+                return
             }
+            
+            doneTasks.remove(at: index)
         }
     }
 
@@ -107,5 +127,10 @@ private extension TasksDataSource {
         )
         
         return taskWithNewStatus
+    }
+    
+    func requestErrorHandling(on error: LogicError) {
+        ErrorAlertManager.recieve(error)
+        shouldShowErrorAlert.toggle()
     }
 }

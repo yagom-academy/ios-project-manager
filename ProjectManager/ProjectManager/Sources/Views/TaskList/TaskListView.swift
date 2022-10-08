@@ -56,6 +56,9 @@ struct TaskListView: View {
                 TaskEditingView(isShowingSheet: $isShowingEditingView, selectedTask: $selectedTask)
             }
         }
+        .alert(isPresented: $tasksDataSource.shouldShowErrorAlert) {
+            ErrorAlertManager.presentError()
+        }
     }
 }
 

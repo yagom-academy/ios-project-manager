@@ -11,6 +11,7 @@
 		FD24500D28D22E4800D5C593 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24500C28D22E4800D5C593 /* Status.swift */; };
 		FD24501028D2379E00D5C593 /* TasksDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24500F28D2379E00D5C593 /* TasksDataSource.swift */; };
 		FD54DB8728EEE6FD00F4EA26 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD54DB8628EEE6FD00F4EA26 /* View+Extensions.swift */; };
+		FD54DB8928EF222F00F4EA26 /* LogicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD54DB8828EF222F00F4EA26 /* LogicError.swift */; };
 		FD6659C028C9B9C400934AF4 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */; };
 		FD6659C428C9B9C600934AF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD6659C328C9B9C600934AF4 /* Assets.xcassets */; };
 		FD6659C728C9B9C600934AF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD6659C628C9B9C600934AF4 /* Preview Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		FD9C397C28C9F6C200B97B39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD9C397B28C9F6C200B97B39 /* GoogleService-Info.plist */; };
 		FD9C397F28C9F74A00B97B39 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FD9C397E28C9F74A00B97B39 /* FirebaseFirestoreSwift */; };
 		FDB5654D28D4B129002E8BAF /* SquareButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5654C28D4B129002E8BAF /* SquareButtonView.swift */; };
+		FDE5289328F1BE100035FD6B /* ErrorAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE5289228F1BE100035FD6B /* ErrorAlertManager.swift */; };
 		FDE8879E28E2DFC000B4AA1E /* TaskCreatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE8879D28E2DFC000B4AA1E /* TaskCreatingView.swift */; };
 		FDE887A428E35FB700B4AA1E /* TaskDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE887A328E35FB700B4AA1E /* TaskDescriptionView.swift */; };
 		FDE887A828E4536D00B4AA1E /* TaskWritableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE887A728E4536D00B4AA1E /* TaskWritableView.swift */; };
@@ -36,6 +38,7 @@
 		FD24500C28D22E4800D5C593 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		FD24500F28D2379E00D5C593 /* TasksDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDataSource.swift; sourceTree = "<group>"; };
 		FD54DB8628EEE6FD00F4EA26 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		FD54DB8828EF222F00F4EA26 /* LogicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicError.swift; sourceTree = "<group>"; };
 		FD6659BC28C9B9C400934AF4 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD6659BF28C9B9C400934AF4 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		FD6659C328C9B9C600934AF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,6 +47,7 @@
 		FD84971028D48D210028E81B /* TaskEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditingView.swift; sourceTree = "<group>"; };
 		FD9C397B28C9F6C200B97B39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FDB5654C28D4B129002E8BAF /* SquareButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareButtonView.swift; sourceTree = "<group>"; };
+		FDE5289228F1BE100035FD6B /* ErrorAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertManager.swift; sourceTree = "<group>"; };
 		FDE8879D28E2DFC000B4AA1E /* TaskCreatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreatingView.swift; sourceTree = "<group>"; };
 		FDE887A328E35FB700B4AA1E /* TaskDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDescriptionView.swift; sourceTree = "<group>"; };
 		FDE887A728E4536D00B4AA1E /* TaskWritableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskWritableView.swift; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 		FD24500B28D22E3700D5C593 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FDE5289128F1BDF90035FD6B /* Utility */,
 				FDE887B128E56B0700B4AA1E /* Enum */,
 				FDE887B228E56B1000B4AA1E /* Extensions */,
 			);
@@ -150,6 +155,14 @@
 				FD6659C628C9B9C600934AF4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FDE5289128F1BDF90035FD6B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				FDE5289228F1BE100035FD6B /* ErrorAlertManager.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		FDE887AB28E5681600B4AA1E /* Common */ = {
@@ -209,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				FD24500C28D22E4800D5C593 /* Status.swift */,
+				FD54DB8828EF222F00F4EA26 /* LogicError.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -311,6 +325,8 @@
 				FD54DB8728EEE6FD00F4EA26 /* View+Extensions.swift in Sources */,
 				FD6659C028C9B9C400934AF4 /* ProjectManagerApp.swift in Sources */,
 				FDB5654D28D4B129002E8BAF /* SquareButtonView.swift in Sources */,
+				FDE5289328F1BE100035FD6B /* ErrorAlertManager.swift in Sources */,
+				FD54DB8928EF222F00F4EA26 /* LogicError.swift in Sources */,
 				FD24500D28D22E4800D5C593 /* Status.swift in Sources */,
 				FDE887A828E4536D00B4AA1E /* TaskWritableView.swift in Sources */,
 				FDEC499228D3116C00C0C9F9 /* TaskCellBackgroundView.swift in Sources */,
