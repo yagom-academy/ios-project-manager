@@ -50,7 +50,9 @@ private extension TaskEditingView {
     }
     
     func editButton() -> some View {
-        SquareButtonView(label: "수정", color: .secondary) {
+        let label = (isEditingDisable ? "편집모드 활성화" : "읽기전용모드 활성화")
+        
+        return SquareButtonView(label: label, color: .secondary) {
             isEditingDisable.toggle()
         }
     }
