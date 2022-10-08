@@ -22,6 +22,8 @@ struct TaskCreatingView: View, TaskWritableView {
             taskWritingViews(title: $newTask.title, description: $newTask.description)
             
             saveButton()
+            
+            cancelView()
         }
     }
 }
@@ -33,6 +35,13 @@ private extension TaskCreatingView {
             withAnimation(.spring()) {
                 tasksDataSource.todoTasks.append(newTask)
             }
+            isShowingSheet.toggle()
+        }
+        .padding(.horizontal)
+    }
+    
+    func cancelView() -> some View {
+        SquareButtonView(label: "취소", color: .secondary) {
             isShowingSheet.toggle()
         }
         .padding(.horizontal)

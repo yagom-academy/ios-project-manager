@@ -31,6 +31,8 @@ struct TaskEditingView: View, TaskWritableView {
                 saveButton()
             }
             .padding(.horizontal)
+            
+            cancelView()
         }
         .alert(isPresented: $tasksDataSource.shouldShowErrorAlert) {
             ErrorAlertManager.presentError()
@@ -55,6 +57,13 @@ private extension TaskEditingView {
         return SquareButtonView(label: label, color: .secondary) {
             isEditingDisable.toggle()
         }
+    }
+    
+    func cancelView() -> some View {
+        SquareButtonView(label: "취소", color: .secondary) {
+            isShowingSheet.toggle()
+        }
+        .padding(.horizontal)
     }
 }
 
