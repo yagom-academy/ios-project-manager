@@ -11,7 +11,8 @@ import SwiftUI
 struct ProjectManagerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TaskDashboardView()
+                .environmentObject(TasksDataSource())
         }
     }
 }
