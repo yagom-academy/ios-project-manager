@@ -1,0 +1,10 @@
+excluded:
+    - Pods
+    - ProjectManager/AppDelegate.swift
+    - ProjectManager/SceneDelegate.swift
+
+opt_in_rules:
+    - empty_count
+    - empty_string
+
+line_length: 100
