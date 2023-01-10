@@ -1,0 +1,24 @@
+# 기본규칙에서 비활성화할 규칙
+disabled_rules:
+# 강제 캐스팅은 피해야합니다.
+- force_cast
+
+# 강제 언래핑은 피해야합니다.
+- force_unwrapping
+
+# 라인 뒤에 공백이 없어야 합니다.
+- trailing_whitespace
+
+# 한 줄에 입력가능한 글자 수를 제한합니다.
+- line_length
+
+
+- unused_optional_binding
+
+# 기본규칙이 아닌것 중 활성화 하고싶은 규칙
+opt_in_rules:
+- trailing_newline
+
+# SwiftLint 적용하지 않게 설정할 파일 경로
+excluded:
+- Pods
