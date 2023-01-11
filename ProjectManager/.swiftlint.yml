@@ -1,0 +1,15 @@
+excluded:
+    - Pods
+
+included:
+    - ProjectManager
+
+opt_in_rules:
+  - empty_count
+  - empty_string
+  - force_unwrapping
+  - closure_spacing
+  - implicitly_unwrapped_optional
+  - vertical_whitespace_closing_braces
+
+line_length: 100
