@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		BF6CA753296EA22800F88564 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CA752296EA22800F88564 /* Plan.swift */; };
 		BF6CA755296EA27800F88564 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CA754296EA27800F88564 /* Date+.swift */; };
+		BF6CA759296EAF4200F88564 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CA758296EAF4200F88564 /* ProjectViewModel.swift */; };
+		BF6CA75B296EC03E00F88564 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CA75A296EC03E00F88564 /* ProjectListViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -20,6 +22,8 @@
 /* Begin PBXFileReference section */
 		BF6CA752296EA22800F88564 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Plan.swift; path = ProjectManager/Model/Plan.swift; sourceTree = SOURCE_ROOT; };
 		BF6CA754296EA27800F88564 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		BF6CA758296EAF4200F88564 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectViewModel.swift; path = ProjectManager/Extension/ProjectViewModel.swift; sourceTree = SOURCE_ROOT; };
+		BF6CA75A296EC03E00F88564 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectListViewModel.swift; path = ProjectManager/Extension/ProjectListViewModel.swift; sourceTree = SOURCE_ROOT; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 		BF6CA757296EA36F00F88564 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				BF6CA758296EAF4200F88564 /* ProjectViewModel.swift */,
+				BF6CA75A296EC03E00F88564 /* ProjectListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -193,8 +199,10 @@
 			files = (
 				BF6CA753296EA22800F88564 /* Plan.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				BF6CA75B296EC03E00F88564 /* ProjectListViewModel.swift in Sources */,
 				BF6CA755296EA27800F88564 /* Date+.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				BF6CA759296EAF4200F88564 /* ProjectViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
