@@ -26,6 +26,7 @@ final class MainViewController: UIViewController {
         let stackView = UIStackView(
             arrangedSubviews: [todoStackView, doingStackView, doneStackView]
         )
+        stackView.spacing = 10
         stackView.alignment = .fill
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -37,6 +38,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupView()
+        setupConstraint()
     }
     
     @objc private func addButtonTapped() {
@@ -64,7 +66,17 @@ extension MainViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .systemGray4
         view.addSubview(mainStackView)
+    }
+    
+    private func setupConstraint() {
+        let safeArea = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+        ])
     }
 }
