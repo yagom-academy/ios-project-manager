@@ -1,7 +1,6 @@
-## iOS 커리어 스타터 캠프
-
-### 프로젝트 관리 앱 저장소
-
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+| UI | 아키텍쳐 | Local DB | Remote DB | 의존성 관리도구 |
+|:----:|:----:|:----:|:----:|:----:|
+| ![](https://i.imgur.com/SFPzBwG.jpg) | ![](https://i.imgur.com/x6v54tX.png) | ![](https://i.imgur.com/1BLKIxp.png) | ![](https://i.imgur.com/37mqsN1.png) | ![](https://i.imgur.com/kC6k1Zg.png) |
+| UIKit | MVVM | CoreData | FireBase | SPM |
 
 
