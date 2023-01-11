@@ -54,7 +54,7 @@ final class ToDoTableViewCell: UITableViewCell {
     func configureCell(with todo: ToDo) {
         self.titleLabel.text = todo.title
         self.descriptionLabel.text = todo.description
-        self.deadlineLabel.text = todo.deadline
+        self.deadlineLabel.text = "\(todo.deadline)"
     }
 
     // MARK: Private Method
@@ -74,4 +74,4 @@ final class ToDoTableViewCell: UITableViewCell {
     }
 }
 
-extension ToDoTableViewCell: CellReuseable { }
+extension ToDoTableViewCell: CellReusable { }

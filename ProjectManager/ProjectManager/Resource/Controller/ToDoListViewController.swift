@@ -47,9 +47,10 @@ final class ToDoListViewController: UIViewController, UITableViewDelegate {
         doneTableView.dataSource = doneDataSource
     }
 
-    private func makeAddToDoButton() -> UIBarButtonItem {
-        let buttonAction = UIAction { _ in
-            print("touched addButton")
+    private func configureNavigationBarButton() -> UIBarButtonItem {
+        let buttonAction = UIAction { [weak self] _ in
+            let detailViewController = ToDoDetailViewController()
+            self?.present(detailViewController, animated: true)
         }
 
         let button = UIBarButtonItem(systemItem: .add, primaryAction: buttonAction)
@@ -59,7 +60,7 @@ final class ToDoListViewController: UIViewController, UITableViewDelegate {
 
     private func configureNavigationBar() {
         navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = makeAddToDoButton()
+        navigationItem.rightBarButtonItem = configureNavigationBarButton()
     }
 
     private func configureCell(_ cell: UITableViewCell, with todo: ToDo) {
@@ -84,7 +85,7 @@ final class ToDoListViewController: UIViewController, UITableViewDelegate {
     private func configureToDoSnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections([0])
-        snapshot.appendItems([ToDo(), ToDo(), ToDo()])
+//        snapshot.appendItems([ToDo(), ToDo(), ToDo()])
 
         toDoDataSource.apply(snapshot)
         doingDataSource.apply(snapshot)
