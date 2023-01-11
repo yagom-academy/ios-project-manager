@@ -1,0 +1,17 @@
+included:
+  - ProjectManager
+
+excluded:
+  - Pods
+
+opt_in_rules:
+  - empty_count
+  - empty_string
+  - force_unwrapping
+  - closure_spacing
+  - implicitly_unwrapped_optional
+  - vertical_whitespace_closing_braces
+
+disabled_rules:
+  - trailing_whitespace
+  - empty_enum_arguments
