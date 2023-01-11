@@ -6,9 +6,18 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+}
+
+
+// MARK: - UI Configuration
+
+extension MainViewController {
+    private func setupView() {
+        title = "Project Manager"
     }
 }
