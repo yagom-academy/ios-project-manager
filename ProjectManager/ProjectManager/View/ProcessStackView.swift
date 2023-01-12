@@ -10,7 +10,7 @@ import UIKit
 final class ProcessStackView: UIStackView {
     private enum UIConstraint {
         static let headerViewHeight = 70.0
-        static let headerSectionHeight = 5.0
+        static let headerSectionHeight = 7.0
         static let stackViewSpacing = 1.0
     }
     
@@ -47,6 +47,13 @@ extension ProcessStackView {
     }
     
     private func setupTableView() {
+        tableView.backgroundColor = .systemGray5
+        tableView.tableHeaderView = UIView(frame: CGRect(
+            x: .zero,
+            y: .zero,
+            width: .zero,
+            height: UIConstraint.headerSectionHeight)
+        )
         tableView.sectionHeaderHeight = UIConstraint.headerSectionHeight
         tableView.sectionFooterHeight = .zero
         tableView.register(
