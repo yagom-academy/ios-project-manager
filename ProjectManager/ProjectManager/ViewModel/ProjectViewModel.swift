@@ -14,8 +14,14 @@ final class ProjectViewModel {
             planHandler?(plan)
         }
     }
+    private var isEditable: Bool = false {
+        didSet {
+            editHandler?(isEditable)
+        }
+    }
 
     private var planHandler: ((Plan) -> Void)?
+    private var editHandler: ((Bool) -> Void)?
 
     init(plan: Plan) {
         self.plan = plan
@@ -23,5 +29,9 @@ final class ProjectViewModel {
 
     func bindPlan(handler: @escaping (Plan) -> Void) {
         self.planHandler = handler
+    }
+
+    func bindEdit(handler: @escaping (Bool) -> Void) {
+        self.editHandler = handler
     }
 }

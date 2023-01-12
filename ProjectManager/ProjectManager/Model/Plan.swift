@@ -8,6 +8,7 @@
 import Foundation
 
 protocol Plan {
+
     var title: String { get set }
     var description: String { get set }
     var deadline: Date { get set }
@@ -15,6 +16,7 @@ protocol Plan {
 }
 
 struct ToDo: Plan {
+
     var title: String
     var description: String
     var deadline: Date
