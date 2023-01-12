@@ -13,7 +13,7 @@ struct MainView: View {
       VStack {
         NavigationTitleView(
           title: "Project Manager",
-          trailingName: "plus",
+          trailingImage: Image.plusImage,
           trailingAction: {
             // TODO: - Trailing Action Add
           }
