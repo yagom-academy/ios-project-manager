@@ -63,3 +63,5 @@ extension ProcessTableViewCell {
         ])
     }
 }
+
+extension ProcessTableViewCell: IdentifierUsable { }
