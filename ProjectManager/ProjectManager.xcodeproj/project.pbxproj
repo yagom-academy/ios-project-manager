@@ -10,7 +10,7 @@
 		540B723C296E67520096C753 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 540B723B296E67520096C753 /* .swiftlint.yml */; };
 		540B7240296E751D0096C753 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B723F296E751D0096C753 /* ListCell.swift */; };
 		540B7242296E913A0096C753 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B7241296E913A0096C753 /* ListView.swift */; };
-		546A2A9829701A940033D593 /* WorkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9729701A940033D593 /* WorkType.swift */; };
+		546A2A9A29701DC40033D593 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9929701DC40033D593 /* Category.swift */; };
 		8458078EE3871E74082E19E0 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B83A86A551901906DABDB7 /* Pods_ProjectManager.framework */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -25,7 +25,7 @@
 		540B723B296E67520096C753 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		540B723F296E751D0096C753 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		540B7241296E913A0096C753 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
-		546A2A9729701A940033D593 /* WorkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkType.swift; sourceTree = "<group>"; };
+		546A2A9929701DC40033D593 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = ProjectManager/Category.swift; sourceTree = SOURCE_ROOT; };
 		73B83A86A551901906DABDB7 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		546A2A95297014B90033D593 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				546A2A9729701A940033D593 /* WorkType.swift */,
+				546A2A9929701DC40033D593 /* Category.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -256,11 +256,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */,
-				546A2A9829701A940033D593 /* WorkType.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				540B7242296E913A0096C753 /* ListView.swift in Sources */,
 				540B7240296E751D0096C753 /* ListCell.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				546A2A9A29701DC40033D593 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
