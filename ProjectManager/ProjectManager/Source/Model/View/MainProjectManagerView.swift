@@ -11,33 +11,34 @@ final class MainProjectManagerView: UIView {
     
     // MARK: Properties
     
+    private let titleView: UIView = {
+        let view = MainTitleView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray6
+        return view
+    }()
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 5
-        
         return stackView
     }()
-    let leftTableView: UITableView = {
+    private let leftTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(MainLeftTableViewCell.self, forCellReuseIdentifier: MainLeftTableViewCell.identifier)
-        
         return tableView
     }()
     private let centerTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(MainLeftTableViewCell.self, forCellReuseIdentifier: MainLeftTableViewCell.identifier)
-        
         return tableView
     }()
     
     private let rightTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(MainLeftTableViewCell.self, forCellReuseIdentifier: MainLeftTableViewCell.identifier)
-        
         return tableView
     }()
     
@@ -76,12 +77,18 @@ final class MainProjectManagerView: UIView {
     }
     
     private func configureLayout() {
+        addSubview(titleView)
         addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
+            titleView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleView.topAnchor.constraint(equalTo: topAnchor),
+            titleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08),
+            
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mainStackView.topAnchor.constraint(equalTo: topAnchor),
+            mainStackView.topAnchor.constraint(equalTo: titleView.bottomAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }

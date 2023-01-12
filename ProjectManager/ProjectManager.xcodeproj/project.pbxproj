@@ -18,6 +18,7 @@
 		D07C5D27297012CF001AF867 /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07C5D26297012CF001AF867 /* CellInfo.swift */; };
 		D0E0803329701BE700BCB151 /* MainProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0803229701BE700BCB151 /* MainProjectManagerView.swift */; };
 		D0E080352970583800BCB151 /* MainLeftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E080342970583800BCB151 /* MainLeftTableViewCell.swift */; };
+		D0E0803B29706B2200BCB151 /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0803A29706B2200BCB151 /* MainTitleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		D07C5D26297012CF001AF867 /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
 		D0E0803229701BE700BCB151 /* MainProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProjectManagerView.swift; sourceTree = "<group>"; };
 		D0E080342970583800BCB151 /* MainLeftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLeftTableViewCell.swift; sourceTree = "<group>"; };
+		D0E0803A29706B2200BCB151 /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 			children = (
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				D0E0803229701BE700BCB151 /* MainProjectManagerView.swift */,
+				D0E0803A29706B2200BCB151 /* MainTitleView.swift */,
 				D0E080342970583800BCB151 /* MainLeftTableViewCell.swift */,
 			);
 			path = View;
@@ -303,6 +306,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				D0E0803329701BE700BCB151 /* MainProjectManagerView.swift in Sources */,
 				D07C5D27297012CF001AF867 /* CellInfo.swift in Sources */,
+				D0E0803B29706B2200BCB151 /* MainTitleView.swift in Sources */,
 				D0E080352970583800BCB151 /* MainLeftTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
