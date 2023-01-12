@@ -8,6 +8,20 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    private var mainStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 20
+        
+        return stack
+    }()
+    
+    private var todoCollectionView = UICollectionView()
+    private var doingCollectionView = UICollectionView()
+    private var doneCollectionView = UICollectionView()
+    private var todoDataSource: UICollectionViewDiffableDataSource<Status, TaskItem>?
+    private var doingDataSource: UICollectionViewDiffableDataSource<Status, TaskItem>?
+    private var doneDataSource: UICollectionViewDiffableDataSource<Status, TaskItem>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +39,14 @@ final class MainViewController: UIViewController {
                                          action: nil)
         navigationItem.rightBarButtonItem = plusButton
     }
+    
+    private func configureMainStackView() {
+        view.addSubview(mainStackView)
+        [todoCollectionView, doingCollectionView, doneCollectionView].forEach {
+            mainStackView.addArrangedSubview($0)
+        }
+    }
+    
 }
 
 extension MainViewController {
