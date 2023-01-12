@@ -57,6 +57,10 @@ class ListStackView: UIStackView {
         [titleLabel, listCountLabel].forEach(titleStackView.addArrangedSubview(_:))
         [titleStackView, listTableView].forEach(addArrangedSubview(_:))
     }
+    
+    func configureTableView(dataSource: UITableViewDataSource) {
+        listTableView.dataSource = dataSource
+    }
 }
 
 private enum Constant {
