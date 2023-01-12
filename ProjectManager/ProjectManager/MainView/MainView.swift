@@ -8,6 +8,8 @@ import SwiftUI
 
 struct MainView: View {
   let projects: [Project] = Project.mock
+  @State var isPresentEditView: Bool = false
+  
   var body: some View {
     NavigationView {
       VStack {
@@ -15,7 +17,7 @@ struct MainView: View {
           title: "Project Manager",
           trailingImage: Image.plusImage,
           trailingAction: {
-            // TODO: - Trailing Action Add
+            isPresentEditView = true
           }
         )
         
@@ -33,6 +35,9 @@ struct MainView: View {
       }
       .background(Color.white)
       .navigationBarHidden(true)
+      .sheet(isPresented: $isPresentEditView) {
+        // TODO: - EditView 구성 및 추가
+      }
     }
     .navigationViewStyle(.stack)
   }
