@@ -43,10 +43,17 @@ final class MainViewController: UIViewController {
     private func configureMainStackView() {
         view.addSubview(mainStackView)
         [todoCollectionView, doingCollectionView, doneCollectionView].forEach {
+            configureCollectionView(collectionView: $0)
             mainStackView.addArrangedSubview($0)
         }
     }
-    
+
+    // 컬렉션뷰가 다 똑같이 생겼으니까 함수 하나로 구현
+    // 매개변수 인자로 todo/doing/done 받으면 될듯
+    private func configureCollectionView(collectionView: UICollectionView) {
+        let config = UICollectionLayoutListConfiguration(appearance: .plain)
+        collectionView.collectionViewLayout = UICollectionViewCompositionalLayout.list(using: config)
+    }
 }
 
 extension MainViewController {
