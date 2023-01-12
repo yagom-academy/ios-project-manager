@@ -3,7 +3,7 @@
 //  ProjectManager
 //
 //  Copyright (c) 2023 Minii All rights reserved.
-        
+
 
 import SwiftUI
 
@@ -19,13 +19,12 @@ struct MainView: View {
           }
         )
         
-        HStack {
-          ForEach(0..<3, id: \.self) { _ in
-            List(1...100, id: \.self) { number in
-              NavigationLink("\(number)") {
-                Text("\(number)")
-              }
-              
+        HStack(spacing: 20) {
+          ForEach(1..<4, id: \.self) { index in
+            VStack(spacing: 0) {
+              ListTitleView(title: "TODO", count: 5)
+                .background(Color.secondary)
+              // TODO: - List View 생성하기
             }
           }
         }
@@ -43,6 +42,12 @@ struct MainView_PreView: PreviewProvider {
       MainView()
         .previewLayout(.sizeThatFits)
         .previewInterfaceOrientation(.landscapeLeft)
+      
+      MainView()
+        .previewLayout(.sizeThatFits)
+        .previewInterfaceOrientation(.landscapeLeft)
+        .preferredColorScheme(.dark)
+      
     } else {
       MainView()
         .previewLayout(.sizeThatFits)
