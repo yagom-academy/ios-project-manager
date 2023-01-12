@@ -12,7 +12,7 @@ final class MainViewController: UIViewController {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.spacing = LayoutConstant.mainStackSpacing
-        
+        stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
@@ -46,6 +46,13 @@ final class MainViewController: UIViewController {
             configureCollectionView(collectionView: $0)
             mainStackView.addArrangedSubview($0)
         }
+        
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
     }
 
     // 컬렉션뷰가 다 똑같이 생겼으니까 함수 하나로 구현
