@@ -11,7 +11,7 @@ final class MainViewController: UIViewController {
     private var mainStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 20
+        stack.spacing = LayoutConstant.mainStackSpacing
         
         return stack
     }()
@@ -53,5 +53,9 @@ extension MainViewController {
     enum Namespace {
         static let NavigationTitle = "Project Manager"
         static let PlusImage = "plus"
+    }
+    
+    enum LayoutConstant {
+        static let mainStackSpacing = CGFloat(20)
     }
 }
