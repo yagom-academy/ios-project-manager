@@ -8,25 +8,19 @@ import UIKit
 
 final class MainViewController: UIViewController {
     private enum Constant {
-        case navigationTitle
-        
-        var description: String {
-            switch self {
-            case .navigationTitle:
-                return "Project Manager"
-            }
-        }
+        static let navigationTitle = "Project Manager"
+        static let tableSpacing = 10.0
     }
     
-    private let todoStackView = ProcessStackView(process: .todo)
-    private let doingStackView = ProcessStackView(process: .doing)
-    private let doneStackView = ProcessStackView(process: .done)
+    private let todoTableView = ProcessTableView(process: .todo)
+    private let doingTableView = ProcessTableView(process: .doing)
+    private let doneTableView = ProcessTableView(process: .done)
     
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [todoStackView, doingStackView, doneStackView]
+            arrangedSubviews: [todoTableView, doingTableView, doneTableView]
         )
-        stackView.spacing = 10
+        stackView.spacing = Constant.tableSpacing
         stackView.alignment = .fill
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -49,7 +43,7 @@ final class MainViewController: UIViewController {
 // MARK: - UI Configuration
 extension MainViewController {
     private func setupNavigationBar() {
-        title = Constant.navigationTitle.description
+        title = Constant.navigationTitle
         let appearence = UINavigationBarAppearance()
         
         navigationController?.navigationBar.isTranslucent = false
