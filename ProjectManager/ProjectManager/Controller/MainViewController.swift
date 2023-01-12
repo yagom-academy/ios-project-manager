@@ -14,44 +14,56 @@ final class MainViewController: UIViewController {
         case done
     }
     
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
-        collectionView.isScrollEnabled = true
-        collectionView.alwaysBounceVertical = true
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(TodoCollectionViewCell.self, forCellWithReuseIdentifier: TodoCollectionViewCell.identifier)
-        
-        return collectionView
+    private let tableStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 5
+        stackView.distribution = .fillEqually
+        stackView.axis = .horizontal
+        stackView.backgroundColor = UIColor.systemGray5
+        return stackView
+    }()
+    
+    private let todoTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .systemGray6
+        return tableView
+    }()
+    
+    private let doingTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .systemGray6
+        return tableView
+    }()
+    
+    private let doneTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .systemGray6
+        return tableView
     }()
     
     private typealias Snapshot = NSDiffableDataSourceSnapshot<TodoSection, TodoModel>
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<TodoSection, TodoModel>
+    private typealias DataSource = UITableViewDiffableDataSource<TodoSection, TodoModel>
     
-    private lazy var dataSource: DataSource = configureDataSource()
+    private lazy var todoDataSource: DataSource = configureDataSource(section: .todo)
+    private lazy var doingDataSource: DataSource = configureDataSource(section: .doing)
+    private lazy var doneDataSource: DataSource = configureDataSource(section: .done)
     
-    private var todos: [TodoModel] = [TodoModel(title: "todos", body: "본문"),
-                                      TodoModel(title: "todos", body: "본문"),
-                                      TodoModel(title: "todos", body: "본문")]
-    
-    private var doings: [TodoModel] = [TodoModel(title: "doings", body: "본문"),
-                                       TodoModel(title: "doings", body: "본문"),
-                                       TodoModel(title: "doings", body: "본문"),
-                                       TodoModel(title: "doings", body: "본문")]
-    
-    private var dones: [TodoModel] = [TodoModel(title: "dones", body: "본문"),
-                                      TodoModel(title: "dones", body: "본문")]
+    private var todoModels: [TodoModel] = []
+    private var doingModels: [TodoModel] = []
+    private var doneModels: [TodoModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         
         configureNavagationBar()
-        configureCollectionView()
+        configureTodoView()
+        applyAllSnapshot()
     }
     
     private func configureNavagationBar() {
-        self.navigationController?.navigationBar.backgroundColor = .systemGray6
         self.navigationItem.title = "Project Manager"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                                  target: self,
@@ -59,70 +71,74 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func showAddToDoView() {}
-}
-
-// MARK: - CollectionView
-extension MainViewController: UICollectionViewDelegate {
-    private func configureCollectionView() {
-        collectionView.delegate = self
-        applyAutolayout()
-        applySnapshot()
-    }
     
-    private func applyAutolayout() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(collectionView)
+    private func configureTodoView() {
+        let tableviews = [todoTableView, doingTableView, doneTableView]
+        
+        tableviews.forEach {
+            $0.estimatedRowHeight = 150
+            $0.rowHeight = UITableView.automaticDimension
+            $0.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
+            tableStackView.addArrangedSubview($0)
+        }
+        
+        self.view.addSubview(tableStackView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            tableStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            tableStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            tableStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
-    private func applySnapshot() {
-        var snapshot = Snapshot()
-        snapshot.appendSections([.todo, .doing, .done])
-        snapshot.appendItems(todos, toSection: .todo)
-        snapshot.appendItems(doings, toSection: .doing)
-        snapshot.appendItems(dones, toSection: .done)
-        self.dataSource.apply(snapshot)
-    }
-    
-    private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, todo in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodoCollectionViewCell.identifier,
-                                                          for: indexPath) as? TodoCollectionViewCell
+    private func configureDataSource(section: TodoSection) -> DataSource {
+        let tableView = {
+            switch section {
+            case .todo:
+                return self.todoTableView
+            case .doing:
+                return self.doingTableView
+            case .done:
+                return self.doneTableView
+            }
+        }()
+        
+        let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todo in
+            let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.identifier,
+                                                     for: indexPath) as? TodoTableViewCell
             
             cell?.configureContent(with: todo)
             return cell
         }
+        
         return dataSource
     }
     
-    private func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout {
-            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-            
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalHeight(1.0))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                   heightDimension: .absolute(44))
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
-                                                         subitems: [item])
-            
-            let section: NSCollectionLayoutSection = NSCollectionLayoutSection(group: group)
-            
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0.1, leading: 0.1, bottom: 0.1, trailing: 0.1)
-            return section
-        }
-        return layout
+    private func applyAllSnapshot() {
+        applyTodoSnapshot()
+        applyDoingSnapshot()
+        applyDoneSnapshot()
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //guard let todo = dataSource.itemIdentifier(for: indexPath) else { return }
+    private func applyTodoSnapshot() {
+        var todoSnapshot = Snapshot()
+        todoSnapshot.appendSections([.todo])
+        todoSnapshot.appendItems(todoModels)
+        self.todoDataSource.apply(todoSnapshot)
+    }
+    
+    private func applyDoingSnapshot() {
+        var doingSnapshot = Snapshot()
+        doingSnapshot.appendSections([.doing])
+        doingSnapshot.appendItems(doingModels)
+        self.doingDataSource.apply(doingSnapshot)
+    }
+    
+    private func applyDoneSnapshot() {
+        var doneSnapshot = Snapshot()
+        doneSnapshot.appendSections([.done])
+        doneSnapshot.appendItems(doneModels)
+        self.doneDataSource.apply(doneSnapshot)
     }
 }
