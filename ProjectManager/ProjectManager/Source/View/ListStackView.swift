@@ -7,22 +7,22 @@
 import UIKit
 
 class ListStackView: UIStackView {
-    let titleStackView: UIStackView = {
+    private let titleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = Constant.spacing
         stackView.alignment = .center
         
         return stackView
     }()
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "TODO"
         label.font = .preferredFont(forTextStyle: .title1)
         
         return label
     }()
-    let listCountLabel: UILabel = {
+    private let listCountLabel: UILabel = {
         let label = UILabel()
         label.text = "1"
         label.backgroundColor = .black
@@ -32,7 +32,7 @@ class ListStackView: UIStackView {
         
         return label
     }()
-    let listTableView: UITableView = {
+    private let listTableView: UITableView = {
         let tableView = UITableView()
         
         return tableView
@@ -45,14 +45,18 @@ class ListStackView: UIStackView {
         configureLayout()
     }
     
-    func configureStackView() {
+    private func configureStackView() {
         backgroundColor = .systemGray6
         axis = .vertical
-        spacing = 10
+        spacing = Constant.spacing
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         [titleLabel, listCountLabel].forEach(titleStackView.addArrangedSubview(_:))
         [titleStackView, listTableView].forEach(addArrangedSubview(_:))
     }
+}
+
+private enum Constant {
+    static let spacing: CGFloat = 10
 }
