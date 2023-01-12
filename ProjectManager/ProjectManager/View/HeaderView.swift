@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderView: UIView {
+final class HeaderView: UIView {
     private enum UIConstraint {
         static let countLabelWidth = 30.0
         static let stackViewSpacing = 20.0
