@@ -7,7 +7,19 @@
 
 import Foundation
 
-final class ProjectViewModel {
+protocol PlanViewModel {
+
+    var title: String { get }
+    var description: String { get }
+    var deadlineText: String { get }
+    var isOverDue: Bool { get }
+    func bindEdit(handler: @escaping (Bool) -> Void)
+    func changeEditable(state: Bool)
+    func editPlan(title: String, description: String, deadline: Date)
+    func changeState(to state: PlanState)
+}
+
+final class ProjectViewModel: PlanViewModel {
 
     private var plan: Plan
     private var isEditable: Bool = false {
@@ -16,6 +28,18 @@ final class ProjectViewModel {
         }
     }
     private var editHandler: ((Bool) -> Void)?
+    var title: String {
+        return plan.title
+    }
+    var description: String {
+        return plan.description
+    }
+    var deadlineText: String {
+        return plan.deadline.localeFormattedText
+    }
+    var isOverDue: Bool {
+        return plan.deadline.isOverdue
+    }
 
     init(plan: Plan) {
         self.plan = plan
