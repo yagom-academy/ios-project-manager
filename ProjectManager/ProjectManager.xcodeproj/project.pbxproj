@@ -27,8 +27,8 @@
 		540B723B296E67520096C753 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		540B723F296E751D0096C753 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		540B7241296E913A0096C753 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
-		546A2A9929701DC40033D593 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = ProjectManager/Category.swift; sourceTree = SOURCE_ROOT; };
-		546A2A9B29701ECC0033D593 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Work.swift; path = ProjectManager/Work.swift; sourceTree = SOURCE_ROOT; };
+		546A2A9929701DC40033D593 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = ProjectManager/Model/Category.swift; sourceTree = SOURCE_ROOT; };
+		546A2A9B29701ECC0033D593 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Work.swift; path = ProjectManager/Model/Work.swift; sourceTree = SOURCE_ROOT; };
 		546A2A9D297034A50033D593 /* MainListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListViewModel.swift; sourceTree = "<group>"; };
 		73B83A86A551901906DABDB7 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,7 +89,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		546A2A95297014B90033D593 /* Model */ = {
+		5448946929703B79009D948E /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				546A2A9929701DC40033D593 /* Category.swift */,
@@ -139,7 +139,7 @@
 			children = (
 				542E410F296FC131000BF8FA /* AppLifeCycle */,
 				542E4110296FC13E000BF8FA /* Resource */,
-				546A2A95297014B90033D593 /* Model */,
+				5448946929703B79009D948E /* Model */,
 				542E4111296FC158000BF8FA /* View */,
 				546A2A962970194D0033D593 /* ViewModel */,
 			);
