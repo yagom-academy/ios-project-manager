@@ -3,6 +3,9 @@
 //  ProjectManager
 //
 //  Copyright (c) 2023 Minii All rights reserved.
-        
 
-import Foundation
+struct Project: Decodable {
+  let title: String
+  let date: Int
+  let description: String
+}
