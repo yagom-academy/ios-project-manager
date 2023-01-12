@@ -8,8 +8,9 @@
 import UIKit
 
 class ListView: UIView {
-    let categoryTitle: String
-    let categoryCount: Int
+    let category: Category
+    
+    let viewModel = ListViewModel()
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -24,6 +25,7 @@ class ListView: UIView {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(ListCell.self, forCellReuseIdentifier: ListCell.identifier)
         tableView.backgroundColor = .systemGray5
         return tableView
     }()
@@ -39,13 +41,12 @@ class ListView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title1)
-        label.text = categoryTitle
+        label.text = category.description
         return label
     }()
     
     lazy var categoryCountLabel: UIButton = {
         let button = UIButton()
-        button.setTitle(categoryCount.description, for: .normal)
         button.backgroundColor = .black
         button.layer.cornerRadius = button.layer.frame.width / 2
         button.tintColor = .white
@@ -57,11 +58,16 @@ class ListView: UIView {
         return view
     }()
     
-    init(category: String, categoryCount: Int) {
-        categoryTitle = category
-        self.categoryCount = categoryCount
+    init(category: Category) {
+        self.category = category
         super.init(frame: CGRect())
         confgiureLayout()
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        viewModel.workTodoList { _ in
+            self.tableView.reloadData()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -83,5 +89,19 @@ class ListView: UIView {
             stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+extension ListView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.workList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath)
+                as? ListCell else { return ListCell() }
+        
+        cell.configureData(work: viewModel.workList[indexPath.row])
+        return cell
     }
 }

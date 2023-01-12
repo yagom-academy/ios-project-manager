@@ -10,28 +10,25 @@ import UIKit
 class ListCell: UITableViewCell {
     static let identifier = ListCell.description()
     
-    lazy var titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title2)
-        label.text = "제목제목~!^^"
         return label
     }()
     
-    lazy var bodyLabel: UILabel = {
+    let bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .gray
-        label.text = "내용내용~^^^^"
         return label
     }()
     
-    lazy var dateLabel: UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
-        label.text = "2010년 12월 2일^^"
         return label
     }()
     
@@ -61,5 +58,10 @@ class ListCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    func configureData(work: Work) {
+        self.titleLabel.text = work.title
+        self.bodyLabel.text = work.body
+        self.dateLabel.text = work.endDate
+    }
 }

@@ -7,10 +7,9 @@
 import UIKit
 
 class ListViewController: UIViewController {
-    
-    var todoListView = ListView(category: "TODO", categoryCount: 15)
-    var doingListView = ListView(category: "DOING", categoryCount: 3)
-    var doneListView = ListView(category: "DONE", categoryCount: 2)
+    var todoListView = ListView(category: .todo)
+    var doingListView = ListView(category: .doing)
+    var doneListView = ListView(category: .done)
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -27,10 +26,6 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureLayout()
-        [todoListView, doingListView, doneListView].forEach { listView in
-            listView.tableView.delegate = self
-            listView.tableView.dataSource = self
-        }
     }
     
     private func configureLayout() {
@@ -56,13 +51,4 @@ class ListViewController: UIViewController {
     
     @objc func addTapped() { }
     
-}
-extension ListViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return ListCell()
-    }
 }
