@@ -9,6 +9,8 @@ import UIKit
 
 class HeaderView: UIView {
     private enum UIConstraint {
+        static let countLabelWidth = 30.0
+        static let stackViewSpacing = 20.0
         static let topValue = 10.0
         static let bottomValue = -10.0
         static let leadingValue = 20.0
@@ -23,7 +25,12 @@ class HeaderView: UIView {
     
     let countLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
+        label.textAlignment = .center
+        label.backgroundColor = .black
         label.font = .preferredFont(forTextStyle: .title3)
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = UIConstraint.countLabelWidth * 0.5
         return label
     }()
     
@@ -32,6 +39,7 @@ class HeaderView: UIView {
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fill
+        stackView.spacing = UIConstraint.stackViewSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -64,14 +72,13 @@ extension HeaderView {
                 equalTo: safeArea.leadingAnchor,
                 constant: UIConstraint.leadingValue
             ),
-            stackView.trailingAnchor.constraint(
-                equalTo: safeArea.trailingAnchor,
-                constant: UIConstraint.trailingValue
-            ),
             stackView.bottomAnchor.constraint(
                 equalTo: safeArea.bottomAnchor,
                 constant: UIConstraint.bottomValue
-            )
+            ),
+            
+            countLabel.widthAnchor.constraint(equalToConstant: UIConstraint.countLabelWidth),
+            countLabel.heightAnchor.constraint(equalTo: countLabel.widthAnchor)
         ])
     }
 }
