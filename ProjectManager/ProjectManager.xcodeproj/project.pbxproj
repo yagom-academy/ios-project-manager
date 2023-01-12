@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C015EEB296EEE410022D053 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C015EEA296EEE410022D053 /* Process.swift */; };
-		3C015EEF296EF2480022D053 /* ProcessTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C015EEE296EF2480022D053 /* ProcessTableView.swift */; };
+		3C015EEF296EF2480022D053 /* ProcessStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C015EEE296EF2480022D053 /* ProcessStackView.swift */; };
 		3C07B2EF296D6647007283D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C07B2EE296D6647007283D2 /* FirebaseFirestore */; };
 		3C07B2F3296D69E4007283D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C07B2F2296D69E4007283D2 /* GoogleService-Info.plist */; };
 		3C07B2F6296D6AAA007283D2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */; };
@@ -25,7 +25,7 @@
 
 /* Begin PBXFileReference section */
 		3C015EEA296EEE410022D053 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
-		3C015EEE296EF2480022D053 /* ProcessTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTableView.swift; sourceTree = "<group>"; };
+		3C015EEE296EF2480022D053 /* ProcessStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStackView.swift; sourceTree = "<group>"; };
 		3C07B2F2296D69E4007283D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3CB4C4B4296F9CD70084069A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				3C015EEE296EF2480022D053 /* ProcessTableView.swift */,
+				3C015EEE296EF2480022D053 /* ProcessStackView.swift */,
 				3CB4C4B4296F9CD70084069A /* HeaderView.swift */,
 				3CB4C4BA296FB66C0084069A /* ProcessTableViewCell.swift */,
 			);
@@ -221,7 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CB4C4BE296FC6660084069A /* IdentifierUsable.swift in Sources */,
-				3C015EEF296EF2480022D053 /* ProcessTableView.swift in Sources */,
+				3C015EEF296EF2480022D053 /* ProcessStackView.swift in Sources */,
 				3CB4C4B5296F9CD70084069A /* HeaderView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

@@ -10,14 +10,15 @@ final class MainViewController: UIViewController {
     private enum Constant {
         static let navigationTitle = "Project Manager"
         static let tableSpacing = 10.0
+        static let bottomValue = -50.0
     }
     
-    private let todoTableView = ProcessTableView(process: .todo)
-    private let doingTableView = ProcessTableView(process: .doing)
-    private let doneTableView = ProcessTableView(process: .done)
+    private let todoView = ProcessStackView(process: .todo)
+    private let doingView = ProcessStackView(process: .doing)
+    private let doneView = ProcessStackView(process: .done)
         
     private lazy var mainStackView = UIStackView(
-        views: [todoTableView, doingTableView, doneTableView],
+        views: [todoView, doingView, doneView],
         axis: .horizontal,
         alignment: .fill,
         distribution: .fillEqually,
@@ -56,7 +57,7 @@ extension MainViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = .systemGray6
         view.addSubview(mainStackView)
     }
     
@@ -66,7 +67,10 @@ extension MainViewController {
             mainStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            mainStackView.bottomAnchor.constraint(
+                equalTo: safeArea.bottomAnchor,
+                constant: Constant.bottomValue
+            )
         ])
     }
 }

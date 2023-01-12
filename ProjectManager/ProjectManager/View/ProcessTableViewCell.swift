@@ -10,6 +10,10 @@ import UIKit
 final class ProcessTableViewCell: UITableViewCell {
     private enum UIConstraint {
         static let stackViewSpacing = 5.0
+        static let topValue = 10.0
+        static let bottomValue = -10.0
+        static let leadingValue = 10.0
+        static let trailingValue = -10.0
     }
     
     let titleLabel = UILabel(fontStyle: .title3)
@@ -44,10 +48,22 @@ extension ProcessTableViewCell {
     private func setupConstraint() {
         let safeArea = contentView.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            stackView.topAnchor.constraint(
+                equalTo: safeArea.topAnchor,
+                constant: UIConstraint.topValue
+            ),
+            stackView.leadingAnchor.constraint(
+                equalTo: safeArea.leadingAnchor,
+                constant: UIConstraint.leadingValue
+            ),
+            stackView.trailingAnchor.constraint(
+                equalTo: safeArea.trailingAnchor,
+                constant: UIConstraint.trailingValue
+            ),
+            stackView.bottomAnchor.constraint(
+                equalTo: safeArea.bottomAnchor,
+                constant: UIConstraint.bottomValue
+            )
         ])
     }
 }

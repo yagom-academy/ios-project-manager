@@ -44,6 +44,7 @@ final class HeaderView: UIView {
 // MARK: - UI Configuration
 extension HeaderView {
     private func setupView() {
+        backgroundColor = .systemGray5
         addSubview(stackView)
     }
     
