@@ -12,16 +12,26 @@ struct ListTitleView: View {
   
   var body: some View {
     HStack(alignment: .center) {
-      Text(title)
-        .font(.title2)
-      
-      Text("\(count)")
-        .font(.title3)
-        .foregroundColor(.white)
-        .padding(10)
-        .background(Circle())
-      
       Spacer()
+      
+      Text(title)
+        .font(.system(size: 32, weight: .bold, design: .rounded))
+        .foregroundColor(.accentColor)
+      Spacer()
+      
+      if count.description.count <= 2 {
+        Text("\(count)")
+          .font(.system(size: 21, weight: .semibold, design: .rounded))
+          .foregroundColor(.white)
+          .padding(10)
+          .background(Circle().foregroundColor(.accentColor))
+      } else {
+        Text("\(count)")
+          .font(.system(size: 21, weight: .semibold, design: .rounded))
+          .foregroundColor(.white)
+          .padding(10)
+          .background(Capsule().foregroundColor(.accentColor))
+      }
     }
     .padding()
   }
@@ -29,7 +39,7 @@ struct ListTitleView: View {
 
 struct ListTitleView_Preview: PreviewProvider {
   static var previews: some View {
-    ListTitleView(title: "TODO", count: 5)
+    ListTitleView(title: "TODO", count: 10)
       .previewLayout(.sizeThatFits)
       .preferredColorScheme(.light)
     

@@ -26,6 +26,7 @@ struct NavigationTitleView: View {
         Spacer()
         
         Text(title)
+          .foregroundColor(.accentColor)
           .customTitleStyle()
         
         Spacer()

@@ -4,7 +4,10 @@
 //
 //  Copyright (c) 2023 Minii All rights reserved.
 
-struct Project: Decodable {
+import Foundation
+
+struct Project: Decodable, Identifiable {
+  let id: UUID = UUID()
   let title: String
   let date: Int
   let description: String
@@ -12,9 +15,9 @@ struct Project: Decodable {
   
   static let mock: [Project] = [
     .init(title: "책상 정리", date: 1000000, description: "집중이 안될때는 역시나 책상 정리"),
-    .init(title: "책상 정리2", date: 1000000, description: "집중이 안될때는 역시나 책상 정리2"),
+    .init(title: "책상 정리2", date: 1000000, description: "집중이 안될때는 역시나 책상 정리2", state: .doing),
     .init(title: "책상 정리3", date: 1000000, description: "집중이 안될때는 역시나 책상 정리3"),
-    .init(title: "책상 정리4", date: 1000000, description: "집중이 안될때는 역시나 책상 정리4"),
+    .init(title: "책상 정리4", date: 1000000, description: "집중이 안될때는 역시나 책상 정리4", state: .done),
   ]
 }
 

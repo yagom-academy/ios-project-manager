@@ -4,10 +4,10 @@
 //
 //  Copyright (c) 2023 Minii All rights reserved.
 
-
 import SwiftUI
 
 struct MainView: View {
+  let projects: [Project] = Project.mock
   var body: some View {
     NavigationView {
       VStack {
@@ -19,12 +19,14 @@ struct MainView: View {
           }
         )
         
-        HStack(spacing: 20) {
+        HStack(spacing: 15) {
           ForEach(ProjectState.allCases, id: \.self) { state in
             VStack(spacing: 0) {
-              ListTitleView(title: state.description, count: 5)
-                .background(Color.secondary)
-              // TODO: - List View 생성하기
+              let selectedProject = projects.filter { $0.state == state }
+              
+              ListTitleView(title: state.description, count: selectedProject.count)
+              
+              ProjectListView(projects: selectedProject)
             }
           }
         }
@@ -35,7 +37,6 @@ struct MainView: View {
     .navigationViewStyle(.stack)
   }
 }
-
 
 struct MainView_PreView: PreviewProvider {
   static var previews: some View {
