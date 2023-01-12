@@ -34,6 +34,7 @@ class ListStackView: UIStackView {
     }()
     private let listTableView: UITableView = {
         let tableView = UITableView()
+        tableView.register(ListItemCell.self, forCellReuseIdentifier: ListItemCell.identifier)
         
         return tableView
     }()

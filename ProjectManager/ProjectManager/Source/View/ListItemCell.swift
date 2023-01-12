@@ -7,6 +7,7 @@
 import UIKit
 
 class ListItemCell: UITableViewCell {
+    static let identifier = String(describing: ListItemCell.self)
     private let cellStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
