@@ -22,8 +22,8 @@
 /* Begin PBXFileReference section */
 		BF6CA752296EA22800F88564 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Plan.swift; path = ProjectManager/Model/Plan.swift; sourceTree = SOURCE_ROOT; };
 		BF6CA754296EA27800F88564 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
-		BF6CA758296EAF4200F88564 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectViewModel.swift; path = ProjectManager/Extension/ProjectViewModel.swift; sourceTree = SOURCE_ROOT; };
-		BF6CA75A296EC03E00F88564 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectListViewModel.swift; path = ProjectManager/Extension/ProjectListViewModel.swift; sourceTree = SOURCE_ROOT; };
+		BF6CA758296EAF4200F88564 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectViewModel.swift; path = ProjectManager/ViewModel/ProjectViewModel.swift; sourceTree = SOURCE_ROOT; };
+		BF6CA75A296EC03E00F88564 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectListViewModel.swift; path = ProjectManager/ViewModel/ProjectListViewModel.swift; sourceTree = SOURCE_ROOT; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		BF6CA757296EA36F00F88564 /* ViewModel */ = {
+		BF88446429700527001C9459 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				BF6CA758296EAF4200F88564 /* ProjectViewModel.swift */,
@@ -122,7 +122,7 @@
 				BF6CA74F296EA1B300F88564 /* Resource */,
 				BF5C4A1A296C79D60049CA88 /* Model */,
 				BF5C4A1B296C79DD0049CA88 /* View */,
-				BF6CA757296EA36F00F88564 /* ViewModel */,
+				BF88446429700527001C9459 /* ViewModel */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
