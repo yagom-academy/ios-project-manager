@@ -94,29 +94,16 @@ extension MainViewController: UICollectionViewDelegate {
         let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, todo in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodoCollectionViewCell.identifier,
                                                           for: indexPath) as? TodoCollectionViewCell
-            cell?.title.text = todo.title
             
+            cell?.configureContent(with: todo)
             return cell
         }
         return dataSource
     }
     
     private func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { [weak self] (sectionIndex: Int,
-                                                                        layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-            
-            let columns: Int = {
-                switch sectionIndex {
-                case 0:
-                    return self?.todos.count ?? 1
-                case 1:
-                    return self?.doings.count ?? 1
-                case 2:
-                    return self?.dones.count ?? 1
-                default:
-                    return 0
-                }
-            }()
+        let layout = UICollectionViewCompositionalLayout {
+            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
