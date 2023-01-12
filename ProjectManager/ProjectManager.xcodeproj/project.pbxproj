@@ -16,6 +16,8 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		D2400A98296E73F800B24E6B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D2400A97296E73F800B24E6B /* .swiftlint.yml */; };
 		D2400AD4296FFD4300B24E6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */; };
+		D2400AD72970048A00B24E6B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AD52970048A00B24E6B /* TableViewCell.swift */; };
+		D2400AD82970048A00B24E6B /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2400AD62970048A00B24E6B /* TableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2400A97296E73F800B24E6B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D2400AD52970048A00B24E6B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		D2400AD62970048A00B24E6B /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		EFD4DCB7AD44E7D4BF32A078 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +97,8 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */,
+				D2400AD52970048A00B24E6B /* TableViewCell.swift */,
+				D2400AD62970048A00B24E6B /* TableViewCell.xib */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -158,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2400A98296E73F800B24E6B /* .swiftlint.yml in Resources */,
+				D2400AD82970048A00B24E6B /* TableViewCell.xib in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				D2400AD4296FFD4300B24E6B /* GoogleService-Info.plist in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
@@ -232,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				D2400AD72970048A00B24E6B /* TableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
