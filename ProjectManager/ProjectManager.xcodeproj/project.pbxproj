@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3C70A36E296FB4C9009BAB6C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3C70A36D296FB4C9009BAB6C /* .swiftlint.yml */; };
+		3C73C6B8296FC31B00C58F32 /* ProjectsManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C73C6B7296FC31B00C58F32 /* ProjectsManageView.swift */; };
+		3C73C6BA296FC97800C58F32 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C73C6B9296FC97800C58F32 /* HeaderView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectsViewController.swift */; };
@@ -18,6 +20,8 @@
 
 /* Begin PBXFileReference section */
 		3C70A36D296FB4C9009BAB6C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3C73C6B7296FC31B00C58F32 /* ProjectsManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsManageView.swift; sourceTree = "<group>"; };
+		3C73C6B9296FC97800C58F32 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		90D792EA8DEBACFF161C5AB8 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A888AA2339C9E6D317547533 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +91,8 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				3C70A36D296FB4C9009BAB6C /* .swiftlint.yml */,
+				3C73C6B7296FC31B00C58F32 /* ProjectsManageView.swift */,
+				3C73C6B9296FC97800C58F32 /* HeaderView.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -206,7 +212,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C73C6BA296FC97800C58F32 /* HeaderView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectsViewController.swift in Sources */,
+				3C73C6B8296FC31B00C58F32 /* ProjectsManageView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
