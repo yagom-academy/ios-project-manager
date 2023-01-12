@@ -46,6 +46,13 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+//        guard let cell: MainLeftTableViewCell = tableView.dequeueReusableCell(
+//            withIdentifier: MainLeftTableViewCell.identifier,
+//            for: indexPath
+//        ) as? MainLeftTableViewCell else {
+//            return UITableViewCell()
+//        }
+        
         return UITableViewCell()
     }
 }

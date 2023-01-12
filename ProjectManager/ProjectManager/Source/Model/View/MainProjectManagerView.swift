@@ -14,30 +14,29 @@ final class MainProjectManagerView: UIView {
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
         stackView.spacing = 5
         
         return stackView
     }()
-    private let leftTableView: UITableView = {
+    let leftTableView: UITableView = {
         let tableView = UITableView()
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(MainLeftTableViewCell.self, forCellReuseIdentifier: MainLeftTableViewCell.identifier)
         
         return tableView
     }()
     private let centerTableView: UITableView = {
         let tableView = UITableView()
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(MainLeftTableViewCell.self, forCellReuseIdentifier: MainLeftTableViewCell.identifier)
         
         return tableView
     }()
     
     private let rightTableView: UITableView = {
         let tableView = UITableView()
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(MainLeftTableViewCell.self, forCellReuseIdentifier: MainLeftTableViewCell.identifier)
         
         return tableView
     }()
@@ -47,6 +46,7 @@ final class MainProjectManagerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setUpStackView()
         configureLayout()
     }
     
@@ -58,11 +58,12 @@ final class MainProjectManagerView: UIView {
     
     func setUpTableView(with mainViewController: MainViewController) {
         leftTableView.delegate = mainViewController
-        centerTableView.delegate = mainViewController
-        rightTableView.delegate = mainViewController
-        
         leftTableView.dataSource = mainViewController
+        
+        centerTableView.delegate = mainViewController
         centerTableView.dataSource = mainViewController
+        
+        rightTableView.delegate = mainViewController
         rightTableView.dataSource = mainViewController
     }
     
