@@ -19,9 +19,9 @@ final class MainViewController: UIViewController {
     private let doingView = ProcessStackView(process: .doing)
     private let doneView = ProcessStackView(process: .done)
     
-    private lazy var todoDataSource = configureTodoDataSource()
-    private lazy var doingDataSource = configureDoingDataSource()
-    private lazy var doneDataSource = configureDoneDataSource()
+    private lazy var todoDataSource = configureDataSource(process: .todo)
+    private lazy var doingDataSource = configureDataSource(process: .doing)
+    private lazy var doneDataSource = configureDataSource(process: .done)
     
     private lazy var mainStackView = UIStackView(
         views: [todoView, doingView, doneView],
@@ -83,53 +83,19 @@ extension MainViewController {
 
 // MARK: - DataSource Configuration
 extension MainViewController {
-    private func configureTodoDataSource() -> DataSource {
-        let dataSource = DataSource(
-            tableView: todoView.tableView
-        ) { tableView, indexPath, todoData in
-
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: ProcessTableViewCell.identifier,
-                for: indexPath
-            ) as? ProcessTableViewCell else {
-                // Error Alert 구현예정
-                let errorCell = UITableViewCell()
-                return errorCell
-            }
-            
-            cell.titleLabel.text = todoData.title
-            cell.descriptionLabel.text = todoData.content
-            cell.dateLabel.text = todoData.convertDeadline
-            return cell
+    private func configureDataSource(process: Process) -> DataSource {
+        let tableView: UITableView
+        switch process {
+        case .todo:
+            tableView = todoView.tableView
+        case .doing:
+            tableView = doingView.tableView
+        case .done:
+            tableView = doneView.tableView
         }
-        return dataSource
-    }
-
-    private func configureDoingDataSource() -> DataSource {
+        
         let dataSource = DataSource(
-            tableView: doingView.tableView
-        ) { tableView, indexPath, todoData in
-
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: ProcessTableViewCell.identifier,
-                for: indexPath
-            ) as? ProcessTableViewCell else {
-                // Error Alert 구현예정
-                let errorCell = UITableViewCell()
-                return errorCell
-            }
-            
-            cell.titleLabel.text = todoData.title
-            cell.descriptionLabel.text = todoData.content
-            cell.dateLabel.text = todoData.convertDeadline
-            return cell
-        }
-        return dataSource
-    }
-
-    private func configureDoneDataSource() -> DataSource {
-        let dataSource = DataSource(
-            tableView: doneView.tableView
+            tableView: tableView
         ) { tableView, indexPath, todoData in
             
             guard let cell = tableView.dequeueReusableCell(
