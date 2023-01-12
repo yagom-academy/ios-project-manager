@@ -91,7 +91,7 @@ class TodoContentView: UIView, UIContentView {
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 32),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16)
         ])
     }
 
