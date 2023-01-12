@@ -43,6 +43,7 @@ class ListStackView: UIStackView {
         self.init(frame: .zero)
 
         titleLabel.text = title
+        configureStackView()
         configureLayout()
     }
     

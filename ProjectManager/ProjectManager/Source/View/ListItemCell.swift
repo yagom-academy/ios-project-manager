@@ -18,14 +18,14 @@ class ListItemCell: UITableViewCell {
     }()
     private let listTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: UIFont.systemFontSize)
+        label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
         
         return label
     }()
     private let listBodyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: UIFont.labelFontSize)
-        label.textColor = .systemGray4
+        label.textColor = .systemGray
         label.numberOfLines = 3
         
         return label
@@ -37,16 +37,18 @@ class ListItemCell: UITableViewCell {
         return label
     }()
     
-    convenience init(title: String, body: String, dueDate: String) {
-        self.init(frame: .zero)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureLayout()
-        listTitleLabel.text = title
-        listBodyLabel.text = body
-        dueDateLabel.text = dueDate
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func configureLayout() {
+        [listTitleLabel, listBodyLabel, dueDateLabel].forEach(cellStackView.addArrangedSubview(_:))
         contentView.addSubview(cellStackView)
         
         NSLayoutConstraint.activate([
@@ -55,5 +57,11 @@ class ListItemCell: UITableViewCell {
             cellStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             cellStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+    
+    func configureCell(title: String, body: String, dueDate: String) {
+        listTitleLabel.text = title
+        listBodyLabel.text = body
+        dueDateLabel.text = dueDate
     }
 }
