@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct Todo {
+struct Todo: Hashable {
     var title: String
     var content: String?
     var deadLine: Date?
+    
+    var convertDeadline: String {
+        guard let deadLine = deadLine else { return "" }
+        return DateFormatter.convertDate(date: deadLine)
+    }
 }
