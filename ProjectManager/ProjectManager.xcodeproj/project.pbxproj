@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		57AA8660296FCD0E00E2971D /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AA865F296FCD0E00E2971D /* TaskItem.swift */; };
+		57AA8660296FCD0E00E2971D /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AA865F296FCD0E00E2971D /* Issue.swift */; };
 		57AA866329703BBB00E2971D /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AA866229703BBB00E2971D /* Status.swift */; };
+		57AA8665297057C900E2971D /* CustomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AA8664297057C900E2971D /* CustomListCell.swift */; };
 		57E97FD7296D575100854C4A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 57E97FD6296D575100854C4A /* Realm */; };
 		57E97FD9296D575100854C4A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 57E97FD8296D575100854C4A /* RealmSwift */; };
 		57E97FDC296D5BB100854C4A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 57E97FDB296D5BB100854C4A /* FirebaseFirestore */; };
@@ -21,8 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		57AA865F296FCD0E00E2971D /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskItem.swift; path = ../../../../../../../Documents/TaskItem.swift; sourceTree = "<group>"; };
+		57AA865F296FCD0E00E2971D /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Issue.swift; path = ../../../../../../../Documents/Issue.swift; sourceTree = "<group>"; };
 		57AA866229703BBB00E2971D /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Status.swift; path = ../../../../../../../Documents/Status.swift; sourceTree = "<group>"; };
+		57AA8664297057C900E2971D /* CustomListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomListCell.swift; path = ../../../../../../../Documents/CustomListCell.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +52,7 @@
 		57AA865B296FCAB900E2971D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				57AA865F296FCD0E00E2971D /* TaskItem.swift */,
+				57AA865F296FCD0E00E2971D /* Issue.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -66,6 +68,7 @@
 		57AA865E296FCAD300E2971D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				57AA8664297057C900E2971D /* CustomListCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -191,9 +194,10 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				57AA866329703BBB00E2971D /* Status.swift in Sources */,
+				57AA8665297057C900E2971D /* CustomListCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				57AA8660296FCD0E00E2971D /* TaskItem.swift in Sources */,
+				57AA8660296FCD0E00E2971D /* Issue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

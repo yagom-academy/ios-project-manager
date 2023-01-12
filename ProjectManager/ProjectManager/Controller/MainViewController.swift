@@ -19,9 +19,9 @@ final class MainViewController: UIViewController {
     private var todoCollectionView = UICollectionView()
     private var doingCollectionView = UICollectionView()
     private var doneCollectionView = UICollectionView()
-    private var todoDataSource: UICollectionViewDiffableDataSource<Status, TaskItem>?
-    private var doingDataSource: UICollectionViewDiffableDataSource<Status, TaskItem>?
-    private var doneDataSource: UICollectionViewDiffableDataSource<Status, TaskItem>?
+    private var todoDataSource: UICollectionViewDiffableDataSource<Status, Issue>?
+    private var doingDataSource: UICollectionViewDiffableDataSource<Status, Issue>?
+    private var doneDataSource: UICollectionViewDiffableDataSource<Status, Issue>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
