@@ -54,6 +54,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		542E410F296FC131000BF8FA /* AppLifeCycle */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = AppLifeCycle;
+			sourceTree = "<group>";
+		};
+		542E4110296FC13E000BF8FA /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		542E4111296FC158000BF8FA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				540B723F296E751D0096C753 /* ListCell.swift */,
+				540B7241296E913A0096C753 /* ListView.swift */,
+				C7431F0925F51E1D0094C4CF /* ListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		682EB55EB6EC29A34B02C748 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,14 +114,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ListViewController.swift */,
-				540B723F296E751D0096C753 /* ListCell.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				540B7241296E913A0096C753 /* ListView.swift */,
+				542E410F296FC131000BF8FA /* AppLifeCycle */,
+				542E4110296FC13E000BF8FA /* Resource */,
+				542E4111296FC158000BF8FA /* View */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
