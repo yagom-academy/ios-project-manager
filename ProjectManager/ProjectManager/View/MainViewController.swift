@@ -15,18 +15,14 @@ final class MainViewController: UIViewController {
     private let todoTableView = ProcessTableView(process: .todo)
     private let doingTableView = ProcessTableView(process: .doing)
     private let doneTableView = ProcessTableView(process: .done)
-    
-    private lazy var mainStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [todoTableView, doingTableView, doneTableView]
-        )
-        stackView.spacing = Constant.tableSpacing
-        stackView.alignment = .fill
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+        
+    private lazy var mainStackView = UIStackView(
+        views: [todoTableView, doingTableView, doneTableView],
+        axis: .horizontal,
+        alignment: .fill,
+        distribution: .fillEqually,
+        spacing: Constant.tableSpacing
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()

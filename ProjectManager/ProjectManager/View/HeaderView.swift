@@ -17,37 +17,22 @@ final class HeaderView: UIView {
         static let trailingValue = -20.0
     }
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .largeTitle)
-        return label
-    }()
+    private let titleLabel = UILabel(fontStyle: .largeTitle)
+    let countLabel = UILabel(fontStyle: .title3)
     
-    let countLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.textAlignment = .center
-        label.backgroundColor = .black
-        label.font = .preferredFont(forTextStyle: .title3)
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = UIConstraint.countLabelWidth * 0.5
-        return label
-    }()
-    
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, countLabel])
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .fill
-        stackView.spacing = UIConstraint.stackViewSpacing
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+    private lazy var stackView = UIStackView(
+        views: [titleLabel, countLabel],
+        axis: .horizontal,
+        alignment: .center,
+        distribution: .fill,
+        spacing: UIConstraint.stackViewSpacing
+    )
     
     init(process: Process) {
         super.init(frame: .zero)
         titleLabel.text = process.titleValue
         setupView()
+        setupLabel()
         setupConstraint()
     }
     
@@ -56,9 +41,17 @@ final class HeaderView: UIView {
     }
 }
 
+// MARK: - UI Configuration
 extension HeaderView {
     private func setupView() {
         addSubview(stackView)
+    }
+    
+    private func setupLabel() {
+        countLabel.textColor = .white
+        countLabel.backgroundColor = .black
+        countLabel.layer.masksToBounds = true
+        countLabel.layer.cornerRadius = UIConstraint.countLabelWidth * 0.5
     }
     
     private func setupConstraint() {

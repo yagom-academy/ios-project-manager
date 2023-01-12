@@ -27,6 +27,7 @@ final class ProcessTableView: UITableView {
     }
 }
 
+// MARK: - UI Configuration
 extension ProcessTableView {
     private func setupView() {
         tableHeaderView = headerView
