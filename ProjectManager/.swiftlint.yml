@@ -1,0 +1,23 @@
+included:
+    - ProjectManager
+
+opt_in_rules:
+    - empty_count
+    - empty_string
+    - operator_usage_whitespace
+    - force_unwrapping
+    - closure_spacing
+    - implicitly_unwrapped_optional
+    - private_outlet
+    - private_action
+    - weak_delegate
+    - vertical_whitespace_closing_braces
+
+disabled_rules:
+    - trailing_whitespace
+    - private_over_fileprivate
+
+line_length:
+    warning: 110
+    error: 120
+    ignores_comments: true
