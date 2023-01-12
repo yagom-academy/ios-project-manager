@@ -18,7 +18,8 @@ class HeaderView: UIView {
     
     private let countLabel: CountLabel = {
         let countLabel = CountLabel(padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
-        countLabel.text = "999"
+        countLabel.text = "1,000"
+        countLabel.textAlignment = .center
         countLabel.textColor = .white
         countLabel.backgroundColor = .black
         countLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +47,8 @@ class HeaderView: UIView {
             
             countLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
-            countLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor)
+            countLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 0.8),
+            countLabel.widthAnchor.constraint(greaterThanOrEqualTo: titleLabel.heightAnchor, multiplier: 0.8)
         ])
     }
 }
