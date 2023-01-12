@@ -4,3 +4,8 @@ excluded:
     
 disabled_rules:
     - trailing_whitespace
+
+opt_in_rules:
+    - force_unwrapping
+    
+force_unwrapping: error
