@@ -16,6 +16,7 @@
 		D02B4704296D4794001FD6CC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D02B4703296D4794001FD6CC /* .swiftlint.yml */; };
 		D07C5D1D296D6498001AF867 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D07C5D1C296D6498001AF867 /* GoogleService-Info.plist */; };
 		D07C5D27297012CF001AF867 /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07C5D26297012CF001AF867 /* CellInfo.swift */; };
+		D0E0803329701BE700BCB151 /* MainProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0803229701BE700BCB151 /* MainProjectManagerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		D02B4703296D4794001FD6CC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D07C5D1C296D6498001AF867 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D07C5D26297012CF001AF867 /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
+		D0E0803229701BE700BCB151 /* MainProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProjectManagerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				D0E0803229701BE700BCB151 /* MainProjectManagerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				D0E0803329701BE700BCB151 /* MainProjectManagerView.swift in Sources */,
 				D07C5D27297012CF001AF867 /* CellInfo.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
