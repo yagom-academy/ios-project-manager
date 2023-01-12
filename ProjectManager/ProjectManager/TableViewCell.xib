@@ -11,48 +11,50 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="106" id="KGk-i7-Jjw" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="106"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="117" id="KGk-i7-Jjw" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="106"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="yoR-v5-BaT">
-                        <rect key="frame" x="10" y="5" width="300" height="96"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="HzI-1E-Ojj">
+                        <rect key="frame" x="10" y="5" width="300" height="107"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="타이틀의 기본값입니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOU-tU-Mew">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="24"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nm-ha-u9n">
-                                <rect key="frame" x="0.0" y="27" width="300" height="52"/>
-                                <string key="text">내용의 첫째줄입니다.
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="HiM-iV-lHm">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="79"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="타이틀의 기본값입니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOU-tU-Mew">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="24"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nm-ha-u9n">
+                                        <rect key="frame" x="0.0" y="27" width="300" height="52"/>
+                                        <string key="text">내용의 첫째줄입니다.
 내용의 둘째줄입니다.
 내용의 셋째줄입니다.</string>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" systemColor="systemGrayColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022. 12. 33." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqZ-mx-NsQ">
-                                <rect key="frame" x="0.0" y="82.5" width="300" height="13.5"/>
+                                <rect key="frame" x="0.0" y="93.5" width="300" height="13.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="bqZ-mx-NsQ" firstAttribute="top" secondItem="2nm-ha-u9n" secondAttribute="bottom" constant="10" id="kb3-Tk-Gqj"/>
-                        </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="yoR-v5-BaT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="2g6-LT-hWy"/>
-                    <constraint firstAttribute="trailing" secondItem="yoR-v5-BaT" secondAttribute="trailing" constant="10" id="Zic-BP-kqS"/>
-                    <constraint firstItem="yoR-v5-BaT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ex4-dT-MJQ"/>
-                    <constraint firstAttribute="bottom" secondItem="yoR-v5-BaT" secondAttribute="bottom" constant="5" id="u6R-W7-ehk"/>
+                    <constraint firstAttribute="bottom" secondItem="HzI-1E-Ojj" secondAttribute="bottom" constant="5" id="ZXG-AR-OEo"/>
+                    <constraint firstItem="HzI-1E-Ojj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="bHr-9u-WF4"/>
+                    <constraint firstItem="HzI-1E-Ojj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="dcZ-w5-hpZ"/>
+                    <constraint firstAttribute="trailing" secondItem="HzI-1E-Ojj" secondAttribute="trailing" constant="10" id="pTi-S8-4qF"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -61,7 +63,7 @@
                 <outlet property="descriptionLabel" destination="2nm-ha-u9n" id="I5p-kD-d0M"/>
                 <outlet property="titleLabel" destination="jOU-tU-Mew" id="wdP-jf-HCF"/>
             </connections>
-            <point key="canvasLocation" x="-13.902439024390244" y="-14.745762711864408"/>
+            <point key="canvasLocation" x="-10.24390243902439" y="-23.64406779661017"/>
         </tableViewCell>
     </objects>
     <resources>
