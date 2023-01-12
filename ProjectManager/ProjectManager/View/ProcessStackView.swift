@@ -9,12 +9,13 @@ import UIKit
 
 final class ProcessStackView: UIStackView {
     private enum UIConstraint {
-        static let headerViewHeight = 80.0
-        static let stackViewSpacing = 5.0
+        static let headerViewHeight = 70.0
+        static let headerSectionHeight = 5.0
+        static let stackViewSpacing = 1.0
     }
     
     let headerView: HeaderView
-    let tableView = UITableView(frame: .zero, style: .plain)
+    let tableView = UITableView(frame: .zero, style: .grouped)
     
     private lazy var stackView = UIStackView(
         views: [headerView, tableView],
@@ -28,8 +29,8 @@ final class ProcessStackView: UIStackView {
         headerView = HeaderView(process: process)
         super.init(frame: .zero)
         setupView()
+        setupTableView()
         setupCosntraint()
-        layoutIfNeeded()
     }
     
     required init(coder: NSCoder) {
@@ -43,6 +44,15 @@ extension ProcessStackView {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
+    }
+    
+    private func setupTableView() {
+        tableView.sectionHeaderHeight = UIConstraint.headerSectionHeight
+        tableView.sectionFooterHeight = .zero
+        tableView.register(
+            ProcessTableViewCell.self,
+            forCellReuseIdentifier: ProcessTableViewCell.identifier
+        )
     }
     
     private func setupCosntraint() {

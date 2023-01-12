@@ -50,6 +50,7 @@ extension HeaderView {
     
     private func setupLabel() {
         countLabel.textColor = .white
+        countLabel.textAlignment = .center
         countLabel.backgroundColor = .black
         countLabel.layer.masksToBounds = true
         countLabel.layer.cornerRadius = UIConstraint.countLabelWidth * 0.5
