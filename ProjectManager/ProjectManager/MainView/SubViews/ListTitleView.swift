@@ -19,9 +19,7 @@ struct ListTitleView: View {
         .font(.title3)
         .foregroundColor(.white)
         .padding(10)
-        .background(
-          Circle()
-        )
+        .background(Circle())
       
       Spacer()
     }

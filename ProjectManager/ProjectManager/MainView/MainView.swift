@@ -20,15 +20,16 @@ struct MainView: View {
         )
         
         HStack(spacing: 20) {
-          ForEach(1..<4, id: \.self) { index in
+          ForEach(ProjectState.allCases, id: \.self) { state in
             VStack(spacing: 0) {
-              ListTitleView(title: "TODO", count: 5)
+              ListTitleView(title: state.description, count: 5)
                 .background(Color.secondary)
               // TODO: - List View 생성하기
             }
           }
         }
       }
+      .background(Color.white)
       .navigationBarHidden(true)
     }
     .navigationViewStyle(.stack)
