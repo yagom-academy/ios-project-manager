@@ -1,0 +1,3 @@
+disabled_rules:
+- line_length
+- unused_optional_binding
