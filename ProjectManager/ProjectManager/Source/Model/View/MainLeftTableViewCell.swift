@@ -13,6 +13,23 @@ class MainLeftTableViewCell: UITableViewCell {
     
     static let identifier = "MainLeftTableViewCell"
     
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20)
+        return label
+    }()
+    let bodyLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15)
+        label.textColor = .gray
+        return label
+    }()
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10)
+        return label
+    }()
+    
     // MARK: Initializer
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -27,6 +44,13 @@ class MainLeftTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    // MARK: Internal Methods
+    func configureLabel(title: String, body: String, date: String) {
+        titleLabel.text = title
+        bodyLabel.text = body
+        dateLabel.text = date
     }
 
     // MARK: Private Methods

@@ -25,20 +25,31 @@ final class MainProjectManagerView: UIView {
         stackView.spacing = 5
         return stackView
     }()
-    private let leftTableView: UITableView = {
+    let leftTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(MainLeftTableViewCell.self, forCellReuseIdentifier: MainLeftTableViewCell.identifier)
+        tableView.backgroundColor = .systemGray5
+        tableView.register(
+            MainLeftTableViewCell.self,
+            forCellReuseIdentifier: MainLeftTableViewCell.identifier
+        )
         return tableView
     }()
-    private let centerTableView: UITableView = {
+    let centerTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(MainLeftTableViewCell.self, forCellReuseIdentifier: MainLeftTableViewCell.identifier)
+        tableView.backgroundColor = .systemGray5
+        tableView.register(
+            MainLeftTableViewCell.self,
+            forCellReuseIdentifier: MainLeftTableViewCell.identifier
+        )
         return tableView
     }()
-    
-    private let rightTableView: UITableView = {
+    let rightTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(MainLeftTableViewCell.self, forCellReuseIdentifier: MainLeftTableViewCell.identifier)
+        tableView.backgroundColor = .systemGray5
+        tableView.register(
+            MainLeftTableViewCell.self,
+            forCellReuseIdentifier: MainLeftTableViewCell.identifier
+        )
         return tableView
     }()
     

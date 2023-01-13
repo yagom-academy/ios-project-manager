@@ -10,7 +10,8 @@ class MainViewController: UIViewController {
     
     // MARK: Properties
     
-    private let projectManagerView: MainProjectManagerView = MainProjectManagerView()
+    private let projectManagerView = MainProjectManagerView()
+    private let section: [String] = ["TODO", "DOING", "DONE"]
     
     // MARK: Life Cycle
     
@@ -39,14 +40,54 @@ extension MainViewController: UITableViewDelegate {
 // MARK: - TableViewDataSource
 
 extension MainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch tableView {
+        case projectManagerView.leftTableView:
+            return "TODO"
+        case projectManagerView.centerTableView:
+            return "DOING"
+        case projectManagerView.rightTableView:
+            return "DONE"
+        default:
+            return String()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 10
+        switch tableView {
+        case projectManagerView.leftTableView:
+            return 10
+        case projectManagerView.centerTableView:
+            return 1
+        case projectManagerView.rightTableView:
+            return 5
+        default:
+            return .zero
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MainLeftTableViewCell.identifier, for: indexPath)
-        
-        return cell
+        switch tableView {
+        case projectManagerView.leftTableView:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: MainLeftTableViewCell.identifier,
+                for: indexPath
+            )
+            return cell
+        case projectManagerView.centerTableView:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: MainLeftTableViewCell.identifier,
+                for: indexPath
+            )
+            return cell
+        case projectManagerView.rightTableView:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: MainLeftTableViewCell.identifier,
+                for: indexPath
+            )
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
 }
