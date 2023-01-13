@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 extension UIStackView {
     convenience init(axis: NSLayoutConstraint.Axis = .horizontal,

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4115A8402970EB1F0062A061 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4115A83F2970EB1F0062A061 /* UIView+.swift */; };
 		41656B88296D57F9006BC519 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41656B87296D57F9006BC519 /* GoogleService-Info.plist */; };
 		41656B8B296D5EC6006BC519 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8A296D5EC6006BC519 /* FirebaseFirestore */; };
 		41656B8D296D5EC6006BC519 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8C296D5EC6006BC519 /* FirebaseFirestoreSwift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4115A83F2970EB1F0062A061 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		41656B87296D57F9006BC519 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		418FCF0F296C606300D80D81 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		41E26BEB2970E0F8005E1C94 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			children = (
 				41E26BF32970E392005E1C94 /* UILabel+.swift */,
 				41E26BF62970E54A005E1C94 /* UIStackView+.swift */,
+				4115A83F2970EB1F0062A061 /* UIView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				41E26BEE2970E1B5005E1C94 /* ListView.swift in Sources */,
 				41E26BF42970E392005E1C94 /* UILabel+.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				4115A8402970EB1F0062A061 /* UIView+.swift in Sources */,
 				41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */,
 				41E26BF72970E54A005E1C94 /* UIStackView+.swift in Sources */,
 			);

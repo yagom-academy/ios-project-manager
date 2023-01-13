@@ -8,10 +8,13 @@
 import UIKit
 
 extension UILabel {
-    convenience init(font: UIFont.TextStyle, numberOfLines: Int = 0) {
+    convenience init(font: UIFont.TextStyle,
+                     numberOfLines: Int = 0,
+                     textAlignment: NSTextAlignment = .natural) {
         self.init(frame: .zero)
         self.font = .preferredFont(forTextStyle: font)
         self.numberOfLines = numberOfLines
+        self.textAlignment = textAlignment
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
