@@ -15,7 +15,7 @@ struct BoardView: View {
       NavigationView {
         VStack {
           NavigationTitleView(
-            title: "Project Manager",
+            title: BoardViewNames.titleName,
             trailingImage: Image.plusImage,
             trailingAction: {
               viewStore.send(.didTapPresentEdit)
@@ -24,7 +24,7 @@ struct BoardView: View {
           
           HStack(spacing: 15) {
             ForEach(ProjectState.allCases, id: \.self) { state in
-              VStack(spacing: 0) {
+              VStack(spacing: .zero) {
                 let selectedProject = viewStore.projects.filter { $0.state
                    == state }
                 ListTitleView(title: state.description, count: selectedProject.count)
@@ -48,6 +48,10 @@ struct BoardView: View {
       .navigationViewStyle(.stack)
     }
   }
+}
+
+private enum BoardViewNames {
+  static let titleName: String = "Project Manager"
 }
 
 struct MainView_PreView: PreviewProvider {

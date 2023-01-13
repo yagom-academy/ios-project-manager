@@ -6,18 +6,13 @@
 
 import SwiftUI
 
-extension Image {
-  static let plusImage: Image = Image(systemName: "plus")
-}
-
-// Custom NavigationTitleView
 struct NavigationTitleView: View {
   var title: String
   
   var trailingImage: Image?
   var trailingAction: (() -> Void)? = nil
   
-  var leadingName: String?
+  var leadingImage: Image?
   var leadingAction: (() -> Void)? = nil
   
   var body: some View {
@@ -33,7 +28,8 @@ struct NavigationTitleView: View {
       }
       .padding(.bottom)
       
-      if let trailingImage = trailingImage, let trailingAction = trailingAction {
+      if let trailingImage = trailingImage,
+         let trailingAction = trailingAction {
         HStack {
           Spacer()
           
@@ -47,12 +43,13 @@ struct NavigationTitleView: View {
         .padding([.vertical, .trailing])
       }
       
-      if let leadingName = leadingName, let leadingAction = leadingAction {
+      if let leadingImage = leadingImage,
+         let leadingAction = leadingAction {
         HStack {
           Button {
             leadingAction()
           } label: {
-            Image(systemName: leadingName)
+            leadingImage
           }
           
           Spacer()
