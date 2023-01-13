@@ -9,6 +9,7 @@ import UIKit
 class ListStackView: UIStackView {
     private let titleStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = Constant.spacing
         stackView.alignment = .center
@@ -17,23 +18,22 @@ class ListStackView: UIStackView {
     }()
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "TODO"
         label.font = .preferredFont(forTextStyle: .title1)
         
         return label
     }()
     private let listCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "1"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.backgroundColor = .black
         label.textColor = .white
-        label.layer.cornerRadius = label.frame.width / 2
-        label.layer.masksToBounds = true
         
         return label
     }()
     private let listTableView: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListItemCell.self, forCellReuseIdentifier: ListItemCell.identifier)
         
         return tableView
@@ -55,11 +55,26 @@ class ListStackView: UIStackView {
     
     private func configureLayout() {
         [titleLabel, listCountLabel].forEach(titleStackView.addArrangedSubview(_:))
-        [titleStackView, listTableView].forEach(addArrangedSubview(_:))
+        [titleStackView, listTableView].forEach(addSubview(_:))
+        
+        NSLayoutConstraint.activate([
+            titleStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            titleStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            titleStackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+            titleStackView.bottomAnchor.constraint(equalTo: listTableView.topAnchor, constant: -10),
+            
+            listTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            listTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            listTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            listCountLabel.heightAnchor.constraint(equalToConstant: listCountLabel.frame.height),
+            listCountLabel.widthAnchor.constraint(greaterThanOrEqualTo: listCountLabel.heightAnchor)
+        ])
     }
     
     func configureTableView(dataSource: UITableViewDataSource) {
         listTableView.dataSource = dataSource
+        listTableView.backgroundColor = .clear
     }
 }
 
