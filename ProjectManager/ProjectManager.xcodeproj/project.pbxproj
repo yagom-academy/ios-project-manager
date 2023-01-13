@@ -12,6 +12,9 @@
 		41656B88296D57F9006BC519 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41656B87296D57F9006BC519 /* GoogleService-Info.plist */; };
 		41656B8B296D5EC6006BC519 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8A296D5EC6006BC519 /* FirebaseFirestore */; };
 		41656B8D296D5EC6006BC519 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8C296D5EC6006BC519 /* FirebaseFirestoreSwift */; };
+		417C502129711D7D00CEC6DA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502029711D7D00CEC6DA /* MainViewModel.swift */; };
+		417C502329711E3600CEC6DA /* ProjectProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502229711E3600CEC6DA /* ProjectProcess.swift */; };
+		417C50252971256000CEC6DA /* ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C50242971256000CEC6DA /* ListCellViewModel.swift */; };
 		418FCF10296C606300D80D81 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 418FCF0F296C606300D80D81 /* .swiftlint.yml */; };
 		41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BEB2970E0F8005E1C94 /* Project.swift */; };
 		41E26BEE2970E1B5005E1C94 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BED2970E1B5005E1C94 /* ListView.swift */; };
@@ -30,6 +33,9 @@
 		4115A83F2970EB1F0062A061 /* UIView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView +.swift"; sourceTree = "<group>"; };
 		4115A84229710B800062A061 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		41656B87296D57F9006BC519 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		417C502029711D7D00CEC6DA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		417C502229711E3600CEC6DA /* ProjectProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectProcess.swift; sourceTree = "<group>"; };
+		417C50242971256000CEC6DA /* ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellViewModel.swift; sourceTree = "<group>"; };
 		418FCF0F296C606300D80D81 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		41E26BEB2970E0F8005E1C94 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		41E26BED2970E1B5005E1C94 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -70,10 +76,20 @@
 			path = CustomUI;
 			sourceTree = "<group>";
 		};
+		417C501F29711D5600CEC6DA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				417C502029711D7D00CEC6DA /* MainViewModel.swift */,
+				417C50242971256000CEC6DA /* ListCellViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		41E26BEF2970E1BC005E1C94 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				41E26BEB2970E0F8005E1C94 /* Project.swift */,
+				417C502229711E3600CEC6DA /* ProjectProcess.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -132,6 +148,7 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				417C501F29711D5600CEC6DA /* ViewModel */,
 				41E26BF02970E1C4005E1C94 /* View */,
 				41E26BEF2970E1BC005E1C94 /* Model */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -283,7 +300,10 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				4115A8402970EB1F0062A061 /* UIView +.swift in Sources */,
 				41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */,
+				417C50252971256000CEC6DA /* ListCellViewModel.swift in Sources */,
+				417C502329711E3600CEC6DA /* ProjectProcess.swift in Sources */,
 				41E26BF72970E54A005E1C94 /* UIStackView +.swift in Sources */,
+				417C502129711D7D00CEC6DA /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

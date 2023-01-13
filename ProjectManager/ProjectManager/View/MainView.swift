@@ -53,10 +53,8 @@ class MainView: UIViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier)
                 as? ListCell
             
-            cell?.titleLabel.text = item.title
-            cell?.descriptionLabel.text = item.description
-            cell?.dateLabel.text = item.date.description
-            
+            cell?.setupViews(viewModel: ListCellViewModel(project: item))
+
             return cell
         }
     }

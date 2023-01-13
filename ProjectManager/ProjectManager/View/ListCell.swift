@@ -42,6 +42,12 @@ class ListCell: UITableViewCell {
         ])
     }
     
+    func setupViews(viewModel: ListCellViewModel) {
+        titleLabel.text = viewModel.title
+        descriptionLabel.text = viewModel.description
+        dateLabel.text = viewModel.date
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
