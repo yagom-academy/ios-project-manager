@@ -11,10 +11,8 @@
 
 ## 🌱 소개
 
-`Mangdi`가 만든 `iPad전용 프로젝트 매니저 앱`입니다.
+`Mangdi`가 만든 `iPad전용 프로젝트 매니저 앱`입니다.  
 TODO, DOING, DONE로 각각 할일, 하고있는 일, 완료한 일 세가지 리스트로 구분되며 사용자가 직접 프로젝트(일)들을 관리할수 있습니다.
-<!-- - **KeyWords**
-  -  -->
 
 ## 💻 개발환경 및 라이브러리
 [![swift](https://img.shields.io/badge/swift-5.6-orange)]()
@@ -132,9 +130,9 @@ X
 
 ### STEP 2
 
-- **원하는 스택뷰 그리기**
-UILabel2개로 스택뷰를 구성하여 아래와 같이 구성하고싶었습니다.
-<img width="243" alt="스크린샷 2023-01-13 오후 3 55 21" src="https://user-images.githubusercontent.com/49121469/212256673-069cdb9c-3668-432c-8dea-5b6481512085.png">
+- **원하는 스택뷰 그리기**  
+UILabel2개로 스택뷰를 구성하여 아래와 같이 구성하고싶었습니다.  
+<img width="243" alt="스크린샷 2023-01-13 오후 3 55 21" src="https://user-images.githubusercontent.com/49121469/212256673-069cdb9c-3668-432c-8dea-5b6481512085.png">  
 그런데 Hugging과 Compression priority, 등등 스택뷰요소를 아무리 만져도 위 사진과 같이 구성하기가 쉽지 않았습니다.
 
 |삽질의 기록들||
