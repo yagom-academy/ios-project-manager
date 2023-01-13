@@ -51,13 +51,12 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     private func setupNavigationBar() {
         title = Constant.navigationTitle
-        let appearence = UINavigationBarAppearance()
+        let appearance = UINavigationBarAppearance()
         
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationController?.navigationBar.standardAppearance = appearence
-        navigationController?.navigationBar.scrollEdgeAppearance = appearence
-        
+        appearance.backgroundColor = .systemGray6
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+
         let addBarButton = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
