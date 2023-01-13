@@ -9,7 +9,7 @@ import UIKit
 
 class TodoCustomCell: UITableViewCell {
     let titleLabel = UILabel(fontStyle: .title3, textColor: .label)
-    let bodyLabel = UILabel(fontStyle: .body, numberOfLines: 3, textColor: .systemGray3)
+    let bodyLabel = UILabel(fontStyle: .body, numberOfLines: 3, textColor: .systemGray)
     let dateLabel = UILabel(fontStyle: .caption1, textColor: .label)
     
     let stackView: UIStackView = {
@@ -45,7 +45,7 @@ class TodoCustomCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 4),
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 4),
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 4),
-            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 4)
+            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -4)
         ])
     }
 }

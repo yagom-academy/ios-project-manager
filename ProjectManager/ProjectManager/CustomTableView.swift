@@ -16,6 +16,7 @@ final class CustomTableView: UITableView {
         self.dataSource = self
         
         self.register(TodoCustomCell.self, forCellReuseIdentifier: "TodoCustomCell")
+        self.register(CustomHeaderView.self, forHeaderFooterViewReuseIdentifier: "CustomHeaderView")
     }
     
     required init?(coder: NSCoder) {
@@ -45,5 +46,13 @@ extension CustomTableView: UITableViewDataSource {
 }
 
 extension CustomTableView: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: "CustomHeaderView"
+        ) as? CustomHeaderView else {
+            return UIView()
+        }
+        
+        return view
+    }
 }
