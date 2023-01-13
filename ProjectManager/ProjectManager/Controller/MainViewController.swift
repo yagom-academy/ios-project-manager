@@ -8,7 +8,7 @@ import UIKit
 
 final class MainViewController: UIViewController {
 
-    let navigationBar: UINavigationBar = {
+    private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         let navigationItem = UINavigationItem(title: "Project Manager")
@@ -18,7 +18,7 @@ final class MainViewController: UIViewController {
         return navigationBar
     }()
 
-    let todoTitleLabel: UILabel = {
+    private let todoTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -26,7 +26,7 @@ final class MainViewController: UIViewController {
         return label
     }()
 
-    let todoCountLabel: UILabel = {
+    private let todoCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -39,13 +39,13 @@ final class MainViewController: UIViewController {
         return label
     }()
 
-    let todoEmptyView: UIView = {
+    private let todoEmptyView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    let todoStackView: UIStackView = {
+    private let todoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -58,7 +58,7 @@ final class MainViewController: UIViewController {
         return stackView
     }()
 
-    let doingTitleLabel: UILabel = {
+    private let doingTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -66,7 +66,7 @@ final class MainViewController: UIViewController {
         return label
     }()
 
-    let doingCountLabel: UILabel = {
+    private let doingCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -79,13 +79,13 @@ final class MainViewController: UIViewController {
         return label
     }()
 
-    let doingEmptyView: UIView = {
+    private let doingEmptyView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    let doingStackView: UIStackView = {
+    private let doingStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -98,7 +98,7 @@ final class MainViewController: UIViewController {
         return stackView
     }()
 
-    let doneTitleLabel: UILabel = {
+    private let doneTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -106,7 +106,7 @@ final class MainViewController: UIViewController {
         return label
     }()
 
-    let doneCountLabel: UILabel = {
+    private let doneCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -119,13 +119,13 @@ final class MainViewController: UIViewController {
         return label
     }()
 
-    let doneEmptyView: UIView = {
+    private let doneEmptyView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    let doneStackView: UIStackView = {
+    private let doneStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -138,7 +138,7 @@ final class MainViewController: UIViewController {
         return stackView
     }()
 
-    let firstDividingLineView: UIView = {
+    private let firstDividingLineView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.frame.size.width = 8
@@ -146,7 +146,7 @@ final class MainViewController: UIViewController {
         return view
     }()
 
-    let secondDividingLineView: UIView = {
+    private let secondDividingLineView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.frame.size.width = 8
@@ -154,26 +154,34 @@ final class MainViewController: UIViewController {
         return view
     }()
 
-    let todoCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private let todoCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         return collectionView
     }()
 
-    let doingCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private let doingCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         return collectionView
     }()
 
-    let doneCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    private let doneCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         return collectionView
     }()
+
+    private let todoLists: [TodoModel] = [
+        TodoModel(title: "hi", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "11-11-11"),
+        TodoModel(title: "bye", body: "dd", date: "22-22-22"),
+        TodoModel(title: "asdf", body: "ffff", date: "33-33-33")
+    ]
+
+    private var dataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -196,6 +204,9 @@ final class MainViewController: UIViewController {
         view.addSubview(doneStackView)
         view.addSubview(firstDividingLineView)
         view.addSubview(secondDividingLineView)
+
+        todoCollectionView.delegate = self
+        configureDataSource()
     }
 
     override func viewDidLayoutSubviews() {
@@ -265,18 +276,57 @@ final class MainViewController: UIViewController {
         ])
     }
 
-    private static func collectionViewLayout() -> UICollectionViewLayout {
-        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        configuration.showsSeparators = true
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-        return layout
-    }
-
-//    private func configureDataSource() {
-//        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell>
+//    private static func collectionViewLayout() -> UICollectionViewLayout {
+//        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+//        configuration.showsSeparators = true
+//        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+//        return layout
 //    }
+
+    private static var collectionViewLayout: UICollectionViewCompositionalLayout = {
+        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                heightDimension: .estimated(10))
+        let layoutItem = NSCollectionLayoutItem(layoutSize: layoutSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                               heightDimension: .estimated(10))
+        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                             subitems: [layoutItem])
+        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+        layoutSection.interGroupSpacing = 8
+        let compositionalLayout = UICollectionViewCompositionalLayout(section: layoutSection)
+        return compositionalLayout
+    }()
+
+    private func configureDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
+            var contentConfiguration = TodoContentView.Configutation()
+            guard let todoModel = self?.todoLists.first(where: { todoModel in
+                todoModel.id == itemIdentifier
+            }) else {
+                cell.contentConfiguration = contentConfiguration
+                return
+            }
+
+            contentConfiguration.title = todoModel.title
+            contentConfiguration.body = todoModel.body
+            contentConfiguration.date = todoModel.date
+            cell.contentConfiguration = contentConfiguration
+        }
+
+        dataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: todoCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        })
+
+        var snapshot = NSDiffableDataSourceSnapshot<Int, TodoModel.ID>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(todoLists.map { $0.id }, toSection: 0)
+//        snapshot.reloadItems([todoLists[0].id, todoLists[1].id])
+        dataSource?.apply(snapshot)
+    }
 }
 
-extension MainViewController: UICollectionViewDelegate {
-
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 100
+    }
 }

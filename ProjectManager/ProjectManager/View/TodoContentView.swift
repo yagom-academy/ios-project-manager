@@ -9,9 +9,9 @@ import UIKit
 
 class TodoContentView: UIView, UIContentView {
     struct Configutation: UIContentConfiguration {
-        var title: String
-        var body: String
-        var date: String
+        var title: String?
+        var body: String?
+        var date: String?
 
         func makeContentView() -> UIView & UIContentView {
             return TodoContentView(configuration: self)
@@ -36,6 +36,7 @@ class TodoContentView: UIView, UIContentView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .gray
+        label.numberOfLines = 3
         return label
     }()
 
@@ -53,7 +54,6 @@ class TodoContentView: UIView, UIContentView {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 8
         return stackView
     }()
 
@@ -88,11 +88,14 @@ class TodoContentView: UIView, UIContentView {
         addSubview(stackView)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 32),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16)
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 32)
     }
 
 }
