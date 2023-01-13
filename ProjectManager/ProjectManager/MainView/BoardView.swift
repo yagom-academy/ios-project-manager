@@ -1,0 +1,74 @@
+//
+//  MainView.swift
+//  ProjectManager
+//
+//  Copyright (c) 2023 Minii All rights reserved.
+
+import SwiftUI
+import ComposableArchitecture
+
+struct BoardView: View {
+  let boardReducer: StoreOf<BoardReducer>
+  
+  var body: some View {
+    WithViewStore(boardReducer) { viewStore in
+      NavigationView {
+        VStack {
+          NavigationTitleView(
+            title: "Project Manager",
+            trailingImage: Image.plusImage,
+            trailingAction: {
+              viewStore.send(.didTapPresentEdit)
+            }
+          )
+          
+          HStack(spacing: 15) {
+            ForEach(ProjectState.allCases, id: \.self) { state in
+              VStack(spacing: 0) {
+                let selectedProject = viewStore.projects.filter { $0.state
+                   == state }
+                ListTitleView(title: state.description, count: selectedProject.count)
+                
+                ProjectListView(projects: selectedProject)
+              }
+            }
+          }
+        }
+        .background(Color.white)
+        .navigationBarHidden(true)
+        .sheet(
+          isPresented: viewStore.binding(
+            get: \.isPresentEditView,
+            send: .didDismissEditView
+          )
+        ) {
+          // TODO: - EditView 구성 및 추가
+        }
+      }
+      .navigationViewStyle(.stack)
+    }
+  }
+}
+
+struct MainView_PreView: PreviewProvider {
+  static let store = Store(
+    initialState: BoardReducer.State(),
+    reducer: BoardReducer()
+  )
+  static var previews: some View {
+    if #available(iOS 15.0, *) {
+      BoardView(boardReducer: store)
+        .previewLayout(.sizeThatFits)
+        .previewInterfaceOrientation(.landscapeLeft)
+      
+      BoardView(boardReducer: store)
+        .previewLayout(.sizeThatFits)
+        .previewInterfaceOrientation(.landscapeLeft)
+        .preferredColorScheme(.dark)
+      
+    } else {
+      BoardView(boardReducer: store)
+        .previewLayout(.sizeThatFits)
+    }
+  }
+}

@@ -6,7 +6,7 @@
 
 import Foundation
 
-struct Project: Decodable, Identifiable {
+struct Project: Decodable, Identifiable, Equatable {
   let id: UUID = UUID()
   let title: String
   let date: Int

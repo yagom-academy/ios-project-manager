@@ -61,5 +61,6 @@ struct NavigationTitleView: View {
         .padding()
       }
     }
+    .background(Color.secondaryBackground)
   }
 }
