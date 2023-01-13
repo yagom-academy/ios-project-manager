@@ -9,6 +9,8 @@ import UIKit
 
 class HeaderView: UIView {
 
+    // MARK: - Properties
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 32)
@@ -27,6 +29,8 @@ class HeaderView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    // MARK: - LifeCycle
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +40,8 @@ class HeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Configure
 
     func configureUI() {
         self.backgroundColor = .white
@@ -53,6 +59,8 @@ class HeaderView: UIView {
 
     }
 
+    // MARK: - Setters
+    
     func setTitle(_ title: String) {
         self.titleLabel.text = title
     }
