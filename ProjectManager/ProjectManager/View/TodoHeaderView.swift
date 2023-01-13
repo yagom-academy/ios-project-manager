@@ -53,15 +53,8 @@ final class TodoHeaderView: UITableViewHeaderFooterView {
         ])
     }
     
-    func configureContent(of todoStatus: TodoModel.TodoStatus) {
-        switch todoStatus {
-        case .todo:
-            statusLabel.text = "TODO"
-        case .doing:
-            statusLabel.text = "DOING"
-        case .done:
-            statusLabel.text = "DONE"
-        }
+    func setTitleLabel(with text: String) {
+        statusLabel.text = text
     }
     
     func updateCount(_ count: Int) {

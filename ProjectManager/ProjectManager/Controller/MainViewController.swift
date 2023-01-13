@@ -111,15 +111,9 @@ final class MainViewController: UIViewController {
     }
     
     private func applyAllSnapshot() {
-        applySnapshot(section: TodoSection.todo,
-                      status: TodoModel.TodoStatus.todo,
-                      dataSource: todoDataSource)
-        applySnapshot(section: TodoSection.doing,
-                      status: TodoModel.TodoStatus.doing,
-                      dataSource: doingDataSource)
-        applySnapshot(section: TodoSection.done,
-                      status: TodoModel.TodoStatus.done,
-                      dataSource: doneDataSource)
+        applySnapshot(section: TodoSection.todo, status: TodoModel.TodoStatus.todo, dataSource: todoDataSource)
+        applySnapshot(section: TodoSection.doing, status: TodoModel.TodoStatus.doing, dataSource: doingDataSource)
+        applySnapshot(section: TodoSection.done, status: TodoModel.TodoStatus.done, dataSource: doneDataSource)
     }
     
     private func applySnapshot(section: TodoSection, status: TodoModel.TodoStatus, dataSource: DataSource) {
@@ -142,18 +136,20 @@ extension MainViewController: UITableViewDelegate {
         
         switch tableView {
         case todoTableView:
-            headerView.configureContent(of: TodoModel.TodoStatus.todo)
-            headerView.updateCount(todoModels.filter { $0.status == .todo }.count)
+            requestViewUpdate(to: headerView, status: .todo)
         case doingTableView:
-            headerView.configureContent(of: TodoModel.TodoStatus.doing)
-            headerView.updateCount(todoModels.filter { $0.status == .doing }.count)
+            requestViewUpdate(to: headerView, status: .doing)
         case doneTableView:
-            headerView.configureContent(of: TodoModel.TodoStatus.done)
-            headerView.updateCount(todoModels.filter { $0.status == .done }.count)
+            requestViewUpdate(to: headerView, status: .done)
         default:
             break
         }
         
         return headerView
+    }
+    
+    private func requestViewUpdate(to headerView: TodoHeaderView, status: TodoModel.TodoStatus) {
+        headerView.setTitleLabel(with: status.rawValue)
+        headerView.updateCount(todoModels.filter { $0.status == status }.count)
     }
 }

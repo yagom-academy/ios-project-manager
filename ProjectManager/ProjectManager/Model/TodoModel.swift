@@ -14,9 +14,9 @@ struct TodoModel: Hashable {
     var status: TodoStatus = TodoStatus.todo
     var date: TimeInterval = 0.0
     
-    enum TodoStatus {
-        case todo
-        case doing
-        case done
+    enum TodoStatus: String {
+        case todo = "TODO"
+        case doing = "DOING"
+        case done = "DONE"
     }
 }
