@@ -72,5 +72,7 @@ CoreData를 사용하게 되면, 범용성이 떨어지게 되지만, CloudKit�
 
 ## 🔗 참고 링크
 [SwiftUI에서 MVVM 사용을 멈춰야 하는가?](https://green1229.tistory.com/267)
+
 [MVI 패턴과 어울리는 SwiftUI 화면 이동 라이브러리 만들기](https://www.youtube.com/watch?v=rq8KB21d7jQ&start=298)
+
 [아직도 MVVM? 이젠 MVI 시대](https://sungbin.land/%EC%95%84%EC%A7%81%EB%8F%84-mvvm-%EC%9D%B4%EC%A0%A0-mvi-%EC%8B%9C%EB%8C%80-319990c7d60)
