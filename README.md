@@ -39,7 +39,7 @@
 
 |[Rhovin](https://github.com/yuvinrho)|[som](https://github.com/jsa0224)|
 |:---:|:---:|
-|<img src= width="200" height="200" >|<img src = "https://i.imgur.com/eSlMmiI.png" width=200 height=200>|
+|<img src= "https://i.imgur.com/D38BD86.png" width="200" height="200" >|<img src = "https://i.imgur.com/eSlMmiI.png" width=200 height=200>|
 
 ---
 
