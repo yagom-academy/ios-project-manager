@@ -18,7 +18,6 @@ class ProjectCell: UITableViewCell {
                             alignment: .leading,
                             spacing: 5)
     
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureLayout()
