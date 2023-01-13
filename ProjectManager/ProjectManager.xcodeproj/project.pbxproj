@@ -15,6 +15,7 @@
 		417C502129711D7D00CEC6DA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502029711D7D00CEC6DA /* MainViewModel.swift */; };
 		417C502329711E3600CEC6DA /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502229711E3600CEC6DA /* Process.swift */; };
 		417C50252971256000CEC6DA /* ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C50242971256000CEC6DA /* ListCellViewModel.swift */; };
+		417C502D29716C1700CEC6DA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502C29716C1700CEC6DA /* RegisterViewController.swift */; };
 		418FCF10296C606300D80D81 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 418FCF0F296C606300D80D81 /* .swiftlint.yml */; };
 		41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BEB2970E0F8005E1C94 /* Project.swift */; };
 		41E26BEE2970E1B5005E1C94 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BED2970E1B5005E1C94 /* ListView.swift */; };
@@ -36,6 +37,7 @@
 		417C502029711D7D00CEC6DA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		417C502229711E3600CEC6DA /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		417C50242971256000CEC6DA /* ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellViewModel.swift; sourceTree = "<group>"; };
+		417C502C29716C1700CEC6DA /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		418FCF0F296C606300D80D81 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		41E26BEB2970E0F8005E1C94 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		41E26BED2970E1B5005E1C94 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -85,6 +87,24 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		417C502A29716BDD00CEC6DA /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				41E26BED2970E1B5005E1C94 /* ListView.swift */,
+				41E26BF12970E23B005E1C94 /* ListCell.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		417C502B29716BEA00CEC6DA /* RegisterView */ = {
+			isa = PBXGroup;
+			children = (
+				417C502C29716C1700CEC6DA /* RegisterViewController.swift */,
+			);
+			path = RegisterView;
+			sourceTree = "<group>";
+		};
 		41E26BEF2970E1BC005E1C94 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,9 +117,8 @@
 		41E26BF02970E1C4005E1C94 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				41E26BED2970E1B5005E1C94 /* ListView.swift */,
-				41E26BF12970E23B005E1C94 /* ListCell.swift */,
+				417C502A29716BDD00CEC6DA /* MainView */,
+				417C502B29716BEA00CEC6DA /* RegisterView */,
 				41E26BF52970E39F005E1C94 /* Extension */,
 				4115A84129710B530062A061 /* CustomUI */,
 			);
@@ -300,6 +319,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				4115A8402970EB1F0062A061 /* UIView +.swift in Sources */,
 				41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */,
+				417C502D29716C1700CEC6DA /* RegisterViewController.swift in Sources */,
 				417C50252971256000CEC6DA /* ListCellViewModel.swift in Sources */,
 				417C502329711E3600CEC6DA /* Process.swift in Sources */,
 				41E26BF72970E54A005E1C94 /* UIStackView +.swift in Sources */,

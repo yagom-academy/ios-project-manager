@@ -95,9 +95,10 @@ extension MainViewController {
     
     func setUpNavigationBar() {
         let barButtonAction = UIAction { _ in
-            // 구현예정
-            print("바 버튼 액션동작 확인")
+            self.navigationController?.modalPresentationStyle  = .formSheet
+            self.navigationController?.present(RegisterViewController(), animated: true)
         }
+        
         let barButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
                                         primaryAction: barButtonAction)
         
