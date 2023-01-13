@@ -50,8 +50,6 @@ extension ProcessStackView {
             width: .zero,
             height: UIConstant.headerSectionHeight)
         )
-        tableView.sectionHeaderHeight = UIConstant.headerSectionHeight
-        tableView.sectionFooterHeight = .zero
         tableView.register(
             ProcessTableViewCell.self,
             forCellReuseIdentifier: ProcessTableViewCell.identifier

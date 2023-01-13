@@ -40,11 +40,26 @@ final class ProcessTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.backgroundColor = .white
+        contentView.bounds = contentView.bounds.inset(
+            by: UIEdgeInsets(top: .zero, left: .zero, bottom: 5, right: .zero)
+        )
+    }
+    
+    override func prepareForReuse() {
+        [titleLabel, descriptionLabel, dateLabel].forEach {
+            $0.text = ""
+        }
+    }
 }
 
 // MARK: - UI Configuration
 extension ProcessTableViewCell {
     private func setupView() {
+        backgroundColor = .systemGray5
         contentView.addSubview(stackView)
     }
     
