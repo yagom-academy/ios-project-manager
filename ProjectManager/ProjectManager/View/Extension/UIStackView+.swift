@@ -11,12 +11,14 @@ extension UIStackView {
     convenience init(axis: NSLayoutConstraint.Axis = .horizontal,
                      distribution: UIStackView.Distribution = .fill,
                      alignment: UIStackView.Alignment = .fill,
-                     spacing: CGFloat = 0) {
+                     spacing: CGFloat = 0,
+                     backgroundColor: UIColor = .systemBackground) {
         self.init(frame: .zero)
         self.axis = axis
         self.distribution = distribution
         self.alignment = alignment
         self.spacing = spacing
+        self.backgroundColor = backgroundColor
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

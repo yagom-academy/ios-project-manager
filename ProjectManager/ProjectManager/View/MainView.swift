@@ -13,7 +13,9 @@ class MainView: UIViewController {
     let toDoListView = ListView(title: "TODO")
     let doingListView = ListView(title: "DOING")
     let doneListView = ListView(title: "DONE")
-    let listStack = UIStackView(distribution: .fillEqually, spacing: 10)
+    let listStack = UIStackView(distribution: .fillEqually,
+                                spacing: 5,
+                                backgroundColor: .systemGray4)
     
     var toDoDatasource: DataSource?
     var doingDatasource: DataSource?

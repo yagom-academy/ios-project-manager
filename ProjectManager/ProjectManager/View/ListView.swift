@@ -12,7 +12,9 @@ class ListView: UIView {
     let titleLabel = UILabel(font: .title1, textAlignment: .center)
     let separatorLine = UIView(backgroundColor: .systemGray3)
     let headStack = UIStackView(axis: .vertical, alignment: .leading)
-    let headAndListStack = UIStackView(axis: .vertical, spacing: 10)
+    let headAndListStack = UIStackView(axis: .vertical,
+                                       spacing: 10,
+                                       backgroundColor: .systemGroupedBackground)
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ProjectCell.self, forCellReuseIdentifier: ProjectCell.identifier)
