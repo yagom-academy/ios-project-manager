@@ -10,7 +10,7 @@ final class MainViewController: UIViewController {
     typealias DataSource = UITableViewDiffableDataSource<Int, Todo>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Todo>
     
-    private enum Constant {
+    private enum UIConstant {
         static let navigationTitle = "Project Manager"
         static let tableSpacing = 10.0
         static let bottomValue = -50.0
@@ -30,7 +30,7 @@ final class MainViewController: UIViewController {
         axis: .horizontal,
         alignment: .fill,
         distribution: .fillEqually,
-        spacing: Constant.tableSpacing
+        spacing: UIConstant.tableSpacing
     )
     
     override func viewDidLoad() {
@@ -56,7 +56,7 @@ final class MainViewController: UIViewController {
 // MARK: - UI, TableView Configuration
 extension MainViewController {
     private func setupNavigationBar() {
-        title = Constant.navigationTitle
+        title = UIConstant.navigationTitle
         let appearance = UINavigationBarAppearance()
         
         appearance.backgroundColor = .systemGray6
@@ -90,7 +90,7 @@ extension MainViewController {
             mainStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             mainStackView.bottomAnchor.constraint(
                 equalTo: safeArea.bottomAnchor,
-                constant: Constant.bottomValue
+                constant: UIConstant.bottomValue
             )
         ])
     }

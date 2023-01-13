@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProcessStackView: UIStackView {
-    private enum UIConstraint {
+    private enum UIConstant {
         static let headerViewHeight = 70.0
         static let headerSectionHeight = 7.0
         static let stackViewSpacing = 1.0
@@ -37,7 +37,7 @@ extension ProcessStackView {
         axis = .vertical
         alignment = .fill
         distribution = .fill
-        spacing = UIConstraint.stackViewSpacing
+        spacing = UIConstant.stackViewSpacing
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -48,9 +48,9 @@ extension ProcessStackView {
             x: .zero,
             y: .zero,
             width: .zero,
-            height: UIConstraint.headerSectionHeight)
+            height: UIConstant.headerSectionHeight)
         )
-        tableView.sectionHeaderHeight = UIConstraint.headerSectionHeight
+        tableView.sectionHeaderHeight = UIConstant.headerSectionHeight
         tableView.sectionFooterHeight = .zero
         tableView.register(
             ProcessTableViewCell.self,
@@ -59,10 +59,9 @@ extension ProcessStackView {
     }
     
     private func setupCosntraint() {
-        let safeArea = safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             headerView.widthAnchor.constraint(equalTo: widthAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: UIConstraint.headerViewHeight)
+            headerView.heightAnchor.constraint(equalToConstant: UIConstant.headerViewHeight)
         ])
     }
 }

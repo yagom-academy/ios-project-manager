@@ -8,7 +8,7 @@
 import UIKit
 
 final class HeaderView: UIView {
-    private enum UIConstraint {
+    private enum UIConstant {
         static let countLabelWidth = 30.0
         static let stackViewSpacing = 20.0
         static let topValue = 10.0
@@ -25,7 +25,7 @@ final class HeaderView: UIView {
         axis: .horizontal,
         alignment: .center,
         distribution: .fill,
-        spacing: UIConstraint.stackViewSpacing
+        spacing: UIConstant.stackViewSpacing
     )
     
     init(process: Process) {
@@ -53,7 +53,7 @@ extension HeaderView {
         countLabel.textAlignment = .center
         countLabel.backgroundColor = .black
         countLabel.layer.masksToBounds = true
-        countLabel.layer.cornerRadius = UIConstraint.countLabelWidth * 0.5
+        countLabel.layer.cornerRadius = UIConstant.countLabelWidth * 0.5
     }
     
     private func setupConstraint() {
@@ -61,18 +61,18 @@ extension HeaderView {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(
                 equalTo: safeArea.topAnchor,
-                constant: UIConstraint.topValue
+                constant: UIConstant.topValue
             ),
             stackView.leadingAnchor.constraint(
                 equalTo: safeArea.leadingAnchor,
-                constant: UIConstraint.leadingValue
+                constant: UIConstant.leadingValue
             ),
             stackView.bottomAnchor.constraint(
                 equalTo: safeArea.bottomAnchor,
-                constant: UIConstraint.bottomValue
+                constant: UIConstant.bottomValue
             ),
             
-            countLabel.widthAnchor.constraint(equalToConstant: UIConstraint.countLabelWidth),
+            countLabel.widthAnchor.constraint(equalToConstant: UIConstant.countLabelWidth),
             countLabel.heightAnchor.constraint(equalTo: countLabel.widthAnchor)
         ])
     }
