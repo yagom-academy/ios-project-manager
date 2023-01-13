@@ -17,7 +17,6 @@ struct CustomContentConfiguration: UIContentConfiguration {
     }
     
     func updated(for state: UIConfigurationState) -> Self {
-        <#code#>
+        return self
     }
-
 }
