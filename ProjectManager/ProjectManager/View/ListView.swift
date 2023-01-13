@@ -8,7 +8,7 @@
 import UIKit
 
 class ListView: UIView {
-    let headView = UIView(backgroundColor: .systemGray3)
+    let headView = UIView(backgroundColor: .systemGroupedBackground)
     let titleLabel = UILabel(font: .title1, textAlignment: .center)
     let separatorLine = UIView(backgroundColor: .systemGray3)
     let headStack = UIStackView(axis: .vertical, alignment: .leading)
