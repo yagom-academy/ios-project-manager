@@ -43,15 +43,13 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func addButtonTapped() {
-        let modifyViewController = ModifyViewController()
-        
+        let modifyViewController = AddViewController(procss: .todo)
         modifyViewController.modalPresentationStyle = .formSheet
-        modifyViewController.preferredContentSize = CGSize(
-            width: view.bounds.width / 2,
-            height: view.bounds.height * 0.8
+        
+        let modifyNavigationController = UINavigationController(
+            rootViewController: modifyViewController
         )
-
-        present(modifyViewController, animated: true)
+        present(modifyNavigationController, animated: true)
     }
 }
 
