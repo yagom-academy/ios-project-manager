@@ -8,8 +8,6 @@
 import UIKit
 
 final class CustomTableView: UITableView {
-    var string = String()
-    
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         self.delegate = self
@@ -54,5 +52,18 @@ extension CustomTableView: UITableViewDelegate {
         }
         
         return view
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let actions = UIContextualAction(
+            style: .destructive,
+            title: "Delete"
+        ) { _, _, _ in
+            //TODO: -데이터 삭제
+        }
+        return UISwipeActionsConfiguration(actions: [actions])
     }
 }
