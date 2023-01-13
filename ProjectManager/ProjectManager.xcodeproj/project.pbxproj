@@ -13,6 +13,8 @@
 		EB9B14012971916500D601F1 /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B14002971916500D601F1 /* ProjectListViewController.swift */; };
 		EB9B140329719C0000D601F1 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B140229719C0000D601F1 /* Project.swift */; };
 		EB9B140529719C1A00D601F1 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B140429719C1A00D601F1 /* ProjectState.swift */; };
+		EB9B14082971AD0600D601F1 /* ProjectColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B14072971AD0600D601F1 /* ProjectColor.swift */; };
+		EB9B140A2971AEC800D601F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B14092971AEC800D601F1 /* Constants.swift */; };
 		EBDA9B6E296D376A00568E3B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = EBDA9B6D296D376A00568E3B /* .swiftlint.yml */; };
 		EBDA9B71296D3DF600568E3B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EBDA9B70296D3DF600568E3B /* FirebaseFirestore */; };
 		EBDA9B73296D3DF600568E3B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBDA9B72296D3DF600568E3B /* FirebaseFirestoreSwift */; };
@@ -27,6 +29,8 @@
 		EB9B14002971916500D601F1 /* ProjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
 		EB9B140229719C0000D601F1 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		EB9B140429719C1A00D601F1 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
+		EB9B14072971AD0600D601F1 /* ProjectColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectColor.swift; sourceTree = "<group>"; };
+		EB9B14092971AEC800D601F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EBDA9B6D296D376A00568E3B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +66,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				EB9B14062971AAC100D601F1 /* Common */,
 				EB9B13FF2971913600D601F1 /* Extensions */,
 				EB9B13FC297190F700D601F1 /* Models */,
 				EB9B13FE2971910F00D601F1 /* Controllers */,
@@ -112,6 +117,15 @@
 			children = (
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EB9B14062971AAC100D601F1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				EB9B14092971AEC800D601F1 /* Constants.swift */,
+				EB9B14072971AD0600D601F1 /* ProjectColor.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,7 +231,9 @@
 				EB9B140529719C1A00D601F1 /* ProjectState.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				EB9B14012971916500D601F1 /* ProjectListViewController.swift in Sources */,
+				EB9B140A2971AEC800D601F1 /* Constants.swift in Sources */,
 				EB9B140329719C0000D601F1 /* Project.swift in Sources */,
+				EB9B14082971AD0600D601F1 /* ProjectColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
