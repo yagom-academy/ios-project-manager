@@ -9,13 +9,11 @@ import Foundation
 
 protocol PlanListViewModel {
 
-    var toDoList: [PlanViewModel] { get set }
-    var doingList: [PlanViewModel] { get set }
-    var doneList: [PlanViewModel] { get set }
     init(toDoList: [PlanViewModel], doingList: [PlanViewModel], doneList: [PlanViewModel])
     func bindToDoList(handler: @escaping ([PlanViewModel]) -> Void)
     func bindDoingList(handler: @escaping ([PlanViewModel]) -> Void)
     func bindDoneList(handler: @escaping ([PlanViewModel]) -> Void)
+    func fetchList(of state: PlanState) -> [PlanViewModel]
     func addPlan(plan: Plan)
     func movePlan(to destination: PlanState, from origin: PlanState, index: Int)
     func removePlan(of state: PlanState, index: Int)
@@ -81,7 +79,7 @@ final class ProjectListViewModel: PlanListViewModel {
         return list[index]
     }
 
-    private func fetchList(of state: PlanState) -> [PlanViewModel] {
+    func fetchList(of state: PlanState) -> [PlanViewModel] {
         switch state {
         case .toDo:
             return toDoList
