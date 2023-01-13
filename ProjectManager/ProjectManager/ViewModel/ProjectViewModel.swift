@@ -13,6 +13,7 @@ protocol PlanViewModel {
     var description: String { get }
     var deadlineText: String { get }
     var isOverDue: Bool { get }
+    init(plan: Plan)
     func bindEdit(handler: @escaping (Bool) -> Void)
     func changeEditable(state: Bool)
     func editPlan(title: String, description: String, deadline: Date)

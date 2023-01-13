@@ -7,42 +7,56 @@
 
 import Foundation
 
-final class ProjectListViewModel {
+protocol PlanListViewModel {
 
-    private var toDoList: [ProjectViewModel] {
+    var toDoList: [PlanViewModel] { get set }
+    var doingList: [PlanViewModel] { get set }
+    var doneList: [PlanViewModel] { get set }
+    init(toDoList: [PlanViewModel], doingList: [PlanViewModel], doneList: [PlanViewModel])
+    func bindToDoList(handler: @escaping ([PlanViewModel]) -> Void)
+    func bindDoingList(handler: @escaping ([PlanViewModel]) -> Void)
+    func bindDoneList(handler: @escaping ([PlanViewModel]) -> Void)
+    func addPlan(plan: Plan)
+    func movePlan(to destination: PlanState, from origin: PlanState, index: Int)
+    func removePlan(of state: PlanState, index: Int)
+}
+
+final class ProjectListViewModel: PlanListViewModel {
+
+    var toDoList: [PlanViewModel] {
         didSet {
             toDoListHandler?(toDoList)
         }
     }
-    private var doingList: [ProjectViewModel] {
+    var doingList: [PlanViewModel] {
         didSet {
             doingListHandler?(doingList)
         }
     }
-    private var doneList: [ProjectViewModel] {
+    var doneList: [PlanViewModel] {
         didSet {
             doneListHandler?(doneList)
         }
     }
-    private var toDoListHandler: (([ProjectViewModel]) -> Void)?
-    private var doingListHandler: (([ProjectViewModel]) -> Void)?
-    private var doneListHandler: (([ProjectViewModel]) -> Void)?
+    private var toDoListHandler: (([PlanViewModel]) -> Void)?
+    private var doingListHandler: (([PlanViewModel]) -> Void)?
+    private var doneListHandler: (([PlanViewModel]) -> Void)?
 
-    init(toDoList: [ProjectViewModel], doingList: [ProjectViewModel], doneList: [ProjectViewModel]) {
+    init(toDoList: [PlanViewModel], doingList: [PlanViewModel], doneList: [PlanViewModel]) {
         self.toDoList = toDoList
         self.doingList = doingList
         self.doneList = doneList
     }
 
-    func bindToDoList(handler: @escaping ([ProjectViewModel]) -> Void) {
+    func bindToDoList(handler: @escaping ([PlanViewModel]) -> Void) {
         self.toDoListHandler = handler
     }
 
-    func bindDoingList(handler: @escaping ([ProjectViewModel]) -> Void) {
+    func bindDoingList(handler: @escaping ([PlanViewModel]) -> Void) {
         self.toDoListHandler = handler
     }
 
-    func bindDoneList(handler: @escaping ([ProjectViewModel]) -> Void) {
+    func bindDoneList(handler: @escaping ([PlanViewModel]) -> Void) {
         self.toDoListHandler = handler
     }
 
@@ -59,7 +73,7 @@ final class ProjectListViewModel {
         project.changeState(to: destination)
     }
 
-    private func fetchPlan(of state: PlanState, index: Int) -> ProjectViewModel? {
+    private func fetchPlan(of state: PlanState, index: Int) -> PlanViewModel? {
         let list = fetchList(of: state)
         guard list.isValid(index: index) else {
             return nil
@@ -67,7 +81,7 @@ final class ProjectListViewModel {
         return list[index]
     }
 
-    private func fetchList(of state: PlanState) -> [ProjectViewModel] {
+    private func fetchList(of state: PlanState) -> [PlanViewModel] {
         switch state {
         case .toDo:
             return toDoList
