@@ -61,6 +61,21 @@ final class MainViewController: UIViewController {
         let config = UICollectionLayoutListConfiguration(appearance: .plain)
         collectionView.collectionViewLayout = UICollectionViewCompositionalLayout.list(using: config)
     }
+    
+    private func configureTodoDataSource(for collectionView: UICollectionView) {
+        let cellRegistration = UICollectionView.CellRegistration<CustomListCell, Issue> { (cell, indexPath, item) in
+            cell.item = item
+        }
+        
+        todoDataSource = UICollectionViewDiffableDataSource<Status, Issue>(collectionView: collectionView) {
+            collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                    for: indexPath,
+                                                                    item: itemIdentifier)
+            
+            return cell
+        }
+    }
 }
 
 extension MainViewController {

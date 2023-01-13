@@ -8,7 +8,7 @@
 import UIKit
 
 final class CustomListCell: UICollectionViewListCell {
-    private var item: Issue?
+    var item: Issue?
     
     override func updateConfiguration(using configuration: UICellConfigurationState) {
         var newConfiguration = CustomContentConfiguration().updated(for: configuration)
