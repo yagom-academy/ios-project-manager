@@ -50,6 +50,7 @@ final class MainViewController: UIViewController {
     private lazy var doingDataSource: DataSource = configureDataSource(of: doingTableView)
     private lazy var doneDataSource: DataSource = configureDataSource(of: doneTableView)
     
+    // DB 구현 후, fetchData()를 필터링해 써서 배열을 1개만 둘 예정
     private var todoModels: [TodoModel] = []
     private var doingModels: [TodoModel] = []
     private var doneModels: [TodoModel] = []
@@ -76,9 +77,13 @@ final class MainViewController: UIViewController {
         let tableviews = [todoTableView, doingTableView, doneTableView]
         
         tableviews.forEach {
+            $0.delegate = self
             $0.estimatedRowHeight = 150
             $0.rowHeight = UITableView.automaticDimension
-            $0.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
+            $0.register(TodoTableViewCell.self,
+                        forCellReuseIdentifier: TodoTableViewCell.identifier)
+            $0.register(TodoHeaderView.self,
+                        forHeaderFooterViewReuseIdentifier: TodoHeaderView.identifier)
             tableStackView.addArrangedSubview($0)
         }
         
@@ -129,5 +134,33 @@ final class MainViewController: UIViewController {
         doneSnapshot.appendSections([.done])
         doneSnapshot.appendItems(doneModels)
         self.doneDataSource.apply(doneSnapshot)
+    }
+}
+
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TodoHeaderView.identifier) as? TodoHeaderView else {
+            return UIView()
+        }
+        
+        switch tableView {
+        case todoTableView:
+            headerView.configureContent(of: TodoModel.TodoStatus.todo)
+            headerView.updateCount(todoModels.count)
+        case doingTableView:
+            headerView.configureContent(of: TodoModel.TodoStatus.doing)
+            headerView.updateCount(doingModels.count)
+        case doneTableView:
+            headerView.configureContent(of: TodoModel.TodoStatus.done)
+            headerView.updateCount(doneModels.count)
+        default:
+            break
+        }
+        
+        return headerView
     }
 }

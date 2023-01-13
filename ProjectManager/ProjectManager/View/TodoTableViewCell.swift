@@ -8,7 +8,7 @@
 import UIKit
 
 final class TodoTableViewCell: UITableViewCell {
-    static let identifier = "todoTableViewCell" // 추후 네임 스페이스로 뺄 예정
+    static let identifier = "TodoTableViewCell"
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
