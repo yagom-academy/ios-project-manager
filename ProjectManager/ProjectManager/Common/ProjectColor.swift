@@ -11,6 +11,7 @@ enum ProjectColor {
     case viewBackground
     case collectionViewBackground
     case cellBackground
+    case overdueDate
 
     var color: UIColor {
         switch self {
@@ -20,6 +21,8 @@ enum ProjectColor {
             return UIColor.systemGray6
         case .cellBackground:
             return UIColor.systemBackground
+        case .overdueDate:
+            return UIColor.systemRed
         }
     }
 }

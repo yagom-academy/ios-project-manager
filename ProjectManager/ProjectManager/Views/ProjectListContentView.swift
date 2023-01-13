@@ -8,6 +8,7 @@
 import UIKit
 
 final class ProjectListContentView: UIView, UIContentView {
+    // MARK: - Properties
     private let titleLabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,6 +51,7 @@ final class ProjectListContentView: UIView, UIContentView {
         }
     }
 
+    // MARK: - Configure
     init(configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
@@ -80,6 +82,7 @@ final class ProjectListContentView: UIView, UIContentView {
     }
 }
 
+// MARK: - Configuration
 extension ProjectListContentView {
     struct Configuration: UIContentConfiguration {
         var title: String?
