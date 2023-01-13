@@ -36,6 +36,13 @@ class ListItemCell: UITableViewCell {
         
         return label
     }()
+    private let spacingView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray6
+        
+        return view
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -48,14 +55,28 @@ class ListItemCell: UITableViewCell {
     }
     
     private func configureLayout() {
-        [listTitleLabel, listBodyLabel, dueDateLabel].forEach(cellStackView.addArrangedSubview(_:))
+        [listTitleLabel, listBodyLabel, dueDateLabel].forEach {
+            cellStackView.addArrangedSubview($0)
+        }
+        contentView.addSubview(spacingView)
         contentView.addSubview(cellStackView)
         
         NSLayoutConstraint.activate([
-            cellStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            cellStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            cellStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cellStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            spacingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            spacingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            spacingView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            spacingView.heightAnchor.constraint(equalToConstant: 10),
+            
+            cellStackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 15
+            ),
+            cellStackView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -15
+            ),
+            cellStackView.topAnchor.constraint(equalTo: spacingView.bottomAnchor, constant: 5),
+            cellStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
     }
     
