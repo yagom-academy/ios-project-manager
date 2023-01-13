@@ -145,22 +145,11 @@ final class CountLabel: UILabel {
 - 또한, UILabel은 padding값을 설정하는 프로퍼티가 없기 때문에, `intrinsicContentSize`를 이용하여 padding값을 주도록 커스텀 레이블을 만들어 자연스러운 모양의 동그라미와 캡슐모양을 가지도록 하였습니다.
 
 </details>
-
-#### 💭 어떤 점 고민
-    
-<details>
-<summary> 
-펼쳐보기
-</summary>
-    
-**고민 🤔**
-- 어떻게 고민하였고 어떤 결론을 내렸다
-
-</details>
     
 ## 🔗 참고 링크
 
 [공식문서]
+
 [Swift Package Manager](https://www.swift.org/package-manager/)  
 [intrinsicContentSize](https://developer.apple.com/documentation/uikit/uiview/1622600-intrinsiccontentsize)  
 [Firebase](https://firebase.google.com/docs/ios/swift-package-manager?hl=ko)  
