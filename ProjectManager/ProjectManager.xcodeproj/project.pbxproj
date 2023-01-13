@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4115A8402970EB1F0062A061 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4115A83F2970EB1F0062A061 /* UIView+.swift */; };
+		4115A84329710B800062A061 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4115A84229710B800062A061 /* CircleLabel.swift */; };
 		41656B88296D57F9006BC519 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41656B87296D57F9006BC519 /* GoogleService-Info.plist */; };
 		41656B8B296D5EC6006BC519 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8A296D5EC6006BC519 /* FirebaseFirestore */; };
 		41656B8D296D5EC6006BC519 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8C296D5EC6006BC519 /* FirebaseFirestoreSwift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		4115A83F2970EB1F0062A061 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		4115A84229710B800062A061 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		41656B87296D57F9006BC519 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		418FCF0F296C606300D80D81 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		41E26BEB2970E0F8005E1C94 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -60,6 +62,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4115A84129710B530062A061 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				4115A84229710B800062A061 /* CircleLabel.swift */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
 		41E26BEF2970E1BC005E1C94 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +85,7 @@
 				41E26BED2970E1B5005E1C94 /* ListView.swift */,
 				41E26BF12970E23B005E1C94 /* ProjectCell.swift */,
 				41E26BF52970E39F005E1C94 /* Extension */,
+				4115A84129710B530062A061 /* CustomUI */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -264,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainView.swift in Sources */,
+				4115A84329710B800062A061 /* CircleLabel.swift in Sources */,
 				41E26BF22970E23B005E1C94 /* ProjectCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				41E26BEE2970E1B5005E1C94 /* ListView.swift in Sources */,

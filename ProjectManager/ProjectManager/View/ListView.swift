@@ -10,6 +10,7 @@ import UIKit
 class ListView: UIView {
     let headView = UIView(backgroundColor: .systemGroupedBackground)
     let titleLabel = UILabel(font: .title1, textAlignment: .center)
+    let countLabel = CircleLabel()
     let separatorLine = UIView(backgroundColor: .systemGray3)
     let headStack = UIStackView(axis: .vertical, alignment: .leading)
     let headAndListStack = UIStackView(axis: .vertical,
@@ -32,6 +33,7 @@ class ListView: UIView {
     
     func configureHierarchy() {
         headView.addSubview(titleLabel)
+        headView.addSubview(countLabel)
         
         headStack.addArrangedSubview(headView)
         headStack.addArrangedSubview(separatorLine)
@@ -49,6 +51,10 @@ class ListView: UIView {
             titleLabel.centerXAnchor.constraint(equalTo: headView.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: headView.centerYAnchor),
             titleLabel.heightAnchor.constraint(equalTo: headView.heightAnchor),
+            
+            countLabel.trailingAnchor.constraint(equalTo: headView.trailingAnchor, constant: -40),
+            countLabel.centerYAnchor.constraint(equalTo: headView.centerYAnchor),
+            countLabel.widthAnchor.constraint(greaterThanOrEqualTo: countLabel.heightAnchor),
             
             headStack.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1),
             

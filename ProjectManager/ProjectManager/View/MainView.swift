@@ -35,6 +35,10 @@ class MainView: UIViewController {
         configureLists()
         configureHierarchy()
         configureLayout()
+        
+        setupCountLabel(of: toDoListView)
+        setupCountLabel(of: doingListView)
+        setupCountLabel(of: doneListView)
     }
     
     func configureDataSource() {
@@ -78,6 +82,10 @@ class MainView: UIViewController {
             doneSnapShot.appendItems([data[index]], toSection: index)
         }
         doneDatasource?.apply(self.doneSnapShot)
+    }
+    
+    func setupCountLabel(of list: ListView) {
+        list.countLabel.text = String(list.tableView.numberOfSections)
     }
 }
 
