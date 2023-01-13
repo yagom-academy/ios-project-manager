@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		26720F8629717A8700A26042 /* TodoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F8529717A8700A26042 /* TodoHeaderView.swift */; };
+		26720F882971C5CF00A26042 /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F872971C5CF00A26042 /* ListTableView.swift */; };
 		268E3B4E296EFAA3003BF2AD /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E3B4D296EFAA3003BF2AD /* TodoModel.swift */; };
 		268E3B50296EFD6C003BF2AD /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E3B4F296EFD6C003BF2AD /* TodoTableViewCell.swift */; };
 		269576EB296DB83500F62494 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 269576EA296DB83400F62494 /* GoogleService-Info.plist */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		26720F8529717A8700A26042 /* TodoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHeaderView.swift; sourceTree = "<group>"; };
+		26720F872971C5CF00A26042 /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListTableView.swift; path = ProjectManager/View/ListTableView.swift; sourceTree = SOURCE_ROOT; };
 		268E3B4D296EFAA3003BF2AD /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		268E3B4F296EFD6C003BF2AD /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		269576EA296DB83400F62494 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				268E3B4F296EFD6C003BF2AD /* TodoTableViewCell.swift */,
 				26720F8529717A8700A26042 /* TodoHeaderView.swift */,
+				26720F872971C5CF00A26042 /* ListTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26720F882971C5CF00A26042 /* ListTableView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				26720F8629717A8700A26042 /* TodoHeaderView.swift in Sources */,
 				268E3B4E296EFAA3003BF2AD /* TodoModel.swift in Sources */,

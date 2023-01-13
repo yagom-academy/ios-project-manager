@@ -24,29 +24,9 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private let todoTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGray6
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 150
-        return tableView
-    }()
-    
-    private let doingTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGray6
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 150
-        return tableView
-    }()
-    
-    private let doneTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGray6
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 150
-        return tableView
-    }()
+    private let todoTableView = ListTableView()
+    private let doingTableView = ListTableView()
+    private let doneTableView = ListTableView()
     
     private typealias Snapshot = NSDiffableDataSourceSnapshot<TodoSection, TodoModel>
     
@@ -118,7 +98,7 @@ final class MainViewController: UIViewController {
         ])
     }
     
-    private func configureDataSource(of tableView: UITableView) -> DataSource {
+    private func configureDataSource(of tableView: ListTableView) -> DataSource {
         let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todo in
             let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.identifier,
                                                      for: indexPath) as? TodoTableViewCell
@@ -131,9 +111,15 @@ final class MainViewController: UIViewController {
     }
     
     private func applyAllSnapshot() {
-        applySnapshot(section: TodoSection.todo, status: TodoModel.TodoStatus.todo, dataSource: todoDataSource)
-        applySnapshot(section: TodoSection.doing, status: TodoModel.TodoStatus.doing, dataSource: doingDataSource)
-        applySnapshot(section: TodoSection.done, status: TodoModel.TodoStatus.done, dataSource: doneDataSource)
+        applySnapshot(section: TodoSection.todo,
+                      status: TodoModel.TodoStatus.todo,
+                      dataSource: todoDataSource)
+        applySnapshot(section: TodoSection.doing,
+                      status: TodoModel.TodoStatus.doing,
+                      dataSource: doingDataSource)
+        applySnapshot(section: TodoSection.done,
+                      status: TodoModel.TodoStatus.done,
+                      dataSource: doneDataSource)
     }
     
     private func applySnapshot(section: TodoSection, status: TodoModel.TodoStatus, dataSource: DataSource) {
@@ -146,7 +132,7 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 70
+        return 60
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
