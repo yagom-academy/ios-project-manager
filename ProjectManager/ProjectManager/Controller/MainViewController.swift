@@ -27,18 +27,24 @@ final class MainViewController: UIViewController {
     private let todoTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 150
         return tableView
     }()
     
     private let doingTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 150
         return tableView
     }()
     
     private let doneTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 150
         return tableView
     }()
     
@@ -50,10 +56,22 @@ final class MainViewController: UIViewController {
     private lazy var doingDataSource: DataSource = configureDataSource(of: doingTableView)
     private lazy var doneDataSource: DataSource = configureDataSource(of: doneTableView)
     
-    // DB 구현 후, fetchData()를 필터링해 써서 배열을 1개만 둘 예정
-    private var todoModels: [TodoModel] = []
-    private var doingModels: [TodoModel] = []
-    private var doneModels: [TodoModel] = []
+    // 테스트용 todoModels
+    private var todoModels: [TodoModel] = [TodoModel(title: "todo test1",
+                                                     body: "todo test1",
+                                                     status: .todo),
+                                           TodoModel(title: "todo test1",
+                                                     body: "todo test1\ntodo test1\ntodo test1\ntodo test1",
+                                                     status: .todo),
+                                           TodoModel(title: "doing test1",
+                                                     body: "doing test1",
+                                                     status: .doing),
+                                           TodoModel(title: "done test1",
+                                                     body: "done test1",
+                                                     status: .done),
+                                           TodoModel(title: "done test1",
+                                                     body: "done test1",
+                                                     status: .done)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,19 +92,22 @@ final class MainViewController: UIViewController {
     @objc private func showAddToDoView() {}
     
     private func configureTodoView() {
+        configureTableView()
+        configureLayout()
+    }
+    
+    private func configureTableView() {
         let tableviews = [todoTableView, doingTableView, doneTableView]
         
         tableviews.forEach {
             $0.delegate = self
-            $0.estimatedRowHeight = 150
-            $0.rowHeight = UITableView.automaticDimension
-            $0.register(TodoTableViewCell.self,
-                        forCellReuseIdentifier: TodoTableViewCell.identifier)
-            $0.register(TodoHeaderView.self,
-                        forHeaderFooterViewReuseIdentifier: TodoHeaderView.identifier)
+            $0.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
+            $0.register(TodoHeaderView.self, forHeaderFooterViewReuseIdentifier: TodoHeaderView.identifier)
             tableStackView.addArrangedSubview($0)
         }
-        
+    }
+    
+    private func configureLayout() {
         self.view.addSubview(tableStackView)
         
         NSLayoutConstraint.activate([
@@ -110,36 +131,22 @@ final class MainViewController: UIViewController {
     }
     
     private func applyAllSnapshot() {
-        applyTodoSnapshot()
-        applyDoingSnapshot()
-        applyDoneSnapshot()
+        applySnapshot(section: TodoSection.todo, status: TodoModel.TodoStatus.todo, dataSource: todoDataSource)
+        applySnapshot(section: TodoSection.doing, status: TodoModel.TodoStatus.doing, dataSource: doingDataSource)
+        applySnapshot(section: TodoSection.done, status: TodoModel.TodoStatus.done, dataSource: doneDataSource)
     }
     
-    private func applyTodoSnapshot() {
-        var todoSnapshot = Snapshot()
-        todoSnapshot.appendSections([.todo])
-        todoSnapshot.appendItems(todoModels)
-        self.todoDataSource.apply(todoSnapshot)
-    }
-    
-    private func applyDoingSnapshot() {
-        var doingSnapshot = Snapshot()
-        doingSnapshot.appendSections([.doing])
-        doingSnapshot.appendItems(doingModels)
-        self.doingDataSource.apply(doingSnapshot)
-    }
-    
-    private func applyDoneSnapshot() {
-        var doneSnapshot = Snapshot()
-        doneSnapshot.appendSections([.done])
-        doneSnapshot.appendItems(doneModels)
-        self.doneDataSource.apply(doneSnapshot)
+    private func applySnapshot(section: TodoSection, status: TodoModel.TodoStatus, dataSource: DataSource) {
+        var snapshot = Snapshot()
+        snapshot.appendSections([section])
+        snapshot.appendItems(todoModels.filter{ $0.status == status })
+        dataSource.apply(snapshot)
     }
 }
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 100
+        return 70
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -150,13 +157,13 @@ extension MainViewController: UITableViewDelegate {
         switch tableView {
         case todoTableView:
             headerView.configureContent(of: TodoModel.TodoStatus.todo)
-            headerView.updateCount(todoModels.count)
+            headerView.updateCount(todoModels.filter { $0.status == .todo }.count)
         case doingTableView:
             headerView.configureContent(of: TodoModel.TodoStatus.doing)
-            headerView.updateCount(doingModels.count)
+            headerView.updateCount(todoModels.filter { $0.status == .doing }.count)
         case doneTableView:
             headerView.configureContent(of: TodoModel.TodoStatus.done)
-            headerView.updateCount(doneModels.count)
+            headerView.updateCount(todoModels.filter { $0.status == .done }.count)
         default:
             break
         }
