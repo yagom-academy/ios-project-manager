@@ -14,6 +14,7 @@ final class MainViewController: UIViewController {
         let navigationItem = UINavigationItem(title: "Project Manager")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: MainViewController.self, action: nil)
         navigationBar.items = [navigationItem]
+        navigationBar.barTintColor = UIColor.systemGray6
         return navigationBar
     }()
 
@@ -38,6 +39,12 @@ final class MainViewController: UIViewController {
         return label
     }()
 
+    let todoEmptyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     let todoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +53,7 @@ final class MainViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
+        stackView.backgroundColor = .systemGray5
         stackView.spacing = 8
         return stackView
     }()
@@ -71,6 +79,12 @@ final class MainViewController: UIViewController {
         return label
     }()
 
+    let doingEmptyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     let doingStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -79,6 +93,7 @@ final class MainViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
+        stackView.backgroundColor = .systemGray5
         stackView.spacing = 8
         return stackView
     }()
@@ -104,6 +119,12 @@ final class MainViewController: UIViewController {
         return label
     }()
 
+    let doneEmptyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     let doneStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -112,6 +133,7 @@ final class MainViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
+        stackView.backgroundColor = .systemGray5
         stackView.spacing = 8
         return stackView
     }()
@@ -120,7 +142,7 @@ final class MainViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.frame.size.width = 8
-        view.backgroundColor = .systemGray2
+        view.backgroundColor = .systemGray3
         return view
     }()
 
@@ -128,52 +150,34 @@ final class MainViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.frame.size.width = 8
-        view.backgroundColor = .systemGray2
+        view.backgroundColor = .systemGray3
         return view
     }()
 
     let todoCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .blue
+        collectionView.backgroundColor = .systemGray5
         return collectionView
     }()
 
     let doingCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .cyan
+        collectionView.backgroundColor = .systemGray5
         return collectionView
     }()
 
     let doneCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .green
+        collectionView.backgroundColor = .systemGray5
         return collectionView
-    }()
-
-    let todoEmptyView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    let doingEmptyView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    let doneEmptyView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
 
     init() {
         super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray3
     }
 
     required init?(coder: NSCoder) {
@@ -200,9 +204,6 @@ final class MainViewController: UIViewController {
         todoCountLabel.layer.cornerRadius = todoCountLabel.frame.width / 2
         doingCountLabel.layer.cornerRadius = doingCountLabel.frame.width / 2
         doneCountLabel.layer.cornerRadius = doneCountLabel.frame.width / 2
-        todoStackView.backgroundColor = .brown
-        doingStackView.backgroundColor = .magenta
-        doneStackView.backgroundColor = .orange
         let stackViewWidthSize = (UIScreen.main.bounds.size.width - 16) / 3
         todoStackView.widthAnchor.constraint(equalToConstant: stackViewWidthSize).isActive = true
         doingStackView.widthAnchor.constraint(equalToConstant: stackViewWidthSize).isActive = true
@@ -232,7 +233,7 @@ final class MainViewController: UIViewController {
             todoStackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             todoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 
-            todoCollectionView.topAnchor.constraint(equalTo: todoStackView.bottomAnchor),
+            todoCollectionView.topAnchor.constraint(equalTo: todoStackView.bottomAnchor, constant: 1),
             todoCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             todoCollectionView.trailingAnchor.constraint(equalTo: todoStackView.trailingAnchor),
             todoCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -244,7 +245,7 @@ final class MainViewController: UIViewController {
             doingStackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             doingStackView.leadingAnchor.constraint(equalTo: firstDividingLineView.trailingAnchor),
 
-            doingCollectionView.topAnchor.constraint(equalTo: doingStackView.bottomAnchor),
+            doingCollectionView.topAnchor.constraint(equalTo: doingStackView.bottomAnchor, constant: 1),
             doingCollectionView.leadingAnchor.constraint(equalTo: firstDividingLineView.trailingAnchor),
             doingCollectionView.trailingAnchor.constraint(equalTo: doingStackView.trailingAnchor),
             doingCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -257,7 +258,7 @@ final class MainViewController: UIViewController {
             doneStackView.leadingAnchor.constraint(equalTo: secondDividingLineView.trailingAnchor),
             doneStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            doneCollectionView.topAnchor.constraint(equalTo: doneStackView.bottomAnchor),
+            doneCollectionView.topAnchor.constraint(equalTo: doneStackView.bottomAnchor, constant: 1),
             doneCollectionView.leadingAnchor.constraint(equalTo: secondDividingLineView.trailingAnchor),
             doneCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             doneCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -270,6 +271,10 @@ final class MainViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         return layout
     }
+
+//    private func configureDataSource() {
+//        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell>
+//    }
 }
 
 extension MainViewController: UICollectionViewDelegate {
