@@ -25,11 +25,11 @@ class MainView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        setUpNavigationBar()
         configureDataSource()
         takeSnapShotForToDoList(of: TestModel.todos)
         takeSnapShotForDoingList(of: TestModel.todos)
         takeSnapShotForDoneList(of: TestModel.todos)
-        
         configureLists()
         configureHierarchy()
         configureLayout()
@@ -79,6 +79,22 @@ class MainView: UIViewController {
     }
 }
 
+// MARK: NavigationBar
+extension MainView {
+    func setUpNavigationBar() {
+        let barButtonAction = UIAction { _ in
+            // 구현예정
+            print("바 버튼 액션동작 확인")
+        }
+        let barButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
+                                        primaryAction: barButtonAction)
+        
+        self.navigationController?.navigationBar.topItem?.title = "Project Manager"
+        self.navigationController?.navigationBar.topItem?.setRightBarButton(barButton,
+                                                                            animated: true)
+    }
+}
+
 // MARK: Layout
 extension MainView {
     
@@ -123,5 +139,3 @@ extension MainView: UITableViewDelegate {
         return  UIView()
     }
 }
-
-
