@@ -11,6 +11,8 @@
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		EB9B14012971916500D601F1 /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B14002971916500D601F1 /* ProjectListViewController.swift */; };
+		EB9B140329719C0000D601F1 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B140229719C0000D601F1 /* Project.swift */; };
+		EB9B140529719C1A00D601F1 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B140429719C1A00D601F1 /* ProjectState.swift */; };
 		EBDA9B6E296D376A00568E3B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = EBDA9B6D296D376A00568E3B /* .swiftlint.yml */; };
 		EBDA9B71296D3DF600568E3B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EBDA9B70296D3DF600568E3B /* FirebaseFirestore */; };
 		EBDA9B73296D3DF600568E3B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBDA9B72296D3DF600568E3B /* FirebaseFirestoreSwift */; };
@@ -23,6 +25,8 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB9B14002971916500D601F1 /* ProjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
+		EB9B140229719C0000D601F1 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		EB9B140429719C1A00D601F1 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
 		EBDA9B6D296D376A00568E3B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +86,8 @@
 		EB9B13FC297190F700D601F1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EB9B140229719C0000D601F1 /* Project.swift */,
+				EB9B140429719C1A00D601F1 /* ProjectState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,8 +214,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				EB9B140529719C1A00D601F1 /* ProjectState.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				EB9B14012971916500D601F1 /* ProjectListViewController.swift in Sources */,
+				EB9B140329719C0000D601F1 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
