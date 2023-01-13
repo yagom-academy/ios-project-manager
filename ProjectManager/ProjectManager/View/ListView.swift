@@ -8,6 +8,7 @@
 import UIKit
 
 class ListView: UIView {
+    
     let headView = UIView(backgroundColor: .systemGroupedBackground)
     let titleLabel = UILabel(font: .title1, textAlignment: .center)
     let countLabel = CircleLabel()
@@ -18,7 +19,7 @@ class ListView: UIView {
                                        backgroundColor: .systemGroupedBackground)
     let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(ProjectCell.self, forCellReuseIdentifier: ProjectCell.identifier)
+        tableView.register(ListCell.self, forCellReuseIdentifier: ListCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView

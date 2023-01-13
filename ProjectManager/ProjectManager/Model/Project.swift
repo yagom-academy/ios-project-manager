@@ -15,6 +15,7 @@ struct Project: Hashable {
 }
 
 struct TestModel {
+    
     static let title = "ToDo"
     static let todos = [
         Project(title: "test용 모델 제목 1",

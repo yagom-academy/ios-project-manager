@@ -1,5 +1,5 @@
 //
-//  ProjectCell.swift
+//  ListCell.swift
 //  ProjectManager
 //
 //  Created by 써니쿠키 on 2023/01/13.
@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ProjectCell: UITableViewCell {
+class ListCell: UITableViewCell {
+    
     static let identifier = "projectCell"
     
     var titleLabel = UILabel(font: .title3)
@@ -20,16 +21,19 @@ class ProjectCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureHierarchy()
         configureLayout()
     }
     
-    func configureLayout() {
+    func configureHierarchy() {
         [titleLabel, descriptionLabel, dateLabel].forEach {
             stack.addArrangedSubview($0)
         }
         
         contentView.addSubview(stack)
-        
+    }
+    
+    func configureLayout() {
         NSLayoutConstraint.activate([
             stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),

@@ -7,6 +7,7 @@
 import UIKit
 
 class MainView: UIViewController {
+    
     typealias DataSource = UITableViewDiffableDataSource<Int, Project>
     typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Project>
     
@@ -49,8 +50,8 @@ class MainView: UIViewController {
     
     func generateDataSource(for list: UITableView) -> DataSource {
         return DataSource(tableView: list) { tableView, _, item in
-            let cell = tableView.dequeueReusableCell(withIdentifier: ProjectCell.identifier)
-                as? ProjectCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier)
+                as? ListCell
             
             cell?.titleLabel.text = item.title
             cell?.descriptionLabel.text = item.description
@@ -91,6 +92,7 @@ class MainView: UIViewController {
 
 // MARK: NavigationBar
 extension MainView {
+    
     func setUpNavigationBar() {
         let barButtonAction = UIAction { _ in
             // 구현예정
@@ -129,6 +131,7 @@ extension MainView {
 
 // MARK: UITableViewDelegate
 extension MainView: UITableViewDelegate {
+    
     func configureLists() {
         [toDoListView, doingListView, doneListView].forEach { listView in
             listView.tableView.delegate = self
@@ -137,8 +140,7 @@ extension MainView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let selectedCell = tableView.cellForRow(at: indexPath) else { return }
-        selectedCell.isSelected = false
+        tableView.cellForRow(at: indexPath)?.isSelected = false
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

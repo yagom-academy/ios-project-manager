@@ -1,5 +1,5 @@
 //
-//  UIStackView+.swift
+//  UIStackView +.swift
 //  ProjectManager
 //
 //  Created by 맹선아 on 2023/01/13.
@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIStackView {
+    
     convenience init(axis: NSLayoutConstraint.Axis = .horizontal,
                      distribution: UIStackView.Distribution = .fill,
                      alignment: UIStackView.Alignment = .fill,
