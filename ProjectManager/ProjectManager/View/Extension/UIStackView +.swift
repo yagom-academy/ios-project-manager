@@ -20,6 +20,7 @@ extension UIStackView {
         self.alignment = alignment
         self.spacing = spacing
         self.backgroundColor = backgroundColor
+        self.layoutMargins = layoutMargins
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

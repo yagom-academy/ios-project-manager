@@ -9,9 +9,10 @@ import UIKit
 
 extension UIView {
     
-    convenience init(backgroundColor: UIColor? = .clear ) {
+    convenience init(backgroundColor: UIColor? = .clear, cornerRadius: CGFloat = 0) {
         self.init(frame: .zero)
         self.backgroundColor = backgroundColor
+        self.layer.cornerRadius = cornerRadius
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

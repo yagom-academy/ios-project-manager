@@ -86,7 +86,7 @@ class MainViewController: UIViewController {
     }
     
     func setupCountLabel(of list: ListView) {
-        list.countLabel.text = String(list.tableView.numberOfSections)
+        list.countLabel.text = String(list.tableView.numberOfRows(inSection: 0))
     }
 }
 
@@ -141,6 +141,11 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
+        
+        let view = UIView()
+        view.backgroundColor = .systemBlue
+        view.layer.opacity = 0.3
+        tableView.cellForRow(at: indexPath)?.selectedBackgroundView = view
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

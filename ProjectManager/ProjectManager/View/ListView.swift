@@ -15,10 +15,11 @@ class ListView: UIView {
     let separatorLine = UIView(backgroundColor: .systemGray3)
     let headStack = UIStackView(axis: .vertical, alignment: .leading)
     let headAndListStack = UIStackView(axis: .vertical,
-                                       spacing: 10,
+                                       spacing: 5,
                                        backgroundColor: .systemGroupedBackground)
     let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.separatorStyle = .none
         tableView.register(ListCell.self, forCellReuseIdentifier: ListCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
