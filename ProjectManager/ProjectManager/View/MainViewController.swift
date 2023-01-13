@@ -1,31 +1,23 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - MainViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
 
-class MainView: UIViewController {
+class MainViewController: UIViewController {
     
-    typealias DataSource = UITableViewDiffableDataSource<Int, Project>
-    typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Project>
+    typealias DataSource = UITableViewDiffableDataSource<Section, Project>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, Project>
     
     var viewModel = MainViewModel()
-    
-    let toDoListView = ListView()
-    let doingListView = ListView()
-    let doneListView = ListView()
+    let lists: [ListView] = [ListView(), ListView(), ListView()]
+    var dataSources: [DataSource?] = Array(repeating: nil, count: Process.allCases.count)
+    var snapShots: [SnapShot] = Array(repeating: SnapShot(), count: Process.allCases.count)
     let listStack = UIStackView(distribution: .fillEqually,
                                 spacing: 5,
                                 backgroundColor: .systemGray4)
-    
-    var toDoDatasource: DataSource?
-    var doingDatasource: DataSource?
-    var doneDatasource: DataSource?
-    var toDoSnapShot: SnapShot = SnapShot()
-    var doingSnapShot: SnapShot = SnapShot()
-    var doneSnapShot: SnapShot = SnapShot()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +25,7 @@ class MainView: UIViewController {
         setUpNavigationBar()
         configureDataSource()
         takeSnapShotForToDoList(of: TestModel.todos)
-        takeSnapShotForDoingList(of: TestModel.todos)
+        takeSnapShotForDoingList(of: TestModel.doings)
         takeSnapShotForDoneList(of: TestModel.todos)
         viewModel.setUpInitialData()
         configureLists()
@@ -46,9 +38,9 @@ class MainView: UIViewController {
     }
         
     func configureDataSource() {
-        toDoDatasource = generateDataSource(for: toDoListView.tableView)
-        doingDatasource = generateDataSource(for: doingListView.tableView)
-        doneDatasource = generateDataSource(for: doneListView.tableView)
+        lists.enumerated().forEach { index, listView in
+            dataSources[index] = generateDataSource(for: listView.tableView)
+        }
     }
     
     func generateDataSource(for list: UITableView) -> DataSource {
@@ -63,35 +55,32 @@ class MainView: UIViewController {
     }
     
     func takeSnapShotForToDoList(of data: [Project]) {
-        toDoSnapShot.appendSections(Array(0..<data.count))
-        Array(0..<data.count).forEach { index in
-            toDoSnapShot.appendItems([data[index]], toSection: index)
-        }
-        toDoDatasource?.apply(self.toDoSnapShot)
+        let todoIndex = Process.todo.index
+        
+        snapShots[todoIndex].appendSections([.main])
+        snapShots[todoIndex].appendItems(data, toSection: .main)
+        dataSources[todoIndex]?.apply(self.snapShots[todoIndex])
     }
     
     func takeSnapShotForDoingList(of data: [Project]) {
-        doingSnapShot.appendSections(Array(0..<data.count))
-        Array(0..<data.count).forEach { index in
-            doingSnapShot.appendItems([data[index]], toSection: index)
-        }
-        doingDatasource?.apply(self.doingSnapShot)
+        let doingIndex = Process.doing.index
+        
+        snapShots[doingIndex].appendSections([.main])
+        snapShots[doingIndex].appendItems(data, toSection: .main)
+        dataSources[doingIndex]?.apply(self.snapShots[doingIndex])
     }
     
     func takeSnapShotForDoneList(of data: [Project]) {
-        doneSnapShot.appendSections(Array(0..<data.count))
-        Array(0..<data.count).forEach { index in
-            doneSnapShot.appendItems([data[index]], toSection: index)
-        }
-        doneDatasource?.apply(self.doneSnapShot)
+        let doneIndex = Process.done.index
+
+        snapShots[doneIndex].appendSections([.main])
+        snapShots[doneIndex].appendItems(data, toSection: .main)
+        dataSources[doneIndex]?.apply(self.snapShots[doneIndex])
     }
     
     func setUpListHead() {
-        toDoListView.titleLabel.text = viewModel.todoListTitle
-        doingListView.titleLabel.text = viewModel.doingListTitle
-        doneListView.titleLabel.text = viewModel.doneListTitle
-        
-        [toDoListView, doingListView, doneListView].forEach { listView in
+        lists.enumerated().forEach { index, listView in
+            listView.titleLabel.text = viewModel.processTitles[index]
             setupCountLabel(of: listView)
         }
     }
@@ -102,7 +91,7 @@ class MainView: UIViewController {
 }
 
 // MARK: NavigationBar
-extension MainView {
+extension MainViewController {
     
     func setUpNavigationBar() {
         let barButtonAction = UIAction { _ in
@@ -119,10 +108,10 @@ extension MainView {
 }
 
 // MARK: Layout
-extension MainView {
+extension MainViewController {
     
     func configureHierarchy() {
-        [toDoListView, doingListView, doneListView].forEach {
+        lists.forEach {
             listStack.addArrangedSubview($0)
         }
         
@@ -141,12 +130,12 @@ extension MainView {
 }
 
 // MARK: UITableViewDelegate
-extension MainView: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
     
     func configureLists() {
-        [toDoListView, doingListView, doneListView].forEach { listView in
-            listView.tableView.delegate = self
-            listView.tableView.backgroundColor = .secondarySystemBackground
+        lists.forEach {
+            $0.tableView.delegate = self
+            $0.tableView.backgroundColor = .secondarySystemBackground
         }
     }
     
@@ -161,4 +150,8 @@ extension MainView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return  UIView()
     }
+}
+
+enum Section {
+    case main
 }
