@@ -8,7 +8,9 @@
 import UIKit
 
 final class ProcessTableViewCell: UITableViewCell {
-    private enum UIConstraint {
+    private enum UIConstant {
+        static let titleNumberLine = 1
+        static let descriptionNumberLine = 3
         static let stackViewSpacing = 5.0
         static let topValue = 10.0
         static let bottomValue = -10.0
@@ -25,12 +27,13 @@ final class ProcessTableViewCell: UITableViewCell {
         axis: .vertical,
         alignment: .leading,
         distribution: .fill,
-        spacing: UIConstraint.stackViewSpacing
+        spacing: UIConstant.stackViewSpacing
     )
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
+        setupLabel()
         setupConstraint()
     }
     
@@ -45,24 +48,29 @@ extension ProcessTableViewCell {
         contentView.addSubview(stackView)
     }
     
+    private func setupLabel() {
+        titleLabel.numberOfLines = UIConstant.titleNumberLine
+        descriptionLabel.numberOfLines = UIConstant.descriptionNumberLine
+    }
+    
     private func setupConstraint() {
         let safeArea = contentView.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(
                 equalTo: safeArea.topAnchor,
-                constant: UIConstraint.topValue
+                constant: UIConstant.topValue
             ),
             stackView.leadingAnchor.constraint(
                 equalTo: safeArea.leadingAnchor,
-                constant: UIConstraint.leadingValue
+                constant: UIConstant.leadingValue
             ),
             stackView.trailingAnchor.constraint(
                 equalTo: safeArea.trailingAnchor,
-                constant: UIConstraint.trailingValue
+                constant: UIConstant.trailingValue
             ),
             stackView.bottomAnchor.constraint(
                 equalTo: safeArea.bottomAnchor,
-                constant: UIConstraint.bottomValue
+                constant: UIConstant.bottomValue
             )
         ])
     }
