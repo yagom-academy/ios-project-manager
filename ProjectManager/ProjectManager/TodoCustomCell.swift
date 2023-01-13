@@ -14,9 +14,10 @@ class TodoCustomCell: UITableViewCell {
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.spacing = 4
         stackView.axis = .vertical
-        stackView.alignment = .firstBaseline
-        stackView.distribution = .equalSpacing
+        stackView.alignment = .leading
+        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -36,14 +37,15 @@ class TodoCustomCell: UITableViewCell {
     }
     
     func constraintLayout() {
+        let safeArea = self.safeAreaLayoutGuide
         self.addSubview(stackView)
         [titleLabel, bodyLabel, dateLabel].forEach(stackView.addArrangedSubview(_:))
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 4),
+            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 4),
+            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 4),
+            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 4)
         ])
     }
 }
