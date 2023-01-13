@@ -11,6 +11,7 @@
 		41656B8B296D5EC6006BC519 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8A296D5EC6006BC519 /* FirebaseFirestore */; };
 		41656B8D296D5EC6006BC519 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8C296D5EC6006BC519 /* FirebaseFirestoreSwift */; };
 		418FCF10296C606300D80D81 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 418FCF0F296C606300D80D81 /* .swiftlint.yml */; };
+		41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BEB2970E0F8005E1C94 /* Project.swift */; };
 		A5C18EFAEAF65DB9D5CE16F7 /* libPods-ProjectManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93494D9060542F77E2C2A0FB /* libPods-ProjectManager.a */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		41656B87296D57F9006BC519 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		418FCF0F296C606300D80D81 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		41E26BEB2970E0F8005E1C94 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		88A63D223064AE992482D512 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		93494D9060542F77E2C2A0FB /* libPods-ProjectManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProjectManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +82,7 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				41E26BEB2970E0F8005E1C94 /* Project.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
@@ -224,6 +227,7 @@
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
