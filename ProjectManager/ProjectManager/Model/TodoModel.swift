@@ -11,5 +11,12 @@ struct TodoModel: Hashable {
     let id: UUID = UUID()
     var title: String = ""
     var body: String = ""
+    var status: TodoStatus = TodoStatus.todo
     var date: TimeInterval = 0.0
+    
+    enum TodoStatus {
+        case todo
+        case doing
+        case done
+    }
 }

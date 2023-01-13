@@ -46,9 +46,9 @@ final class MainViewController: UIViewController {
     
     private typealias DataSource = UITableViewDiffableDataSource<TodoSection, TodoModel>
     
-    private lazy var todoDataSource: DataSource = configureDataSource(section: .todo)
-    private lazy var doingDataSource: DataSource = configureDataSource(section: .doing)
-    private lazy var doneDataSource: DataSource = configureDataSource(section: .done)
+    private lazy var todoDataSource: DataSource = configureDataSource(of: todoTableView)
+    private lazy var doingDataSource: DataSource = configureDataSource(of: doingTableView)
+    private lazy var doneDataSource: DataSource = configureDataSource(of: doneTableView)
     
     private var todoModels: [TodoModel] = []
     private var doingModels: [TodoModel] = []
@@ -92,18 +92,7 @@ final class MainViewController: UIViewController {
         ])
     }
     
-    private func configureDataSource(section: TodoSection) -> DataSource {
-        let tableView = {
-            switch section {
-            case .todo:
-                return self.todoTableView
-            case .doing:
-                return self.doingTableView
-            case .done:
-                return self.doneTableView
-            }
-        }()
-        
+    private func configureDataSource(of tableView: UITableView) -> DataSource {
         let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todo in
             let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.identifier,
                                                      for: indexPath) as? TodoTableViewCell
