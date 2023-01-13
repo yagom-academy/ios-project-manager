@@ -7,17 +7,8 @@
 
 import UIKit
 
-class CountLabel: UILabel {
-    private let padding: UIEdgeInsets
-
-    init(padding: UIEdgeInsets) {
-        self.padding = padding
-        super.init(frame: .zero)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+final class CountLabel: UILabel {
+    private let padding = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)

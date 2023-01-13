@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderView: UIView {
+final class HeaderView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
@@ -17,7 +17,7 @@ class HeaderView: UIView {
     }()
     
     private let countLabel: CountLabel = {
-        let countLabel = CountLabel(padding: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+        let countLabel = CountLabel()
         countLabel.text = "1,000"
         countLabel.textAlignment = .center
         countLabel.textColor = .white
