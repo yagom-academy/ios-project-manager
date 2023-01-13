@@ -18,6 +18,9 @@
 		D2400AD4296FFD4300B24E6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */; };
 		D2400AD72970048A00B24E6B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AD52970048A00B24E6B /* TableViewCell.swift */; };
 		D2400AD82970048A00B24E6B /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2400AD62970048A00B24E6B /* TableViewCell.xib */; };
+		D2400AEB2971413900B24E6B /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AEA2971413900B24E6B /* TaskList.swift */; };
+		D2400AED2971422200B24E6B /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AEC2971422200B24E6B /* TaskListViewModel.swift */; };
+		D2400AEF2971422C00B24E6B /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AEE2971422C00B24E6B /* TaskViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,9 @@
 		D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D2400AD52970048A00B24E6B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		D2400AD62970048A00B24E6B /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		D2400AEA2971413900B24E6B /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
+		D2400AEC2971422200B24E6B /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
+		D2400AEE2971422C00B24E6B /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		EFD4DCB7AD44E7D4BF32A078 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,18 +95,53 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				D2400AE9297140C500B24E6B /* Controller */,
+				D2400AE8297140C000B24E6B /* Cells */,
+				D2400AE7297140B400B24E6B /* ViewModel */,
+				D2400AE6297140AA00B24E6B /* Model */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */,
+			);
+			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		D2400AE6297140AA00B24E6B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D2400AEA2971413900B24E6B /* TaskList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D2400AE7297140B400B24E6B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D2400AEC2971422200B24E6B /* TaskListViewModel.swift */,
+				D2400AEE2971422C00B24E6B /* TaskViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D2400AE8297140C000B24E6B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
 				D2400AD52970048A00B24E6B /* TableViewCell.swift */,
 				D2400AD62970048A00B24E6B /* TableViewCell.xib */,
 			);
-			path = ProjectManager;
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D2400AE9297140C500B24E6B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,9 +280,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				D2400AEF2971422C00B24E6B /* TaskViewModel.swift in Sources */,
+				D2400AEB2971413900B24E6B /* TaskList.swift in Sources */,
 				D2400AD72970048A00B24E6B /* TableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				D2400AED2971422200B24E6B /* TaskListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
