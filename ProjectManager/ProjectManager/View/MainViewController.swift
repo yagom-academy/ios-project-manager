@@ -7,7 +7,8 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    typealias DataSource = UITableViewDiffableDataSource<Process, Todo>
+    typealias DataSource = UITableViewDiffableDataSource<Int, Todo>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Todo>
     
     private enum Constant {
         static let navigationTitle = "Project Manager"
@@ -15,6 +16,7 @@ final class MainViewController: UIViewController {
         static let bottomValue = -50.0
     }
     
+    private let viewModel = MainViewModel()
     private let todoView = ProcessStackView(process: .todo)
     private let doingView = ProcessStackView(process: .doing)
     private let doneView = ProcessStackView(process: .done)
@@ -35,7 +37,9 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupView()
+        setupTableView()
         setupConstraint()
+        applyAllSnapshot()
     }
     
     @objc private func addButtonTapped() {
@@ -43,7 +47,7 @@ final class MainViewController: UIViewController {
     }
 }
 
-// MARK: - UI Configuration
+// MARK: - UI, TableView Configuration
 extension MainViewController {
     private func setupNavigationBar() {
         title = Constant.navigationTitle
@@ -60,6 +64,12 @@ extension MainViewController {
             action: #selector(addButtonTapped)
         )
         navigationItem.rightBarButtonItem = addBarButton
+    }
+    
+    private func setupTableView() {
+        [todoView, doingView, doneView].forEach {
+            $0.tableView.delegate = self
+        }
     }
     
     private func setupView() {
@@ -81,7 +91,7 @@ extension MainViewController {
     }
 }
 
-// MARK: - DataSource Configuration
+// MARK: - DataSource, Snapshot Configuration
 extension MainViewController {
     private func configureDataSource(process: Process) -> DataSource {
         let tableView: UITableView
@@ -114,4 +124,31 @@ extension MainViewController {
         }
         return dataSource
     }
+    
+    private func applySnapshot(process: Process, animating: Bool) {
+        var snapshot = Snapshot()
+        let data = viewModel.fetchData(process: process)
+
+        snapshot.appendSections(Array(0..<data.count))
+        Array(0..<data.count).forEach { index in
+            snapshot.appendItems([data[index]], toSection: index)
+        }
+        
+        switch process {
+        case .todo:
+            todoDataSource.apply(snapshot, animatingDifferences: animating)
+        case .doing:
+            doingDataSource.apply(snapshot, animatingDifferences: animating)
+        case .done:
+            doneDataSource.apply(snapshot, animatingDifferences: animating)
+        }
+    }
+    
+    private func applyAllSnapshot() {
+        applySnapshot(process: .todo, animating: true)
+        applySnapshot(process: .doing, animating: true)
+        applySnapshot(process: .done, animating: true)
+    }
 }
+
+extension MainViewController: UITableViewDelegate { }
