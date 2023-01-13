@@ -98,7 +98,7 @@ final class ProjectListViewModel: PlanListViewModel {
         list.remove(at: index)
     }
 
-    private func changeList(of state: PlanState, to list: [ProjectViewModel]) {
+    private func changeList(of state: PlanState, to list: [PlanViewModel]) {
         switch state {
         case .toDo:
             toDoList = list
