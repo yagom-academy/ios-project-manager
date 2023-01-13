@@ -49,6 +49,12 @@ class ListViewController: UIViewController {
                                                             target: self, action: #selector(addTapped))
     }
     
-    @objc func addTapped() { }
+    @objc func addTapped() {
+        let addViewController = AddViewController()
+        let navigationViewController = UINavigationController(rootViewController: addViewController)
+        navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
+        
+        present(navigationViewController, animated: true)
+    }
     
 }
