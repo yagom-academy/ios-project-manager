@@ -31,7 +31,6 @@ final class MainViewController: UIViewController {
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.text = "5"
         label.widthAnchor.constraint(equalTo: label.heightAnchor).isActive = true
-//        label.layer.cornerRadius = label.frame.width / 2
         label.layer.masksToBounds = true
         label.backgroundColor = .black
         label.textColor = .white
@@ -121,7 +120,7 @@ final class MainViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.frame.size.width = 8
-        view.backgroundColor = .gray
+        view.backgroundColor = .systemGray2
         return view
     }()
 
@@ -129,7 +128,7 @@ final class MainViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.frame.size.width = 8
-        view.backgroundColor = .gray
+        view.backgroundColor = .systemGray2
         return view
     }()
 
@@ -152,6 +151,24 @@ final class MainViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .green
         return collectionView
+    }()
+
+    let todoEmptyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    let doingEmptyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    let doneEmptyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     init() {
@@ -189,18 +206,23 @@ final class MainViewController: UIViewController {
         let stackViewWidthSize = (UIScreen.main.bounds.size.width - 16) / 3
         todoStackView.widthAnchor.constraint(equalToConstant: stackViewWidthSize).isActive = true
         doingStackView.widthAnchor.constraint(equalToConstant: stackViewWidthSize).isActive = true
-//        doneStackView.widthAnchor.constraint(equalToConstant: stackViewWidthSize).isActive = true
         firstDividingLineView.widthAnchor.constraint(equalToConstant: 8).isActive = true
         secondDividingLineView.widthAnchor.constraint(equalToConstant: 8).isActive = true
+        todoEmptyView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
+        doingEmptyView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
+        doneEmptyView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
         configureSubViews()
     }
     private func configureSubViews() {
         todoStackView.addArrangedSubview(todoTitleLabel)
         todoStackView.addArrangedSubview(todoCountLabel)
+        todoStackView.addArrangedSubview(todoEmptyView)
         doingStackView.addArrangedSubview(doingTitleLabel)
         doingStackView.addArrangedSubview(doingCountLabel)
+        doingStackView.addArrangedSubview(doingEmptyView)
         doneStackView.addArrangedSubview(doneTitleLabel)
         doneStackView.addArrangedSubview(doneCountLabel)
+        doneStackView.addArrangedSubview(doneEmptyView)
 
         NSLayoutConstraint.activate([
             navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
