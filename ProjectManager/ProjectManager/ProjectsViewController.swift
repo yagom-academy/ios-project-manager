@@ -10,7 +10,19 @@ class ProjectsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        configureUI()
     }
 
+    private func configureUI() {
+        configureTableView()
+    }
+
+    override func loadView() {
+        super.loadView()
+        self.view = ProjectsManageView()
+    }
+
+    private func configureTableView() {
+
+    }
 }
