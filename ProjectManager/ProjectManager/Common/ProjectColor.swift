@@ -10,6 +10,7 @@ import UIKit
 enum ProjectColor {
     case viewBackground
     case collectionViewBackground
+    case cellBackground
 
     var color: UIColor {
         switch self {
@@ -17,6 +18,8 @@ enum ProjectColor {
             return UIColor.systemGray5
         case .collectionViewBackground:
             return UIColor.systemGray6
+        case .cellBackground:
+            return UIColor.systemBackground
         }
     }
 }
