@@ -17,7 +17,7 @@ class TodoCustomCell: UITableViewCell {
         stackView.spacing = 4
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.distribution = .fill
+        stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -37,8 +37,8 @@ class TodoCustomCell: UITableViewCell {
     }
     
     func constraintLayout() {
-        let safeArea = self.safeAreaLayoutGuide
-        self.addSubview(stackView)
+        let safeArea = self.contentView.safeAreaLayoutGuide
+        self.contentView.addSubview(stackView)
         [titleLabel, bodyLabel, dateLabel].forEach(stackView.addArrangedSubview(_:))
         
         NSLayoutConstraint.activate([
