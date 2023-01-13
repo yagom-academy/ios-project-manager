@@ -18,16 +18,24 @@ struct ProjectListView: View {
   }
 }
 
-
 struct ProjectListCellView: View {
   let project: Project
   
   var body: some View {
     HStack {
-      VStack(alignment: .leading) {
+      VStack(alignment: .leading, spacing: 8) {
         Text(project.title)
-        Text("\(Date().description)")
+          .lineLimit(1)
+          .font(.system(size: 26, weight: .bold, design: .default))
+        
         Text(project.description)
+          .lineLimit(3)
+          .font(.system(.subheadline))
+        
+        Text("\(Date().description)")
+          .lineLimit(1)
+          .font(.caption)
+
       }
       
       Spacer()
