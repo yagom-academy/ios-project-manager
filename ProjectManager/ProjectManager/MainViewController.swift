@@ -25,7 +25,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
+        
         autoLayoutSetting()
+        setupNavigationBar()
     }
     
     func autoLayoutSetting() {
@@ -38,5 +40,24 @@ class MainViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func setupNavigationBar() {
+        let rightBarbutton = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(tapAddButton)
+        )
+        
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = rightBarbutton
+        
+    }
+    
+    @objc func tapAddButton() {
+        let modalController = UINavigationController(rootViewController: ModalViewContoller())
+        modalController.modalPresentationStyle = .formSheet
+        
+        self.present(modalController, animated: true, completion: nil)
     }
 }

@@ -15,12 +15,13 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		F645CD9E296D4A9500954025 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F645CD9D296D4A9500954025 /* .swiftlint.yml */; };
 		F67784F9297027F50033E33E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F67784F8297027F50033E33E /* GoogleService-Info.plist */; };
-		F67784FB297028100033E33E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F67784FA297028100033E33E /* FirebaseFirestore */; };
-		F67784FD297028100033E33E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67784FC297028100033E33E /* FirebaseFirestoreSwift */; };
 		F677850129702DDA0033E33E /* TodoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677850029702DDA0033E33E /* TodoCustomCell.swift */; };
 		F677850329702E690033E33E /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677850229702E690033E33E /* UILabel.swift */; };
 		F6F0755C2971038B00856794 /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F0755B2971038B00856794 /* CustomTableView.swift */; };
 		F6F0755E297139BE00856794 /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F0755D297139BE00856794 /* CustomHeaderView.swift */; };
+		F6F07560297192C100856794 /* ModalViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F0755F297192C100856794 /* ModalViewContoller.swift */; };
+		F6F075622971A3FD00856794 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F6F075612971A3FD00856794 /* FirebaseFirestore */; };
+		F6F075642971A40700856794 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F6F075632971A40700856794 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		F677850229702E690033E33E /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		F6F0755B2971038B00856794 /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
 		F6F0755D297139BE00856794 /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		F6F0755F297192C100856794 /* ModalViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewContoller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,8 +50,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				24E4B7E87CD5FF89C69C19BA /* Pods_ProjectManager.framework in Frameworks */,
-				F67784FB297028100033E33E /* FirebaseFirestore in Frameworks */,
-				F67784FD297028100033E33E /* FirebaseFirestoreSwift in Frameworks */,
+				F6F075622971A3FD00856794 /* FirebaseFirestore in Frameworks */,
+				F6F075642971A40700856794 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +92,7 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				F677850429702E710033E33E /* Extension */,
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				F6F0755F297192C100856794 /* ModalViewContoller.swift */,
 				F6F0755B2971038B00856794 /* CustomTableView.swift */,
 				F6F0755D297139BE00856794 /* CustomHeaderView.swift */,
 				F677850029702DDA0033E33E /* TodoCustomCell.swift */,
@@ -137,8 +140,8 @@
 			);
 			name = ProjectManager;
 			packageProductDependencies = (
-				F67784FA297028100033E33E /* FirebaseFirestore */,
-				F67784FC297028100033E33E /* FirebaseFirestoreSwift */,
+				F6F075612971A3FD00856794 /* FirebaseFirestore */,
+				F6F075632971A40700856794 /* FirebaseFirestoreSwift */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -246,6 +249,7 @@
 				F677850129702DDA0033E33E /* TodoCustomCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				F6F0755C2971038B00856794 /* CustomTableView.swift in Sources */,
+				F6F07560297192C100856794 /* ModalViewContoller.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
@@ -456,12 +460,12 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F67784FA297028100033E33E /* FirebaseFirestore */ = {
+		F6F075612971A3FD00856794 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F68C99AF296D601400EE2D63 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		F67784FC297028100033E33E /* FirebaseFirestoreSwift */ = {
+		F6F075632971A40700856794 /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F68C99AF296D601400EE2D63 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
