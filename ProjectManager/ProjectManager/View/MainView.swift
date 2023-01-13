@@ -11,9 +11,11 @@ class MainView: UIViewController {
     typealias DataSource = UITableViewDiffableDataSource<Int, Project>
     typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Project>
     
-    let toDoListView = ListView(title: "TODO")
-    let doingListView = ListView(title: "DOING")
-    let doneListView = ListView(title: "DONE")
+    var viewModel = MainViewModel()
+    
+    let toDoListView = ListView()
+    let doingListView = ListView()
+    let doneListView = ListView()
     let listStack = UIStackView(distribution: .fillEqually,
                                 spacing: 5,
                                 backgroundColor: .systemGray4)
@@ -33,15 +35,16 @@ class MainView: UIViewController {
         takeSnapShotForToDoList(of: TestModel.todos)
         takeSnapShotForDoingList(of: TestModel.todos)
         takeSnapShotForDoneList(of: TestModel.todos)
+        viewModel.setUpInitialData()
         configureLists()
-        configureHierarchy()
-        configureLayout()
-        
-        setupCountLabel(of: toDoListView)
-        setupCountLabel(of: doingListView)
-        setupCountLabel(of: doneListView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setUpListHead()
+        configureHierarchy()
+        configureLayout()
+    }
+        
     func configureDataSource() {
         toDoDatasource = generateDataSource(for: toDoListView.tableView)
         doingDatasource = generateDataSource(for: doingListView.tableView)
@@ -81,6 +84,16 @@ class MainView: UIViewController {
             doneSnapShot.appendItems([data[index]], toSection: index)
         }
         doneDatasource?.apply(self.doneSnapShot)
+    }
+    
+    func setUpListHead() {
+        toDoListView.titleLabel.text = viewModel.todoListTitle
+        doingListView.titleLabel.text = viewModel.doingListTitle
+        doneListView.titleLabel.text = viewModel.doneListTitle
+        
+        [toDoListView, doingListView, doneListView].forEach { listView in
+            setupCountLabel(of: listView)
+        }
     }
     
     func setupCountLabel(of list: ListView) {

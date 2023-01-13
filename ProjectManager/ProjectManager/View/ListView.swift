@@ -25,11 +25,10 @@ class ListView: UIView {
         return tableView
     }()
     
-    init(title: String) {
+    init() {
         super.init(frame: .zero)
         configureHierarchy()
         configureLayout()
-        titleLabel.text = title
     }
     
     func configureHierarchy() {
