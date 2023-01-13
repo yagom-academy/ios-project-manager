@@ -10,13 +10,15 @@
 		24E4B7E87CD5FF89C69C19BA /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70256BEBA9D96DFD4B340822 /* Pods_ProjectManager.framework */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		F645CD9E296D4A9500954025 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F645CD9D296D4A9500954025 /* .swiftlint.yml */; };
 		F67784F9297027F50033E33E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F67784F8297027F50033E33E /* GoogleService-Info.plist */; };
 		F67784FB297028100033E33E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F67784FA297028100033E33E /* FirebaseFirestore */; };
 		F67784FD297028100033E33E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67784FC297028100033E33E /* FirebaseFirestoreSwift */; };
+		F677850129702DDA0033E33E /* TodoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677850029702DDA0033E33E /* TodoCustomCell.swift */; };
+		F677850329702E690033E33E /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677850229702E690033E33E /* UILabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,13 +27,15 @@
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA002B804324C571EA65A5B7 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		F645CD9D296D4A9500954025 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		F67784F8297027F50033E33E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F677850029702DDA0033E33E /* TodoCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCustomCell.swift; sourceTree = "<group>"; };
+		F677850229702E690033E33E /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,13 +84,23 @@
 				F645CD9D296D4A9500954025 /* .swiftlint.yml */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				F677850429702E710033E33E /* Extension */,
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				F677850029702DDA0033E33E /* TodoCustomCell.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				F67784F8297027F50033E33E /* GoogleService-Info.plist */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		F677850429702E710033E33E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F677850229702E690033E33E /* UILabel.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		FE7E8A1D52130CE8B6B7F2BB /* Pods */ = {
@@ -221,7 +235,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				F677850329702E690033E33E /* UILabel.swift in Sources */,
+				F677850129702DDA0033E33E /* TodoCustomCell.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
