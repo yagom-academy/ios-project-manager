@@ -130,7 +130,7 @@ final class MainViewController: UIViewController {
             return label
         }()
         
-        let countLabel = CountLabel(frame: .zero, textCount: createCountLabelText(count: count))
+        let countLabel = CountLabel(frame: .zero, issueCount: count)
         
         headerView.addArrangedSubview(titleLabel)
         headerView.addArrangedSubview(countLabel)
@@ -142,10 +142,6 @@ final class MainViewController: UIViewController {
         ])
         
         return headerView
-    }
-    
-    private func createCountLabelText(count: Int) -> String {
-        return count > Namespace.maxCount ? "\(Namespace.maxCount)+" : count.description
     }
     
     private func configureCollectionStackView() {
@@ -236,7 +232,6 @@ extension MainViewController {
     enum Namespace {
         static let navigationTitle = "Project Manager"
         static let plusImage = "plus"
-        static let maxCount = 99
     }
     
     enum LayoutConstant {

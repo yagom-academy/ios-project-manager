@@ -12,9 +12,10 @@ final class CountLabel: UILabel {
         super.init(frame: frame)
     }
     
-    convenience init(frame: CGRect, textCount: String) {
+    convenience init(frame: CGRect, issueCount: Int) {
         self.init(frame: frame)
-        self.text = textCount
+        self.text = (issueCount > Namespace.maxCount ?
+                     "\(Namespace.maxCount)+" : issueCount.description)
         font = .preferredFont(forTextStyle: .headline)
         backgroundColor = .systemFill
         textAlignment = .center
@@ -29,5 +30,9 @@ final class CountLabel: UILabel {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         layer.cornerRadius = bounds.size.height * 0.5
+    }
+    
+    enum Namespace {
+        static let maxCount = 99
     }
 }
