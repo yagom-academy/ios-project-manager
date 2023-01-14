@@ -22,8 +22,8 @@ class ListStackView: UIStackView {
         
         return label
     }()
-    private let listCountLabel: UILabel = {
-        let label = UILabel()
+    private let listCountLabel: EllipseLabel = {
+        let label = EllipseLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.backgroundColor = .black
