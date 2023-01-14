@@ -8,8 +8,11 @@
 import UIKit
 
 final class CustomTableView: UITableView {
-    override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
+    var title: String
+    
+    init(title: String) {
+        self.title = title
+        super.init(frame: .zero, style: .plain)
         
         self.register(TodoCustomCell.self, forCellReuseIdentifier: "TodoCustomCell")
         self.register(CustomHeaderView.self, forHeaderFooterViewReuseIdentifier: "CustomHeaderView")

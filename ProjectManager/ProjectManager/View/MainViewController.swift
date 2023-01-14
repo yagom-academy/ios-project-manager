@@ -8,9 +8,9 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    let todoTableView = CustomTableView()
-    let doingTableView = CustomTableView()
-    let doneTableView = CustomTableView()
+    let todoTableView = CustomTableView(title: "TODO")
+    let doingTableView = CustomTableView(title: "DOING")
+    let doneTableView = CustomTableView(title: "DONE")
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -26,12 +26,10 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
         
-        todoTableView.delegate = self
-        todoTableView.dataSource = self
-        doingTableView.delegate = self
-        doingTableView.dataSource = self
-        doneTableView.delegate = self
-        doneTableView.dataSource = self
+        [todoTableView, doingTableView, doneTableView].forEach {
+            $0.delegate = self
+            $0.dataSource = self
+        }
         
         autoLayoutSetting()
         setupNavigationBar()
@@ -69,7 +67,7 @@ class MainViewController: UIViewController {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let view = tableView.dequeueReusableHeaderFooterView(
@@ -77,6 +75,9 @@ extension MainViewController: UITableViewDelegate {
         ) as? CustomHeaderView else {
             return UIView()
         }
+        
+        guard let table = tableView as? CustomTableView else { return UIView() }
+        view.titleLabel.text = table.title
         
         return view
     }
@@ -89,18 +90,17 @@ extension MainViewController: UITableViewDelegate {
             style: .destructive,
             title: "Delete"
         ) { _, _, _ in
-            //TODO: -데이터 삭제
+            // TODO: -데이터 삭제
         }
         return UISwipeActionsConfiguration(actions: [actions])
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // TODO: -Cell확인
