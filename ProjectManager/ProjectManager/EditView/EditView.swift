@@ -8,11 +8,21 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ProjectEditView: View {
+  @State var title: String = ""
   var body: some View {
     NavigationView {
       VStack {
-        Text("Project EditView")
+        HStack {
+          TextField("Title", text: $title)
+            .textFieldStyle(.plain)
+            .padding(20)
+            .background(Color.secondaryBackground)
+            .cornerRadius(10)
+            .shadow(color: .secondary, radius: 10, y: 10)
+        }
+        
       }
+      .padding(10)
       .navigationTitle("TODO")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
