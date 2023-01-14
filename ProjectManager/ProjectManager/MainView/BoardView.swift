@@ -43,6 +43,7 @@ struct BoardView: View {
           )
         ) {
           // TODO: - EditView 구성 및 추가
+          ProjectEditView()
         }
       }
       .navigationViewStyle(.stack)
