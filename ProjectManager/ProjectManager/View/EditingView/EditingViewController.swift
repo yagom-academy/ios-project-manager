@@ -8,7 +8,8 @@
 import UIKit
 
 class EditingViewController: UIViewController {
-    let process: Process
+    
+    var viewModel: EditingViewModel
     
     let titleField: UITextField = {
         let field = UITextField(font: .headline, placeHolder: "Title")
@@ -39,20 +40,20 @@ class EditingViewController: UIViewController {
     
     let stack = UIStackView(axis: .vertical, spacing: 10)
     
-    init(process: Process) {
-        self.process = process
+    init(viewModel: EditingViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        configureHierarchy()
-        configureLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        view.backgroundColor = .systemBackground
+        configureHierarchy()
+        configureLayout()
         setupNavigationBar()
     }
     
@@ -81,23 +82,34 @@ class EditingViewController: UIViewController {
     func setupNavigationBar() {
         let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0,
                                                           width: view.frame.width, height: 70))
-        let navigationItem = UINavigationItem(title: process.title)
-        let doneAction = UIAction { _ in
-            // 구현예정
-            print("등록버튼 클릭")
-        }
-        let cancelAction = UIAction { _ in
-            // 구현예정
-            print("취소버튼 클릭")
-        }
-        
+        let navigationItem = UINavigationItem(title: viewModel.processTitle)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel",
-                                                           primaryAction: cancelAction)
+                                                           primaryAction: generateCancelAction())
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
-                                                            primaryAction: doneAction)
+                                                            primaryAction: generateDoneAction())
         navigationBar.items = [navigationItem]
         navigationBar.isTranslucent = false
         view.addSubview(navigationBar)
+    }
+    
+    func generateDoneAction() -> UIAction {
+        return UIAction { [weak self] _ in
+            guard let self = self else { return }
+            
+            self.viewModel.doneEditing(titleInput: self.titleField.text,
+                                       descriptionInput: self.descriptionTextView.text,
+                                       dateInput: self.dataPicker.date)
+            
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func generateCancelAction() -> UIAction {
+        return UIAction { [weak self] _ in
+            guard let self = self else { return }
+            
+            self.dismiss(animated: true)
+        }
     }
     
     required init?(coder: NSCoder) {

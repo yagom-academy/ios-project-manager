@@ -24,11 +24,20 @@ class MainViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setUpNavigationBar()
         configureDataSource()
-        takeSnapShotForToDoList(of: TestModel.todos)
-        takeSnapShotForDoingList(of: TestModel.doings)
-        takeSnapShotForDoneList(of: TestModel.todos)
-        viewModel.setUpInitialData()
+        takeSnapShotForToDoList(of: viewModel.todoData)
+        takeSnapShotForDoingList(of: viewModel.doingData)
+        takeSnapShotForDoneList(of: viewModel.doneData)
         configureLists()
+        bindingToDoData()
+    }
+    
+    func bindingToDoData() {
+        viewModel.updateTodoData = { [weak self] data in
+            guard let self = self,
+                    var snapShot = self.dataSources[0]?.snapshot() else { return }
+            snapShot.appendItems(data)
+            self.dataSources[0]?.apply(snapShot)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,9 +103,13 @@ class MainViewController: UIViewController {
 extension MainViewController {
     
     func setUpNavigationBar() {
-        let barButtonAction = UIAction { _ in
-            let editViewController = EditingViewController(process: .todo)
+        let barButtonAction = UIAction { [weak self] _ in
+            guard let self = self else { return }
+            
+            let editingViewModel = EditingViewModel(editTargetModel: self.viewModel)
+            let editViewController = EditingViewController(viewModel: editingViewModel)
             editViewController.modalPresentationStyle = .formSheet
+            
             self.navigationController?.present(editViewController, animated: true)
         }
         
