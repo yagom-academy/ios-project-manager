@@ -40,6 +40,7 @@ class ProjectListViewController: UIViewController {
         configureNavigationItem()
         configureSubViewsArray()
         configureCollectionViews()
+        configureLongPressGestureRecognizerOnCollectionView()
         configureDataSources()
         configureHierarchy()
         configureSampleData()
@@ -101,11 +102,24 @@ class ProjectListViewController: UIViewController {
         }
     }
 
+    private func configureLongPressGestureRecognizerOnCollectionView() {
+        collectionViews.forEach { collectionView in
+            let gestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                                 action: #selector(didLongPress))
+            gestureRecognizer.minimumPressDuration = Constants.collectionViewMinimumPressDuration
+            gestureRecognizer.delegate = self
+            gestureRecognizer.delaysTouchesBegan = true
+            collectionView.addGestureRecognizer(gestureRecognizer)
+        }
+    }
+
     private func configureDataSources() {
         collectionViews.forEach { collectionView in
             let cellRegistration = UICollectionView.CellRegistration(handler: makeCellRegistrationHandler)
             let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
-                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                    for: indexPath,
+                                                                    item: itemIdentifier)
             }
             dataSources.append(dataSource)
         }
@@ -217,7 +231,7 @@ extension ProjectListViewController {
     }
 }
 
-// MARK: - Actions
+// MARK: - AddButton Action
 extension ProjectListViewController {
     @objc
     private func didPressAddButton(_ sender: UIBarButtonItem) {
@@ -253,5 +267,55 @@ extension ProjectListViewController: UICollectionViewDelegate {
         }
         let navigationController = UINavigationController(rootViewController: projectDetailViewController)
         present(navigationController, animated: true)
+    }
+}
+
+// MARK: - GestureRecognizerDelegate
+extension ProjectListViewController: UIGestureRecognizerDelegate {
+    @objc
+    private func didLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        guard let collectionView = gestureRecognizer.view as? UICollectionView else { return }
+        if gestureRecognizer.state == .began {
+            let locationInGestureRecognizer = gestureRecognizer.location(in: gestureRecognizer.view)
+            guard let indexPath = collectionView.indexPathForItem(at: locationInGestureRecognizer),
+                  let dataSource = collectionView.dataSource as? DataSource,
+                  let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
+                  let project = project(for: itemIdentifier) else { return }
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            makeAlertActionsToMoveState(for: project).forEach(alertController.addAction(_:))
+            guard let popover = alertController.popoverPresentationController else { return }
+            popover.sourceView = view
+            let locationInView = gestureRecognizer.location(in: self.view)
+            popover.sourceRect = CGRect(x: locationInView.x, y: locationInView.y, width: 75, height: 75)
+            present(alertController, animated: true)
+        }
+    }
+
+    private func makeAlertActionsToMoveState(for project: Project) -> [UIAlertAction] {
+        var actions: [UIAlertAction] = []
+        switch project.state {
+        case .todo:
+            actions.append(makeAlertActionToMoveState(for: project, toState: .doing))
+            actions.append(makeAlertActionToMoveState(for: project, toState: .done))
+        case .doing:
+            actions.append(makeAlertActionToMoveState(for: project, toState: .todo))
+            actions.append(makeAlertActionToMoveState(for: project, toState: .done))
+        case .done:
+            actions.append(makeAlertActionToMoveState(for: project, toState: .todo))
+            actions.append(makeAlertActionToMoveState(for: project, toState: .doing))
+        }
+        return actions
+    }
+
+    private func makeAlertActionToMoveState(for project: Project, toState: ProjectState) -> UIAlertAction {
+        let actionTitle = "Move to " + String(describing: toState)
+        let action = UIAlertAction(title: actionTitle, style: .default) { [weak self] _ in
+            var modifiedProject = project
+            modifiedProject.state = toState
+            self?.update(project: modifiedProject)
+            self?.updateSnapshot([modifiedProject.id])
+            self?.updateProjectHeaderViewText()
+        }
+        return action
     }
 }

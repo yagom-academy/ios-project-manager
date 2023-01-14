@@ -17,4 +17,5 @@ struct Constants {
     static let borderWidth = CGFloat(0.1)
     static let descriptionTextViewMaxTextLength = 1000
     static let itemCountLabelMaxCount = 99
+    static let collectionViewMinimumPressDuration = 0.5
 }
