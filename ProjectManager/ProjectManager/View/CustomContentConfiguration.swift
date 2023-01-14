@@ -2,7 +2,7 @@
 //  CustomContentConfiguration.swift
 //  ProjectManager
 //
-//  Created by Jiyoung Lee on 2023/01/13.
+//  Created by summercat on 2023/01/13.
 //
 
 import UIKit
