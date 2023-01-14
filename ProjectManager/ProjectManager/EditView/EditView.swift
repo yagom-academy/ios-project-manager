@@ -48,9 +48,9 @@ struct ProjectEditView: View {
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading) {
           Button {
-            // TODO: - Edit Button 액션 구현
+            canEdit.toggle()
           } label: {
-            Text("Edit")
+            Text(canEdit ? "Apply" : "Edit")
           }
         }
         
