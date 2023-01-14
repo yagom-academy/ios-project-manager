@@ -1,12 +1,12 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - MainViewController.swift
 //  Created by yagom.
 //  Copyright © yagom. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     private let totalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 10
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension ViewController: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listItems.count
     }
