@@ -32,17 +32,17 @@ class MainViewController: UIViewController {
     }
         
     func configureDataSource() {
-        lists.enumerated().forEach { index, listView in
-            dataSources[index] = generateDataSource(for: listView.tableView)
+        Process.allCases.forEach { process in
+            dataSources[process.index] = generateDataSource(process: process)
         }
     }
     
-    func generateDataSource(for list: UITableView) -> DataSource {
-        return DataSource(tableView: list) { tableView, _, item in
+    func generateDataSource(process: Process) -> DataSource {
+        return DataSource(tableView: lists[process.index].tableView) { tableView, _, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier)
                 as? ListCell
             
-            cell?.setupViews(viewModel: ListCellViewModel(project: item))
+            cell?.setupViews(process: process, viewModel: ListCellViewModel(project: item))
 
             return cell
         }

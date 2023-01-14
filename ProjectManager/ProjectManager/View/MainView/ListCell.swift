@@ -12,7 +12,7 @@ class ListCell: UITableViewCell {
     static let identifier = "projectCell"
     
     var titleLabel = UILabel(font: .title3)
-    var descriptionLabel = UILabel(font: .body, numberOfLines: 3)
+    var descriptionLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
     var dateLabel = UILabel(font: .body, numberOfLines: 0)
     var totalView = UIView(backgroundColor: .tertiarySystemBackground, cornerRadius: 10)
     var stack = UIStackView(axis: .vertical,
@@ -51,10 +51,16 @@ class ListCell: UITableViewCell {
         ])
     }
     
-    func setupViews(viewModel: ListCellViewModel) {
+    func setupViews(process: Process, viewModel: ListCellViewModel) {
         titleLabel.text = viewModel.title
         descriptionLabel.text = viewModel.description
         dateLabel.text = viewModel.date
+        
+        guard viewModel.isMissDeadLine == false,
+              process != .done else {
+            dateLabel.textColor = .red
+            return
+        }
     }
     
     required init?(coder: NSCoder) {
