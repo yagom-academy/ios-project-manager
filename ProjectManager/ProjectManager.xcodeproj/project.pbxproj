@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		091AA9FD296ED42900AC71AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 091AA9FC296ED42900AC71AB /* .swiftlint.yml */; };
+		09C816C2297293CE00DC54D2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C816C1297293CD00DC54D2 /* DetailViewController.swift */; };
 		09CCB2A3296FAB94001F5F28 /* TodoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CCB2A2296FAB94001F5F28 /* TodoContentView.swift */; };
 		09D2D7DB2971AB7500571B7B /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D2D7DA2971AB7500571B7B /* TodoModel.swift */; };
 		6C209BACEF2B108233DCF507 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 473F1A1A0E258DBBBB009A24 /* Pods_ProjectManager.framework */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		091AA9FC296ED42900AC71AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		09C816C1297293CD00DC54D2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		09CCB2A2296FAB94001F5F28 /* TodoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoContentView.swift; sourceTree = "<group>"; };
 		09D2D7DA2971AB7500571B7B /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		473F1A1A0E258DBBBB009A24 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				09C816C1297293CD00DC54D2 /* DetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				09CCB2A3296FAB94001F5F28 /* TodoContentView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				09C816C2297293CE00DC54D2 /* DetailViewController.swift in Sources */,
 				09D2D7DB2971AB7500571B7B /* TodoModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);

@@ -8,11 +8,12 @@ import UIKit
 
 final class MainViewController: UIViewController {
 
-    private let navigationBar: UINavigationBar = {
+    // 왜 lazy로 선언해야하며, target: self를 쓸때 경고가 발생하는가
+    private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         let navigationItem = UINavigationItem(title: "Project Manager")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: MainViewController.self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewTodo))
         navigationBar.items = [navigationItem]
         navigationBar.barTintColor = UIColor.systemGray6
         return navigationBar
@@ -181,7 +182,9 @@ final class MainViewController: UIViewController {
         TodoModel(title: "asdf", body: "ffff", date: "33-33-33")
     ]
 
-    private var dataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
+    private var todoDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
+    private var doingDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
+    private var doneDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -205,7 +208,6 @@ final class MainViewController: UIViewController {
         view.addSubview(firstDividingLineView)
         view.addSubview(secondDividingLineView)
 
-        todoCollectionView.delegate = self
         configureDataSource()
     }
 
@@ -313,20 +315,37 @@ final class MainViewController: UIViewController {
             cell.contentConfiguration = contentConfiguration
         }
 
-        dataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: todoCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+        todoDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: todoCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
 
+        doingDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doingCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        })
+
+        doneDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doneCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        })
+
+        updateSnapshot()
+    }
+
+    private func updateSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Int, TodoModel.ID>()
         snapshot.appendSections([0])
         snapshot.appendItems(todoLists.map { $0.id }, toSection: 0)
 //        snapshot.reloadItems([todoLists[0].id, todoLists[1].id])
-        dataSource?.apply(snapshot)
+        todoDataSource?.apply(snapshot)
+        doingDataSource?.apply(snapshot)
+        doneDataSource?.apply(snapshot)
     }
 }
 
-extension MainViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 100
+// MARK: - Objc
+extension MainViewController {
+    @objc private func addNewTodo() {
+        let detailViewController = DetailViewController()
+        detailViewController.modalPresentationStyle = .formSheet
+        present(detailViewController, animated: true)
     }
 }
