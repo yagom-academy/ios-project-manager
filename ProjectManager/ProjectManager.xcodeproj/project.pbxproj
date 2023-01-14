@@ -14,6 +14,7 @@
 		57B1171D297077DD00073006 /* CustomContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B1171C297077DD00073006 /* CustomContentView.swift */; };
 		57B117212971406700073006 /* CountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B117202971406700073006 /* CountLabel.swift */; };
 		57B117432972EAB900073006 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B117422972EAB900073006 /* DateFormatterManager.swift */; };
+		57B117452973065F00073006 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B117442973065F00073006 /* HeaderView.swift */; };
 		57E97FD7296D575100854C4A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 57E97FD6296D575100854C4A /* Realm */; };
 		57E97FD9296D575100854C4A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 57E97FD8296D575100854C4A /* RealmSwift */; };
 		57E97FDC296D5BB100854C4A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 57E97FDB296D5BB100854C4A /* FirebaseFirestore */; };
@@ -33,6 +34,7 @@
 		57B1171C297077DD00073006 /* CustomContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContentView.swift; sourceTree = "<group>"; };
 		57B117202971406700073006 /* CountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLabel.swift; sourceTree = "<group>"; };
 		57B117422972EAB900073006 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		57B117442973065F00073006 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				57B1171A29706A3100073006 /* CustomContentConfiguration.swift */,
 				57B1171C297077DD00073006 /* CustomContentView.swift */,
 				57B117202971406700073006 /* CountLabel.swift */,
+				57B117442973065F00073006 /* HeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				57B1171D297077DD00073006 /* CustomContentView.swift in Sources */,
 				57AA8665297057C900E2971D /* CustomListCell.swift in Sources */,
 				57B117432972EAB900073006 /* DateFormatterManager.swift in Sources */,
+				57B117452973065F00073006 /* HeaderView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				57AA8660296FCD0E00E2971D /* Issue.swift in Sources */,

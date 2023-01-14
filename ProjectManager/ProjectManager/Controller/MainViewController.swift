@@ -57,7 +57,7 @@ final class MainViewController: UIViewController {
         Issue(status: .todo, title: "first", body: "처음할일", dueDate: Date()),
         Issue(status: .todo, title: "second", body: "처음할일?", dueDate: Date()),
         Issue(status: .todo, title: "thrd", body: "처음할일", dueDate: Date()),
-        Issue(status: .todo, title: "fth", body: "처음할일", dueDate: Date())
+        Issue(status: .todo, title: "veryveryveryveryveryveryveryveryveryveryveryveryextralongtitle", body: "처음할일", dueDate: Date())
     ]
     
     private var doingItems: [Issue] = [
@@ -106,42 +106,13 @@ final class MainViewController: UIViewController {
     
     private func configureHeaderStackView() {
         mainStackView.addArrangedSubview(headerStackView)
-        headerStackView.addArrangedSubview(createHeaderView(title: Status.todo.description, count: todoItems.count))
-        headerStackView.addArrangedSubview(createHeaderView(title: Status.doing.description, count: doingItems.count))
-        headerStackView.addArrangedSubview(createHeaderView(title: Status.done.description, count: doneItems.count))
-    }
-    
-    private func createHeaderView(title: String, count: Int) -> UIStackView {
-        let headerView = UIStackView()
-        headerView.axis = .horizontal
-        headerView.backgroundColor = .systemBackground
-        headerView.alignment = .center
-        headerView.isLayoutMarginsRelativeArrangement = true
-        headerView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: .zero,
-                                                                      leading: .zero,
-                                                                      bottom: .zero,
-                                                                      trailing: .zero)
         
-        let titleLabel: UILabel = {
-            let label = UILabel()
-            label.font = .preferredFont(forTextStyle: .largeTitle)
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.text = title
-            return label
-        }()
-        
-        let countLabel = CountLabel(frame: .zero, issueCount: count)
-        
-        headerView.addArrangedSubview(titleLabel)
-        headerView.addArrangedSubview(countLabel)
-        
-        NSLayoutConstraint.activate([
-            countLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor,
-                                               multiplier: LayoutConstant.countLabelSizeRatio),
-            countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
-        ])
-        
-        return headerView
+        let todoHeaderView = HeaderView(title: Status.todo.description, count: todoItems.count)
+        let doingHeaderView = HeaderView(title: Status.doing.description, count: doingItems.count)
+        let doneHeaderView = HeaderView(title: Status.done.description, count: doneItems.count)
+        headerStackView.addArrangedSubview(todoHeaderView)
+        headerStackView.addArrangedSubview(doingHeaderView)
+        headerStackView.addArrangedSubview(doneHeaderView)
     }
     
     private func configureCollectionStackView() {
@@ -238,7 +209,6 @@ extension MainViewController {
         static let headerViewToCollectionViewSpacing = CGFloat(8)
         static let mainStackViewMargin = CGFloat(8)
         static let columnSpacing = CGFloat(16)
-        static let countLabelSizeRatio = CGFloat(0.8)
         static let interItemSpacing = CGFloat(12)
         static let estimatedItemHeight = CGFloat(100)
     }
