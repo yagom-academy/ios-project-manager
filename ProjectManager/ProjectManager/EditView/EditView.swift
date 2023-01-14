@@ -8,6 +8,8 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ProjectEditView: View {
+  @State var canEdit: Bool = false
+  
   @State var title: String = ""
   @State var selectedDate: Date = Date()
   @State var description: String = ""
@@ -21,6 +23,7 @@ struct ProjectEditView: View {
           .background(.white)
           .cornerRadius(15)
           .shadow(color: .secondary, radius: 5, y: 3)
+          .disabled(!canEdit)
         
         DatePicker(selection: $selectedDate, in: Date()..., displayedComponents: .date) {
           Text("마감 기한")
@@ -30,13 +33,14 @@ struct ProjectEditView: View {
           .background(.white)
           .cornerRadius(15)
           .shadow(color: .secondary, radius: 5, y: 3)
+          .disabled(!canEdit)
         
         TextEditor(text: $description)
           .padding(20)
           .background(.white)
           .cornerRadius(15)
           .shadow(color: .secondary, radius: 5, y: 3)
-
+          .disabled(!canEdit)
       }
       .padding(10)
       .navigationTitle("TODO")
