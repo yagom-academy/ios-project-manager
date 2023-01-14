@@ -12,6 +12,7 @@ final class CustomListCell: UICollectionViewListCell {
     
     override func updateConfiguration(using configuration: UICellConfigurationState) {
         var newConfiguration = CustomContentConfiguration().updated(for: configuration)
+        newConfiguration.status = item?.status
         newConfiguration.title = item?.title
         newConfiguration.body = item?.body
         newConfiguration.dueDate = item?.dueDate

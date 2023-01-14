@@ -63,7 +63,12 @@ class CustomContentView: UIView, UIContentView {
         
         titleLabel.text = configuration.title
         bodyLabel.text = configuration.body
-        dueDateLabel.text = configuration.dueDate?.description // DateFormatter 리팩토링
+        dueDateLabel.text = DateFormatterManager().formatDate(configuration.dueDate)
+        
+        if configuration.status != .done,
+           configuration.dueDate ?? Date() < Date() {
+            dueDateLabel.textColor = .systemRed
+        }
     }
     
     private func configureStackView() {

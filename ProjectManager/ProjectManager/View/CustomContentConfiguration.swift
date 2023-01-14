@@ -8,6 +8,7 @@
 import UIKit
 
 struct CustomContentConfiguration: UIContentConfiguration {
+    var status: Status?
     var title: String?
     var body: String?
     var dueDate: Date?
