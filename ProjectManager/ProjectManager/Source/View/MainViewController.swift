@@ -25,8 +25,20 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = Constant.viewBackgroundColor
+        configureNavigationBar()
         configureLayout()
         configureDataSource()
+    }
+    
+    private func configureNavigationBar() {
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationItem.title = Constant.navigationTitle
+        navigationItem.rightBarButtonItem = .init(
+            barButtonSystemItem: .add,
+            target: self,
+            action: nil
+        )
     }
     
     private func configureLayout() {
@@ -76,7 +88,15 @@ extension MainViewController: UITableViewDataSource {
 }
 
 private enum Constant {
+    static let navigationTitle = "Project Manager"
     static let todo = "TODO"
     static let doing = "DOING"
     static let done = "DONE"
+    
+    static let viewBackgroundColor: UIColor = .init(cgColor: CGColor(
+        red: 246,
+        green: 246,
+        blue: 246,
+        alpha: 1)
+    )
 }
