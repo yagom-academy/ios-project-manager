@@ -36,7 +36,7 @@ final class ProjectListContentView: UIView, UIContentView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = Constants.smallSpacing
-        stackView.backgroundColor = ProjectColor.cellBackground.color
+        stackView.backgroundColor = ProjectColor.defaultBackground.color
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constants.defaultSpacing,
                                                                      leading: Constants.defaultSpacing,

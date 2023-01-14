@@ -26,7 +26,7 @@ class ProjectListViewController: UIViewController {
         guard projectStateCount > 0 else { return nil }
         self.projectStateCount = projectStateCount
         super.init(nibName: nil, bundle: nil)
-        self.view.backgroundColor = ProjectColor.viewBackground.color
+        self.view.backgroundColor = ProjectColor.listViewBackground.color
     }
 
     required init?(coder: NSCoder) {
@@ -45,6 +45,9 @@ class ProjectListViewController: UIViewController {
 
     private func configureNavigationItem() {
         navigationItem.title = Constants.programName
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(didPressAddButton))
     }
 
     private func configureCollectionViews() {
@@ -141,5 +144,17 @@ extension ProjectListViewController {
         } else {
             return NSAttributedString(string: dueDate.localizedDateString())
         }
+    }
+}
+
+// MARK: - Actions
+extension ProjectListViewController {
+    @objc
+    private func didPressAddButton(_ sender: UIBarButtonItem) {
+        let newProject = Project(title: "", description: "", dueDate: Date())
+        let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: newProject.state),
+                                                                      project: newProject)
+        let navigationController = UINavigationController(rootViewController: projectDetailViewController)
+        present(navigationController, animated: true)
     }
 }
