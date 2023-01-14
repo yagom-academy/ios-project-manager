@@ -41,19 +41,22 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupView()
+        viewModel.onUpdated = { [weak self] in
+            self?.applyAllSnapshot()
+        }
         setupTableView()
         setupConstraint()
         applyAllSnapshot()
     }
     
     @objc private func addButtonTapped() {
-        let modifyViewController = AddViewController(procss: .todo)
-        modifyViewController.modalPresentationStyle = .formSheet
+        let addViewController = AddViewController(procss: .todo, viewModel: self.viewModel)
+        addViewController.modalPresentationStyle = .formSheet
         
-        let modifyNavigationController = UINavigationController(
-            rootViewController: modifyViewController
+        let addNavigationController = UINavigationController(
+            rootViewController: addViewController
         )
-        present(modifyNavigationController, animated: true)
+        present(addNavigationController, animated: true)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  ModifyViewController.swift
+//  AddViewController.swift
 //  ProjectManager
 //
 //  Created by Kyo on 2023/01/13.
@@ -49,10 +49,12 @@ final class AddViewController: UIViewController {
         spacing: 10
     )
     
+    private let viewModel: MainViewModel
     private var process: Process
     
-    init(procss: Process) {
+    init(procss: Process, viewModel: MainViewModel) {
         self.process = procss
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -68,12 +70,15 @@ final class AddViewController: UIViewController {
         setupConstraint()
     }
     
-    @objc private func datePickerWheel(_ sender: UIDatePicker) {
-        
+    @objc private func datePickerWheel(_ sender: UIDatePicker) -> Date? {
+        return sender.date
     }
     
     @objc private func doneButtonTapped() {
-        
+        guard let title = titleTextField.text else { return }
+        let date = datePickerWheel(datePicker)
+        viewModel.uploadData(title: title, content: descriptionTextView.text, date: date)
+        dismiss(animated: true)
     }
     
     @objc private func cancelButtonTapped() {

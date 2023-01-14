@@ -8,9 +8,23 @@
 import Foundation
 
 final class MainViewModel {
-    private var todoData: [Todo] = []
-    private var doingData: [Todo] = []
-    private var doneData: [Todo] = []
+    private var todoData: [Todo] = [] {
+        didSet {
+            onUpdated()
+        }
+    }
+    private var doingData: [Todo] = [] {
+        didSet {
+            onUpdated()
+        }
+    }
+    private var doneData: [Todo] = [] {
+        didSet {
+            onUpdated()
+        }
+    }
+    
+    var onUpdated: () -> Void = {}
     
     func fetchData(process: Process) -> [Todo] {
         switch process {
@@ -21,5 +35,10 @@ final class MainViewModel {
         case .done:
             return doneData
         }
+    }
+    
+    func uploadData(title: String, content: String? = nil, date: Date? = nil) {
+        let data = Todo(title: title, content: content, deadLine: date)
+        todoData.append(data)
     }
 }
