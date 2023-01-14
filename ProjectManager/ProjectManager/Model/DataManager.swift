@@ -10,9 +10,25 @@ import Foundation
 final class DataManager {
     static let shared = DataManager()
 
-    private var todoData: [Todo] = []
-    private var doingData: [Todo] = []
-    private var doneData: [Todo] = []
+    private var todoData: [Todo] = [] {
+        didSet {
+            onUpdated()
+        }
+    }
+    
+    private var doingData: [Todo] = [] {
+        didSet {
+            onUpdated()
+        }
+    }
+    
+    private var doneData: [Todo] = [] {
+        didSet {
+            onUpdated()
+        }
+    }
+    
+    var onUpdated: () -> Void = {}
     
     private init() { }
     
@@ -35,6 +51,17 @@ final class DataManager {
             doingData.append(data)
         case .done:
             doneData.append(data)
+        }
+    }
+    
+    func updateData(process: Process, data: Todo, indexPath: IndexPath) {
+        switch process {
+        case .todo:
+            todoData[indexPath.row] = data
+        case .doing:
+            doingData[indexPath.row] = data
+        case .done:
+            doneData[indexPath.row] = data
         }
     }
 }
