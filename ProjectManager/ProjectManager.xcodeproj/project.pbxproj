@@ -12,6 +12,9 @@
 		3C07B2EF296D6647007283D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C07B2EE296D6647007283D2 /* FirebaseFirestore */; };
 		3C07B2F3296D69E4007283D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C07B2F2296D69E4007283D2 /* GoogleService-Info.plist */; };
 		3C07B2F6296D6AAA007283D2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */; };
+		3C9627A929728F2F003B0139 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627A829728F2F003B0139 /* AddViewModel.swift */; };
+		3C9627AB2972936A003B0139 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627AA2972936A003B0139 /* EditViewModel.swift */; };
+		3C9627AD2972E52E003B0139 /* DataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627AC2972E52E003B0139 /* DataProtocol.swift */; };
 		3CB4C4B5296F9CD70084069A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4C4B4296F9CD70084069A /* HeaderView.swift */; };
 		3CB4C4BB296FB66C0084069A /* ProcessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4C4BA296FB66C0084069A /* ProcessTableViewCell.swift */; };
 		3CB4C4BE296FC6660084069A /* IdentifierUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4C4BD296FC6660084069A /* IdentifierUsable.swift */; };
@@ -33,6 +36,9 @@
 		3C015EEE296EF2480022D053 /* ProcessStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStackView.swift; sourceTree = "<group>"; };
 		3C07B2F2296D69E4007283D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3C9627A829728F2F003B0139 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
+		3C9627AA2972936A003B0139 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		3C9627AC2972E52E003B0139 /* DataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProtocol.swift; sourceTree = "<group>"; };
 		3CB4C4B4296F9CD70084069A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		3CB4C4BA296FB66C0084069A /* ProcessTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTableViewCell.swift; sourceTree = "<group>"; };
 		3CB4C4BD296FC6660084069A /* IdentifierUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierUsable.swift; sourceTree = "<group>"; };
@@ -86,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				3CB4C4BD296FC6660084069A /* IdentifierUsable.swift */,
+				3C9627AC2972E52E003B0139 /* DataProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -103,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				3CD2E2C62970304600B2E9A4 /* MainViewModel.swift */,
+				3C9627A829728F2F003B0139 /* AddViewModel.swift */,
+				3C9627AA2972936A003B0139 /* EditViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -262,6 +271,7 @@
 				3CB4C4BE296FC6660084069A /* IdentifierUsable.swift in Sources */,
 				3C015EEF296EF2480022D053 /* ProcessStackView.swift in Sources */,
 				3CD2E2C92970485500B2E9A4 /* DateFormatter+Extension.swift in Sources */,
+				3C9627A929728F2F003B0139 /* AddViewModel.swift in Sources */,
 				3CD2E2D429728A0A00B2E9A4 /* DataManager.swift in Sources */,
 				3CB4C4B5296F9CD70084069A /* HeaderView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
@@ -272,7 +282,9 @@
 				3CB4C4C1296FC8390084069A /* UIComponent+Extension.swift in Sources */,
 				3C015EEB296EEE410022D053 /* Process.swift in Sources */,
 				3CD2E2C4297029D600B2E9A4 /* Todo.swift in Sources */,
+				3C9627AD2972E52E003B0139 /* DataProtocol.swift in Sources */,
 				3CD2E2C72970304600B2E9A4 /* MainViewModel.swift in Sources */,
+				3C9627AB2972936A003B0139 /* EditViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
