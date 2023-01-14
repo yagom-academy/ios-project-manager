@@ -26,6 +26,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
         
+        todoTableView.delegate = self
+        todoTableView.dataSource = self
+        doingTableView.delegate = self
+        doingTableView.dataSource = self
+        doneTableView.delegate = self
+        doneTableView.dataSource = self
+        
         autoLayoutSetting()
         setupNavigationBar()
     }
@@ -59,5 +66,58 @@ class MainViewController: UIViewController {
         modalController.modalPresentationStyle = .formSheet
         
         self.present(modalController, animated: true, completion: nil)
+    }
+}
+
+//MARK: - UITableViewDelegate
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: "CustomHeaderView"
+        ) as? CustomHeaderView else {
+            return UIView()
+        }
+        
+        return view
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let actions = UIContextualAction(
+            style: .destructive,
+            title: "Delete"
+        ) { _, _, _ in
+            //TODO: -데이터 삭제
+        }
+        return UISwipeActionsConfiguration(actions: [actions])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+//MARK: - UITableViewDataSource
+extension MainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // TODO: -Cell확인
+        30
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "TodoCustomCell",
+            for: indexPath
+        ) as? TodoCustomCell else {
+            return UITableViewCell()
+        }
+        cell.titleLabel.text = "This is Title"
+        cell.bodyLabel.text = "This is Body"
+        cell.dateLabel.text = "This is Date"
+        
+        return cell
     }
 }

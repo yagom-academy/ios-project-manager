@@ -91,11 +91,7 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				F677850429702E710033E33E /* Extension */,
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				F6F0755F297192C100856794 /* ModalViewContoller.swift */,
-				F6F0755B2971038B00856794 /* CustomTableView.swift */,
-				F6F0755D297139BE00856794 /* CustomHeaderView.swift */,
-				F677850029702DDA0033E33E /* TodoCustomCell.swift */,
+				F6A0B4C82972857800C24972 /* View */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				F67784F8297027F50033E33E /* GoogleService-Info.plist */,
@@ -110,6 +106,18 @@
 				F677850229702E690033E33E /* UILabel.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		F6A0B4C82972857800C24972 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				F6F0755B2971038B00856794 /* CustomTableView.swift */,
+				F6F0755D297139BE00856794 /* CustomHeaderView.swift */,
+				F677850029702DDA0033E33E /* TodoCustomCell.swift */,
+				F6F0755F297192C100856794 /* ModalViewContoller.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		FE7E8A1D52130CE8B6B7F2BB /* Pods */ = {
