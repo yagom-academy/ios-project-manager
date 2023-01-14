@@ -5,7 +5,7 @@
 //  Created by summercat on 2023/01/12.
 //
 
-enum Status {
+enum Status: CaseIterable {
     case todo
     case doing
     case done
