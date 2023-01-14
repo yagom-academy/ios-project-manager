@@ -7,14 +7,10 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    
-    typealias DataSource = UITableViewDiffableDataSource<Section, Project>
-    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, Project>
-    
+
     var viewModel = MainViewModel()
     let lists: [ListView] = [ListView(), ListView(), ListView()]
-    var dataSources: [DataSource?] = Array(repeating: nil, count: Process.allCases.count)
-    var snapShots: [SnapShot] = Array(repeating: SnapShot(), count: Process.allCases.count)
+    var dataSources: [DataSource?] = [nil, nil, nil]
     let listStack = UIStackView(distribution: .fillEqually,
                                 spacing: 5,
                                 backgroundColor: .systemGray4)
@@ -24,20 +20,9 @@ class MainViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setUpNavigationBar()
         configureDataSource()
-        takeSnapShotForToDoList(of: viewModel.todoData)
-        takeSnapShotForDoingList(of: viewModel.doingData)
-        takeSnapShotForDoneList(of: viewModel.doneData)
+        takeInitialSnapShot()
         configureLists()
-        bindingToDoData()
-    }
-    
-    func bindingToDoData() {
-        viewModel.updateTodoData = { [weak self] data in
-            guard let self = self,
-                    var snapShot = self.dataSources[0]?.snapshot() else { return }
-            snapShot.appendItems(data)
-            self.dataSources[0]?.apply(snapShot)
-        }
+        bidingViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,28 +48,17 @@ class MainViewController: UIViewController {
         }
     }
     
-    func takeSnapShotForToDoList(of data: [Project]) {
-        let todoIndex = Process.todo.index
-        
-        snapShots[todoIndex].appendSections([.main])
-        snapShots[todoIndex].appendItems(data, toSection: .main)
-        dataSources[todoIndex]?.apply(self.snapShots[todoIndex])
+    func takeInitialSnapShot() {
+        dataSources.enumerated().forEach { index, dataSource in
+            dataSource?.applyInitialSnapShot(viewModel.datas[index])
+        }
     }
     
-    func takeSnapShotForDoingList(of data: [Project]) {
-        let doingIndex = Process.doing.index
-        
-        snapShots[doingIndex].appendSections([.main])
-        snapShots[doingIndex].appendItems(data, toSection: .main)
-        dataSources[doingIndex]?.apply(self.snapShots[doingIndex])
-    }
-    
-    func takeSnapShotForDoneList(of data: [Project]) {
-        let doneIndex = Process.done.index
-
-        snapShots[doneIndex].appendSections([.main])
-        snapShots[doneIndex].appendItems(data, toSection: .main)
-        dataSources[doneIndex]?.apply(self.snapShots[doneIndex])
+    func bidingViewModel() {
+        viewModel.update = { [weak self] process, data in
+            guard let self = self else { return }
+            self.dataSources[process.index]?.applySnapshot(data)
+        }
     }
     
     func setUpListHead() {
@@ -170,8 +144,4 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return  UIView()
     }
-}
-
-enum Section {
-    case main
 }

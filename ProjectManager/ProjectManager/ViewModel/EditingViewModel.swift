@@ -30,7 +30,7 @@ class EditingViewModel {
     }
     
     func registerProject(_ project: Project) {
-        editTargetModel.todoData.append(project)
+        editTargetModel.registerProject(project, in: .todo)
     }
     
     func editProject() {

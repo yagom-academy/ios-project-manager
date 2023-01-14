@@ -12,20 +12,34 @@ class MainViewModel {
     let processTitles: [String] = [Process.todo.title, Process.doing.title, Process.done.title]
     var todoData: [Project] = [] {
         didSet {
-            updateTodoData(todoData)
+            update(.todo, todoData)
         }
     }
     var doingData: [Project] = [] {
         didSet {
-            updateData(doingData)
+            update(.doing, doingData)
         }
     }
     var doneData: [Project] = [] {
         didSet {
-            updateData(doneData)
+            update(.done, doneData)
         }
     }
     
-    var updateTodoData: (_ data: [Project]) -> Void = { _ in }
-    var updateData: (_ data: [Project]) -> Void = { _ in }
+    var datas: [[Project]] {
+        return [todoData, doingData, doneData]
+    }
+    
+    var update: (Process, [Project]) -> Void = { _, _ in }
+    
+    func registerProject(_ project : Project, in process : Process) {
+        switch process {
+        case .todo:
+            todoData.append(project)
+        case .doing:
+            doingData.append(project)
+        case .done:
+            doneData.append(project)
+        }
+    }
 }
