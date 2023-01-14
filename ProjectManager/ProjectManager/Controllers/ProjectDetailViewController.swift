@@ -40,12 +40,18 @@ class ProjectDetailViewController: UIViewController {
     }()
     private let navigationTitle: String
     private var project: Project
+    private var editingProject: Project
+    private let isAdding: Bool
+    private let onChange: (Project?) -> Void
     private var keyboardConstraints: NSLayoutConstraint?
 
     // MARK: - Configure
-    init(navigationTitle: String, project: Project) {
+    init(navigationTitle: String, project: Project, isAdding: Bool, onChange: @escaping (Project?) -> Void) {
         self.navigationTitle = navigationTitle
         self.project = project
+        self.editingProject = project
+        self.isAdding = isAdding
+        self.onChange = onChange
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = ProjectColor.defaultBackground.color
     }
@@ -58,7 +64,12 @@ class ProjectDetailViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationItem()
         configureHierarchy()
-        updateProjectDetailViewsData(project)
+        configureSubViews()
+        if isAdding {
+            prepareForEditing()
+        } else {
+            prepareForeViewing()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +86,7 @@ class ProjectDetailViewController: UIViewController {
         navigationItem.title = navigationTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self,
-                                                            action: nil)
+                                                            action: #selector(doneEditing))
     }
 
     private func configureHierarchy() {
@@ -97,6 +108,12 @@ class ProjectDetailViewController: UIViewController {
         keyboardConstraints = stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -spacing)
         keyboardConstraints?.isActive = true
     }
+
+    private func configureSubViews() {
+        titleTextField.addTarget(self, action: #selector(titleTextFieldDidChange), for: .editingChanged)
+        dueDatePicker.addTarget(self, action: #selector(dueDatePickerDidChange), for: .valueChanged)
+        descriptionTextView.delegate = self
+    }
 }
 
 // MARK: - Project Data
@@ -105,6 +122,78 @@ extension ProjectDetailViewController {
         titleTextField.text = project.title
         dueDatePicker.date = project.dueDate
         descriptionTextView.text = project.description
+    }
+}
+
+// MARK: - Actions
+extension ProjectDetailViewController {
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        titleTextField.isUserInteractionEnabled = editing
+        dueDatePicker.isUserInteractionEnabled = editing
+        descriptionTextView.isUserInteractionEnabled = editing
+    }
+
+    @objc
+    private func prepareForEditing() {
+        self.isEditing = true
+        editingProject = project
+        if isAdding {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                               target: self,
+                                                               action: #selector(cancelAdding))
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                               target: self,
+                                                               action: #selector(prepareForeViewing))
+        }
+        updateProjectDetailViewsData(project)
+    }
+
+    @objc
+    private func prepareForeViewing() {
+        self.isEditing = false
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
+                                                           target: self,
+                                                           action: #selector(prepareForEditing))
+        updateProjectDetailViewsData(project)
+    }
+
+    @objc
+    private func doneEditing() {
+        if isEditing {
+            onChange(editingProject)
+        } else {
+            onChange(nil)
+            dismiss(animated: true)
+        }
+    }
+
+    @objc
+    private func cancelAdding() {
+        dismiss(animated: true)
+    }
+
+    @objc
+    private func titleTextFieldDidChange(_ sender: UITextField) {
+        editingProject.title = sender.text ?? ""
+    }
+
+    @objc
+    private func dueDatePickerDidChange(_ sender: UIDatePicker) {
+        editingProject.dueDate = sender.date
+    }
+}
+
+extension ProjectDetailViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        editingProject.description = textView.text ?? ""
+    }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let currentText = textView.text else { return true }
+        let newTextLength = currentText.count + text.count - range.length
+        return newTextLength <= Constants.descriptionTextViewMaxTextLength
     }
 }
 

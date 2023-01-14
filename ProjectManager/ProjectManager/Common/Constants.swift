@@ -15,4 +15,5 @@ struct Constants {
     static let smallSpacing = CGFloat(5)
     static let numberOfDescriptionLines = 3
     static let borderWidth = CGFloat(0.1)
+    static let descriptionTextViewMaxTextLength = 1000
 }

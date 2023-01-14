@@ -146,6 +146,15 @@ extension ProjectListViewController {
             return NSAttributedString(string: dueDate.localizedDateString())
         }
     }
+
+    private func add(project: Project) {
+        projects.append(project)
+    }
+
+    private func update(project: Project) {
+        guard let index = projects.firstIndex(where: { $0.id == project.id }) else { return }
+        projects[index] = project
+    }
 }
 
 // MARK: - Actions
@@ -154,7 +163,13 @@ extension ProjectListViewController {
     private func didPressAddButton(_ sender: UIBarButtonItem) {
         let newProject = Project(title: "", description: "", dueDate: Date())
         let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: newProject.state),
-                                                                      project: newProject)
+                                                                      project: newProject,
+                                                                      isAdding: true) { [weak self] project in
+            guard let project else { return }
+            self?.add(project: project)
+            self?.updateSnapshot()
+            self?.dismiss(animated: true)
+        }
         let navigationController = UINavigationController(rootViewController: projectDetailViewController)
         present(navigationController, animated: true)
     }
@@ -167,7 +182,13 @@ extension ProjectListViewController: UICollectionViewDelegate {
               let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
               let project = project(for: itemIdentifier) else { return }
         let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: project.state),
-                                                                      project: project)
+                                                                      project: project,
+                                                                      isAdding: false) { [weak self] project in
+            guard let project else { return }
+            self?.update(project: project)
+            self?.updateSnapshot([project.id])
+            self?.dismiss(animated: true)
+        }
         let navigationController = UINavigationController(rootViewController: projectDetailViewController)
         present(navigationController, animated: true)
     }
