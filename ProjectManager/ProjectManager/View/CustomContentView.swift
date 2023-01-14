@@ -10,7 +10,7 @@ import UIKit
 class CustomContentView: UIView, UIContentView {
     var configuration: UIContentConfiguration {
         didSet {
-            configure(configuration: configuration)
+            configure(using: configuration)
         }
     }
     
@@ -19,39 +19,51 @@ class CustomContentView: UIView, UIContentView {
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
-        stack.layer.borderWidth = 2
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstants.stackViewMargin,
+                                                                 leading: LayoutConstants.stackViewMargin,
+                                                                 bottom: LayoutConstants.stackViewMargin,
+                                                                 trailing: LayoutConstants.stackViewMargin)
+        stack.layer.borderWidth = LayoutConstants.borderWidth
         stack.layer.borderColor = UIColor.systemGray.cgColor
-        stack.layer.cornerRadius = 8
+        stack.layer.cornerRadius = LayoutConstants.cornerRadius
         
         return stack
     }()
     
-    let titleLabel = UILabel()
-    let bodyLabel = UILabel()
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .headline)
+        return label
+    }()
+    
+    let bodyLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .systemGray
+        label.numberOfLines = LayoutConstants.maxBodyLineCount
+        return label
+    }()
+    
+    
     let dueDateLabel = UILabel()
     
     init(configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
         configureStackView()
-        configure(configuration: configuration)
+        configure(using: configuration)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(configuration: UIContentConfiguration) {
+    private func configure(using configuration: UIContentConfiguration) {
         guard let configuration = configuration as? CustomContentConfiguration else { return }
         
         titleLabel.text = configuration.title
         bodyLabel.text = configuration.body
-        bodyLabel.numberOfLines = 3
         dueDateLabel.text = configuration.dueDate?.description // DateFormatter 리팩토링
-        
-        titleLabel.font = .preferredFont(forTextStyle: .headline)
-        bodyLabel.textColor = .systemGray
     }
     
     private func configureStackView() {
@@ -65,5 +77,12 @@ class CustomContentView: UIView, UIContentView {
         ])
         
         [titleLabel, bodyLabel, dueDateLabel].forEach { stackView.addArrangedSubview($0) }
+    }
+    
+    enum LayoutConstants {
+        static let stackViewMargin = CGFloat(8)
+        static let borderWidth = CGFloat(1)
+        static let cornerRadius = CGFloat(8)
+        static let maxBodyLineCount = 3
     }
 }

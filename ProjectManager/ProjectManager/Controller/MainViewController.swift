@@ -11,10 +11,13 @@ final class MainViewController: UIViewController {
     private var mainStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.spacing = 8
+        stack.spacing = LayoutConstant.headerViewToCollectionViewSpacing
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstant.mainStackViewMargin,
+                                                                 leading: LayoutConstant.mainStackViewMargin,
+                                                                 bottom: LayoutConstant.mainStackViewMargin,
+                                                                 trailing: LayoutConstant.mainStackViewMargin)
         
         return stack
     }()
@@ -22,7 +25,7 @@ final class MainViewController: UIViewController {
     private var headerStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = LayoutConstant.mainStackSpacing
+        stack.spacing = LayoutConstant.columnSpacing
         stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
         
@@ -32,7 +35,7 @@ final class MainViewController: UIViewController {
     private var collectionStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = LayoutConstant.mainStackSpacing
+        stack.spacing = LayoutConstant.columnSpacing
         stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
         
@@ -81,9 +84,9 @@ final class MainViewController: UIViewController {
     
     private func configureNavigationBar() {
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
-        title = Namespace.NavigationTitle
+        title = Namespace.navigationTitle
         
-        let plusButton = UIBarButtonItem(image: UIImage(systemName: Namespace.PlusImage),
+        let plusButton = UIBarButtonItem(image: UIImage(systemName: Namespace.plusImage),
                                          style: .plain,
                                          target: self,
                                          action: nil)
@@ -114,7 +117,10 @@ final class MainViewController: UIViewController {
         headerView.backgroundColor = .systemBackground
         headerView.alignment = .center
         headerView.isLayoutMarginsRelativeArrangement = true
-        headerView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+        headerView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: .zero,
+                                                                      leading: .zero,
+                                                                      bottom: .zero,
+                                                                      trailing: .zero)
         
         let titleLabel: UILabel = {
             let label = UILabel()
@@ -130,7 +136,8 @@ final class MainViewController: UIViewController {
         headerView.addArrangedSubview(countLabel)
         
         NSLayoutConstraint.activate([
-            countLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 0.8),
+            countLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor,
+                                               multiplier: LayoutConstant.countLabelSizeRatio),
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
         ])
         
@@ -138,7 +145,7 @@ final class MainViewController: UIViewController {
     }
     
     private func createCountLabelText(count: Int) -> String {
-        return count > 99 ? "99+" : count.description
+        return count > Namespace.maxCount ? "\(Namespace.maxCount)+" : count.description
     }
     
     private func configureCollectionStackView() {
@@ -156,12 +163,13 @@ final class MainViewController: UIViewController {
     
     private func configureCollectionViewLayout(for status: Status) -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .estimated(44))
+                                              heightDimension: .estimated(LayoutConstant.estimatedItemHeight))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .fractionalHeight(1.0))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
                                                      subitems: [item])
-        group.interItemSpacing = .fixed(12)
+        group.interItemSpacing = .fixed(LayoutConstant.interItemSpacing)
         let section = NSCollectionLayoutSection(group: group)
         
         return UICollectionViewCompositionalLayout(section: section)
@@ -226,11 +234,17 @@ final class MainViewController: UIViewController {
 
 extension MainViewController {
     enum Namespace {
-        static let NavigationTitle = "Project Manager"
-        static let PlusImage = "plus"
+        static let navigationTitle = "Project Manager"
+        static let plusImage = "plus"
+        static let maxCount = 99
     }
     
     enum LayoutConstant {
-        static let mainStackSpacing = CGFloat(20)
+        static let headerViewToCollectionViewSpacing = CGFloat(8)
+        static let mainStackViewMargin = CGFloat(8)
+        static let columnSpacing = CGFloat(16)
+        static let countLabelSizeRatio = CGFloat(0.8)
+        static let interItemSpacing = CGFloat(12)
+        static let estimatedItemHeight = CGFloat(100)
     }
 }

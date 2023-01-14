@@ -15,7 +15,6 @@ final class CountLabel: UILabel {
     convenience init(frame: CGRect, textCount: String) {
         self.init(frame: frame)
         self.text = textCount
-        
         font = .preferredFont(forTextStyle: .headline)
         backgroundColor = .systemFill
         textAlignment = .center
@@ -29,10 +28,6 @@ final class CountLabel: UILabel {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-
         layer.cornerRadius = bounds.size.height * 0.5
-        
-        guard let text = self.text, let count = Int(text) else { return }
-        if count > 99 { self.text = "99+" }
     }
 }
