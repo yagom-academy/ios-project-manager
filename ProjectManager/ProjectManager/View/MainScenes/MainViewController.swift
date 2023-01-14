@@ -50,13 +50,13 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func addButtonTapped() {
-        let addViewController = AddViewController(procss: .todo, viewModel: self.viewModel)
-        addViewController.modalPresentationStyle = .formSheet
+        let updateViewController = UpdateViewController(procss: .todo)
+        updateViewController.modalPresentationStyle = .formSheet
         
-        let addNavigationController = UINavigationController(
-            rootViewController: addViewController
+        let updateNavigationController = UINavigationController(
+            rootViewController: updateViewController
         )
-        present(addNavigationController, animated: true)
+        present(updateNavigationController, animated: true)
     }
 }
 

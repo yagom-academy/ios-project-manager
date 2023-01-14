@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AddViewController: UIViewController {
+final class UpdateViewController: UIViewController {
     private enum UIConstant {
         static let topValue = 10.0
         static let leadingValue = 10.0
