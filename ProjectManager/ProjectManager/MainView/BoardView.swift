@@ -43,7 +43,13 @@ struct BoardView: View {
           )
         ) {
           // TODO: - EditView 구성 및 추가
-          ProjectEditView()
+          ProjectDetailView(
+            completionEdit: viewStore.binding(
+              get: \.isPresentEditView,
+              send: .didDismissEditView
+            ),
+            canEdit: true
+          )
         }
       }
       .navigationViewStyle(.stack)

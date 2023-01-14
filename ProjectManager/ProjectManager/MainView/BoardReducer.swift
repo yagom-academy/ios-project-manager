@@ -9,7 +9,7 @@ import ComposableArchitecture
 
 struct BoardReducer: ReducerProtocol {
   struct State: Equatable {
-    var isPresentEditView: Bool = false
+    @BindableState var isPresentEditView: Bool = false
     var projects: [Project] = Project.mock
   }
   

@@ -7,8 +7,9 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct ProjectEditView: View {
-  @State var canEdit: Bool = false
+struct ProjectDetailView: View {
+  @Binding var completionEdit: Bool
+  @State var canEdit: Bool
   
   @State var title: String = ""
   @State var selectedDate: Date = Date()
@@ -56,7 +57,7 @@ struct ProjectEditView: View {
         
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {
-            // TODO: - Done Button 액션 구현
+            completionEdit.toggle()
           } label: {
             Text("Done")
           }
@@ -71,7 +72,7 @@ struct ProjectEditView: View {
 struct ProjectEditView_Previews: PreviewProvider {
   static var previews: some View {
     
-    ProjectEditView()
+    ProjectDetailView(completionEdit: .constant(true), canEdit: true)
       .previewInterfaceOrientation(.landscapeLeft)
   }
 }
