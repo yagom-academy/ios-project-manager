@@ -7,7 +7,8 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
+class EditingViewController: UIViewController {
+    let process: Process
     
     let titleField: UITextField = {
         let field = UITextField(font: .headline, placeHolder: "Title")
@@ -38,12 +39,21 @@ class RegisterViewController: UIViewController {
     
     let stack = UIStackView(axis: .vertical, spacing: 10)
     
+    init(process: Process) {
+        self.process = process
+        super.init(nibName: nil, bundle: nil)
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        setupNavigationBar()
         configureHierarchy()
         configureLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
     }
     
     func configureHierarchy() {
@@ -71,24 +81,26 @@ class RegisterViewController: UIViewController {
     func setupNavigationBar() {
         let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0,
                                                           width: view.frame.width, height: 70))
-        navigationBar.backgroundColor = .systemBackground
-        
-        let navigationItem = UINavigationItem(title: "title")
-        let rightButtonAction = UIAction { _ in
-            //구현예정
+        let navigationItem = UINavigationItem(title: process.title)
+        let doneAction = UIAction { _ in
+            // 구현예정
             print("등록버튼 클릭")
         }
         let cancelAction = UIAction { _ in
-            //구현예정
-            print("등록버튼 클릭")
+            // 구현예정
+            print("취소버튼 클릭")
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
-                                                            primaryAction: registerAction)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel",
-                                                            primaryAction: cancelAction)
+                                                           primaryAction: cancelAction)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+                                                            primaryAction: doneAction)
         navigationBar.items = [navigationItem]
-
+        navigationBar.isTranslucent = false
         view.addSubview(navigationBar)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

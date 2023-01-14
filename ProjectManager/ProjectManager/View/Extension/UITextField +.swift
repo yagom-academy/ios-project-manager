@@ -9,8 +9,9 @@ import UIKit
 
 extension UITextField {
     
-    convenience init(placeHolder: String = "") {
+    convenience init(font: UIFont.TextStyle = .body, placeHolder: String = "") {
         self.init(frame: .zero)
+        self.font = .preferredFont(forTextStyle: font)
         self.placeholder = placeHolder
         translatesAutoresizingMaskIntoConstraints = false
     }
