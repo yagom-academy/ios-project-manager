@@ -53,6 +53,7 @@ class ProjectListViewController: UIViewController {
     private func configureCollectionViews() {
         (0..<projectStateCount).forEach { _ in
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
+            collectionView.delegate = self
             collectionViews.append(collectionView)
         }
     }
@@ -154,6 +155,19 @@ extension ProjectListViewController {
         let newProject = Project(title: "", description: "", dueDate: Date())
         let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: newProject.state),
                                                                       project: newProject)
+        let navigationController = UINavigationController(rootViewController: projectDetailViewController)
+        present(navigationController, animated: true)
+    }
+}
+
+// MARK: - CollectionViewDelegate
+extension ProjectListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let dataSource = collectionView.dataSource as? DataSource,
+              let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
+              let project = project(for: itemIdentifier) else { return }
+        let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: project.state),
+                                                                      project: project)
         let navigationController = UINavigationController(rootViewController: projectDetailViewController)
         present(navigationController, animated: true)
     }
