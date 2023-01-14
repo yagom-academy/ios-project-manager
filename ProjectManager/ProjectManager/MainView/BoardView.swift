@@ -22,7 +22,7 @@ struct BoardView: View {
             }
           )
           
-          HStack(spacing: 15) {
+          HStack(spacing: 0) {
             ForEach(ProjectState.allCases, id: \.self) { state in
               VStack(spacing: .zero) {
                 let selectedProject = viewStore.projects.filter { $0.state

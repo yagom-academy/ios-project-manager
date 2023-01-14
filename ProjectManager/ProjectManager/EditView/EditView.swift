@@ -10,12 +10,28 @@ import ComposableArchitecture
 struct ProjectEditView: View {
   var body: some View {
     NavigationView {
-      // TODO: - 화면 세부 사항 구현하기
       VStack {
         Text("Project EditView")
       }
       .navigationTitle("TODO")
       .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .navigationBarLeading) {
+          Button {
+            // TODO: - Edit Button 액션 구현
+          } label: {
+            Text("Edit")
+          }
+        }
+        
+        ToolbarItem(placement: .navigationBarTrailing) {
+          Button {
+            // TODO: - Done Button 액션 구현
+          } label: {
+            Text("Done")
+          }
+        }
+      }
     }
     .navigationViewStyle(.stack)
   }
