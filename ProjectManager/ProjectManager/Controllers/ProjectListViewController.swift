@@ -13,6 +13,8 @@ class ProjectListViewController: UIViewController {
     private var projects: [Project] = []
     private var collectionViews: [UICollectionView] = []
     private var dataSources: [DataSource] = []
+    private var projectHeaderViews: [ProjectHeaderView] = []
+    private var projectStackViews: [UIStackView] = []
     private let stackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,11 +38,13 @@ class ProjectListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
+        configureSubViewsArray()
         configureCollectionViews()
         configureDataSources()
         configureHierarchy()
         configureSampleData()
         updateSnapshot()
+        updateProjectHeaderViewText()
     }
 
     private func configureNavigationItem() {
@@ -48,6 +52,19 @@ class ProjectListViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(didPressAddButton))
+    }
+
+    private func configureSubViewsArray() {
+        (0..<projectStateCount).forEach { _ in
+            projectHeaderViews.append(ProjectHeaderView())
+            projectStackViews.append({
+                let stackView = UIStackView()
+                stackView.translatesAutoresizingMaskIntoConstraints = false
+                stackView.axis = .vertical
+                stackView.spacing = Constants.defaultSpacing
+                return stackView
+            }())
+        }
     }
 
     private func configureCollectionViews() {
@@ -77,8 +94,10 @@ class ProjectListViewController: UIViewController {
     }
 
     private func configureHierarchy() {
-        collectionViews.forEach { collectionView in
-            stackView.addArrangedSubview(collectionView)
+        (0..<projectStateCount).forEach { index in
+            projectStackViews[index].addArrangedSubview(projectHeaderViews[index])
+            projectStackViews[index].addArrangedSubview(collectionViews[index])
+            stackView.addArrangedSubview(projectStackViews[index])
         }
         view.addSubview(stackView)
         NSLayoutConstraint.activate([
@@ -121,6 +140,16 @@ extension ProjectListViewController {
         }
         dataSource.apply(snapShot)
     }
+
+    private func updateProjectHeaderViewText() {
+        projectHeaderViews.enumerated().forEach { index, projectHeaderView in
+            guard let projectState = projectState(for: index) else { return }
+            projectHeaderView.titleLabel.text = String(describing: projectState)
+            let projectsCount = projectsCount(for: index)
+            let maxCount = Constants.itemCountLabelMaxCount
+            projectHeaderView.itemCountLabel.text = projectsCount > maxCount ? "\(maxCount)+" : "\(projectsCount)"
+        }
+    }
 }
 
 // MARK: - Project Data
@@ -136,6 +165,15 @@ extension ProjectListViewController {
 
     private func projectIDs(for stateIndex: Int) -> [UUID] {
         return projects.filter { $0.state.rawValue == stateIndex }.map { $0.id }
+    }
+
+    private func projectState(for index: Int) -> ProjectState? {
+            guard let projectState = ProjectState(rawValue: index) else { return nil }
+            return projectState
+    }
+
+    private func projectsCount(for index: Int) -> Int {
+        return projects.filter { $0.state.rawValue == index }.count
     }
 
     private func createDueDateAttributedString(_ dueDate: Date) -> NSAttributedString {
@@ -168,6 +206,7 @@ extension ProjectListViewController {
             guard let project else { return }
             self?.add(project: project)
             self?.updateSnapshot()
+            self?.updateProjectHeaderViewText()
             self?.dismiss(animated: true)
         }
         let navigationController = UINavigationController(rootViewController: projectDetailViewController)
@@ -187,6 +226,7 @@ extension ProjectListViewController: UICollectionViewDelegate {
             guard let project else { return }
             self?.update(project: project)
             self?.updateSnapshot([project.id])
+            self?.updateProjectHeaderViewText()
             self?.dismiss(animated: true)
         }
         let navigationController = UINavigationController(rootViewController: projectDetailViewController)

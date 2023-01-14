@@ -12,6 +12,8 @@ enum ProjectColor {
     case listViewBackground
     case collectionViewBackground
     case overdueDate
+    case itemCountLabelCircleColor
+    case itemCountLabelFontColor
 
     var color: UIColor {
         switch self {
@@ -23,6 +25,10 @@ enum ProjectColor {
             return UIColor.systemGray6
         case .overdueDate:
             return UIColor.systemRed
+        case .itemCountLabelCircleColor:
+            return UIColor.black
+        case .itemCountLabelFontColor:
+            return UIColor.white
         }
     }
 }
