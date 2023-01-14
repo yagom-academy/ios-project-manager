@@ -9,18 +9,34 @@ import ComposableArchitecture
 
 struct ProjectEditView: View {
   @State var title: String = ""
+  @State var selectedDate: Date = Date()
+  @State var description: String = ""
+  
   var body: some View {
     NavigationView {
-      VStack {
-        HStack {
-          TextField("Title", text: $title)
-            .textFieldStyle(.plain)
-            .padding(20)
-            .background(Color.secondaryBackground)
-            .cornerRadius(10)
-            .shadow(color: .secondary, radius: 10, y: 10)
-        }
+      VStack(spacing: 20) {
+        TextField("Title", text: $title)
+          .textFieldStyle(.plain)
+          .padding(20)
+          .background(.white)
+          .cornerRadius(15)
+          .shadow(color: .secondary, radius: 5, y: 3)
         
+        DatePicker(selection: $selectedDate, in: Date()..., displayedComponents: .date) {
+          Text("마감 기한")
+            .font(.system(size: 20, weight: .semibold))
+        }
+          .padding(20)
+          .background(.white)
+          .cornerRadius(15)
+          .shadow(color: .secondary, radius: 5, y: 3)
+        
+        TextEditor(text: $description)
+          .padding(20)
+          .background(.white)
+          .cornerRadius(15)
+          .shadow(color: .secondary, radius: 5, y: 3)
+
       }
       .padding(10)
       .navigationTitle("TODO")
@@ -42,6 +58,7 @@ struct ProjectEditView: View {
           }
         }
       }
+      .background(Color.secondaryBackground)
     }
     .navigationViewStyle(.stack)
   }
