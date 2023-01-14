@@ -12,6 +12,7 @@
 		57AA8665297057C900E2971D /* CustomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AA8664297057C900E2971D /* CustomListCell.swift */; };
 		57B1171B29706A3100073006 /* CustomContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B1171A29706A3100073006 /* CustomContentConfiguration.swift */; };
 		57B1171D297077DD00073006 /* CustomContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B1171C297077DD00073006 /* CustomContentView.swift */; };
+		57B117212971406700073006 /* CountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B117202971406700073006 /* CountLabel.swift */; };
 		57E97FD7296D575100854C4A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 57E97FD6296D575100854C4A /* Realm */; };
 		57E97FD9296D575100854C4A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 57E97FD8296D575100854C4A /* RealmSwift */; };
 		57E97FDC296D5BB100854C4A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 57E97FDB296D5BB100854C4A /* FirebaseFirestore */; };

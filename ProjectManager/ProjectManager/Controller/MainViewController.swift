@@ -19,6 +19,16 @@ final class MainViewController: UIViewController {
         return stack
     }()
     
+    private var headerStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = LayoutConstant.mainStackSpacing
+        stack.distribution = .fillEqually
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
     private var collectionStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -64,9 +74,9 @@ final class MainViewController: UIViewController {
         
         configureNavigationBar()
         configureMainStackView()
+        configureHeaderStackView()
         configureCollectionStackView()
         configureDataSource()
-        
     }
     
     private func configureNavigationBar() {
@@ -91,6 +101,45 @@ final class MainViewController: UIViewController {
         ])
     }
     
+    private func configureHeaderStackView() {
+        mainStackView.addArrangedSubview(headerStackView)
+        headerStackView.addArrangedSubview(createHeaderView(title: Status.todo.description, count: todoItems.count))
+        headerStackView.addArrangedSubview(createHeaderView(title: Status.doing.description, count: doingItems.count))
+        headerStackView.addArrangedSubview(createHeaderView(title: Status.done.description, count: doneItems.count))
+    }
+    
+    private func createHeaderView(title: String, count: Int) -> UIStackView {
+        let headerView = UIStackView()
+        headerView.axis = .horizontal
+        headerView.backgroundColor = .systemBackground
+        headerView.alignment = .center
+        headerView.isLayoutMarginsRelativeArrangement = true
+        headerView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+        
+        let titleLabel: UILabel = {
+            let label = UILabel()
+            label.font = .preferredFont(forTextStyle: .largeTitle)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = title
+            return label
+        }()
+        
+        let countLabel = CountLabel(frame: .zero, textCount: createCountLabelText(count: count))
+        
+        headerView.addArrangedSubview(titleLabel)
+        headerView.addArrangedSubview(countLabel)
+        
+        NSLayoutConstraint.activate([
+            countLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 0.8),
+            countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
+        ])
+        
+        return headerView
+    }
+    
+    private func createCountLabelText(count: Int) -> String {
+        return count > 99 ? "99+" : count.description
+    }
     
     private func configureCollectionStackView() {
         mainStackView.addArrangedSubview(collectionStackView)
@@ -104,7 +153,7 @@ final class MainViewController: UIViewController {
                 collectionStackView.addArrangedSubview($0)
             }
     }
-
+    
     private func configureCollectionViewLayout(for status: Status) -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .estimated(44))
@@ -156,7 +205,7 @@ final class MainViewController: UIViewController {
         
         Status.allCases.forEach(applySnapshot(for:))
     }
-
+    
     private func applySnapshot(for status: Status) {
         switch status {
         case .todo:
