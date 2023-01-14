@@ -7,8 +7,12 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    typealias DataSource = UITableViewDiffableDataSource<Int, Todo>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Todo>
+    typealias DataSource = UITableViewDiffableDataSource<Section, Todo>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Todo>
+    
+    enum Section {
+        case main
+    }
     
     private enum UIConstant {
         static let navigationTitle = "Project Manager"
@@ -134,10 +138,8 @@ extension MainViewController {
         var snapshot = Snapshot()
         let data = viewModel.fetchData(process: process)
 
-        snapshot.appendSections(Array(0..<data.count))
-        Array(0..<data.count).forEach { index in
-            snapshot.appendItems([data[index]], toSection: index)
-        }
+        snapshot.appendSections([.main])
+        snapshot.appendItems(data)
         
         switch process {
         case .todo:
