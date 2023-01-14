@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setUpListHead()
+        setUpListTitles()
         configureHierarchy()
         configureLayout()
     }
@@ -57,12 +57,13 @@ class MainViewController: UIViewController {
     func bidingViewModel() {
         viewModel.updateData = { [weak self] process, data, count in
             guard let self = self else { return }
+            
             self.dataSources[process.index]?.applySnapshot(data)
             self.lists[process.index].countLabel.text = count
         }
     }
     
-    func setUpListHead() {
+    func setUpListTitles() {
         lists.enumerated().forEach { index, listView in
             listView.titleLabel.text = viewModel.processTitles[index]
         }
@@ -73,7 +74,16 @@ class MainViewController: UIViewController {
 extension MainViewController {
     
     func setUpNavigationBar() {
-        let barButtonAction = UIAction { [weak self] _ in
+        let barButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
+                                        primaryAction: touchedUpBarButtonAction())
+        
+        self.navigationController?.navigationBar.topItem?.title = "Project Manager"
+        self.navigationController?.navigationBar.topItem?.setRightBarButton(barButton,
+                                                                            animated: true)
+    }
+    
+    func touchedUpBarButtonAction() -> UIAction {
+        return UIAction { [weak self] _ in
             guard let self = self else { return }
             
             let editingViewModel = EditingViewModel(editTargetModel: self.viewModel)
@@ -82,13 +92,6 @@ extension MainViewController {
             
             self.navigationController?.present(editViewController, animated: true)
         }
-        
-        let barButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
-                                        primaryAction: barButtonAction)
-        
-        self.navigationController?.navigationBar.topItem?.title = "Project Manager"
-        self.navigationController?.navigationBar.topItem?.setRightBarButton(barButton,
-                                                                            animated: true)
     }
 }
 

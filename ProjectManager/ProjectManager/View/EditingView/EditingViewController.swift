@@ -84,29 +84,29 @@ class EditingViewController: UIViewController {
                                                           width: view.frame.width, height: 70))
         let navigationItem = UINavigationItem(title: viewModel.processTitle)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel",
-                                                           primaryAction: generateCancelAction())
+                                                           primaryAction: touchedUpCancelButton())
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
-                                                            primaryAction: generateDoneAction())
+                                                            primaryAction: touchedUpDoneButton())
         navigationBar.items = [navigationItem]
         navigationBar.isTranslucent = false
         view.addSubview(navigationBar)
     }
+        
+    func touchedUpCancelButton() -> UIAction {
+        return UIAction { [weak self] _ in
+            guard let self = self else { return }
+            
+            self.dismiss(animated: true)
+        }
+    }
     
-    func generateDoneAction() -> UIAction {
+    func touchedUpDoneButton() -> UIAction {
         return UIAction { [weak self] _ in
             guard let self = self else { return }
             
             self.viewModel.doneEditing(titleInput: self.titleField.text,
                                        descriptionInput: self.descriptionTextView.text,
                                        dateInput: self.dataPicker.date)
-            
-            self.dismiss(animated: true)
-        }
-    }
-    
-    func generateCancelAction() -> UIAction {
-        return UIAction { [weak self] _ in
-            guard let self = self else { return }
             
             self.dismiss(animated: true)
         }
