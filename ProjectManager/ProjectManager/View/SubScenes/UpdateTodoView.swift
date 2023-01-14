@@ -1,13 +1,13 @@
 //
-//  AddViewController.swift
+//  UpdateTodoView.swift
 //  ProjectManager
 //
-//  Created by Kyo on 2023/01/13.
+//  Created by Kyo on 2023/01/14.
 //
 
 import UIKit
 
-final class UpdateViewController: UIViewController {
+final class UpdateTodoView: UIView {
     private enum UIConstant {
         static let topValue = 10.0
         static let leadingValue = 10.0
@@ -15,7 +15,7 @@ final class UpdateViewController: UIViewController {
         static let bottomValue = -10.0
     }
     
-    private let titleTextField: UITextField = {
+    let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.font = .preferredFont(forTextStyle: .title1)
@@ -23,7 +23,7 @@ final class UpdateViewController: UIViewController {
         return textField
     }()
     
-    private let descriptionTextView: UITextView = {
+    let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.font = .preferredFont(forTextStyle: .title2)
@@ -31,7 +31,7 @@ final class UpdateViewController: UIViewController {
         return textView
     }()
     
-    private let datePicker = UIDatePicker()
+    let datePicker = UIDatePicker()
     
     private lazy var textFieldView: UIView = {
         let view = UIView()
@@ -49,87 +49,27 @@ final class UpdateViewController: UIViewController {
         spacing: 10
     )
     
-    private let viewModel: MainViewModel
-    private var process: Process
-    
-    init(procss: Process, viewModel: MainViewModel) {
-        self.process = procss
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+    init() {
+        super.init(frame: .zero)
+        setupView()
+        setupConstraint()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupNavigationBar()
-        setupView()
-        setupDatePicker()
-        setupConstraint()
-    }
-    
-    @objc private func datePickerWheel(_ sender: UIDatePicker) -> Date? {
-        return sender.date
-    }
-    
-    @objc private func doneButtonTapped() {
-        guard let title = titleTextField.text else { return }
-        let date = datePickerWheel(datePicker)
-        viewModel.uploadData(title: title, content: descriptionTextView.text, date: date)
-        dismiss(animated: true)
-    }
-    
-    @objc private func cancelButtonTapped() {
-        
-    }
-    
-    @objc private func editButtonTapped() {
-        
-    }
 }
 
-// MARK: - UI Confuration
-extension AddViewController {
-    private func setupNavigationBar() {
-        title = process.titleValue
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .systemGray6
-        
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
-        let cancelButton = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(cancelButtonTapped)
-        )
-        
-        let doneButton = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(doneButtonTapped)
-        )
-        
-        navigationItem.leftBarButtonItem = cancelButton
-        navigationItem.rightBarButtonItem = doneButton
-    }
-    
+// MARK: - UIConfiguration
+extension UpdateTodoView {
     private func setupView() {
-        view.backgroundColor = .white
-        view.addSubview(addStackView)
-    }
-    
-    private func setupDatePicker() {
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.datePickerMode = .date
-        datePicker.addTarget(self, action: #selector(datePickerWheel), for: .valueChanged)
+        backgroundColor = .white
+        addSubview(addStackView)
     }
     
     private func setupConstraint() {
-        let safeArea = view.safeAreaLayoutGuide
+        let safeArea = safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             titleTextField.topAnchor.constraint(
                 equalTo: textFieldView.topAnchor,
