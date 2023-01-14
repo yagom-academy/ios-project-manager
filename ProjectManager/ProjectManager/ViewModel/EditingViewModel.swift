@@ -9,19 +9,27 @@ import Foundation
 
 class EditingViewModel {
     
+    var project: Project = Project(title: "", description: "", date: Date()) {
+        didSet {
+            updateData(project)
+        }
+    }
     let editTargetModel: MainViewModel
     let isNewProject: Bool
     let process: Process
-    var project: Project = Project(title: nil, description: nil, date: Date())
-   
-    init(editTargetModel: MainViewModel, isNewProject: Bool = true, process: Process = .todo) {
+
+    var processTitle: String {
+        return process.title
+    }
+    
+    var updateData: (Project) -> Void = { _ in }
+    
+    init(editTargetModel: MainViewModel,
+         isNewProject: Bool = true,
+         process: Process = .todo) {
         self.editTargetModel = editTargetModel
         self.process = process
         self.isNewProject = isNewProject
-    }
-    
-    var processTitle: String {
-        return process.title
     }
 
     func doneEditing(titleInput: String?, descriptionInput: String?, dateInput: Date) {

@@ -9,9 +9,20 @@ import Foundation
 
 extension Date {
     
-    func dotFormat() -> String {
+    func changeDotFormatString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. M. d."
         return dateFormatter.string(from: self)
+    }
+}
+
+extension String {
+    
+    func changeDateFromDotFormat() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy. M. d."
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        
+        return dateFormatter.date(from: self)
     }
 }

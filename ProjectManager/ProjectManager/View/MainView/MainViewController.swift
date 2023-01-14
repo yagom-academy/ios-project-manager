@@ -21,7 +21,7 @@ class MainViewController: UIViewController {
         setUpNavigationBar()
         configureDataSource()
         takeInitialSnapShot()
-        configureLists()
+        setupListsDelegator()
         bidingViewModel()
     }
     
@@ -42,7 +42,10 @@ class MainViewController: UIViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier)
                 as? ListCell
             
-            cell?.setupViews(process: process, viewModel: ListCellViewModel(project: item))
+            cell?.cellViewModel.title = item.title ?? ""
+            cell?.cellViewModel.description = item.description ?? ""
+            cell?.cellViewModel.date = item.date.changeDotFormatString()
+            cell?.cellViewModel.process = process
 
             return cell
         }
@@ -56,10 +59,8 @@ class MainViewController: UIViewController {
     
     func bidingViewModel() {
         viewModel.updateData = { [weak self] process, data, count in
-            guard let self = self else { return }
-            
-            self.dataSources[process.index]?.applySnapshot(data)
-            self.lists[process.index].countLabel.text = count
+            self?.dataSources[process.index]?.applySnapshot(data)
+            self?.lists[process.index].countLabel.text = count
         }
     }
     
@@ -120,7 +121,7 @@ extension MainViewController {
 // MARK: UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     
-    func configureLists() {
+    func setupListsDelegator() {
         lists.forEach {
             $0.tableView.delegate = self
             $0.tableView.backgroundColor = .secondarySystemBackground
@@ -128,12 +129,34 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        changeBorderColor(tableView, didSelectRowAt: indexPath)
+        presentEditingView(tableView, didSelectRowAt: indexPath)
+    }
+    
+    func changeBorderColor(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
         
         let view = UIView()
         view.backgroundColor = .systemBlue
         view.layer.opacity = 0.3
         tableView.cellForRow(at: indexPath)?.selectedBackgroundView = view
+    }
+    
+    func presentEditingView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ListCell,
+              let date = cell.cellViewModel.date.changeDateFromDotFormat() else { return }
+        
+        let editingViewModel = EditingViewModel(editTargetModel: self.viewModel,
+                                                isNewProject: false,
+                                                process: cell.cellViewModel.process)
+        let editViewController = EditingViewController(viewModel: editingViewModel)
+        editViewController.modalPresentationStyle = .formSheet
+        
+        self.navigationController?.present(editViewController, animated: true)
+        
+        editViewController.viewModel.project = Project(title: cell.cellViewModel.title,
+                                                       description: cell.cellViewModel.description,
+                                                       date: date)
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

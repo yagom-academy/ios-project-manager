@@ -9,25 +9,31 @@ import Foundation
 
 struct ListCellViewModel {
     
-    let title: String?
-    let description: String?
-    let date: String
-    
-    init(project: Project) {
-        self.title = project.title
-        self.description = project.description
-        self.date = project.date.dotFormat()
+    var title: String = "" {
+        didSet {
+            updateTitleDate(title)
+        }
     }
+    var description: String = "" {
+        didSet {
+            updateDescriptionDate(description)
+        }
+    }
+    var date: String = "" {
+        didSet {
+            updateDateDate(date, isMissDeadLine, process)
+        }
+    }
+    var process: Process
+    
+    var updateTitleDate: (String) -> Void = { _ in }
+    var updateDescriptionDate: (String) -> Void = { _ in }
+    var updateDateDate: (String, Bool, Process) -> Void = { _, _, _ in }
     
     var isMissDeadLine: Bool {
         let today = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy. M. d."
-        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        guard let deadLine = self.date.changeDateFromDotFormat() else { return false }
         
-        guard let deadLine = dateFormatter.date(from: self.date) else { return false }
-        print("today: \(today)")
-        print("dead: \(deadLine)")
         return deadLine < today
     }
 }

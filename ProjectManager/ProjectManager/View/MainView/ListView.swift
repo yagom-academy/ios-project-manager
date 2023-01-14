@@ -59,7 +59,7 @@ class ListView: UIView {
             
             headStack.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1),
             
-            separatorLine.heightAnchor.constraint(equalToConstant: 2),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1),
             separatorLine.widthAnchor.constraint(equalTo: headStack.widthAnchor),
             
             headAndListStack.leadingAnchor.constraint(equalTo: leadingAnchor),

@@ -11,6 +11,7 @@ class ListCell: UITableViewCell {
     
     static let identifier = "projectCell"
     
+    var cellViewModel = ListCellViewModel(process: .todo)
     var titleLabel = UILabel(font: .title3)
     var descriptionLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
     var dateLabel = UILabel(font: .body, numberOfLines: 0)
@@ -26,6 +27,24 @@ class ListCell: UITableViewCell {
         backgroundColor = .systemGroupedBackground
         configureHierarchy()
         configureLayout()
+        bidingViewModel()
+    }
+    
+    func bidingViewModel() {
+        cellViewModel.updateTitleDate = { [weak self] data in
+            self?.titleLabel.text = data
+        }
+        
+        cellViewModel.updateDescriptionDate = { [weak self] data in
+            self?.descriptionLabel.text = data
+        }
+        
+        cellViewModel.updateDateDate = { [weak self] data, isMissDeadLine, process in
+            self?.dateLabel.text = data
+            
+            guard isMissDeadLine && process != .done else { return }
+            self?.dateLabel.textColor = .red
+        }
     }
     
     func configureHierarchy() {
@@ -50,19 +69,7 @@ class ListCell: UITableViewCell {
             totalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
-    
-    func setupViews(process: Process, viewModel: ListCellViewModel) {
-        titleLabel.text = viewModel.title
-        descriptionLabel.text = viewModel.description
-        dateLabel.text = viewModel.date
-        
-        guard viewModel.isMissDeadLine == false,
-              process != .done else {
-            dateLabel.textColor = .red
-            return
-        }
-    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

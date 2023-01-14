@@ -47,6 +47,7 @@ class EditingViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        bidingViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +56,14 @@ class EditingViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         setupNavigationBar()
+    }
+    
+    func bidingViewModel() {
+        viewModel.updateData = { [weak self] project in
+            self?.titleField.text = project.title
+            self?.descriptionTextView.text = project.description
+            self?.dataPicker.date = project.date
+        }
     }
     
     func configureHierarchy() {
@@ -94,9 +103,7 @@ class EditingViewController: UIViewController {
         
     func touchedUpCancelButton() -> UIAction {
         return UIAction { [weak self] _ in
-            guard let self = self else { return }
-            
-            self.dismiss(animated: true)
+            self?.dismiss(animated: true)
         }
     }
     
