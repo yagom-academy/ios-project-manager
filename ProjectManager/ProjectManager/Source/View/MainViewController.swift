@@ -29,6 +29,7 @@ class MainViewController: UIViewController {
         configureNavigationBar()
         configureLayout()
         configureDataSource()
+        configureCountLabel()
     }
     
     private func configureNavigationBar() {
@@ -55,6 +56,12 @@ class MainViewController: UIViewController {
             totalStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             totalStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+    }
+    
+    private func configureCountLabel() {
+        todoListStackView.fetchListCount(listItems.count)
+        doingListStackView.fetchListCount(listItems.count)
+        doneListStackView.fetchListCount(listItems.count)
     }
 }
 

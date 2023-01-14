@@ -67,7 +67,7 @@ class ListStackView: UIStackView {
             listTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             listTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            listCountLabel.heightAnchor.constraint(equalToConstant: listCountLabel.frame.height),
+            listCountLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor),
             listCountLabel.widthAnchor.constraint(greaterThanOrEqualTo: listCountLabel.heightAnchor)
         ])
     }
@@ -75,6 +75,10 @@ class ListStackView: UIStackView {
     func configureTableView(dataSource: UITableViewDataSource) {
         listTableView.dataSource = dataSource
         listTableView.backgroundColor = .clear
+    }
+    
+    func fetchListCount(_ count: Int) {
+        listCountLabel.text = count.description
     }
 }
 
