@@ -11,7 +11,7 @@ class ListView: UIView {
     
     let headView = UIView(backgroundColor: .systemGroupedBackground)
     let titleLabel = UILabel(font: .title1, textAlignment: .center)
-    let countLabel = CircleLabel()
+    let countLabel = CircleLabel(text: "0")
     let separatorLine = UIView(backgroundColor: .systemGray3)
     let headStack = UIStackView(axis: .vertical, alignment: .leading)
     let headAndListStack = UIStackView(axis: .vertical,

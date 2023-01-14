@@ -11,10 +11,12 @@ class CircleLabel: UILabel {
     
     private var padding = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     
-    init(font: UIFont.TextStyle = .headline,
+    init(text: String? = nil,
+         font: UIFont.TextStyle = .headline,
          textColor: UIColor = .white,
          backgroundColor: UIColor = .black) {
         super.init(frame: .zero)
+        self.text = text
         self.font = .preferredFont(forTextStyle: font)
         self.textColor = textColor
         self.backgroundColor = backgroundColor

@@ -55,21 +55,17 @@ class MainViewController: UIViewController {
     }
     
     func bidingViewModel() {
-        viewModel.update = { [weak self] process, data in
+        viewModel.updateData = { [weak self] process, data, count in
             guard let self = self else { return }
             self.dataSources[process.index]?.applySnapshot(data)
+            self.lists[process.index].countLabel.text = count
         }
     }
     
     func setUpListHead() {
         lists.enumerated().forEach { index, listView in
             listView.titleLabel.text = viewModel.processTitles[index]
-            setupCountLabel(of: listView)
         }
-    }
-    
-    func setupCountLabel(of list: ListView) {
-        list.countLabel.text = String(list.tableView.numberOfRows(inSection: 0))
     }
 }
 
