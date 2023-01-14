@@ -68,19 +68,37 @@ class ProjectListViewController: UIViewController {
     }
 
     private func configureCollectionViews() {
-        (0..<projectStateCount).forEach { _ in
-            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
+        (0..<projectStateCount).forEach { index in
+            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout(for: index))
             collectionView.delegate = self
             collectionViews.append(collectionView)
         }
     }
 
-    private func makeCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+    private func makeCollectionViewLayout(for index: Int) -> UICollectionViewCompositionalLayout {
         var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         configuration.showsSeparators = false
         configuration.backgroundColor = ProjectColor.collectionViewBackground.color
+        configuration.trailingSwipeActionsConfigurationProvider = makeSwipeActionsConfigurationProvider(for: index)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         return layout
+    }
+
+    private func makeSwipeActionsConfigurationProvider(for index: Int) -> (IndexPath) -> UISwipeActionsConfiguration? {
+        return { [weak self] indexPath in
+            guard let dataSource = self?.dataSources[index] as? DataSource,
+                  let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
+                  let project = self?.project(for: itemIdentifier) else { return nil }
+            let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
+            let deleteAction = UIContextualAction(style: .destructive,
+                                                  title: deleteActionTitle) { [weak self] _, _, completion in
+                self?.delete(for: project.id)
+                self?.updateSnapshot(for: index)
+                self?.updateProjectHeaderViewText()
+                completion(false)
+            }
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
     }
 
     private func configureDataSources() {
@@ -124,21 +142,21 @@ extension ProjectListViewController {
     }
 
     private func updateSnapshot(_ reloadItemIDs: [UUID] = []) {
-        dataSources.enumerated().forEach { index, dataSource in
-            updateSnapshot(for: dataSource, stateIndex: index, reloadItemIDs: reloadItemIDs)
+        dataSources.enumerated().forEach { index, _ in
+            updateSnapshot(for: index, reloadItemIDs: reloadItemIDs)
         }
     }
 
-    private func updateSnapshot(for dataSource: DataSource, stateIndex: Int, reloadItemIDs: [UUID] = []) {
+    private func updateSnapshot(for index: Int, reloadItemIDs: [UUID] = []) {
         var snapShot = Snapshot()
         snapShot.appendSections([0])
-        let items = projectIDs(for: stateIndex)
+        let items = projectIDs(for: index)
         snapShot.appendItems(items)
         if reloadItemIDs.isEmpty == false {
             let reloadItems = Array(Set(reloadItemIDs).intersection(items))
             snapShot.reloadItems(reloadItems)
         }
-        dataSource.apply(snapShot)
+        dataSources[index].apply(snapShot)
     }
 
     private func updateProjectHeaderViewText() {
@@ -192,6 +210,10 @@ extension ProjectListViewController {
     private func update(project: Project) {
         guard let index = projects.firstIndex(where: { $0.id == project.id }) else { return }
         projects[index] = project
+    }
+
+    private func delete(for projectID: UUID) {
+        projects.removeAll(where: { $0.id == projectID })
     }
 }
 
