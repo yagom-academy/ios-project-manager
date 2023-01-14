@@ -1,8 +1,8 @@
 //
 //  ProjectManager - MainViewController.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom. All rights reserved.
-// 
+//
 
 import UIKit
 
@@ -41,7 +41,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupView()
-        viewModel.onUpdated = { [weak self] in
+        viewModel.binding = { [weak self] in
             self?.applyAllSnapshot()
         }
         setupTableView()

@@ -8,23 +8,35 @@
 import Foundation
 
 final class MainViewModel {
+    private let dataManager = DataManager.shared
+    
     private var todoData: [Todo] = [] {
         didSet {
-            onUpdated()
+            binding()
         }
     }
     private var doingData: [Todo] = [] {
         didSet {
-            onUpdated()
+            binding()
         }
     }
     private var doneData: [Todo] = [] {
         didSet {
-            onUpdated()
+            binding()
         }
     }
     
-    var onUpdated: () -> Void = {}
+    var binding: () -> Void = {}
+    
+    init() {
+        todoData = dataManager.fetchData(process: .todo)
+        doingData = dataManager.fetchData(process: .doing)
+        doneData = dataManager.fetchData(process: .done)
+        dataManager.onUpdated = { [weak self] in
+            guard let self = self else { return }
+            self.todoData = self.dataManager.fetchData(process: .todo)
+        }
+    }
     
     func fetchData(process: Process) -> [Todo] {
         switch process {
@@ -35,10 +47,5 @@ final class MainViewModel {
         case .done:
             return doneData
         }
-    }
-    
-    func uploadData(title: String, content: String? = nil, date: Date? = nil) {
-        let data = Todo(title: title, content: content, deadLine: date)
-        todoData.append(data)
     }
 }
