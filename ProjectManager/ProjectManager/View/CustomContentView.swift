@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomContentView: UIView, UIContentView {
+final class CustomContentView: UIView, UIContentView {
     var configuration: UIContentConfiguration {
         didSet {
             configure(using: configuration)
