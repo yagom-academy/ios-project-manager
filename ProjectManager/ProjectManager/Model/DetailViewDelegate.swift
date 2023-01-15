@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol DetailViewControllerDelegate: AnyObject {
+protocol DetailViewDelegate: AnyObject {
     func addTodo(todoModel: TodoModel)
+    func editTodo(todoModel: TodoModel, selectedItem: Int)
 }

@@ -13,8 +13,14 @@ class DetailViewController: UIViewController {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         let navigationItem = UINavigationItem(title: "TODO")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(addTodo))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil)
+        switch mode {
+        case .add:
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(addTodo))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissView))
+        case .modify:
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissView))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editTodo))
+        }
         navigationBar.items = [navigationItem]
         navigationBar.barTintColor = UIColor.systemGray6
         return navigationBar
@@ -61,7 +67,10 @@ class DetailViewController: UIViewController {
         return textView
     }()
 
-    weak var detailViewControllerDelegate: DetailViewControllerDelegate?
+    weak var detailViewDelegate: DetailViewDelegate?
+    var todo: TodoModel?
+    var mode: DetailViewMode = .add
+    var selectedItem: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +80,21 @@ class DetailViewController: UIViewController {
         view.addSubview(titleTextField)
         view.addSubview(datePicker)
         view.addSubview(bodyTextView)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        switch mode {
+        case .add:
+            break
+        case .modify:
+            guard let todo = todo,
+                  let date = convertStringToDate(dateText: todo.date) else { return }
+            titleTextField.text = todo.title
+            bodyTextView.text = todo.body
+            datePicker.date = date
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -108,6 +132,20 @@ class DetailViewController: UIViewController {
             bodyTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
         ])
     }
+
+    private func convertDateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        let date = formatter.string(from: datePicker.date)
+        return date
+    }
+
+    private func convertStringToDate(dateText: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        guard let date = formatter.date(from: dateText) else { return nil }
+        return date
+    }
 }
 
 // MARK: - Objc
@@ -115,13 +153,24 @@ extension DetailViewController {
     @objc private func addTodo() {
         guard let title = titleTextField.text,
               let body = bodyTextView.text else { return }
-
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy. MM. dd"
-        let date = formatter.string(from: datePicker.date)
-
+        let date = convertDateToString(date: datePicker.date)
         let todoModel = TodoModel(title: title, body: body, date: date)
-        detailViewControllerDelegate?.addTodo(todoModel: todoModel)
+
+        detailViewDelegate?.addTodo(todoModel: todoModel)
         dismiss(animated: true)
+    }
+
+    @objc private func dismissView() {
+        dismiss(animated: true)
+    }
+
+    @objc private func editTodo() {
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text,
+              let selectedItem = selectedItem else { return }
+        let date = convertDateToString(date: datePicker.date)
+        let todoModel = TodoModel(title: title, body: body, date: date)
+
+        detailViewDelegate?.editTodo(todoModel: todoModel, selectedItem: selectedItem)
     }
 }

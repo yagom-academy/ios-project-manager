@@ -208,8 +208,8 @@ final class MainViewController: UIViewController {
 
     private var todoLists: [TodoModel] = [
         TodoModel(title: "hi", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "11-11-11"),
-        TodoModel(title: "bye", body: "dd", date: "22-22-22"),
-        TodoModel(title: "asdf", body: "ffff", date: "33-33-33")
+        TodoModel(title: "bye", body: "dd", date: "1990. 2. 25"),
+        TodoModel(title: "asdf", body: "ffff", date: "2010. 02. 5")
     ]
 
     private var doingLists: [TodoModel] = [
@@ -239,6 +239,8 @@ final class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        todoCollectionView.delegate = self
 
         view.addSubview(navigationBar)
         view.addSubview(todoCollectionView)
@@ -425,15 +427,34 @@ extension MainViewController {
     @objc private func addNewTodo() {
         let detailViewController = DetailViewController()
         detailViewController.modalPresentationStyle = .formSheet
-        detailViewController.detailViewControllerDelegate = self
+        detailViewController.detailViewDelegate = self
         present(detailViewController, animated: true)
     }
 }
 
-// MARK: - Delegate
-extension MainViewController: DetailViewControllerDelegate {
+// MARK: - DetailViewControllerDelegate
+extension MainViewController: DetailViewDelegate {
     func addTodo(todoModel: TodoModel) {
         todoLists.append(todoModel)
         updateTodoSnapshot()
+    }
+
+    func editTodo(todoModel: TodoModel, selectedItem: Int) {
+        todoLists[selectedItem] = todoModel
+        updateTodoSnapshot()
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView != todoCollectionView { return }
+        let detailViewController = DetailViewController()
+        detailViewController.modalPresentationStyle = .formSheet
+        detailViewController.detailViewDelegate = self
+        detailViewController.mode = .modify
+        detailViewController.todo = todoLists[indexPath.item]
+        detailViewController.selectedItem = indexPath.item
+        present(detailViewController, animated: true)
     }
 }
