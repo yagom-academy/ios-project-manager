@@ -8,6 +8,8 @@
 import UIKit
 
 class AddViewController: UIViewController {
+    weak var delegate: WorkDelegate?
+    
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +59,8 @@ class AddViewController: UIViewController {
     func configureNavigationBar() {
         navigationItem.title = "TODO"
         navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self,
+                                                            action: #selector(rightButtonTapped))
         navigationController?.navigationBar.backgroundColor = .systemGray5
     }
     
@@ -75,5 +78,17 @@ class AddViewController: UIViewController {
             
             titleTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
+    }
+    
+    @objc func leftButtonTapped() {
+        
+    }
+    
+    @objc func rightButtonTapped() {
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text else { return }
+        
+        delegate?.send(data: Work(category: .todo, title: title, body: body, endDate: "2019년 1월 1일"))
+        dismiss(animated: true)
     }
 }

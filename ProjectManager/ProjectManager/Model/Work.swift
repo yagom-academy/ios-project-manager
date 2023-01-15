@@ -14,3 +14,7 @@ struct Work {
     var body: String
     var endDate: String
 }
+
+protocol WorkDelegate: AnyObject {
+    func send(data: Work)
+}
