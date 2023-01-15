@@ -74,12 +74,15 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureUI()
+        configureDataSource()
+    }
+    
+    private func configureUI() {
         configureNavigationBar()
         configureMainStackView()
         configureHeaderStackView()
         configureCollectionStackView()
-        configureDataSource()
     }
     
     private func configureNavigationBar() {

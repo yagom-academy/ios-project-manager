@@ -8,9 +8,9 @@
 import UIKit
 
 final class CustomContentView: UIView, UIContentView {
-    private var configuration: UIContentConfiguration {
+    var configuration: UIContentConfiguration {
         didSet {
-            configure(using: configuration)
+            configureContents(using: configuration)
         }
     }
     
@@ -19,13 +19,13 @@ final class CustomContentView: UIView, UIContentView {
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstants.stackViewMargin,
-                                                                 leading: LayoutConstants.stackViewMargin,
-                                                                 bottom: LayoutConstants.stackViewMargin,
-                                                                 trailing: LayoutConstants.stackViewMargin)
-        stack.layer.borderWidth = LayoutConstants.borderWidth
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstant.margin,
+                                                                 leading: LayoutConstant.margin,
+                                                                 bottom: LayoutConstant.margin,
+                                                                 trailing: LayoutConstant.margin)
+        stack.layer.borderWidth = LayoutConstant.borderWidth
         stack.layer.borderColor = UIColor.systemGray.cgColor
-        stack.layer.cornerRadius = LayoutConstants.cornerRadius
+        stack.layer.cornerRadius = LayoutConstant.cornerRadius
         
         return stack
     }()
@@ -40,7 +40,7 @@ final class CustomContentView: UIView, UIContentView {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
-        label.numberOfLines = LayoutConstants.maxBodyLineCount
+        label.numberOfLines = LayoutConstant.maxBodyLineCount
         return label
     }()
     
@@ -50,15 +50,36 @@ final class CustomContentView: UIView, UIContentView {
     init(configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
-        configureStackView()
-        configure(using: configuration)
+        configureViews()
+        configureContents(using: configuration)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(using configuration: UIContentConfiguration) {
+    private func configureViews() {
+        directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstant.margin,
+                                                           leading: LayoutConstant.margin,
+                                                           bottom: LayoutConstant.margin,
+                                                           trailing: LayoutConstant.margin)
+        configureStackView()
+    }
+    
+    private func configureStackView() {
+        addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+        ])
+        
+        [titleLabel, bodyLabel, dueDateLabel].forEach { stackView.addArrangedSubview($0) }
+    }
+    
+    private func configureContents(using configuration: UIContentConfiguration) {
         guard let configuration = configuration as? CustomContentConfiguration else { return }
         
         titleLabel.text = configuration.title
@@ -70,22 +91,9 @@ final class CustomContentView: UIView, UIContentView {
             dueDateLabel.textColor = .systemRed
         }
     }
-    
-    private func configureStackView() {
-        self.addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        ])
-        
-        [titleLabel, bodyLabel, dueDateLabel].forEach { stackView.addArrangedSubview($0) }
-    }
-    
-    enum LayoutConstants {
-        static let stackViewMargin = CGFloat(8)
+
+    enum LayoutConstant {
+        static let margin = CGFloat(8)
         static let borderWidth = CGFloat(1)
         static let cornerRadius = CGFloat(8)
         static let maxBodyLineCount = 3
