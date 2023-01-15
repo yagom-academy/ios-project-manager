@@ -1,18 +1,15 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - PlanListViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
 
-class ViewController: UIViewController {
+class PlanListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
-
-
 }
 
