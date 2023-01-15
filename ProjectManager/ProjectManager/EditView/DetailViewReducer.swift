@@ -20,6 +20,7 @@ struct DetailViewReducer: ReducerProtocol {
     case didChangeTitle(String)
     case didChangeSelectedDate(Date)
     case didChangeDescription(String)
+    case dismissButtonTap
   }
   
   func reduce(into state: inout State, action: Action) -> ComposableArchitecture.EffectTask<Action> {
@@ -38,6 +39,8 @@ struct DetailViewReducer: ReducerProtocol {
       
     case let .didChangeDescription(body):
       state.description = body
+      return .none
+    case .dismissButtonTap:
       return .none
     }
   }

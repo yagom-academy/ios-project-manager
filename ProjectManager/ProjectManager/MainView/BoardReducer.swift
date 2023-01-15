@@ -16,16 +16,29 @@ struct BoardReducer: ReducerProtocol {
   
   enum Action: Equatable {
     case didSetProject(Bool)
+    case setDetailViewStore(Bool)
     case optionalDetailViewState(DetailViewReducer.Action)
   }
   
   var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
       switch action {
-      case let .didSetProject(canEdit):
-        state.detailViewState = DetailViewReducer.State(canEdit: canEdit)
-        state.isPresent.toggle()
+      case let .didSetProject(isPresent):
+        state.isPresent = isPresent
         return .none
+        
+      case let .setDetailViewStore(canEdit):
+        state.detailViewState = DetailViewReducer.State(canEdit: canEdit)
+        return .run { send in
+          await send(.didSetProject(true))
+        }
+        
+      case .optionalDetailViewState(.dismissButtonTap):
+        state.detailViewState = nil
+        return .run { send in
+          await send(.didSetProject(false))
+        }
+        
       case .optionalDetailViewState:
         return .none
       }

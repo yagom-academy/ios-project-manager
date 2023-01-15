@@ -18,7 +18,7 @@ struct BoardView: View {
             title: BoardViewNames.titleName,
             trailingImage: Image.plusImage,
             trailingAction: {
-              viewStore.send(.didSetProject(true))
+              viewStore.send(.setDetailViewStore(true))
             }
           )
           
@@ -38,11 +38,10 @@ struct BoardView: View {
         .navigationBarHidden(true)
         .sheet(
           isPresented: viewStore.binding(
-            get: \.isPresent,
-            send: BoardReducer.Action.didSetProject
-          )
+              get: \.isPresent,
+              send: BoardReducer.Action.didSetProject
+            )
         ) {
-          
           IfLetStore(
             boardReducer.scope(
               state: \.detailViewState,

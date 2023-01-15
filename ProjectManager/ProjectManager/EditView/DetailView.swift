@@ -72,7 +72,7 @@ struct ProjectDetailView: View {
           
           ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-              dismiss()
+              viewStore.send(.dismissButtonTap)
             } label: {
               Text("Done")
             }
