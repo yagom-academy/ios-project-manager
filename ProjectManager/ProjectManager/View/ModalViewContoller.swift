@@ -67,6 +67,7 @@ final class ModalViewContoller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
+        textView.delegate = self
         
         configureLayout()
         setNavigation()
@@ -135,5 +136,20 @@ final class ModalViewContoller: UIViewController {
             textView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
             textView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -8)
         ])
+    }
+}
+
+// MARK: - TextViewDelegate
+extension ModalViewContoller: UITextViewDelegate {
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
+        let currentText = textView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
+        print(changedText)
+        return changedText.count <= 1000
     }
 }
