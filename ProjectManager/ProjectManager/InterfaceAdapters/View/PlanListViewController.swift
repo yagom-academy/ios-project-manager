@@ -6,26 +6,38 @@
 
 import UIKit
 
-class PlanListViewController: UIViewController {
+final class PlanListViewController: UIViewController {
+    
     typealias Text = ProjectConstant.Text
     typealias Style = ProjectConstant.Style
+    typealias Color = ProjectConstant.Color
 
     private var planManager: PlanManager
     private let viewModel: PlanListViewModel
+    private let planListStackViews: [PlanListView]
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.backgroundColor = .systemGray4
+        stackView.backgroundColor = Color.PlanListViewSpacing
         stackView.axis = .horizontal
         stackView.spacing = Style.stackViewSpacing
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         return stackView
     }()
 
     init(planManger: PlanManager = ProjectManager.shared,
-         viewModel: PlanListViewModel = ProjectListViewModel()) {
+         viewModel: PlanListViewModel = ProjectListViewModel(),
+         planListStackViews: [PlanListView] = [ProjectListView(state: .toDo,
+                                                                         frame: .zero),
+                                                    ProjectListView(state: .doing,
+                                                                         frame: .zero),
+                                                    ProjectListView(state: .done,
+                                                                         frame: .zero)]) {
         self.planManager = planManger
         self.viewModel = viewModel
+        self.planListStackViews = planListStackViews
         super.init(nibName: nil, bundle: nil)
 
         configurePlanManger()
@@ -59,6 +71,9 @@ class PlanListViewController: UIViewController {
 
     private func configureViewHierarchy() {
         view.addSubview(stackView)
+        planListStackViews.forEach { listView in
+            stackView.addArrangedSubview(listView)
+        }
     }
 
     private func configureLayoutConstraint() {
@@ -90,5 +105,18 @@ class PlanListViewController: UIViewController {
         let button = UIBarButtonItem(systemItem: .add, primaryAction: addPlanAction())
 
         return button
+    }
+}
+
+extension PlanListViewController: PlanListViewDelegate {
+    func configureList(state: PlanState) -> [PlanViewModel] {
+        switch state {
+        case .toDo:
+            return viewModel.fetchList(of: .toDo)
+        case .doing:
+            return viewModel.fetchList(of: .doing)
+        case .done:
+            return viewModel.fetchList(of: .done)
+        }
     }
 }
