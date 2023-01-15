@@ -18,7 +18,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        setUpNavigationBar()
         configureDataSource()
         takeInitialSnapShot()
         setupListsDelegator()
@@ -26,6 +25,7 @@ class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setUpNavigationBar()
         setUpListTitles()
         configureHierarchy()
         configureLayout()
@@ -42,10 +42,7 @@ class MainViewController: UIViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier)
                 as? ListCell
             
-            cell?.cellViewModel.title = item.title ?? ""
-            cell?.cellViewModel.description = item.description ?? ""
-            cell?.cellViewModel.date = item.date.changeDotFormatString()
-            cell?.cellViewModel.process = process
+            cell?.cellViewModel.setupCell(project: item, in: process)
 
             return cell
         }
@@ -58,9 +55,11 @@ class MainViewController: UIViewController {
     }
     
     func bidingViewModel() {
-        viewModel.updateData = { [weak self] process, data, count in
-            self?.dataSources[process.index]?.reload(data)
-            self?.lists[process.index].countLabel.text = count
+        viewModel.updateDatas = { [weak self] datas, datasCount in
+            self?.dataSources.enumerated().forEach { index, dataSource in
+                dataSource?.reload(datas[index]) }
+            self?.lists.enumerated().forEach { index, list in
+                (list as ListView).countLabel.text = datasCount[index] }
         }
     }
     
@@ -71,7 +70,7 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK: NavigationBar
+// MARK: - NavigationBar
 extension MainViewController {
     
     func setUpNavigationBar() {
@@ -98,29 +97,25 @@ extension MainViewController {
     }
 }
 
-// MARK: Layout
+// MARK: - Layout
 extension MainViewController {
     
     func configureHierarchy() {
-        lists.forEach {
-            listStack.addArrangedSubview($0)
-        }
-        
+        lists.forEach { listStack.addArrangedSubview($0) }
         view.addSubview(listStack)
     }
     
     func configureLayout() {
-        let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            listStack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            listStack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            listStack.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            listStack.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            listStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            listStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            listStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            listStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
 
-// MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     
     func setupListsDelegator() {
@@ -131,28 +126,20 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        changeBorderColor(tableView, didSelectRowAt: indexPath)
-        presentEditingView(tableView, didSelectRowAt: indexPath)
-    }
-    
-    func changeBorderColor(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
-        
-        let view = UIView()
-        view.backgroundColor = .systemBlue
-        view.layer.opacity = 0.3
-        tableView.cellForRow(at: indexPath)?.selectedBackgroundView = view
+        presentEditingView(tableView, didSelectRowAt: indexPath)
     }
     
     func presentEditingView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ListCell else { return }
+        
         let process = cell.cellViewModel.process
         let projectToEdit = viewModel.datas[process.index][indexPath.item]
-        
         let editingViewModel = EditingViewModel(editTargetModel: self.viewModel,
                                                 project: projectToEdit,
                                                 isNewProject: false,
                                                 process: cell.cellViewModel.process)
+    
         let editViewController = EditingViewController(viewModel: editingViewModel)
         editViewController.modalPresentationStyle = .formSheet
         

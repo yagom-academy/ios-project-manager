@@ -10,92 +10,37 @@ import Foundation
 class MainViewModel {
     
     let processTitles: [String] = [Process.todo.title, Process.doing.title, Process.done.title]
-    var todoData: [Project] = [] {
+    var datas: [[Project]] = [[], [], []] {
         didSet {
-            updateData(.todo, todoData, dataCount(todoData))
+            updateDatas(datas, datasCount(datas))
         }
     }
-    var doingData: [Project] = [] {
-        didSet {
-            updateData(.doing, doingData, dataCount(doingData))
-        }
-    }
-    var doneData: [Project] = [] {
-        didSet {
-            updateData(.done, doneData, dataCount(doneData))
-        }
+
+    var datasCount = { (datas: [[Project]]) -> [String] in
+        return datas.map { String($0.count) }
     }
     
-    var datas: [[Project]] {
-        return [todoData, doingData, doneData]
-    }
-    
-    var dataCount = { (datas: [Project]) -> String in
-        return String(datas.count)
-    }
-    
-    var updateData: (Process, [Project], String) -> Void = { _, _, _ in }
+    var updateDatas: ([[Project]], [String]) -> Void = { _, _ in }
     
     var newProject: Project {
         return Project(title: "", description: "", date: Date(), uuid: UUID())
     }
     
     func registerProject(_ project: Project, in process: Process) {
-        switch process {
-        case .todo:
-            todoData.append(project)
-        case .doing:
-            doingData.append(project)
-        case .done:
-            doneData.append(project)
-        }
+        datas[process.index].append(project)
     }
     
     func editProject(_ project: Project, in process: Process) {
-        var index = 0
-        switch process {
-        case .todo:
-            todoData.enumerated().forEach { offset, data in
-                guard data.uuid == project.uuid else { return }
-                index = offset
-            }
-            todoData[index] = project
-        case .doing:
-            doingData.enumerated().forEach { offset, data in
-                guard data.uuid == project.uuid else { return }
-                index = offset
-            }
-            doingData[index] = project
-        case .done:
-            doneData.enumerated().forEach { offset, data in
-                guard data.uuid == project.uuid else { return }
-                index = offset
-            }
-            doneData[index] = project
+        datas[process.index].enumerated().forEach { index, data in
+            guard data.uuid == project.uuid else { return }
+            datas[process.index][index] = project
         }
     }
     
     func deleteData(_ project: Project, in process: Process) {
-        var index = 0
-        switch process {
-        case .todo:
-            todoData.enumerated().forEach { offset, data in
-                guard data.uuid == project.uuid else { return }
-                index = offset
-            }
-            todoData.remove(at: index)
-        case .doing:
-            doingData.enumerated().forEach { offset, data in
-                guard data.uuid == project.uuid else { return }
-                index = offset
-            }
-            doingData.remove(at: index)
-        case .done:
-            doneData.enumerated().forEach { offset, data in
-                guard data.uuid == project.uuid else { return }
-                index = offset
-            }
-            doneData.remove(at: index)
+        datas[process.index].enumerated().forEach { index, data in
+            guard data.uuid == project.uuid else { return }
+            datas[process.index].remove(at: index)
         }
     }
 }

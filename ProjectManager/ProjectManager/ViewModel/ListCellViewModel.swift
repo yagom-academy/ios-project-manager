@@ -36,4 +36,11 @@ struct ListCellViewModel {
         
         return deadLine < today
     }
+    
+    mutating func setupCell(project: Project?, in process: Process) {
+        title = project?.title ?? ""
+        description = project?.description ?? ""
+        date = project?.date.changeDotFormatString() ?? ""
+        self.process = process
+    }
 }
