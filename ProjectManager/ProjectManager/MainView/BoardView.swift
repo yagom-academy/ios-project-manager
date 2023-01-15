@@ -43,13 +43,15 @@ struct BoardView: View {
           )
         ) {
           
-          // TODO: - EditView 구성 및 추가
-          ProjectDetailView(
-            store: Store(
-              initialState: DetailViewReducer.State(canEdit: true),
-              reducer: DetailViewReducer()
+          IfLetStore(
+            boardReducer.scope(
+              state: \.detailViewState,
+              action: BoardReducer.Action.optionalDetailViewState
             )
-          )
+          ) { viewStore in
+            ProjectDetailView(store: viewStore)
+          }
+
         }
       }
       .navigationViewStyle(.stack)
