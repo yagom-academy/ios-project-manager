@@ -9,23 +9,18 @@ import ComposableArchitecture
 
 struct BoardReducer: ReducerProtocol {
   struct State: Equatable {
-    @BindableState var isPresentEditView: Bool = false
+    var isPresent: Bool = false
     var projects: [Project] = Project.mock
   }
   
   enum Action: Equatable {
-    case didTapPresentEdit
-    case didDismissEditView
+    case didSetProject(Bool)
   }
   
   func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {
-    case .didTapPresentEdit:
-      state.isPresentEditView = true
-      return .none
-      
-    case .didDismissEditView:
-      state.isPresentEditView = false
+    case let .didSetProject(isPresented):
+      state.isPresent = isPresented
       return .none
     }
   }

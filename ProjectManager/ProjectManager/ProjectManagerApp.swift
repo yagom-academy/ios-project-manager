@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct ProjectManagerApp: App {
   let boardStore = Store(
     initialState: BoardReducer.State(),
-    reducer: BoardReducer()
+    reducer: BoardReducer()._printChanges()
   )
   
   var body: some Scene {

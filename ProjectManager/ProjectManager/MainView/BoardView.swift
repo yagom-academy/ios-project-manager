@@ -18,7 +18,7 @@ struct BoardView: View {
             title: BoardViewNames.titleName,
             trailingImage: Image.plusImage,
             trailingAction: {
-              viewStore.send(.didTapPresentEdit)
+              viewStore.send(.didSetProject(true))
             }
           )
           
@@ -38,17 +38,17 @@ struct BoardView: View {
         .navigationBarHidden(true)
         .sheet(
           isPresented: viewStore.binding(
-            get: \.isPresentEditView,
-            send: .didDismissEditView
+            get: \.isPresent,
+            send: BoardReducer.Action.didSetProject
           )
         ) {
+          
           // TODO: - EditView 구성 및 추가
           ProjectDetailView(
-            completionEdit: viewStore.binding(
-              get: \.isPresentEditView,
-              send: .didDismissEditView
-            ),
-            canEdit: true
+            store: Store(
+              initialState: DetailViewReducer.State(canEdit: true),
+              reducer: DetailViewReducer()
+            )
           )
         }
       }
