@@ -18,8 +18,8 @@ class EditingViewModel {
     let isNewProject: Bool
     let process: Process
 
-    var processTitle: String {
-        return process.title
+    var barTitle: String {
+        return isNewProject ? process.title : process.title + " Edit"
     }
     
     var updateData: (Project) -> Void = { _ in }

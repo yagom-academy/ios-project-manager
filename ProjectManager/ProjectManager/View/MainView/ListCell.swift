@@ -57,6 +57,8 @@ class ListCell: UITableViewCell {
     }
     
     func configureLayout() {
+        descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        
         NSLayoutConstraint.activate([
             stack.leadingAnchor.constraint(equalTo: totalView.leadingAnchor, constant: 10),
             stack.trailingAnchor.constraint(equalTo: totalView.trailingAnchor, constant: -10),

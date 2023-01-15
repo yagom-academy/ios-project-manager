@@ -74,4 +74,28 @@ class MainViewModel {
             doneData[index] = project
         }
     }
+    
+    func deleteData(_ project: Project, in process: Process) {
+        var index = 0
+        switch process {
+        case .todo:
+            todoData.enumerated().forEach { offset, data in
+                guard data.uuid == project.uuid else { return }
+                index = offset
+            }
+            todoData.remove(at: index)
+        case .doing:
+            doingData.enumerated().forEach { offset, data in
+                guard data.uuid == project.uuid else { return }
+                index = offset
+            }
+            doingData.remove(at: index)
+        case .done:
+            doneData.enumerated().forEach { offset, data in
+                guard data.uuid == project.uuid else { return }
+                index = offset
+            }
+            doneData.remove(at: index)
+        }
+    }
 }

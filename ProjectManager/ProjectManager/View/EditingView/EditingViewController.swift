@@ -91,7 +91,8 @@ class EditingViewController: UIViewController {
     func setupNavigationBar() {
         let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0,
                                                           width: view.frame.width, height: 70))
-        let navigationItem = UINavigationItem(title: viewModel.processTitle)
+        let navigationItem = UINavigationItem()
+        navigationItem.title = viewModel.barTitle
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel",
                                                            primaryAction: touchedUpCancelButton())
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",

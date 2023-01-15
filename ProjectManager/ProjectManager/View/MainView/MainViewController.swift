@@ -160,6 +160,20 @@ extension MainViewController: UITableViewDelegate {
         editViewController.viewModel.project = projectToEdit
     }
     
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+    -> UISwipeActionsConfiguration? {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ListCell else { return nil }
+        
+        let process = cell.cellViewModel.process
+        let project = viewModel.datas[process.index][indexPath.item]
+        let delete = UIContextualAction(style: .destructive, title: "delete") { _, _, _ in
+            self.viewModel.deleteData(project, in: process)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         10
     }
