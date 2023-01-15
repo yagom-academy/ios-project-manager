@@ -59,7 +59,7 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = .init(
             barButtonSystemItem: .add,
             target: self,
-            action: nil
+            action: #selector(addListItem)
         )
     }
     
@@ -83,6 +83,18 @@ class MainViewController: UIViewController {
         todoListStackView.fetchListCount(listItems.count)
         doingListStackView.fetchListCount(listItems.count)
         doneListStackView.fetchListCount(listItems.count)
+    }
+    
+    @objc func addListItem() {
+        let viewController = ListFormViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        
+        navigationController.modalPresentationStyle = .formSheet
+        navigationController.preferredContentSize = .init(
+            width: view.frame.width * 0.5,
+            height: view.frame.height * 0.7
+        )
+        present(navigationController, animated: true)
     }
 }
 
