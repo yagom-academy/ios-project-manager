@@ -1,5 +1,5 @@
 //
-//  AddViewController.swift
+//  DetailViewController.swift
 //  ProjectManager
 //
 //  Created by Kyo on 2023/01/13.
@@ -7,13 +7,15 @@
 
 import UIKit
 
-final class AddViewController: UIViewController {
-    private let updateView = UpdateTodoView()
-    private let viewModel: DataUpdatable
-    private var indexPath: IndexPath?
+final class DetailViewController: UIViewController {
+    weak var delegate: DataSharable?
     
-    init() {
-        viewModel = AddViewModel()
+    private let updateView = UpdateTodoView()
+    private let viewModel: DetailViewModel
+    private var isEditable = false
+    
+    init(viewModel: DetailViewModel, index: Int? = nil) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,13 +26,25 @@ final class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = updateView
+        setupBinding()
         setupNavigationBar()
         setupDatePicker()
+    }
+    
+    private func setupBinding() {
+        viewModel.bindDetailData { [weak self] data in
+            guard let data = data else { return }
+            self?.updateView.titleTextField.text = data.title
+            self?.updateView.descriptionTextView.text = data.content
+            if let date = data.deadLine {
+                self?.updateView.datePicker.setDate(date, animated: true)
+            }
+        }
     }
 }
 
 // MARK: - Action
-extension AddViewController {
+extension DetailViewController {
     @objc private func datePickerWheel(_ sender: UIDatePicker) -> Date? {
         return sender.date
     }
@@ -39,14 +53,13 @@ extension AddViewController {
         guard let title = updateView.titleTextField.text else { return }
         let date = datePickerWheel(updateView.datePicker)
         
-        viewModel.updateData(
-            process: .todo,
+        delegate?.shareData(
+            process: viewModel.fetchDataProcess(),
             title: title,
             content: updateView.descriptionTextView.text,
             date: date,
-            indexPath: nil
+            index: viewModel.fetchDataIndex()
         )
-
         dismiss(animated: true)
     }
     
@@ -56,7 +69,7 @@ extension AddViewController {
 }
 
 // MARK: - UI Confuration
-extension AddViewController {
+extension DetailViewController {
     private func setupNavigationBar() {
         title = Process.todo.titleValue
         

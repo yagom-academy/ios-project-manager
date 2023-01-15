@@ -42,4 +42,33 @@ final class MainViewModel {
         handler(doneData)
         self.doneHandler = handler
     }
+    
+    func updateData(process: Process, title: String, content: String?, date: Date?, index: Int?) {
+        let data = Todo(title: title, content: content, deadLine: date)
+        
+        guard let index = index else {
+            todoData.append(data)
+            return
+        }
+        
+        switch process {
+        case .todo:
+            todoData[index] = data
+        case .doing:
+            doingData[index] = data
+        case .done:
+            doneData[index] = data
+        }
+    }
+    
+    func fetchSeletedData(process: Process, index: Int) -> Todo {
+        switch process {
+        case .todo:
+            return todoData[index]
+        case .doing:
+            return doingData[index]
+        case .done:
+            return doneData[index]
+        }
+    }
 }

@@ -6,6 +6,10 @@
 
 import UIKit
 
+protocol DataSharable: AnyObject {
+    func shareData(process: Process, title: String, content: String?, date: Date?, index: Int?)
+}
+
 final class MainViewController: UIViewController {
     typealias DataSource = UITableViewDiffableDataSource<Section, Todo>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Todo>
@@ -47,13 +51,16 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func addButtonTapped() {
-        let addViewController = AddViewController()
-        addViewController.modalPresentationStyle = .formSheet
-        
-        let addNavigationController = UINavigationController(
-            rootViewController: addViewController
+        let detailViewController = DetailViewController(
+            viewModel: DetailViewModel(process: .todo, index: nil, data: nil)
         )
-        present(addNavigationController, animated: true)
+        detailViewController.delegate = self
+        detailViewController.modalPresentationStyle = .formSheet
+        
+        let detailNavigationController = UINavigationController(
+            rootViewController: detailViewController
+        )
+        present(detailNavigationController, animated: true)
     }
     
     private func setupBinding() {
@@ -165,27 +172,49 @@ extension MainViewController {
     }
 }
 
+// MARK: - TableView Delegate
 extension MainViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let process: Process
-//
-//        switch tableView {
-//        case todoView.tableView:
-//            process = .todo
-//        case doingView.tableView:
-//            process = .doing
-//        case doneView.tableView:
-//            process = .done
-//        default:
-//            return
-//        }
-//
-//        let editViewController = EditViewController(process: process, indexPath: indexPath)
-//        editViewController.modalPresentationStyle = .formSheet
-//
-//        let editNavigationController = UINavigationController(
-//            rootViewController: editViewController
-//        )
-//        present(editNavigationController, animated: true)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let process: Process
+        
+        switch tableView {
+        case todoView.tableView:
+            process = .todo
+        case doingView.tableView:
+            process = .doing
+        case doneView.tableView:
+            process = .done
+        default:
+            return
+        }
+        
+        let selectData = viewModel.fetchSeletedData(process: process, index: indexPath.row)
+        let detailViewModel = DetailViewModel(
+            process: process,
+            index: indexPath.row,
+            data: selectData
+        )
+        let detailViewController = DetailViewController(viewModel: detailViewModel)
+        detailViewController.delegate = self
+        detailViewController.modalPresentationStyle = .formSheet
+        
+        let detailNavigationController = UINavigationController(
+            rootViewController: detailViewController
+        )
+        present(detailNavigationController, animated: true)
+    }
+}
+
+
+// MARK: - DataSharable Delegate Protocol
+extension MainViewController: DataSharable {
+    func shareData(process: Process, title: String, content: String?, date: Date?, index: Int?) {
+        viewModel.updateData(
+            process: process,
+            title: title,
+            content: content,
+            date: date,
+            index: index
+        )
+    }
 }
