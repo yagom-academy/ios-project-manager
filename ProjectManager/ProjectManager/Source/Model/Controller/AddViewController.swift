@@ -20,14 +20,23 @@ class AddViewController: UIViewController {
         
         view = customPopUpView
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        setUpDoneButton()
     }
     
     // MARK: Private Methods
     
+    func setUpDoneButton() {
+        customPopUpView.doneButton.addTarget(
+            self,
+            action: #selector(didTapDismissButton),
+            for: .touchDown
+        )
+    }
+    
     // MARK: Action Methods
     
     @objc
-    private func didTapDismissButton(_ sender: UIButton) {
+    private func didTapDismissButton() {
         dismiss(animated: true, completion: nil)
     }
 }

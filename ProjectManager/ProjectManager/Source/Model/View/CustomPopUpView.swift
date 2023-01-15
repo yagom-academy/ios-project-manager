@@ -11,6 +11,19 @@ class CustomPopUpView: UIView {
     
     // MARK: Properties
     
+    let editButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Edit", for: .normal)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        return button
+    }()
+    let doneButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Done", for: .normal)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        return button
+    }()
+    
     private let popUpView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -41,18 +54,6 @@ class CustomPopUpView: UIView {
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline, compatibleWith: .none)
         return label
-    }()
-    private let editButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Edit", for: .normal)
-        button.setTitleColor(UIColor.blue, for: .normal)
-        return button
-    }()
-    private let doneButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Done", for: .normal)
-        button.setTitleColor(UIColor.blue, for: .normal)
-        return button
     }()
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()

@@ -15,7 +15,7 @@ class MainTitleView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Project Manager"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
         return label
     }()
@@ -32,8 +32,9 @@ class MainTitleView: UIView {
         addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7),
+            titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
             titleLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
