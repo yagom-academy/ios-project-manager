@@ -20,15 +20,27 @@ class MainViewController: UIViewController {
         
         view = projectManagerView
         
-        configureUI()
+        configureView()
         projectManagerView.setUpTableView(with: self)
     }
     
     // MARK: Private Methods
     
-    private func configureUI() {
-        view.backgroundColor = .white
-        navigationItem.title = "Project Manager"
+    private func configureView() {
+        view.backgroundColor = .systemGray2
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(plusButtonAction)
+        )
+    }
+    
+    @objc
+    private func plusButtonAction() {
+        let popUpViewController = AddViewController()
+        
+        popUpViewController.modalPresentationStyle = .overCurrentContext
+        present(popUpViewController, animated: true)
     }
 }
 
