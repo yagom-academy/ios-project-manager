@@ -9,7 +9,7 @@ import Foundation
 
 class EditingViewModel {
     
-    var project: Project = Project(title: "", description: "", date: Date()) {
+    var project: Project {
         didSet {
             updateData(project)
         }
@@ -25,23 +25,28 @@ class EditingViewModel {
     var updateData: (Project) -> Void = { _ in }
     
     init(editTargetModel: MainViewModel,
+         project: Project,
          isNewProject: Bool = true,
          process: Process = .todo) {
+        self.project = project
         self.editTargetModel = editTargetModel
         self.process = process
         self.isNewProject = isNewProject
     }
 
     func doneEditing(titleInput: String?, descriptionInput: String?, dateInput: Date) {
-        project = Project(title: titleInput, description: descriptionInput, date: dateInput)
-        isNewProject ? registerProject(project) : editProject()
+        project.title = titleInput
+        project.description = descriptionInput
+        project.date = dateInput
+        
+        isNewProject ? registerProject(project) : editProject(project)
     }
     
     func registerProject(_ project: Project) {
         editTargetModel.registerProject(project, in: .todo)
     }
     
-    func editProject() {
-        print("수정")
+    func editProject(_ project: Project) {
+        editTargetModel.editProject(project, in: process)
     }
 }

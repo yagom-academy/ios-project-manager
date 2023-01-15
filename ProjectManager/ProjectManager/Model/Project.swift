@@ -9,7 +9,8 @@ import Foundation
 
 struct Project: Hashable {
     
-    let title: String?
-    let description: String?
-    let date: Date
+    var title: String?
+    var description: String?
+    var date: Date
+    let uuid: UUID
 }

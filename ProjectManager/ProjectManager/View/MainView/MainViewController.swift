@@ -59,7 +59,7 @@ class MainViewController: UIViewController {
     
     func bidingViewModel() {
         viewModel.updateData = { [weak self] process, data, count in
-            self?.dataSources[process.index]?.applySnapshot(data)
+            self?.dataSources[process.index]?.reload(data)
             self?.lists[process.index].countLabel.text = count
         }
     }
@@ -87,7 +87,9 @@ extension MainViewController {
         return UIAction { [weak self] _ in
             guard let self = self else { return }
             
-            let editingViewModel = EditingViewModel(editTargetModel: self.viewModel)
+            let newProject = self.viewModel.newProject
+            let editingViewModel = EditingViewModel(editTargetModel: self.viewModel,
+                                                    project: newProject)
             let editViewController = EditingViewController(viewModel: editingViewModel)
             editViewController.modalPresentationStyle = .formSheet
             
@@ -143,20 +145,19 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func presentEditingView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ListCell,
-              let date = cell.cellViewModel.date.changeDateFromDotFormat() else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? ListCell else { return }
+        let process = cell.cellViewModel.process
+        let projectToEdit = viewModel.datas[process.index][indexPath.item]
         
         let editingViewModel = EditingViewModel(editTargetModel: self.viewModel,
+                                                project: projectToEdit,
                                                 isNewProject: false,
                                                 process: cell.cellViewModel.process)
         let editViewController = EditingViewController(viewModel: editingViewModel)
         editViewController.modalPresentationStyle = .formSheet
         
         self.navigationController?.present(editViewController, animated: true)
-        
-        editViewController.viewModel.project = Project(title: cell.cellViewModel.title,
-                                                       description: cell.cellViewModel.description,
-                                                       date: date)
+        editViewController.viewModel.project = projectToEdit
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

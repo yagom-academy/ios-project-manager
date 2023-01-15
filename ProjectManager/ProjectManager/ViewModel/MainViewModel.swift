@@ -36,6 +36,10 @@ class MainViewModel {
     
     var updateData: (Process, [Project], String) -> Void = { _, _, _ in }
     
+    var newProject: Project {
+        return Project(title: "", description: "", date: Date(), uuid: UUID())
+    }
+    
     func registerProject(_ project: Project, in process: Process) {
         switch process {
         case .todo:
@@ -44,6 +48,30 @@ class MainViewModel {
             doingData.append(project)
         case .done:
             doneData.append(project)
+        }
+    }
+    
+    func editProject(_ project: Project, in process: Process) {
+        var index = 0
+        switch process {
+        case .todo:
+            todoData.enumerated().forEach { offset, data in
+                guard data.uuid == project.uuid else { return }
+                index = offset
+            }
+            todoData[index] = project
+        case .doing:
+            doingData.enumerated().forEach { offset, data in
+                guard data.uuid == project.uuid else { return }
+                index = offset
+            }
+            doingData[index] = project
+        case .done:
+            doneData.enumerated().forEach { offset, data in
+                guard data.uuid == project.uuid else { return }
+                index = offset
+            }
+            doneData[index] = project
         }
     }
 }
