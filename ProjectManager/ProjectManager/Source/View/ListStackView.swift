@@ -31,7 +31,7 @@ class ListStackView: UIStackView {
         
         return label
     }()
-    private let listTableView: UITableView = {
+    let listTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListItemCell.self, forCellReuseIdentifier: ListItemCell.identifier)

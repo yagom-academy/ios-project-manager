@@ -7,6 +7,12 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    typealias DataSource = UITableViewDiffableDataSource<Section, ListItem>
+    
+    enum Section {
+        case main
+    }
+    
     private let totalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 10
@@ -20,7 +26,16 @@ class MainViewController: UIViewController {
     private let todoListStackView = ListStackView(title: Constant.todo)
     private let doingListStackView = ListStackView(title: Constant.doing)
     private let doneListStackView = ListStackView(title: Constant.done)
-    private var listItems = [[String]]()
+    
+    private lazy var todoListDataSource = configureDataSource(of: .todo)
+    private lazy var doingListDataSource = configureDataSource(of: .doing)
+    private lazy var doneListDataSource = configureDataSource(of: .done)
+    
+    private var listItems = [ListItem]() {
+        didSet {
+            ListType.allCases.forEach { configureSnapShot(of: $0) }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +43,8 @@ class MainViewController: UIViewController {
         view.backgroundColor = Constant.viewBackgroundColor
         configureNavigationBar()
         configureLayout()
-        configureDataSource()
         configureCountLabel()
+        ListType.allCases.forEach { configureSnapShot(of: $0) }
     }
     
     private func configureNavigationBar() {
@@ -67,30 +82,49 @@ class MainViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension MainViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listItems.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: ListItemCell = tableView.dequeueReusableCell(
-            withIdentifier: ListItemCell.identifier,
-            for: indexPath) as? ListItemCell
-        else {
-            return UITableViewCell()
+extension MainViewController {
+    private func configureDataSource(of type: ListType) -> DataSource {
+        let tableView: UITableView
+        
+        switch type {
+        case .todo:
+            tableView = todoListStackView.listTableView
+        case .doing:
+            tableView = doingListStackView.listTableView
+        case .done:
+            tableView = doneListStackView.listTableView
         }
         
-        let listItem = listItems[indexPath.row]
+        let dataSource = DataSource(tableView: tableView) { tableView, indexPath, item in
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: ListItemCell.identifier,
+                for: indexPath
+            ) as? ListItemCell else {
+                return UITableViewCell()
+            }
+            
+            cell.configureCell(title: item.title, body: item.body, dueDate: item.dueDate)
+            
+            return cell
+        }
         
-        cell.configureCell(title: listItem[0], body: listItem[1], dueDate: listItem[2])
-        
-        return cell
+        return dataSource
     }
     
-    private func configureDataSource() {
-        todoListStackView.configureTableView(dataSource: self)
-        doingListStackView.configureTableView(dataSource: self)
-        doneListStackView.configureTableView(dataSource: self)
+    private func configureSnapShot(of type: ListType) {
+        var snapShot = NSDiffableDataSourceSnapshot<Section, ListItem>()
+        
+        snapShot.appendSections([.main])
+        snapShot.appendItems(listItems)
+        
+        switch type {
+        case .todo:
+            todoListDataSource.apply(snapShot, animatingDifferences: true)
+        case .doing:
+            doingListDataSource.apply(snapShot, animatingDifferences: true)
+        case .done:
+            doneListDataSource.apply(snapShot, animatingDifferences: true)
+        }
     }
 }
 
