@@ -8,44 +8,38 @@
 import Foundation
 
 final class MainViewModel {
-    private let dataManager = DataManager.shared
-    
     private var todoData: [Todo] = [] {
         didSet {
-            binding()
+            todoHandler?(todoData)
         }
     }
     private var doingData: [Todo] = [] {
         didSet {
-            binding()
+            doingHandler?(doingData)
         }
     }
     private var doneData: [Todo] = [] {
         didSet {
-            binding()
+            doneHandler?(doneData)
         }
     }
     
-    var binding: () -> Void = {}
+    private var todoHandler: (([Todo]) -> Void)?
+    private var doingHandler: (([Todo]) -> Void)?
+    private var doneHandler: (([Todo]) -> Void)?
     
-    init() {
-        todoData = dataManager.fetchData(process: .todo)
-        doingData = dataManager.fetchData(process: .doing)
-        doneData = dataManager.fetchData(process: .done)
-        dataManager.onUpdated = { [weak self] in
-            guard let self = self else { return }
-            self.todoData = self.dataManager.fetchData(process: .todo)
-        }
+    func bindTodo(handler: @escaping ([Todo]) -> Void) {
+        handler(todoData)
+        self.todoHandler = handler
     }
     
-    func fetchData(process: Process) -> [Todo] {
-        switch process {
-        case .todo:
-            return todoData
-        case .doing:
-            return doingData
-        case .done:
-            return doneData
-        }
+    func bindDoing(handler: @escaping ([Todo]) -> Void) {
+        handler(doingData)
+        self.doingHandler = handler
+    }
+    
+    func bindDone(handler: @escaping ([Todo]) -> Void) {
+        handler(doneData)
+        self.doneHandler = handler
     }
 }

@@ -39,14 +39,11 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBinding()
         setupNavigationBar()
         setupView()
-        viewModel.binding = { [weak self] in
-            self?.applyAllSnapshot()
-        }
         setupTableView()
         setupConstraint()
-        applyAllSnapshot()
     }
     
     @objc private func addButtonTapped() {
@@ -57,6 +54,20 @@ final class MainViewController: UIViewController {
             rootViewController: addViewController
         )
         present(addNavigationController, animated: true)
+    }
+    
+    private func setupBinding() {
+        viewModel.bindTodo { [weak self] data in
+            self?.applySnapshot(process: .todo, data: data, animating: true)
+        }
+        
+        viewModel.bindDoing { [weak self] data in
+            self?.applySnapshot(process: .doing, data: data, animating: true)
+        }
+        
+        viewModel.bindDone { [weak self] data in
+            self?.applySnapshot(process: .done, data: data, animating: true)
+        }
     }
 }
 
@@ -137,10 +148,9 @@ extension MainViewController {
         return dataSource
     }
     
-    private func applySnapshot(process: Process, animating: Bool) {
+    private func applySnapshot(process: Process, data: [Todo], animating: Bool) {
         var snapshot = Snapshot()
-        let data = viewModel.fetchData(process: process)
-
+        
         snapshot.appendSections([.main])
         snapshot.appendItems(data)
         
@@ -153,35 +163,29 @@ extension MainViewController {
             doneDataSource.apply(snapshot, animatingDifferences: animating)
         }
     }
-    
-    private func applyAllSnapshot() {
-        applySnapshot(process: .todo, animating: true)
-        applySnapshot(process: .doing, animating: true)
-        applySnapshot(process: .done, animating: true)
-    }
 }
 
 extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let process: Process
-        
-        switch tableView {
-        case todoView.tableView:
-            process = .todo
-        case doingView.tableView:
-            process = .doing
-        case doneView.tableView:
-            process = .done
-        default:
-            return
-        }
-        
-        let editViewController = EditViewController(process: process, indexPath: indexPath)
-        editViewController.modalPresentationStyle = .formSheet
-        
-        let editNavigationController = UINavigationController(
-            rootViewController: editViewController
-        )
-        present(editNavigationController, animated: true)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let process: Process
+//
+//        switch tableView {
+//        case todoView.tableView:
+//            process = .todo
+//        case doingView.tableView:
+//            process = .doing
+//        case doneView.tableView:
+//            process = .done
+//        default:
+//            return
+//        }
+//
+//        let editViewController = EditViewController(process: process, indexPath: indexPath)
+//        editViewController.modalPresentationStyle = .formSheet
+//
+//        let editNavigationController = UINavigationController(
+//            rootViewController: editViewController
+//        )
+//        present(editNavigationController, animated: true)
+//    }
 }
