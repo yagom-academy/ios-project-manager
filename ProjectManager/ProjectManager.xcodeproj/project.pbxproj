@@ -19,7 +19,7 @@
 		18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */; };
 		18359ABA296C1F82000D6C73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359AB9296C1F82000D6C73 /* Assets.xcassets */; };
 		18359ABD296C1F82000D6C73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */; };
-		1858234729728273001AE6BC /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234629728273001AE6BC /* EditView.swift */; };
+		1858234729728273001AE6BC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234629728273001AE6BC /* DetailView.swift */; };
 		1858234C29731DCA001AE6BC /* DetailViewReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234B29731DCA001AE6BC /* DetailViewReducer.swift */; };
 		1858235E2973265C001AE6BC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1858235D2973265C001AE6BC /* ComposableArchitecture */; };
 		18D24759296D4F00008E8DCC /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18D24757296D4F00008E8DCC /* Project.xcdatamodeld */; };
@@ -39,7 +39,7 @@
 		18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		18359AB9296C1F82000D6C73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1858234629728273001AE6BC /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		1858234629728273001AE6BC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		1858234B29731DCA001AE6BC /* DetailViewReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewReducer.swift; sourceTree = "<group>"; };
 		18D24758296D4F00008E8DCC /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectManager.entitlements; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 		185823452972825B001AE6BC /* EditView */ = {
 			isa = PBXGroup;
 			children = (
-				1858234629728273001AE6BC /* EditView.swift */,
+				1858234629728273001AE6BC /* DetailView.swift */,
 				1858234B29731DCA001AE6BC /* DetailViewReducer.swift */,
 			);
 			path = EditView;
@@ -222,7 +222,7 @@
 			files = (
 				18186AC5296FEF3D00E0B695 /* ListTitleView.swift in Sources */,
 				181DF17229713FB1003EC956 /* BoardReducer.swift in Sources */,
-				1858234729728273001AE6BC /* EditView.swift in Sources */,
+				1858234729728273001AE6BC /* DetailView.swift in Sources */,
 				18186AC929704CC600E0B695 /* ProjectListView.swift in Sources */,
 				18186ABA296FE60200E0B695 /* NavigationBar.swift in Sources */,
 				18186ABC296FE62B00E0B695 /* Font.swift in Sources */,
