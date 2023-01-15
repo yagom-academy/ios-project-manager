@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoContentView: UIView, UIContentView {
+final class TodoContentView: UIView, UIContentView {
     struct Configutation: UIContentConfiguration {
         var title: String?
         var body: String?
@@ -17,7 +17,7 @@ class TodoContentView: UIView, UIContentView {
             return TodoContentView(configuration: self)
         }
 
-        func updated(for state: UIConfigurationState) -> TodoContentView.Configutation {
+        func updated(for state: UIConfigurationState) -> Configutation {
             return self
         }
     }
@@ -78,6 +78,10 @@ class TodoContentView: UIView, UIContentView {
             titleLabel.text = configuration.title
             bodyLabel.text = configuration.body
             dateLabel.text = configuration.date
+        } else {
+            titleLabel.text = "nil"
+            bodyLabel.text = "nil"
+            dateLabel.text = "nil"
         }
     }
 

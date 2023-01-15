@@ -13,7 +13,7 @@ class DetailViewController: UIViewController {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         let navigationItem = UINavigationItem(title: "TODO")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(addTodo))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil)
         navigationBar.items = [navigationItem]
         navigationBar.barTintColor = UIColor.systemGray6
@@ -61,6 +61,8 @@ class DetailViewController: UIViewController {
         return textView
     }()
 
+    weak var detailViewControllerDelegate: DetailViewControllerDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -88,7 +90,6 @@ class DetailViewController: UIViewController {
             navigationBar.topAnchor.constraint(equalTo: view.topAnchor),
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navigationBar.bottomAnchor.constraint(equalTo: titleTextField.topAnchor),
 
             titleTextField.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 4),
             titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -97,8 +98,8 @@ class DetailViewController: UIViewController {
             titleTextField.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.1),
 
             datePicker.topAnchor.constraint(equalTo: titleTextField.bottomAnchor),
-            datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             datePicker.bottomAnchor.constraint(equalTo: bodyTextView.topAnchor),
 
             bodyTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
@@ -107,5 +108,20 @@ class DetailViewController: UIViewController {
             bodyTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
         ])
     }
+}
 
+// MARK: - Objc
+extension DetailViewController {
+    @objc private func addTodo() {
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text else { return }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        let date = formatter.string(from: datePicker.date)
+
+        let todoModel = TodoModel(title: title, body: body, date: date)
+        detailViewControllerDelegate?.addTodo(todoModel: todoModel)
+        dismiss(animated: true)
+    }
 }

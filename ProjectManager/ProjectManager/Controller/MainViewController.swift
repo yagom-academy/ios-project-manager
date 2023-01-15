@@ -156,30 +156,72 @@ final class MainViewController: UIViewController {
     }()
 
     private let todoCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                heightDimension: .estimated(10))
+        let layoutItem = NSCollectionLayoutItem(layoutSize: layoutSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                               heightDimension: .estimated(10))
+        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                             subitems: [layoutItem])
+        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+        layoutSection.interGroupSpacing = 8
+        let compositionalLayout = UICollectionViewCompositionalLayout(section: layoutSection)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         return collectionView
     }()
 
     private let doingCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                heightDimension: .estimated(10))
+        let layoutItem = NSCollectionLayoutItem(layoutSize: layoutSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                               heightDimension: .estimated(10))
+        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                             subitems: [layoutItem])
+        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+        layoutSection.interGroupSpacing = 8
+        let compositionalLayout = UICollectionViewCompositionalLayout(section: layoutSection)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         return collectionView
     }()
 
     private let doneCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                heightDimension: .estimated(10))
+        let layoutItem = NSCollectionLayoutItem(layoutSize: layoutSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                               heightDimension: .estimated(10))
+        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                             subitems: [layoutItem])
+        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
+        layoutSection.interGroupSpacing = 8
+        let compositionalLayout = UICollectionViewCompositionalLayout(section: layoutSection)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         return collectionView
     }()
 
-    private let todoLists: [TodoModel] = [
+    private var todoLists: [TodoModel] = [
         TodoModel(title: "hi", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "11-11-11"),
         TodoModel(title: "bye", body: "dd", date: "22-22-22"),
         TodoModel(title: "asdf", body: "ffff", date: "33-33-33")
+    ]
+
+    private var doingLists: [TodoModel] = [
+        TodoModel(title: "doing", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "11-11-11"),
+        TodoModel(title: "dodo", body: "dd", date: "22-22-22")
+    ]
+
+    private var doneLists: [TodoModel] = [
+        TodoModel(title: "done", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakd", date: "11-11-11"),
+        TodoModel(title: "done", body: "ddne", date: "22-22-22"),
+        TodoModel(title: "done", body: "ddne", date: "22-22-22"),
+        TodoModel(title: "done", body: "ddne", date: "22-22-22")
     ]
 
     private var todoDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
@@ -208,7 +250,12 @@ final class MainViewController: UIViewController {
         view.addSubview(firstDividingLineView)
         view.addSubview(secondDividingLineView)
 
-        configureDataSource()
+        configureTodoDataSource()
+        configureDoingDataSource()
+        configureDoneDataSource()
+        updateTodoSnapshot()
+        updateDoingSnapshot()
+        updateDoneSnapshot()
     }
 
     override func viewDidLayoutSubviews() {
@@ -285,21 +332,7 @@ final class MainViewController: UIViewController {
 //        return layout
 //    }
 
-    private static var collectionViewLayout: UICollectionViewCompositionalLayout = {
-        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                heightDimension: .estimated(10))
-        let layoutItem = NSCollectionLayoutItem(layoutSize: layoutSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .estimated(10))
-        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                             subitems: [layoutItem])
-        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.interGroupSpacing = 8
-        let compositionalLayout = UICollectionViewCompositionalLayout(section: layoutSection)
-        return compositionalLayout
-    }()
-
-    private func configureDataSource() {
+    private func configureTodoDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
             var contentConfiguration = TodoContentView.Configutation()
             guard let todoModel = self?.todoLists.first(where: { todoModel in
@@ -318,26 +351,72 @@ final class MainViewController: UIViewController {
         todoDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: todoCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+    }
+
+    private func configureDoingDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
+            var contentConfiguration = TodoContentView.Configutation()
+            guard let todoModel = self?.doingLists.first(where: { todoModel in
+                todoModel.id == itemIdentifier
+            }) else {
+                cell.contentConfiguration = contentConfiguration
+                return
+            }
+
+            contentConfiguration.title = todoModel.title
+            contentConfiguration.body = todoModel.body
+            contentConfiguration.date = todoModel.date
+            cell.contentConfiguration = contentConfiguration
+        }
 
         doingDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doingCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+    }
+
+    private func configureDoneDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
+            var contentConfiguration = TodoContentView.Configutation()
+            guard let todoModel = self?.doneLists.first(where: { todoModel in
+                todoModel.id == itemIdentifier
+            }) else {
+                cell.contentConfiguration = contentConfiguration
+                return
+            }
+
+            contentConfiguration.title = todoModel.title
+            contentConfiguration.body = todoModel.body
+            contentConfiguration.date = todoModel.date
+            cell.contentConfiguration = contentConfiguration
+        }
 
         doneDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doneCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
-
-        updateSnapshot()
     }
 
-    private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, TodoModel.ID>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(todoLists.map { $0.id }, toSection: 0)
-//        snapshot.reloadItems([todoLists[0].id, todoLists[1].id])
-        todoDataSource?.apply(snapshot)
-        doingDataSource?.apply(snapshot)
-        doneDataSource?.apply(snapshot)
+    private func updateTodoSnapshot(_ reloadItemIDs: [TodoModel.ID] = []) {
+//        snapshot.reloadItems(reloadItemIDs)
+//        todoDataSource?.apply(snapshot)
+//        doingDataSource?.apply(snapshot)
+        var todoSnapshot = NSDiffableDataSourceSnapshot<Int, TodoModel.ID>()
+        todoSnapshot.appendSections([0])
+        todoSnapshot.appendItems(todoLists.map { $0.id }, toSection: 0)
+        todoDataSource?.apply(todoSnapshot)
+    }
+
+    private func updateDoingSnapshot() {
+        var doingSnapshot = NSDiffableDataSourceSnapshot<Int, TodoModel.ID>()
+        doingSnapshot.appendSections([0])
+        doingSnapshot.appendItems(doingLists.map { $0.id }, toSection: 0)
+        doingDataSource?.apply(doingSnapshot)
+    }
+
+    private func updateDoneSnapshot() {
+        var doneSnapshot = NSDiffableDataSourceSnapshot<Int, TodoModel.ID>()
+        doneSnapshot.appendSections([0])
+        doneSnapshot.appendItems(doneLists.map { $0.id }, toSection: 0)
+        doneDataSource?.apply(doneSnapshot)
     }
 }
 
@@ -346,6 +425,15 @@ extension MainViewController {
     @objc private func addNewTodo() {
         let detailViewController = DetailViewController()
         detailViewController.modalPresentationStyle = .formSheet
+        detailViewController.detailViewControllerDelegate = self
         present(detailViewController, animated: true)
+    }
+}
+
+// MARK: - Delegate
+extension MainViewController: DetailViewControllerDelegate {
+    func addTodo(todoModel: TodoModel) {
+        todoLists.append(todoModel)
+        updateTodoSnapshot()
     }
 }
