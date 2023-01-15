@@ -8,6 +8,13 @@
 import Foundation
 
 class ListViewModel {
+    
+    let workManager: WorkManager
+    
+    init(workManager: WorkManager) {
+        self.workManager = workManager
+    }
+    
     var workList: [Work] = [] {
         didSet {
             workListHandler?(workList)
@@ -18,5 +25,9 @@ class ListViewModel {
     
     func workTodoList(handler: @escaping ([Work]) -> Void) {
         workListHandler = handler
+    }
+    
+    func fetchData() {
+        workList = workManager.todoList
     }
 }

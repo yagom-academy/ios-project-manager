@@ -9,7 +9,8 @@ import UIKit
 
 class ListView: UIView {
     let category: Category
-    let viewModel = ListViewModel()
+    
+    let viewModel: ListViewModel?
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -57,14 +58,15 @@ class ListView: UIView {
         return view
     }()
     
-    init(category: Category) {
+    init(category: Category, workManager: WorkManager) {
         self.category = category
+        viewModel = ListViewModel(workManager: workManager)
         super.init(frame: CGRect())
         confgiureLayout()
         tableView.delegate = self
         tableView.dataSource = self
         
-        viewModel.workTodoList { _ in
+        viewModel?.workTodoList { _ in
             self.tableView.reloadData()
         }
     }
@@ -93,14 +95,14 @@ class ListView: UIView {
 
 extension ListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.workList.count
+        return viewModel?.workList.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath)
                 as? ListCell else { return ListCell() }
         
-        cell.configureData(work: viewModel.workList[indexPath.row])
+        cell.configureData(work: viewModel!.workList[indexPath.row])
         return cell
     }
 }

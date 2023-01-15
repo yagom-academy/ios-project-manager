@@ -7,9 +7,12 @@
 import UIKit
 
 class ListViewController: UIViewController {
-    var todoListView = ListView(category: .todo)
-    var doingListView = ListView(category: .doing)
-    var doneListView = ListView(category: .done)
+    
+    var workManager = WorkManager()
+    
+    lazy var todoListView = ListView(category: .todo, workManager: workManager)
+    lazy var doingListView = ListView(category: .doing, workManager: workManager)
+    lazy var doneListView = ListView(category: .done, workManager: workManager)
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -52,9 +55,17 @@ class ListViewController: UIViewController {
     @objc func addTapped() {
         let addViewController = AddViewController()
         let navigationViewController = UINavigationController(rootViewController: addViewController)
+        addViewController.delegate = self
         navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
         present(navigationViewController, animated: true)
     }
     
+}
+
+extension ListViewController: WorkDelegate {
+    func send(data: Work) {
+        workManager.registerWork(data: data)
+        todoListView.viewModel?.fetchData()
+    }
 }
