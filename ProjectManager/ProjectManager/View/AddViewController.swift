@@ -8,23 +8,53 @@
 import UIKit
 
 class AddViewController: UIViewController {
-
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
     let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Title"
-        textField.borderStyle = .line
+        textField.font = .preferredFont(forTextStyle: .title3)
+        textField.backgroundColor = .systemBackground
+        textField.layer.shadowOffset = CGSize(width: 0, height: 3)
+        textField.layer.shadowOpacity = 0.3
         return textField
+    }()
+    
+    let datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.preferredDatePickerStyle = .wheels
+        return datePicker
+    }()
+    
+    let bodyTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.clipsToBounds = false
+        textView.backgroundColor = .systemBackground
+        textView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        textView.layer.shadowOpacity = 0.3
+        return textView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigation()
+        configureNavigationBar()
         configureLayout()
         view.backgroundColor = .white
     }
     
-    func configureNavigation() {
+    func configureNavigationBar() {
         navigationItem.title = "TODO"
         navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel)
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done)
@@ -32,12 +62,18 @@ class AddViewController: UIViewController {
     }
     
     func configureLayout() {
-        view.addSubview(titleTextField)
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(titleTextField)
+        stackView.addArrangedSubview(datePicker)
+        stackView.addArrangedSubview(bodyTextView)
+        
         NSLayoutConstraint.activate([
-            titleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            titleTextField.heightAnchor.constraint(equalToConstant: 30)
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
+            titleTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }

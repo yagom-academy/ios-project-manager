@@ -9,7 +9,6 @@ import UIKit
 
 class ListView: UIView {
     let category: Category
-    
     let viewModel = ListViewModel()
     
     let stackView: UIStackView = {
