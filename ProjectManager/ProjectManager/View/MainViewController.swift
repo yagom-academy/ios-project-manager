@@ -60,7 +60,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func tapAddButton() {
-        let modalController = UINavigationController(rootViewController: ModalViewContoller())
+        let modalController = UINavigationController(rootViewController: ModalViewContoller(mode: .create))
         modalController.modalPresentationStyle = .formSheet
         
         self.present(modalController, animated: true, completion: nil)

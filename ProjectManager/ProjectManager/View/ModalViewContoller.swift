@@ -7,8 +7,15 @@
 
 import UIKit
 
-class ModalViewContoller: UIViewController {
-    let textField: UITextField = {
+final class ModalViewContoller: UIViewController {
+    enum WriteMode {
+        case create
+        case edit
+    }
+    
+    private var writeMode: WriteMode
+    
+    private let textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.font = .preferredFont(forTextStyle: .title1)
@@ -25,7 +32,7 @@ class ModalViewContoller: UIViewController {
         return textField
     }()
     
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = UIDatePickerStyle.wheels
@@ -33,7 +40,7 @@ class ModalViewContoller: UIViewController {
         return datePicker
     }()
     
-    let textView: UITextView = {
+    private let textView: UITextView = {
         let textView = UITextView()
         textView.font = .preferredFont(forTextStyle: .title3)
         
@@ -48,6 +55,15 @@ class ModalViewContoller: UIViewController {
         return textView
     }()
     
+    init(mode: WriteMode) {
+        self.writeMode = mode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
@@ -56,33 +72,48 @@ class ModalViewContoller: UIViewController {
         setNavigation()
     }
     
-    func setNavigation() {
-        let leftBarButton = UIBarButtonItem(
-            barButtonSystemItem: .edit,
-            target: self,
-            action: #selector(tapLeftButton)
-        )
+    private func setNavigation() {
+        navigationItem.title = "TODO"
+        
+        switch writeMode {
+        case .create:
+            let leftBarButton = UIBarButtonItem(
+                barButtonSystemItem: .cancel,
+                target: self,
+                action: #selector(tapCancelButton)
+            )
+            navigationItem.leftBarButtonItem = leftBarButton
+        case .edit:
+            let leftBarButton = UIBarButtonItem(
+                barButtonSystemItem: .edit,
+                target: self,
+                action: #selector(tapEditButton)
+            )
+            navigationItem.leftBarButtonItem = leftBarButton
+        }
+        
         let rightBarButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
             action: #selector(tapRightButton)
         )
-        
-        navigationItem.title = "TODO"
-        navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.rightBarButtonItem = rightBarButton
     }
     
     // TODO: -Left Right Button 입력 함수 구현
-    @objc func tapLeftButton() {
-        
+    @objc private func tapCancelButton() {
+        dismiss(animated: true)
     }
     
-    @objc func tapRightButton() {
-        
+    @objc private func tapEditButton() {
+        dismiss(animated: true)
     }
     
-    func configureLayout() {
+    @objc private func tapRightButton() {
+        dismiss(animated: true)
+    }
+    
+    private func configureLayout() {
         [textField, datePicker, textView].forEach {
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
