@@ -19,7 +19,7 @@ class AddViewController: UIViewController {
         super.viewDidLoad()
         
         view = customPopUpView
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
     }
     
     // MARK: Private Methods

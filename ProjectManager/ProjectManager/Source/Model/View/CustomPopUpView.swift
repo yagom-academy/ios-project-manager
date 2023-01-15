@@ -15,12 +15,16 @@ class CustomPopUpView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
+        view.layer.cornerRadius = 10
         return view
     }()
     private let topBarView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemGray6
+        view.layer.cornerRadius = 10
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.masksToBounds = true
         return view
     }()
     private let topBarStackView: UIStackView = {
@@ -50,9 +54,39 @@ class CustomPopUpView: UIView {
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
+    private let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .white
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 10
+        return stackView
+    }()
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        textField.backgroundColor = .white
+        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.layer.masksToBounds = false
+        textField.layer.shadowOffset = CGSize(width: 0, height: 4)
+        textField.layer.shadowRadius = 5
+        textField.layer.shadowOpacity = 0.3
+        return textField
+    }()
+    private let datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "en-EN")
+        datePicker.timeZone = .autoupdatingCurrent
+        return datePicker
+    }()
+    private let bodyTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.setContentHuggingPriority(.defaultLow, for: .vertical)
         textField.backgroundColor = .white
         textField.layer.shadowColor = UIColor.black.cgColor
         textField.layer.masksToBounds = false
@@ -62,8 +96,11 @@ class CustomPopUpView: UIView {
         return textField
     }()
     
+    // MARK: Initializer
+    
     override func draw(_ rect: CGRect) {
         setUpTopBarStackView()
+        setUpContentStackView()
         configureLayout()
     }
     
@@ -75,12 +112,18 @@ class CustomPopUpView: UIView {
         topBarStackView.addArrangedSubview(doneButton)
     }
     
-    private func configureTopBarLayout() {
+    private func setUpContentStackView() {
+        contentStackView.addArrangedSubview(titleTextField)
+        contentStackView.addArrangedSubview(datePicker)
+        contentStackView.addArrangedSubview(bodyTextField)
+    }
+    
+    private func configureTopBarViewLayout() {
         popUpView.addSubview(topBarView)
         topBarView.addSubview(topBarStackView)
         
         NSLayoutConstraint.activate([
-            topBarView.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier: 0.08),
+            topBarView.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier: 0.075),
             topBarView.widthAnchor.constraint(equalTo: popUpView.widthAnchor, multiplier: 1),
             topBarView.topAnchor.constraint(equalTo: popUpView.topAnchor),
             topBarView.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor),
@@ -92,21 +135,25 @@ class CustomPopUpView: UIView {
         ])
     }
     
-    private func configureTitleTextField() {
-        popUpView.addSubview(titleTextField)
+    private func configureContentStackViewLayout() {
+        popUpView.addSubview(contentStackView)
         
         NSLayoutConstraint.activate([
-            titleTextField.widthAnchor.constraint(equalTo: popUpView.widthAnchor, multiplier: 0.9),
-            titleTextField.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier: 0.08),
-            titleTextField.centerXAnchor.constraint(equalTo: topBarView.centerXAnchor),
-            titleTextField.topAnchor.constraint(equalTo: topBarView.bottomAnchor, constant: 5)
+            contentStackView.widthAnchor.constraint(equalTo: popUpView.widthAnchor, multiplier: 0.9),
+            contentStackView.heightAnchor.constraint(equalTo: popUpView.heightAnchor, multiplier: 0.88),
+            contentStackView.centerXAnchor.constraint(equalTo: topBarView.centerXAnchor),
+            contentStackView.topAnchor.constraint(equalTo: topBarStackView.bottomAnchor, constant: 5),
+            
+            titleTextField.topAnchor.constraint(equalTo: contentStackView.topAnchor),
+            titleTextField.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor),
+            titleTextField.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.1)
         ])
     }
     
     private func configureLayout() {
         addSubview(popUpView)
-        configureTopBarLayout()
-        configureTitleTextField()
+        configureTopBarViewLayout()
+        configureContentStackViewLayout()
         
         NSLayoutConstraint.activate([
             popUpView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.85),
