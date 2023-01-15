@@ -11,7 +11,6 @@ final class AddViewController: UIViewController {
     private let updateView = UpdateTodoView()
     private let viewModel: DataUpdatable
     private var indexPath: IndexPath?
-    private var canEdit = false
     
     init() {
         viewModel = AddViewModel()
@@ -27,20 +26,6 @@ final class AddViewController: UIViewController {
         view = updateView
         setupNavigationBar()
         setupDatePicker()
-    }
-    
-    private func hasSelectedData(process: Process, indexPath: IndexPath?) {
-        guard let indexPath = indexPath else { return }
-        (viewModel as? DataFetchable)?.fetchSelectData(
-            process: process,
-            indexPath: indexPath,
-            completion: { data in
-                
-            updateView.titleTextField.text = data.title
-            updateView.descriptionTextView.text = data.content
-            guard let date = data.deadLine else { return }
-            updateView.datePicker.setDate(date, animated: true)
-        })
     }
 }
 
