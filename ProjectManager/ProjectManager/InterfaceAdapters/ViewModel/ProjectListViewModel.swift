@@ -13,6 +13,7 @@ protocol PlanListViewModel: OutputPort {
     func bindToDoList(handler: @escaping ([PlanViewModel]) -> Void)
     func bindDoingList(handler: @escaping ([PlanViewModel]) -> Void)
     func bindDoneList(handler: @escaping ([PlanViewModel]) -> Void)
+    func fetchList(of state: PlanState) -> [PlanViewModel]
 }
 
 final class ProjectListViewModel: PlanListViewModel {
@@ -36,7 +37,7 @@ final class ProjectListViewModel: PlanListViewModel {
     private var doingListHandler: (([PlanViewModel]) -> Void)?
     private var doneListHandler: (([PlanViewModel]) -> Void)?
 
-    init(toDoList: [Plan], doingList: [Plan], doneList: [Plan]) {
+    init(toDoList: [Plan] = [], doingList: [Plan] = [], doneList: [Plan] = []) {
         self.toDoList = toDoList.map(ProjectViewModel.init)
         self.doingList = doingList.map(ProjectViewModel.init)
         self.doneList = doneList.map(ProjectViewModel.init)
@@ -58,6 +59,17 @@ final class ProjectListViewModel: PlanListViewModel {
         self.toDoList = toDo.map(ProjectViewModel.init)
         self.doingList = doing.map(ProjectViewModel.init)
         self.doneList = done.map(ProjectViewModel.init)
+    }
+
+    func fetchList(of state: PlanState) -> [PlanViewModel] {
+        switch state {
+        case .toDo:
+            return toDoList
+        case .doing:
+            return doingList
+        case .done:
+            return doneList
+        }
     }
 }
 
