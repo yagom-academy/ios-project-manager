@@ -9,38 +9,38 @@ import Foundation
 
 protocol PlanViewModel {
 
-    var title: String { get }
-    var description: String { get }
-    var deadlineText: String { get }
-    var isOverDue: Bool { get }
-    init(plan: Plan)
+    var title: String? { get }
+    var description: String? { get }
+    var deadlineText: String? { get }
+    var isOverDue: Bool? { get }
+    init(plan: Plan?)
     func bindEdit(handler: @escaping (Bool) -> Void)
     func changeEditable(state: Bool)
 }
 
 final class ProjectViewModel: PlanViewModel {
 
-    private var plan: Plan
+    private var plan: Plan?
     private var isEditable: Bool = false {
         didSet {
             editHandler?(isEditable)
         }
     }
     private var editHandler: ((Bool) -> Void)?
-    var title: String {
-        return plan.title
+    var title: String? {
+        return plan?.title
     }
-    var description: String {
-        return plan.description
+    var description: String? {
+        return plan?.description
     }
-    var deadlineText: String {
-        return plan.deadline.localeFormattedText
+    var deadlineText: String? {
+        return plan?.deadline.localeFormattedText
     }
-    var isOverDue: Bool {
-        return plan.deadline.isOverdue
+    var isOverDue: Bool? {
+        return plan?.deadline.isOverdue
     }
 
-    init(plan: Plan) {
+    init(plan: Plan? = nil) {
         self.plan = plan
     }
 
