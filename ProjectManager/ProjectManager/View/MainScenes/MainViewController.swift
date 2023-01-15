@@ -161,4 +161,27 @@ extension MainViewController {
     }
 }
 
-extension MainViewController: UITableViewDelegate { }
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let process: Process
+        
+        switch tableView {
+        case todoView.tableView:
+            process = .todo
+        case doingView.tableView:
+            process = .doing
+        case doneView.tableView:
+            process = .done
+        default:
+            return
+        }
+        
+        let editViewController = EditViewController(process: process, indexPath: indexPath)
+        editViewController.modalPresentationStyle = .formSheet
+        
+        let editNavigationController = UINavigationController(
+            rootViewController: editViewController
+        )
+        present(editNavigationController, animated: true)
+    }
+}
