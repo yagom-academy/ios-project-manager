@@ -23,7 +23,6 @@ class MainTitleView: UIView {
     // MARK: Initializer
     
     override func draw(_ rect: CGRect) {
-        //        setUpPlusButtonAction()
         configureLayout()
     }
     

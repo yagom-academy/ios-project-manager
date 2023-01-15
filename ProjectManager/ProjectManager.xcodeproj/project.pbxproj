@@ -145,6 +145,7 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				D0E0803229701BE700BCB151 /* MainProjectManagerView.swift */,
 				D0E0803A29706B2200BCB151 /* MainTitleView.swift */,
+				D0AE9D722973F8BF0068DA0A /* CustomPopUpView.swift */,
 				D0E080342970583800BCB151 /* MainLeftTableViewCell.swift */,
 			);
 			path = View;
@@ -162,7 +163,6 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				D0AE9D702973E5900068DA0A /* AddViewController.swift */,
-				D0AE9D722973F8BF0068DA0A /* CustomPopUpView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

@@ -38,9 +38,9 @@ class MainViewController: UIViewController {
     @objc
     private func plusButtonAction() {
         let popUpViewController = AddViewController()
-        
         popUpViewController.modalPresentationStyle = .overCurrentContext
-        present(popUpViewController, animated: true)
+        
+        navigationController?.present(popUpViewController, animated: true)
     }
 }
 

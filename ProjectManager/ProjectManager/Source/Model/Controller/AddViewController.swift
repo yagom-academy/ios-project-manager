@@ -11,27 +11,18 @@ class AddViewController: UIViewController {
     
     // MARK: Properties
     
-    private var popUpView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.white
-        return view
-    }()
+    private let customPopUpView = CustomPopUpView()
     
     // MARK: Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view = customPopUpView
         view.backgroundColor = UIColor.white.withAlphaComponent(0.8)
-        configureLayout()
     }
     
     // MARK: Private Methods
-    
-    private func configureLayout() {
-//        view.addSubview(popUpView)
-    }
     
     // MARK: Action Methods
     
