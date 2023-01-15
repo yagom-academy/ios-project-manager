@@ -13,6 +13,8 @@
 		B235A98B29729B80008A25A6 /* EllipseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B235A98A29729B80008A25A6 /* EllipseLabel.swift */; };
 		B235A98D2973D5CE008A25A6 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B235A98C2973D5CE008A25A6 /* ListItem.swift */; };
 		B235A98F2973D63B008A25A6 /* ListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B235A98E2973D63B008A25A6 /* ListType.swift */; };
+		B24150FA2973ED0000F7666A /* ListFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24150F92973ED0000F7666A /* ListFormView.swift */; };
+		B24150FC2973EFC900F7666A /* ListFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24150FB2973EFC900F7666A /* ListFormViewController.swift */; };
 		B262E44C296FF53E00E79C17 /* ListStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B262E44B296FF53D00E79C17 /* ListStackView.swift */; };
 		B262E44E2970033000E79C17 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B262E44D2970033000E79C17 /* ListItemCell.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -31,6 +33,8 @@
 		B235A98A29729B80008A25A6 /* EllipseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseLabel.swift; sourceTree = "<group>"; };
 		B235A98C2973D5CE008A25A6 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		B235A98E2973D63B008A25A6 /* ListType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListType.swift; sourceTree = "<group>"; };
+		B24150F92973ED0000F7666A /* ListFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFormView.swift; sourceTree = "<group>"; };
+		B24150FB2973EFC900F7666A /* ListFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFormViewController.swift; sourceTree = "<group>"; };
 		B262E44B296FF53D00E79C17 /* ListStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStackView.swift; sourceTree = "<group>"; };
 		B262E44D2970033000E79C17 /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +93,8 @@
 		B235A9912973EC76008A25A6 /* AdditionalView */ = {
 			isa = PBXGroup;
 			children = (
+				B24150F92973ED0000F7666A /* ListFormView.swift */,
+				B24150FB2973EFC900F7666A /* ListFormViewController.swift */,
 			);
 			path = AdditionalView;
 			sourceTree = "<group>";
@@ -304,6 +310,8 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				B235A98B29729B80008A25A6 /* EllipseLabel.swift in Sources */,
+				B24150FA2973ED0000F7666A /* ListFormView.swift in Sources */,
+				B24150FC2973EFC900F7666A /* ListFormViewController.swift in Sources */,
 				B262E44C296FF53E00E79C17 /* ListStackView.swift in Sources */,
 				B262E44E2970033000E79C17 /* ListItemCell.swift in Sources */,
 				B235A98F2973D63B008A25A6 /* ListType.swift in Sources */,
