@@ -13,6 +13,8 @@ class MainViewController: UIViewController {
         case main
     }
     
+    // MARK: Properties
+    
     private let totalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 10
@@ -37,6 +39,8 @@ class MainViewController: UIViewController {
         }
     }
     
+    // MARK: Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +50,8 @@ class MainViewController: UIViewController {
         configureCountLabel()
         ListType.allCases.forEach { configureSnapShot(of: $0) }
     }
+    
+    // MARK: Private Methods
     
     private func configureNavigationBar() {
         navigationController?.navigationBar.backgroundColor = .clear
@@ -80,7 +86,7 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - UITableViewDiffableDataSource & SnapShot
 
 extension MainViewController {
     private func configureDataSource(of type: ListType) -> DataSource {
@@ -127,6 +133,8 @@ extension MainViewController {
         }
     }
 }
+
+// MARK: - NameSpace
 
 private enum Constant {
     static let navigationTitle = "Project Manager"
