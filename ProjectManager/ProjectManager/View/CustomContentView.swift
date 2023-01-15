@@ -8,13 +8,13 @@
 import UIKit
 
 final class CustomContentView: UIView, UIContentView {
-    var configuration: UIContentConfiguration {
+    private var configuration: UIContentConfiguration {
         didSet {
             configure(using: configuration)
         }
     }
     
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -30,13 +30,13 @@ final class CustomContentView: UIView, UIContentView {
         return stack
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
         return label
     }()
     
-    let bodyLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
@@ -45,7 +45,7 @@ final class CustomContentView: UIView, UIContentView {
     }()
     
     
-    let dueDateLabel = UILabel()
+    private let dueDateLabel = UILabel()
     
     init(configuration: UIContentConfiguration) {
         self.configuration = configuration

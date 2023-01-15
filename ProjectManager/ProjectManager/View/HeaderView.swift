@@ -8,9 +8,9 @@
 import UIKit
 
 final class HeaderView: UIView {
-    var title: String?
-    var count: Int?
-    let stackView: UIStackView = {
+    private var title: String?
+    private var count: Int?
+    private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.backgroundColor = .systemBackground
@@ -20,13 +20,13 @@ final class HeaderView: UIView {
         return stack
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .largeTitle)
         return label
     }()
     
-    var countLabel = CountLabel()
+    private var countLabel = CountLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

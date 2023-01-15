@@ -48,9 +48,9 @@ final class MainViewController: UIViewController {
     private var todoDataSource: UICollectionViewDiffableDataSource<Status, Issue>?
     private var doingDataSource: UICollectionViewDiffableDataSource<Status, Issue>?
     private var doneDataSource: UICollectionViewDiffableDataSource<Status, Issue>?
-    var todoSnapshot = NSDiffableDataSourceSnapshot<Status, Issue>()
-    var doingSnapshot = NSDiffableDataSourceSnapshot<Status, Issue>()
-    var doneSnapshot = NSDiffableDataSourceSnapshot<Status, Issue>()
+    private var todoSnapshot = NSDiffableDataSourceSnapshot<Status, Issue>()
+    private var doingSnapshot = NSDiffableDataSourceSnapshot<Status, Issue>()
+    private var doneSnapshot = NSDiffableDataSourceSnapshot<Status, Issue>()
     
     
     private var todoItems: [Issue] = [
