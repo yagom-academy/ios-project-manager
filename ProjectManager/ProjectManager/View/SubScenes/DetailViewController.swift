@@ -12,10 +12,15 @@ final class DetailViewController: UIViewController {
     
     private let detailView = DetailView()
     private let viewModel: DetailViewModel
+    private let process: Process
+    private let index: Int?
+    
     private var isEditable = false
     
-    init(viewModel: DetailViewModel, index: Int? = nil) {
+    init(viewModel: DetailViewModel, process: Process, index: Int? = nil) {
         self.viewModel = viewModel
+        self.process = process
+        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -54,11 +59,13 @@ extension DetailViewController {
         let date = datePickerWheel(detailView.datePicker)
         
         delegate?.shareData(
-            process: viewModel.fetchDataProcess(),
-            title: title,
-            content: detailView.descriptionTextView.text,
-            date: date,
-            index: viewModel.fetchDataIndex()
+            process: process,
+            index: index,
+            data: viewModel.createData(
+                title: title,
+                content: detailView.descriptionTextView.text,
+                date: date
+            )
         )
         dismiss(animated: true)
     }

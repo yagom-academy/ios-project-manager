@@ -8,8 +8,6 @@
 import Foundation
 
 final class DetailViewModel {
-    private var process: Process
-    private var index: Int?
     private var detailData: Todo? {
         didSet {
             detailDataHandler?(detailData)
@@ -18,9 +16,7 @@ final class DetailViewModel {
     
     private var detailDataHandler: ((Todo?) -> Void)?
     
-    init(process: Process, index: Int?, data: Todo?) {
-        self.process = process
-        self.index = index
+    init(data: Todo?) {
         self.detailData = data
     }
     
@@ -29,11 +25,7 @@ final class DetailViewModel {
         self.detailDataHandler = handler
     }
     
-    func fetchDataProcess() -> Process {
-        return process
-    }
-    
-    func fetchDataIndex() -> Int? {
-        return index
+    func createData(title: String, content: String?, date: Date?) -> Todo {
+        return Todo(title: title, content: content, deadLine: date)
     }
 }

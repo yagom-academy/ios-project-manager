@@ -43,9 +43,7 @@ final class MainViewModel {
         self.doneHandler = handler
     }
     
-    func updateData(process: Process, title: String, content: String?, date: Date?, index: Int?) {
-        let data = Todo(title: title, content: content, deadLine: date)
-        
+    func updateData(process: Process, data: Todo, index: Int?) {
         guard let index = index else {
             todoData.append(data)
             return
@@ -58,6 +56,17 @@ final class MainViewModel {
             doingData[index] = data
         case .done:
             doneData[index] = data
+        }
+    }
+    
+    func fetchDataCount(process: Process) -> String {
+        switch process {
+        case .todo:
+            return String(todoData.count)
+        case .doing:
+            return String(doingData.count)
+        case .done:
+            return String(doneData.count)
         }
     }
     

@@ -7,7 +7,7 @@
 import UIKit
 
 protocol DataSharable: AnyObject {
-    func shareData(process: Process, title: String, content: String?, date: Date?, index: Int?)
+    func shareData(process: Process, index: Int?, data: Todo)
 }
 
 final class MainViewController: UIViewController {
@@ -52,7 +52,9 @@ final class MainViewController: UIViewController {
     
     @objc private func addButtonTapped() {
         let detailViewController = DetailViewController(
-            viewModel: DetailViewModel(process: .todo, index: nil, data: nil)
+            viewModel: DetailViewModel(data: nil),
+            process: .todo,
+            index: nil
         )
         detailViewController.delegate = self
         detailViewController.modalPresentationStyle = .formSheet
@@ -188,13 +190,15 @@ extension MainViewController: UITableViewDelegate {
             return
         }
         
-        let selectData = viewModel.fetchSeletedData(process: process, index: indexPath.row)
-        let detailViewModel = DetailViewModel(
+        let selectedData = viewModel.fetchSeletedData(process: process, index: indexPath.row)
+        let detailViewModel = DetailViewModel(data: selectedData)
+        
+        let detailViewController = DetailViewController(
+            viewModel: detailViewModel,
             process: process,
-            index: indexPath.row,
-            data: selectData
+            index: indexPath.row
         )
-        let detailViewController = DetailViewController(viewModel: detailViewModel)
+        
         detailViewController.delegate = self
         detailViewController.modalPresentationStyle = .formSheet
         
@@ -205,16 +209,9 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
-
 // MARK: - DataSharable Delegate Protocol
 extension MainViewController: DataSharable {
-    func shareData(process: Process, title: String, content: String?, date: Date?, index: Int?) {
-        viewModel.updateData(
-            process: process,
-            title: title,
-            content: content,
-            date: date,
-            index: index
-        )
+    func shareData(process: Process, index: Int?, data: Todo) {
+        viewModel.updateData(process: process, data: data, index: index)
     }
 }
