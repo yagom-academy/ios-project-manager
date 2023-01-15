@@ -17,6 +17,6 @@ protocol DataUpdatable: AnyObject {
     )
 }
 
-protocol DataFetchable: DataUpdatable {
+protocol SelectedDataFetchable: DataUpdatable {
     func fetchSelectData(process: Process, indexPath: IndexPath, completion: (Todo) -> Void)
 }

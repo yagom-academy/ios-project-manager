@@ -12,6 +12,7 @@
 		3C07B2EF296D6647007283D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C07B2EE296D6647007283D2 /* FirebaseFirestore */; };
 		3C07B2F3296D69E4007283D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C07B2F2296D69E4007283D2 /* GoogleService-Info.plist */; };
 		3C07B2F6296D6AAA007283D2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */; };
+		3C768055297306B1004F703A /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C768054297306B1004F703A /* EditViewController.swift */; };
 		3C9627A929728F2F003B0139 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627A829728F2F003B0139 /* AddViewModel.swift */; };
 		3C9627AB2972936A003B0139 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627AA2972936A003B0139 /* EditViewModel.swift */; };
 		3C9627AD2972E52E003B0139 /* DataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627AC2972E52E003B0139 /* DataProtocol.swift */; };
@@ -37,6 +38,7 @@
 		3C015EEE296EF2480022D053 /* ProcessStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStackView.swift; sourceTree = "<group>"; };
 		3C07B2F2296D69E4007283D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3C768054297306B1004F703A /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		3C9627A829728F2F003B0139 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		3C9627AA2972936A003B0139 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		3C9627AC2972E52E003B0139 /* DataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProtocol.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				3C9627B0297301AE003B0139 /* UpdateTodoView.swift */,
 				3C9627B2297301E5003B0139 /* AddViewController.swift */,
+				3C768054297306B1004F703A /* EditViewController.swift */,
 			);
 			path = SubScenes;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				3C015EEF296EF2480022D053 /* ProcessStackView.swift in Sources */,
 				3CD2E2C92970485500B2E9A4 /* DateFormatter+Extension.swift in Sources */,
 				3C9627A929728F2F003B0139 /* AddViewModel.swift in Sources */,
+				3C768055297306B1004F703A /* EditViewController.swift in Sources */,
 				3CD2E2D429728A0A00B2E9A4 /* DataManager.swift in Sources */,
 				3CB4C4B5296F9CD70084069A /* HeaderView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,

@@ -7,19 +7,12 @@
 
 import Foundation
 
-final class EditViewModel: DataFetchable {
+final class EditViewModel: SelectedDataFetchable {
     let dataManager = DataManager.shared
     
     func fetchSelectData(process: Process, indexPath: IndexPath, completion: (Todo) -> Void) {
         let data: Todo
-        switch process {
-        case .todo:
-            data = dataManager.fetchData(process: .todo)[indexPath.row]
-        case .doing:
-            data = dataManager.fetchData(process: .doing)[indexPath.row]
-        case .done:
-            data = dataManager.fetchData(process: .done)[indexPath.row]
-        }
+        data = dataManager.fetchData(process: process)[indexPath.row]
         completion(data)
     }
     
