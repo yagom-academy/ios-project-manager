@@ -10,7 +10,7 @@ import UIKit
 final class DetailViewController: UIViewController {
     weak var delegate: DataSharable?
     
-    private let updateView = UpdateTodoView()
+    private let detailView = DetailView()
     private let viewModel: DetailViewModel
     private var isEditable = false
     
@@ -25,7 +25,7 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = updateView
+        view = detailView
         setupBinding()
         setupNavigationBar()
         setupDatePicker()
@@ -34,10 +34,10 @@ final class DetailViewController: UIViewController {
     private func setupBinding() {
         viewModel.bindDetailData { [weak self] data in
             guard let data = data else { return }
-            self?.updateView.titleTextField.text = data.title
-            self?.updateView.descriptionTextView.text = data.content
+            self?.detailView.titleTextField.text = data.title
+            self?.detailView.descriptionTextView.text = data.content
             if let date = data.deadLine {
-                self?.updateView.datePicker.setDate(date, animated: true)
+                self?.detailView.datePicker.setDate(date, animated: true)
             }
         }
     }
@@ -50,13 +50,13 @@ extension DetailViewController {
     }
     
     @objc private func doneButtonTapped() {
-        guard let title = updateView.titleTextField.text else { return }
-        let date = datePickerWheel(updateView.datePicker)
+        guard let title = detailView.titleTextField.text else { return }
+        let date = datePickerWheel(detailView.datePicker)
         
         delegate?.shareData(
             process: viewModel.fetchDataProcess(),
             title: title,
-            content: updateView.descriptionTextView.text,
+            content: detailView.descriptionTextView.text,
             date: date,
             index: viewModel.fetchDataIndex()
         )
@@ -96,9 +96,9 @@ extension DetailViewController {
     }
     
     private func setupDatePicker() {
-        updateView.datePicker.preferredDatePickerStyle = .wheels
-        updateView.datePicker.datePickerMode = .date
-        updateView.datePicker.addTarget(
+        detailView.datePicker.preferredDatePickerStyle = .wheels
+        detailView.datePicker.datePickerMode = .date
+        detailView.datePicker.addTarget(
             self,
             action: #selector(datePickerWheel),
             for: .valueChanged

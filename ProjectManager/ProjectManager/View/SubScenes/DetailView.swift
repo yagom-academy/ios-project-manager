@@ -1,5 +1,5 @@
 //
-//  UpdateTodoView.swift
+//  DetailView.swift
 //  ProjectManager
 //
 //  Created by Kyo on 2023/01/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class UpdateTodoView: UIView {
+final class DetailView: UIView {
     private enum UIConstant {
         static let topValue = 10.0
         static let leadingValue = 10.0
@@ -62,7 +62,7 @@ final class UpdateTodoView: UIView {
 }
 
 // MARK: - UIConfiguration
-extension UpdateTodoView {
+extension DetailView {
     private func setupView() {
         backgroundColor = .white
         addSubview(addStackView)
