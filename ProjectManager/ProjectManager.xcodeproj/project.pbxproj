@@ -75,6 +75,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		B235A9902973EC67008A25A6 /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				B235A98A29729B80008A25A6 /* EllipseLabel.swift */,
+				B262E44D2970033000E79C17 /* ListItemCell.swift */,
+				B262E44B296FF53D00E79C17 /* ListStackView.swift */,
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+			);
+			path = ListView;
+			sourceTree = "<group>";
+		};
+		B235A9912973EC76008A25A6 /* AdditionalView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AdditionalView;
+			sourceTree = "<group>";
+		};
 		B262E445296FA17B00E79C17 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,10 +125,8 @@
 		B262E448296FA1AA00E79C17 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B235A98A29729B80008A25A6 /* EllipseLabel.swift */,
-				B262E44D2970033000E79C17 /* ListItemCell.swift */,
-				B262E44B296FF53D00E79C17 /* ListStackView.swift */,
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				B235A9902973EC67008A25A6 /* ListView */,
+				B235A9912973EC76008A25A6 /* AdditionalView */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 			);
 			path = View;
