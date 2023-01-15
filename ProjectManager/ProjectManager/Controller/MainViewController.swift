@@ -123,23 +123,15 @@ final class MainViewController: UIViewController {
         
         [todoCollectionView, doingCollectionView, doneCollectionView]
             .compactMap { $0 }
-            .forEach {
-                collectionStackView.addArrangedSubview($0)
-            }
+            .forEach { collectionStackView.addArrangedSubview($0) }
     }
     
     private func configureCollectionViewLayout(for status: Status) -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .estimated(LayoutConstant.estimatedItemHeight))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .fractionalHeight(1.0))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
-                                                     subitems: [item])
-        group.interItemSpacing = .fixed(LayoutConstant.interItemSpacing)
-        let section = NSCollectionLayoutSection(group: group)
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
+        listConfiguration.separatorConfiguration.topSeparatorVisibility = .hidden
+        listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
         
-        return UICollectionViewCompositionalLayout(section: section)
+        return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
     
     private func configureDataSource() {
@@ -147,7 +139,8 @@ final class MainViewController: UIViewController {
               let doingCollectionView = doingCollectionView,
               let doneCollectionView = doneCollectionView else { return }
         
-        let cellRegistration = UICollectionView.CellRegistration<CustomListCell, Issue> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<CustomListCell, Issue> {
+            (cell, indexPath, item) in
             cell.item = item
         }
         
