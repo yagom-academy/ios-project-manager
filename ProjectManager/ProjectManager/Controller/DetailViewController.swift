@@ -75,6 +75,8 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        bodyTextView.delegate = self
+
         view.backgroundColor = .white
         view.addSubview(navigationBar)
         view.addSubview(titleTextField)
@@ -172,5 +174,15 @@ extension DetailViewController {
         let todoModel = TodoModel(title: title, body: body, date: date)
 
         detailViewDelegate?.editTodo(todoModel: todoModel, selectedItem: selectedItem)
+    }
+}
+
+extension DetailViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = textView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
+        print(changedText)
+        return changedText.count <= 1000
     }
 }
