@@ -51,7 +51,7 @@ class ProjectsManageView: UIView {
     // MARK: - UI settings
 
     private func configureUI() {
-        self.backgroundColor = .orange
+        self.backgroundColor = .white
         addSubview(stackView)
         stackView.addArrangedSubview(todoView)
         stackView.addArrangedSubview(doingView)
@@ -64,13 +64,10 @@ class ProjectsManageView: UIView {
 
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-//            todoView.widthAnchor.constraint(equalTo: doingView.widthAnchor),
-//            doingView.widthAnchor.constraint(equalTo: doneView.widthAnchor),
-//            doneView.widthAnchor.constraint(equalTo: todoView.widthAnchor)
+            stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
