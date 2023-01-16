@@ -35,6 +35,7 @@ final class CoreDataManager {
             info.setValue(title, forKey: "title")
             info.setValue(body, forKey: "body")
             info.setValue(todoDate, forKey: "todoDate")
+            info.setValue(0, forKey: "state")
             info.setValue(UUID(), forKey: "id")
             
             do {
