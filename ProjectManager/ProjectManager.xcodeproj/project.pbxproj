@@ -19,6 +19,8 @@
 		1854F128297578290082FB88 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F127297578290082FB88 /* NavigationBarView.swift */; };
 		1854F12B29757BC10082FB88 /* BoardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F12A29757BC10082FB88 /* BoardListCell.swift */; };
 		1854F12D29757BE20082FB88 /* BoardListCellStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F12C29757BE20082FB88 /* BoardListCellStore.swift */; };
+		1854F13029757DFF0082FB88 /* BoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F12F29757DFF0082FB88 /* BoardListView.swift */; };
+		1854F13329757E200082FB88 /* BoardListStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F13229757E200082FB88 /* BoardListStore.swift */; };
 		1858234729728273001AE6BC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234629728273001AE6BC /* DetailView.swift */; };
 		1858234C29731DCA001AE6BC /* DetailViewReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234B29731DCA001AE6BC /* DetailViewReducer.swift */; };
 		1858235E2973265C001AE6BC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1858235D2973265C001AE6BC /* ComposableArchitecture */; };
@@ -39,6 +41,8 @@
 		1854F127297578290082FB88 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		1854F12A29757BC10082FB88 /* BoardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListCell.swift; sourceTree = "<group>"; };
 		1854F12C29757BE20082FB88 /* BoardListCellStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListCellStore.swift; sourceTree = "<group>"; };
+		1854F12F29757DFF0082FB88 /* BoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListView.swift; sourceTree = "<group>"; };
+		1854F13229757E200082FB88 /* BoardListStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListStore.swift; sourceTree = "<group>"; };
 		1858234629728273001AE6BC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		1858234B29731DCA001AE6BC /* DetailViewReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewReducer.swift; sourceTree = "<group>"; };
 		18D24758296D4F00008E8DCC /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
@@ -60,6 +64,7 @@
 		18186AB5296FE55F00E0B695 /* BoardView */ = {
 			isa = PBXGroup;
 			children = (
+				1854F12E29757DF50082FB88 /* BoardListView */,
 				1854F12929757BA60082FB88 /* BoardListCell */,
 			);
 			path = BoardView;
@@ -151,6 +156,15 @@
 			path = BoardListCell;
 			sourceTree = "<group>";
 		};
+		1854F12E29757DF50082FB88 /* BoardListView */ = {
+			isa = PBXGroup;
+			children = (
+				1854F12F29757DFF0082FB88 /* BoardListView.swift */,
+				1854F13229757E200082FB88 /* BoardListStore.swift */,
+			);
+			path = BoardListView;
+			sourceTree = "<group>";
+		};
 		185823452972825B001AE6BC /* EditView */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +254,7 @@
 				1854F128297578290082FB88 /* NavigationBarView.swift in Sources */,
 				1858234729728273001AE6BC /* DetailView.swift in Sources */,
 				1854F1232975738C0082FB88 /* AppStore.swift in Sources */,
+				1854F13329757E200082FB88 /* BoardListStore.swift in Sources */,
 				18186ABC296FE62B00E0B695 /* Font.swift in Sources */,
 				18D24759296D4F00008E8DCC /* Project.xcdatamodeld in Sources */,
 				1854F12B29757BC10082FB88 /* BoardListCell.swift in Sources */,
@@ -247,6 +262,7 @@
 				18186AC729703A6500E0B695 /* Color.swift in Sources */,
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
 				1854F12D29757BE20082FB88 /* BoardListCellStore.swift in Sources */,
+				1854F13029757DFF0082FB88 /* BoardListView.swift in Sources */,
 				181DF174297148C4003EC956 /* Image.swift in Sources */,
 				18186AC2296FE81500E0B695 /* Project.swift in Sources */,
 			);
