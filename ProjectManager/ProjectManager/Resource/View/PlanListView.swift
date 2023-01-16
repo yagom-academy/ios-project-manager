@@ -21,8 +21,8 @@ class PlanListView: UIView {
     let doingTableView = PlanTableView()
     let doneTableView = PlanTableView()
 
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureLayout()
     }
 
@@ -37,5 +37,4 @@ class PlanListView: UIView {
         stackView.addArrangedSubview(doingTableView)
         stackView.addArrangedSubview(doneTableView)
     }
-    
 }

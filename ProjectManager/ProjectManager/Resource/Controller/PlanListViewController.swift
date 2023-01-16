@@ -11,10 +11,24 @@ final class PlanListViewController: UIViewController, UITableViewDelegate {
     typealias DataSource = UITableViewDiffableDataSource<Int, Plan>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Plan>
 
-    private let planListView = PlanListView()
-    private lazy var toDoDataSource = configureDataSource()
-    private lazy var doingDataSource = configureDataSource()
-    private lazy var doneDataSource = configureDataSource()
+    private lazy var planListView = PlanListView(frame: view.bounds)
+
+    private lazy var toDoDataSource = configureDataSource(tableView: planListView.toDoTableView)
+    private lazy var doingDataSource = configureDataSource(tableView: planListView.doingTableView)
+    private lazy var doneDataSource = configureDataSource(tableView: planListView.doneTableView)
+
+    private var planList = DummyProjects.projects
+    private var todoList: [Plan] {
+        return planList.filter { $0.status == .todo }
+    }
+
+    private var doingList: [Plan] {
+        return planList.filter { $0.status == .doing }
+    }
+
+    private var doneList: [Plan] {
+        return planList.filter { $0.status == .done }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +41,7 @@ final class PlanListViewController: UIViewController, UITableViewDelegate {
     private func configureLayout() {
         view.addSubview(planListView)
 
-        planListView.toDoTableView.dataSource = toDoDataSource
-        planListView.doingTableView.dataSource = doingDataSource
-        planListView.doneTableView.dataSource = doneDataSource
+        planListView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
     private func configureNavigationBarButton() -> UIBarButtonItem {
@@ -57,10 +69,11 @@ final class PlanListViewController: UIViewController, UITableViewDelegate {
     }
 
 
-    private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(tableView: planListView.toDoTableView, cellProvider: { tableView, indexPath, todo in
+    private func configureDataSource(tableView: UITableView) -> DataSource {
+        let dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, todo in
             let cell = tableView.dequeueReusableCell(withIdentifier: PlanTableViewCell.reuseIdentifier, for: indexPath)
             self.configureCell(cell, with: todo)
+
             return cell
         })
 
@@ -68,12 +81,20 @@ final class PlanListViewController: UIViewController, UITableViewDelegate {
     }
 
     private func configureToDoSnapshot() {
-        var snapshot = Snapshot()
-        snapshot.appendSections([0])
-//        snapshot.appendItems([ToDo(), ToDo(), ToDo()])
+        var todoSnapshot = Snapshot()
+        var doingSnapshot = Snapshot()
+        var doneSnapshot = Snapshot()
 
-        toDoDataSource.apply(snapshot)
-        doingDataSource.apply(snapshot)
-        doneDataSource.apply(snapshot)
+        todoSnapshot.appendSections([0])
+        doingSnapshot.appendSections([0])
+        doneSnapshot.appendSections([0])
+
+        todoSnapshot.appendItems(todoList)
+        doingSnapshot.appendItems(doingList)
+        doneSnapshot.appendItems(doingList)
+
+        toDoDataSource.apply(todoSnapshot)
+        doingDataSource.apply(doingSnapshot)
+        doneDataSource.apply(doneSnapshot)
     }
 }
