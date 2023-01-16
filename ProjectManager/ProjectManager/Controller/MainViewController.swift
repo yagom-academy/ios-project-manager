@@ -424,10 +424,18 @@ final class MainViewController: UIViewController {
 
     private func setUpLongGestureRecognizerOnCollection() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        let longPressGesture2 = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress2(gestureRecognizer:)))
+        let longPressGesture3 = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress3(gestureRecognizer:)))
         longPressGesture.minimumPressDuration = 0.5
-        longPressGesture.delegate = self
         longPressGesture.delaysTouchesBegan = true
+        longPressGesture2.minimumPressDuration = 0.5
+        longPressGesture2.delaysTouchesBegan = true
+        longPressGesture3.minimumPressDuration = 0.5
+        longPressGesture3.delaysTouchesBegan = true
         todoCollectionView.addGestureRecognizer(longPressGesture)
+        doingCollectionView.addGestureRecognizer(longPressGesture2)
+        doneCollectionView.addGestureRecognizer(longPressGesture3)
+
     }
 }
 
@@ -455,10 +463,81 @@ extension MainViewController {
 
         if gestureRecognizer.state == .ended {
             print("end")
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                guard let cell = self?.currentLongPressedCell else { return }
+            guard let cell = currentLongPressedCell else { return }
+            UIView.animate(withDuration: 0.2) {
                 cell.transform = .init(scaleX: 1, y: 1)
             }
+
+            let cellPopOverViewController = CellPopoverViewController()
+            cellPopOverViewController.modalPresentationStyle = .popover
+            cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
+//            cellPopOverViewController.
+            guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
+            popover.sourceView = cell
+            popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
+            present(cellPopOverViewController, animated: true, completion: nil)
+        }
+    }
+
+    @objc private func handleLongPress2(gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: doingCollectionView)
+
+        if gestureRecognizer.state == .began {
+            print("began")
+            guard let indexPath = doingCollectionView.indexPathForItem(at: location) else { return }
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                guard let cell = self?.doingCollectionView.cellForItem(at: indexPath) else { return }
+                self?.currentLongPressedCell = cell
+                cell.transform = .init(scaleX: 0.95, y: 0.95)
+            }
+        }
+
+        if gestureRecognizer.state == .ended {
+            print("end")
+            guard let cell = currentLongPressedCell else { return }
+            UIView.animate(withDuration: 0.2) {
+                cell.transform = .init(scaleX: 1, y: 1)
+            }
+
+            let cellPopOverViewController = CellPopoverViewController()
+            cellPopOverViewController.modalPresentationStyle = .popover
+            cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
+//            cellPopOverViewController.
+            guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
+            popover.sourceView = cell
+            popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
+            present(cellPopOverViewController, animated: true, completion: nil)
+        }
+    }
+
+    @objc private func handleLongPress3(gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: doneCollectionView)
+
+        if gestureRecognizer.state == .began {
+            print("began")
+            guard let indexPath = doneCollectionView.indexPathForItem(at: location) else { return }
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                guard let cell = self?.doneCollectionView.cellForItem(at: indexPath) else { return }
+                self?.currentLongPressedCell = cell
+                cell.transform = .init(scaleX: 0.95, y: 0.95)
+            }
+        }
+
+        if gestureRecognizer.state == .ended {
+            print("end")
+            guard let cell = currentLongPressedCell else { return }
+            UIView.animate(withDuration: 0.2) {
+                cell.transform = .init(scaleX: 1, y: 1)
+            }
+
+            let cellPopOverViewController = CellPopoverViewController()
+            cellPopOverViewController.modalPresentationStyle = .popover
+            cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
+//            cellPopOverViewController.
+            guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
+            popover.sourceView = cell
+            popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
+            present(cellPopOverViewController, animated: true, completion: nil)
         }
     }
 }
@@ -476,6 +555,21 @@ extension MainViewController: DetailViewDelegate {
     }
 }
 
+// MARK: - CellPopoverViewControllerDelegate
+extension MainViewController: CellPopoverViewDelegate {
+    func moveToTodo() {
+        return
+    }
+
+    func moveToDoing() {
+        return
+    }
+
+    func moveToDone() {
+        return
+    }
+}
+
 // MARK: - UICollectionViewDelegate
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -488,8 +582,4 @@ extension MainViewController: UICollectionViewDelegate {
         detailViewController.selectedItem = indexPath.item
         present(detailViewController, animated: true)
     }
-}
-
-extension MainViewController: UIGestureRecognizerDelegate {
-
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
 
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
