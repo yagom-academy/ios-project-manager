@@ -7,14 +7,14 @@
 import UIKit
 
 class ProjectsViewController: UIViewController {
+    
+    enum Constant {
+        static let navigationTitle = "Project Manager"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-    }
-
-    private func configureUI() {
-        configureTableView()
+        configureNavigationItem()
     }
 
     override func loadView() {
@@ -22,7 +22,8 @@ class ProjectsViewController: UIViewController {
         self.view = ProjectsManageView()
     }
 
-    private func configureTableView() {
-
+    private func configureNavigationItem() {
+        navigationItem.title = Constant.navigationTitle
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
     }
 }
