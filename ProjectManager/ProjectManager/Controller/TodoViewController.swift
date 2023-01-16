@@ -7,9 +7,17 @@
 
 import UIKit
 
+protocol AddableNewTodoItem {
+    func addNewTodoItem(with item: TodoModel)
+}
+
 final class TodoViewController: UIViewController {
+    var delegate: AddableNewTodoItem?
+    
+    private let todoView: TodoView = TodoView()
+    
     override func loadView() {
-        self.view = TodoView()
+        self.view = todoView
     }
 
     override func viewDidLoad() {
@@ -29,7 +37,6 @@ final class TodoViewController: UIViewController {
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(tappedDone))
-        
     }
     
     @objc private func tappedCancel() {
@@ -37,6 +44,11 @@ final class TodoViewController: UIViewController {
     }
     
     @objc private func tappedDone() {
+        let newTodoItem = TodoModel(title: todoView.titleTextField.text ?? "",
+                                    body: todoView.bodyTextView.text,
+                                    date: todoView.datePicker.date.timeIntervalSince1970)
+        
+        delegate?.addNewTodoItem(with: newTodoItem)
         dismiss(animated: true)
     }
 }

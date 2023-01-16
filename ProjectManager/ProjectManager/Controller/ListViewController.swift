@@ -70,9 +70,13 @@ final class ListViewController: UIViewController {
     }
     
     @objc private func showAddTodoView() {
-        let nextViewController = UINavigationController(rootViewController: TodoViewController())
+        let rootViewController = TodoViewController()
+        rootViewController.delegate = self
+        
+        let nextViewController = UINavigationController(rootViewController: rootViewController)
         nextViewController.modalPresentationStyle = .formSheet
         nextViewController.preferredContentSize = CGSize(width: 650, height: 650)
+        
         present(nextViewController, animated: true)
     }
     
@@ -156,5 +160,13 @@ extension ListViewController: UITableViewDelegate {
     private func requestViewUpdate(to headerView: ListHeaderView, status: TodoModel.TodoStatus) {
         headerView.setTitleLabel(with: status.rawValue)
         headerView.updateCount(todoModels.filter { $0.status == status }.count)
+    }
+}
+
+extension ListViewController: AddableNewTodoItem {
+    func addNewTodoItem(with item: TodoModel) {
+        todoModels.append(item)
+        applySnapshot(section: .todo, status: .todo, dataSource: todoDataSource)
+        todoTableView.reloadData()
     }
 }

@@ -18,7 +18,7 @@ final class TodoView: UIView {
         return stackView
     }()
     
-    private let titleTextField: UITextField = {
+    private(set) var titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = " Title"
         textField.layer.cornerRadius = 5
@@ -27,14 +27,14 @@ final class TodoView: UIView {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    private(set) var datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.preferredDatePickerStyle = .wheels
         picker.datePickerMode = .date
         return picker
     }()
     
-    private let bodyTextView: UITextView = {
+    private(set) var bodyTextView: UITextView = {
         let textView = UITextView()
         textView.text = """
                         할일의 내용을 입력해주세요.
