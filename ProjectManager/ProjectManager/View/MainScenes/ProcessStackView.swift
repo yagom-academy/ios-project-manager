@@ -48,6 +48,10 @@ final class ProcessStackView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func changeCountLabel(_ count: String) {
+        countLabel.text = count
+    }
 }
 
 // MARK: - UI Configuration

@@ -68,14 +68,17 @@ final class MainViewController: UIViewController {
     
     private func setupBinding() {
         viewModel.bindTodo { [weak self] data in
+            self?.todoView.changeCountLabel(String(data.count))
             self?.applySnapshot(process: .todo, data: data, animating: true)
         }
         
         viewModel.bindDoing { [weak self] data in
+            self?.doingView.changeCountLabel(String(data.count))
             self?.applySnapshot(process: .doing, data: data, animating: true)
         }
         
         viewModel.bindDone { [weak self] data in
+            self?.doneView.changeCountLabel(String(data.count))
             self?.applySnapshot(process: .done, data: data, animating: true)
         }
     }
