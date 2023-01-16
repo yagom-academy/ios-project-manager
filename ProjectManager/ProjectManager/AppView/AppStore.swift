@@ -9,11 +9,13 @@ import ComposableArchitecture
 struct AppStore: ReducerProtocol {
   struct State: Equatable {
     var navigationState = NavigationStore.State()
+    var boardState = BoardStore.State()
   }
   
   enum Action: Equatable {
     case onAppear
     case presentSheet(NavigationStore.Action)
+    case boardView(BoardStore.Action)
   }
   
   var body: some ReducerProtocol<State, Action> {
@@ -30,6 +32,10 @@ struct AppStore: ReducerProtocol {
     
     Scope(state: \.navigationState, action: /Action.presentSheet) {
       NavigationStore()
+    }
+    
+    Scope(state: \.boardState, action: /Action.boardView) {
+      BoardStore()
     }
   }
 }
