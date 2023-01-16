@@ -17,7 +17,7 @@ struct ProjectDetailView: View {
       VStack {
         TextField("Title", text: $text)
           .padding()
-          .background(Color.secondaryBackground)
+          .background(.white)
           .cornerRadius(10)
           .shadow(color: .gray, radius: 1, y: 1)
         
@@ -28,16 +28,18 @@ struct ProjectDetailView: View {
           displayedComponents: .date
         )
         .padding(10)
-        .background(Color.secondaryBackground)
+        .background(.white)
         .cornerRadius(10)
         .shadow(color: .gray, radius: 1, y: 1)
         
         TextEditor(text: $description)
           .padding()
-          .background(Color.secondaryBackground)
+          .background(.white)
           .cornerRadius(10)
+          .shadow(color: .gray, radius: 1, y: 1)
       }
       .padding()
+      .background(Color.secondaryBackground)
       .navigationTitle("TODO")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {

@@ -36,8 +36,18 @@ struct NavigationBarView: View {
         .padding([.vertical, .trailing])
       }
       .background(Color.secondaryBackground)
-      .sheet(isPresented: viewStore.binding(get: \.isPresent, send: NavigationStore.Action.didTapPresent)) {
-        Text("Example")
+      .sheet(
+        isPresented: viewStore.binding(
+          get: \.isPresent,
+          send: NavigationStore.Action.didTapPresent
+        )
+      ) {
+        ProjectDetailView(
+          store: Store(
+            initialState: DetailViewStore.State(),
+            reducer: DetailViewStore()
+          )
+        )
       }
       .onAppear {
         viewStore.send(.onAppear("Project Manager"))
