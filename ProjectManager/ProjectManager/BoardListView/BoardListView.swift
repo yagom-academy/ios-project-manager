@@ -13,7 +13,6 @@ struct BoardListView: View {
   var body: some View {
     WithViewStore(boardListStore, observe: { $0 }) { viewStore in
       VStack {
-        
         BoardHeaderView(
           headerStore: boardListStore.scope(
             state: \.headerState,
@@ -26,10 +25,11 @@ struct BoardListView: View {
             boardListStore.scope(
               state: \.projects,
               action: BoardListStore.Action.projectItem(id:action:)
-            )) { viewStore in
-              BoardListCell(store: viewStore)
-            }
-            .listRowSeparator(.hidden)
+            )
+          ) { viewStore in
+            BoardListCell(store: viewStore)
+          }
+          .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
       }
