@@ -14,7 +14,7 @@ final class TodoView: UIView {
         stackView.alignment = .fill
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 5
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -22,9 +22,16 @@ final class TodoView: UIView {
         let textField = UITextField()
         textField.placeholder = " Title"
         textField.layer.cornerRadius = 5
-        textField.layer.borderWidth = 2
+        textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.systemGray5.cgColor
         return textField
+    }()
+    
+    private let datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.preferredDatePickerStyle = .wheels
+        picker.datePickerMode = .date
+        return picker
     }()
     
     private let bodyTextView: UITextView = {
@@ -34,7 +41,7 @@ final class TodoView: UIView {
                         입력 가능한 글자수는 1000자로 제한됩니다.
                         """
         textView.layer.cornerRadius = 5
-        textView.layer.borderWidth = 2
+        textView.layer.borderWidth = 1
         textView.font = UIFont.preferredFont(forTextStyle: .body, compatibleWith: .none)
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         return textView
@@ -52,6 +59,7 @@ final class TodoView: UIView {
     
     private func configureLayout() {
         mainStackView.addArrangedSubview(titleTextField)
+        mainStackView.addArrangedSubview(datePicker)
         mainStackView.addArrangedSubview(bodyTextView)
         addSubview(mainStackView)
         
@@ -59,7 +67,7 @@ final class TodoView: UIView {
             mainStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
             mainStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
             mainStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -15),
             
             titleTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
