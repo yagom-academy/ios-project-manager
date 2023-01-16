@@ -149,9 +149,7 @@ extension MainViewController {
                 return errorCell
             }
             
-            cell.titleLabel.text = todoData.title
-            cell.descriptionLabel.text = todoData.content
-            cell.dateLabel.text = todoData.convertDeadline
+            cell.viewModel = CellViewModel(data: todoData)
             return cell
         }
         return dataSource

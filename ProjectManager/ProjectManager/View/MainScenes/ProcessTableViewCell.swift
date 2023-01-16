@@ -18,6 +18,12 @@ final class ProcessTableViewCell: UITableViewCell {
         static let trailingValue = -10.0
     }
     
+    var viewModel: CellViewModel? {
+        didSet {
+            setupBind()
+        }
+    }
+    
     let titleLabel = UILabel(fontStyle: .title3)
     let descriptionLabel = UILabel(fontStyle: .body)
     let dateLabel = UILabel(fontStyle: .body)
@@ -52,6 +58,15 @@ final class ProcessTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         [titleLabel, descriptionLabel, dateLabel].forEach {
             $0.text = ""
+        }
+    }
+    
+    private func setupBind() {
+        viewModel?.bindDate { [weak self] data in
+            guard let data = data else { return }
+            self?.titleLabel.text = data.title
+            self?.descriptionLabel.text = data.content
+            self?.dateLabel.text = data.convertDeadline
         }
     }
 }
