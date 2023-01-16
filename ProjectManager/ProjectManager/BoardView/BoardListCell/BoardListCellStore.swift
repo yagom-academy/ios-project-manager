@@ -8,10 +8,9 @@ import Foundation
 import ComposableArchitecture
 
 struct BoardListCellStore: ReducerProtocol {
-  struct State: Equatable {
-    var title: String
-    var description: String
-    var deadLineDate: Date
+  struct State: Equatable, Identifiable {
+    let id: UUID
+    let project: Project
   }
   
   enum Action: Equatable {
