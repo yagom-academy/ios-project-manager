@@ -10,14 +10,17 @@ import ComposableArchitecture
 
 @main
 struct ProjectManagerApp: App {
-  let appReducer = Store(
-    initialState: AppStore.State(),
-    reducer: AppStore()._printChanges()
+  let boardListStore = Store(
+    initialState: BoardListStore.State(
+      status: .todo,
+      projects: Project.mock
+    ),
+    reducer: BoardListStore()
   )
   
   var body: some Scene {
     WindowGroup {
-      
+      BoardListView(boardListStore: boardListStore)
     }
   }
 }

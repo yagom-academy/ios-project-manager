@@ -23,6 +23,8 @@
 		1854F13329757E200082FB88 /* BoardListStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F13229757E200082FB88 /* BoardListStore.swift */; };
 		1854F1382975965F0082FB88 /* BoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F1372975965F0082FB88 /* BoardHeaderView.swift */; };
 		1854F13A297597830082FB88 /* BoardHeaderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F139297597830082FB88 /* BoardHeaderStore.swift */; };
+		1854F13D29759B030082FB88 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F13C29759B030082FB88 /* BoardView.swift */; };
+		1854F13F29759B210082FB88 /* BoardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F13E29759B210082FB88 /* BoardStore.swift */; };
 		1858234729728273001AE6BC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234629728273001AE6BC /* DetailView.swift */; };
 		1858234C29731DCA001AE6BC /* DetailViewReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234B29731DCA001AE6BC /* DetailViewReducer.swift */; };
 		1858235E2973265C001AE6BC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1858235D2973265C001AE6BC /* ComposableArchitecture */; };
@@ -47,6 +49,8 @@
 		1854F13229757E200082FB88 /* BoardListStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListStore.swift; sourceTree = "<group>"; };
 		1854F1372975965F0082FB88 /* BoardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeaderView.swift; sourceTree = "<group>"; };
 		1854F139297597830082FB88 /* BoardHeaderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeaderStore.swift; sourceTree = "<group>"; };
+		1854F13C29759B030082FB88 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		1854F13E29759B210082FB88 /* BoardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStore.swift; sourceTree = "<group>"; };
 		1858234629728273001AE6BC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		1858234B29731DCA001AE6BC /* DetailViewReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewReducer.swift; sourceTree = "<group>"; };
 		18D24758296D4F00008E8DCC /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 		1854F13B29759AA50082FB88 /* BoardView */ = {
 			isa = PBXGroup;
 			children = (
+				1854F13C29759B030082FB88 /* BoardView.swift */,
+				1854F13E29759B210082FB88 /* BoardStore.swift */,
 			);
 			name = BoardView;
 			path = NavigationBarView/BoardView;
@@ -265,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1854F13F29759B210082FB88 /* BoardStore.swift in Sources */,
 				1854F126297578150082FB88 /* NavigationStore.swift in Sources */,
 				1854F13A297597830082FB88 /* BoardHeaderStore.swift in Sources */,
 				1854F128297578290082FB88 /* NavigationBarView.swift in Sources */,
@@ -280,6 +287,7 @@
 				1854F12D29757BE20082FB88 /* BoardListCellStore.swift in Sources */,
 				1854F1382975965F0082FB88 /* BoardHeaderView.swift in Sources */,
 				1854F13029757DFF0082FB88 /* BoardListView.swift in Sources */,
+				1854F13D29759B030082FB88 /* BoardView.swift in Sources */,
 				181DF174297148C4003EC956 /* Image.swift in Sources */,
 				18186AC2296FE81500E0B695 /* Project.swift in Sources */,
 			);

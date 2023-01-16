@@ -12,24 +12,37 @@ struct BoardListView: View {
   
   var body: some View {
     WithViewStore(boardListStore, observe: { $0 }) { viewStore in
-      List {
-        ForEachStore(
-          boardListStore.scope(
-            state: \.projects,
-            action: BoardListStore.Action.projectItem(id:action:)
-          )) { viewStore in
-            BoardListCell(store: viewStore)
-          }
-          .listRowSeparator(.hidden)
+      VStack {
+        
+        BoardHeaderView(
+          headerStore: boardListStore.scope(
+            state: \.headerState,
+            action: BoardListStore.Action.optionalHeader
+          )
+        )
+        
+        List {
+          ForEachStore(
+            boardListStore.scope(
+              state: \.projects,
+              action: BoardListStore.Action.projectItem(id:action:)
+            )) { viewStore in
+              BoardListCell(store: viewStore)
+            }
+            .listRowSeparator(.hidden)
+        }
+        .listStyle(.plain)
       }
-      .listStyle(.plain)
     }
   }
 }
 
 struct BoardListView_Previews: PreviewProvider {
   static let boardListStore = Store(
-    initialState: BoardListStore.State(projects: Project.mock),
+    initialState: BoardListStore.State(
+      status: .todo,
+      projects: Project.mock
+    ),
     reducer: BoardListStore()
   )
   static var previews: some View {
