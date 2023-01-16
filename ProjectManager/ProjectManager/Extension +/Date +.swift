@@ -12,6 +12,7 @@ extension Date {
     func changeDotFormatString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. M. d."
+        
         return dateFormatter.string(from: self)
     }
 }

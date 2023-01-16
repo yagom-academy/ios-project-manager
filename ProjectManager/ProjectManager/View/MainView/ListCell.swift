@@ -7,42 +7,46 @@
 
 import UIKit
 
-class ListCell: UITableViewCell {
+final class ListCell: UITableViewCell {
     
     static let identifier = "projectCell"
     
+    var cellViewModel: ListCellViewModel? {
+        didSet {
+            if cellViewModel != nil {
+                bidingViewModel()
+            }
+        }
+    }
     weak var delegate: ListCellDelegate?
-    
-    var cellViewModel = ListCellViewModel(process: .todo)
-    var titleLabel = UILabel(font: .title3)
-    var descriptionLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
-    var dateLabel = UILabel(font: .body, numberOfLines: 0)
-    var totalView = UIView(backgroundColor: .tertiarySystemBackground, cornerRadius: 10)
-    var stack = UIStackView(axis: .vertical,
-                            distribution: .fillProportionally,
-                            alignment: .leading,
-                            spacing: 5,
-                            backgroundColor: .tertiarySystemBackground)
+    private var titleLabel = UILabel(font: .title3)
+    private var descriptionLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
+    private var dateLabel = UILabel(font: .body, numberOfLines: 0)
+    private var totalView = UIView(backgroundColor: .tertiarySystemBackground, cornerRadius: 10)
+    private var stack = UIStackView(axis: .vertical,
+                                    distribution: .fillProportionally,
+                                    alignment: .leading,
+                                    spacing: 5,
+                                    backgroundColor: .tertiarySystemBackground)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .systemGroupedBackground
         configureHierarchy()
         configureLayout()
-        bidingViewModel()
         registerLongPressGestureRecognizer()
     }
     
-    func bidingViewModel() {
-        cellViewModel.updateTitleDate = { [weak self] data in
+    private func bidingViewModel() {
+        cellViewModel?.updateTitleDate = { [weak self] data in
             self?.titleLabel.text = data
         }
         
-        cellViewModel.updateDescriptionDate = { [weak self] data in
+        cellViewModel?.updateDescriptionDate = { [weak self] data in
             self?.descriptionLabel.text = data
         }
         
-        cellViewModel.updateDateDate = { [weak self] data, isMissDeadLine, process in
+        cellViewModel?.updateDateDate = { [weak self] data, isMissDeadLine, process in
             self?.dateLabel.text = data
             
             guard isMissDeadLine && process != .done else { return }
@@ -50,16 +54,36 @@ class ListCell: UITableViewCell {
         }
     }
     
-    func configureHierarchy() {
-        [titleLabel, descriptionLabel, dateLabel].forEach {
-            stack.addArrangedSubview($0)
-        }
+    private func registerLongPressGestureRecognizer() {
+        let longPressGesture = UILongPressGestureRecognizer( target: self,
+                                                             action: #selector(moveToOtherList))
+        longPressGesture.delaysTouchesBegan = true
+        longPressGesture.delegate = self
+        
+        self.contentView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc private func moveToOtherList(_ sender: UILongPressGestureRecognizer) {
+        guard let cellViewModel = cellViewModel else { return }
+        delegate?.showPopoverMenu(sender, using: cellViewModel)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Layout
+extension ListCell {
+    
+    private func configureHierarchy() {
+        [titleLabel, descriptionLabel, dateLabel].forEach { stack.addArrangedSubview($0) }
         
         totalView.addSubview(stack)
         contentView.addSubview(totalView)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         
         NSLayoutConstraint.activate([
@@ -73,23 +97,6 @@ class ListCell: UITableViewCell {
             totalView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             totalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
-    }
-    
-    func registerLongPressGestureRecognizer() {
-        let longPressGesture = UILongPressGestureRecognizer(
-            target: self,
-            action: #selector(moveToOtherTableView))
-        longPressGesture.delaysTouchesBegan = true
-        longPressGesture.delegate = self
-        self.contentView.addGestureRecognizer(longPressGesture)
-    }
-    
-    @objc func moveToOtherTableView(_ sender: UILongPressGestureRecognizer) {
-        delegate?.showPopoverMenu(sender, using: cellViewModel)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 

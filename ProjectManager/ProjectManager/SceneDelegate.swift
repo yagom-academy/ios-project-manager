@@ -1,7 +1,6 @@
 //
 //  ProjectManager - SceneDelegate.swift
-//  Created by yagom. 
-//  Copyright © yagom. All rights reserved.
+//  Created by 써니쿠키
 // 
 
 import UIKit

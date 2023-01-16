@@ -82,20 +82,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4115A84129710B530062A061 /* CustomUI */ = {
+		4115A84129710B530062A061 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
 				4115A84229710B800062A061 /* CircleLabel.swift */,
 			);
-			path = CustomUI;
-			sourceTree = "<group>";
-		};
-		412B8E3229729EA400C29DA4 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				412B8E3329729EB500C29DA4 /* Date +.swift */,
-			);
-			path = Extension;
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		417C501F29711D5600CEC6DA /* ViewModel */ = {
@@ -104,7 +96,6 @@
 				417C502029711D7D00CEC6DA /* MainViewModel.swift */,
 				417C50242971256000CEC6DA /* ListCellViewModel.swift */,
 				412B8E2A2972437300C29DA4 /* EditingViewModel.swift */,
-				412B8E3229729EA400C29DA4 /* Extension */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -128,6 +119,20 @@
 			path = EditingView;
 			sourceTree = "<group>";
 		};
+		41B7A77429755A1E00D6BD61 /* Extension + */ = {
+			isa = PBXGroup;
+			children = (
+				412B8E3329729EB500C29DA4 /* Date +.swift */,
+				41E26BF32970E392005E1C94 /* UILabel +.swift */,
+				4115A83F2970EB1F0062A061 /* UIView +.swift */,
+				417C502E2971868B00CEC6DA /* UITextField +.swift */,
+				417C503029718D3A00CEC6DA /* UITextView +.swift */,
+				41E26BF62970E54A005E1C94 /* UIStackView +.swift */,
+				41B7A771297552C300D6BD61 /* UIAlertController +.swift */,
+			);
+			path = "Extension +";
+			sourceTree = "<group>";
+		};
 		41E26BEF2970E1BC005E1C94 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,23 +147,9 @@
 			children = (
 				417C502A29716BDD00CEC6DA /* MainView */,
 				417C502B29716BEA00CEC6DA /* EditingView */,
-				41E26BF52970E39F005E1C94 /* Extension */,
-				4115A84129710B530062A061 /* CustomUI */,
+				4115A84129710B530062A061 /* Custom */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		41E26BF52970E39F005E1C94 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				41E26BF32970E392005E1C94 /* UILabel +.swift */,
-				4115A83F2970EB1F0062A061 /* UIView +.swift */,
-				417C502E2971868B00CEC6DA /* UITextField +.swift */,
-				417C503029718D3A00CEC6DA /* UITextView +.swift */,
-				41E26BF62970E54A005E1C94 /* UIStackView +.swift */,
-				41B7A771297552C300D6BD61 /* UIAlertController +.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		BD095340BE10F0D957C79639 /* Frameworks */ = {
@@ -191,11 +182,12 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				41E26BEF2970E1BC005E1C94 /* Model */,
 				417C501F29711D5600CEC6DA /* ViewModel */,
 				41E26BF02970E1C4005E1C94 /* View */,
-				41E26BEF2970E1BC005E1C94 /* Model */,
+				41B7A77429755A1E00D6BD61 /* Extension + */,
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,

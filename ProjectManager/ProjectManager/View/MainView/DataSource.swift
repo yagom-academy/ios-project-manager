@@ -2,16 +2,20 @@
 //  DataSource.swift
 //  ProjectManager
 //
-//  Created by 맹선아 on 2023/01/14.
+//  Created by 써니쿠키 on 2023/01/14.
 //
 
 import UIKit
 
-class DataSource: UITableViewDiffableDataSource<Section, Project> {
+enum Section {
+    case main
+}
+
+final class DataSource: UITableViewDiffableDataSource<Section, Project> {
     
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, Project>
-
-    var snapShot = SnapShot()
+    
+    private var snapShot = SnapShot()
     
     func applyInitialSnapShot(_ datas: [Project]) {
         snapShot.appendSections([.main])
@@ -25,8 +29,4 @@ class DataSource: UITableViewDiffableDataSource<Section, Project> {
         snapShot.appendItems(datas)
         self.apply(snapShot)
     }
-}
-
-enum Section {
-    case main
 }

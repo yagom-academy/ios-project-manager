@@ -2,12 +2,12 @@
 //  EllipseShapeLabel.swift
 //  ProjectManager
 //
-//  Created by 맹선아 on 2023/01/13.
+//  Created by 써니쿠키 on 2023/01/13.
 //
 
 import UIKit
 
-class CircleLabel: UILabel {
+final class CircleLabel: UILabel {
     
     private var padding = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
     
@@ -38,7 +38,7 @@ class CircleLabel: UILabel {
         var contentSize = super.intrinsicContentSize
         contentSize.height += padding.top + padding.bottom
         contentSize.width += padding.left + padding.right
-
+        
         return contentSize
     }
     

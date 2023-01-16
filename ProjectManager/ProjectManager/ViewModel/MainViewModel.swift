@@ -7,23 +7,34 @@
 
 import Foundation
 
-class MainViewModel {
+final class MainViewModel {
     
-    let processTitles: [String] = [Process.todo.title, Process.doing.title, Process.done.title]
-    var datas: [[Project]] = [[], [], []] {
+    private let processTitles: [String] = Process.allCases.map { process in
+        return process.title
+    }
+    
+    private var datas: [[Project]] = [[], [], []] {
         didSet {
             updateDatas(datas, datasCount(datas))
         }
     }
-
-    var datasCount = { (datas: [[Project]]) -> [String] in
-        return datas.map { String($0.count) }
+    
+    private var datasCount = { (datas: [[Project]]) -> [String] in
+        datas.map { String($0.count) }
+    }
+    
+    var newProject: Project {
+        return Project(title: "", description: "", date: Date(), uuid: UUID())
     }
     
     var updateDatas: ([[Project]], [String]) -> Void = { _, _ in }
     
-    var newProject: Project {
-        return Project(title: "", description: "", date: Date(), uuid: UUID())
+    func readTitle(of process: Process) -> String {
+        return processTitles[process.index]
+    }
+    
+    func readData(in process: Process) -> [Project] {
+        return datas[process.index]
     }
     
     func registerProject(_ project: Project, in process: Process) {

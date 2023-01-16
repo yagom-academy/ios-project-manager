@@ -7,21 +7,24 @@
 
 import Foundation
 
-struct ListCellViewModel {
+final class ListCellViewModel {
     
-    var project: Project?
-    var process: Process
-    var title: String = "" {
+    private var project: Project?
+    private var process: Process
+    
+    private var title: String = "" {
         didSet {
             updateTitleDate(title)
         }
     }
-    var description: String = "" {
+    
+    private var description: String = "" {
         didSet {
             updateDescriptionDate(description)
         }
     }
-    var date: String = "" {
+    
+    private var date: String = "" {
         didSet {
             updateDateDate(date, isMissDeadLine, process)
         }
@@ -31,6 +34,14 @@ struct ListCellViewModel {
     var updateDescriptionDate: (String) -> Void = { _ in }
     var updateDateDate: (String, Bool, Process) -> Void = { _, _, _ in }
     
+    var currentProject: Project? {
+        return project
+    }
+    
+    var currentProcess: Process {
+        return process
+    }
+    
     var isMissDeadLine: Bool {
         let today = Date()
         guard let deadLine = self.date.changeDateFromDotFormat() else { return false }
@@ -38,11 +49,14 @@ struct ListCellViewModel {
         return deadLine < today
     }
     
-    mutating func setupCell(project: Project, in process: Process) {
-        title = project.title ?? ""
-        description = project.description ?? ""
-        date = project.date.changeDotFormatString() 
-        self.process = process
+    init(project: Project? = nil, process: Process = .todo) {
         self.project = project
+        self.process = process
+    }
+    
+    func setupCell() {
+        title = project?.title ?? ""
+        description = project?.description ?? ""
+        date = project?.date.changeDotFormatString() ?? ""
     }
 }
