@@ -7,7 +7,7 @@
 import UIKit
 
 class ProjectsViewController: UIViewController {
-    
+
     enum Constant {
         static let navigationTitle = "Project Manager"
     }

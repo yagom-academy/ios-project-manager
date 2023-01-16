@@ -48,7 +48,7 @@ class SingleProjectManageView: UIView {
             header.topAnchor.constraint(equalTo: self.topAnchor),
             header.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             header.widthAnchor.constraint(equalTo: tableView.widthAnchor),
-            header.heightAnchor.constraint(equalToConstant: 100)
+            header.heightAnchor.constraint(equalToConstant: 70)
         ])
 
         NSLayoutConstraint.activate([

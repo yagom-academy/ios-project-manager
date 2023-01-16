@@ -41,6 +41,23 @@ class HeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func draw(_ rect: CGRect) {
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return
+        }
+
+        let height = bounds.height
+        let width = bounds.width
+
+        context.beginPath()
+        context.move(to: CGPoint(x: 0, y: height * 0.95))
+        context.setLineWidth(2)
+        context.setStrokeColor(UIColor.systemGray4.cgColor)
+        context.addLine(to: CGPoint(x: width, y: height * 0.95))
+        context.drawPath(using: .stroke)
+        context.closePath()
+    }
+
     // MARK: - Configure
 
     func configureUI() {
