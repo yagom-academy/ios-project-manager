@@ -14,6 +14,7 @@ final class ModalViewContoller: UIViewController {
     }
     
     private var writeMode: WriteMode
+    let coreDataManager = CoreDataManager()
     
     private let textField: UITextField = {
         let textField = UITextField()
@@ -111,6 +112,10 @@ final class ModalViewContoller: UIViewController {
     }
     
     @objc private func tapRightButton() {
+        guard let title = textField.text else { return }
+        guard let body = textView.text else { return }
+        
+        coreDataManager.saveData(title: title, body: body, todoDate: datePicker.date)
         dismiss(animated: true)
     }
     

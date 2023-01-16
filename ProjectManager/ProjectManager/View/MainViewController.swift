@@ -8,9 +8,15 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    let coreDataManager = CoreDataManager()
+    
     let todoTableView = CustomTableView(title: "TODO")
     let doingTableView = CustomTableView(title: "DOING")
     let doneTableView = CustomTableView(title: "DONE")
+    
+    var todoData = [TodoModel]()
+    var doingData = [TodoModel]()
+    var doneData = [TodoModel]()
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -33,6 +39,26 @@ class MainViewController: UIViewController {
         
         autoLayoutSetting()
         setupNavigationBar()
+        fetchData()
+    }
+    
+    func fetchData() {
+        let result = coreDataManager.fetch()
+        
+        switch result {
+        case .success(let data):
+            data.forEach {
+                if $0.state == 0 {
+                    todoData.append($0)
+                } else if $0.state == 1 {
+                    doingData.append($0)
+                } else if $0.state == 2 {
+                    doneData.append($0)
+                }
+            }
+        case .failure(let error):
+            print(error)
+        }
     }
     
     func autoLayoutSetting() {
@@ -104,7 +130,16 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // TODO: -Cell확인
-        30
+        switch tableView {
+        case todoTableView:
+            return todoData.count
+        case doingTableView:
+            return doingData.count
+        case doneTableView:
+            return doneData.count
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,9 +149,23 @@ extension MainViewController: UITableViewDataSource {
         ) as? TodoCustomCell else {
             return UITableViewCell()
         }
-        cell.titleLabel.text = "This is Title"
-        cell.bodyLabel.text = "This is Body"
-        cell.dateLabel.text = "This is Date"
+        
+        switch tableView {
+        case todoTableView:
+            cell.titleLabel.text = todoData[indexPath.row].title
+            cell.bodyLabel.text = todoData[indexPath.row].body
+            cell.dateLabel.text = todoData[indexPath.row].todoDate?.description
+        case doingTableView:
+            cell.titleLabel.text = doingData[indexPath.row].title
+            cell.bodyLabel.text = doingData[indexPath.row].body
+            cell.dateLabel.text = doingData[indexPath.row].todoDate?.description
+        case doneTableView:
+            cell.titleLabel.text = doneData[indexPath.row].title
+            cell.bodyLabel.text = doneData[indexPath.row].body
+            cell.dateLabel.text = doneData[indexPath.row].todoDate?.description
+        default:
+            return cell
+        }
         
         return cell
     }
