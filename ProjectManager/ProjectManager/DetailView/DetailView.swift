@@ -9,56 +9,70 @@ import ComposableArchitecture
 
 struct ProjectDetailView: View {
   let store: StoreOf<DetailViewStore>
-  @State var text: String = ""
-  @State var selectedDate: Date = Date()
-  @State var description: String = ""
+  
   var body: some View {
-    NavigationView {
-      VStack {
-        TextField("Title", text: $text)
+    WithViewStore(store) { viewStore in
+      NavigationView {
+        VStack {
+          TextField(
+            "Title",
+            text: viewStore.binding(
+              get: \.title,
+              send: DetailViewStore.Action.didChangeTitle
+            )
+          )
           .padding()
           .background(.white)
           .cornerRadius(10)
           .shadow(color: .gray, radius: 1, y: 1)
-        
-        DatePicker(
-          "마감 기한",
-          selection: $selectedDate,
-          in: Date()...,
-          displayedComponents: .date
-        )
-        .padding(10)
-        .background(.white)
-        .cornerRadius(10)
-        .shadow(color: .gray, radius: 1, y: 1)
-        
-        TextEditor(text: $description)
+          
+          DatePicker(
+            "마감 기한",
+            selection: viewStore.binding(
+              get: \.deadLineDate,
+              send: DetailViewStore.Action.didChangeSelectedDate
+            ),
+            in: Date()...,
+            displayedComponents: .date
+          )
+          .padding(10)
+          .background(.white)
+          .cornerRadius(10)
+          .shadow(color: .gray, radius: 1, y: 1)
+          
+          TextEditor(
+            text: viewStore.binding(
+              get: \.description,
+              send: DetailViewStore.Action.didChangeDescription
+            )
+          )
           .padding()
           .background(.white)
           .cornerRadius(10)
           .shadow(color: .gray, radius: 1, y: 1)
-      }
-      .padding()
-      .background(Color.secondaryBackground)
-      .navigationTitle("TODO")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .navigationBarLeading) {
-          Button("Cancel") {
-            
+        }
+        .padding()
+        .background(Color.secondaryBackground)
+        .navigationTitle("TODO")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .navigationBarLeading) {
+            Button("Cancel") {
+              
+            }
+          }
+          
+          ToolbarItem(placement: .navigationBarTrailing) {
+            Button("Done") {
+              
+            }
           }
         }
-        
-        ToolbarItem(placement: .navigationBarTrailing) {
-          Button("Done") {
-            
-          }
-        }
       }
-    }
-    .navigationViewStyle(.stack)
-    .onAppear {
-      UITextView.appearance().backgroundColor = .clear
+      .navigationViewStyle(.stack)
+      .onAppear {
+        UITextView.appearance().backgroundColor = .clear
+      }
     }
   }
 }

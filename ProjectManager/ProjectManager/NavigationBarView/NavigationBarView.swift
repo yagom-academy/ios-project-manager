@@ -45,7 +45,7 @@ struct NavigationBarView: View {
         ProjectDetailView(
           store: Store(
             initialState: DetailViewStore.State(),
-            reducer: DetailViewStore()
+            reducer: DetailViewStore()._printChanges()
           )
         )
       }
