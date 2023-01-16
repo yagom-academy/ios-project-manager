@@ -9,6 +9,27 @@ import UIKit
 
 class PlanDetailViewController: UIViewController {
     private lazy var planDetailView = PlanDetailView(frame: view.bounds)
+    private var planManager = PlanManager()
+    private var plan: Plan?
+
+    init() {
+        self.planManager = PlanManager()
+        do {
+//            plan = try self.planManager.create(planList: &<#[Plan]#>)
+        } catch {
+            fatalError()
+        }
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    init(planManager: PlanManager, id: UUID) {
+        self.planManager = planManager
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func loadView() {
         view = UIView(frame: .zero)

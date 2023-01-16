@@ -11,6 +11,7 @@ final class PlanListViewController: UIViewController, UITableViewDelegate {
     typealias DataSource = UITableViewDiffableDataSource<Int, Plan>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Plan>
 
+    private var planManager = PlanManager()
     private lazy var planListView = PlanListView(frame: view.bounds)
 
     private lazy var toDoDataSource = configureDataSource(tableView: planListView.toDoTableView)

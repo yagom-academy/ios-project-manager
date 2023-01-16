@@ -8,8 +8,8 @@
 import Foundation
 
 protocol PlanManageable {
-    func create() throws -> Plan
-    func update(plan: Plan) throws
+    func create(planList: inout [Plan]) throws
+    func update(planList: inout [Plan], plan: Plan) throws
     func update(id: UUID, status: Plan.Status) throws
     func fetch(id: UUID) throws -> Plan?
     func fetchAllPlans() throws

@@ -10,7 +10,7 @@ struct DummyProjects {
         Plan(status: .todo,
              title: "SwiftUI공부하기",
              description: "SwiftUI를 공부한다",
-             deadline: Date(),
+             deadline: Date(timeIntervalSince1970: 100),
              id: UUID()),
         Plan(status: .todo,
              title: "오늘자 일일회고 작성하기",

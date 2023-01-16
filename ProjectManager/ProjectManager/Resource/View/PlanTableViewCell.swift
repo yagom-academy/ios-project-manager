@@ -51,10 +51,19 @@ final class PlanTableViewCell: UITableViewCell {
         configureLayout()
     }
 
+    // TODO: 마감일 지나면 빨간색으로 표시해주는 부분 수정해야함
     func configureCell(with todo: Plan) {
         self.titleLabel.text = todo.title
         self.descriptionLabel.text = todo.description
-        self.deadlineLabel.text = "\(todo.deadline)"
+        self.deadlineLabel.text = DateFormatterManager.formatDate(todo.deadline)
+
+        guard let validate = DateFormatterManager.isExpiredDate(todo.deadline) else { return }
+
+        if validate {
+            deadlineLabel.textColor = .red
+        } else if todo.status == .done {
+            return
+        }
     }
 
     // MARK: Private Method
