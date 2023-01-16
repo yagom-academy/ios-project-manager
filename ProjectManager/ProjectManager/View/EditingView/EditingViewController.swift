@@ -12,11 +12,11 @@ final class EditingViewController: UIViewController {
     private var editViewModel: EditingViewModel
     
     private let titleField: UITextField = {
-        let field = UITextField(font: .headline, placeHolder: "Title")
+        let field = UITextField(font: .headline, placeHolder: Default.titlePlaceHolder)
         field.borderStyle = .roundedRect
-        field.layer.cornerRadius = 10
+        field.layer.cornerRadius = Default.radius
         field.addShadow(backGroundColor: .white, shadowColor: .black)
-        field.addPadding(width: 20)
+        field.addPadding(width: Default.titlePadding)
         
         return field
     }()
@@ -32,13 +32,13 @@ final class EditingViewController: UIViewController {
     
     private let descriptionTextView: UITextView = {
         let textView = UITextView(font: .title2)
-        textView.layer.cornerRadius = 10
+        textView.layer.cornerRadius = Default.radius
         textView.addShadow(backGroundColor: .white, shadowColor: .black)
         
         return textView
     }()
     
-    private let stack = UIStackView(axis: .vertical, spacing: 10)
+    private let stack = UIStackView(axis: .vertical, spacing: Default.stackSpacing)
     
     init(viewModel: EditingViewModel) {
         self.editViewModel = viewModel
@@ -82,8 +82,10 @@ final class EditingViewController: UIViewController {
 extension EditingViewController {
     
     private func setupNavigationBar() {
-        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0,
-                                                          width: view.frame.width, height: 70))
+        let navigationBar = UINavigationBar(frame: CGRect(x: Default.origin,
+                                                          y: Default.origin,
+                                                          width: view.frame.width,
+                                                          height: Default.navigationBarHeight))
         let navigationItem = UINavigationItem()
         navigationItem.title = editViewModel.barTitle
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel",
@@ -129,12 +131,35 @@ extension EditingViewController {
         
         NSLayoutConstraint.activate([
             descriptionTextView.heightAnchor.constraint(equalTo: stack.heightAnchor,
-                                                        multiplier: 0.4),
-            dataPicker.heightAnchor.constraint(equalTo: stack.heightAnchor, multiplier: 0.45),
-            stack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-            stack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
-            stack.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 80),
-            stack.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10)
+                                                        multiplier: Default.descriptionHeightRatio),
+            dataPicker.heightAnchor.constraint(equalTo: stack.heightAnchor,
+                                               multiplier: Default.dataPickerHeightRatio),
+            stack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,
+                                           constant: Default.margin),
+            stack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,
+                                            constant: -Default.margin),
+            stack.topAnchor.constraint(equalTo: safeArea.topAnchor,
+                                       constant: Default.stackTopMargin),
+            stack.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,
+                                          constant: -Default.margin)
         ])
+    }
+}
+
+extension EditingViewController {
+    
+    private enum Default {
+        
+        static let titlePlaceHolder = "Title"
+        static let radius: CGFloat = 10
+        static let titlePadding: CGFloat = 20
+        static let stackSpacing: CGFloat = 10
+        static let origin: CGFloat = 0
+        static let navigationBarHeight: CGFloat = 70
+        static let descriptionHeightRatio = 0.4
+        static let titleHeightRatio = 0.15
+        static let dataPickerHeightRatio = 1 - descriptionHeightRatio - titleHeightRatio
+        static let margin: CGFloat = 10
+        static let stackTopMargin = navigationBarHeight + margin
     }
 }

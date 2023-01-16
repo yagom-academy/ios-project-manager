@@ -14,7 +14,7 @@ final class EditingViewModel {
     private let isNewProject: Bool
     private let process: Process
     
-    private var title: String = "" {
+    private var title: String = Default.title {
         didSet {
             updateTitle(title)
         }
@@ -26,14 +26,14 @@ final class EditingViewModel {
         }
     }
     
-    private var description: String = "" {
+    private var description: String = Default.description {
         didSet {
             updateDescription(description)
         }
     }
     
     var barTitle: String {
-        return isNewProject ? process.title : process.title + " Edit"
+        return isNewProject ? process.title : process.title + Title.edit
     }
     
     var updateTitle: (String) -> Void = { _ in }
@@ -51,9 +51,9 @@ final class EditingViewModel {
     }
     
     func initialSetupView() {
-        self.title = project.title ?? ""
+        self.title = project.title ?? Default.title
         self.date = project.date
-        self.description = project.description ?? ""
+        self.description = project.description ?? Default.description
     }
     
     func doneEditing(titleInput: String?, descriptionInput: String?, dateInput: Date) {
@@ -70,5 +70,19 @@ final class EditingViewModel {
     
     func editProject(_ project: Project) {
         editTargetModel.editProject(project, in: process)
+    }
+}
+
+extension EditingViewModel {
+    
+    private enum Default {
+        
+        static let title = ""
+        static let description = ""
+    }
+    
+    private enum Title {
+        
+        static let edit = "Edit"
     }
 }

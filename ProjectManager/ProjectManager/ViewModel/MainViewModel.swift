@@ -24,7 +24,10 @@ final class MainViewModel {
     }
     
     var newProject: Project {
-        return Project(title: "", description: "", date: Date(), uuid: UUID())
+        return Project(title: Default.title,
+                       description: Default.description,
+                       date: Default.date,
+                       uuid: UUID())
     }
     
     var updateDatas: ([[Project]], [String]) -> Void = { _, _ in }
@@ -58,5 +61,15 @@ final class MainViewModel {
     func moveData(_ project: Project, from currentProcess: Process, to process: Process) {
         deleteData(project, in: currentProcess)
         registerProject(project, in: process)
+    }
+}
+
+extension MainViewModel {
+    
+    private enum Default {
+        
+        static let title = ""
+        static let description = ""
+        static let date = Date()
     }
 }

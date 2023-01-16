@@ -12,19 +12,19 @@ final class ListCellViewModel {
     private var project: Project?
     private var process: Process
     
-    private var title: String = "" {
+    private var title: String = Default.title {
         didSet {
             updateTitleDate(title)
         }
     }
     
-    private var description: String = "" {
+    private var description: String = Default.description {
         didSet {
             updateDescriptionDate(description)
         }
     }
     
-    private var date: String = "" {
+    private var date: String = Default.date {
         didSet {
             updateDateDate(date, isMissDeadLine, process)
         }
@@ -55,8 +55,18 @@ final class ListCellViewModel {
     }
     
     func setupCell() {
-        title = project?.title ?? ""
-        description = project?.description ?? ""
-        date = project?.date.changeDotFormatString() ?? ""
+        title = project?.title ?? Default.title
+        description = project?.description ?? Default.description
+        date = project?.date.changeDotFormatString() ?? Default.date
+    }
+}
+
+extension ListCellViewModel {
+    
+    private enum Default {
+        
+        static let title = ""
+        static let description = ""
+        static let date = ""
     }
 }

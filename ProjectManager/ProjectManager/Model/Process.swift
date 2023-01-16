@@ -13,11 +13,11 @@ enum Process: Int, CaseIterable {
     var title: String {
         switch self {
         case .todo:
-            return "TODO"
+            return Title.toDo
         case .doing:
-            return "DOING"
+            return Title.doing
         case .done:
-            return "DONE"
+            return Title.done
         }
     }
     
@@ -25,14 +25,30 @@ enum Process: Int, CaseIterable {
         return rawValue
     }
     
-    var movingOption: [String: Process] {
+    var movingOption: [(optionTitle: String, moveTo: Process)] {
         switch self {
         case .todo:
-            return ["Move to DOING": .doing, "Move to DONE": .done]
+            return  [(optionTitle: Title.moveToDoing, moveTo: .doing),
+                     (optionTitle: Title.moveToDone, moveTo: .done)]
         case .doing:
-            return ["Move to TODO": .todo, "Move to DONE": .done]
+            return [(optionTitle: Title.moveToToDo, moveTo: .todo),
+                    (optionTitle: Title.moveToDone, moveTo: .done)]
         case .done:
-            return ["Move to TODO": .todo, "Move to DOING": .doing]
+            return [(optionTitle: Title.moveToToDo, moveTo: .todo),
+                    (optionTitle: Title.moveToDoing, moveTo: .doing)]
         }
+    }
+}
+
+extension Process {
+    
+    private enum Title {
+        
+        static let toDo = "TODO"
+        static let doing = "DOING"
+        static let done = "DONE"
+        static let moveToToDo = "Move to TODO"
+        static let moveToDoing = "Move to DOING"
+        static let moveToDone = "Move to DONE"
     }
 }

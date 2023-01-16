@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol ListCellDelegate: AnyObject {
+    
+    func showPopoverMenu(_ sender: UILongPressGestureRecognizer, using model: ListCellViewModel)
+}
+
 final class ListCell: UITableViewCell {
     
     static let identifier = "projectCell"
@@ -18,15 +23,17 @@ final class ListCell: UITableViewCell {
             }
         }
     }
+    
     weak var delegate: ListCellDelegate?
     private var titleLabel = UILabel(font: .title3)
     private var descriptionLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
     private var dateLabel = UILabel(font: .body, numberOfLines: 0)
-    private var totalView = UIView(backgroundColor: .tertiarySystemBackground, cornerRadius: 10)
+    private var totalView = UIView(backgroundColor: .tertiarySystemBackground,
+                                   cornerRadius: Default.radius)
     private var stack = UIStackView(axis: .vertical,
                                     distribution: .fillProportionally,
                                     alignment: .leading,
-                                    spacing: 5,
+                                    spacing: Default.stackSpacing,
                                     backgroundColor: .tertiarySystemBackground)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -87,20 +94,33 @@ extension ListCell {
         descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         
         NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: totalView.leadingAnchor, constant: 10),
-            stack.trailingAnchor.constraint(equalTo: totalView.trailingAnchor, constant: -10),
-            stack.topAnchor.constraint(equalTo: totalView.topAnchor, constant: 10),
-            stack.bottomAnchor.constraint(equalTo: totalView.bottomAnchor, constant: -10),
+            stack.leadingAnchor.constraint(equalTo: totalView.leadingAnchor,
+                                           constant: Default.margin),
+            stack.trailingAnchor.constraint(equalTo: totalView.trailingAnchor,
+                                            constant: -Default.margin),
+            stack.topAnchor.constraint(equalTo: totalView.topAnchor,
+                                       constant: Default.margin),
+            stack.bottomAnchor.constraint(equalTo: totalView.bottomAnchor,
+                                          constant: -Default.margin),
             
-            totalView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            totalView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            totalView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            totalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            totalView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                               constant: Default.margin),
+            totalView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                constant: -Default.margin),
+            totalView.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                           constant: Default.margin),
+            totalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
+                                              constant: -Default.margin)
         ])
     }
 }
 
-protocol ListCellDelegate: AnyObject {
+extension ListCell {
     
-    func showPopoverMenu(_ sender: UILongPressGestureRecognizer, using model: ListCellViewModel)
+    private enum Default {
+        
+        static let radius: CGFloat = 10
+        static let stackSpacing: CGFloat = 5
+        static let margin: CGFloat = 10
+    }
 }

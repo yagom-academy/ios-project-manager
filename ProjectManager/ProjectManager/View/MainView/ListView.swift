@@ -11,11 +11,11 @@ final class ListView: UIView {
     
     private let headView = UIView(backgroundColor: .systemGroupedBackground)
     private let titleLabel = UILabel(font: .title1, textAlignment: .center)
-    private let countLabel = CircleLabel(text: "0")
+    private let countLabel = CircleLabel(text: Default.count)
     private let separatorLine = UIView(backgroundColor: .systemGray3)
     private let headStack = UIStackView(axis: .vertical, alignment: .leading)
     private let headAndListStack = UIStackView(axis: .vertical,
-                                               spacing: 5,
+                                               spacing: Default.stackSpacing,
                                                backgroundColor: .systemGroupedBackground)
     
     private let tableView: UITableView = {
@@ -79,13 +79,15 @@ extension ListView {
             titleLabel.centerYAnchor.constraint(equalTo: headView.centerYAnchor),
             titleLabel.heightAnchor.constraint(equalTo: headView.heightAnchor),
             
-            countLabel.trailingAnchor.constraint(equalTo: headView.trailingAnchor, constant: -40),
+            countLabel.trailingAnchor.constraint(equalTo: headView.trailingAnchor,
+                                                 constant: Default.countLabelTrailingSpacing),
             countLabel.centerYAnchor.constraint(equalTo: headView.centerYAnchor),
             countLabel.widthAnchor.constraint(greaterThanOrEqualTo: countLabel.heightAnchor),
             
-            headStack.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1),
+            headStack.heightAnchor.constraint(equalTo: heightAnchor,
+                                              multiplier: Default.headStackHeightRatio),
             
-            separatorLine.heightAnchor.constraint(equalToConstant: 1),
+            separatorLine.heightAnchor.constraint(equalToConstant: Default.separatorLineHeight),
             separatorLine.widthAnchor.constraint(equalTo: headStack.widthAnchor),
             
             headAndListStack.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -93,5 +95,17 @@ extension ListView {
             headAndListStack.topAnchor.constraint(equalTo: topAnchor),
             headAndListStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+}
+
+extension ListView {
+    
+    private enum Default {
+        
+        static let count = "0"
+        static let stackSpacing: CGFloat = 5
+        static let countLabelTrailingSpacing: CGFloat = -40
+        static let headStackHeightRatio: CGFloat = 0.1
+        static let separatorLineHeight: CGFloat = 1
     }
 }

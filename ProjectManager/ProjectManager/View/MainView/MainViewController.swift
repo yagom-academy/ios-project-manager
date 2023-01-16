@@ -11,7 +11,7 @@ final class MainViewController: UIViewController {
     private let lists: [ListView] = [ListView(), ListView(), ListView()]
     private var dataSources: [DataSource?] = [nil, nil, nil]
     private let listStack = UIStackView(distribution: .fillEqually,
-                                        spacing: 5,
+                                        spacing: Default.stackSpacing,
                                         backgroundColor: .systemGray4)
     
     override func viewDidLoad() {
@@ -75,10 +75,10 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     
     private func setUpNavigationBar() {
-        let barButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
+        let barButton = UIBarButtonItem(image: UIImage(systemName: Default.barButtonImage),
                                         primaryAction: showEditingViewForRegister())
         
-        self.navigationController?.navigationBar.topItem?.title = "Project Manager"
+        self.navigationController?.navigationBar.topItem?.title = Title.navigationBar
         self.navigationController?.navigationBar.topItem?.setRightBarButton(barButton,
                                                                             animated: true)
     }
@@ -155,7 +155,7 @@ extension MainViewController: UITableViewDelegate {
         
         let process = cellViewModel.currentProcess
         let project = mainViewModel.readData(in: process)[indexPath.item]
-        let delete = UIContextualAction(style: .destructive, title: "delete") { _, _, _ in
+        let delete = UIContextualAction(style: .destructive, title: Title.deleteAction) { _, _, _ in
             self.mainViewModel.deleteData(project, in: process)
         }
         
@@ -182,9 +182,9 @@ extension MainViewController: ListCellDelegate {
     
     private func generateMovingActions(about project: Project,
                                        in process: Process) -> [UIAlertAction] {
-        return process.movingOption.map { title, otherProcess in
-            UIAlertAction(title: title, style: .default) { _ in
-                self.moveProject(project, from: process, to: otherProcess)
+        return process.movingOption.map { optionTitle, otherOptionProcess in
+            UIAlertAction(title: optionTitle, style: .default) { _ in
+                self.moveProject(project, from: process, to: otherOptionProcess)
             }
         }
     }
@@ -193,5 +193,21 @@ extension MainViewController: ListCellDelegate {
                              from currentProcess: Process,
                              to process: Process) {
         mainViewModel.moveData(project, from: currentProcess, to: process)
+    }
+}
+
+extension MainViewController {
+    
+    private enum Default {
+        
+        static let stackSpacing: CGFloat = 5
+        static let barButtonImage = "plus.circle"
+    }
+    
+    private enum Title {
+        
+        static let deleteAction = "Delete"
+        static let navigationBar = "Project Manager"
+        
     }
 }
