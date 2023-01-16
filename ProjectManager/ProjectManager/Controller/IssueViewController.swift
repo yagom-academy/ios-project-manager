@@ -29,6 +29,7 @@ final class IssueViewController: UIViewController {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
         textField.placeholder = "Title"
+        textField.setContentHuggingPriority(.required, for: .vertical)
         
         return textField
     }()
