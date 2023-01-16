@@ -14,9 +14,11 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		E35F5D6929703327008D3ADC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5D6829703327008D3ADC /* HeaderView.swift */; };
 		E35F5D6B29703E5A008D3ADC /* CountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5D6A29703E5A008D3ADC /* CountLabel.swift */; };
+		E35F5D992975780E008D3ADC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5D982975780E008D3ADC /* MainViewModel.swift */; };
+		E35F5D9B297582B6008D3ADC /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5D9A297582B6008D3ADC /* ProjectModel.swift */; };
+		E35F5D9F29758F49008D3ADC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E35F5D9E29758F49008D3ADC /* .swiftlint.yml */; };
 		E3DE2151296F970C00C4BB47 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E3DE2150296F970C00C4BB47 /* FirebaseFirestore */; };
 		E3DE2153296F970C00C4BB47 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E3DE2152296F970C00C4BB47 /* FirebaseFirestoreSwift */; };
-		E3DE215D296F9B0300C4BB47 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E3DE215C296F9B0300C4BB47 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +31,9 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E35F5D6829703327008D3ADC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		E35F5D6A29703E5A008D3ADC /* CountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLabel.swift; sourceTree = "<group>"; };
-		E3DE215C296F9B0300C4BB47 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		E35F5D982975780E008D3ADC /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		E35F5D9A297582B6008D3ADC /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
+		E35F5D9E29758F49008D3ADC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,7 @@
 		0C0950602975737600C1E3F3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E35F5D9A297582B6008D3ADC /* ProjectModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -64,6 +69,7 @@
 		0C0950612975738200C1E3F3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E35F5D982975780E008D3ADC /* MainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -85,7 +91,6 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -110,7 +115,7 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
-				E3DE215C296F9B0300C4BB47 /* .swiftlint.yml */,
+				E35F5D9E29758F49008D3ADC /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 			);
@@ -127,6 +132,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				0C095062297573CF00C1E3F3 /* Sources */,
 				0C095063297573DD00C1E3F3 /* Resources */,
 			);
@@ -140,10 +146,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7431F1625F51E1E0094C4CF /* Build configuration list for PBXNativeTarget "ProjectManager" */;
 			buildPhases = (
+				E3DE2154296F9A6100C4BB47 /* SwiftLint Script */,
 				C7431EFE25F51E1D0094C4CF /* Sources */,
 				C7431EFF25F51E1D0094C4CF /* Frameworks */,
 				C7431F0025F51E1D0094C4CF /* Resources */,
-				E3DE2154296F9A6100C4BB47 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -198,7 +204,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3DE215D296F9B0300C4BB47 /* .swiftlint.yml in Resources */,
+				E35F5D9F29758F49008D3ADC /* .swiftlint.yml in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
@@ -207,7 +213,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E3DE2154296F9A6100C4BB47 /* ShellScript */ = {
+		E3DE2154296F9A6100C4BB47 /* SwiftLint Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -216,6 +222,7 @@
 			);
 			inputPaths = (
 			);
+			name = "SwiftLint Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -233,9 +240,11 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				E35F5D9B297582B6008D3ADC /* ProjectModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				E35F5D6929703327008D3ADC /* HeaderView.swift in Sources */,
 				E35F5D6B29703E5A008D3ADC /* CountLabel.swift in Sources */,
+				E35F5D992975780E008D3ADC /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

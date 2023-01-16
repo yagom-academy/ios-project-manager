@@ -1,6 +1,6 @@
 excluded:
-    - ProjectManager/AppDelegate.swift
-    - ProjectManager/SceneDelegate.swift
+    - ProjectManager/Resources/AppDelegate.swift
+    - ProjectManager/Resources/SceneDelegate.swift
     
 disabled_rules:
     - trailing_whitespace
