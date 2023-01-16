@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1804381E2975B451000CC2DA /* ProjectManagerAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804381D2975B451000CC2DA /* ProjectManagerAppView.swift */; };
+		180438202975B7E2000CC2DA /* DetailViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804381F2975B7E2000CC2DA /* DetailViewStore.swift */; };
 		18186ABC296FE62B00E0B695 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186ABB296FE62B00E0B695 /* Font.swift */; };
 		18186AC2296FE81500E0B695 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC1296FE81500E0B695 /* Project.swift */; };
 		18186AC729703A6500E0B695 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC629703A6500E0B695 /* Color.swift */; };
@@ -27,13 +28,13 @@
 		1854F13D29759B030082FB88 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F13C29759B030082FB88 /* BoardView.swift */; };
 		1854F13F29759B210082FB88 /* BoardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F13E29759B210082FB88 /* BoardStore.swift */; };
 		1858234729728273001AE6BC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234629728273001AE6BC /* DetailView.swift */; };
-		1858234C29731DCA001AE6BC /* DetailViewReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234B29731DCA001AE6BC /* DetailViewReducer.swift */; };
 		1858235E2973265C001AE6BC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1858235D2973265C001AE6BC /* ComposableArchitecture */; };
 		18D24759296D4F00008E8DCC /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18D24757296D4F00008E8DCC /* Project.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1804381D2975B451000CC2DA /* ProjectManagerAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerAppView.swift; sourceTree = "<group>"; };
+		1804381F2975B7E2000CC2DA /* DetailViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewStore.swift; sourceTree = "<group>"; };
 		18186ABB296FE62B00E0B695 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		18186AC1296FE81500E0B695 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		18186AC629703A6500E0B695 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -54,7 +55,6 @@
 		1854F13C29759B030082FB88 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		1854F13E29759B210082FB88 /* BoardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStore.swift; sourceTree = "<group>"; };
 		1858234629728273001AE6BC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		1858234B29731DCA001AE6BC /* DetailViewReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewReducer.swift; sourceTree = "<group>"; };
 		18D24758296D4F00008E8DCC /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectManager.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,7 +124,7 @@
 				1854F134297595F30082FB88 /* BoardHeaderView */,
 				1854F12E29757DF50082FB88 /* BoardListView */,
 				1854F12929757BA60082FB88 /* BoardListCell */,
-				185823452972825B001AE6BC /* EditView */,
+				185823452972825B001AE6BC /* DetailView */,
 				18186AC0296FE80E00E0B695 /* Model */,
 				18186AB8296FE5FA00E0B695 /* Utility */,
 				1854F124297578050082FB88 /* NavigationBarView */,
@@ -189,13 +189,13 @@
 			path = NavigationBarView/BoardView;
 			sourceTree = "<group>";
 		};
-		185823452972825B001AE6BC /* EditView */ = {
+		185823452972825B001AE6BC /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
 				1858234629728273001AE6BC /* DetailView.swift */,
-				1858234B29731DCA001AE6BC /* DetailViewReducer.swift */,
+				1804381F2975B7E2000CC2DA /* DetailViewStore.swift */,
 			);
-			path = EditView;
+			path = DetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,11 +285,11 @@
 				18186ABC296FE62B00E0B695 /* Font.swift in Sources */,
 				18D24759296D4F00008E8DCC /* Project.xcdatamodeld in Sources */,
 				1854F12B29757BC10082FB88 /* BoardListCell.swift in Sources */,
-				1858234C29731DCA001AE6BC /* DetailViewReducer.swift in Sources */,
 				18186AC729703A6500E0B695 /* Color.swift in Sources */,
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
 				1854F12D29757BE20082FB88 /* BoardListCellStore.swift in Sources */,
 				1854F1382975965F0082FB88 /* BoardHeaderView.swift in Sources */,
+				180438202975B7E2000CC2DA /* DetailViewStore.swift in Sources */,
 				1854F13029757DFF0082FB88 /* BoardListView.swift in Sources */,
 				1854F13D29759B030082FB88 /* BoardView.swift in Sources */,
 				181DF174297148C4003EC956 /* Image.swift in Sources */,
