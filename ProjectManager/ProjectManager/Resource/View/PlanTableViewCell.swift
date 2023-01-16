@@ -1,5 +1,5 @@
 //
-//  ToDoTableViewCell.swift
+//  PlanTableViewCell.swift
 //  ProjectManager
 //
 //  Created by 로빈솜 on 2023/01/11.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ToDoTableViewCell: UITableViewCell {
+final class PlanTableViewCell: UITableViewCell {
     // MARK: Properties
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -51,7 +51,7 @@ final class ToDoTableViewCell: UITableViewCell {
         configureLayout()
     }
 
-    func configureCell(with todo: ToDo) {
+    func configureCell(with todo: Plan) {
         self.titleLabel.text = todo.title
         self.descriptionLabel.text = todo.description
         self.deadlineLabel.text = "\(todo.deadline)"
@@ -74,4 +74,4 @@ final class ToDoTableViewCell: UITableViewCell {
     }
 }
 
-extension ToDoTableViewCell: CellReusable { }
+extension PlanTableViewCell: CellReusable { }

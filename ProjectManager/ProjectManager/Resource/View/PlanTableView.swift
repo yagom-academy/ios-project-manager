@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ToDoTableView: UITableView {
+class PlanTableView: UITableView {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
 
-        self.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.reuseIdentifier)
+        self.register(PlanTableViewCell.self, forCellReuseIdentifier: PlanTableViewCell.reuseIdentifier)
     }
 
     @available(*, unavailable)

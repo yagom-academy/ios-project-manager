@@ -1,13 +1,13 @@
 //
-//  ToDoDetailViewController.swift
+//  PlanDetailView.swift
 //  ProjectManager
 //
-//  Created by 로빈솜 on 2023/01/11.
+//  Created by 정선아 on 2023/01/16.
 //
 
 import UIKit
 
-class ToDoDetailViewController: UIViewController {
+class PlanDetailView: UIView {
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -20,6 +20,7 @@ class ToDoDetailViewController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return stackView
     }()
 
@@ -59,53 +60,36 @@ class ToDoDetailViewController: UIViewController {
         return textView
     }()
 
-    override func loadView() {
-        view = UIView(frame: .zero)
-        view.backgroundColor = .systemBackground
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureLayout()
-        configurePlusButton()
     }
 
-    private func configurePlusButton() {
-        let navigationItem = UINavigationItem(title: "TODO")
-
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tappedCancel(sender:)))
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(tappedDone(sender:)))
-
-        navigationItem.leftBarButtonItem = cancelButton
-        navigationItem.rightBarButtonItem = doneButton
-
-        navigationBar.setItems([navigationItem], animated: true)
-    }
-
-    @objc private func tappedCancel(sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
-
-    @objc private func tappedDone(sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func configureLayout() {
-        view.addSubview(navigationBar)
-        view.addSubview(stackView)
+        addSubview(navigationBar)
+        addSubview(stackView)
         stackView.addArrangedSubview(titleTextView)
         stackView.addArrangedSubview(datePicker)
         stackView.addArrangedSubview(descriptionTextView)
 
         NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            navigationBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 8),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             titleTextView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+
+    func configureNavigationBar(on item: UINavigationItem) {
+        navigationBar.setItems([item], animated: true)
+    }
+    
 }

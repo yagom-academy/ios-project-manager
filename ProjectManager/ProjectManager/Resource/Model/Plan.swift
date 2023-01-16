@@ -7,9 +7,16 @@
 
 import Foundation
 
-struct ToDo: Hashable {
+struct Plan: Hashable {
     let id: UUID
     var title: String
     var description: String
     var deadline: Date
+    var status: Status
+
+    enum Status {
+        case todo
+        case doing
+        case done
+    }
 }

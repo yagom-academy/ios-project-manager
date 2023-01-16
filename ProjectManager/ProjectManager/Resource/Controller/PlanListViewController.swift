@@ -7,22 +7,11 @@
 
 import UIKit
 
-final class ToDoListViewController: UIViewController, UITableViewDelegate {
-    typealias DataSource = UITableViewDiffableDataSource<Int, ToDo>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, ToDo>
+final class PlanListViewController: UIViewController, UITableViewDelegate {
+    typealias DataSource = UITableViewDiffableDataSource<Int, Plan>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Plan>
 
-    private let toDoTableView = ToDoTableView()
-    private let doingTableView = ToDoTableView()
-    private let doneTableView = ToDoTableView()
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(frame: view.bounds)
-        stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 4
-        return stackView
-    }()
-
+    private let planListView = PlanListView()
     private lazy var toDoDataSource = configureDataSource()
     private lazy var doingDataSource = configureDataSource()
     private lazy var doneDataSource = configureDataSource()
@@ -36,20 +25,16 @@ final class ToDoListViewController: UIViewController, UITableViewDelegate {
     }
 
     private func configureLayout() {
-        view.addSubview(stackView)
+        view.addSubview(planListView)
 
-        stackView.addArrangedSubview(toDoTableView)
-        stackView.addArrangedSubview(doingTableView)
-        stackView.addArrangedSubview(doneTableView)
-
-        toDoTableView.dataSource = toDoDataSource
-        doingTableView.dataSource = doingDataSource
-        doneTableView.dataSource = doneDataSource
+        planListView.toDoTableView.dataSource = toDoDataSource
+        planListView.doingTableView.dataSource = doingDataSource
+        planListView.doneTableView.dataSource = doneDataSource
     }
 
     private func configureNavigationBarButton() -> UIBarButtonItem {
         let buttonAction = UIAction { [weak self] _ in
-            let detailViewController = ToDoDetailViewController()
+            let detailViewController = PlanDetailViewController()
             self?.present(detailViewController, animated: true)
         }
 
@@ -63,8 +48,8 @@ final class ToDoListViewController: UIViewController, UITableViewDelegate {
         navigationItem.rightBarButtonItem = configureNavigationBarButton()
     }
 
-    private func configureCell(_ cell: UITableViewCell, with todo: ToDo) {
-        guard let cell = cell as? ToDoTableViewCell else {
+    private func configureCell(_ cell: UITableViewCell, with todo: Plan) {
+        guard let cell = cell as? PlanTableViewCell else {
             return
         }
 
@@ -73,8 +58,8 @@ final class ToDoListViewController: UIViewController, UITableViewDelegate {
 
 
     private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(tableView: toDoTableView, cellProvider: { tableView, indexPath, todo in
-            let cell = tableView.dequeueReusableCell(withIdentifier: ToDoTableViewCell.reuseIdentifier, for: indexPath)
+        let dataSource = DataSource(tableView: planListView.toDoTableView, cellProvider: { tableView, indexPath, todo in
+            let cell = tableView.dequeueReusableCell(withIdentifier: PlanTableViewCell.reuseIdentifier, for: indexPath)
             self.configureCell(cell, with: todo)
             return cell
         })

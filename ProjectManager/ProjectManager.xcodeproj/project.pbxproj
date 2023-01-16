@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1ACE9BFD296E8A02005F77B7 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACE9BFC296E8A02005F77B7 /* ToDoListViewController.swift */; };
-		1ACE9C01296E8CFD005F77B7 /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACE9C00296E8CFD005F77B7 /* ToDoTableViewCell.swift */; };
+		1ACE9BFD296E8A02005F77B7 /* PlanListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACE9BFC296E8A02005F77B7 /* PlanListViewController.swift */; };
+		1ACE9C01296E8CFD005F77B7 /* PlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACE9C00296E8CFD005F77B7 /* PlanTableViewCell.swift */; };
 		1ACE9C03296E91D0005F77B7 /* CellReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACE9C02296E91D0005F77B7 /* CellReusable.swift */; };
-		1ACE9C0A296EAB63005F77B7 /* ToDoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACE9C09296EAB63005F77B7 /* ToDoTableView.swift */; };
+		1ACE9C0A296EAB63005F77B7 /* PlanTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACE9C09296EAB63005F77B7 /* PlanTableView.swift */; };
 		99F500458C3FBEF1DA2B48BB /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3722A1FE1CDB8ED39CA8B9E3 /* Pods_ProjectManager.framework */; };
-		AED9DE63296EC8590090C31A /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE62296EC8590090C31A /* ToDo.swift */; };
-		AED9DE65296EC8A90090C31A /* ToDoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE64296EC8A80090C31A /* ToDoDetailViewController.swift */; };
-		AED9DE6A296ECA980090C31A /* ToDoManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE69296ECA980090C31A /* ToDoManageable.swift */; };
-		AED9DE6C296ECDCA0090C31A /* ToDoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE6B296ECDCA0090C31A /* ToDoManager.swift */; };
+		AE484F6C29755BED00A8B502 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6B29755BED00A8B502 /* DateFormatter.swift */; };
+		AE484F6E29755D4000A8B502 /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6D29755D4000A8B502 /* PlanListView.swift */; };
+		AE484F7029755EC800A8B502 /* PlanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6F29755EC800A8B502 /* PlanDetailView.swift */; };
+		AED9DE63296EC8590090C31A /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE62296EC8590090C31A /* Plan.swift */; };
+		AED9DE65296EC8A90090C31A /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE64296EC8A80090C31A /* PlanDetailViewController.swift */; };
+		AED9DE6A296ECA980090C31A /* PlanManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE69296ECA980090C31A /* PlanManageable.swift */; };
+		AED9DE6C296ECDCA0090C31A /* PlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE6B296ECDCA0090C31A /* PlanManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -24,15 +27,18 @@
 
 /* Begin PBXFileReference section */
 		0FD9BE25CB60C3AA29525B4E /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
-		1ACE9BFC296E8A02005F77B7 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
-		1ACE9C00296E8CFD005F77B7 /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
+		1ACE9BFC296E8A02005F77B7 /* PlanListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListViewController.swift; sourceTree = "<group>"; };
+		1ACE9C00296E8CFD005F77B7 /* PlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableViewCell.swift; sourceTree = "<group>"; };
 		1ACE9C02296E91D0005F77B7 /* CellReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReusable.swift; sourceTree = "<group>"; };
-		1ACE9C09296EAB63005F77B7 /* ToDoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableView.swift; sourceTree = "<group>"; };
+		1ACE9C09296EAB63005F77B7 /* PlanTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableView.swift; sourceTree = "<group>"; };
 		3722A1FE1CDB8ED39CA8B9E3 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AED9DE62296EC8590090C31A /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
-		AED9DE64296EC8A80090C31A /* ToDoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailViewController.swift; sourceTree = "<group>"; };
-		AED9DE69296ECA980090C31A /* ToDoManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoManageable.swift; sourceTree = "<group>"; };
-		AED9DE6B296ECDCA0090C31A /* ToDoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoManager.swift; sourceTree = "<group>"; };
+		AE484F6B29755BED00A8B502 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		AE484F6D29755D4000A8B502 /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
+		AE484F6F29755EC800A8B502 /* PlanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailView.swift; sourceTree = "<group>"; };
+		AED9DE62296EC8590090C31A /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
+		AED9DE64296EC8A80090C31A /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
+		AED9DE69296ECA980090C31A /* PlanManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManageable.swift; sourceTree = "<group>"; };
+		AED9DE6B296ECDCA0090C31A /* PlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManager.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,13 +77,21 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		AE484F6A29755B8600A8B502 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				AED9DE69296ECA980090C31A /* PlanManageable.swift */,
+				AED9DE6B296ECDCA0090C31A /* PlanManager.swift */,
+				1ACE9C02296E91D0005F77B7 /* CellReusable.swift */,
+				AE484F6B29755BED00A8B502 /* DateFormatter.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		AED9DE66296EC8E20090C31A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AED9DE62296EC8590090C31A /* ToDo.swift */,
-				1ACE9C02296E91D0005F77B7 /* CellReusable.swift */,
-				AED9DE69296ECA980090C31A /* ToDoManageable.swift */,
-				AED9DE6B296ECDCA0090C31A /* ToDoManager.swift */,
+				AED9DE62296EC8590090C31A /* Plan.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -85,8 +99,10 @@
 		AED9DE67296EC8EB0090C31A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1ACE9C00296E8CFD005F77B7 /* ToDoTableViewCell.swift */,
-				1ACE9C09296EAB63005F77B7 /* ToDoTableView.swift */,
+				1ACE9C00296E8CFD005F77B7 /* PlanTableViewCell.swift */,
+				1ACE9C09296EAB63005F77B7 /* PlanTableView.swift */,
+				AE484F6D29755D4000A8B502 /* PlanListView.swift */,
+				AE484F6F29755EC800A8B502 /* PlanDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -94,8 +110,8 @@
 		AED9DE68296EC8F70090C31A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1ACE9BFC296E8A02005F77B7 /* ToDoListViewController.swift */,
-				AED9DE64296EC8A80090C31A /* ToDoDetailViewController.swift */,
+				1ACE9BFC296E8A02005F77B7 /* PlanListViewController.swift */,
+				AED9DE64296EC8A80090C31A /* PlanDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -112,6 +128,7 @@
 		AED9DE6E296ED2020090C31A /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				AE484F6A29755B8600A8B502 /* Common */,
 				AED9DE66296EC8E20090C31A /* Model */,
 				AED9DE67296EC8EB0090C31A /* View */,
 				AED9DE68296EC8F70090C31A /* Controller */,
@@ -263,15 +280,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ACE9C03296E91D0005F77B7 /* CellReusable.swift in Sources */,
-				AED9DE65296EC8A90090C31A /* ToDoDetailViewController.swift in Sources */,
-				AED9DE63296EC8590090C31A /* ToDo.swift in Sources */,
-				1ACE9BFD296E8A02005F77B7 /* ToDoListViewController.swift in Sources */,
+				AED9DE65296EC8A90090C31A /* PlanDetailViewController.swift in Sources */,
+				AED9DE63296EC8590090C31A /* Plan.swift in Sources */,
+				1ACE9BFD296E8A02005F77B7 /* PlanListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				1ACE9C0A296EAB63005F77B7 /* ToDoTableView.swift in Sources */,
+				AE484F6C29755BED00A8B502 /* DateFormatter.swift in Sources */,
+				1ACE9C0A296EAB63005F77B7 /* PlanTableView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				AED9DE6A296ECA980090C31A /* ToDoManageable.swift in Sources */,
-				1ACE9C01296E8CFD005F77B7 /* ToDoTableViewCell.swift in Sources */,
-				AED9DE6C296ECDCA0090C31A /* ToDoManager.swift in Sources */,
+				AED9DE6A296ECA980090C31A /* PlanManageable.swift in Sources */,
+				1ACE9C01296E8CFD005F77B7 /* PlanTableViewCell.swift in Sources */,
+				AED9DE6C296ECDCA0090C31A /* PlanManager.swift in Sources */,
+				AE484F7029755EC800A8B502 /* PlanDetailView.swift in Sources */,
+				AE484F6E29755D4000A8B502 /* PlanListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
