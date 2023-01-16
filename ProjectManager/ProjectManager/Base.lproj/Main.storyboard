@@ -76,16 +76,65 @@
                     <view key="view" contentMode="scaleToFill" id="trn-ph-7Ub">
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHS-j5-sfw">
+                                <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
+                                <items>
+                                    <navigationItem title="기본값" id="AIZ-v0-cch">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="Veh-DR-uAO"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="HMC-qf-vTB"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="RO4-Od-uJ0">
+                                <rect key="frame" x="10" y="84" width="1160" height="706"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H47-Sd-yaF">
+                                        <rect key="frame" x="0.0" y="0.0" width="1160" height="76"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="3YF-8l-iAb">
+                                        <rect key="frame" x="0.0" y="97" width="1160" height="216"/>
+                                    </datePicker>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zpm-ZQ-mpq">
+                                        <rect key="frame" x="0.0" y="334" width="1160" height="372"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Oqt-ff-DRZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hHS-j5-sfw" firstAttribute="top" secondItem="Oqt-ff-DRZ" secondAttribute="top" id="2YF-UP-uP7"/>
+                            <constraint firstItem="hHS-j5-sfw" firstAttribute="leading" secondItem="trn-ph-7Ub" secondAttribute="leading" id="A70-QX-MZc"/>
+                            <constraint firstItem="Oqt-ff-DRZ" firstAttribute="trailing" secondItem="hHS-j5-sfw" secondAttribute="trailing" id="Tpa-wW-V29"/>
+                            <constraint firstItem="RO4-Od-uJ0" firstAttribute="leading" secondItem="Oqt-ff-DRZ" secondAttribute="leading" constant="10" id="t7o-AR-20b"/>
+                            <constraint firstItem="Oqt-ff-DRZ" firstAttribute="trailing" secondItem="RO4-Od-uJ0" secondAttribute="trailing" constant="10" id="yfx-3y-njy"/>
+                            <constraint firstItem="RO4-Od-uJ0" firstAttribute="top" secondItem="hHS-j5-sfw" secondAttribute="bottom" constant="10" id="zZ6-rA-YHl"/>
+                            <constraint firstItem="Oqt-ff-DRZ" firstAttribute="bottom" secondItem="RO4-Od-uJ0" secondAttribute="bottom" constant="10" id="zph-YA-fqb"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="datePicker" destination="3YF-8l-iAb" id="sT3-69-t2F"/>
+                        <outlet property="descriptionTextView" destination="zpm-ZQ-mpq" id="a98-P1-LRW"/>
+                        <outlet property="titleTextFiled" destination="H47-Sd-yaF" id="suP-aQ-6JM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6z9-R7-fjN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="703" y="-2"/>
+            <point key="canvasLocation" x="702.71186440677968" y="-2.1951219512195124"/>
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
