@@ -62,6 +62,6 @@ class ListCell: UITableViewCell {
     func configureData(work: Work) {
         self.titleLabel.text = work.title
         self.bodyLabel.text = work.body
-        self.dateLabel.text = work.endDate
+        self.dateLabel.text = work.endDateToString
     }
 }

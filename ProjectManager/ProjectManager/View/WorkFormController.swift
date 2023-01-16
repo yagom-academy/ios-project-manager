@@ -1,5 +1,5 @@
 //
-//  AddViewController.swift
+//  WorkFormViewController.swift
 //  ProjectManager
 //
 //  Created by leewonseok on 2023/01/13.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddViewController: UIViewController {
+class WorkFormViewController: UIViewController {
     weak var delegate: WorkDelegate?
     
     let stackView: UIStackView = {
@@ -88,7 +88,7 @@ class AddViewController: UIViewController {
         guard let title = titleTextField.text,
               let body = bodyTextView.text else { return }
         
-        delegate?.send(data: Work(category: .todo, title: title, body: body, endDate: "2019년 1월 1일"))
+        delegate?.send(data: Work(category: .todo, title: title, body: body, endDate: datePicker.date))
         dismiss(animated: true)
     }
 }

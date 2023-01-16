@@ -12,7 +12,13 @@ struct Work {
     var category: Category
     var title: String
     var body: String
-    var endDate: String
+    var endDate: Date
+    
+    var endDateToString: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY. MM. DD"
+        return dateFormatter.string(from: endDate)
+    }
 }
 
 protocol WorkDelegate: AnyObject {

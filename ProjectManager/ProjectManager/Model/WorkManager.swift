@@ -11,21 +11,15 @@ class WorkManager {
     var totalWorkList: [Work] = []
     
     var todoList: [Work] {
-        totalWorkList.filter { work in
-            work.category == .todo
-        }
+        totalWorkList.filter { $0.category == .todo }
     }
     
     var doingList: [Work] {
-        totalWorkList.filter { work in
-            work.category == .doing
-        }
+        totalWorkList.filter { $0.category == .doing }
     }
     
     var doneList: [Work] {
-        totalWorkList.filter { work in
-            work.category == .done
-        }
+        totalWorkList.filter { $0.category == .done }
     }
     
     func getWorkList() {

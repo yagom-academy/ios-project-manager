@@ -68,7 +68,7 @@ class ListViewController: UIViewController {
     }
     
     @objc func addTapped() {
-        let addViewController = AddViewController()
+        let addViewController = WorkFormViewController()
         let navigationViewController = UINavigationController(rootViewController: addViewController)
         addViewController.delegate = self
         navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
