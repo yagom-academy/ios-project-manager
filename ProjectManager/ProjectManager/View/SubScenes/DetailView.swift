@@ -9,6 +9,7 @@ import UIKit
 
 final class DetailView: UIView {
     private enum UIConstant {
+        static let textFieldHeight = 50.0
         static let topValue = 10.0
         static let leadingValue = 10.0
         static let trailingValue = -10.0
@@ -18,31 +19,27 @@ final class DetailView: UIView {
     let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
+        textField.backgroundColor = .white
+        textField.layer.borderWidth = 2
+        textField.layer.borderColor = UIColor.systemGray5.cgColor
         textField.font = .preferredFont(forTextStyle: .title1)
-        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
     let descriptionTextView: UITextView = {
         let textView = UITextView()
+        textView.backgroundColor = .white
+        textView.layer.masksToBounds = false
+        textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.font = .preferredFont(forTextStyle: .title2)
-        textView.layer.borderWidth = 2
         return textView
     }()
     
     let datePicker = UIDatePicker()
     
-    private lazy var textFieldView: UIView = {
-        let view = UIView()
-        view.addSubview(titleTextField)
-        view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.systemGray5.cgColor
-        return view
-    }()
-    
     private lazy var addStackView = UIStackView(
-        views: [textFieldView, datePicker, descriptionTextView],
+        views: [titleTextField, datePicker, descriptionTextView],
         axis: .vertical,
         alignment: .fill,
         distribution: .fill,
@@ -58,34 +55,27 @@ final class DetailView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 // MARK: - UIConfiguration
 extension DetailView {
     private func setupView() {
         backgroundColor = .white
+        titleTextField.setPadding(padding: 20)
+        [titleTextField, descriptionTextView].forEach {
+            $0.layer.shadowOpacity = 0.5
+            $0.layer.shadowRadius = 0.3
+            $0.layer.shadowOffset = CGSize(width: 1, height: 3)
+            $0.layer.shadowColor = UIColor.black.cgColor
+        }
         addSubview(addStackView)
     }
     
     private func setupConstraint() {
         let safeArea = safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            titleTextField.topAnchor.constraint(
-                equalTo: textFieldView.topAnchor,
-                constant: UIConstant.topValue
-            ),
-            titleTextField.leadingAnchor.constraint(
-                equalTo: textFieldView.leadingAnchor,
-                constant: UIConstant.leadingValue
-            ),
-            titleTextField.trailingAnchor.constraint(
-                equalTo: textFieldView.trailingAnchor,
-                constant: UIConstant.trailingValue
-            ),
-            titleTextField.bottomAnchor.constraint(
-                equalTo: textFieldView.bottomAnchor,
-                constant: UIConstant.bottomValue
+            titleTextField.heightAnchor.constraint(
+                equalToConstant: UIConstant.textFieldHeight
             ),
             
             addStackView.topAnchor.constraint(

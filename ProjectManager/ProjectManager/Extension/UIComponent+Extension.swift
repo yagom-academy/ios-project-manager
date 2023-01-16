@@ -31,3 +31,17 @@ extension UIStackView {
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
+
+extension UITextField {
+    func setPadding(padding: CGFloat? = nil) {
+        if let padding = padding {
+            let paddingView = UIView(
+                frame: CGRect(x: 0, y: 0, width: padding, height: self.frame.size.height)
+            )
+            self.leftView = paddingView
+            self.rightView = paddingView
+            self.leftViewMode = .always
+            self.rightViewMode = .always
+        }
+    }
+}
