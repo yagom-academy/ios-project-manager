@@ -45,6 +45,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C09505F2975734600C1E3F3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0C0950652975747400C1E3F3 /* Controllers */,
+				0C0950642975746300C1E3F3 /* Components */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0C0950602975737600C1E3F3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0C0950612975738200C1E3F3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0C095062297573CF00C1E3F3 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0C0950602975737600C1E3F3 /* Model */,
+				0C09505F2975734600C1E3F3 /* View */,
+				0C0950612975738200C1E3F3 /* ViewModel */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		0C095063297573DD00C1E3F3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0C0950642975746300C1E3F3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E35F5D6A29703E5A008D3ADC /* CountLabel.swift */,
+				E35F5D6829703327008D3ADC /* HeaderView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		0C0950652975747400C1E3F3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -65,14 +127,8 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				E35F5D6829703327008D3ADC /* HeaderView.swift */,
-				E35F5D6A29703E5A008D3ADC /* CountLabel.swift */,
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				0C095062297573CF00C1E3F3 /* Sources */,
+				0C095063297573DD00C1E3F3 /* Resources */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
