@@ -7,7 +7,9 @@
 
 import UIKit
 
-class IssueViewController: UIViewController {
+final class IssueViewController: UIViewController {
+    private let issueManager = IssueManager()
+    
     private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
