@@ -65,16 +65,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		18186AB5296FE55F00E0B695 /* BoardView */ = {
-			isa = PBXGroup;
-			children = (
-				1854F134297595F30082FB88 /* BoardHeaderView */,
-				1854F12E29757DF50082FB88 /* BoardListView */,
-				1854F12929757BA60082FB88 /* BoardListCell */,
-			);
-			path = BoardView;
-			sourceTree = "<group>";
-		};
 		18186AB8296FE5FA00E0B695 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,11 +105,14 @@
 				1854F121297573750082FB88 /* AppStore */,
 				18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */,
 				18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */,
-				18186AB8296FE5FA00E0B695 /* Utility */,
-				18186AC0296FE80E00E0B695 /* Model */,
-				1854F124297578050082FB88 /* NavigationBarView */,
-				18186AB5296FE55F00E0B695 /* BoardView */,
+				1854F13B29759AA50082FB88 /* BoardView */,
+				1854F134297595F30082FB88 /* BoardHeaderView */,
+				1854F12E29757DF50082FB88 /* BoardListView */,
+				1854F12929757BA60082FB88 /* BoardListCell */,
 				185823452972825B001AE6BC /* EditView */,
+				18186AC0296FE80E00E0B695 /* Model */,
+				18186AB8296FE5FA00E0B695 /* Utility */,
+				1854F124297578050082FB88 /* NavigationBarView */,
 				18359AB9296C1F82000D6C73 /* Assets.xcassets */,
 				18359ABB296C1F82000D6C73 /* Preview Content */,
 				18D24757296D4F00008E8DCC /* Project.xcdatamodeld */,
@@ -177,6 +170,14 @@
 				1854F139297597830082FB88 /* BoardHeaderStore.swift */,
 			);
 			path = BoardHeaderView;
+			sourceTree = "<group>";
+		};
+		1854F13B29759AA50082FB88 /* BoardView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = BoardView;
+			path = NavigationBarView/BoardView;
 			sourceTree = "<group>";
 		};
 		185823452972825B001AE6BC /* EditView */ = {
