@@ -24,4 +24,11 @@ final class CellViewModel {
         handler(data)
         self.dataHandler = handler
     }
+    
+    func checkOverDeadLine() -> Bool {
+        if data.isOverDeadLine {
+            return true
+        }
+        return false
+    }
 }

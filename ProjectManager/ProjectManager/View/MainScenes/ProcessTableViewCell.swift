@@ -21,6 +21,7 @@ final class ProcessTableViewCell: UITableViewCell {
     var viewModel: CellViewModel? {
         didSet {
             setupBind()
+            checkDeadLine()
         }
     }
     
@@ -67,6 +68,15 @@ final class ProcessTableViewCell: UITableViewCell {
             self?.titleLabel.text = data.title
             self?.descriptionLabel.text = data.content
             self?.dateLabel.text = data.convertDeadline
+        }
+    }
+    
+    private func checkDeadLine() {
+        guard let viewModel = viewModel else { return }
+        if viewModel.checkOverDeadLine() {
+            dateLabel.textColor = .red
+        } else {
+            dateLabel.textColor = .black
         }
     }
 }

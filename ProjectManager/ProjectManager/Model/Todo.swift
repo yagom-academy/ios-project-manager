@@ -16,4 +16,12 @@ struct Todo: Hashable {
         guard let deadLine = deadLine else { return "" }
         return DateFormatter.convertToString(deadLine)
     }
+    
+    var isOverDeadLine: Bool {
+        let now = DateFormatter.convertToString(Date())
+        if now > convertDeadline {
+            return true
+        }
+        return false
+    }
 }
