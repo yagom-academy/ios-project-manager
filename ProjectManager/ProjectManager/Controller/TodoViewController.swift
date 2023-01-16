@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoViewController: UIViewController {
+final class TodoViewController: UIViewController {
     override func loadView() {
         self.view = TodoView()
     }

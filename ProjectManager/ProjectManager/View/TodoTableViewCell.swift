@@ -76,6 +76,7 @@ final class TodoTableViewCell: UITableViewCell {
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             
             titleLabel.topAnchor.constraint(equalTo: mainStackView.topAnchor),
+            
             dateLabel.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor)
         ])
     }

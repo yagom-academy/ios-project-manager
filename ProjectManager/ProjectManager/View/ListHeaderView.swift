@@ -15,7 +15,6 @@ final class ListHeaderView: UITableViewHeaderFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle,
                                           compatibleWith: .none)
-        
         return label
     }()
     

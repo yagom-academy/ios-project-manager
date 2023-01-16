@@ -1,5 +1,5 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - ListViewController.swift
 //  ProjectManager
 //
 //  Created by 애쉬 on 2023/01/11.
@@ -8,7 +8,7 @@
 import UIKit
 
 final class ListViewController: UIViewController {
-    enum TodoSection: Hashable {
+    private enum TodoSection: Hashable {
         case todo
         case doing
         case done
@@ -58,7 +58,7 @@ final class ListViewController: UIViewController {
         self.view.backgroundColor = .white
         
         configureNavagationBar()
-        configureTodoView()
+        configureListView()
         applyAllSnapshot()
     }
     
@@ -66,22 +66,22 @@ final class ListViewController: UIViewController {
         self.navigationItem.title = "Project Manager"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                                  target: self,
-                                                                 action: #selector(showAddToDoView))
+                                                                 action: #selector(showAddTodoView))
     }
     
-    @objc private func showAddToDoView() {
+    @objc private func showAddTodoView() {
         let nextViewController = UINavigationController(rootViewController: TodoViewController())
         nextViewController.modalPresentationStyle = .formSheet
         nextViewController.preferredContentSize = CGSize(width: 650, height: 650)
         present(nextViewController, animated: true)
     }
     
-    private func configureTodoView() {
-        configureTableView()
+    private func configureListView() {
+        configureTableViews()
         configureLayout()
     }
     
-    private func configureTableView() {
+    private func configureTableViews() {
         let tableviews = [todoTableView, doingTableView, doneTableView]
         
         tableviews.forEach {
@@ -104,11 +104,11 @@ final class ListViewController: UIViewController {
     }
     
     private func configureDataSource(of tableView: ListTableView) -> DataSource {
-        let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todo in
+        let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todoItem in
             let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.identifier,
                                                      for: indexPath) as? TodoTableViewCell
             
-            cell?.configureContent(with: todo)
+            cell?.configureContent(with: todoItem)
             return cell
         }
         

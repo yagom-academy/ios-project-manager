@@ -8,7 +8,7 @@
 import UIKit
 
 final class TodoView: UIView {
-    let mainStackView: UIStackView = {
+    private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .fill
@@ -18,7 +18,7 @@ final class TodoView: UIView {
         return stackView
     }()
     
-    let titleTextField: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = " Title"
         textField.layer.cornerRadius = 5
@@ -27,7 +27,7 @@ final class TodoView: UIView {
         return textField
     }()
     
-    let bodyTextView: UITextView = {
+    private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.text = """
                         할일의 내용을 입력해주세요.
