@@ -44,12 +44,12 @@ final class IssueViewController: UIViewController {
         return picker
     }()
     
-    private var bodyTextField: UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = .systemBackground
-        textField.placeholder = "Body"
+    private var bodyTextView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .systemBackground
+        textView.setContentHuggingPriority(.defaultLow, for: .vertical)
         
-        return textField
+        return textView
     }()
     
     override func viewDidLoad() {
@@ -72,7 +72,7 @@ final class IssueViewController: UIViewController {
 
         stackView.addArrangedSubview(titleTextField)
         stackView.addArrangedSubview(datePicker)
-        stackView.addArrangedSubview(bodyTextField)
+        stackView.addArrangedSubview(bodyTextView)
     }
     
     enum LayoutConstant {
