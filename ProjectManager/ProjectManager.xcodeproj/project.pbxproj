@@ -15,7 +15,6 @@
 		3C9627A929728F2F003B0139 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627A829728F2F003B0139 /* DetailViewModel.swift */; };
 		3C9627B1297301AE003B0139 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627B0297301AE003B0139 /* DetailView.swift */; };
 		3C9627B3297301E5003B0139 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627B2297301E5003B0139 /* DetailViewController.swift */; };
-		3CB4C4B5296F9CD70084069A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4C4B4296F9CD70084069A /* HeaderView.swift */; };
 		3CB4C4BB296FB66C0084069A /* ProcessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4C4BA296FB66C0084069A /* ProcessTableViewCell.swift */; };
 		3CB4C4BE296FC6660084069A /* IdentifierUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4C4BD296FC6660084069A /* IdentifierUsable.swift */; };
 		3CB4C4C1296FC8390084069A /* UIComponent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4C4C0296FC8390084069A /* UIComponent+Extension.swift */; };
@@ -39,7 +38,6 @@
 		3C9627A829728F2F003B0139 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		3C9627B0297301AE003B0139 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		3C9627B2297301E5003B0139 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		3CB4C4B4296F9CD70084069A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		3CB4C4BA296FB66C0084069A /* ProcessTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessTableViewCell.swift; sourceTree = "<group>"; };
 		3CB4C4BD296FC6660084069A /* IdentifierUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierUsable.swift; sourceTree = "<group>"; };
 		3CB4C4C0296FC8390084069A /* UIComponent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIComponent+Extension.swift"; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				3C015EEE296EF2480022D053 /* ProcessStackView.swift */,
-				3CB4C4B4296F9CD70084069A /* HeaderView.swift */,
 				3CB4C4BA296FB66C0084069A /* ProcessTableViewCell.swift */,
 			);
 			path = MainScenes;
@@ -274,7 +271,6 @@
 				3CD2E2C92970485500B2E9A4 /* DateFormatter+Extension.swift in Sources */,
 				3C9627A929728F2F003B0139 /* DetailViewModel.swift in Sources */,
 				3CD2E2D429728A0A00B2E9A4 /* DataManager.swift in Sources */,
-				3CB4C4B5296F9CD70084069A /* HeaderView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				3C9627B3297301E5003B0139 /* DetailViewController.swift in Sources */,
 				3C9627B1297301AE003B0139 /* DetailView.swift in Sources */,

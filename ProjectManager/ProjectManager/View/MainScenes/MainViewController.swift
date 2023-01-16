@@ -22,6 +22,7 @@ final class MainViewController: UIViewController {
         static let navigationTitle = "Project Manager"
         static let tableSpacing = 10.0
         static let bottomValue = -50.0
+        static let headerSectionHeight = 7.0
     }
     
     private let viewModel = MainViewModel()
@@ -174,6 +175,16 @@ extension MainViewController {
 
 // MARK: - TableView Delegate
 extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UIConstant.headerSectionHeight
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let process: Process
         
