@@ -54,12 +54,17 @@ final class IssueViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureUI()
     }
     
     
     private func configureUI() {
         view.addSubview(stackView)
+        view.backgroundColor = .systemBackground
+        title = "TODO"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done")
+        
+        configureStackView()
     }
     
     private func configureStackView() {
