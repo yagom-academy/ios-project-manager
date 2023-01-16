@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CellPopoverViewDelegate: AnyObject {
-    func moveToTodo()
-    func moveToDoing()
-    func moveToDone()
+    func moveToTodo(from: CellPopoverViewMode, cellIndex: Int)
+    func moveToDoing(from: CellPopoverViewMode, cellIndex: Int)
+    func moveToDone(from: CellPopoverViewMode, cellIndex: Int)
 }

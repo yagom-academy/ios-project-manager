@@ -450,10 +450,10 @@ extension MainViewController {
 
     @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: todoCollectionView)
+        guard let indexPath = todoCollectionView.indexPathForItem(at: location) else { return }
 
         if gestureRecognizer.state == .began {
             print("began")
-            guard let indexPath = todoCollectionView.indexPathForItem(at: location) else { return }
             UIView.animate(withDuration: 0.2) { [weak self] in
                 guard let cell = self?.todoCollectionView.cellForItem(at: indexPath) else { return }
                 self?.currentLongPressedCell = cell
@@ -471,7 +471,9 @@ extension MainViewController {
             let cellPopOverViewController = CellPopoverViewController()
             cellPopOverViewController.modalPresentationStyle = .popover
             cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
-//            cellPopOverViewController.
+            cellPopOverViewController.cellPopoverViewDelegate = self
+            cellPopOverViewController.cellToChange = .todo
+            cellPopOverViewController.cellIndex = indexPath.item
             guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
             popover.sourceView = cell
             popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
@@ -481,10 +483,10 @@ extension MainViewController {
 
     @objc private func handleLongPress2(gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: doingCollectionView)
+        guard let indexPath = doingCollectionView.indexPathForItem(at: location) else { return }
 
         if gestureRecognizer.state == .began {
             print("began")
-            guard let indexPath = doingCollectionView.indexPathForItem(at: location) else { return }
             UIView.animate(withDuration: 0.2) { [weak self] in
                 guard let cell = self?.doingCollectionView.cellForItem(at: indexPath) else { return }
                 self?.currentLongPressedCell = cell
@@ -502,7 +504,9 @@ extension MainViewController {
             let cellPopOverViewController = CellPopoverViewController()
             cellPopOverViewController.modalPresentationStyle = .popover
             cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
-//            cellPopOverViewController.
+            cellPopOverViewController.cellPopoverViewDelegate = self
+            cellPopOverViewController.cellToChange = .doing
+            cellPopOverViewController.cellIndex = indexPath.item
             guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
             popover.sourceView = cell
             popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
@@ -512,10 +516,10 @@ extension MainViewController {
 
     @objc private func handleLongPress3(gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: doneCollectionView)
+        guard let indexPath = doneCollectionView.indexPathForItem(at: location) else { return }
 
         if gestureRecognizer.state == .began {
             print("began")
-            guard let indexPath = doneCollectionView.indexPathForItem(at: location) else { return }
             UIView.animate(withDuration: 0.2) { [weak self] in
                 guard let cell = self?.doneCollectionView.cellForItem(at: indexPath) else { return }
                 self?.currentLongPressedCell = cell
@@ -533,7 +537,9 @@ extension MainViewController {
             let cellPopOverViewController = CellPopoverViewController()
             cellPopOverViewController.modalPresentationStyle = .popover
             cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
-//            cellPopOverViewController.
+            cellPopOverViewController.cellPopoverViewDelegate = self
+            cellPopOverViewController.cellToChange = .done
+            cellPopOverViewController.cellIndex = indexPath.item
             guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
             popover.sourceView = cell
             popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
@@ -557,17 +563,63 @@ extension MainViewController: DetailViewDelegate {
 
 // MARK: - CellPopoverViewControllerDelegate
 extension MainViewController: CellPopoverViewDelegate {
-    func moveToTodo() {
-        return
+    func moveToTodo(from: CellPopoverViewMode, cellIndex: Int) {
+        switch from {
+        case .todo:
+            break
+        case .doing:
+            let data = doingLists[cellIndex]
+            doingLists.remove(at: cellIndex)
+            todoLists.append(data)
+            updateDoingSnapshot()
+            updateTodoSnapshot()
+        case .done:
+            let data = doneLists[cellIndex]
+            doneLists.remove(at: cellIndex)
+            todoLists.append(data)
+            updateDoneSnapshot()
+            updateTodoSnapshot()
+        }
     }
 
-    func moveToDoing() {
-        return
+    func moveToDoing(from: CellPopoverViewMode, cellIndex: Int) {
+        switch from {
+        case .todo:
+            let data = todoLists[cellIndex]
+            todoLists.remove(at: cellIndex)
+            doingLists.append(data)
+            updateTodoSnapshot()
+            updateDoingSnapshot()
+        case .doing:
+            return
+        case .done:
+            let data = doneLists[cellIndex]
+            doneLists.remove(at: cellIndex)
+            doingLists.append(data)
+            updateDoneSnapshot()
+            updateDoingSnapshot()
+        }
     }
 
-    func moveToDone() {
-        return
+    func moveToDone(from: CellPopoverViewMode, cellIndex: Int) {
+        switch from {
+        case .todo:
+            let data = todoLists[cellIndex]
+            todoLists.remove(at: cellIndex)
+            doneLists.append(data)
+            updateTodoSnapshot()
+            updateDoneSnapshot()
+        case .doing:
+            let data = doingLists[cellIndex]
+            doingLists.remove(at: cellIndex)
+            doneLists.append(data)
+            updateDoingSnapshot()
+            updateDoneSnapshot()
+        case .done:
+            break
+        }
     }
+
 }
 
 // MARK: - UICollectionViewDelegate
