@@ -66,16 +66,168 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				D3E203C2297580D20015AD16 /* Source */,
+				D3E203C1297580CA0015AD16 /* Resource */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
+			);
+			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		D3E203C1297580CA0015AD16 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				D36715D7296D495400A4A9DD /* GoogleService-Info.plist */,
 			);
-			path = ProjectManager;
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		D3E203C2297580D20015AD16 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D3E203C3297581110015AD16 /* Application */,
+				D3E203C4297581420015AD16 /* Presentation */,
+				D3E203C5297581630015AD16 /* Domain */,
+				D3E203C6297581680015AD16 /* Data */,
+				D3E203D3297582FC0015AD16 /* Common */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		D3E203C3297581110015AD16 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		D3E203C4297581420015AD16 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				D3E203C72975817D0015AD16 /* KanbanBoardScene */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		D3E203C5297581630015AD16 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D3E203CE297582630015AD16 /* Entities */,
+				D3E203CF297582960015AD16 /* UseCases */,
+				D3E203D0297582A20015AD16 /* Interfaces */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		D3E203C6297581680015AD16 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		D3E203C72975817D0015AD16 /* KanbanBoardScene */ = {
+			isa = PBXGroup;
+			children = (
+				D3E203CA297581D00015AD16 /* Coordinator */,
+				D3E203C8297581900015AD16 /* TaskList */,
+				D3E203C9297581B10015AD16 /* TaskCreate */,
+				D3E203CB297582060015AD16 /* TaskEdit */,
+				D3E203CC297582120015AD16 /* TaskDetail */,
+				D3E203CD297582390015AD16 /* Popover */,
+			);
+			path = KanbanBoardScene;
+			sourceTree = "<group>";
+		};
+		D3E203C8297581900015AD16 /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		D3E203C9297581B10015AD16 /* TaskCreate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TaskCreate;
+			sourceTree = "<group>";
+		};
+		D3E203CA297581D00015AD16 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		D3E203CB297582060015AD16 /* TaskEdit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TaskEdit;
+			sourceTree = "<group>";
+		};
+		D3E203CC297582120015AD16 /* TaskDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TaskDetail;
+			sourceTree = "<group>";
+		};
+		D3E203CD297582390015AD16 /* Popover */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Popover;
+			sourceTree = "<group>";
+		};
+		D3E203CE297582630015AD16 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		D3E203CF297582960015AD16 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				D3E203D2297582D40015AD16 /* Delegate */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		D3E203D0297582A20015AD16 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				D3E203D1297582B60015AD16 /* Repositories */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		D3E203D1297582B60015AD16 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		D3E203D2297582D40015AD16 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		D3E203D3297582FC0015AD16 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,7 +461,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -328,7 +480,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
