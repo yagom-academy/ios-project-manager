@@ -38,6 +38,8 @@ final class IssueViewController: UIViewController {
         let picker = UIDatePicker()
         picker.datePickerMode = .dateAndTime
         picker.preferredDatePickerStyle = .wheels
+        picker.locale = .current
+        picker.translatesAutoresizingMaskIntoConstraints = false
         
         return picker
     }()
