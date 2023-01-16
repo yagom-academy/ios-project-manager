@@ -15,6 +15,9 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		D36715D8296D495400A4A9DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D36715D7296D495400A4A9DD /* GoogleService-Info.plist */; };
 		D36715DB296D4CCB00A4A9DD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D36715DA296D4CCB00A4A9DD /* FirebaseAnalytics */; };
+		D3E203BA29757FF60015AD16 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203B929757FF60015AD16 /* RxCocoa */; };
+		D3E203BC29757FF60015AD16 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BB29757FF60015AD16 /* RxRelay */; };
+		D3E203BE29757FF60015AD16 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BD29757FF60015AD16 /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3E203BC29757FF60015AD16 /* RxRelay in Frameworks */,
+				D3E203BA29757FF60015AD16 /* RxCocoa in Frameworks */,
+				D3E203BE29757FF60015AD16 /* RxSwift in Frameworks */,
 				D36715DB296D4CCB00A4A9DD /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +96,9 @@
 			name = ProjectManager;
 			packageProductDependencies = (
 				D36715DA296D4CCB00A4A9DD /* FirebaseAnalytics */,
+				D3E203B929757FF60015AD16 /* RxCocoa */,
+				D3E203BB29757FF60015AD16 /* RxRelay */,
+				D3E203BD29757FF60015AD16 /* RxSwift */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -120,6 +129,7 @@
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
 				D36715D9296D4CCA00A4A9DD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D3E203B829757FF60015AD16 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -363,6 +373,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		D3E203B829757FF60015AD16 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -370,6 +388,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D36715D9296D4CCA00A4A9DD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		D3E203B929757FF60015AD16 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3E203B829757FF60015AD16 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		D3E203BB29757FF60015AD16 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3E203B829757FF60015AD16 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		D3E203BD29757FF60015AD16 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3E203B829757FF60015AD16 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
