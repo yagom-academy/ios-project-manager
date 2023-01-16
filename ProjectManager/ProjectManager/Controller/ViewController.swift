@@ -25,4 +25,10 @@ class ViewController: UIViewController {
         doingTableView.dataSource = doingDataSource
         doneTableView.dataSource = doneDataSource
     }
+    
+    @IBAction func tapAdd(_ sender: UIBarButtonItem) {
+        let addViewController = storyboard?.instantiateViewController(identifier: "addViewController") as? AddViewController ?? AddViewController()
+        addViewController.modalPresentationStyle = .formSheet
+        present(addViewController, animated: true)
+    }
 }

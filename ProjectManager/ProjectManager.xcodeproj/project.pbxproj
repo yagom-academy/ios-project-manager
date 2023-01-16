@@ -23,6 +23,7 @@
 		D2400AEF2971422C00B24E6B /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AEE2971422C00B24E6B /* TaskViewModel.swift */; };
 		D2400AF12971487400B24E6B /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AF02971487400B24E6B /* Section.swift */; };
 		D2400AF329714C5200B24E6B /* DataSourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AF229714C5200B24E6B /* DataSourceViewModel.swift */; };
+		D2400AF72975429600B24E6B /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AF62975429600B24E6B /* AddViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		D2400AEE2971422C00B24E6B /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		D2400AF02971487400B24E6B /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		D2400AF229714C5200B24E6B /* DataSourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceViewModel.swift; sourceTree = "<group>"; };
+		D2400AF62975429600B24E6B /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		EFD4DCB7AD44E7D4BF32A078 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				D2400AF62975429600B24E6B /* AddViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2400AF72975429600B24E6B /* AddViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				D2400AEF2971422C00B24E6B /* TaskViewModel.swift in Sources */,
 				D2400AEB2971413900B24E6B /* TaskList.swift in Sources */,

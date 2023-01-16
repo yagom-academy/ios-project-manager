@@ -21,7 +21,11 @@
                                 <rect key="frame" x="0.0" y="24" width="1180" height="70"/>
                                 <items>
                                     <navigationItem title="Project Manager" id="ZKx-cY-ub8">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="N4c-8o-7gr"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="N4c-8o-7gr">
+                                            <connections>
+                                                <action selector="tapAdd:" destination="BYZ-38-t0r" id="6b4-ak-7dk"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -64,6 +68,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="82.881355932203391" y="-2.1951219512195124"/>
+        </scene>
+        <!--Add View Controller-->
+        <scene sceneID="PO3-pD-jmx">
+            <objects>
+                <viewController storyboardIdentifier="addViewController" id="Jjh-ee-fpi" customClass="AddViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="trn-ph-7Ub">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Oqt-ff-DRZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6z9-R7-fjN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="703" y="-2"/>
         </scene>
     </scenes>
     <resources>
