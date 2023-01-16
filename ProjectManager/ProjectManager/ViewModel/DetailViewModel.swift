@@ -8,6 +8,8 @@
 import Foundation
 
 final class DetailViewModel {
+    private let process: Process
+
     private var detailData: Todo? {
         didSet {
             detailDataHandler?(detailData)
@@ -16,13 +18,18 @@ final class DetailViewModel {
     
     private var detailDataHandler: ((Todo?) -> Void)?
     
-    init(data: Todo?) {
+    init(process: Process, data: Todo?) {
+        self.process = process
         self.detailData = data
     }
     
     func bindDetailData(handler: @escaping (Todo?) -> Void) {
         handler(detailData)
         self.detailDataHandler = handler
+    }
+    
+    func fetchProcess() -> Process {
+        return process
     }
     
     func createData(title: String, content: String?, date: Date?) -> Todo {

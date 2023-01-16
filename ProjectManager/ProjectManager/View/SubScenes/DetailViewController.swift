@@ -8,18 +8,20 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    weak var delegate: DataSharable?
-    
     private let detailView = DetailView()
     private let viewModel: DetailViewModel
-    private let process: Process
     private let index: Int?
     
-    private var isEditable = false
+    private var isEditable = false {
+        didSet {
+            detailView.datePicker.isEnabled = isEditable
+        }
+    }
     
-    init(viewModel: DetailViewModel, process: Process, index: Int? = nil) {
+    weak var delegate: DataSharable?
+    
+    init(viewModel: DetailViewModel, index: Int? = nil) {
         self.viewModel = viewModel
-        self.process = process
         self.index = index
         super.init(nibName: nil, bundle: nil)
     }
@@ -32,7 +34,10 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         view = detailView
         setupBinding()
+        detailView.titleTextField.delegate = self
+        detailView.descriptionTextView.delegate = self
         setupNavigationBar()
+        setupButton()
         setupDatePicker()
     }
     
@@ -50,16 +55,12 @@ final class DetailViewController: UIViewController {
 
 // MARK: - Action
 extension DetailViewController {
-    @objc private func datePickerWheel(_ sender: UIDatePicker) -> Date? {
-        return sender.date
-    }
-    
     @objc private func doneButtonTapped() {
         guard let title = detailView.titleTextField.text else { return }
         let date = datePickerWheel(detailView.datePicker)
         
         delegate?.shareData(
-            process: process,
+            process: viewModel.fetchProcess(),
             index: index,
             data: viewModel.createData(
                 title: title,
@@ -70,8 +71,16 @@ extension DetailViewController {
         dismiss(animated: true)
     }
     
+    @objc private func editButtonTapped() {
+        isEditable.toggle()
+    }
+    
     @objc private func cancelButtonTapped() {
         dismiss(animated: true)
+    }
+    
+    @objc private func datePickerWheel(_ sender: UIDatePicker) -> Date? {
+        return sender.date
     }
 }
 
@@ -85,21 +94,33 @@ extension DetailViewController {
         
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
-        let cancelButton = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: self,
-            action: #selector(cancelButtonTapped)
-        )
-        
+    }
+    
+    private func setupButton() {
         let doneButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
             action: #selector(doneButtonTapped)
         )
-        
-        navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = doneButton
+        
+        if index == nil {
+            let cancelButton = UIBarButtonItem(
+                barButtonSystemItem: .cancel,
+                target: self,
+                action: #selector(cancelButtonTapped)
+            )
+            
+            navigationItem.leftBarButtonItem = cancelButton
+        } else {
+            let editButton = UIBarButtonItem(
+                barButtonSystemItem: .edit,
+                target: self,
+                action: #selector(editButtonTapped)
+            )
+            
+            navigationItem.leftBarButtonItem = editButton
+        }
     }
     
     private func setupDatePicker() {
@@ -110,5 +131,22 @@ extension DetailViewController {
             action: #selector(datePickerWheel),
             for: .valueChanged
         )
+        
+        if index != nil {
+            detailView.datePicker.isEnabled = false
+        }
+    }
+}
+
+// MARK: - UITextFieldDelegate, UITextViewDelegate
+extension DetailViewController: UITextFieldDelegate, UITextViewDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if index == nil || isEditable { return true }
+        return false
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if index == nil || isEditable { return true }
+        return false
     }
 }

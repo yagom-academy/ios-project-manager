@@ -53,8 +53,7 @@ final class MainViewController: UIViewController {
     
     @objc private func addButtonTapped() {
         let detailViewController = DetailViewController(
-            viewModel: DetailViewModel(data: nil),
-            process: .todo,
+            viewModel: DetailViewModel(process: .todo, data: nil),
             index: nil
         )
         detailViewController.delegate = self
@@ -203,11 +202,10 @@ extension MainViewController: UITableViewDelegate {
         }
         
         let selectedData = viewModel.fetchSeletedData(process: process, index: indexPath.row)
-        let detailViewModel = DetailViewModel(data: selectedData)
+        let detailViewModel = DetailViewModel(process: process, data: selectedData)
         
         let detailViewController = DetailViewController(
             viewModel: detailViewModel,
-            process: process,
             index: indexPath.row
         )
         
