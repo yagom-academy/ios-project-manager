@@ -9,8 +9,7 @@ import UIKit
 
 class ProjectListViewController: UIViewController {
     // MARK: - Properties
-    private let projectStateCount: Int
-    private var projects: [Project] = []
+    private var projectListViewModel: ProjectListViewModel
     private var collectionViews: [UICollectionView] = []
     private var dataSources: [DataSource] = []
     private var projectHeaderViews: [ProjectHeaderView] = []
@@ -22,11 +21,13 @@ class ProjectListViewController: UIViewController {
         stackView.spacing = Constants.defaultSpacing
         return stackView
     }()
+    private var projectStateCount: Int {
+        return projectListViewModel.projectStateCount()
+    }
 
     // MARK: - Configure
-    init?(projectStateCount: Int) {
-        guard projectStateCount > 0 else { return nil }
-        self.projectStateCount = projectStateCount
+    init(projectListViewModel: ProjectListViewModel) {
+        self.projectListViewModel = projectListViewModel
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = ProjectColor.listViewBackground.color
     }
@@ -43,7 +44,7 @@ class ProjectListViewController: UIViewController {
         configureLongPressGestureRecognizerOnCollectionView()
         configureDataSources()
         configureHierarchy()
-        configureSampleData()
+        bindProjectListViewModel()
         updateSnapshot()
         updateProjectHeaderViewText()
     }
@@ -89,13 +90,11 @@ class ProjectListViewController: UIViewController {
         return { [weak self] indexPath in
             guard let dataSource = self?.dataSources[index] as? DataSource,
                   let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
-                  let project = self?.project(for: itemIdentifier) else { return nil }
+                  let project = self?.projectListViewModel.project(for: itemIdentifier) else { return nil }
             let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
             let deleteAction = UIContextualAction(style: .destructive,
                                                   title: deleteActionTitle) { [weak self] _, _, completion in
-                self?.delete(for: project.id)
-                self?.updateSnapshot(for: index)
-                self?.updateProjectHeaderViewText()
+                self?.projectListViewModel.delete(for: project.id)
                 completion(false)
             }
             return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -139,6 +138,15 @@ class ProjectListViewController: UIViewController {
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+
+    private func bindProjectListViewModel() {
+        projectListViewModel.bind { [weak self] itemIDs in
+            DispatchQueue.main.async {
+                self?.updateSnapshot(itemIDs)
+                self?.updateProjectHeaderViewText()
+            }
+        }
+    }
 }
 
 // MARK: - DataSource
@@ -147,11 +155,11 @@ extension ProjectListViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, UUID>
 
     private func makeCellRegistrationHandler(cell: UICollectionViewCell, indexPath: IndexPath, id: UUID) {
-        guard let project = project(for: id) else { return }
+        guard let project = projectListViewModel.project(for: id) else { return }
         var configuration = ProjectListContentView.Configuration()
         configuration.title = project.title
         configuration.description = project.description
-        configuration.dueDateAttributedText = createDueDateAttributedString(project.dueDate)
+        configuration.dueDateAttributedText = projectListViewModel.createDueDateAttributedString(project.dueDate)
         cell.contentConfiguration = configuration
     }
 
@@ -164,7 +172,7 @@ extension ProjectListViewController {
     private func updateSnapshot(for index: Int, reloadItemIDs: [UUID] = []) {
         var snapShot = Snapshot()
         snapShot.appendSections([0])
-        let items = projectIDs(for: index)
+        let items = projectListViewModel.projectIDs(for: index)
         snapShot.appendItems(items)
         if reloadItemIDs.isEmpty == false {
             let reloadItems = Array(Set(reloadItemIDs).intersection(items))
@@ -175,59 +183,12 @@ extension ProjectListViewController {
 
     private func updateProjectHeaderViewText() {
         projectHeaderViews.enumerated().forEach { index, projectHeaderView in
-            guard let projectState = projectState(for: index) else { return }
+            guard let projectState = projectListViewModel.projectState(for: index) else { return }
             projectHeaderView.titleLabel.text = String(describing: projectState)
-            let projectsCount = projectsCount(for: index)
+            let projectsCount = projectListViewModel.projectsCount(for: index)
             let maxCount = Constants.itemCountLabelMaxCount
             projectHeaderView.itemCountLabel.text = projectsCount > maxCount ? "\(maxCount)+" : "\(projectsCount)"
         }
-    }
-}
-
-// MARK: - Project Data
-extension ProjectListViewController {
-    private func configureSampleData() {
-        projects = Project.sampleProjects
-    }
-
-    private func project(for projectID: UUID) -> Project? {
-        guard let project = projects.first(where: { $0.id == projectID }) else { return nil }
-        return project
-    }
-
-    private func projectIDs(for stateIndex: Int) -> [UUID] {
-        return projects.filter { $0.state.rawValue == stateIndex }.map { $0.id }
-    }
-
-    private func projectState(for index: Int) -> ProjectState? {
-            guard let projectState = ProjectState(rawValue: index) else { return nil }
-            return projectState
-    }
-
-    private func projectsCount(for index: Int) -> Int {
-        return projects.filter { $0.state.rawValue == index }.count
-    }
-
-    private func createDueDateAttributedString(_ dueDate: Date) -> NSAttributedString {
-        if dueDate.isEarlierThanToday() {
-            return NSAttributedString(string: dueDate.localizedDateString(),
-                                      attributes: [.foregroundColor: ProjectColor.overdueDate.color])
-        } else {
-            return NSAttributedString(string: dueDate.localizedDateString())
-        }
-    }
-
-    private func add(project: Project) {
-        projects.append(project)
-    }
-
-    private func update(project: Project) {
-        guard let index = projects.firstIndex(where: { $0.id == project.id }) else { return }
-        projects[index] = project
-    }
-
-    private func delete(for projectID: UUID) {
-        projects.removeAll(where: { $0.id == projectID })
     }
 }
 
@@ -235,14 +196,12 @@ extension ProjectListViewController {
 extension ProjectListViewController {
     @objc
     private func didPressAddButton(_ sender: UIBarButtonItem) {
-        let newProject = Project(title: "", description: "", dueDate: Date())
-        let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: newProject.state),
-                                                                      project: newProject,
+        let newProjectViewModel = ProjectViewModel()
+        let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: newProjectViewModel.project.state),
+                                                                      projectViewModel: newProjectViewModel,
                                                                       isAdding: true) { [weak self] project in
             guard let project else { return }
-            self?.add(project: project)
-            self?.updateSnapshot()
-            self?.updateProjectHeaderViewText()
+            self?.projectListViewModel.add(project: project)
             self?.dismiss(animated: true)
         }
         let navigationController = UINavigationController(rootViewController: projectDetailViewController)
@@ -255,14 +214,12 @@ extension ProjectListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let dataSource = collectionView.dataSource as? DataSource,
               let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
-              let project = project(for: itemIdentifier) else { return }
-        let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: project.state),
-                                                                      project: project,
+              let projectViewModel = projectListViewModel.projectViewModel(for: itemIdentifier) else { return }
+        let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: projectViewModel.project.state),
+                                                                      projectViewModel: projectViewModel,
                                                                       isAdding: false) { [weak self] project in
             guard let project else { return }
-            self?.update(project: project)
-            self?.updateSnapshot([project.id])
-            self?.updateProjectHeaderViewText()
+            self?.projectListViewModel.update(project: project)
             self?.dismiss(animated: true)
         }
         let navigationController = UINavigationController(rootViewController: projectDetailViewController)
@@ -280,7 +237,7 @@ extension ProjectListViewController: UIGestureRecognizerDelegate {
             guard let indexPath = collectionView.indexPathForItem(at: locationInGestureRecognizer),
                   let dataSource = collectionView.dataSource as? DataSource,
                   let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
-                  let project = project(for: itemIdentifier) else { return }
+                  let project = projectListViewModel.project(for: itemIdentifier) else { return }
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             makeAlertActionsToMoveState(for: project).forEach(alertController.addAction(_:))
             guard let popover = alertController.popoverPresentationController else { return }
@@ -312,9 +269,7 @@ extension ProjectListViewController: UIGestureRecognizerDelegate {
         let action = UIAlertAction(title: actionTitle, style: .default) { [weak self] _ in
             var modifiedProject = project
             modifiedProject.state = toState
-            self?.update(project: modifiedProject)
-            self?.updateSnapshot([modifiedProject.id])
-            self?.updateProjectHeaderViewText()
+            self?.projectListViewModel.update(project: modifiedProject)
         }
         return action
     }

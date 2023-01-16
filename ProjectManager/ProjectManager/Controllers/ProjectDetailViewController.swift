@@ -39,17 +39,15 @@ class ProjectDetailViewController: UIViewController {
         return stackView
     }()
     private let navigationTitle: String
-    private var project: Project
-    private var editingProject: Project
+    private var projectViewModel: ProjectViewModel
     private let isAdding: Bool
     private let onChange: (Project?) -> Void
     private var keyboardConstraints: NSLayoutConstraint?
 
     // MARK: - Configure
-    init(navigationTitle: String, project: Project, isAdding: Bool, onChange: @escaping (Project?) -> Void) {
+    init(navigationTitle: String, projectViewModel: ProjectViewModel, isAdding: Bool, onChange: @escaping (Project?) -> Void) {
         self.navigationTitle = navigationTitle
-        self.project = project
-        self.editingProject = project
+        self.projectViewModel = projectViewModel
         self.isAdding = isAdding
         self.onChange = onChange
         super.init(nibName: nil, bundle: nil)
@@ -119,9 +117,9 @@ class ProjectDetailViewController: UIViewController {
 // MARK: - Project Data
 extension ProjectDetailViewController {
     private func updateProjectDetailViewsData(_ project: Project) {
-        titleTextField.text = project.title
-        dueDatePicker.date = project.dueDate
-        descriptionTextView.text = project.description
+        titleTextField.text = projectViewModel.project.title
+        dueDatePicker.date = projectViewModel.project.dueDate
+        descriptionTextView.text = projectViewModel.project.description
     }
 }
 
@@ -137,7 +135,7 @@ extension ProjectDetailViewController {
     @objc
     private func prepareForEditing() {
         self.isEditing = true
-        editingProject = project
+        projectViewModel.editingProject = projectViewModel.project
         if isAdding {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                                target: self,
@@ -147,7 +145,7 @@ extension ProjectDetailViewController {
                                                                target: self,
                                                                action: #selector(prepareForeViewing))
         }
-        updateProjectDetailViewsData(project)
+        updateProjectDetailViewsData(projectViewModel.project)
     }
 
     @objc
@@ -156,13 +154,13 @@ extension ProjectDetailViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
                                                            target: self,
                                                            action: #selector(prepareForEditing))
-        updateProjectDetailViewsData(project)
+        updateProjectDetailViewsData(projectViewModel.project)
     }
 
     @objc
     private func doneEditing() {
         if isEditing {
-            onChange(editingProject)
+            onChange(projectViewModel.editingProject)
         } else {
             onChange(nil)
             dismiss(animated: true)
@@ -176,18 +174,18 @@ extension ProjectDetailViewController {
 
     @objc
     private func titleTextFieldDidChange(_ sender: UITextField) {
-        editingProject.title = sender.text ?? ""
+        projectViewModel.editingProject.title = sender.text ?? ""
     }
 
     @objc
     private func dueDatePickerDidChange(_ sender: UIDatePicker) {
-        editingProject.dueDate = sender.date
+        projectViewModel.editingProject.dueDate = sender.date
     }
 }
 
 extension ProjectDetailViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        editingProject.description = textView.text ?? ""
+        projectViewModel.editingProject.description = textView.text ?? ""
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
