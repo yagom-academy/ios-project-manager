@@ -9,11 +9,17 @@ import UIKit
 
 class ProjectsManageView: UIView {
 
+    enum Constant {
+        static let stackViewSpacing = 10.0
+    }
+
     // MARK: - Properties
 
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fillEqually
+        stackView.spacing = Constant.stackViewSpacing
+        stackView.backgroundColor = .systemGray4
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView

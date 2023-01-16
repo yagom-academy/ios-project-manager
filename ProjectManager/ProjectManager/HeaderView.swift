@@ -29,7 +29,7 @@ class HeaderView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     // MARK: - LifeCycle
 
     override init(frame: CGRect) {
@@ -49,7 +49,7 @@ class HeaderView: UIView {
         addSubview(countLabel)
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 10),
             countLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
@@ -60,7 +60,7 @@ class HeaderView: UIView {
     }
 
     // MARK: - Setters
-    
+
     func setTitle(_ title: String) {
         self.titleLabel.text = title
     }
