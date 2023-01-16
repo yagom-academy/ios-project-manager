@@ -22,6 +22,8 @@
 		EB9B1414297239BE00D601F1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B1413297239BE00D601F1 /* UIView+.swift */; };
 		EB9B141629727A6B00D601F1 /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B141529727A6B00D601F1 /* ProjectHeaderView.swift */; };
 		EB9B141829727AD100D601F1 /* ItemCountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B141729727AD100D601F1 /* ItemCountLabel.swift */; };
+		EBBB2E6E2975749400FDF6B8 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBB2E6D2975749400FDF6B8 /* ProjectListViewModel.swift */; };
+		EBBB2E70297589E200FDF6B8 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBB2E6F297589E200FDF6B8 /* ProjectViewModel.swift */; };
 		EBDA9B6E296D376A00568E3B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = EBDA9B6D296D376A00568E3B /* .swiftlint.yml */; };
 		EBDA9B71296D3DF600568E3B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EBDA9B70296D3DF600568E3B /* FirebaseFirestore */; };
 		EBDA9B73296D3DF600568E3B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBDA9B72296D3DF600568E3B /* FirebaseFirestoreSwift */; };
@@ -45,6 +47,8 @@
 		EB9B1413297239BE00D601F1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		EB9B141529727A6B00D601F1 /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
 		EB9B141729727AD100D601F1 /* ItemCountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCountLabel.swift; sourceTree = "<group>"; };
+		EBBB2E6D2975749400FDF6B8 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
+		EBBB2E6F297589E200FDF6B8 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		EBDA9B6D296D376A00568E3B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +87,7 @@
 				EB9B14062971AAC100D601F1 /* Common */,
 				EB9B13FF2971913600D601F1 /* Extensions */,
 				EB9B13FC297190F700D601F1 /* Models */,
+				EBBB2E6C2975718700FDF6B8 /* ViewModels */,
 				EB9B13FE2971910F00D601F1 /* Controllers */,
 				EB9B13FD2971910600D601F1 /* Views */,
 				EB9B13FB297190D200D601F1 /* SupportFiles */,
@@ -147,6 +152,15 @@
 				EB9B14072971AD0600D601F1 /* ProjectColor.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		EBBB2E6C2975718700FDF6B8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EBBB2E6D2975749400FDF6B8 /* ProjectListViewModel.swift */,
+				EBBB2E6F297589E200FDF6B8 /* ProjectViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +266,8 @@
 				EB9B141629727A6B00D601F1 /* ProjectHeaderView.swift in Sources */,
 				EB9B140C2971B8AC00D601F1 /* ProjectListContentView.swift in Sources */,
 				EB9B1410297237DC00D601F1 /* ProjectDetailViewController.swift in Sources */,
+				EBBB2E70297589E200FDF6B8 /* ProjectViewModel.swift in Sources */,
+				EBBB2E6E2975749400FDF6B8 /* ProjectListViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				EB9B14122972386C00D601F1 /* TitleTextField.swift in Sources */,
 				EB9B140529719C1A00D601F1 /* ProjectState.swift in Sources */,
