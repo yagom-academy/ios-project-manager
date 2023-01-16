@@ -42,6 +42,7 @@ class MainViewController: UIViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier)
                 as? ListCell
             
+            cell?.delegate = self
             cell?.cellViewModel.setupCell(project: item, in: process)
 
             return cell
@@ -127,10 +128,10 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
-        presentEditingView(tableView, didSelectRowAt: indexPath)
+        showEditingView(tableView, didSelectRowAt: indexPath)
     }
     
-    func presentEditingView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func showEditingView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ListCell else { return }
         
         let process = cell.cellViewModel.process
@@ -160,12 +161,33 @@ extension MainViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [delete])
     }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        10
+}
+
+// MARK: - Handling LongPressGesture of Cell
+extension MainViewController: ListCellDelegate {
+
+    func showPopoverMenu(_ sender: UILongPressGestureRecognizer, using model: ListCellViewModel) {
+        guard let project = model.project  else { return }
+        
+        let menuAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        menuAlert.makePopoverStyle()
+        menuAlert.popoverPresentationController?.sourceView = sender.view
+        
+        let actions = generateMovingActions(about: project, in: model.process)
+        actions.forEach { menuAlert.addAction($0) }
+        
+        self.present(menuAlert, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return  UIView()
+    func generateMovingActions(about project: Project, in process: Process) -> [UIAlertAction] {
+        return process.movingOption.map { title, otherProcess in
+            UIAlertAction(title: title, style: .default) { _ in
+                self.moveProject(project, from: process, to: otherProcess)
+            }
+        }
+    }
+    
+    func moveProject(_ project: Project, from currentProcess: Process, to process: Process) {
+        viewModel.moveData(project, from: currentProcess, to: process)
     }
 }

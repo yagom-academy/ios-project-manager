@@ -22,6 +22,7 @@
 		417C502F2971868B00CEC6DA /* UITextField +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502E2971868B00CEC6DA /* UITextField +.swift */; };
 		417C503129718D3B00CEC6DA /* UITextView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C503029718D3A00CEC6DA /* UITextView +.swift */; };
 		418FCF10296C606300D80D81 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 418FCF0F296C606300D80D81 /* .swiftlint.yml */; };
+		41B7A772297552C300D6BD61 /* UIAlertController +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B7A771297552C300D6BD61 /* UIAlertController +.swift */; };
 		41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BEB2970E0F8005E1C94 /* Project.swift */; };
 		41E26BEE2970E1B5005E1C94 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BED2970E1B5005E1C94 /* ListView.swift */; };
 		41E26BF22970E23B005E1C94 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BF12970E23B005E1C94 /* ListCell.swift */; };
@@ -49,6 +50,7 @@
 		417C502E2971868B00CEC6DA /* UITextField +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField +.swift"; sourceTree = "<group>"; };
 		417C503029718D3A00CEC6DA /* UITextView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView +.swift"; sourceTree = "<group>"; };
 		418FCF0F296C606300D80D81 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		41B7A771297552C300D6BD61 /* UIAlertController +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController +.swift"; sourceTree = "<group>"; };
 		41E26BEB2970E0F8005E1C94 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		41E26BED2970E1B5005E1C94 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		41E26BF12970E23B005E1C94 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				417C502E2971868B00CEC6DA /* UITextField +.swift */,
 				417C503029718D3A00CEC6DA /* UITextView +.swift */,
 				41E26BF62970E54A005E1C94 /* UIStackView +.swift */,
+				41B7A771297552C300D6BD61 /* UIAlertController +.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				412B8E2B2972437300C29DA4 /* EditingViewModel.swift in Sources */,
 				4115A84329710B800062A061 /* CircleLabel.swift in Sources */,
 				41E26BF22970E23B005E1C94 /* ListCell.swift in Sources */,
+				41B7A772297552C300D6BD61 /* UIAlertController +.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				41E26BEE2970E1B5005E1C94 /* ListView.swift in Sources */,
 				41E26BF42970E392005E1C94 /* UILabel +.swift in Sources */,

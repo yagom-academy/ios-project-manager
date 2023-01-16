@@ -2,13 +2,15 @@
 //  ListCellViewModel.swift
 //  ProjectManager
 //
-//  Created by 맹선아 on 2023/01/13.
+//  Created by 써니쿠키 on 2023/01/13.
 //
 
 import Foundation
 
 struct ListCellViewModel {
     
+    var project: Project?
+    var process: Process
     var title: String = "" {
         didSet {
             updateTitleDate(title)
@@ -24,7 +26,6 @@ struct ListCellViewModel {
             updateDateDate(date, isMissDeadLine, process)
         }
     }
-    var process: Process
     
     var updateTitleDate: (String) -> Void = { _ in }
     var updateDescriptionDate: (String) -> Void = { _ in }
@@ -37,10 +38,11 @@ struct ListCellViewModel {
         return deadLine < today
     }
     
-    mutating func setupCell(project: Project?, in process: Process) {
-        title = project?.title ?? ""
-        description = project?.description ?? ""
-        date = project?.date.changeDotFormatString() ?? ""
+    mutating func setupCell(project: Project, in process: Process) {
+        title = project.title ?? ""
+        description = project.description ?? ""
+        date = project.date.changeDotFormatString() 
         self.process = process
+        self.project = project
     }
 }

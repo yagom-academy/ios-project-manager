@@ -11,6 +11,8 @@ class ListCell: UITableViewCell {
     
     static let identifier = "projectCell"
     
+    weak var delegate: ListCellDelegate?
+    
     var cellViewModel = ListCellViewModel(process: .todo)
     var titleLabel = UILabel(font: .title3)
     var descriptionLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
@@ -28,6 +30,7 @@ class ListCell: UITableViewCell {
         configureHierarchy()
         configureLayout()
         bidingViewModel()
+        registerLongPressGestureRecognizer()
     }
     
     func bidingViewModel() {
@@ -71,8 +74,26 @@ class ListCell: UITableViewCell {
             totalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
+    
+    func registerLongPressGestureRecognizer() {
+        let longPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(moveToOtherTableView))
+        longPressGesture.delaysTouchesBegan = true
+        longPressGesture.delegate = self
+        self.contentView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func moveToOtherTableView(_ sender: UILongPressGestureRecognizer) {
+        delegate?.showPopoverMenu(sender, using: cellViewModel)
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+protocol ListCellDelegate: AnyObject {
+    
+    func showPopoverMenu(_ sender: UILongPressGestureRecognizer, using model: ListCellViewModel)
 }

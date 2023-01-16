@@ -43,4 +43,9 @@ class MainViewModel {
             datas[process.index].remove(at: index)
         }
     }
+    
+    func moveData(_ project: Project, from currentProcess: Process, to process: Process) {
+        deleteData(project, in: currentProcess)
+        registerProject(project, in: process)
+    }
 }

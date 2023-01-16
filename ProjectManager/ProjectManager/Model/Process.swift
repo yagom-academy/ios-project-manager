@@ -24,4 +24,15 @@ enum Process: Int, CaseIterable {
     var index: Int {
         return rawValue
     }
+    
+    var movingOption: [String: Process] {
+        switch self {
+        case .todo:
+            return ["Move to DOING": .doing, "Move to DONE": .done]
+        case .doing:
+            return ["Move to TODO": .todo, "Move to DONE": .done]
+        case .done:
+            return ["Move to TODO": .todo, "Move to DOING": .doing]
+        }
+    }
 }
