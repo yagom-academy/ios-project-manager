@@ -10,9 +10,9 @@ class ListViewController: UIViewController {
     
     let viewModel = ListViewModel()
     
-    lazy var todoListView = ListView(category: .todo)
-    lazy var doingListView = ListView(category: .doing)
-    lazy var doneListView = ListView(category: .done)
+    let todoListView = ListView(category: .todo)
+    let doingListView = ListView(category: .doing)
+    let doneListView = ListView(category: .done)
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
