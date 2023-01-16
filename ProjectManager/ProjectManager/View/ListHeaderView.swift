@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class TodoHeaderView: UITableViewHeaderFooterView {
-    static let identifier = "TodoHeaderView"
+final class ListHeaderView: UITableViewHeaderFooterView {
+    static let identifier = "ListHeaderView"
     
     private let statusLabel: UILabel = {
         let label = UILabel()

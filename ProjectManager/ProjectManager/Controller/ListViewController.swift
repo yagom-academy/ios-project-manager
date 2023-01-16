@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainViewController: UIViewController {
+final class ListViewController: UIViewController {
     enum TodoSection: Hashable {
         case todo
         case doing
@@ -69,7 +69,12 @@ final class MainViewController: UIViewController {
                                                                  action: #selector(showAddToDoView))
     }
     
-    @objc private func showAddToDoView() {}
+    @objc private func showAddToDoView() {
+        let nextViewController = UINavigationController(rootViewController: TodoViewController())
+        nextViewController.modalPresentationStyle = .formSheet
+        nextViewController.preferredContentSize = CGSize(width: 650, height: 650)
+        present(nextViewController, animated: true)
+    }
     
     private func configureTodoView() {
         configureTableView()
@@ -82,7 +87,7 @@ final class MainViewController: UIViewController {
         tableviews.forEach {
             $0.delegate = self
             $0.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
-            $0.register(TodoHeaderView.self, forHeaderFooterViewReuseIdentifier: TodoHeaderView.identifier)
+            $0.register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: ListHeaderView.identifier)
             tableStackView.addArrangedSubview($0)
         }
     }
@@ -124,13 +129,13 @@ final class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UITableViewDelegate {
+extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TodoHeaderView.identifier) as? TodoHeaderView else {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ListHeaderView.identifier) as? ListHeaderView else {
             return UIView()
         }
         
@@ -148,7 +153,7 @@ extension MainViewController: UITableViewDelegate {
         return headerView
     }
     
-    private func requestViewUpdate(to headerView: TodoHeaderView, status: TodoModel.TodoStatus) {
+    private func requestViewUpdate(to headerView: ListHeaderView, status: TodoModel.TodoStatus) {
         headerView.setTitleLabel(with: status.rawValue)
         headerView.updateCount(todoModels.filter { $0.status == status }.count)
     }
