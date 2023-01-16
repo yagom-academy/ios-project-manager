@@ -28,7 +28,6 @@ struct AppStore: ReducerProtocol {
       }
     }
     
-    
     Scope(state: \.navigationState, action: /Action.presentSheet) {
       NavigationStore()
     }

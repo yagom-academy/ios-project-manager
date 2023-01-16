@@ -7,13 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18186AB7296FE56B00E0B695 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AB6296FE56B00E0B695 /* BoardView.swift */; };
 		18186ABC296FE62B00E0B695 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186ABB296FE62B00E0B695 /* Font.swift */; };
 		18186AC2296FE81500E0B695 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC1296FE81500E0B695 /* Project.swift */; };
-		18186AC5296FEF3D00E0B695 /* ListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC4296FEF3D00E0B695 /* ListTitleView.swift */; };
 		18186AC729703A6500E0B695 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC629703A6500E0B695 /* Color.swift */; };
-		18186AC929704CC600E0B695 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC829704CC600E0B695 /* ProjectListView.swift */; };
-		181DF17229713FB1003EC956 /* BoardReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DF17129713FB1003EC956 /* BoardReducer.swift */; };
 		181DF174297148C4003EC956 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DF173297148C4003EC956 /* Image.swift */; };
 		18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */; };
 		18359ABA296C1F82000D6C73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359AB9296C1F82000D6C73 /* Assets.xcassets */; };
@@ -21,6 +17,8 @@
 		1854F1232975738C0082FB88 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F1222975738C0082FB88 /* AppStore.swift */; };
 		1854F126297578150082FB88 /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F125297578150082FB88 /* NavigationStore.swift */; };
 		1854F128297578290082FB88 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F127297578290082FB88 /* NavigationBarView.swift */; };
+		1854F12B29757BC10082FB88 /* BoardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F12A29757BC10082FB88 /* BoardListCell.swift */; };
+		1854F12D29757BE20082FB88 /* BoardListCellStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F12C29757BE20082FB88 /* BoardListCellStore.swift */; };
 		1858234729728273001AE6BC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234629728273001AE6BC /* DetailView.swift */; };
 		1858234C29731DCA001AE6BC /* DetailViewReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234B29731DCA001AE6BC /* DetailViewReducer.swift */; };
 		1858235E2973265C001AE6BC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1858235D2973265C001AE6BC /* ComposableArchitecture */; };
@@ -28,13 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		18186AB6296FE56B00E0B695 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		18186ABB296FE62B00E0B695 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		18186AC1296FE81500E0B695 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		18186AC4296FEF3D00E0B695 /* ListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTitleView.swift; sourceTree = "<group>"; };
 		18186AC629703A6500E0B695 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		18186AC829704CC600E0B695 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
-		181DF17129713FB1003EC956 /* BoardReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardReducer.swift; sourceTree = "<group>"; };
 		181DF173297148C4003EC956 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		18359AB2296C1F81000D6C73 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18359AB5296C1F81000D6C73 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
@@ -43,6 +37,8 @@
 		1854F1222975738C0082FB88 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		1854F125297578150082FB88 /* NavigationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStore.swift; sourceTree = "<group>"; };
 		1854F127297578290082FB88 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
+		1854F12A29757BC10082FB88 /* BoardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListCell.swift; sourceTree = "<group>"; };
+		1854F12C29757BE20082FB88 /* BoardListCellStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListCellStore.swift; sourceTree = "<group>"; };
 		1858234629728273001AE6BC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		1858234B29731DCA001AE6BC /* DetailViewReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewReducer.swift; sourceTree = "<group>"; };
 		18D24758296D4F00008E8DCC /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
@@ -64,9 +60,7 @@
 		18186AB5296FE55F00E0B695 /* BoardView */ = {
 			isa = PBXGroup;
 			children = (
-				18186AC3296FEF3100E0B695 /* SubViews */,
-				18186AB6296FE56B00E0B695 /* BoardView.swift */,
-				181DF17129713FB1003EC956 /* BoardReducer.swift */,
+				1854F12929757BA60082FB88 /* BoardListCell */,
 			);
 			path = BoardView;
 			sourceTree = "<group>";
@@ -87,15 +81,6 @@
 				18186AC1296FE81500E0B695 /* Project.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		18186AC3296FEF3100E0B695 /* SubViews */ = {
-			isa = PBXGroup;
-			children = (
-				18186AC4296FEF3D00E0B695 /* ListTitleView.swift */,
-				18186AC829704CC600E0B695 /* ProjectListView.swift */,
-			);
-			path = SubViews;
 			sourceTree = "<group>";
 		};
 		18359AA9296C1F81000D6C73 = {
@@ -155,6 +140,15 @@
 				1854F127297578290082FB88 /* NavigationBarView.swift */,
 			);
 			path = NavigationBarView;
+			sourceTree = "<group>";
+		};
+		1854F12929757BA60082FB88 /* BoardListCell */ = {
+			isa = PBXGroup;
+			children = (
+				1854F12A29757BC10082FB88 /* BoardListCell.swift */,
+				1854F12C29757BE20082FB88 /* BoardListCellStore.swift */,
+			);
+			path = BoardListCell;
 			sourceTree = "<group>";
 		};
 		185823452972825B001AE6BC /* EditView */ = {
@@ -243,18 +237,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1854F126297578150082FB88 /* NavigationStore.swift in Sources */,
-				18186AC5296FEF3D00E0B695 /* ListTitleView.swift in Sources */,
 				1854F128297578290082FB88 /* NavigationBarView.swift in Sources */,
-				181DF17229713FB1003EC956 /* BoardReducer.swift in Sources */,
 				1858234729728273001AE6BC /* DetailView.swift in Sources */,
-				18186AC929704CC600E0B695 /* ProjectListView.swift in Sources */,
 				1854F1232975738C0082FB88 /* AppStore.swift in Sources */,
 				18186ABC296FE62B00E0B695 /* Font.swift in Sources */,
-				18186AB7296FE56B00E0B695 /* BoardView.swift in Sources */,
 				18D24759296D4F00008E8DCC /* Project.xcdatamodeld in Sources */,
+				1854F12B29757BC10082FB88 /* BoardListCell.swift in Sources */,
 				1858234C29731DCA001AE6BC /* DetailViewReducer.swift in Sources */,
 				18186AC729703A6500E0B695 /* Color.swift in Sources */,
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
+				1854F12D29757BE20082FB88 /* BoardListCellStore.swift in Sources */,
 				181DF174297148C4003EC956 /* Image.swift in Sources */,
 				18186AC2296FE81500E0B695 /* Project.swift in Sources */,
 			);

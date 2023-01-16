@@ -17,7 +17,7 @@ struct ProjectManagerApp: App {
   
   var body: some Scene {
     WindowGroup {
-      BoardView(appStore: appReducer)
+      Text("Example")
     }
   }
 }
