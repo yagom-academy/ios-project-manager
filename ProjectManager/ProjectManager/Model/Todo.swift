@@ -14,6 +14,6 @@ struct Todo: Hashable {
     
     var convertDeadline: String {
         guard let deadLine = deadLine else { return "" }
-        return DateFormatter.convertDate(date: deadLine)
+        return DateFormatter.convertToString(deadLine)
     }
 }
