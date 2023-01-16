@@ -227,6 +227,7 @@ final class MainViewController: UIViewController {
     private var todoDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
     private var doingDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
     private var doneDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
+    private var currentLongPressedCell: UICollectionViewCell?
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -240,8 +241,6 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        todoCollectionView.delegate = self
-
         view.addSubview(navigationBar)
         view.addSubview(todoCollectionView)
         view.addSubview(doingCollectionView)
@@ -252,6 +251,8 @@ final class MainViewController: UIViewController {
         view.addSubview(firstDividingLineView)
         view.addSubview(secondDividingLineView)
 
+        todoCollectionView.delegate = self
+        setUpLongGestureRecognizerOnCollection()
         configureTodoDataSource()
         configureDoingDataSource()
         configureDoneDataSource()
@@ -420,6 +421,14 @@ final class MainViewController: UIViewController {
         doneSnapshot.appendItems(doneLists.map { $0.id }, toSection: 0)
         doneDataSource?.apply(doneSnapshot)
     }
+
+    private func setUpLongGestureRecognizerOnCollection() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        longPressGesture.minimumPressDuration = 0.5
+        longPressGesture.delegate = self
+        longPressGesture.delaysTouchesBegan = true
+        todoCollectionView.addGestureRecognizer(longPressGesture)
+    }
 }
 
 // MARK: - Objc
@@ -429,6 +438,28 @@ extension MainViewController {
         detailViewController.modalPresentationStyle = .formSheet
         detailViewController.detailViewDelegate = self
         present(detailViewController, animated: true)
+    }
+
+    @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: todoCollectionView)
+
+        if gestureRecognizer.state == .began {
+            print("began")
+            guard let indexPath = todoCollectionView.indexPathForItem(at: location) else { return }
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                guard let cell = self?.todoCollectionView.cellForItem(at: indexPath) else { return }
+                self?.currentLongPressedCell = cell
+                cell.transform = .init(scaleX: 0.95, y: 0.95)
+            }
+        }
+
+        if gestureRecognizer.state == .ended {
+            print("end")
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                guard let cell = self?.currentLongPressedCell else { return }
+                cell.transform = .init(scaleX: 1, y: 1)
+            }
+        }
     }
 }
 
@@ -457,4 +488,8 @@ extension MainViewController: UICollectionViewDelegate {
         detailViewController.selectedItem = indexPath.item
         present(detailViewController, animated: true)
     }
+}
+
+extension MainViewController: UIGestureRecognizerDelegate {
+
 }

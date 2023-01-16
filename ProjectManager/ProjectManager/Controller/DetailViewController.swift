@@ -182,7 +182,6 @@ extension DetailViewController: UITextViewDelegate {
         let currentText = textView.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
-        print(changedText)
         return changedText.count <= 1000
     }
 }
