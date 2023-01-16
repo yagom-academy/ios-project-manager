@@ -9,25 +9,28 @@ import Foundation
 
 class ListViewModel {
     
-    let workManager: WorkManager
+    let workManager = WorkManager()
     
-    init(workManager: WorkManager) {
-        self.workManager = workManager
+    var todoList: [Work] {
+        workManager.todoList
     }
     
-    var workList: [Work] = [] {
-        didSet {
-            workListHandler?(workList)
-        }
+    var doingList: [Work] {
+        workManager.doingList
     }
     
-    private var workListHandler: (([Work]) -> Void)?
-    
-    func workTodoList(handler: @escaping ([Work]) -> Void) {
-        workListHandler = handler
+    var doneList: [Work] {
+        workManager.doneList
     }
     
-    func fetchData() {
-        workList = workManager.todoList
+    private var reloadHandler: (() -> Void)?
+    
+    func bind(handler: @escaping () -> Void) {
+        reloadHandler = handler
+    }
+    
+    func updateWork(data: Work) {
+        workManager.registerWork(data: data)
+        reloadHandler?()
     }
 }

@@ -8,11 +8,11 @@ import UIKit
 
 class ListViewController: UIViewController {
     
-    var workManager = WorkManager()
+    let viewModel = ListViewModel()
     
-    lazy var todoListView = ListView(category: .todo, workManager: workManager)
-    lazy var doingListView = ListView(category: .doing, workManager: workManager)
-    lazy var doneListView = ListView(category: .done, workManager: workManager)
+    lazy var todoListView = ListView(category: .todo)
+    lazy var doingListView = ListView(category: .doing)
+    lazy var doneListView = ListView(category: .done)
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -28,7 +28,9 @@ class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
+        configureTableVeiw()
         configureLayout()
+        
     }
     
     private func configureLayout() {
@@ -46,6 +48,19 @@ class ListViewController: UIViewController {
         ])
     }
     
+    private func configureTableVeiw() {
+        [todoListView, doingListView, doneListView].forEach {
+            $0.tableView.delegate = self
+            $0.tableView.dataSource = self
+        }
+        
+        viewModel.bind {
+            [self.todoListView, self.doingListView, self.doneListView].forEach {
+                $0.tableView.reloadData()
+                $0.tableView.reloadData()
+            }
+        }
+    }
     private func configureNavigationBar() {
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
@@ -63,9 +78,41 @@ class ListViewController: UIViewController {
     
 }
 
+extension ListViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch tableView {
+        case doneListView.tableView:
+            return viewModel.doneList.count
+        case doingListView.tableView:
+            return viewModel.doingList.count
+        case todoListView.tableView:
+            return viewModel.todoList.count
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath)
+                as? ListCell else { return ListCell() }
+        
+        switch tableView {
+        case doneListView.tableView:
+            cell.configureData(work: viewModel.doneList[indexPath.row])
+        case doingListView.tableView:
+            cell.configureData(work: viewModel.doingList[indexPath.row])
+        case todoListView.tableView:
+            cell.configureData(work: viewModel.todoList[indexPath.row])
+        default:
+            break
+        }
+        
+        return cell
+    }
+}
+
 extension ListViewController: WorkDelegate {
     func send(data: Work) {
-        workManager.registerWork(data: data)
-        todoListView.viewModel?.fetchData()
+        viewModel.updateWork(data: data)
     }
 }
