@@ -103,6 +103,13 @@ final class ProjectListViewController: UIViewController {
         dataSource.apply(snapshot)
     }
 
+    private func deleteSnapshotItems(dataSource: DataSource, item: Project) {
+        var snapshot = dataSource.snapshot()
+
+        snapshot.deleteItems([item])
+        dataSource.apply(snapshot)
+    }
+
     private func configureSnapshots() {
         guard let todoDataSource,
               let doingDataSource,
@@ -114,52 +121,34 @@ final class ProjectListViewController: UIViewController {
         configureSnapshot(dataSource: doingDataSource, items: doingList)
         configureSnapshot(dataSource: doneDataSource, items: doneList)
     }
-}
 
-extension ProjectListViewController: UITableViewDelegate {
-    // MARK: TableViewHeader
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProjectTableViewHeaderView.reuseIdentifier)
-                as? ProjectTableViewHeaderView else {
-            return UIView()
+    // MARK: Internal Methods
+    func fetchProject(tableView: UITableView, indexPath: IndexPath) -> Project {
+        if tableView == projectListView.todoTableView {
+            return todoList[indexPath.row]
+        } else if tableView == projectListView.doingTableView {
+            return doingList[indexPath.row]
+        } else {
+            return doneList[indexPath.row]
         }
+    }
 
-        guard let tableView = tableView as? ProjectTableView else {
+    func fetchProjectList(tableView: UITableView) -> [Project] {
+        if tableView == projectListView.todoTableView {
+            return todoList
+        } else if tableView == projectListView.doingTableView {
+            return doingList
+        } else {
+            return doneList
+        }
+    }
+
+    func deleteProjectCell(tableView: UITableView, project: Project) {
+        guard let dataSource = tableView.dataSource as? DataSource else {
             fatalError()
         }
 
-        let projectCount = tableView.numberOfRows(inSection: section)
-        headerView.configure(title: tableView.headerTitle, count: projectCount)
-
-        return headerView
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        projectManager.delete(projectList: &self.projectList, project: project)
+        deleteSnapshotItems(dataSource: dataSource, item: project)
     }
 }
-
-      // MARK: Cell SwipeAction
-//    func tableView(_ tableView: UITableView,
-//                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        var todo: Todo
-//        if tableView == todoListView.todoTableView {
-//            todo = todoList[indexPath.row]
-//        } else if tableView == todoListView.doingTableView {
-//            todo = doingList[indexPath.row]
-//        } else {
-//            todo = doneList[indexPath.row]
-//        }
-//
-//        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, success) in
-//            self.coreDataManager.delete(todo)
-//            self.updateSnapshots()
-//            success(true)
-//        }
-//
-//        deleteAction.title = "삭제"
-//
-//        let swipeActionConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
-//
-//        return swipeActionConfiguration
-//    }

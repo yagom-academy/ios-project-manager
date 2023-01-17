@@ -12,6 +12,15 @@
 		1ABD658629768753002E288B /* CRUDable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD658529768753002E288B /* CRUDable.swift */; };
 		1ABD65892976883D002E288B /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65882976883D002E288B /* ProjectManager.swift */; };
 		1ABD658E2976963A002E288B /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD658D2976963A002E288B /* ProjectViewController.swift */; };
+		1ABD6594297698E0002E288B /* ProjectTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6590297698E0002E288B /* ProjectTableViewHeaderView.swift */; };
+		1ABD6595297698E0002E288B /* ProjectTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6591297698E0002E288B /* ProjectTableView.swift */; };
+		1ABD6596297698E0002E288B /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6592297698E0002E288B /* ProjectTableViewCell.swift */; };
+		1ABD65982976999F002E288B /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65972976999F002E288B /* Reusable.swift */; };
+		1ABD659C29769A8E002E288B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD659B29769A8E002E288B /* Date.swift */; };
+		1ABD65A72976A6EB002E288B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65A62976A6EB002E288B /* CoreDataManager.swift */; };
+		1ABD65AA2976A6FA002E288B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65A92976A6FA002E288B /* NetworkManager.swift */; };
+		1ABD65AC2976A753002E288B /* DummyProjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65AB2976A753002E288B /* DummyProjects.swift */; };
+		1ABD65AE2976E177002E288B /* ProjectListViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65AD2976E177002E288B /* ProjectListViewController+Delegate.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectListViewController.swift */; };
@@ -25,6 +34,15 @@
 		1ABD658529768753002E288B /* CRUDable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUDable.swift; sourceTree = "<group>"; };
 		1ABD65882976883D002E288B /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		1ABD658D2976963A002E288B /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
+		1ABD6590297698E0002E288B /* ProjectTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewHeaderView.swift; sourceTree = "<group>"; };
+		1ABD6591297698E0002E288B /* ProjectTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableView.swift; sourceTree = "<group>"; };
+		1ABD6592297698E0002E288B /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
+		1ABD65972976999F002E288B /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		1ABD659B29769A8E002E288B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		1ABD65A62976A6EB002E288B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		1ABD65A92976A6FA002E288B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		1ABD65AB2976A753002E288B /* DummyProjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyProjects.swift; sourceTree = "<group>"; };
+		1ABD65AD2976E177002E288B /* ProjectListViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectListViewController+Delegate.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +80,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectListViewController.swift */,
 				1ABD658D2976963A002E288B /* ProjectViewController.swift */,
+				1ABD65AD2976E177002E288B /* ProjectListViewController+Delegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -69,6 +88,7 @@
 		1ABD657C29768311002E288B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1ABD65AB2976A753002E288B /* DummyProjects.swift */,
 				1ABD657F29768574002E288B /* Project.swift */,
 			);
 			path = Models;
@@ -78,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				1ABD6582297686C0002E288B /* ProjectListView.swift */,
+				1ABD6599297699A7002E288B /* ProjectTableView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -86,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				1ABD658529768753002E288B /* CRUDable.swift */,
+				1ABD65972976999F002E288B /* Reusable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -94,8 +116,28 @@
 			isa = PBXGroup;
 			children = (
 				1ABD65882976883D002E288B /* ProjectManager.swift */,
+				1ABD65A62976A6EB002E288B /* CoreDataManager.swift */,
+				1ABD65A92976A6FA002E288B /* NetworkManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		1ABD6599297699A7002E288B /* ProjectTableView */ = {
+			isa = PBXGroup;
+			children = (
+				1ABD6591297698E0002E288B /* ProjectTableView.swift */,
+				1ABD6592297698E0002E288B /* ProjectTableViewCell.swift */,
+				1ABD6590297698E0002E288B /* ProjectTableViewHeaderView.swift */,
+			);
+			path = ProjectTableView;
+			sourceTree = "<group>";
+		};
+		1ABD659A29769A81002E288B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1ABD659B29769A8E002E288B /* Date.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -117,6 +159,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				1ABD659A29769A81002E288B /* Extensions */,
 				1ABD658729768830002E288B /* Managers */,
 				1ABD658429768743002E288B /* Protocols */,
 				1ABD657C29768311002E288B /* Models */,
@@ -196,13 +239,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ABD65AC2976A753002E288B /* DummyProjects.swift in Sources */,
+				1ABD65982976999F002E288B /* Reusable.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectListViewController.swift in Sources */,
 				1ABD658629768753002E288B /* CRUDable.swift in Sources */,
 				1ABD6583297686C0002E288B /* ProjectListView.swift in Sources */,
+				1ABD6596297698E0002E288B /* ProjectTableViewCell.swift in Sources */,
+				1ABD6595297698E0002E288B /* ProjectTableView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				1ABD658E2976963A002E288B /* ProjectViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				1ABD65AE2976E177002E288B /* ProjectListViewController+Delegate.swift in Sources */,
+				1ABD6594297698E0002E288B /* ProjectTableViewHeaderView.swift in Sources */,
 				1ABD65892976883D002E288B /* ProjectManager.swift in Sources */,
+				1ABD659C29769A8E002E288B /* Date.swift in Sources */,
+				1ABD65AA2976A6FA002E288B /* NetworkManager.swift in Sources */,
+				1ABD65A72976A6EB002E288B /* CoreDataManager.swift in Sources */,
 				1ABD658029768574002E288B /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +395,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = ProjectManager/Models/DummyProjects.swift;
 				INFOPLIST_FILE = "ProjectManager/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -362,6 +415,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = ProjectManager/Models/DummyProjects.swift;
 				INFOPLIST_FILE = "ProjectManager/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
