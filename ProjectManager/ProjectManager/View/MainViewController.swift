@@ -7,18 +7,18 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-    let coreDataManager = CoreDataManager()
+final class MainViewController: UIViewController {
+    private let todoTableView = CustomTableView(title: "TODO")
+    private let doingTableView = CustomTableView(title: "DOING")
+    private let doneTableView = CustomTableView(title: "DONE")
     
-    let todoTableView = CustomTableView(title: "TODO")
-    let doingTableView = CustomTableView(title: "DOING")
-    let doneTableView = CustomTableView(title: "DONE")
+    private let coredataManager = CoreDataManager()
     
-    var todoData = [TodoModel]()
-    var doingData = [TodoModel]()
-    var doneData = [TodoModel]()
+    private var todoData = [TodoModel]()
+    private var doingData = [TodoModel]()
+    private var doneData = [TodoModel]()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -40,28 +40,41 @@ class MainViewController: UIViewController {
         autoLayoutSetting()
         setupNavigationBar()
         fetchData()
+        todoTableView.reloadData()
     }
     
-    func fetchData() {
-        let result = coreDataManager.fetch()
-        
+    private func fetchData() {
+        let result = coredataManager.fetch()
         switch result {
         case .success(let data):
-            data.forEach {
-                if $0.state == 0 {
-                    todoData.append($0)
-                } else if $0.state == 1 {
-                    doingData.append($0)
-                } else if $0.state == 2 {
-                    doneData.append($0)
-                }
+            distributeData(data: data)
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func distributeData(data: [TodoModel]) {
+        todoData = .init()
+        doingData = .init()
+        doneData = .init()
+        
+        data.forEach {
+            switch $0.state {
+            case 0:
+                todoData.append($0)
+            case 1:
+                doingData.append($0)
+            case 2:
+                doneData.append($0)
+            default:
+                return
             }
         case .failure(let error):
             print(error)
         }
     }
     
-    func autoLayoutSetting() {
+    private func autoLayoutSetting() {
         self.view.addSubview(stackView)
         [todoTableView, doingTableView, doneTableView].forEach(stackView.addArrangedSubview(_:))
         
@@ -73,7 +86,7 @@ class MainViewController: UIViewController {
         ])
     }
     
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         let rightBarbutton = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
@@ -82,7 +95,6 @@ class MainViewController: UIViewController {
         
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = rightBarbutton
-        
     }
     
     @objc func tapAddButton() {
@@ -116,8 +128,25 @@ extension MainViewController: UITableViewDelegate {
             style: .destructive,
             title: "Delete"
         ) { _, _, _ in
-            // TODO: -데이터 삭제
+            // 데이터 삭제
+            if tableView == self.todoTableView {
+                let removeData = self.todoData.remove(at: indexPath.row)
+                guard let id = removeData.id else { return }
+                self.coredataManager.deleteDate(id: id)
+                self.todoTableView.reloadData()
+            } else if tableView == self.doingTableView {
+                let removeData = self.doingData.remove(at: indexPath.row)
+                guard let id = removeData.id else { return }
+                self.coredataManager.deleteDate(id: id)
+                self.doingTableView.reloadData()
+            } else if tableView == self.doneTableView {
+                let removeData = self.doneData.remove(at: indexPath.row)
+                guard let id = removeData.id else { return }
+                self.coredataManager.deleteDate(id: id)
+                self.doneTableView.reloadData()
+            }
         }
+        
         return UISwipeActionsConfiguration(actions: [actions])
     }
     
@@ -129,17 +158,17 @@ extension MainViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: -Cell확인
-        switch tableView {
-        case todoTableView:
+        if tableView == todoTableView {
             return todoData.count
-        case doingTableView:
+        } else if tableView == doingTableView {
             return doingData.count
-        case doneTableView:
+        } else if tableView == doneTableView {
             return doneData.count
         default:
             return 0
         }
+        
+        return .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,22 +179,19 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        switch tableView {
-        case todoTableView:
-            cell.titleLabel.text = todoData[indexPath.row].title
-            cell.bodyLabel.text = todoData[indexPath.row].body
-            cell.dateLabel.text = todoData[indexPath.row].todoDate?.description
-        case doingTableView:
-            cell.titleLabel.text = doingData[indexPath.row].title
-            cell.bodyLabel.text = doingData[indexPath.row].body
-            cell.dateLabel.text = doingData[indexPath.row].todoDate?.description
-        case doneTableView:
-            cell.titleLabel.text = doneData[indexPath.row].title
-            cell.bodyLabel.text = doneData[indexPath.row].body
-            cell.dateLabel.text = doneData[indexPath.row].todoDate?.description
-        default:
-            return cell
+        var data = TodoModel()
+        
+        if tableView == todoTableView {
+            data = todoData[indexPath.row]
+        } else if tableView == doingTableView {
+            data = todoData[indexPath.row]
+        } else if tableView == doneTableView {
+            data = todoData[indexPath.row]
         }
+        
+        cell.titleLabel.text = data.title
+        cell.bodyLabel.text = data.body
+        cell.dateLabel.text = data.todoDate?.description
         
         return cell
     }

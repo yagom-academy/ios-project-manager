@@ -35,7 +35,7 @@ final class CoreDataManager {
             info.setValue(title, forKey: "title")
             info.setValue(body, forKey: "body")
             info.setValue(todoDate, forKey: "todoDate")
-            info.setValue(0, forKey: "state")
+            info.setValue(State.todo.rawValue, forKey: "state")
             info.setValue(UUID(), forKey: "id")
             
             do {
@@ -47,12 +47,49 @@ final class CoreDataManager {
     }
     
     // TODO: -Update
-    func updateData() {
+    func updateData(title: String, body: String, todoDate: Date, id: UUID, state: State) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegate?.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Contents")
+        fetchRequest.predicate = NSPredicate(format: "title = %@", id as CVarArg)
         
+        do {
+            guard let test = try context?.fetch(fetchRequest) else { return }
+            guard let updatingData = test[0] as? NSManagedObject else { return }
+            
+            updatingData.setValue(title, forKey: "title")
+            updatingData.setValue(body, forKey: "body")
+            updatingData.setValue(todoDate, forKey: "date")
+            updatingData.setValue(state.rawValue, forKey: "state")
+            
+            do {
+                try context?.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
-    // TODO: -Delete
-    func deleteDate() {
+    func deleteDate(id: UUID) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegate?.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "TodoModel")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
         
+        do {
+            guard let test = try context?.fetch(fetchRequest) else { return }
+            guard let objectDelete = test[0] as? NSManagedObject else { return }
+            
+            context?.delete(objectDelete)
+            do {
+                try context?.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
