@@ -46,7 +46,7 @@ final class AddTodoViewController: UIViewController {
     @objc private func tappedDone() {
         let newTodoItem = TodoModel(title: todoView.titleTextField.text ?? "",
                                     body: todoView.bodyTextView.text,
-                                    date: todoView.datePicker.date.timeIntervalSince1970)
+                                    date: todoView.datePicker.date.convertDateToDouble())
         
         delegate?.addNewTodoItem(with: newTodoItem)
         dismiss(animated: true)

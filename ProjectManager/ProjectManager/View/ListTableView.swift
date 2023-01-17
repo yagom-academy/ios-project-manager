@@ -11,7 +11,7 @@ final class ListTableView: UITableView {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         self.backgroundColor = .systemGray6
-        self.rowHeight = 100
+        self.rowHeight = UITableView.automaticDimension
         self.estimatedRowHeight = 150
     }
     

@@ -81,11 +81,11 @@ final class ListTableViewCell: UITableViewCell {
         ])
     }
     
-    func configureContent(with todoModel: TodoModel) {
+    func configureContent(title: String, body: String, date: Date) {
         DispatchQueue.main.async { [weak self] in
-            self?.titleLabel.text = todoModel.title
-            self?.bodyLabel.text = todoModel.body
-            self?.dateLabel.text = "\(Date())"
+            self?.titleLabel.text = title
+            self?.bodyLabel.text = body
+            self?.dateLabel.text = date.customDescription
         }
     }
 }

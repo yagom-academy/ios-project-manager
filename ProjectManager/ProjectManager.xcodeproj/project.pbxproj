@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2642F17529757091008E2145 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642F17429757091008E2145 /* AddTodoViewController.swift */; };
 		2642F1792975AAC8008E2145 /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642F1782975AAC8008E2145 /* EditTodoViewController.swift */; };
+		26545EBC29769A2B00B02353 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26545EBB29769A2B00B02353 /* Double+.swift */; };
+		26545EBE29769A8B00B02353 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26545EBD29769A8B00B02353 /* Date+.swift */; };
 		26720F8629717A8700A26042 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F8529717A8700A26042 /* ListHeaderView.swift */; };
 		26720F882971C5CF00A26042 /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F872971C5CF00A26042 /* ListTableView.swift */; };
 		26720F8A2971CDB300A26042 /* TodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F892971CDB300A26042 /* TodoItemView.swift */; };
@@ -26,6 +28,8 @@
 /* Begin PBXFileReference section */
 		2642F17429757091008E2145 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
 		2642F1782975AAC8008E2145 /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
+		26545EBB29769A2B00B02353 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
+		26545EBD29769A8B00B02353 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		26720F8529717A8700A26042 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
 		26720F872971C5CF00A26042 /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListTableView.swift; path = ProjectManager/View/ListTableView.swift; sourceTree = SOURCE_ROOT; };
 		26720F892971CDB300A26042 /* TodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemView.swift; sourceTree = "<group>"; };
@@ -53,6 +57,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26545EB82976955800B02353 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				26545EBB29769A2B00B02353 /* Double+.swift */,
+				26545EBD29769A8B00B02353 /* Date+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		2679528F2970270A0007D48C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +119,7 @@
 				2679528F2970270A0007D48C /* Model */,
 				26795290297027140007D48C /* View */,
 				267952912970271B0007D48C /* Controller */,
+				26545EB82976955800B02353 /* Extension */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -212,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26545EBE29769A8B00B02353 /* Date+.swift in Sources */,
 				26720F882971C5CF00A26042 /* ListTableView.swift in Sources */,
 				2642F17529757091008E2145 /* AddTodoViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */,
@@ -221,6 +236,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				268E3B50296EFD6C003BF2AD /* ListTableViewCell.swift in Sources */,
 				2642F1792975AAC8008E2145 /* EditTodoViewController.swift in Sources */,
+				26545EBC29769A2B00B02353 /* Double+.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

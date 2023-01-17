@@ -39,19 +39,24 @@ final class ListViewController: UIViewController {
     // 테스트용 todoModels
     private var todoModels: [TodoModel] = [TodoModel(title: "todo test1",
                                                      body: "todo test1",
-                                                     status: .todo),
+                                                     status: .todo,
+                                                     date: 1673967757.6580071),
                                            TodoModel(title: "todo test1",
                                                      body: "todo test1\ntodo test1\ntodo test1\ntodo test1",
-                                                     status: .todo),
+                                                     status: .todo,
+                                                     date: 1673968167.6580071),
                                            TodoModel(title: "doing test1",
                                                      body: "doing test1",
-                                                     status: .doing),
+                                                     status: .doing,
+                                                     date: 1673967977.6580071),
                                            TodoModel(title: "done test1",
                                                      body: "done test1",
-                                                     status: .done),
+                                                     status: .done,
+                                                     date: 1673967754.6580071),
                                            TodoModel(title: "done test1",
                                                      body: "done test1",
-                                                     status: .done)]
+                                                     status: .done,
+                                                     date: 1673968037.6580071)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,7 +125,9 @@ final class ListViewController: UIViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier,
                                                      for: indexPath) as? ListTableViewCell
             
-            cell?.configureContent(with: todoItem)
+            cell?.configureContent(title: todoItem.title,
+                                   body: todoItem.body,
+                                   date: todoItem.date.convertDoubleToDate())
             return cell
         }
         

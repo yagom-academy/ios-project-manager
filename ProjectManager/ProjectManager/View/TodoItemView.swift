@@ -73,9 +73,9 @@ final class TodoItemView: UIView {
         ])
     }
     
-    func updateContent(title: String, body: String, date: TimeInterval) {
+    func updateContent(title: String, body: String, date: Date) {
         titleTextField.text = title
         bodyTextView.text = body
-        datePicker.date = Date(timeIntervalSince1970: date)
+        datePicker.date = date
     }
 }

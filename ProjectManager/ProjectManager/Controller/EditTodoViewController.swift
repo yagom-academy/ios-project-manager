@@ -46,7 +46,7 @@ class EditTodoViewController: UIViewController {
         
         itemBeEdited.title = todoView.titleTextField.text ?? ""
         itemBeEdited.body = todoView.bodyTextView.text ?? ""
-        itemBeEdited.date = todoView.datePicker.date.timeIntervalSince1970
+        itemBeEdited.date = todoView.datePicker.date.convertDateToDouble()
         
         delegate?.editTodoItem(with: itemBeEdited)
     }
@@ -58,6 +58,8 @@ class EditTodoViewController: UIViewController {
     func prepareEditView(with itemBeEdited: TodoModel) {
         self.todoItem = itemBeEdited
         
-        todoView.updateContent(title: itemBeEdited.title, body: itemBeEdited.body, date: itemBeEdited.date)
+        todoView.updateContent(title: itemBeEdited.title,
+                               body: itemBeEdited.body,
+                               date: itemBeEdited.date.convertDoubleToDate())
     }
 }
