@@ -7,6 +7,7 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    let sectionHeaderIdentifier: String = "sectionHeaderIdentifier"
 
     // 왜 lazy로 선언해야하며, target: self를 쓸때 경고가 발생하는가
     private lazy var navigationBar: UINavigationBar = {
@@ -159,6 +160,7 @@ final class MainViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderIdentifier)
         return collectionView
     }()
 
@@ -167,6 +169,7 @@ final class MainViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         collectionView.allowsSelection = false
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderIdentifier)
         return collectionView
     }()
 
@@ -175,18 +178,9 @@ final class MainViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         collectionView.allowsSelection = false
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderIdentifier)
         return collectionView
     }()
-
-    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { _, layoutEnviroment in
-            let configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
-            let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnviroment)
-            section.interGroupSpacing = 8
-            return section
-        }
-        return layout
-    }
 
     private var todoLists: [TodoModel] = [
         TodoModel(title: "hi", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "11-11-11"),
@@ -310,6 +304,17 @@ final class MainViewController: UIViewController {
         ])
     }
 
+    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout { _, layoutEnviroment in
+            var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
+            configuration.headerMode = .supplementary
+            let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnviroment)
+            section.interGroupSpacing = 8
+            return section
+        }
+        return layout
+    }
+
     private func configureTodoDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
             var contentConfiguration = TodoContentView.Configutation()
@@ -329,6 +334,15 @@ final class MainViewController: UIViewController {
         todoDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: todoCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+
+        todoDataSource?.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+            if kind == UICollectionView.elementKindSectionHeader {
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.sectionHeaderIdentifier, for: indexPath)
+                headerView.frame.size.height = .zero
+                return headerView
+            }
+            return nil
+        }
     }
 
     private func configureDoingDataSource() {
@@ -350,6 +364,15 @@ final class MainViewController: UIViewController {
         doingDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doingCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+
+        doingDataSource?.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+            if kind == UICollectionView.elementKindSectionHeader {
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.sectionHeaderIdentifier, for: indexPath)
+                headerView.frame.size.height = .zero
+                return headerView
+            }
+            return nil
+        }
     }
 
     private func configureDoneDataSource() {
@@ -371,12 +394,18 @@ final class MainViewController: UIViewController {
         doneDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doneCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+
+        doneDataSource?.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+            if kind == UICollectionView.elementKindSectionHeader {
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.sectionHeaderIdentifier, for: indexPath)
+                headerView.frame.size.height = .zero
+                return headerView
+            }
+            return nil
+        }
     }
 
-    private func updateTodoSnapshot(_ reloadItemIDs: [TodoModel.ID] = []) {
-//        snapshot.reloadItems(reloadItemIDs)
-//        todoDataSource?.apply(snapshot)
-//        doingDataSource?.apply(snapshot)
+    private func updateTodoSnapshot() {
         var todoSnapshot = NSDiffableDataSourceSnapshot<Int, TodoModel.ID>()
         todoSnapshot.appendSections([0])
         todoSnapshot.appendItems(todoLists.map { $0.id }, toSection: 0)
