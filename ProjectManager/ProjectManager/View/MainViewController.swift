@@ -56,7 +56,6 @@ final class MainViewController: UIViewController {
         viewModel.bind {
             [self.todoListView, self.doingListView, self.doneListView].forEach {
                 $0.tableView.reloadData()
-                $0.tableView.reloadData()
             }
         }
     }

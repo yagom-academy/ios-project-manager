@@ -9,7 +9,9 @@ import UIKit
 
 final class ListView: UIView {
     private let category: Category
-
+    
+    let viewModel = ListViewModel()
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,12 +45,13 @@ final class ListView: UIView {
         return label
     }()
     
-    private lazy var categoryCountLabel: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .black
-        button.layer.cornerRadius = button.layer.frame.width / 2
-        button.tintColor = .white
-        return button
+    private lazy var categoryCountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .black
+        label.layer.cornerRadius = label.layer.frame.width / 2
+        label.textColor = .white
+        return label
     }()
     
     private let blankView: UIView = {
@@ -59,14 +62,19 @@ final class ListView: UIView {
     init(category: Category) {
         self.category = category
         super.init(frame: CGRect())
-        confgiureLayout()
+        configureBind()
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func confgiureLayout() {
+    private func configureBind() {
+        viewModel.bindCount { self.categoryCountLabel.text = $0?.description }
+    }
+    
+    private func configureLayout() {
         backgroundColor = .systemGray5
         categoryStackView.addArrangedSubview(categoryLabel)
         categoryStackView.addArrangedSubview(categoryCountLabel)
