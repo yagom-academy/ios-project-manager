@@ -15,10 +15,19 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
         return label
     }()
 
+    private let countLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .title1)
+        label.textAlignment = .center
+        label.backgroundColor = .systemBlue
+        return label
+    }()
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
 
-        addSubview(titleLabel)
+        configureView()
         configureConstraints()
     }
 
@@ -27,13 +36,27 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private func configureView() {
+        addSubview(titleLabel)
+        addSubview(countLabel)
+    }
+
     private func configureConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+
+            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            countLabel.topAnchor.constraint(equalTo: topAnchor),
+            countLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
         ])
+    }
+
+    func configure(title: String, count: Int) {
+        titleLabel.text = title
+        countLabel.text = "\(count)"
     }
 }
 

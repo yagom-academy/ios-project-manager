@@ -62,8 +62,15 @@ final class ProjectListViewController: UIViewController {
     }
 
     // MARK: Configure View
+    private func configureProjectTableViewDelegate() {
+        projectListView.todoTableView.delegate = self
+        projectListView.doingTableView.delegate = self
+        projectListView.doneTableView.delegate = self
+    }
+
     private func configureView() {
         view.addSubview(projectListView)
+        configureProjectTableViewDelegate()
     }
 
     // MARK: Configure DataSource
@@ -108,3 +115,51 @@ final class ProjectListViewController: UIViewController {
         configureSnapshot(dataSource: doneDataSource, items: doneList)
     }
 }
+
+extension ProjectListViewController: UITableViewDelegate {
+    // MARK: TableViewHeader
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProjectTableViewHeaderView.reuseIdentifier)
+                as? ProjectTableViewHeaderView else {
+            return UIView()
+        }
+
+        guard let tableView = tableView as? ProjectTableView else {
+            fatalError()
+        }
+
+        let projectCount = tableView.numberOfRows(inSection: section)
+        headerView.configure(title: tableView.headerTitle, count: projectCount)
+
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+}
+
+      // MARK: Cell SwipeAction
+//    func tableView(_ tableView: UITableView,
+//                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        var todo: Todo
+//        if tableView == todoListView.todoTableView {
+//            todo = todoList[indexPath.row]
+//        } else if tableView == todoListView.doingTableView {
+//            todo = doingList[indexPath.row]
+//        } else {
+//            todo = doneList[indexPath.row]
+//        }
+//
+//        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, success) in
+//            self.coreDataManager.delete(todo)
+//            self.updateSnapshots()
+//            success(true)
+//        }
+//
+//        deleteAction.title = "삭제"
+//
+//        let swipeActionConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+//
+//        return swipeActionConfiguration
+//    }
