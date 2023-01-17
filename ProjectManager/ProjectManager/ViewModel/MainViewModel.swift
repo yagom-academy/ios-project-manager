@@ -8,7 +8,7 @@
 import Foundation
 
 class MainViewModel {
-    var totalWorkList: [Work] = [] {
+    private var totalWorkList: [Work] = [] {
         didSet {
             reloadHandler?()
         }
@@ -31,23 +31,23 @@ class MainViewModel {
     func bind(handler: @escaping () -> Void) {
         reloadHandler = handler
     }
+    
+    func searchWorkIndex(data: Work) -> Int? {
+        return totalWorkList.firstIndex { $0.id == data.id }
+    }
 
     func updateWork(data: Work) {
-        let workIndex = totalWorkList.firstIndex { $0.id == data.id }
-        
-        if let workIndex {
-            return totalWorkList[workIndex] = data
+        if let index = searchWorkIndex(data: data) {
+            totalWorkList[index] = data
+            return
         }
         
         totalWorkList.append(data)
     }
     
     func moveWork(data: Work, category: Category) {
-        let workIndex = totalWorkList.firstIndex { $0.id == data.id }
-        
-        if let workIndex {
-            return totalWorkList[workIndex].category = category
-        }
+        guard let index = searchWorkIndex(data: data) else { return }
+        totalWorkList[index].category = category
     }
     
     func deleteWork(data: Work) {
