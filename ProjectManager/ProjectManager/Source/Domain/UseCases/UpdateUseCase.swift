@@ -20,7 +20,7 @@ final class UpdateUseCase {
         self.repository = repository
     }
 
-    func deleteTask(_ task: Task) {
+    func update(_ task: Task) {
         guard let entity = translater.toEntity(with: task) else {
             return isUpdatedSuccess.onNext(false)
         }

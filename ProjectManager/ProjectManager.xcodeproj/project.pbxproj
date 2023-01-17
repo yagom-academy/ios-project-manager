@@ -26,6 +26,7 @@
 		D36715D8296D495400A4A9DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D36715D7296D495400A4A9DD /* GoogleService-Info.plist */; };
 		D36715DB296D4CCB00A4A9DD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D36715DA296D4CCB00A4A9DD /* FirebaseAnalytics */; };
 		D37836F92976C5A500844849 /* UpdateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37836F82976C5A500844849 /* UpdateUseCase.swift */; };
+		D37836FC2976C99300844849 /* UpdateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37836F82976C5A500844849 /* UpdateUseCase.swift */; };
 		D3795400297651BB00A3F02F /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37953FF297651BB00A3F02F /* TaskRepository.swift */; };
 		D37954022976539200A3F02F /* MockTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37954012976539200A3F02F /* MockTaskRepository.swift */; };
 		D37954032976574900A3F02F /* TaskEntityDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67582F297635E200C2BDE2 /* TaskEntityDummy.swift */; };
@@ -441,6 +442,7 @@
 				D379544729769B1E00A3F02F /* TaskRepository.swift in Sources */,
 				D379544829769B2200A3F02F /* CreateUseCase.swift in Sources */,
 				AC5F3CA12976C24D007D5F80 /* DeleteUseCase.swift in Sources */,
+				D37836FC2976C99300844849 /* UpdateUseCase.swift in Sources */,
 				D379544D29769B3F00A3F02F /* TaskEntity.swift in Sources */,
 				D379544229769B0500A3F02F /* TaskDummy.swift in Sources */,
 				D379544C29769B3700A3F02F /* Task.swift in Sources */,
