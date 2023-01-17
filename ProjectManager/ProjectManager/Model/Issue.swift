@@ -8,6 +8,7 @@
 import Foundation
 
 struct Issue: Hashable {
+    var id: UUID
     var status: Status
     var title: String
     var body: String
