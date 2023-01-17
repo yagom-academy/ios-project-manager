@@ -58,11 +58,4 @@ extension ProjectListViewController {
         configureSnapshot(dataSource: doingDataSource, items: doingList)
         configureSnapshot(dataSource: doneDataSource, items: doneList)
     }
-    
-    func deleteSnapshotItems(dataSource: DataSource, item: Project) {
-        var snapshot = dataSource.snapshot()
-        
-        snapshot.deleteItems([item])
-        dataSource.apply(snapshot)
-    }
 }

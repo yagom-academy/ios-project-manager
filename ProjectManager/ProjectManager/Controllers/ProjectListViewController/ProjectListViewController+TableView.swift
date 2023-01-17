@@ -29,15 +29,22 @@ extension ProjectListViewController: UITableViewDelegate {
     }
 
     func deleteProjectCell(tableView: UITableView, project: Project) {
+        guard let dataSource = tableView.dataSource as? DataSource else {
+            fatalError()
+        }
+
         projectManager.delete(projectList: &self.projectList, project: project)
-        configureSnapshots()
+
+        let items = fetchProjectList(tableView: tableView)
+        configureSnapshot(dataSource: dataSource, items: items)
     }
 
-    func moveProjectCell(project: Project, status: Project.Status) {
+    func moveProjectCell(to tableView: UITableView, project: Project, status: Project.Status) {
         var project = project
         project.status = status
 
-        projectManager.update(projectList: &self.projectList, project: project)
+        projectManager.delete(projectList: &projectList, project: project)
+        projectManager.create(projectList: &projectList, project: project)
         configureSnapshots()
     }
     

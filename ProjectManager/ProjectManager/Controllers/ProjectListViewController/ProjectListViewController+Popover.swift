@@ -10,16 +10,16 @@ import UIKit
 extension ProjectListViewController {
     private func makeAlertController(tableView: ProjectTableView, indexPath: IndexPath) -> UIAlertController {
         let project = self.fetchProject(tableView: tableView, indexPath: indexPath)
-        let MoveTodoAction = UIAlertAction(title: "Move To TODO", style: .default) { [weak self] _ in
-            self?.moveProjectCell(project: project, status: .todo)
+        let MoveTodoAction = UIAlertAction(title: "Move To TODO", style: .default) { _ in
+            self.moveProjectCell(to: self.projectListView.todoTableView, project: project, status: .todo)
         }
 
-        let MoveDoingAction = UIAlertAction(title: "Move To DOING", style: .default) { [weak self] _ in
-            self?.moveProjectCell(project: project, status: .doing)
+        let MoveDoingAction = UIAlertAction(title: "Move To DOING", style: .default) { _ in
+            self.moveProjectCell(to: self.projectListView.doingTableView, project: project, status: .doing)
         }
 
-        let MoveDoneAction = UIAlertAction(title: "Move To DONE", style: .default) { [weak self] _ in
-            self?.moveProjectCell(project: project, status: .done)
+        let MoveDoneAction = UIAlertAction(title: "Move To DONE", style: .default) { _ in
+            self.moveProjectCell(to: self.projectListView.doneTableView, project: project, status: .done)
         }
 
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
