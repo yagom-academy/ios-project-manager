@@ -28,6 +28,16 @@ extension ProjectListViewController: UITableViewDelegate {
         }
     }
 
+    func createProjectCell(project: Project) {
+        projectManager.create(projectList: &projectList, project: project)
+        configureSnapshots()
+    }
+
+    func updateProjectCell(project: Project) {
+        projectManager.update(projectList: &projectList, project: project)
+        configureSnapshots()
+    }
+
     func deleteProjectCell(tableView: UITableView, project: Project) {
         guard let dataSource = tableView.dataSource as? DataSource else {
             fatalError()
@@ -82,5 +92,14 @@ extension ProjectListViewController: UITableViewDelegate {
         deleteAction.title = "삭제"
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedProject = fetchProject(tableView: tableView, indexPath: indexPath)
+        let projectViewController = ProjectViewController(with: selectedProject, mode: .edit) { project in
+            self.updateProjectCell(project: project)
+        }
+
+        present(projectViewController, animated: false)
     }
 }

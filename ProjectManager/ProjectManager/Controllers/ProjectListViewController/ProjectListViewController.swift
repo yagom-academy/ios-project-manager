@@ -47,8 +47,12 @@ final class ProjectListViewController: UIViewController {
 
     // MARK: Configure NavigationBar
     private func makeRightNavigationBarButton() -> UIBarButtonItem {
+        let projectViewController = ProjectViewController(mode: .add) { [weak self] project in
+            self?.createProjectCell(project: project)
+        }
+
         let touchUpAddButtonAction = UIAction { [weak self] _ in
-            self?.present(ProjectViewController(), animated: false)
+            self?.present(projectViewController, animated: false)
         }
 
         let addButton = UIBarButtonItem(systemItem: .add, primaryAction: touchUpAddButtonAction)

@@ -50,8 +50,16 @@ final class ProjectViewController: UIViewController {
         projectView.configure(with: project)
     }
 
+    private func fetchProjectViewData() {
+        project.title = projectView.titleTextView.text
+        project.description = projectView.descriptionTextView.text
+        project.dueDate = projectView.datePicker.date
+    }
+
     private func touchUpRightBarButton() {
+        fetchProjectViewData()
         completion?(project)
+        
         dismiss(animated: true, completion: nil)
     }
 
