@@ -37,19 +37,19 @@ final class ListView: UIView {
         return stackView
     }()
     
-    private lazy var categoryLabel: UILabel = {
+    lazy var categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .title1)
+        label.font = .preferredFont(forTextStyle: .title2)
         label.text = category.description
         return label
     }()
     
-    private lazy var categoryCountLabel: UILabel = {
-        let label = UILabel()
+    private let categoryCountLabel: CircleLabel = {
+        let label = CircleLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .black
-        label.layer.cornerRadius = label.layer.frame.width / 2
+        label.textAlignment = .center
         label.textColor = .white
         label.text = "0"
         return label

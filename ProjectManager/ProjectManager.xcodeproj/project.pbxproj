@@ -12,6 +12,7 @@
 		540B7242296E913A0096C753 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B7241296E913A0096C753 /* ListView.swift */; };
 		5425BEFB2976A221005924BC /* WorkFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5425BEFA2976A221005924BC /* WorkFormViewModel.swift */; };
 		5440B3C02977002E00183BB1 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5440B3BF2977002E00183BB1 /* ListViewModel.swift */; };
+		5440B3C429770B5900183BB1 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5440B3C329770B5900183BB1 /* CircleLabel.swift */; };
 		546A2A9A29701DC40033D593 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9929701DC40033D593 /* Category.swift */; };
 		546A2A9C29701ECC0033D593 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9B29701ECC0033D593 /* Work.swift */; };
 		546A2A9E297034A50033D593 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9D297034A50033D593 /* MainViewModel.swift */; };
@@ -33,6 +34,7 @@
 		540B7241296E913A0096C753 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		5425BEFA2976A221005924BC /* WorkFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormViewModel.swift; sourceTree = "<group>"; };
 		5440B3BF2977002E00183BB1 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		5440B3C329770B5900183BB1 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		546A2A9929701DC40033D593 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = ProjectManager/Model/Category.swift; sourceTree = SOURCE_ROOT; };
 		546A2A9B29701ECC0033D593 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Work.swift; path = ProjectManager/Model/Work.swift; sourceTree = SOURCE_ROOT; };
 		546A2A9D297034A50033D593 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				540B7241296E913A0096C753 /* ListView.swift */,
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				5497340B29716A96004F58D0 /* WorkFormController.swift */,
+				5440B3C329770B5900183BB1 /* CircleLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 			files = (
 				5425BEFB2976A221005924BC /* WorkFormViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				5440B3C429770B5900183BB1 /* CircleLabel.swift in Sources */,
 				5440B3C02977002E00183BB1 /* ListViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				5497340C29716A96004F58D0 /* WorkFormController.swift in Sources */,

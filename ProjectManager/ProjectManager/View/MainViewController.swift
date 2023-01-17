@@ -30,7 +30,6 @@ final class MainViewController: UIViewController {
         configureLayout()
         configureTableView()
         configureBind()
-        
     }
     
     private func configureLayout() {

@@ -12,21 +12,18 @@ final class MainViewModel {
         didSet {
             todoListHandler?(todoList)
         }
-        
     }
     
     var doingList: [Work] = [] {
         didSet {
             doingListHandler?(doingList)
         }
-        
     }
     
     var doneList: [Work] = [] {
         didSet {
             doneListHandler?(doneList)
         }
-        
     }
     
     private var todoListHandler: (([Work]) -> Void)?
