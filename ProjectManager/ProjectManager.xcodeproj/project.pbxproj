@@ -29,6 +29,7 @@
 		1854F13F29759B210082FB88 /* BoardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F13E29759B210082FB88 /* BoardStore.swift */; };
 		1858234729728273001AE6BC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858234629728273001AE6BC /* DetailView.swift */; };
 		1858235E2973265C001AE6BC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1858235D2973265C001AE6BC /* ComposableArchitecture */; };
+		189D2B3029769E020022F549 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D2B2F29769E020022F549 /* Int.swift */; };
 		18D24759296D4F00008E8DCC /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18D24757296D4F00008E8DCC /* Project.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		1854F13C29759B030082FB88 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		1854F13E29759B210082FB88 /* BoardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStore.swift; sourceTree = "<group>"; };
 		1858234629728273001AE6BC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		189D2B2F29769E020022F549 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		18D24758296D4F00008E8DCC /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectManager.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +88,7 @@
 				18186ABB296FE62B00E0B695 /* Font.swift */,
 				18186AC629703A6500E0B695 /* Color.swift */,
 				181DF173297148C4003EC956 /* Image.swift */,
+				189D2B2F29769E020022F549 /* Int.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				1804381E2975B451000CC2DA /* ProjectManagerAppView.swift in Sources */,
 				1854F13F29759B210082FB88 /* BoardStore.swift in Sources */,
 				1854F126297578150082FB88 /* NavigationStore.swift in Sources */,
+				189D2B3029769E020022F549 /* Int.swift in Sources */,
 				1854F13A297597830082FB88 /* BoardHeaderStore.swift in Sources */,
 				1854F128297578290082FB88 /* NavigationBarView.swift in Sources */,
 				1858234729728273001AE6BC /* DetailView.swift in Sources */,

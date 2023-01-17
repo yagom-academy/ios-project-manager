@@ -58,7 +58,7 @@ struct NavigationStore: ReducerProtocol {
         guard let detailState = state.detailState else { return .none }
         let project = Project(
           title: detailState.title,
-          date: detailState.deadLineDate.timeIntervalSince1970.exponent,
+          date: Int(detailState.deadLineDate.timeIntervalSince1970),
           description: detailState.description
         )
         state.createdProject = project
