@@ -12,45 +12,61 @@ struct TaskEntityDummy {
     /// case 1 = todo
     /// case 2 = doing
     /// case 3 = done
-
+    
     static var dummys: [TaskEntity] = [
         TaskEntity(
-            id: UUID().uuidString,
-            title: "제목제목제목",
-            content: "내용내용내용",
+            id: "1",
+            title: "RxSwift 추가",
+            content: "제곧내",
             deadLine: 1674140400, // 2023년
             state: 1
         ),
         
         TaskEntity(
-            id: UUID().uuidString,
+            id: "2",
             title: "제목제목제목",
             content: "내용내용내용",
-            deadLine: 1673881200,// 2023년
+            deadLine: 1673881200,
             state: 1
         ),
         
         TaskEntity(
-            id: UUID().uuidString,
+            id: "3",
+            title: "제목제목제목",
+            content: "내용내용내용",
+            deadLine: 1672498800.0,
+            state: 1
+        ),
+        
+        TaskEntity(
+            id: "4",
+            title: "제목제목제목",
+            content: "내용내용내용",
+            deadLine: 1677596400.0,
+            state: 1
+        ),
+        
+        TaskEntity(
+            id: "5",
             title: "Mock Repository 만들기",
             content: "아얀이 열심히 만듦",
-            deadLine: 1672498800, // 2023년
+            deadLine: 1675436400.0,
             state: 2
         ),
         
         TaskEntity(
-            id: UUID().uuidString,
+            id: "6",
             title: "step2 PR",
             content: "coordinator까지 만들어서 보내기",
-            deadLine: 1677596400, // 2023년
+            deadLine: 1674140400,
             state: 2
         ),
         
         TaskEntity(
-            id: UUID().uuidString,
+            id: "7",
             title: "RxSwift 추가",
             content: "제곧내",
-            deadLine: 1675436400, // 2023년
+            deadLine: 1674147600,
             state: 3
         )
     ]
