@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol DidEndEditTaskDelegate {
+protocol DidEndEditTaskDelegate: AnyObject {
     func didEndEdit(task: Task)
 }
