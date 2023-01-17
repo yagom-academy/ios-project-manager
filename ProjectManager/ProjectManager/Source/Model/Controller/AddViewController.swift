@@ -11,7 +11,7 @@ class AddViewController: UIViewController {
     
     // MARK: Properties
     
-    var delegate: DataSendDelegate?
+    var delegate: DataSendable?
     private let customPopUpView = CustomPopUpView()
     
     // MARK: Life Cycle
@@ -38,7 +38,7 @@ class AddViewController: UIViewController {
     
     @objc
     private func didTapDismissButton() {
-        if let inputData: CellInfo = customPopUpView.saveCellInfo() {
+        if let inputData: ProjectData = customPopUpView.saveProjectData() {
             delegate?.sendData(project: inputData)
         }
         

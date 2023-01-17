@@ -5,7 +5,7 @@
 //  Created by Dragon on 2023/01/12.
 //
 
-struct CellInfo {
+struct ProjectData {
     let title: String
     let body: String
     let deadline: Int

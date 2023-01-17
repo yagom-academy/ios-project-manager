@@ -51,14 +51,15 @@ class MainCenterTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: setSelected
+    // MARK: SetSelected
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     // MARK: Internal Methods
-    func configureLabel(todoList: CellInfo) {
+    
+    func configureLabel(todoList: ProjectData) {
         titleLabel.text = todoList.title
         bodyLabel.text = todoList.body
         dateLabel.text = String(todoList.deadline)

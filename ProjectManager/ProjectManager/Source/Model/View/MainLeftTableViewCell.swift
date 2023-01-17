@@ -2,7 +2,7 @@
 //  MainLeftTableViewCell.swift
 //  ProjectManager
 //
-//  Created by yonggeun Kim on 2023/01/13.
+//  Created by Dragon 2023/01/13.
 //
 
 import UIKit
@@ -42,11 +42,14 @@ class MainLeftTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: SetSelected
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     // MARK: Internal Methods
+    
     func configureLabel(title: String, body: String, date: String) {
         titleLabel.text = title
         bodyLabel.text = body

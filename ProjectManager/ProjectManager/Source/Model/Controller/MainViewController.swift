@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
     
     private let projectManagerView = MainProjectManagerView()
     private let section: [String] = ["TODO", "DOING", "DONE"]
-    private var todoList: [CellInfo] = []
+    private var todoList: [ProjectData] = []
     
     // MARK: Life Cycle
     
@@ -117,8 +117,8 @@ extension MainViewController: UITableViewDataSource {
 
 // MARK: - DataSendDelegate
 
-extension MainViewController: DataSendDelegate {
-    func sendData(project: CellInfo) {
+extension MainViewController: DataSendable {
+    func sendData(project: ProjectData) {
         todoList.append(project)
         projectManagerView.reloadTableView()
     }

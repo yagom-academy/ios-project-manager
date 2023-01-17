@@ -23,7 +23,6 @@ class CustomPopUpView: UIView {
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
-    
     private let popUpView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -107,10 +106,10 @@ class CustomPopUpView: UIView {
     
     // MARK: Internal Methods
     
-    func saveCellInfo() -> CellInfo? {
+    func saveProjectData() -> ProjectData? {
         if let title = titleTextField.text,
            let body = bodyTextField.text {
-            let todoList: CellInfo = CellInfo(
+            let todoList: ProjectData = ProjectData(
                 title: title,
                 body: body,
                 deadline: 100

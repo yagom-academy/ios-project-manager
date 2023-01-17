@@ -2,7 +2,7 @@
 //  MainTitleView.swift
 //  ProjectManager
 //
-//  Created by yonggeun Kim on 2023/01/13.
+//  Created by Dragon on 2023/01/13.
 //
 
 import UIKit
