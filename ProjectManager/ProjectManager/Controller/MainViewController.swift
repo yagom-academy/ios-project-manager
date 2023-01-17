@@ -155,56 +155,38 @@ final class MainViewController: UIViewController {
         return view
     }()
 
-    private let todoCollectionView: UICollectionView = {
-        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                heightDimension: .estimated(10))
-        let layoutItem = NSCollectionLayoutItem(layoutSize: layoutSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .estimated(10))
-        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                             subitems: [layoutItem])
-        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.interGroupSpacing = 8
-        let compositionalLayout = UICollectionViewCompositionalLayout(section: layoutSection)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout)
+    private lazy var todoCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         return collectionView
     }()
 
-    private let doingCollectionView: UICollectionView = {
-        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                heightDimension: .estimated(10))
-        let layoutItem = NSCollectionLayoutItem(layoutSize: layoutSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .estimated(10))
-        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                             subitems: [layoutItem])
-        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.interGroupSpacing = 8
-        let compositionalLayout = UICollectionViewCompositionalLayout(section: layoutSection)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout)
+    private lazy var doingCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
+        collectionView.allowsSelection = false
         return collectionView
     }()
 
-    private let doneCollectionView: UICollectionView = {
-        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                heightDimension: .estimated(10))
-        let layoutItem = NSCollectionLayoutItem(layoutSize: layoutSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .estimated(10))
-        let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                             subitems: [layoutItem])
-        let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.interGroupSpacing = 8
-        let compositionalLayout = UICollectionViewCompositionalLayout(section: layoutSection)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout)
+    private lazy var doneCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
+        collectionView.allowsSelection = false
         return collectionView
     }()
+
+    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout { _, layoutEnviroment in
+            let configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
+            let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnviroment)
+            section.interGroupSpacing = 8
+            return section
+        }
+        return layout
+    }
 
     private var todoLists: [TodoModel] = [
         TodoModel(title: "hi", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "11-11-11"),
@@ -327,13 +309,6 @@ final class MainViewController: UIViewController {
             doneCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
-//    private static func collectionViewLayout() -> UICollectionViewLayout {
-//        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-//        configuration.showsSeparators = true
-//        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-//        return layout
-//    }
 
     private func configureTodoDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
@@ -481,6 +456,7 @@ extension MainViewController {
         }
     }
 
+    // 이름수정하기
     @objc private func handleLongPress2(gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: doingCollectionView)
         guard let indexPath = doingCollectionView.indexPathForItem(at: location) else { return }
