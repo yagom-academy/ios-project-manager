@@ -42,7 +42,8 @@ class ListViewModel {
     }
     
     func moveWork(data: Work, category: Category) {
-        
+        workManager.moveWork(data: data, category: category)
+        reloadHandler?()
     }
     
     func deleteWork(data: Work) {

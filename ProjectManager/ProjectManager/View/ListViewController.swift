@@ -138,14 +138,21 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 // Custom Delegate
 extension ListViewController: WorkDelegate, CellDelegate {
     func showPopover(cell: ListCell) {
+        
+        guard let work = cell.work else { return }
+        
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
-       actionSheet.addAction(UIAlertAction(title: "Move to Doing", style: .default, handler: { _ in  }))
         
-       actionSheet.addAction(UIAlertAction(title: "Move to Done", style: .default, handler: { _ in  }))
+        actionSheet.addAction(UIAlertAction(title: work.category.otherDescription.0, style: .default, handler: { _ in
+            self.viewModel.moveWork(data: work, category: work.category.other.0)
+        }))
         
-       actionSheet.popoverPresentationController?.sourceView = cell
-       present(actionSheet, animated: true, completion: nil)
+        actionSheet.addAction(UIAlertAction(title: work.category.otherDescription.1, style: .default, handler: { _ in
+            self.viewModel.moveWork(data: work, category: work.category.other.1)
+        }))
+        
+        actionSheet.popoverPresentationController?.sourceView = cell
+        present(actionSheet, animated: true, completion: nil)
     }
     
     func send(data: Work) {
