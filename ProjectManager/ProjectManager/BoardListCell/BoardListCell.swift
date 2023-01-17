@@ -23,14 +23,15 @@ struct BoardListCell: View {
             .lineLimit(3)
             .font(.system(.body))
           
-          Text(Date(timeIntervalSince1970: Double(viewStore.project.date)).description)
-            .font(.caption)
+          Text(viewStore.project.date.convertedDateDescription)
+            .font(.callout)
         }
+        
         Spacer()
       }
-      .padding(10)
+      .padding()
       .background(Color.secondaryBackground)
-      .cornerRadius(15)
+      .cornerRadius(20)
     }
   }
 }

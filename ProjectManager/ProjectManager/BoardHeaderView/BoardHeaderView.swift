@@ -15,21 +15,27 @@ struct BoardHeaderView: View {
       
       HStack {
         Text(viewStore.projectStatus.description)
-          .font(.title)
+          .font(.largeTitle)
           .bold()
+          .padding(.horizontal)
+          .foregroundColor(.white)
         
         Spacer()
         
         if viewStore.length > 2 {
           Text(viewStore.count.description)
-            .padding(10)
+            .font(.title)
+            .bold()
+            .padding(15)
             .background(
               Capsule()
                 .fill(.white)
             )
         } else {
           Text(viewStore.count.description)
-            .padding(10)
+            .font(.title)
+            .bold()
+            .padding(15)
             .background(
               Circle()
                 .fill(.white)
@@ -37,7 +43,8 @@ struct BoardHeaderView: View {
         }
       }
       .padding()
-      .background(Color.secondaryBackground)
+      .background(Color.accentColor)
+      .cornerRadius(20)
     }
   }
 }
@@ -55,6 +62,8 @@ struct BoardHeaderView_Previews: PreviewProvider {
     BoardHeaderView(headerStore: headerStore)
       .previewInterfaceOrientation(.landscapeLeft)
       .previewLayout(.sizeThatFits)
+      .frame(maxWidth: 450)
       .padding()
+      
   }
 }
