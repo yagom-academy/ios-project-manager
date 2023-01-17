@@ -166,6 +166,7 @@
 		B262E44A296FA1C100E79C17 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B208DD63297685150001DF90 /* ListItemCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -328,6 +329,8 @@
 				B208DD67297694AA0001DF90 /* Date +.swift in Sources */,
 				B235A98B29729B80008A25A6 /* EllipseLabel.swift in Sources */,
 				B24150FA2973ED0000F7666A /* ListFormView.swift in Sources */,
+				B208DD64297685150001DF90 /* ListItemCellViewModel.swift in Sources */,
+				B208DD69297695270001DF90 /* DateFormatter +.swift in Sources */,
 				B24150FC2973EFC900F7666A /* ListFormViewController.swift in Sources */,
 				B262E44C296FF53E00E79C17 /* ListStackView.swift in Sources */,
 				B262E44E2970033000E79C17 /* ListItemCell.swift in Sources */,
