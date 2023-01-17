@@ -2,7 +2,7 @@
 //  Array+.swift
 //  ProjectManager
 //
-//  Created by Gundy on 2023/01/12.
+//  Created by GUNDY on 2023/01/12.
 //
 
 extension Array {

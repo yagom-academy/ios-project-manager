@@ -2,27 +2,26 @@
 //  ProjectListView.swift
 //  ProjectManager
 //
-//  Created by Gundy on 2023/01/15.
+//  Created by GUNDY on 2023/01/15.
 //
 
 import UIKit
 
 final class ProjectListView: UIView, PlanListView {
 
-    typealias Text = ProjectConstant.Text
-    typealias Style = ProjectConstant.Style
-    typealias Color = ProjectConstant.Color
-    typealias Number = ProjectConstant.Number
+    typealias Text = Constant.Text
+    typealias Style = Constant.Style
+    typealias Color = Constant.Color
+    typealias Number = Constant.Number
     
     var delegate: PlanListViewDelegate?
-    var state: PlanState
+    var state: State
     private let titleView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = Style.stackViewSpacing
         stackView.alignment = .fill
         stackView.distribution = .equalSpacing
-        stackView.setContentHuggingPriority(.required, for: .vertical)
         stackView.layoutMargins = UIEdgeInsets(top: Style.listTitleMargin,
                                                left: Style.listTitleMargin,
                                                bottom: Style.listTitleMargin,
@@ -63,7 +62,7 @@ final class ProjectListView: UIView, PlanListView {
         return collectionView
     }()
 
-    init(state: PlanState, frame: CGRect) {
+    init(state: State, frame: CGRect) {
         self.state = state
         super.init(frame: frame)
         configureUIComponent()

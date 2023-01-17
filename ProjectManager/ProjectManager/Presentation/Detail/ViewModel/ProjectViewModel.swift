@@ -2,7 +2,7 @@
 //  ProjectViewModel.swift
 //  ProjectManager
 //
-//  Created by Gundy on 2023/01/11.
+//  Created by GUNDY on 2023/01/11.
 //
 
 import Foundation
@@ -13,14 +13,14 @@ protocol PlanViewModel {
     var description: String? { get }
     var deadlineText: String? { get }
     var isOverDue: Bool? { get }
-    init(plan: Plan?)
+    init(project: Project?)
     func bindEdit(handler: @escaping (Bool) -> Void)
     func changeEditable(state: Bool)
 }
 
 final class ProjectViewModel: PlanViewModel {
 
-    private var plan: Plan?
+    private var plan: Project?
     private var isEditable: Bool = false {
         didSet {
             editHandler?(isEditable)
@@ -40,7 +40,7 @@ final class ProjectViewModel: PlanViewModel {
         return plan?.deadline.isOverdue
     }
 
-    init(plan: Plan? = nil) {
+    init(project plan: Project? = nil) {
         self.plan = plan
     }
 

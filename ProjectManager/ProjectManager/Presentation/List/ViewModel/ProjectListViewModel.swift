@@ -2,18 +2,18 @@
 //  ProjectListViewModel.swift
 //  ProjectManager
 //
-//  Created by Gundy on 2023/01/11.
+//  Created by GUNDY on 2023/01/11.
 //
 
 import Foundation
 
-protocol PlanListViewModel: OutputPort {
+protocol PlanListViewModel {
 
-    init(toDoList: [Plan], doingList: [Plan], doneList: [Plan])
+    init(toDoList: [Project], doingList: [Project], doneList: [Project])
     func bindToDoList(handler: @escaping ([PlanViewModel]) -> Void)
     func bindDoingList(handler: @escaping ([PlanViewModel]) -> Void)
     func bindDoneList(handler: @escaping ([PlanViewModel]) -> Void)
-    func fetchList(of state: PlanState) -> [PlanViewModel]
+    func fetchList(of state: State) -> [PlanViewModel]
 }
 
 final class ProjectListViewModel: PlanListViewModel {
@@ -37,7 +37,7 @@ final class ProjectListViewModel: PlanListViewModel {
     private var doingListHandler: (([PlanViewModel]) -> Void)?
     private var doneListHandler: (([PlanViewModel]) -> Void)?
 
-    init(toDoList: [Plan] = [], doingList: [Plan] = [], doneList: [Plan] = []) {
+    init(toDoList: [Project] = [], doingList: [Project] = [], doneList: [Project] = []) {
         self.toDoList = toDoList.map(ProjectViewModel.init)
         self.doingList = doingList.map(ProjectViewModel.init)
         self.doneList = doneList.map(ProjectViewModel.init)
@@ -55,13 +55,13 @@ final class ProjectListViewModel: PlanListViewModel {
         self.toDoListHandler = handler
     }
 
-    func configurePlanList(toDo: [Plan], doing: [Plan], done: [Plan]) {
+    func configurePlanList(toDo: [Project], doing: [Project], done: [Project]) {
         self.toDoList = toDo.map(ProjectViewModel.init)
         self.doingList = doing.map(ProjectViewModel.init)
         self.doneList = done.map(ProjectViewModel.init)
     }
 
-    func fetchList(of state: PlanState) -> [PlanViewModel] {
+    func fetchList(of state: State) -> [PlanViewModel] {
         switch state {
         case .toDo:
             return toDoList

@@ -2,32 +2,24 @@
 //  PlanManager.swift
 //  ProjectManager
 //
-//  Created by Gundy on 2023/01/14.
+//  Created by GUNDY on 2023/01/14.
 //
 
 import Foundation
 
 protocol PlanManager {
 
-    var outputPort: OutputPort? { get set }
     func addPlan(title: String, description: String, deadline: Date)
     func editPlan(title: String, description: String, deadline: Date, identifier: UUID)
-    func movePlan(to destination: PlanState, identifier: UUID)
-    func removePlan(identifier: UUID) -> Plan?
-    func fetchList(of state: PlanState) -> [Plan]
+    func movePlan(to destination: State, identifier: UUID)
+    func removePlan(identifier: UUID) -> Project?
+    func fetchList(of state: State) -> [Project]
 }
 
 final class ProjectManager: PlanManager {
 
     static let shared: ProjectManager = ProjectManager()
-    private var container: [Plan] = [] {
-        didSet {
-            outputPort?.configurePlanList(toDo: fetchList(of: .toDo),
-                                          doing: fetchList(of: .doing),
-                                          done: fetchList(of: .done))
-        }
-    }
-    var outputPort: OutputPort?
+    private var container: [Project] = []
 
     private init() { }
 
@@ -36,7 +28,7 @@ final class ProjectManager: PlanManager {
         container.append(plan)
     }
 
-    private func fetchPlan(identifier: UUID) -> Plan? {
+    private func fetchPlan(identifier: UUID) -> Project? {
         return container.filter({ $0.identifier == identifier }).first
     }
 
@@ -57,7 +49,7 @@ final class ProjectManager: PlanManager {
         container.insert(plan, at: index)
     }
 
-    func movePlan(to destination: PlanState, identifier: UUID) {
+    func movePlan(to destination: State, identifier: UUID) {
         guard var plan = removePlan(identifier: identifier) else {
             return
         }
@@ -67,14 +59,14 @@ final class ProjectManager: PlanManager {
     }
 
     @discardableResult
-    func removePlan(identifier: UUID) -> Plan? {
+    func removePlan(identifier: UUID) -> Project? {
         let plan = fetchPlan(identifier: identifier)
         container = container.filter({ $0.identifier != identifier })
 
         return plan
     }
 
-    func fetchList(of state: PlanState) -> [Plan] {
+    func fetchList(of state: State) -> [Project] {
         return container.filter({ $0.state == state })
     }
 }

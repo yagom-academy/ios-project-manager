@@ -2,14 +2,14 @@
 //  PlanListView.swift
 //  ProjectManager
 //
-//  Created by Gundy on 2023/01/15.
+//  Created by GUNDY on 2023/01/15.
 //
 
 import UIKit
 
 protocol PlanListView: UIView {
     var delegate: PlanListViewDelegate? { get set }
-    var state: PlanState { get }
+    var state: State { get }
 }
 
 extension PlanListView {
@@ -19,5 +19,5 @@ extension PlanListView {
 }
 
 protocol PlanListViewDelegate: UICollectionViewDelegate {
-    func configureList(state: PlanState) -> [PlanViewModel]
+    func configureList(state: State) -> [PlanViewModel]
 }

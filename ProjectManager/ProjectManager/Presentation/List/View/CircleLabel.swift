@@ -2,15 +2,15 @@
 //  CircleLabel.swift
 //  ProjectManager
 //
-//  Created by Gundy on 2023/01/15.
+//  Created by GUNDY on 2023/01/15.
 //
 
 import UIKit
 
 class CircleLabel: UILabel {
 
-    typealias Style = ProjectConstant.Style
-    typealias Color = ProjectConstant.Color
+    typealias Style = Constant.Style
+    typealias Color = Constant.Color
 
     init(circleColor: CGColor = Color.circleBackground,
          textColor: UIColor = Color.circleText,

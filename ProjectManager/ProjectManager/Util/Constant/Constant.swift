@@ -1,14 +1,14 @@
 //
-//  ProjectConstant.swift
+//  Constant.swift
 //  ProjectManager
 //
-//  Created by Gundy on 2023/01/12.
+//  Created by GUNDY on 2023/01/12.
 //
 
 import CoreGraphics
 import UIKit
 
-enum ProjectConstant {
+enum Constant {
 
     enum Number {
 

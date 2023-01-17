@@ -8,9 +8,9 @@ import UIKit
 
 final class PlanListViewController: UIViewController {
     
-    typealias Text = ProjectConstant.Text
-    typealias Style = ProjectConstant.Style
-    typealias Color = ProjectConstant.Color
+    typealias Text = Constant.Text
+    typealias Style = Constant.Style
+    typealias Color = Constant.Color
 
     private var planManager: PlanManager
     private let viewModel: PlanListViewModel
@@ -39,8 +39,6 @@ final class PlanListViewController: UIViewController {
         self.viewModel = viewModel
         self.planListStackViews = planListStackViews
         super.init(nibName: nil, bundle: nil)
-
-        configurePlanManger()
     }
 
     @available(*, unavailable)
@@ -52,10 +50,6 @@ final class PlanListViewController: UIViewController {
         super.viewDidLoad()
 
         configureUIComponent()
-    }
-
-    private func configurePlanManger() {
-        planManager.outputPort = viewModel
     }
 
     private func configureUIComponent() {
@@ -109,7 +103,7 @@ final class PlanListViewController: UIViewController {
 }
 
 extension PlanListViewController: PlanListViewDelegate {
-    func configureList(state: PlanState) -> [PlanViewModel] {
+    func configureList(state: State) -> [PlanViewModel] {
         switch state {
         case .toDo:
             return viewModel.fetchList(of: .toDo)
