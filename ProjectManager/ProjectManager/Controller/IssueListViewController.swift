@@ -76,10 +76,15 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.separatorConfiguration.topSeparatorVisibility = .hidden
         listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
-//        listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
-//            guard let issue = self.dataSource?.itemIdentifier(for: indexPath) else { return nil }
-//
-//        }
+        listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
+            let deleteAction = UIContextualAction(style: .destructive,
+                                                  title: Namespace.delete) { action, view, completion in
+                guard let issue = self.dataSource?.itemIdentifier(for: indexPath) else { return }
+                self.deleteIssue(issue: issue)
+            }
+            
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
         
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         
@@ -119,9 +124,21 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
+    private func deleteIssue(issue: Issue) {
+        guard var snapshot = dataSource?.snapshot(),
+              let index = issues.firstIndex(where: {$0.id == issue.id}) else { return }
+        snapshot.deleteItems([issue])
+        issues.remove(at: index)
+        dataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
     enum LayoutConstant {
         static let spacing = CGFloat(8)
         static let margin = CGFloat(12)
+    }
+    
+    enum Namespace {
+        static let delete = "Delete"
     }
 }
 
@@ -140,7 +157,6 @@ extension IssueListViewController: IssueManageable {
         issues.append(issue)
         applySnapshot()
     }
-
 }
 
 extension IssueListViewController: UICollectionViewDelegate {
