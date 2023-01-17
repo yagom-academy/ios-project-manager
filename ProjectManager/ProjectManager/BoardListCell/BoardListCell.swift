@@ -26,10 +26,10 @@ struct BoardListCell: View {
           Text(viewStore.project.date.convertedDateDescription)
             .font(.callout)
         }
+        .padding()
         
         Spacer()
       }
-      .padding()
       .background(Color.secondaryBackground)
       .cornerRadius(20)
       .contextMenu {
@@ -55,6 +55,5 @@ struct BoardListCell_Previews:PreviewProvider {
     BoardListCell(store: listCellStore)
       .previewLayout(.sizeThatFits)
       .previewInterfaceOrientation(.landscapeLeft)
-      .padding()
   }
 }

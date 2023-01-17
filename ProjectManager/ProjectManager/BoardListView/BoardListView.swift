@@ -12,7 +12,7 @@ struct BoardListView: View {
   
   var body: some View {
     WithViewStore(boardListStore, observe: { $0 }) { viewStore in
-      VStack {
+      VStack(spacing: 0) {
         BoardHeaderView(
           headerStore: boardListStore.scope(
             state: \.headerState,
@@ -34,7 +34,9 @@ struct BoardListView: View {
           .listRowSeparator(.hidden)
           .listRowInsets(Self.rowInset)
         }
-        .listStyle(.plain)
+      }
+      .onAppear {
+        UITableView.appearance().backgroundColor = .white
       }
     }
   }
@@ -55,5 +57,6 @@ struct BoardListView_Previews: PreviewProvider {
   static var previews: some View {
     BoardListView(boardListStore: boardListStore)
       .previewInterfaceOrientation(.landscapeLeft)
+      .padding()
   }
 }
