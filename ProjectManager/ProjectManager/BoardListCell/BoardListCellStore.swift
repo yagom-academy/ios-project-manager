@@ -14,12 +14,12 @@ struct BoardListCellStore: ReducerProtocol {
   }
   
   enum Action: Equatable {
-    case longTapEnded
+    case didChangeState(ProjectState)
   }
   
   func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {
-    case .longTapEnded:
+    case .didChangeState(_):
       return .none
     }
   }

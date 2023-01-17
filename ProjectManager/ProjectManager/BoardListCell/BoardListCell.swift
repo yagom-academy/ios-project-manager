@@ -32,6 +32,16 @@ struct BoardListCell: View {
       .padding()
       .background(Color.secondaryBackground)
       .cornerRadius(20)
+      .contextMenu {
+        // TODO: - 이동 메서드 추가
+        Button("Move to Doing") {
+          viewStore.send(.didChangeState(.doing))
+        }
+        
+        Button("Move to Done") {
+          viewStore.send(.didChangeState(.done))
+        }
+      }
     }
   }
 }

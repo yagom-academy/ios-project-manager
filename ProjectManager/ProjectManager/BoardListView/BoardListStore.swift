@@ -9,6 +9,7 @@ import Foundation
 
 struct BoardListStore: ReducerProtocol {
   struct State: Equatable {
+    @BindableState var selectedProject = Set<Project.ID>()
     var status: ProjectState
     var headerState: BoardHeaderStore.State
     var projects: IdentifiedArrayOf<BoardListCellStore.State> = [] {
@@ -27,8 +28,9 @@ struct BoardListStore: ReducerProtocol {
     }
   }
   
-  enum Action: Equatable {
+  enum Action: BindableAction, Equatable {
     //MARK: 삭제 예정
+    case binding(BindingAction<State>)
     case deleteProject(IndexSet)
     case optionalHeader(BoardHeaderStore.Action)
     case projectItem(id: BoardListCellStore.State.ID, action: BoardListCellStore.Action)
@@ -37,12 +39,17 @@ struct BoardListStore: ReducerProtocol {
   var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
       switch action {
+      case .binding:
+        return .none
+        
       case .optionalHeader:
         return .none
+        
       case let .deleteProject(indexSet):
         indexSet.forEach { state.projects.remove(at: $0) }
         return .none
-      default:
+        
+      case .projectItem:
         return .none
       }
     }.forEach(\.projects, action: /Action.projectItem(id:action:)) {
