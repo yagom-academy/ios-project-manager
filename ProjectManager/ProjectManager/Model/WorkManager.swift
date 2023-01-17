@@ -22,16 +22,13 @@ class WorkManager {
         totalWorkList.filter { $0.category == .done }
     }
     
-    func getWorkList() {
-        
-    }
-    
     func registerWork(data: Work) {
         totalWorkList.append(data)
     }
     
-    func updateWork() {
-        
+    func moveWork(data: Work, category: Category) {
+        let dataIndex = totalWorkList.firstIndex { data.id == $0.id }
+        totalWorkList[dataIndex!].category = category
     }
     
     func deleteWork(data: Work) {
