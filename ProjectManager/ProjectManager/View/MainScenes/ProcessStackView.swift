@@ -20,8 +20,6 @@ final class ProcessStackView: UIStackView {
     private let titleLabel = UILabel(fontStyle: .largeTitle)
     private let countLabel = UILabel(fontStyle: .title3)
     
-    let tableView = UITableView(frame: .zero, style: .insetGrouped)
-        
     private lazy var headerStackView = UIStackView(
         views: [titleLabel, countLabel],
         axis: .horizontal,
@@ -36,6 +34,9 @@ final class ProcessStackView: UIStackView {
         return view
     }()
     
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    weak var delegate: GestureRelayable?
+    
     init(process: Process) {
         titleLabel.text = process.titleValue
         super.init(frame: .zero)
@@ -43,6 +44,7 @@ final class ProcessStackView: UIStackView {
         setupLabel()
         setupTableView()
         setupCosntraint()
+        setupGesture()
     }
     
     required init(coder: NSCoder) {
@@ -51,6 +53,28 @@ final class ProcessStackView: UIStackView {
     
     func changeCountLabel(_ count: String) {
         countLabel.text = count
+    }
+}
+
+// MARK: - Long Press Gesture
+extension ProcessStackView {
+    private func setupGesture() {
+        let longPress = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(longPressGesture)
+        )
+        
+        longPress.delaysTouchesBegan = true
+        tableView.addGestureRecognizer(longPress)
+    }
+    
+    @objc func longPressGesture(sender: UILongPressGestureRecognizer) {
+        let point = sender.location(in: tableView)
+        
+        guard let indexPath = tableView.indexPathForRow(at: point) else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        
+        delegate?.relayGesture(sender, indexPath: indexPath, cell: cell)
     }
 }
 

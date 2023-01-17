@@ -10,6 +10,14 @@ protocol DataSharable: AnyObject {
     func shareData(data: Todo)
 }
 
+protocol GestureRelayable: AnyObject {
+    func relayGesture(
+        _ sender: UILongPressGestureRecognizer,
+        indexPath: IndexPath,
+        cell: UITableViewCell
+    )
+}
+
 final class MainViewController: UIViewController {
     typealias DataSource = UITableViewDiffableDataSource<Section, Todo>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Todo>
@@ -48,7 +56,6 @@ final class MainViewController: UIViewController {
         setupBinding()
         setupNavigationBar()
         setupView()
-        setupTableView()
         setupConstraint()
     }
     
@@ -105,15 +112,13 @@ extension MainViewController {
         navigationItem.rightBarButtonItem = addBarButton
     }
     
-    private func setupTableView() {
-        [todoView, doingView, doneView].forEach {
-            $0.tableView.delegate = self
-        }
-    }
-    
     private func setupView() {
         view.backgroundColor = .systemGray6
         view.addSubview(mainStackView)
+        [todoView, doingView, doneView].forEach {
+            $0.tableView.delegate = self
+            $0.delegate = self
+        }
     }
     
     private func setupConstraint() {
@@ -143,10 +148,7 @@ extension MainViewController {
             tableView = doneView.tableView
         }
         
-        let dataSource = DataSource(
-            tableView: tableView
-        ) { tableView, indexPath, todoData in
-            
+        let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todoData in
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProcessTableViewCell.identifier,
                 for: indexPath
@@ -192,18 +194,7 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let process: Process
-        
-        switch tableView {
-        case todoView.tableView:
-            process = .todo
-        case doingView.tableView:
-            process = .doing
-        case doneView.tableView:
-            process = .done
-        default:
-            return
-        }
+        guard let process = checkSelectTableProcess(tableView: tableView) else { return }
         
         viewModel.setupUploadDataProcess(process: process)
         viewModel.setupUploadDataIndex(index: indexPath.row)
@@ -234,18 +225,7 @@ extension MainViewController: UITableViewDelegate {
             title: UIConstant.deleteSwipeTitle
         ) { _, _, _ in
             
-            let process: Process
-            
-            switch tableView {
-            case self.todoView.tableView:
-                process = .todo
-            case self.doingView.tableView:
-                process = .doing
-            case self.doneView.tableView:
-                process = .done
-            default:
-                return
-            }
+            guard let process = self.checkSelectTableProcess(tableView: tableView) else { return }
             
             self.viewModel.setupUploadDataIndex(index: indexPath.row)
             self.viewModel.setupUploadDataProcess(process: process)
@@ -264,5 +244,62 @@ extension MainViewController: DataSharable {
     func shareData(data: Todo) {
         viewModel.updateData(data: data)
         viewModel.resetUploadProcessIndex()
+    }
+}
+
+// MARK: - GestureRelayable Protocol & POPOver Alert
+extension MainViewController: GestureRelayable {
+    func relayGesture(
+        _ sender: UILongPressGestureRecognizer,
+        indexPath: IndexPath,
+        cell: UITableViewCell
+    ) {
+        showPopover(sender: sender, cell: cell, indexPath: indexPath)
+    }
+    
+    private func showPopover(
+        sender: UILongPressGestureRecognizer,
+        cell: UITableViewCell,
+        indexPath: IndexPath
+    ) {
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        guard let tableView = sender.view as? UITableView else { return }
+        
+        guard let selectProcess = checkSelectTableProcess(tableView: tableView) else { return }
+        viewModel.setupUploadDataProcess(process: selectProcess)
+        viewModel.setupUploadDataIndex(index: indexPath.row)
+        
+        Process.allCases.filter {
+            $0 != selectProcess
+        }.forEach { process in
+            let action = UIAlertAction(
+                title: "Move To \(process.titleValue)",
+                style: .default
+            ) { [weak self] _ in
+                self?.viewModel.changeProcess(after: process, index: indexPath.row)
+                self?.dismiss(animated: true)
+            }
+            alert.addAction(action)
+        }
+        
+        guard let popover = alert.popoverPresentationController else { return }
+        popover.sourceView = cell.contentView
+        
+        present(alert, animated: true)
+    }
+    
+    private func checkSelectTableProcess(tableView: UITableView) -> Process? {
+        switch tableView {
+        case todoView.tableView:
+            return .todo
+        case doingView.tableView:
+            return .doing
+        case doneView.tableView:
+            return .done
+        default:
+            return nil
+        }
     }
 }

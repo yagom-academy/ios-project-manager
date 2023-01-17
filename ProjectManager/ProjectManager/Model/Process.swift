@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Process {
+enum Process: CaseIterable {
     case todo
     case doing
     case done

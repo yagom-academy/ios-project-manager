@@ -97,6 +97,32 @@ extension MainViewModel {
         }
     }
     
+    func changeProcess(after: Process, index: Int) {
+        guard let index = uploadDataIndex else { return }
+        guard let process = uploadDataProcess else { return }
+        
+        switch process {
+        case .todo:
+            if after == .doing {
+                doingData.append(todoData.remove(at: index))
+            } else {
+                doneData.append(todoData.remove(at: index))
+            }
+        case .doing:
+            if after == .todo {
+                todoData.append(doingData.remove(at: index))
+            } else {
+                doneData.append(doingData.remove(at: index))
+            }
+        case .done:
+            if after == .todo {
+                todoData.append(doneData.remove(at: index))
+            } else {
+                doingData.append(doneData.remove(at: index))
+            }
+        }
+    }
+    
     func setupUploadDataProcess(process: Process) {
         uploadDataProcess = process
     }
