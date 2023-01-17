@@ -10,8 +10,8 @@ import Foundation
 struct Work: Equatable {
     let id = UUID()
     var category: Category
-    var title: String
-    var body: String
+    var title: String?
+    var body: String?
     var endDate: Date
     
     var endDateToString: String {

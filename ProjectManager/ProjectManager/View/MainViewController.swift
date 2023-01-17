@@ -128,7 +128,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let workFormViewController = WorkFormViewController()
         let navigationViewController = UINavigationController(rootViewController: workFormViewController)
-        workFormViewController.work = viewModel.todoList[indexPath.row]
+        
+        switch tableView {
+        case doneListView.tableView:
+            workFormViewController.viewModel.work = viewModel.doneList[indexPath.row]
+        case doingListView.tableView:
+            workFormViewController.viewModel.work = viewModel.doingList[indexPath.row]
+        case todoListView.tableView:
+            workFormViewController.viewModel.work = viewModel.todoList[indexPath.row]
+        default:
+            break
+        }
+        
+        workFormViewController.configureEditForm()
         workFormViewController.delegate = self
         navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         

@@ -10,6 +10,7 @@
 		540B723C296E67520096C753 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 540B723B296E67520096C753 /* .swiftlint.yml */; };
 		540B7240296E751D0096C753 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B723F296E751D0096C753 /* ListCell.swift */; };
 		540B7242296E913A0096C753 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B7241296E913A0096C753 /* ListView.swift */; };
+		5425BEFB2976A221005924BC /* WorkFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5425BEFA2976A221005924BC /* WorkFormViewModel.swift */; };
 		546A2A9A29701DC40033D593 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9929701DC40033D593 /* Category.swift */; };
 		546A2A9C29701ECC0033D593 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9B29701ECC0033D593 /* Work.swift */; };
 		546A2A9E297034A50033D593 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9D297034A50033D593 /* MainViewModel.swift */; };
@@ -29,6 +30,7 @@
 		540B723B296E67520096C753 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		540B723F296E751D0096C753 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		540B7241296E913A0096C753 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		5425BEFA2976A221005924BC /* WorkFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormViewModel.swift; sourceTree = "<group>"; };
 		546A2A9929701DC40033D593 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = ProjectManager/Model/Category.swift; sourceTree = SOURCE_ROOT; };
 		546A2A9B29701ECC0033D593 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Work.swift; path = ProjectManager/Model/Work.swift; sourceTree = SOURCE_ROOT; };
 		546A2A9D297034A50033D593 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				546A2A9D297034A50033D593 /* MainViewModel.swift */,
+				5425BEFA2976A221005924BC /* WorkFormViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5497341029741D7D004F58D0 /* WorkManager.swift in Sources */,
+				5425BEFB2976A221005924BC /* WorkFormViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				5497340C29716A96004F58D0 /* WorkFormController.swift in Sources */,

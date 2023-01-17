@@ -8,7 +8,8 @@
 import UIKit
 
 class WorkFormViewController: UIViewController {
-    var work: Work?
+    var viewModel = WorkFormViewModel()
+    
     weak var delegate: WorkDelegate?
     
     let stackView: UIStackView = {
@@ -55,18 +56,18 @@ class WorkFormViewController: UIViewController {
         configureNavigationBar()
         configureLayout()
         configureWork()
-        view.backgroundColor = .white
     }
     
     func configureWork() {
-        guard let work = work else { return }
+        guard let work = viewModel.work else { return }
         titleTextField.text = work.title
         bodyTextView.text = work.body
         datePicker.date = work.endDate
     }
+    
     func configureNavigationBar() {
         navigationItem.title = "TODO"
-        if work != nil {
+        if viewModel.work != nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self,
                                                                action: #selector(editButtonTapped))
         } else {
@@ -74,11 +75,12 @@ class WorkFormViewController: UIViewController {
                                                                action: #selector(cancelButtonTapped))
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self,
-                                                            action: #selector(rightButtonTapped))
+                                                            action: #selector(doneButtonTapped))
         navigationController?.navigationBar.backgroundColor = .systemGray5
     }
     
     func configureLayout() {
+        view.backgroundColor = .white
         view.addSubview(stackView)
         stackView.addArrangedSubview(titleTextField)
         stackView.addArrangedSubview(datePicker)
@@ -93,25 +95,29 @@ class WorkFormViewController: UIViewController {
             titleTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-    @objc func editButtonTapped() {
-        guard var work,
-              let title = titleTextField.text,
-              let body = bodyTextView.text else { return }
-        work.title = title
-        work.body = body
-        
-        delegate?.send(data: work)
-        dismiss(animated: true)
+    
+    func configureEditForm() {
+        titleTextField.isEnabled = false
+        bodyTextView.isEditable = false
+        datePicker.isEnabled = false
     }
+    
+    @objc func editButtonTapped() {
+        titleTextField.isEnabled = true
+        bodyTextView.isEditable = true
+        datePicker.isEnabled = true
+    }
+    
     @objc func cancelButtonTapped() {
         dismiss(animated: true)
     }
     
-    @objc func rightButtonTapped() {
-        guard let title = titleTextField.text,
-              let body = bodyTextView.text else { return }
+    @objc func doneButtonTapped() {
+        guard let work = viewModel.updateWork(title: titleTextField.text,
+                                              body: bodyTextView.text,
+                                              date: datePicker.date) else { return }
         
-        delegate?.send(data: Work(category: .todo, title: title, body: body, endDate: datePicker.date))
+        delegate?.send(data: work)
         dismiss(animated: true)
     }
 }
