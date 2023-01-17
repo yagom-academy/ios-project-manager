@@ -87,7 +87,7 @@ final class IssueViewController: UIViewController {
     
     private func configureNavigationBar() {
         title = (issue == nil ? Status.todo.description : issue?.status.description)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Namespace.rightBarButtonTitle,
                                                             primaryAction: UIAction { _ in
             if self.issue == nil {
                 self.createIssue()
@@ -135,5 +135,14 @@ final class IssueViewController: UIViewController {
     enum Namespace {
         static let maxBodyTextCount = 1000
         static let empty = ""
+        static let rightBarButtonTitle = "Done"
+    }
+}
+
+extension IssueViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text.count > 1000 {
+            textView.deleteBackward()
+        }
     }
 }
