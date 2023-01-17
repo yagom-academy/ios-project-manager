@@ -18,5 +18,6 @@ final class CustomListCell: UICollectionViewListCell {
         newConfiguration.dueDate = item?.dueDate
         
         contentConfiguration = newConfiguration
+        backgroundConfiguration?.backgroundColor = .systemBackground
     }
 }
