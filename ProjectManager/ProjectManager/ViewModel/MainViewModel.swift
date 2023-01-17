@@ -8,8 +8,8 @@
 import Foundation
 
 final class MainViewModel {
-    private var uploadDataProcess: Process?
-    private var uploadDataIndex: Int?
+    private var updateDataProcess: Process?
+    private var updateDataIndex: Int?
     
     private var todoData: [Todo] = [] {
         didSet {
@@ -52,12 +52,12 @@ extension MainViewModel {
     }
     
     func updateData(data: Todo) {
-        guard let index = uploadDataIndex else {
+        guard let index = updateDataIndex else {
             todoData.append(data)
             return
         }
         
-        guard let process = uploadDataProcess else { return }
+        guard let process = updateDataProcess else { return }
         
         switch process {
         case .todo:
@@ -70,8 +70,8 @@ extension MainViewModel {
     }
     
     func fetchSeletedData() -> Todo? {
-        guard let process = uploadDataProcess else { return nil }
-        guard let index = uploadDataIndex else { return nil }
+        guard let process = updateDataProcess else { return nil }
+        guard let index = updateDataIndex else { return nil }
         
         switch process {
         case .todo:
@@ -84,8 +84,8 @@ extension MainViewModel {
     }
     
     func deleteData() {
-        guard let index = uploadDataIndex else { return }
-        guard let process = uploadDataProcess else { return }
+        guard let index = updateDataIndex else { return }
+        guard let process = updateDataProcess else { return }
         
         switch process {
         case .todo:
@@ -98,8 +98,8 @@ extension MainViewModel {
     }
     
     func changeProcess(after: Process, index: Int) {
-        guard let index = uploadDataIndex else { return }
-        guard let process = uploadDataProcess else { return }
+        guard let index = updateDataIndex else { return }
+        guard let process = updateDataProcess else { return }
         
         switch process {
         case .todo:
@@ -124,15 +124,15 @@ extension MainViewModel {
     }
     
     func setupUploadDataProcess(process: Process) {
-        uploadDataProcess = process
+        updateDataProcess = process
     }
     
     func setupUploadDataIndex(index: Int?) {
-        uploadDataIndex = index
+        updateDataIndex = index
     }
     
-    func resetUploadProcessIndex() {
-        uploadDataIndex = nil
-        uploadDataProcess = nil
+    func resetUpdateInfo() {
+        updateDataIndex = nil
+        updateDataProcess = nil
     }
 }

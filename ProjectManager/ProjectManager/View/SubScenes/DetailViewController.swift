@@ -26,11 +26,15 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         view = detailView
         setupBinding()
-        detailView.titleTextField.delegate = self
-        detailView.descriptionTextView.delegate = self
+        setupDelegate()
         setupNavigationBar()
         setupButton()
         setupDatePicker()
+    }
+    
+    private func setupDelegate() {
+        detailView.titleTextField.delegate = self
+        detailView.descriptionTextView.delegate = self
     }
     
     private func setupBinding() {

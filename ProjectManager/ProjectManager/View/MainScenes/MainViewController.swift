@@ -153,7 +153,6 @@ extension MainViewController {
                 withIdentifier: ProcessTableViewCell.identifier,
                 for: indexPath
             ) as? ProcessTableViewCell else {
-                // Error Alert 구현예정
                 let errorCell = UITableViewCell()
                 return errorCell
             }
@@ -243,7 +242,7 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: DataSharable {
     func shareData(data: Todo) {
         viewModel.updateData(data: data)
-        viewModel.resetUploadProcessIndex()
+        viewModel.resetUpdateInfo()
     }
 }
 
@@ -266,8 +265,8 @@ extension MainViewController: GestureRelayable {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         guard let tableView = sender.view as? UITableView else { return }
-        
         guard let selectProcess = checkSelectTableProcess(tableView: tableView) else { return }
+        
         viewModel.setupUploadDataProcess(process: selectProcess)
         viewModel.setupUploadDataIndex(index: indexPath.row)
         
@@ -279,6 +278,7 @@ extension MainViewController: GestureRelayable {
                 style: .default
             ) { [weak self] _ in
                 self?.viewModel.changeProcess(after: process, index: indexPath.row)
+                self?.viewModel.resetUpdateInfo()
                 self?.dismiss(animated: true)
             }
             alert.addAction(action)

@@ -25,7 +25,7 @@ final class ProcessTableViewCell: UITableViewCell {
         }
     }
     
-    let titleLabel = UILabel(fontStyle: .title3)
+    let titleLabel = UILabel(fontStyle: .title2)
     let descriptionLabel = UILabel(fontStyle: .body)
     let dateLabel = UILabel(fontStyle: .body)
     

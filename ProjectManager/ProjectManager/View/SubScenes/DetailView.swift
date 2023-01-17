@@ -14,13 +14,14 @@ final class DetailView: UIView {
         static let leadingValue = 10.0
         static let trailingValue = -10.0
         static let bottomValue = -10.0
+        static let borderWidth = 2.0
     }
     
     let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.backgroundColor = .white
-        textField.layer.borderWidth = 2
+        textField.layer.borderWidth = UIConstant.borderWidth
         textField.layer.borderColor = UIColor.systemGray5.cgColor
         textField.font = .preferredFont(forTextStyle: .title1)
         return textField
@@ -30,7 +31,7 @@ final class DetailView: UIView {
         let textView = UITextView()
         textView.backgroundColor = .white
         textView.layer.masksToBounds = false
-        textView.layer.borderWidth = 2
+        textView.layer.borderWidth = UIConstant.borderWidth
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.font = .preferredFont(forTextStyle: .title2)
         return textView
