@@ -7,11 +7,10 @@
 
 import XCTest
 
-import RxTest
 import RxSwift
 
-private final class EndEditTask: DidEndEditTaskDelegate {
-    func didEndEdit(task: Task) {
+private final class EndEditTask: DidEndCreateTaskDelegate {
+    func didEndCreating(task: Task) {
         return
     }
 }
