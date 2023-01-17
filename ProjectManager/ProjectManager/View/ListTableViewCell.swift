@@ -16,7 +16,6 @@ final class ListTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fill
-        stackView.spacing = 5
         return stackView
     }()
     
@@ -31,7 +30,7 @@ final class ListTableViewCell: UITableViewCell {
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.numberOfLines = 3
         label.textColor = UIColor.systemGray
         return label
@@ -40,9 +39,8 @@ final class ListTableViewCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 1
-        label.textColor = UIColor.black
         return label
     }()
     
@@ -60,6 +58,7 @@ final class ListTableViewCell: UITableViewCell {
         titleLabel.text = ""
         bodyLabel.text = ""
         dateLabel.text = ""
+        dateLabel.textColor = .black
     }
     
     private func configureLayout() {
@@ -86,6 +85,10 @@ final class ListTableViewCell: UITableViewCell {
             self?.titleLabel.text = title
             self?.bodyLabel.text = body
             self?.dateLabel.text = date.customDescription
+            
+            if date > Date() {
+                self?.dateLabel.textColor = .red
+            }
         }
     }
 }
