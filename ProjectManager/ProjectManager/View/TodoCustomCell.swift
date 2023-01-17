@@ -34,6 +34,7 @@ class TodoCustomCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        dateLabel.textColor = .label
     }
     
     func constraintLayout() {

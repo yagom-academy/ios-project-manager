@@ -116,6 +116,9 @@ final class ModalViewContoller: UIViewController {
         guard let body = textView.text else { return }
         
         coreDataManager.saveData(title: title, body: body, todoDate: datePicker.date)
+        
+        let notification = Notification.Name("DismissForReload")
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
         dismiss(animated: true)
     }
     
@@ -154,7 +157,7 @@ extension ModalViewContoller: UITextViewDelegate {
         let currentText = textView.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
-        print(changedText)
+        
         return changedText.count <= 1000
     }
 }

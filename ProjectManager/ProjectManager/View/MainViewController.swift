@@ -41,6 +41,9 @@ final class MainViewController: UIViewController {
         setupNavigationBar()
         fetchData()
         todoTableView.reloadData()
+        
+        // TODO: -notification, present modal 에서 추후 등록
+        registDismissNotification()
     }
     
     private func fetchData() {
@@ -100,6 +103,21 @@ final class MainViewController: UIViewController {
         modalController.modalPresentationStyle = .formSheet
         
         self.present(modalController, animated: true, completion: nil)
+    }
+    
+    func registDismissNotification() {
+        let notification = Notification.Name("DismissForReload")
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(dismissModal),
+            name: notification,
+            object: nil
+        )
+    }
+    
+    @objc private func dismissModal() {
+        fetchData()
+        self.todoTableView.reloadData()
     }
 }
 
