@@ -10,6 +10,8 @@
 		AC25141929761D950069CFFA /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141829761D950069CFFA /* TaskEntity.swift */; };
 		AC25141B29761DA10069CFFA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141A29761DA10069CFFA /* Task.swift */; };
 		AC25141D297622180069CFFA /* Translater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141C297622180069CFFA /* Translater.swift */; };
+		AC5F3CA02976C24D007D5F80 /* DeleteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3C9F2976C24D007D5F80 /* DeleteUseCase.swift */; };
+		AC5F3CA12976C24D007D5F80 /* DeleteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3C9F2976C24D007D5F80 /* DeleteUseCase.swift */; };
 		AC67581029762C9800C2BDE2 /* Double+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67580F29762C9800C2BDE2 /* Double+Formatter.swift */; };
 		AC67581329762DE700C2BDE2 /* String+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67581229762DE700C2BDE2 /* String+Formatter.swift */; };
 		AC675835297656AE00C2BDE2 /* DidEndEditingTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675834297656AE00C2BDE2 /* DidEndEditingTaskDelegate.swift */; };
@@ -60,6 +62,7 @@
 		AC25141829761D950069CFFA /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
 		AC25141A29761DA10069CFFA /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		AC25141C297622180069CFFA /* Translater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translater.swift; sourceTree = "<group>"; };
+		AC5F3C9F2976C24D007D5F80 /* DeleteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUseCase.swift; sourceTree = "<group>"; };
 		AC67580F29762C9800C2BDE2 /* Double+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Formatter.swift"; sourceTree = "<group>"; };
 		AC67581229762DE700C2BDE2 /* String+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Formatter.swift"; sourceTree = "<group>"; };
 		AC67582B297632A100C2BDE2 /* TaskDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDummy.swift; sourceTree = "<group>"; };
@@ -251,6 +254,7 @@
 				D3E203D2297582D40015AD16 /* Delegate */,
 				D37954082976617300A3F02F /* FetchTasksUseCase.swift */,
 				AC67583C29766C4400C2BDE2 /* CreateUseCase.swift */,
+				AC5F3C9F2976C24D007D5F80 /* DeleteUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -408,6 +412,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				AC25141B29761DA10069CFFA /* Task.swift in Sources */,
 				AC25141D297622180069CFFA /* Translater.swift in Sources */,
+				AC5F3CA02976C24D007D5F80 /* DeleteUseCase.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				D3795400297651BB00A3F02F /* TaskRepository.swift in Sources */,
 				AC25141929761D950069CFFA /* TaskEntity.swift in Sources */,
@@ -427,6 +432,7 @@
 				D379544B29769B2B00A3F02F /* Translater.swift in Sources */,
 				D379544729769B1E00A3F02F /* TaskRepository.swift in Sources */,
 				D379544829769B2200A3F02F /* CreateUseCase.swift in Sources */,
+				AC5F3CA12976C24D007D5F80 /* DeleteUseCase.swift in Sources */,
 				D379544D29769B3F00A3F02F /* TaskEntity.swift in Sources */,
 				D379544229769B0500A3F02F /* TaskDummy.swift in Sources */,
 				D379544C29769B3700A3F02F /* Task.swift in Sources */,
