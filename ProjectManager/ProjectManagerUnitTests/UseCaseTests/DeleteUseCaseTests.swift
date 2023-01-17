@@ -2,34 +2,70 @@
 //  DeleteUseCaseTests.swift
 //  ProjectManagerUnitTests
 //
-//  Created by 이정민 on 2023/01/17.
+//  Created by ayaan, jpush on 2023/01/17.
 //
+
+import RxSwift
 
 import XCTest
 
+private final class EndEditTask: DidEndDeletingDelegate {
+    func didEndDeleting(task: Task) {
+        return
+    }
+}
+
 final class DeleteUseCaseTests: XCTestCase {
-
+    var taskRepositoryMock: MockTaskRepository!
+    var usecase: DeleteUseCase!
+    var disposeBag: DisposeBag!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
+        usecase = DeleteUseCase(
+            delegate: EndEditTask(),
+            repository: taskRepositoryMock
+        )
+        disposeBag = DisposeBag()
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func test_delete_task_success() {
+        // given
+        guard let task = Translater().toDomain(with: TaskEntity(
+            id: "1",
+            title: "RxSwift 추가",
+            content: "제곧내",
+            deadLine: 1675436400, // 2023년
+            state: 3
+        )) else { return }
+        
+        usecase.isDeletedSuccess
+            .subscribe(onNext: { isSuccess in
+                XCTAssertTrue(isSuccess)
+            })
+            .disposed(by: disposeBag)
+        
+        // when, then
+        usecase.deleteTask(task)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func test_delete_task_failure() {
+        // given
+        guard let task = Translater().toDomain(with: TaskEntity(
+            id: "noID",
+            title: "RxSwift 추가",
+            content: "제곧내",
+            deadLine: 1675436400, // 2023년
+            state: 3
+        )) else { return }
+        
+        usecase.isDeletedSuccess
+            .subscribe(onNext: { isSuccess in
+                XCTAssertFalse(isSuccess)
+            })
+            .disposed(by: disposeBag)
+        
+        // when, then
+        usecase.deleteTask(task)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
