@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol AddTodoViewDelegate {
+protocol AddTodoViewDelegate: AnyObject {
     func addNewTodoItem(with item: TodoModel)
 }
 
 final class AddTodoViewController: UIViewController {
-    var delegate: AddTodoViewDelegate?
+    weak var delegate: AddTodoViewDelegate?
     
     private let todoView: TodoItemView = TodoItemView()
     

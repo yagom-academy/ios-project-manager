@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol EditTodoViewDelegate {
+protocol EditTodoViewDelegate: AnyObject {
     func editTodoItem(with item: TodoModel)
 }
 
 class EditTodoViewController: UIViewController {
-    var delegate: EditTodoViewDelegate?
+    weak var delegate: EditTodoViewDelegate?
     
     private let todoView: TodoItemView = TodoItemView()
     
@@ -42,24 +42,22 @@ class EditTodoViewController: UIViewController {
     }
     
     @objc private func tappedEdit() {
-        guard var editedTodoItem = self.todoItem else { return }
+        guard var itemBeEdited = self.todoItem else { return }
         
-        editedTodoItem.title = todoView.titleTextField.text ?? ""
-        editedTodoItem.body = todoView.bodyTextView.text ?? ""
-        editedTodoItem.date = todoView.datePicker.date.timeIntervalSince1970
+        itemBeEdited.title = todoView.titleTextField.text ?? ""
+        itemBeEdited.body = todoView.bodyTextView.text ?? ""
+        itemBeEdited.date = todoView.datePicker.date.timeIntervalSince1970
         
-        delegate?.editTodoItem(with: editedTodoItem)
+        delegate?.editTodoItem(with: itemBeEdited)
     }
     
     @objc private func tappedDone() {
         dismiss(animated: true)
     }
     
-    func prepareEditView(with todoItem: TodoModel) {
-        self.todoItem = todoItem
+    func prepareEditView(with itemBeEdited: TodoModel) {
+        self.todoItem = itemBeEdited
         
-        todoView.updateContent(title: todoItem.title,
-                               body: todoItem.body,
-                               date: todoItem.date)
+        todoView.updateContent(title: itemBeEdited.title, body: itemBeEdited.body, date: itemBeEdited.date)
     }
 }
