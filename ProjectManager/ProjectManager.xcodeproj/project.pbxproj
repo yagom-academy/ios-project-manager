@@ -12,7 +12,7 @@
 		BF884468297057A6001C9459 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF884467297057A6001C9459 /* Constant.swift */; };
 		BF88446C2972DFE7001C9459 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446B2972DFE7001C9459 /* Project.swift */; };
 		BF8844702972E080001C9459 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446E2972E080001C9459 /* ProjectViewModel.swift */; };
-		BF8844712972E080001C9459 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446F2972E080001C9459 /* ProjectListViewModel.swift */; };
+		BF8844712972E080001C9459 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446F2972E080001C9459 /* ListViewModel.swift */; };
 		BF8844792973B4C1001C9459 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844782973B4C1001C9459 /* PlanViewController.swift */; };
 		BF88447D2973C84B001C9459 /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88447C2973C84B001C9459 /* PlanListView.swift */; };
 		BF88447F2973CE46001C9459 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88447E2973CE46001C9459 /* ProjectListView.swift */; };
@@ -37,7 +37,7 @@
 		BF884467297057A6001C9459 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		BF88446B2972DFE7001C9459 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		BF88446E2972E080001C9459 /* ProjectViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
-		BF88446F2972E080001C9459 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
+		BF88446F2972E080001C9459 /* ListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		BF8844782973B4C1001C9459 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		BF88447C2973C84B001C9459 /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
 		BF88447E2973CE46001C9459 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
@@ -82,7 +82,6 @@
 		BF5C4A1B296C79DD0049CA88 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* PlanListViewController.swift */,
 				BF88447C2973C84B001C9459 /* PlanListView.swift */,
 				BF88447E2973CE46001C9459 /* ProjectListView.swift */,
 				BF8844802973DBD2001C9459 /* CircleLabel.swift */,
@@ -122,7 +121,7 @@
 		BF88446429700527001C9459 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BF88446F2972E080001C9459 /* ProjectListViewModel.swift */,
+				BF88446F2972E080001C9459 /* ListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -226,6 +225,7 @@
 			children = (
 				BF88446429700527001C9459 /* ViewModel */,
 				BF5C4A1B296C79DD0049CA88 /* View */,
+				BF8844FE29767C8F001C9459 /* ViewController */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -235,6 +235,7 @@
 			children = (
 				BF8844FA2976715D001C9459 /* ViewModel */,
 				BF8844FB29767166001C9459 /* View */,
+				BF8844FF29767CAE001C9459 /* ViewController */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -250,9 +251,24 @@
 		BF8844FB29767166001C9459 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BF8844782973B4C1001C9459 /* PlanViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		BF8844FE29767C8F001C9459 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* PlanListViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BF8844FF29767CAE001C9459 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BF8844782973B4C1001C9459 /* PlanViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -354,7 +370,7 @@
 			files = (
 				BF884468297057A6001C9459 /* Constant.swift in Sources */,
 				BF8844F329766B53001C9459 /* DefaultListUseCase.swift in Sources */,
-				BF8844712972E080001C9459 /* ProjectListViewModel.swift in Sources */,
+				BF8844712972E080001C9459 /* ListViewModel.swift in Sources */,
 				BF88446629704BD1001C9459 /* Array+.swift in Sources */,
 				BF8844F129766B26001C9459 /* ListUseCase.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* PlanListViewController.swift in Sources */,

@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol PlanListView: UIView {
+protocol ListView: UIView {
     var delegate: PlanListViewDelegate? { get set }
     var state: State { get }
 }
 
-extension PlanListView {
+extension ListView {
     var list: [PlanViewModel]? {
         return delegate?.configureList(state: state)
     }

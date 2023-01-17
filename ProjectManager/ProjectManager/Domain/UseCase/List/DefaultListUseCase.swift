@@ -6,7 +6,7 @@
 //
 
 final class DefaultListUseCase: ListUseCase {
-    
+
     private var list: ProjectList
 
     init(list: ProjectList) {

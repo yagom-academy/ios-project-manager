@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProjectListView: UIView, PlanListView {
+final class ProjectListView: UIView, ListView {
 
     typealias Text = Constant.Text
     typealias Style = Constant.Style
