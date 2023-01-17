@@ -14,6 +14,7 @@ protocol CellDelegate: AnyObject {
 class ListCell: UITableViewCell {
     static let identifier = ListCell.description()
     weak var delegate: CellDelegate?
+    var work: Work?
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -66,6 +67,8 @@ class ListCell: UITableViewCell {
     }
     
     func configureData(work: Work) {
+        self.work = work
+        
         self.titleLabel.text = work.title
         self.bodyLabel.text = work.body
         self.dateLabel.text = work.endDateToString
