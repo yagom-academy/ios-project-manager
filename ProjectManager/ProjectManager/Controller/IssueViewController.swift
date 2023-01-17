@@ -10,7 +10,13 @@ import UIKit
 final class IssueViewController: UIViewController {
     private var issue: Issue?
     private var delegate: IssueManageable
-    private var isEditable: Bool
+    private var isEditable: Bool = true {
+        didSet {
+            titleTextField.isEnabled = isEditable
+            datePicker.isEnabled = isEditable
+            bodyTextView.isEditable = isEditable
+        }
+    }
     
     private var stackView: UIStackView = {
         let stack = UIStackView()
@@ -55,7 +61,6 @@ final class IssueViewController: UIViewController {
     
     init(delegate: IssueManageable) {
         self.delegate = delegate
-        self.isEditable = true
         super.init(nibName: nil, bundle: nil)
         configureNavigationBar()
     }
@@ -63,7 +68,7 @@ final class IssueViewController: UIViewController {
     init(issue: Issue, delegate: IssueManageable) {
         self.issue = issue
         self.delegate = delegate
-        self.isEditable = false
+        defer { self.isEditable = false }
         super.init(nibName: nil, bundle: nil)
         configureNavigationBar()
     }
@@ -77,7 +82,6 @@ final class IssueViewController: UIViewController {
         configureUI()
         configureContents()
     }
-    
     
     private func configureUI() {
         view.addSubview(stackView)
