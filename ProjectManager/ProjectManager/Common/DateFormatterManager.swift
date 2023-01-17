@@ -10,6 +10,6 @@ import Foundation
 struct DateFormatterManager {
     func formatDate(_ date: Date?) -> String {
         guard let date = date else { return "" }
-        return DateFormatter.localizedString(from: date, dateStyle: .long, timeStyle: .none)
+        return DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
     }
 }
