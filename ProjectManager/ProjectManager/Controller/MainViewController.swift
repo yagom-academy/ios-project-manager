@@ -200,9 +200,9 @@ final class MainViewController: UIViewController {
         TodoModel(title: "done", body: "ddne", date: "22-22-22")
     ]
 
-    private var todoDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
-    private var doingDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
-    private var doneDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>? = nil
+    private var todoDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>?
+    private var doingDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>?
+    private var doneDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>?
     private var currentLongPressedCell: UICollectionViewCell?
 
     init() {
@@ -232,6 +232,7 @@ final class MainViewController: UIViewController {
         configureTodoDataSource()
         configureDoingDataSource()
         configureDoneDataSource()
+        configureSectionHeader()
         updateTodoSnapshot()
         updateDoingSnapshot()
         updateDoneSnapshot()
@@ -315,6 +316,21 @@ final class MainViewController: UIViewController {
         return layout
     }
 
+    private func configureSectionHeader() {
+        let dataSources = [todoDataSource, doingDataSource, doneDataSource]
+
+        for dataSource in dataSources {
+            dataSource?.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+                if kind == UICollectionView.elementKindSectionHeader {
+                    let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.sectionHeaderIdentifier, for: indexPath)
+                    headerView.frame.size.height = .zero
+                    return headerView
+                }
+                return nil
+            }
+        }
+    }
+
     private func configureTodoDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
             var contentConfiguration = TodoContentView.Configutation()
@@ -334,15 +350,6 @@ final class MainViewController: UIViewController {
         todoDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: todoCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
-
-        todoDataSource?.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            if kind == UICollectionView.elementKindSectionHeader {
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.sectionHeaderIdentifier, for: indexPath)
-                headerView.frame.size.height = .zero
-                return headerView
-            }
-            return nil
-        }
     }
 
     private func configureDoingDataSource() {
@@ -364,15 +371,6 @@ final class MainViewController: UIViewController {
         doingDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doingCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
-
-        doingDataSource?.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            if kind == UICollectionView.elementKindSectionHeader {
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.sectionHeaderIdentifier, for: indexPath)
-                headerView.frame.size.height = .zero
-                return headerView
-            }
-            return nil
-        }
     }
 
     private func configureDoneDataSource() {
@@ -394,15 +392,6 @@ final class MainViewController: UIViewController {
         doneDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doneCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
-
-        doneDataSource?.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            if kind == UICollectionView.elementKindSectionHeader {
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.sectionHeaderIdentifier, for: indexPath)
-                headerView.frame.size.height = .zero
-                return headerView
-            }
-            return nil
-        }
     }
 
     private func updateTodoSnapshot() {
