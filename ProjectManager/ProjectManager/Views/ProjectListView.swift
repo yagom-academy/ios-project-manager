@@ -9,7 +9,7 @@ import UIKit
 
 final class ProjectListView: UIView {
     // MARK: Properties
-    lazy var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let stackView = UIStackView(frame: bounds)
         stackView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         stackView.axis = .horizontal

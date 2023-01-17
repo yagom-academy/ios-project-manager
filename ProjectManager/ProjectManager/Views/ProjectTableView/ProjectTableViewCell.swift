@@ -68,7 +68,7 @@ class ProjectTableViewCell: UITableViewCell {
     }
 
     // MARK: Internal Method
-    func configureCell(with project: Project) {
+    func configure(with project: Project) {
         titleLabel.text = project.title
         descriptionLabel.text = project.description
         dueDateLabel.text = project.dueDate.localizedString

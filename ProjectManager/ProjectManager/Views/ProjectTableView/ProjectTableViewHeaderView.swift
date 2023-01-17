@@ -8,7 +8,7 @@
 import UIKit
 
 class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title1)
@@ -37,4 +37,5 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     }
 }
 
+// MARK: Reusable 프로토콜 채택
 extension ProjectTableViewHeaderView: Reusable { }
