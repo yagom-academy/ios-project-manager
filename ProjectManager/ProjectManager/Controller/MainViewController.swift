@@ -8,6 +8,10 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    let todoListViewController = IssueListViewController(status: .todo)
+    let doingListViewController = IssueListViewController(status: .doing)
+    let doneListViewController = IssueListViewController(status: .done)
+    
     private var mainStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -40,7 +44,7 @@ final class MainViewController: UIViewController {
         
         let plusButton = UIBarButtonItem(image: UIImage(systemName: Namespace.plusImage),
                                          primaryAction: UIAction { _ in
-            let issueViewcontroller = IssueViewController()
+            let issueViewcontroller = IssueViewController(delegate: self.todoListViewController)
             let navigationViewController = UINavigationController(rootViewController: issueViewcontroller)
             self.present(navigationViewController, animated: true)
         })
@@ -59,13 +63,10 @@ final class MainViewController: UIViewController {
     }
 
     private func configureChildViewControllers() {
-        let todoListViewController = IssueListViewController(status: .todo)
-        let doingListViewController = IssueListViewController(status: .doing)
-        let doneListViewController = IssueListViewController(status: .done)
-        
         [todoListViewController, doingListViewController, doneListViewController].forEach {
             addChild($0)
             mainStackView.addArrangedSubview($0.view)
+            $0.didMove(toParent: self)
         }
     }
 }
