@@ -106,6 +106,7 @@ final class IssueViewController: UIViewController {
             title = issue?.status.description
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Namespace.done,
                                                                 primaryAction: UIAction { _ in
+                self.updateIssue()
                 self.delegate.updateIssue(issue: self.issue)
                 self.dismiss(animated: true)
             })
@@ -114,13 +115,6 @@ final class IssueViewController: UIViewController {
                 self.isEditable = true
             })
         }
-    }
-    
-    private func createIssue() {
-        issue = Issue(status: .todo,
-                      title: titleTextField.text ?? Namespace.empty,
-                      body: bodyTextView.text,
-                      dueDate: datePicker.date)
     }
     
     private func configureStackView() {
@@ -141,6 +135,20 @@ final class IssueViewController: UIViewController {
         titleTextField.text = issue.title
         datePicker.date = issue.dueDate
         bodyTextView.text = issue.body
+    }
+    
+    private func createIssue() {
+        issue = Issue(id: UUID(),
+                      status: .todo,
+                      title: titleTextField.text ?? Namespace.empty,
+                      body: bodyTextView.text,
+                      dueDate: datePicker.date)
+    }
+    
+    private func updateIssue() {
+        issue?.title = titleTextField.text ?? Namespace.empty
+        issue?.body = bodyTextView.text
+        issue?.dueDate = datePicker.date
     }
     
     enum LayoutConstant {

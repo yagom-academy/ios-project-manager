@@ -133,7 +133,12 @@ extension IssueListViewController: IssueManageable {
     }
     
     func updateIssue(issue: Issue?) {
-        // update
+        guard let issue = issue,
+              let index = issues.firstIndex(where: {$0.id == issue.id}) else { return }
+        
+        issues.remove(at: index)
+        issues.append(issue)
+        applySnapshot()
     }
 
 }
