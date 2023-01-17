@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
     
     private let projectManagerView = MainProjectManagerView()
     private let section: [String] = ["TODO", "DOING", "DONE"]
-    private let todoList: [CellInfo] = []
+    private var todoList: [CellInfo] = []
     
     // MARK: Life Cycle
     
@@ -36,10 +36,13 @@ class MainViewController: UIViewController {
         )
     }
     
+    // MARK: Action Methods
+    
     @objc
     private func plusButtonAction() {
         let popUpViewController = AddViewController()
         popUpViewController.modalPresentationStyle = .overCurrentContext
+        popUpViewController.delegate = self
         
         navigationController?.present(popUpViewController, animated: true)
     }
@@ -71,7 +74,7 @@ extension MainViewController: UITableViewDataSource {
         case projectManagerView.leftTableView:
             return 10
         case projectManagerView.centerTableView:
-            return 1
+            return todoList.count
         case projectManagerView.rightTableView:
             return 5
         default:
@@ -88,11 +91,18 @@ extension MainViewController: UITableViewDataSource {
             )
             return cell
         case projectManagerView.centerTableView:
-            let cell = tableView.dequeueReusableCell(
+            if let cell = tableView.dequeueReusableCell(
                 withIdentifier: MainCenterTableViewCell.identifier,
                 for: indexPath
-            )
-            return cell
+            ) as? MainCenterTableViewCell {
+                let projectTodoList = todoList[indexPath.row]
+                
+                cell.configureLabel(todoList: projectTodoList)
+                
+                return cell
+            }
+            
+            return UITableViewCell()
         case projectManagerView.rightTableView:
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: MainRightTableViewCell.identifier,
@@ -102,5 +112,14 @@ extension MainViewController: UITableViewDataSource {
         default:
             return UITableViewCell()
         }
+    }
+}
+
+// MARK: - DataSendDelegate
+
+extension MainViewController: DataSendDelegate {
+    func sendData(project: CellInfo) {
+        todoList.append(project)
+        projectManagerView.reloadTableView()
     }
 }

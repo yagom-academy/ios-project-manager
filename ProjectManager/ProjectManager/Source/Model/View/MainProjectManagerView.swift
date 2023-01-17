@@ -25,6 +25,18 @@ final class MainProjectManagerView: UIView {
         stackView.spacing = 5
         return stackView
     }()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    private let bodyLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
     let leftTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray5
@@ -38,7 +50,7 @@ final class MainProjectManagerView: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray5
         tableView.register(
-            MainLeftTableViewCell.self,
+            MainCenterTableViewCell.self,
             forCellReuseIdentifier: MainCenterTableViewCell.identifier
         )
         return tableView
@@ -47,7 +59,7 @@ final class MainProjectManagerView: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray5
         tableView.register(
-            MainLeftTableViewCell.self,
+            MainRightTableViewCell.self,
             forCellReuseIdentifier: MainRightTableViewCell.identifier
         )
         return tableView
@@ -77,6 +89,12 @@ final class MainProjectManagerView: UIView {
         
         rightTableView.delegate = mainViewController
         rightTableView.dataSource = mainViewController
+    }
+    
+    func reloadTableView() {
+        leftTableView.reloadData()
+        centerTableView.reloadData()
+        rightTableView.reloadData()
     }
     
     // MARK: Private Methods

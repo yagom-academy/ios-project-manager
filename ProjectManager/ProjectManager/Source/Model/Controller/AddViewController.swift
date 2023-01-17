@@ -11,10 +11,11 @@ class AddViewController: UIViewController {
     
     // MARK: Properties
     
+    var delegate: DataSendDelegate?
     private let customPopUpView = CustomPopUpView()
     
     // MARK: Life Cycle
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,6 +38,10 @@ class AddViewController: UIViewController {
     
     @objc
     private func didTapDismissButton() {
+        if let inputData: CellInfo = customPopUpView.saveCellInfo() {
+            delegate?.sendData(project: inputData)
+        }
+        
         dismiss(animated: true, completion: nil)
     }
 }

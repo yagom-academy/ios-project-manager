@@ -105,6 +105,23 @@ class CustomPopUpView: UIView {
         configureLayout()
     }
     
+    // MARK: Internal Methods
+    
+    func saveCellInfo() -> CellInfo? {
+        if let title = titleTextField.text,
+           let body = bodyTextField.text {
+            let todoList: CellInfo = CellInfo(
+                title: title,
+                body: body,
+                deadline: 100
+            )
+            
+            return todoList
+        }
+        
+        return nil
+    }
+    
     // MARK: Private Methods
     
     private func setUpTopBarStackView() {
