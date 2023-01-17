@@ -28,8 +28,26 @@ final class ProjectListViewController: UIViewController {
         return view
     }()
 
+    // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        configureNavigationBar()
+    }
+
+    // MARK: Configure NavigationBar
+    private func makeRightNavigationBarButton() -> UIBarButtonItem {
+        let touchUpAddButtonAction = UIAction { [weak self] _ in
+            self?.present(ProjectViewController(), animated: false)
+        }
+
+        let addButton = UIBarButtonItem(systemItem: .add, primaryAction: touchUpAddButtonAction)
+
+        return addButton
+    }
+
+    private func configureNavigationBar() {
+        navigationItem.title = "프로젝트 매니저"
+        navigationItem.rightBarButtonItem = makeRightNavigationBarButton()
     }
 }
