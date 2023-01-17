@@ -8,20 +8,23 @@
 import Foundation
 
 final class IssueManager {
-    private var issue: Issue?
+    private(set) var issue: Issue
     
-    init(issue: Issue? = nil) {
+    init(issue: Issue) {
         self.issue = issue
     }
     
+    // TODO: 나중에 Local/Remote DB에서 저장할 때 쓸 친구
     func createIssue(title: String?, body: String?, dueDate: Date? = Date()) {
         
     }
     
+    // TODO: 나중에 Local/Remote DB에서 불러올 때 쓸 친구
     func fetchIssue() -> Issue? {
         return nil
     }
     
+    // TODO: 나중에 Local/Remote DB에서 불러올 때 쓸 친구
     func updateIssue(title: String?, body: String?, dueDate: Date? = Date()) {
         
     }
