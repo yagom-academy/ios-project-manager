@@ -34,8 +34,8 @@ class WorkManager {
         
     }
     
-    func deleteWork() {
-        
+    func deleteWork(data: Work) {
+        totalWorkList = totalWorkList.filter { data.id != $0.id }
     }
     
 }

@@ -8,6 +8,7 @@
 import UIKit
 
 class WorkFormViewController: UIViewController {
+    var work: Work?
     weak var delegate: WorkDelegate?
     
     let stackView: UIStackView = {
@@ -53,12 +54,25 @@ class WorkFormViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureLayout()
+        configureWork()
         view.backgroundColor = .white
     }
     
+    func configureWork() {
+        guard let work = work else { return }
+        titleTextField.text = work.title
+        bodyTextView.text = work.body
+        datePicker.date = work.endDate
+    }
     func configureNavigationBar() {
         navigationItem.title = "TODO"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel)
+        if work != nil {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self,
+                                                               action: #selector(editButtonTapped))
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self,
+                                                               action: #selector(cancelButtonTapped))
+        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self,
                                                             action: #selector(rightButtonTapped))
         navigationController?.navigationBar.backgroundColor = .systemGray5
@@ -79,9 +93,18 @@ class WorkFormViewController: UIViewController {
             titleTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-    
-    @objc func leftButtonTapped() {
+    @objc func editButtonTapped() {
+        guard var work,
+              let title = titleTextField.text,
+              let body = bodyTextView.text else { return }
+        work.title = title
+        work.body = body
         
+        delegate?.send(data: work)
+        dismiss(animated: true)
+    }
+    @objc func cancelButtonTapped() {
+        dismiss(animated: true)
     }
     
     @objc func rightButtonTapped() {

@@ -109,6 +109,30 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        switch tableView {
+        case doneListView.tableView:
+            print("xnen2")
+        case doingListView.tableView:
+            print("xnen3")
+        case todoListView.tableView:
+            viewModel.deleteWork(data: viewModel.todoList[indexPath.row])
+        default:
+            break
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let addViewController = WorkFormViewController()
+        let navigationViewController = UINavigationController(rootViewController: addViewController)
+        addViewController.work = viewModel.todoList[indexPath.row]
+        addViewController.delegate = self
+        navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
+        
+        present(navigationViewController, animated: true)
+    }
 }
 
 extension ListViewController: WorkDelegate {
