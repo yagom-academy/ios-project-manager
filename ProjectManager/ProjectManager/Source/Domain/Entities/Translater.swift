@@ -5,8 +5,6 @@
 //  Created by ayaan, jpush on 2023/01/17.
 //
 
-import Foundation
-
 struct Translater {
     func toDomain(with entity: TaskEntity) -> Task? {
         guard let state = Task.State(rawValue: entity.state) else {
