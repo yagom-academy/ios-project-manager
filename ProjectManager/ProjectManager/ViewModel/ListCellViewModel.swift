@@ -10,7 +10,7 @@ import Foundation
 final class ListCellViewModel {
     var work: Work? {
         didSet {
-            cellHandler?(work!)
+            cellHandler?(work)
         }
     }
     
