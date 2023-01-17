@@ -8,14 +8,14 @@
 import RxSwift
 
 final class CreateUseCase {
-    private weak var delegate: DidEndEditTaskDelegate?
+    private weak var delegate: DidEndCreateTaskDelegate?
     private let repository: TaskRepository
     
     private let translater = Translater()
     private let disposeBag = DisposeBag()
     let isCreatedSuccess = PublishSubject<Bool>()
     
-    init(delegate: DidEndEditTaskDelegate, repository: TaskRepository) {
+    init(delegate: DidEndCreateTaskDelegate, repository: TaskRepository) {
         self.delegate = delegate
         self.repository = repository
     }
@@ -28,7 +28,7 @@ final class CreateUseCase {
         repository.create(entity)
             .subscribe(onNext: { [weak self] isSuccess in
                 if isSuccess {
-                    self?.delegate?.didEndEdit(task: task)
+                    self?.delegate?.didEndCreating(task: task)
                 }
                 
                 self?.isCreatedSuccess.onNext(isSuccess)
