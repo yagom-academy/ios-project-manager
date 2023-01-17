@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Project {
+struct Project: Hashable {
     enum Status {
         case todo
         case doing
@@ -15,15 +15,15 @@ struct Project {
     }
 
     let id: UUID
-    let status: Status
-    let title: String
-    let description: String
-    let dueDate: Date
+    var status: Status
+    var title: String
+    var description: String
+    var dueDate: Date
 
     init(id: UUID = UUID(),
          status: Status = .todo,
-         title: String = "제목 없음",
-         description: String = "",
+         title: String = "제목없음",
+         description: String = " ",
          dueDate: Date = Date()) {
         self.id = id
         self.status = status
