@@ -8,12 +8,12 @@
 import RxSwift
 
 final class CreateUseCase {
-    private let delegate: DidEndEditTaskDelegate
+    private weak var delegate: DidEndEditTaskDelegate?
     private let repository: TaskRepository
     
     private let translater = Translater()
     private let disposeBag = DisposeBag()
-    let createResult = PublishSubject<Bool>()
+    let isCreatedSuccess = PublishSubject<Bool>()
     
     init(delegate: DidEndEditTaskDelegate, repository: TaskRepository) {
         self.delegate = delegate
@@ -22,16 +22,16 @@ final class CreateUseCase {
     
     func addTask(_ task: Task) {
         guard let entity = translater.toEntity(with: task) else {
-            return self.createResult.onNext(false)
+            return isCreatedSuccess.onNext(false)
         }
         
         repository.create(entity)
-            .subscribe(onNext: { result in
-                if result == true {
-                    self.delegate.didEndEdit(task: task)
+            .subscribe(onNext: { [weak self] isSuccess in
+                if isSuccess {
+                    self?.delegate?.didEndEdit(task: task)
                 }
                 
-                self.createResult.onNext(result)
+                self?.isCreatedSuccess.onNext(isSuccess)
             })
             .disposed(by: disposeBag)
     }
