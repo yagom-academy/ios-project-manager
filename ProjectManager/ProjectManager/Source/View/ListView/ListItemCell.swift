@@ -44,6 +44,8 @@ class ListItemCell: UITableViewCell {
         return view
     }()
     
+    private var viewModel: ListItemCellViewModel?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -75,6 +77,21 @@ class ListItemCell: UITableViewCell {
             cellStackView.topAnchor.constraint(equalTo: spacingView.bottomAnchor),
             cellStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+    
+    func bind(_ viewModel: ListItemCellViewModel) {
+        self.viewModel = viewModel
+        
+        viewModel.bind { [weak self] item in
+            self?.listTitleLabel.text = item.title
+            self?.listBodyLabel.text = item.body
+            self?.dueDateLabel.text = item.dueDate
+            self?.dueDateLabel.textColor = item.isOverDue ? .systemRed : .black
+        }
+    }
+    
+    func update(_ listItem: ListItem) {
+        viewModel?.updateItem(using: listItem)
     }
     
     func configureCell(title: String, body: String, dueDate: String) {
