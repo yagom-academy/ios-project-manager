@@ -14,6 +14,12 @@ final class EditingViewModel {
     private let isNewProject: Bool
     private let process: Process
     
+    private var mode: EditingMode = .editable {
+        didSet {
+            changeMode()
+        }
+    }
+    
     private var title: String = Default.title {
         didSet {
             updateTitle(title)
@@ -33,9 +39,22 @@ final class EditingViewModel {
     }
     
     var barTitle: String {
-        return isNewProject ? process.title : process.title + Title.edit
+        return process.title
     }
     
+    var leftBarOptionTitle: String {
+        return mode.barOptionTitle.left
+    }
+    
+    var rightBarOptionTitle: String {
+        return mode.barOptionTitle.right
+    }
+    
+    var isEditable: Bool {
+        return mode == .editable
+    }
+    
+    var changeMode: () -> Void = { }
     var updateTitle: (String) -> Void = { _ in }
     var updateDate: (Date) -> Void = { _ in }
     var updateDescription: (String) -> Void = { _ in }
@@ -54,6 +73,9 @@ final class EditingViewModel {
         self.title = project.title ?? Default.title
         self.date = project.date
         self.description = project.description ?? Default.description
+        if !isNewProject {
+            mode = .readOnly
+        }
     }
     
     func doneEditing(titleInput: String?, descriptionInput: String?, dateInput: Date) {
@@ -62,6 +84,10 @@ final class EditingViewModel {
         project.date = dateInput
         
         isNewProject ? registerProject(project) : editProject(project)
+    }
+    
+    func changeModeToEditable() {
+        self.mode = .editable
     }
     
     func registerProject(_ project: Project) {
@@ -75,6 +101,23 @@ final class EditingViewModel {
 
 extension EditingViewModel {
     
+    private enum EditingMode {
+        case editable
+        case readOnly
+        
+        var barOptionTitle: (left: String, right: String) {
+            switch self {
+            case .editable:
+                return (left: Title.Cancel, right: Title.Done)
+            case .readOnly:
+                return (left: Title.Edit, right: Title.Done)
+            }
+        }
+    }
+}
+
+extension EditingViewModel {
+    
     private enum Default {
         
         static let title = ""
@@ -83,6 +126,8 @@ extension EditingViewModel {
     
     private enum Title {
         
-        static let edit = "Edit"
+        static let Cancel = "Cancel"
+        static let Done = "Done"
+        static let Edit = "Edit"
     }
 }

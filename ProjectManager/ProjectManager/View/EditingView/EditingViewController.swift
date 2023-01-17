@@ -64,6 +64,11 @@ final class EditingViewController: UIViewController {
     }
     
     private func bidingViewModel() {
+        editViewModel.changeMode = { [weak self] in
+            self?.toggleMode()
+            self?.setupNavigationBar()
+        }
+        
         editViewModel.updateTitle = { [weak self] title in
             self?.titleField.text = title
         }
@@ -76,6 +81,12 @@ final class EditingViewController: UIViewController {
             self?.descriptionTextView.text = description
         }
     }
+    
+    private func toggleMode() {
+        titleField.isUserInteractionEnabled = !titleField.isUserInteractionEnabled
+        descriptionTextView.isUserInteractionEnabled = !descriptionTextView.isUserInteractionEnabled
+        dataPicker.isUserInteractionEnabled = !dataPicker.isUserInteractionEnabled
+    }
 }
 
 // MARK: - NavigationBar
@@ -86,42 +97,51 @@ extension EditingViewController {
                                                           y: Default.origin,
                                                           width: view.frame.width,
                                                           height: Default.navigationBarHeight))
-        let navigationItem = UINavigationItem()
-        navigationItem.title = editViewModel.barTitle
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel",
-                                                           primaryAction: touchedUpCancelButton())
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
-                                                            primaryAction: touchedUpDoneButton())
+        let navigationItem = generateNavigationItem()
         navigationBar.items = [navigationItem]
         navigationBar.isTranslucent = false
+        
         view.addSubview(navigationBar)
     }
     
-    private func touchedUpCancelButton() -> UIAction {
-        return UIAction { [weak self] _ in
-            self?.dismiss(animated: true)
-        }
+    func generateNavigationItem() -> UINavigationItem {
+        let navigationItem = UINavigationItem()
+        let leftBarButton = UIBarButtonItem(title: editViewModel.leftBarOptionTitle)
+        let rightBarButton = UIBarButtonItem(title: editViewModel.rightBarOptionTitle)
+        
+        leftBarButton.action = editViewModel.isEditable ?
+        #selector(cancelEditing) : #selector(changeModeToEditable)
+        
+        rightBarButton.action = #selector(doneEditing)
+        
+        navigationItem.title = editViewModel.barTitle
+        navigationItem.leftBarButtonItem = leftBarButton
+        navigationItem.rightBarButtonItem = rightBarButton
+        
+        return navigationItem
     }
     
-    private func touchedUpDoneButton() -> UIAction {
-        return UIAction { [weak self] _ in
-            guard let self = self else { return }
-            
-            self.editViewModel.doneEditing(titleInput: self.titleField.text,
-                                           descriptionInput: self.descriptionTextView.text,
-                                           dateInput: self.dataPicker.date)
-            
-            self.dismiss(animated: true)
-        }
+    @objc private func changeModeToEditable() {
+        editViewModel.changeModeToEditable()
+    }
+    
+    @objc private func cancelEditing() {
+        dismiss(animated: true)
+    }
+    
+    @objc private func doneEditing() {
+        editViewModel.doneEditing(titleInput: self.titleField.text,
+                                  descriptionInput: self.descriptionTextView.text,
+                                  dateInput: self.dataPicker.date)
+        
+        dismiss(animated: true)
     }
 }
 
 // MARK: - Layout
 extension EditingViewController {
     private func configureHierarchy() {
-        [titleField, dataPicker, descriptionTextView].forEach {
-            stack.addArrangedSubview($0)
-        }
+        [titleField, dataPicker, descriptionTextView].forEach { stack.addArrangedSubview($0) }
         
         view.addSubview(stack)
     }
