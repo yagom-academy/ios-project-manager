@@ -26,6 +26,15 @@ class ListFormView: UIStackView {
         
         return textView
     }()
+    var currentTitle: String {
+        return titleTextField.text ?? String()
+    }
+    var currentDate: Date {
+        return dueDatePicker.date
+    }
+    var currentBody: String {
+        return bodyTextView.text
+    }
     
     init(listItem: ListItem? = nil) {
         super.init(frame: .zero)
@@ -53,5 +62,23 @@ class ListFormView: UIStackView {
     
     private func configureLayout() {
         [titleTextField, dueDatePicker, bodyTextView].forEach(addArrangedSubview(_:))
+    }
+    
+    private func addShadowEffect() {
+        titleTextField.layer.shadowOffset = CGSize(width: 1, height: 5)
+        titleTextField.layer.shadowOpacity = 0.3
+        titleTextField.layer.shadowRadius = 5.0
+        titleTextField.layer.shadowPath = UIBezierPath(
+            roundedRect: titleTextField.bounds,
+            cornerRadius: titleTextField.layer.cornerRadius
+        ).cgPath
+      
+        bodyTextView.layer.shadowOffset = CGSize(width: 1, height: 5)
+        bodyTextView.layer.shadowOpacity = 0.3
+        bodyTextView.layer.shadowRadius = 5.0
+        bodyTextView.layer.shadowPath = UIBezierPath(
+            roundedRect: bodyTextView.bounds,
+            cornerRadius: bodyTextView.layer.cornerRadius
+        ).cgPath
     }
 }
