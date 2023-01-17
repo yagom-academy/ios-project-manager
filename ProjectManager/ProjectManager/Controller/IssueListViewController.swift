@@ -29,7 +29,6 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     }()
     
     var headerView: HeaderView?
-    
     var collectionView: UICollectionView?
     
     init(frame: CGRect = .zero, status: Status) {
@@ -46,6 +45,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
         configureUI()
         configureDataSource()
         applySnapshot()
+        setLongPressGestureRecognizer()
     }
     
     private func configureUI() {
@@ -68,8 +68,6 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     
     private func configureHeaderView() {
         headerView = HeaderView(title: status.description, count: issueCount)
-        
-        
     }
     
     private func configureCollectionView() {
@@ -78,7 +76,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
         listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
         listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
             let deleteAction = UIContextualAction(style: .destructive,
-                                                  title: Namespace.delete) { action, view, completion in
+                                                  title: Namespace.delete) { _, _, _  in
                 guard let issue = self.dataSource?.itemIdentifier(for: indexPath) else { return }
                 
                 self.deleteIssue(issue: issue)
@@ -135,6 +133,51 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
+    private func setLongPressGestureRecognizer() {
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                             action: #selector(handleLongPress(gestureRecognizer: )))
+        gestureRecognizer.minimumPressDuration = Namespace.minimumPressDuration
+        self.view.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        guard gestureRecognizer.state != .recognized else { return }
+        
+        let point = gestureRecognizer.location(in: collectionView)
+        let indexPath = self.collectionView?.indexPathForItem(at: point)
+        showPopover(indexPath: indexPath)
+    }
+    
+    private func showPopover(indexPath: IndexPath?) {
+        guard let indexPath = indexPath,
+              let selectedCell = collectionView?.cellForItem(at: indexPath)?.frame else { return }
+        let alertController = UIAlertController(title: nil,
+                                                message: nil,
+                                                preferredStyle: .actionSheet)
+        
+        let firstAction = UIAlertAction(title: "first", style: .default)
+        let secondAction = UIAlertAction(title: "second", style: .default)
+
+        alertController.addAction(firstAction)
+        alertController.addAction(secondAction)
+        
+        alertController.popoverPresentationController?.sourceView = collectionView
+        alertController.popoverPresentationController?.sourceRect = selectedCell
+        alertController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+        present(alertController, animated: true)
+    }
+    
+//    private func createAlertController(status: Status) {
+//        switch status {
+//        case .todo:
+//            <#code#>
+//        case .doing:
+//            <#code#>
+//        case .done:
+//            <#code#>
+//        }
+//    }
+//
     enum LayoutConstant {
         static let spacing = CGFloat(8)
         static let margin = CGFloat(12)
@@ -142,6 +185,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     
     enum Namespace {
         static let delete = "Delete"
+        static let minimumPressDuration = 0.5
     }
 }
 
