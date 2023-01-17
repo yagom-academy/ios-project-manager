@@ -59,15 +59,9 @@ final class ListView: UIView {
 extension ListView {
     
     private func configureHierarchy() {
-        headView.addSubview(titleLabel)
-        headView.addSubview(countLabel)
-        
-        headStack.addArrangedSubview(headView)
-        headStack.addArrangedSubview(separatorLine)
-        
-        headAndListStack.addArrangedSubview(headStack)
-        headAndListStack.addArrangedSubview(tableView)
-        
+        [titleLabel, countLabel].forEach { headView.addSubview($0) }
+        [headView, separatorLine].forEach { headStack.addArrangedSubview($0) }
+        [headStack, tableView].forEach { headAndListStack.addArrangedSubview($0) }
         addSubview(headAndListStack)
     }
     

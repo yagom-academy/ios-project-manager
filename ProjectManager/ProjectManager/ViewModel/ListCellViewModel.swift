@@ -43,8 +43,8 @@ final class ListCellViewModel {
     }
     
     var isMissDeadLine: Bool {
-        let today = Date()
-        guard let deadLine = self.date.changeDateFromDotFormat() else { return false }
+        let today = Date().changeDotFormatString()
+        let deadLine = self.date
         
         return deadLine < today
     }
