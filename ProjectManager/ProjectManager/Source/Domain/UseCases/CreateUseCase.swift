@@ -8,14 +8,14 @@
 import RxSwift
 
 final class CreateUseCase {
-    private weak var delegate: DidEndCreateTaskDelegate?
+    private weak var delegate: DidEndCreatingTaskDelegate?
     private let repository: TaskRepository
     
     private let translater = Translater()
     private let disposeBag = DisposeBag()
     let isCreatedSuccess = PublishSubject<Bool>()
     
-    init(delegate: DidEndCreateTaskDelegate, repository: TaskRepository) {
+    init(delegate: DidEndCreatingTaskDelegate, repository: TaskRepository) {
         self.delegate = delegate
         self.repository = repository
     }
