@@ -1,14 +1,13 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - MainViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
 
-class ListViewController: UIViewController {
-    
-    let viewModel = ListViewModel()
+class MainViewController: UIViewController {
+    let viewModel = MainViewModel()
     
     let todoListView = ListView(category: .todo)
     let doingListView = ListView(category: .doing)
@@ -68,16 +67,16 @@ class ListViewController: UIViewController {
     }
     
     @objc func addTapped() {
-        let addViewController = WorkFormViewController()
-        let navigationViewController = UINavigationController(rootViewController: addViewController)
-        addViewController.delegate = self
+        let workFormViewController = WorkFormViewController()
+        let navigationViewController = UINavigationController(rootViewController: workFormViewController)
+        workFormViewController.delegate = self
         navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
         present(navigationViewController, animated: true)
     }
 }
 
-extension ListViewController: UITableViewDelegate, UITableViewDataSource {
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case doneListView.tableView:
@@ -127,10 +126,10 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let addViewController = WorkFormViewController()
-        let navigationViewController = UINavigationController(rootViewController: addViewController)
-        addViewController.work = viewModel.todoList[indexPath.row]
-        addViewController.delegate = self
+        let workFormViewController = WorkFormViewController()
+        let navigationViewController = UINavigationController(rootViewController: workFormViewController)
+        workFormViewController.work = viewModel.todoList[indexPath.row]
+        workFormViewController.delegate = self
         navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
         present(navigationViewController, animated: true)
@@ -138,7 +137,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // Custom Delegate
-extension ListViewController: WorkDelegate, CellDelegate {
+extension MainViewController: WorkDelegate, CellDelegate {
     func showPopover(cell: ListCell) {
         
         guard let work = cell.work else { return }

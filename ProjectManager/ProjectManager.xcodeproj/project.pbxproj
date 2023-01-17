@@ -12,13 +12,13 @@
 		540B7242296E913A0096C753 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B7241296E913A0096C753 /* ListView.swift */; };
 		546A2A9A29701DC40033D593 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9929701DC40033D593 /* Category.swift */; };
 		546A2A9C29701ECC0033D593 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9B29701ECC0033D593 /* Work.swift */; };
-		546A2A9E297034A50033D593 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9D297034A50033D593 /* ListViewModel.swift */; };
+		546A2A9E297034A50033D593 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9D297034A50033D593 /* MainViewModel.swift */; };
 		5497340C29716A96004F58D0 /* WorkFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5497340B29716A96004F58D0 /* WorkFormController.swift */; };
 		5497341029741D7D004F58D0 /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5497340F29741D7D004F58D0 /* WorkManager.swift */; };
 		8458078EE3871E74082E19E0 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B83A86A551901906DABDB7 /* Pods_ProjectManager.framework */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ListViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -31,14 +31,14 @@
 		540B7241296E913A0096C753 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		546A2A9929701DC40033D593 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = ProjectManager/Model/Category.swift; sourceTree = SOURCE_ROOT; };
 		546A2A9B29701ECC0033D593 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Work.swift; path = ProjectManager/Model/Work.swift; sourceTree = SOURCE_ROOT; };
-		546A2A9D297034A50033D593 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		546A2A9D297034A50033D593 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		5497340B29716A96004F58D0 /* WorkFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormController.swift; sourceTree = "<group>"; };
 		5497340F29741D7D004F58D0 /* WorkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
 		73B83A86A551901906DABDB7 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 			children = (
 				540B723F296E751D0096C753 /* ListCell.swift */,
 				540B7241296E913A0096C753 /* ListView.swift */,
-				C7431F0925F51E1D0094C4CF /* ListViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				5497340B29716A96004F58D0 /* WorkFormController.swift */,
 			);
 			path = View;
@@ -107,7 +107,7 @@
 		546A2A962970194D0033D593 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				546A2A9D297034A50033D593 /* ListViewModel.swift */,
+				546A2A9D297034A50033D593 /* MainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -268,7 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5497341029741D7D004F58D0 /* WorkManager.swift in Sources */,
-				C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				5497340C29716A96004F58D0 /* WorkFormController.swift in Sources */,
 				540B7242296E913A0096C753 /* ListView.swift in Sources */,
@@ -276,7 +276,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				546A2A9A29701DC40033D593 /* Category.swift in Sources */,
 				546A2A9C29701ECC0033D593 /* Work.swift in Sources */,
-				546A2A9E297034A50033D593 /* ListViewModel.swift in Sources */,
+				546A2A9E297034A50033D593 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

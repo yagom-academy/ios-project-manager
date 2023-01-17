@@ -1,5 +1,5 @@
 //
-//  ListViewModel.swift
+//  MainViewModel.swift
 //  ProjectManager
 //
 //  Created by leewonseok on 2023/01/12.
@@ -7,8 +7,7 @@
 
 import Foundation
 
-class ListViewModel {
-    
+class MainViewModel {
     let workManager = WorkManager()
     
     var todoList: [Work] {
