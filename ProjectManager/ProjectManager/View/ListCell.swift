@@ -11,21 +11,21 @@ protocol CellDelegate: AnyObject {
     func showPopover(cell: ListCell)
 }
 
-class ListCell: UITableViewCell {
+final class ListCell: UITableViewCell {
     static let identifier = ListCell.description()
 
     var viewModel = ListCellViewModel()
     
     weak var delegate: CellDelegate?
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title2)
         return label
     }()
     
-    let bodyLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
@@ -33,14 +33,14 @@ class ListCell: UITableViewCell {
         return label
     }()
     
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         return label
     }()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -59,7 +59,7 @@ class ListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureBind() {
+    private func configureBind() {
         viewModel.bind { work in
             self.titleLabel.text = work?.title
             self.bodyLabel.text = work?.body
@@ -71,7 +71,7 @@ class ListCell: UITableViewCell {
         viewModel.work = work
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(bodyLabel)
@@ -87,7 +87,7 @@ class ListCell: UITableViewCell {
 }
 
 extension ListCell {
-    func confgiureGesture() {
+    private func confgiureGesture() {
          let longPressedGesture = UILongPressGestureRecognizer(target: self,
                                                                action: #selector(handleLongPress(gestureRecognizer:)))
          longPressedGesture.minimumPressDuration = 0.2

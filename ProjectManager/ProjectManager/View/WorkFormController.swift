@@ -7,12 +7,12 @@
 
 import UIKit
 
-class WorkFormViewController: UIViewController {
+final class WorkFormViewController: UIViewController {
     var viewModel = WorkFormViewModel()
     
     weak var delegate: WorkDelegate?
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -22,7 +22,7 @@ class WorkFormViewController: UIViewController {
         return stackView
     }()
     
-    let titleTextField: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Title"
@@ -33,14 +33,14 @@ class WorkFormViewController: UIViewController {
         return textField
     }()
     
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.preferredDatePickerStyle = .wheels
         return datePicker
     }()
     
-    let bodyTextView: UITextView = {
+    private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.preferredFont(forTextStyle: .body)
@@ -59,14 +59,14 @@ class WorkFormViewController: UIViewController {
         bodyTextView.delegate = self
     }
     
-    func configureWork() {
+    private func configureWork() {
         guard let work = viewModel.work else { return }
         titleTextField.text = work.title
         bodyTextView.text = work.body
         datePicker.date = work.endDate
     }
     
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         navigationItem.title = "TODO"
         if viewModel.work != nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self,
@@ -80,7 +80,7 @@ class WorkFormViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .systemGray5
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         view.backgroundColor = .white
         view.addSubview(stackView)
         stackView.addArrangedSubview(titleTextField)
@@ -103,17 +103,17 @@ class WorkFormViewController: UIViewController {
         datePicker.isEnabled = false
     }
     
-    @objc func editButtonTapped() {
+    @objc private func editButtonTapped() {
         titleTextField.isEnabled = true
         bodyTextView.isEditable = true
         datePicker.isEnabled = true
     }
     
-    @objc func cancelButtonTapped() {
+    @objc private func cancelButtonTapped() {
         dismiss(animated: true)
     }
     
-    @objc func doneButtonTapped() {
+    @objc private func doneButtonTapped() {
         guard let work = viewModel.updateWork(title: titleTextField.text,
                                               body: bodyTextView.text,
                                               date: datePicker.date) else { return }

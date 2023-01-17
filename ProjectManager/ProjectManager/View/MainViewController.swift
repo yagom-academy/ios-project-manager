@@ -6,12 +6,12 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-    let viewModel = MainViewModel()
+final class MainViewController: UIViewController {
+    private let viewModel = MainViewModel()
     
-    let todoListView = ListView(category: .todo)
-    let doingListView = ListView(category: .doing)
-    let doneListView = ListView(category: .done)
+    private let todoListView = ListView(category: .todo)
+    private let doingListView = ListView(category: .doing)
+    private let doneListView = ListView(category: .done)
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -66,7 +66,7 @@ class MainViewController: UIViewController {
                                                             target: self, action: #selector(addTapped))
     }
     
-    @objc func addTapped() {
+    @objc private func addTapped() {
         let workFormViewController = WorkFormViewController()
         let navigationViewController = UINavigationController(rootViewController: workFormViewController)
         workFormViewController.delegate = self

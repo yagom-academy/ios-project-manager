@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MainViewModel {
+final class MainViewModel {
     private var totalWorkList: [Work] = [] {
         didSet {
             reloadHandler?()

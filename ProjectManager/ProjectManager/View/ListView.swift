@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ListView: UIView {
-    let category: Category
+final class ListView: UIView {
+    private let category: Category
 
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 10
@@ -28,14 +28,14 @@ class ListView: UIView {
         return tableView
     }()
     
-    let categoryStackView: UIStackView = {
+    private let categoryStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         return stackView
     }()
     
-    lazy var categoryLabel: UILabel = {
+    private lazy var categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title1)
@@ -43,7 +43,7 @@ class ListView: UIView {
         return label
     }()
     
-    lazy var categoryCountLabel: UIButton = {
+    private lazy var categoryCountLabel: UIButton = {
         let button = UIButton()
         button.backgroundColor = .black
         button.layer.cornerRadius = button.layer.frame.width / 2
@@ -51,7 +51,7 @@ class ListView: UIView {
         return button
     }()
     
-    let blankView: UIView = {
+    private let blankView: UIView = {
         let view = UIView()
         return view
     }()
@@ -66,7 +66,7 @@ class ListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func confgiureLayout() {
+    private func confgiureLayout() {
         backgroundColor = .systemGray5
         categoryStackView.addArrangedSubview(categoryLabel)
         categoryStackView.addArrangedSubview(categoryCountLabel)

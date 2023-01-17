@@ -7,7 +7,7 @@
 
 import Foundation
 
-class WorkFormViewModel {
+final class WorkFormViewModel {
     var work: Work?
     
     func updateWork(title: String?, body: String?, date: Date) -> Work? {
