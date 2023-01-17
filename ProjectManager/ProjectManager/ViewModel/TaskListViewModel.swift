@@ -7,6 +7,13 @@
 
 import Foundation
 
-struct TaskListViewModel {
-    let tasks: [Task]
+class TaskListViewModel {
+    var tasks: [Task] = []
+}
+
+extension TaskListViewModel {
+    func setSampleData(_ sampleData: [Task]) {
+        tasks = sampleData
+    }
+    
 }

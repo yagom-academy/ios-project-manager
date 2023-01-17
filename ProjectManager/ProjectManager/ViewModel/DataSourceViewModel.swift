@@ -12,7 +12,8 @@ struct DataSourceViewModel {
         registerCell(tableView: tableView)
         let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, _ in
             let taskVM = viewModel.tasks[indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath) as? TableViewCell ?? TableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell",
+                                                     for: indexPath) as? TableViewCell ?? TableViewCell()
             cell.titleLabel.text = taskVM.title
             cell.descriptionLabel.text = taskVM.description
             cell.dateLabel.text = taskVM.date?.description
