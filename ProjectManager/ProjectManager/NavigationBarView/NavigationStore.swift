@@ -14,6 +14,7 @@ struct NavigationStore: ReducerProtocol {
     var trailingImage: Image?
     var leadingImage: Image?
     var detailState: DetailViewStore.State?
+    var createdProject: Project?
   }
   
   enum Action: Equatable {
@@ -60,6 +61,7 @@ struct NavigationStore: ReducerProtocol {
           date: detailState.deadLineDate.timeIntervalSince1970.exponent,
           description: detailState.description
         )
+        state.createdProject = project
         state.isPresent = false
         return .none
       }
