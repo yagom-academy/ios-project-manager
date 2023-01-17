@@ -33,16 +33,18 @@ final class EditingViewController: UIViewController {
     private let descriptionTextView: UITextView = {
         let textView = UITextView(font: .title2)
         textView.layer.cornerRadius = Default.radius
+        textView.keyboardDismissMode = .interactive
         textView.addShadow(backGroundColor: .white, shadowColor: .black)
         
         return textView
     }()
     
-    private let stack = UIStackView(axis: .vertical, spacing: Default.stackSpacing)
+    private let stack = UIStackView(axis: .vertical)
     
     init(viewModel: EditingViewModel) {
         self.editViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        addKeyboardNotifications()
     }
     
     required init?(coder: NSCoder) {
@@ -123,10 +125,12 @@ extension EditingViewController {
     
     @objc private func changeModeToEditable() {
         editViewModel.changeModeToEditable()
+        descriptionTextView.becomeFirstResponder()
     }
     
     @objc private func cancelEditing() {
         dismiss(animated: true)
+        descriptionTextView.resignFirstResponder()
     }
     
     @objc private func doneEditing() {
@@ -134,6 +138,7 @@ extension EditingViewController {
                                   descriptionInput: self.descriptionTextView.text,
                                   dateInput: self.dataPicker.date)
         
+        descriptionTextView.resignFirstResponder()
         dismiss(animated: true)
     }
 }
@@ -150,9 +155,11 @@ extension EditingViewController {
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            descriptionTextView.heightAnchor.constraint(equalTo: stack.heightAnchor,
-                                                        multiplier: Default.descriptionHeightRatio),
-            dataPicker.heightAnchor.constraint(equalTo: stack.heightAnchor,
+            titleField.heightAnchor.constraint(greaterThanOrEqualTo: stack.heightAnchor,
+                                               multiplier: Default.titleHeightRatio),
+            descriptionTextView.heightAnchor.constraint(greaterThanOrEqualTo: stack.heightAnchor,
+                                               multiplier: Default.descriptionHeightRatio),
+            dataPicker.heightAnchor.constraint(lessThanOrEqualTo: stack.heightAnchor,
                                                multiplier: Default.dataPickerHeightRatio),
             stack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,
                                            constant: Default.margin),
@@ -166,6 +173,37 @@ extension EditingViewController {
     }
 }
 
+// MARK: - HandlingKeyBoard
+extension EditingViewController {
+    private func addKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setKeyboardShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(setKeyboardHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    @objc private func setKeyboardShow(_ notification: Notification) {
+        guard let containerHeight = presentationController?.containerView?.frame.height,
+              containerHeight/2 < view.frame.height else { return }
+        
+        view.frame = CGRect(x: Default.origin, y: Default.origin,
+                            width: view.frame.width, height: view.frame.height/2)
+    }
+    
+    @objc private func setKeyboardHide(_ notification: Notification) {
+        guard let containerHeight = presentationController?.containerView?.frame.height,
+              containerHeight/2 > view.frame.height else { return }
+        
+        view.frame = CGRect(x: Default.origin, y: Default.origin,
+                            width: view.frame.width, height: view.frame.height * 2)
+    }
+}
+
+// MARK: - NameSpace
 extension EditingViewController {
     
     private enum Default {
@@ -173,13 +211,12 @@ extension EditingViewController {
         static let titlePlaceHolder = "Title"
         static let radius: CGFloat = 10
         static let titlePadding: CGFloat = 20
-        static let stackSpacing: CGFloat = 10
         static let origin: CGFloat = 0
         static let navigationBarHeight: CGFloat = 70
         static let descriptionHeightRatio = 0.4
-        static let titleHeightRatio = 0.15
+        static let titleHeightRatio = 0.1
         static let dataPickerHeightRatio = 1 - descriptionHeightRatio - titleHeightRatio
         static let margin: CGFloat = 10
-        static let stackTopMargin = navigationBarHeight + margin
+        static let stackTopMargin = navigationBarHeight
     }
 }

@@ -165,10 +165,10 @@ extension MainViewController: UITableViewDelegate {
 
 // MARK: - Handling LongPressGesture of Cell
 extension MainViewController: ListCellDelegate {
-    
     func showPopoverMenu(_ sender: UILongPressGestureRecognizer,
                          using model: ListCellViewModel) {
-        guard let project = model.currentProject  else { return }
+        guard  let project = model.currentProject,
+               sender.state == .began else { return }
         
         let menuAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         menuAlert.makePopoverStyle()
@@ -196,6 +196,7 @@ extension MainViewController: ListCellDelegate {
     }
 }
 
+// MARK: - NameSpace
 extension MainViewController {
     
     private enum Default {

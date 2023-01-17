@@ -64,6 +64,7 @@ final class MainViewModel {
     }
 }
 
+// MARK: - NameSpace
 extension MainViewModel {
     
     private enum Default {

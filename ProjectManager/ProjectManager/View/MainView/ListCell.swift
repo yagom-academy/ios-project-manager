@@ -65,7 +65,6 @@ final class ListCell: UITableViewCell {
         let longPressGesture = UILongPressGestureRecognizer( target: self,
                                                              action: #selector(moveToOtherList))
         longPressGesture.delaysTouchesBegan = true
-        longPressGesture.delegate = self
         
         self.contentView.addGestureRecognizer(longPressGesture)
     }
@@ -115,6 +114,7 @@ extension ListCell {
     }
 }
 
+// MARK: - NameSpace
 extension ListCell {
     
     private enum Default {
