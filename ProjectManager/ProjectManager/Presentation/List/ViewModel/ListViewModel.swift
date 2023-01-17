@@ -65,8 +65,9 @@ final class ListViewModel {
         }
     }
 
-    func convertFormat(date: Date) -> String {
-        return date.localeFormattedText
+    func convertToText(from project: Project) -> (title: String, description: String, deadline: String) {
+
+        return (project.title, project.description, project.deadline.localeFormattedText)
     }
 }
 

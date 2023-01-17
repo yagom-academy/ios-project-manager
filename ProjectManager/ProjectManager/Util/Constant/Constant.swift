@@ -36,6 +36,7 @@ enum Constant {
     enum Style {
 
         static let stackViewSpacing: CGFloat = 8
+        static let listCellSpacing: CGFloat = 4
         static let stackViewBottomInset: CGFloat = -28
         static let listTitleMargin: CGFloat = 8
         static let circleViewWidthPadding: CGFloat = 12
@@ -45,9 +46,12 @@ enum Constant {
     enum Color {
 
         static let mainBackground: UIColor = .systemBackground
-        static let PlanListViewSpacing: UIColor = .systemGray3
-        static let PlanListBackground: UIColor = .systemGray6
+        static let listViewSpacing: UIColor = .systemGray3
+        static let listBackground: UIColor = .systemGray6
         static let circleBackground: CGColor = UIColor.black.cgColor
         static let circleText: UIColor = .white
+        static let descriptionLabel: UIColor = .systemGray5
+        static let overDue: UIColor = .systemRed
+        static let cellBackground: UIColor = .white
     }
 }

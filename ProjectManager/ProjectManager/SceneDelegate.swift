@@ -15,7 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         let window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: PlanListViewController())
+        let listViewController = ListViewController()
+        let listUseCase = DefaultListUseCase(list: ProjectList())
+        listViewController.viewModel = ListViewModel(listUseCase: listUseCase)
+        let navigationController = UINavigationController(rootViewController: listViewController)
 
         window.rootViewController = navigationController
         window.makeKeyAndVisible()

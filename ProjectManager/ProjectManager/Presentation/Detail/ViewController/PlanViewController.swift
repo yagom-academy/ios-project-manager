@@ -9,17 +9,7 @@ import UIKit
 
 class PlanViewController: UIViewController {
 
-    private let viewModel: PlanViewModel
-
-    init(viewModel: PlanViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var viewModel: PlanViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
