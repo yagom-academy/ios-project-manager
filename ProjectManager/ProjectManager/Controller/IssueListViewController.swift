@@ -30,11 +30,18 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     }()
     
     var headerView: HeaderView?
-    var collectionView: UICollectionView?
     
-    init(status: Status) {
-        self.status = status
+    var collectionView: UICollectionView = {
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
+        listConfiguration.separatorConfiguration.topSeparatorVisibility = .hidden
+        listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
+        let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         
+        return UICollectionView(frame: .zero, collectionViewLayout: layout)
+    }()
+    
+    init(frame: CGRect = .zero, status: Status) {
+        self.status = status
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -44,33 +51,39 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configureUI()
+        configureDataSource()
+        applySnapshot()
     }
     
     private func configureUI() {
         configureStackView()
         configureHeaderView()
+        configureCollectionView()
     }
     
     private func configureStackView() {
+        view.addSubview(stackView)
         
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        ])
     }
     
     private func configureHeaderView() {
         headerView = HeaderView(title: status.description, count: issueCount)
+        
+        stackView.addArrangedSubview(headerView ?? HeaderView())
     }
     
-    private func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfiguration.separatorConfiguration.topSeparatorVisibility = .hidden
-        listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
-        
-        return UICollectionViewCompositionalLayout.list(using: listConfiguration)
+    private func configureCollectionView() {
+        stackView.addArrangedSubview(collectionView)
     }
     
     private func configureDataSource() {
-        guard let collectionView = collectionView else { return }
-        
         let cellRegistration = UICollectionView.CellRegistration<CustomListCell, Issue> {
             (cell, indexPath, item) in
             cell.item = item

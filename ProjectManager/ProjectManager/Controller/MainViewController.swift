@@ -12,6 +12,7 @@ final class MainViewController: UIViewController {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.spacing = LayoutConstant.columnSpacing
+        stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.isLayoutMarginsRelativeArrangement = true
         stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstant.mainStackViewMargin,
@@ -30,6 +31,7 @@ final class MainViewController: UIViewController {
     private func configureUI() {
         configureNavigationBar()
         configureMainStackView()
+        configureChildViewControllers()
     }
     
     private func configureNavigationBar() {
