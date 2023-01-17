@@ -55,8 +55,8 @@ struct ProjectListViewModel {
 
     mutating func update(project: Project) {
         guard let index = projects.firstIndex(where: { $0.id == project.id }) else { return }
-        projects[index] = project
         updatedProjectsID.append(project.id)
+        projects[index] = project
     }
 
     mutating func delete(for projectID: UUID) {

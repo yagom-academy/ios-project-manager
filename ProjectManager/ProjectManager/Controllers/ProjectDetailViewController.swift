@@ -116,7 +116,7 @@ class ProjectDetailViewController: UIViewController {
 
 // MARK: - Project Data
 extension ProjectDetailViewController {
-    private func updateProjectDetailViewsData(_ project: Project) {
+    private func updateProjectDetailViewsData() {
         titleTextField.text = projectViewModel.project.title
         dueDatePicker.date = projectViewModel.project.dueDate
         descriptionTextView.text = projectViewModel.project.description
@@ -145,7 +145,7 @@ extension ProjectDetailViewController {
                                                                target: self,
                                                                action: #selector(prepareForeViewing))
         }
-        updateProjectDetailViewsData(projectViewModel.project)
+        updateProjectDetailViewsData()
     }
 
     @objc
@@ -154,7 +154,7 @@ extension ProjectDetailViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
                                                            target: self,
                                                            action: #selector(prepareForEditing))
-        updateProjectDetailViewsData(projectViewModel.project)
+        updateProjectDetailViewsData()
     }
 
     @objc
