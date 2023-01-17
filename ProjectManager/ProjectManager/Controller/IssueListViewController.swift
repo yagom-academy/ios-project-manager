@@ -84,6 +84,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView?.delegate = self
     }
     
     private func embedInStack() {
@@ -139,6 +140,12 @@ extension IssueListViewController: IssueManageable {
 
 extension IssueListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // present IssueViewController
+        
+        guard let issue = dataSource?.itemIdentifier(for: indexPath) else { return }
+        
+        let issueViewcontroller = IssueViewController(issue: issue,
+                                                      delegate: self)
+        let navigationViewController = UINavigationController(rootViewController: issueViewcontroller)
+        self.present(navigationViewController, animated: true)
     }
 }

@@ -50,6 +50,7 @@ final class CustomContentView: UIView, UIContentView {
     init(configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
+        isUserInteractionEnabled = false
         configureViews()
         configureContents(using: configuration)
     }
