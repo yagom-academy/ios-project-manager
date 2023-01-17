@@ -17,6 +17,7 @@ class ToDoListView: UIView {
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         
+        tableView.register(ToDoCell.self, forCellReuseIdentifier: ToDoCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
