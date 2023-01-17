@@ -33,6 +33,7 @@ final class ProjectListViewController: UIViewController {
         super.viewDidLoad()
 
         configureNavigationBar()
+        configureView()
     }
 
     // MARK: Configure NavigationBar
@@ -50,4 +51,10 @@ final class ProjectListViewController: UIViewController {
         navigationItem.title = "프로젝트 매니저"
         navigationItem.rightBarButtonItem = makeRightNavigationBarButton()
     }
+
+    private func configureView() {
+        view.addSubview(projectListView)
+
+    }
+
 }
