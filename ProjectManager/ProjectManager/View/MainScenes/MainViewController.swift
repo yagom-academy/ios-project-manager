@@ -20,6 +20,7 @@ final class MainViewController: UIViewController {
     
     private enum UIConstant {
         static let navigationTitle = "Project Manager"
+        static let deleteSwipeTitle = "Delete"
         static let tableSpacing = 10.0
         static let bottomValue = -50.0
         static let headerSectionHeight = 7.0
@@ -221,6 +222,40 @@ extension MainViewController: UITableViewDelegate {
             rootViewController: detailViewController
         )
         present(detailNavigationController, animated: true)
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        
+        let delete = UIContextualAction(
+            style: .normal,
+            title: UIConstant.deleteSwipeTitle
+        ) { _, _, _ in
+            
+            let process: Process
+            
+            switch tableView {
+            case self.todoView.tableView:
+                process = .todo
+            case self.doingView.tableView:
+                process = .doing
+            case self.doneView.tableView:
+                process = .done
+            default:
+                return
+            }
+            
+            self.viewModel.setupUploadDataIndex(index: indexPath.row)
+            self.viewModel.setupUploadDataProcess(process: process)
+            self.viewModel.deleteData()
+        }
+        
+        delete.backgroundColor = .red
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [delete])
+        swipeConfiguration.performsFirstActionWithFullSwipe = true
+        return swipeConfiguration
     }
 }
 

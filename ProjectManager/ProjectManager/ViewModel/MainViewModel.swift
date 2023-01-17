@@ -83,6 +83,20 @@ extension MainViewModel {
         }
     }
     
+    func deleteData() {
+        guard let index = uploadDataIndex else { return }
+        guard let process = uploadDataProcess else { return }
+        
+        switch process {
+        case .todo:
+            todoData.remove(at: index)
+        case .doing:
+            doingData.remove(at: index)
+        case .done:
+            doneData.remove(at: index)
+        }
+    }
+    
     func setupUploadDataProcess(process: Process) {
         uploadDataProcess = process
     }
