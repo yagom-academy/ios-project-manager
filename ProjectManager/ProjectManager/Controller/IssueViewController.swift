@@ -75,16 +75,36 @@ final class IssueViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureContents()
     }
     
     
     private func configureUI() {
         view.addSubview(stackView)
         view.backgroundColor = .systemBackground
-        title = "TODO"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done")
-        
         configureStackView()
+    }
+    
+    private func configureNavigationBar() {
+        title = (issue == nil ? Status.todo.description : issue?.status.description)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+                                                            primaryAction: UIAction { _ in
+            if self.issue == nil {
+                self.createIssue()
+                self.delegate.addIssue(issue: self.issue)
+            } else {
+                self.delegate.updateIssue(issue: self.issue)
+            }
+
+            self.dismiss(animated: true)
+        })
+    }
+    
+    private func createIssue() {
+        issue = Issue(status: .todo,
+                      title: titleTextField.text ?? Namespace.empty,
+                      body: bodyTextView.text,
+                      dueDate: datePicker.date)
     }
     
     private func configureStackView() {
@@ -100,8 +120,20 @@ final class IssueViewController: UIViewController {
         stackView.addArrangedSubview(bodyTextView)
     }
     
+    private func configureContents() {
+        guard let issue = issue else { return }
+        titleTextField.text = issue.title
+        datePicker.date = issue.dueDate
+        bodyTextView.text = issue.body
+    }
+        
     enum LayoutConstant {
         static let stackViewSpacing = CGFloat(8)
         static let margin = CGFloat(16)
+    }
+    
+    enum Namespace {
+        static let maxBodyTextCount = 1000
+        static let empty = ""
     }
 }
