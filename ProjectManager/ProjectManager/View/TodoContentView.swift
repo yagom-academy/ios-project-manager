@@ -54,7 +54,6 @@ final class TodoContentView: UIView, UIContentView {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        // edit버튼2번누를시 오류?같은데 나타남 원인은 아래 코드2줄같음
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 32)
         return stackView

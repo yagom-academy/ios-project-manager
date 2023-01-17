@@ -32,7 +32,7 @@ final class MainViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.text = "5"
+        label.text = "0"
         label.widthAnchor.constraint(equalTo: label.heightAnchor).isActive = true
         label.layer.masksToBounds = true
         label.backgroundColor = .black
@@ -72,7 +72,7 @@ final class MainViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.text = "2"
+        label.text = "0"
         label.widthAnchor.constraint(equalTo: label.heightAnchor).isActive = true
         label.layer.masksToBounds = true
         label.backgroundColor = .black
@@ -112,7 +112,7 @@ final class MainViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.text = "3"
+        label.text = "0"
         label.widthAnchor.constraint(equalTo: label.heightAnchor).isActive = true
         label.layer.masksToBounds = true
         label.backgroundColor = .black
@@ -236,6 +236,7 @@ final class MainViewController: UIViewController {
         updateTodoSnapshot()
         updateDoingSnapshot()
         updateDoneSnapshot()
+        updateListCounts()
     }
 
     override func viewDidLayoutSubviews() {
@@ -273,7 +274,7 @@ final class MainViewController: UIViewController {
             todoStackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             todoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 
-            todoCollectionView.topAnchor.constraint(equalTo: todoStackView.bottomAnchor, constant: 1),
+            todoCollectionView.topAnchor.constraint(equalTo: todoStackView.bottomAnchor),
             todoCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             todoCollectionView.trailingAnchor.constraint(equalTo: todoStackView.trailingAnchor),
             todoCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -285,7 +286,7 @@ final class MainViewController: UIViewController {
             doingStackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             doingStackView.leadingAnchor.constraint(equalTo: firstDividingLineView.trailingAnchor),
 
-            doingCollectionView.topAnchor.constraint(equalTo: doingStackView.bottomAnchor, constant: 1),
+            doingCollectionView.topAnchor.constraint(equalTo: doingStackView.bottomAnchor),
             doingCollectionView.leadingAnchor.constraint(equalTo: firstDividingLineView.trailingAnchor),
             doingCollectionView.trailingAnchor.constraint(equalTo: doingStackView.trailingAnchor),
             doingCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -298,7 +299,7 @@ final class MainViewController: UIViewController {
             doneStackView.leadingAnchor.constraint(equalTo: secondDividingLineView.trailingAnchor),
             doneStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            doneCollectionView.topAnchor.constraint(equalTo: doneStackView.bottomAnchor, constant: 1),
+            doneCollectionView.topAnchor.constraint(equalTo: doneStackView.bottomAnchor),
             doneCollectionView.leadingAnchor.constraint(equalTo: secondDividingLineView.trailingAnchor),
             doneCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             doneCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -323,7 +324,7 @@ final class MainViewController: UIViewController {
             dataSource?.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
                 if kind == UICollectionView.elementKindSectionHeader {
                     let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.sectionHeaderIdentifier, for: indexPath)
-                    headerView.frame.size.height = .zero
+                    headerView.frame.size.height = 8
                     return headerView
                 }
                 return nil
@@ -457,6 +458,12 @@ final class MainViewController: UIViewController {
         popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
         present(cellPopOverViewController, animated: true, completion: nil)
     }
+
+    private func updateListCounts() {
+        todoCountLabel.text = String(todoLists.count)
+        doingCountLabel.text = String(doingLists.count)
+        doneCountLabel.text = String(doneLists.count)
+    }
 }
 
 // MARK: - Objc
@@ -519,6 +526,7 @@ extension MainViewController: CellPopoverViewDelegate {
             updateDoneSnapshot()
             updateTodoSnapshot()
         }
+        updateListCounts()
     }
 
     func moveToDoing(from: CellPopoverViewMode, cellIndex: Int) {
@@ -538,6 +546,7 @@ extension MainViewController: CellPopoverViewDelegate {
             updateDoneSnapshot()
             updateDoingSnapshot()
         }
+        updateListCounts()
     }
 
     func moveToDone(from: CellPopoverViewMode, cellIndex: Int) {
@@ -557,8 +566,8 @@ extension MainViewController: CellPopoverViewDelegate {
         case .done:
             break
         }
+        updateListCounts()
     }
-
 }
 
 // MARK: - UICollectionViewDelegate
