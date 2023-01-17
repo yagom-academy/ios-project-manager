@@ -8,7 +8,9 @@
 import UIKit
 
 final class IssueViewController: UIViewController {
-    private let issueManager = IssueManager()
+    private var issue: Issue?
+    private var delegate: IssueManageable
+    private var isEditable: Bool
     
     private var stackView: UIStackView = {
         let stack = UIStackView()
@@ -20,7 +22,6 @@ final class IssueViewController: UIViewController {
                                                                  bottom: LayoutConstant.margin,
                                                                  trailing: LayoutConstant.margin)
         stack.translatesAutoresizingMaskIntoConstraints = false
-
         
         return stack
     }()
@@ -36,7 +37,7 @@ final class IssueViewController: UIViewController {
     
     private var datePicker: UIDatePicker = {
         let picker = UIDatePicker()
-        picker.datePickerMode = .dateAndTime
+        picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
         picker.locale = .current
         picker.translatesAutoresizingMaskIntoConstraints = false
@@ -51,6 +52,25 @@ final class IssueViewController: UIViewController {
         
         return textView
     }()
+    
+    init(delegate: IssueManageable) {
+        self.delegate = delegate
+        self.isEditable = true
+        super.init(nibName: nil, bundle: nil)
+        configureNavigationBar()
+    }
+    
+    init(issue: Issue, delegate: IssueManageable) {
+        self.issue = issue
+        self.delegate = delegate
+        self.isEditable = false
+        super.init(nibName: nil, bundle: nil)
+        configureNavigationBar()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
