@@ -13,7 +13,6 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     var issues: [Issue] = []
     var issueManager: IssueManager?
     var dataSource: UICollectionViewDiffableDataSource<Status, Issue>?
-    var snapshot = NSDiffableDataSourceSnapshot<Status, Issue>()
     
     var stackView: UIStackView = {
         let stack = UIStackView()
@@ -113,6 +112,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     }
     
     private func applySnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Status, Issue>()
         snapshot.appendSections([status])
         snapshot.appendItems(issues, toSection: status)
         dataSource?.apply(snapshot, animatingDifferences: true)
