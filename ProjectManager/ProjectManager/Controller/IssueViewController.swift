@@ -90,18 +90,30 @@ final class IssueViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        title = (issue == nil ? Status.todo.description : issue?.status.description)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Namespace.rightBarButtonTitle,
-                                                            primaryAction: UIAction { _ in
-            if self.issue == nil {
+        if issue == nil {
+            title = Status.todo.description
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Namespace.done,
+                                                                primaryAction: UIAction { _ in
                 self.createIssue()
                 self.delegate.addIssue(issue: self.issue)
-            } else {
+                self.dismiss(animated: true)
+            })
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: Namespace.cancel,
+                                                               primaryAction: UIAction { _ in
+                self.dismiss(animated: true)
+            })
+        } else {
+            title = issue?.status.description
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Namespace.done,
+                                                                primaryAction: UIAction { _ in
                 self.delegate.updateIssue(issue: self.issue)
-            }
-
-            self.dismiss(animated: true)
-        })
+                self.dismiss(animated: true)
+            })
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: Namespace.edit,
+                                                               primaryAction: UIAction { _ in
+                self.isEditable = true
+            })
+        }
     }
     
     private func createIssue() {
@@ -130,7 +142,7 @@ final class IssueViewController: UIViewController {
         datePicker.date = issue.dueDate
         bodyTextView.text = issue.body
     }
-        
+    
     enum LayoutConstant {
         static let stackViewSpacing = CGFloat(8)
         static let margin = CGFloat(16)
@@ -139,7 +151,9 @@ final class IssueViewController: UIViewController {
     enum Namespace {
         static let maxBodyTextCount = 1000
         static let empty = ""
-        static let rightBarButtonTitle = "Done"
+        static let done = "Done"
+        static let edit = "Edit"
+        static let cancel = "Cancel"
     }
 }
 
