@@ -14,13 +14,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        window?.windowScene = windowScene
+        window = UIWindow(windowScene: windowScene)
 
         let rootViewController = ProjectListViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
 
-        window?.backgroundColor = .systemBackground
         window?.rootViewController = navigationController
+        window?.backgroundColor = .systemBackground
         window?.makeKeyAndVisible()
     }
 }
