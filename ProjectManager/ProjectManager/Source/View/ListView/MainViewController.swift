@@ -121,7 +121,11 @@ extension MainViewController {
                 return UITableViewCell()
             }
             
-            cell.configureCell(title: item.title, body: item.body, dueDate: item.dueDate)
+            let item = self.listItems[indexPath.row]
+            let listItemCellViewModel = ListItemCellViewModel(listItem: item)
+            
+            cell.bind(listItemCellViewModel)
+            cell.update(item)
             
             return cell
         }
