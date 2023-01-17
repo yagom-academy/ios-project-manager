@@ -59,7 +59,10 @@ final class DetailViewModel {
         self.description = data.content ?? Constant.defaultText
         mode = .edit
     }
-    
+}
+
+// MARK: - Method
+extension DetailViewModel {
     func isNewMode() -> Bool {
         if mode == .new {
             return true

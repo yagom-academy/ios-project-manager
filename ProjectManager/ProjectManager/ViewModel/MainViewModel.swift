@@ -16,11 +16,13 @@ final class MainViewModel {
             todoHandler?(todoData)
         }
     }
+    
     private var doingData: [Todo] = [] {
         didSet {
             doingHandler?(doingData)
         }
     }
+    
     private var doneData: [Todo] = [] {
         didSet {
             doneHandler?(doneData)
@@ -30,7 +32,10 @@ final class MainViewModel {
     private var todoHandler: (([Todo]) -> Void)?
     private var doingHandler: (([Todo]) -> Void)?
     private var doneHandler: (([Todo]) -> Void)?
-    
+}
+
+// MARK: - Method
+extension MainViewModel {
     func bindTodo(handler: @escaping ([Todo]) -> Void) {
         handler(todoData)
         self.todoHandler = handler

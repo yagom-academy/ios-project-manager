@@ -19,7 +19,10 @@ final class CellViewModel {
     init(data: Todo) {
         self.data = data
     }
-    
+}
+
+// MARK: - Method
+extension CellViewModel {
     func bindDate(handler: @escaping (Todo?) -> Void) {
         handler(data)
         self.dataHandler = handler
