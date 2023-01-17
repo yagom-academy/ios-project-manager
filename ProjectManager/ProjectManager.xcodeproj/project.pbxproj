@@ -25,6 +25,7 @@
 		AC675843297677BD00C2BDE2 /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37953FF297651BB00A3F02F /* TaskRepository.swift */; };
 		AC675844297677C000C2BDE2 /* DidEndEditTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675834297656AE00C2BDE2 /* DidEndEditTaskDelegate.swift */; };
 		AC6758452976780100C2BDE2 /* MockTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37954012976539200A3F02F /* MockTaskRepository.swift */; };
+		AC67584829767A4B00C2BDE2 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = AC67584729767A4B00C2BDE2 /* RxTest */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -85,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC67584829767A4B00C2BDE2 /* RxTest in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,12 +157,20 @@
 			path = UseCaseTests;
 			sourceTree = "<group>";
 		};
+		AC67584629767A4B00C2BDE2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				AC67582A2976328400C2BDE2 /* ProjectManagerTests */,
 				C7431F0325F51E1D0094C4CF /* Products */,
+				AC67584629767A4B00C2BDE2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -364,6 +374,9 @@
 				AC67581F2976306F00C2BDE2 /* PBXTargetDependency */,
 			);
 			name = TranslaterTests;
+			packageProductDependencies = (
+				AC67584729767A4B00C2BDE2 /* RxTest */,
+			);
 			productName = TranslaterTests;
 			productReference = AC67581A2976306F00C2BDE2 /* TranslaterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -777,6 +790,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AC67584729767A4B00C2BDE2 /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3E203B829757FF60015AD16 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
 		D36715DA296D4CCB00A4A9DD /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D36715D9296D4CCA00A4A9DD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
