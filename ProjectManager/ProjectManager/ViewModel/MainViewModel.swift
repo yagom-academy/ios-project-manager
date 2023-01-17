@@ -8,49 +8,110 @@
 import Foundation
 
 final class MainViewModel {
-    private var totalWorkList: [Work] = [] {
+    var todoList: [Work] = [] {
         didSet {
-            reloadHandler?()
-        }
-    }
-    
-    var todoList: [Work] {
-        totalWorkList.filter { $0.category == .todo }
-    }
-    
-    var doingList: [Work] {
-        totalWorkList.filter { $0.category == .doing }
-    }
-    
-    var doneList: [Work] {
-        totalWorkList.filter { $0.category == .done }
-    }
-    
-    private var reloadHandler: (() -> Void)?
-    
-    func bind(handler: @escaping () -> Void) {
-        reloadHandler = handler
-    }
-    
-    func searchWorkIndex(data: Work) -> Int? {
-        return totalWorkList.firstIndex { $0.id == data.id }
-    }
-
-    func updateWork(data: Work) {
-        if let index = searchWorkIndex(data: data) {
-            totalWorkList[index] = data
-            return
+            todoListHandler?(todoList)
         }
         
-        totalWorkList.append(data)
+    }
+    
+    var doingList: [Work] = [] {
+        didSet {
+            doingListHandler?(doingList)
+        }
+        
+    }
+    
+    var doneList: [Work] = [] {
+        didSet {
+            doneListHandler?(doneList)
+        }
+        
+    }
+    
+    private var todoListHandler: (([Work]) -> Void)?
+    private var doingListHandler: (([Work]) -> Void)?
+    private var doneListHandler: (([Work]) -> Void)?
+    
+    func bindTodoList(handler: @escaping ([Work]) -> Void) {
+        todoListHandler = handler
+    }
+    
+    func bindDoingList(handler: @escaping ([Work]) -> Void) {
+        doingListHandler = handler
+    }
+    
+    func bindDoneList(handler: @escaping ([Work]) -> Void) {
+        doneListHandler = handler
+    }
+    
+    func updateWork(data: Work) {
+        switch data.category {
+        case .todo:
+            let index = todoList.firstIndex { $0.id == data.id }
+            
+            if let index {
+                todoList[index] = data
+                return
+            }
+            todoList.append(data)
+        case .doing:
+            let index = doingList.firstIndex { $0.id == data.id }
+            
+            if let index {
+                doingList[index] = data
+                return
+            }
+            doingList.append(data)
+        case .done:
+            let index = doneList.firstIndex { $0.id == data.id }
+            
+            if let index {
+                doneList[index] = data
+                return
+            }
+            doneList.append(data)
+        }
     }
     
     func moveWork(data: Work, category: Category) {
-        guard let index = searchWorkIndex(data: data) else { return }
-        totalWorkList[index].category = category
+        switch data.category {
+        case .todo:
+            let index = todoList.firstIndex { $0.id == data.id }
+            
+            if let index {
+                var work = todoList.remove(at: index)
+                
+                work.category = category
+                updateWork(data: work)
+            }
+        case .doing:
+            let index = doingList.firstIndex { $0.id == data.id }
+            
+            if let index {
+                var work = doingList.remove(at: index)
+                work.category = category
+                updateWork(data: work)
+            }
+        case .done:
+            let index = doneList.firstIndex { $0.id == data.id }
+            
+            if let index {
+                var work = doneList.remove(at: index)
+                work.category = category
+                updateWork(data: work)
+            }
+        }
     }
     
     func deleteWork(data: Work) {
-        totalWorkList = totalWorkList.filter { $0.id != data.id }
+        switch data.category {
+        case .todo:
+            todoList = todoList.filter { $0.id != data.id }
+        case .doing:
+            doingList = doingList.filter { $0.id != data.id }
+        case .done:
+            doneList = doneList.filter { $0.id != data.id }
+        }
     }
 }

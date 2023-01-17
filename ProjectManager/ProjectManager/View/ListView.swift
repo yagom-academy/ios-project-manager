@@ -51,6 +51,7 @@ final class ListView: UIView {
         label.backgroundColor = .black
         label.layer.cornerRadius = label.layer.frame.width / 2
         label.textColor = .white
+        label.text = "0"
         return label
     }()
     
@@ -71,7 +72,9 @@ final class ListView: UIView {
     }
     
     private func configureBind() {
-        viewModel.bindCount { self.categoryCountLabel.text = $0?.description }
+        viewModel.bindCount {
+            self.categoryCountLabel.text = ($0 ?? 0).description
+        }
     }
     
     private func configureLayout() {

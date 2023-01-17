@@ -27,8 +27,9 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        configureTableVeiw()
         configureLayout()
+        configureTableView()
+        configureBind()
         
     }
     
@@ -47,18 +48,30 @@ final class MainViewController: UIViewController {
         ])
     }
     
-    private func configureTableVeiw() {
+    private func configureTableView() {
         [todoListView, doingListView, doneListView].forEach {
             $0.tableView.delegate = self
             $0.tableView.dataSource = self
         }
+    }
+    
+    private func configureBind() {
+        viewModel.bindTodoList {
+            self.todoListView.viewModel.categoryCount = $0.count
+            self.todoListView.tableView.reloadData()
+        }
         
-        viewModel.bind {
-            [self.todoListView, self.doingListView, self.doneListView].forEach {
-                $0.tableView.reloadData()
-            }
+        viewModel.bindDoingList {
+            self.doingListView.viewModel.categoryCount = $0.count
+            self.doingListView.tableView.reloadData()
+        }
+        
+        viewModel.bindDoneList {
+            self.doneListView.viewModel.categoryCount = $0.count
+            self.doneListView.tableView.reloadData()
         }
     }
+    
     private func configureNavigationBar() {
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
@@ -147,7 +160,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// Custom Delegate
 extension MainViewController: WorkDelegate, CellDelegate {
     func showPopover(cell: ListCell) {
         guard let work = cell.viewModel.work else { return }
