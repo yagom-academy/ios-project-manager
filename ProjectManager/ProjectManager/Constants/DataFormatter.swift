@@ -10,6 +10,6 @@ import Foundation
 let dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.locale = .current
-    dateFormatter.dateStyle = .short
+    dateFormatter.dateFormat = "yyyy.MM.dd"
     return dateFormatter
 }()
