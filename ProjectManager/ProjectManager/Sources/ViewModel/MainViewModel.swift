@@ -16,7 +16,6 @@ protocol MainViewModelProtocol {
 }
 
 final class MainViewModel: MainViewModelProtocol {
-    
     var models: [Projectable] = []
     
     func createProject() {
