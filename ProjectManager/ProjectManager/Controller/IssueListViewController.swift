@@ -31,14 +31,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     
     var headerView: HeaderView?
     
-    var collectionView: UICollectionView = {
-        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfiguration.separatorConfiguration.topSeparatorVisibility = .hidden
-        listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
-        let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
-        
-        return UICollectionView(frame: .zero, collectionViewLayout: layout)
-    }()
+    var collectionView: UICollectionView?
     
     init(frame: CGRect = .zero, status: Status) {
         self.status = status
@@ -60,6 +53,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
         configureStackView()
         configureHeaderView()
         configureCollectionView()
+        embedInStack()
     }
     
     private func configureStackView() {
@@ -76,14 +70,33 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     private func configureHeaderView() {
         headerView = HeaderView(title: status.description, count: issueCount)
         
-        stackView.addArrangedSubview(headerView ?? HeaderView())
+        
     }
     
     private func configureCollectionView() {
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
+        listConfiguration.separatorConfiguration.topSeparatorVisibility = .hidden
+        listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
+//        listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
+//            guard let issue = self.dataSource?.itemIdentifier(for: indexPath) else { return nil }
+//
+//        }
+        
+        let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    }
+    
+    private func embedInStack() {
+        guard let headerView = headerView,
+              let collectionView = collectionView else { return }
+        stackView.addArrangedSubview(headerView)
         stackView.addArrangedSubview(collectionView)
     }
     
     private func configureDataSource() {
+        guard let collectionView = collectionView else { return }
+        
         let cellRegistration = UICollectionView.CellRegistration<CustomListCell, Issue> {
             (cell, indexPath, item) in
             cell.item = item

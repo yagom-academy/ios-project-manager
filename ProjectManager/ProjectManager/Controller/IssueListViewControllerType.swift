@@ -14,7 +14,6 @@ protocol IssueListViewControllerType: UIViewController {
     var issueManager: IssueManager? { get }
     var stackView: UIStackView { get set }
     var headerView: HeaderView? { get set }
-    var collectionView: UICollectionView { get }
+    var collectionView: UICollectionView? { get }
     var dataSource: UICollectionViewDiffableDataSource<Status, Issue>? { get }
-    var snapshot: NSDiffableDataSourceSnapshot<Status, Issue> { get set }
 }
