@@ -94,6 +94,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath)
                 as? ListCell else { return ListCell() }
+        
         cell.delegate = self
         
         switch tableView {
@@ -112,11 +113,12 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
+        
         switch tableView {
         case doneListView.tableView:
-            print("xnen2")
+            viewModel.deleteWork(data: viewModel.doneList[indexPath.row])
         case doingListView.tableView:
-            print("xnen3")
+            viewModel.deleteWork(data: viewModel.doingList[indexPath.row])
         case todoListView.tableView:
             viewModel.deleteWork(data: viewModel.todoList[indexPath.row])
         default:
