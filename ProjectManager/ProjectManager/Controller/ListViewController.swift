@@ -62,6 +62,7 @@ final class ListViewController: UIViewController {
         applyAllSnapshot()
     }
     
+    // MARK: - configure view layout
     private func configureNavagationBar() {
         self.navigationItem.title = "Project Manager"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
@@ -113,6 +114,7 @@ final class ListViewController: UIViewController {
         ])
     }
     
+    // MARK: - configure dataSource and snapshot of tableViews
     private func configureDataSource(of tableView: ListTableView) -> DataSource {
         let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todoItem in
             let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier,
@@ -139,6 +141,7 @@ final class ListViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
@@ -180,6 +183,7 @@ extension ListViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - AddTodoViewDelegate
 extension ListViewController: AddTodoViewDelegate {
     func addNewTodoItem(with item: TodoModel) {
         todoModels.append(item)
@@ -188,6 +192,7 @@ extension ListViewController: AddTodoViewDelegate {
     }
 }
 
+// MARK: - EditTodoViewDelegate
 extension ListViewController: EditTodoViewDelegate {
     func editTodoItem(with item: TodoModel) {
         guard let itemBeEdited = todoModels.filter({ $0.id == item.id }).first,
@@ -195,6 +200,5 @@ extension ListViewController: EditTodoViewDelegate {
         
         todoModels[index] = item
         applyAllSnapshot()
-        todoTableView.reloadData()
     }
 }
