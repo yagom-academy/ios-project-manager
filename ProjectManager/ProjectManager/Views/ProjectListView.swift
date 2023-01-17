@@ -37,6 +37,7 @@ final class ProjectListView: UIView {
 
     // MARK: Private Method
     private func configureView() {
+        backgroundColor = .lightGray
         addSubview(stackView)
 
         stackView.addArrangedSubview(todoTableView)

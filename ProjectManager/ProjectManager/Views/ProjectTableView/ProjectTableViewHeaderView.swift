@@ -39,8 +39,8 @@ final class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     }
 
     private func configureView() {
-        contentView.backgroundColor = .systemGray5
-        
+        contentView.backgroundColor = .systemGray6
+
         addSubview(titleLabel)
         addSubview(countLabel)
 

@@ -94,6 +94,7 @@ extension ProjectListViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 
+    // MARK: didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedProject = fetchProject(tableView: tableView, indexPath: indexPath)
         let projectViewController = ProjectViewController(with: selectedProject, mode: .edit) { project in

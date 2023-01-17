@@ -19,14 +19,15 @@ final class ProjectTableViewCell: UITableViewCell {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
-        label.font = .preferredFont(forTextStyle: .title2)
+        label.font = .preferredFont(forTextStyle: .title3)
+        label.textColor = .systemGray
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
         return label
     }()
 
     private let dueDateLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title3)
+        label.font = .preferredFont(forTextStyle: .body)
         return label
     }()
 
@@ -61,18 +62,24 @@ final class ProjectTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(dueDateLabel)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
 
     // MARK: Internal Method
     func configure(with project: Project) {
+        if project.dueDate.isExpired {
+            dueDateLabel.textColor = .systemRed
+        } else {
+            dueDateLabel.textColor = .black
+        }
+
         titleLabel.text = project.title
         descriptionLabel.text = project.description
-        dueDateLabel.text = project.dueDate.localizedString
+        dueDateLabel.text = project.dueDate.string
     }
 }
 

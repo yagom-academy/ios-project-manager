@@ -24,6 +24,7 @@
 		1ABD65B529770063002E288B /* ProjectListViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65B429770063002E288B /* ProjectListViewController+DataSource.swift */; };
 		1ABD65B729770321002E288B /* ProjectListViewController+Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65B629770321002E288B /* ProjectListViewController+Popover.swift */; };
 		1ABD65BB2977229B002E288B /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65BA2977229B002E288B /* ProjectView.swift */; };
+		1ABD65C129774C7E002E288B /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65C029774C7E002E288B /* DataFormatter.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectListViewController.swift */; };
@@ -49,6 +50,7 @@
 		1ABD65B429770063002E288B /* ProjectListViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectListViewController+DataSource.swift"; sourceTree = "<group>"; };
 		1ABD65B629770321002E288B /* ProjectListViewController+Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectListViewController+Popover.swift"; sourceTree = "<group>"; };
 		1ABD65BA2977229B002E288B /* ProjectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
+		1ABD65C029774C7E002E288B /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +167,14 @@
 			path = ProjectViewContoller;
 			sourceTree = "<group>";
 		};
+		1ABD65C229774DB5002E288B /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				1ABD65C029774C7E002E288B /* DataFormatter.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +194,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				1ABD65C229774DB5002E288B /* Constants */,
 				1ABD659A29769A81002E288B /* Extensions */,
 				1ABD658729768830002E288B /* Managers */,
 				1ABD658429768743002E288B /* Protocols */,
@@ -275,6 +286,7 @@
 				1ABD6595297698E0002E288B /* ProjectTableView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				1ABD658E2976963A002E288B /* ProjectViewController.swift in Sources */,
+				1ABD65C129774C7E002E288B /* DataFormatter.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				1ABD65AE2976E177002E288B /* ProjectListViewController+TableView.swift in Sources */,
 				1ABD6594297698E0002E288B /* ProjectTableViewHeaderView.swift in Sources */,

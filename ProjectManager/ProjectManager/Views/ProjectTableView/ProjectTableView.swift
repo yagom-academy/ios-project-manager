@@ -23,6 +23,8 @@ final class ProjectTableView: UITableView {
     convenience init(headerTitle: String) {
         self.init(frame: CGRect.zero, style: .plain)
         self.headerTitle = headerTitle
+
+        backgroundColor = .systemGray6
     }
 
     @available(*, unavailable)

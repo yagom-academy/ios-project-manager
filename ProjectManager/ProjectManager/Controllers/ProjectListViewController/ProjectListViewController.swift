@@ -27,7 +27,7 @@ final class ProjectListViewController: UIViewController {
 
     lazy var projectListView: ProjectListView = {
         let view = ProjectListView(frame: view.bounds)
-        view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -70,5 +70,12 @@ final class ProjectListViewController: UIViewController {
         view.addSubview(projectListView)
         configureProjectTableViewDelegate()
         configureLongPressGesture()
+
+        NSLayoutConstraint.activate([
+            projectListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            projectListView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            projectListView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            projectListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
     }
 }
