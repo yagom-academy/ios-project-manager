@@ -31,6 +31,10 @@ final class TodoItemView: UIView {
         let picker = UIDatePicker()
         picker.preferredDatePickerStyle = .wheels
         picker.datePickerMode = .date
+        
+        let localeLanguage = Locale.preferredLanguages.first
+        picker.locale = Locale(identifier: localeLanguage ?? "ko-kr")
+        picker.timeZone = TimeZone(abbreviation: "KST")
         return picker
     }()
     
