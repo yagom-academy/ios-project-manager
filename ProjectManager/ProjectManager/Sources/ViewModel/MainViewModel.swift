@@ -16,7 +16,13 @@ protocol MainViewModelProtocol {
 }
 
 final class MainViewModel: MainViewModelProtocol {
-    var models: [Projectable] = []
+    var models: [Projectable] = [] {
+        didSet {
+            closure?(models)
+        }
+    }
+
+    var closure: (([Projectable]) -> Void)?
     
     func createProject() {
         //

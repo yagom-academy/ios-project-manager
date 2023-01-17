@@ -8,6 +8,8 @@
 import UIKit
 
 class ProjectCell: UITableViewCell {
+    static let reuseIdentifier = String(describing: ProjectCell.self)
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         return label
@@ -60,5 +62,11 @@ class ProjectCell: UITableViewCell {
             totalStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             totalStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+    }
+    
+    func configureComponents(with project: Projectable) {
+        titleLabel.text = project.title
+        descriptionLabel.text = project.description
+        dateLabel.text = project.date.description
     }
 }

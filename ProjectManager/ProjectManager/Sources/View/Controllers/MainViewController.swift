@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    private let toDoViewController = ProjectListViewController(title: "TODO")
-    private let doingViewController = ProjectListViewController(title: "DOING")
-    private let doneViewController = ProjectListViewController(title: "DONE")
+    private let toDoViewController = ProjectListViewController<TodoProject>(title: "TODO")
+    private let doingViewController = ProjectListViewController<DoingProject>(title: "DOING")
+    private let doneViewController = ProjectListViewController<DoneProject>(title: "DONE")
     
     private let totalStackView: UIStackView = {
         let stackView = UIStackView()

@@ -14,21 +14,21 @@ protocol Projectable {
     var description: String { get set }
 }
 
-struct TodoProject: Projectable {
+struct TodoProject: Projectable, Hashable {
     let id: UUID = UUID()
     var title: String
     var date: Date
     var description: String
 }
 
-struct DoingProject: Projectable {
+struct DoingProject: Projectable, Hashable {
     let id: UUID = UUID()
     var title: String
     var date: Date
     var description: String
 }
 
-struct DoneProject: Projectable {
+struct DoneProject: Projectable, Hashable {
     let id: UUID = UUID()
     var title: String
     var date: Date

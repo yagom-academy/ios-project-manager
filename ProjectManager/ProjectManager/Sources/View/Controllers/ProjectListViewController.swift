@@ -7,10 +7,15 @@
 
 import UIKit
 
-final class ProjectListViewController: UIViewController {
+final class ProjectListViewController<T: Hashable & Projectable>: UIViewController {
+    private enum Section {
+        case main
+    }
+    
     private let header: HeaderView
     private let tableView = UITableView()
-    
+    private var dataSource: UITableViewDiffableDataSource<Section, T>?
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -32,9 +37,39 @@ final class ProjectListViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         configureLayout()
+        tableView.register(ProjectCell.self, forCellReuseIdentifier: ProjectCell.reuseIdentifier)
+        configureDataSource()
     }
 }
 
+// MARK: Diffable DataSource
+extension ProjectListViewController {
+    private func configureDataSource() {
+        dataSource = UITableViewDiffableDataSource<Section, T>(
+            tableView: tableView,
+            cellProvider: { tableView, indexPath, project in
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: ProjectCell.reuseIdentifier,
+                    for: indexPath
+                ) as? ProjectCell else {
+                    return UITableViewCell()
+                }
+                
+                cell.configureComponents(with: project)
+            
+            return cell
+        })
+    }
+    
+    func configureSnapshot(data: [T]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, T>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(data)
+        dataSource?.apply(snapshot)
+    }
+}
+
+// MARK: UI Configure
 extension ProjectListViewController {
     private func configureView() {
         tableView.backgroundColor = .systemGray6
