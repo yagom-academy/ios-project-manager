@@ -81,8 +81,16 @@
                                 <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
                                 <items>
                                     <navigationItem title="기본값" id="AIZ-v0-cch">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="Veh-DR-uAO"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="HMC-qf-vTB"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="Veh-DR-uAO">
+                                            <connections>
+                                                <action selector="tapEdit:" destination="Jjh-ee-fpi" id="KZo-uz-fg9"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="HMC-qf-vTB">
+                                            <connections>
+                                                <action selector="tapDone:" destination="Jjh-ee-fpi" id="Qq2-aa-pQI"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

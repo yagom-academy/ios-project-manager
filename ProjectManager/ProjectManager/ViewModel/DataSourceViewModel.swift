@@ -8,14 +8,14 @@
 import UIKit
 
 struct DataSourceViewModel {
-    func makeDataSource(tableView: UITableView, _
-                        tasks: [Task]) -> UITableViewDiffableDataSource<Section, Task> {
+    func makeDataSource(tableView: UITableView,
+                        _ tasks: [Task]) -> UITableViewDiffableDataSource<Section, Task> {
+        
         registerCell(tableView: tableView)
         
         let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, task in
             let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell",
                                                      for: indexPath) as? TableViewCell ?? TableViewCell()
-
             let taskStatus = task.status
             switch taskStatus {
             case .todo:
@@ -40,7 +40,7 @@ struct DataSourceViewModel {
         return dataSource
     }
     
-    private func configureSnapShot(dataSource: UITableViewDiffableDataSource<Section, Task>, tasks: [Task]) {
+     func configureSnapShot(dataSource: UITableViewDiffableDataSource<Section, Task>, tasks: [Task]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
         snapShot.appendSections([.main])
         snapShot.appendItems(tasks)
