@@ -14,5 +14,6 @@ opt_in_rules:
   
 disabled_rules:
   - trailing_whitespace
+  - class_delegate_protocol
 
 line_length: 100
