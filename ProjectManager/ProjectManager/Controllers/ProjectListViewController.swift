@@ -68,9 +68,38 @@ final class ProjectListViewController: UIViewController {
         projectListView.doneTableView.delegate = self
     }
 
+    @objc private func longPress(sender: UILongPressGestureRecognizer) {
+        guard let tableView = sender.view as? ProjectTableView else {
+            return
+        }
+
+        let location = sender.location(in: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: location) else {
+            return
+        }
+
+        switch sender.state {
+        case .began:
+            print("\(tableView.headerTitle) \(fetchProject(tableView: tableView, indexPath: indexPath))눌림")
+        default:
+            break
+        }
+    }
+
+    private func configureLongPressGesture() {
+        let todoTableViewRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        let doingTableViewRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        let doneTableViewRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+
+        projectListView.todoTableView.addGestureRecognizer(todoTableViewRecognizer)
+        projectListView.doingTableView.addGestureRecognizer(doingTableViewRecognizer)
+        projectListView.doneTableView.addGestureRecognizer(doneTableViewRecognizer)
+    }
+
     private func configureView() {
         view.addSubview(projectListView)
         configureProjectTableViewDelegate()
+        configureLongPressGesture()
     }
 
     // MARK: Configure DataSource
