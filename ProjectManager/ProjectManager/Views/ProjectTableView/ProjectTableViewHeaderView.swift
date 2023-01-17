@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
+final class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +31,6 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
 
         configureView()
-        configureConstraints()
     }
 
     @available(*, unavailable)
@@ -42,9 +41,7 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     private func configureView() {
         addSubview(titleLabel)
         addSubview(countLabel)
-    }
 
-    private func configureConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),

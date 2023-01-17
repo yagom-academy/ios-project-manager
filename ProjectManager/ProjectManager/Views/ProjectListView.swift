@@ -27,7 +27,7 @@ final class ProjectListView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        configureLayout()
+        configureView()
     }
 
     @available(*, unavailable)
@@ -36,7 +36,7 @@ final class ProjectListView: UIView {
     }
 
     // MARK: Private Method
-    private func configureLayout() {
+    private func configureView() {
         addSubview(stackView)
 
         stackView.addArrangedSubview(todoTableView)

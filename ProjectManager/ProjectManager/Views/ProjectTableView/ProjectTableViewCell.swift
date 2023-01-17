@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProjectTableViewCell: UITableViewCell {
+final class ProjectTableViewCell: UITableViewCell {
     // MARK: Properties
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -49,11 +49,11 @@ class ProjectTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         selectionStyle = .none
-        configureLayout()
+        configureView()
     }
 
     // MARK: Private Method
-    private func configureLayout() {
+    private func configureView() {
         contentView.addSubview(stackView)
 
         stackView.addArrangedSubview(titleLabel)
