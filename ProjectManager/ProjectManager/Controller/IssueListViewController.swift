@@ -80,6 +80,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
             let deleteAction = UIContextualAction(style: .destructive,
                                                   title: Namespace.delete) { action, view, completion in
                 guard let issue = self.dataSource?.itemIdentifier(for: indexPath) else { return }
+                
                 self.deleteIssue(issue: issue)
             }
             
@@ -95,6 +96,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     private func embedInStack() {
         guard let headerView = headerView,
               let collectionView = collectionView else { return }
+        
         stackView.addArrangedSubview(headerView)
         stackView.addArrangedSubview(collectionView)
     }
@@ -127,6 +129,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     private func deleteIssue(issue: Issue) {
         guard var snapshot = dataSource?.snapshot(),
               let index = issues.firstIndex(where: {$0.id == issue.id}) else { return }
+        
         snapshot.deleteItems([issue])
         issues.remove(at: index)
         dataSource?.apply(snapshot, animatingDifferences: true)
@@ -145,6 +148,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
 extension IssueListViewController: IssueManageable {
     func addIssue(issue: Issue?) {
         guard let issue = issue else { return }
+        
         issues.append(issue)
         applySnapshot()
     }
@@ -161,7 +165,6 @@ extension IssueListViewController: IssueManageable {
 
 extension IssueListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         guard let issue = dataSource?.itemIdentifier(for: indexPath) else { return }
         
         let issueViewcontroller = IssueViewController(issue: issue,
