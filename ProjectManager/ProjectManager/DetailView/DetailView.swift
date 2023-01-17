@@ -64,7 +64,7 @@ struct ProjectDetailView: View {
           
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
-              
+              viewStore.send(.didTapDoneButton)
             }
           }
         }

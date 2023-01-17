@@ -14,10 +14,12 @@ struct DetailViewStore: ReducerProtocol {
     var deadLineDate: Date = Date()
   }
   
-  enum Action {
+  enum Action: Equatable {
     case didChangeTitle(String)
     case didChangeDescription(String)
     case didChangeSelectedDate(Date)
+    case didTapCancelButton
+    case didTapDoneButton
   }
   
   func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -32,6 +34,9 @@ struct DetailViewStore: ReducerProtocol {
       
     case let .didChangeSelectedDate(changedDate):
       state.deadLineDate = changedDate
+      return .none
+      
+    case .didTapDoneButton, .didTapCancelButton:
       return .none
     }
   }

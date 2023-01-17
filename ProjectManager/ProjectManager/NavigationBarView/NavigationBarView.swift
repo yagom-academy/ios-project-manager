@@ -42,16 +42,24 @@ struct NavigationBarView: View {
           send: NavigationStore.Action.didTapPresent
         )
       ) {
-        ProjectDetailView(
-          store: Store(
-            initialState: DetailViewStore.State(),
-            reducer: DetailViewStore()._printChanges()
-          )
-        )
+        IfLetStore(self.navigationStore.scope(
+          state: \.detailState,
+          action: NavigationStore.Action.optionalDetailState
+        )) { viewStore in
+          ProjectDetailView(store: viewStore)
+        }
       }
       .onAppear {
         viewStore.send(.onAppear("Project Manager"))
       }
     }
+  }
+}
+
+struct NavigationBarView_Previews: PreviewProvider {
+  static let store = Store(initialState: NavigationStore.State(), reducer: NavigationStore())
+  
+  static var previews: some View {
+    NavigationBarView(navigationStore: store)
   }
 }

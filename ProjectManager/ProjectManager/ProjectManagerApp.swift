@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct ProjectManagerApp: App {
   let appStore = Store(
     initialState: AppStore.State(),
-    reducer: AppStore()
+    reducer: AppStore()._printChanges()
   )
   
   var body: some Scene {
