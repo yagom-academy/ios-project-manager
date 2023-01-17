@@ -75,7 +75,6 @@ class ListViewController: UIViewController {
         
         present(navigationViewController, animated: true)
     }
-    
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -95,6 +94,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath)
                 as? ListCell else { return ListCell() }
+        cell.delegate = self
         
         switch tableView {
         case doneListView.tableView:
@@ -135,8 +135,21 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ListViewController: WorkDelegate {
+// Custom Delegate
+extension ListViewController: WorkDelegate, CellDelegate {
+    func showPopover(cell: ListCell) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+       actionSheet.addAction(UIAlertAction(title: "Move to Doing", style: .default, handler: { _ in  }))
+        
+       actionSheet.addAction(UIAlertAction(title: "Move to Done", style: .default, handler: { _ in  }))
+        
+       actionSheet.popoverPresentationController?.sourceView = cell
+       present(actionSheet, animated: true, completion: nil)
+    }
+    
     func send(data: Work) {
         viewModel.updateWork(data: data)
     }
+    
 }

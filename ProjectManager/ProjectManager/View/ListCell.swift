@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol CellDelegate: AnyObject {
+    func showPopover(cell: ListCell)
+}
+
 class ListCell: UITableViewCell {
     static let identifier = ListCell.description()
+    weak var delegate: CellDelegate?
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -42,6 +47,7 @@ class ListCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        confgiureGesture()
         addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(bodyLabel)
@@ -63,5 +69,22 @@ class ListCell: UITableViewCell {
         self.titleLabel.text = work.title
         self.bodyLabel.text = work.body
         self.dateLabel.text = work.endDateToString
+    }
+}
+
+extension ListCell {
+    func confgiureGesture() {
+         let longPressedGesture = UILongPressGestureRecognizer(target: self,
+                                                               action: #selector(handleLongPress(gestureRecognizer:)))
+         longPressedGesture.minimumPressDuration = 0.2
+         longPressedGesture.delegate = self
+         longPressedGesture.delaysTouchesBegan = true
+         self.addGestureRecognizer(longPressedGesture)
+     }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .ended {
+            delegate?.showPopover(cell: self)
+        }
     }
 }
