@@ -428,8 +428,8 @@ final class MainViewController: UIViewController {
 
     private func setUpLongGestureRecognizerOnCollection() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
-        let longPressGesture2 = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress2(gestureRecognizer:)))
-        let longPressGesture3 = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress3(gestureRecognizer:)))
+        let longPressGesture2 = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        let longPressGesture3 = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
         longPressGesture.minimumPressDuration = 0.5
         longPressGesture.delaysTouchesBegan = true
         longPressGesture2.minimumPressDuration = 0.5
@@ -440,6 +440,33 @@ final class MainViewController: UIViewController {
         doingCollectionView.addGestureRecognizer(longPressGesture2)
         doneCollectionView.addGestureRecognizer(longPressGesture3)
 
+    }
+
+    private func showPopoverMenu(collectionView: UICollectionView, indexPath: IndexPath) {
+        guard let cell = currentLongPressedCell else { return }
+        UIView.animate(withDuration: 0.2) {
+            cell.transform = .init(scaleX: 1, y: 1)
+        }
+
+        let cellPopOverViewController = CellPopoverViewController()
+        cellPopOverViewController.modalPresentationStyle = .popover
+        cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
+        cellPopOverViewController.cellPopoverViewDelegate = self
+        switch collectionView {
+        case todoCollectionView:
+            cellPopOverViewController.cellToChange = .todo
+        case doingCollectionView:
+            cellPopOverViewController.cellToChange = .doing
+        case doneCollectionView:
+            cellPopOverViewController.cellToChange = .done
+        default:
+            break
+        }
+        cellPopOverViewController.cellIndex = indexPath.item
+        guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
+        popover.sourceView = cell
+        popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
+        present(cellPopOverViewController, animated: true, completion: nil)
     }
 }
 
@@ -453,102 +480,20 @@ extension MainViewController {
     }
 
     @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let location = gestureRecognizer.location(in: todoCollectionView)
-        guard let indexPath = todoCollectionView.indexPathForItem(at: location) else { return }
+        guard let collectionView = gestureRecognizer.view as? UICollectionView else { return }
+        let location = gestureRecognizer.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: location) else { return }
 
         if gestureRecognizer.state == .began {
-            print("began")
             UIView.animate(withDuration: 0.2) { [weak self] in
-                guard let cell = self?.todoCollectionView.cellForItem(at: indexPath) else { return }
+                guard let cell = collectionView.cellForItem(at: indexPath) else { return }
                 self?.currentLongPressedCell = cell
                 cell.transform = .init(scaleX: 0.95, y: 0.95)
             }
         }
 
         if gestureRecognizer.state == .ended {
-            print("end")
-            guard let cell = currentLongPressedCell else { return }
-            UIView.animate(withDuration: 0.2) {
-                cell.transform = .init(scaleX: 1, y: 1)
-            }
-
-            let cellPopOverViewController = CellPopoverViewController()
-            cellPopOverViewController.modalPresentationStyle = .popover
-            cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
-            cellPopOverViewController.cellPopoverViewDelegate = self
-            cellPopOverViewController.cellToChange = .todo
-            cellPopOverViewController.cellIndex = indexPath.item
-            guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
-            popover.sourceView = cell
-            popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
-            present(cellPopOverViewController, animated: true, completion: nil)
-        }
-    }
-
-    // 이름수정하기
-    @objc private func handleLongPress2(gestureRecognizer: UILongPressGestureRecognizer) {
-        let location = gestureRecognizer.location(in: doingCollectionView)
-        guard let indexPath = doingCollectionView.indexPathForItem(at: location) else { return }
-
-        if gestureRecognizer.state == .began {
-            print("began")
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                guard let cell = self?.doingCollectionView.cellForItem(at: indexPath) else { return }
-                self?.currentLongPressedCell = cell
-                cell.transform = .init(scaleX: 0.95, y: 0.95)
-            }
-        }
-
-        if gestureRecognizer.state == .ended {
-            print("end")
-            guard let cell = currentLongPressedCell else { return }
-            UIView.animate(withDuration: 0.2) {
-                cell.transform = .init(scaleX: 1, y: 1)
-            }
-
-            let cellPopOverViewController = CellPopoverViewController()
-            cellPopOverViewController.modalPresentationStyle = .popover
-            cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
-            cellPopOverViewController.cellPopoverViewDelegate = self
-            cellPopOverViewController.cellToChange = .doing
-            cellPopOverViewController.cellIndex = indexPath.item
-            guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
-            popover.sourceView = cell
-            popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
-            present(cellPopOverViewController, animated: true, completion: nil)
-        }
-    }
-
-    @objc private func handleLongPress3(gestureRecognizer: UILongPressGestureRecognizer) {
-        let location = gestureRecognizer.location(in: doneCollectionView)
-        guard let indexPath = doneCollectionView.indexPathForItem(at: location) else { return }
-
-        if gestureRecognizer.state == .began {
-            print("began")
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                guard let cell = self?.doneCollectionView.cellForItem(at: indexPath) else { return }
-                self?.currentLongPressedCell = cell
-                cell.transform = .init(scaleX: 0.95, y: 0.95)
-            }
-        }
-
-        if gestureRecognizer.state == .ended {
-            print("end")
-            guard let cell = currentLongPressedCell else { return }
-            UIView.animate(withDuration: 0.2) {
-                cell.transform = .init(scaleX: 1, y: 1)
-            }
-
-            let cellPopOverViewController = CellPopoverViewController()
-            cellPopOverViewController.modalPresentationStyle = .popover
-            cellPopOverViewController.preferredContentSize = CGSize(width: view.bounds.width/5, height: view.bounds.height/8)
-            cellPopOverViewController.cellPopoverViewDelegate = self
-            cellPopOverViewController.cellToChange = .done
-            cellPopOverViewController.cellIndex = indexPath.item
-            guard let popover: UIPopoverPresentationController = cellPopOverViewController.popoverPresentationController else { return }
-            popover.sourceView = cell
-            popover.sourceRect = CGRect(x: ((cell.bounds.maxX)/2), y: (cell.bounds.maxY)/2, width: 0, height: 0)
-            present(cellPopOverViewController, animated: true, completion: nil)
+            showPopoverMenu(collectionView: collectionView, indexPath: indexPath)
         }
     }
 }
