@@ -30,11 +30,16 @@ struct BoardListView: View {
             BoardListCell(store: viewStore)
           }
           .listRowSeparator(.hidden)
+          .listRowInsets(Self.rowInset)
         }
         .listStyle(.plain)
       }
     }
   }
+}
+
+extension BoardListView {
+  static let rowInset = EdgeInsets(top: 5, leading: .zero, bottom: 5, trailing: .zero)
 }
 
 struct BoardListView_Previews: PreviewProvider {

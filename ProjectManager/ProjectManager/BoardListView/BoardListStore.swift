@@ -11,7 +11,11 @@ struct BoardListStore: ReducerProtocol {
   struct State: Equatable {
     var status: ProjectState
     var headerState: BoardHeaderStore.State
-    var projects: IdentifiedArrayOf<BoardListCellStore.State> = []
+    var projects: IdentifiedArrayOf<BoardListCellStore.State> = [] {
+      didSet {
+        headerState.count = projects.count
+      }
+    }
     
     init(status: ProjectState, projects: IdentifiedArrayOf<BoardListCellStore.State>) {
       self.status = status
@@ -25,6 +29,7 @@ struct BoardListStore: ReducerProtocol {
   
   enum Action: Equatable {
     //MARK: 삭제 예정
+    case reloadHeaderStore
     case optionalHeader(BoardHeaderStore.Action)
     case projectItem(id: BoardListCellStore.State.ID, action: BoardListCellStore.Action)
   }
@@ -32,8 +37,13 @@ struct BoardListStore: ReducerProtocol {
   var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
       switch action {
+      case .reloadHeaderStore:
+        state.headerState.count = state.projects.count
+        return .none
+        
       case .optionalHeader:
         return .none
+        
       default:
         return .none
       }
