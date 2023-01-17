@@ -7,12 +7,18 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-    let todoTableView = CustomTableView(title: "TODO")
-    let doingTableView = CustomTableView(title: "DOING")
-    let doneTableView = CustomTableView(title: "DONE")
+final class MainViewController: UIViewController {
+    private let todoTableView = CustomTableView(title: "TODO")
+    private let doingTableView = CustomTableView(title: "DOING")
+    private let doneTableView = CustomTableView(title: "DONE")
     
-    let stackView: UIStackView = {
+    private let coredataManager = CoreDataManager()
+    
+    private var todoData = [TodoModel]()
+    private var doingData = [TodoModel]()
+    private var doneData = [TodoModel]()
+    
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -33,9 +39,36 @@ class MainViewController: UIViewController {
         
         autoLayoutSetting()
         setupNavigationBar()
+        fetchData()
+        todoTableView.reloadData()
     }
     
-    func autoLayoutSetting() {
+    private func fetchData() {
+        let result = coredataManager.fetch()
+        switch result {
+        case .success(let data):
+            distributeData(data: data)
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func distributeData(data: [TodoModel]) {
+        data.forEach {
+            switch $0.state {
+            case 0:
+                todoData.append($0)
+            case 1:
+                doingData.append($0)
+            case 2:
+                doneData.append($0)
+            default:
+                return
+            }
+        }
+    }
+    
+    private func autoLayoutSetting() {
         self.view.addSubview(stackView)
         [todoTableView, doingTableView, doneTableView].forEach(stackView.addArrangedSubview(_:))
         
@@ -47,7 +80,7 @@ class MainViewController: UIViewController {
         ])
     }
     
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         let rightBarbutton = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
@@ -103,8 +136,15 @@ extension MainViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: -Cell확인
-        30
+        if tableView == todoTableView {
+            return todoData.count
+        } else if tableView == doingTableView {
+            return doingData.count
+        } else if tableView == doneTableView {
+            return doneData.count
+        }
+        
+        return .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,9 +154,20 @@ extension MainViewController: UITableViewDataSource {
         ) as? TodoCustomCell else {
             return UITableViewCell()
         }
-        cell.titleLabel.text = "This is Title"
-        cell.bodyLabel.text = "This is Body"
-        cell.dateLabel.text = "This is Date"
+        
+        var data = TodoModel()
+        
+        if tableView == todoTableView {
+            data = todoData[indexPath.row]
+        } else if tableView == doingTableView {
+            data = todoData[indexPath.row]
+        } else if tableView == doneTableView {
+            data = todoData[indexPath.row]
+        }
+        
+        cell.titleLabel.text = data.title
+        cell.bodyLabel.text = data.body
+        cell.dateLabel.text = data.todoDate?.description
         
         return cell
     }
