@@ -56,6 +56,7 @@ class WorkFormViewController: UIViewController {
         configureNavigationBar()
         configureLayout()
         configureWork()
+        bodyTextView.delegate = self
     }
     
     func configureWork() {
@@ -119,5 +120,13 @@ class WorkFormViewController: UIViewController {
         
         delegate?.send(data: work)
         dismiss(animated: true)
+    }
+}
+
+extension WorkFormViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text.count > 1000 {
+            textView.deleteBackward()
+        }
     }
 }
