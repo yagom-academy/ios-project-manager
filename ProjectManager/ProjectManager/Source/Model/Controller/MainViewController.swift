@@ -12,6 +12,7 @@ class MainViewController: UIViewController {
     
     private let projectManagerView = MainProjectManagerView()
     private let section: [String] = ["TODO", "DOING", "DONE"]
+    private let todoList: [CellInfo] = []
     
     // MARK: Life Cycle
     
@@ -88,13 +89,13 @@ extension MainViewController: UITableViewDataSource {
             return cell
         case projectManagerView.centerTableView:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: MainLeftTableViewCell.identifier,
+                withIdentifier: MainCenterTableViewCell.identifier,
                 for: indexPath
             )
             return cell
         case projectManagerView.rightTableView:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: MainLeftTableViewCell.identifier,
+                withIdentifier: MainRightTableViewCell.identifier,
                 for: indexPath
             )
             return cell

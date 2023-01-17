@@ -39,7 +39,7 @@ final class MainProjectManagerView: UIView {
         tableView.backgroundColor = .systemGray5
         tableView.register(
             MainLeftTableViewCell.self,
-            forCellReuseIdentifier: MainLeftTableViewCell.identifier
+            forCellReuseIdentifier: MainCenterTableViewCell.identifier
         )
         return tableView
     }()
@@ -48,7 +48,7 @@ final class MainProjectManagerView: UIView {
         tableView.backgroundColor = .systemGray5
         tableView.register(
             MainLeftTableViewCell.self,
-            forCellReuseIdentifier: MainLeftTableViewCell.identifier
+            forCellReuseIdentifier: MainRightTableViewCell.identifier
         )
         return tableView
     }()

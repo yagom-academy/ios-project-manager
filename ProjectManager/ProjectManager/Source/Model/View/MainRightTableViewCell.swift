@@ -2,7 +2,7 @@
 //  MainRightTableViewCell.swift
 //  ProjectManager
 //
-//  Created by yonggeun Kim on 2023/01/17.
+//  Created by Dragon on 2023/01/17.
 //
 
 import UIKit
