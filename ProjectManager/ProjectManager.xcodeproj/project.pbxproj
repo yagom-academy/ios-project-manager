@@ -33,6 +33,7 @@
 		D37954042976574C00A3F02F /* TaskDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67582B297632A100C2BDE2 /* TaskDummy.swift */; };
 		D37954052976574C00A3F02F /* TaskDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67582B297632A100C2BDE2 /* TaskDummy.swift */; };
 		D37954062976574F00A3F02F /* TaskEntityDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67582F297635E200C2BDE2 /* TaskEntityDummy.swift */; };
+		D37954092976617300A3F02F /* FetchTasksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37954082976617300A3F02F /* FetchTasksUseCase.swift */; };
 		D3E203BA29757FF60015AD16 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203B929757FF60015AD16 /* RxCocoa */; };
 		D3E203BC29757FF60015AD16 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BB29757FF60015AD16 /* RxRelay */; };
 		D3E203BE29757FF60015AD16 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BD29757FF60015AD16 /* RxSwift */; };
@@ -70,6 +71,7 @@
 		D36715D7296D495400A4A9DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D37953FF297651BB00A3F02F /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
 		D37954012976539200A3F02F /* MockTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTaskRepository.swift; sourceTree = "<group>"; };
+		D37954082976617300A3F02F /* FetchTasksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTasksUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				D3E203D2297582D40015AD16 /* Delegate */,
+				D37954082976617300A3F02F /* FetchTasksUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				D3795400297651BB00A3F02F /* TaskRepository.swift in Sources */,
 				AC25141929761D950069CFFA /* TaskEntity.swift in Sources */,
 				AC67581329762DE700C2BDE2 /* String+Formatter.swift in Sources */,
+				D37954092976617300A3F02F /* FetchTasksUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
