@@ -8,6 +8,7 @@ import UIKit
 
 class ListFormViewController: UIViewController {
     private let listFormView = ListFormView()
+    var delegate: ListFormViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,7 @@ class ListFormViewController: UIViewController {
             title: "Done",
             style: .done,
             target: self,
-            action: nil
+            action: #selector(addNewItem)
         )
     }
     
@@ -44,5 +45,16 @@ class ListFormViewController: UIViewController {
             listFormView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             listFormView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+    }
+    
+    @objc func addNewItem() {
+        let newItem = ListItem(
+            title: listFormView.currentTitle,
+            body: listFormView.currentBody,
+            dueDate: listFormView.currentDate
+        )
+        
+        delegate?.addNewItem(newItem)
+        dismiss(animated: true)
     }
 }
