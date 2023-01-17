@@ -5,8 +5,18 @@
 //  Created by ayaan, jpush on 2023/01/17.
 //
 
-import Foundation
-
 protocol DidEndEditTaskDelegate: AnyObject {
-    func didEndEdit(task: Task)
+    func didEndCreating(task: Task)
 }
+
+protocol DidEndUpdatingDelegate: AnyObject {
+    func didEndUpdating(task: Task)
+}
+
+protocol DidEndDeletingDelegate: AnyObject {
+    func didEndDeleting(task: Task)
+}
+
+protocol DidEndEditTask: DidEndEditTaskDelegate,
+                         DidEndUpdatingDelegate,
+                         DidEndDeletingDelegate { }
