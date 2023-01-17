@@ -7,7 +7,7 @@
 import UIKit
 
 protocol DataSharable: AnyObject {
-    func shareData(process: Process, index: Int?, data: Todo)
+    func shareData(data: Todo)
 }
 
 final class MainViewController: UIViewController {
@@ -53,8 +53,12 @@ final class MainViewController: UIViewController {
     
     @objc private func addButtonTapped() {
         let detailViewController = DetailViewController(
-            viewModel: DetailViewModel(process: .todo, data: nil, index: nil)
+            viewModel: DetailViewModel(data: nil)
         )
+        
+        viewModel.setupUploadDataProcess(process: .todo)
+        viewModel.setupUploadDataIndex(index: nil)
+        
         detailViewController.delegate = self
         detailViewController.modalPresentationStyle = .formSheet
         
@@ -200,12 +204,11 @@ extension MainViewController: UITableViewDelegate {
             return
         }
         
-        let selectedData = viewModel.fetchSeletedData(process: process, index: indexPath.row)
-        let detailViewModel = DetailViewModel(
-            process: process,
-            data: selectedData,
-            index: indexPath.row
-        )
+        viewModel.setupUploadDataProcess(process: process)
+        viewModel.setupUploadDataIndex(index: indexPath.row)
+        
+        let selectedData = viewModel.fetchSeletedData()
+        let detailViewModel = DetailViewModel(data: selectedData)
         
         let detailViewController = DetailViewController(
             viewModel: detailViewModel
@@ -223,7 +226,8 @@ extension MainViewController: UITableViewDelegate {
 
 // MARK: - DataSharable Delegate Protocol
 extension MainViewController: DataSharable {
-    func shareData(process: Process, index: Int?, data: Todo) {
-        viewModel.updateData(process: process, data: data, index: index)
+    func shareData(data: Todo) {
+        viewModel.updateData(data: data)
+        viewModel.resetUploadProcessIndex()
     }
 }

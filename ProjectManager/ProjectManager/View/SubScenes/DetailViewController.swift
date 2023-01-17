@@ -59,8 +59,6 @@ extension DetailViewController {
         let date = datePickerWheel(detailView.datePicker)
         
         delegate?.shareData(
-            process: viewModel.fetchProcess(),
-            index: viewModel.fetchIndex(),
             data: viewModel.createData(
                 title: title,
                 content: detailView.descriptionTextView.text,
@@ -103,7 +101,7 @@ extension DetailViewController {
         )
         navigationItem.rightBarButtonItem = doneButton
         
-        if viewModel.fetchIndex() == nil {
+        if viewModel.isNewMode() {
             let cancelButton = UIBarButtonItem(
                 barButtonSystemItem: .cancel,
                 target: self,
@@ -131,7 +129,7 @@ extension DetailViewController {
             for: .valueChanged
         )
         
-        if viewModel.fetchIndex() != nil {
+        if !viewModel.isNewMode() {
             detailView.datePicker.isEnabled = false
         }
     }

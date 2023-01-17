@@ -8,6 +8,9 @@
 import Foundation
 
 final class MainViewModel {
+    private var uploadDataProcess: Process?
+    private var uploadDataIndex: Int?
+    
     private var todoData: [Todo] = [] {
         didSet {
             todoHandler?(todoData)
@@ -43,11 +46,13 @@ final class MainViewModel {
         self.doneHandler = handler
     }
     
-    func updateData(process: Process, data: Todo, index: Int?) {
-        guard let index = index else {
+    func updateData(data: Todo) {
+        guard let index = uploadDataIndex else {
             todoData.append(data)
             return
         }
+        
+        guard let process = uploadDataProcess else { return }
         
         switch process {
         case .todo:
@@ -59,18 +64,10 @@ final class MainViewModel {
         }
     }
     
-    func fetchDataCount(process: Process) -> String {
-        switch process {
-        case .todo:
-            return String(todoData.count)
-        case .doing:
-            return String(doingData.count)
-        case .done:
-            return String(doneData.count)
-        }
-    }
-    
-    func fetchSeletedData(process: Process, index: Int) -> Todo {
+    func fetchSeletedData() -> Todo? {
+        guard let process = uploadDataProcess else { return nil }
+        guard let index = uploadDataIndex else { return nil }
+        
         switch process {
         case .todo:
             return todoData[index]
@@ -79,5 +76,18 @@ final class MainViewModel {
         case .done:
             return doneData[index]
         }
+    }
+    
+    func setupUploadDataProcess(process: Process) {
+        uploadDataProcess = process
+    }
+    
+    func setupUploadDataIndex(index: Int?) {
+        uploadDataIndex = index
+    }
+    
+    func resetUploadProcessIndex() {
+        uploadDataIndex = nil
+        uploadDataProcess = nil
     }
 }
