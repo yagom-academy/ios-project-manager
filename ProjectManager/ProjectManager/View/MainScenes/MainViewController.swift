@@ -53,8 +53,7 @@ final class MainViewController: UIViewController {
     
     @objc private func addButtonTapped() {
         let detailViewController = DetailViewController(
-            viewModel: DetailViewModel(process: .todo, data: nil),
-            index: nil
+            viewModel: DetailViewModel(process: .todo, data: nil, index: nil)
         )
         detailViewController.delegate = self
         detailViewController.modalPresentationStyle = .formSheet
@@ -202,11 +201,14 @@ extension MainViewController: UITableViewDelegate {
         }
         
         let selectedData = viewModel.fetchSeletedData(process: process, index: indexPath.row)
-        let detailViewModel = DetailViewModel(process: process, data: selectedData)
+        let detailViewModel = DetailViewModel(
+            process: process,
+            data: selectedData,
+            index: indexPath.row
+        )
         
         let detailViewController = DetailViewController(
-            viewModel: detailViewModel,
-            index: indexPath.row
+            viewModel: detailViewModel
         )
         
         detailViewController.delegate = self

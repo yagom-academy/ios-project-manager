@@ -10,7 +10,6 @@ import UIKit
 final class DetailViewController: UIViewController {
     private let detailView = DetailView()
     private let viewModel: DetailViewModel
-    private let index: Int?
     
     private var isEditable = false {
         didSet {
@@ -20,9 +19,8 @@ final class DetailViewController: UIViewController {
     
     weak var delegate: DataSharable?
     
-    init(viewModel: DetailViewModel, index: Int? = nil) {
+    init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
-        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -61,7 +59,7 @@ extension DetailViewController {
         
         delegate?.shareData(
             process: viewModel.fetchProcess(),
-            index: index,
+            index: viewModel.fetchIndex(),
             data: viewModel.createData(
                 title: title,
                 content: detailView.descriptionTextView.text,
@@ -104,7 +102,7 @@ extension DetailViewController {
         )
         navigationItem.rightBarButtonItem = doneButton
         
-        if index == nil {
+        if viewModel.fetchIndex() == nil {
             let cancelButton = UIBarButtonItem(
                 barButtonSystemItem: .cancel,
                 target: self,
@@ -132,7 +130,7 @@ extension DetailViewController {
             for: .valueChanged
         )
         
-        if index != nil {
+        if viewModel.fetchIndex() != nil {
             detailView.datePicker.isEnabled = false
         }
     }
@@ -141,12 +139,12 @@ extension DetailViewController {
 // MARK: - UITextFieldDelegate, UITextViewDelegate
 extension DetailViewController: UITextFieldDelegate, UITextViewDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if index == nil || isEditable { return true }
+        if viewModel.fetchIndex() == nil || isEditable { return true }
         return false
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if index == nil || isEditable { return true }
+        if viewModel.fetchIndex() == nil || isEditable { return true }
         return false
     }
 }
