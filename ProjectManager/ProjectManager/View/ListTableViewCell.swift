@@ -1,5 +1,5 @@
 //
-//  TodoCollectionViewCell.swift
+//  ListTableViewCell.swift
 //  ProjectManager
 //
 //  Created by 애쉬 on 2023/01/11.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class TodoTableViewCell: UITableViewCell {
-    static let identifier = "TodoTableViewCell"
+final class ListTableViewCell: UITableViewCell {
+    static let identifier = "ListTableViewCell"
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()

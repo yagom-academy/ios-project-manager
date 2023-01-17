@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2642F17529757091008E2145 /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642F17429757091008E2145 /* TodoViewController.swift */; };
+		2642F17529757091008E2145 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642F17429757091008E2145 /* AddTodoViewController.swift */; };
+		2642F1792975AAC8008E2145 /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642F1782975AAC8008E2145 /* EditTodoViewController.swift */; };
 		26720F8629717A8700A26042 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F8529717A8700A26042 /* ListHeaderView.swift */; };
 		26720F882971C5CF00A26042 /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F872971C5CF00A26042 /* ListTableView.swift */; };
-		26720F8A2971CDB300A26042 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F892971CDB300A26042 /* TodoView.swift */; };
+		26720F8A2971CDB300A26042 /* TodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F892971CDB300A26042 /* TodoItemView.swift */; };
 		268E3B4E296EFAA3003BF2AD /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E3B4D296EFAA3003BF2AD /* TodoModel.swift */; };
-		268E3B50296EFD6C003BF2AD /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E3B4F296EFD6C003BF2AD /* TodoTableViewCell.swift */; };
+		268E3B50296EFD6C003BF2AD /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E3B4F296EFD6C003BF2AD /* ListTableViewCell.swift */; };
 		269576EB296DB83500F62494 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 269576EA296DB83400F62494 /* GoogleService-Info.plist */; };
 		269576EE296DB95800F62494 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 269576ED296DB95800F62494 /* FirebaseAnalytics */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -23,12 +24,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2642F17429757091008E2145 /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
+		2642F17429757091008E2145 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
+		2642F1782975AAC8008E2145 /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
 		26720F8529717A8700A26042 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
 		26720F872971C5CF00A26042 /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListTableView.swift; path = ProjectManager/View/ListTableView.swift; sourceTree = SOURCE_ROOT; };
-		26720F892971CDB300A26042 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
+		26720F892971CDB300A26042 /* TodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemView.swift; sourceTree = "<group>"; };
 		268E3B4D296EFAA3003BF2AD /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
-		268E3B4F296EFD6C003BF2AD /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
+		268E3B4F296EFD6C003BF2AD /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		269576EA296DB83400F62494 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,10 +64,10 @@
 		26795290297027140007D48C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				268E3B4F296EFD6C003BF2AD /* TodoTableViewCell.swift */,
+				268E3B4F296EFD6C003BF2AD /* ListTableViewCell.swift */,
 				26720F8529717A8700A26042 /* ListHeaderView.swift */,
 				26720F872971C5CF00A26042 /* ListTableView.swift */,
-				26720F892971CDB300A26042 /* TodoView.swift */,
+				26720F892971CDB300A26042 /* TodoItemView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -74,7 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* ListViewController.swift */,
-				2642F17429757091008E2145 /* TodoViewController.swift */,
+				2642F17429757091008E2145 /* AddTodoViewController.swift */,
+				2642F1782975AAC8008E2145 /* EditTodoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -210,13 +213,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				26720F882971C5CF00A26042 /* ListTableView.swift in Sources */,
-				2642F17529757091008E2145 /* TodoViewController.swift in Sources */,
+				2642F17529757091008E2145 /* AddTodoViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */,
-				26720F8A2971CDB300A26042 /* TodoView.swift in Sources */,
+				26720F8A2971CDB300A26042 /* TodoItemView.swift in Sources */,
 				26720F8629717A8700A26042 /* ListHeaderView.swift in Sources */,
 				268E3B4E296EFAA3003BF2AD /* TodoModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				268E3B50296EFD6C003BF2AD /* TodoTableViewCell.swift in Sources */,
+				268E3B50296EFD6C003BF2AD /* ListTableViewCell.swift in Sources */,
+				2642F1792975AAC8008E2145 /* EditTodoViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

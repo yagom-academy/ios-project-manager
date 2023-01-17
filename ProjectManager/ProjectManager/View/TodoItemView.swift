@@ -1,5 +1,5 @@
 //
-//  TodoView.swift
+//  TodoItemView.swift
 //  ProjectManager
 //
 //  Created by 애쉬 on 2023/01/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TodoView: UIView {
+final class TodoItemView: UIView {
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,5 +71,11 @@ final class TodoView: UIView {
             
             titleTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
+    }
+    
+    func updateContent(title: String, body: String, date: TimeInterval) {
+        titleTextField.text = title
+        bodyTextView.text = body
+        datePicker.date = Date(timeIntervalSince1970: date)
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 final class ListViewController: UIViewController {
-    private enum TodoSection: Hashable {
+    private enum ListSection: Hashable {
         case todo
         case doing
         case done
@@ -28,9 +28,9 @@ final class ListViewController: UIViewController {
     private let doingTableView = ListTableView()
     private let doneTableView = ListTableView()
     
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<TodoSection, TodoModel>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<ListSection, TodoModel>
     
-    private typealias DataSource = UITableViewDiffableDataSource<TodoSection, TodoModel>
+    private typealias DataSource = UITableViewDiffableDataSource<ListSection, TodoModel>
     
     private lazy var todoDataSource: DataSource = configureDataSource(of: todoTableView)
     private lazy var doingDataSource: DataSource = configureDataSource(of: doingTableView)
@@ -66,13 +66,19 @@ final class ListViewController: UIViewController {
         self.navigationItem.title = "Project Manager"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                                  target: self,
-                                                                 action: #selector(showAddTodoView))
+                                                                 action: #selector(tappedAddButton))
     }
     
-    @objc private func showAddTodoView() {
-        let rootViewController = TodoViewController()
+    @objc private func tappedAddButton() {
+        let newTodoItem = TodoModel()
+        
+        let rootViewController = AddTodoViewController()
         rootViewController.delegate = self
         
+        showTodoItemView(with: newTodoItem, rootViewController: rootViewController)
+    }
+    
+    private func showTodoItemView(with todoItem: TodoModel, rootViewController: UIViewController) {
         let nextViewController = UINavigationController(rootViewController: rootViewController)
         nextViewController.modalPresentationStyle = .formSheet
         nextViewController.preferredContentSize = CGSize(width: 650, height: 650)
@@ -90,7 +96,7 @@ final class ListViewController: UIViewController {
         
         tableviews.forEach {
             $0.delegate = self
-            $0.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
+            $0.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.identifier)
             $0.register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: ListHeaderView.identifier)
             tableStackView.addArrangedSubview($0)
         }
@@ -109,8 +115,8 @@ final class ListViewController: UIViewController {
     
     private func configureDataSource(of tableView: ListTableView) -> DataSource {
         let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todoItem in
-            let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.identifier,
-                                                     for: indexPath) as? TodoTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier,
+                                                     for: indexPath) as? ListTableViewCell
             
             cell?.configureContent(with: todoItem)
             return cell
@@ -120,12 +126,12 @@ final class ListViewController: UIViewController {
     }
     
     private func applyAllSnapshot() {
-        applySnapshot(section: TodoSection.todo, status: TodoModel.TodoStatus.todo, dataSource: todoDataSource)
-        applySnapshot(section: TodoSection.doing, status: TodoModel.TodoStatus.doing, dataSource: doingDataSource)
-        applySnapshot(section: TodoSection.done, status: TodoModel.TodoStatus.done, dataSource: doneDataSource)
+        applySnapshot(section: ListSection.todo, status: TodoModel.TodoStatus.todo, dataSource: todoDataSource)
+        applySnapshot(section: ListSection.doing, status: TodoModel.TodoStatus.doing, dataSource: doingDataSource)
+        applySnapshot(section: ListSection.done, status: TodoModel.TodoStatus.done, dataSource: doneDataSource)
     }
     
-    private func applySnapshot(section: TodoSection, status: TodoModel.TodoStatus, dataSource: DataSource) {
+    private func applySnapshot(section: ListSection, status: TodoModel.TodoStatus, dataSource: DataSource) {
         var snapshot = Snapshot()
         snapshot.appendSections([section])
         snapshot.appendItems(todoModels.filter{ $0.status == status })
@@ -161,12 +167,34 @@ extension ListViewController: UITableViewDelegate {
         headerView.setTitleLabel(with: status.rawValue)
         headerView.updateCount(todoModels.filter { $0.status == status }.count)
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let itemDataSource = tableView.dataSource as? DataSource,
+              let todoItem = itemDataSource.itemIdentifier(for: indexPath) else { return }
+        
+        let rootViewController = EditTodoViewController()
+        rootViewController.delegate = self
+        rootViewController.prepareEditView(with: todoItem)
+        
+        showTodoItemView(with: todoItem, rootViewController: rootViewController)
+    }
 }
 
-extension ListViewController: AddableNewTodoItem {
+extension ListViewController: AddTodoViewDelegate {
     func addNewTodoItem(with item: TodoModel) {
         todoModels.append(item)
         applySnapshot(section: .todo, status: .todo, dataSource: todoDataSource)
+        todoTableView.reloadData()
+    }
+}
+
+extension ListViewController: EditTodoViewDelegate {
+    func editTodoItem(with item: TodoModel) {
+        guard let itemBeEdited = todoModels.filter({ $0.id == item.id }).first,
+              let index = todoModels.firstIndex(of: itemBeEdited) else { return }
+        
+        todoModels[index] = item
+        applyAllSnapshot()
         todoTableView.reloadData()
     }
 }

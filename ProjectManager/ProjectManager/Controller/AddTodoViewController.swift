@@ -1,5 +1,5 @@
 //
-//  TodoViewController.swift
+//  todoItemViewController.swift
 //  ProjectManager
 //
 //  Created by 애쉬 on 2023/01/16.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol AddableNewTodoItem {
+protocol AddTodoViewDelegate {
     func addNewTodoItem(with item: TodoModel)
 }
 
-final class TodoViewController: UIViewController {
-    var delegate: AddableNewTodoItem?
+final class AddTodoViewController: UIViewController {
+    var delegate: AddTodoViewDelegate?
     
-    private let todoView: TodoView = TodoView()
+    private let todoView: TodoItemView = TodoItemView()
     
     override func loadView() {
         self.view = todoView
