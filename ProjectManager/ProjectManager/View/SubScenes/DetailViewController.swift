@@ -40,13 +40,16 @@ final class DetailViewController: UIViewController {
     }
     
     private func setupBinding() {
-        viewModel.bindDetailData { [weak self] data in
-            guard let data = data else { return }
-            self?.detailView.titleTextField.text = data.title
-            self?.detailView.descriptionTextView.text = data.content
-            if let date = data.deadLine {
-                self?.detailView.datePicker.setDate(date, animated: true)
-            }
+        viewModel.bindTitle { [weak self] title in
+            self?.detailView.titleTextField.text = title
+        }
+        
+        viewModel.bindDate { [weak self] date in
+            self?.detailView.datePicker.setDate(date, animated: true)
+        }
+        
+        viewModel.bindDescription { [weak self] description in
+            self?.detailView.descriptionTextView.text = description
         }
     }
 }

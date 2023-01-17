@@ -8,26 +8,58 @@
 import Foundation
 
 final class DetailViewModel {
+    private enum Constant {
+        static let defaultText = ""
+    }
+    
     private let process: Process
     private let index: Int?
     
-    private var detailData: Todo? {
+    private var title: String = Constant.defaultText {
         didSet {
-            detailDataHandler?(detailData)
+            titleHandler?(title)
         }
     }
     
-    private var detailDataHandler: ((Todo?) -> Void)?
+    private var date: Date = Date() {
+        didSet {
+            dateHandler?(date)
+        }
+    }
+    
+    private var description: String = Constant.defaultText {
+        didSet {
+            descriptionHandler?(description)
+        }
+    }
+    
+    private var titleHandler: ((String) -> Void)?
+    private var dateHandler: ((Date) -> Void)?
+    private var descriptionHandler: ((String) -> Void)?
     
     init(process: Process, data: Todo?, index: Int?) {
         self.process = process
-        self.detailData = data
         self.index = index
+        
+        guard let data = data else { return }
+        self.title = data.title
+        self.date = data.deadLine ?? Date()
+        self.description = data.content ?? Constant.defaultText
     }
     
-    func bindDetailData(handler: @escaping (Todo?) -> Void) {
-        handler(detailData)
-        self.detailDataHandler = handler
+    func bindTitle(handler: @escaping (String) -> Void) {
+        handler(title)
+        self.titleHandler = handler
+    }
+    
+    func bindDate(handler: @escaping (Date) -> Void) {
+        handler(date)
+        self.dateHandler = handler
+    }
+    
+    func bindDescription(handler: @escaping (String) -> Void) {
+        handler(description)
+        self.descriptionHandler = handler
     }
     
     func fetchProcess() -> Process {
