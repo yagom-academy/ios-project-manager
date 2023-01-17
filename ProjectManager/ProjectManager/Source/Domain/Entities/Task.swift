@@ -2,21 +2,21 @@
 //  Task.swift
 //  ProjectManager
 //
-//  Created by 이정민 on 2023/01/17.
+//  Created by ayaan, jpush on 2023/01/17.
 //
 
 import Foundation
 
 struct Task {
-    let id: UUID
+    let id: String
     var title: String
     var content: String
     var deadLine: String
-    var state: WorkState
+    var state: State
     var isExpired: Bool
     
-    enum WorkState {
-        case toDo
+    enum State: Int {
+        case toDo = 1
         case doing
         case done
     }
