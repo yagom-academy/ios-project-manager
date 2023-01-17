@@ -61,22 +61,19 @@ class ListItemCell: UITableViewCell {
         contentView.addSubview(spacingView)
         contentView.addSubview(cellStackView)
         
+        cellStackView.isLayoutMarginsRelativeArrangement = true
+        cellStackView.layoutMargins = .init(top: 5, left: 15, bottom: 5, right: 15)
+        
         NSLayoutConstraint.activate([
             spacingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             spacingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             spacingView.topAnchor.constraint(equalTo: contentView.topAnchor),
             spacingView.heightAnchor.constraint(equalToConstant: 10),
             
-            cellStackView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: 15
-            ),
-            cellStackView.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -15
-            ),
-            cellStackView.topAnchor.constraint(equalTo: spacingView.bottomAnchor, constant: 5),
-            cellStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+            cellStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            cellStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            cellStackView.topAnchor.constraint(equalTo: spacingView.bottomAnchor),
+            cellStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
