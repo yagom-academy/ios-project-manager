@@ -9,7 +9,7 @@ import RxSwift
 
 import XCTest
 
-private final class EndEditTask: DidEndDeletingDelegate {
+private final class DidEndDeletingDelegateStub: DidEndDeletingDelegate {
     func didEndDeleting(task: Task) {
         return
     }
@@ -23,7 +23,7 @@ final class DeleteUseCaseTests: XCTestCase {
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
         usecase = DeleteUseCase(
-            delegate: EndEditTask(),
+            delegate: DidEndDeletingDelegateStub(),
             repository: taskRepositoryMock
         )
         disposeBag = DisposeBag()
@@ -31,13 +31,14 @@ final class DeleteUseCaseTests: XCTestCase {
     
     func test_delete_task_success() {
         // given
-        guard let task = Translater().toDomain(with: TaskEntity(
+        let task = Task(
             id: "1",
             title: "RxSwift 추가",
             content: "제곧내",
-            deadLine: 1675436400, // 2023년
-            state: 3
-        )) else { return }
+            deadLine: "Jan 10, 2023",
+            state: .done,
+            isExpired: false
+        )
         
         usecase.isDeletedSuccess
             .subscribe(onNext: { isSuccess in
@@ -51,13 +52,14 @@ final class DeleteUseCaseTests: XCTestCase {
     
     func test_delete_task_failure() {
         // given
-        guard let task = Translater().toDomain(with: TaskEntity(
+        let task = Task(
             id: "noID",
             title: "RxSwift 추가",
             content: "제곧내",
-            deadLine: 1675436400, // 2023년
-            state: 3
-        )) else { return }
+            deadLine: "Jan 10, 2023",
+            state: .done,
+            isExpired: false
+        )
         
         usecase.isDeletedSuccess
             .subscribe(onNext: { isSuccess in
