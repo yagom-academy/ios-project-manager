@@ -34,6 +34,17 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     private func configureNavigation() {
         navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            systemItem: .add,
+            primaryAction: UIAction(handler: tapAddButton)
+        )
+    }
+    
+    private func tapAddButton(_ sender: UIAction) {
+        let editorViewController = EditorViewController(title: "TODO")
+        editorViewController.modalPresentationStyle = .pageSheet
+        let navigationController = UINavigationController(rootViewController: editorViewController)
+        present(navigationController, animated: true)
     }
     
     private func configureView() {

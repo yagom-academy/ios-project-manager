@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class ProjectListViewController<T: Hashable & Projectable>: UIViewController {
+final class ProjectListViewController<ModelType: Hashable & Projectable>: UIViewController {
     private enum Section {
         case main
     }
     
     private let header: HeaderView
     private let tableView = UITableView()
-    private var dataSource: UITableViewDiffableDataSource<Section, T>?
+    private var dataSource: UITableViewDiffableDataSource<Section, ModelType>?
 
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -45,7 +45,7 @@ final class ProjectListViewController<T: Hashable & Projectable>: UIViewControll
 // MARK: Diffable DataSource
 extension ProjectListViewController {
     private func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, T>(
+        dataSource = UITableViewDiffableDataSource<Section, ModelType>(
             tableView: tableView,
             cellProvider: { tableView, indexPath, project in
                 guard let cell = tableView.dequeueReusableCell(
@@ -61,8 +61,8 @@ extension ProjectListViewController {
         })
     }
     
-    func configureSnapshot(data: [T]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, T>()
+    func updateList(with data: [ModelType]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, ModelType>()
         snapshot.appendSections([.main])
         snapshot.appendItems(data)
         dataSource?.apply(snapshot)
