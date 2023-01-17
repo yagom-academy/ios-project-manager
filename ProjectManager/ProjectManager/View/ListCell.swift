@@ -13,8 +13,10 @@ protocol CellDelegate: AnyObject {
 
 class ListCell: UITableViewCell {
     static let identifier = ListCell.description()
+
+    var viewModel = ListCellViewModel()
+    
     weak var delegate: CellDelegate?
-    var work: Work?
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -49,6 +51,27 @@ class ListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         confgiureGesture()
+        configureBind()
+        configureLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureBind() {
+        viewModel.bind { work in
+            self.titleLabel.text = work?.title
+            self.bodyLabel.text = work?.body
+            self.dateLabel.text = work?.endDateToString
+        }
+    }
+    
+    func configureData(work: Work) {
+        viewModel.work = work
+    }
+    
+    func configureLayout() {
         addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(bodyLabel)
@@ -60,18 +83,6 @@ class ListCell: UITableViewCell {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureData(work: Work) {
-        self.work = work
-        
-        self.titleLabel.text = work.title
-        self.bodyLabel.text = work.body
-        self.dateLabel.text = work.endDateToString
     }
 }
 

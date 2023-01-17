@@ -151,8 +151,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 // Custom Delegate
 extension MainViewController: WorkDelegate, CellDelegate {
     func showPopover(cell: ListCell) {
-        
-        guard let work = cell.work else { return }
+        guard let work = cell.viewModel.work else { return }
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
