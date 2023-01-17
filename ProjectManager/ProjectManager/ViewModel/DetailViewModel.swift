@@ -33,15 +33,25 @@ final class DetailViewModel {
         }
     }
     
+    private var isEdiatable = false {
+        didSet {
+            editableHandler?(isEdiatable)
+        }
+    }
+    
     private var titleHandler: ((String) -> Void)?
     private var dateHandler: ((Date) -> Void)?
     private var descriptionHandler: ((String) -> Void)?
+    private var editableHandler: ((Bool) -> Void)?
     
     init(process: Process, data: Todo?, index: Int?) {
         self.process = process
         self.index = index
         
-        guard let data = data else { return }
+        guard let data = data else {
+            isEdiatable = true
+            return
+        }
         self.title = data.title
         self.date = data.deadLine ?? Date()
         self.description = data.content ?? Constant.defaultText
@@ -62,12 +72,25 @@ final class DetailViewModel {
         self.descriptionHandler = handler
     }
     
+    func bindEditable(handler: @escaping (Bool) -> Void) {
+        handler(isEdiatable)
+        self.editableHandler = handler
+    }
+    
     func fetchProcess() -> Process {
         return process
     }
     
     func fetchIndex() -> Int? {
         return index
+    }
+    
+    func fetchEditable() -> Bool {
+        return isEdiatable
+    }
+    
+    func toggle() {
+        isEdiatable.toggle()
     }
     
     func createData(title: String, content: String?, date: Date?) -> Todo {

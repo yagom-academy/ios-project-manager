@@ -11,12 +11,6 @@ final class DetailViewController: UIViewController {
     private let detailView = DetailView()
     private let viewModel: DetailViewModel
     
-    private var isEditable = false {
-        didSet {
-            detailView.datePicker.isEnabled = isEditable
-        }
-    }
-    
     weak var delegate: DataSharable?
     
     init(viewModel: DetailViewModel) {
@@ -51,6 +45,10 @@ final class DetailViewController: UIViewController {
         viewModel.bindDescription { [weak self] description in
             self?.detailView.descriptionTextView.text = description
         }
+        
+        viewModel.bindEditable { [weak self] editable in
+            self?.detailView.datePicker.isEnabled = editable
+        }
     }
 }
 
@@ -73,7 +71,7 @@ extension DetailViewController {
     }
     
     @objc private func editButtonTapped() {
-        isEditable.toggle()
+        viewModel.toggle()
     }
     
     @objc private func cancelButtonTapped() {
@@ -142,12 +140,10 @@ extension DetailViewController {
 // MARK: - UITextFieldDelegate, UITextViewDelegate
 extension DetailViewController: UITextFieldDelegate, UITextViewDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if viewModel.fetchIndex() == nil || isEditable { return true }
-        return false
+        return viewModel.fetchEditable()
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if viewModel.fetchIndex() == nil || isEditable { return true }
-        return false
+        return viewModel.fetchEditable()
     }
 }
