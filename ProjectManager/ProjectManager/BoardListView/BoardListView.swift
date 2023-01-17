@@ -26,9 +26,11 @@ struct BoardListView: View {
               state: \.projects,
               action: BoardListStore.Action.projectItem(id:action:)
             )
-          ) { viewStore in
-            BoardListCell(store: viewStore)
+          ) {
+            BoardListCell(store: $0)
           }
+          .onDelete { viewStore.send(.deleteProject($0)) }
+          .menuStyle(.borderlessButton)
           .listRowSeparator(.hidden)
           .listRowInsets(Self.rowInset)
         }

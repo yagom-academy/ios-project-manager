@@ -29,7 +29,7 @@ struct BoardListStore: ReducerProtocol {
   
   enum Action: Equatable {
     //MARK: 삭제 예정
-    case reloadHeaderStore
+    case deleteProject(IndexSet)
     case optionalHeader(BoardHeaderStore.Action)
     case projectItem(id: BoardListCellStore.State.ID, action: BoardListCellStore.Action)
   }
@@ -37,13 +37,11 @@ struct BoardListStore: ReducerProtocol {
   var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
       switch action {
-      case .reloadHeaderStore:
-        state.headerState.count = state.projects.count
-        return .none
-        
       case .optionalHeader:
         return .none
-        
+      case let .deleteProject(indexSet):
+        indexSet.forEach { state.projects.remove(at: $0) }
+        return .none
       default:
         return .none
       }
