@@ -9,6 +9,6 @@ import Foundation
 struct ListItem: Hashable {
     let title: String
     let body: String
-    let dueDate: String
+    let dueDate: Date
     let id = UUID()
 }
