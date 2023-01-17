@@ -15,7 +15,6 @@
 		546A2A9C29701ECC0033D593 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9B29701ECC0033D593 /* Work.swift */; };
 		546A2A9E297034A50033D593 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A2A9D297034A50033D593 /* MainViewModel.swift */; };
 		5497340C29716A96004F58D0 /* WorkFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5497340B29716A96004F58D0 /* WorkFormController.swift */; };
-		5497341029741D7D004F58D0 /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5497340F29741D7D004F58D0 /* WorkManager.swift */; };
 		54CFDABC2976DB9F00F8DEEC /* ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CFDABB2976DB9F00F8DEEC /* ListCellViewModel.swift */; };
 		8458078EE3871E74082E19E0 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B83A86A551901906DABDB7 /* Pods_ProjectManager.framework */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -36,7 +35,6 @@
 		546A2A9B29701ECC0033D593 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Work.swift; path = ProjectManager/Model/Work.swift; sourceTree = SOURCE_ROOT; };
 		546A2A9D297034A50033D593 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		5497340B29716A96004F58D0 /* WorkFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormController.swift; sourceTree = "<group>"; };
-		5497340F29741D7D004F58D0 /* WorkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
 		54CFDABB2976DB9F00F8DEEC /* ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellViewModel.swift; sourceTree = "<group>"; };
 		73B83A86A551901906DABDB7 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,7 +101,6 @@
 			children = (
 				546A2A9929701DC40033D593 /* Category.swift */,
 				546A2A9B29701ECC0033D593 /* Work.swift */,
-				5497340F29741D7D004F58D0 /* WorkManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -273,7 +270,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5497341029741D7D004F58D0 /* WorkManager.swift in Sources */,
 				5425BEFB2976A221005924BC /* WorkFormViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

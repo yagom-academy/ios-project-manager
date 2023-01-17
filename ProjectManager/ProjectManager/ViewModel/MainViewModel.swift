@@ -8,18 +8,22 @@
 import Foundation
 
 class MainViewModel {
-    let workManager = WorkManager()
+    var totalWorkList: [Work] = [] {
+        didSet {
+            reloadHandler?()
+        }
+    }
     
     var todoList: [Work] {
-        workManager.todoList
+        totalWorkList.filter { $0.category == .todo }
     }
     
     var doingList: [Work] {
-        workManager.doingList
+        totalWorkList.filter { $0.category == .doing }
     }
     
     var doneList: [Work] {
-        workManager.doneList
+        totalWorkList.filter { $0.category == .done }
     }
     
     private var reloadHandler: (() -> Void)?
@@ -27,26 +31,26 @@ class MainViewModel {
     func bind(handler: @escaping () -> Void) {
         reloadHandler = handler
     }
-    
-    // 워크 매니저에 등록하고, 워크매니저는 배열을 리턴하는 로직으로 변경하자
-    // 리턴한 배열은 workList라는 변수에 담아보도록하자
+
     func updateWork(data: Work) {
-        let work = workManager.totalWorkList.filter { data.id == $0.id }
+        let workIndex = totalWorkList.firstIndex { $0.id == data.id }
         
-        if !work.isEmpty {
-            workManager.deleteWork(data: data)
+        if let workIndex {
+            return totalWorkList[workIndex] = data
         }
-        workManager.registerWork(data: data)
-        reloadHandler?()
+        
+        totalWorkList.append(data)
     }
     
     func moveWork(data: Work, category: Category) {
-        workManager.moveWork(data: data, category: category)
-        reloadHandler?()
+        let workIndex = totalWorkList.firstIndex { $0.id == data.id }
+        
+        if let workIndex {
+            return totalWorkList[workIndex].category = category
+        }
     }
     
     func deleteWork(data: Work) {
-        workManager.deleteWork(data: data)
-        reloadHandler?()
+        totalWorkList = totalWorkList.filter { $0.id != data.id }
     }
 }
