@@ -187,6 +187,21 @@ extension ListViewController: UITableViewDelegate {
         rootViewController.prepareEditView(with: todoItem)
         
         showTodoItemView(with: todoItem, rootViewController: rootViewController)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "delete") { _, _, completion in
+            self.todoModels.remove(at: indexPath.row)
+            self.applyAllSnapshot()
+            tableView.reloadData()
+            completion(true)
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [delete])
+        
+        return configuration
     }
 }
 
