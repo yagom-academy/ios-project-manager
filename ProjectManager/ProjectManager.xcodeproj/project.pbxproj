@@ -13,7 +13,6 @@
 		BF88446C2972DFE7001C9459 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446B2972DFE7001C9459 /* Project.swift */; };
 		BF8844702972E080001C9459 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446E2972E080001C9459 /* ProjectViewModel.swift */; };
 		BF8844712972E080001C9459 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446F2972E080001C9459 /* ProjectListViewModel.swift */; };
-		BF8844732972E113001C9459 /* PlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844722972E113001C9459 /* PlanManager.swift */; };
 		BF8844792973B4C1001C9459 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844782973B4C1001C9459 /* PlanViewController.swift */; };
 		BF88447D2973C84B001C9459 /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88447C2973C84B001C9459 /* PlanListView.swift */; };
 		BF88447F2973CE46001C9459 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88447E2973CE46001C9459 /* ProjectListView.swift */; };
@@ -24,6 +23,7 @@
 		BF8844F329766B53001C9459 /* DefaultListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844F229766B53001C9459 /* DefaultListUseCase.swift */; };
 		BF8844F529766B92001C9459 /* DetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844F429766B92001C9459 /* DetailUseCase.swift */; };
 		BF8844F729766BB2001C9459 /* DefaultDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844F629766BB2001C9459 /* DefaultDetailUseCase.swift */; };
+		BF8844FD29767378001C9459 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844FC29767378001C9459 /* ProjectList.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* PlanListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* PlanListViewController.swift */; };
@@ -38,7 +38,6 @@
 		BF88446B2972DFE7001C9459 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		BF88446E2972E080001C9459 /* ProjectViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		BF88446F2972E080001C9459 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
-		BF8844722972E113001C9459 /* PlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManager.swift; sourceTree = "<group>"; };
 		BF8844782973B4C1001C9459 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		BF88447C2973C84B001C9459 /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
 		BF88447E2973CE46001C9459 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		BF8844F229766B53001C9459 /* DefaultListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultListUseCase.swift; sourceTree = "<group>"; };
 		BF8844F429766B92001C9459 /* DetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUseCase.swift; sourceTree = "<group>"; };
 		BF8844F629766BB2001C9459 /* DefaultDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDetailUseCase.swift; sourceTree = "<group>"; };
+		BF8844FC29767378001C9459 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +72,7 @@
 		BF5C4A1A296C79D60049CA88 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BF8844FC29767378001C9459 /* ProjectList.swift */,
 				BF88446B2972DFE7001C9459 /* Project.swift */,
 				BF8844E429766611001C9459 /* State.swift */,
 			);
@@ -199,7 +200,6 @@
 			children = (
 				BF8844EC29766ACD001C9459 /* Protocol */,
 				BF8844F229766B53001C9459 /* DefaultListUseCase.swift */,
-				BF8844722972E113001C9459 /* PlanManager.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -363,8 +363,8 @@
 				BF88446C2972DFE7001C9459 /* Project.swift in Sources */,
 				BF88447F2973CE46001C9459 /* ProjectListView.swift in Sources */,
 				BF8844792973B4C1001C9459 /* PlanViewController.swift in Sources */,
+				BF8844FD29767378001C9459 /* ProjectList.swift in Sources */,
 				BF8844702972E080001C9459 /* ProjectViewModel.swift in Sources */,
-				BF8844732972E113001C9459 /* PlanManager.swift in Sources */,
 				BF6CA755296EA27800F88564 /* Date+.swift in Sources */,
 				BF8844F729766BB2001C9459 /* DefaultDetailUseCase.swift in Sources */,
 				BF8844F529766B92001C9459 /* DetailUseCase.swift in Sources */,
