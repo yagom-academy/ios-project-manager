@@ -210,9 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				D3E203C3297581110015AD16 /* Application */,
-				D3E203C4297581420015AD16 /* Presentation */,
 				D3E203C5297581630015AD16 /* Domain */,
-				D3E203C6297581680015AD16 /* Data */,
 				D3E203D3297582FC0015AD16 /* Common */,
 			);
 			path = Source;
@@ -227,14 +225,6 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		D3E203C4297581420015AD16 /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				D3E203C72975817D0015AD16 /* KanbanBoardScene */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
 		D3E203C5297581630015AD16 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,68 +233,6 @@
 				D3E203D0297582A20015AD16 /* Interfaces */,
 			);
 			path = Domain;
-			sourceTree = "<group>";
-		};
-		D3E203C6297581680015AD16 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		D3E203C72975817D0015AD16 /* KanbanBoardScene */ = {
-			isa = PBXGroup;
-			children = (
-				D3E203CA297581D00015AD16 /* Coordinator */,
-				D3E203C8297581900015AD16 /* TaskList */,
-				D3E203C9297581B10015AD16 /* TaskCreate */,
-				D3E203CB297582060015AD16 /* TaskEdit */,
-				D3E203CC297582120015AD16 /* TaskDetail */,
-				D3E203CD297582390015AD16 /* Popover */,
-			);
-			path = KanbanBoardScene;
-			sourceTree = "<group>";
-		};
-		D3E203C8297581900015AD16 /* TaskList */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TaskList;
-			sourceTree = "<group>";
-		};
-		D3E203C9297581B10015AD16 /* TaskCreate */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TaskCreate;
-			sourceTree = "<group>";
-		};
-		D3E203CA297581D00015AD16 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		D3E203CB297582060015AD16 /* TaskEdit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TaskEdit;
-			sourceTree = "<group>";
-		};
-		D3E203CC297582120015AD16 /* TaskDetail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TaskDetail;
-			sourceTree = "<group>";
-		};
-		D3E203CD297582390015AD16 /* Popover */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Popover;
 			sourceTree = "<group>";
 		};
 		D3E203CE297582630015AD16 /* Entities */ = {
