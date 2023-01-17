@@ -12,17 +12,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
     
-    let sampleData = SampleDummyData()
     let dataSourceVM = DataSourceViewModel()
     let taskListVM = TaskListViewModel()
     
-    private lazy var todoDataSource = dataSourceVM.makeDataSource(tableView: todoTableView, taskListVM)
-    private lazy var doingDataSource = dataSourceVM.makeDataSource(tableView: doingTableView, taskListVM)
-    private lazy var doneDataSource = dataSourceVM.makeDataSource(tableView: doneTableView, taskListVM)
+    private lazy var todoDataSource = dataSourceVM.makeDataSource(tableView: todoTableView, taskListVM.todoTasks)
+    private lazy var doingDataSource = dataSourceVM.makeDataSource(tableView: doingTableView, taskListVM.doingTasks)
+    private lazy var doneDataSource = dataSourceVM.makeDataSource(tableView: doneTableView, taskListVM.doneTasks)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        taskListVM.setSampleData(sampleData.sampleDummy)
         todoTableView.dataSource = todoDataSource
         doingTableView.dataSource = doingDataSource
         doneTableView.dataSource = doneDataSource

@@ -8,30 +8,46 @@
 import UIKit
 
 struct DataSourceViewModel {
-    func makeDataSource(tableView: UITableView, _ viewModel: TaskListViewModel) -> UITableViewDiffableDataSource<Section, Task> {
+    func makeDataSource(tableView: UITableView, _
+                        tasks: [Task]) -> UITableViewDiffableDataSource<Section, Task> {
         registerCell(tableView: tableView)
-        let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, _ in
-            let taskVM = viewModel.tasks[indexPath.row]
+        
+        let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, task in
             let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell",
                                                      for: indexPath) as? TableViewCell ?? TableViewCell()
-            cell.titleLabel.text = taskVM.title
-            cell.descriptionLabel.text = taskVM.description
-            cell.dateLabel.text = taskVM.date?.description
+
+            let taskStatus = task.status
+            switch taskStatus {
+            case .todo:
+                let todoTask = tasks[indexPath.row]
+                cell.titleLabel.text = todoTask.title
+                cell.descriptionLabel.text = todoTask.description
+                cell.dateLabel.text = todoTask.date?.description
+            case .doing:
+                let doingTask = tasks[indexPath.row]
+                cell.titleLabel.text = doingTask.title
+                cell.descriptionLabel.text = doingTask.description
+                cell.dateLabel.text = doingTask.date?.description
+            case .done:
+                let doneTask = tasks[indexPath.row]
+                cell.titleLabel.text = doneTask.title
+                cell.descriptionLabel.text = doneTask.description
+                cell.dateLabel.text = doneTask.date?.description
+            }
             return cell
         }
-        configureSnapShot(dataSource: dataSource, viewModel: viewModel)
+        configureSnapShot(dataSource: dataSource, tasks: tasks)
         return dataSource
     }
     
-    private func configureSnapShot(dataSource: UITableViewDiffableDataSource<Section, Task>, viewModel: TaskListViewModel) {
+    private func configureSnapShot(dataSource: UITableViewDiffableDataSource<Section, Task>, tasks: [Task]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
         snapShot.appendSections([.main])
-        snapShot.appendItems(viewModel.tasks)
+        snapShot.appendItems(tasks)
         dataSource.apply(snapShot)
     }
     
     private func registerCell(tableView: UITableView) {
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "tableViewCell")
     }
-    
 }
