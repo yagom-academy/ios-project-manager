@@ -45,13 +45,7 @@ struct NavigationStore: ReducerProtocol {
           return .completionCreate
         }
         
-      case .optionalDetailState(.didChangeDescription):
-        return .none
-        
-      case .optionalDetailState(.didChangeSelectedDate):
-        return .none
-        
-      case .optionalDetailState(.didChangeTitle):
+      case .optionalDetailState(.binding):
         return .none
         
       case .optionalDetailState(.didTapCancelButton):

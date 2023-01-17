@@ -14,24 +14,15 @@ struct ProjectDetailView: View {
     WithViewStore(store) { viewStore in
       NavigationView {
         VStack {
-          TextField(
-            "Title",
-            text: viewStore.binding(
-              get: \.title,
-              send: DetailViewStore.Action.didChangeTitle
-            )
-          )
-          .padding()
-          .background(.white)
-          .cornerRadius(10)
-          .shadow(color: .gray, radius: 1, y: 1)
+          TextField("Title",text: viewStore.binding(\.$title))
+            .padding()
+            .background(.white)
+            .cornerRadius(10)
+            .shadow(color: .gray, radius: 1, y: 1)
           
           DatePicker(
             "마감 기한",
-            selection: viewStore.binding(
-              get: \.deadLineDate,
-              send: DetailViewStore.Action.didChangeSelectedDate
-            ),
+            selection: viewStore.binding(\.$deadLineDate),
             in: Date()...,
             displayedComponents: .date
           )
@@ -40,16 +31,11 @@ struct ProjectDetailView: View {
           .cornerRadius(10)
           .shadow(color: .gray, radius: 1, y: 1)
           
-          TextEditor(
-            text: viewStore.binding(
-              get: \.description,
-              send: DetailViewStore.Action.didChangeDescription
-            )
-          )
-          .padding()
-          .background(.white)
-          .cornerRadius(10)
-          .shadow(color: .gray, radius: 1, y: 1)
+          TextEditor(text: viewStore.binding(\.$description))
+            .padding()
+            .background(.white)
+            .cornerRadius(10)
+            .shadow(color: .gray, radius: 1, y: 1)
         }
         .padding()
         .background(Color.secondaryBackground)
@@ -58,7 +44,7 @@ struct ProjectDetailView: View {
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Button("Cancel") {
-              
+              viewStore.send(.didTapCancelButton)
             }
           }
           

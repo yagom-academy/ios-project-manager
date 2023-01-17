@@ -9,35 +9,28 @@ import ComposableArchitecture
 
 struct DetailViewStore: ReducerProtocol {
   struct State: Equatable {
-    var title: String = ""
-    var description: String = ""
-    var deadLineDate: Date = Date()
+    @BindableState var title: String = ""
+    @BindableState var description: String = ""
+    @BindableState var deadLineDate: Date = Date()
   }
   
-  enum Action: Equatable {
-    case didChangeTitle(String)
-    case didChangeDescription(String)
-    case didChangeSelectedDate(Date)
+  enum Action: BindableAction, Equatable {
+    case binding(BindingAction<State>)
     case didTapCancelButton
     case didTapDoneButton
   }
   
-  func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-    switch action {
-    case let .didChangeDescription(changedDescription):
-      state.description = changedDescription
-      return .none
-      
-    case let .didChangeTitle(changedTitle):
-      state.title = changedTitle
-      return .none
-      
-    case let .didChangeSelectedDate(changedDate):
-      state.deadLineDate = changedDate
-      return .none
-      
-    case .didTapDoneButton, .didTapCancelButton:
-      return .none
+  var body: some ReducerProtocol<State, Action> {
+    BindingReducer()
+    
+    Reduce { state, action in
+      switch action {
+      case .binding:
+        return .none
+        
+      case .didTapDoneButton, .didTapCancelButton:
+        return .none
+      }
     }
   }
 }
