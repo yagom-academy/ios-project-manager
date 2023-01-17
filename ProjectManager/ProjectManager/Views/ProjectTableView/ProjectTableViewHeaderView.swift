@@ -16,11 +16,14 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     }()
 
     private let countLabel: UILabel = {
-        let label = UILabel()
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .title1)
         label.textAlignment = .center
+        label.layer.cornerRadius = min(label.frame.size.width, label.frame.size.height) / 2
+        label.clipsToBounds = true
         label.backgroundColor = .systemBlue
+        label.font = .preferredFont(forTextStyle: .title1)
+        label.textColor = .white
         return label
     }()
 
