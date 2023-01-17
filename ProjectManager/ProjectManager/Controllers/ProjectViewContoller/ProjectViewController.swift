@@ -8,6 +8,7 @@
 import UIKit
 
 final class ProjectViewController: UIViewController {
+    // MARK: Properties
     enum ViewMode {
         case add
         case edit
@@ -22,6 +23,7 @@ final class ProjectViewController: UIViewController {
         return view
     }()
 
+    // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +31,7 @@ final class ProjectViewController: UIViewController {
         configureNavigationItem()
     }
 
+    // MARK: Initialization
     init(with project: Project = Project(),
          mode: ViewMode = .add,
          completion: ((Project) -> ())? = nil) {
@@ -44,9 +47,11 @@ final class ProjectViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Private Methods
     private func configureView() {
         view.addSubview(projectView)
 
+        projectView.descriptionTextView.delegate = self
         projectView.configure(with: project)
     }
 
@@ -88,5 +93,16 @@ final class ProjectViewController: UIViewController {
         navigationItem.rightBarButtonItem = makeRightBarButton()
 
         projectView.configureNavigationBar(on: navigationItem)
+    }
+}
+
+// MARK: textView Delegate
+extension ProjectViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = textView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
+
+        return changedText.count <= 1000 // 해당 글자수 만큼 제한
     }
 }
