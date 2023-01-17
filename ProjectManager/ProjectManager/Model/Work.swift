@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Work: Equatable {
+struct Work {
     let id = UUID()
     var category: Category
     var title: String?
