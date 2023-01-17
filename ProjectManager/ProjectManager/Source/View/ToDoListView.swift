@@ -44,7 +44,8 @@ class ToDoListView: UIView {
             headerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
 }
