@@ -69,8 +69,6 @@ final class MainViewController: UIViewController {
             default:
                 return
             }
-        case .failure(let error):
-            print(error)
         }
     }
     
@@ -116,6 +114,14 @@ extension MainViewController: UITableViewDelegate {
         
         guard let table = tableView as? CustomTableView else { return UIView() }
         view.titleLabel.text = table.title
+        
+        if tableView == self.todoTableView {
+            view.countLabel.text = todoData.count.description
+        } else if tableView == self.doingTableView {
+            view.countLabel.text = doingData.count.description
+        } else if tableView == self.doneTableView {
+            view.countLabel.text = doneData.count.description
+        }
         
         return view
     }
@@ -164,8 +170,6 @@ extension MainViewController: UITableViewDataSource {
             return doingData.count
         } else if tableView == doneTableView {
             return doneData.count
-        default:
-            return 0
         }
         
         return .zero
@@ -189,9 +193,17 @@ extension MainViewController: UITableViewDataSource {
             data = todoData[indexPath.row]
         }
         
+        guard let todoDate = data.todoDate else { return cell }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
         cell.titleLabel.text = data.title
         cell.bodyLabel.text = data.body
-        cell.dateLabel.text = data.todoDate?.description
+        cell.dateLabel.text = dateFormatter.string(from: todoDate)
+        
+        if todoDate < Date() {
+            cell.dateLabel.textColor = .red
+        }
         
         return cell
     }
