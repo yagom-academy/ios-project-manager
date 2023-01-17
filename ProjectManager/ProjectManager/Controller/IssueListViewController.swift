@@ -124,6 +124,19 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     }
 }
 
+extension IssueListViewController: IssueManageable {
+    func addIssue(issue: Issue?) {
+        guard let issue = issue else { return }
+        issues.append(issue)
+        applySnapshot()
+    }
+    
+    func updateIssue(issue: Issue?) {
+        // update
+    }
+
+}
+
 extension IssueListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // present IssueViewController
