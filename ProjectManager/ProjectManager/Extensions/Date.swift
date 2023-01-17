@@ -8,11 +8,16 @@
 import Foundation
 
 extension Date {
-    var localizedString: String {
-        let dateFormater = DateFormatter()
-        dateFormater.dateStyle = .short
-        dateFormater.locale = .current
+    var string: String {
+        return dateFormatter.string(from: self)
+    }
 
-        return dateFormater.string(from: self)
+    var isExpired: Bool {
+        switch self.compare(Date().addingTimeInterval(-86400)) {
+        case .orderedAscending:
+            return true
+        default:
+            return false
+        }
     }
 }
