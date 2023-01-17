@@ -24,7 +24,7 @@ final class ProjectView: UIView {
         return stackView
     }()
 
-    private let titleTextView: UITextView = {
+    let titleTextView: UITextView = {
         let textView = UITextView()
         textView.layer.borderWidth = 1.0
         textView.layer.borderColor = UIColor.systemGray5.cgColor
@@ -39,14 +39,16 @@ final class ProjectView: UIView {
         return textView
     }()
 
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        datePicker.locale = .current
         datePicker.backgroundColor = .white
         return datePicker
     }()
 
-    private let descriptionTextView: UITextView = {
+    let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.layer.borderWidth = 1.0
         textView.layer.borderColor = UIColor.systemGray5.cgColor
@@ -102,14 +104,5 @@ final class ProjectView: UIView {
         titleTextView.text = project.title
         descriptionTextView.text = project.description
         datePicker.date = project.dueDate
-    }
-
-    func fetchProject() -> Project {
-        var project = Project()
-        project.title = titleTextView.text
-        project.description = descriptionTextView.text
-        project.dueDate = datePicker.date
-
-        return project
     }
 }

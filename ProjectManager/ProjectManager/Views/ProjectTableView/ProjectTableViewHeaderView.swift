@@ -21,7 +21,7 @@ final class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
         label.textAlignment = .center
         label.layer.cornerRadius = min(label.frame.size.width, label.frame.size.height) / 2
         label.clipsToBounds = true
-        label.backgroundColor = .systemBlue
+        label.backgroundColor = .black
         label.font = .preferredFont(forTextStyle: .title1)
         label.textColor = .white
         return label
@@ -39,6 +39,8 @@ final class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     }
 
     private func configureView() {
+        contentView.backgroundColor = .systemGray5
+        
         addSubview(titleLabel)
         addSubview(countLabel)
 

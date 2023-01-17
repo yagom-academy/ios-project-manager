@@ -12,21 +12,21 @@ final class ProjectTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.font = .preferredFont(forTextStyle: .title3)
+        label.font = .preferredFont(forTextStyle: .title1)
         return label
     }()
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
-        label.font = .preferredFont(forTextStyle: .caption1)
+        label.font = .preferredFont(forTextStyle: .title2)
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
         return label
     }()
 
     private let dueDateLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.font = .preferredFont(forTextStyle: .title3)
         return label
     }()
 
