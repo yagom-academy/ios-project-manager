@@ -12,7 +12,7 @@
 		AC25141D297622180069CFFA /* Translater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141C297622180069CFFA /* Translater.swift */; };
 		AC67581029762C9800C2BDE2 /* Double+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67580F29762C9800C2BDE2 /* Double+Formatter.swift */; };
 		AC67581329762DE700C2BDE2 /* String+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67581229762DE700C2BDE2 /* String+Formatter.swift */; };
-		AC675835297656AE00C2BDE2 /* DidEndEditTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675834297656AE00C2BDE2 /* DidEndEditTaskDelegate.swift */; };
+		AC675835297656AE00C2BDE2 /* DidEndEditingTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675834297656AE00C2BDE2 /* DidEndEditingTaskDelegate.swift */; };
 		AC67583D29766C4400C2BDE2 /* CreateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67583C29766C4400C2BDE2 /* CreateUseCase.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -36,7 +36,7 @@
 		D379544729769B1E00A3F02F /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37953FF297651BB00A3F02F /* TaskRepository.swift */; };
 		D379544829769B2200A3F02F /* CreateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67583C29766C4400C2BDE2 /* CreateUseCase.swift */; };
 		D379544929769B2500A3F02F /* FetchTasksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37954082976617300A3F02F /* FetchTasksUseCase.swift */; };
-		D379544A29769B2800A3F02F /* DidEndEditTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675834297656AE00C2BDE2 /* DidEndEditTaskDelegate.swift */; };
+		D379544A29769B2800A3F02F /* DidEndEditingTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC675834297656AE00C2BDE2 /* DidEndEditingTaskDelegate.swift */; };
 		D379544B29769B2B00A3F02F /* Translater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141C297622180069CFFA /* Translater.swift */; };
 		D379544C29769B3700A3F02F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141A29761DA10069CFFA /* Task.swift */; };
 		D379544D29769B3F00A3F02F /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141829761D950069CFFA /* TaskEntity.swift */; };
@@ -64,7 +64,7 @@
 		AC67581229762DE700C2BDE2 /* String+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Formatter.swift"; sourceTree = "<group>"; };
 		AC67582B297632A100C2BDE2 /* TaskDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDummy.swift; sourceTree = "<group>"; };
 		AC67582F297635E200C2BDE2 /* TaskEntityDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntityDummy.swift; sourceTree = "<group>"; };
-		AC675834297656AE00C2BDE2 /* DidEndEditTaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidEndEditTaskDelegate.swift; sourceTree = "<group>"; };
+		AC675834297656AE00C2BDE2 /* DidEndEditingTaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidEndEditingTaskDelegate.swift; sourceTree = "<group>"; };
 		AC67583C29766C4400C2BDE2 /* CreateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUseCase.swift; sourceTree = "<group>"; };
 		AC67583F2976775F00C2BDE2 /* CreateUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUseCaseTests.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,7 +274,7 @@
 		D3E203D2297582D40015AD16 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
-				AC675834297656AE00C2BDE2 /* DidEndEditTaskDelegate.swift */,
+				AC675834297656AE00C2BDE2 /* DidEndEditingTaskDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -398,7 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC675835297656AE00C2BDE2 /* DidEndEditTaskDelegate.swift in Sources */,
+				AC675835297656AE00C2BDE2 /* DidEndEditingTaskDelegate.swift in Sources */,
 				D37954022976539200A3F02F /* MockTaskRepository.swift in Sources */,
 				D37954042976574C00A3F02F /* TaskDummy.swift in Sources */,
 				D37954032976574900A3F02F /* TaskEntityDummy.swift in Sources */,
@@ -422,7 +422,7 @@
 			files = (
 				D379544329769B0700A3F02F /* TaskEntityDummy.swift in Sources */,
 				D379545029769E9800A3F02F /* TranslaterTests.swift in Sources */,
-				D379544A29769B2800A3F02F /* DidEndEditTaskDelegate.swift in Sources */,
+				D379544A29769B2800A3F02F /* DidEndEditingTaskDelegate.swift in Sources */,
 				D379544429769B0900A3F02F /* MockTaskRepository.swift in Sources */,
 				D379544B29769B2B00A3F02F /* Translater.swift in Sources */,
 				D379544729769B1E00A3F02F /* TaskRepository.swift in Sources */,

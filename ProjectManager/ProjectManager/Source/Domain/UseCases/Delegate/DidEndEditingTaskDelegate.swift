@@ -1,11 +1,11 @@
 //
-//  DidEndEditTaskDelegate.swift
+//  DidEndEditingTaskDelegate.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/17.
 //
 
-protocol DidEndCreateTaskDelegate: AnyObject {
+protocol DidEndCreatingTaskDelegate: AnyObject {
     func didEndCreating(task: Task)
 }
 
@@ -17,6 +17,6 @@ protocol DidEndDeletingDelegate: AnyObject {
     func didEndDeleting(task: Task)
 }
 
-protocol DidEndEditTask: DidEndCreateTaskDelegate,
-                         DidEndUpdatingDelegate,
-                         DidEndDeletingDelegate { }
+protocol DidEndEditingTaskDelegate: DidEndCreatingTaskDelegate,
+                                    DidEndUpdatingDelegate,
+                                    DidEndDeletingDelegate { }
