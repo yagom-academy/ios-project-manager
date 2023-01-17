@@ -42,7 +42,6 @@ class MainCenterTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     
-        accessoryType = .disclosureIndicator
         setUpStackView()
         configureLayout()
     }
@@ -59,10 +58,10 @@ class MainCenterTableViewCell: UITableViewCell {
     
     // MARK: Internal Methods
     
-    func configureLabel(todoList: ProjectData) {
-        titleLabel.text = todoList.title
-        bodyLabel.text = todoList.body
-        dateLabel.text = String(todoList.deadline)
+    func configureLabel(doingList: ProjectData) {
+        titleLabel.text = doingList.title
+        bodyLabel.text = doingList.body
+        dateLabel.text = String(doingList.deadline)
     }
     
     // MARK: Private Methods

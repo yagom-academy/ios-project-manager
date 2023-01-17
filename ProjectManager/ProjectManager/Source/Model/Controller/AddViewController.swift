@@ -38,10 +38,10 @@ class AddViewController: UIViewController {
     
     @objc
     private func didTapDismissButton() {
-        if let inputData: ProjectData = customPopUpView.saveProjectData() {
-            delegate?.sendData(project: inputData)
+        if let userInputData: ProjectData = customPopUpView.saveProjectData() {
+            delegate?.sendData(with: userInputData)
         }
         
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }

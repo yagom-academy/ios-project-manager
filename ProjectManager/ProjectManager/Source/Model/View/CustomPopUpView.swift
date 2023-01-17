@@ -109,13 +109,13 @@ class CustomPopUpView: UIView {
     func saveProjectData() -> ProjectData? {
         if let title = titleTextField.text,
            let body = bodyTextField.text {
-            let todoList: ProjectData = ProjectData(
+            let projectData: ProjectData = ProjectData(
                 title: title,
                 body: body,
                 deadline: 100
             )
             
-            return todoList
+            return projectData
         }
         
         return nil

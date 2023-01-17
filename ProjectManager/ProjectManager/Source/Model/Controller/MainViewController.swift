@@ -13,6 +13,8 @@ class MainViewController: UIViewController {
     private let projectManagerView = MainProjectManagerView()
     private let section: [String] = ["TODO", "DOING", "DONE"]
     private var todoList: [ProjectData] = []
+    private var doingList: [ProjectData] = []
+    private var doneList: [ProjectData] = []
     
     // MARK: Life Cycle
     
@@ -72,29 +74,32 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case projectManagerView.leftTableView:
-            return 10
-        case projectManagerView.centerTableView:
             return todoList.count
+        case projectManagerView.centerTableView:
+            return doingList.count
         case projectManagerView.rightTableView:
-            return 5
+            return doneList.count
         default:
             return .zero
+        }
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            todoList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
         case projectManagerView.leftTableView:
-            let cell = tableView.dequeueReusableCell(
+            if let cell = tableView.dequeueReusableCell(
                 withIdentifier: MainLeftTableViewCell.identifier,
                 for: indexPath
-            )
-            return cell
-        case projectManagerView.centerTableView:
-            if let cell = tableView.dequeueReusableCell(
-                withIdentifier: MainCenterTableViewCell.identifier,
-                for: indexPath
-            ) as? MainCenterTableViewCell {
+            ) as? MainLeftTableViewCell {
                 let projectTodoList = todoList[indexPath.row]
                 
                 cell.configureLabel(todoList: projectTodoList)
@@ -103,12 +108,32 @@ extension MainViewController: UITableViewDataSource {
             }
             
             return UITableViewCell()
+        case projectManagerView.centerTableView:
+            if let cell = tableView.dequeueReusableCell(
+                withIdentifier: MainCenterTableViewCell.identifier,
+                for: indexPath
+            ) as? MainCenterTableViewCell {
+                let projectDoingList = doingList[indexPath.row]
+                
+                cell.configureLabel(doingList: projectDoingList)
+                
+                return cell
+            }
+            
+            return UITableViewCell()
         case projectManagerView.rightTableView:
-            let cell = tableView.dequeueReusableCell(
+            if let cell = tableView.dequeueReusableCell(
                 withIdentifier: MainRightTableViewCell.identifier,
                 for: indexPath
-            )
-            return cell
+            ) as? MainRightTableViewCell {
+                let projectDoneList = doneList[indexPath.row]
+                
+                cell.configureLabel(doneList: projectDoneList)
+                
+                return cell
+            }
+            
+            return UITableViewCell()
         default:
             return UITableViewCell()
         }
@@ -118,7 +143,7 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - DataSendDelegate
 
 extension MainViewController: DataSendable {
-    func sendData(project: ProjectData) {
+    func sendData(with projectData: ProjectData) {
         todoList.append(project)
         projectManagerView.reloadTableView()
     }

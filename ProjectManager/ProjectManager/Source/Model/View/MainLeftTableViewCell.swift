@@ -29,12 +29,20 @@ class MainLeftTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 10)
         return label
     }()
+    private let totalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        return stackView
+    }()
     
     // MARK: Initializer
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        setUpStackView()
         configureLayout()
     }
     
@@ -50,20 +58,40 @@ class MainLeftTableViewCell: UITableViewCell {
     
     // MARK: Internal Methods
     
-    func configureLabel(title: String, body: String, date: String) {
-        titleLabel.text = title
-        bodyLabel.text = body
-        dateLabel.text = date
+    func configureLabel(todoList: ProjectData) {
+        titleLabel.text = todoList.title
+        bodyLabel.text = todoList.body
+        dateLabel.text = String(todoList.deadline)
     }
 
     // MARK: Private Methods
     
+    private func setUpStackView() {
+        totalStackView.addArrangedSubview(titleLabel)
+        totalStackView.addArrangedSubview(bodyLabel)
+        totalStackView.addArrangedSubview(dateLabel)
+    }
+    
     private func configureLayout() {
+        contentView.addSubview(totalStackView)
+        
         NSLayoutConstraint.activate([
-            leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            topAnchor.constraint(equalTo: contentView.topAnchor),
-            bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            totalStackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 20
+            ),
+            totalStackView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: 10
+            ),
+            totalStackView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -20
+            ),
+            totalStackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -10
+            )
         ])
     }
 }
