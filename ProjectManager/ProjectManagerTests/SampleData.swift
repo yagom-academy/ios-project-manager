@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@testable import ProjectManager
 
 enum SampleData {
     
