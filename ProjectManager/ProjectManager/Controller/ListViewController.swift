@@ -211,8 +211,8 @@ extension ListViewController: UITableViewDelegate {
     }
     
     private func fetchTodoIndex(_ todoItem: TodoModel) -> Int? {
-        guard let itemBedeleted = self.mockModels.filter({ $0.id == todoItem.id }).first,
-              let index = self.mockModels.firstIndex(of: itemBedeleted) else {
+        guard let item = self.mockModels.filter({ $0.id == todoItem.id }).first,
+              let index = self.mockModels.firstIndex(of: item) else {
             return nil
         }
         return index
