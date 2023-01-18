@@ -29,6 +29,9 @@ class ViewController: UIViewController {
         todoTableView.dataSource = todoDataSource
         doingTableView.dataSource = doingDataSource
         doneTableView.dataSource = doneDataSource
+        todoTableView.delegate = self
+        doingTableView.delegate = self
+        doneTableView.delegate = self
         taskListVM.reloadTodoTasks = { [weak self] in
             self?.update()
         }
@@ -56,6 +59,34 @@ class ViewController: UIViewController {
         todoHeaderView.setTaskCountLabel(taskListVM, status: .todo)
         doingHeaderView.setTaskCountLabel(taskListVM, status: .doing)
         doneHeaderView.setTaskCountLabel(taskListVM, status: .done)
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let editViewController = storyboard?.instantiateViewController(withIdentifier: "editViewController") as? EditViewController ?? EditViewController()
+        sendDelegateInfo(editViewController, tableView, indexPath)
+        editViewController.setUpTaskListVM(taskListVM)
+        editViewController.modalPresentationStyle = .formSheet
+        present(editViewController, animated: true)
+    }
+    
+    private func sendDelegateInfo(_ editViewController: EditViewController,
+                                  _ tableView: UITableView,
+                                  _ indexPath: IndexPath ) {
+        switch tableView {
+        case todoTableView:
+            let info = DelegateInfo(status: .todo, indexPathRow: indexPath.row)
+            editViewController.setUpDelegateInfo(info: info)
+        case doingTableView:
+            let info = DelegateInfo(status: .doing, indexPathRow: indexPath.row)
+            editViewController.setUpDelegateInfo(info: info)
+        case doneTableView:
+            let info = DelegateInfo(status: .done, indexPathRow: indexPath.row)
+            editViewController.setUpDelegateInfo(info: info)
+        default:
+            break
+        }
     }
     
 }

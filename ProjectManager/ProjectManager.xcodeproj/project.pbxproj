@@ -16,6 +16,8 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		D200DD9D2977F0550003FB56 /* CustomTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200DD9C2977F0550003FB56 /* CustomTableHeader.swift */; };
 		D200DD9F2977F2950003FB56 /* CustomTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D200DD9E2977F2950003FB56 /* CustomTableHeader.xib */; };
+		D200DDA1297802FA0003FB56 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200DDA0297802FA0003FB56 /* EditViewController.swift */; };
+		D200DDA329780BC00003FB56 /* DelegateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200DDA229780BC00003FB56 /* DelegateInfo.swift */; };
 		D2400A98296E73F800B24E6B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D2400A97296E73F800B24E6B /* .swiftlint.yml */; };
 		D2400AD4296FFD4300B24E6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */; };
 		D2400AD72970048A00B24E6B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AD52970048A00B24E6B /* TableViewCell.swift */; };
@@ -43,6 +45,8 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D200DD9C2977F0550003FB56 /* CustomTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableHeader.swift; sourceTree = "<group>"; };
 		D200DD9E2977F2950003FB56 /* CustomTableHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableHeader.xib; sourceTree = "<group>"; };
+		D200DDA0297802FA0003FB56 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		D200DDA229780BC00003FB56 /* DelegateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateInfo.swift; sourceTree = "<group>"; };
 		D2400A97296E73F800B24E6B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D2400AD52970048A00B24E6B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -132,6 +136,7 @@
 				D2400AEA2971413900B24E6B /* TaskList.swift */,
 				D2400AF02971487400B24E6B /* Section.swift */,
 				D2400AFF2976854500B24E6B /* Status.swift */,
+				D200DDA229780BC00003FB56 /* DelegateInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -160,6 +165,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 				D2400AF62975429600B24E6B /* AddViewController.swift */,
+				D200DDA0297802FA0003FB56 /* EditViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -320,9 +326,11 @@
 				D2400AF72975429600B24E6B /* AddViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				D200DD9D2977F0550003FB56 /* CustomTableHeader.swift in Sources */,
+				D200DDA329780BC00003FB56 /* DelegateInfo.swift in Sources */,
 				D2400AEF2971422C00B24E6B /* TaskViewModel.swift in Sources */,
 				D2400AEB2971413900B24E6B /* TaskList.swift in Sources */,
 				D2400AD72970048A00B24E6B /* TableViewCell.swift in Sources */,
+				D200DDA1297802FA0003FB56 /* EditViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D2400AF12971487400B24E6B /* Section.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

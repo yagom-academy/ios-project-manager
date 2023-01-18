@@ -129,11 +129,6 @@
                                 <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
                                 <items>
                                     <navigationItem title="기본값" id="AIZ-v0-cch">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="Veh-DR-uAO">
-                                            <connections>
-                                                <action selector="tapEdit:" destination="Jjh-ee-fpi" id="KZo-uz-fg9"/>
-                                            </connections>
-                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="HMC-qf-vTB">
                                             <connections>
                                                 <action selector="tapDone:" destination="Jjh-ee-fpi" id="Qq2-aa-pQI"/>
@@ -184,7 +179,72 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6z9-R7-fjN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="702.71186440677968" y="-2.1951219512195124"/>
+            <point key="canvasLocation" x="778" y="-266"/>
+        </scene>
+        <!--Edit View Controller-->
+        <scene sceneID="gup-Uh-zSR">
+            <objects>
+                <viewController storyboardIdentifier="editViewController" id="kWF-JT-1Q2" customClass="EditViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EPw-ZW-EEa">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RlD-w5-6b2">
+                                <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
+                                <items>
+                                    <navigationItem title="기본값" id="NGJ-Et-VdQ">
+                                        <barButtonItem key="leftBarButtonItem" title="Edit" id="xo3-XR-Jfx"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="9OI-z9-cLF">
+                                            <connections>
+                                                <action selector="tapDone:" destination="Jjh-ee-fpi" id="tA4-2j-Llu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="OvN-IA-KAH">
+                                <rect key="frame" x="0.0" y="74" width="1180" height="726"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iza-AW-ibH">
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="98"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="rxA-dQ-0vy">
+                                        <rect key="frame" x="0.0" y="118" width="1180" height="216"/>
+                                    </datePicker>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hj5-QV-oYo">
+                                        <rect key="frame" x="0.0" y="354" width="1180" height="372"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="l0t-oS-7BY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="RlD-w5-6b2" firstAttribute="trailing" secondItem="l0t-oS-7BY" secondAttribute="trailing" id="0vS-kX-Jyk"/>
+                            <constraint firstItem="RlD-w5-6b2" firstAttribute="leading" secondItem="l0t-oS-7BY" secondAttribute="leading" id="U1B-2l-jtb"/>
+                            <constraint firstItem="RlD-w5-6b2" firstAttribute="top" secondItem="l0t-oS-7BY" secondAttribute="top" id="bhf-Gf-TQg"/>
+                            <constraint firstItem="OvN-IA-KAH" firstAttribute="top" secondItem="RlD-w5-6b2" secondAttribute="bottom" id="bra-gN-8NJ"/>
+                            <constraint firstItem="l0t-oS-7BY" firstAttribute="trailing" secondItem="OvN-IA-KAH" secondAttribute="trailing" id="pXj-CI-tlF"/>
+                            <constraint firstItem="OvN-IA-KAH" firstAttribute="leading" secondItem="l0t-oS-7BY" secondAttribute="leading" id="uxL-kg-gXe"/>
+                            <constraint firstItem="l0t-oS-7BY" firstAttribute="bottom" secondItem="OvN-IA-KAH" secondAttribute="bottom" id="zSX-UU-QK9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="rxA-dQ-0vy" id="Vmw-UY-wMD"/>
+                        <outlet property="descriptionTextView" destination="Hj5-QV-oYo" id="a2Z-cD-YRw"/>
+                        <outlet property="titleTextField" destination="Iza-AW-ibH" id="aNV-7E-6hB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cxq-pV-m2S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="778" y="419"/>
         </scene>
     </scenes>
     <resources>
