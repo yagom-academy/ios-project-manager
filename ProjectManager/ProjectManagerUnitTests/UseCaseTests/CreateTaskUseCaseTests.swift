@@ -35,14 +35,14 @@ final class CreateTaskUseCaseTests: XCTestCase {
                 XCTAssertTrue(isSuccess)
             }).disposed(by: dispose)
         
-        usecase.addTask(Task(
+        usecase.addTask(
             id: UUID().uuidString,
             title: "제목제목제목",
             content: "내용내용내용",
             deadLine: 1674148800,
             state: .toDo,
             isExpired: true
-        ))
+        )
     }
 }
 

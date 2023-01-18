@@ -53,12 +53,14 @@ final class FetchTasksUseCaseTests: XCTestCase {
         usecase.fetchTasks()
         XCTAssertNotNil(tasksList)
         
-        createUseCaseStub.addTask(Task(id: "TestCase",
-                                       title: "Test",
-                                       content: "Test",
-                                       deadLine: 1674140400,
-                                       state: .toDo,
-                                       isExpired: false))
+        createUseCaseStub.addTask(
+            id: "TestCase",
+            title: "Test",
+            content: "Test",
+            deadLine: 1674140400,
+            state: .toDo,
+            isExpired: false
+        )
         
         guard let previousTasksListCount = previousTasksListCount,
               let currentTasksListCount = currentTasksListCount else {

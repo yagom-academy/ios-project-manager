@@ -73,7 +73,7 @@ final class TaskCreateViewModel {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
-                let task = Task( // 이후 생 데이터를 넘겨주는 방식으로 변경
+                self.createTaskUseCase.addTask(
                     id: UUID().uuidString,
                     title: self.title,
                     content: self.content,
@@ -81,8 +81,6 @@ final class TaskCreateViewModel {
                     state: .toDo,
                     isExpired: false
                 )
-                
-                self.createTaskUseCase.addTask(task)
             })
             .disposed(by: disposeBag)
     }

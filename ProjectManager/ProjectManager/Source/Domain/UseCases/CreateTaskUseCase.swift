@@ -20,7 +20,22 @@ final class CreateTaskUseCase {
         self.repository = repository
     }
     
-    func addTask(_ task: Task) {
+    func addTask(id: String,
+                 title: String,
+                 content: String,
+                 deadLine: Double,
+                 state: Task.State,
+                 isExpired: Bool
+    ) {
+        let task = Task(
+            id: id,
+            title: title,
+            content: content,
+            deadLine: deadLine,
+            state: state,
+            isExpired: isExpired
+        )
+        
         let entity = translater.toEntity(with: task)
         
         repository.create(entity)
