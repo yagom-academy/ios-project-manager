@@ -3,21 +3,6 @@
 
 import UIKit
 
-final class DiaryTextView: UITextView {
-    init(font: UIFont, textAlignment: NSTextAlignment, textColor: UIColor) {
-        super.init(frame: .zero, textContainer: nil)
-        self.font = font
-        self.textAlignment = textAlignment
-        self.textColor = textColor
-        self.alwaysBounceVertical = true
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 class EditToDoViewController: UIViewController {
     
     private enum Constant {
@@ -140,14 +125,6 @@ class EditToDoViewController: UIViewController {
     private func tappedCancelButton() {
         dismiss(animated: true)
     }
-}
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct EditToDoViewControllerPreview: PreviewProvider {
-    static var previews: some View {
-        EditToDoViewController().showPreview(.iPadPro)
     
     @objc
     private func tappedDoneButton() {
@@ -159,4 +136,3 @@ struct EditToDoViewControllerPreview: PreviewProvider {
         dismiss(animated: true)
     }
 }
-#endif

@@ -82,5 +82,3 @@ class MainViewController: UIViewController {
         present(navigationController, animated: true)
     }
 }
-}
-}
