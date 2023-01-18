@@ -32,10 +32,14 @@ final class IssueViewController: UIViewController {
         return stack
     }()
     
-    private var titleTextField: UITextField = {
-        let textField = UITextField()
+    private var titleTextField: PaddedTextField = {
+        let padding = UIEdgeInsets(top: LayoutConstant.titleTextFieldPadding,
+                                   left: LayoutConstant.titleTextFieldPadding,
+                                   bottom: LayoutConstant.titleTextFieldPadding,
+                                   right: LayoutConstant.titleTextFieldPadding)
+        let textField = PaddedTextField(padding: padding)
         textField.backgroundColor = .systemBackground
-        textField.placeholder = "Title"
+        textField.placeholder = Namespace.title
         textField.setContentHuggingPriority(.required, for: .vertical)
         
         return textField
@@ -153,7 +157,9 @@ final class IssueViewController: UIViewController {
     
     enum LayoutConstant {
         static let stackViewSpacing = CGFloat(8)
-        static let margin = CGFloat(16)
+        static let margin = CGFloat(20)
+        static let titleTextFieldPadding = CGFloat(12)
+        static let shadowRadius = CGFloat(4)
     }
     
     enum Namespace {
@@ -162,6 +168,7 @@ final class IssueViewController: UIViewController {
         static let done = "Done"
         static let edit = "Edit"
         static let cancel = "Cancel"
+        static let title = "Title"
     }
 }
 
