@@ -151,34 +151,48 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     
     private func showPopover(indexPath: IndexPath?) {
         guard let indexPath = indexPath,
-              let selectedCell = collectionView?.cellForItem(at: indexPath)?.frame else { return }
+              let selectedCell = collectionView?.cellForItem(at: indexPath) as? CustomListCell,
+              let issue = selectedCell.item else { return }
+        
         let alertController = UIAlertController(title: nil,
                                                 message: nil,
                                                 preferredStyle: .actionSheet)
-        
-        let firstAction = UIAlertAction(title: "first", style: .default)
-        let secondAction = UIAlertAction(title: "second", style: .default)
-
-        alertController.addAction(firstAction)
-        alertController.addAction(secondAction)
-        
+        createAlertActions(for: issue).forEach(alertController.addAction(_:))
         alertController.popoverPresentationController?.sourceView = collectionView
-        alertController.popoverPresentationController?.sourceRect = selectedCell
+        alertController.popoverPresentationController?.sourceRect = selectedCell.frame
         alertController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
         present(alertController, animated: true)
     }
     
-//    private func createAlertController(status: Status) {
-//        switch status {
-//        case .todo:
-//            <#code#>
-//        case .doing:
-//            <#code#>
-//        case .done:
-//            <#code#>
-//        }
-//    }
-//
+    private func createAlertActions(for issue: Issue) -> [UIAlertAction] {
+        var actions: [UIAlertAction] = []
+        switch status {
+        case .todo:
+            actions.append(createAlertAction(issue: issue, to: .doing))
+            actions.append(createAlertAction(issue: issue, to: .done))
+        case .doing:
+            actions.append(createAlertAction(issue: issue, to: .todo))
+            actions.append(createAlertAction(issue: issue, to: .done))
+        case .done:
+            actions.append(createAlertAction(issue: issue, to: .todo))
+            actions.append(createAlertAction(issue: issue, to: .doing))
+        }
+        
+        return actions
+    }
+    
+    private func createAlertAction(issue: Issue, to status: Status) -> UIAlertAction {
+        let action = UIAlertAction(title: "Move to " + status.description,
+                                   style: .default) { _ in
+            var modifiedIssue = issue
+            modifiedIssue.status = status
+            self.deleteIssue(issue: issue)
+            self.delegate.deliverIssue(issue: modifiedIssue)
+        }
+
+        return action
+    }
+
     enum LayoutConstant {
         static let spacing = CGFloat(8)
         static let margin = CGFloat(12)
