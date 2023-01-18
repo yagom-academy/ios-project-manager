@@ -55,9 +55,6 @@ final class ListTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        titleLabel.text = ""
-        bodyLabel.text = ""
-        dateLabel.text = ""
         dateLabel.textColor = .black
     }
     
