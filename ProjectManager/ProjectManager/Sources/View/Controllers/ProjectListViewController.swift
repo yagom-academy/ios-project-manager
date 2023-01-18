@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol ProjectListActionDelegate: AnyObject {
+    func deleteProject(willDelete project: Project)
+    func editProject(willEdit project: Project)
+}
+
 final class ProjectListViewController: UIViewController {
     private enum Section {
         case main
@@ -15,6 +20,7 @@ final class ProjectListViewController: UIViewController {
     private let header: HeaderView
     private let tableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section, Project>?
+    weak var delegate: ProjectListActionDelegate?
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -54,13 +60,12 @@ extension ProjectListViewController {
 
 // MARK: Action Method
 extension ProjectListViewController {
-    private func makeDeleteContextualAction(with id: UUID) -> UIContextualAction {
+    private func makeDeleteContextualAction(with project: Project) -> UIContextualAction {
         let context = UIContextualAction(
             style: .destructive,
             title: "Delete",
             handler: { _, _, completionHandler in
-                guard let mainViewController = self.parent as? MainViewController else { return }
-                mainViewController.sendDeleteRequest(with: id)
+                self.delegate?.deleteProject(willDelete: project)
                 
                 completionHandler(true)
             }
@@ -98,7 +103,7 @@ extension ProjectListViewController: UITableViewDelegate {
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         guard let project = dataSource?.itemIdentifier(for: indexPath) else { return nil }
-        let action = makeDeleteContextualAction(with: project.id)
+        let action = makeDeleteContextualAction(with: project)
         let configuration = UISwipeActionsConfiguration(actions: [action])
         
         return configuration

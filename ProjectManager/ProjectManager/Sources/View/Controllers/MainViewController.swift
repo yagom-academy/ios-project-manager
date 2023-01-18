@@ -38,13 +38,10 @@ final class MainViewController: UIViewController {
         configureNavigation()
         configureView()
         configureLayout()
+        configureProjectListActionDelegate()
         viewModel.closure = { [weak self] models in
             self?.toDoViewController.updateList(with: models)
         }
-    }
-    
-    func sendDeleteRequest(with id: UUID) {
-        viewModel.deleteProject(with: id)
     }
 }
 
@@ -55,6 +52,22 @@ extension MainViewController {
         editorViewController.modalPresentationStyle = .pageSheet
         let navigationController = UINavigationController(rootViewController: editorViewController)
         present(navigationController, animated: true)
+    }
+}
+
+// MARK: ProjectListAction Delegate
+extension MainViewController: ProjectListActionDelegate {
+    private func configureProjectListActionDelegate() {
+        [toDoViewController, doingViewController, doneViewController].forEach {
+            $0.delegate = self
+        }
+    }
+    func deleteProject(willDelete project: Project) {
+        viewModel.deleteProject(with: project)
+    }
+    
+    func editProject(willEdit project: Project) {
+        // TODO: editor 뷰 표시
     }
 }
 
