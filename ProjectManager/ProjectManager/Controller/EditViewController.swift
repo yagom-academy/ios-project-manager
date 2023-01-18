@@ -18,19 +18,37 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSelectedTask()
+        setEditableMode(mode: false)
     }
-
+    
+    
+    @IBAction func tapEdit(_ sender: UIBarButtonItem) {
+        setEditableMode(mode: true)
+    }
+    
+    @IBAction func tapDone(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    private func setEditableMode(mode: Bool) {
+        titleTextField.isUserInteractionEnabled = mode
+        datePicker.isUserInteractionEnabled = mode
+        descriptionTextView.isUserInteractionEnabled = mode
+    }
+    
     private func setUpSelectedTask() {
+        guard let indexPathRow = indexPathRow,
+              let taskListVM = taskListVM else { return }
         switch status {
         case .todo:
-            let task = taskListVM?.todoTasks[indexPathRow!]
-            configureTask(task: task!)
+            let task = taskListVM.todoTasks[indexPathRow]
+            configureTask(task: task)
         case .doing:
-            let task = taskListVM?.doingTasks[indexPathRow!]
-            configureTask(task: task!)
+            let task = taskListVM.doingTasks[indexPathRow]
+            configureTask(task: task)
         case .done:
-            let task = taskListVM?.doneTasks[indexPathRow!]
-            configureTask(task: task!)
+            let task = taskListVM.doneTasks[indexPathRow]
+            configureTask(task: task)
         default:
             break
         }

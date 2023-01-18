@@ -193,10 +193,14 @@
                                 <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
                                 <items>
                                     <navigationItem title="기본값" id="NGJ-Et-VdQ">
-                                        <barButtonItem key="leftBarButtonItem" title="Edit" id="xo3-XR-Jfx"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Edit" id="xo3-XR-Jfx">
+                                            <connections>
+                                                <action selector="tapEdit:" destination="kWF-JT-1Q2" id="HJ2-Yd-Doq"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="9OI-z9-cLF">
                                             <connections>
-                                                <action selector="tapDone:" destination="Jjh-ee-fpi" id="tA4-2j-Llu"/>
+                                                <action selector="tapDone:" destination="kWF-JT-1Q2" id="KQl-TD-pTm"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
