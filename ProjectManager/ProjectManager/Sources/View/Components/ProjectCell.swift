@@ -64,9 +64,9 @@ class ProjectCell: UITableViewCell {
         ])
     }
     
-    func configureComponents(with project: Projectable) {
+    func configureComponents(with project: Project) {
         titleLabel.text = project.title
         descriptionLabel.text = project.description
-        dateLabel.text = project.date.description
+        dateLabel.text = project.deadline.description
     }
 }

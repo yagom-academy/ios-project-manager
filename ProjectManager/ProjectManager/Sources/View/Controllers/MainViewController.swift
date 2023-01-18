@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    private let toDoViewController = ProjectListViewController<TodoProject>(title: "TODO")
-    private let doingViewController = ProjectListViewController<DoingProject>(title: "DOING")
-    private let doneViewController = ProjectListViewController<DoneProject>(title: "DONE")
+    private let toDoViewController = ProjectListViewController(state: .todo)
+    private let doingViewController = ProjectListViewController(state: .doing)
+    private let doneViewController = ProjectListViewController(state: .done)
     
     private let totalStackView: UIStackView = {
         let stackView = UIStackView()
@@ -21,6 +21,17 @@ final class MainViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    private let viewModel: MainViewModelProtocol
+    
+    init(viewModel: MainViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +44,7 @@ final class MainViewController: UIViewController {
 // MARK: Action Method
 extension MainViewController {
     private func tapAddButton(_ sender: UIAction) {
-        let editorViewController = EditorViewController(title: "TODO")
+        let editorViewController = EditorViewController(title: State.todo.name)
         editorViewController.modalPresentationStyle = .pageSheet
         let navigationController = UINavigationController(rootViewController: editorViewController)
         present(navigationController, animated: true)

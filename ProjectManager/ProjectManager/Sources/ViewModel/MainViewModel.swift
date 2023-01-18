@@ -8,24 +8,25 @@
 import Foundation
 
 protocol MainViewModelProtocol {
-    var models: [Projectable] { get set }
+    var models: [Project] { get set }
     
-    func createProject()
+    func createProject(title: String, deadline: String, description: String)
     func updateProject()
     func deleteProject()
 }
 
 final class MainViewModel: MainViewModelProtocol {
-    var models: [Projectable] = [] {
+    var models: [Project] = [] {
         didSet {
             closure?(models)
         }
     }
 
-    var closure: (([Projectable]) -> Void)?
+    var closure: (([Project]) -> Void)?
     
-    func createProject() {
-        //
+    func createProject(title: String, deadline: String, description: String) {
+        let project = Project(title: title, deadline: deadline, description: description, state: .todo)
+        models.append(project)
     }
     
     func updateProject() {
@@ -34,5 +35,9 @@ final class MainViewModel: MainViewModelProtocol {
     
     func deleteProject() {
         //
+    }
+    
+    private func changeDateString(from date: Date) -> String {
+        date.description
     }
 }

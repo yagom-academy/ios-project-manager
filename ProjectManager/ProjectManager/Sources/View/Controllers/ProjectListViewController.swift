@@ -7,15 +7,15 @@
 
 import UIKit
 
-final class ProjectListViewController<ModelType: Hashable & Projectable>: UIViewController {
+final class ProjectListViewController: UIViewController {
     private enum Section {
         case main
     }
     
     private let header: HeaderView
     private let tableView = UITableView()
-    private var dataSource: UITableViewDiffableDataSource<Section, ModelType>?
-
+    private var dataSource: UITableViewDiffableDataSource<Section, Project>?
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -24,8 +24,8 @@ final class ProjectListViewController<ModelType: Hashable & Projectable>: UIView
         return stackView
     }()
     
-    init(title: String) {
-        header = HeaderView(title: title)
+    init(state: State) {
+        header = HeaderView(title: state.name)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -45,7 +45,7 @@ final class ProjectListViewController<ModelType: Hashable & Projectable>: UIView
 // MARK: Diffable DataSource
 extension ProjectListViewController {
     private func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, ModelType>(
+        dataSource = UITableViewDiffableDataSource<Section, Project>(
             tableView: tableView,
             cellProvider: { tableView, indexPath, project in
                 guard let cell = tableView.dequeueReusableCell(
@@ -56,13 +56,13 @@ extension ProjectListViewController {
                 }
                 
                 cell.configureComponents(with: project)
-            
-            return cell
-        })
+                
+                return cell
+            })
     }
     
-    func updateList(with data: [ModelType]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, ModelType>()
+    func updateList(with data: [Project]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Project>()
         snapshot.appendSections([.main])
         snapshot.appendItems(data)
         dataSource?.apply(snapshot)
