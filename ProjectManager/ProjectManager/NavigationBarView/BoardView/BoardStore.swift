@@ -30,6 +30,7 @@ struct BoardStore: ReducerProtocol {
       switch action {
       case let .todo(.projectItem(id, .didChangeState(status))):
         let datas = state.todoState.projects.filter { $0.id == id }
+        
         state.startState = .todo
         state.endState = status
         return .task {
@@ -79,10 +80,35 @@ struct BoardStore: ReducerProtocol {
         switch endState {
         case .todo:
           datas.forEach { state.todoState.projects.updateOrAppend($0) }
+          var values: IdentifiedArray<UUID, BoardListCellStore.State> = []
+          
+          state.todoState.projects.forEach {
+            let value = BoardListCellStore.State(status: .todo, id: $0.id, project: $0.project)
+            values.append(value)
+          }
+          
+          state.todoState.projects = values
         case .doing:
           datas.forEach { state.doingState.projects.updateOrAppend($0) }
+          var values: IdentifiedArray<UUID, BoardListCellStore.State> = []
+          
+          state.doingState.projects.forEach {
+            let value = BoardListCellStore.State(status: .doing, id: $0.id, project: $0.project)
+            values.append(value)
+          }
+          
+          state.doingState.projects = values
+          
         case .done:
           datas.forEach { state.doneState.projects.updateOrAppend($0) }
+          var values: IdentifiedArray<UUID, BoardListCellStore.State> = []
+          
+          state.doingState.projects.forEach {
+            let value = BoardListCellStore.State(status: .done, id: $0.id, project: $0.project)
+            values.append(value)
+          }
+          
+          state.doneState.projects = values
         }
         
         return .none

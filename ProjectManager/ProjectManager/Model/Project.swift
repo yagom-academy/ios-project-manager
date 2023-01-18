@@ -17,7 +17,6 @@ struct Project: Decodable, Identifiable, Equatable {
   //MARK: 임시 데이터 추후 삭제 예정
   static let mock: IdentifiedArrayOf<BoardListCellStore.State> = [
     .init(
-      status: .todo,
       id: UUID(),
       project: .init(
         title: "책상 정리",
@@ -26,7 +25,6 @@ struct Project: Decodable, Identifiable, Equatable {
       )
     ),
     .init(
-      status: .doing,
       id: UUID(),
       project: .init(
         title: "책상 정리2",
@@ -35,7 +33,6 @@ struct Project: Decodable, Identifiable, Equatable {
         state: .doing)
     ),
     .init(
-      status: .done,
       id: UUID(),
       project: .init(
         title: "책상 정리3",
@@ -44,7 +41,6 @@ struct Project: Decodable, Identifiable, Equatable {
       )
     ),
     .init(
-      status: .doing,
       id: UUID(),
       project: .init(
         title: "책상 정리4",

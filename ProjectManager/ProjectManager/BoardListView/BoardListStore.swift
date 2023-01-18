@@ -66,6 +66,7 @@ struct BoardListStore: ReducerProtocol {
         return .none
         
       case .optionalCellState:
+        state.selectedListCellState?.status = state.status
         return .none
         
       case .projectItem:

@@ -9,7 +9,7 @@ import ComposableArchitecture
 
 struct BoardListCellStore: ReducerProtocol {
   struct State: Equatable, Identifiable {
-    var status: ProjectState
+    var status: ProjectState? = .todo
     var isSelected: Bool = false
     let id: UUID
     var project: Project

@@ -33,21 +33,66 @@ struct BoardListCell: View {
       .background(Color.secondaryBackground)
       .cornerRadius(20)
       .contextMenu {
-        Button("Move to Doing") {
-          viewStore.send(.didChangeState(.doing))
-        }
-        
-        Button("Move to Done") {
-          viewStore.send(.didChangeState(.done))
+        if let status = viewStore.status {
+          contextMenuTopButton(viewStore: viewStore, status: status)
+          contextMenuBottomButton(viewStore: viewStore, status: status)
         }
       }
     }
   }
 }
 
+
+func contextMenuTopButton(
+  viewStore: ViewStore<BoardListCellStore.State, BoardListCellStore.Action>,
+  status: ProjectState
+) -> some View {
+  var topButtonTitle: String = ""
+  
+  switch status {
+  case .todo:
+    topButtonTitle = "Move to DOING"
+    
+    return Button(topButtonTitle) {
+      viewStore.send(.didChangeState(.doing))
+    }
+    
+  case .doing, .done:
+    topButtonTitle = "Move to TODO"
+    
+    return Button(topButtonTitle) {
+      viewStore.send(.didChangeState(.todo))
+    }
+  }
+}
+
+
+func contextMenuBottomButton(
+  viewStore: ViewStore<BoardListCellStore.State, BoardListCellStore.Action>,
+  status: ProjectState
+) -> some View {
+  var bottomButtonTitle: String = ""
+  
+  switch status {
+  case .todo, .doing:
+    bottomButtonTitle = "Move to DONE"
+    
+    return Button(bottomButtonTitle) {
+      viewStore.send(.didChangeState(.done))
+    }
+    
+  case .done:
+    bottomButtonTitle = "Move to DOING"
+    
+    return Button(bottomButtonTitle) {
+      viewStore.send(.didChangeState(.doing))
+    }
+  }
+}
+
 struct BoardListCell_Previews:PreviewProvider {
   static let listCellStore = Store(
-    initialState: BoardListCellStore.State(status: .todo, id: UUID(), project: Project(title: "Example", date: 8000000000, description: "ExampleExampleExampleExampleExampleExampleExampleExample"), detailState: nil),
+    initialState: BoardListCellStore.State( id: UUID(), project: Project(title: "Example", date: 8000000000, description: "ExampleExampleExampleExampleExampleExampleExampleExample"), detailState: nil),
     reducer: BoardListCellStore()
   )
   static var previews: some View {
