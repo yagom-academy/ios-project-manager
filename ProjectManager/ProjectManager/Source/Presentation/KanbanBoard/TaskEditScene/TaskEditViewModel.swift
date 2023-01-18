@@ -36,6 +36,18 @@ final class TaskEditViewModel {
     func transform(from input: Input, disposeBag: DisposeBag) -> Output {
         let output = Output()
         
+        updateTaskUseCase.isUpdatedSuccess
+            .subscribe(onNext: { isUpdatedSuccess in
+                output.isSuccess.accept(isUpdatedSuccess)
+            })
+            .disposed(by: disposeBag)
+        
+        bind(with: input, disposeBag: disposeBag)
+        
+        return output
+    }
+    
+    private func bind(with input: Input, disposeBag: DisposeBag) {
         input.titleDidEditEvent
             .subscribe(onNext: { [weak self] title in
                 self?.task.title = title
@@ -61,7 +73,5 @@ final class TaskEditViewModel {
                 self.updateTaskUseCase.update(self.task)
             })
             .disposed(by: disposeBag)
-        
-        return output
     }
 }
