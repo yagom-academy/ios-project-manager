@@ -14,6 +14,8 @@
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		D200DD9D2977F0550003FB56 /* CustomTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200DD9C2977F0550003FB56 /* CustomTableHeader.swift */; };
+		D200DD9F2977F2950003FB56 /* CustomTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D200DD9E2977F2950003FB56 /* CustomTableHeader.xib */; };
 		D2400A98296E73F800B24E6B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D2400A97296E73F800B24E6B /* .swiftlint.yml */; };
 		D2400AD4296FFD4300B24E6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */; };
 		D2400AD72970048A00B24E6B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AD52970048A00B24E6B /* TableViewCell.swift */; };
@@ -39,6 +41,8 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D200DD9C2977F0550003FB56 /* CustomTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableHeader.swift; sourceTree = "<group>"; };
+		D200DD9E2977F2950003FB56 /* CustomTableHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableHeader.xib; sourceTree = "<group>"; };
 		D2400A97296E73F800B24E6B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D2400AD3296FFD4300B24E6B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D2400AD52970048A00B24E6B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				D2400B032977DA3900B24E6B /* View */,
 				D2400AFC2976851100B24E6B /* SampleData */,
 				D2400AE9297140C500B24E6B /* Controller */,
 				D2400AE8297140C000B24E6B /* Cells */,
@@ -165,6 +170,15 @@
 				D2400AFD2976852000B24E6B /* SampleData.swift */,
 			);
 			path = SampleData;
+			sourceTree = "<group>";
+		};
+		D2400B032977DA3900B24E6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D200DD9C2977F0550003FB56 /* CustomTableHeader.swift */,
+				D200DD9E2977F2950003FB56 /* CustomTableHeader.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +247,7 @@
 				D2400AD4296FFD4300B24E6B /* GoogleService-Info.plist in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
+				D200DD9F2977F2950003FB56 /* CustomTableHeader.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +319,7 @@
 			files = (
 				D2400AF72975429600B24E6B /* AddViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				D200DD9D2977F0550003FB56 /* CustomTableHeader.swift in Sources */,
 				D2400AEF2971422C00B24E6B /* TaskViewModel.swift in Sources */,
 				D2400AEB2971413900B24E6B /* TaskList.swift in Sources */,
 				D2400AD72970048A00B24E6B /* TableViewCell.swift in Sources */,

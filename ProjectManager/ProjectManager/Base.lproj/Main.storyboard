@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctn-Ss-ugp">
-                                <rect key="frame" x="0.0" y="24" width="1180" height="70"/>
+                                <rect key="frame" x="0.0" y="24" width="1180" height="58"/>
                                 <items>
                                     <navigationItem title="Project Manager" id="ZKx-cY-ub8">
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="N4c-8o-7gr">
@@ -28,40 +28,88 @@
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
+                                <navigationBarAppearance key="scrollEdgeAppearance"/>
                             </navigationBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1tJ-br-uce">
-                                <rect key="frame" x="0.0" y="94" width="1180" height="726"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AVt-X3-rUR" userLabel="allContents Stack View">
+                                <rect key="frame" x="0.0" y="82" width="1180" height="738"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="SLa-qJ-uf2">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="726"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </tableView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="11v-2o-Txb">
-                                        <rect key="frame" x="395" y="0.0" width="390" height="726"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </tableView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="VWv-cH-6u5">
-                                        <rect key="frame" x="790" y="0.0" width="390" height="726"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </tableView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="JMm-rX-glJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="70"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2H-Uc-Pet" customClass="CustomTableHeader" customModule="ProjectManager" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="70"/>
+                                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="390" id="2kp-tw-hHW"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itB-p7-BNp" customClass="CustomTableHeader" customModule="ProjectManager" customModuleProvider="target">
+                                                <rect key="frame" x="395" y="0.0" width="390" height="70"/>
+                                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="390" id="M11-u2-3bS"/>
+                                                    <constraint firstAttribute="height" constant="70" id="vKb-aK-jfe"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bud-qE-hzr" customClass="CustomTableHeader" customModule="ProjectManager" customModuleProvider="target">
+                                                <rect key="frame" x="790" y="0.0" width="390" height="70"/>
+                                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="390" id="NaI-nB-WhR"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="EvT-r1-8wk">
+                                        <rect key="frame" x="0.0" y="70" width="1180" height="668"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="SLa-qJ-uf2">
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="668"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="668" id="eEn-Gs-Ueh"/>
+                                                    <constraint firstAttribute="width" constant="390" id="feR-Rs-wL8"/>
+                                                </constraints>
+                                            </tableView>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="11v-2o-Txb">
+                                                <rect key="frame" x="395" y="0.0" width="390" height="668"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="390" id="aME-gu-dm6"/>
+                                                    <constraint firstAttribute="height" constant="668" id="gT9-ZH-QLf"/>
+                                                </constraints>
+                                            </tableView>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="VWv-cH-6u5">
+                                                <rect key="frame" x="790" y="0.0" width="390" height="668"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="668" id="26A-x2-kTE"/>
+                                                    <constraint firstAttribute="width" constant="390" id="AwX-oW-ZUi"/>
+                                                </constraints>
+                                            </tableView>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="1tJ-br-uce" secondAttribute="bottom" id="2nW-vV-KVF"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ctn-Ss-ugp" secondAttribute="trailing" id="FpX-MZ-FJ3"/>
-                            <constraint firstItem="ctn-Ss-ugp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="RoZ-RI-lHf"/>
-                            <constraint firstAttribute="trailing" secondItem="1tJ-br-uce" secondAttribute="trailing" id="kXT-xf-4Gw"/>
-                            <constraint firstItem="ctn-Ss-ugp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="mKF-oj-AH3"/>
-                            <constraint firstItem="1tJ-br-uce" firstAttribute="top" secondItem="ctn-Ss-ugp" secondAttribute="bottom" id="sO6-EJ-cDM"/>
-                            <constraint firstItem="1tJ-br-uce" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tyg-OP-fx8"/>
+                            <constraint firstItem="ctn-Ss-ugp" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="958-eT-WJH"/>
+                            <constraint firstItem="AVt-X3-rUR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="D6r-wP-xyY"/>
+                            <constraint firstItem="AVt-X3-rUR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="FOt-4v-UMX"/>
+                            <constraint firstItem="ctn-Ss-ugp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Khb-lE-Dq7"/>
+                            <constraint firstItem="AVt-X3-rUR" firstAttribute="top" secondItem="ctn-Ss-ugp" secondAttribute="bottom" id="nCx-Hl-eqk"/>
+                            <constraint firstItem="ctn-Ss-ugp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="rUW-Ay-YAq"/>
+                            <constraint firstAttribute="bottom" secondItem="AVt-X3-rUR" secondAttribute="bottom" id="yO0-bK-Efq"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="doingHeaderView" destination="itB-p7-BNp" id="mdv-Gi-8wY"/>
                         <outlet property="doingTableView" destination="11v-2o-Txb" id="VHH-h5-6x5"/>
+                        <outlet property="doneHeaderView" destination="bud-qE-hzr" id="aho-fv-NMJ"/>
                         <outlet property="doneTableView" destination="VWv-cH-6u5" id="8Wd-AF-cT8"/>
+                        <outlet property="todoHeaderView" destination="K2H-Uc-Pet" id="PdZ-6w-4yK"/>
                         <outlet property="todoTableView" destination="SLa-qJ-uf2" id="jNv-sE-wO7"/>
                     </connections>
                 </viewController>
@@ -142,6 +190,9 @@
     <resources>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

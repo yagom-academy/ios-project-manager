@@ -16,31 +16,16 @@ struct DataSourceViewModel {
         let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, task in
             let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell",
                                                      for: indexPath) as? TableViewCell ?? TableViewCell()
-            let taskStatus = task.status
-            switch taskStatus {
-            case .todo:
-                let todoTask = tasks[indexPath.row]
-                cell.titleLabel.text = todoTask.title
-                cell.descriptionLabel.text = todoTask.description
-                cell.dateLabel.text = todoTask.date?.description
-            case .doing:
-                let doingTask = tasks[indexPath.row]
-                cell.titleLabel.text = doingTask.title
-                cell.descriptionLabel.text = doingTask.description
-                cell.dateLabel.text = doingTask.date?.description
-            case .done:
-                let doneTask = tasks[indexPath.row]
-                cell.titleLabel.text = doneTask.title
-                cell.descriptionLabel.text = doneTask.description
-                cell.dateLabel.text = doneTask.date?.description
-            }
+            cell.titleLabel.text = task.title
+            cell.descriptionLabel.text = task.description
+            cell.dateLabel.text = task.date?.description
             return cell
         }
         configureSnapShot(dataSource: dataSource, tasks: tasks)
         return dataSource
     }
     
-     func configureSnapShot(dataSource: UITableViewDiffableDataSource<Section, Task>, tasks: [Task]) {
+    private func configureSnapShot(dataSource: UITableViewDiffableDataSource<Section, Task>, tasks: [Task]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
         snapShot.appendSections([.main])
         snapShot.appendItems(tasks)
