@@ -8,7 +8,9 @@
 import Foundation
 
 class TaskListViewModel {
-    var reloadTodoTasks: () -> Void = {}
+    var reloadTodoTasks: ([Task]) -> Void = { _ in }
+    var reloadDoingTasks: ([Task]) -> Void = { _ in }
+    var reloadDoneTasks: ([Task]) -> Void = { _ in }
     
     var tasks: [Task] = [] {
         didSet {
@@ -18,11 +20,19 @@ class TaskListViewModel {
     
     var todoTasks: [Task] = [] {
         didSet {
-            reloadTodoTasks()
+            reloadTodoTasks(todoTasks)
         }
     }
-    var doingTasks: [Task] = []
-    var doneTasks: [Task] = []
+    var doingTasks: [Task] = [] {
+        didSet {
+            reloadDoingTasks(doingTasks)
+        }
+    }
+    var doneTasks: [Task] = [] {
+        didSet {
+            reloadDoneTasks(doneTasks)
+        }
+    }
     
     let sampleData = SampleDummyData()
     
@@ -61,5 +71,17 @@ extension TaskListViewModel {
 extension TaskListViewModel {
     func create(task: Task) {
         tasks.append(task)
+    }
+    
+    func update(status: Status, newTask: Task, indexPathRow: Int) {
+        switch status {
+        case .todo:
+            todoTasks[indexPathRow] = newTask
+        case .doing:
+            doingTasks[indexPathRow] = newTask
+        case .done:
+            doneTasks[indexPathRow] = newTask
+        }
+        
     }
 }

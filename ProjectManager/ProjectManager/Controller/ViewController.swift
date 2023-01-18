@@ -32,9 +32,7 @@ class ViewController: UIViewController {
         todoTableView.delegate = self
         doingTableView.delegate = self
         doneTableView.delegate = self
-        taskListVM.reloadTodoTasks = { [weak self] in
-            self?.update()
-        }
+        reloadTasksTableViewDataSource()
     }
     
     @IBAction func tapAdd(_ sender: UIBarButtonItem) {
@@ -44,11 +42,26 @@ class ViewController: UIViewController {
         present(addViewController, animated: true)
     }
     
-    private func update() {
+    private func reloadTasksTableViewDataSource() {
+        taskListVM.reloadTodoTasks = { [weak self] tasks in
+            guard let self = self else { return }
+            self.update(dataSource: self.todoDataSource, tasksStatus: tasks)
+        }
+        taskListVM.reloadDoingTasks = { [weak self] tasks in
+            guard let self = self else { return }
+            self.update(dataSource: self.doingDataSource, tasksStatus: tasks)
+        }
+        taskListVM.reloadDoneTasks = { [weak self] tasks in
+            guard let self = self else { return }
+            self.update(dataSource: self.doneDataSource, tasksStatus: tasks)
+        }
+    }
+    
+    private func update(dataSource: UITableViewDiffableDataSource<Section, Task>, tasksStatus: [Task]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
         snapShot.appendSections([.main])
-        snapShot.appendItems(taskListVM.todoTasks)
-        todoDataSource.apply(snapShot, animatingDifferences: true)
+        snapShot.appendItems(tasksStatus)
+        dataSource.apply(snapShot, animatingDifferences: true)
     }
     
     private func setupSuperViewColor() {

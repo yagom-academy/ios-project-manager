@@ -27,7 +27,17 @@ class EditViewController: UIViewController {
     }
     
     @IBAction func tapDone(_ sender: UIBarButtonItem) {
+        guard let indexPathRow = indexPathRow,
+              let status = status else { return }
         
+        let task = Task(title: titleTextField.text,
+                        description: descriptionTextView.text,
+                        date: datePicker.date,
+                        status: status)
+        taskListVM?.update(status: status,
+                           newTask: task,
+                           indexPathRow: indexPathRow)
+        dismiss(animated: true)
     }
     
     private func setEditableMode(mode: Bool) {
@@ -39,6 +49,7 @@ class EditViewController: UIViewController {
     private func setUpSelectedTask() {
         guard let indexPathRow = indexPathRow,
               let taskListVM = taskListVM else { return }
+        
         switch status {
         case .todo:
             let task = taskListVM.todoTasks[indexPathRow]
