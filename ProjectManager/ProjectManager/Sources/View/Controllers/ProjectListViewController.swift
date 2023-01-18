@@ -110,6 +110,9 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let project = dataSource?.itemIdentifier(for: indexPath) else { return }
+        delegate?.editProject(willEdit: project)
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

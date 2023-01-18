@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditorViewController: UIViewController {
+final class EditorViewController: UIViewController {
     private let textField: UITextField = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title2)
@@ -51,10 +51,16 @@ class EditorViewController: UIViewController {
     
     private let viewModel: MainViewModelProtocol
     
-    init(state: State, viewModle: MainViewModelProtocol) {
-        self.viewModel = viewModle
+    init(state: State, viewModel: MainViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         navigationItem.title = state.name
+    }
+    
+    convenience init(project: Project, viewModel: MainViewModelProtocol) {
+        self.init(state: project.state, viewModel: viewModel)
+        textField.text = project.title
+        textView.text = project.description
     }
     
     required init?(coder: NSCoder) {
