@@ -4,22 +4,16 @@
 import UIKit
 
 class ToDoListView: UIView {
-    private let status: ToDoState
     enum Schedule: Hashable {
         case main
     }
     
-    private lazy var headerView: ToDoHeaderView = {
-        let view = ToDoHeaderView(status: status)
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
+    private let status: ToDoState
     
     private let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         
+        tableView.backgroundColor = .systemGray6
         tableView.sectionHeaderHeight = 50
         tableView.register(ToDoCell.self, forCellReuseIdentifier: ToDoCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
