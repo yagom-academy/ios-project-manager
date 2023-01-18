@@ -81,4 +81,10 @@ class ListFormView: UIStackView {
             cornerRadius: bodyTextView.layer.cornerRadius
         ).cgPath
     }
+    
+    func configureViews(using listItem: ListItem) {
+        titleTextField.text = listItem.title
+        dueDatePicker.date = listItem.dueDate
+        bodyTextView.text = listItem.body
+    }
 }

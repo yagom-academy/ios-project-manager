@@ -37,9 +37,10 @@ class ListFormViewController: UIViewController {
             configureAddNavigationBar()
         } else {
             configureEditNavigationBar()
+            bindHandler()
+            configureViews()
         }
         configureLayout()
-        bindHandlers()
     }
     
     // MARK: Private Methods
@@ -61,18 +62,31 @@ class ListFormViewController: UIViewController {
     }
     
     private func configureEditNavigationBar() {
+        let title: String
+        
+        switch formViewModel?.listType {
+        case .todo:
+            title = Constant.todo
+        case .doing:
+            title = Constant.doing
+        case .done:
+            title = Constant.done
+        default:
+            return
+        }
+        
         navigationItem.leftBarButtonItem = .init(
             title: Constant.editButton,
             style: .plain,
             target: self,
             action: #selector(editButtonPressed)
         )
-        navigationItem.title = Constant.todo
+        navigationItem.title = title
         navigationItem.rightBarButtonItem = .init(
             title: Constant.doneButton,
             style: .done,
             target: self,
-            action: #selector(addNewItem)
+            action: #selector(doneEditPressed)
         )
     }
     
@@ -90,12 +104,18 @@ class ListFormViewController: UIViewController {
         ])
     }
     
-    func bindHandlers() {
+    private func bindHandler() {
         formViewModel?.bindEditHandler({
             if $0 == true {
                 self.navigationItem.leftBarButtonItem?.isEnabled = false
             }
         })
+    }
+    
+    private func configureViews() {
+        guard let viewModel = formViewModel else { return }
+
+        listFormView.configureViews(using: viewModel.listItem)
     }
     
     @objc func cancelButtonPressed() {
@@ -114,6 +134,19 @@ class ListFormViewController: UIViewController {
         )
         
         delegate?.addNewItem(newItem)
+        dismiss(animated: true)
+    }
+    
+    @objc func doneEditPressed() {
+        guard let viewModel = formViewModel else { return }
+
+        delegate?.ediItem(
+            of: viewModel.listType,
+            at: viewModel.index,
+            title: listFormView.currentTitle,
+            body: listFormView.currentBody,
+            dueDate: listFormView.currentDate
+        )
         dismiss(animated: true)
     }
 }
