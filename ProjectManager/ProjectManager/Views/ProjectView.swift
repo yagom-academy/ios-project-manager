@@ -14,7 +14,7 @@ final class ProjectView: UIView {
         return navigationBar
     }()
 
-    private let stackView: UIStackView = {
+    let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fill
         stackView.axis = .vertical
@@ -62,6 +62,8 @@ final class ProjectView: UIView {
         return textView
     }()
 
+    var isTexting: Bool = false
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -90,10 +92,13 @@ final class ProjectView: UIView {
             stackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 8),
             stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            
-            titleTextView.heightAnchor.constraint(equalToConstant: 50)
         ])
+
+        if #available(iOS 15.0, *) {
+            stackView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor, constant: -16).isActive = true
+        } else {
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+        }
     }
 
     func configureNavigationBar(on item: UINavigationItem) {

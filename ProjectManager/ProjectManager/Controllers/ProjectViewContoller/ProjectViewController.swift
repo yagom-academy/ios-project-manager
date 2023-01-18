@@ -17,7 +17,7 @@ final class ProjectViewController: UIViewController {
     private var mode: ViewMode
     private var project: Project
     var completion: ((Project) -> ())?
-    private lazy var projectView: ProjectView  = {
+    lazy var projectView: ProjectView  = {
         let view = ProjectView(frame: view.bounds)
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return view
@@ -29,6 +29,11 @@ final class ProjectViewController: UIViewController {
 
         configureView()
         configureNavigationItem()
+
+        // 15버전은 keyboardLayoutGuide 사용
+        if #unavailable(iOS 15.0) {
+            addKeyboardNotifications()
+        }
     }
 
     // MARK: Initialization
@@ -103,6 +108,6 @@ extension ProjectViewController: UITextViewDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
 
-        return changedText.count <= 1000 // 해당 글자수 만큼 제한
+        return changedText.count <= 1000
     }
 }
