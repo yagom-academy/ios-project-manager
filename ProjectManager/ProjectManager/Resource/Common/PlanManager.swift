@@ -2,43 +2,64 @@
 //  ToDoManager.swift
 //  ProjectManager
 //
-//  Created by 로빈솜 on 2023/01/11.
+//  Created by som on 2023/01/11.
 //
 
 import Foundation
 
 class PlanManager: PlanManageable {
-    func create(planList: inout [Plan]) throws {
-        let plan = Plan(status: .todo,
-                        title: "",
-                        description: "",
-                        deadline: Date(),
-                        id: UUID())
+    func create(title: String, description: String, deadline: Date) -> Plan? {
+        var plan: Plan?
 
+        if isValidContent(title, description) {
+            plan = Plan(status: .todo,
+                            title: title,
+                            description: description,
+                            deadline: deadline,
+                            id: UUID())
+        }
+
+        return plan
+    }
+
+    func insert(planList: inout [Plan], plan: Plan) {
         planList.append(plan)
     }
 
-    func fetch(id: UUID) throws -> Plan? {
+    func fetch(id: UUID?) -> UUID? {
+        guard id != nil else { return nil }
+
+        return id
+    }
+
+    func fetchAllPlans() {
         fatalError()
     }
 
-    func fetchAllPlans() throws {
+    func fetchIndex(list: [Plan] ,id: UUID) -> Array<Plan>.Index? {
+        return list.firstIndex(where: { $0.id == id})
+    }
+
+//    func update(planList: [Plan]?, plan: Plan) {
+//        guard let index = fetchIndex(list: planList, id: plan.id) else { return }
+//
+//        planList[index].title = plan.title
+//        planList[index].description = plan.description
+//        planList[index].deadline = plan.deadline
+//
+//    }
+
+    func update(id: UUID, status: Plan.Status) {
         fatalError()
     }
 
-    func update(planList: inout [Plan], plan: Plan) throws {
-        guard let index = planList.firstIndex(where: { $0.id == plan.id}) else { return }
+    func delete(planList: inout [Plan], id: UUID) {
+        guard let index = fetchIndex(list: planList, id: id) else { return }
 
-        planList[index].title = plan.title
-        planList[index].description = plan.description
-        planList[index].deadline = plan.deadline
+        planList.remove(at: index)
     }
 
-    func update(id: UUID, status: Plan.Status) throws {
-        fatalError()
-    }
-
-    func delete(id: UUID) throws {
-        fatalError()
+    func isValidContent(_ title: String?, _ description: String?) -> Bool {
+        return ((title != "Title" && title != "") && (description != "Description" && description != ""))
     }
 }

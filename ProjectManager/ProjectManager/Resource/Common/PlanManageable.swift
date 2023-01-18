@@ -2,16 +2,16 @@
 //  ToDoManageable.swift
 //  ProjectManager
 //
-//  Created by 로빈솜 on 2023/01/11.
+//  Created by som on 2023/01/11.
 //
 
 import Foundation
 
 protocol PlanManageable {
-    func create(planList: inout [Plan]) throws
-    func update(planList: inout [Plan], plan: Plan) throws
-    func update(id: UUID, status: Plan.Status) throws
-    func fetch(id: UUID) throws -> Plan?
+    func create(title: String, description: String, deadline: Date) -> Plan?
+//    func update(planList: inout [Plan], plan: Plan)
+    func update(id: UUID, status: Plan.Status)
+    func fetch(id: UUID?) -> UUID?
     func fetchAllPlans() throws
-    func delete(id: UUID) throws
+    func delete(planList: inout [Plan], id: UUID) 
 }

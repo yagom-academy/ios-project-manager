@@ -2,7 +2,7 @@
 //  PlanDetailView.swift
 //  ProjectManager
 //
-//  Created by 정선아 on 2023/01/16.
+//  Created by som on 2023/01/16.
 //
 
 import UIKit
@@ -70,6 +70,8 @@ class PlanDetailView: UIView {
     }
 
     private func configureLayout() {
+        backgroundColor = .systemBackground
+
         addSubview(navigationBar)
         addSubview(stackView)
         stackView.addArrangedSubview(titleTextView)
@@ -91,5 +93,17 @@ class PlanDetailView: UIView {
     func configureNavigationBar(on item: UINavigationItem) {
         navigationBar.setItems([item], animated: true)
     }
-    
+
+    func sendUserPlan() -> (title: String, description: String, deadline: Date) {
+        return (titleTextView.text, descriptionTextView.text, datePicker.date)
+    }
+
+    func configureTextView(title: String, description: String, deadline: Date, isEditable: Bool) {
+        titleTextView.isEditable = isEditable
+        descriptionTextView.isEditable = isEditable
+
+        titleTextView.text = title
+        descriptionTextView.text = description
+        datePicker.date = deadline
+    }
 }

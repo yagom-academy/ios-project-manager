@@ -2,13 +2,12 @@
 //  PlanTableViewCell.swift
 //  ProjectManager
 //
-//  Created by 로빈솜 on 2023/01/11.
+//  Created by som on 2023/01/11.
 //
 
 import UIKit
 
 final class PlanTableViewCell: UITableViewCell {
-    // MARK: Properties
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
@@ -39,7 +38,6 @@ final class PlanTableViewCell: UITableViewCell {
         return stackView
     }()
 
-    // MARK: Initialization
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -51,7 +49,6 @@ final class PlanTableViewCell: UITableViewCell {
         configureLayout()
     }
 
-    // TODO: 마감일 지나면 빨간색으로 표시해주는 부분 수정해야함
     func configureCell(with todo: Plan) {
         self.titleLabel.text = todo.title
         self.descriptionLabel.text = todo.description
@@ -66,7 +63,6 @@ final class PlanTableViewCell: UITableViewCell {
         }
     }
 
-    // MARK: Private Method
     private func configureLayout() {
         contentView.addSubview(stackView)
         

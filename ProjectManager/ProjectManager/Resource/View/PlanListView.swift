@@ -2,7 +2,7 @@
 //  PlanListView.swift
 //  ProjectManager
 //
-//  Created by 정선아 on 2023/01/16.
+//  Created by som on 2023/01/16.
 //
 
 import UIKit

@@ -1,6 +1,8 @@
 //
-//  DummyData.swift
-//  ProjectManagerForLecture
+//  DummyProjects.swift
+//  ProjectManager
+//
+//  Created by som on 2023/01/16.
 //
 
 import Foundation

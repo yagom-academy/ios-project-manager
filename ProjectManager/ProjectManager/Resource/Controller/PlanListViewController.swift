@@ -2,12 +2,12 @@
 //  ToDoListViewController.swift
 //  ProjectManager
 //
-//  Created by 로빈솜 on 2023/01/11.
+//  Created by som on 2023/01/11.
 //
 
 import UIKit
 
-final class PlanListViewController: UIViewController, UITableViewDelegate {
+final class PlanListViewController: UIViewController {
     typealias DataSource = UITableViewDiffableDataSource<Int, Plan>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Plan>
 
@@ -18,7 +18,11 @@ final class PlanListViewController: UIViewController, UITableViewDelegate {
     private lazy var doingDataSource = configureDataSource(tableView: planListView.doingTableView)
     private lazy var doneDataSource = configureDataSource(tableView: planListView.doneTableView)
 
-    private var planList = DummyProjects.projects
+    private var planList = DummyProjects.projects {
+        didSet {
+            planListView.toDoTableView.reloadData()
+        }
+    }
     private var todoList: [Plan] {
         return planList.filter { $0.status == .todo }
     }
@@ -35,19 +39,31 @@ final class PlanListViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
 
         configureNavigationBar()
-        configureLayout()
-        configureToDoSnapshot()
+        configureView()
+        configureSnapshot()
+
     }
 
-    private func configureLayout() {
+    private func configureView() {
         view.addSubview(planListView)
 
         planListView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        planListView.toDoTableView.delegate = self
+        planListView.doingTableView.delegate = self
+        planListView.doneTableView.delegate = self
     }
 
     private func configureNavigationBarButton() -> UIBarButtonItem {
+        let detailViewController = PlanDetailViewController(navigationTitle: "TODO",
+                                                            plan: nil,
+                                                            isAdding: true) { [weak self] plan in
+            guard let plan = plan else { return }
+
+            self?.planList.append(plan)
+            self?.configureSnapshot()
+        }
+
         let buttonAction = UIAction { [weak self] _ in
-            let detailViewController = PlanDetailViewController()
             self?.present(detailViewController, animated: true)
         }
 
@@ -81,7 +97,7 @@ final class PlanListViewController: UIViewController, UITableViewDelegate {
         return dataSource
     }
 
-    private func configureToDoSnapshot() {
+    private func configureSnapshot() {
         var todoSnapshot = Snapshot()
         var doingSnapshot = Snapshot()
         var doneSnapshot = Snapshot()
@@ -97,5 +113,43 @@ final class PlanListViewController: UIViewController, UITableViewDelegate {
         toDoDataSource.apply(todoSnapshot)
         doingDataSource.apply(doingSnapshot)
         doneDataSource.apply(doneSnapshot)
+    }
+}
+
+extension PlanListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let plan = pickTableView(tableView, indexPath: indexPath)
+
+        let detailViewController = PlanDetailViewController(navigationTitle: "TODO",
+                                                            plan: plan,
+                                                                isAdding: false) { [weak self] plan in
+            guard let plan = plan else { return }
+
+            //TODO: 업데이트 어케 하누
+            guard let index = self?.planManager.fetchIndex(list: self?.planList ?? [], id: plan.id) else { return }
+
+            self?.planList[index].title = plan.title
+            self?.planList[index].description = plan.description
+            self?.planList[index].deadline = plan.deadline
+
+            self?.configureSnapshot()
+        }
+
+        present(detailViewController, animated: true)
+    }
+
+    func pickTableView(_ tableView: UITableView, indexPath: IndexPath) -> Plan? {
+        switch tableView {
+        case planListView.toDoTableView:
+            return toDoDataSource.itemIdentifier(for: indexPath)
+        case planListView.doingTableView:
+            return doingDataSource.itemIdentifier(for: indexPath)
+        case planListView.doneTableView:
+            return doneDataSource.itemIdentifier(for: indexPath)
+
+        default:
+            return nil
+        }
     }
 }

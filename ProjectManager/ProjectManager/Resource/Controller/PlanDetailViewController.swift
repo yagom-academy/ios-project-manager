@@ -2,28 +2,26 @@
 //  ToDoDetailViewController.swift
 //  ProjectManager
 //
-//  Created by 로빈솜 on 2023/01/11.
+//  Created by som on 2023/01/11.
 //
 
 import UIKit
 
 class PlanDetailViewController: UIViewController {
     private lazy var planDetailView = PlanDetailView(frame: view.bounds)
-    private var planManager = PlanManager()
     private var plan: Plan?
+    private let navigationTitle: String
+    private let isAdding: Bool
+    private let changedPlan: (Plan?) -> Void
+    private let planManager = PlanManager()
 
-    init() {
-        self.planManager = PlanManager()
-        do {
-//            plan = try self.planManager.create(planList: &<#[Plan]#>)
-        } catch {
-            fatalError()
-        }
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    init(planManager: PlanManager, id: UUID) {
-        self.planManager = planManager
+    // TODO: plan create가 안 되고 있음
+    // TODO: plan을 생성하는 시점이 모달 뷰가 사라질 때로 해보자 -> 빈 값이면 삭제, create가 아닌 save 느낌으로
+    init(navigationTitle: String, plan: Plan?, isAdding: Bool, changedPlan: @escaping (Plan?) -> Void) {
+        self.navigationTitle = navigationTitle
+        self.plan = plan
+        self.isAdding = isAdding
+        self.changedPlan = changedPlan
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,15 +29,11 @@ class PlanDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
-        view = UIView(frame: .zero)
-        view.backgroundColor = .systemBackground
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        configureNavigationItem()
+        setAddMode()
+        setViewMode()
     }
 
     private func configureView() {
@@ -48,23 +42,93 @@ class PlanDetailViewController: UIViewController {
         planDetailView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
-    private func configureNavigationItem() {
+    private func setAddMode() {
+        configureNavigationItem(leftButton: configureNavigationCancelBarButton(),
+                                rightButton: configureNavigationDoneBarButton())
+    }
+
+    private func setViewMode() {
+        if isAdding == false {
+            configureNavigationItem(leftButton: configureNavigationEditBarButton(),
+                                    rightButton: configureNavigationDoneBarButton())
+
+
+            planDetailView.configureTextView(title: plan?.title ?? "",
+                                             description: plan?.description ?? "",
+                                             deadline: plan?.deadline ?? Date(),
+                                             isEditable: false)
+        }
+    }
+
+    private func setEditMode() {
+        configureNavigationItem(leftButton: configureNavigationCancelBarButton(),
+                                rightButton: configureNavigationDoneBarButton())
+
+        if isAdding == false {
+            planDetailView.configureTextView(title: plan?.title ?? "",
+                                             description: plan?.description ?? "",
+                                             deadline: plan?.deadline ?? Date(),
+                                             isEditable: true)
+        }
+    }
+
+    private func configureNavigationItem(leftButton: UIBarButtonItem, rightButton: UIBarButtonItem) {
         let navigationItem = UINavigationItem(title: "TODO")
 
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tappedCancel(sender:)))
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(tappedDone(sender:)))
+        let leftBarButton = leftButton
+        let rightBarButton = rightButton
 
-        navigationItem.leftBarButtonItem = cancelButton
-        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.leftBarButtonItem = leftBarButton
+        navigationItem.rightBarButtonItem = rightBarButton
 
         planDetailView.configureNavigationBar(on: navigationItem)
     }
 
-    @objc private func tappedCancel(sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    private func configureNavigationCancelBarButton() -> UIBarButtonItem {
+        let buttonAction = UIAction { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }
+
+        let button = UIBarButtonItem(systemItem: .cancel, primaryAction: buttonAction)
+
+        return button
     }
 
-    @objc private func tappedDone(sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    private func configureNavigationEditBarButton() -> UIBarButtonItem {
+        let buttonAction = UIAction { [weak self] _ in
+            self?.setEditMode()
+        }
+
+        let button = UIBarButtonItem(systemItem: .edit, primaryAction: buttonAction)
+
+        return button
+    }
+
+    private func configureNavigationDoneBarButton() -> UIBarButtonItem {
+        let buttonAction = UIAction { [weak self] _ in
+            self?.save()
+            self?.changedPlan(self?.plan)
+
+            self?.dismiss(animated: true, completion: nil)
+        }
+
+        let button = UIBarButtonItem(systemItem: .done, primaryAction: buttonAction)
+
+        return button
+    }
+
+    private func save() {
+        let inputPlan = planDetailView.sendUserPlan() 
+
+        if planManager.fetch(id: plan?.id) == nil {
+            plan = planManager.create(title: inputPlan.title,
+                                          description: inputPlan.description,
+                                          deadline: inputPlan.deadline)
+        } else {
+            plan?.title = inputPlan.title
+            plan?.description = inputPlan.description
+            plan?.deadline = inputPlan.deadline
+        }
     }
 }
+ 
