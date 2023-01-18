@@ -14,7 +14,7 @@ struct Task {
     var isExpired: Bool
     
     enum State: Int {
-        case toDo = 1
+        case toDo
         case doing
         case done
     }

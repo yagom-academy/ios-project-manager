@@ -19,7 +19,7 @@ struct TaskEntityDummy {
             title: "RxSwift 추가",
             content: "제곧내",
             deadLine: 1674140400, // 2023년
-            state: 1
+            state: 0
         ),
         
         TaskEntity(
@@ -27,7 +27,7 @@ struct TaskEntityDummy {
             title: "제목제목제목",
             content: "내용내용내용",
             deadLine: 1673881200,
-            state: 1
+            state: 0
         ),
         
         TaskEntity(
@@ -35,7 +35,7 @@ struct TaskEntityDummy {
             title: "제목제목제목",
             content: "내용내용내용",
             deadLine: 1672498800.0,
-            state: 1
+            state: 0
         ),
         
         TaskEntity(
@@ -43,7 +43,7 @@ struct TaskEntityDummy {
             title: "제목제목제목",
             content: "내용내용내용",
             deadLine: 1677596400.0,
-            state: 1
+            state: 0
         ),
         
         TaskEntity(
@@ -51,7 +51,7 @@ struct TaskEntityDummy {
             title: "Mock Repository 만들기",
             content: "아얀이 열심히 만듦",
             deadLine: 1675436400.0,
-            state: 2
+            state: 1
         ),
         
         TaskEntity(
@@ -59,7 +59,7 @@ struct TaskEntityDummy {
             title: "step2 PR",
             content: "coordinator까지 만들어서 보내기",
             deadLine: 1674140400,
-            state: 2
+            state: 1
         ),
         
         TaskEntity(
@@ -67,7 +67,7 @@ struct TaskEntityDummy {
             title: "RxSwift 추가",
             content: "제곧내",
             deadLine: 1674147600,
-            state: 3
+            state: 2
         )
     ]
 }
