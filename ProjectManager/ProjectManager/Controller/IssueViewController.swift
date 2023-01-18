@@ -41,6 +41,7 @@ final class IssueViewController: UIViewController {
         textField.backgroundColor = .systemBackground
         textField.placeholder = Namespace.title
         textField.setContentHuggingPriority(.required, for: .vertical)
+        textField.addShadow(radius: LayoutConstant.shadowRadius)
         
         return textField
     }()
@@ -59,6 +60,7 @@ final class IssueViewController: UIViewController {
         let textView = UITextView()
         textView.backgroundColor = .systemBackground
         textView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        textView.addShadow(radius: LayoutConstant.shadowRadius)
         
         return textView
     }()
