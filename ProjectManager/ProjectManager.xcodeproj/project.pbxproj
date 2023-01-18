@@ -22,6 +22,7 @@
 		F6F07560297192C100856794 /* ModalViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F0755F297192C100856794 /* ModalViewContoller.swift */; };
 		F6F075622971A3FD00856794 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F6F075612971A3FD00856794 /* FirebaseFirestore */; };
 		F6F075642971A40700856794 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F6F075632971A40700856794 /* FirebaseFirestoreSwift */; };
+		FC043ED82977F95900061B35 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC043ED72977F95900061B35 /* PopoverViewController.swift */; };
 		FC6CC7092973D01800D400E5 /* TodoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FC6CC7072973D01800D400E5 /* TodoModel.xcdatamodeld */; };
 		FC6CC70C2973D4FC00D400E5 /* TodoModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6CC70A2973D4FC00D400E5 /* TodoModel+CoreDataClass.swift */; };
 		FC6CC70D2973D4FC00D400E5 /* TodoModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6CC70B2973D4FC00D400E5 /* TodoModel+CoreDataProperties.swift */; };
@@ -48,6 +49,7 @@
 		F6F0755B2971038B00856794 /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
 		F6F0755D297139BE00856794 /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		F6F0755F297192C100856794 /* ModalViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewContoller.swift; sourceTree = "<group>"; };
+		FC043ED72977F95900061B35 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		FC6CC7082973D01800D400E5 /* TodoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodoModel.xcdatamodel; sourceTree = "<group>"; };
 		FC6CC70A2973D4FC00D400E5 /* TodoModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoModel+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		FC6CC70B2973D4FC00D400E5 /* TodoModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoModel+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				FC043ED72977F95900061B35 /* PopoverViewController.swift */,
 				F6F0755B2971038B00856794 /* CustomTableView.swift */,
 				F6F0755D297139BE00856794 /* CustomHeaderView.swift */,
 				F677850029702DDA0033E33E /* TodoCustomCell.swift */,
@@ -293,6 +296,7 @@
 				FC6CC70F2973EA5500D400E5 /* CoreDataManger.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				F6F0755C2971038B00856794 /* CustomTableView.swift in Sources */,
+				FC043ED82977F95900061B35 /* PopoverViewController.swift in Sources */,
 				F6F07560297192C100856794 /* ModalViewContoller.swift in Sources */,
 				FC6CC70D2973D4FC00D400E5 /* TodoModel+CoreDataProperties.swift in Sources */,
 				FC6CC714297400D100D400E5 /* State.swift in Sources */,

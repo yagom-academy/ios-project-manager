@@ -44,6 +44,8 @@ final class MainViewController: UIViewController {
         
         // TODO: -notification, present modal 에서 추후 등록
         registDismissNotification()
+        
+        setupLongPress()
     }
     
     private func fetchData() {
@@ -224,5 +226,48 @@ extension MainViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
+    func setupLongPress() {
+        let longPressedGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(handleLongPress(gestureRecognizer:))
+        )
+        longPressedGesture.delegate = self
+        longPressedGesture.minimumPressDuration = 1
+        
+        longPressedGesture.delaysTouchesBegan = true
+        todoTableView.addGestureRecognizer(longPressedGesture)
+        
+    }
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: todoTableView)
+        guard let indexPath = todoTableView.indexPathForRow(at: location) else { return }
+//        let indexPathRow = indexPath.row
+//        let data = todoData[indexPathRow]
+        
+        if gestureRecognizer.state == .began {
+            guard let currentCell = todoTableView.cellForRow(at: indexPath) else {
+                return
+            }
+            
+            let containerController = PopoverViewController()
+            
+            containerController.modalPresentationStyle = .popover
+            containerController.preferredContentSize = .init(
+                width: currentCell.frame.width,
+                height: currentCell.frame.height
+            )
+            containerController.popoverPresentationController?.sourceRect = CGRect(
+                origin: location,
+                size: .zero
+            )
+            containerController.popoverPresentationController?.sourceView = todoTableView
+            containerController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+            
+            self.present(containerController, animated: true)
+        }
     }
 }
