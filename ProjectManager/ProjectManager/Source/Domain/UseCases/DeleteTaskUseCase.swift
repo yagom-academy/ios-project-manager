@@ -1,5 +1,5 @@
 //
-//  DeleteUseCase.swift
+//  DeleteTaskUseCase.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -7,7 +7,7 @@
 
 import RxSwift
 
-final class DeleteUseCase {
+final class DeleteTaskUseCase {
     private let repository: TaskRepository
 
     private let translater = Translater()

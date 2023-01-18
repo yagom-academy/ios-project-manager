@@ -1,5 +1,5 @@
 //
-//  CreateUseCase.swift
+//  CreateTaskUseCase.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -7,7 +7,7 @@
 
 import RxSwift
 
-final class CreateUseCase {
+final class CreateTaskUseCase {
     private weak var delegate: DidEndCreatingTaskDelegate?
     private let repository: TaskRepository
     

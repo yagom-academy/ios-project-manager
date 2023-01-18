@@ -1,5 +1,5 @@
 //
-//  CreateUseCaseTests.swift
+//  CreateTaskUseCaseTests.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -15,14 +15,14 @@ private final class EndEditTask: DidEndCreatingTaskDelegate {
     }
 }
 
-final class CreateUseCaseTests: XCTestCase {
+final class CreateTaskUseCaseTests: XCTestCase {
     var taskRepositoryMock: MockTaskRepository!
-    var usecase: CreateUseCase!
+    var usecase: CreateTaskUseCase!
     var dispose: DisposeBag!
     
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
-        usecase = CreateUseCase(
+        usecase = CreateTaskUseCase(
             delegate: EndEditTask(),
             repository: taskRepositoryMock
         )

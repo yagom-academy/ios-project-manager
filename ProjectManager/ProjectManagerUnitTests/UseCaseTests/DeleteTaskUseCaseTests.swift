@@ -1,5 +1,5 @@
 //
-//  DeleteUseCaseTests.swift
+//  DeleteTaskUseCaseTests.swift
 //  ProjectManagerUnitTests
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -9,14 +9,14 @@ import XCTest
 
 import RxSwift
 
-final class DeleteUseCaseTests: XCTestCase {
+final class DeleteTaskUseCaseTests: XCTestCase {
     var taskRepositoryMock: MockTaskRepository!
-    var usecase: DeleteUseCase!
+    var usecase: DeleteTaskUseCase!
     var disposeBag: DisposeBag!
     
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
-        usecase = DeleteUseCase(
+        usecase = DeleteTaskUseCase(
             repository: taskRepositoryMock
         )
         disposeBag = DisposeBag()

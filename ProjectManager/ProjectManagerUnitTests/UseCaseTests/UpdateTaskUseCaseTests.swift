@@ -1,5 +1,5 @@
 //
-//  UpdateUseCaseTests.swift
+//  UpdateTaskUseCaseTests.swift
 //  ProjectManagerUnitTests
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -15,14 +15,14 @@ private final class DidEndUpdatingDelegateStub: DidEndUpdatingDelegate {
     }
 }
 
-final class UpdateUseCaseTests: XCTestCase {
+final class UpdateTaskUseCaseTests: XCTestCase {
     var taskRepositoryMock: MockTaskRepository!
-    var usecase: UpdateUseCase!
+    var usecase: UpdateTaskUseCase!
     var disposeBag: DisposeBag!
     
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
-        usecase = UpdateUseCase(
+        usecase = UpdateTaskUseCase(
             delegate: DidEndUpdatingDelegateStub(),
             repository: taskRepositoryMock
         )

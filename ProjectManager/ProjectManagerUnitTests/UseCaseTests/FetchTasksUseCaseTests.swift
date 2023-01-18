@@ -13,7 +13,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
     var taskRepositoryMock: MockTaskRepository!
     var usecase: FetchTasksUseCase!
     var dispose: DisposeBag!
-
+    
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
         usecase = FetchTasksUseCase(
@@ -21,7 +21,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
         )
         dispose = DisposeBag()
     }
-
+    
     func test_fetch_success() {
         //given
         var tasksList: [Task]? = nil
@@ -37,8 +37,8 @@ final class FetchTasksUseCaseTests: XCTestCase {
     }
     
     func test_when_creating_task_is_successful_then_renewing_tasksList_is_successful() {
-        let createUseCaseStub = CreateUseCase(delegate: usecase,
-                                              repository: taskRepositoryMock)
+        let createUseCaseStub = CreateTaskUseCase(delegate: usecase,
+                                                  repository: taskRepositoryMock)
         var tasksList: [Task]? = nil
         var previousTasksListCount: Int? = nil
         var currentTasksListCount: Int? = nil
@@ -70,8 +70,8 @@ final class FetchTasksUseCaseTests: XCTestCase {
     }
     
     func test_when_updating_task_is_successful_then_renewing_tasksList_is_successful() {
-        let updateUseCaseStub = UpdateUseCase(delegate: usecase,
-                                              repository: taskRepositoryMock)
+        let updateUseCaseStub = UpdateTaskUseCase(delegate: usecase,
+                                                  repository: taskRepositoryMock)
         var tasksList: [Task]? = nil
         usecase.tasks
             .subscribe(onNext: { tasks in
@@ -98,8 +98,8 @@ final class FetchTasksUseCaseTests: XCTestCase {
     }
     
     func test_when_updating_task_is_failed_then_tasksList_is_not_renewed() {
-        let updateUseCaseStub = UpdateUseCase(delegate: usecase,
-                                              repository: taskRepositoryMock)
+        let updateUseCaseStub = UpdateTaskUseCase(delegate: usecase,
+                                                  repository: taskRepositoryMock)
         var tasksList: [Task]? = nil
         usecase.tasks
             .subscribe(onNext: { tasks in

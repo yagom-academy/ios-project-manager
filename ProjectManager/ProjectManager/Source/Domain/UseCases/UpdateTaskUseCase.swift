@@ -1,5 +1,5 @@
 //
-//  UpdateUseCase.swift
+//  UpdateTaskUseCase.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -7,7 +7,7 @@
 
 import RxSwift
 
-final class UpdateUseCase {
+final class UpdateTaskUseCase {
     private weak var delegate: DidEndUpdatingDelegate?
     private let repository: TaskRepository
 
