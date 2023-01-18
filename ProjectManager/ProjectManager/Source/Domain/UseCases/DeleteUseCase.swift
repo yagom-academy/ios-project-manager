@@ -8,15 +8,13 @@
 import RxSwift
 
 final class DeleteUseCase {
-    private weak var delegate: DidEndDeletingDelegate?
     private let repository: TaskRepository
 
     private let translater = Translater()
     private let disposeBag = DisposeBag()
     let isDeletedSuccess = PublishSubject<Bool>()
 
-    init(delegate: DidEndDeletingDelegate, repository: TaskRepository) {
-        self.delegate = delegate
+    init(repository: TaskRepository) {
         self.repository = repository
     }
 
@@ -27,10 +25,6 @@ final class DeleteUseCase {
 
         repository.delete(entity)
             .subscribe(onNext: { [weak self] isSuccess in
-                if isSuccess {
-                    self?.delegate?.didEndDeleting(task: task)
-                }
-
                 self?.isDeletedSuccess.onNext(isSuccess)
             })
             .disposed(by: disposeBag)

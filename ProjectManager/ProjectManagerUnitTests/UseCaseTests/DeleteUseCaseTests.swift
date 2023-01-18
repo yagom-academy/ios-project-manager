@@ -5,15 +5,9 @@
 //  Created by ayaan, jpush on 2023/01/17.
 //
 
-import RxSwift
-
 import XCTest
 
-private final class DidEndDeletingDelegateStub: DidEndDeletingDelegate {
-    func didEndDeleting(task: Task) {
-        return
-    }
-}
+import RxSwift
 
 final class DeleteUseCaseTests: XCTestCase {
     var taskRepositoryMock: MockTaskRepository!
@@ -23,7 +17,6 @@ final class DeleteUseCaseTests: XCTestCase {
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
         usecase = DeleteUseCase(
-            delegate: DidEndDeletingDelegateStub(),
             repository: taskRepositoryMock
         )
         disposeBag = DisposeBag()
