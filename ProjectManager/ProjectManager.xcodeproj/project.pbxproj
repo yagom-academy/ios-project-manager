@@ -12,6 +12,7 @@
 		57A73ED92975A1E8007B6587 /* IssueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED82975A1E8007B6587 /* IssueListViewController.swift */; };
 		57A73EDB29768C3D007B6587 /* IssueManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDA29768C3D007B6587 /* IssueManageable.swift */; };
 		57A73EDD2977BE12007B6587 /* IssueDelieverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDC2977BE12007B6587 /* IssueDelieverable.swift */; };
+		57A73EE02977C7D8007B6587 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDF2977C7D8007B6587 /* Date+.swift */; };
 		57AA8660296FCD0E00E2971D /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AA865F296FCD0E00E2971D /* Issue.swift */; };
 		57AA866329703BBB00E2971D /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AA866229703BBB00E2971D /* Status.swift */; };
 		57AA8665297057C900E2971D /* CustomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AA8664297057C900E2971D /* CustomListCell.swift */; };
@@ -38,6 +39,7 @@
 		57A73ED82975A1E8007B6587 /* IssueListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewController.swift; sourceTree = "<group>"; };
 		57A73EDA29768C3D007B6587 /* IssueManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueManageable.swift; sourceTree = "<group>"; };
 		57A73EDC2977BE12007B6587 /* IssueDelieverable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDelieverable.swift; sourceTree = "<group>"; };
+		57A73EDF2977C7D8007B6587 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		57AA865F296FCD0E00E2971D /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		57AA866229703BBB00E2971D /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		57AA8664297057C900E2971D /* CustomListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListCell.swift; sourceTree = "<group>"; };
@@ -71,6 +73,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57A73EDE2977C7CE007B6587 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				57A73EDF2977C7D8007B6587 /* Date+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		57AA865B296FCAB900E2971D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +143,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				57A73EDE2977C7CE007B6587 /* Extension */,
 				57AA866129703BAC00E2971D /* Common */,
 				57AA865B296FCAB900E2971D /* Model */,
 				57AA865E296FCAD300E2971D /* View */,
@@ -232,6 +243,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				57AA866329703BBB00E2971D /* Status.swift in Sources */,
 				57B1171D297077DD00073006 /* CustomContentView.swift in Sources */,
+				57A73EE02977C7D8007B6587 /* Date+.swift in Sources */,
 				57A73EDB29768C3D007B6587 /* IssueManageable.swift in Sources */,
 				57AA8665297057C900E2971D /* CustomListCell.swift in Sources */,
 				57B117432972EAB900073006 /* DateFormatterManager.swift in Sources */,
