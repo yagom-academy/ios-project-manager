@@ -29,6 +29,7 @@ final class ListCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
+        label.numberOfLines = 3
         label.textColor = .gray
         return label
     }()
@@ -43,6 +44,8 @@ final class ListCell: UITableViewCell {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         stackView.axis = .vertical
         stackView.spacing = 5
         return stackView
@@ -59,12 +62,18 @@ final class ListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0))
+    }
+    
     private func configureBind() {
         viewModel.bind { [weak self] work in
             self?.titleLabel.text = work.title
             self?.bodyLabel.text = work.body
             self?.dateLabel.text = work.endDateToString
-            self?.dateLabel.textColor = work.endDate > Date() ? .red : .black
+            self?.dateLabel.textColor = work.endDate < Date() ? .red : .black
         }
     }
     

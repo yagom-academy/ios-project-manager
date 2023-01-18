@@ -30,9 +30,18 @@ final class ListView: UIView {
         return tableView
     }()
     
+    private let lineView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray2
+        return view
+    }()
+    
     private let categoryStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: .zero, right: 10)
         stackView.spacing = 5
         return stackView
     }()
@@ -83,6 +92,7 @@ final class ListView: UIView {
         categoryStackView.addArrangedSubview(categoryCountLabel)
         categoryStackView.addArrangedSubview(blankView)
         stackView.addArrangedSubview(categoryStackView)
+        stackView.addArrangedSubview(lineView)
         stackView.addArrangedSubview(tableView)
         addSubview(stackView)
         
@@ -90,7 +100,9 @@ final class ListView: UIView {
             stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            
+            lineView.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
 }
