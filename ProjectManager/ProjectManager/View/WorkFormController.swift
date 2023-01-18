@@ -7,8 +7,6 @@
 
 import UIKit
 
-// WorkFormViewController, WorkFormViewModel 리팩토링하기
-
 final class WorkFormViewController: UIViewController {
     var viewModel = WorkFormViewModel()
     
@@ -24,7 +22,7 @@ final class WorkFormViewController: UIViewController {
         return stackView
     }()
     
-    private let titleTextField: UITextField = {
+    private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Title"
@@ -32,17 +30,19 @@ final class WorkFormViewController: UIViewController {
         textField.backgroundColor = .systemBackground
         textField.layer.shadowOffset = CGSize(width: 0, height: 3)
         textField.layer.shadowOpacity = 0.3
+        textField.isEnabled = viewModel.isEdit
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.isEnabled = viewModel.isEdit
         return datePicker
     }()
     
-    private let bodyTextView: UITextView = {
+    private lazy var bodyTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.preferredFont(forTextStyle: .body)
@@ -50,6 +50,7 @@ final class WorkFormViewController: UIViewController {
         textView.backgroundColor = .systemBackground
         textView.layer.shadowOffset = CGSize(width: 0, height: 3)
         textView.layer.shadowOpacity = 0.3
+        textView.isEditable = viewModel.isEdit
         return textView
     }()
     
@@ -57,15 +58,27 @@ final class WorkFormViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureLayout()
+        configureBind()
         configureWork()
         bodyTextView.delegate = self
     }
     
+    private func configureBind() {
+        viewModel.bindIsEdit { [weak self] in
+            self?.titleTextField.isEnabled = $0
+            self?.bodyTextView.isEditable = $0
+            self?.datePicker.isEnabled = $0
+        }
+        
+        viewModel.bindWork { [weak self] work in
+            self?.titleTextField.text = work?.title
+            self?.bodyTextView.text = work?.body
+            self?.datePicker.date = work?.endDate ?? Date()
+        }
+    }
+    
     private func configureWork() {
-        guard let work = viewModel.work else { return }
-        titleTextField.text = work.title
-        bodyTextView.text = work.body
-        datePicker.date = work.endDate
+        viewModel.reloadWork()
     }
     
     private func configureNavigationBar() {
@@ -99,16 +112,8 @@ final class WorkFormViewController: UIViewController {
         ])
     }
     
-    func configureEditForm() {
-        titleTextField.isEnabled = false
-        bodyTextView.isEditable = false
-        datePicker.isEnabled = false
-    }
-    
     @objc private func editButtonTapped() {
-        titleTextField.isEnabled = true
-        bodyTextView.isEditable = true
-        datePicker.isEnabled = true
+        viewModel.isEdit.toggle()
     }
     
     @objc private func cancelButtonTapped() {

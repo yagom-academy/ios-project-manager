@@ -151,7 +151,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             break
         }
         
-        workFormViewController.configureEditForm()
+        workFormViewController.viewModel.isEdit = false
         workFormViewController.delegate = self
         navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
