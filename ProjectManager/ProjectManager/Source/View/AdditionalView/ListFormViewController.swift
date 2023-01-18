@@ -39,6 +39,7 @@ class ListFormViewController: UIViewController {
             configureEditNavigationBar()
             bindHandler()
             configureViews()
+            listFormView.toggleViewsEnabledStatus()
         }
         configureLayout()
     }
@@ -108,6 +109,7 @@ class ListFormViewController: UIViewController {
         formViewModel?.bindEditHandler({
             if $0 == true {
                 self.navigationItem.leftBarButtonItem?.isEnabled = false
+                self.listFormView.toggleViewsEnabledStatus()
             }
         })
     }

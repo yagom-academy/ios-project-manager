@@ -87,4 +87,10 @@ class ListFormView: UIStackView {
         dueDatePicker.date = listItem.dueDate
         bodyTextView.text = listItem.body
     }
+    
+    func toggleViewsEnabledStatus() {
+        titleTextField.isEnabled.toggle()
+        dueDatePicker.isEnabled.toggle()
+        bodyTextView.isEditable.toggle()
+    }
 }
