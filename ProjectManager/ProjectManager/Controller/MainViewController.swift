@@ -183,21 +183,22 @@ final class MainViewController: UIViewController {
     }()
 
     private var todoLists: [TodoModel] = [
-        TodoModel(title: "hi", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "11-11-11"),
-        TodoModel(title: "bye", body: "dd", date: "1990. 2. 25"),
-        TodoModel(title: "asdf", body: "ffff", date: "2010. 02. 5")
+        TodoModel(title: "hi", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "2023. 01. 17"),
+        TodoModel(title: "bye", body: "dd", date: "2023. 01. 17"),
+        TodoModel(title: "asdf", body: "ffff", date: "2023. 01. 18"),
+        TodoModel(title: "ffff", body: "ffff", date: "2023. 01. 19")
     ]
 
     private var doingLists: [TodoModel] = [
-        TodoModel(title: "doing", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "11-11-11"),
-        TodoModel(title: "dodo", body: "dd", date: "22-22-22")
+        TodoModel(title: "doing", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakdlkjfakdjf;lakjfkldajsfkjadkfjakdjflaasdfasfasdfasdasdfasdfasfdasdfaf", date: "2023. 02. 19"),
+        TodoModel(title: "dodo", body: "dd", date: "2022. 01. 19")
     ]
 
     private var doneLists: [TodoModel] = [
-        TodoModel(title: "done", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakd", date: "11-11-11"),
-        TodoModel(title: "done", body: "ddne", date: "22-22-22"),
-        TodoModel(title: "done", body: "ddne", date: "22-22-22"),
-        TodoModel(title: "done", body: "ddne", date: "22-22-22")
+        TodoModel(title: "done", body: "bodyasldjaksdjfl;aksdfkadskflasdklfasldkfadkakdakfakfalkdakdfakdfakd", date: "2023. 01. 11"),
+        TodoModel(title: "done", body: "ddne", date: "2022. 12. 19"),
+        TodoModel(title: "done", body: "ddne", date: "2023. 01. 19"),
+        TodoModel(title: "done", body: "ddne", date: "2023. 01. 19")
     ]
 
     private var todoDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>?

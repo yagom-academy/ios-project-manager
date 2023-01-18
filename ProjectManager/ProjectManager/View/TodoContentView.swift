@@ -76,14 +76,61 @@ final class TodoContentView: UIView, UIContentView {
     }
 
     private func configure(configuration: UIContentConfiguration) {
-        if let configuration = configuration as? Configutation {
+        if let configuration = configuration as? Configutation,
+           let date = configuration.date {
             titleLabel.text = configuration.title
             bodyLabel.text = configuration.body
             dateLabel.text = configuration.date
+            settingDateLabelTextColor(date: date)
         } else {
             titleLabel.text = "nil"
             bodyLabel.text = "nil"
             dateLabel.text = "nil"
+        }
+    }
+
+    private func settingDateLabelTextColor(date: String) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        let currentDate = formatter.string(from: Date())
+        let currentDates = currentDate.replacingOccurrences(of: " ", with: "").components(separatedBy: ["."])
+        let settingDates = date.replacingOccurrences(of: " ", with: "").components(separatedBy: ["."])
+        let currentDateNumbers = currentDates.compactMap { Int($0) }
+        let settingDateNumbers = settingDates.compactMap { Int($0) }
+        let currentYear = currentDateNumbers[0]
+        let currentMonth = currentDateNumbers[1]
+        let currentDay = currentDateNumbers[2]
+        let settingYear = settingDateNumbers[0]
+        let settingMonth = settingDateNumbers[1]
+        let settingDay = settingDateNumbers[2]
+
+        if settingYear < currentYear {
+            dateLabel.textColor = .systemRed
+            return
+        }
+
+        if settingYear > currentYear {
+            dateLabel.textColor = .black
+            return
+        }
+
+        if settingYear == currentYear {
+            if settingMonth < currentMonth {
+                dateLabel.textColor = .systemRed
+            }
+
+            if settingMonth > currentMonth {
+                dateLabel.textColor = .black
+            }
+
+            if settingMonth == currentMonth {
+                if settingDay >= currentDay {
+                    dateLabel.textColor = .black
+                } else {
+                    dateLabel.textColor = .systemRed
+                }
+            }
+            return
         }
     }
 
