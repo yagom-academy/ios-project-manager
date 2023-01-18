@@ -439,7 +439,7 @@ final class MainViewController: UIViewController {
 
     private func configureDoneDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
-            var contentConfiguration = TodoContentView.Configutation()
+            var contentConfiguration = DoneContentView.Configutation()
             guard let todoModel = self?.doneLists.first(where: { todoModel in
                 todoModel.id == itemIdentifier
             }) else {
