@@ -1,5 +1,5 @@
 //
-//  DummyProjects.swift
+//  MockData.swift
 //  ProjectManager
 //
 //  Created by som on 2023/01/16.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DummyProjects {
+struct MockData {
     static var projects: [Plan] = [
         Plan(status: .todo,
              title: "SwiftUI공부하기",

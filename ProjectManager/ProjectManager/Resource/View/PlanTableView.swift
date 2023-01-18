@@ -12,6 +12,7 @@ final class PlanTableView: UITableView {
         super.init(frame: frame, style: style)
 
         self.register(PlanTableViewCell.self, forCellReuseIdentifier: PlanTableViewCell.reuseIdentifier)
+        self.register(PlanListHeaderView.self, forHeaderFooterViewReuseIdentifier: PlanListHeaderView.reuseIdentifier)
     }
 
     @available(*, unavailable)

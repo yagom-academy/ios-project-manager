@@ -18,7 +18,7 @@ final class PlanListViewController: UIViewController {
     private lazy var doingDataSource = configureDataSource(tableView: planListView.doingTableView)
     private lazy var doneDataSource = configureDataSource(tableView: planListView.doneTableView)
 
-    private var planList = DummyProjects.projects {
+    private var planList = MockData.projects {
         didSet {
             planListView.toDoTableView.reloadData()
         }
@@ -41,7 +41,7 @@ final class PlanListViewController: UIViewController {
         configureNavigationBar()
         configureView()
         configureSnapshot()
-
+        configureLongPressGestureRecognizer()
     }
 
     private func configureView() {
@@ -90,7 +90,6 @@ final class PlanListViewController: UIViewController {
         let dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, todo in
             let cell = tableView.dequeueReusableCell(withIdentifier: PlanTableViewCell.reuseIdentifier, for: indexPath)
             self.configureCell(cell, with: todo)
-
             return cell
         })
 
@@ -108,11 +107,24 @@ final class PlanListViewController: UIViewController {
 
         todoSnapshot.appendItems(todoList)
         doingSnapshot.appendItems(doingList)
-        doneSnapshot.appendItems(doingList)
+        doneSnapshot.appendItems(doneList)
 
         toDoDataSource.apply(todoSnapshot)
         doingDataSource.apply(doingSnapshot)
         doneDataSource.apply(doneSnapshot)
+    }
+
+    private func configureLongPressGestureRecognizer() {
+        let tableViews = [planListView.toDoTableView, planListView.doingTableView, planListView.doneTableView]
+
+        tableViews.forEach { tableView in
+            let gestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                                 action: #selector(tappedLongPress))
+            gestureRecognizer.minimumPressDuration = 0.5
+            gestureRecognizer.delegate = self
+            gestureRecognizer.delaysTouchesBegan = true
+            tableView.addGestureRecognizer(gestureRecognizer)
+        }
     }
 }
 
@@ -123,7 +135,7 @@ extension PlanListViewController: UITableViewDelegate {
 
         let detailViewController = PlanDetailViewController(navigationTitle: "TODO",
                                                             plan: plan,
-                                                                isAdding: false) { [weak self] plan in
+                                                            isAdding: false) { [weak self] plan in
             guard let plan = plan else { return }
 
             guard let index = self?.planManager.fetchIndex(list: self?.planList ?? [], id: plan.id) else { return }
@@ -161,5 +173,89 @@ extension PlanListViewController: UITableViewDelegate {
         }
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlanListHeaderView.reuseIdentifier)
+                as? PlanListHeaderView else { return UIView() }
+
+        switch tableView {
+        case planListView.toDoTableView:
+            headerView.configure(title: "TODO", count: todoList.count)
+        case planListView.doingTableView:
+            headerView.configure(title: "DOING", count: doingList.count)
+        case planListView.doneTableView:
+            headerView.configure(title: "DONE", count: doneList.count)
+        default:
+            print("오류")
+        }
+
+        headerView.configure(title: "TODO", count: todoList.count)
+
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+}
+
+extension PlanListViewController: UIGestureRecognizerDelegate {
+    @objc func tappedLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        guard let tableView = gestureRecognizer.view as? UITableView else { return }
+
+        let location = gestureRecognizer.location(in: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return }
+
+        switch gestureRecognizer.state {
+        case .began:
+            presentPopoverMenu(tableView: tableView, indexPath: indexPath)
+        default:
+            break
+        }
+    }
+
+    private func presentPopoverMenu(tableView: UITableView, indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            fatalError()
+        }
+
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        guard let plan = didSelected(in: tableView, to: indexPath) else { return }
+
+        moveState(to: plan).forEach { alert.addAction($0) }
+
+        let popover = alert.popoverPresentationController
+        popover?.sourceView = cell
+        popover?.sourceRect = cell.bounds
+
+        present(alert, animated: true)
+    }
+
+    private func moveState(to plan: Plan) -> [UIAlertAction] {
+        var actions: [UIAlertAction] = []
+        switch plan.status {
+        case .todo:
+            actions.append(configureAlertAction(to: plan, by: .doing))
+            actions.append(configureAlertAction(to: plan, by: .done))
+        case .doing:
+            actions.append(configureAlertAction(to: plan, by: .todo))
+            actions.append(configureAlertAction(to: plan, by: .done))
+        case .done:
+            actions.append(configureAlertAction(to: plan, by: .todo))
+            actions.append(configureAlertAction(to: plan, by: .doing))
+        }
+        return actions
+    }
+
+    private func configureAlertAction(to plan: Plan, by status: Plan.Status) -> UIAlertAction {
+        let actionTitle = "Move to " + String(describing: status)
+        let action = UIAlertAction(title: actionTitle, style: .default) { _ in
+            self.planManager.update(list: &self.planList, id: plan.id, status: status)
+            self.configureSnapshot()
+        }
+
+        return action
     }
 }

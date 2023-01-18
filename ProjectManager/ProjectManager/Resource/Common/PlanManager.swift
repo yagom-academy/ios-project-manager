@@ -48,8 +48,10 @@ final class PlanManager: PlanManageable {
         }
     }
 
-    func update(id: UUID, status: Plan.Status) {
-        fatalError()
+    func update(list: inout [Plan], id: UUID, status: Plan.Status) {
+        guard let index = fetchIndex(list: list, id: id) else { return }
+
+        list[index].status = status
     }
 
     func delete(planList: inout [Plan], id: UUID?) {

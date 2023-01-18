@@ -16,6 +16,7 @@
 		AE484F6C29755BED00A8B502 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6B29755BED00A8B502 /* DateFormatterManager.swift */; };
 		AE484F6E29755D4000A8B502 /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6D29755D4000A8B502 /* PlanListView.swift */; };
 		AE484F7029755EC800A8B502 /* PlanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6F29755EC800A8B502 /* PlanDetailView.swift */; };
+		AE737E712978277400A1FAAE /* PlanListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE737E702978277400A1FAAE /* PlanListHeaderView.swift */; };
 		AED9DE63296EC8590090C31A /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE62296EC8590090C31A /* Plan.swift */; };
 		AED9DE65296EC8A90090C31A /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE64296EC8A80090C31A /* PlanDetailViewController.swift */; };
 		AED9DE6A296ECA980090C31A /* PlanManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE69296ECA980090C31A /* PlanManageable.swift */; };
@@ -37,6 +38,7 @@
 		AE484F6B29755BED00A8B502 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		AE484F6D29755D4000A8B502 /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
 		AE484F6F29755EC800A8B502 /* PlanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailView.swift; sourceTree = "<group>"; };
+		AE737E702978277400A1FAAE /* PlanListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListHeaderView.swift; sourceTree = "<group>"; };
 		AED9DE62296EC8590090C31A /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		AED9DE64296EC8A80090C31A /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
 		AED9DE69296ECA980090C31A /* PlanManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManageable.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				1ACE9C09296EAB63005F77B7 /* PlanTableView.swift */,
 				AE484F6D29755D4000A8B502 /* PlanListView.swift */,
 				AE484F6F29755EC800A8B502 /* PlanDetailView.swift */,
+				AE737E702978277400A1FAAE /* PlanListHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				AE484F6C29755BED00A8B502 /* DateFormatterManager.swift in Sources */,
 				1ACE9C0A296EAB63005F77B7 /* PlanTableView.swift in Sources */,
+				AE737E712978277400A1FAAE /* PlanListHeaderView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				AED9DE6A296ECA980090C31A /* PlanManageable.swift in Sources */,
 				1ACE9C01296E8CFD005F77B7 /* PlanTableViewCell.swift in Sources */,

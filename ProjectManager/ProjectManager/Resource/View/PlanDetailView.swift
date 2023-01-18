@@ -42,6 +42,7 @@ final class PlanDetailView: UIView {
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
         datePicker.backgroundColor = .white
         return datePicker
     }()
