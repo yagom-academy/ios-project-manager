@@ -9,19 +9,19 @@ class MainViewController: UIViewController {
     }
     
     private let todoTableView: ToDoListView = {
-        let tableView = ToDoListView(status: .toDo)
+        let tableView = ToDoListView(status: .toDo, viewModel: ToDoListViewModel())
         
         return tableView
     }()
     
     private let doingTableView: ToDoListView = {
-        let tableView = ToDoListView(status: .doing)
+        let tableView = ToDoListView(status: .doing, viewModel: ToDoListViewModel())
         
         return tableView
     }()
     
     private let doneTableView: ToDoListView = {
-        let tableView = ToDoListView(status: .done)
+        let tableView = ToDoListView(status: .done, viewModel: ToDoListViewModel())
         
         return tableView
     }()
@@ -76,7 +76,7 @@ class MainViewController: UIViewController {
     
     @objc
     private func presentDetailView() {
-        let editToDoViewController = EditToDoViewController()
+        let editToDoViewController = EditToDoViewController(viewModel: todoTableView.viewModel)
         let navigationController = UINavigationController(rootViewController: editToDoViewController)
         
         present(navigationController, animated: true)
