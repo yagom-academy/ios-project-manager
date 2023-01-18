@@ -108,8 +108,7 @@ class MainViewController: UIViewController {
 
 // MARK: - TableViewDelegate
 
-extension MainViewController: UITableViewDelegate {
-}
+extension MainViewController: UITableViewDelegate {}
 
 // MARK: - TableViewDataSource
 
@@ -144,7 +143,17 @@ extension MainViewController: UITableViewDataSource {
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            todoList.remove(at: indexPath.row)
+            switch tableView {
+            case projectManagerView.leftTableView:
+                todoList.remove(at: indexPath.row)
+            case projectManagerView.centerTableView:
+                doingList.remove(at: indexPath.row)
+            case projectManagerView.rightTableView:
+                doneList.remove(at: indexPath.row)
+            default:
+                break
+            }
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -159,6 +168,7 @@ extension MainViewController: UITableViewDataSource {
                 let projectTodoList = todoList[indexPath.row]
                 
                 cell.configureLabel(todoData: projectTodoList)
+                cell.selectionStyle = .none
                 
                 return cell
             }
@@ -172,6 +182,7 @@ extension MainViewController: UITableViewDataSource {
                 let projectDoingList = doingList[indexPath.row]
                 
                 cell.configureLabel(doingData: projectDoingList)
+                cell.selectionStyle = .none
                 
                 return cell
             }
@@ -185,6 +196,7 @@ extension MainViewController: UITableViewDataSource {
                 let projectDoneList = doneList[indexPath.row]
                 
                 cell.configureLabel(doneData: projectDoneList)
+                cell.selectionStyle = .none
                 
                 return cell
             }
@@ -201,7 +213,17 @@ extension MainViewController: UITableViewDataSource {
         popUpViewController.modalPresentationStyle = .overCurrentContext
         popUpViewController.delegate = self
         popUpViewController.dataManagementMode = .read
-        popUpViewController.savedData = todoList[indexPath.row]
+        
+        switch tableView {
+        case projectManagerView.leftTableView:
+            popUpViewController.savedData = todoList[indexPath.row]
+        case projectManagerView.centerTableView:
+            popUpViewController.savedData = doingList[indexPath.row]
+        case projectManagerView.rightTableView:
+            popUpViewController.savedData = doneList[indexPath.row]
+        default:
+            break
+        }
         
         editedTodoListCount = indexPath.row
         
@@ -227,6 +249,8 @@ extension MainViewController: DataSendable {
         }
     }
 }
+
+// MARK: - UIGestureRecognizerDelegate
 
 extension MainViewController: UIGestureRecognizerDelegate {
     @objc
