@@ -60,20 +60,10 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func addButtonTapped() {
-        let detailViewController = DetailViewController(
-            viewModel: DetailViewModel(data: nil)
-        )
-        
         viewModel.setupUploadDataProcess(process: .todo)
         viewModel.setupUploadDataIndex(index: nil)
         
-        detailViewController.delegate = self
-        detailViewController.modalPresentationStyle = .formSheet
-        
-        let detailNavigationController = UINavigationController(
-            rootViewController: detailViewController
-        )
-        present(detailNavigationController, animated: true)
+        presentDetailView()
     }
     
     private func setupBinding() {
@@ -90,6 +80,36 @@ final class MainViewController: UIViewController {
         viewModel.bindDone { [weak self] data in
             self?.doneView.changeCountLabel(String(data.count))
             self?.applySnapshot(process: .done, data: data, animating: true)
+        }
+    }
+    
+    private func presentDetailView() {
+        let selectedData = viewModel.fetchSeletedData()
+        let detailViewModel = DetailViewModel(data: selectedData)
+        
+        let detailViewController = DetailViewController(
+            viewModel: detailViewModel
+        )
+        
+        detailViewController.delegate = self
+        detailViewController.modalPresentationStyle = .formSheet
+        
+        let detailNavigationController = UINavigationController(
+            rootViewController: detailViewController
+        )
+        present(detailNavigationController, animated: true)
+    }
+    
+    private func checkSelectTableProcess(tableView: UITableView) -> Process? {
+        switch tableView {
+        case todoView.tableView:
+            return .todo
+        case doingView.tableView:
+            return .doing
+        case doneView.tableView:
+            return .done
+        default:
+            return nil
         }
     }
 }
@@ -198,20 +218,7 @@ extension MainViewController: UITableViewDelegate {
         viewModel.setupUploadDataProcess(process: process)
         viewModel.setupUploadDataIndex(index: indexPath.row)
         
-        let selectedData = viewModel.fetchSeletedData()
-        let detailViewModel = DetailViewModel(data: selectedData)
-        
-        let detailViewController = DetailViewController(
-            viewModel: detailViewModel
-        )
-        
-        detailViewController.delegate = self
-        detailViewController.modalPresentationStyle = .formSheet
-        
-        let detailNavigationController = UINavigationController(
-            rootViewController: detailViewController
-        )
-        present(detailNavigationController, animated: true)
+        presentDetailView()
     }
     
     func tableView(
@@ -288,18 +295,5 @@ extension MainViewController: GestureRelayable {
         popover.sourceView = cell.contentView
         
         present(alert, animated: true)
-    }
-    
-    private func checkSelectTableProcess(tableView: UITableView) -> Process? {
-        switch tableView {
-        case todoView.tableView:
-            return .todo
-        case doingView.tableView:
-            return .doing
-        case doneView.tableView:
-            return .done
-        default:
-            return nil
-        }
     }
 }
