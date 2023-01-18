@@ -77,7 +77,7 @@ final class ListViewController: UIViewController {
 
     private func configureNavigationBar() {
         navigationItem.title = Text.navigationTitle
-        navigationItem.rightBarButtonItem = addPlanButton()
+        navigationItem.rightBarButtonItem = addProjectButton()
     }
 
     private func configureViewHierarchy() {
@@ -104,8 +104,9 @@ final class ListViewController: UIViewController {
     }
 
     private func presentDetailView(viewModel: DetailViewModel) {
-        let projectViewController = PlanViewController()
+        let projectViewController = DetailViewController()
         projectViewController.viewModel = viewModel
+        projectViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: projectViewController)
         navigationController.modalPresentationStyle = .formSheet
         present(navigationController, animated: true)
@@ -135,16 +136,25 @@ final class ListViewController: UIViewController {
     private func addPlanAction() -> UIAction {
         let action = UIAction { _ in
             let useCase = DefaultDetailUseCase(project: Project())
-            self.presentDetailView(viewModel: DetailViewModel(detailUseCase: useCase))
+            self.presentDetailView(viewModel: DetailViewModel(detailUseCase: useCase, isNewProject: true))
         }
 
         return action
     }
 
-    private func addPlanButton() -> UIBarButtonItem {
+    private func addProjectButton() -> UIBarButtonItem {
         let button = UIBarButtonItem(systemItem: .add, primaryAction: addPlanAction())
 
         return button
+    }
+    
+    private func fetchProject(_ tableView: UITableView, index: Int) -> Project? {
+        guard let listView = tableView as? ListView,
+              let list = viewModel?.fetchList(of: listView.state) else {
+                  return nil
+              }
+        
+        return list[index]
     }
 }
 
@@ -161,15 +171,11 @@ extension ListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(cellType: ListCell.self, for: indexPath)
-        guard let listView = tableView as? ListView,
-              let list = viewModel?.fetchList(of: listView.state) else {
-                  return cell
-              }
-        let project = list[indexPath.item]
-        guard let texts = viewModel?.convertToText(from: project) else {
+        guard let project = fetchProject(tableView, index: indexPath.row),
+              let texts = viewModel?.convertToText(from: project) else {
             return cell
         }
-        switch listView.state {
+        switch project.state {
         case .done:
             cell.configure(title: texts.title,
                            description: texts.description,
@@ -185,4 +191,22 @@ extension ListViewController: UITableViewDataSource {
     }
 }
 
-extension ListViewController: UITableViewDelegate { }
+extension ListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let project = fetchProject(tableView, index: indexPath.row) else {
+            return
+        }
+        let detailViewModel = DetailViewModel(detailUseCase: DefaultDetailUseCase(project: project))
+        
+        presentDetailView(viewModel: detailViewModel)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension ListViewController: DetailProjectDelegate {
+    
+    func detailProject(willSave project: Project) {
+        viewModel?.saveProject(project)
+    }
+}

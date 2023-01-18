@@ -13,6 +13,7 @@ enum Constant {
     enum Number {
 
         static let maxCount: Int = 99
+        static let descriptionLimit: Int = 1000
     }
 
     enum Text {
@@ -31,6 +32,7 @@ enum Constant {
         static let moveToDone: String = "Move to DONE"
         static let titlePlaceHolder: String = "Title"
         static let overCount: String = "99+"
+        static let invalidDeadlineMessage: String = "기한은 과거일 수 없습니다."
     }
 
     enum Style {

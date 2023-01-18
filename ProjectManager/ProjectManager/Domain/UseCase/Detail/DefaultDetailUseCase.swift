@@ -9,7 +9,13 @@ import Foundation
 
 final class DefaultDetailUseCase: DetailUseCase {
     
+    typealias Number = Constant.Number
+    
     private let project: Project
+    
+    var state: State {
+        return project.state
+    }
     
     init(project: Project) {
         self.project = project
@@ -28,7 +34,15 @@ final class DefaultDetailUseCase: DetailUseCase {
         return project.deadline
     }
     
-    func validateDescription(text: String) -> Bool {
-        return text.count <= 1000
+    func fetchIdentifier() -> UUID {
+        return project.identifier
+    }
+    
+    func isValidateDescription(text: String) -> Bool {
+        return text.count <= Number.descriptionLimit
+    }
+    
+    func isValidateDeadline(date: Date) -> Bool {
+        return date.isOverdue == false
     }
 }

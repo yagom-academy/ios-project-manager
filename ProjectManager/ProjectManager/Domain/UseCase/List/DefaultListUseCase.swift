@@ -26,16 +26,21 @@ final class DefaultListUseCase: ListUseCase {
 
         return filteredList
     }
+    
+    func saveProject(_ project: Project) {
+        guard let index = fetchIndex(of: project) else {
+            addNewProject(project)
+            return
+        }
+        
+        editProject(project, index: index)
+    }
 
-    func addNewProject(_ project: Project) {
+    private func addNewProject(_ project: Project) {
         list.append(project)
     }
 
-    func editProject(_ project: Project) {
-        guard let index = fetchIndex(of: project) else {
-            return
-        }
-
+    private func editProject(_ project: Project, index: Int) {
         list[index] = project
     }
 

@@ -8,9 +8,11 @@
 import Foundation
 
 final class DetailViewModel {
+    
+    typealias Text = Constant.Text
 
     private var detailUseCase: DetailUseCase
-    private var isEditable: Bool = false {
+    private(set) var isEditable: Bool {
         didSet {
             editHandler?(isEditable)
         }
@@ -23,8 +25,9 @@ final class DetailViewModel {
     private var editHandler: ((Bool) -> Void)?
     private var textHandler: ((Bool) -> Void)?
 
-    init(detailUseCase: DetailUseCase) {
+    init(detailUseCase: DetailUseCase, isNewProject: Bool = false) {
         self.detailUseCase = detailUseCase
+        isEditable = isNewProject
     }
 
     func bindEditable(handler: @escaping (Bool) -> Void) {
@@ -33,6 +36,17 @@ final class DetailViewModel {
     
     func bindValidText(handler: @escaping (Bool) -> Void) {
         textHandler = handler
+    }
+    
+    func fetchNavigationTitle() -> String {
+        switch detailUseCase.state {
+        case .toDo:
+            return Text.toDoTitle
+        case .doing:
+            return Text.doingTitle
+        case .done:
+            return Text.doneTitle
+        }
     }
 
     func changeEditable(state: Bool) {
@@ -43,5 +57,25 @@ final class DetailViewModel {
         return (detailUseCase.fetchText(of: .title),
                 detailUseCase.fetchText(of: .description),
                 detailUseCase.fetchDeadline())
+    }
+    
+    func validateDescription(text: String) {
+        if isValidText != detailUseCase.isValidateDescription(text: text) {
+            isValidText = detailUseCase.isValidateDescription(text: text)
+        }
+    }
+    
+    func validateDeadline(date: Date) -> Bool {
+        return detailUseCase.isValidateDeadline(date: date)
+    }
+    
+    func makeProject(title: String, description: String, deadline: Date) -> Project {
+        let project = Project(title: title,
+                              description: description,
+                              deadline: deadline,
+                              state: detailUseCase.state,
+                              identifier: detailUseCase.fetchIdentifier())
+        
+        return project
     }
 }

@@ -80,6 +80,10 @@ final class ListViewModel {
 
         return (project.title, project.description, project.deadline.localeFormattedText)
     }
+    
+    func saveProject(_ project: Project) {
+        listUseCase.saveProject(project)
+    }
 }
 
 extension ListViewModel: ListOutput {
