@@ -17,7 +17,7 @@ final class TaskCreateViewModel {
     private var content: String = ""
     private var date: Double = 0
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     init(createTaskUseCase: CreateTaskUseCase) {
         self.createTaskUseCase = createTaskUseCase
