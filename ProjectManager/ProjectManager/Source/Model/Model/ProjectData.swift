@@ -8,5 +8,5 @@
 struct ProjectData {
     let title: String
     let body: String
-    let deadline: Int
+    let deadline: Double
 }

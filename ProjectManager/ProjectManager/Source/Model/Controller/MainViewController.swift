@@ -116,7 +116,7 @@ extension MainViewController: UITableViewDataSource {
             ) as? MainLeftTableViewCell {
                 let projectTodoList = todoList[indexPath.row]
                 
-                cell.configureLabel(todoList: projectTodoList)
+                cell.configureLabel(todoData: projectTodoList)
                 
                 return cell
             }
@@ -129,7 +129,7 @@ extension MainViewController: UITableViewDataSource {
             ) as? MainCenterTableViewCell {
                 let projectDoingList = doingList[indexPath.row]
                 
-                cell.configureLabel(doingList: projectDoingList)
+                cell.configureLabel(doingData: projectDoingList)
                 
                 return cell
             }
@@ -142,7 +142,7 @@ extension MainViewController: UITableViewDataSource {
             ) as? MainRightTableViewCell {
                 let projectDoneList = doneList[indexPath.row]
                 
-                cell.configureLabel(doneList: projectDoneList)
+                cell.configureLabel(doneData: projectDoneList)
                 
                 return cell
             }

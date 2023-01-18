@@ -58,13 +58,23 @@ class MainLeftTableViewCell: UITableViewCell {
     
     // MARK: Internal Methods
     
-    func configureLabel(todoList: ProjectData) {
-        titleLabel.text = todoList.title
-        bodyLabel.text = todoList.body
-        dateLabel.text = String(todoList.deadline)
+    func configureLabel(todoData: ProjectData) {
+        titleLabel.text = todoData.title
+        bodyLabel.text = todoData.body
+        dateLabel.text = convertDateForm(todoDate: todoData.deadline)
     }
 
     // MARK: Private Methods
+    
+    private func convertDateForm(todoDate: Double) -> String {
+        let date = Date(timeIntervalSince1970: todoDate)
+        let formatter: DateFormatter = DateFormatter()
+        
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.setLocalizedDateFormatFromTemplate("yyyy.MM.dd")
+        
+        return formatter.string(from: date)
+    }
     
     private func setUpStackView() {
         totalStackView.addArrangedSubview(titleLabel)

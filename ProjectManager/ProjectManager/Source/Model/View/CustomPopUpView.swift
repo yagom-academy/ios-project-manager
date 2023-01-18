@@ -119,10 +119,14 @@ class CustomPopUpView: UIView {
         
         if let title = titleTextField.text,
            let body = bodyTextField.text {
+            if title.isEmpty && body.isEmpty {
+                return nil
+            }
+            
             let projectData: ProjectData = ProjectData(
                 title: title,
                 body: body,
-                deadline: 100
+                deadline: datePicker.date.timeIntervalSince1970
             )
             
             return projectData
@@ -135,8 +139,8 @@ class CustomPopUpView: UIView {
         if let title = titleTextField.text,
            let body = bodyTextField.text {
             if title == "Title" && body == "내용을 입력해주세요. (1000자 제한)" {
-                titleTextField.text = "[제목없음]"
-                bodyTextField.text = "[내용없음]"
+                titleTextField.text = ""
+                bodyTextField.text = ""
             } else if title == "Title" {
                 titleTextField.text = "[제목없음]"
             } else if body == "내용을 입력해주세요. (1000자 제한)" {

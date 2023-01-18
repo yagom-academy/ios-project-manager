@@ -58,10 +58,10 @@ class MainCenterTableViewCell: UITableViewCell {
     
     // MARK: Internal Methods
     
-    func configureLabel(doingList: ProjectData) {
-        titleLabel.text = doingList.title
-        bodyLabel.text = doingList.body
-        dateLabel.text = String(doingList.deadline)
+    func configureLabel(doingData: ProjectData) {
+        titleLabel.text = doingData.title
+        bodyLabel.text = doingData.body
+        dateLabel.text = String(doingData.deadline)
     }
     
     // MARK: Private Methods
