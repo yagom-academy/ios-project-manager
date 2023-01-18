@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSuperViewColor()
+        setTableHeaderLabel()
         todoTableView.dataSource = todoDataSource
         doingTableView.dataSource = doingDataSource
         doneTableView.dataSource = doneDataSource
@@ -50,4 +51,11 @@ class ViewController: UIViewController {
     private func setupSuperViewColor() {
         view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1)
     }
+    
+    private func setTableHeaderLabel() {
+        todoHeaderView.setTaskCountLabel(taskListVM, status: .todo)
+        doingHeaderView.setTaskCountLabel(taskListVM, status: .doing)
+        doneHeaderView.setTaskCountLabel(taskListVM, status: .done)
+    }
+    
 }

@@ -51,4 +51,16 @@ class CustomTableHeader: UIView {
         taskCountView.layer.cornerRadius = taskCountView.frame.width / 2
     }
     
+    func setTaskCountLabel(_ viewModel: TaskListViewModel, status: Status) {
+        taskStatusLabel.text = status.rawValue
+        switch status {
+        case .todo:
+            taskCountLabel.text = String(viewModel.todoTasks.count)
+        case .doing:
+            taskCountLabel.text = String(viewModel.doingTasks.count)
+        case .done:
+            taskCountLabel.text = String(viewModel.doneTasks.count)
+        }
+        
+    }
 }
