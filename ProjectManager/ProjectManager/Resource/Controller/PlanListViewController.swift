@@ -119,14 +119,13 @@ final class PlanListViewController: UIViewController {
 extension PlanListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let plan = pickTableView(tableView, indexPath: indexPath)
+        let plan = didSelected(in: tableView, to: indexPath)
 
         let detailViewController = PlanDetailViewController(navigationTitle: "TODO",
                                                             plan: plan,
                                                                 isAdding: false) { [weak self] plan in
             guard let plan = plan else { return }
 
-            //TODO: 업데이트 어케 하누
             guard let index = self?.planManager.fetchIndex(list: self?.planList ?? [], id: plan.id) else { return }
 
             self?.planList[index].title = plan.title
@@ -139,7 +138,7 @@ extension PlanListViewController: UITableViewDelegate {
         present(detailViewController, animated: true)
     }
 
-    func pickTableView(_ tableView: UITableView, indexPath: IndexPath) -> Plan? {
+    func didSelected(in tableView: UITableView, to indexPath: IndexPath) -> Plan? {
         switch tableView {
         case planListView.toDoTableView:
             return toDoDataSource.itemIdentifier(for: indexPath)
@@ -151,5 +150,16 @@ extension PlanListViewController: UITableViewDelegate {
         default:
             return nil
         }
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let plan = didSelected(in: tableView, to: indexPath)
+
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _  in
+            self.planManager.delete(planList: &self.planList, id: plan?.id)
+            self.configureSnapshot()
+        }
+
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }

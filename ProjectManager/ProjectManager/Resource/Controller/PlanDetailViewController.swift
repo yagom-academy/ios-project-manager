@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlanDetailViewController: UIViewController {
+final class PlanDetailViewController: UIViewController {
     private lazy var planDetailView = PlanDetailView(frame: view.bounds)
     private var plan: Plan?
     private let navigationTitle: String
@@ -15,8 +15,6 @@ class PlanDetailViewController: UIViewController {
     private let changedPlan: (Plan?) -> Void
     private let planManager = PlanManager()
 
-    // TODO: plan create가 안 되고 있음
-    // TODO: plan을 생성하는 시점이 모달 뷰가 사라질 때로 해보자 -> 빈 값이면 삭제, create가 아닌 save 느낌으로
     init(navigationTitle: String, plan: Plan?, isAdding: Bool, changedPlan: @escaping (Plan?) -> Void) {
         self.navigationTitle = navigationTitle
         self.plan = plan
@@ -118,17 +116,9 @@ class PlanDetailViewController: UIViewController {
     }
 
     private func save() {
-        let inputPlan = planDetailView.sendUserPlan() 
+        let inputPlan = planDetailView.sendUserPlan()
 
-        if planManager.fetch(id: plan?.id) == nil {
-            plan = planManager.create(title: inputPlan.title,
-                                          description: inputPlan.description,
-                                          deadline: inputPlan.deadline)
-        } else {
-            plan?.title = inputPlan.title
-            plan?.description = inputPlan.description
-            plan?.deadline = inputPlan.deadline
-        }
+        planManager.update(title: inputPlan.title, description: inputPlan.description, deadline: inputPlan.deadline, plan: &plan)
     }
 }
  

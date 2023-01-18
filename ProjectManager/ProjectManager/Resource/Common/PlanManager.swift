@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PlanManager: PlanManageable {
+final class PlanManager: PlanManageable {
     func create(title: String, description: String, deadline: Date) -> Plan? {
         var plan: Plan?
 
@@ -32,28 +32,29 @@ class PlanManager: PlanManageable {
         return id
     }
 
-    func fetchAllPlans() {
-        fatalError()
-    }
-
     func fetchIndex(list: [Plan] ,id: UUID) -> Array<Plan>.Index? {
         return list.firstIndex(where: { $0.id == id})
     }
 
-//    func update(planList: [Plan]?, plan: Plan) {
-//        guard let index = fetchIndex(list: planList, id: plan.id) else { return }
-//
-//        planList[index].title = plan.title
-//        planList[index].description = plan.description
-//        planList[index].deadline = plan.deadline
-//
-//    }
+    func update(title: String, description: String, deadline: Date, plan: inout Plan?) {
+        if fetch(id: plan?.id) == nil {
+            plan = create(title: title,
+                          description: description,
+                          deadline: deadline)
+        } else {
+            plan?.title = title
+            plan?.description = description
+            plan?.deadline = deadline
+        }
+    }
 
     func update(id: UUID, status: Plan.Status) {
         fatalError()
     }
 
-    func delete(planList: inout [Plan], id: UUID) {
+    func delete(planList: inout [Plan], id: UUID?) {
+        guard let id = id else { return }
+
         guard let index = fetchIndex(list: planList, id: id) else { return }
 
         planList.remove(at: index)

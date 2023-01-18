@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlanListView: UIView {
+final class PlanListView: UIView {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(frame: bounds)
         stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

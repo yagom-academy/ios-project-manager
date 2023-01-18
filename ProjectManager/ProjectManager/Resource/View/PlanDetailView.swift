@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlanDetailView: UIView {
+final class PlanDetailView: UIView {
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
