@@ -6,7 +6,7 @@
 
 import Foundation
 
-enum ListType: CaseIterable {
+enum ListType: Int, CaseIterable {
     case todo
     case doing
     case done

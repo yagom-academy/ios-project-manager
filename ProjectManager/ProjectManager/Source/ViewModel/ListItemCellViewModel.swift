@@ -15,6 +15,7 @@ final class ListItemCellViewModel {
     }
     
     private let listItem: ListItem
+    private(set) var listType: ListType
     private var handler: ((ListItemData) -> Void)?
     private var listItemData: ListItemData {
         didSet {
@@ -22,8 +23,9 @@ final class ListItemCellViewModel {
         }
     }
     
-    init(listItem: ListItem) {
+    init(listItem: ListItem, listType: ListType) {
         self.listItem = listItem
+        self.listType = listType
         self.listItemData = ListItemData(
             title: listItem.title,
             body: listItem.body,

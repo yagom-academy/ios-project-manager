@@ -33,15 +33,7 @@ class MainViewController: UIViewController {
     private lazy var doingListDataSource = configureDataSource(of: .doing)
     private lazy var doneListDataSource = configureDataSource(of: .done)
     
-    private var listItems: [ListItem] = [
-//        ListItem(title: "책상정리", body: "집중이 안될땐 역시나 책상정리", dueDate: "2021. 11. 5"),
-//        ListItem(title: "책상정리", body: "집중이 안될땐 역시나 책상정리", dueDate: "2021. 11. 5"),
-//        ListItem(title: "책상정리", body: "집중이 안될땐 역시나 책상정리", dueDate: "2021. 11. 5"),
-//        ListItem(title: "책상정리", body: "집중이 안될땐 역시나 책상정리", dueDate: "2021. 11. 5"),
-//        ListItem(title: "책상정리", body: "집중이 안될땐 역시나 책상정리", dueDate: "2021. 11. 5"),
-//        ListItem(title: "책상정리", body: "집중이 안될땐 역시나 책상정리", dueDate: "2021. 11. 5"),
-//        ListItem(title: "책상정리", body: "집중이 안될땐 역시나 책상정리", dueDate: "2021. 11. 5")
-    ] {
+    private var listItems: [[ListItem]] = [[], [], []] {
         didSet {
             ListType.allCases.forEach { configureSnapShot(of: $0) }
         }
@@ -88,9 +80,9 @@ class MainViewController: UIViewController {
     }
     
     private func configureCountLabel() {
-        todoListStackView.fetchListCount(listItems.count)
-        doingListStackView.fetchListCount(listItems.count)
-        doneListStackView.fetchListCount(listItems.count)
+        todoListStackView.fetchListCount(listItems[0].count)
+        doingListStackView.fetchListCount(listItems[1].count)
+        doneListStackView.fetchListCount(listItems[2].count)
     }
     
     @objc func addListItem() {
@@ -130,11 +122,12 @@ extension MainViewController {
                 return UITableViewCell()
             }
             
-            let item = self.listItems[indexPath.row]
-            let listItemCellViewModel = ListItemCellViewModel(listItem: item)
+            let item = self.listItems[type.rawValue][indexPath.row]
+            let listItemCellViewModel = ListItemCellViewModel(listItem: item, listType: .todo)
             
             cell.bind(listItemCellViewModel)
             cell.update(item)
+            cell.delegate = self
             
             return cell
         }
@@ -146,7 +139,7 @@ extension MainViewController {
         var snapShot = NSDiffableDataSourceSnapshot<Section, ListItem>()
         
         snapShot.appendSections([.main])
-        snapShot.appendItems(listItems)
+        snapShot.appendItems(listItems[type.rawValue])
         
         switch type {
         case .todo:
@@ -161,7 +154,13 @@ extension MainViewController {
 
 extension MainViewController: ListFormViewControllerDelegate {
     func addNewItem(_ listItem: ListItem) {
-        listItems.append(listItem)
+        listItems[0].append(listItem)
+    }
+}
+
+extension MainViewController: MenuPresentable {
+    func moveListItem(to type: ListType) {
+        
     }
 }
 
@@ -172,6 +171,10 @@ private enum Constant {
     static let todo = "TODO"
     static let doing = "DOING"
     static let done = "DONE"
+    
+    static let moveToToDo = "Move to TODO"
+    static let moveToDoing = "Move to DOING"
+    static let moveToDone = "Move to DONE"
     
     static let viewBackgroundColor: UIColor = .init(cgColor: CGColor(
         red: 246,
