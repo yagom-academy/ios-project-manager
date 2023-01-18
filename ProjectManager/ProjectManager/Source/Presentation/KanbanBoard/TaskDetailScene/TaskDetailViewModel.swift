@@ -8,6 +8,8 @@
 import RxSwift
 
 final class TaskDetailViewModel {
+    private let disposeBag = DisposeBag()
+    
     // MARK: - Input
     struct Input {
         let editButtonTappedEvent: Observable<Void>
@@ -21,7 +23,7 @@ final class TaskDetailViewModel {
         self.task = task
     }
     
-    func bind(with input: Input, disposeBag: DisposeBag) {
+    func bind(with input: Input) {
         input.editButtonTappedEvent
             .subscribe(onNext: {
                 // coordinator todo
