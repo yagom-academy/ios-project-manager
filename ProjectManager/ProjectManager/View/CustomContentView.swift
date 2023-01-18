@@ -44,7 +44,6 @@ final class CustomContentView: UIView, UIContentView {
         return label
     }()
     
-    
     private let dueDateLabel = UILabel()
     
     init(configuration: UIContentConfiguration) {
@@ -81,12 +80,13 @@ final class CustomContentView: UIView, UIContentView {
     }
     
     private func configureContents(using configuration: UIContentConfiguration) {
-        guard let configuration = configuration as? CustomContentConfiguration else { return }
+        guard let configuration = configuration as? CustomContentConfiguration,
+              let deadline = configuration.deadline else { return }
         
         titleLabel.text = configuration.title
         bodyLabel.text = configuration.body
-        dueDateLabel.text = DateFormatterManager().formatDate(configuration.dueDate)
-        
+        dueDateLabel.text = DateFormatterManager().formatDate(deadline)
+                
         if configuration.status != .done,
            configuration.dueDate ?? Date() < Date() {
             dueDateLabel.textColor = .systemRed

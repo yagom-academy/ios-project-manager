@@ -15,7 +15,7 @@ final class CustomListCell: UICollectionViewListCell {
         newConfiguration.status = item?.status
         newConfiguration.title = item?.title
         newConfiguration.body = item?.body
-        newConfiguration.dueDate = item?.dueDate
+        newConfiguration.deadline = item?.deadline
         
         contentConfiguration = newConfiguration
         backgroundConfiguration?.backgroundColor = .systemBackground

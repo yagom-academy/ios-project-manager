@@ -8,10 +8,11 @@
 import UIKit
 
 struct CustomContentConfiguration: UIContentConfiguration {
+    var id: UUID?
     var status: Status?
     var title: String?
     var body: String?
-    var dueDate: Date?
+    var deadline: Date?
     
     func makeContentView() -> UIView & UIContentView {
         return CustomContentView(configuration: self)

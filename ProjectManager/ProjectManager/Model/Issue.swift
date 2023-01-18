@@ -12,5 +12,5 @@ struct Issue: Hashable {
     var status: Status
     var title: String
     var body: String
-    var dueDate: Date
+    var deadline: Date
 }
