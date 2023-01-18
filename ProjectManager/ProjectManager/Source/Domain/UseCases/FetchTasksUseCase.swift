@@ -28,3 +28,24 @@ final class FetchTasksUseCase {
             .disposed(by: disposeBag)
     }
 }
+
+extension FetchTasksUseCase: DidEndEditingTaskDelegate {
+    func didEndCreating(task: Task) {
+        guard var tasksList = try? tasks.value() else {
+            return
+        }
+        
+        tasksList.append(task)
+        tasks.onNext(tasksList)
+    }
+    
+    func didEndUpdating(task: Task) {
+        guard var tasksList = try? tasks.value(),
+              let index = tasksList.firstIndex(where: { $0.id == task.id }) else {
+            return
+        }
+        
+        tasksList[index] = task
+        tasks.onNext(tasksList)
+    }
+}
