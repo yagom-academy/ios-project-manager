@@ -86,6 +86,9 @@ struct BoardStore: ReducerProtocol {
         }
         
         return .none
+        
+      default:
+        return .none
       }
     }
     

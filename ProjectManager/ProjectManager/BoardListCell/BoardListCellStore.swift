@@ -10,17 +10,49 @@ import ComposableArchitecture
 struct BoardListCellStore: ReducerProtocol {
   struct State: Equatable, Identifiable {
     let id: UUID
-    let project: Project
+    var project: Project
+    var detailState: DetailViewStore.State?
   }
   
   enum Action: Equatable {
     case didChangeState(ProjectState)
+    case didSelectedEdit
+    case optionalDetailState(DetailViewStore.Action)
   }
   
-  func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-    switch action {
-    case .didChangeState(_):
-      return .none
+  var body: some ReducerProtocol<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case .didChangeState:
+        return .none
+        
+      case .didSelectedEdit:
+        state.detailState = DetailViewStore.State(
+          title: state.project.title,
+          description: state.project.description,
+          deadLineDate: state.project.date.convertedDate
+        )
+        return .none
+        
+      case .optionalDetailState(.didTapCancelButton):
+        return .none
+        
+      case .optionalDetailState(.binding):
+        return .none
+        
+      case .optionalDetailState(.didTapDoneButton):
+        guard let detail = state.detailState else {
+          return .none
+        }
+        state.project.title = detail.title
+        state.project.date = Int(detail.deadLineDate.timeIntervalSince1970)
+        state.project.description = detail.description
+        
+        return .none
+      }
+    }
+    .ifLet(\.detailState, action: /Action.optionalDetailState) {
+      DetailViewStore()
     }
   }
 }

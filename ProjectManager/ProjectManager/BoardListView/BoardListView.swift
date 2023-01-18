@@ -26,14 +26,32 @@ struct BoardListView: View {
               state: \.projects,
               action: BoardListStore.Action.projectItem(id:action:)
             )
-          ) {
-            BoardListCell(store: $0)
+          ) { cellStore in
+            WithViewStore(cellStore) { cellViewStore in
+              BoardListCell(store: cellStore)
+                .onTapGesture {
+                  cellViewStore.send(.didSelectedEdit)
+                  viewStore.send(.touchListItem)
+                }
+                .sheet(isPresented: viewStore.binding(\.$isSelected)) {
+                  
+                  IfLetStore(
+                    cellStore.scope(
+                      state: \.detailState,
+                      action: BoardListCellStore.Action.optionalDetailState
+                    )
+                  ) { detailStore in
+                    ProjectDetailView(store: detailStore)
+                  }
+                }
+            }
           }
           .onDelete { viewStore.send(.deleteProject($0)) }
           .menuStyle(.borderlessButton)
           .listRowSeparator(.hidden)
           .listRowInsets(Self.rowInset)
         }
+        
       }
       .onAppear {
         UITableView.appearance().backgroundColor = .white

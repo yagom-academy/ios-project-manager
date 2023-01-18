@@ -19,4 +19,8 @@ extension Int {
     let date = Date(timeIntervalSince1970: Double(self))
     return formatter.string(from: date)
   }
+  
+  var convertedDate: Date {
+    return Date(timeIntervalSince1970: TimeInterval(self))
+  }
 }

@@ -48,7 +48,7 @@ struct BoardListCell: View {
 
 struct BoardListCell_Previews:PreviewProvider {
   static let listCellStore = Store(
-    initialState: BoardListCellStore.State(id: UUID(), project: Project(title: "Example", date: 8000000000, description: "ExampleExampleExampleExampleExampleExampleExampleExample")),
+    initialState: BoardListCellStore.State(id: UUID(), project: Project(title: "Example", date: 8000000000, description: "ExampleExampleExampleExampleExampleExampleExampleExample"), detailState: nil),
     reducer: BoardListCellStore()
   )
   static var previews: some View {
