@@ -14,6 +14,7 @@ final class TaskEditViewModel {
     let updateTaskUseCase: UpdateTaskUseCase
     
     private var task: Task
+    private let disposeBag = DisposeBag()
     
     init(task: Task, updateTaskUseCase: UpdateTaskUseCase) {
         self.task = task
@@ -33,7 +34,7 @@ final class TaskEditViewModel {
         let doneButtonTapEvent: Observable<Void>
     }
     
-    func transform(from input: Input, disposeBag: DisposeBag) -> Output {
+    func transform(from input: Input) -> Output {
         let output = Output()
         
         updateTaskUseCase.isUpdatedSuccess
@@ -47,7 +48,7 @@ final class TaskEditViewModel {
         return output
     }
     
-    private func bind(with input: Input, disposeBag: DisposeBag) {
+    private func bind(with input: Input) {
         input.titleDidEditEvent
             .subscribe(onNext: { [weak self] title in
                 self?.task.title = title
