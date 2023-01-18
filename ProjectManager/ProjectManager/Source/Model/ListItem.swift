@@ -7,8 +7,8 @@
 import Foundation
 
 struct ListItem: Hashable {
-    let title: String
-    let body: String
-    let dueDate: Date
+    var title: String
+    var body: String
+    var dueDate: Date
     let id = UUID()
 }

@@ -47,4 +47,10 @@ final class MainViewModel {
     func delete(at index: Int, type: ListType) {
         totalListItems[type.rawValue].remove(at: index)
     }
+    
+    func editItem(of type: ListType, at index: Int, title: String, body: String, dueDate: Date) {
+        totalListItems[type.rawValue][index].title = title
+        totalListItems[type.rawValue][index].body = body
+        totalListItems[type.rawValue][index].dueDate = dueDate
+    }
 }
