@@ -56,6 +56,7 @@ class MainViewController: UIViewController {
         popUpViewController.delegate = self
         
         navigationController?.present(popUpViewController, animated: true)
+        projectManagerView.reloadTableView()
     }
     
     @objc

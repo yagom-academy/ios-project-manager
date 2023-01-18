@@ -64,9 +64,17 @@ class MainLeftTableViewCell: UITableViewCell {
         titleLabel.text = todoData.title
         bodyLabel.text = todoData.body
         dateLabel.text = convertDateForm(todoDate: todoData.deadline)
+        
+        checkDate(deadline: todoData.deadline)
     }
 
     // MARK: Private Methods
+    
+    private func checkDate(deadline: Double) {
+        if Date().timeIntervalSince1970 - 86400 > deadline {
+            dateLabel.textColor = .systemRed
+        }
+    }
     
     private func convertDateForm(todoDate: Double) -> String {
         let date = Date(timeIntervalSince1970: todoDate)
