@@ -70,6 +70,9 @@ final class MainViewModelTest: XCTestCase {
         sut.deleteData()
 
         // then : 삭제된 데이터시 nil 반환
+        sut.setupUploadDataProcess(process: .todo)
+        sut.setupUploadDataIndex(index: 1)
+
         XCTAssertNil(sut.fetchSeletedData())
     }
 
@@ -107,6 +110,6 @@ final class MainViewModelTest: XCTestCase {
 
         let compareData = sut.fetchSeletedData()
 
-        XCTAssertEqual(data1, sut.fetchSeletedData())
+        XCTAssertEqual(data1, compareData)
     }
 }
