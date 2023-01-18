@@ -12,7 +12,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     var issueCount: Int = .zero
     var issues: [Issue] = []
     var delegate: IssueDeliverable
-    var dataSource: UICollectionViewDiffableDataSource<Status, Issue>?
+    var dataSource: UICollectionViewDiffableDataSource<Section, Issue>?
     
     var stackView: UIStackView = {
         let stack = UIStackView()
@@ -107,7 +107,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
             cell.item = item
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Status, Issue>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, Issue>(collectionView: collectionView) {
             collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                     for: indexPath,
@@ -118,9 +118,9 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     }
     
     private func applySnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Status, Issue>()
-        snapshot.appendSections([status])
-        snapshot.appendItems(issues, toSection: status)
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Issue>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(issues, toSection: .main)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
@@ -190,6 +190,10 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
         }
 
         return action
+    }
+    
+    enum Section {
+        case main
     }
 
     enum LayoutConstant {
