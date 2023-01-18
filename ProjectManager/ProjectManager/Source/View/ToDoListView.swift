@@ -5,6 +5,9 @@ import UIKit
 
 class ToDoListView: UIView {
     private let status: ToDoState
+    enum Schedule: Hashable {
+        case main
+    }
     
     private lazy var headerView: ToDoHeaderView = {
         let view = ToDoHeaderView(status: status)
@@ -24,10 +27,29 @@ class ToDoListView: UIView {
         return tableView
     }()
     
+    private lazy var dataSource: UITableViewDiffableDataSource = {
+        let dataSource = UITableViewDiffableDataSource<Schedule, ToDo>(
+            tableView: tableView
+        ) { tableView, indexPath, _ in
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: ToDoCell.reuseIdentifier,
+                for: indexPath
+            ) as? ToDoCell else { return nil }
+            
+            cell.configure(title: "제목 : \(indexPath)")
+            
+            return cell
+        }
+        
+        return dataSource
+    }()
+    
     init(status: ToDoState) {
         self.status = status
         super.init(frame: .zero)
+        tableView.delegate = self
         setupView()
+        appendData()
     }
     
     @available(*, unavailable)
@@ -45,6 +67,16 @@ class ToDoListView: UIView {
             tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+    
+    func appendData() {
+        var snapshot = NSDiffableDataSourceSnapshot<Schedule, ToDo>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems([ToDo(title: "1번째", body: "바디", deadline: Date(), state: .toDo)])
+        snapshot.appendItems([ToDo(title: "2번째", body: "바디", deadline: Date(), state: .toDo)])
+
+        dataSource.apply(snapshot)
+    }
+}
 
 extension ToDoListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
