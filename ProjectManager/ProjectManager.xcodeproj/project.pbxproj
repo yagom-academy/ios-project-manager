@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		57A73ED52975557D007B6587 /* IssueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED42975557D007B6587 /* IssueManager.swift */; };
-		57A73ED72975A140007B6587 /* IssueListViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED62975A140007B6587 /* IssueListViewControllerType.swift */; };
 		57A73ED92975A1E8007B6587 /* IssueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED82975A1E8007B6587 /* IssueListViewController.swift */; };
 		57A73EDB29768C3D007B6587 /* IssueManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDA29768C3D007B6587 /* IssueManageable.swift */; };
 		57A73EDD2977BE12007B6587 /* IssueDelieverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDC2977BE12007B6587 /* IssueDelieverable.swift */; };
@@ -38,7 +37,6 @@
 
 /* Begin PBXFileReference section */
 		57A73ED42975557D007B6587 /* IssueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueManager.swift; sourceTree = "<group>"; };
-		57A73ED62975A140007B6587 /* IssueListViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewControllerType.swift; sourceTree = "<group>"; };
 		57A73ED82975A1E8007B6587 /* IssueListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewController.swift; sourceTree = "<group>"; };
 		57A73EDA29768C3D007B6587 /* IssueManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueManageable.swift; sourceTree = "<group>"; };
 		57A73EDC2977BE12007B6587 /* IssueDelieverable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDelieverable.swift; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				57B117482975215A00073006 /* IssueViewController.swift */,
 				57A73EDA29768C3D007B6587 /* IssueManageable.swift */,
 				57A73EDC2977BE12007B6587 /* IssueDelieverable.swift */,
-				57A73ED62975A140007B6587 /* IssueListViewControllerType.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -258,7 +255,6 @@
 				57AA8665297057C900E2971D /* CustomListCell.swift in Sources */,
 				57A73EE42977F25D007B6587 /* UITextField+.swift in Sources */,
 				57B117432972EAB900073006 /* DateFormatterManager.swift in Sources */,
-				57A73ED72975A140007B6587 /* IssueListViewControllerType.swift in Sources */,
 				57A73ED52975557D007B6587 /* IssueManager.swift in Sources */,
 				57B117452973065F00073006 /* HeaderView.swift in Sources */,
 				57A73EE62977F2ED007B6587 /* UITextView+.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class IssueListViewController: UIViewController, IssueListViewControllerType {
+final class IssueListViewController: UIViewController {
     var status: Status
     var issueCount: Int = .zero
     var issues: [Issue] = []
