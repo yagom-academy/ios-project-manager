@@ -70,9 +70,9 @@ class ToDoCell: UITableViewCell, ReusableView {
         ])
     }
     
-    func configure(title: String) {
+    func configure(title: String, body: String, deadline: String) {
         titleLabel.text = title
-        bodyLabel.text = "내용입니다."
-        deadlineLabel.text = "2023.01.23"
+        bodyLabel.text = body
+        deadlineLabel.text = deadline
     }
 }

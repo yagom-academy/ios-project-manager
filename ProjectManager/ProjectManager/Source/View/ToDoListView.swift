@@ -24,13 +24,13 @@ class ToDoListView: UIView {
     private lazy var dataSource: UITableViewDiffableDataSource = {
         let dataSource = UITableViewDiffableDataSource<Schedule, ToDo>(
             tableView: tableView
-        ) { tableView, indexPath, _ in
+        ) { tableView, indexPath, item in
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ToDoCell.reuseIdentifier,
                 for: indexPath
-            ) as? ToDoCell else { return nil }
+            ) as? ToDoCell else { return UITableViewCell() }
             
-            cell.configure(title: "제목 : \(indexPath)")
+            cell.configure(title: item.title, body: item.body, deadline: "2023.11.11")
             
             return cell
         }
