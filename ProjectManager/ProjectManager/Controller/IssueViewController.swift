@@ -133,7 +133,7 @@ final class IssueViewController: UIViewController {
     private func configureContents() {
         guard let issue = issue else { return }
         titleTextField.text = issue.title
-        datePicker.date = issue.dueDate
+        datePicker.date = issue.deadline
         bodyTextView.text = issue.body
     }
     
@@ -142,13 +142,13 @@ final class IssueViewController: UIViewController {
                       status: .todo,
                       title: titleTextField.text ?? Namespace.empty,
                       body: bodyTextView.text,
-                      dueDate: datePicker.date)
+                      deadline: datePicker.date)
     }
     
     private func updateIssue() {
         issue?.title = titleTextField.text ?? Namespace.empty
         issue?.body = bodyTextView.text
-        issue?.dueDate = datePicker.date
+        issue?.deadline = datePicker.date
     }
     
     enum LayoutConstant {

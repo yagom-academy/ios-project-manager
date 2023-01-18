@@ -88,7 +88,7 @@ final class CustomContentView: UIView, UIContentView {
         dueDateLabel.text = DateFormatterManager().formatDate(deadline)
                 
         if configuration.status != .done,
-           configuration.dueDate ?? Date() < Date() {
+           deadline.isOverdue {
             dueDateLabel.textColor = .systemRed
         }
     }
