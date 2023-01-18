@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    lazy var todoListViewController = IssueListViewController(status: .todo, delegate: self)
-    lazy var doingListViewController = IssueListViewController(status: .doing, delegate: self)
-    lazy var doneListViewController = IssueListViewController(status: .done, delegate: self)
+    private lazy var todoListViewController = IssueListViewController(status: .todo, delegate: self)
+    private lazy var doingListViewController = IssueListViewController(status: .doing, delegate: self)
+    private lazy var doneListViewController = IssueListViewController(status: .done, delegate: self)
     
     private var mainStackView: UIStackView = {
         let stack = UIStackView()
