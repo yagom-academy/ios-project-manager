@@ -8,15 +8,15 @@
 import RxRelay
 import RxSwift
 
-// task 받기
+import Foundation
+
 final class TaskEditViewModel {
     let updateTaskUseCase: UpdateTaskUseCase
     
-    private var title: String = ""
-    private var content: String = ""
-    private var date: Double = 0
+    private var task: Task
     
-    init(updateTaskUseCase: UpdateTaskUseCase) {
+    init(task: Task, updateTaskUseCase: UpdateTaskUseCase) {
+        self.task = task
         self.updateTaskUseCase = updateTaskUseCase
     }
     
@@ -35,7 +35,33 @@ final class TaskEditViewModel {
     
     func transform(from input: Input, disposeBag: DisposeBag) -> Output {
         let output = Output()
-
+        
+        input.titleDidEditEvent
+            .subscribe(onNext: { [weak self] title in
+                self?.task.title = title
+            })
+            .disposed(by: disposeBag)
+        
+        input.contentDidEditEvent
+            .subscribe(onNext: { [weak self] content in
+                self?.task.content = content
+            })
+            .disposed(by: disposeBag)
+        
+        input.datePickerDidEditEvent
+            .subscribe(onNext: { [weak self] date in
+                self?.task.deadLine = date
+            })
+            .disposed(by: disposeBag)
+        
+        input.doneButtonTapEvent
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.updateTaskUseCase.update(self.task)
+            })
+            .disposed(by: disposeBag)
+        
         return output
     }
 }
