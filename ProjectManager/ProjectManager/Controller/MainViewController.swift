@@ -157,7 +157,7 @@ final class MainViewController: UIViewController {
     }()
 
     private lazy var todoCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout(kind: .todoCollectionView))
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderIdentifier)
@@ -165,7 +165,7 @@ final class MainViewController: UIViewController {
     }()
 
     private lazy var doingCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout(kind: .doingCollectionView))
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         collectionView.allowsSelection = false
@@ -174,7 +174,7 @@ final class MainViewController: UIViewController {
     }()
 
     private lazy var doneCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout(kind: .doneCollectionView))
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         collectionView.allowsSelection = false
@@ -306,15 +306,77 @@ final class MainViewController: UIViewController {
         ])
     }
 
-    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { _, layoutEnviroment in
+    private func createCollectionViewLayout(kind: KindOfCollectionView) -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout { [weak self] _, layoutEnviroment in
             var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
             configuration.headerMode = .supplementary
+            switch kind {
+            case .todoCollectionView:
+                configuration.trailingSwipeActionsConfigurationProvider = self?.todoMakeSwipeActions(for:)
+            case .doingCollectionView:
+                configuration.trailingSwipeActionsConfigurationProvider = self?.doingMakeSwipeActions(for:)
+            case .doneCollectionView:
+                configuration.trailingSwipeActionsConfigurationProvider = self?.doneMakeSwipeActions(for:)
+            }
             let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnviroment)
             section.interGroupSpacing = 8
             return section
         }
         return layout
+    }
+
+    private func todoMakeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+        guard let indexPath = indexPath,
+              let id = todoDataSource?.itemIdentifier(for: indexPath) else { return nil }
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
+            self?.deleteTodoList(with: id)
+            self?.updateTodoSnapshot()
+            completion(false)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+
+    private func doingMakeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+        guard let indexPath = indexPath,
+              let id = doingDataSource?.itemIdentifier(for: indexPath) else { return nil }
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
+            self?.deleteDoingList(with: id)
+            self?.updateDoingSnapshot()
+            completion(false)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+
+    private func doneMakeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+        guard let indexPath = indexPath,
+              let id = doneDataSource?.itemIdentifier(for: indexPath) else { return nil }
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
+            self?.deleteDoneList(with: id)
+            self?.updateDoneSnapshot()
+            completion(false)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+
+    private func deleteTodoList(with id: TodoModel.ID) {
+        guard let index = todoLists.firstIndex(where: { todoModel in
+            todoModel.id == id
+        }) else { return }
+        todoLists.remove(at: index)
+    }
+
+    private func deleteDoingList(with id: TodoModel.ID) {
+        guard let index = doingLists.firstIndex(where: { todoModel in
+            todoModel.id == id
+        }) else { return }
+        doingLists.remove(at: index)
+    }
+
+    private func deleteDoneList(with id: TodoModel.ID) {
+        guard let index = doneLists.firstIndex(where: { todoModel in
+            todoModel.id == id
+        }) else { return }
+        doneLists.remove(at: index)
     }
 
     private func configureSectionHeader() {
