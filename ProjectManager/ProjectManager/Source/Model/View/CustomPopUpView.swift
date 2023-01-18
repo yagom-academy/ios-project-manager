@@ -70,6 +70,7 @@ class CustomPopUpView: UIView {
         textField.backgroundColor = .white
         textField.text = "Title"
         textField.textColor = .lightGray
+        textField.font = .preferredFont(forTextStyle: .title3, compatibleWith: .none)
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
         textField.layer.shadowColor = UIColor.black.cgColor
@@ -93,6 +94,7 @@ class CustomPopUpView: UIView {
         textView.backgroundColor = .white
         textView.text = "내용을 입력해주세요. (1000자 제한)"
         textView.textColor = .lightGray
+        textView.font = .preferredFont(forTextStyle: .title3, compatibleWith: .none)
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
         textView.clipsToBounds = false
         textView.layer.shadowColor = UIColor.black.cgColor

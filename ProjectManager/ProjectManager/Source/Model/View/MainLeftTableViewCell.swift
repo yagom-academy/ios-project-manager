@@ -16,12 +16,14 @@ class MainLeftTableViewCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20)
+        label.numberOfLines = 1
         return label
     }()
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15)
         label.textColor = .gray
+        label.numberOfLines = 3
         return label
     }()
     let dateLabel: UILabel = {
