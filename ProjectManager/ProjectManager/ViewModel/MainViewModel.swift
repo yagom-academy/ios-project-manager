@@ -67,6 +67,8 @@ extension MainViewModel {
         case .done:
             doneData[index] = data
         }
+        
+        resetUpdateInfo()
     }
     
     func fetchSeletedData() -> Todo? {
@@ -75,10 +77,13 @@ extension MainViewModel {
         
         switch process {
         case .todo:
+            guard index < todoData.count else { return nil }
             return todoData[index]
         case .doing:
+            guard index < doingData.count else { return nil }
             return doingData[index]
         case .done:
+            guard index < doneData.count else { return nil }
             return doneData[index]
         }
     }
@@ -89,12 +94,17 @@ extension MainViewModel {
         
         switch process {
         case .todo:
+            guard index < todoData.count else { return }
             todoData.remove(at: index)
         case .doing:
+            guard index < doingData.count else { return }
             doingData.remove(at: index)
         case .done:
+            guard index < doneData.count else { return }
             doneData.remove(at: index)
         }
+        
+        resetUpdateInfo()
     }
     
     func changeProcess(after: Process, index: Int) {
@@ -121,6 +131,8 @@ extension MainViewModel {
                 doingData.append(doneData.remove(at: index))
             }
         }
+        
+        resetUpdateInfo()
     }
     
     func setupUploadDataProcess(process: Process) {

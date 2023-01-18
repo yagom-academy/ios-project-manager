@@ -249,7 +249,6 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: DataSharable {
     func shareData(data: Todo) {
         viewModel.updateData(data: data)
-        viewModel.resetUpdateInfo()
     }
 }
 
@@ -285,7 +284,6 @@ extension MainViewController: GestureRelayable {
                 style: .default
             ) { [weak self] _ in
                 self?.viewModel.changeProcess(after: process, index: indexPath.row)
-                self?.viewModel.resetUpdateInfo()
                 self?.dismiss(animated: true)
             }
             alert.addAction(action)
