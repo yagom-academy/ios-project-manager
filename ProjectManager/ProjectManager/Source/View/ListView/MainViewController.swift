@@ -164,11 +164,15 @@ extension MainViewController {
     }
 }
 
+//MARK: - ListFormViewControllerDelegate
+
 extension MainViewController: ListFormViewControllerDelegate {
     func addNewItem(_ listItem: ListItem) {
         mainViewModel.appendTodoList(item: listItem)
     }
 }
+
+// MARK: - MenuPresentable
 
 extension MainViewController: MenuPresentable {
     func move(listItem: ListItem, from currentType: ListType, to newType: ListType) {
