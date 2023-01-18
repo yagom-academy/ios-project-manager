@@ -16,14 +16,8 @@ class ToDoHeaderView: UIView {
         return label
     }()
     
-    private var listCountLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "5"
-        label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .white
-        label.backgroundColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private var listCountLabel: ItemCountLabel = {
+        let label = ItemCountLabel(count: 5)
         
         return label
     }()
@@ -39,16 +33,23 @@ class ToDoHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        listCountLabel.layer.cornerRadius = listCountLabel.bounds.size.height * 0.5
+    }
+    
     private func setupViews() {
         addSubview(titleLabel)
         addSubview(listCountLabel)
-
+        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             listCountLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            listCountLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5)
+            listCountLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
+            listCountLabel.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
 }
