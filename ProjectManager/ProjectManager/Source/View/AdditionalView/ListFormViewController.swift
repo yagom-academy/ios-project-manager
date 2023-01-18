@@ -7,26 +7,69 @@
 import UIKit
 
 class ListFormViewController: UIViewController {
+    // MARK: Properties
+    
     private let listFormView = ListFormView()
     var delegate: ListFormViewControllerDelegate?
+    var formViewModel: ListFormViewModel?
+    var isAdding: Bool {
+        return formViewModel == nil ? true : false
+    }
+    
+    // MARK: Initializer
+    
+    init(formViewModel: ListFormViewModel? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.formViewModel = formViewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureNavigationBar()
+        if isAdding {
+            configureAddNavigationBar()
+        } else {
+            configureEditNavigationBar()
+        }
         configureLayout()
+        bindHandlers()
     }
     
-    private func configureNavigationBar() {
+    // MARK: Private Methods
+    
+    private func configureAddNavigationBar() {
         navigationItem.leftBarButtonItem = .init(
-            title: "Cancel",
+            title: Constant.cancelButton,
             style: .plain,
             target: self,
-            action: nil
+            action: #selector(cancelButtonPressed)
         )
-        navigationItem.title = "TODO"
+        navigationItem.title = Constant.todo
         navigationItem.rightBarButtonItem = .init(
-            title: "Done",
+            title: Constant.doneButton,
+            style: .done,
+            target: self,
+            action: #selector(addNewItem)
+        )
+    }
+    
+    private func configureEditNavigationBar() {
+        navigationItem.leftBarButtonItem = .init(
+            title: Constant.editButton,
+            style: .plain,
+            target: self,
+            action: #selector(editButtonPressed)
+        )
+        navigationItem.title = Constant.todo
+        navigationItem.rightBarButtonItem = .init(
+            title: Constant.doneButton,
             style: .done,
             target: self,
             action: #selector(addNewItem)
@@ -47,6 +90,22 @@ class ListFormViewController: UIViewController {
         ])
     }
     
+    func bindHandlers() {
+        formViewModel?.bindEditHandler({
+            if $0 == true {
+                self.navigationItem.leftBarButtonItem?.isEnabled = false
+            }
+        })
+    }
+    
+    @objc func cancelButtonPressed() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func editButtonPressed() {
+        formViewModel?.toggleEditMode()
+    }
+    
     @objc func addNewItem() {
         let newItem = ListItem(
             title: listFormView.currentTitle,
@@ -57,4 +116,16 @@ class ListFormViewController: UIViewController {
         delegate?.addNewItem(newItem)
         dismiss(animated: true)
     }
+}
+
+// MARK: - NameSpace
+
+private enum Constant {
+    static let todo = "TODO"
+    static let doing = "DOING"
+    static let done = "DONE"
+    
+    static let cancelButton = "Cancel"
+    static let editButton = "Edit"
+    static let doneButton = "Done"
 }
