@@ -64,14 +64,17 @@ final class CellPopoverViewController: UIViewController {
     }
 
     private func configureSubViews() {
+        let spacing: CGFloat = 8
+        let largeSpacing: CGFloat = 20
+
         verticalStackView.addArrangedSubview(firstButton)
         verticalStackView.addArrangedSubview(secondButton)
 
         NSLayoutConstraint.activate([
-            verticalStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
-            verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            verticalStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            verticalStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: spacing),
+            verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
+            verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
+            verticalStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -largeSpacing)
         ])
     }
 

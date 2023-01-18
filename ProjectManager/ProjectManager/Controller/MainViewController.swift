@@ -7,9 +7,7 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    let sectionHeaderIdentifier: String = "sectionHeaderIdentifier"
 
-    // 왜 lazy로 선언해야하며, target: self를 쓸때 경고가 발생하는가
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -201,6 +199,7 @@ final class MainViewController: UIViewController {
         TodoModel(title: "done", body: "ddne", date: "2023. 01. 19")
     ]
 
+    private let sectionHeaderIdentifier: String = "sectionHeaderIdentifier"
     private var todoDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>?
     private var doingDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>?
     private var doneDataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>?
