@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
         view = projectManagerView
         
         configureView()
+        setUpTableViewLongPressAction()
         projectManagerView.setUpTableView(with: self)
     }
     
@@ -38,6 +39,14 @@ class MainViewController: UIViewController {
         )
     }
     
+    private func setUpTableViewLongPressAction() {
+        let longPressAction = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTableView))
+        
+        projectManagerView.leftTableView.addGestureRecognizer(longPressAction)
+        projectManagerView.centerTableView.addGestureRecognizer(longPressAction)
+        projectManagerView.rightTableView.addGestureRecognizer(longPressAction)
+    }
+    
     // MARK: Action Methods
     
     @objc
@@ -47,6 +56,11 @@ class MainViewController: UIViewController {
         popUpViewController.delegate = self
         
         navigationController?.present(popUpViewController, animated: true)
+    }
+    
+    @objc
+    private func didLongPressTableView() {
+        print("123")
     }
 }
 
@@ -138,13 +152,22 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let popUpViewController = AddViewController()
+        popUpViewController.modalPresentationStyle = .overCurrentContext
+        popUpViewController.delegate = self
+        popUpViewController.savedData = todoList[indexPath.row]
+        
+        navigationController?.present(popUpViewController, animated: true)
+    }
 }
 
 // MARK: - DataSendDelegate
 
 extension MainViewController: DataSendable {
     func sendData(with projectData: ProjectData) {
-        todoList.append(project)
+        todoList.append(projectData)
         projectManagerView.reloadTableView()
     }
 }

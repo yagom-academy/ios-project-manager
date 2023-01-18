@@ -121,6 +121,11 @@ class CustomPopUpView: UIView {
         return nil
     }
     
+    func showProjectData(with projectData: ProjectData) {
+        titleTextField.text = projectData.title
+        bodyTextField.text = projectData.body
+    }
+    
     // MARK: Private Methods
     
     private func setUpTopBarStackView() {

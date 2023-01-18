@@ -12,6 +12,7 @@ class AddViewController: UIViewController {
     // MARK: Properties
     
     var delegate: DataSendable?
+    var savedData: ProjectData?
     private let customPopUpView = CustomPopUpView()
     
     // MARK: Life Cycle
@@ -22,6 +23,9 @@ class AddViewController: UIViewController {
         view = customPopUpView
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         setUpDoneButton()
+        if let savedData = savedData {
+            customPopUpView.showProjectData(with: savedData)
+        }
     }
     
     // MARK: Private Methods
