@@ -32,7 +32,6 @@ final class AddTodoViewController: UIViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tappedCancel))
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
                                                             style: .done,
                                                             target: self,

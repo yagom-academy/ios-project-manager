@@ -10,9 +10,11 @@ import UIKit
 final class ListTableView: UITableView {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
-        self.backgroundColor = .systemGray6
-        self.rowHeight = UITableView.automaticDimension
-        self.estimatedRowHeight = 150
+        backgroundColor = .systemGray6
+        rowHeight = UITableView.automaticDimension
+        estimatedRowHeight = 150
+        register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.identifier)
+        register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: ListHeaderView.identifier)
     }
     
     required init?(coder: NSCoder) {

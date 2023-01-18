@@ -28,16 +28,12 @@ final class ListViewController: UIViewController {
     private let doingTableView = ListTableView()
     private let doneTableView = ListTableView()
     
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<ListSection, TodoModel>
-    
-    private typealias DataSource = UITableViewDiffableDataSource<ListSection, TodoModel>
-    
-    private lazy var todoDataSource: DataSource = configureDataSource(of: todoTableView)
-    private lazy var doingDataSource: DataSource = configureDataSource(of: doingTableView)
-    private lazy var doneDataSource: DataSource = configureDataSource(of: doneTableView)
+    private lazy var todoDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: todoTableView)
+    private lazy var doingDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: doingTableView)
+    private lazy var doneDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: doneTableView)
     
     // 테스트용 todoModels
-    private var todoModels: [TodoModel] = [TodoModel(title: "todo test1",
+    private var mockModels: [TodoModel] = [TodoModel(title: "todo test1",
                                                      body: "todo test1",
                                                      status: .todo,
                                                      date: 1673967757.6580071),
@@ -67,7 +63,7 @@ final class ListViewController: UIViewController {
         applyAllSnapshot()
     }
     
-    // MARK: - configure view layout
+    // MARK: - View layout
     private func configureNavagationBar() {
         self.navigationItem.title = "Project Manager"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
@@ -77,19 +73,20 @@ final class ListViewController: UIViewController {
     
     @objc private func tappedAddButton() {
         let newTodoItem = TodoModel()
+        let addViewController = AddTodoViewController()
         
-        let rootViewController = AddTodoViewController()
-        rootViewController.delegate = self
+        addViewController.delegate = self
         
-        showTodoItemView(with: newTodoItem, rootViewController: rootViewController)
+        showTodoItemView(with: newTodoItem, nextViewController: addViewController)
     }
     
-    private func showTodoItemView(with todoItem: TodoModel, rootViewController: UIViewController) {
-        let nextViewController = UINavigationController(rootViewController: rootViewController)
-        nextViewController.modalPresentationStyle = .formSheet
-        nextViewController.preferredContentSize = CGSize(width: 650, height: 650)
+    private func showTodoItemView(with todoItem: TodoModel, nextViewController: UIViewController) {
+        let viewController = UINavigationController(rootViewController: nextViewController)
         
-        present(nextViewController, animated: true)
+        viewController.modalPresentationStyle = .formSheet
+        viewController.preferredContentSize = CGSize(width: 650, height: 650)
+        
+        present(viewController, animated: true)
     }
     
     private func configureListView() {
@@ -102,8 +99,6 @@ final class ListViewController: UIViewController {
         
         tableviews.forEach {
             $0.delegate = self
-            $0.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.identifier)
-            $0.register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: ListHeaderView.identifier)
             tableStackView.addArrangedSubview($0)
         }
     }
@@ -118,10 +113,12 @@ final class ListViewController: UIViewController {
             tableStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
-    // MARK: - configure dataSource and snapshot of tableViews
-    private func configureDataSource(of tableView: ListTableView) -> DataSource {
-        let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todoItem in
+}
+
+// MARK: - TableView DataSource and Snapshot
+extension ListViewController {
+    private func configureDataSource(of tableView: ListTableView) -> UITableViewDiffableDataSource<ListSection, TodoModel> {
+        let dataSource = UITableViewDiffableDataSource<ListSection, TodoModel>(tableView: tableView) { tableView, indexPath, todoItem in
             let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier,
                                                      for: indexPath) as? ListTableViewCell
             
@@ -130,7 +127,6 @@ final class ListViewController: UIViewController {
                                    date: todoItem.date.convertDoubleToDate())
             return cell
         }
-        
         return dataSource
     }
     
@@ -140,10 +136,12 @@ final class ListViewController: UIViewController {
         applySnapshot(section: ListSection.done, status: TodoModel.TodoStatus.done, dataSource: doneDataSource)
     }
     
-    private func applySnapshot(section: ListSection, status: TodoModel.TodoStatus, dataSource: DataSource) {
-        var snapshot = Snapshot()
+    private func applySnapshot(section: ListSection,
+                               status: TodoModel.TodoStatus,
+                               dataSource: UITableViewDiffableDataSource<ListSection, TodoModel>) {
+        var snapshot = NSDiffableDataSourceSnapshot<ListSection, TodoModel>()
         snapshot.appendSections([section])
-        snapshot.appendItems(todoModels.filter{ $0.status == status })
+        snapshot.appendItems(mockModels.filter{ $0.status == status })
         dataSource.apply(snapshot)
     }
 }
@@ -169,46 +167,62 @@ extension ListViewController: UITableViewDelegate {
         default:
             break
         }
-        
         return headerView
     }
     
     private func requestViewUpdate(to headerView: ListHeaderView, status: TodoModel.TodoStatus) {
-        headerView.setTitleLabel(with: status.rawValue)
-        headerView.updateCount(todoModels.filter { $0.status == status }.count)
+        headerView.setTitle(status.rawValue)
+        headerView.updateCount(mockModels.filter { $0.status == status }.count)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let itemDataSource = tableView.dataSource as? DataSource,
-              let todoItem = itemDataSource.itemIdentifier(for: indexPath) else { return }
+        guard let cellItem = fetchCellItem(from: tableView, indexPath: indexPath) else { return }
         
-        let rootViewController = EditTodoViewController()
-        rootViewController.delegate = self
-        rootViewController.prepareEditView(with: todoItem)
+        let editViewController = EditTodoViewController()
+        editViewController.delegate = self
+        editViewController.prepareView(with: cellItem)
         
-        showTodoItemView(with: todoItem, rootViewController: rootViewController)
+        showTodoItemView(with: cellItem, nextViewController: editViewController)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "delete") { _, _, completion in
-            self.todoModels.remove(at: indexPath.row)
+            guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath),
+                  let index = self.fetchTodoIndex(cellItem) else { return }
+            
+            self.mockModels.remove(at: index)
             self.applyAllSnapshot()
             tableView.reloadData()
             completion(true)
         }
         
         let configuration = UISwipeActionsConfiguration(actions: [delete])
-        
         return configuration
+    }
+    
+    private func fetchCellItem(from tableView: UITableView, indexPath: IndexPath) -> TodoModel? {
+        guard let dataSource = tableView.dataSource as? UITableViewDiffableDataSource<ListSection, TodoModel>,
+              let todoItem = dataSource.itemIdentifier(for: indexPath) else {
+            return nil
+        }
+        return todoItem
+    }
+    
+    private func fetchTodoIndex(_ todoItem: TodoModel) -> Int? {
+        guard let itemBedeleted = self.mockModels.filter({ $0.id == todoItem.id }).first,
+              let index = self.mockModels.firstIndex(of: itemBedeleted) else {
+            return nil
+        }
+        return index
     }
 }
 
 // MARK: - AddTodoViewDelegate
 extension ListViewController: AddTodoViewDelegate {
     func addNewTodoItem(with item: TodoModel) {
-        todoModels.append(item)
+        mockModels.append(item)
         applySnapshot(section: .todo, status: .todo, dataSource: todoDataSource)
         todoTableView.reloadData()
     }
@@ -217,10 +231,9 @@ extension ListViewController: AddTodoViewDelegate {
 // MARK: - EditTodoViewDelegate
 extension ListViewController: EditTodoViewDelegate {
     func editTodoItem(with item: TodoModel) {
-        guard let itemBeEdited = todoModels.filter({ $0.id == item.id }).first,
-              let index = todoModels.firstIndex(of: itemBeEdited) else { return }
+        guard let index = fetchTodoIndex(item) else { return }
         
-        todoModels[index] = item
+        mockModels[index] = item
         applyAllSnapshot()
     }
 }

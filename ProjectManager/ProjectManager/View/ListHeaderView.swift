@@ -52,8 +52,8 @@ final class ListHeaderView: UITableViewHeaderFooterView {
         ])
     }
     
-    func setTitleLabel(with text: String) {
-        statusLabel.text = text
+    func setTitle(_ title: String) {
+        statusLabel.text = title
     }
     
     func updateCount(_ count: Int) {

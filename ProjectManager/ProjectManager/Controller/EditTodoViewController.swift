@@ -34,7 +34,6 @@ class EditTodoViewController: UIViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tappedEdit))
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
                                                             style: .done,
                                                             target: self,
@@ -55,9 +54,8 @@ class EditTodoViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    func prepareEditView(with itemBeEdited: TodoModel) {
+    func prepareView(with itemBeEdited: TodoModel) {
         self.todoItem = itemBeEdited
-        
         todoView.updateContent(title: itemBeEdited.title,
                                body: itemBeEdited.body,
                                date: itemBeEdited.date.convertDoubleToDate())
