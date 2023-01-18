@@ -9,7 +9,7 @@ class ToDoHeaderView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         
-        label.text = status.name
+        label.text = status.description
         label.font = .preferredFont(forTextStyle: .title1)
         label.translatesAutoresizingMaskIntoConstraints = false
         
