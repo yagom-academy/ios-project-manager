@@ -48,4 +48,14 @@ extension FetchTasksUseCase: DidEndEditingTaskDelegate {
         tasksList[index] = task
         tasks.onNext(tasksList)
     }
+    
+    func didEndDeleting(task: Task) {
+        guard var tasksList = try? tasks.value(),
+              let index = tasksList.firstIndex(where: { $0.id == task.id }) else {
+            return
+        }
+        
+        tasksList.remove(at: index)
+        tasks.onNext(tasksList)
+    }
 }
