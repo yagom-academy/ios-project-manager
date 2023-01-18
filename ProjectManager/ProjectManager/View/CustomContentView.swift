@@ -33,6 +33,7 @@ final class CustomContentView: UIView, UIContentView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
+        
         return label
     }()
     
@@ -41,6 +42,7 @@ final class CustomContentView: UIView, UIContentView {
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
         label.numberOfLines = LayoutConstant.maxBodyLineCount
+        
         return label
     }()
     

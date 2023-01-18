@@ -17,12 +17,14 @@ final class HeaderView: UIView {
         stack.alignment = .center
         stack.distribution = .fill
         stack.translatesAutoresizingMaskIntoConstraints = false
+        
         return stack
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .largeTitle)
+        
         return label
     }()
     
@@ -36,7 +38,6 @@ final class HeaderView: UIView {
         self.init(frame: frame)
         self.title = title
         self.count = count
-
         configureViews()
     }
     

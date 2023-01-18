@@ -9,7 +9,7 @@ import Foundation
 
 struct DateFormatterManager {
     func formatDate(_ date: Date?) -> String {
-        guard let date = date else { return "" }
+        guard let date = date else { return String.init() }
         return DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
     }
 }

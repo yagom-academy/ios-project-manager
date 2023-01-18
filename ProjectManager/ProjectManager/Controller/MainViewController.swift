@@ -41,7 +41,6 @@ final class MainViewController: UIViewController {
     private func configureNavigationBar() {
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         title = Namespace.navigationTitle
-        
         let plusButton = UIBarButtonItem(image: UIImage(systemName: Namespace.plusImage),
                                          primaryAction: UIAction { _ in
             let issueViewcontroller = IssueViewController(delegate: self.todoListViewController)

@@ -131,13 +131,12 @@ final class IssueViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
 
-        stackView.addArrangedSubview(titleTextField)
-        stackView.addArrangedSubview(datePicker)
-        stackView.addArrangedSubview(bodyTextView)
+        [titleTextField, datePicker, bodyTextView].forEach(stackView.addArrangedSubview(_:))
     }
     
     private func configureContents() {
         guard let issue = issue else { return }
+        
         titleTextField.text = issue.title
         datePicker.date = issue.deadline
         bodyTextView.text = issue.body

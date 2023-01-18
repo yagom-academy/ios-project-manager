@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PaddedTextField: UITextField {
+final class PaddedTextField: UITextField {
     var padding = UIEdgeInsets(top: .zero, left: .zero, bottom: .zero, right: .zero)
     
     override init(frame: CGRect) {
