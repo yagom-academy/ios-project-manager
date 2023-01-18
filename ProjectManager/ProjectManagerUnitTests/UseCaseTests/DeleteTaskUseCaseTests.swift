@@ -9,6 +9,12 @@ import XCTest
 
 import RxSwift
 
+private final class DidEndDeletingDelegateStub: DidEndDeletingDelegate {
+    func didEndDeleting(task: Task) {
+        return
+    }
+}
+
 final class DeleteTaskUseCaseTests: XCTestCase {
     var taskRepositoryMock: MockTaskRepository!
     var usecase: DeleteTaskUseCase!
@@ -17,6 +23,7 @@ final class DeleteTaskUseCaseTests: XCTestCase {
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
         usecase = DeleteTaskUseCase(
+            delegate: DidEndDeletingDelegateStub(),
             repository: taskRepositoryMock
         )
         disposeBag = DisposeBag()
