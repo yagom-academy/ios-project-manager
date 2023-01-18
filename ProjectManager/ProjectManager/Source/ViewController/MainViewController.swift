@@ -30,7 +30,6 @@ class MainViewController: UIViewController {
         let stackView = UIStackView()
         
         stackView.axis = .horizontal
-        stackView.spacing = 8
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -54,7 +53,7 @@ class MainViewController: UIViewController {
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "plus"),
                                              style: .plain,
                                              target: self,
-                                             action: nil)
+                                             action: #selector(presentDetailView))
         
         navigationItem.setRightBarButton(rightBarButton, animated: true)
     }
@@ -74,5 +73,14 @@ class MainViewController: UIViewController {
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
+    
+    @objc
+    private func presentDetailView() {
+        let editToDoViewController = EditToDoViewController()
+        let navigationController = UINavigationController(rootViewController: editToDoViewController)
+        
+        present(navigationController, animated: true)
+    }
+}
 }
 }
