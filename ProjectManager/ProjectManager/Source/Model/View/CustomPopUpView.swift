@@ -161,6 +161,19 @@ class CustomPopUpView: UIView {
         bodyTextView.text = projectData.body
     }
     
+    func checkDataAccess(mode: DataManagementMode) {
+        switch mode {
+        case .create, .edit:
+            titleTextField.isUserInteractionEnabled = true
+            bodyTextView.isEditable = true
+            datePicker.isUserInteractionEnabled = true
+        case .read:
+            titleTextField.isUserInteractionEnabled = false
+            bodyTextView.isEditable = false
+            datePicker.isUserInteractionEnabled = false
+        }
+    }
+    
     // MARK: Private Methods
     
     private func setUpTopBarStackView() {

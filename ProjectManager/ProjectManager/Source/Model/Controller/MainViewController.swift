@@ -12,6 +12,7 @@ class MainViewController: UIViewController {
     
     private let projectManagerView = MainProjectManagerView()
     private let section: [String] = ["TODO", "DOING", "DONE"]
+    private var editedTodoListCount: Int?
     private var todoList: [ProjectData] = []
     private var doingList: [ProjectData] = []
     private var doneList: [ProjectData] = []
@@ -52,8 +53,9 @@ class MainViewController: UIViewController {
     @objc
     private func plusButtonAction() {
         let popUpViewController = AddViewController()
-        popUpViewController.modalPresentationStyle = .overCurrentContext
         popUpViewController.delegate = self
+        popUpViewController.modalPresentationStyle = .overCurrentContext
+        popUpViewController.dataManagementMode = .create
         
         navigationController?.present(popUpViewController, animated: true)
         projectManagerView.reloadTableView()
@@ -156,9 +158,13 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let popUpViewController = AddViewController()
+        
         popUpViewController.modalPresentationStyle = .overCurrentContext
         popUpViewController.delegate = self
+        popUpViewController.dataManagementMode = .read
         popUpViewController.savedData = todoList[indexPath.row]
+        
+        editedTodoListCount = indexPath.row
         
         navigationController?.present(popUpViewController, animated: true)
     }
@@ -167,8 +173,18 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - DataSendDelegate
 
 extension MainViewController: DataSendable {
-    func sendData(with projectData: ProjectData) {
-        todoList.append(projectData)
-        projectManagerView.reloadTableView()
+    func sendData(with data: ProjectData, mode: DataManagementMode) {
+        switch mode {
+        case .create:
+            todoList.append(data)
+            projectManagerView.reloadTableView()
+        case .edit:
+            if let todoListCount = editedTodoListCount {
+                todoList[todoListCount] = data
+                projectManagerView.reloadTableView()
+            }
+        case .read:
+            break
+        }
     }
 }

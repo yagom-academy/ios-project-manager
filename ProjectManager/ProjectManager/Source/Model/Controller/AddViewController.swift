@@ -7,12 +7,19 @@
 
 import UIKit
 
+enum DataManagementMode {
+    case create
+    case edit
+    case read
+}
+
 class AddViewController: UIViewController {
     
     // MARK: Properties
     
     var delegate: DataSendable?
     var savedData: ProjectData?
+    var dataManagementMode: DataManagementMode = .read
     private let customPopUpView = CustomPopUpView()
     
     // MARK: Life Cycle
@@ -23,12 +30,17 @@ class AddViewController: UIViewController {
         view = customPopUpView
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         configureButtonAction()
-        if let savedData = savedData {
-            customPopUpView.showProjectData(with: savedData)
-        }
+        customPopUpView.checkDataAccess(mode: dataManagementMode)
+        checkSavedData(with: savedData)
     }
     
     // MARK: Private Methods
+    
+    private func checkSavedData(with data: ProjectData?) {
+        if let savedData = data {
+            customPopUpView.showProjectData(with: savedData)
+        }
+    }
     
     private func configureButtonAction() {
         setUpDoneButton()
@@ -64,8 +76,13 @@ class AddViewController: UIViewController {
     
     @objc
     private func didTapDoneButton() {
-        if let userInputData: ProjectData = customPopUpView.saveProjectData() {
-            delegate?.sendData(with: userInputData)
+        switch dataManagementMode {
+        case .create, .edit:
+            if let userInputData: ProjectData = customPopUpView.saveProjectData() {
+                delegate?.sendData(with: userInputData, mode: .create)
+            }
+        case .read:
+            break
         }
         
         dismiss(animated: true)
@@ -73,6 +90,8 @@ class AddViewController: UIViewController {
     
     @objc
     private func didTapEditButton() {
+        dataManagementMode = .edit
+        customPopUpView.checkDataAccess(mode: dataManagementMode)
     }
     
     @objc
