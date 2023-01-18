@@ -68,8 +68,11 @@ class CustomPopUpView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         textField.backgroundColor = .white
+        textField.text = "Title"
+        textField.textColor = .lightGray
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftViewMode = .always
         textField.layer.shadowColor = UIColor.black.cgColor
-        textField.layer.masksToBounds = false
         textField.layer.shadowOffset = CGSize(width: 0, height: 4)
         textField.layer.shadowRadius = 5
         textField.layer.shadowOpacity = 0.3
@@ -87,9 +90,13 @@ class CustomPopUpView: UIView {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.setContentHuggingPriority(.defaultLow, for: .vertical)
+        textField.contentVerticalAlignment = .top
         textField.backgroundColor = .white
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftViewMode = .always
+        textField.text = "내용을 입력해주세요. (1000자 제한)"
+        textField.textColor = .lightGray
         textField.layer.shadowColor = UIColor.black.cgColor
-        textField.layer.masksToBounds = false
         textField.layer.shadowOffset = CGSize(width: 0, height: 4)
         textField.layer.shadowRadius = 5
         textField.layer.shadowOpacity = 0.3
@@ -102,11 +109,14 @@ class CustomPopUpView: UIView {
         setUpTopBarStackView()
         setUpContentStackView()
         configureLayout()
+        configureTextFieldDelegate()
     }
     
     // MARK: Internal Methods
     
     func saveProjectData() -> ProjectData? {
+        checkTextField()
+        
         if let title = titleTextField.text,
            let body = bodyTextField.text {
             let projectData: ProjectData = ProjectData(
@@ -119,6 +129,20 @@ class CustomPopUpView: UIView {
         }
         
         return nil
+    }
+    
+    func checkTextField() {
+        if let title = titleTextField.text,
+           let body = bodyTextField.text {
+            if title == "Title" && body == "내용을 입력해주세요. (1000자 제한)" {
+                titleTextField.text = "[제목없음]"
+                bodyTextField.text = "[내용없음]"
+            } else if title == "Title" {
+                titleTextField.text = "[제목없음]"
+            } else if body == "내용을 입력해주세요. (1000자 제한)" {
+                bodyTextField.text = "[내용없음]"
+            }
+        }
     }
     
     func showProjectData(with projectData: ProjectData) {
@@ -138,6 +162,11 @@ class CustomPopUpView: UIView {
         contentStackView.addArrangedSubview(titleTextField)
         contentStackView.addArrangedSubview(datePicker)
         contentStackView.addArrangedSubview(bodyTextField)
+    }
+    
+    private func configureTextFieldDelegate() {
+        titleTextField.delegate = self
+        bodyTextField.delegate = self
     }
     
     private func configureTopBarViewLayout() {
@@ -183,5 +212,75 @@ class CustomPopUpView: UIView {
             popUpView.centerXAnchor.constraint(equalTo: centerXAnchor),
             popUpView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
+    }
+    
+    // MARK: Action Methods
+    
+    @objc
+    private func test() {
+        print("123")
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension CustomPopUpView: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case titleTextField:
+            if titleTextField.textColor == .lightGray {
+                titleTextField.text = nil
+                titleTextField.textColor = UIColor.black
+            }
+        case bodyTextField:
+            if bodyTextField.textColor == .lightGray {
+                bodyTextField.text = nil
+                bodyTextField.textColor = UIColor.black
+            }
+        default:
+            break
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case titleTextField:
+            if titleTextField.text?.isEmpty == true {
+                titleTextField.text = "Title"
+                titleTextField.textColor = .lightGray
+            }
+        case bodyTextField:
+            if bodyTextField.text?.isEmpty == true {
+                bodyTextField.text = "내용을 입력해주세요. (1000자 제한)"
+                bodyTextField.textColor = .lightGray
+            }
+        default:
+            break
+        }
+    }
+    
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        switch textField {
+        case titleTextField:
+            if let textCount = textField.text?.count {
+                if textCount < 20 {
+                    return true
+                }
+                return false
+            }
+        case bodyTextField:
+            if let textCount = textField.text?.count {
+                if textCount < 1000 {
+                    return true
+                }
+            }
+            return false
+        default:
+            return false
+        }
+        
+        return false
     }
 }
