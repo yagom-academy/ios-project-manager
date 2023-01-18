@@ -13,7 +13,7 @@ protocol MainViewModelProtocol {
     
     func createProject(title: String, deadline: Date, description: String)
     func updateProject()
-    func deleteProject()
+    func deleteProject(with id: UUID)
 }
 
 final class MainViewModel: MainViewModelProtocol {
@@ -40,8 +40,8 @@ final class MainViewModel: MainViewModelProtocol {
         //
     }
     
-    func deleteProject() {
-        //
+    func deleteProject(with id: UUID) {
+       models = models.filter { $0.id != id }
     }
     
     private func changeDateString(from date: Date) -> String {

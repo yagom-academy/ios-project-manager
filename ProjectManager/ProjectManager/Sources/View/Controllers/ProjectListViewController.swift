@@ -37,8 +37,36 @@ final class ProjectListViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         configureLayout()
-        tableView.register(ProjectCell.self, forCellReuseIdentifier: ProjectCell.reuseIdentifier)
+        configureTableView()
         configureDataSource()
+    }
+}
+
+// MARK: Interface Method
+extension ProjectListViewController {
+    func updateList(with data: [Project]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Project>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(data)
+        dataSource?.apply(snapshot)
+    }
+}
+
+// MARK: Action Method
+extension ProjectListViewController {
+    private func makeDeleteContextualAction(with id: UUID) -> UIContextualAction {
+        let context = UIContextualAction(
+            style: .destructive,
+            title: "Delete",
+            handler: { _, _, completionHandler in
+                guard let mainViewController = self.parent as? MainViewController else { return }
+                mainViewController.sendDeleteRequest(with: id)
+                
+                completionHandler(true)
+            }
+        )
+        
+        return context
     }
 }
 
@@ -58,14 +86,26 @@ extension ProjectListViewController {
                 cell.configureComponents(with: project)
                 
                 return cell
-            })
+            }
+        )
+    }
+}
+
+// MARK: TableView Delegate
+extension ProjectListViewController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        guard let project = dataSource?.itemIdentifier(for: indexPath) else { return nil }
+        let action = makeDeleteContextualAction(with: project.id)
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        
+        return configuration
     }
     
-    func updateList(with data: [Project]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Project>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(data)
-        dataSource?.apply(snapshot)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -94,5 +134,10 @@ extension ProjectListViewController {
             
             header.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.09)
         ])
+    }
+    
+    private func configureTableView() {
+        tableView.register(ProjectCell.self, forCellReuseIdentifier: ProjectCell.reuseIdentifier)
+        tableView.delegate = self
     }
 }

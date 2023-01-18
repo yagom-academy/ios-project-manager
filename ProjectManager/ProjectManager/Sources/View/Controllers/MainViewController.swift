@@ -42,6 +42,10 @@ final class MainViewController: UIViewController {
             self?.toDoViewController.updateList(with: models)
         }
     }
+    
+    func sendDeleteRequest(with id: UUID) {
+        viewModel.deleteProject(with: id)
+    }
 }
 
 // MARK: Action Method
