@@ -60,10 +60,10 @@ final class ListCell: UITableViewCell {
     }
     
     private func configureBind() {
-        viewModel.bind { work in
-            self.titleLabel.text = work?.title
-            self.bodyLabel.text = work?.body
-            self.dateLabel.text = work?.endDateToString
+        viewModel.bind { [weak self] work in
+            self?.titleLabel.text = work?.title
+            self?.bodyLabel.text = work?.body
+            self?.dateLabel.text = work?.endDateToString
         }
     }
     

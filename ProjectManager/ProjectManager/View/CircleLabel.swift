@@ -8,7 +8,6 @@
 import UIKit
 
 final class CircleLabel: UILabel {
-    
     private let padding = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     
     override func draw(_ rect: CGRect) {

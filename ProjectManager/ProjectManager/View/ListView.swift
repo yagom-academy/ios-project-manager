@@ -72,8 +72,8 @@ final class ListView: UIView {
     }
     
     private func configureBind() {
-        viewModel.bindCount {
-            self.categoryCountLabel.text = ($0 ?? 0).description
+        viewModel.bindCount { [weak self] in
+            self?.categoryCountLabel.text = ($0 ?? 0).description
         }
     }
     

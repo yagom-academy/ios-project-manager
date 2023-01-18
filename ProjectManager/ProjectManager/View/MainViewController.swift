@@ -55,19 +55,19 @@ final class MainViewController: UIViewController {
     }
     
     private func configureBind() {
-        viewModel.bindTodoList {
-            self.todoListView.viewModel.categoryCount = $0.count
-            self.todoListView.tableView.reloadData()
+        viewModel.bindTodoList { [weak self] in
+            self?.todoListView.viewModel.categoryCount = $0.count
+            self?.todoListView.tableView.reloadData()
         }
         
-        viewModel.bindDoingList {
-            self.doingListView.viewModel.categoryCount = $0.count
-            self.doingListView.tableView.reloadData()
+        viewModel.bindDoingList { [weak self] in
+            self?.doingListView.viewModel.categoryCount = $0.count
+            self?.doingListView.tableView.reloadData()
         }
         
-        viewModel.bindDoneList {
-            self.doneListView.viewModel.categoryCount = $0.count
-            self.doneListView.tableView.reloadData()
+        viewModel.bindDoneList { [weak self] in
+            self?.doneListView.viewModel.categoryCount = $0.count
+            self?.doneListView.tableView.reloadData()
         }
     }
     
