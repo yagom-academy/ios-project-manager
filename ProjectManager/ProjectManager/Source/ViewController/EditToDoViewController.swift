@@ -25,7 +25,11 @@ class EditToDoViewController: UIViewController {
         static let doneButtonTitle = "Done"
         static let cancelButtonTitle = "Cancel"
         static let titlePlaceHolder = "Title"
+        static let emptyTitle = "제목 없음"
+        static let emptyBody = "내용 없음"
     }
+    
+    let viewModel: ToDoListViewModel
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -60,7 +64,7 @@ class EditToDoViewController: UIViewController {
     private let bodyTextView: UITextView = {
         let textView = UITextView()
         
-        textView.text = "Body Text"
+        textView.text = Constant.emptyBody
         textView.font = UIFont.preferredFont(forTextStyle: .callout)
         textView.textColor = .black
         textView.backgroundColor = .systemBackground
@@ -73,6 +77,16 @@ class EditToDoViewController: UIViewController {
         
         return textView
     }()
+    
+    init(viewModel: ToDoListViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +105,7 @@ class EditToDoViewController: UIViewController {
         let rightBarButton = UIBarButtonItem(title: Constant.doneButtonTitle,
                                              style: .done,
                                              target: self,
-                                             action: nil)
+                                             action: #selector(tappedDoneButton))
         let leftBarButton = UIBarButtonItem(title: Constant.cancelButtonTitle,
                                             style: .done,
                                             target: self,
@@ -134,6 +148,15 @@ import SwiftUI
 struct EditToDoViewControllerPreview: PreviewProvider {
     static var previews: some View {
         EditToDoViewController().showPreview(.iPadPro)
+    
+    @objc
+    private func tappedDoneButton() {
+        let data = ToDo(title: titleTextField.text ?? Constant.emptyTitle,
+                        body: bodyTextView.text ?? Constant.emptyBody,
+                        deadline: datePicker.date,
+                        state: .toDo)
+        viewModel.addToDo(item: data)
+        dismiss(animated: true)
     }
 }
 #endif

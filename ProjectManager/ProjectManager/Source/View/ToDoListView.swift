@@ -9,6 +9,7 @@ class ToDoListView: UIView {
     }
     
     private let status: ToDoState
+    let viewModel: ToDoListViewModel
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -38,12 +39,16 @@ class ToDoListView: UIView {
         return dataSource
     }()
     
-    init(status: ToDoState) {
+    init(status: ToDoState, viewModel: ToDoListViewModel) {
         self.status = status
+        self.viewModel = viewModel
         super.init(frame: .zero)
         tableView.delegate = self
         setupView()
-        appendData()
+        
+        viewModel.model.bind { item in
+            self.appendData(item: item)
+        }
     }
     
     @available(*, unavailable)
@@ -62,13 +67,16 @@ class ToDoListView: UIView {
         ])
     }
     
-    func appendData() {
+    func appendData(item: [ToDo]) {
         var snapshot = NSDiffableDataSourceSnapshot<Schedule, ToDo>()
         snapshot.appendSections([.main])
-        snapshot.appendItems([ToDo(title: "1번째", body: "바디", deadline: Date(), state: .toDo)])
-        snapshot.appendItems([ToDo(title: "2번째", body: "바디", deadline: Date(), state: .toDo)])
+        snapshot.appendItems(item)
         
         dataSource.apply(snapshot)
+    }
+    
+    func addToDo(item: ToDo) {
+        viewModel.addToDo(item: item)
     }
 }
 
