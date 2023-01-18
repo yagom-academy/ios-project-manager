@@ -45,11 +45,13 @@ class ListItemCell: UITableViewCell {
     }()
     
     private var viewModel: ListItemCellViewModel?
+    var delegate: MenuPresentable?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureLayout()
+        addLongPressGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -79,6 +81,22 @@ class ListItemCell: UITableViewCell {
         ])
     }
     
+    private func addLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(notifyDelegate)
+        )
+        
+        longPressGesture.minimumPressDuration = 1
+        contentView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func notifyDelegate(_ gesture: UILongPressGestureRecognizer) {
+        guard let viewModel = viewModel else { return }
+
+        delegate?.didLongPressGesture(gesture, viewModel)
+    }
+    
     func bind(_ viewModel: ListItemCellViewModel) {
         self.viewModel = viewModel
         
@@ -92,11 +110,5 @@ class ListItemCell: UITableViewCell {
     
     func update(_ listItem: ListItem) {
         viewModel?.updateItem(using: listItem)
-    }
-    
-    func configureCell(title: String, body: String, dueDate: String) {
-        listTitleLabel.text = title
-        listBodyLabel.text = body
-        dueDateLabel.text = dueDate
     }
 }
