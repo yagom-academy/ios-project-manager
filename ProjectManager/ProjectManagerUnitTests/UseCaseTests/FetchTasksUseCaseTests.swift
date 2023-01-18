@@ -124,4 +124,57 @@ final class FetchTasksUseCaseTests: XCTestCase {
         guard let currentTask = tasksList?.first else { return XCTFail() }
         XCTAssertEqual(previousTask.state, currentTask.state)
     }
+    
+    func test_when_deleting_task_is_successful_then_renewing_tasksList_is_successful() {
+        let deleteTaskUseCaseStub = DeleteTaskUseCase(delegate: usecase,
+                                                      repository: taskRepositoryMock)
+        var tasksList: [Task]? = nil
+        usecase.tasks
+            .subscribe(onNext: { tasks in
+                tasksList = tasks
+            })
+            .disposed(by: dispose)
+        
+        usecase.fetchTasks()
+        XCTAssertNotNil(tasksList)
+        
+        guard let previousFirstTask = tasksList?.first else {
+            return XCTFail()
+        }
+        
+        deleteTaskUseCaseStub.deleteTask(previousFirstTask)
+        
+        guard let currentFirstTask = tasksList?.first else { return XCTFail() }
+        XCTAssertNotEqual(currentFirstTask.id, previousFirstTask.id)
+    }
+    
+    func test_when_deleting_task_is_failed_then_tasksList_is_not_renewed() {
+        let deleteTaskUseCaseStub = DeleteTaskUseCase(delegate: usecase,
+                                                      repository: taskRepositoryMock)
+        var tasksList: [Task]? = nil
+        usecase.tasks
+            .subscribe(onNext: { tasks in
+                tasksList = tasks
+            })
+            .disposed(by: dispose)
+        
+        usecase.fetchTasks()
+        XCTAssertNotNil(tasksList)
+        
+        guard let previousFirstTask = tasksList?.first else {
+            return XCTFail()
+        }
+        
+        let targetTask = Task(id: .init(),
+                              title: .init(),
+                              content: .init(),
+                              deadLine: .init(),
+                              state: .done,
+                              isExpired: false)
+        
+        deleteTaskUseCaseStub.deleteTask(targetTask)
+        
+        guard let currentFirstTask = tasksList?.first else { return XCTFail() }
+        XCTAssertEqual(currentFirstTask.id, previousFirstTask.id)
+    }
 }
