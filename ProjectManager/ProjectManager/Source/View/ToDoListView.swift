@@ -17,6 +17,7 @@ class ToDoListView: UIView {
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         
+        tableView.sectionHeaderHeight = 50
         tableView.register(ToDoCell.self, forCellReuseIdentifier: ToDoCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -35,17 +36,21 @@ class ToDoListView: UIView {
     }
     
     private func setupView() {
-        addSubview(headerView)
         addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: self.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: self.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+
+extension ToDoListView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = ToDoHeaderView(status: self.status)
+
+        return headerView
+    }
+}
 }
