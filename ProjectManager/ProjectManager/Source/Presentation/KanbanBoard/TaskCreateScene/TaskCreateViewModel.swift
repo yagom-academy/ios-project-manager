@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  TaskCreateViewModel.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/18.
@@ -11,7 +11,7 @@ import RxRelay
 import RxSwift
 
 final class TaskCreateViewModel {
-    let createTaskUseCase: CreateTaskUseCase
+    private let createTaskUseCase: CreateTaskUseCase
     
     private var title: String = ""
     private var content: String = ""
@@ -32,7 +32,7 @@ final class TaskCreateViewModel {
     struct Input {
         let titleDidEditEvent: Observable<String>
         let contentDidEditEvent: Observable<String>
-        let datePickerDidEditEvent: Observable<Double>
+        let datePickerDidEditEvent: Observable<Date>
         let doneButtonTapEvent: Observable<Void>
     }
     
@@ -65,7 +65,7 @@ final class TaskCreateViewModel {
         
         input.datePickerDidEditEvent
             .subscribe(onNext: { [weak self] date in
-                self?.date = date
+                self?.date = date.timeIntervalSince1970
             })
             .disposed(by: disposeBag)
         
