@@ -44,8 +44,52 @@ class MainViewController: UIViewController {
         let longPressAction = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTableView))
         
         projectManagerView.leftTableView.addGestureRecognizer(longPressAction)
-        projectManagerView.centerTableView.addGestureRecognizer(longPressAction)
-        projectManagerView.rightTableView.addGestureRecognizer(longPressAction)
+    }
+    
+    private func createActionSheet() {
+        let actionSheet = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        let moveToDoing = UIAlertAction(
+            title: "Move to DOING",
+            style: .default) { [self] _ in
+                if let todoListCount = editedTodoListCount {
+                    doingList.append(todoList[todoListCount])
+                    todoList.remove(at: todoListCount)
+                    projectManagerView.leftTableView.reloadData()
+                    projectManagerView.centerTableView.reloadData()
+                }
+            }
+        let moveToDone = UIAlertAction(
+            title: "Move to DONE",
+            style: .default) { [self] _ in
+                if let todoListCount = editedTodoListCount {
+                    doneList.append(todoList[todoListCount])
+                    todoList.remove(at: todoListCount)
+                    projectManagerView.leftTableView.reloadData()
+                    projectManagerView.rightTableView.reloadData()
+                }
+            }
+        
+        actionSheet.addAction(moveToDoing)
+        actionSheet.addAction(moveToDone)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if let presenter = actionSheet.popoverPresentationController {
+                presenter.permittedArrowDirections = []
+                presenter.sourceView = view
+                presenter.sourceRect = CGRect(
+                    x: view.bounds.midX,
+                    y: view.bounds.maxY,
+                    width: 0,
+                    height: 0
+                )
+            }
+        }
+        
+        present(actionSheet, animated: true)
     }
     
     // MARK: Action Methods
@@ -59,11 +103,6 @@ class MainViewController: UIViewController {
         
         navigationController?.present(popUpViewController, animated: true)
         projectManagerView.reloadTableView()
-    }
-    
-    @objc
-    private func didLongPressTableView() {
-        print("123")
     }
 }
 
@@ -185,6 +224,22 @@ extension MainViewController: DataSendable {
             }
         case .read:
             break
+        }
+    }
+}
+
+extension MainViewController: UIGestureRecognizerDelegate {
+    @objc
+    private func didLongPressTableView(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: projectManagerView.leftTableView)
+            if projectManagerView.leftTableView.indexPathForRow(at: touchPoint) != nil {
+                let location = sender.location(in: sender.view)
+                if let cellRow = projectManagerView.leftTableView.indexPathForRow(at: location) {
+                    editedTodoListCount = cellRow.row
+                    createActionSheet()
+                }
+            }
         }
     }
 }
