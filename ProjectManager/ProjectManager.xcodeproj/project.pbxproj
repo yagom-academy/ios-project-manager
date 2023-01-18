@@ -20,6 +20,7 @@
 		DF5CAE6C296E4C7300398676 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DF5CAE6B296E4C7300398676 /* FirebaseFirestore */; };
 		DF5CAE6E296E4C7300398676 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF5CAE6D296E4C7300398676 /* FirebaseFirestoreSwift */; };
 		DFCA283F2977C3BC00C1EBF2 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */; };
+		DFCA28422977DFBE00C1EBF2 /* TaskStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		DF46828E2977977700E3BC06 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
 		DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,8 @@
 		DF468290297798D400E3BC06 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DFF040992977EB420049DEC0 /* TaskStatus */,
+				DFF040982977EB320049DEC0 /* TaskCell */,
 				DF4682952977A72700E3BC06 /* ProjectManager */,
 			);
 			path = Presentation;
@@ -150,9 +154,24 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
-				DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */,
+				DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DFF040982977EB320049DEC0 /* TaskCell */ = {
+			isa = PBXGroup;
+			children = (
+				DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */,
+			);
+			path = TaskCell;
+			sourceTree = "<group>";
+		};
+		DFF040992977EB420049DEC0 /* TaskStatus */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TaskStatus;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF46828F2977977700E3BC06 /* Task.swift in Sources */,
+				DFCA28422977DFBE00C1EBF2 /* TaskStatusView.swift in Sources */,
 				DF4682992977A85A00E3BC06 /* ProjectManagerViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

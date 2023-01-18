@@ -8,7 +8,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class ProjectManagerViewController: UIViewController {
+final class ProjectManagerViewController: UIViewController, UITableViewDelegate {
     
     var todoTableView: UITableView = {
         let table = UITableView()
@@ -26,6 +26,51 @@ final class ProjectManagerViewController: UIViewController {
         return table
     }()
     
+    var todoStatusView: TaskStatusView = {
+        let view = TaskStatusView()
+        return view
+    }()
+    var doingStatusView: TaskStatusView = {
+        let view = TaskStatusView()
+        return view
+    }()
+    var doneStatusView: TaskStatusView = {
+        let view = TaskStatusView()
+        return view
+    }()
+    
+    var todoStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.distribution = .fill
+        stack.axis = .vertical
+        return stack
+    }()
+    var doingStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.distribution = .fill
+        stack.axis = .vertical
+        
+        return stack
+    }()
+    var doneStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.distribution = .fill
+        stack.axis = .vertical
+        
+        return stack
+    }()
+    
+    var wholeStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.distribution = .fillEqually
+        stack.axis = .horizontal
+        return stack
+    }()
+    
     let viewModel = ProjectManagerViewModel()
     let disposeBag = DisposeBag()
     
@@ -34,10 +79,36 @@ final class ProjectManagerViewController: UIViewController {
         
         configureNavigationController()
         configureView()
+        combineViews()
         bindViewModel()
     }
     
+    func combineViews() {
+        todoStackView.addArrangedSubview(todoStatusView)
+        todoStackView.addArrangedSubview(todoTableView)
+        
+        doingStackView.addArrangedSubview(doingStatusView)
+        doingStackView.addArrangedSubview(doingTableView)
+        
+        doneStackView.addArrangedSubview(doneStatusView)
+        doneStackView.addArrangedSubview(doneTableView)
+        
+        wholeStackView.addArrangedSubview(todoStackView)
+        wholeStackView.addArrangedSubview(doingStackView)
+        wholeStackView.addArrangedSubview(doneStackView)
+        
+        self.view.addSubview(wholeStackView)
+        
+        NSLayoutConstraint.activate([
+            wholeStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            wholeStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            wholeStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            wholeStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
+    }
+    
     func bindViewModel() {
+        todoTableView.rx.setDelegate(self).disposed(by: disposeBag)
         viewModel.subject
             .share()
             .map { $0.filter { $0.tag == .todo } }
@@ -51,6 +122,7 @@ final class ProjectManagerViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        doingTableView.rx.setDelegate(self).disposed(by: disposeBag)
         viewModel.subject
             .share()
             .map { $0.filter { $0.tag == .doing } }
@@ -64,11 +136,11 @@ final class ProjectManagerViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        doneTableView.rx.setDelegate(self).disposed(by: disposeBag)
         viewModel.subject
             .share()
             .map { $0.filter { $0.tag == .done } }
             .bind(to: doneTableView.rx.items) { tableview, row, item in
-                guard item.tag == .done else { return }
                 guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
                 else {
                     return TaskCell()

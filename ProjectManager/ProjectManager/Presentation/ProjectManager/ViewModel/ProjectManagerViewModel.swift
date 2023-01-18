@@ -19,5 +19,6 @@ final class ProjectManagerViewModel {
     func addTask(task: Task) {
         tasks.append(task)
         subject.onNext(tasks)
+        print(task)
     }
 }
