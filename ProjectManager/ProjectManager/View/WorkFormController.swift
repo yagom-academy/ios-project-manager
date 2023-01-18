@@ -31,6 +31,7 @@ final class WorkFormViewController: UIViewController {
         textField.layer.shadowOffset = CGSize(width: 0, height: 3)
         textField.layer.shadowOpacity = 0.3
         textField.isEnabled = viewModel.isEdit
+        textField.textColor = viewModel.isEdit ? .black : .systemGray3
         return textField
     }()
     
@@ -51,6 +52,7 @@ final class WorkFormViewController: UIViewController {
         textView.layer.shadowOffset = CGSize(width: 0, height: 3)
         textView.layer.shadowOpacity = 0.3
         textView.isEditable = viewModel.isEdit
+        textView.textColor = viewModel.isEdit ? .black : .systemGray3
         return textView
     }()
     
@@ -66,7 +68,9 @@ final class WorkFormViewController: UIViewController {
     private func configureBind() {
         viewModel.bindIsEdit { [weak self] in
             self?.titleTextField.isEnabled = $0
+            self?.titleTextField.textColor = $0 ? .black : .systemGray3
             self?.bodyTextView.isEditable = $0
+            self?.bodyTextView.textColor = $0 ? .black : .systemGray3
             self?.datePicker.isEnabled = $0
         }
         
