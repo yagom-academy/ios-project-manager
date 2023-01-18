@@ -7,14 +7,20 @@
 
 final class DefaultListUseCase: ListUseCase {
 
-    private var list: ProjectList
+    private var list: [Project] {
+        didSet {
+            listOutput?.updateList()
+        }
+    }
+    
+    var listOutput: ListOutput?
 
-    init(list: ProjectList) {
+    init(list: [Project]) {
         self.list = list
     }
 
     func fetchProjectList(state: State) -> [Project] {
-        let filteredList: [Project] = list.projects.filter {
+        let filteredList: [Project] = list.filter {
             $0.state == state
         }
 
@@ -22,7 +28,7 @@ final class DefaultListUseCase: ListUseCase {
     }
 
     func addNewProject(_ project: Project) {
-        list.projects.append(project)
+        list.append(project)
     }
 
     func editProject(_ project: Project) {
@@ -30,11 +36,11 @@ final class DefaultListUseCase: ListUseCase {
             return
         }
 
-        list.projects[index] = project
+        list[index] = project
     }
 
     private func fetchIndex(of project: Project) -> Int? {
-        let index: Int? = list.projects.firstIndex {
+        let index: Int? = list.firstIndex {
             $0.identifier == project.identifier
         }
 
@@ -46,6 +52,6 @@ final class DefaultListUseCase: ListUseCase {
             return
         }
 
-        list.projects.remove(at: index)
+        list.remove(at: index)
     }
 }

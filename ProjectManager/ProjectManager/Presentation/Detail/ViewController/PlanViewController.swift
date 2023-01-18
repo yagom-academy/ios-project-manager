@@ -9,7 +9,7 @@ import UIKit
 
 class PlanViewController: UIViewController {
 
-    var viewModel: PlanViewModel?
+    var viewModel: DetailViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()

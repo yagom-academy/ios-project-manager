@@ -39,7 +39,7 @@ enum Constant {
         static let listCellSpacing: CGFloat = 8
         static let stackViewBottomInset: CGFloat = -28
         static let listTitleMargin: CGFloat = 8
-        static let circleViewWidthPadding: CGFloat = 12
+        static let circleViewWidthPadding: CGFloat = 16
         static let circleViewHeightPadding: CGFloat = 4
     }
 

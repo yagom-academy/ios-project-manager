@@ -7,6 +7,7 @@
 
 protocol ListUseCase {
     
+    var listOutput: ListOutput? { get set }
     func fetchProjectList(state: State) -> [Project]
     func addNewProject(_ project: Project)
     func editProject(_ project: Project)

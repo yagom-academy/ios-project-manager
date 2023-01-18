@@ -65,7 +65,7 @@ final class ListCell: UITableViewCell, Reusable {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0))
     }
 
-    func configure(title: String, description: String, deadline: String, isOverDue: Bool) {
+    func configure(title: String, description: String, deadline: String, isOverDue: Bool = false) {
         setTexts(title: title, description: description, deadline: deadline)
         setDeadlineColor(isOverDue: isOverDue)
     }

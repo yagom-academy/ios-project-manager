@@ -15,7 +15,11 @@ struct Project {
     var state: State
     let identifier: UUID
 
-    init(title: String, description: String, deadline: Date, state: State = .toDo, identifier: UUID = UUID()) {
+    init(title: String = "",
+         description: String = "",
+         deadline: Date = Date(),
+         state: State = .toDo,
+         identifier: UUID = UUID()) {
         self.title = title
         self.description = description
         self.deadline = deadline

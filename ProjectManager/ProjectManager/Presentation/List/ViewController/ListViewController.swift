@@ -72,6 +72,7 @@ final class ListViewController: UIViewController {
         configureViewHierarchy()
         configureLayoutConstraint()
         configureHeaderView()
+        configureHandler()
     }
 
     private func configureNavigationBar() {
@@ -102,14 +103,12 @@ final class ListViewController: UIViewController {
         ])
     }
 
-    private func presentDetailView(viewModel: PlanViewModel? = nil) {
-        let planViewController = PlanViewController()
-        if let viewModel = viewModel {
-            planViewController.viewModel = viewModel
-        }
-
-        planViewController.modalPresentationStyle = .formSheet
-        present(planViewController, animated: true)
+    private func presentDetailView(viewModel: DetailViewModel) {
+        let projectViewController = PlanViewController()
+        projectViewController.viewModel = viewModel
+        let navigationController = UINavigationController(rootViewController: projectViewController)
+        navigationController.modalPresentationStyle = .formSheet
+        present(navigationController, animated: true)
     }
     
     private func configureHeaderView() {
@@ -117,10 +116,26 @@ final class ListViewController: UIViewController {
         doingHeaderView.setCount(number: viewModel?.fetchCount(of: .doing))
         doneHeaderView.setCount(number: viewModel?.fetchCount(of: .done))
     }
+    
+    private func configureHandler() {
+        viewModel?.bindToDoList() { list in
+            self.toDoListView.reloadData()
+            self.toDoHeaderView.setCount(number: list.count)
+        }
+        viewModel?.bindDoingList() { list in
+            self.doingListView.reloadData()
+            self.doingHeaderView.setCount(number: list.count)
+        }
+        viewModel?.bindDoneList() { list in
+            self.doneListView.reloadData()
+            self.doneHeaderView.setCount(number: list.count)
+        }
+    }
 
     private func addPlanAction() -> UIAction {
         let action = UIAction { _ in
-            self.presentDetailView(viewModel: ProjectViewModel())
+            let useCase = DefaultDetailUseCase(project: Project())
+            self.presentDetailView(viewModel: DetailViewModel(detailUseCase: useCase))
         }
 
         return action
@@ -154,10 +169,17 @@ extension ListViewController: UITableViewDataSource {
         guard let texts = viewModel?.convertToText(from: project) else {
             return cell
         }
-        cell.configure(title: texts.title,
-                       description: texts.description,
-                       deadline: texts.deadline,
-                       isOverDue: project.deadline.isOverdue)
+        switch listView.state {
+        case .done:
+            cell.configure(title: texts.title,
+                           description: texts.description,
+                           deadline: texts.deadline)
+        default:
+            cell.configure(title: texts.title,
+                           description: texts.description,
+                           deadline: texts.deadline,
+                           isOverDue: project.deadline.isOverdue)
+        }
 
         return cell
     }

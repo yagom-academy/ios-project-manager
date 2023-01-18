@@ -9,13 +9,7 @@ import Foundation
 
 final class ListViewModel {
 
-    var listUseCase: ListUseCase {
-        didSet {
-            toDoList = listUseCase.fetchProjectList(state: .toDo)
-            doingList = listUseCase.fetchProjectList(state: .doing)
-            doneList = listUseCase.fetchProjectList(state: .done)
-        }
-    }
+    var listUseCase: ListUseCase
     private var toDoList: [Project] {
         didSet {
             toDoListHandler?(toDoList)
@@ -40,6 +34,12 @@ final class ListViewModel {
         toDoList = listUseCase.fetchProjectList(state: .toDo)
         doingList = listUseCase.fetchProjectList(state: .doing)
         doneList = listUseCase.fetchProjectList(state: .done)
+        
+        configureListUseCase()
+    }
+    
+    private func configureListUseCase() {
+        listUseCase.listOutput = self
     }
 
     func bindToDoList(handler: @escaping ([Project]) -> Void) {
@@ -47,11 +47,11 @@ final class ListViewModel {
     }
 
     func bindDoingList(handler: @escaping ([Project]) -> Void) {
-        self.toDoListHandler = handler
+        self.doingListHandler = handler
     }
 
     func bindDoneList(handler: @escaping ([Project]) -> Void) {
-        self.toDoListHandler = handler
+        self.doneListHandler = handler
     }
 
     func fetchList(of state: State) -> [Project] {
@@ -82,3 +82,11 @@ final class ListViewModel {
     }
 }
 
+extension ListViewModel: ListOutput {
+    
+    func updateList() {
+        toDoList = listUseCase.fetchProjectList(state: .toDo)
+        doingList = listUseCase.fetchProjectList(state: .doing)
+        doneList = listUseCase.fetchProjectList(state: .done)
+    }
+}
