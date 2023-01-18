@@ -7,19 +7,15 @@
 
 import UIKit
 
-final class ListView: UIView {
+final class ListView: UITableView {
 
-    typealias Text = Constant.Text
-    typealias Style = Constant.Style
     typealias Color = Constant.Color
 
-    private let collectionView: ListCollectionView
+    private(set) var state: State
 
-    init(state: State, layout: UICollectionViewLayout, frame: CGRect) {
-        collectionView = ListCollectionView(state: state,
-                                            frame: frame,
-                                            collectionViewLayout: layout)
-        super.init(frame: frame)
+    init(state: State, frame: CGRect, style: UITableView.Style) {
+        self.state = state
+        super.init(frame: frame, style: style)
         configureUIComponent()
     }
 
@@ -30,28 +26,5 @@ final class ListView: UIView {
 
     private func configureUIComponent() {
         backgroundColor = Color.listBackground
-        configureViewHierarchy()
-        configureLayoutConstraint()
-    }
-
-    private func configureViewHierarchy() {
-        addSubview(collectionView)
-    }
-
-    private func configureLayoutConstraint() {
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-        ])
-    }
-
-    func setDataSource(_ dataSource: UICollectionViewDataSource) {
-        collectionView.dataSource = dataSource
-    }
-
-    func setDelegate(_ delegate: UICollectionViewDelegate) {
-        collectionView.delegate = delegate
     }
 }

@@ -64,6 +64,17 @@ final class ListViewModel {
             return doneList
         }
     }
+    
+    func fetchCount(of state: State) -> Int {
+        switch state {
+        case .toDo:
+            return toDoList.count
+        case .doing:
+            return doingList.count
+        case .done:
+            return doneList.count
+        }
+    }
 
     func convertToText(from project: Project) -> (title: String, description: String, deadline: String) {
 

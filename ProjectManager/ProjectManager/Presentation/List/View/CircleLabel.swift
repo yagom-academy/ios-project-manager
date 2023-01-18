@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CircleLabel: UILabel {
+final class CircleLabel: UILabel {
 
     typealias Style = Constant.Style
     typealias Color = Constant.Color

@@ -1,5 +1,5 @@
 //
-//  ListHeaderReusableView.swift
+//  ListHeaderView.swift
 //  ProjectManager
 //
 //  Created by GUNDY on 2023/01/17.
@@ -7,15 +7,12 @@
 
 import UIKit
 
-final class ListHeaderReusableView: UICollectionReusableView {
+final class ListHeaderView: UIView {
 
     typealias Text = Constant.Text
     typealias Style = Constant.Style
+    typealias Color = Constant.Color
     typealias Number = Constant.Number
-
-    override var reuseIdentifier: String?  {
-        return "ListHeaderReusableView"
-    }
 
     private let titleView: UIStackView = {
         let stackView = UIStackView()
@@ -33,23 +30,33 @@ final class ListHeaderReusableView: UICollectionReusableView {
         return stackView
     }()
     private let titleLabel: UILabel = UILabel()
-    private lazy var countLabel: CircleLabel = CircleLabel(frame: .zero)
-
-    init(title: String, count: Int, frame: CGRect) {
+    private let countLabel: CircleLabel = CircleLabel(frame: .zero)
+    
+    init(title: String, frame: CGRect) {
         super.init(frame: frame)
-
-        configureLabel(title: title, count: count)
-        configureViewHierarchy()
-        configureLayoutConstraint()
+        
+        configure()
+        setTitle(text: title)
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    private func configureLabel(title: String, count: Int) {
-        titleLabel.text = title
+    
+    private func configure() {
+        configureViewHierarchy()
+        configureLayoutConstraint()
+    }
+    
+    private func setTitle(text: String) {
+        titleLabel.text = text
+    }
+    
+    func setCount(number: Int?) {
+        guard let count = number else {
+            return
+        }
         if count > Number.maxCount {
             countLabel.text = Text.overCount
         } else {
@@ -58,8 +65,9 @@ final class ListHeaderReusableView: UICollectionReusableView {
     }
 
     private func configureViewHierarchy() {
-        titleView.addArrangedSubview(titleLabel)
-        titleView.addArrangedSubview(countLabel)
+        [titleLabel, countLabel].forEach {
+            titleView.addArrangedSubview($0)
+        }
         addSubview(titleView)
     }
 

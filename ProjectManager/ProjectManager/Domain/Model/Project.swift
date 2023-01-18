@@ -23,3 +23,5 @@ struct Project {
         self.identifier = identifier
     }
 }
+
+extension Project: Hashable { }

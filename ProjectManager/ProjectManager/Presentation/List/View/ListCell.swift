@@ -7,49 +7,83 @@
 
 import UIKit
 
-class ListCell: UICollectionViewListCell, ReusableCell {
+final class ListCell: UITableViewCell, Reusable {
 
     typealias Style = Constant.Style
     typealias Color = Constant.Color
 
-    private let titleLabel = UILabel()
-    private let descriptionLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 3
-        label.textColor = Color.descriptionLabel
+        label.font = .preferredFont(forTextStyle: .headline)
 
         return label
     }()
-    private let deadlineLabel = UILabel()
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.numberOfLines = 3
+        label.textColor = Color.descriptionLabel
+        label.setContentCompressionResistancePriority(.required,
+                                                      for: .vertical)
+
+        return label
+    }()
+    private let deadlineLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .callout)
+
+        return label
+    }()
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, deadlineLabel, deadlineLabel])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, deadlineLabel])
         stackView.axis = .vertical
         stackView.spacing = Style.listCellSpacing
         stackView.alignment = .fill
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fillProportionally
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         return stackView
     }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-    func configure(title: String, description: String, deadline: String, isOverDue: Bool) {
-        backgroundColor = Color.cellBackground
+        contentView.backgroundColor = Color.cellBackground
+        backgroundColor = Color.listBackground
         configureViewHierarchy()
         configureLayoutConstraint()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0))
+    }
+
+    func configure(title: String, description: String, deadline: String, isOverDue: Bool) {
         setTexts(title: title, description: description, deadline: deadline)
         setDeadlineColor(isOverDue: isOverDue)
     }
 
     private func configureViewHierarchy() {
-        addSubview(stackView)
+        contentView.addSubview(stackView)
     }
 
     private func configureLayoutConstraint() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Style.listCellSpacing),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Style.listCellSpacing),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Style.listCellSpacing),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Style.listCellSpacing),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                           constant: Style.listCellSpacing),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                               constant: Style.listCellSpacing),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
+                                              constant: -Style.listCellSpacing),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                constant: -Style.listCellSpacing),
         ])
     }
 

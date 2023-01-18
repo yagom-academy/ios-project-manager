@@ -24,7 +24,43 @@ final class ListViewController: UIViewController {
 
         return stackView
     }()
-
+    
+    private let toDoHeaderView = ListHeaderView(title: Text.toDoTitle,
+                                                frame: .zero)
+    private let doingHeaderView = ListHeaderView(title: Text.doingTitle,
+                                                frame: .zero)
+    private let doneHeaderView = ListHeaderView(title: Text.doneTitle,
+                                                frame: .zero)
+    private lazy var toDoListView: ListView = {
+        let listView = ListView(state: .toDo, frame: .zero, style: .plain)
+        listView.delegate = self
+        listView.dataSource = self
+        listView.register(ListCell.self,
+                           forCellReuseIdentifier: ListCell.reuseIdentifier)
+        listView.separatorStyle = .none
+        
+        return listView
+    }()
+    private lazy var doingListView: ListView = {
+        let listView = ListView(state: .doing, frame: .zero, style: .plain)
+        listView.delegate = self
+        listView.dataSource = self
+        listView.register(ListCell.self,
+                           forCellReuseIdentifier: ListCell.reuseIdentifier)
+        listView.separatorStyle = .none
+        
+        return listView
+    }()
+    private lazy var doneListView: ListView = {
+        let listView = ListView(state: .done, frame: .zero, style: .plain)
+        listView.delegate = self
+        listView.dataSource = self
+        listView.register(ListCell.self,
+                           forCellReuseIdentifier: ListCell.reuseIdentifier)
+        listView.separatorStyle = .none
+        
+        return listView
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +71,7 @@ final class ListViewController: UIViewController {
         configureNavigationBar()
         configureViewHierarchy()
         configureLayoutConstraint()
+        configureHeaderView()
     }
 
     private func configureNavigationBar() {
@@ -43,15 +80,16 @@ final class ListViewController: UIViewController {
     }
 
     private func configureViewHierarchy() {
-        view.addSubview(stackView)
-        State.allCases.forEach { state in
-            let listView = ListView(state: state,
-                                    layout: createListLayout(),
-                                    frame: .zero)
-            listView.setDataSource(self)
-            listView.setDelegate(self)
-            stackView.addArrangedSubview(listView)
+        for (header, listView) in zip([toDoHeaderView, doingHeaderView, doneHeaderView],
+                                      [toDoListView, doingListView, doneListView]) {
+            let stackView = UIStackView(arrangedSubviews: [header, listView])
+            stackView.backgroundColor = Color.listBackground
+            stackView.axis = .vertical
+            stackView.alignment = .fill
+            stackView.distribution = .fill
+            self.stackView.addArrangedSubview(stackView)
         }
+        view.addSubview(stackView)
     }
 
     private func configureLayoutConstraint() {
@@ -73,6 +111,12 @@ final class ListViewController: UIViewController {
         planViewController.modalPresentationStyle = .formSheet
         present(planViewController, animated: true)
     }
+    
+    private func configureHeaderView() {
+        toDoHeaderView.setCount(number: viewModel?.fetchCount(of: .toDo))
+        doingHeaderView.setCount(number: viewModel?.fetchCount(of: .doing))
+        doneHeaderView.setCount(number: viewModel?.fetchCount(of: .done))
+    }
 
     private func addPlanAction() -> UIAction {
         let action = UIAction { _ in
@@ -87,28 +131,23 @@ final class ListViewController: UIViewController {
 
         return button
     }
-
-    private func createListLayout() -> UICollectionViewCompositionalLayout {
-        let config = UICollectionLayoutListConfiguration(appearance: .plain)
-        return UICollectionViewCompositionalLayout.list(using: config)
-    }
 }
 
-extension ListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension ListViewController: UITableViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let listCollectionView = collectionView as? ListCollectionView,
-              let count = viewModel?.fetchList(of: listCollectionView.state).count else {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let listView = tableView as? ListView,
+              let count = viewModel?.fetchCount(of: listView.state) else {
             return .zero
         }
 
         return count
     }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(cellType: ListCell.self, for: indexPath)
-        guard let listCollectionView = collectionView as? ListCollectionView,
-              let list = viewModel?.fetchList(of: listCollectionView.state) else {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(cellType: ListCell.self, for: indexPath)
+        guard let listView = tableView as? ListView,
+              let list = viewModel?.fetchList(of: listView.state) else {
                   return cell
               }
         let project = list[indexPath.item]
@@ -122,14 +161,6 @@ extension ListViewController: UICollectionViewDataSource, UICollectionViewDelega
 
         return cell
     }
-
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        switch kind {
-        case UICollectionView.elementKindSectionHeader:
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ListHeaderReusableView", for: indexPath)
-            return headerView
-        default:
-            preconditionFailure("footer는 지원하지 않습니다.")
-        }
-    }
 }
+
+extension ListViewController: UITableViewDelegate { }

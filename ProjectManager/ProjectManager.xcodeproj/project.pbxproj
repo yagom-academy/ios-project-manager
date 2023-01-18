@@ -23,10 +23,9 @@
 		BF8844F529766B92001C9459 /* DetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844F429766B92001C9459 /* DetailUseCase.swift */; };
 		BF8844F729766BB2001C9459 /* DefaultDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844F629766BB2001C9459 /* DefaultDetailUseCase.swift */; };
 		BF8844FD29767378001C9459 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844FC29767378001C9459 /* ProjectList.swift */; };
-		BF8845012976887D001C9459 /* ListHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8845002976887D001C9459 /* ListHeaderReusableView.swift */; };
-		BF88450329769C16001C9459 /* ListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450229769C16001C9459 /* ListCollectionView.swift */; };
-		BF88450529769D35001C9459 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450429769D35001C9459 /* ReusableCell.swift */; };
-		BF88450729769DA3001C9459 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450629769DA3001C9459 /* UICollectionView+.swift */; };
+		BF8845012976887D001C9459 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8845002976887D001C9459 /* ListHeaderView.swift */; };
+		BF88450529769D35001C9459 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450429769D35001C9459 /* Reusable.swift */; };
+		BF88450729769DA3001C9459 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450629769DA3001C9459 /* UITableView+.swift */; };
 		BF88450929769F52001C9459 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450829769F52001C9459 /* ListCell.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -52,10 +51,9 @@
 		BF8844F429766B92001C9459 /* DetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUseCase.swift; sourceTree = "<group>"; };
 		BF8844F629766BB2001C9459 /* DefaultDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDetailUseCase.swift; sourceTree = "<group>"; };
 		BF8844FC29767378001C9459 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
-		BF8845002976887D001C9459 /* ListHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderReusableView.swift; sourceTree = "<group>"; };
-		BF88450229769C16001C9459 /* ListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionView.swift; sourceTree = "<group>"; };
-		BF88450429769D35001C9459 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
-		BF88450629769DA3001C9459 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
+		BF8845002976887D001C9459 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
+		BF88450429769D35001C9459 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		BF88450629769DA3001C9459 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		BF88450829769F52001C9459 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,9 +90,8 @@
 			children = (
 				BF88447E2973CE46001C9459 /* ListView.swift */,
 				BF8844802973DBD2001C9459 /* CircleLabel.swift */,
-				BF8845002976887D001C9459 /* ListHeaderReusableView.swift */,
-				BF88450229769C16001C9459 /* ListCollectionView.swift */,
-				BF88450429769D35001C9459 /* ReusableCell.swift */,
+				BF8845002976887D001C9459 /* ListHeaderView.swift */,
+				BF88450429769D35001C9459 /* Reusable.swift */,
 				BF88450829769F52001C9459 /* ListCell.swift */,
 			);
 			path = View;
@@ -116,7 +113,7 @@
 				BF6CA754296EA27800F88564 /* Date+.swift */,
 				BF88446529704BD1001C9459 /* Array+.swift */,
 				BF8844822973EC0E001C9459 /* CGFloat+.swift */,
-				BF88450629769DA3001C9459 /* UICollectionView+.swift */,
+				BF88450629769DA3001C9459 /* UITableView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -376,16 +373,15 @@
 				BF8844F329766B53001C9459 /* DefaultListUseCase.swift in Sources */,
 				BF8844712972E080001C9459 /* ListViewModel.swift in Sources */,
 				BF88446629704BD1001C9459 /* Array+.swift in Sources */,
-				BF88450529769D35001C9459 /* ReusableCell.swift in Sources */,
+				BF88450529769D35001C9459 /* Reusable.swift in Sources */,
 				BF8844F129766B26001C9459 /* ListUseCase.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */,
 				BF8844832973EC0E001C9459 /* CGFloat+.swift in Sources */,
-				BF88450729769DA3001C9459 /* UICollectionView+.swift in Sources */,
+				BF88450729769DA3001C9459 /* UITableView+.swift in Sources */,
 				BF8844812973DBD2001C9459 /* CircleLabel.swift in Sources */,
-				BF88450329769C16001C9459 /* ListCollectionView.swift in Sources */,
 				BF88446C2972DFE7001C9459 /* Project.swift in Sources */,
 				BF88447F2973CE46001C9459 /* ListView.swift in Sources */,
-				BF8845012976887D001C9459 /* ListHeaderReusableView.swift in Sources */,
+				BF8845012976887D001C9459 /* ListHeaderView.swift in Sources */,
 				BF8844792973B4C1001C9459 /* PlanViewController.swift in Sources */,
 				BF8844FD29767378001C9459 /* ProjectList.swift in Sources */,
 				BF8844702972E080001C9459 /* ProjectViewModel.swift in Sources */,
