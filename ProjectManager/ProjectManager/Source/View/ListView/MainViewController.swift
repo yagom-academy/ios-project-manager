@@ -43,6 +43,7 @@ class MainViewController: UIViewController {
         view.backgroundColor = Constant.viewBackgroundColor
         configureNavigationBar()
         configureLayout()
+        configureTableViewDelegate()
         bindHandlers()
         updateAllCountLabels()
     }
@@ -73,6 +74,12 @@ class MainViewController: UIViewController {
             totalStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             totalStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+    }
+    
+    private func configureTableViewDelegate() {
+        [todoListStackView, doneListStackView, doingListStackView].forEach {
+            $0.listTableView.delegate = self
+        }
     }
     
     private func bindHandlers() {
@@ -164,7 +171,34 @@ extension MainViewController {
     }
 }
 
-//MARK: - ListFormViewControllerDelegate
+// MARK: - UITableViewDelegate
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(
+            style: .destructive,
+            title: Constant.swipeDelete
+        ) { _, _, _ in
+            guard let cell = tableView.cellForRow(at: indexPath) as? ListItemCell,
+                  let cellViewModel = cell.viewModel
+            else {
+                return
+            }
+            
+            self.mainViewModel.delete(at: indexPath.row, type: cellViewModel.listType)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+}
+
+// MARK: - ListFormViewControllerDelegate
 
 extension MainViewController: ListFormViewControllerDelegate {
     func addNewItem(_ listItem: ListItem) {
@@ -191,6 +225,8 @@ private enum Constant {
     static let moveToToDo = "Move to TODO"
     static let moveToDoing = "Move to DOING"
     static let moveToDone = "Move to DONE"
+    
+    static let swipeDelete = "Delete"
     
     static let viewBackgroundColor: UIColor = .init(cgColor: CGColor(
         red: 246,

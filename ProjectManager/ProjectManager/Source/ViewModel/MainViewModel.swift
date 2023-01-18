@@ -43,4 +43,8 @@ final class MainViewModel {
             totalListItems[newType.rawValue].append(item)
         }
     }
+    
+    func delete(at index: Int, type: ListType) {
+        totalListItems[type.rawValue].remove(at: index)
+    }
 }

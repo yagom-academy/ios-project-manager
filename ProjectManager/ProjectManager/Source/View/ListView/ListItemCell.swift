@@ -44,7 +44,7 @@ class ListItemCell: UITableViewCell {
         return view
     }()
     
-    private var viewModel: ListItemCellViewModel?
+    var viewModel: ListItemCellViewModel?
     var delegate: MenuPresentable?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
