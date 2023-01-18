@@ -74,8 +74,6 @@ class CustomPopUpView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         textField.backgroundColor = .white
-        textField.text = "Title"
-        textField.textColor = .lightGray
         textField.font = .preferredFont(forTextStyle: .title3, compatibleWith: .none)
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
@@ -98,8 +96,7 @@ class CustomPopUpView: UIView {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.setContentHuggingPriority(.defaultLow, for: .vertical)
         textView.backgroundColor = .white
-        textView.text = "내용을 입력해주세요. (1000자 제한)"
-        textView.textColor = .lightGray
+        
         textView.font = .preferredFont(forTextStyle: .title3, compatibleWith: .none)
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
         textView.clipsToBounds = false
@@ -163,18 +160,31 @@ class CustomPopUpView: UIView {
     
     func checkDataAccess(mode: DataManagementMode) {
         switch mode {
-        case .create, .edit:
-            titleTextField.isUserInteractionEnabled = true
-            bodyTextView.isEditable = true
-            datePicker.isUserInteractionEnabled = true
+        case .create:
+            configureText()
+            configureUserInteraction(enable: true)
+        case .edit:
+            configureUserInteraction(enable: true)
         case .read:
-            titleTextField.isUserInteractionEnabled = false
-            bodyTextView.isEditable = false
-            datePicker.isUserInteractionEnabled = false
+            configureUserInteraction(enable: false)
         }
     }
     
     // MARK: Private Methods
+    
+    private func configureUserInteraction(enable: Bool) {
+        titleTextField.isUserInteractionEnabled = enable
+        bodyTextView.isUserInteractionEnabled = enable
+        datePicker.isUserInteractionEnabled = enable
+    }
+    
+    private func configureText() {
+        titleTextField.text = "Title"
+        titleTextField.textColor = .lightGray
+        
+        bodyTextView.text = "내용을 입력해주세요. (1000자 제한)"
+        bodyTextView.textColor = .lightGray
+    }
     
     private func setUpTopBarStackView() {
         if titleTextField.text == "Title",

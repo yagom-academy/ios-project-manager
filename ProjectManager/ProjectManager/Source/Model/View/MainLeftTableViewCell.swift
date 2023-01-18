@@ -71,7 +71,7 @@ class MainLeftTableViewCell: UITableViewCell {
     // MARK: Private Methods
     
     private func checkDate(deadline: Double) {
-        if Date().timeIntervalSince1970 - 86400 > deadline {
+        if Date().timeIntervalSince1970 > deadline {
             dateLabel.textColor = .systemRed
         }
     }
