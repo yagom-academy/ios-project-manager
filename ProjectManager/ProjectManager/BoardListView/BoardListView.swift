@@ -26,25 +26,25 @@ struct BoardListView: View {
               state: \.projects,
               action: BoardListStore.Action.projectItem(id:action:)
             )
-          ) { cellStore in
-            WithViewStore(cellStore) { cellViewStore in
-              BoardListCell(store: cellStore)
+          ) { listCellStore in
+            WithViewStore(listCellStore) { cellStore in
+              BoardListCell(store: listCellStore)
                 .onTapGesture {
-                  cellViewStore.send(.didSelectedEdit)
-                  viewStore.send(.touchListItem)
+                  cellStore.send(.didSelectedEdit(true))
                 }
-                .sheet(isPresented: viewStore.binding(\.$isSelected)) {
-                  
-                  IfLetStore(
-                    cellStore.scope(
-                      state: \.detailState,
-                      action: BoardListCellStore.Action.optionalDetailState
-                    )
-                  ) { detailStore in
-                    ProjectDetailView(store: detailStore)
+                .sheet(
+                  isPresented: .constant(cellStore.isSelected),
+                  onDismiss: { cellStore.send(.didSelectedEdit(false)) }
+                ) {
+                  IfLetStore(listCellStore.scope(
+                    state: \.detailState,
+                    action: BoardListCellStore.Action.optionalDetailState
+                  )) { detailState in
+                    ProjectDetailView(store: detailState)
                   }
                 }
             }
+
           }
           .onDelete { viewStore.send(.deleteProject($0)) }
           .menuStyle(.borderlessButton)
@@ -78,3 +78,20 @@ struct BoardListView_Previews: PreviewProvider {
       .padding()
   }
 }
+
+
+//                IfLetStore(
+//                  self.boardListStore.scope(
+//                    state: \.selectedListCellState,
+//                    action: BoardListStore.Action.optionalCellState
+//                  )
+//                ) { cellStore in
+////                  IfLetStore(
+////                    cellStore.scope(
+////                      state: \.detailState,
+////                      action: BoardListCellStore.Action.optionalDetailState
+////                    )
+////                  ) { detailStore in
+////                    ProjectDetailView(store: detailStore)
+////                  }
+//                }

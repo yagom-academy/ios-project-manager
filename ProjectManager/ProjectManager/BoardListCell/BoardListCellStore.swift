@@ -9,6 +9,8 @@ import ComposableArchitecture
 
 struct BoardListCellStore: ReducerProtocol {
   struct State: Equatable, Identifiable {
+    var status: ProjectState
+    var isSelected: Bool = false
     let id: UUID
     var project: Project
     var detailState: DetailViewStore.State?
@@ -16,7 +18,7 @@ struct BoardListCellStore: ReducerProtocol {
   
   enum Action: Equatable {
     case didChangeState(ProjectState)
-    case didSelectedEdit
+    case didSelectedEdit(Bool)
     case optionalDetailState(DetailViewStore.Action)
   }
   
@@ -26,7 +28,8 @@ struct BoardListCellStore: ReducerProtocol {
       case .didChangeState:
         return .none
         
-      case .didSelectedEdit:
+      case .didSelectedEdit(true):
+        state.isSelected = true
         state.detailState = DetailViewStore.State(
           title: state.project.title,
           description: state.project.description,
@@ -34,7 +37,13 @@ struct BoardListCellStore: ReducerProtocol {
         )
         return .none
         
+      case .didSelectedEdit(false):
+        state.isSelected = false
+        state.detailState = nil
+        return .none
+        
       case .optionalDetailState(.didTapCancelButton):
+        state.isSelected = false
         return .none
         
       case .optionalDetailState(.binding):
@@ -47,6 +56,8 @@ struct BoardListCellStore: ReducerProtocol {
         state.project.title = detail.title
         state.project.date = Int(detail.deadLineDate.timeIntervalSince1970)
         state.project.description = detail.description
+        
+        state.isSelected = false
         
         return .none
       }

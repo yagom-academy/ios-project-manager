@@ -52,13 +52,13 @@ struct BoardStore: ReducerProtocol {
           return .moveToDatas(datas: datas)
         }
         
-      case .todo(.binding), .todo(.optionalHeader), .todo(.deleteProject):
+      case .todo(.optionalHeader), .todo(.deleteProject):
         return .none
         
-      case .doing(.binding), .doing(.optionalHeader), .doing(.deleteProject):
+      case .doing(.optionalHeader), .doing(.deleteProject):
         return .none
         
-      case .done(.binding), .done(.optionalHeader), .done(.deleteProject):
+      case .done(.optionalHeader), .done(.deleteProject):
         return .none
         
       case let .moveToDatas(datas):

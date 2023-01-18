@@ -47,7 +47,7 @@ struct AppStore: ReducerProtocol {
         guard let createdProject = state.navigationState.createdProject else {
           return .none
         }
-        let cellState = BoardListCellStore.State(id: UUID(), project: createdProject)
+        let cellState = BoardListCellStore.State(status: .todo, id: UUID(), project: createdProject)
         state.boardState.todoState.projects.updateOrAppend(cellState)
         return .none
         

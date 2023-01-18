@@ -33,7 +33,6 @@ struct BoardListCell: View {
       .background(Color.secondaryBackground)
       .cornerRadius(20)
       .contextMenu {
-        // TODO: - 이동 메서드 추가
         Button("Move to Doing") {
           viewStore.send(.didChangeState(.doing))
         }
@@ -48,7 +47,7 @@ struct BoardListCell: View {
 
 struct BoardListCell_Previews:PreviewProvider {
   static let listCellStore = Store(
-    initialState: BoardListCellStore.State(id: UUID(), project: Project(title: "Example", date: 8000000000, description: "ExampleExampleExampleExampleExampleExampleExampleExample"), detailState: nil),
+    initialState: BoardListCellStore.State(status: .todo, id: UUID(), project: Project(title: "Example", date: 8000000000, description: "ExampleExampleExampleExampleExampleExampleExampleExample"), detailState: nil),
     reducer: BoardListCellStore()
   )
   static var previews: some View {
