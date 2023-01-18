@@ -11,6 +11,7 @@
 		B208DD67297694AA0001DF90 /* Date +.swift in Sources */ = {isa = PBXBuildFile; fileRef = B208DD66297694AA0001DF90 /* Date +.swift */; };
 		B208DD69297695270001DF90 /* DateFormatter +.swift in Sources */ = {isa = PBXBuildFile; fileRef = B208DD68297695270001DF90 /* DateFormatter +.swift */; };
 		B208DD6C2976DD2B0001DF90 /* ListFormViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B208DD6B2976DD2B0001DF90 /* ListFormViewControllerDelegate.swift */; };
+		B208DD6E2976FCA00001DF90 /* MenuPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B208DD6D2976FCA00001DF90 /* MenuPresentable.swift */; };
 		B21D61CB296D5B8B00D55168 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B21D61CA296D5B8B00D55168 /* .swiftlint.yml */; };
 		B21D61D0296D6B4C00D55168 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B21D61CF296D6B4C00D55168 /* FirebaseFirestore */; };
 		B21D61D2296D6B4C00D55168 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B21D61D1296D6B4C00D55168 /* FirebaseFirestoreSwift */; };
@@ -37,6 +38,7 @@
 		B208DD66297694AA0001DF90 /* Date +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date +.swift"; sourceTree = "<group>"; };
 		B208DD68297695270001DF90 /* DateFormatter +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter +.swift"; sourceTree = "<group>"; };
 		B208DD6B2976DD2B0001DF90 /* ListFormViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFormViewControllerDelegate.swift; sourceTree = "<group>"; };
+		B208DD6D2976FCA00001DF90 /* MenuPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresentable.swift; sourceTree = "<group>"; };
 		B21D61CA296D5B8B00D55168 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		B235A98A29729B80008A25A6 /* EllipseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseLabel.swift; sourceTree = "<group>"; };
 		B235A98C2973D5CE008A25A6 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				B208DD6B2976DD2B0001DF90 /* ListFormViewControllerDelegate.swift */,
+				B208DD6D2976FCA00001DF90 /* MenuPresentable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				B235A98D2973D5CE008A25A6 /* ListItem.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				B208DD6E2976FCA00001DF90 /* MenuPresentable.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				B208DD67297694AA0001DF90 /* Date +.swift in Sources */,
 				B235A98B29729B80008A25A6 /* EllipseLabel.swift in Sources */,
