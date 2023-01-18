@@ -19,6 +19,7 @@
 		DF5CAE69296D52B900398676 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF5CAE68296D52B900398676 /* RxSwift */; };
 		DF5CAE6C296E4C7300398676 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DF5CAE6B296E4C7300398676 /* FirebaseFirestore */; };
 		DF5CAE6E296E4C7300398676 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF5CAE6D296E4C7300398676 /* FirebaseFirestoreSwift */; };
+		DFCA283F2977C3BC00C1EBF2 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF46828E2977977700E3BC06 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
+		DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+				DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				DFCA283F2977C3BC00C1EBF2 /* TaskCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
