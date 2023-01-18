@@ -67,7 +67,7 @@ class ToDoListView: UIView {
         snapshot.appendSections([.main])
         snapshot.appendItems([ToDo(title: "1번째", body: "바디", deadline: Date(), state: .toDo)])
         snapshot.appendItems([ToDo(title: "2번째", body: "바디", deadline: Date(), state: .toDo)])
-
+        
         dataSource.apply(snapshot)
     }
 }
@@ -75,7 +75,7 @@ class ToDoListView: UIView {
 extension ToDoListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = ToDoHeaderView(status: self.status)
-
+        
         return headerView
     }
 }

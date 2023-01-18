@@ -16,13 +16,13 @@ class MainViewController: UIViewController {
     
     private let doingTableView: ToDoListView = {
         let tableView = ToDoListView(status: .doing)
-
+        
         return tableView
     }()
     
     private let doneTableView: ToDoListView = {
         let tableView = ToDoListView(status: .done)
- 
+        
         return tableView
     }()
     
