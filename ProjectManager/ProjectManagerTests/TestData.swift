@@ -20,4 +20,10 @@ enum TestData {
         content: "이것은 2번 TestData Content 입니다.",
         deadLine: Date()
     )
+
+    static let oldData = Todo(
+        title: "오래된 Test Data",
+        content: "이것은 오래된 TestData Content 입니다.",
+        deadLine: Date(timeIntervalSince1970: 10000)
+    )
 }

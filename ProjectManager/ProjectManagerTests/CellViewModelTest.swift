@@ -6,14 +6,23 @@
 //
 
 import XCTest
+@testable import ProjectManager
 
 final class CellViewModelTest: XCTestCase {
+    var sut: CellViewModel!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        try super.setUpWithError()
+        sut = CellViewModel(data: TestData.oldData)
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        try super.tearDownWithError()
+        sut = nil
+    }
+
+    func test_check_DeadLine() {
+        // output : 마감기한이 지났다면 True
+        XCTAssertTrue(sut.checkOverDeadLine())
     }
 }
