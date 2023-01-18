@@ -7,18 +7,19 @@
 import Foundation
 
 final class ListFormViewModel {
-    private var listItem: ListItem
-    private var listType: ListType
+    let index: Int
+    private(set) var listItem: ListItem
+    private(set) var listType: ListType
     private var isEditable: Bool = false {
         didSet {
             editHandler?(isEditable)
         }
     }
     
-    private var handler: ((ListItem) -> Void)?
     private var editHandler: ((Bool) -> Void)?
     
-    init(listItem: ListItem, listType: ListType) {
+    init(index: Int, listItem: ListItem, listType: ListType) {
+        self.index = index
         self.listItem = listItem
         self.listType = listType
     }

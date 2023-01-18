@@ -175,6 +175,25 @@ extension MainViewController {
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let cell = tableView.cellForRow(at: indexPath) as? ListItemCell,
+              let cellViewModel = cell.viewModel else { return }
+        
+        let formViewModel = ListFormViewModel(
+            index: indexPath.row,
+            listItem: cellViewModel.currentItem,
+            listType: cellViewModel.listType
+        )
+        let viewController = ListFormViewController(formViewModel: formViewModel)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        
+        viewController.delegate = self
+        navigationController.modalPresentationStyle = .formSheet
+        navigationController.preferredContentSize = .init(
+            width: view.frame.width * 0.5,
+            height: view.frame.height * 0.7
+        )
+        present(navigationController, animated: true)
     }
     
     func tableView(
@@ -203,6 +222,10 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: ListFormViewControllerDelegate {
     func addNewItem(_ listItem: ListItem) {
         mainViewModel.appendTodoList(item: listItem)
+    }
+    
+    func ediItem(of type: ListType, at index: Int, title: String, body: String, dueDate: Date) {
+        mainViewModel.editItem(of: type, at: index, title: title, body: body, dueDate: dueDate)
     }
 }
 
