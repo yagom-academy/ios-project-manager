@@ -21,9 +21,7 @@ final class CreateTaskUseCase {
     }
     
     func addTask(_ task: Task) {
-        guard let entity = translater.toEntity(with: task) else {
-            return isCreatedSuccess.onNext(false)
-        }
+        let entity = translater.toEntity(with: task)
         
         repository.create(entity)
             .subscribe(onNext: { [weak self] isSuccess in

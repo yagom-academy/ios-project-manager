@@ -21,9 +21,7 @@ final class DeleteTaskUseCase {
     }
 
     func deleteTask(_ task: Task) {
-        guard let entity = translater.toEntity(with: task) else {
-            return isDeletedSuccess.onNext(false)
-        }
+        let entity = translater.toEntity(with: task)
 
         repository.delete(entity)
             .subscribe(onNext: { [weak self] isSuccess in

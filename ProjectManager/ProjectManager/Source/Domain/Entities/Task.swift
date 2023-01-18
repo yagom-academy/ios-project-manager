@@ -9,7 +9,7 @@ struct Task {
     let id: String
     var title: String
     var content: String
-    var deadLine: String
+    var deadLine: Double
     var state: State
     var isExpired: Bool
     

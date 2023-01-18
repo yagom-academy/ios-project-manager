@@ -19,11 +19,9 @@ final class FetchTasksUseCase {
     
     func fetchTasks() {
         taskRepository.fetchAllTaskList()
-            .subscribe(onNext: { [weak self] taskEntities in
-                let translater = Translater()
-                self?.tasks.onNext(
-                    taskEntities.compactMap(translater.toDomain)
-                )
+            .map { $0.compactMap(Translater().toDomain) }
+            .subscribe(onNext: { [weak self] tasks in
+                self?.tasks.onNext(tasks)
             })
             .disposed(by: disposeBag)
     }

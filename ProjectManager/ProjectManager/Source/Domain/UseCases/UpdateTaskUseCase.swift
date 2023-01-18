@@ -21,9 +21,7 @@ final class UpdateTaskUseCase {
     }
 
     func update(_ task: Task) {
-        guard let entity = translater.toEntity(with: task) else {
-            return isUpdatedSuccess.onNext(false)
-        }
+        let entity = translater.toEntity(with: task)
 
         repository.update(entity)
             .subscribe(onNext: { [weak self] isSuccess in

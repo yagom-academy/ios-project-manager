@@ -56,7 +56,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
         createUseCaseStub.addTask(Task(id: "TestCase",
                                        title: "Test",
                                        content: "Test",
-                                       deadLine: "Jan 20, 2023",
+                                       deadLine: 1674140400,
                                        state: .toDo,
                                        isExpired: false))
         

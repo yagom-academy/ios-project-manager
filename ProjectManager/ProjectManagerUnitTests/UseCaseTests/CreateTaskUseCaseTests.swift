@@ -39,23 +39,7 @@ final class CreateTaskUseCaseTests: XCTestCase {
             id: UUID().uuidString,
             title: "제목제목제목",
             content: "내용내용내용",
-            deadLine: "Jan 20, 2023",
-            state: .toDo,
-            isExpired: true
-        ))
-    }
-    
-    func test_create_failure() {
-        usecase.isCreatedSuccess
-            .subscribe(onNext: { isSuccess in
-                XCTAssertFalse(isSuccess)
-            }).disposed(by: dispose)
-        
-        usecase.addTask(Task(
-            id: UUID().uuidString,
-            title: "제목제목제목",
-            content: "내용내용내용",
-            deadLine: "Jan 54, 2023",
+            deadLine: 1674148800,
             state: .toDo,
             isExpired: true
         ))

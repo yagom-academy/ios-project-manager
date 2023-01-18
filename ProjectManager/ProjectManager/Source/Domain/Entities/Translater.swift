@@ -17,7 +17,7 @@ struct Translater {
             id: entity.id,
             title: entity.title,
             content: entity.content,
-            deadLine: entity.deadLine.toDateString,
+            deadLine: entity.deadLine,
             state: state,
             isExpired: (entity.deadLine > Date().timeIntervalSince1970)
         )
@@ -25,16 +25,12 @@ struct Translater {
         return task
     }
     
-    func toEntity(with task: Task) -> TaskEntity? {
-        guard let deadLine = task.deadLine.toDate?.timeIntervalSince1970 else {
-            return nil
-        }
-        
+    func toEntity(with task: Task) -> TaskEntity {
         let entity = TaskEntity(
             id: task.id,
             title: task.title,
             content: task.content,
-            deadLine: deadLine,
+            deadLine: task.deadLine,
             state: task.state.rawValue
         )
         

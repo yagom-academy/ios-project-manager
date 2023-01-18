@@ -36,7 +36,7 @@ final class UpdateTaskUseCaseTests: XCTestCase {
             id: "1",
             title: "RxSwift 추가할까?",
             content: "제곧내는 뭔데?",
-            deadLine: "January 10, 2023",
+            deadLine: 1674140700,
             state: .done,
             isExpired: false
         )
@@ -83,9 +83,9 @@ final class UpdateTaskUseCaseTests: XCTestCase {
             id: "noID",
             title: "RxSwift 추가",
             content: "제곧내",
-            deadLine: "Jan 10, 2023",
-            state: .done,
-            isExpired: false
+            deadLine: 1674140400, // 2023년
+            state: .toDo,
+            isExpired: true
         )
         
         usecase.isUpdatedSuccess
