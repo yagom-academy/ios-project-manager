@@ -80,9 +80,13 @@ class AddViewController: UIViewController {
     @objc
     private func didTapDoneButton() {
         switch dataManagementMode {
-        case .create, .edit:
+        case .create:
             if let userInputData: ProjectData = customPopUpView.saveProjectData() {
                 delegate?.sendData(with: userInputData, mode: .create)
+            }
+        case . edit:
+            if let userInputData: ProjectData = customPopUpView.saveProjectData() {
+                delegate?.sendData(with: userInputData, mode: .edit)
             }
         case .read:
             break

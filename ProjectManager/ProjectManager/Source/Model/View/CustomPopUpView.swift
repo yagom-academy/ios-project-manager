@@ -122,7 +122,7 @@ class CustomPopUpView: UIView {
     // MARK: Internal Methods
     
     func saveProjectData() -> ProjectData? {
-        checkTextField()
+        checkTextFieldDefaultValue()
         
         if let title = titleTextField.text,
            let body = bodyTextView.text {
@@ -140,21 +140,6 @@ class CustomPopUpView: UIView {
         }
         
         return nil
-    }
-    
-    func checkTextField() {
-        if let title = titleTextField.text,
-           let body = bodyTextView.text {
-            if title == NameSpace.defaultTitleLabel,
-               body == NameSpace.defaultBodyLabel {
-                titleTextField.text = String()
-                bodyTextView.text = String()
-            } else if title == NameSpace.defaultTitleLabel {
-                titleTextField.text = NameSpace.emptyTitleLabel
-            } else if body == NameSpace.defaultBodyLabel {
-                bodyTextView.text = NameSpace.emptyBodyLabel
-            }
-        }
     }
     
     func showProjectData(with projectData: ProjectData) {
@@ -175,6 +160,25 @@ class CustomPopUpView: UIView {
     }
     
     // MARK: Private Methods
+    
+    private func checkTextFieldDefaultValue() {
+        if let title = titleTextField.text,
+           let body = bodyTextView.text {
+            if title == NameSpace.defaultTitleLabel,
+               body == NameSpace.defaultBodyLabel {
+                titleTextField.text = String()
+                bodyTextView.text = String()
+            } else if title == NameSpace.defaultTitleLabel
+                        || title == NameSpace.emptyTitleLabel
+                        || title.isEmpty {
+                titleTextField.text = NameSpace.emptyTitleLabel
+            } else if body == NameSpace.defaultBodyLabel
+                        || body == NameSpace.emptyBodyLabel
+                        || body.isEmpty {
+                bodyTextView.text = NameSpace.emptyBodyLabel
+            }
+        }
+    }
     
     private func configureUserInteraction(enable: Bool) {
         titleTextField.isUserInteractionEnabled = enable
@@ -264,7 +268,8 @@ extension CustomPopUpView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case titleTextField:
-            if titleTextField.textColor == .lightGray {
+            if titleTextField.textColor == .lightGray
+                || titleTextField.text == NameSpace.emptyTitleLabel {
                 titleTextField.text = nil
                 titleTextField.textColor = UIColor.black
             }
@@ -310,7 +315,8 @@ extension CustomPopUpView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         switch textView {
         case bodyTextView:
-            if bodyTextView.textColor == .lightGray {
+            if bodyTextView.textColor == .lightGray
+                || bodyTextView.text == NameSpace.emptyBodyLabel {
                 bodyTextView.text = nil
                 bodyTextView.textColor = UIColor.black
             }
