@@ -33,11 +33,7 @@ class MainViewController: UIViewController {
     private lazy var doingListDataSource = configureDataSource(of: .doing)
     private lazy var doneListDataSource = configureDataSource(of: .done)
     
-    private var listItems: [[ListItem]] = [[], [], []] {
-        didSet {
-            ListType.allCases.forEach { configureSnapShot(of: $0) }
-        }
-    }
+    private var mainViewModel: MainViewModel = .init()
     
     // MARK: Life Cycle
     
@@ -47,8 +43,8 @@ class MainViewController: UIViewController {
         view.backgroundColor = Constant.viewBackgroundColor
         configureNavigationBar()
         configureLayout()
-        configureCountLabel()
-        ListType.allCases.forEach { configureSnapShot(of: $0) }
+        bindHandlers()
+        updateAllCountLabels()
     }
     
     // MARK: Private Methods
@@ -79,10 +75,27 @@ class MainViewController: UIViewController {
         ])
     }
     
-    private func configureCountLabel() {
-        todoListStackView.fetchListCount(listItems[0].count)
-        doingListStackView.fetchListCount(listItems[1].count)
-        doneListStackView.fetchListCount(listItems[2].count)
+    private func bindHandlers() {
+        mainViewModel.bindTodo { [weak self] todoListItems in
+            self?.configureSnapShot(of: .todo, listItems: todoListItems)
+            self?.todoListStackView.updateCountLabel(todoListItems.count)
+        }
+        
+        mainViewModel.bindDoing { [weak self] doingListItems in
+            self?.configureSnapShot(of: .doing, listItems: doingListItems)
+            self?.doingListStackView.updateCountLabel(doingListItems.count)
+        }
+        
+        mainViewModel.bindDone { [weak self] doneListItems in
+            self?.configureSnapShot(of: .done, listItems: doneListItems)
+            self?.doneListStackView.updateCountLabel(doneListItems.count)
+        }
+    }
+    
+    private func updateAllCountLabels() {
+        [todoListStackView, doingListStackView, doneListStackView].forEach {
+            $0.updateCountLabel(.zero)
+        }
     }
     
     @objc func addListItem() {
@@ -122,8 +135,7 @@ extension MainViewController {
                 return UITableViewCell()
             }
             
-            let item = self.listItems[type.rawValue][indexPath.row]
-            let listItemCellViewModel = ListItemCellViewModel(listItem: item, listType: .todo)
+            let listItemCellViewModel = ListItemCellViewModel(listItem: item, listType: type)
             
             cell.bind(listItemCellViewModel)
             cell.update(item)
@@ -135,11 +147,11 @@ extension MainViewController {
         return dataSource
     }
     
-    private func configureSnapShot(of type: ListType) {
+    private func configureSnapShot(of type: ListType, listItems: [ListItem]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, ListItem>()
         
         snapShot.appendSections([.main])
-        snapShot.appendItems(listItems[type.rawValue])
+        snapShot.appendItems(listItems)
         
         switch type {
         case .todo:
@@ -154,7 +166,7 @@ extension MainViewController {
 
 extension MainViewController: ListFormViewControllerDelegate {
     func addNewItem(_ listItem: ListItem) {
-        listItems[0].append(listItem)
+        mainViewModel.appendTodoList(item: listItem)
     }
 }
 
