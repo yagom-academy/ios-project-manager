@@ -8,7 +8,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class ProjectManagerViewController: UIViewController, UITableViewDelegate {
+final class ProjectManagerViewController: UIViewController {
+    
+    // MARK: View Initialization
     
     var todoTableView: UITableView = {
         let table = UITableView()
@@ -71,8 +73,12 @@ final class ProjectManagerViewController: UIViewController, UITableViewDelegate 
         return stack
     }()
     
+    // MARK: ViewModel
+    
     let viewModel = ProjectManagerViewModel()
     let disposeBag = DisposeBag()
+    
+    // MARK: ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,31 +88,35 @@ final class ProjectManagerViewController: UIViewController, UITableViewDelegate 
         combineViews()
         bindViewModel()
     }
-    
-    func combineViews() {
-        todoStackView.addArrangedSubview(todoStatusView)
-        todoStackView.addArrangedSubview(todoTableView)
-        
-        doingStackView.addArrangedSubview(doingStatusView)
-        doingStackView.addArrangedSubview(doingTableView)
-        
-        doneStackView.addArrangedSubview(doneStatusView)
-        doneStackView.addArrangedSubview(doneTableView)
-        
-        wholeStackView.addArrangedSubview(todoStackView)
-        wholeStackView.addArrangedSubview(doingStackView)
-        wholeStackView.addArrangedSubview(doneStackView)
-        
-        self.view.addSubview(wholeStackView)
-        
-        NSLayoutConstraint.activate([
-            wholeStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            wholeStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            wholeStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            wholeStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        ])
+}
+
+// MARK: Fnctions
+
+extension ProjectManagerViewController {
+    private func configureNavigationController() {
+        if let navigationController = self.navigationController {
+            let navigationBar = navigationController.navigationBar
+            navigationBar.backgroundColor = UIColor.systemGray
+            let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
+                                                 action: #selector(tapNavigationAddButton))
+            navigationController.title = "Project Manager"
+            navigationItem.rightBarButtonItem = rightAddButton
+        }
     }
     
+    private func configureView() {
+        self.view.backgroundColor = UIColor.systemGray3
+    }
+    
+    @objc
+    private func tapNavigationAddButton() {
+        // TODO: Add some action
+    }
+}
+
+// MARK: TableView Delegate
+
+extension ProjectManagerViewController: UITableViewDelegate {
     func bindViewModel() {
         todoTableView.rx.setDelegate(self).disposed(by: disposeBag)
         viewModel.subject
@@ -150,25 +160,33 @@ final class ProjectManagerViewController: UIViewController, UITableViewDelegate 
             }
             .disposed(by: disposeBag)
     }
-    
-    private func configureNavigationController() {
-        if let navigationController = self.navigationController {
-            let navigationBar = navigationController.navigationBar
-            navigationBar.backgroundColor = UIColor.systemGray
-            let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
-                                                 action: #selector(tapNavigationAddButton))
-            navigationController.title = "Project Manager"
-            navigationItem.rightBarButtonItem = rightAddButton
-        }
-    }
-    
-    private func configureView() {
-        self.view.backgroundColor = UIColor.systemGray3
-    }
-    
-    @objc
-    private func tapNavigationAddButton() {
-        // TODO: Add some action
+}
+
+// MARK: Layout
+
+extension ProjectManagerViewController {
+    private func combineViews() {
+        todoStackView.addArrangedSubview(todoStatusView)
+        todoStackView.addArrangedSubview(todoTableView)
+        
+        doingStackView.addArrangedSubview(doingStatusView)
+        doingStackView.addArrangedSubview(doingTableView)
+        
+        doneStackView.addArrangedSubview(doneStatusView)
+        doneStackView.addArrangedSubview(doneTableView)
+        
+        wholeStackView.addArrangedSubview(todoStackView)
+        wholeStackView.addArrangedSubview(doingStackView)
+        wholeStackView.addArrangedSubview(doneStackView)
+        
+        self.view.addSubview(wholeStackView)
+        
+        NSLayoutConstraint.activate([
+            wholeStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            wholeStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            wholeStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            wholeStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ])
     }
 }
 
