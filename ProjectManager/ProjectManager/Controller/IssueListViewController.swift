@@ -8,13 +8,13 @@
 import UIKit
 
 final class IssueListViewController: UIViewController {
-    var status: Status
-    var issueCount: Int = .zero
-    var issues: [Issue] = []
-    var delegate: IssueDeliverable
-    var dataSource: UICollectionViewDiffableDataSource<Section, Issue>?
+    private var status: Status
+    private var issueCount: Int = .zero
+    private var issues: [Issue] = []
+    private var delegate: IssueDeliverable
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Issue>?
     
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = LayoutConstant.spacing
@@ -28,8 +28,8 @@ final class IssueListViewController: UIViewController {
         return stack
     }()
     
-    var headerView: HeaderView?
-    var collectionView: UICollectionView?
+    private var headerView: HeaderView?
+    private var collectionView: UICollectionView?
     
     init(frame: CGRect = .zero, status: Status, delegate: IssueDeliverable) {
         self.status = status
@@ -219,8 +219,7 @@ extension IssueListViewController: IssueManageable {
         guard let issue = issue,
               let index = issues.firstIndex(where: {$0.id == issue.id}) else { return }
         
-        issues.remove(at: index)
-        issues.append(issue)
+        issues[index] = issue
         applySnapshot()
     }
 }
