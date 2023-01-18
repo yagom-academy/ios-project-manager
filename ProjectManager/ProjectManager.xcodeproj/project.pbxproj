@@ -16,6 +16,8 @@
 		B43D8D412976E9CD00986169 /* ItemCountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43D8D402976E9CD00986169 /* ItemCountLabel.swift */; };
 		B481F9F62977986D00597E8C /* EditToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9F52977986D00597E8C /* EditToDoViewController.swift */; };
 		B481F9F82977D18D00597E8C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B481F9F72977D18D00597E8C /* .swiftlint.yml */; };
+		B481F9FB2977DB0800597E8C /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */; };
+		B481F9FF29782AD200597E8C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9FE29782AD200597E8C /* Observable.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -33,6 +35,8 @@
 		B43D8D402976E9CD00986169 /* ItemCountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCountLabel.swift; sourceTree = "<group>"; };
 		B481F9F52977986D00597E8C /* EditToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToDoViewController.swift; sourceTree = "<group>"; };
 		B481F9F72977D18D00597E8C /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
+		B481F9FE29782AD200597E8C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,9 +63,10 @@
 				B43D8D3D29765F8A00986169 /* Protocol */,
 				B4200E4529717B60000E2B8B /* Enum */,
 				B4200E40297175A0000E2B8B /* App */,
-				B4200E41297175AD000E2B8B /* ViewController */,
-				B43D8D3629757EA500986169 /* View */,
 				B4200E42297178EE000E2B8B /* Model */,
+				B43D8D3629757EA500986169 /* View */,
+				B4200E41297175AD000E2B8B /* ViewController */,
+				B481F9F92977DAC400597E8C /* ViewModel */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -126,6 +131,15 @@
 				B43D8D3E29765FAB00986169 /* ReusableView.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		B481F9F92977DAC400597E8C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */,
+				B481F9FE29782AD200597E8C /* Observable.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -248,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B481F9FB2977DB0800597E8C /* ToDoListViewModel.swift in Sources */,
 				B43D8D3F29765FAB00986169 /* ReusableView.swift in Sources */,
 				B43D8D3829757EF400986169 /* ToDoListView.swift in Sources */,
 				B481F9F62977986D00597E8C /* EditToDoViewController.swift in Sources */,
@@ -257,6 +272,7 @@
 				B43D8D412976E9CD00986169 /* ItemCountLabel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				B481F9FF29782AD200597E8C /* Observable.swift in Sources */,
 				B4200E4429717911000E2B8B /* ToDo.swift in Sources */,
 				B43D8D3C29765F3E00986169 /* ToDoCell.swift in Sources */,
 			);
