@@ -17,6 +17,12 @@ class CustomPopUpView: UIView {
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
+    let cancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Cancel", for: .normal)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        return button
+    }()
     let doneButton: UIButton = {
         let button = UIButton()
         button.setTitle("Done", for: .normal)
@@ -140,8 +146,8 @@ class CustomPopUpView: UIView {
         if let title = titleTextField.text,
            let body = bodyTextView.text {
             if title == "Title" && body == "내용을 입력해주세요. (1000자 제한)" {
-                titleTextField.text = ""
-                bodyTextView.text = ""
+                titleTextField.text = String()
+                bodyTextView.text = String()
             } else if title == "Title" {
                 titleTextField.text = "[제목없음]"
             } else if body == "내용을 입력해주세요. (1000자 제한)" {
@@ -158,7 +164,12 @@ class CustomPopUpView: UIView {
     // MARK: Private Methods
     
     private func setUpTopBarStackView() {
-        topBarStackView.addArrangedSubview(editButton)
+        if titleTextField.text == "Title",
+           bodyTextView.text == "내용을 입력해주세요. (1000자 제한)" {
+            topBarStackView.addArrangedSubview(cancelButton)
+        } else {
+            topBarStackView.addArrangedSubview(editButton)
+        }
         topBarStackView.addArrangedSubview(stateLabel)
         topBarStackView.addArrangedSubview(doneButton)
     }

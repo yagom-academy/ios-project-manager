@@ -16,13 +16,13 @@ class AddViewController: UIViewController {
     private let customPopUpView = CustomPopUpView()
     
     // MARK: Life Cycle
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view = customPopUpView
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        setUpDoneButton()
+        configureButtonAction()
         if let savedData = savedData {
             customPopUpView.showProjectData(with: savedData)
         }
@@ -30,10 +30,32 @@ class AddViewController: UIViewController {
     
     // MARK: Private Methods
     
-    func setUpDoneButton() {
+    private func configureButtonAction() {
+        setUpDoneButton()
+        setUpEditButton()
+        setUpCancelButton()
+    }
+    
+    private func setUpDoneButton() {
         customPopUpView.doneButton.addTarget(
             self,
-            action: #selector(didTapDismissButton),
+            action: #selector(didTapDoneButton),
+            for: .touchDown
+        )
+    }
+    
+    private func setUpEditButton() {
+        customPopUpView.editButton.addTarget(
+            self,
+            action: #selector(didTapEditButton),
+            for: .touchDown
+        )
+    }
+    
+    private func setUpCancelButton() {
+        customPopUpView.cancelButton.addTarget(
+            self,
+            action: #selector(didTapCancelButton),
             for: .touchDown
         )
     }
@@ -41,11 +63,20 @@ class AddViewController: UIViewController {
     // MARK: Action Methods
     
     @objc
-    private func didTapDismissButton() {
+    private func didTapDoneButton() {
         if let userInputData: ProjectData = customPopUpView.saveProjectData() {
             delegate?.sendData(with: userInputData)
         }
         
+        dismiss(animated: true)
+    }
+    
+    @objc
+    private func didTapEditButton() {
+    }
+    
+    @objc
+    private func didTapCancelButton() {
         dismiss(animated: true)
     }
 }
