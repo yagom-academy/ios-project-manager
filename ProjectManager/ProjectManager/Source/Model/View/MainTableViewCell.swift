@@ -1,17 +1,19 @@
 //
-//  MainRightTableViewCell.swift
+//  MainLeftTableViewCell.swift
 //  ProjectManager
 //
-//  Created by Dragon on 2023/01/17.
+//  Created by Dragon 2023/01/13.
 //
 
 import UIKit
 
-class MainRightTableViewCell: UITableViewCell {
-
+class MainTableViewCell: UITableViewCell {
+    
     // MARK: Properties
     
-    static let identifier = "MainRightTableViewCell"
+    static let leftIdentifier = "MainLeftTableViewCell"
+    static let centerIdentifier = "MainCenterTableViewCell"
+    static let rightIdentifier = "MainRightTableViewCell"
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -60,13 +62,31 @@ class MainRightTableViewCell: UITableViewCell {
     
     // MARK: Internal Methods
     
-    func configureLabel(doneData: ProjectData) {
-        titleLabel.text = doneData.title
-        bodyLabel.text = doneData.body
-        dateLabel.text = String(doneData.deadline)
+    func configureLabel(data: ProjectData) {
+        titleLabel.text = data.title
+        bodyLabel.text = data.body
+        dateLabel.text = convertDateForm(todoDate: data.deadline)
+        
+        checkDate(deadline: data.deadline)
     }
 
     // MARK: Private Methods
+    
+    private func checkDate(deadline: Double) {
+        if Date().timeIntervalSince1970 > deadline {
+            dateLabel.textColor = .systemRed
+        }
+    }
+    
+    private func convertDateForm(todoDate: Double) -> String {
+        let date = Date(timeIntervalSince1970: todoDate)
+        let formatter: DateFormatter = DateFormatter()
+        
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.setLocalizedDateFormatFromTemplate("yyyy.MM.dd")
+        
+        return formatter.string(from: date)
+    }
     
     private func setUpStackView() {
         totalStackView.addArrangedSubview(titleLabel)

@@ -58,8 +58,7 @@ class MainViewController: UIViewController {
                 if let todoListCount = editedTodoListCount {
                     doingList.append(todoList[todoListCount])
                     todoList.remove(at: todoListCount)
-                    projectManagerView.leftTableView.reloadData()
-                    projectManagerView.centerTableView.reloadData()
+                    projectManagerView.reloadTableView()
                 }
             }
         let moveToDone = UIAlertAction(
@@ -68,8 +67,7 @@ class MainViewController: UIViewController {
                 if let todoListCount = editedTodoListCount {
                     doneList.append(todoList[todoListCount])
                     todoList.remove(at: todoListCount)
-                    projectManagerView.leftTableView.reloadData()
-                    projectManagerView.rightTableView.reloadData()
+                    projectManagerView.reloadTableView()
                 }
             }
         
@@ -162,12 +160,12 @@ extension MainViewController: UITableViewDataSource {
         switch tableView {
         case projectManagerView.leftTableView:
             if let cell = tableView.dequeueReusableCell(
-                withIdentifier: MainLeftTableViewCell.identifier,
+                withIdentifier: MainTableViewCell.leftIdentifier,
                 for: indexPath
-            ) as? MainLeftTableViewCell {
-                let projectTodoList = todoList[indexPath.row]
+            ) as? MainTableViewCell {
+                let projectData = todoList[indexPath.row]
                 
-                cell.configureLabel(todoData: projectTodoList)
+                cell.configureLabel(data: projectData)
                 cell.selectionStyle = .none
                 
                 return cell
@@ -176,12 +174,12 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         case projectManagerView.centerTableView:
             if let cell = tableView.dequeueReusableCell(
-                withIdentifier: MainCenterTableViewCell.identifier,
+                withIdentifier: MainTableViewCell.centerIdentifier,
                 for: indexPath
-            ) as? MainCenterTableViewCell {
-                let projectDoingList = doingList[indexPath.row]
+            ) as? MainTableViewCell {
+                let projectData = doingList[indexPath.row]
                 
-                cell.configureLabel(doingData: projectDoingList)
+                cell.configureLabel(data: projectData)
                 cell.selectionStyle = .none
                 
                 return cell
@@ -190,12 +188,12 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         case projectManagerView.rightTableView:
             if let cell = tableView.dequeueReusableCell(
-                withIdentifier: MainRightTableViewCell.identifier,
+                withIdentifier: MainTableViewCell.rightIdentifier,
                 for: indexPath
-            ) as? MainRightTableViewCell {
-                let projectDoneList = doneList[indexPath.row]
+            ) as? MainTableViewCell {
+                let projectData = doneList[indexPath.row]
                 
-                cell.configureLabel(doneData: projectDoneList)
+                cell.configureLabel(data: projectData)
                 cell.selectionStyle = .none
                 
                 return cell
