@@ -30,6 +30,7 @@ final class WorkFormViewModel {
     func bindIsEdit(handler: @escaping (Bool) -> Void) {
         isEditHandler = handler
     }
+    
     func reloadWork() {
         if work != nil {
             workHandler?(work)

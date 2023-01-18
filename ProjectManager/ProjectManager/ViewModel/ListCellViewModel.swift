@@ -10,13 +10,16 @@ import Foundation
 final class ListCellViewModel {
     var work: Work? {
         didSet {
-            cellHandler?(work)
+            if let work {
+                cellHandler?(work)
+            }
+            
         }
     }
     
-    private var cellHandler: ((Work?) -> Void)?
+    private var cellHandler: ((Work) -> Void)?
     
-    func bind(handler: @escaping (Work?) -> Void) {
+    func bind(handler: @escaping (Work) -> Void) {
         cellHandler = handler
     }
 }

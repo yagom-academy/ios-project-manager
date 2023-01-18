@@ -61,9 +61,10 @@ final class ListCell: UITableViewCell {
     
     private func configureBind() {
         viewModel.bind { [weak self] work in
-            self?.titleLabel.text = work?.title
-            self?.bodyLabel.text = work?.body
-            self?.dateLabel.text = work?.endDateToString
+            self?.titleLabel.text = work.title
+            self?.bodyLabel.text = work.body
+            self?.dateLabel.text = work.endDateToString
+            self?.dateLabel.textColor = work.endDate > Date() ? .red : .black
         }
     }
     

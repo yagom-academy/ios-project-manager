@@ -16,7 +16,7 @@ struct Work {
     
     var endDateToString: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY. MM. DD"
+        dateFormatter.dateFormat = "YYYY. MM. dd"
         return dateFormatter.string(from: endDate)
     }
 }
