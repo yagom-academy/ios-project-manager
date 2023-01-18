@@ -30,7 +30,7 @@ final class TaskListViewModel {
         self.deleteTaskUseCase = deleteTaskUseCase
     }
     
-    func bind(with input: Input, disposeBag: DisposeBag) {
+    func bind(with input: Input) {
         input.viewWillAppearEvent
             .subscribe(onNext: { [weak self] _ in
                 self?.fetchTasksUseCase.fetchTasks()
@@ -68,7 +68,7 @@ final class TaskListViewModel {
                 }
                 self?.tasks.accept(classifiedTasks)
             })
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
     }
 }
 
