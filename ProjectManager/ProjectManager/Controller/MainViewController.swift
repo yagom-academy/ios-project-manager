@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    let todoListViewController = IssueListViewController(status: .todo)
-    let doingListViewController = IssueListViewController(status: .doing)
-    let doneListViewController = IssueListViewController(status: .done)
+    lazy var todoListViewController = IssueListViewController(status: .todo, delegate: self)
+    lazy var doingListViewController = IssueListViewController(status: .doing, delegate: self)
+    lazy var doneListViewController = IssueListViewController(status: .done, delegate: self)
     
     private var mainStackView: UIStackView = {
         let stack = UIStackView()
@@ -67,6 +67,19 @@ final class MainViewController: UIViewController {
             addChild($0)
             mainStackView.addArrangedSubview($0.view)
             $0.didMove(toParent: self)
+        }
+    }
+}
+
+extension MainViewController: IssueDeliverable {
+    func deliverIssue(issue: Issue) {
+        switch issue.status {
+        case .todo:
+            todoListViewController.addIssue(issue: issue)
+        case .doing:
+            doingListViewController.addIssue(issue: issue)
+        case .done:
+            doneListViewController.addIssue(issue: issue)
         }
     }
 }

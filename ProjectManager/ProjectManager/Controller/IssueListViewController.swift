@@ -11,7 +11,7 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     var status: Status
     var issueCount: Int = .zero
     var issues: [Issue] = []
-    var issueManager: IssueManager?
+    var delegate: IssueDeliverable
     var dataSource: UICollectionViewDiffableDataSource<Status, Issue>?
     
     var stackView: UIStackView = {
@@ -31,8 +31,9 @@ final class IssueListViewController: UIViewController, IssueListViewControllerTy
     var headerView: HeaderView?
     var collectionView: UICollectionView?
     
-    init(frame: CGRect = .zero, status: Status) {
+    init(frame: CGRect = .zero, status: Status, delegate: IssueDeliverable) {
         self.status = status
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
 

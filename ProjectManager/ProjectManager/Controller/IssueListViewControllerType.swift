@@ -11,7 +11,7 @@ protocol IssueListViewControllerType: UIViewController {
     var status: Status { get }
     var issueCount: Int { get }
     var issues: [Issue] { get set }
-    var issueManager: IssueManager? { get }
+    var delegate: IssueDeliverable { get }
     var stackView: UIStackView { get set }
     var headerView: HeaderView? { get set }
     var collectionView: UICollectionView? { get }
