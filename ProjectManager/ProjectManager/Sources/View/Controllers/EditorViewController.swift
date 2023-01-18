@@ -49,9 +49,12 @@ class EditorViewController: UIViewController {
         return stackView
     }()
     
-    init(title: String) {
+    private let viewModel: MainViewModelProtocol
+    
+    init(state: State, viewModle: MainViewModelProtocol) {
+        self.viewModel = viewModle
         super.init(nibName: nil, bundle: nil)
-        navigationItem.title = title
+        navigationItem.title = state.name
     }
     
     required init?(coder: NSCoder) {
@@ -69,6 +72,17 @@ class EditorViewController: UIViewController {
 // MARK: Action Method
 extension EditorViewController {
     private func tapCancelButton(_ sender: UIAction) {
+        dismiss(animated: true)
+    }
+    
+    private func tapDoneButton(_ sender: UIAction) {
+        guard let title = textField.text,
+              let description = textView.text
+        else {
+            return
+        }
+        
+        viewModel.createProject(title: title, deadline: datePicker.date, description: description)
         dismiss(animated: true)
     }
 }
@@ -101,7 +115,7 @@ extension EditorViewController {
     private func configureNavigation() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             systemItem: .done,
-            primaryAction: nil
+            primaryAction: UIAction(handler: tapDoneButton)
         )
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(

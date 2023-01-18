@@ -9,8 +9,9 @@ import Foundation
 
 protocol MainViewModelProtocol {
     var models: [Project] { get set }
+    var closure: (([Project]) -> Void)? { get set }
     
-    func createProject(title: String, deadline: String, description: String)
+    func createProject(title: String, deadline: Date, description: String)
     func updateProject()
     func deleteProject()
 }
@@ -24,8 +25,14 @@ final class MainViewModel: MainViewModelProtocol {
 
     var closure: (([Project]) -> Void)?
     
-    func createProject(title: String, deadline: String, description: String) {
-        let project = Project(title: title, deadline: deadline, description: description, state: .todo)
+    func createProject(title: String, deadline: Date, description: String) {
+        let project = Project(
+            title: title,
+            deadline: deadline.description,
+            description: description,
+            state: .todo
+        )
+        
         models.append(project)
     }
     

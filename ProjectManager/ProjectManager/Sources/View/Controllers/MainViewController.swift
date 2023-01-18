@@ -22,7 +22,7 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private let viewModel: MainViewModelProtocol
+    private var viewModel: MainViewModelProtocol
     
     init(viewModel: MainViewModelProtocol) {
         self.viewModel = viewModel
@@ -38,13 +38,16 @@ final class MainViewController: UIViewController {
         configureNavigation()
         configureView()
         configureLayout()
+        viewModel.closure = { [weak self] models in
+            self?.toDoViewController.updateList(with: models)
+        }
     }
 }
 
 // MARK: Action Method
 extension MainViewController {
     private func tapAddButton(_ sender: UIAction) {
-        let editorViewController = EditorViewController(title: State.todo.name)
+        let editorViewController = EditorViewController(state: .todo, viewModle: viewModel)
         editorViewController.modalPresentationStyle = .pageSheet
         let navigationController = UINavigationController(rootViewController: editorViewController)
         present(navigationController, animated: true)
