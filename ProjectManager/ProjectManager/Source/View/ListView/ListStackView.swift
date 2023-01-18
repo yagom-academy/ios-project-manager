@@ -77,7 +77,7 @@ class ListStackView: UIStackView {
         listTableView.backgroundColor = .clear
     }
     
-    func fetchListCount(_ count: Int) {
+    func updateCountLabel(_ count: Int) {
         listCountLabel.text = count.description
     }
 }

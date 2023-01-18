@@ -22,6 +22,9 @@ final class ListItemCellViewModel {
             self.handler?(listItemData)
         }
     }
+    var currentItem: ListItem {
+        return listItem
+    }
     
     init(listItem: ListItem, listType: ListType) {
         self.listItem = listItem
@@ -47,5 +50,9 @@ final class ListItemCellViewModel {
         )
         
         listItemData = updatedData
+    }
+    
+    func moveType(to newType: ListType) {
+        listType = newType
     }
 }

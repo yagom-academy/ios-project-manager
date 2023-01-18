@@ -171,8 +171,8 @@ extension MainViewController: ListFormViewControllerDelegate {
 }
 
 extension MainViewController: MenuPresentable {
-    func moveListItem(to type: ListType) {
-        
+    func move(listItem: ListItem, from currentType: ListType, to newType: ListType) {
+        mainViewModel.move(targetItem: listItem, from: currentType, to: newType)
     }
 }
 

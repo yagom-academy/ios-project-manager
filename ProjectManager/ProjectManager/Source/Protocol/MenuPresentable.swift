@@ -6,7 +6,7 @@
 
 import UIKit
 
-protocol MenuPresentable: UIViewController {
+protocol MenuPresentable: MainViewController {
     func didLongPressGesture(_ sender: UIGestureRecognizer, _ viewModel: ListItemCellViewModel)
 }
 
@@ -26,7 +26,7 @@ extension MenuPresentable {
         menuAlert.popoverPresentationController?.sourceView = sender.view
         
         actionTypes.forEach {
-            let action = makeAlertAction(of: $0)
+            let action = makeAlertAction(of: $0, viewModel: viewModel)
             
             menuAlert.addAction(action)
         }
@@ -34,7 +34,7 @@ extension MenuPresentable {
         present(menuAlert, animated: true)
     }
     
-    func makeAlertAction(of type: ListType) -> UIAlertAction {
+    func makeAlertAction(of type: ListType, viewModel: ListItemCellViewModel) -> UIAlertAction {
         let title: String
         
         switch type {
@@ -46,7 +46,10 @@ extension MenuPresentable {
             title = "Move To DONE"
         }
         
-        let action = UIAlertAction(title: title, style: .default, handler: nil)
+        let action = UIAlertAction(title: title, style: .default) { _ in
+            self.move(listItem: viewModel.currentItem, from: viewModel.listType, to: type)
+            viewModel.moveType(to: type)
+        }
         
         return action
     }
