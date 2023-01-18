@@ -5,8 +5,10 @@ enum ToDoState {
     case toDo
     case doing
     case done
-    
-    var name: String {
+}
+
+extension ToDoState: CustomStringConvertible {
+    var description: String {
         switch self {
         case .toDo:
             return "TODO"
