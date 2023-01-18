@@ -17,6 +17,8 @@ final class TaskCreateViewModel {
     private var content: String = ""
     private var date: Double = 0
     
+    let disposeBag = DisposeBag()
+    
     init(createTaskUseCase: CreateTaskUseCase) {
         self.createTaskUseCase = createTaskUseCase
     }
@@ -34,21 +36,21 @@ final class TaskCreateViewModel {
         let doneButtonTapEvent: Observable<Void>
     }
     
-    func transform(from input: Input, disposeBag: DisposeBag) -> Output {
+    func transform(from input: Input) -> Output {
         let output = Output()
         
         createTaskUseCase.isCreatedSuccess
             .subscribe(onNext: { isCreateSuccess in
                 output.isSuccess.accept(isCreateSuccess)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: self.disposeBag)
         
-        bind(with: input, disposeBag: disposeBag)
+        bind(with: input)
         
         return output
     }
     
-    private func bind(with input: Input, disposeBag: DisposeBag) {
+    private func bind(with input: Input) {
         input.titleDidEditEvent
             .subscribe(onNext: { [weak self] title in
                 self?.title = title
