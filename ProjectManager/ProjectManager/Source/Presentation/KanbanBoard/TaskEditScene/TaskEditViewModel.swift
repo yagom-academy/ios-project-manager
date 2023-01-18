@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  TaskEditViewModel.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/18.
@@ -11,7 +11,7 @@ import RxRelay
 import RxSwift
 
 final class TaskEditViewModel {
-    let updateTaskUseCase: UpdateTaskUseCase
+    private let updateTaskUseCase: UpdateTaskUseCase
     
     private var task: Task
     private let disposeBag = DisposeBag()
@@ -30,7 +30,7 @@ final class TaskEditViewModel {
     struct Input {
         let titleDidEditEvent: Observable<String>
         let contentDidEditEvent: Observable<String>
-        let datePickerDidEditEvent: Observable<Double>
+        let datePickerDidEditEvent: Observable<Date>
         let doneButtonTapEvent: Observable<Void>
     }
     
@@ -43,7 +43,7 @@ final class TaskEditViewModel {
             })
             .disposed(by: disposeBag)
         
-        bind(with: input, disposeBag: disposeBag)
+        bind(with: input)
         
         return output
     }
@@ -63,7 +63,7 @@ final class TaskEditViewModel {
         
         input.datePickerDidEditEvent
             .subscribe(onNext: { [weak self] date in
-                self?.task.deadLine = date
+                self?.task.deadLine = date.timeIntervalSince1970
             })
             .disposed(by: disposeBag)
         
