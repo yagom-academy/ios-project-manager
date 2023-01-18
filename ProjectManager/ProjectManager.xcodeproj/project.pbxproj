@@ -81,6 +81,13 @@
 			path = ProjectManager;
 			sourceTree = "<group>";
 		};
+		DF155096297816D200A7FDC7 /* AddTask */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddTask;
+			sourceTree = "<group>";
+		};
 		DF46828D2977974D00E3BC06 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +99,7 @@
 		DF468290297798D400E3BC06 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DF155096297816D200A7FDC7 /* AddTask */,
 				DFF040992977EB420049DEC0 /* TaskStatus */,
 				DFF040982977EB320049DEC0 /* TaskCell */,
 				DF4682952977A72700E3BC06 /* ProjectManager */,
@@ -170,7 +178,6 @@
 		DFF040992977EB420049DEC0 /* TaskStatus */ = {
 			isa = PBXGroup;
 			children = (
-				DFF0409E2977FEAD0049DEC0 /* ViewModel */,
 				DFF0409D2977FEA60049DEC0 /* View */,
 			);
 			path = TaskStatus;
@@ -197,13 +204,6 @@
 				DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		DFF0409E2977FEAD0049DEC0 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

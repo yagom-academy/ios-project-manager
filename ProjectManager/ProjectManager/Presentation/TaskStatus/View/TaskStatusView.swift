@@ -6,6 +6,7 @@
 
 
 import UIKit
+import RxSwift
 
 class TaskStatusView: UIView {
     
@@ -18,7 +19,7 @@ class TaskStatusView: UIView {
     var taskCountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "HEllo Im task Count"
+        label.text = "0"
         return label
     }()
     
@@ -38,6 +39,10 @@ class TaskStatusView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUpCount(count: Int) {
+        self.taskCountLabel.text = count.description
     }
     
 }

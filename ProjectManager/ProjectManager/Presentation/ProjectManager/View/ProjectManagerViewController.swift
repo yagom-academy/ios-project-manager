@@ -30,14 +30,17 @@ final class ProjectManagerViewController: UIViewController {
     
     var todoStatusView: TaskStatusView = {
         let view = TaskStatusView()
+        view.taskNameLabel.text = "TODO"
         return view
     }()
     var doingStatusView: TaskStatusView = {
         let view = TaskStatusView()
+        view.taskNameLabel.text = "Doing"
         return view
     }()
     var doneStatusView: TaskStatusView = {
         let view = TaskStatusView()
+        view.taskNameLabel.text = "DONE"
         return view
     }()
     
@@ -90,7 +93,7 @@ final class ProjectManagerViewController: UIViewController {
     }
 }
 
-// MARK: Fnctions
+// MARK: Functions
 
 extension ProjectManagerViewController {
     private func configureNavigationController() {
@@ -99,8 +102,8 @@ extension ProjectManagerViewController {
             navigationBar.backgroundColor = UIColor.systemGray
             let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
                                                  action: #selector(tapNavigationAddButton))
-            navigationController.title = "Project Manager"
             navigationItem.rightBarButtonItem = rightAddButton
+            navigationItem.title = "Project Manager"
         }
     }
     
@@ -111,6 +114,14 @@ extension ProjectManagerViewController {
     @objc
     private func tapNavigationAddButton() {
         // TODO: Add some action
+        let item = Task(title: "Hello I'm new Task", tag: .doing)
+        viewModel.addTask(task: item)
+        
+        let view = UIViewController()
+        view.modalPresentationStyle = .formSheet
+        view.view.backgroundColor = .systemPink
+         
+        self.present(view, animated: true)
     }
 }
 
@@ -123,6 +134,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
             .share()
             .map { $0.filter { $0.tag == .todo } }
             .bind(to: todoTableView.rx.items) { tableview, row, item in
+                self.todoStatusView.setUpCount(count: tableview.numberOfRows(inSection: .zero))
                 guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
                 else {
                     return TaskCell()
@@ -137,6 +149,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
             .share()
             .map { $0.filter { $0.tag == .doing } }
             .bind(to: doingTableView.rx.items) { tableview, row, item in
+                self.doingStatusView.setUpCount(count: tableview.numberOfRows(inSection: .zero))
                 guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
                 else {
                     return TaskCell()
@@ -151,6 +164,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
             .share()
             .map { $0.filter { $0.tag == .done } }
             .bind(to: doneTableView.rx.items) { tableview, row, item in
+                self.doneStatusView.setUpCount(count: tableview.numberOfRows(inSection: .zero))
                 guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
                 else {
                     return TaskCell()
@@ -159,7 +173,9 @@ extension ProjectManagerViewController: UITableViewDelegate {
                 return cell
             }
             .disposed(by: disposeBag)
+        
     }
+    
 }
 
 // MARK: Layout
