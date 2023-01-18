@@ -49,12 +49,6 @@ class EditorViewController: UIViewController {
         return stackView
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureView()
-        configureLayout()
-    }
-    
     init(title: String) {
         super.init(nibName: nil, bundle: nil)
         navigationItem.title = title
@@ -62,6 +56,20 @@ class EditorViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureView()
+        configureLayout()
+        configureNavigation()
+    }
+}
+
+// MARK: Action Method
+extension EditorViewController {
+    private func tapCancelButton(_ sender: UIAction) {
+        dismiss(animated: true)
     }
 }
 
@@ -88,5 +96,17 @@ extension EditorViewController {
             
             textField.heightAnchor.constraint(equalToConstant: 44)
         ])
+    }
+    
+    private func configureNavigation() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            systemItem: .done,
+            primaryAction: nil
+        )
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            systemItem: .cancel,
+            primaryAction: UIAction(handler: tapCancelButton)
+        )
     }
 }

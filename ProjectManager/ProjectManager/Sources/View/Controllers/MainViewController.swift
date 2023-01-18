@@ -30,6 +30,16 @@ final class MainViewController: UIViewController {
     }
 }
 
+// MARK: Action Method
+extension MainViewController {
+    private func tapAddButton(_ sender: UIAction) {
+        let editorViewController = EditorViewController(title: "TODO")
+        editorViewController.modalPresentationStyle = .pageSheet
+        let navigationController = UINavigationController(rootViewController: editorViewController)
+        present(navigationController, animated: true)
+    }
+}
+
 // MARK: UI Configuration
 extension MainViewController {
     private func configureNavigation() {
@@ -38,13 +48,6 @@ extension MainViewController {
             systemItem: .add,
             primaryAction: UIAction(handler: tapAddButton)
         )
-    }
-    
-    private func tapAddButton(_ sender: UIAction) {
-        let editorViewController = EditorViewController(title: "TODO")
-        editorViewController.modalPresentationStyle = .pageSheet
-        let navigationController = UINavigationController(rootViewController: editorViewController)
-        present(navigationController, animated: true)
     }
     
     private func configureView() {
