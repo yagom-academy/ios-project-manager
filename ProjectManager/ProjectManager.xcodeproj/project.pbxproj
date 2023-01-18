@@ -26,6 +26,7 @@
 		1ABD65BB2977229B002E288B /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65BA2977229B002E288B /* ProjectView.swift */; };
 		1ABD65C129774C7E002E288B /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65C029774C7E002E288B /* DataFormatter.swift */; };
 		1ABD65C42977AE6F002E288B /* ProjectViewController+KeyboardNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65C32977AE6F002E288B /* ProjectViewController+KeyboardNotification.swift */; };
+		1ABD65C62977C568002E288B /* ProjectViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65C52977C568002E288B /* ProjectViewController+Delegate.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectListViewController.swift */; };
@@ -53,6 +54,7 @@
 		1ABD65BA2977229B002E288B /* ProjectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		1ABD65C029774C7E002E288B /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
 		1ABD65C32977AE6F002E288B /* ProjectViewController+KeyboardNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectViewController+KeyboardNotification.swift"; sourceTree = "<group>"; };
+		1ABD65C52977C568002E288B /* ProjectViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectViewController+Delegate.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			children = (
 				1ABD658D2976963A002E288B /* ProjectViewController.swift */,
 				1ABD65C32977AE6F002E288B /* ProjectViewController+KeyboardNotification.swift */,
+				1ABD65C52977C568002E288B /* ProjectViewController+Delegate.swift */,
 			);
 			path = ProjectViewContoller;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				1ABD65BB2977229B002E288B /* ProjectView.swift in Sources */,
 				1ABD65AA2976A6FA002E288B /* NetworkManager.swift in Sources */,
 				1ABD65A72976A6EB002E288B /* CoreDataManager.swift in Sources */,
+				1ABD65C62977C568002E288B /* ProjectViewController+Delegate.swift in Sources */,
 				1ABD658029768574002E288B /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

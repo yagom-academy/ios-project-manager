@@ -22,7 +22,7 @@ struct Project: Hashable {
 
     init(id: UUID = UUID(),
          status: Status = .todo,
-         title: String = "제목없음",
+         title: String = "",
          description: String = " ",
          dueDate: Date = Date()) {
         self.id = id

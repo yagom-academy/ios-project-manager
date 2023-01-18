@@ -52,7 +52,7 @@ final class ProjectListViewController: UIViewController {
         }
 
         let touchUpAddButtonAction = UIAction { [weak self] _ in
-            self?.present(projectViewController, animated: false)
+            self?.present(UINavigationController(rootViewController: projectViewController), animated: false)
         }
 
         let addButton = UIBarButtonItem(systemItem: .add, primaryAction: touchUpAddButtonAction)
@@ -61,7 +61,7 @@ final class ProjectListViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        navigationItem.title = "프로젝트 매니저"
+        navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = makeRightNavigationBarButton()
     }
 

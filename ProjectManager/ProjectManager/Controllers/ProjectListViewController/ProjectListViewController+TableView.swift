@@ -101,6 +101,6 @@ extension ProjectListViewController: UITableViewDelegate {
             self.updateProjectCell(project: project)
         }
 
-        present(projectViewController, animated: false)
+        present(UINavigationController(rootViewController: projectViewController), animated: false)
     }
 }

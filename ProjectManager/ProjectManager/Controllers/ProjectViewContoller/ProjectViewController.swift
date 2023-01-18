@@ -28,7 +28,8 @@ final class ProjectViewController: UIViewController {
         super.viewDidLoad()
 
         configureView()
-        configureNavigationItem()
+        configureNavigationBar()
+        configureDelegate()
 
         // 15버전은 keyboardLayoutGuide 사용
         if #unavailable(iOS 15.0) {
@@ -53,15 +54,20 @@ final class ProjectViewController: UIViewController {
     }
 
     // MARK: Private Methods
+
     private func configureView() {
         view.addSubview(projectView)
 
-        projectView.descriptionTextView.delegate = self
         projectView.configure(with: project)
     }
 
+    private func configureDelegate() {
+        projectView.descriptionTextView.delegate = self
+        projectView.titleTextField.delegate = self
+    }
+
     private func fetchProjectViewData() {
-        project.title = projectView.titleTextView.text
+        project.title = projectView.titleTextField.text ?? "제목 없음"
         project.description = projectView.descriptionTextView.text
         project.dueDate = projectView.datePicker.date
     }
@@ -86,8 +92,10 @@ final class ProjectViewController: UIViewController {
         }
     }
 
-    private func configureNavigationItem() {
-        let navigationItem = UINavigationItem(title: "TODO")
+    private func configureNavigationBar() {
+        navigationItem.title = "TODO"
+        navigationItem.scrollEdgeAppearance?.backgroundColor = .gray
+
         let cancelAction = UIAction { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
         }
@@ -96,18 +104,5 @@ final class ProjectViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = makeRightBarButton()
-
-        projectView.configureNavigationBar(on: navigationItem)
-    }
-}
-
-// MARK: textView Delegate
-extension ProjectViewController: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let currentText = textView.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let changedText = currentText.replacingCharacters(in: stringRange, with: text)
-
-        return changedText.count <= 1000
     }
 }
