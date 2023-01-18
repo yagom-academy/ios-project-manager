@@ -11,7 +11,7 @@ import RxSwift
 import Foundation
 
 final class TaskCreateViewModel {
-    let createUseCase: CreateTaskUseCase
+    let createTaskUseCase: CreateTaskUseCase
     
     private var title: String = ""
     private var content: String = ""
@@ -19,8 +19,8 @@ final class TaskCreateViewModel {
     
     private var isSuccess = false
     
-    init(createUseCase: CreateTaskUseCase) {
-        self.createUseCase = createUseCase
+    init(createTaskUseCase: CreateTaskUseCase) {
+        self.createTaskUseCase = createTaskUseCase
     }
     
     // MARK: - Output
@@ -39,7 +39,7 @@ final class TaskCreateViewModel {
     func transform(from input: Input, disposeBag: DisposeBag) -> Output {
         let output = Output()
         
-        createUseCase.isCreatedSuccess
+        createTaskUseCase.isCreatedSuccess
             .subscribe(onNext: { isCreateSuccess in
                 output.isSuccess.accept(isCreateSuccess)
             })
@@ -82,7 +82,7 @@ final class TaskCreateViewModel {
                     isExpired: false
                 )
                 
-                self.createUseCase.addTask(task)
+                self.createTaskUseCase.addTask(task)
             })
             .disposed(by: disposeBag)
     }
