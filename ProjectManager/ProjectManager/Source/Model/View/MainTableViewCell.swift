@@ -9,26 +9,28 @@ import UIKit
 
 class MainTableViewCell: UITableViewCell {
     
-    // MARK: Properties
+    // MARK: Identifier
     
     static let leftIdentifier = "MainLeftTableViewCell"
     static let centerIdentifier = "MainCenterTableViewCell"
     static let rightIdentifier = "MainRightTableViewCell"
     
-    let titleLabel: UILabel = {
+    // MARK: Private Properties
+    
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20)
         label.numberOfLines = 1
         return label
     }()
-    let bodyLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15)
         label.textColor = .gray
         label.numberOfLines = 3
         return label
     }()
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 10)
         return label
@@ -52,12 +54,6 @@ class MainTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: SetSelected
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
     
     // MARK: Internal Methods

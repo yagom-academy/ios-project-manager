@@ -9,7 +9,7 @@ import UIKit
 
 class CustomPopUpView: UIView {
     
-    // MARK: Properties
+    // MARK: Internal Properties
     
     let editButton: UIButton = {
         let button = UIButton()
@@ -29,6 +29,9 @@ class CustomPopUpView: UIView {
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
+    
+    // MARK: Private Properties
+    
     private let popUpView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -251,13 +254,6 @@ class CustomPopUpView: UIView {
             popUpView.centerXAnchor.constraint(equalTo: centerXAnchor),
             popUpView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-    }
-    
-    // MARK: Action Methods
-    
-    @objc
-    private func test() {
-        print("123")
     }
 }
 

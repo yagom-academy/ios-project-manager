@@ -8,7 +8,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    // MARK: Properties
+    // MARK: Private Properties
     
     private let projectManagerView = MainProjectManagerView()
     private let section: [String] = ["TODO", "DOING", "DONE"]
@@ -74,7 +74,13 @@ class MainViewController: UIViewController {
         actionSheet.addAction(moveToDoing)
         actionSheet.addAction(moveToDone)
         
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        checkPopOverPresentation(device: .pad, actionSheet: actionSheet)
+        
+        present(actionSheet, animated: true)
+    }
+    
+    private func checkPopOverPresentation(device: UIUserInterfaceIdiom, actionSheet: UIAlertController) {
+        if device == .pad {
             if let presenter = actionSheet.popoverPresentationController {
                 presenter.permittedArrowDirections = []
                 presenter.sourceView = view
@@ -86,8 +92,6 @@ class MainViewController: UIViewController {
                 )
             }
         }
-        
-        present(actionSheet, animated: true)
     }
     
     // MARK: Action Methods
@@ -114,11 +118,11 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch tableView {
         case projectManagerView.leftTableView:
-            return "TODO"
+            return "TODO" + "  " + String(todoList.count)
         case projectManagerView.centerTableView:
-            return "DOING"
+            return "DOING" + "  " + String(doingList.count)
         case projectManagerView.rightTableView:
-            return "DONE"
+            return "DONE" + "  " + String(doneList.count)
         default:
             return String()
         }
@@ -153,6 +157,7 @@ extension MainViewController: UITableViewDataSource {
             }
             
             tableView.deleteRows(at: [indexPath], with: .fade)
+            projectManagerView.reloadTableView()
         }
     }
     

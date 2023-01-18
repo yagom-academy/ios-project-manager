@@ -15,11 +15,14 @@ enum DataManagementMode {
 
 class AddViewController: UIViewController {
     
-    // MARK: Properties
+    // MARK: Internal Properties
     
     var delegate: DataSendable?
     var savedData: ProjectData?
     var dataManagementMode: DataManagementMode = .read
+    
+    // MARK: Private Properties
+    
     private let customPopUpView = CustomPopUpView()
     
     // MARK: Life Cycle

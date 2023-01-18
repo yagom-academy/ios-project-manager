@@ -9,34 +9,8 @@ import UIKit
 
 final class MainProjectManagerView: UIView {
     
-    // MARK: Properties
+    // MARK: Internal Properties
     
-    private let titleView: UIView = {
-        let view = MainTitleView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray6
-        return view
-    }()
-    private let mainStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 5
-        return stackView
-    }()
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    private let bodyLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
     let leftTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray5
@@ -63,6 +37,35 @@ final class MainProjectManagerView: UIView {
             forCellReuseIdentifier: MainTableViewCell.rightIdentifier
         )
         return tableView
+    }()
+    
+    // MARK: Private Properties
+    
+    private let titleView: UIView = {
+        let view = MainTitleView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray6
+        return view
+    }()
+    private let mainStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 5
+        return stackView
+    }()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    private let bodyLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        return label
     }()
     
     // MARK: Initializer
