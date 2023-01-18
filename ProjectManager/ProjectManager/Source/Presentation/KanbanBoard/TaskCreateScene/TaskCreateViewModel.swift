@@ -17,8 +17,6 @@ final class TaskCreateViewModel {
     private var content: String = ""
     private var date: Double = 0
     
-    private var isSuccess = false
-    
     init(createTaskUseCase: CreateTaskUseCase) {
         self.createTaskUseCase = createTaskUseCase
     }
