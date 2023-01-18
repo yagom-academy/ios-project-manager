@@ -21,4 +21,10 @@ final class TaskCell: UITableViewCell {
         let label = UILabel()
         return label
     }()
+    
+    func setUp(with data: Task) {
+        taskTitleLabel.text = data.title
+        taskDescriptionLabel.text = data.description
+        taskExpirationLabel.text = data.expireDate?.description
+    }
 }

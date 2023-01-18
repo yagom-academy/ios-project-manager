@@ -8,7 +8,14 @@
 import Foundation
 
 struct Task {
-    let title: String
-    let description: String
-    let expireDate: Date
+    var title: String?
+    var description: String?
+    var expireDate: Date?
+    var tag: Status?
+}
+
+enum Status {
+    case todo
+    case doing
+    case done
 }
