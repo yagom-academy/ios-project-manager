@@ -14,7 +14,7 @@ class MainTitleView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Project Manager"
+        label.text = NameSpace.projectManagerTitle
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
         return label

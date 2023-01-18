@@ -19,6 +19,7 @@
 		D0AE9D712973E5900068DA0A /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AE9D702973E5900068DA0A /* AddViewController.swift */; };
 		D0AE9D732973F8BF0068DA0A /* CustomPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AE9D722973F8BF0068DA0A /* CustomPopUpView.swift */; };
 		D0BCA2932976950800B3D67A /* DataSendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCA2922976950800B3D67A /* DataSendable.swift */; };
+		D0BCA2952978447700B3D67A /* NameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BCA2942978447700B3D67A /* NameSpace.swift */; };
 		D0E0803329701BE700BCB151 /* MainProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0803229701BE700BCB151 /* MainProjectManagerView.swift */; };
 		D0E080352970583800BCB151 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E080342970583800BCB151 /* MainTableViewCell.swift */; };
 		D0E0803B29706B2200BCB151 /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0803A29706B2200BCB151 /* MainTitleView.swift */; };
@@ -41,6 +42,7 @@
 		D0AE9D702973E5900068DA0A /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		D0AE9D722973F8BF0068DA0A /* CustomPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUpView.swift; sourceTree = "<group>"; };
 		D0BCA2922976950800B3D67A /* DataSendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSendable.swift; sourceTree = "<group>"; };
+		D0BCA2942978447700B3D67A /* NameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSpace.swift; sourceTree = "<group>"; };
 		D0E0803229701BE700BCB151 /* MainProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProjectManagerView.swift; sourceTree = "<group>"; };
 		D0E080342970583800BCB151 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		D0E0803A29706B2200BCB151 /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			children = (
 				D07C5D26297012CF001AF867 /* ProjectData.swift */,
 				D0BCA2922976950800B3D67A /* DataSendable.swift */,
+				D0BCA2942978447700B3D67A /* NameSpace.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				D0AE9D712973E5900068DA0A /* AddViewController.swift in Sources */,
 				D0AE9D732973F8BF0068DA0A /* CustomPopUpView.swift in Sources */,
 				D07C5D27297012CF001AF867 /* ProjectData.swift in Sources */,
+				D0BCA2952978447700B3D67A /* NameSpace.swift in Sources */,
 				D0E0803B29706B2200BCB151 /* MainTitleView.swift in Sources */,
 				D0E080352970583800BCB151 /* MainTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

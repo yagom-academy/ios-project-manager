@@ -13,19 +13,19 @@ class CustomPopUpView: UIView {
     
     let editButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Edit", for: .normal)
+        button.setTitle(NameSpace.edit, for: .normal)
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
     let cancelButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle(NameSpace.cancel, for: .normal)
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
     let doneButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Done", for: .normal)
+        button.setTitle(NameSpace.done, for: .normal)
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
@@ -58,7 +58,7 @@ class CustomPopUpView: UIView {
     }()
     private let stateLabel: UILabel = {
         let label = UILabel()
-        label.text = "TODO"
+        label.text = NameSpace.todoAllUpper
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline, compatibleWith: .none)
         return label
@@ -90,7 +90,7 @@ class CustomPopUpView: UIView {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "en-EN")
+        datePicker.locale = Locale(identifier: NameSpace.defaultDatePickerLocale)
         datePicker.timeZone = .autoupdatingCurrent
         return datePicker
     }()
@@ -145,13 +145,14 @@ class CustomPopUpView: UIView {
     func checkTextField() {
         if let title = titleTextField.text,
            let body = bodyTextView.text {
-            if title == "Title" && body == "내용을 입력해주세요. (1000자 제한)" {
+            if title == NameSpace.defaultTitleLabel,
+               body == NameSpace.defaultBodyLabel {
                 titleTextField.text = String()
                 bodyTextView.text = String()
-            } else if title == "Title" {
-                titleTextField.text = "[제목없음]"
-            } else if body == "내용을 입력해주세요. (1000자 제한)" {
-                bodyTextView.text = "[내용없음]"
+            } else if title == NameSpace.defaultTitleLabel {
+                titleTextField.text = NameSpace.emptyTitleLabel
+            } else if body == NameSpace.defaultBodyLabel {
+                bodyTextView.text = NameSpace.emptyBodyLabel
             }
         }
     }
@@ -182,16 +183,16 @@ class CustomPopUpView: UIView {
     }
     
     private func configureText() {
-        titleTextField.text = "Title"
+        titleTextField.text = NameSpace.defaultTitleLabel
         titleTextField.textColor = .lightGray
         
-        bodyTextView.text = "내용을 입력해주세요. (1000자 제한)"
+        bodyTextView.text = NameSpace.defaultBodyLabel
         bodyTextView.textColor = .lightGray
     }
     
     private func setUpTopBarStackView() {
-        if titleTextField.text == "Title",
-           bodyTextView.text == "내용을 입력해주세요. (1000자 제한)" {
+        if titleTextField.text == NameSpace.defaultTitleLabel,
+           bodyTextView.text == NameSpace.defaultBodyLabel {
             topBarStackView.addArrangedSubview(cancelButton)
         } else {
             topBarStackView.addArrangedSubview(editButton)
@@ -276,7 +277,7 @@ extension CustomPopUpView: UITextFieldDelegate {
         switch textField {
         case titleTextField:
             if titleTextField.text?.isEmpty == true {
-                titleTextField.text = "Title"
+                titleTextField.text = NameSpace.defaultTitleLabel
                 titleTextField.textColor = .lightGray
             }
         default:
@@ -322,7 +323,7 @@ extension CustomPopUpView: UITextViewDelegate {
         switch textView {
         case bodyTextView:
             if bodyTextView.text?.isEmpty == true {
-                bodyTextView.text = "내용을 입력해주세요. (1000자 제한)"
+                bodyTextView.text = NameSpace.defaultBodyLabel
                 bodyTextView.textColor = .lightGray
             }
         default:

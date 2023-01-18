@@ -11,7 +11,11 @@ class MainViewController: UIViewController {
     // MARK: Private Properties
     
     private let projectManagerView = MainProjectManagerView()
-    private let section: [String] = ["TODO", "DOING", "DONE"]
+    private let section: [String] = [
+        NameSpace.todoAllUpper,
+        NameSpace.doingAllUpper,
+        NameSpace.doneAllUpper
+    ]
     private var editedTodoListCount: Int?
     private var todoList: [ProjectData] = []
     private var doingList: [ProjectData] = []
@@ -53,7 +57,7 @@ class MainViewController: UIViewController {
             preferredStyle: .actionSheet
         )
         let moveToDoing = UIAlertAction(
-            title: "Move to DOING",
+            title: NameSpace.moveToDoing,
             style: .default) { [self] _ in
                 if let todoListCount = editedTodoListCount {
                     doingList.append(todoList[todoListCount])
@@ -62,7 +66,7 @@ class MainViewController: UIViewController {
                 }
             }
         let moveToDone = UIAlertAction(
-            title: "Move to DONE",
+            title: NameSpace.moveToDone,
             style: .default) { [self] _ in
                 if let todoListCount = editedTodoListCount {
                     doneList.append(todoList[todoListCount])
@@ -118,11 +122,11 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch tableView {
         case projectManagerView.leftTableView:
-            return "TODO" + "  " + String(todoList.count)
+            return NameSpace.todoAllUpper + "  " + String(todoList.count)
         case projectManagerView.centerTableView:
-            return "DOING" + "  " + String(doingList.count)
+            return NameSpace.doingAllUpper + "  " + String(doingList.count)
         case projectManagerView.rightTableView:
-            return "DONE" + "  " + String(doneList.count)
+            return NameSpace.doneAllUpper + "  " + String(doneList.count)
         default:
             return String()
         }

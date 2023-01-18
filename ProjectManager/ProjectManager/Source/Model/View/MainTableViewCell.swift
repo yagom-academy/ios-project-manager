@@ -78,8 +78,8 @@ class MainTableViewCell: UITableViewCell {
         let date = Date(timeIntervalSince1970: todoDate)
         let formatter: DateFormatter = DateFormatter()
         
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.setLocalizedDateFormatFromTemplate("yyyy.MM.dd")
+        formatter.locale = Locale(identifier: NameSpace.defaultDateLabelLocale)
+        formatter.setLocalizedDateFormatFromTemplate(NameSpace.defaultDateLabelFormat)
         
         return formatter.string(from: date)
     }
