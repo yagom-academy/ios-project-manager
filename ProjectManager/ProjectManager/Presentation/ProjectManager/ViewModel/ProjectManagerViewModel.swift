@@ -10,12 +10,17 @@ import RxSwift
 
 // TODO: Create ViewModel
 final class ProjectManagerViewModel {
-    private var tasks: [Task] = []
+    var tasks: [Task] = [] {
+        didSet {
+            subject.onNext(tasks)
+        }
+    }
     let subject: BehaviorSubject<[Task]>
     
     init() {
         self.subject = BehaviorSubject(value: tasks)
     }
+    
     func addTask(task: Task) {
         tasks.append(task)
         subject.onNext(tasks)

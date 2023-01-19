@@ -13,6 +13,7 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		DF155098297820CA00A7FDC7 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF155097297820CA00A7FDC7 /* AddTaskViewController.swift */; };
+		DF1550A8297957F900A7FDC7 /* TaskSwitchPopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1550A7297957F900A7FDC7 /* TaskSwitchPopOverView.swift */; };
 		DF46828F2977977700E3BC06 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF46828E2977977700E3BC06 /* Task.swift */; };
 		DF4682992977A85A00E3BC06 /* ProjectManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */; };
 		DF5CAE65296D52B900398676 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DF5CAE64296D52B900398676 /* RxCocoa */; };
@@ -33,6 +34,7 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF155097297820CA00A7FDC7 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		DF1550A7297957F900A7FDC7 /* TaskSwitchPopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSwitchPopOverView.swift; sourceTree = "<group>"; };
 		DF46828E2977977700E3BC06 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
 		DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
@@ -91,6 +93,14 @@
 			path = AddTask;
 			sourceTree = "<group>";
 		};
+		DF1550A6297957E200A7FDC7 /* TaskSwitchPopOverView */ = {
+			isa = PBXGroup;
+			children = (
+				DF1550A7297957F900A7FDC7 /* TaskSwitchPopOverView.swift */,
+			);
+			path = TaskSwitchPopOverView;
+			sourceTree = "<group>";
+		};
 		DF46828D2977974D00E3BC06 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +112,7 @@
 		DF468290297798D400E3BC06 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DF1550A6297957E200A7FDC7 /* TaskSwitchPopOverView */,
 				DF155096297816D200A7FDC7 /* AddTask */,
 				DFF040992977EB420049DEC0 /* TaskStatus */,
 				DFF040982977EB320049DEC0 /* TaskCell */,
@@ -295,6 +306,7 @@
 				DF4682992977A85A00E3BC06 /* ProjectManagerViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				DF1550A8297957F900A7FDC7 /* TaskSwitchPopOverView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				DFCA283F2977C3BC00C1EBF2 /* TaskCell.swift in Sources */,
 			);

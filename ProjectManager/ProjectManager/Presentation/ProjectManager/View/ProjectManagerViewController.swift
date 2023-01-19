@@ -90,6 +90,7 @@ final class ProjectManagerViewController: UIViewController {
         configureView()
         combineViews()
         bindViewModel()
+        bindTagSwitching()
     }
 }
 
@@ -130,7 +131,32 @@ extension ProjectManagerViewController {
 // MARK: TableView Delegate
 
 extension ProjectManagerViewController: UITableViewDelegate {
-    func bindViewModel() {
+    
+    private func popOver(cell: UITableViewCell, item: Task) {
+        let view = TaskSwitchPopOverView()
+        
+        view.modalPresentationStyle = .popover
+        view.popoverPresentationController?.sourceView = cell.contentView
+        view.preferredContentSize = CGSize(width: 250, height: 100)
+        view.popoverPresentationController?.permittedArrowDirections = [.left]
+        
+        self.present(view, animated: true)
+    }
+    
+    // TODO: Gestures
+    
+    private func bindTagSwitching() {
+        todoTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                guard let cell = self.todoTableView.cellForRow(at: index) else { return }
+                self.popOver(cell: cell, item: self.viewModel.tasks[index.row])
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindViewModel() {
+        
         todoTableView.rx.setDelegate(self).disposed(by: disposeBag)
         viewModel.subject
             .share()
