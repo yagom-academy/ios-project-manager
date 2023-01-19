@@ -5,6 +5,7 @@ import UIKit
 
 class ToDoHeaderView: UIView {
     private let status: ToDoState
+    private let count: Int
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -16,14 +17,15 @@ class ToDoHeaderView: UIView {
         return label
     }()
     
-    private var listCountLabel: ItemCountLabel = {
-        let label = ItemCountLabel(count: 5)
+    private lazy var listCountLabel: ItemCountLabel = {
+        let label = ItemCountLabel(count: self.count)
         
         return label
     }()
     
-    init(status: ToDoState) {
+    init(status: ToDoState, count: Int) {
         self.status = status
+        self.count = count
         super.init(frame: .zero)
         setupViews()
     }
