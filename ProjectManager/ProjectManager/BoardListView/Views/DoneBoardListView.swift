@@ -13,7 +13,7 @@ struct DoneBoardListView: View {
   
   var body: some View {
     WithViewStore(store) { viewStore in
-      VStack(spacing: 0) {
+      VStack(spacing: 10) {
         BoardListSectionHeader(
           projectState: .done,
           count: viewStore.projects.count
@@ -32,6 +32,9 @@ struct DoneBoardListView: View {
             BoardListCellView(project: project)
               .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
               .listRowSeparator(.hidden)
+          }
+          .onDelete {
+            viewStore.send(.didDelete($0))
           }
         }
         .listStyle(.plain)
