@@ -7,8 +7,10 @@
 
 import UIKit
 
-class ProjectTodoViewController: UIViewController {
+final class ProjectTodoViewController: UIViewController {
+
     // MARK: - Properties
+
     private let titleTextField = TitleTextField()
     private let dueDatePicker = {
         let datePicker = UIDatePicker()
@@ -45,7 +47,11 @@ class ProjectTodoViewController: UIViewController {
     private var keyboardConstraints: NSLayoutConstraint?
 
     // MARK: - Configure
-    init(navigationTitle: String, projectTodoViewModel: ProjectTodoViewModel, isAdding: Bool, onChange: @escaping (ProjectTodo?) -> Void) {
+
+    init(navigationTitle: String,
+         projectTodoViewModel: ProjectTodoViewModel,
+         isAdding: Bool,
+         onChange: @escaping (ProjectTodo?) -> Void) {
         self.navigationTitle = navigationTitle
         self.projectTodoViewModel = projectTodoViewModel
         self.isAdding = isAdding
@@ -103,7 +109,8 @@ class ProjectTodoViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: spacing),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -spacing)
         ])
-        keyboardConstraints = stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -spacing)
+        keyboardConstraints = stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                                constant: -spacing)
         keyboardConstraints?.isActive = true
     }
 
@@ -115,6 +122,7 @@ class ProjectTodoViewController: UIViewController {
 }
 
 // MARK: - Project Data
+
 extension ProjectTodoViewController {
     private func updateProjectTodoViewsData() {
         titleTextField.text = projectTodoViewModel.projectTodo.title
@@ -124,6 +132,7 @@ extension ProjectTodoViewController {
 }
 
 // MARK: - Actions
+
 extension ProjectTodoViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -196,6 +205,7 @@ extension ProjectTodoViewController: UITextViewDelegate {
 }
 
 // MARK: - Keyboard
+
 extension ProjectTodoViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -224,7 +234,8 @@ extension ProjectTodoViewController {
     @objc
     private func keyboardWillShow(_ notification: NSNotification) {
         guard descriptionTextView.isFirstResponder else { return }
-        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        else { return }
         let keyboardHeight = keyboardFrame.cgRectValue.height
         keyboardConstraints?.constant = -keyboardHeight
     }

@@ -8,7 +8,7 @@
 import UIKit
 
 class TitleTextField: UITextField {
-    let inset = Constants.defaultSpacing
+    private let inset = Constants.defaultSpacing
 
     init() {
         super.init(frame: .zero)

@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    static let dateFormatter = DateFormatter()
+    private static let dateFormatter = DateFormatter()
 
     func isEarlierThanToday() -> Bool {
         let calendar = Calendar.current

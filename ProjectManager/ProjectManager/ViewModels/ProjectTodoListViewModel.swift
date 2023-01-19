@@ -25,6 +25,20 @@ struct ProjectTodoListViewModel {
         self.onUpdated = onUpdated
     }
 
+    mutating func add(projectTodo: ProjectTodo) {
+        projectTodos.append(projectTodo)
+    }
+
+    mutating func update(projectTodo: ProjectTodo) {
+        guard let index = projectTodos.firstIndex(where: { $0.id == projectTodo.id }) else { return }
+        updatedProjectTodosID.append(projectTodo.id)
+        projectTodos[index] = projectTodo
+    }
+
+    mutating func delete(for projectTodoID: UUID) {
+        projectTodos.removeAll(where: { $0.id == projectTodoID })
+    }
+
     func projectTodoViewModel(for projectTodoID: UUID) -> ProjectTodoViewModel? {
         guard let projectTodo = projectTodo(for: projectTodoID) else { return nil }
         let projectTodoViewModel = ProjectTodoViewModel(projectTodo: projectTodo)
@@ -41,26 +55,12 @@ struct ProjectTodoListViewModel {
     }
 
     func projectState(for index: Int) -> ProjectState? {
-            guard let projectState = ProjectState(rawValue: index) else { return nil }
-            return projectState
+        guard let projectState = ProjectState(rawValue: index) else { return nil }
+        return projectState
     }
 
     func projectTodosCount(for index: Int) -> Int {
         return projectTodos.filter { $0.state.rawValue == index }.count
-    }
-
-    mutating func add(projectTodo: ProjectTodo) {
-        projectTodos.append(projectTodo)
-    }
-
-    mutating func update(projectTodo: ProjectTodo) {
-        guard let index = projectTodos.firstIndex(where: { $0.id == projectTodo.id }) else { return }
-        updatedProjectTodosID.append(projectTodo.id)
-        projectTodos[index] = projectTodo
-    }
-
-    mutating func delete(for projectTodoID: UUID) {
-        projectTodos.removeAll(where: { $0.id == projectTodoID })
     }
 
     func projectStateCount() -> Int {

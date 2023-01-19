@@ -7,8 +7,10 @@
 
 import UIKit
 
-class ProjectTodoListViewController: UIViewController {
+final class ProjectTodoListViewController: UIViewController {
+
     // MARK: - Properties
+
     private var projectTodoListViewModel: ProjectTodoListViewModel
     private var collectionViews: [UICollectionView] = []
     private var dataSources: [DataSource] = []
@@ -26,6 +28,7 @@ class ProjectTodoListViewController: UIViewController {
     }
 
     // MARK: - Configure
+
     init(projectTodoListViewModel: ProjectTodoListViewModel) {
         self.projectTodoListViewModel = projectTodoListViewModel
         super.init(nibName: nil, bundle: nil)
@@ -71,7 +74,8 @@ class ProjectTodoListViewController: UIViewController {
 
     private func configureCollectionViews() {
         (0..<projectStateCount).forEach { index in
-            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout(for: index))
+            let collectionView = UICollectionView(frame: .zero,
+                                                  collectionViewLayout: makeCollectionViewLayout(for: index))
             collectionView.delegate = self
             collectionViews.append(collectionView)
         }
@@ -150,6 +154,7 @@ class ProjectTodoListViewController: UIViewController {
 }
 
 // MARK: - DataSource
+
 extension ProjectTodoListViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, UUID>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, UUID>
@@ -159,7 +164,9 @@ extension ProjectTodoListViewController {
         var configuration = ProjectTodoListContentView.Configuration()
         configuration.title = projectTodo.title
         configuration.description = projectTodo.description
-        configuration.dueDateAttributedText = projectTodoListViewModel.createDueDateAttributedString(projectTodo.dueDate)
+        configuration.dueDateAttributedText = projectTodoListViewModel.createDueDateAttributedString(
+            projectTodo.dueDate
+        )
         cell.contentConfiguration = configuration
     }
 
@@ -194,13 +201,15 @@ extension ProjectTodoListViewController {
 }
 
 // MARK: - AddButton Action
+
 extension ProjectTodoListViewController {
     @objc
     private func didPressAddButton(_ sender: UIBarButtonItem) {
         let newProjectTodoViewModel = ProjectTodoViewModel()
-        let projectTodoViewController = ProjectTodoViewController(navigationTitle: String(describing: newProjectTodoViewModel.projectTodo.state),
-                                                                      projectTodoViewModel: newProjectTodoViewModel,
-                                                                      isAdding: true) { [weak self] project in
+        let navigationTitle = String(describing: newProjectTodoViewModel.projectTodo.state)
+        let projectTodoViewController = ProjectTodoViewController(navigationTitle: navigationTitle,
+                                                                  projectTodoViewModel: newProjectTodoViewModel,
+                                                                  isAdding: true) { [weak self] project in
             guard let project else { return }
             self?.projectTodoListViewModel.add(projectTodo: project)
             self?.dismiss(animated: true)
@@ -215,10 +224,12 @@ extension ProjectTodoListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let dataSource = collectionView.dataSource as? DataSource,
               let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
-              let projectTodoViewModel = projectTodoListViewModel.projectTodoViewModel(for: itemIdentifier) else { return }
-        let projectTodoViewController = ProjectTodoViewController(navigationTitle: String(describing: projectTodoViewModel.projectTodo.state),
-                                                                      projectTodoViewModel: projectTodoViewModel,
-                                                                      isAdding: false) { [weak self] project in
+              let projectTodoViewModel = projectTodoListViewModel.projectTodoViewModel(for: itemIdentifier)
+        else { return }
+        let navigationTitle = String(describing: projectTodoViewModel.projectTodo.state)
+        let projectTodoViewController = ProjectTodoViewController(navigationTitle: navigationTitle,
+                                                                  projectTodoViewModel: projectTodoViewModel,
+                                                                  isAdding: false) { [weak self] project in
             guard let project else { return }
             self?.projectTodoListViewModel.update(projectTodo: project)
             self?.dismiss(animated: true)

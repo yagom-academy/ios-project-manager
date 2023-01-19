@@ -84,6 +84,8 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				EB9B14062971AAC100D601F1 /* Common */,
 				EB9B13FF2971913600D601F1 /* Extensions */,
 				EB9B13FC297190F700D601F1 /* Models */,
@@ -99,8 +101,6 @@
 		EB9B13FB297190D200D601F1 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);

@@ -8,7 +8,14 @@
 import UIKit
 
 final class ProjectTodoListContentView: UIView, UIContentView {
+
     // MARK: - Properties
+
+    var configuration: UIContentConfiguration {
+        didSet {
+            configure(configuration)
+        }
+    }
     private let titleLabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -16,7 +23,7 @@ final class ProjectTodoListContentView: UIView, UIContentView {
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
-    let descriptionLabel = {
+    private let descriptionLabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -45,13 +52,8 @@ final class ProjectTodoListContentView: UIView, UIContentView {
         return stackView
     }()
 
-    var configuration: UIContentConfiguration {
-        didSet {
-            configure(configuration)
-        }
-    }
-
     // MARK: - Configure
+
     init(configuration: UIContentConfiguration) {
         self.configuration = configuration
         super.init(frame: .zero)
@@ -83,6 +85,7 @@ final class ProjectTodoListContentView: UIView, UIContentView {
 }
 
 // MARK: - Configuration
+
 extension ProjectTodoListContentView {
     struct Configuration: UIContentConfiguration {
         var title: String?
