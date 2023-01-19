@@ -40,8 +40,6 @@ class ToDoListViewController: UIViewController {
         return dataSource
     }()
     
-    private var snapshot: Snapshot?
-    
     init(status: ToDoState, viewModel: ToDoListViewModel) {
         self.status = status
         self.viewModel = viewModel
@@ -76,20 +74,13 @@ class ToDoListViewController: UIViewController {
     private func setupViewModel() {
         viewModel.model.bind { item in
             self.appendData(item: item)
-            
-            var currentSnapshot = Snapshot()
-            currentSnapshot.appendSections([.main])
-            currentSnapshot.appendItems(item)
-            
-            self.snapshot = currentSnapshot
-            
             self.tableView.reloadData()
         }
     }
     
     private func appendData(item: [ToDo]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Schedule, ToDo>()
-
+        var snapshot = Snapshot()
+        
         snapshot.appendSections([.main])
         snapshot.appendItems(item)
         dataSource.apply(snapshot)
