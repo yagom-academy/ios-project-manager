@@ -14,8 +14,7 @@ struct TaskDummy {
             title: "RxSwift 추가",
             content: "제곧내",
             deadLine: 1674140400, // 2023년
-            state: .toDo,
-            isExpired: true
+            state: .toDo
         ),
         
         Task(
@@ -23,8 +22,7 @@ struct TaskDummy {
             title: "제목제목제목",
             content: "내용내용내용",
             deadLine: 1673881200,
-            state: .toDo,
-            isExpired: true
+            state: .toDo
         ),
         
         Task(
@@ -32,8 +30,7 @@ struct TaskDummy {
             title: "제목제목제목",
             content: "내용내용내용",
             deadLine: 1672498800,
-            state: .toDo,
-            isExpired: false
+            state: .toDo
         ),
         
         Task(
@@ -41,8 +38,7 @@ struct TaskDummy {
             title: "제목제목제목",
             content: "내용내용내용",
             deadLine: 1677596400,
-            state: .toDo,
-            isExpired: true
+            state: .toDo
         ),
         
         Task(
@@ -50,8 +46,7 @@ struct TaskDummy {
             title: "Mock Repository 만들기",
             content: "아얀이 열심히 만듦",
             deadLine: 1675436400,
-            state: .doing,
-            isExpired: true
+            state: .doing
         ),
         
         Task(
@@ -59,8 +54,7 @@ struct TaskDummy {
             title: "step2 PR",
             content: "coordinator까지 만들어서 보내기",
             deadLine: 1674140400,
-            state: .doing,
-            isExpired: true
+            state: .doing
         ),
         
         Task(
@@ -68,8 +62,7 @@ struct TaskDummy {
             title: "RxSwift 추가",
             content: "제곧내",
             deadLine: 1674147600,
-            state: .done,
-            isExpired: false
+            state: .done
         )
     ]
 }

@@ -36,12 +36,9 @@ final class CreateTaskUseCaseTests: XCTestCase {
             }).disposed(by: dispose)
         
         usecase.addTask(
-            id: UUID().uuidString,
             title: "제목제목제목",
             content: "내용내용내용",
-            deadLine: 1674148800,
-            state: .toDo,
-            isExpired: true
+            deadLine: 1674148800
         )
     }
 }

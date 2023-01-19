@@ -74,12 +74,9 @@ final class TaskCreateViewModel {
                 guard let self = self else { return }
                 
                 self.createTaskUseCase.addTask(
-                    id: UUID().uuidString,
                     title: self.title,
                     content: self.content,
-                    deadLine: self.date,
-                    state: .toDo,
-                    isExpired: false
+                    deadLine: self.date
                 )
             })
             .disposed(by: disposeBag)

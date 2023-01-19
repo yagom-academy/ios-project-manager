@@ -28,12 +28,9 @@ final class CreateTaskUseCase {
                  isExpired: Bool
     ) {
         let task = Task(
-            id: id,
             title: title,
             content: content,
-            deadLine: deadLine,
-            state: state,
-            isExpired: isExpired
+            deadLine: deadLine
         )
         
         let entity = translater.toEntity(with: task)

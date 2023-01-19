@@ -36,8 +36,7 @@ final class DeleteTaskUseCaseTests: XCTestCase {
             title: "RxSwift 추가",
             content: "제곧내",
             deadLine: 1674140400, // 2023년
-            state: .toDo,
-            isExpired: true
+            state: .toDo
         )
         
         usecase.isDeletedSuccess
@@ -57,8 +56,7 @@ final class DeleteTaskUseCaseTests: XCTestCase {
             title: "RxSwift 추가",
             content: "제곧내",
             deadLine: 1674140400, // 2023년
-            state: .toDo,
-            isExpired: true
+            state: .toDo
         )
         
         usecase.isDeletedSuccess

@@ -18,8 +18,7 @@ struct Translater {
             title: entity.title,
             content: entity.content,
             deadLine: entity.deadLine,
-            state: state,
-            isExpired: (entity.deadLine > Date().timeIntervalSince1970)
+            state: state
         )
         
         return task

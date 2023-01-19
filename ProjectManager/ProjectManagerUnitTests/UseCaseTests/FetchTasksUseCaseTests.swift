@@ -54,12 +54,9 @@ final class FetchTasksUseCaseTests: XCTestCase {
         XCTAssertNotNil(tasksList)
         
         createUseCaseStub.addTask(
-            id: "TestCase",
             title: "Test",
             content: "Test",
-            deadLine: 1674140400,
-            state: .toDo,
-            isExpired: false
+            deadLine: 1674140400
         )
         
         guard let previousTasksListCount = previousTasksListCount,
@@ -116,8 +113,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
                               title: .init(),
                               content: .init(),
                               deadLine: .init(),
-                              state: .done,
-                              isExpired: false)
+                              state: .done)
         
         guard let previousTask = tasksList?.first else { return XCTFail() }
         
@@ -171,8 +167,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
                               title: .init(),
                               content: .init(),
                               deadLine: .init(),
-                              state: .done,
-                              isExpired: false)
+                              state: .done)
         
         deleteTaskUseCaseStub.deleteTask(targetTask)
         

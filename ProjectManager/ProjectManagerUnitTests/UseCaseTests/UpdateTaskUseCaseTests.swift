@@ -37,8 +37,7 @@ final class UpdateTaskUseCaseTests: XCTestCase {
             title: "RxSwift 추가할까?",
             content: "제곧내는 뭔데?",
             deadLine: 1674140700,
-            state: .done,
-            isExpired: false
+            state: .done
         )
         
         taskRepositoryMock.fetchAllTaskList()
@@ -84,8 +83,7 @@ final class UpdateTaskUseCaseTests: XCTestCase {
             title: "RxSwift 추가",
             content: "제곧내",
             deadLine: 1674140400, // 2023년
-            state: .toDo,
-            isExpired: true
+            state: .toDo
         )
         
         usecase.isUpdatedSuccess
