@@ -80,10 +80,9 @@ class MainViewController: UIViewController {
                         body: "",
                         deadline: Date(),
                         state: .toDo)
-        let editToDoViewController = AddToDoViewController(viewModel: todoTableView.viewModel,
-                                                           toDo: toDo)
+        let addToDoViewController = AddToDoViewController(viewModel: todoTableView.viewModel)
         
-        let navigationController = UINavigationController(rootViewController: editToDoViewController)
+        let navigationController = UINavigationController(rootViewController: addToDoViewController)
         
         present(navigationController, animated: true)
     }
