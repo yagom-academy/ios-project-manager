@@ -8,6 +8,7 @@
 import UIKit
 
 final class PopoverViewController: UIViewController {
+    private let notification = Notification.Name("DismissForReload")
     private let coredataManager = CoreDataManager()
     private let id: UUID
     private let state: State
@@ -101,21 +102,23 @@ final class PopoverViewController: UIViewController {
             topButton.addTarget(self, action: #selector(tapTodoButton), for: .touchUpInside)
             bottomButton.addTarget(self, action: #selector(tapDoingButton), for: .touchUpInside)
         }
-    
     }
     
     @objc private func tapTodoButton() {
         coredataManager.updateData(id: id, state: .todo)
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
         dismiss(animated: true)
     }
     
     @objc private func tapDoingButton() {
         coredataManager.updateData(id: id, state: .doing)
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
         dismiss(animated: true)
     }
     
     @objc private func tapDoneButton() {
         coredataManager.updateData(id: id, state: .done)
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
         dismiss(animated: true)
     }
 }

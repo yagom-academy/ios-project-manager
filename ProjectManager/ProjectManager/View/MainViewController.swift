@@ -120,6 +120,8 @@ final class MainViewController: UIViewController {
     @objc private func dismissModal() {
         fetchData()
         self.todoTableView.reloadData()
+        self.doneTableView.reloadData()
+        self.doingTableView.reloadData()
     }
 }
 
