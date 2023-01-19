@@ -213,7 +213,7 @@ extension ListViewController: UITableViewDelegate {
 // MARK: - AddTodoViewDelegate
 extension ListViewController: AddTodoViewDelegate {
     func addNewTodoItem(with item: TodoModel) {
-        MockDataManager.shared.createNewTodo(item: item)
+        MockDataManager.shared.createTodo(item: item)
         applySnapshot(todoTableView)
         todoTableView.reloadData()
     }

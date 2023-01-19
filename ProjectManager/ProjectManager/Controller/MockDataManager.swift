@@ -31,7 +31,7 @@ final class MockDataManager {
                                                      status: .done,
                                                      date: 1673968037.6580071)]
     
-    func createNewTodo(item: TodoModel) {
+    func createTodo(item: TodoModel) {
         mockModels.append(item)
     }
     

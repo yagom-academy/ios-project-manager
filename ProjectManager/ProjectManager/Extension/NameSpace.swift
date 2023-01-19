@@ -14,20 +14,17 @@ enum HeaderViewValue {
 
 enum ListTableViewValue {
     static let identifier = "ListTableViewCell"
-    
-    enum PlaceHolder {
-        static let title = "title"
-        static let body = "body"
-        static let date = "0000. 0. 0"
-    }
 }
 
-enum ItemViewPlaceHolder {
-    static let title = " Title"
-    static let body = """
+enum PlaceHolder {
+    static let itemViewtitle = " Title"
+    static let itemViewBody = """
                       할일의 내용을 입력해주세요.
                       입력 가능한 글자수는 1000자로 제한됩니다.
                       """
+    static let tableViewtitle = "title"
+    static let tableViewbody = "body"
+    static let tableViewdate = "0000. 0. 0"
 }
 
 enum DatePickerValue {
@@ -56,4 +53,8 @@ enum TodoViewTitle {
     static let cancel = "Cancel"
     static let done = "Done"
     static let edit = "Edit"
+}
+
+enum TodoItemValue {
+    static let bodyLimit = 1000
 }

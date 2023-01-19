@@ -25,7 +25,7 @@ final class ListTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.numberOfLines = 1
-        label.text = ListTableViewValue.PlaceHolder.title
+        label.text = PlaceHolder.tableViewtitle
         return label
     }()
     
@@ -35,7 +35,7 @@ final class ListTableViewCell: UITableViewCell {
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.numberOfLines = 3
         label.textColor = UIColor.systemGray
-        label.text = ListTableViewValue.PlaceHolder.body
+        label.text = PlaceHolder.tableViewbody
         return label
     }()
     
@@ -44,7 +44,7 @@ final class ListTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 1
-        label.text = ListTableViewValue.PlaceHolder.date
+        label.text = PlaceHolder.tableViewdate
         return label
     }()
     
@@ -73,11 +73,7 @@ final class ListTableViewCell: UITableViewCell {
             mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            
-            titleLabel.topAnchor.constraint(equalTo: mainStackView.topAnchor),
-            
-            dateLabel.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor)
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
     }
     

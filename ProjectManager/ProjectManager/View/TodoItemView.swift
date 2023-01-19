@@ -20,7 +20,7 @@ final class TodoItemView: UIView {
     
     private(set) var titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = ItemViewPlaceHolder.title
+        textField.placeholder = PlaceHolder.itemViewtitle
         textField.layer.cornerRadius = 5
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.systemGray5.cgColor
@@ -40,7 +40,7 @@ final class TodoItemView: UIView {
     
     private(set) var bodyTextView: UITextView = {
         let textView = UITextView()
-        textView.text = ItemViewPlaceHolder.body
+        textView.text = PlaceHolder.itemViewBody
         textView.layer.cornerRadius = 5
         textView.layer.borderWidth = 1
         textView.font = UIFont.preferredFont(forTextStyle: .body, compatibleWith: .none)
