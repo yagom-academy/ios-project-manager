@@ -24,4 +24,8 @@ class ToDoListViewModel {
         
         self.model.value[indexPath] = data
     }
+    
+    func delete(indexPath: Int) {
+        model.value.remove(at: indexPath)
+    }
 }

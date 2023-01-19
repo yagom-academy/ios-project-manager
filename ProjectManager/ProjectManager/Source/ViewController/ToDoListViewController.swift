@@ -8,6 +8,9 @@ class ToDoListViewController: UIViewController {
         case main
     }
     
+    typealias DataSource = UITableViewDiffableDataSource<Schedule, ToDo>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Schedule, ToDo>
+    
     private let status: ToDoState
     let viewModel: ToDoListViewModel
     
@@ -22,10 +25,8 @@ class ToDoListViewController: UIViewController {
         return tableView
     }()
     
-    private lazy var dataSource: UITableViewDiffableDataSource = {
-        let dataSource = UITableViewDiffableDataSource<Schedule, ToDo>(
-            tableView: tableView
-        ) { tableView, indexPath, item in
+    private lazy var dataSource: DataSource = {
+        let dataSource = DataSource(tableView: tableView) { tableView, indexPath, item in
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ToDoCell.reuseIdentifier,
                 for: indexPath
@@ -39,22 +40,24 @@ class ToDoListViewController: UIViewController {
         return dataSource
     }()
     
+    private var snapshot: Snapshot?
+    
     init(status: ToDoState, viewModel: ToDoListViewModel) {
         self.status = status
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        tableView.delegate = self
-        setupView()
-        
-        viewModel.model.bind { item in
-            self.appendData(item: item)
-            self.tableView.reloadData()
-        }
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.delegate = self
+        setupView()
+        setupViewModel()
     }
     
     private func setupView() {
@@ -70,16 +73,35 @@ class ToDoListViewController: UIViewController {
         ])
     }
     
-    func appendData(item: [ToDo]) {
+    private func setupViewModel() {
+        viewModel.model.bind { item in
+            self.appendData(item: item)
+            
+            var currentSnapshot = Snapshot()
+            currentSnapshot.appendSections([.main])
+            currentSnapshot.appendItems(item)
+            
+            self.snapshot = currentSnapshot
+            
+            self.tableView.reloadData()
+        }
+    }
+    
+    private func appendData(item: [ToDo]) {
         var snapshot = NSDiffableDataSourceSnapshot<Schedule, ToDo>()
+
         snapshot.appendSections([.main])
         snapshot.appendItems(item)
-        
         dataSource.apply(snapshot)
     }
     
-    func addToDo(item: ToDo) {
-        viewModel.addToDo(item: item)
+    private func deleteToDo(indexPath: Int) {
+        var currentSnapshot = dataSource.snapshot()
+        guard let item = viewModel.fetchToDo(index: indexPath) else { return }
+        
+        currentSnapshot.deleteItems([item])
+        dataSource.apply(currentSnapshot)
+        viewModel.delete(indexPath: indexPath)
     }
 }
 
@@ -98,5 +120,24 @@ extension ToDoListViewController: UITableViewDelegate {
         
         tableView.deselectRow(at: indexPath, animated: true)
         present(navigationController, animated: true)
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive,
+                                              title: nil) { [weak self] (_, _, success) in
+            if self?.viewModel.fetchToDo(index: indexPath.item) != nil {
+                self?.deleteToDo(indexPath: indexPath.item)
+                self?.tableView.reloadData()
+                success(true)
+            } else {
+                success(false)
+            }
+        }
+        deleteAction.image = UIImage(systemName: "trash.fill")
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
