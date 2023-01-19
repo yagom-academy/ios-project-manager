@@ -94,8 +94,7 @@ extension ToDoListViewController: UITableViewDelegate {
         guard let toDo = dataSource.itemIdentifier(for: indexPath) else { return }
         
         // guard let toDo = viewModel.fetchToDo(index: indexPath.item) else { return }
-        let editToDoViewController = AddToDoViewController(viewModel: viewModel,
-                                                           toDo: toDo)
+        let editToDoViewController = EditToDoViewController(viewModel: viewModel, toDo: toDo)
         
         let navigationController = UINavigationController(rootViewController: editToDoViewController)
         
