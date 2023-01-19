@@ -25,6 +25,7 @@ struct ProjectDetailView: View {
           .background(.white)
           .cornerRadius(10)
           .shadow(color: .gray, radius: 1, y: 1)
+          .disabled(!viewStore.isEditMode)
           
           DatePicker(
             "마감 기한",
@@ -40,6 +41,7 @@ struct ProjectDetailView: View {
           .background(.white)
           .cornerRadius(10)
           .shadow(color: .gray, radius: 1, y: 1)
+          .disabled(!viewStore.isEditMode)
           
           TextEditor(
             text: viewStore.binding(
@@ -51,6 +53,7 @@ struct ProjectDetailView: View {
           .background(.white)
           .cornerRadius(10)
           .shadow(color: .gray, radius: 1, y: 1)
+          .disabled(!viewStore.isEditMode)
         }
         .padding()
         .background(Color.secondaryBackground)
@@ -58,8 +61,14 @@ struct ProjectDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
-            Button("Cancel") {
-              viewStore.send(.didCancelTap)
+            if viewStore.editMode {
+              Button(viewStore.isEditMode ? "Apply" : "Edit") {
+                viewStore.send(.didEditTap)
+              }
+            } else {
+              Button("Cancel") {
+                viewStore.send(.didCancelTap)
+              }
             }
           }
           
@@ -79,13 +88,20 @@ struct ProjectDetailView: View {
 }
 
 struct DetailView_Previews: PreviewProvider {
-  static let store = Store(
+  static let falseStore = Store(
     initialState: DetailState(),
     reducer: detailReducer,
     environment: DetailEnvironment()
   )
   
+  static let trueStore = Store(
+    initialState: DetailState(editMode: true),
+    reducer: detailReducer,
+    environment: DetailEnvironment()
+  )
+  
   static var previews: some View {
-    ProjectDetailView(store: store)
+    ProjectDetailView(store: falseStore)
+    ProjectDetailView(store: trueStore)
   }
 }

@@ -13,17 +13,27 @@ struct DetailState: Equatable, Identifiable {
   var title: String
   var description: String
   var deadLineDate: Date
+  var editMode: Bool
   
-  init(title: String = "", description: String = "", deadLineDate: Date = Date().convertDate()) {
+  var isEditMode: Bool = false
+  
+  init(
+    title: String = "",
+    description: String = "",
+    deadLineDate: Date = Date().convertDate(),
+    editMode: Bool = false
+  ) {
     self.title = title
     self.description = description
     self.deadLineDate = deadLineDate
+    self.editMode = editMode
   }
 }
 
 enum DetailAction {
   // User Action
   case didCancelTap
+  case didEditTap
   case didDoneTap
   
   // Inner Action
@@ -38,6 +48,10 @@ struct DetailEnvironment {
 
 let detailReducer = Reducer<DetailState, DetailAction, DetailEnvironment> { state, action, environment in
   switch action {
+  case .didEditTap:
+    state.isEditMode.toggle()
+    return .none
+    
   case .didCancelTap:
     return .none
     
