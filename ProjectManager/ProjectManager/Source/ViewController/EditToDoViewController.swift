@@ -16,12 +16,12 @@ class EditToDoViewController: UIViewController {
     }
     
     let viewModel: ToDoListViewModel
-    private let currentToDo: ToDo
+    private let indexPath: Int
     private let detailView = ToDoDetailView()
     
-    init(viewModel: ToDoListViewModel, toDo: ToDo) {
+    init(viewModel: ToDoListViewModel, indexPath: Int) {
         self.viewModel = viewModel
-        self.currentToDo = toDo
+        self.indexPath = indexPath
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,20 +33,31 @@ class EditToDoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        setupView()
-        detailView.changeEditing(false)
     }
     
     private func configure() {
         title = Constant.title
         view.backgroundColor = .systemBackground
         
-        let data = ToDoData(title: currentToDo.title,
-                            body: currentToDo.body,
-                            deadline: currentToDo.deadline)
-        detailView.setupContent(data: data)
-        
         setupBarButtonItem()
+        setupView()
+        setupContent()
+        detailView.changeEditing(false)
+    }
+    
+    private func setupContent() {
+        if let data = viewModel.fetchToDo(index: indexPath) {
+            detailView.setupContent(data: data)
+            return
+        }
+        
+        let alert = UIAlertController(title: "데이터를 가져오는데 실패했습니다.",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default)
+        
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
     
     private func setupBarButtonItem() {
@@ -96,6 +107,21 @@ class EditToDoViewController: UIViewController {
     
     @objc
     private func tappedDoneButton() {
+        if detailView.validToDoTitle() == false {
+            let alert = UIAlertController(title: "제목을 입력해주세요.", message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default)
+            
+            alert.addAction(okAction)
+            present(alert, animated: true)
+            
+            return
+        }
+        let data = detailView.currentContent()
+        viewModel.update(indexPath: indexPath,
+                         title: data.title,
+                         body: data.body,
+                         deadline: data.deadline)
+        
         dismiss(animated: true)
     }
 }

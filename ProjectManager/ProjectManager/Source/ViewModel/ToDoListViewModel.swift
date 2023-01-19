@@ -15,4 +15,13 @@ class ToDoListViewModel {
     func fetchToDo(index: Int) -> ToDo? {
         return model.value[index]
     }
+    
+    func update(indexPath: Int, title: String, body: String, deadline: Date) {
+        var data = model.value[indexPath]
+        data.title = title
+        data.body = body
+        data.deadline = deadline
+        
+        self.model.value[indexPath] = data
+    }
 }
