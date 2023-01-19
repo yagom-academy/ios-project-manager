@@ -77,13 +77,14 @@ struct ProjectDetailView: View {
   }
 }
 
-struct ProjectDetailView_Previews: PreviewProvider {
-  static let detailStore = Store(
-    initialState: DetailViewStore.State(),
-    reducer: DetailViewStore()
+struct DetailView_Previews: PreviewProvider {
+  static let store = Store(
+    initialState: DetailState(),
+    reducer: detailReducer,
+    environment: DetailEnvironment()
   )
+  
   static var previews: some View {
-    ProjectDetailView(store: detailStore)
-      .previewLayout(.sizeThatFits)
+    ProjectDetailView(store: store)
   }
 }

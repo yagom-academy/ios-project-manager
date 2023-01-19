@@ -10,14 +10,15 @@ import ComposableArchitecture
 
 @main
 struct ProjectManagerApp: App {
-  let appStore = Store(
-    initialState: AppStore.State(),
-    reducer: AppStore()._printChanges()
+  let store = Store(
+    initialState: NavigateState(),
+    reducer: navigateReducer,
+    environment: NavigateEnvironment()
   )
   
   var body: some Scene {
     WindowGroup {
-      ProjectManagerAppView(store: appStore)
+      NavigationBarView(navigationStore: store)
     }
   }
 }

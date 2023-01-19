@@ -13,43 +13,6 @@ struct Project: Decodable, Identifiable, Equatable {
   var date: Int
   var description: String
   var state: ProjectState = .todo
-  
-  //MARK: 임시 데이터 추후 삭제 예정
-  static let mock: IdentifiedArrayOf<BoardListCellStore.State> = [
-    .init(
-      id: UUID(),
-      project: .init(
-        title: "책상 정리",
-        date: 1000000,
-        description: "집중이 안될때는 역시나 책상 정리 집중이 안될때는 역시나 책상 정리 집중이 안될때는 역시나 책상 정리 집중이 안될때는 역시나 책상 정리 집중이 안될때는 역시나 책상 정리 집중이 안될때는 역시나 책상 정리 집중이 안될때는 역시나 책상 정리"
-      )
-    ),
-    .init(
-      id: UUID(),
-      project: .init(
-        title: "책상 정리2",
-        date: 1000000,
-        description: "집중이 안될때는 역시나 책상 정리2",
-        state: .doing)
-    ),
-    .init(
-      id: UUID(),
-      project: .init(
-        title: "책상 정리3",
-        date: 1000000,
-        description: "집중이 안될때는 역시나 책상 정리3"
-      )
-    ),
-    .init(
-      id: UUID(),
-      project: .init(
-        title: "책상 정리4",
-        date: 1000000,
-        description: "집중이 안될때는 역시나 책상 정리4",
-        state: .done
-      )
-    )
-  ]
 }
 
 enum ProjectState: Int, CaseIterable, Decodable {
