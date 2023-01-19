@@ -50,7 +50,7 @@ final class MainViewController: UIViewController {
     
     private func takeInitialSnapShot() {
         ProjectState.allCases.forEach { state in
-            let projects = mainViewModel.fetchProjects(in: state)
+            let projects = mainViewModel.fetchProjects(of: state)
             dataSources[state.index]?.applyInitialSnapShot(projects)
                 
         }
@@ -140,7 +140,7 @@ extension MainViewController: UITableViewDelegate {
               let cellViewModel = cell.cellViewModel else { return }
         
         let state = cellViewModel.currentState
-        let projectToEdit = mainViewModel.fetchProjects(in: state)[indexPath.item]
+        let projectToEdit = mainViewModel.fetchProject(index: indexPath.item, of: state)
         let editingViewModel = EditingViewModel(editTargetModel: self.mainViewModel,
                                                 project: projectToEdit,
                                                 isNewProject: false,
@@ -159,10 +159,10 @@ extension MainViewController: UITableViewDelegate {
               let cellViewModel = cell.cellViewModel else { return nil }
         
         let state = cellViewModel.currentState
-        let project = mainViewModel.fetchProjects(in: state)[indexPath.item]
+        let project = mainViewModel.fetchProject(index: indexPath.item, of: state)
         let delete = UIContextualAction(style: .destructive,
                                         title: Title.deleteAction) { _, _, _ in
-            self.mainViewModel.delete(project, in: state)
+            self.mainViewModel.delete(project, of: state)
         }
         
         return UISwipeActionsConfiguration(actions: [delete])

@@ -95,7 +95,7 @@ final class EditingViewModel {
     }
     
     func edit(_ project: Project) {
-        editTargetModel.edit(project, in: state)
+        editTargetModel.edit(project, of: state)
     }
 }
 

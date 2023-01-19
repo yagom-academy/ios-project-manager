@@ -39,7 +39,7 @@ class EditingViewModelTests: XCTestCase {
         sut = EditingViewModel(editTargetModel: mainViewModel,
                                project: project,
                                isNewProject: false,
-                               process: .doing)
+                               state: .doing)
         
         // when: 모드를 변경하면
         sut?.changeModeToEditable()
@@ -54,7 +54,7 @@ class EditingViewModelTests: XCTestCase {
         sut?.register(project)
         
         // then: mainViewModel의 todo배열에 추가된다.
-        let addedData = mainViewModel?.readProject(in: .todo).first
+        let addedData = mainViewModel?.fetchProject(index: 0, of: .todo)
         XCTAssertEqual(project.title, addedData?.title)
         XCTAssertEqual(project.description, addedData?.description)
         XCTAssertEqual(project.date, addedData?.date)
@@ -69,7 +69,7 @@ class EditingViewModelTests: XCTestCase {
         sut = EditingViewModel(editTargetModel: mainViewModel,
                                project: project,
                                isNewProject: false,
-                               process: .doing)
+                               state: .doing)
         
         // when: project를 수정한 후
         project.title = "수정된 타이틀"
@@ -77,9 +77,9 @@ class EditingViewModelTests: XCTestCase {
         sut?.edit(project)
         
         // then: 등록되어있던 doing배열의 project데이터가 수정된다.
-        let editedData = mainViewModel.readProject(in: .doing).first
-        XCTAssertEqual("수정된 타이틀", editedData?.title)
-        XCTAssertEqual("수정된 Description", editedData?.description)
+        let editedData = mainViewModel.fetchProject(index: 0, of: .doing)
+        XCTAssertEqual("수정된 타이틀", editedData.title)
+        XCTAssertEqual("수정된 Description", editedData.description)
     }
     
     func test_doneEditing_새로운_프로젝트일때mainModelView_Todo에_데이터추가확인() {
@@ -92,7 +92,7 @@ class EditingViewModelTests: XCTestCase {
                          dateInput: newProject.date)
         
         // then: mainViewModel의 TODO에 추가된다.
-        let addedData = mainViewModel?.readProject(in: .todo).first
+        let addedData = mainViewModel?.fetchProject(index: 0, of: .todo)
         XCTAssertEqual(newProject.title, addedData?.title)
         XCTAssertEqual(newProject.description, addedData?.description)
         XCTAssertEqual(newProject.date, addedData?.date)
@@ -107,7 +107,7 @@ class EditingViewModelTests: XCTestCase {
         sut = EditingViewModel(editTargetModel: mainViewModel,
                                project: project,
                                isNewProject: false,
-                               process: .done)
+                               state: .done)
         
         // when: 프로젝트 내용을 바꾸고 수정을 끝내면
         project.title = "수정된 테스트 Ttile"
@@ -117,8 +117,8 @@ class EditingViewModelTests: XCTestCase {
                          dateInput: project.date)
         
         // then: mainViewModel의 TODO에 추가된다.
-        let editedData = mainViewModel.readProject(in: .done).first
-        XCTAssertEqual("수정된 테스트 Ttile", editedData?.title)
-        XCTAssertEqual("수정된 테스트 Description", editedData?.description)
+        let editedData = mainViewModel.fetchProject(index: 0, of: .done)
+        XCTAssertEqual("수정된 테스트 Ttile", editedData.title)
+        XCTAssertEqual("수정된 테스트 Description", editedData.description)
     }
 }

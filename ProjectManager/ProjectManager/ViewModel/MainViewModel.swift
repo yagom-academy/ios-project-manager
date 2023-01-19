@@ -38,22 +38,26 @@ final class MainViewModel {
         return stateTitles[state.index]
     }
     
-    func fetchProjects(in state: ProjectState) -> [Project] {
+    func fetchProjects(of state: ProjectState) -> [Project] {
         return projectsGroup[state.index]
+    }
+    
+    func fetchProject(index: Int, of state: ProjectState) -> Project {
+        return projectsGroup[state.index][index]
     }
     
     func add(_ project: Project, in state: ProjectState) {
         projectsGroup[state.index].append(project)
     }
     
-    func edit(_ project: Project, in state: ProjectState) {
+    func edit(_ project: Project, of state: ProjectState) {
         projectsGroup[state.index].enumerated().forEach { index, addedProject in
             guard addedProject.uuid == project.uuid else { return }
             projectsGroup[state.index][index] = project
         }
     }
     
-    func delete(_ project: Project, in state: ProjectState) {
+    func delete(_ project: Project, of state: ProjectState) {
         projectsGroup[state.index].enumerated().forEach { index, data in
             guard data.uuid == project.uuid else { return }
             projectsGroup[state.index].remove(at: index)
@@ -61,7 +65,7 @@ final class MainViewModel {
     }
     
     func move(_ project: Project, from currentState: ProjectState, to state: ProjectState) {
-        delete(project, in: currentState)
+        delete(project, of: currentState)
         add(project, in: state)
     }
 }
