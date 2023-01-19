@@ -8,6 +8,7 @@
 import Foundation
 
 import RxSwift
+import RxRelay
 
 final class StateUpdateViewModel {
     private let updateTaskUseCase: UpdateTaskUseCase
@@ -25,6 +26,26 @@ final class StateUpdateViewModel {
         let moveToDoneButtonTapEvent: Observable<Void>
     }
     
+    struct Output {
+        let isSuccess = PublishRelay<Bool>()
+    }
+    
+    func transform(from input: Input) -> Output {
+        let output = Output()
+        
+        updateTaskUseCase.isUpdatedSuccess
+            .subscribe(onNext: { isSuccess in
+                output.isSuccess.accept(isSuccess)
+            })
+            .disposed(by: disposeBag)
+        
+        bind(with: input)
+        
+        return output
+    }
+}
+
+private extension StateUpdateViewModel {
     func bind(with input: Input) {
         input.moveToTodoButtonTapEvent
             .subscribe(onNext: { [weak self] _ in
@@ -44,9 +65,7 @@ final class StateUpdateViewModel {
             })
             .disposed(by: disposeBag)
     }
-}
-
-private extension StateUpdateViewModel {
+    
     func updateTaskState(to state: Task.State) {
         guard task.state != state else { return }
         task.state = state
