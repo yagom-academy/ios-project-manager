@@ -13,8 +13,9 @@ final class ModalViewContoller: UIViewController {
         case edit
     }
     
-    private var writeMode: WriteMode
-    let coreDataManager = CoreDataManager()
+    private let data: TodoModel?
+    private let writeMode: WriteMode
+    private let coreDataManager = CoreDataManager()
     
     private let textField: UITextField = {
         let textField = UITextField()
@@ -56,8 +57,9 @@ final class ModalViewContoller: UIViewController {
         return textView
     }()
     
-    init(mode: WriteMode) {
+    init(mode: WriteMode, model: TodoModel? = nil) {
         self.writeMode = mode
+        self.data = model
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -72,6 +74,16 @@ final class ModalViewContoller: UIViewController {
         
         configureLayout()
         setNavigation()
+        setData()
+    }
+    
+    private func setData() {
+        guard let data = data,
+              let todoDate = data.todoDate else { return }
+        
+        textField.text = data.title
+        datePicker.date = todoDate
+        textView.text = data.body
     }
     
     private func setNavigation() {
@@ -85,6 +97,13 @@ final class ModalViewContoller: UIViewController {
                 action: #selector(tapCancelButton)
             )
             navigationItem.leftBarButtonItem = leftBarButton
+            
+            let rightBarButton = UIBarButtonItem(
+                barButtonSystemItem: .done,
+                target: self,
+                action: #selector(tapRightButton)
+            )
+            navigationItem.rightBarButtonItem = rightBarButton
         case .edit:
             let leftBarButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
@@ -92,14 +111,13 @@ final class ModalViewContoller: UIViewController {
                 action: #selector(tapEditButton)
             )
             navigationItem.leftBarButtonItem = leftBarButton
+            let rightBarButton = UIBarButtonItem(
+                barButtonSystemItem: .done,
+                target: self,
+                action: #selector(tapUpdateRightButton)
+            )
+            navigationItem.rightBarButtonItem = rightBarButton
         }
-        
-        let rightBarButton = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(tapRightButton)
-        )
-        navigationItem.rightBarButtonItem = rightBarButton
     }
     
     // TODO: -Left Right Button 입력 함수 구현
@@ -116,6 +134,20 @@ final class ModalViewContoller: UIViewController {
         guard let body = textView.text else { return }
         
         coreDataManager.saveData(title: title, body: body, todoDate: datePicker.date)
+        
+        let notification = Notification.Name("DismissForReload")
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
+        dismiss(animated: true)
+    }
+    
+    @objc private func tapUpdateRightButton() {
+        guard let title = textField.text else { return }
+        guard let body = textView.text else { return }
+        guard let id = data?.id else { return }
+        guard let state = data?.state,
+              let state = State(rawValue: state) else { return }
+        
+        coreDataManager.updateData(title: title, body: body, todoDate: datePicker.date, id: id, state: state)
         
         let notification = Notification.Name("DismissForReload")
         NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)

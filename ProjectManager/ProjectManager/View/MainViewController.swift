@@ -180,6 +180,25 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var data: TodoModel?
+        switch tableView {
+        case todoTableView:
+            data = todoData[indexPath.row]
+        case doingTableView:
+            data = doingData[indexPath.row]
+        case doneTableView:
+            data = doneData[indexPath.row]
+        default:
+            data = nil
+        }
+        
+        let modalController = UINavigationController(rootViewController: ModalViewContoller(
+            mode: .edit,
+            model: data
+        ))
+        modalController.modalPresentationStyle = .formSheet
+        self.present(modalController, animated: true, completion: nil)
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
