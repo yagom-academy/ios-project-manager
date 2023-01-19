@@ -18,6 +18,29 @@ struct ProjectManagerAppView: View {
           action: AppAction.navigateAction
         )
       )
+      
+      HStack {
+        BoardListView(
+          store: self.store.scope(
+            state: \.todoListState,
+            action: AppAction.todoListAction
+          )
+        )
+        
+        BoardListView(
+          store: self.store.scope(
+            state: \.todoListState,
+            action: AppAction.todoListAction
+          )
+        )
+        
+        BoardListView(
+          store: self.store.scope(
+            state: \.todoListState,
+            action: AppAction.todoListAction
+          )
+        )
+      }
     }
   }
 }
