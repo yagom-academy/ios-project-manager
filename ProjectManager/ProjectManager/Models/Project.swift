@@ -21,10 +21,10 @@ struct Project: Hashable {
     var dueDate: Date
 
     init(id: UUID = UUID(),
-         status: Status = .todo,
-         title: String = "",
-         description: String = " ",
-         dueDate: Date = Date()) {
+         status: Status,
+         title: String,
+         description: String,
+         dueDate: Date) {
         self.id = id
         self.status = status
         self.title = title
