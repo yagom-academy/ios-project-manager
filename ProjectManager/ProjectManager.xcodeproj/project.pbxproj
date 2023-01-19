@@ -17,7 +17,7 @@
 		18359ABA296C1F82000D6C73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359AB9296C1F82000D6C73 /* Assets.xcassets */; };
 		18359ABD296C1F82000D6C73 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */; };
 		1854F1232975738C0082FB88 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F1222975738C0082FB88 /* AppStore.swift */; };
-		1854F126297578150082FB88 /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F125297578150082FB88 /* NavigationStore.swift */; };
+		1854F126297578150082FB88 /* NavigationCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F125297578150082FB88 /* NavigationCore.swift */; };
 		1854F128297578290082FB88 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F127297578290082FB88 /* NavigationBarView.swift */; };
 		1854F12B29757BC10082FB88 /* BoardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F12A29757BC10082FB88 /* BoardListCell.swift */; };
 		1854F12D29757BE20082FB88 /* BoardListCellStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854F12C29757BE20082FB88 /* BoardListCellStore.swift */; };
@@ -45,7 +45,7 @@
 		18359AB9296C1F82000D6C73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18359ABC296C1F82000D6C73 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1854F1222975738C0082FB88 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
-		1854F125297578150082FB88 /* NavigationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStore.swift; sourceTree = "<group>"; };
+		1854F125297578150082FB88 /* NavigationCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCore.swift; sourceTree = "<group>"; };
 		1854F127297578290082FB88 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		1854F12A29757BC10082FB88 /* BoardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListCell.swift; sourceTree = "<group>"; };
 		1854F12C29757BE20082FB88 /* BoardListCellStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListCellStore.swift; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 		1854F124297578050082FB88 /* NavigationBarView */ = {
 			isa = PBXGroup;
 			children = (
-				1854F125297578150082FB88 /* NavigationStore.swift */,
+				1854F125297578150082FB88 /* NavigationCore.swift */,
 				1854F127297578290082FB88 /* NavigationBarView.swift */,
 			);
 			path = NavigationBarView;
@@ -279,7 +279,7 @@
 			files = (
 				1804381E2975B451000CC2DA /* ProjectManagerAppView.swift in Sources */,
 				1854F13F29759B210082FB88 /* BoardStore.swift in Sources */,
-				1854F126297578150082FB88 /* NavigationStore.swift in Sources */,
+				1854F126297578150082FB88 /* NavigationCore.swift in Sources */,
 				189D2B3029769E020022F549 /* Int.swift in Sources */,
 				1854F13A297597830082FB88 /* BoardHeaderStore.swift in Sources */,
 				1854F128297578290082FB88 /* NavigationBarView.swift in Sources */,
