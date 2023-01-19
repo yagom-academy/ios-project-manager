@@ -32,6 +32,9 @@ struct DoneBoardListView: View {
             BoardListCellView(project: project)
               .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
               .listRowSeparator(.hidden)
+              .onTapGesture {
+                viewStore.send(.tapItem(true, project))
+              }
               .contextMenu {
                 Button("Moving To Todo") {
                   viewStore.send(.movingToTodo(project))
@@ -39,6 +42,21 @@ struct DoneBoardListView: View {
                 
                 Button("Moving To Doing") {
                   viewStore.send(.movingToDoing(project))
+                }
+              }
+              .sheet(
+                isPresented: viewStore.binding(
+                  get: \.isPresent,
+                  send: DoneAction._changePresentState
+                )
+              ) {
+                IfLetStore(
+                  self.store.scope(
+                    state: \.selectedState,
+                    action: DoneAction.detailAction
+                  )
+                ) {
+                  ProjectDetailView(store: $0)
                 }
               }
           }

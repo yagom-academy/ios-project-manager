@@ -18,19 +18,22 @@ struct DoingBoardListView: View {
           count: viewStore.projects.count
         )
         .padding()
-
+        
         Divider()
           .frame(height: 2)
           .background(Color.accentColor)
           .padding(.horizontal)
           .cornerRadius(10)
-
-
+        
+        
         List {
           ForEach(viewStore.projects, id: \.id) { project in
             BoardListCellView(project: project)
               .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
               .listRowSeparator(.hidden)
+              .onTapGesture {
+                viewStore.send(.tapItem(true, project))
+              }
               .contextMenu {
                 Button("Moving To Todo") {
                   viewStore.send(.movingToTodo(project))
@@ -38,6 +41,21 @@ struct DoingBoardListView: View {
                 
                 Button("Moving To Done") {
                   viewStore.send(.movingToDone(project))
+                }
+              }
+              .sheet(
+                isPresented: viewStore.binding(
+                  get: \.isPresent,
+                  send: DoingAction._changePresentState
+                )
+              ) {
+                IfLetStore(
+                  self.store.scope(
+                    state: \.selectedState,
+                    action: DoingAction.detailAction
+                  )
+                ) {
+                  ProjectDetailView(store: $0)
                 }
               }
           }
