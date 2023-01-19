@@ -51,6 +51,7 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		D34F77DF2978E5FF005DCE66 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77DE2978E5FF005DCE66 /* Date+.swift */; };
 		D34F77E02978E602005DCE66 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77DE2978E5FF005DCE66 /* Date+.swift */; };
+		D34F77E429792FB6005DCE66 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = D34F77E329792FB6005DCE66 /* RxTest */; };
 		D36715D8296D495400A4A9DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D36715D7296D495400A4A9DD /* GoogleService-Info.plist */; };
 		D36715DB296D4CCB00A4A9DD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D36715DA296D4CCB00A4A9DD /* FirebaseAnalytics */; };
 		D36F87052977B1A70006C392 /* FetchTasksUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F87042977B1A70006C392 /* FetchTasksUseCaseTests.swift */; };
@@ -160,6 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D34F77E429792FB6005DCE66 /* RxTest in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +520,9 @@
 				D379543B29769A8500A3F02F /* PBXTargetDependency */,
 			);
 			name = ProjectManagerUnitTests;
+			packageProductDependencies = (
+				D34F77E329792FB6005DCE66 /* RxTest */,
+			);
 			productName = ProjectManagerUnitTests;
 			productReference = D379543629769A8500A3F02F /* ProjectManagerUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -945,6 +950,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D34F77E329792FB6005DCE66 /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3E203B829757FF60015AD16 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
 		D36715DA296D4CCB00A4A9DD /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D36715D9296D4CCA00A4A9DD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
