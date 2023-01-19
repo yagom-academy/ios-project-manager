@@ -10,8 +10,8 @@
 		AC25141929761D950069CFFA /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141829761D950069CFFA /* TaskEntity.swift */; };
 		AC25141B29761DA10069CFFA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141A29761DA10069CFFA /* Task.swift */; };
 		AC25141D297622180069CFFA /* Translater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141C297622180069CFFA /* Translater.swift */; };
-		AC5F3CA02976C24D007D5F80 /* DeleteTaskUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3C9F2976C24D007D5F80 /* DeleteTaskUseCase.swift */; };
-		AC5F3CA12976C24D007D5F80 /* DeleteTaskUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3C9F2976C24D007D5F80 /* DeleteTaskUseCase.swift */; };
+		AC5F3CA02976C24D007D5F80 /* DefaultDeleteTaskUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3C9F2976C24D007D5F80 /* DefaultDeleteTaskUseCase.swift */; };
+		AC5F3CA12976C24D007D5F80 /* DefaultDeleteTaskUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3C9F2976C24D007D5F80 /* DefaultDeleteTaskUseCase.swift */; };
 		AC5F3CA32976C46A007D5F80 /* DeleteTaskUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CA22976C46A007D5F80 /* DeleteTaskUseCaseTests.swift */; };
 		AC5F3CB32977CDE7007D5F80 /* StateUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CB22977CDE7007D5F80 /* StateUpdateViewModel.swift */; };
 		AC5F3CB42977CDE7007D5F80 /* StateUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CB22977CDE7007D5F80 /* StateUpdateViewModel.swift */; };
@@ -100,7 +100,7 @@
 		AC25141829761D950069CFFA /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
 		AC25141A29761DA10069CFFA /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		AC25141C297622180069CFFA /* Translater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translater.swift; sourceTree = "<group>"; };
-		AC5F3C9F2976C24D007D5F80 /* DeleteTaskUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTaskUseCase.swift; sourceTree = "<group>"; };
+		AC5F3C9F2976C24D007D5F80 /* DefaultDeleteTaskUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDeleteTaskUseCase.swift; sourceTree = "<group>"; };
 		AC5F3CA22976C46A007D5F80 /* DeleteTaskUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTaskUseCaseTests.swift; sourceTree = "<group>"; };
 		AC5F3CB22977CDE7007D5F80 /* StateUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdateViewModel.swift; sourceTree = "<group>"; };
 		AC5F3CB52977CDF2007D5F80 /* TaskDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewModel.swift; sourceTree = "<group>"; };
@@ -463,7 +463,7 @@
 				D37954082976617300A3F02F /* DefaultFetchTasksUseCase.swift */,
 				AC67583C29766C4400C2BDE2 /* CreateTaskUseCase.swift */,
 				D37836F82976C5A500844849 /* UpdateTaskUseCase.swift */,
-				AC5F3C9F2976C24D007D5F80 /* DeleteTaskUseCase.swift */,
+				AC5F3C9F2976C24D007D5F80 /* DefaultDeleteTaskUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -639,7 +639,7 @@
 				AC5F3CBC2977CE04007D5F80 /* TaskListViewModel.swift in Sources */,
 				AC5F3CBF2977CE0C007D5F80 /* TaskCreateViewModel.swift in Sources */,
 				AC25141D297622180069CFFA /* Translater.swift in Sources */,
-				AC5F3CA02976C24D007D5F80 /* DeleteTaskUseCase.swift in Sources */,
+				AC5F3CA02976C24D007D5F80 /* DefaultDeleteTaskUseCase.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				D3795400297651BB00A3F02F /* TaskRepository.swift in Sources */,
 				AC25141929761D950069CFFA /* TaskEntity.swift in Sources */,
@@ -675,7 +675,7 @@
 				AC5F3CB42977CDE7007D5F80 /* StateUpdateViewModel.swift in Sources */,
 				D34F77E92979352C005DCE66 /* CreateTaskUseCaseMock.swift in Sources */,
 				AC5F3CE029783D13007D5F80 /* TaskEditViewModelTests.swift in Sources */,
-				AC5F3CA12976C24D007D5F80 /* DeleteTaskUseCase.swift in Sources */,
+				AC5F3CA12976C24D007D5F80 /* DefaultDeleteTaskUseCase.swift in Sources */,
 				D37836FC2976C99300844849 /* UpdateTaskUseCase.swift in Sources */,
 				AC5F3CB72977CDF2007D5F80 /* TaskDetailViewModel.swift in Sources */,
 				AC5F3CBA2977CDFD007D5F80 /* TaskEditViewModel.swift in Sources */,
