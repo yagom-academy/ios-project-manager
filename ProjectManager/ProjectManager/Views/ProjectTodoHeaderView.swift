@@ -8,14 +8,14 @@
 import UIKit
 
 final class ProjectTodoHeaderView: UIView {
-    let titleLabel = {
+    private let titleLabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
-    let itemCountLabel = ItemCountLabel()
+    private let itemCountLabel = ItemCountLabel()
 
     init() {
         super.init(frame: .zero)
@@ -26,6 +26,11 @@ final class ProjectTodoHeaderView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func updateSubviewsText(title: String, itemCountText: String) {
+        self.titleLabel.text = title
+        self.itemCountLabel.text = itemCountText
     }
 
     private func configureHierarchy() {

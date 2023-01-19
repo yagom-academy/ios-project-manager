@@ -184,10 +184,11 @@ extension ProjectTodoListViewController {
     private func updateProjectTodoHeaderViewText() {
         projectTodoHeaderViews.enumerated().forEach { index, projectTodoHeaderView in
             guard let projectState = projectTodoListViewModel.projectState(for: index) else { return }
-            projectTodoHeaderView.titleLabel.text = String(describing: projectState)
+            let title = String(describing: projectState)
             let projectTodosCount = projectTodoListViewModel.projectTodosCount(for: index)
             let maxCount = Constants.itemCountLabelMaxCount
-            projectTodoHeaderView.itemCountLabel.text = projectTodosCount > maxCount ? "\(maxCount)+" : "\(projectTodosCount)"
+            let itemCountText = projectTodosCount > maxCount ? "\(maxCount)+" : "\(projectTodosCount)"
+            projectTodoHeaderView.updateSubviewsText(title: title, itemCountText: itemCountText)
         }
     }
 }
