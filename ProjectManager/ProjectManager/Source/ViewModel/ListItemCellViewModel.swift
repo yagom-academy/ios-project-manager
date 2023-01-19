@@ -41,11 +41,20 @@ final class ListItemCellViewModel {
     }
     
     func updateItem(using updatedListItem: ListItem) {
-        let compareResult = updatedListItem.dueDate.compare(listItem.dueDate)
+        let hourIntervalUntilToday = Calendar.calculateHourUntilToday(updatedListItem.dueDate)
+        
+        guard let dueDate = Calendar.changeHourUntilToday(
+            value: hourIntervalUntilToday,
+            updatedListItem.dueDate
+        ) else {
+            return
+        }
+        
+        let compareResult = Date().compare(dueDate)
         let updatedData = ListItemData(
             title: updatedListItem.title,
             body: updatedListItem.body,
-            dueDate: updatedListItem.dueDate.convertedToString,
+            dueDate: dueDate.convertedToString,
             isOverDue: compareResult == .orderedDescending ? true : false
         )
         
