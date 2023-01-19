@@ -11,13 +11,14 @@ final class DetailViewController: UIViewController {
     
     typealias Text = Constant.Text
     typealias Style = Constant.Style
+    typealias Color = Constant.Color
     
     var viewModel: DetailViewModel?
     var delegate: DetailProjectDelegate?
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 20
+        stackView.spacing = Style.detailStackViewSpacing
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +45,7 @@ final class DetailViewController: UIViewController {
     private let descriptionTextView: DetailTextView = {
         let textView = DetailTextView()
         textView.keyboardDismissMode = .onDrag
+        textView.layer.borderColor = Color.detailTextViewBorder
         
         return textView
     }()
@@ -99,6 +101,7 @@ final class DetailViewController: UIViewController {
         titleTextField.text = values?.title
         datePicker.date = date
         descriptionTextView.text = values?.description
+        descriptionTextView.delegate = self
         
         if viewModel?.isEditable == false {
             titleTextField.isEnabled = false
@@ -115,6 +118,14 @@ final class DetailViewController: UIViewController {
                 self.titleTextField.isEnabled = true
                 self.datePicker.isEnabled = true
                 self.descriptionTextView.isEditable = true
+            }
+        }
+        
+        viewModel?.bindValidText { [weak self] isValid in
+            if isValid {
+                self?.descriptionTextView.layer.borderWidth = .zero
+            } else {
+                self?.descriptionTextView.layer.borderWidth = Style.detailTextViewBoderWidth
             }
         }
     }
@@ -180,6 +191,11 @@ final class DetailViewController: UIViewController {
             return
         }
         
+        guard viewModel?.isValidText == true else {
+            showAlert(message: Text.invalidDescriptionMessage)
+            return
+        }
+        
         guard let project = viewModel?.makeProject(title: titleTextField.text ?? "",
                                              description: descriptionTextView.text,
                                                    deadline: datePicker.date) else {
@@ -199,6 +215,13 @@ final class DetailViewController: UIViewController {
         
         alert.addAction(doneAction)
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension DetailViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel?.validateDescription(text: textView.text)
     }
 }
 

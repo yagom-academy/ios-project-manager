@@ -31,8 +31,9 @@ enum Constant {
         static let moveToDoing: String = "Move to DOING"
         static let moveToDone: String = "Move to DONE"
         static let titlePlaceHolder: String = "Title"
-        static let overCount: String = "99+"
+        static let overCount: String = "\(Number.maxCount)+"
         static let invalidDeadlineMessage: String = "기한은 과거일 수 없습니다."
+        static let invalidDescriptionMessage: String = "본문은 \(Number.descriptionLimit)자를 넘을 수 없습니다."
         static let cellTitleDefaultValue: String = "제목없음"
         static let cellDescriptionDefaultValue: String = "본문없음"
     }
@@ -52,7 +53,8 @@ enum Constant {
         static let detailStackViewTrailingAnchor: CGFloat = -12
         static let shadowOpacity: Float = 0.5
         static let shadowOffset: CGSize = CGSize(width: 0, height: 4)
-        static let detailTextFieldPadding: CGFloat = 4
+        static let detailTextViewBoderWidth: CGFloat = 2
+        
     }
 
     enum Color {
@@ -65,5 +67,6 @@ enum Constant {
         static let descriptionLabel: UIColor = .systemGray
         static let overDue: UIColor = .systemRed
         static let cellBackground: UIColor = .white
+        static let detailTextViewBorder: CGColor = UIColor.red.cgColor
     }
 }

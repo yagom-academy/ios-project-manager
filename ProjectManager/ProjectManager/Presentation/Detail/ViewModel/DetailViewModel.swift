@@ -18,7 +18,7 @@ final class DetailViewModel {
         }
     }
     
-    private var isValidText: Bool = true {
+    private(set) var isValidText: Bool = true {
         didSet {
             textHandler?(isValidText)
         }
