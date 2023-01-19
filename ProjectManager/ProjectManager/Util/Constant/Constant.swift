@@ -33,6 +33,8 @@ enum Constant {
         static let titlePlaceHolder: String = "Title"
         static let overCount: String = "99+"
         static let invalidDeadlineMessage: String = "기한은 과거일 수 없습니다."
+        static let cellTitleDefaultValue: String = "제목없음"
+        static let cellDescriptionDefaultValue: String = "본문없음"
     }
 
     enum Style {
@@ -43,6 +45,14 @@ enum Constant {
         static let listTitleMargin: CGFloat = 8
         static let circleViewWidthPadding: CGFloat = 16
         static let circleViewHeightPadding: CGFloat = 4
+        static let detailStackViewSpacing: CGFloat = 20
+        static let detailStackViewTopAnchor: CGFloat = 4
+        static let detailStackViewLeadingAnchor: CGFloat = 12
+        static let detailStackViewBottomAnchor: CGFloat = -20
+        static let detailStackViewTrailingAnchor: CGFloat = -12
+        static let shadowOpacity: Float = 0.5
+        static let shadowOffset: CGSize = CGSize(width: 0, height: 4)
+        static let detailTextFieldPadding: CGFloat = 4
     }
 
     enum Color {

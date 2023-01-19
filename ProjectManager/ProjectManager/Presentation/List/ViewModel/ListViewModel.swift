@@ -8,6 +8,8 @@
 import Foundation
 
 final class ListViewModel {
+    
+    typealias Text = Constant.Text
 
     var listUseCase: ListUseCase
     private var toDoList: [Project] {
@@ -77,8 +79,9 @@ final class ListViewModel {
     }
 
     func convertToText(from project: Project) -> (title: String, description: String, deadline: String) {
-
-        return (project.title, project.description, project.deadline.localeFormattedText)
+        return (project.title.isEmpty ? Text.cellTitleDefaultValue : project.title,
+                project.description.isEmpty ? Text.cellDescriptionDefaultValue : project.description,
+                project.deadline.localeFormattedText)
     }
     
     func saveProject(_ project: Project) {

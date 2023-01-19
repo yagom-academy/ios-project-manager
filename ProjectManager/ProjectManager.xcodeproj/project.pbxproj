@@ -29,6 +29,8 @@
 		BF88450529769D35001C9459 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450429769D35001C9459 /* Reusable.swift */; };
 		BF88450729769DA3001C9459 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450629769DA3001C9459 /* UITableView+.swift */; };
 		BF88450929769F52001C9459 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450829769F52001C9459 /* ListCell.swift */; };
+		BFB0AE442978D91F00B71886 /* DetailTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0AE432978D91F00B71886 /* DetailTextField.swift */; };
+		BFB0AE462978E42200B71886 /* DetailTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0AE452978E42200B71886 /* DetailTextView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ListViewController.swift */; };
@@ -59,6 +61,8 @@
 		BF88450429769D35001C9459 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		BF88450629769DA3001C9459 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		BF88450829769F52001C9459 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
+		BFB0AE432978D91F00B71886 /* DetailTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextField.swift; sourceTree = "<group>"; };
+		BFB0AE452978E42200B71886 /* DetailTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 		BF8844FB29767166001C9459 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BFB0AE432978D91F00B71886 /* DetailTextField.swift */,
+				BFB0AE452978E42200B71886 /* DetailTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -376,6 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF7F44302978650B00C9E7A6 /* ListOutput.swift in Sources */,
+				BFB0AE462978E42200B71886 /* DetailTextView.swift in Sources */,
 				BF884468297057A6001C9459 /* Constant.swift in Sources */,
 				BF8844F329766B53001C9459 /* DefaultListUseCase.swift in Sources */,
 				BF7F4432297868EC00C9E7A6 /* ProjectTextItem.swift in Sources */,
@@ -391,6 +398,7 @@
 				BF7F44342978975A00C9E7A6 /* DetailProject.swift in Sources */,
 				BF88447F2973CE46001C9459 /* ListView.swift in Sources */,
 				BF8845012976887D001C9459 /* ListHeaderView.swift in Sources */,
+				BFB0AE442978D91F00B71886 /* DetailTextField.swift in Sources */,
 				BF8844792973B4C1001C9459 /* DetailViewController.swift in Sources */,
 				BF8844702972E080001C9459 /* DetailViewModel.swift in Sources */,
 				BF6CA755296EA27800F88564 /* Date+.swift in Sources */,
