@@ -50,8 +50,8 @@ final class CoreDataManager {
     func updateData(title: String, body: String, todoDate: Date, id: UUID, state: State) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let context = appDelegate?.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Contents")
-        fetchRequest.predicate = NSPredicate(format: "title = %@", id as CVarArg)
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "TodoModel")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
         
         do {
             guard let test = try context?.fetch(fetchRequest) else { return }
@@ -60,6 +60,28 @@ final class CoreDataManager {
             updatingData.setValue(title, forKey: "title")
             updatingData.setValue(body, forKey: "body")
             updatingData.setValue(todoDate, forKey: "date")
+            updatingData.setValue(state.rawValue, forKey: "state")
+            
+            do {
+                try context?.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func updateData(id: UUID, state: State) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegate?.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "TodoModel")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        
+        do {
+            guard let test = try context?.fetch(fetchRequest) else { return }
+            guard let updatingData = test[0] as? NSManagedObject else { return }
+            
             updatingData.setValue(state.rawValue, forKey: "state")
             
             do {

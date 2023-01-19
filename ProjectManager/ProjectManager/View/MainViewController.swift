@@ -208,9 +208,9 @@ extension MainViewController: UITableViewDataSource {
         if tableView == todoTableView {
             data = todoData[indexPath.row]
         } else if tableView == doingTableView {
-            data = todoData[indexPath.row]
+            data = doingData[indexPath.row]
         } else if tableView == doneTableView {
-            data = todoData[indexPath.row]
+            data = doneData[indexPath.row]
         }
         
         guard let todoDate = data.todoDate else { return cell }
@@ -230,36 +230,32 @@ extension MainViewController: UITableViewDataSource {
 }
 
 extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
-    func setupLongPress() {
+    private func setupLongPress() {
         let longPressedGesture = UILongPressGestureRecognizer(
             target: self,
             action: #selector(handleLongPress(gestureRecognizer:))
         )
         longPressedGesture.delegate = self
         longPressedGesture.minimumPressDuration = 1
-        
         longPressedGesture.delaysTouchesBegan = true
-        todoTableView.addGestureRecognizer(longPressedGesture)
         
+        todoTableView.addGestureRecognizer(longPressedGesture)
+//        doingTableView.addGestureRecognizer(longPressedGesture)
+//        doneTableView.addGestureRecognizer(longPressedGesture)
     }
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+    
+    @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: todoTableView)
         guard let indexPath = todoTableView.indexPathForRow(at: location) else { return }
-//        let indexPathRow = indexPath.row
-//        let data = todoData[indexPathRow]
+        let indexPathRow = indexPath.row
+        let data = todoData[indexPathRow]
         
         if gestureRecognizer.state == .began {
-            guard let currentCell = todoTableView.cellForRow(at: indexPath) else {
-                return
-            }
-            
-            let containerController = PopoverViewController()
+            guard let id = data.id else { return }
+            guard let state = State(rawValue: data.state) else { return }
+            let containerController = PopoverViewController(id: id, state: state)
             
             containerController.modalPresentationStyle = .popover
-            containerController.preferredContentSize = .init(
-                width: currentCell.frame.width,
-                height: currentCell.frame.height
-            )
             containerController.popoverPresentationController?.sourceRect = CGRect(
                 origin: location,
                 size: .zero
