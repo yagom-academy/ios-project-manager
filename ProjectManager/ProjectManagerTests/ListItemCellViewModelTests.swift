@@ -1,6 +1,6 @@
 //
 //  ListItemCellViewModelTests.swift
-//  ProjectManagerTests//  ProjectManagerTests
+//  ProjectManagerTests
 //  Created by inho on 2023/01/19.
 //
 

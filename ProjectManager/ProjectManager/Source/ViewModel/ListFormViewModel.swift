@@ -10,7 +10,7 @@ final class ListFormViewModel {
     let index: Int
     private(set) var listItem: ListItem
     private(set) var listType: ListType
-    private var isEditable: Bool = false {
+    private(set) var isEditable: Bool = false {
         didSet {
             editHandler?(isEditable)
         }
