@@ -14,11 +14,14 @@ final class PlanDetailViewController: UIViewController {
     private let isAdding: Bool
     private let changedPlan: (Plan?) -> Void
     private let planManager = PlanManager()
+    private let alertManager = AlertManager()
+    private var delegate: AlertDelegate
 
-    init(navigationTitle: String, plan: Plan?, isAdding: Bool, changedPlan: @escaping (Plan?) -> Void) {
+    init(navigationTitle: String, plan: Plan?, isAdding: Bool, delegate: AlertDelegate, changedPlan: @escaping (Plan?) -> Void) {
         self.navigationTitle = navigationTitle
         self.plan = plan
         self.isAdding = isAdding
+        self.delegate = delegate
         self.changedPlan = changedPlan
         super.init(nibName: nil, bundle: nil)
     }
@@ -56,15 +59,15 @@ final class PlanDetailViewController: UIViewController {
                                     rightButton: configureNavigationDoneBarButton())
 
 
-            planDetailView.configureTextView(title: plan?.title ?? "",
-                                             description: plan?.description ?? "",
+            planDetailView.configureTextView(title: plan?.title ?? Content.emptyString,
+                                             description: plan?.description ?? Content.emptyString,
                                              deadline: plan?.deadline ?? Date(),
                                              isEditable: isEditable)
         }
     }
 
     private func configureNavigationItem(leftButton: UIBarButtonItem, rightButton: UIBarButtonItem) {
-        let navigationItem = UINavigationItem(title: "TODO")
+        let navigationItem = UINavigationItem(title: navigationTitle)
 
         let leftBarButton = leftButton
         let rightBarButton = rightButton
@@ -112,7 +115,19 @@ final class PlanDetailViewController: UIViewController {
     private func save() {
         let inputPlan = planDetailView.sendUserPlan()
 
-        planManager.save(title: inputPlan.title, description: inputPlan.description, deadline: inputPlan.deadline, plan: &plan)
+        do {
+            try planManager.save(title: inputPlan.title,
+                             description: inputPlan.description,
+                             deadline: inputPlan.deadline,
+                             plan: &plan)
+        } catch {
+            delegate.showErrorAlert(title: Content.notSaving)
+        }
+    }
+
+    private enum Content {
+        static let notSaving = "빈 내용은 저장되지 않습니다."
+        static let emptyString = ""
     }
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 
 final class PlanManager: PlanManageable {
-    func create(title: String, description: String, deadline: Date) -> Plan? {
+    func create(title: String, description: String, deadline: Date) throws -> Plan? {
         var plan: Plan?
 
         if isValidContent(title, description) {
@@ -36,9 +36,9 @@ final class PlanManager: PlanManageable {
         return list.firstIndex(where: { $0.id == id})
     }
 
-    func save(title: String, description: String, deadline: Date, plan: inout Plan?) {
+    func save(title: String, description: String, deadline: Date, plan: inout Plan?) throws {
         if fetch(id: plan?.id) == nil {
-            plan = create(title: title,
+            plan = try? create(title: title,
                           description: description,
                           deadline: deadline)
         } else {
@@ -71,6 +71,6 @@ final class PlanManager: PlanManageable {
     }
 
     func isValidContent(_ title: String?, _ description: String?) -> Bool {
-        return ((title != "Title" && title != "") && (description != "Description" && description != ""))
+        return ((title != "Title" && title != "") || (description != "Description" && description != ""))
     }
 }

@@ -51,11 +51,12 @@ final class PlanListViewController: UIViewController {
     }
 
     private func configureNavigationBarButton() -> UIBarButtonItem {
-        let detailViewController = PlanDetailViewController(navigationTitle: "TODO",
+        let detailViewController = PlanDetailViewController(navigationTitle: Content.toDo,
                                                             plan: nil,
-                                                            isAdding: true) { plan in
+                                                            isAdding: true,
+                                                            delegate: self) { plan in
             guard let plan = plan else {
-                let errorAlert = self.alertManager.showErrorAlert(title: "할일을 저장하지 못 헀습니다.")
+                let errorAlert = self.alertManager.showErrorAlert(title: Content.savingError)
                 self.present(errorAlert, animated: true)
 
                 return
@@ -75,7 +76,7 @@ final class PlanListViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        navigationItem.title = "Project Manager"
+        navigationItem.title = Content.navigationTitle
         navigationItem.rightBarButtonItem = configureNavigationBarButton()
     }
 
@@ -128,18 +129,32 @@ final class PlanListViewController: UIViewController {
             tableView.addGestureRecognizer(gestureRecognizer)
         }
     }
+
+    private enum Content {
+        static let toDo = "🗒 TODO"
+        static let doing = "🏃‍♀️ DOING"
+        static let done = "🙆‍♀️ DONE"
+        static let delete = "Delete"
+        static let navigationTitle = "Project Manager"
+        static let savingError = "할일을 저장하지 못 헀습니다."
+        static let unknownError = "알 수 없는 오류"
+        static let loadingError = "할일을 불러오지 못 헀습니다."
+        static let actionSheetText = "Move to "
+    }
 }
 
 extension PlanListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
         let plan = didSelected(in: tableView, to: indexPath)
 
-        let detailViewController = PlanDetailViewController(navigationTitle: "TODO",
+        let detailViewController = PlanDetailViewController(navigationTitle: String(describing: plan?.status),
                                                             plan: plan,
-                                                            isAdding: false) { plan in
+                                                            isAdding: false,
+                                                            delegate: self) { plan in
             guard let plan = plan else {
-                let errorAlert = self.alertManager.showErrorAlert(title: "할일을 불러오지 못 헀습니다.")
+                let errorAlert = self.alertManager.showErrorAlert(title: Content.savingError)
                 self.present(errorAlert, animated: true)
                 return
             }
@@ -159,7 +174,6 @@ extension PlanListViewController: UITableViewDelegate {
             return doingDataSource.itemIdentifier(for: indexPath)
         case planListView.doneTableView:
             return doneDataSource.itemIdentifier(for: indexPath)
-
         default:
             return nil
         }
@@ -168,7 +182,7 @@ extension PlanListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let plan = didSelected(in: tableView, to: indexPath)
 
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _  in
+        let deleteAction = UIContextualAction(style: .destructive, title: Content.delete) { _, _, _  in
             let handler: (UIAlertAction) -> Void = { _ in
                 self.planManager.delete(planList: &self.planList, id: plan?.id)
                 self.configureSnapshot()
@@ -187,13 +201,13 @@ extension PlanListViewController: UITableViewDelegate {
 
         switch tableView {
         case planListView.toDoTableView:
-            headerView.configure(title: "🗒 TODO", count: todoList.count)
+            headerView.configure(title: Content.toDo, count: todoList.count)
         case planListView.doingTableView:
-            headerView.configure(title: "🏃‍♀️ DOING", count: doingList.count)
+            headerView.configure(title: Content.doing, count: doingList.count)
         case planListView.doneTableView:
-            headerView.configure(title: "🙆‍♀️ DONE", count: doneList.count)
+            headerView.configure(title: Content.done, count: doneList.count)
         default:
-            let errorAlert = alertManager.showErrorAlert(title: "알 수 없는 오류")
+            let errorAlert = alertManager.showErrorAlert(title: Content.unknownError)
             present(errorAlert, animated: true)
         }
 
@@ -216,14 +230,14 @@ extension PlanListViewController: UIGestureRecognizerDelegate {
         case .began:
             presentPopoverMenu(tableView: tableView, indexPath: indexPath)
         default:
-            let errorAlert = alertManager.showErrorAlert(title: "알 수 없는 오류")
+            let errorAlert = alertManager.showErrorAlert(title: Content.unknownError)
             present(errorAlert, animated: true)
         }
     }
 
     private func presentPopoverMenu(tableView: UITableView, indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else {
-            let errorAlert = self.alertManager.showErrorAlert(title: "할일을 불러오지 못 헀습니다.")
+            let errorAlert = self.alertManager.showErrorAlert(title: Content.loadingError)
             self.present(errorAlert, animated: true)
 
             return
@@ -259,12 +273,18 @@ extension PlanListViewController: UIGestureRecognizerDelegate {
     }
 
     private func configureAlertAction(to plan: Plan, by status: Plan.Status) -> UIAlertAction {
-        let actionTitle = "Move to " + String(describing: status)
+        let actionTitle = Content.actionSheetText + String(describing: status)
         let action = UIAlertAction(title: actionTitle, style: .default) { _ in
             self.planManager.update(list: &self.planList, id: plan.id, status: status)
             self.configureSnapshot()
         }
 
         return action
+    }
+}
+
+extension PlanListViewController: AlertDelegate {
+    func showErrorAlert(title: String) {
+        present(self.alertManager.showErrorAlert(title: title), animated: true)
     }
 }
