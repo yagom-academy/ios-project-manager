@@ -42,6 +42,7 @@ class ListFormViewController: UIViewController {
             listFormView.toggleViewsEnabledStatus()
         }
         configureLayout()
+        listFormView.configureTextViewDelegate(self)
         view.backgroundColor = .white
     }
     
@@ -120,6 +121,8 @@ class ListFormViewController: UIViewController {
         listFormView.configureViews(using: viewModel.listItem)
     }
     
+    // MARK: @objc Methods
+    
     @objc func cancelButtonPressed() {
         dismiss(animated: true, completion: nil)
     }
@@ -150,6 +153,14 @@ class ListFormViewController: UIViewController {
             dueDate: listFormView.currentDate
         )
         dismiss(animated: true)
+    }
+}
+
+// MARK: - TextViewDelegate
+
+extension ListFormViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = String()
     }
 }
 

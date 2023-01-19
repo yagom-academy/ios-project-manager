@@ -82,6 +82,10 @@ class ListFormView: UIStackView {
         ).cgPath
     }
     
+    func configureTextViewDelegate(_ delegate: UITextViewDelegate) {
+        bodyTextView.delegate = delegate
+    }
+    
     func configureViews(using listItem: ListItem) {
         titleTextField.text = listItem.title
         dueDatePicker.date = listItem.dueDate
