@@ -2,22 +2,24 @@
 //  Date.swift
 //  ProjectManager
 //
-//  Created by 노유빈 on 2023/01/17.
+//  Created by 로빈 on 2023/01/17.
 //
 
 import Foundation
 
-extension Date {
-    var string: String {
-        return dateFormatter.string(from: self)
-    }
+let secondsADay: TimeInterval = 86400
 
+extension Date {
     var isExpired: Bool {
-        switch self.compare(Date().addingTimeInterval(-86400)) {
+        switch self.compare(Date().addingTimeInterval(-secondsADay)) {
         case .orderedAscending:
             return true
         default:
             return false
         }
+    }
+
+    func convertToString(using dateFormatter: DateFormatter) -> String {
+        return dateFormatter.string(from: self)
     }
 }
