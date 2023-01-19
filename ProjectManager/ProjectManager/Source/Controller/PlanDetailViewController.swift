@@ -81,9 +81,7 @@ final class PlanDetailViewController: UIViewController {
             self?.dismiss(animated: true, completion: nil)
         }
 
-        let button = UIBarButtonItem(systemItem: .cancel, primaryAction: buttonAction)
-
-        return button
+        return UIBarButtonItem(systemItem: .cancel, primaryAction: buttonAction)
     }
 
     private func configureNavigationEditBarButton() -> UIBarButtonItem {
@@ -92,9 +90,7 @@ final class PlanDetailViewController: UIViewController {
                                 isEditable: true)
         }
 
-        let button = UIBarButtonItem(systemItem: .edit, primaryAction: buttonAction)
-
-        return button
+        return UIBarButtonItem(systemItem: .edit, primaryAction: buttonAction)
     }
 
     private func configureNavigationDoneBarButton() -> UIBarButtonItem {
@@ -107,9 +103,7 @@ final class PlanDetailViewController: UIViewController {
             self?.present(self?.alertManager.showErrorAlert(title: Content.notSaving) ?? UIAlertController(), animated: true)
         }
 
-        let button = UIBarButtonItem(systemItem: .done, primaryAction: buttonAction)
-
-        return button
+        return UIBarButtonItem(systemItem: .done, primaryAction: buttonAction)
     }
 
     private func isContentSave() -> Bool {

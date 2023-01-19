@@ -55,8 +55,7 @@ final class PlanListViewController: UIViewController {
                                                             plan: nil,
                                                             isAdding: true) { plan in
             guard let plan = plan else {
-                let errorAlert = self.alertManager.showErrorAlert(title: Content.savingError)
-                self.present(errorAlert, animated: true)
+                self.present(self.alertManager.showErrorAlert(title: Content.savingError), animated: true)
 
                 return
             }
@@ -69,9 +68,7 @@ final class PlanListViewController: UIViewController {
             self?.present(detailViewController, animated: true)
         }
 
-        let button = UIBarButtonItem(systemItem: .add, primaryAction: buttonAction)
-
-        return button
+        return UIBarButtonItem(systemItem: .add, primaryAction: buttonAction)
     }
 
     private func configureNavigationBar() {
@@ -155,8 +152,7 @@ extension PlanListViewController: UITableViewDelegate {
                                                             plan: plan,
                                                             isAdding: false) { plan in
             guard let plan = plan else {
-                let errorAlert = self.alertManager.showErrorAlert(title: Content.savingError)
-                self.present(errorAlert, animated: true)
+                self.present(self.alertManager.showErrorAlert(title: Content.savingError), animated: true)
                 return
             }
 
@@ -189,8 +185,7 @@ extension PlanListViewController: UITableViewDelegate {
                 self.configureSnapshot()
             }
 
-            let alert = self.alertManager.showDeleteAlert(handler: handler)
-            self.present(alert, animated: true)
+            self.present(self.alertManager.showDeleteAlert(handler: handler), animated: true)
         }
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -208,8 +203,7 @@ extension PlanListViewController: UITableViewDelegate {
         case planListView.doneTableView:
             headerView.configure(title: Content.done, count: doneList.count)
         default:
-            let errorAlert = alertManager.showErrorAlert(title: Content.unknownError)
-            present(errorAlert, animated: true)
+            present(alertManager.showErrorAlert(title: Content.unknownError), animated: true)
         }
 
         return headerView
@@ -231,15 +225,13 @@ extension PlanListViewController: UIGestureRecognizerDelegate {
         case .began:
             presentPopoverMenu(tableView: tableView, indexPath: indexPath)
         default:
-            let errorAlert = alertManager.showErrorAlert(title: Content.unknownError)
-            present(errorAlert, animated: true)
+            present(alertManager.showErrorAlert(title: Content.unknownError), animated: true)
         }
     }
 
     private func presentPopoverMenu(tableView: UITableView, indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else {
-            let errorAlert = self.alertManager.showErrorAlert(title: Content.loadingError)
-            self.present(errorAlert, animated: true)
+            present(alertManager.showErrorAlert(title: Content.loadingError), animated: true)
 
             return
         }
