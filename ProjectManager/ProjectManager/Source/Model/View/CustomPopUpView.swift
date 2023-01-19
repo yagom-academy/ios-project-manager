@@ -274,42 +274,27 @@ class CustomPopUpView: UIView {
 
 extension CustomPopUpView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        switch textField {
-        case titleTextField:
-            if titleTextField.textColor == .lightGray
-                || titleTextField.text == NameSpace.emptyTitleLabel {
-                titleTextField.text = nil
-                titleTextField.textColor = UIColor.black
-            }
-        default:
-            break
+        if textField.textColor == .lightGray
+            || textField.text == NameSpace.emptyTitleLabel {
+            textField.text = nil
+            textField.textColor = UIColor.black
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField {
-        case titleTextField:
-            if titleTextField.text?.isEmpty == true {
-                titleTextField.text = NameSpace.defaultTitleLabel
-                titleTextField.textColor = .lightGray
-            }
-        default:
-            break
+        if textField.text?.isEmpty == true {
+            textField.text = NameSpace.defaultTitleLabel
+            textField.textColor = .lightGray
         }
     }
     
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-        switch textField {
-        case titleTextField:
-            if let textCount = titleTextField.text?.count {
-                if textCount < 60 {
-                    return true
-                }
-                return false
+        if let textCount = textField.text?.count {
+            if textCount < 45 {
+                return true
             }
-        default:
             return false
         }
         
@@ -321,38 +306,23 @@ extension CustomPopUpView: UITextFieldDelegate {
 
 extension CustomPopUpView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        switch textView {
-        case bodyTextView:
-            if bodyTextView.textColor == .lightGray
-                || bodyTextView.text == NameSpace.emptyBodyLabel {
-                bodyTextView.text = nil
-                bodyTextView.textColor = UIColor.black
-            }
-        default:
-            break
+        if textView.textColor == .lightGray
+            || textView.text == NameSpace.emptyBodyLabel {
+            textView.text = nil
+            textView.textColor = UIColor.black
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        switch textView {
-        case bodyTextView:
-            if bodyTextView.text?.isEmpty == true {
-                bodyTextView.text = NameSpace.defaultBodyLabel
-                bodyTextView.textColor = .lightGray
-            }
-        default:
-            break
+        if textView.text?.isEmpty == true {
+            textView.text = NameSpace.defaultBodyLabel
+            textView.textColor = .lightGray
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        switch textView {
-        case bodyTextView:
-            if bodyTextView.text.count > 1000 {
-                bodyTextView.deleteBackward()
-            }
-        default:
-            break
+        if textView.text.count > 1000 {
+            textView.deleteBackward()
         }
     }
 }
