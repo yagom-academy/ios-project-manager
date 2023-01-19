@@ -42,6 +42,7 @@ class ListFormViewController: UIViewController {
             listFormView.toggleViewsEnabledStatus()
         }
         configureLayout()
+        view.backgroundColor = .white
     }
     
     // MARK: Private Methods
@@ -92,7 +93,6 @@ class ListFormViewController: UIViewController {
     }
     
     private func configureLayout() {
-        view.backgroundColor = .white
         view.addSubview(listFormView)
         
         let safeArea = view.safeAreaLayoutGuide

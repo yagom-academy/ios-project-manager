@@ -72,8 +72,7 @@ class ListStackView: UIStackView {
         ])
     }
     
-    func configureTableView(dataSource: UITableViewDataSource) {
-        listTableView.dataSource = dataSource
+    func configureBackgroundColor() {
         listTableView.backgroundColor = .clear
     }
     

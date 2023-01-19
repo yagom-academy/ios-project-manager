@@ -40,7 +40,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Constant.viewBackgroundColor
+        configureBackgroundColors()
         configureNavigationBar()
         configureLayout()
         configureTableViewDelegate()
@@ -49,6 +49,13 @@ class MainViewController: UIViewController {
     }
     
     // MARK: Private Methods
+    
+    private func configureBackgroundColors() {
+        view.backgroundColor = Constant.viewBackgroundColor
+        [todoListStackView, doingListStackView, doneListStackView].forEach {
+            $0.configureBackgroundColor()
+        }
+    }
     
     private func configureNavigationBar() {
         navigationController?.navigationBar.backgroundColor = .clear

@@ -18,7 +18,7 @@ class ListItemCell: UITableViewCell {
     }()
     private let listTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
+        label.font = .boldSystemFont(ofSize: UIFont.systemFont(ofSize: 21).pointSize)
         
         return label
     }()
