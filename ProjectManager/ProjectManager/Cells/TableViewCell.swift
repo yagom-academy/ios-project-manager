@@ -31,11 +31,11 @@ class TableViewCell: UITableViewCell {
     @objc
     private func handleLongPress() {
         if let gesture = gesture {
-            gestureRecognizerHelperDelegate?.sendLongPressGesture(gesture: gesture)
+            gestureRecognizerHelperDelegate?.sendLongPressGesture(gesture)
         }
     }
 }
 
 protocol GestureRecognizerHelperDelegate {
-    func sendLongPressGesture(gesture: UIGestureRecognizer)
+    func sendLongPressGesture(_ sender: UILongPressGestureRecognizer)
 }

@@ -57,6 +57,24 @@ class ViewController: UIViewController {
         }
     }
     
+    private func makeDataSource(tableView: UITableView,
+                                _ tasks: [Task]) -> UITableViewDiffableDataSource<Section, Task> {
+        
+        dataSourceVM.registerCell(tableView: tableView)
+        
+        let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, task in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell",
+                                                     for: indexPath) as? TableViewCell ?? TableViewCell()
+            cell.titleLabel.text = task.title
+            cell.descriptionLabel.text = task.description
+            cell.dateLabel.text = task.date?.description
+            cell.gestureRecognizerHelperDelegate = self
+            return cell
+        }
+        dataSourceVM.configureSnapShot(dataSource: dataSource, tasks: tasks)
+        return dataSource
+    }
+    
     private func update(dataSource: UITableViewDiffableDataSource<Section, Task>, tasksStatus: [Task]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
         snapShot.appendSections([.main])
@@ -76,29 +94,42 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: GestureRecognizerHelperDelegate {
-    func sendLongPressGesture(gesture: UIGestureRecognizer) {
-        print("이동")
+    func sendLongPressGesture(_ sender: UILongPressGestureRecognizer) {
+        guard let tableView = sender.view?.superview as? UITableView,
+              let viewPoint = sender.view?.convert(CGPoint.zero, to: tableView),
+              let indexPath = tableView.indexPathForRow(at: viewPoint) else { return }
+        popOverAlert(tableView: tableView, indexPathRow: indexPath.row, viewPoint: viewPoint)
     }
     
-    func makeDataSource(tableView: UITableView,
-                        _ tasks: [Task]) -> UITableViewDiffableDataSource<Section, Task> {
+    private func popOverAlert(tableView: UITableView, indexPathRow: Int, viewPoint: CGPoint) {
+        var firstTitle = String()
+        var secondTitle = String()
         
-        dataSourceVM.registerCell(tableView: tableView)
-        
-        let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, task in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell",
-                                                     for: indexPath) as? TableViewCell ?? TableViewCell()
-            cell.titleLabel.text = task.title
-            cell.descriptionLabel.text = task.description
-            cell.dateLabel.text = task.date?.description
-            cell.gestureRecognizerHelperDelegate = self
-            return cell
+        switch tableView {
+        case todoTableView:
+            firstTitle = "Mote to Doing"
+            secondTitle = "Mote to Done"
+        case doingTableView:
+            firstTitle = "Move to Todo"
+            secondTitle = "Move to Done"
+        case doneTableView:
+            firstTitle = "Move to Todo"
+            secondTitle = "Move to doing"
+        default:
+            break
         }
-        dataSourceVM.configureSnapShot(dataSource: dataSource, tasks: tasks)
-        return dataSource
+        let popOverAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: firstTitle, style: .default, handler: nil)
+        let noAction = UIAlertAction(title: secondTitle, style: .default, handler: nil)
+        popOverAlertController.addAction(okAction)
+        popOverAlertController.addAction(noAction)
+        popOverAlertController.modalPresentationStyle = .popover
+        popOverAlertController.popoverPresentationController?.sourceView = tableView
+        popOverAlertController.popoverPresentationController?.permittedArrowDirections = [.up]
+        popOverAlertController.popoverPresentationController?.sourceRect = CGRect(x: viewPoint.x, y: viewPoint.y, width: 50, height: 50)
+        present(popOverAlertController, animated: true)
     }
 }
-
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
