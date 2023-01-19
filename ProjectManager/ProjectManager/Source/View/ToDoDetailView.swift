@@ -3,12 +3,6 @@
 
 import UIKit
 
-struct ToDoData {
-    let title: String?
-    let body: String?
-    let deadline: Date
-}
-
 class ToDoDetailView: UIView {
     private enum Constant {
         static let titlePlaceHolder = "Title"
