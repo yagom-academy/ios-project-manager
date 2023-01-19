@@ -33,7 +33,7 @@ final class TaskListViewModel {
     func bind(with input: Input) {
         input.viewWillAppearEvent
             .subscribe(onNext: { [weak self] _ in
-                self?.fetchTasksUseCase.fetchTasks()
+                self?.fetchTasksUseCase.fetchAllTasks()
             })
             .disposed(by: disposeBag)
         

@@ -17,7 +17,7 @@ final class FetchTasksUseCase {
         self.taskRepository = taskRepository
     }
     
-    func fetchTasks() {
+    func fetchAllTasks() {
         taskRepository.fetchAllTaskList()
             .map { $0.compactMap(Translater().toDomain) }
             .subscribe(onNext: { [weak self] tasks in

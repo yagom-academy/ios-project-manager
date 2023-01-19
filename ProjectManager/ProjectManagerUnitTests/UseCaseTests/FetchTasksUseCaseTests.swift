@@ -32,7 +32,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
             .disposed(by: dispose)
         
         //when, then
-        usecase.fetchTasks()
+        usecase.fetchAllTasks()
         XCTAssertNotNil(tasksList)
     }
     
@@ -50,7 +50,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
             })
             .disposed(by: dispose)
         
-        usecase.fetchTasks()
+        usecase.fetchAllTasks()
         XCTAssertNotNil(tasksList)
         
         createUseCaseStub.create(
@@ -78,7 +78,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
             })
             .disposed(by: dispose)
         
-        usecase.fetchTasks()
+        usecase.fetchAllTasks()
         XCTAssertNotNil(tasksList)
         
         guard var targetTask = TaskDummy.dummys.first,
@@ -106,7 +106,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
             })
             .disposed(by: dispose)
         
-        usecase.fetchTasks()
+        usecase.fetchAllTasks()
         XCTAssertNotNil(tasksList)
         
         let targetTask = Task(id: .init(),
@@ -133,7 +133,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
             })
             .disposed(by: dispose)
         
-        usecase.fetchTasks()
+        usecase.fetchAllTasks()
         XCTAssertNotNil(tasksList)
         
         guard let previousFirstTask = tasksList?.first else {
@@ -156,7 +156,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
             })
             .disposed(by: dispose)
         
-        usecase.fetchTasks()
+        usecase.fetchAllTasks()
         XCTAssertNotNil(tasksList)
         
         guard let previousFirstTask = tasksList?.first else {
