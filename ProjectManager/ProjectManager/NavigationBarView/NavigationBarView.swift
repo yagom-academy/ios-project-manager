@@ -43,6 +43,14 @@ struct NavigationBarView: View {
         )
       ) {
         // TODO: - Navigate Present Item
+        IfLetStore(
+          self.navigationStore.scope(
+            state: \.detailState,
+            action: NavigateAction.detailAction
+          )
+        ) { viewStore in
+          ProjectDetailView(store: viewStore)
+        }
       }
     }
   }
