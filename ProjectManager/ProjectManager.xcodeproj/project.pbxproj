@@ -31,6 +31,7 @@
 		18AB3C1A29798B2E00854929 /* DoneBoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C1929798B2E00854929 /* DoneBoardListView.swift */; };
 		18AB3C2229799B6500854929 /* NavigateStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2129799B6500854929 /* NavigateStoreTest.swift */; };
 		18AB3C292979A2B300854929 /* ListStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C282979A2B300854929 /* ListStoreTest.swift */; };
+		18AB3C2B2979A87200854929 /* DetailStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2A2979A87200854929 /* DetailStoreTest.swift */; };
 		18D24759296D4F00008E8DCC /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18D24757296D4F00008E8DCC /* Project.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		18AB3C1F29799B6500854929 /* NavigateStoreTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavigateStoreTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AB3C2129799B6500854929 /* NavigateStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigateStoreTest.swift; sourceTree = "<group>"; };
 		18AB3C282979A2B300854929 /* ListStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStoreTest.swift; sourceTree = "<group>"; };
+		18AB3C2A2979A87200854929 /* DetailStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStoreTest.swift; sourceTree = "<group>"; };
 		18D24758296D4F00008E8DCC /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectManager.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,6 +220,7 @@
 			children = (
 				18AB3C2129799B6500854929 /* NavigateStoreTest.swift */,
 				18AB3C282979A2B300854929 /* ListStoreTest.swift */,
+				18AB3C2A2979A87200854929 /* DetailStoreTest.swift */,
 			);
 			path = NavigateStoreTest;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18AB3C2B2979A87200854929 /* DetailStoreTest.swift in Sources */,
 				18AB3C2229799B6500854929 /* NavigateStoreTest.swift in Sources */,
 				18AB3C292979A2B300854929 /* ListStoreTest.swift in Sources */,
 			);

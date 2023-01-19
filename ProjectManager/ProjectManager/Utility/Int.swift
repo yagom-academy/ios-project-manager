@@ -9,6 +9,11 @@ import Foundation
 
 extension Date {
   static let dateFormatter = DateFormatter()
+  
+  func convertDate() -> Date {
+    let calendar = Calendar.current
+    return calendar.startOfDay(for: self)
+  }
 }
 
 extension Int {

@@ -35,6 +35,7 @@ struct ProjectDetailView: View {
             in: Date()...,
             displayedComponents: .date
           )
+          .environment(\.locale, Locale(identifier: "ko_KR"))
           .padding(10)
           .background(.white)
           .cornerRadius(10)

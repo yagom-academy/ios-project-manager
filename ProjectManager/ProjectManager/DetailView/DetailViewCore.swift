@@ -10,7 +10,7 @@ import ComposableArchitecture
 struct DetailState: Equatable {
   var title: String = ""
   var description: String = ""
-  var deadLineDate: Date = Int(Date().timeIntervalSince1970).convertedDate
+  var deadLineDate: Date = Date().convertDate()
 }
 
 enum DetailAction {
@@ -45,7 +45,7 @@ let detailReducer = Reducer<DetailState, DetailAction, DetailEnvironment> { stat
     return .none
     
   case let ._didChangeDeadLine(changedDate):
-    state.deadLineDate = Int(changedDate.timeIntervalSince1970).convertedDate
+    state.deadLineDate = changedDate.convertDate()
     return .none
   }
-}
+}.debug()
