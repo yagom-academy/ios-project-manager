@@ -1,5 +1,5 @@
 //
-//  ProjectDetailViewController.swift
+//  ProjectTodoViewController.swift
 //  ProjectManager
 //
 //  Created by junho lee on 2023/01/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProjectDetailViewController: UIViewController {
+class ProjectTodoViewController: UIViewController {
     // MARK: - Properties
     private let titleTextField = TitleTextField()
     private let dueDatePicker = {
@@ -39,15 +39,15 @@ class ProjectDetailViewController: UIViewController {
         return stackView
     }()
     private let navigationTitle: String
-    private var projectViewModel: ProjectViewModel
+    private var projectTodoViewModel: ProjectTodoViewModel
     private let isAdding: Bool
-    private let onChange: (Project?) -> Void
+    private let onChange: (ProjectTodo?) -> Void
     private var keyboardConstraints: NSLayoutConstraint?
 
     // MARK: - Configure
-    init(navigationTitle: String, projectViewModel: ProjectViewModel, isAdding: Bool, onChange: @escaping (Project?) -> Void) {
+    init(navigationTitle: String, projectTodoViewModel: ProjectTodoViewModel, isAdding: Bool, onChange: @escaping (ProjectTodo?) -> Void) {
         self.navigationTitle = navigationTitle
-        self.projectViewModel = projectViewModel
+        self.projectTodoViewModel = projectTodoViewModel
         self.isAdding = isAdding
         self.onChange = onChange
         super.init(nibName: nil, bundle: nil)
@@ -62,7 +62,7 @@ class ProjectDetailViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationItem()
         configureHierarchy()
-        configureSubViews()
+        configureSubviews()
         if isAdding {
             prepareForEditing()
         } else {
@@ -107,7 +107,7 @@ class ProjectDetailViewController: UIViewController {
         keyboardConstraints?.isActive = true
     }
 
-    private func configureSubViews() {
+    private func configureSubviews() {
         titleTextField.addTarget(self, action: #selector(titleTextFieldDidChange), for: .editingChanged)
         dueDatePicker.addTarget(self, action: #selector(dueDatePickerDidChange), for: .valueChanged)
         descriptionTextView.delegate = self
@@ -115,16 +115,16 @@ class ProjectDetailViewController: UIViewController {
 }
 
 // MARK: - Project Data
-extension ProjectDetailViewController {
-    private func updateProjectDetailViewsData() {
-        titleTextField.text = projectViewModel.project.title
-        dueDatePicker.date = projectViewModel.project.dueDate
-        descriptionTextView.text = projectViewModel.project.description
+extension ProjectTodoViewController {
+    private func updateProjectTodoViewsData() {
+        titleTextField.text = projectTodoViewModel.projectTodo.title
+        dueDatePicker.date = projectTodoViewModel.projectTodo.dueDate
+        descriptionTextView.text = projectTodoViewModel.projectTodo.description
     }
 }
 
 // MARK: - Actions
-extension ProjectDetailViewController {
+extension ProjectTodoViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         titleTextField.isUserInteractionEnabled = editing
@@ -135,7 +135,7 @@ extension ProjectDetailViewController {
     @objc
     private func prepareForEditing() {
         self.isEditing = true
-        projectViewModel.editingProject = projectViewModel.project
+        projectTodoViewModel.editingProjectTodo = projectTodoViewModel.projectTodo
         if isAdding {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                                target: self,
@@ -145,7 +145,7 @@ extension ProjectDetailViewController {
                                                                target: self,
                                                                action: #selector(prepareForeViewing))
         }
-        updateProjectDetailViewsData()
+        updateProjectTodoViewsData()
     }
 
     @objc
@@ -154,13 +154,13 @@ extension ProjectDetailViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
                                                            target: self,
                                                            action: #selector(prepareForEditing))
-        updateProjectDetailViewsData()
+        updateProjectTodoViewsData()
     }
 
     @objc
     private func doneEditing() {
         if isEditing {
-            onChange(projectViewModel.editingProject)
+            onChange(projectTodoViewModel.editingProjectTodo)
         } else {
             onChange(nil)
             dismiss(animated: true)
@@ -174,18 +174,18 @@ extension ProjectDetailViewController {
 
     @objc
     private func titleTextFieldDidChange(_ sender: UITextField) {
-        projectViewModel.editingProject.title = sender.text ?? ""
+        projectTodoViewModel.editingProjectTodo.title = sender.text ?? ""
     }
 
     @objc
     private func dueDatePickerDidChange(_ sender: UIDatePicker) {
-        projectViewModel.editingProject.dueDate = sender.date
+        projectTodoViewModel.editingProjectTodo.dueDate = sender.date
     }
 }
 
-extension ProjectDetailViewController: UITextViewDelegate {
+extension ProjectTodoViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        projectViewModel.editingProject.description = textView.text ?? ""
+        projectTodoViewModel.editingProjectTodo.description = textView.text ?? ""
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -196,7 +196,7 @@ extension ProjectDetailViewController: UITextViewDelegate {
 }
 
 // MARK: - Keyboard
-extension ProjectDetailViewController {
+extension ProjectTodoViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }

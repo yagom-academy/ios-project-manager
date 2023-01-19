@@ -1,5 +1,5 @@
 //
-//  ProjectHeaderView.swift
+//  ProjectTodoHeaderView.swift
 //  ProjectManager
 //
 //  Created by junho lee on 2023/01/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProjectHeaderView: UIView {
+final class ProjectTodoHeaderView: UIView {
     let titleLabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

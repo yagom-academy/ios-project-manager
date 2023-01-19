@@ -1,5 +1,5 @@
 //
-//  ProjectListContentView.swift
+//  ProjectTodoListContentView.swift
 //  ProjectManager
 //
 //  Created by junho lee on 2023/01/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProjectListContentView: UIView, UIContentView {
+final class ProjectTodoListContentView: UIView, UIContentView {
     // MARK: - Properties
     private let titleLabel = {
         let label = UILabel()
@@ -83,17 +83,17 @@ final class ProjectListContentView: UIView, UIContentView {
 }
 
 // MARK: - Configuration
-extension ProjectListContentView {
+extension ProjectTodoListContentView {
     struct Configuration: UIContentConfiguration {
         var title: String?
         var description: String?
         var dueDateAttributedText: NSAttributedString?
 
         func makeContentView() -> UIView & UIContentView {
-            return ProjectListContentView(configuration: self)
+            return ProjectTodoListContentView(configuration: self)
         }
 
-        func updated(for state: UIConfigurationState) -> ProjectListContentView.Configuration {
+        func updated(for state: UIConfigurationState) -> ProjectTodoListContentView.Configuration {
             return self
         }
     }

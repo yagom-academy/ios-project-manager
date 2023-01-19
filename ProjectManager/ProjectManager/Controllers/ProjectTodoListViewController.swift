@@ -1,5 +1,5 @@
 //
-//  ProjectListViewController.swift
+//  ProjectTodoListViewController.swift
 //  ProjectManager
 //
 //  Created by junho lee on 2023/01/13.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ProjectListViewController: UIViewController {
+class ProjectTodoListViewController: UIViewController {
     // MARK: - Properties
-    private var projectListViewModel: ProjectListViewModel
+    private var projectTodoListViewModel: ProjectTodoListViewModel
     private var collectionViews: [UICollectionView] = []
     private var dataSources: [DataSource] = []
-    private var projectHeaderViews: [ProjectHeaderView] = []
-    private var projectStackViews: [UIStackView] = []
+    private var projectTodoHeaderViews: [ProjectTodoHeaderView] = []
+    private var projectTodoStackViews: [UIStackView] = []
     private let stackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,12 +22,12 @@ class ProjectListViewController: UIViewController {
         return stackView
     }()
     private var projectStateCount: Int {
-        return projectListViewModel.projectStateCount()
+        return projectTodoListViewModel.projectStateCount()
     }
 
     // MARK: - Configure
-    init(projectListViewModel: ProjectListViewModel) {
-        self.projectListViewModel = projectListViewModel
+    init(projectTodoListViewModel: ProjectTodoListViewModel) {
+        self.projectTodoListViewModel = projectTodoListViewModel
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = ProjectColor.listViewBackground.color
     }
@@ -39,14 +39,14 @@ class ProjectListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
-        configureSubViewsArray()
+        configureSubviewsArray()
         configureCollectionViews()
         configureLongPressGestureRecognizerOnCollectionView()
         configureDataSources()
         configureHierarchy()
-        bindProjectListViewModel()
+        bindProjectTodoListViewModel()
         updateSnapshot()
-        updateProjectHeaderViewText()
+        updateProjectTodoHeaderViewText()
     }
 
     private func configureNavigationItem() {
@@ -56,10 +56,10 @@ class ProjectListViewController: UIViewController {
                                                             action: #selector(didPressAddButton))
     }
 
-    private func configureSubViewsArray() {
+    private func configureSubviewsArray() {
         (0..<projectStateCount).forEach { _ in
-            projectHeaderViews.append(ProjectHeaderView())
-            projectStackViews.append({
+            projectTodoHeaderViews.append(ProjectTodoHeaderView())
+            projectTodoStackViews.append({
                 let stackView = UIStackView()
                 stackView.translatesAutoresizingMaskIntoConstraints = false
                 stackView.axis = .vertical
@@ -90,11 +90,11 @@ class ProjectListViewController: UIViewController {
         return { [weak self] indexPath in
             guard let dataSource = self?.dataSources[index] as? DataSource,
                   let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
-                  let project = self?.projectListViewModel.project(for: itemIdentifier) else { return nil }
+                  let projectTodo = self?.projectTodoListViewModel.projectTodo(for: itemIdentifier) else { return nil }
             let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
             let deleteAction = UIContextualAction(style: .destructive,
                                                   title: deleteActionTitle) { [weak self] _, _, completion in
-                self?.projectListViewModel.delete(for: project.id)
+                self?.projectTodoListViewModel.delete(for: projectTodo.id)
                 completion(false)
             }
             return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -126,9 +126,9 @@ class ProjectListViewController: UIViewController {
 
     private func configureHierarchy() {
         (0..<projectStateCount).forEach { index in
-            projectStackViews[index].addArrangedSubview(projectHeaderViews[index])
-            projectStackViews[index].addArrangedSubview(collectionViews[index])
-            stackView.addArrangedSubview(projectStackViews[index])
+            projectTodoStackViews[index].addArrangedSubview(projectTodoHeaderViews[index])
+            projectTodoStackViews[index].addArrangedSubview(collectionViews[index])
+            stackView.addArrangedSubview(projectTodoStackViews[index])
         }
         view.addSubview(stackView)
         NSLayoutConstraint.activate([
@@ -139,27 +139,27 @@ class ProjectListViewController: UIViewController {
         ])
     }
 
-    private func bindProjectListViewModel() {
-        projectListViewModel.bind { [weak self] itemIDs in
+    private func bindProjectTodoListViewModel() {
+        projectTodoListViewModel.bind { [weak self] itemIDs in
             DispatchQueue.main.async {
                 self?.updateSnapshot(itemIDs)
-                self?.updateProjectHeaderViewText()
+                self?.updateProjectTodoHeaderViewText()
             }
         }
     }
 }
 
 // MARK: - DataSource
-extension ProjectListViewController {
+extension ProjectTodoListViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, UUID>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, UUID>
 
     private func makeCellRegistrationHandler(cell: UICollectionViewCell, indexPath: IndexPath, id: UUID) {
-        guard let project = projectListViewModel.project(for: id) else { return }
-        var configuration = ProjectListContentView.Configuration()
-        configuration.title = project.title
-        configuration.description = project.description
-        configuration.dueDateAttributedText = projectListViewModel.createDueDateAttributedString(project.dueDate)
+        guard let projectTodo = projectTodoListViewModel.projectTodo(for: id) else { return }
+        var configuration = ProjectTodoListContentView.Configuration()
+        configuration.title = projectTodo.title
+        configuration.description = projectTodo.description
+        configuration.dueDateAttributedText = projectTodoListViewModel.createDueDateAttributedString(projectTodo.dueDate)
         cell.contentConfiguration = configuration
     }
 
@@ -172,7 +172,7 @@ extension ProjectListViewController {
     private func updateSnapshot(for index: Int, reloadItemIDs: [UUID] = []) {
         var snapShot = Snapshot()
         snapShot.appendSections([0])
-        let items = projectListViewModel.projectIDs(for: index)
+        let items = projectTodoListViewModel.projectTodoIDs(for: index)
         snapShot.appendItems(items)
         if reloadItemIDs.isEmpty == false {
             let reloadItems = Array(Set(reloadItemIDs).intersection(items))
@@ -181,54 +181,54 @@ extension ProjectListViewController {
         dataSources[index].apply(snapShot)
     }
 
-    private func updateProjectHeaderViewText() {
-        projectHeaderViews.enumerated().forEach { index, projectHeaderView in
-            guard let projectState = projectListViewModel.projectState(for: index) else { return }
-            projectHeaderView.titleLabel.text = String(describing: projectState)
-            let projectsCount = projectListViewModel.projectsCount(for: index)
+    private func updateProjectTodoHeaderViewText() {
+        projectTodoHeaderViews.enumerated().forEach { index, projectTodoHeaderView in
+            guard let projectState = projectTodoListViewModel.projectState(for: index) else { return }
+            projectTodoHeaderView.titleLabel.text = String(describing: projectState)
+            let projectTodosCount = projectTodoListViewModel.projectTodosCount(for: index)
             let maxCount = Constants.itemCountLabelMaxCount
-            projectHeaderView.itemCountLabel.text = projectsCount > maxCount ? "\(maxCount)+" : "\(projectsCount)"
+            projectTodoHeaderView.itemCountLabel.text = projectTodosCount > maxCount ? "\(maxCount)+" : "\(projectTodosCount)"
         }
     }
 }
 
 // MARK: - AddButton Action
-extension ProjectListViewController {
+extension ProjectTodoListViewController {
     @objc
     private func didPressAddButton(_ sender: UIBarButtonItem) {
-        let newProjectViewModel = ProjectViewModel()
-        let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: newProjectViewModel.project.state),
-                                                                      projectViewModel: newProjectViewModel,
+        let newProjectTodoViewModel = ProjectTodoViewModel()
+        let projectTodoViewController = ProjectTodoViewController(navigationTitle: String(describing: newProjectTodoViewModel.projectTodo.state),
+                                                                      projectTodoViewModel: newProjectTodoViewModel,
                                                                       isAdding: true) { [weak self] project in
             guard let project else { return }
-            self?.projectListViewModel.add(project: project)
+            self?.projectTodoListViewModel.add(projectTodo: project)
             self?.dismiss(animated: true)
         }
-        let navigationController = UINavigationController(rootViewController: projectDetailViewController)
+        let navigationController = UINavigationController(rootViewController: projectTodoViewController)
         present(navigationController, animated: true)
     }
 }
 
 // MARK: - CollectionViewDelegate
-extension ProjectListViewController: UICollectionViewDelegate {
+extension ProjectTodoListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let dataSource = collectionView.dataSource as? DataSource,
               let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
-              let projectViewModel = projectListViewModel.projectViewModel(for: itemIdentifier) else { return }
-        let projectDetailViewController = ProjectDetailViewController(navigationTitle: String(describing: projectViewModel.project.state),
-                                                                      projectViewModel: projectViewModel,
+              let projectTodoViewModel = projectTodoListViewModel.projectTodoViewModel(for: itemIdentifier) else { return }
+        let projectTodoViewController = ProjectTodoViewController(navigationTitle: String(describing: projectTodoViewModel.projectTodo.state),
+                                                                      projectTodoViewModel: projectTodoViewModel,
                                                                       isAdding: false) { [weak self] project in
             guard let project else { return }
-            self?.projectListViewModel.update(project: project)
+            self?.projectTodoListViewModel.update(projectTodo: project)
             self?.dismiss(animated: true)
         }
-        let navigationController = UINavigationController(rootViewController: projectDetailViewController)
+        let navigationController = UINavigationController(rootViewController: projectTodoViewController)
         present(navigationController, animated: true)
     }
 }
 
 // MARK: - GestureRecognizerDelegate
-extension ProjectListViewController: UIGestureRecognizerDelegate {
+extension ProjectTodoListViewController: UIGestureRecognizerDelegate {
     @objc
     private func didLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         guard let collectionView = gestureRecognizer.view as? UICollectionView else { return }
@@ -237,9 +237,9 @@ extension ProjectListViewController: UIGestureRecognizerDelegate {
             guard let indexPath = collectionView.indexPathForItem(at: locationInGestureRecognizer),
                   let dataSource = collectionView.dataSource as? DataSource,
                   let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
-                  let project = projectListViewModel.project(for: itemIdentifier) else { return }
+                  let projectTodo = projectTodoListViewModel.projectTodo(for: itemIdentifier) else { return }
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            makeAlertActionsToMoveState(for: project).forEach(alertController.addAction(_:))
+            makeAlertActionsToMoveState(for: projectTodo).forEach(alertController.addAction(_:))
             guard let popover = alertController.popoverPresentationController else { return }
             popover.sourceView = view
             let locationInView = gestureRecognizer.location(in: self.view)
@@ -248,28 +248,28 @@ extension ProjectListViewController: UIGestureRecognizerDelegate {
         }
     }
 
-    private func makeAlertActionsToMoveState(for project: Project) -> [UIAlertAction] {
+    private func makeAlertActionsToMoveState(for projectTodo: ProjectTodo) -> [UIAlertAction] {
         var actions: [UIAlertAction] = []
-        switch project.state {
+        switch projectTodo.state {
         case .todo:
-            actions.append(makeAlertActionToMoveState(for: project, toState: .doing))
-            actions.append(makeAlertActionToMoveState(for: project, toState: .done))
+            actions.append(makeAlertActionToMoveState(for: projectTodo, toState: .doing))
+            actions.append(makeAlertActionToMoveState(for: projectTodo, toState: .done))
         case .doing:
-            actions.append(makeAlertActionToMoveState(for: project, toState: .todo))
-            actions.append(makeAlertActionToMoveState(for: project, toState: .done))
+            actions.append(makeAlertActionToMoveState(for: projectTodo, toState: .todo))
+            actions.append(makeAlertActionToMoveState(for: projectTodo, toState: .done))
         case .done:
-            actions.append(makeAlertActionToMoveState(for: project, toState: .todo))
-            actions.append(makeAlertActionToMoveState(for: project, toState: .doing))
+            actions.append(makeAlertActionToMoveState(for: projectTodo, toState: .todo))
+            actions.append(makeAlertActionToMoveState(for: projectTodo, toState: .doing))
         }
         return actions
     }
 
-    private func makeAlertActionToMoveState(for project: Project, toState: ProjectState) -> UIAlertAction {
+    private func makeAlertActionToMoveState(for projectTodo: ProjectTodo, toState: ProjectState) -> UIAlertAction {
         let actionTitle = "Move to " + String(describing: toState)
         let action = UIAlertAction(title: actionTitle, style: .default) { [weak self] _ in
-            var modifiedProject = project
+            var modifiedProject = projectTodo
             modifiedProject.state = toState
-            self?.projectListViewModel.update(project: modifiedProject)
+            self?.projectTodoListViewModel.update(projectTodo: modifiedProject)
         }
         return action
     }

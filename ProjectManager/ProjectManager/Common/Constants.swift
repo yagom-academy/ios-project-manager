@@ -7,9 +7,7 @@
 
 import Foundation
 
-struct Constants {
-    private init() { }
-
+enum Constants {
     static let programName = "Project Manager"
     static let defaultSpacing = CGFloat(10)
     static let smallSpacing = CGFloat(5)
