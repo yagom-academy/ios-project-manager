@@ -35,6 +35,7 @@ class ListStackView: UIStackView {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListItemCell.self, forCellReuseIdentifier: ListItemCell.identifier)
+        tableView.separatorInset = .zero
         
         return tableView
     }()
