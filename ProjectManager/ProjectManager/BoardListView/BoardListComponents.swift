@@ -45,11 +45,14 @@ struct BoardListCellView: View {
         Text(project.title)
           .font(.title)
           .bold()
+          .lineLimit(1)
         
         Text(project.description)
+          .lineLimit(3)
           .font(.body)
         
         Text(project.date.convertedDateDescription)
+          .lineLimit(1)
           .font(.footnote)
           .foregroundColor(
             project.date << Int(Date().convertDate().timeIntervalSince1970) ? .red : .black
