@@ -8,7 +8,16 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ProjectManagerAppView: View {
+  let store: Store<AppState, AppAction>
+  
   var body: some View {
-    Text("App View")
+    WithViewStore(store) { viewStore in
+      NavigationBarView(
+        navigationStore: self.store.scope(
+          state: \.navigateState,
+          action: AppAction.navigateAction
+        )
+      )
+    }
   }
 }
