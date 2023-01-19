@@ -18,6 +18,7 @@
 		B481F9F82977D18D00597E8C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B481F9F72977D18D00597E8C /* .swiftlint.yml */; };
 		B481F9FB2977DB0800597E8C /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */; };
 		B481F9FF29782AD200597E8C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9FE29782AD200597E8C /* Observable.swift */; };
+		B481FA0429797A0400597E8C /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481FA0329797A0400597E8C /* DateFormatter+Extension.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -37,6 +38,7 @@
 		B481F9F72977D18D00597E8C /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
 		B481F9FE29782AD200597E8C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		B481FA0329797A0400597E8C /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 		B4200E3E29717573000E2B8B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B481FA02297979E600597E8C /* Extension */,
 				B43D8D3D29765F8A00986169 /* Protocol */,
 				B4200E4529717B60000E2B8B /* Enum */,
 				B4200E40297175A0000E2B8B /* App */,
@@ -140,6 +143,14 @@
 				B481F9FE29782AD200597E8C /* Observable.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B481FA02297979E600597E8C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B481FA0329797A0400597E8C /* DateFormatter+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -269,6 +280,7 @@
 				B4200E4729717B74000E2B8B /* ToDoState.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				B43D8D3A29757F9800986169 /* ToDoHeaderView.swift in Sources */,
+				B481FA0429797A0400597E8C /* DateFormatter+Extension.swift in Sources */,
 				B43D8D412976E9CD00986169 /* ItemCountLabel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
