@@ -62,6 +62,22 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
     case .navigateAction:
       return .none
       
+    case let .todoListAction(.movingToDoing(id)):
+      guard let index = state.todoListState.projects.firstIndex(where: { $0.id == id }) else {
+        return .none
+      }
+      let project = state.todoListState.projects.remove(at: index)
+      state.doingListState.projects.append(project)
+      return .none
+      
+    case let .todoListAction(.movingToDone(id)):
+      guard let index = state.todoListState.projects.firstIndex(where: { $0.id == id }) else {
+        return .none
+      }
+      let project = state.todoListState.projects.remove(at: index)
+      state.doneListState.projects.append(project)
+      return .none
+      
     case .todoListAction:
       return .none
       

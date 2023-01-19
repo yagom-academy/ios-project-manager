@@ -16,6 +16,8 @@ enum TodoAction {
   // User Action
   case didDelete(IndexSet)
   case detailAction(DetailAction)
+  case movingToDoing(id: UUID)
+  case movingToDone(id: UUID)
   
   // Inner Action
 }
@@ -36,6 +38,12 @@ let TodoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
     switch action {
     case let .didDelete(indexSet):
       indexSet.forEach { state.projects.remove(at: $0) }
+      return .none
+      
+    case .movingToDoing:
+      return .none
+      
+    case .movingToDone:
       return .none
       
     case .detailAction:

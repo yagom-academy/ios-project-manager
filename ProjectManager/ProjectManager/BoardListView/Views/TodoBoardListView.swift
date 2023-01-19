@@ -32,18 +32,18 @@ struct TodoBoardListView: View {
             BoardListCellView(project: project)
               .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
               .listRowSeparator(.hidden)
+              .contextMenu {
+                Button("Moving To Doing") {
+                  viewStore.send(.movingToDoing(id: project.id))
+                }
+                
+                Button("Moving To Done") {
+                  viewStore.send(.movingToDone(id: project.id))
+                }
+              }
           }
           .onDelete {
             viewStore.send(.didDelete($0))
-          }
-          .contextMenu {
-            Button("Moving To Doing") {
-              // TODO: send ViewStore action
-            }
-            
-            Button("Moving To Done") {
-              // TODO: send ViewStore action
-            }
           }
         }
         .listStyle(.plain)
