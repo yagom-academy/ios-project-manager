@@ -51,6 +51,9 @@ struct BoardListCellView: View {
         
         Text(project.date.convertedDateDescription)
           .font(.footnote)
+          .foregroundColor(
+            project.date << Int(Date().convertDate().timeIntervalSince1970) ? .red : .black
+          )
       }
       
       Spacer()
