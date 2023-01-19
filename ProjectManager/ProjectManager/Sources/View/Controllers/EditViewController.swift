@@ -22,6 +22,26 @@ final class EditViewController: ProjectViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigation()
+        viewModel.editingHandler = {
+            self.toggleUserInteractionEnabled()
+        }
+        
+        viewModel.changeEditMode(state: false)
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        viewModel.changeEditMode(state: editing)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            systemItem: .done,
+            primaryAction: UIAction(handler: tapDoneButton)
+        )
+    }
+    
+    func toggleUserInteractionEnabled() {
+        [textView, textField, datePicker].forEach {
+            $0.isUserInteractionEnabled.toggle()
+        }
     }
 }
 
@@ -45,14 +65,11 @@ extension EditViewController {
 // MARK: UI Configuration
 extension EditViewController {
     private func configureNavigation() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            systemItem: .done,
-            primaryAction: UIAction(handler: tapDoneButton)
-        )
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             systemItem: .cancel,
             primaryAction: UIAction(handler: tapCancelButton)
         )
+        
+        navigationItem.rightBarButtonItem = editButtonItem
     }
 }

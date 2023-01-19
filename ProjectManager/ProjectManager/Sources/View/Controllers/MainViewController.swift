@@ -48,9 +48,9 @@ final class MainViewController: UIViewController {
 // MARK: Action Method
 extension MainViewController {
     private func tapAddButton(_ sender: UIAction) {
-        let editorViewController = AddViewController()
-        editorViewController.modalPresentationStyle = .pageSheet
-        let navigationController = UINavigationController(rootViewController: editorViewController)
+        let addViewController = AddViewController()
+        addViewController.modalPresentationStyle = .pageSheet
+        let navigationController = UINavigationController(rootViewController: addViewController)
         present(navigationController, animated: true)
     }
 }
