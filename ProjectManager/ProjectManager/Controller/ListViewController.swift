@@ -46,7 +46,6 @@ final class ListViewController: UIViewController {
         
         configureNavigationBar()
         configureContentView()
-        applyAllSnapshot()
     }
     
     private func configureNavigationBar() {
@@ -77,6 +76,7 @@ final class ListViewController: UIViewController {
     private func configureContentView() {
         setTableViews()
         configureLayout()
+        applyAllSnapshot()
     }
     
     private func setTableViews() {

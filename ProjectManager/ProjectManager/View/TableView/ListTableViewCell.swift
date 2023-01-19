@@ -32,7 +32,7 @@ final class ListTableViewCell: UITableViewCell {
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.numberOfLines = 3
         label.textColor = UIColor.systemGray
         label.text = PlaceHolder.tableViewbody
