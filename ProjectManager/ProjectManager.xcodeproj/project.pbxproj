@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1804381E2975B451000CC2DA /* ProjectManagerAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804381D2975B451000CC2DA /* ProjectManagerAppView.swift */; };
-		180438202975B7E2000CC2DA /* DetailViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804381F2975B7E2000CC2DA /* DetailViewStore.swift */; };
+		180438202975B7E2000CC2DA /* DetailViewCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804381F2975B7E2000CC2DA /* DetailViewCore.swift */; };
 		18186ABC296FE62B00E0B695 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186ABB296FE62B00E0B695 /* Font.swift */; };
 		18186AC2296FE81500E0B695 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC1296FE81500E0B695 /* Project.swift */; };
 		18186AC729703A6500E0B695 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC629703A6500E0B695 /* Color.swift */; };
@@ -35,7 +35,7 @@
 
 /* Begin PBXFileReference section */
 		1804381D2975B451000CC2DA /* ProjectManagerAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerAppView.swift; sourceTree = "<group>"; };
-		1804381F2975B7E2000CC2DA /* DetailViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewStore.swift; sourceTree = "<group>"; };
+		1804381F2975B7E2000CC2DA /* DetailViewCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewCore.swift; sourceTree = "<group>"; };
 		18186ABB296FE62B00E0B695 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		18186AC1296FE81500E0B695 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		18186AC629703A6500E0B695 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				1858234629728273001AE6BC /* DetailView.swift */,
-				1804381F2975B7E2000CC2DA /* DetailViewStore.swift */,
+				1804381F2975B7E2000CC2DA /* DetailViewCore.swift */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";
@@ -293,7 +293,7 @@
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
 				1854F12D29757BE20082FB88 /* BoardListCellStore.swift in Sources */,
 				1854F1382975965F0082FB88 /* BoardHeaderView.swift in Sources */,
-				180438202975B7E2000CC2DA /* DetailViewStore.swift in Sources */,
+				180438202975B7E2000CC2DA /* DetailViewCore.swift in Sources */,
 				1854F13029757DFF0082FB88 /* BoardListView.swift in Sources */,
 				1854F13D29759B030082FB88 /* BoardView.swift in Sources */,
 				181DF174297148C4003EC956 /* Image.swift in Sources */,
