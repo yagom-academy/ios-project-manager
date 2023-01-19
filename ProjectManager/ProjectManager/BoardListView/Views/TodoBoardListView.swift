@@ -36,6 +36,15 @@ struct TodoBoardListView: View {
           .onDelete {
             viewStore.send(.didDelete($0))
           }
+          .contextMenu {
+            Button("Moving To Doing") {
+              // TODO: send ViewStore action
+            }
+            
+            Button("Moving To Done") {
+              // TODO: send ViewStore action
+            }
+          }
         }
         .listStyle(.plain)
       }
