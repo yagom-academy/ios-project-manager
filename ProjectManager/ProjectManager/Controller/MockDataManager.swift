@@ -36,8 +36,8 @@ final class MockDataManager {
     }
     
     func editTodo(item: TodoModel) {
-        guard let item = MockDataManager.shared.mockModels.filter({ $0.id == item.id }).first,
-              let index = MockDataManager.shared.mockModels.firstIndex(of: item) else { return }
+        guard let previousItem = MockDataManager.shared.mockModels.filter({ $0.id == item.id }).first,
+              let index = MockDataManager.shared.mockModels.firstIndex(of: previousItem) else { return }
         
         mockModels[index] = item
     }

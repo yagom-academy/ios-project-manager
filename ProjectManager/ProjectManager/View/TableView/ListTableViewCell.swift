@@ -44,7 +44,7 @@ final class ListTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 1
-        label.text = "0000.00.00"
+        label.text = "0000. 0. 0"
         return label
     }()
     
@@ -87,7 +87,7 @@ final class ListTableViewCell: UITableViewCell {
             self?.bodyLabel.text = body
             self?.dateLabel.text = date.customDescription
             
-            if date > Date() {
+            if date < Date() {
                 self?.dateLabel.textColor = .red
             }
         }
