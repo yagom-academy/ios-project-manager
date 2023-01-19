@@ -7,38 +7,6 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct BoardListView: View {
-  let store: Store<ProjectListState, ProjectListAction>
-  
-  var body: some View {
-    WithViewStore(store) { viewStore in
-      VStack(spacing: 0) {
-        BoardListSectionHeader(
-          projectState: .todo,
-          count: viewStore.projects.count
-        )
-        .padding()
-        
-        Divider()
-          .frame(height: 2)
-          .background(Color.accentColor)
-          .padding(.horizontal)
-          .cornerRadius(10)
-          
-        
-        List {
-          ForEach(viewStore.projects, id: \.id) { project in
-            BoardListCellView(project: project)
-              .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
-              .listRowSeparator(.hidden)
-          }
-        }
-        .listStyle(.plain)
-      }
-    }
-  }
-}
-
 struct BoardListSectionHeader: View {
   let projectState: ProjectState
   let count: Int
@@ -96,14 +64,7 @@ struct BoardListCellView: View {
 }
 
 struct BoardListView_Previews: PreviewProvider {
-  static let store = Store(
-    initialState: ProjectListState(),
-    reducer: projectListReducer,
-    environment: ProjectListEnvironment()
-  )
   static var previews: some View {
-    BoardListView(store: store)
-    
     BoardListCellView(
       project: Project(
         title: "Example",
@@ -111,5 +72,9 @@ struct BoardListView_Previews: PreviewProvider {
         description: "Example"
       )
     )
+    .previewLayout(.sizeThatFits)
+    
+    BoardListSectionHeader(projectState: .todo, count: 20)
+      .previewLayout(.sizeThatFits)
   }
 }

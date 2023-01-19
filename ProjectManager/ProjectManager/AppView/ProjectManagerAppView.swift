@@ -20,24 +20,24 @@ struct ProjectManagerAppView: View {
       )
       
       HStack(spacing: 0) {
-        BoardListView(
+        TodoBoardListView(
           store: self.store.scope(
             state: \.todoListState,
             action: AppAction.todoListAction
           )
         )
         
-        BoardListView(
+        DoingBoardListView(
           store: self.store.scope(
-            state: \.todoListState,
-            action: AppAction.todoListAction
+            state: \.doingListState,
+            action: AppAction.doingListAction
           )
         )
         
-        BoardListView(
+        DoneBoardListView(
           store: self.store.scope(
-            state: \.todoListState,
-            action: AppAction.todoListAction
+            state: \.doneListState,
+            action: AppAction.doneListAction
           )
         )
       }

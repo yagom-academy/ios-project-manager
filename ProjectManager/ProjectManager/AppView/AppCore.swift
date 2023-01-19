@@ -8,12 +8,16 @@ import ComposableArchitecture
 
 struct AppState: Equatable {
   var navigateState = NavigateState()
-  var todoListState = ProjectListState()
+  var todoListState = TodoState()
+  var doingListState = DoingState()
+  var doneListState = DoneState()
 }
 
 enum AppAction {
   case navigateAction(NavigateAction)
-  case todoListAction(ProjectListAction)
+  case todoListAction(TodoAction)
+  case doingListAction(DoingAction)
+  case doneListAction(DoneAction)
 }
 
 struct AppEnvironment {
@@ -27,12 +31,27 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
       action: /AppAction.navigateAction,
       environment: { _ in NavigateEnvironment() }
     ),
-  projectListReducer
+  TodoReducer
     .pullback(
       state: \.todoListState,
       action: /AppAction.todoListAction,
-      environment: { _ in ProjectListEnvironment() }
+      environment: { _ in TodoEnvironment() }
     ),
+  
+  DoingReducer
+    .pullback(
+      state: \.doingListState,
+      action: /AppAction.doingListAction,
+      environment: { _ in DoingEnvironment() }
+    ),
+  
+  DoneReducer
+    .pullback(
+      state: \.doneListState,
+      action: /AppAction.doneListAction,
+      environment: { _ in DoneEnvironment() }
+    ),
+  
   Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
     switch action {
     case .navigateAction(.detailAction(.didDoneTap)):
@@ -44,6 +63,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
       return .none
       
     case .todoListAction:
+      return .none
+      
+    case .doingListAction:
+      return .none
+      
+    case .doneListAction:
       return .none
     }
   }
