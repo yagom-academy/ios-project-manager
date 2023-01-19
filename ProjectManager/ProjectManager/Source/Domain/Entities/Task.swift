@@ -5,6 +5,8 @@
 //  Created by ayaan, jpush on 2023/01/17.
 //
 
+import Foundation
+
 struct Task {
     let id: String
     var title: String
@@ -17,5 +19,20 @@ struct Task {
         case toDo
         case doing
         case done
+    }
+    
+    init(
+        id: String = UUID().uuidString,
+        title: String,
+        content: String,
+        deadLine: Double,
+        state: State = .toDo
+    ) {
+        self.id = id
+        self.title = title
+        self.content = content
+        self.deadLine = deadLine
+        self.state = state
+        self.isExpired = deadLine < Date.startOfCurrentDay.timeIntervalSince1970
     }
 }
