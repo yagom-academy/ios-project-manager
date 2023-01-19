@@ -8,7 +8,7 @@
 import UIKit
 
 final class ListTableViewCell: UITableViewCell {
-    static let identifier = "ListTableViewCell"
+    static let identifier = ListTableViewValue.identifier
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -25,7 +25,7 @@ final class ListTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.numberOfLines = 1
-        label.text = "title"
+        label.text = ListTableViewValue.PlaceHolder.title
         return label
     }()
     
@@ -35,7 +35,7 @@ final class ListTableViewCell: UITableViewCell {
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.numberOfLines = 3
         label.textColor = UIColor.systemGray
-        label.text = "body"
+        label.text = ListTableViewValue.PlaceHolder.body
         return label
     }()
     
@@ -44,7 +44,7 @@ final class ListTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 1
-        label.text = "0000. 0. 0"
+        label.text = ListTableViewValue.PlaceHolder.date
         return label
     }()
     

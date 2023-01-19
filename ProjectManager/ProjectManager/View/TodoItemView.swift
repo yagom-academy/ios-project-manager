@@ -20,7 +20,7 @@ final class TodoItemView: UIView {
     
     private(set) var titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = " Title"
+        textField.placeholder = ItemViewPlaceHolder.title
         textField.layer.cornerRadius = 5
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.systemGray5.cgColor
@@ -33,17 +33,14 @@ final class TodoItemView: UIView {
         picker.datePickerMode = .date
         
         let localeLanguage = Locale.preferredLanguages.first
-        picker.locale = Locale(identifier: localeLanguage ?? "ko-kr")
-        picker.timeZone = TimeZone(abbreviation: "KST")
+        picker.locale = Locale(identifier: localeLanguage ?? DatePickerValue.locale)
+        picker.timeZone = TimeZone(abbreviation: DatePickerValue.timezone)
         return picker
     }()
     
     private(set) var bodyTextView: UITextView = {
         let textView = UITextView()
-        textView.text = """
-                        할일의 내용을 입력해주세요.
-                        입력 가능한 글자수는 1000자로 제한됩니다.
-                        """
+        textView.text = ItemViewPlaceHolder.body
         textView.layer.cornerRadius = 5
         textView.layer.borderWidth = 1
         textView.font = UIFont.preferredFont(forTextStyle: .body, compatibleWith: .none)

@@ -50,7 +50,7 @@ final class ListViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = "Project Manager"
+        navigationItem.title = ListViewTitle.navigationBar
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(tappedAddButton))
@@ -153,18 +153,18 @@ extension ListViewController: UITableViewDelegate {
         
         switch tableView {
         case todoTableView:
-            requestViewUpdate(to: headerView, title: "TODO", itemCount: todoModels.count)
+            updateView(headerView, title: ListViewTitle.Header.todo, itemCount: todoModels.count)
         case doingTableView:
-            requestViewUpdate(to: headerView, title: "DOING", itemCount: doingModels.count)
+            updateView(headerView, title: ListViewTitle.Header.doing, itemCount: doingModels.count)
         case doneTableView:
-            requestViewUpdate(to: headerView, title: "DONE", itemCount: doneModels.count)
+            updateView(headerView, title: ListViewTitle.Header.done, itemCount: doneModels.count)
         default:
             break
         }
         return headerView
     }
     
-    private func requestViewUpdate(to headerView: ListHeaderView, title: String, itemCount: Int) {
+    private func updateView(_ headerView: ListHeaderView, title: String, itemCount: Int) {
         headerView.setTitle(title)
         headerView.updateCount(itemCount)
     }
@@ -196,7 +196,7 @@ extension ListViewController: UITableViewDelegate {
     }
     
     private func fetchDeleteAction(_ tableView: UITableView, indexPath: IndexPath) -> UIContextualAction{
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { _, _, completion in
+        let delete = UIContextualAction(style: .destructive, title: SwipeActionTitle.delete) { _, _, completion in
             guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath) else { return }
             
             MockDataManager.shared.removeTodo(item: cellItem)
@@ -205,7 +205,7 @@ extension ListViewController: UITableViewDelegate {
             completion(true)
         }
         
-        delete.image = UIImage(systemName: "xmark.bin")
+        delete.image = UIImage(systemName: SwipeActionTitle.deleteImage)
         return delete
     }
 }

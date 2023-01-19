@@ -8,7 +8,7 @@
 import UIKit
 
 final class ListHeaderView: UITableViewHeaderFooterView {
-    static let identifier = "ListHeaderView"
+    static let identifier = HeaderViewValue.identifier
     
     private let statusLabel: UILabel = {
         let label = UILabel()
@@ -58,7 +58,7 @@ final class ListHeaderView: UITableViewHeaderFooterView {
     
     func updateCount(_ count: Int) {
         DispatchQueue.main.async { [weak self] in
-            self?.listNumberImage.image = UIImage(systemName: "\(count).circle.fill")
+            self?.listNumberImage.image = UIImage(systemName: "\(count)" + HeaderViewValue.countImage)
         }
     }
 }

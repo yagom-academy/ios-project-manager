@@ -14,11 +14,11 @@ extension Date {
     
     var customDescription: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy. M. d."
+        dateFormatter.dateFormat = DatePickerValue.dateFormat
         
         let localeLanguage = Locale.preferredLanguages.first
-        dateFormatter.locale = Locale(identifier: localeLanguage ?? "ko-kr")
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
+        dateFormatter.locale = Locale(identifier: localeLanguage ?? DatePickerValue.locale)
+        dateFormatter.timeZone = TimeZone(abbreviation: DatePickerValue.timezone)
         
         return dateFormatter.string(from: self)
     }

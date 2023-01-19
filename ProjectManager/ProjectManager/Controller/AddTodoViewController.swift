@@ -27,12 +27,12 @@ final class AddTodoViewController: UIViewController {
     
     private func configureNavigationBar() {
         navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationItem.title = "TODO"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
+        navigationItem.title = TodoViewTitle.navigationBar
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: TodoViewTitle.cancel,
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(tappedCancel))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: TodoViewTitle.done,
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(tappedDone))
