@@ -11,12 +11,12 @@ import RxSwift
 
 final class FetchTasksUseCaseTests: XCTestCase {
     var taskRepositoryMock: MockTaskRepository!
-    var usecase: FetchTasksUseCase!
+    var usecase: DefaultFetchTasksUseCase!
     var dispose: DisposeBag!
     
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
-        usecase = FetchTasksUseCase(
+        usecase = DefaultFetchTasksUseCase(
             taskRepository: taskRepositoryMock
         )
         dispose = DisposeBag()
@@ -124,7 +124,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
     }
     
     func test_when_deleting_task_is_successful_then_renewing_tasksList_is_successful() {
-        let deleteTaskUseCaseStub = DeleteTaskUseCase(delegate: usecase,
+        let deleteTaskUseCaseStub = DefaultDeleteTaskUseCase(delegate: usecase,
                                                       repository: taskRepositoryMock)
         var tasksList: [Task]? = nil
         usecase.tasks
@@ -147,7 +147,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
     }
     
     func test_when_deleting_task_is_failed_then_tasksList_is_not_renewed() {
-        let deleteTaskUseCaseStub = DeleteTaskUseCase(delegate: usecase,
+        let deleteTaskUseCaseStub = DefaultDeleteTaskUseCase(delegate: usecase,
                                                       repository: taskRepositoryMock)
         var tasksList: [Task]? = nil
         usecase.tasks

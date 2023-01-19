@@ -5,4 +5,12 @@
 //  Created by ayaan, jpush on 2023/01/19.
 //
 
-import Foundation
+import RxSwift
+
+final class FetchTasksUseCaseMock: FetchTasksUseCase {
+    let tasks = BehaviorSubject<[Task]>(value: [])
+
+    func fetchAllTasks() {
+        tasks.onNext(TaskDummy.dummys)
+    }
+}

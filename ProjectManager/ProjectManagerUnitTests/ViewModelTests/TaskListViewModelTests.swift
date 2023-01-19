@@ -2,34 +2,60 @@
 //  TaskListViewModelTests.swift
 //  ProjectManagerUnitTests
 //
-//  Created by 이정민 on 2023/01/18.
+//  Created by ayaan, jpush on 2023/01/18.
 //
 
 import XCTest
 
+import RxSwift
+import RxTest
+
 final class TaskListViewModelTests: XCTestCase {
-
+    var viewModel: TaskListViewModel!
+    var scheduler: TestScheduler!
+    var disposeBag: DisposeBag!
+    var input: TaskListViewModel.Input!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewModel = TaskListViewModel(
+            fetchTasksUseCase: FetchTasksUseCaseMock(),
+            deleteTaskUseCase: DeleteTaskUseCaseMock()
+        )
+        
+        disposeBag = DisposeBag()
+        scheduler = TestScheduler(initialClock: 0)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func test_viewWillAppearEvent_received() {
+        // given
+        let viewWillAppearEventObserver = scheduler.createHotObservable([
+            .next(10, ())
+        ])
+        
+        let isEmptyObserver = scheduler.createObserver(Bool.self)
+        
+        input = TaskListViewModel.Input(
+            viewWillAppearEvent: viewWillAppearEventObserver.asObservable(),
+            createButtonTapEvent: Observable.empty(),
+            indexPathToDelete: Observable.empty(),
+            indexPathToLongPress: Observable.empty(),
+            selectedTaskEvent: Observable.empty()
+        )
+        
+        // when
+        viewModel.bind(with: input)
+        viewModel.tasks
+            .subscribe(onNext: { tasks in
+                isEmptyObserver.on(.next(tasks.isEmpty))
+            })
+            .disposed(by: disposeBag)
+        
+        scheduler.start()
+        
+        // then
+        XCTAssertEqual(isEmptyObserver.events, [
+            .next(0, true),
+            .next(10, false)
+        ])
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

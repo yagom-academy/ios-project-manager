@@ -1,5 +1,5 @@
 //
-//  FetchTasksUseCase.swift
+//  DefaultFetchTasksUseCase.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -8,8 +8,14 @@
 import RxRelay
 import RxSwift
 
-final class FetchTasksUseCase {
-    var tasks = BehaviorSubject<[Task]>(value: [])
+protocol FetchTasksUseCase {
+    var tasks: BehaviorSubject<[Task]> { get }
+    
+    func fetchAllTasks()
+}
+
+final class DefaultFetchTasksUseCase: FetchTasksUseCase {
+    let tasks = BehaviorSubject<[Task]>(value: [])
     private let taskRepository: TaskRepository
     private let disposeBag = DisposeBag()
     
@@ -27,7 +33,7 @@ final class FetchTasksUseCase {
     }
 }
 
-extension FetchTasksUseCase: DidEndEditingTaskDelegate {
+extension DefaultFetchTasksUseCase: DidEndEditingTaskDelegate {
     func didEndCreating(task: Task) {
         guard var tasksList = try? tasks.value() else {
             return

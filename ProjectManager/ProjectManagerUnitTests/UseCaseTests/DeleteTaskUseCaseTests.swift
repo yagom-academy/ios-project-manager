@@ -17,12 +17,12 @@ private final class DidEndDeletingDelegateStub: DidEndDeletingDelegate {
 
 final class DeleteTaskUseCaseTests: XCTestCase {
     var taskRepositoryMock: MockTaskRepository!
-    var usecase: DeleteTaskUseCase!
+    var usecase: DefaultDeleteTaskUseCase!
     var disposeBag: DisposeBag!
     
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
-        usecase = DeleteTaskUseCase(
+        usecase = DefaultDeleteTaskUseCase(
             delegate: DidEndDeletingDelegateStub(),
             repository: taskRepositoryMock
         )
