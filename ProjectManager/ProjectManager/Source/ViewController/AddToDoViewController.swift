@@ -15,12 +15,10 @@ class AddToDoViewController: UIViewController {
     }
     
     let viewModel: ToDoListViewModel
-    private let currentToDo: ToDo
     private let detailView = ToDoDetailView()
     
-    init(viewModel: ToDoListViewModel, toDo: ToDo) {
+    init(viewModel: ToDoListViewModel) {
         self.viewModel = viewModel
-        self.currentToDo = toDo
         super.init(nibName: nil, bundle: nil)
     }
     
