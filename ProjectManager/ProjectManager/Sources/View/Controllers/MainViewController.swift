@@ -48,7 +48,7 @@ final class MainViewController: UIViewController {
 // MARK: Action Method
 extension MainViewController {
     private func tapAddButton(_ sender: UIAction) {
-        let editorViewController = EditorViewController(state: .todo, viewModel: viewModel)
+        let editorViewController = AddViewController()
         editorViewController.modalPresentationStyle = .pageSheet
         let navigationController = UINavigationController(rootViewController: editorViewController)
         present(navigationController, animated: true)
@@ -62,12 +62,13 @@ extension MainViewController: ProjectListActionDelegate {
             $0.delegate = self
         }
     }
+    
     func deleteProject(willDelete project: Project) {
         viewModel.deleteProject(with: project)
     }
     
     func editProject(willEdit project: Project) {
-        let editorViewController = EditorViewController(project: project, viewModel: viewModel)
+        let editorViewController = EditViewController()
         editorViewController.modalPresentationStyle = .pageSheet
         let navigationController = UINavigationController(rootViewController: editorViewController)
         present(navigationController, animated: true)
