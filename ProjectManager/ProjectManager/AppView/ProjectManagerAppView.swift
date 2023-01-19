@@ -14,8 +14,8 @@ struct ProjectManagerAppView: View {
     WithViewStore(store) { viewStore in
       NavigationBarView(
         navigationStore: self.store.scope(
-          state: \.navigateState,
-          action: AppAction.navigateAction
+          state: \.sheetState,
+          action: AppAction.sheetAction
         )
       )
       

@@ -7,14 +7,14 @@
 import ComposableArchitecture
 
 struct AppState: Equatable {
-  var navigateState = NavigateState()
+  var sheetState = SheetState()
   var todoListState = TodoState()
   var doingListState = DoingState()
   var doneListState = DoneState()
 }
 
 enum AppAction {
-  case navigateAction(NavigateAction)
+  case sheetAction(SheetAction)
   case todoListAction(TodoAction)
   case doingListAction(DoingAction)
   case doneListAction(DoneAction)
@@ -29,12 +29,13 @@ struct AppEnvironment {
 }
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
-  navigateReducer
+  sheetReducer
     .pullback(
-      state: \.navigateState,
-      action: /AppAction.navigateAction,
-      environment: { _ in NavigateEnvironment() }
+      state: \.sheetState,
+      action: /AppAction.sheetAction,
+      environment: { _ in SheetEnvironment() }
     ),
+  
   todoReducer
     .pullback(
       state: \.todoListState,
@@ -58,12 +59,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
   
   Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
     switch action {
-    case .navigateAction(.detailAction(.didDoneTap)):
-      guard let project = state.navigateState.createdProject else { return .none }
+    case .sheetAction(.detailAction(.didDoneTap)):
+      guard let project = state.sheetState.createdProject else { return .none }
       state.todoListState.projects.append(project)
       return .none
       
-    case .navigateAction:
+    case .sheetAction:
       return .none
       
     case let .todoListAction(.movingToDoing(project)):

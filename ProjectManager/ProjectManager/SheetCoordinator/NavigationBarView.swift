@@ -8,7 +8,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct NavigationBarView: View {
-  let navigationStore: Store<NavigateState, NavigateAction>
+  let navigationStore: Store<SheetState, SheetAction>
   
   var body: some View {
     WithViewStore(navigationStore) { viewStore in
@@ -39,14 +39,13 @@ struct NavigationBarView: View {
       .sheet(
         isPresented: viewStore.binding(
           get: \.isPresent,
-          send: NavigateAction.didTapPresent
+          send: SheetAction.didTapPresent
         )
       ) {
-        // TODO: - Navigate Present Item
         IfLetStore(
           self.navigationStore.scope(
             state: \.detailState,
-            action: NavigateAction.detailAction
+            action: SheetAction.detailAction
           )
         ) { viewStore in
           ProjectDetailView(store: viewStore)
@@ -58,9 +57,9 @@ struct NavigationBarView: View {
 
 struct NavigationBarView_Previews: PreviewProvider {
   static let store = Store(
-    initialState: NavigateState(),
-    reducer: navigateReducer,
-    environment: NavigateEnvironment()
+    initialState: SheetState(),
+    reducer: sheetReducer,
+    environment: SheetEnvironment()
   )
   
   static var previews: some View {

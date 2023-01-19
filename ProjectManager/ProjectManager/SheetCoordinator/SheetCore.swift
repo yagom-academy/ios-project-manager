@@ -6,7 +6,7 @@
 
 import ComposableArchitecture
 
-struct NavigateState: Equatable {
+struct SheetState: Equatable {
   var isPresent: Bool = false
   var title: String = "Project Manager"
   var detailState: DetailState?
@@ -14,7 +14,7 @@ struct NavigateState: Equatable {
   var createdProject: Project?
 }
 
-enum NavigateAction {
+enum SheetAction {
   // User Action
   case didTapPresent(Bool)
   case detailAction(DetailAction)
@@ -23,20 +23,20 @@ enum NavigateAction {
   case _toggleNavigationState(Bool)
 }
 
-struct NavigateEnvironment {
+struct SheetEnvironment {
   init() { }
 }
 
-let navigateReducer = Reducer<NavigateState, NavigateAction, NavigateEnvironment>.combine([
+let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
   detailReducer
     .optional()
     .pullback(
       state: \.detailState,
-      action: /NavigateAction.detailAction,
+      action: /SheetAction.detailAction,
       environment: { _ in DetailEnvironment() }
     ),
   
-  Reducer<NavigateState, NavigateAction, NavigateEnvironment> { state, action, environment in
+  Reducer<SheetState, SheetAction, SheetEnvironment> { state, action, environment in
     switch action {
     case let .didTapPresent(isPresent):
       if state.isPresent != isPresent {

@@ -9,9 +9,9 @@ import ComposableArchitecture
 
 struct Project: Decodable, Identifiable, Equatable {
   var id: UUID = UUID()
-  var title: String
-  var date: Int
-  var description: String
+  let title: String
+  let date: Int
+  let description: String
   var state: ProjectState = .todo
 }
 

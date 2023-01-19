@@ -10,11 +10,7 @@ import ComposableArchitecture
 
 @main
 struct ProjectManagerApp: App {
-  let store = Store(
-    initialState: AppState(),
-    reducer: appReducer,
-    environment: AppEnvironment()
-  )
+  let store = Store(initialState: AppState(), reducer: appReducer, environment: AppEnvironment())
   
   var body: some Scene {
     WindowGroup {
