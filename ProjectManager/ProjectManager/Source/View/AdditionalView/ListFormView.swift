@@ -10,6 +10,7 @@ class ListFormView: UIStackView {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
+        textField.font = .preferredFont(forTextStyle: .headline)
         
         return textField
     }()
@@ -23,6 +24,7 @@ class ListFormView: UIStackView {
     private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.text = "입력 가능한 글자수는 1000자로 제한합니다."
+        textView.font = .systemFont(ofSize: UIFont.systemFontSize)
         
         return textView
     }()
@@ -46,6 +48,7 @@ class ListFormView: UIStackView {
         
         setupStackView()
         configureLayout()
+        addBorderToTextInputViews()
     }
     
     required init(coder: NSCoder) {
@@ -64,22 +67,16 @@ class ListFormView: UIStackView {
         [titleTextField, dueDatePicker, bodyTextView].forEach(addArrangedSubview(_:))
     }
     
-    private func addShadowEffect() {
-        titleTextField.layer.shadowOffset = CGSize(width: 1, height: 5)
-        titleTextField.layer.shadowOpacity = 0.3
-        titleTextField.layer.shadowRadius = 5.0
-        titleTextField.layer.shadowPath = UIBezierPath(
-            roundedRect: titleTextField.bounds,
-            cornerRadius: titleTextField.layer.cornerRadius
-        ).cgPath
-      
-        bodyTextView.layer.shadowOffset = CGSize(width: 1, height: 5)
-        bodyTextView.layer.shadowOpacity = 0.3
-        bodyTextView.layer.shadowRadius = 5.0
-        bodyTextView.layer.shadowPath = UIBezierPath(
-            roundedRect: bodyTextView.bounds,
-            cornerRadius: bodyTextView.layer.cornerRadius
-        ).cgPath
+    private func addBorderToTextInputViews() {
+        titleTextField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 10.0, height: 0.0))
+        titleTextField.leftViewMode = .always
+        titleTextField.layer.borderWidth = 1
+        titleTextField.layer.borderColor = UIColor.systemGray.cgColor
+        titleTextField.layer.cornerRadius = 5
+        
+        bodyTextView.layer.borderWidth = 1
+        bodyTextView.layer.borderColor = UIColor.systemGray.cgColor
+        bodyTextView.layer.cornerRadius = 5
     }
     
     func configureTextViewDelegate(_ delegate: UITextViewDelegate) {
