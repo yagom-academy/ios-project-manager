@@ -23,14 +23,16 @@ final class MainViewModel {
         projectGroups.map { String($0.count) }
     }
     
-    var newProject: Project {
-        return Project(title: Default.title,
-                       description: Default.description,
-                       date: Default.date,
-                       uuid: UUID())
-    }
-    
     var update: ([[Project]], [String]) -> Void = { _, _ in }
+    
+    func generateNewProject() -> Project {
+        let newProject =  Project(title: Default.title,
+                                  description: Default.description,
+                                  date: Default.date,
+                                  uuid: UUID())
+        
+        return newProject
+    }
     
     func readTitle(of state: ProjectState) -> String {
         return stateTitles[state.index]

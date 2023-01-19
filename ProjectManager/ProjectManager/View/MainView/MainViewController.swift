@@ -21,9 +21,6 @@ final class MainViewController: UIViewController {
         takeInitialSnapShot()
         bidingViewModel()
         setupListsDelegator()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         setUpListTitles()
         setUpNavigationBar()
         configureHierarchy()
@@ -93,7 +90,7 @@ extension MainViewController {
         return UIAction { [weak self] _ in
             guard let self = self else { return }
             
-            let newProject = self.mainViewModel.newProject
+            let newProject = self.mainViewModel.generateNewProject()
             let editingViewModel = EditingViewModel(editTargetModel: self.mainViewModel,
                                                     project: newProject)
             let editViewController = EditingViewController(viewModel: editingViewModel)
