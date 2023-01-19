@@ -68,7 +68,7 @@
 		18AB3C1529798AF600854929 /* TodoBoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoardListView.swift; sourceTree = "<group>"; };
 		18AB3C1729798B1000854929 /* DoingBoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingBoardListView.swift; sourceTree = "<group>"; };
 		18AB3C1929798B2E00854929 /* DoneBoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneBoardListView.swift; sourceTree = "<group>"; };
-		18AB3C1F29799B6500854929 /* NavigateStoreTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavigateStoreTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18AB3C1F29799B6500854929 /* StoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AB3C2129799B6500854929 /* NavigateStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigateStoreTest.swift; sourceTree = "<group>"; };
 		18AB3C282979A2B300854929 /* ListStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStoreTest.swift; sourceTree = "<group>"; };
 		18AB3C2A2979A87200854929 /* DetailStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStoreTest.swift; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				18359AB4296C1F81000D6C73 /* ProjectManager */,
-				18AB3C2029799B6500854929 /* NavigateStoreTest */,
+				18AB3C2029799B6500854929 /* StoreTests */,
 				18359AB3296C1F81000D6C73 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -136,7 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				18359AB2296C1F81000D6C73 /* ProjectManager.app */,
-				18AB3C1F29799B6500854929 /* NavigateStoreTest.xctest */,
+				18AB3C1F29799B6500854929 /* StoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,14 +215,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		18AB3C2029799B6500854929 /* NavigateStoreTest */ = {
+		18AB3C2029799B6500854929 /* StoreTests */ = {
 			isa = PBXGroup;
 			children = (
 				18AB3C2129799B6500854929 /* NavigateStoreTest.swift */,
 				18AB3C282979A2B300854929 /* ListStoreTest.swift */,
 				18AB3C2A2979A87200854929 /* DetailStoreTest.swift */,
 			);
-			path = NavigateStoreTest;
+			path = StoreTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,9 +248,9 @@
 			productReference = 18359AB2296C1F81000D6C73 /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
 		};
-		18AB3C1E29799B6500854929 /* NavigateStoreTest */ = {
+		18AB3C1E29799B6500854929 /* StoreTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 18AB3C2529799B6500854929 /* Build configuration list for PBXNativeTarget "NavigateStoreTest" */;
+			buildConfigurationList = 18AB3C2529799B6500854929 /* Build configuration list for PBXNativeTarget "StoreTests" */;
 			buildPhases = (
 				18AB3C1B29799B6500854929 /* Sources */,
 				18AB3C1C29799B6500854929 /* Frameworks */,
@@ -261,9 +261,9 @@
 			dependencies = (
 				18AB3C2429799B6500854929 /* PBXTargetDependency */,
 			);
-			name = NavigateStoreTest;
+			name = StoreTests;
 			productName = NavigateStoreTest;
-			productReference = 18AB3C1F29799B6500854929 /* NavigateStoreTest.xctest */;
+			productReference = 18AB3C1F29799B6500854929 /* StoreTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -302,7 +302,7 @@
 			projectRoot = "";
 			targets = (
 				18359AB1296C1F81000D6C73 /* ProjectManager */,
-				18AB3C1E29799B6500854929 /* NavigateStoreTest */,
+				18AB3C1E29799B6500854929 /* StoreTests */,
 			);
 		};
 /* End PBXProject section */
@@ -620,7 +620,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		18AB3C2529799B6500854929 /* Build configuration list for PBXNativeTarget "NavigateStoreTest" */ = {
+		18AB3C2529799B6500854929 /* Build configuration list for PBXNativeTarget "StoreTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				18AB3C2629799B6500854929 /* Debug */,
