@@ -103,4 +103,16 @@ class ToDoDetailView: UIView {
                         body: bodyTextView.text,
                         deadline: datePicker.date)
     }
+    
+    func setupContent(data: ToDoData) {
+        titleTextField.text = data.title
+        bodyTextView.text = data.body
+        datePicker.date = data.deadline
+    }
+    
+    func changeEditing(_ value: Bool) {
+        titleTextField.isUserInteractionEnabled = value
+        bodyTextView.isUserInteractionEnabled = value
+        datePicker.isUserInteractionEnabled = value
+    }
 }
