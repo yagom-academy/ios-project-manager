@@ -63,7 +63,8 @@ let doneReducer = Reducer<DoneState, DoneAction, DoneEnvironment>.combine([
       state.selectedState = DetailState(
         title: project.title,
         description: project.description,
-        deadLineDate: project.date.convertedDate
+        deadLineDate: project.date.convertedDate,
+        editMode: true
       )
       
       return .none

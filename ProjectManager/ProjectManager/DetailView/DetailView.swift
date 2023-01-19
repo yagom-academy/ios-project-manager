@@ -21,10 +21,7 @@ struct ProjectDetailView: View {
               send: DetailAction._didChangeTitle
             )
           )
-          .padding()
-          .background(.white)
-          .cornerRadius(10)
-          .shadow(color: .gray, radius: 1, y: 1)
+          .detailItemStyle()
           .disabled(!viewStore.isEditMode)
           
           DatePicker(
@@ -37,10 +34,7 @@ struct ProjectDetailView: View {
             displayedComponents: .date
           )
           .environment(\.locale, Locale(identifier: "ko_KR"))
-          .padding(10)
-          .background(.white)
-          .cornerRadius(10)
-          .shadow(color: .gray, radius: 1, y: 1)
+          .detailItemStyle()
           .disabled(!viewStore.isEditMode)
           
           TextEditor(
@@ -49,10 +43,7 @@ struct ProjectDetailView: View {
               send: DetailAction._didChangeDescription
             )
           )
-          .padding()
-          .background(.white)
-          .cornerRadius(10)
-          .shadow(color: .gray, radius: 1, y: 1)
+          .detailItemStyle()
           .disabled(!viewStore.isEditMode)
         }
         .padding()
@@ -84,6 +75,22 @@ struct ProjectDetailView: View {
         UITextView.appearance().backgroundColor = .clear
       }
     }
+  }
+}
+
+private struct DetailItemModifier: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .padding(10)
+      .background(.white)
+      .cornerRadius(10)
+      .shadow(color: .gray, radius: 1, y: 1)
+  }
+}
+
+private extension View {
+  func detailItemStyle() -> some View {
+    modifier(DetailItemModifier())
   }
 }
 

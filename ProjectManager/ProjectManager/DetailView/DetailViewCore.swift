@@ -27,6 +27,7 @@ struct DetailState: Equatable, Identifiable {
     self.description = description
     self.deadLineDate = deadLineDate
     self.editMode = editMode
+    self.isEditMode = !editMode
   }
 }
 

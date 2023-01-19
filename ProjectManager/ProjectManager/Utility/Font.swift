@@ -13,8 +13,6 @@ struct TitleTextModifier: ViewModifier {
   }
 }
 
-
-
 extension View {
   func customTitleStyle() -> some View {
     modifier(TitleTextModifier())
