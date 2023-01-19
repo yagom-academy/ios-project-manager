@@ -10,21 +10,19 @@ import ComposableArchitecture
 struct TodoState: Equatable {
   var projects: [Project] = []
   
-  var isPresent: Bool = false
+  var selectedProject: Project?
   var selectedState: DetailState?
 }
 
 enum TodoAction {
   // User Action
   case didDelete(IndexSet)
-  case tapItem(Bool, Project?)
   case movingToDoing(Project)
   case movingToDone(Project)
   
   case detailAction(DetailAction)
   
   // Inner Action
-  case _ChangePresentState(Bool)
   case _setSelectedState(Project?)
 }
 
@@ -54,22 +52,14 @@ let todoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
       state.projects.removeAll(where: { $0 == project })
       return .none
       
-    case let .tapItem(isPresent, project):
-      return Effect.concatenate([
-        Effect(value: ._ChangePresentState(isPresent)),
-        Effect(value: ._setSelectedState(project))
-      ])
-      
-    case let ._ChangePresentState(isPresent):
-      if state.isPresent == isPresent {
-        return .none
-      } else {
-        state.isPresent = isPresent
+    case let ._setSelectedState(project):
+      guard let project = project else {
+        state.selectedState = nil
+        state.selectedProject = nil
         return .none
       }
       
-    case let ._setSelectedState(project):
-      guard let project = project else { return .none }
+      state.selectedProject = project
       state.selectedState = DetailState(
         title: project.title,
         description: project.description,
@@ -77,6 +67,22 @@ let todoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
       )
       
       return .none
+      
+    case .detailAction(.didDoneTap):
+      guard let selectedItem = state.selectedProject,
+            let index = state.projects.firstIndex(of: selectedItem),
+            let detail = state.selectedState else {
+        return .none
+      }
+      
+      let newItem = Project(
+        title: detail.title,
+        date: Int(detail.deadLineDate.timeIntervalSince1970),
+        description: detail.description
+      )
+      state.projects[index] = newItem
+      
+      return Effect(value: ._setSelectedState(nil))
       
     case .detailAction:
       return .none

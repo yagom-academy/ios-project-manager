@@ -10,9 +10,15 @@ import ComposableArchitecture
 struct DetailState: Equatable, Identifiable {
   let id: UUID = UUID()
   
-  var title: String = ""
-  var description: String = ""
-  var deadLineDate: Date = Date().convertDate()
+  var title: String
+  var description: String
+  var deadLineDate: Date
+  
+  init(title: String = "", description: String = "", deadLineDate: Date = Date().convertDate()) {
+    self.title = title
+    self.description = description
+    self.deadLineDate = deadLineDate
+  }
 }
 
 enum DetailAction {

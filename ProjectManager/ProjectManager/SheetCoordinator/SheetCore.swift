@@ -40,7 +40,7 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
     case let .didTapPresent(isPresent):
       if isPresent {
         state.isPresent = true
-        state.detailState = DetailState()
+        state.detailState = DetailState(title: "", description: "")
         return .none
       } else {
         state.isPresent = false
@@ -64,4 +64,4 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
       return .none
     }
   }
-])
+]).debug()
