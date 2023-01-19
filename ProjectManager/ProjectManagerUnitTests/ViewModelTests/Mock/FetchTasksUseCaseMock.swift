@@ -11,6 +11,6 @@ final class FetchTasksUseCaseMock: FetchTasksUseCase {
     let tasks = BehaviorSubject<[Task]>(value: [])
 
     func fetchAllTasks() {
-        tasks.onNext([])
+        tasks.onNext(TaskDummy.dummys)
     }
 }
