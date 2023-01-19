@@ -29,8 +29,19 @@
 		18AB3C1629798AF600854929 /* TodoBoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C1529798AF600854929 /* TodoBoardListView.swift */; };
 		18AB3C1829798B1000854929 /* DoingBoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C1729798B1000854929 /* DoingBoardListView.swift */; };
 		18AB3C1A29798B2E00854929 /* DoneBoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C1929798B2E00854929 /* DoneBoardListView.swift */; };
+		18AB3C2229799B6500854929 /* NavigateStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C2129799B6500854929 /* NavigateStoreTest.swift */; };
 		18D24759296D4F00008E8DCC /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18D24757296D4F00008E8DCC /* Project.xcdatamodeld */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18AB3C2329799B6500854929 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18359AAA296C1F81000D6C73 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18359AB1296C1F81000D6C73;
+			remoteInfo = ProjectManager;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1804381D2975B451000CC2DA /* ProjectManagerAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerAppView.swift; sourceTree = "<group>"; };
@@ -55,6 +66,8 @@
 		18AB3C1529798AF600854929 /* TodoBoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoardListView.swift; sourceTree = "<group>"; };
 		18AB3C1729798B1000854929 /* DoingBoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingBoardListView.swift; sourceTree = "<group>"; };
 		18AB3C1929798B2E00854929 /* DoneBoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneBoardListView.swift; sourceTree = "<group>"; };
+		18AB3C1F29799B6500854929 /* NavigateStoreTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavigateStoreTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18AB3C2129799B6500854929 /* NavigateStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigateStoreTest.swift; sourceTree = "<group>"; };
 		18D24758296D4F00008E8DCC /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
 		18D2475A296D4F6E008E8DCC /* ProjectManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectManager.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +78,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				18AB3C0C29796F0B00854929 /* ComposableArchitecture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AB3C1C29799B6500854929 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				18359AB4296C1F81000D6C73 /* ProjectManager */,
+				18AB3C2029799B6500854929 /* NavigateStoreTest */,
 				18359AB3296C1F81000D6C73 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -111,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				18359AB2296C1F81000D6C73 /* ProjectManager.app */,
+				18AB3C1F29799B6500854929 /* NavigateStoreTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -189,6 +211,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		18AB3C2029799B6500854929 /* NavigateStoreTest */ = {
+			isa = PBXGroup;
+			children = (
+				18AB3C2129799B6500854929 /* NavigateStoreTest.swift */,
+			);
+			path = NavigateStoreTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -212,6 +242,24 @@
 			productReference = 18359AB2296C1F81000D6C73 /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
 		};
+		18AB3C1E29799B6500854929 /* NavigateStoreTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18AB3C2529799B6500854929 /* Build configuration list for PBXNativeTarget "NavigateStoreTest" */;
+			buildPhases = (
+				18AB3C1B29799B6500854929 /* Sources */,
+				18AB3C1C29799B6500854929 /* Frameworks */,
+				18AB3C1D29799B6500854929 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18AB3C2429799B6500854929 /* PBXTargetDependency */,
+			);
+			name = NavigateStoreTest;
+			productName = NavigateStoreTest;
+			productReference = 18AB3C1F29799B6500854929 /* NavigateStoreTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -224,6 +272,10 @@
 				TargetAttributes = {
 					18359AB1296C1F81000D6C73 = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					18AB3C1E29799B6500854929 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 18359AB1296C1F81000D6C73;
 					};
 				};
 			};
@@ -244,6 +296,7 @@
 			projectRoot = "";
 			targets = (
 				18359AB1296C1F81000D6C73 /* ProjectManager */,
+				18AB3C1E29799B6500854929 /* NavigateStoreTest */,
 			);
 		};
 /* End PBXProject section */
@@ -255,6 +308,13 @@
 			files = (
 				18359ABD296C1F82000D6C73 /* Preview Assets.xcassets in Resources */,
 				18359ABA296C1F82000D6C73 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AB3C1D29799B6500854929 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +348,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		18AB3C1B29799B6500854929 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18AB3C2229799B6500854929 /* NavigateStoreTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		18AB3C2429799B6500854929 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18359AB1296C1F81000D6C73 /* ProjectManager */;
+			targetProxy = 18AB3C2329799B6500854929 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		18359ABE296C1F82000D6C73 /* Debug */ = {
@@ -471,6 +547,50 @@
 			};
 			name = Release;
 		};
+		18AB3C2629799B6500854929 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BH7V49ZZ2G;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.labs.NavigateStoreTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ProjectManager";
+			};
+			name = Debug;
+		};
+		18AB3C2729799B6500854929 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BH7V49ZZ2G;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.labs.NavigateStoreTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ProjectManager";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -488,6 +608,15 @@
 			buildConfigurations = (
 				18359AC1296C1F82000D6C73 /* Debug */,
 				18359AC2296C1F82000D6C73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18AB3C2529799B6500854929 /* Build configuration list for PBXNativeTarget "NavigateStoreTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AB3C2629799B6500854929 /* Debug */,
+				18AB3C2729799B6500854929 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
