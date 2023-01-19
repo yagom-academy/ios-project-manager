@@ -10,20 +10,19 @@ import ComposableArchitecture
 struct DoingState: Equatable {
   var projects: [Project] = []
   
-  var isPresent: Bool = false
+  var selectedProject: Project?
   var selectedState: DetailState?
 }
 
 enum DoingAction {
   // User Action
   case didDelete(IndexSet)
-  case tapItem(Bool, Project?)
-  case movingToTodo(Project)
+  case movingTodo(Project)
   case movingToDone(Project)
+  
   case detailAction(DetailAction)
   
   // Inner Action
-  case _changePresentState(Bool)
   case _setSelectedState(Project?)
 }
 
@@ -45,7 +44,7 @@ let doingReducer = Reducer<DoingState, DoingAction, DoingEnvironment>.combine([
       indexSet.forEach { state.projects.remove(at: $0) }
       return .none
       
-    case let .movingToTodo(project):
+    case let .movingTodo(project):
       state.projects.removeAll(where: { $0 == project })
       return .none
       
@@ -53,27 +52,44 @@ let doingReducer = Reducer<DoingState, DoingAction, DoingEnvironment>.combine([
       state.projects.removeAll(where: { $0 == project })
       return .none
       
-    case .detailAction:
-      return .none
-    
-    case let .tapItem(isPresent, project):
-      return Effect.concatenate([
-        Effect(value: ._changePresentState(isPresent)),
-        Effect(value: ._setSelectedState(project))
-      ])
-    case let ._changePresentState(isPresent):
-      guard state.isPresent != isPresent else { return .none }
-      state.isPresent = isPresent
-      return .none
-      
     case let ._setSelectedState(project):
-      guard let project = project else { return .none }
+      guard let project = project else {
+        state.selectedState = nil
+        state.selectedProject = nil
+        return .none
+      }
+      
+      state.selectedProject = project
       state.selectedState = DetailState(
         title: project.title,
         description: project.description,
         deadLineDate: project.date.convertedDate
       )
+      
       return .none
+      
+    case .detailAction(.didDoneTap):
+      guard let selectedItem = state.selectedProject,
+            let index = state.projects.firstIndex(of: selectedItem),
+            let detail = state.selectedState else {
+        return .none
+      }
+      
+      let newItem = Project(
+        title: detail.title,
+        date: Int(detail.deadLineDate.timeIntervalSince1970),
+        description: detail.description
+      )
+      state.projects[index] = newItem
+      
+      return Effect(value: ._setSelectedState(nil))
+      
+    case .detailAction(.didCancelTap):
+      return Effect(value: ._setSelectedState(nil))
+      
+    case .detailAction:
+      return .none
+
     }
   }
 ])

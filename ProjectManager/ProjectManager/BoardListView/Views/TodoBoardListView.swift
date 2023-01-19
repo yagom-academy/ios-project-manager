@@ -44,24 +44,27 @@ struct TodoBoardListView: View {
                   viewStore.send(.movingToDone(project))
                 }
               }
+              .sheet(
+                item: viewStore.binding(
+                  get: \.selectedProject,
+                  send: TodoAction._setSelectedState
+                )
+              ) { _ in
+                IfLetStore(
+                  self.store.scope(
+                    state: \.selectedState,
+                    action: TodoAction.detailAction
+                  )
+                ) {
+                  ProjectDetailView(store: $0)
+                } else: {
+                  Text("없어짐")
+                }
+              }
               
           }
           .onDelete {
             viewStore.send(.didDelete($0))
-          }
-          .sheet(
-            item: Binding(get: { viewStore.selectedProject }, set: { viewStore.send(._setSelectedState($0)) })
-          ) { _ in
-            IfLetStore(
-              self.store.scope(
-                state: \.selectedState,
-                action: TodoAction.detailAction
-              )
-            ) {
-              ProjectDetailView(store: $0)
-            } else: {
-              Text("없어짐")
-            }
           }
           
         }

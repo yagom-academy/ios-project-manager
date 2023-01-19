@@ -76,7 +76,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
     case .todoListAction:
       return .none
       
-    case let .doingListAction(.movingToTodo(project)):
+    case let .doingListAction(.movingTodo(project)):
       return Effect(value: ._movingTodo(project))
       
     case let .doingListAction(.movingToDone(project)):

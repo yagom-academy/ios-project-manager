@@ -84,6 +84,9 @@ let todoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
       
       return Effect(value: ._setSelectedState(nil))
       
+    case .detailAction(.didCancelTap):
+      return Effect(value: ._setSelectedState(nil))
+      
     case .detailAction:
       return .none
     }

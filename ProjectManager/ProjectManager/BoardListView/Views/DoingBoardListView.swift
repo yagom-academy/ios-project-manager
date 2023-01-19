@@ -32,36 +32,39 @@ struct DoingBoardListView: View {
               .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
               .listRowSeparator(.hidden)
               .onTapGesture {
-                viewStore.send(.tapItem(true, project))
+                viewStore.send(._setSelectedState(project))
               }
               .contextMenu {
                 Button("Moving To Todo") {
-                  viewStore.send(.movingToTodo(project))
+                  viewStore.send(.movingTodo(project))
                 }
                 
                 Button("Moving To Done") {
                   viewStore.send(.movingToDone(project))
                 }
               }
-              .sheet(
-                isPresented: viewStore.binding(
-                  get: \.isPresent,
-                  send: DoingAction._changePresentState
-                )
-              ) {
-                IfLetStore(
-                  self.store.scope(
-                    state: \.selectedState,
-                    action: DoingAction.detailAction
-                  )
-                ) {
-                  ProjectDetailView(store: $0)
-                }
-              }
           }
           .onDelete {
             viewStore.send(.didDelete($0))
           }
+          .sheet(
+            item: viewStore.binding(
+              get: \.selectedProject,
+              send: DoingAction._setSelectedState
+            )
+          ) { _ in
+            IfLetStore(
+              self.store.scope(
+                state: \.selectedState,
+                action: DoingAction.detailAction
+              )
+            ) {
+              ProjectDetailView(store: $0)
+            } else: {
+              Text("없어짐")
+            }
+          }
+          
         }
         .listStyle(.plain)
       }
