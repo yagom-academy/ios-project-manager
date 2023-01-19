@@ -1,9 +1,9 @@
-//  ProjectManager - ToDoListView.swift
+//  ProjectManager - ToDoListViewController.swift
 //  created by zhilly on 2023/01/16
 
 import UIKit
 
-class ToDoListView: UIView {
+class ToDoListViewController: UIViewController {
     enum Schedule: Hashable {
         case main
     }
@@ -31,7 +31,7 @@ class ToDoListView: UIView {
                 for: indexPath
             ) as? ToDoCell else { return UITableViewCell() }
             
-            cell.configure(title: item.title, body: item.body, deadline: "2023.11.11")
+            cell.configure(title: item.title, body: item.body, deadline: item.deadline)
             
             return cell
         }
@@ -42,12 +42,13 @@ class ToDoListView: UIView {
     init(status: ToDoState, viewModel: ToDoListViewModel) {
         self.status = status
         self.viewModel = viewModel
-        super.init(frame: .zero)
+        super.init(nibName: nil, bundle: nil)
         tableView.delegate = self
         setupView()
         
         viewModel.model.bind { item in
             self.appendData(item: item)
+            self.tableView.reloadData()
         }
     }
     
@@ -57,13 +58,15 @@ class ToDoListView: UIView {
     }
     
     private func setupView() {
-        addSubview(tableView)
+        view.addSubview(tableView)
+        
+        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: self.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
     
@@ -80,10 +83,23 @@ class ToDoListView: UIView {
     }
 }
 
-extension ToDoListView: UITableViewDelegate {
+extension ToDoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ToDoHeaderView(status: self.status)
+        let headerView = ToDoHeaderView(status: self.status, count: self.viewModel.model.value.count)
         
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let toDo = dataSource.itemIdentifier(for: indexPath) else { return }
+        
+        // guard let toDo = viewModel.fetchToDo(index: indexPath.item) else { return }
+        let editToDoViewController = AddToDoViewController(viewModel: viewModel,
+                                                           toDo: toDo)
+        
+        let navigationController = UINavigationController(rootViewController: editToDoViewController)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        present(navigationController, animated: true)
     }
 }
