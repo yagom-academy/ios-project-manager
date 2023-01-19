@@ -11,4 +11,8 @@ class ToDoListViewModel {
     func addToDo(item: ToDo) {
         model.value.append(item)
     }
+    
+    func fetchToDo(index: Int) -> ToDo? {
+        return model.value[index]
+    }
 }
