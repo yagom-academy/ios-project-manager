@@ -36,7 +36,7 @@ final class PlanManager: PlanManageable {
         return list.firstIndex(where: { $0.id == id})
     }
 
-    func update(title: String, description: String, deadline: Date, plan: inout Plan?) {
+    func save(title: String, description: String, deadline: Date, plan: inout Plan?) {
         if fetch(id: plan?.id) == nil {
             plan = create(title: title,
                           description: description,
@@ -46,6 +46,14 @@ final class PlanManager: PlanManageable {
             plan?.description = description
             plan?.deadline = deadline
         }
+    }
+
+    func update(planList: inout [Plan], plan: Plan) {
+        guard let index = planList.firstIndex(where: { $0.id == plan.id}) else { return }
+
+        planList[index].title = plan.title
+        planList[index].description = plan.description
+        planList[index].deadline = plan.deadline
     }
 
     func update(list: inout [Plan], id: UUID, status: Plan.Status) {

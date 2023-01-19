@@ -31,42 +31,35 @@ final class PlanDetailViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         setAddMode()
-        setViewMode()
+        setDetailMode(leftButton: configureNavigationEditBarButton(), isEditable: false)
     }
 
     private func configureView() {
         view.addSubview(planDetailView)
 
         planDetailView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        planDetailView.setTextViewDelegate(self)
     }
 
     private func setAddMode() {
-        configureNavigationItem(leftButton: configureNavigationCancelBarButton(),
-                                rightButton: configureNavigationDoneBarButton())
+        if isAdding {
+            configureNavigationItem(leftButton: configureNavigationCancelBarButton(),
+                                    rightButton: configureNavigationDoneBarButton())
+
+            planDetailView.setPlaceholder()
+        }
     }
 
-    private func setViewMode() {
+    private func setDetailMode(leftButton: UIBarButtonItem, isEditable: Bool) {
         if isAdding == false {
-            configureNavigationItem(leftButton: configureNavigationEditBarButton(),
+            configureNavigationItem(leftButton: leftButton,
                                     rightButton: configureNavigationDoneBarButton())
 
 
             planDetailView.configureTextView(title: plan?.title ?? "",
                                              description: plan?.description ?? "",
                                              deadline: plan?.deadline ?? Date(),
-                                             isEditable: false)
-        }
-    }
-
-    private func setEditMode() {
-        configureNavigationItem(leftButton: configureNavigationCancelBarButton(),
-                                rightButton: configureNavigationDoneBarButton())
-
-        if isAdding == false {
-            planDetailView.configureTextView(title: plan?.title ?? "",
-                                             description: plan?.description ?? "",
-                                             deadline: plan?.deadline ?? Date(),
-                                             isEditable: true)
+                                             isEditable: isEditable)
         }
     }
 
@@ -94,7 +87,8 @@ final class PlanDetailViewController: UIViewController {
 
     private func configureNavigationEditBarButton() -> UIBarButtonItem {
         let buttonAction = UIAction { [weak self] _ in
-            self?.setEditMode()
+            self?.setDetailMode(leftButton: self?.configureNavigationCancelBarButton() ?? UIBarButtonItem(),
+                                isEditable: true)
         }
 
         let button = UIBarButtonItem(systemItem: .edit, primaryAction: buttonAction)
@@ -118,7 +112,17 @@ final class PlanDetailViewController: UIViewController {
     private func save() {
         let inputPlan = planDetailView.sendUserPlan()
 
-        planManager.update(title: inputPlan.title, description: inputPlan.description, deadline: inputPlan.deadline, plan: &plan)
+        planManager.save(title: inputPlan.title, description: inputPlan.description, deadline: inputPlan.deadline, plan: &plan)
     }
 }
- 
+
+extension PlanDetailViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        let isPlaceholder: Bool = textView.textColor == .systemGray3
+
+        if isPlaceholder {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+}

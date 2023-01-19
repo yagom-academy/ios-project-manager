@@ -16,6 +16,7 @@
 		AE484F6C29755BED00A8B502 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6B29755BED00A8B502 /* DateFormatterManager.swift */; };
 		AE484F6E29755D4000A8B502 /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6D29755D4000A8B502 /* PlanListView.swift */; };
 		AE484F7029755EC800A8B502 /* PlanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6F29755EC800A8B502 /* PlanDetailView.swift */; };
+		AE6BF0872978E7A900D15C42 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6BF0862978E7A900D15C42 /* AlertManager.swift */; };
 		AE737E712978277400A1FAAE /* PlanListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE737E702978277400A1FAAE /* PlanListHeaderView.swift */; };
 		AED9DE63296EC8590090C31A /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE62296EC8590090C31A /* Plan.swift */; };
 		AED9DE65296EC8A90090C31A /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE64296EC8A80090C31A /* PlanDetailViewController.swift */; };
@@ -38,6 +39,7 @@
 		AE484F6B29755BED00A8B502 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		AE484F6D29755D4000A8B502 /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
 		AE484F6F29755EC800A8B502 /* PlanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailView.swift; sourceTree = "<group>"; };
+		AE6BF0862978E7A900D15C42 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		AE737E702978277400A1FAAE /* PlanListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListHeaderView.swift; sourceTree = "<group>"; };
 		AED9DE62296EC8590090C31A /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		AED9DE64296EC8A80090C31A /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
@@ -88,8 +90,19 @@
 				AED9DE6B296ECDCA0090C31A /* PlanManager.swift */,
 				1ACE9C02296E91D0005F77B7 /* CellReusable.swift */,
 				AE484F6B29755BED00A8B502 /* DateFormatterManager.swift */,
+				AE6BF0862978E7A900D15C42 /* AlertManager.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		AE6BF0882978ED5800D15C42 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		AED9DE66296EC8E20090C31A /* Model */ = {
@@ -106,9 +119,9 @@
 			children = (
 				1ACE9C00296E8CFD005F77B7 /* PlanTableViewCell.swift */,
 				1ACE9C09296EAB63005F77B7 /* PlanTableView.swift */,
+				AE737E702978277400A1FAAE /* PlanListHeaderView.swift */,
 				AE484F6D29755D4000A8B502 /* PlanListView.swift */,
 				AE484F6F29755EC800A8B502 /* PlanDetailView.swift */,
-				AE737E702978277400A1FAAE /* PlanListHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,7 +144,7 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		AED9DE6E296ED2020090C31A /* Resource */ = {
+		AED9DE6E296ED2020090C31A /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				AE484F6A29755B8600A8B502 /* Common */,
@@ -139,7 +152,7 @@
 				AED9DE67296EC8EB0090C31A /* View */,
 				AED9DE68296EC8F70090C31A /* Controller */,
 			);
-			path = Resource;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -164,10 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				AED9DE6D296ED1DB0090C31A /* App */,
-				AED9DE6E296ED2020090C31A /* Resource */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				AED9DE6E296ED2020090C31A /* Source */,
+				AE6BF0882978ED5800D15C42 /* Resource */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -285,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE6BF0872978E7A900D15C42 /* AlertManager.swift in Sources */,
 				1ACE9C03296E91D0005F77B7 /* CellReusable.swift in Sources */,
 				AED9DE65296EC8A90090C31A /* PlanDetailViewController.swift in Sources */,
 				AED9DE63296EC8590090C31A /* Plan.swift in Sources */,
@@ -440,7 +452,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -460,7 +472,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

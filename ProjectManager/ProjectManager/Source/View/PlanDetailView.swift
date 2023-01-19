@@ -58,6 +58,7 @@ final class PlanDetailView: UIView {
         textView.layer.masksToBounds = false
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.keyboardDismissMode = .onDrag
         return textView
     }()
 
@@ -102,9 +103,22 @@ final class PlanDetailView: UIView {
     func configureTextView(title: String, description: String, deadline: Date, isEditable: Bool) {
         titleTextView.isEditable = isEditable
         descriptionTextView.isEditable = isEditable
+        datePicker.isEnabled = isEditable
 
         titleTextView.text = title
         descriptionTextView.text = description
         datePicker.date = deadline
+    }
+
+    func setPlaceholder() {
+        titleTextView.text = "Title"
+        titleTextView.textColor = .systemGray3
+        descriptionTextView.text = "Description"
+        descriptionTextView.textColor = .systemGray3
+    }
+
+    func setTextViewDelegate(_ delegate: UITextViewDelegate) {
+        titleTextView.delegate = delegate
+        descriptionTextView.delegate = delegate
     }
 }
