@@ -2,34 +2,98 @@
 //  TaskEditViewModelTests.swift
 //  ProjectManagerUnitTests
 //
-//  Created by 이정민 on 2023/01/18.
+//  Created by ayaan, jpush on 2023/01/18.
 //
 
 import XCTest
 
+import RxSwift
+import RxTest
+
 final class TaskEditViewModelTests: XCTestCase {
+    private var viewModel: TaskEditViewModel!
+    private var disposeBag: DisposeBag!
+    private var scheduler: TestScheduler!
+    private var input: TaskEditViewModel.Input!
+    private var output: TaskEditViewModel.Output!
+    private var updateTaskUseCase: UpdateTaskUseCaseMock!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        updateTaskUseCase = UpdateTaskUseCaseMock()
+        viewModel = TaskEditViewModel(task: TaskDummy.dummys[0],
+                                      updateTaskUseCase: updateTaskUseCase)
+        disposeBag = DisposeBag()
+        scheduler = TestScheduler(initialClock: 0)
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        viewModel = nil
+        updateTaskUseCase = nil
+        disposeBag = nil
+        scheduler = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func test_is_fill() {
+        let titleDidEditEventTestable = scheduler.createHotObservable([
+            .next(0, ""),
+            .next(10, "A"),
+            .next(20, ""),
+            .next(30, "C")
+        ])
+        
+        let contentDidEditEventTestable = scheduler.createHotObservable([
+            .next(0, ""),
+            .next(15, "AB"),
+            .next(25, ""),
+            .next(35, "CD")
+        ])
+        
+        let isFillObserver = scheduler.createObserver(Bool.self)
+        
+        input = TaskEditViewModel.Input(titleDidEditEvent: titleDidEditEventTestable.asObservable(),
+                                        contentDidEditEvent: contentDidEditEventTestable.asObservable(),
+                                        datePickerDidEditEvent: Observable.empty(),
+                                        doneButtonTapEvent: Observable.empty())
+        
+        let output = viewModel.transform(from: input)
+        output.isFill
+            .subscribe(isFillObserver)
+            .disposed(by: disposeBag)
+        
+        scheduler.start()
+        
+        XCTAssertEqual(isFillObserver.events,
+                       [.next(0, false),
+                        .next(10, false),
+                        .next(15, true),
+                        .next(20, false),
+                        .next(25, false),
+                        .next(30, false),
+                        .next(35, true)])
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func test_tap_edit_button() {
+        let editButtonDidTapTestable = scheduler.createHotObservable([
+            .next(0, ()),
+            .next(10, ())
+        ])
+        
+        let isUpdatedObserver = scheduler.createObserver(Bool.self)
+        
+        input = TaskEditViewModel.Input(titleDidEditEvent: Observable.empty(),
+                                        contentDidEditEvent: Observable.empty(),
+                                        datePickerDidEditEvent: Observable.empty(),
+                                        doneButtonTapEvent: editButtonDidTapTestable.asObservable())
+        
+        let output = viewModel.transform(from: input)
+        output.isSuccess
+            .subscribe(isUpdatedObserver)
+            .disposed(by: disposeBag)
+        
+        scheduler.start()
+        
+        XCTAssertEqual(isUpdatedObserver.events,
+                       [.next(0, true),
+                        .next(10, true)])
     }
-
 }

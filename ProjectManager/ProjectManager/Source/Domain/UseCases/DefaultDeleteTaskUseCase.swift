@@ -1,5 +1,5 @@
 //
-//  DeleteTaskUseCase.swift
+//  DefaultDeleteTaskUseCase.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -7,7 +7,13 @@
 
 import RxSwift
 
-final class DeleteTaskUseCase {
+protocol DeleteTaskUseCase {
+    var isDeletedSuccess: PublishSubject<Bool> { get }
+    
+    func delete(_ task: Task)
+}
+
+final class DefaultDeleteTaskUseCase: DeleteTaskUseCase {
     private weak var delegate: DidEndDeletingDelegate?
     private let repository: TaskRepository
 
