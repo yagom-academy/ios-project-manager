@@ -76,12 +76,7 @@ class MainViewController: UIViewController {
     
     @objc
     private func presentDetailView() {
-        let toDo = ToDo(title: "",
-                        body: "",
-                        deadline: Date(),
-                        state: .toDo)
         let addToDoViewController = AddToDoViewController(viewModel: todoTableView.viewModel)
-        
         let navigationController = UINavigationController(rootViewController: addToDoViewController)
         
         present(navigationController, animated: true)
