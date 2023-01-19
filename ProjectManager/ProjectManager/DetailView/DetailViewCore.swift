@@ -7,7 +7,9 @@
 import Foundation
 import ComposableArchitecture
 
-struct DetailState: Equatable {
+struct DetailState: Equatable, Identifiable {
+  let id: UUID = UUID()
+  
   var title: String = ""
   var description: String = ""
   var deadLineDate: Date = Date().convertDate()

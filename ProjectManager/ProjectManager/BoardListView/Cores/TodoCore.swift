@@ -9,17 +9,23 @@ import ComposableArchitecture
 
 struct TodoState: Equatable {
   var projects: [Project] = []
-  var detailState: DetailState?
+  
+  var isPresent: Bool = false
+  var selectedState: DetailState?
 }
 
 enum TodoAction {
   // User Action
   case didDelete(IndexSet)
-  case detailAction(DetailAction)
+  case tapItem(Bool, Project?)
   case movingToDoing(Project)
   case movingToDone(Project)
   
+  case detailAction(DetailAction)
+  
   // Inner Action
+  case _ChangePresentState(Bool)
+  case _setSelectedState(Project?)
 }
 
 struct TodoEnvironment {
@@ -30,7 +36,7 @@ let todoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
   detailReducer
     .optional()
     .pullback(
-      state: \.detailState,
+      state: \.selectedState,
       action: /TodoAction.detailAction,
       environment: { _ in DetailEnvironment()}
     ),
@@ -46,6 +52,30 @@ let todoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
       
     case let .movingToDone(project):
       state.projects.removeAll(where: { $0 == project })
+      return .none
+      
+    case let .tapItem(isPresent, project):
+      return Effect.concatenate([
+        Effect(value: ._ChangePresentState(isPresent)),
+        Effect(value: ._setSelectedState(project))
+      ])
+      
+    case let ._ChangePresentState(isPresent):
+      if state.isPresent == isPresent {
+        return .none
+      } else {
+        state.isPresent = isPresent
+        return .none
+      }
+      
+    case let ._setSelectedState(project):
+      guard let project = project else { return .none }
+      state.selectedState = DetailState(
+        title: project.title,
+        description: project.description,
+        deadLineDate: project.date.convertedDate
+      )
+      
       return .none
       
     case .detailAction:
