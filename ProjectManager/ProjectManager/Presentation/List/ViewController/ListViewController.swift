@@ -66,6 +66,8 @@ final class ListViewController: UIViewController {
         super.viewDidLoad()
 
         configureUIComponent()
+        configureHandler()
+        configureLongPressGestureRecognizer()
     }
 
     private func configureUIComponent() {
@@ -73,7 +75,6 @@ final class ListViewController: UIViewController {
         configureViewHierarchy()
         configureLayoutConstraint()
         configureHeaderView()
-        configureHandler()
     }
 
     private func configureNavigationBar() {
@@ -131,6 +132,17 @@ final class ListViewController: UIViewController {
         viewModel?.bindDoneList() { list in
             self.doneListView.reloadData()
             self.doneHeaderView.setCount(number: list.count)
+        }
+    }
+    
+    private func configureLongPressGestureRecognizer() {
+        [toDoListView, doingListView, doneListView].forEach { listView in
+            let gestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                                 action: #selector(tappedLongPress))
+            gestureRecognizer.minimumPressDuration = 1
+            gestureRecognizer.delegate = self
+            gestureRecognizer.delaysTouchesBegan = true
+            listView.addGestureRecognizer(gestureRecognizer)
         }
     }
 
@@ -219,6 +231,81 @@ extension ListViewController: UITableViewDelegate {
         let swipeActionConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
 
         return swipeActionConfiguration
+    }
+}
+
+extension ListViewController: UIGestureRecognizerDelegate {
+    
+    @objc func tappedLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        guard let listView = gestureRecognizer.view as? ListView else {
+            return
+        }
+        
+        let tappedPoint = gestureRecognizer.location(in: listView)
+        guard let indexPath = listView.indexPathForRow(at: tappedPoint) else {
+            return
+        }
+        
+        switch gestureRecognizer.state {
+        case .began:
+            presentPopoverMenu(listView: listView, indexPath: indexPath)
+        default:
+            return
+        }
+    }
+    
+    private func presentPopoverMenu(listView: ListView, indexPath: IndexPath) {
+        guard let tappedCell = listView.cellForRow(at: indexPath),
+              let project = viewModel?.fetchList(of: listView.state)[indexPath.row] else {
+            return
+        }
+        
+        let alertController = UIAlertController(title: nil,
+                                                message: nil,
+                                                preferredStyle: .actionSheet)
+        
+        
+        let popoverController = alertController.popoverPresentationController
+        popoverController?.sourceView = tappedCell
+        popoverController?.sourceRect = tappedCell.bounds
+        makeMoveActions(project: project).forEach {
+            alertController.addAction($0)
+        }
+        
+        present(alertController, animated: true)
+    }
+    
+    private func makeMoveActions(project: Project) -> [UIAlertAction] {
+        switch project.state {
+        case .toDo:
+            return [makeMoveAction(project: project, to: .doing),
+                    makeMoveAction(project: project, to: .done)]
+        case .doing:
+            return [makeMoveAction(project: project, to: .toDo),
+                    makeMoveAction(project: project, to: .done)]
+        case .done:
+            return [makeMoveAction(project: project, to: .toDo),
+                    makeMoveAction(project: project, to: .doing)]
+        }
+    }
+    
+    private func makeMoveAction(project: Project, to state: State) -> UIAlertAction {
+        var project = project
+        let title: String
+        switch state {
+        case .toDo:
+            project.state = .toDo
+            title = Text.moveToToDo
+        case .doing:
+            project.state = .doing
+            title = Text.moveToDoing
+        case .done:
+            project.state = .done
+            title = Text.moveToDone
+        }
+        return UIAlertAction(title: title, style: .default) { [weak self] _ in
+            self?.viewModel?.saveProject(project)
+        }
     }
 }
 
