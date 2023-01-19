@@ -21,12 +21,14 @@ final class NavigateStoreTest: XCTestCase {
       environment: SheetEnvironment()
     )
     
-    await store.send(._toggleNavigationState(true)) {
+    await store.send(.didTapPresent(true)) {
       $0.isPresent = true
+      $0.detailState = DetailState()
     }
     
-    await store.send(._toggleNavigationState(false)) {
+    await store.send(.didTapPresent(false)) {
       $0.isPresent = false
+      $0.detailState = nil
     }
   }
 }
