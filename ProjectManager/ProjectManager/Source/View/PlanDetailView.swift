@@ -18,7 +18,7 @@ final class PlanDetailView: UIView {
         let stackView = UIStackView()
         stackView.distribution = .fill
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = LayoutConstraint.spacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return stackView
@@ -26,16 +26,20 @@ final class PlanDetailView: UIView {
 
     private let titleTextView: UITextView = {
         let textView = UITextView()
-        textView.layer.borderWidth = 1.0
+        textView.layer.borderWidth = LayoutConstraint.borderWidth
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.layer.shadowColor = UIColor.systemGray.cgColor
-        textView.layer.shadowOffset = CGSize(width: 3, height: 5)
-        textView.layer.shadowOpacity = 0.5
-        textView.layer.shadowRadius = 3.0
+        textView.layer.shadowOffset = CGSize(width: LayoutConstraint.shadowOffsetWidth,
+                                             height: LayoutConstraint.shadowOffsetHeight)
+        textView.layer.shadowOpacity = LayoutConstraint.shadowOpacity
+        textView.layer.shadowRadius = LayoutConstraint.shadowRadius
         textView.layer.masksToBounds = false
         textView.isScrollEnabled = false
         textView.font = UIFont.preferredFont(forTextStyle: .title1)
-        textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.textContainerInset = UIEdgeInsets(top: LayoutConstraint.insetSize,
+                                                   left: LayoutConstraint.insetSize,
+                                                   bottom: LayoutConstraint.insetSize,
+                                                   right: LayoutConstraint.insetSize)
         return textView
     }()
 
@@ -49,15 +53,19 @@ final class PlanDetailView: UIView {
 
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
-        textView.layer.borderWidth = 1.0
+        textView.layer.borderWidth = LayoutConstraint.borderWidth
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.layer.shadowColor = UIColor.systemGray.cgColor
-        textView.layer.shadowOffset = CGSize(width: 3, height: 5)
-        textView.layer.shadowOpacity = 0.5
-        textView.layer.shadowRadius = 3.0
+        textView.layer.shadowOffset = CGSize(width: LayoutConstraint.shadowOffsetWidth,
+                                             height: LayoutConstraint.shadowOffsetHeight)
+        textView.layer.shadowOpacity = LayoutConstraint.shadowOpacity
+        textView.layer.shadowRadius = LayoutConstraint.shadowRadius
         textView.layer.masksToBounds = false
         textView.font = UIFont.preferredFont(forTextStyle: .body)
-        textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.textContainerInset = UIEdgeInsets(top: LayoutConstraint.insetSize,
+                                                   left: LayoutConstraint.insetSize,
+                                                   bottom: LayoutConstraint.insetSize,
+                                                   right: LayoutConstraint.insetSize)
         textView.keyboardDismissMode = .onDrag
         return textView
     }()
@@ -84,11 +92,13 @@ final class PlanDetailView: UIView {
             navigationBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             navigationBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             navigationBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 8),
-            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            titleTextView.heightAnchor.constraint(equalToConstant: 50)
+
+            stackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: LayoutConstraint.topConstant),
+            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: LayoutConstraint.leadingConstant),
+            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: LayoutConstraint.trailingConstant),
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: LayoutConstraint.bottomConstant),
+
+            titleTextView.heightAnchor.constraint(equalToConstant: LayoutConstraint.heightConstant)
         ])
     }
 
@@ -120,5 +130,20 @@ final class PlanDetailView: UIView {
     func setTextViewDelegate(_ delegate: UITextViewDelegate) {
         titleTextView.delegate = delegate
         descriptionTextView.delegate = delegate
+    }
+
+    private enum LayoutConstraint {
+        static let spacing: CGFloat = 8
+        static let borderWidth: CGFloat = 1.0
+        static let shadowOpacity: Float = 0.5
+        static let shadowRadius: CGFloat = 3.0
+        static let shadowOffsetWidth: CGFloat = 3
+        static let shadowOffsetHeight: CGFloat = 5
+        static let insetSize: CGFloat = 8
+        static let topConstant: CGFloat = 8
+        static let leadingConstant: CGFloat = 16
+        static let trailingConstant: CGFloat = -16
+        static let bottomConstant: CGFloat = -16
+        static let heightConstant: CGFloat = 50
     }
 }

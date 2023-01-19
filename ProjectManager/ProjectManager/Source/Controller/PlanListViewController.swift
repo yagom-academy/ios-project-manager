@@ -103,9 +103,9 @@ final class PlanListViewController: UIViewController {
         var doingSnapshot = Snapshot()
         var doneSnapshot = Snapshot()
 
-        todoSnapshot.appendSections([0])
-        doingSnapshot.appendSections([0])
-        doneSnapshot.appendSections([0])
+        todoSnapshot.appendSections([Content.zero])
+        doingSnapshot.appendSections([Content.zero])
+        doneSnapshot.appendSections([Content.zero])
 
         todoSnapshot.appendItems(todoList)
         doingSnapshot.appendItems(doingList)
@@ -122,7 +122,7 @@ final class PlanListViewController: UIViewController {
         tableViews.forEach { tableView in
             let gestureRecognizer = UILongPressGestureRecognizer(target: self,
                                                                  action: #selector(tappedLongPress))
-            gestureRecognizer.minimumPressDuration = 0.5
+            gestureRecognizer.minimumPressDuration = Content.minimumPressDuration
             gestureRecognizer.delegate = self
             gestureRecognizer.delaysTouchesBegan = true
             tableView.addGestureRecognizer(gestureRecognizer)
@@ -139,6 +139,9 @@ final class PlanListViewController: UIViewController {
         static let unknownError = "알 수 없는 오류"
         static let loadingError = "할일을 불러오지 못 헀습니다."
         static let actionSheetText = "Move to "
+        static let zero = 0
+        static let minimumPressDuration = 0.5
+        static let headerViewHeight: CGFloat = 50
     }
 }
 
@@ -213,7 +216,7 @@ extension PlanListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return Content.headerViewHeight
     }
 }
 

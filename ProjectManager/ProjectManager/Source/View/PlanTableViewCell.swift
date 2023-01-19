@@ -10,14 +10,14 @@ import UIKit
 final class PlanTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 1
+        label.numberOfLines = LayoutConstraint.titleLine
         label.font = .preferredFont(forTextStyle: .title3)
         return label
     }()
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 3
+        label.numberOfLines = LayoutConstraint.descriptionLines
         label.font = .preferredFont(forTextStyle: .caption1)
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
         return label
@@ -71,11 +71,21 @@ final class PlanTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(deadlineLabel)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstraint.topConstant),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: LayoutConstraint.bottomConstant),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstraint.leadingConstant),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: LayoutConstraint.trailingConstant)
         ])
+    }
+
+    private enum LayoutConstraint {
+        static let spacing: CGFloat = 4
+        static let titleLine: Int = 1
+        static let descriptionLines: Int = 3
+        static let topConstant: CGFloat = 8
+        static let bottomConstant: CGFloat = -8
+        static let leadingConstant: CGFloat = 20
+        static let trailingConstant: CGFloat = -20
     }
 }
 

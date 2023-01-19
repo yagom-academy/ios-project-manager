@@ -16,7 +16,10 @@ final class PlanListHeaderView: UITableViewHeaderFooterView {
     }()
 
     private let countLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        let label = UILabel(frame: CGRect(x: .zero,
+                                          y: .zero,
+                                          width: LayoutConstraint.size,
+                                          height: LayoutConstraint.size))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.layer.cornerRadius = min(label.bounds.size.width, label.bounds.size.height) / 3
@@ -45,13 +48,13 @@ final class PlanListHeaderView: UITableViewHeaderFooterView {
         addSubview(countLabel)
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: LayoutConstraint.leadingConstant),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
-            countLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            countLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            countLabel.topAnchor.constraint(equalTo: topAnchor, constant: LayoutConstraint.topConstant),
+            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: LayoutConstraint.leadingConstant),
+            countLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: LayoutConstraint.bottomConstant),
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
         ])
     }
@@ -59,6 +62,14 @@ final class PlanListHeaderView: UITableViewHeaderFooterView {
     func configure(title: String, count: Int) {
         titleLabel.text = title
         countLabel.text = "\(count)"
+    }
+
+    private enum LayoutConstraint {
+        static let size: CGFloat = 50
+        static let radius: Int = 3
+        static let topConstant: CGFloat = 8
+        static let leadingConstant: CGFloat = 8
+        static let bottomConstant: CGFloat = -8
     }
 }
 

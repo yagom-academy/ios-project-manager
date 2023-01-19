@@ -12,3 +12,4 @@ enum PlanText {
     static let description = "Description"
     static let emptyString = ""
 }
+

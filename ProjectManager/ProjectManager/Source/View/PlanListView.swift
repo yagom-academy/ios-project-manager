@@ -13,7 +13,7 @@ final class PlanListView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 8
+        stackView.spacing = LayoutConstraint.spacing
         stackView.backgroundColor = .systemGray6
         return stackView
     }()
@@ -44,5 +44,9 @@ final class PlanListView: UIView {
             stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+    private enum LayoutConstraint {
+        static let spacing: CGFloat = 8
     }
 }
