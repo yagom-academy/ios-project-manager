@@ -35,13 +35,31 @@ final class MainViewModel {
         totalListItems[0].append(item)
     }
     
-    func move(targetItem: ListItem, from currentType: ListType, to newType: ListType) {
-        totalListItems[currentType.rawValue].enumerated().forEach { (index, item) in
+    func fetch(targetItem: ListItem, from type: ListType) -> (ListItem?, Int?) {
+        var resultItem: ListItem?
+        var resultIndex: Int?
+        
+        totalListItems[type.rawValue].enumerated().forEach { (index, item) in
             guard targetItem.id == item.id else { return }
             
-            totalListItems[currentType.rawValue].remove(at: index)
-            totalListItems[newType.rawValue].append(item)
+            resultItem = item
+            resultIndex = index
         }
+        
+        return (resultItem, resultIndex)
+    }
+    
+    func move(targetItem: ListItem, from currentType: ListType, to newType: ListType) {
+        let result = fetch(targetItem: targetItem, from: currentType)
+        
+        guard let item = result.0,
+              let index = result.1
+        else {
+            return
+        }
+            
+        totalListItems[currentType.rawValue].remove(at: index)
+        totalListItems[newType.rawValue].append(item)
     }
     
     func delete(at index: Int, type: ListType) {
