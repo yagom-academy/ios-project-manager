@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectTodoViewModel {
+final class ProjectTodoViewModel {
     var projectTodo: ProjectTodo
     var editingProjectTodo: ProjectTodo
 

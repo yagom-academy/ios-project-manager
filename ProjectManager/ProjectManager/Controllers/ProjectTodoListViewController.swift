@@ -145,10 +145,8 @@ final class ProjectTodoListViewController: UIViewController {
 
     private func bindProjectTodoListViewModel() {
         projectTodoListViewModel.bind { [weak self] itemIDs in
-            DispatchQueue.main.async {
-                self?.updateSnapshot(itemIDs)
-                self?.updateProjectTodoHeaderViewText()
-            }
+            self?.updateSnapshot(itemIDs)
+            self?.updateProjectTodoHeaderViewText()
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectTodoListViewModel {
+final class ProjectTodoListViewModel {
     private var onUpdated: ([UUID]) -> Void = { _ in }
     private var updatedProjectTodosID: [UUID] = []
     private var projectTodos: [ProjectTodo] {
@@ -21,21 +21,21 @@ struct ProjectTodoListViewModel {
         self.projectTodos = projectTodos
     }
 
-    mutating func bind(onUpdated: @escaping ([UUID]) -> Void) {
+    func bind(onUpdated: @escaping ([UUID]) -> Void) {
         self.onUpdated = onUpdated
     }
 
-    mutating func add(projectTodo: ProjectTodo) {
+    func add(projectTodo: ProjectTodo) {
         projectTodos.append(projectTodo)
     }
 
-    mutating func update(projectTodo: ProjectTodo) {
+    func update(projectTodo: ProjectTodo) {
         guard let index = projectTodos.firstIndex(where: { $0.id == projectTodo.id }) else { return }
         updatedProjectTodosID.append(projectTodo.id)
         projectTodos[index] = projectTodo
     }
 
-    mutating func delete(for projectTodoID: UUID) {
+    func delete(for projectTodoID: UUID) {
         projectTodos.removeAll(where: { $0.id == projectTodoID })
     }
 
