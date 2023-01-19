@@ -113,14 +113,16 @@ extension ProjectManagerViewController {
     
     @objc
     private func tapNavigationAddButton() {
-        // TODO: Add some action
-        let item = Task(title: "Hello I'm new Task", tag: .doing)
-        viewModel.addTask(task: item)
-        
-        let view = UIViewController()
+        let rootView = AddTaskViewController()
+        let view = UINavigationController(rootViewController: rootView)
         view.modalPresentationStyle = .formSheet
-        view.view.backgroundColor = .systemPink
-         
+        
+        rootView.subject
+            .bind(onNext: {
+                self.viewModel.addTask(task: $0)
+            })
+            .disposed(by: disposeBag)
+        
         self.present(view, animated: true)
     }
 }
