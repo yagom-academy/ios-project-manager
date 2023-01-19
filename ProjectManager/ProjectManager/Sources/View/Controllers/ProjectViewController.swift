@@ -8,7 +8,7 @@
 import UIKit
 
 class ProjectViewController: UIViewController {
-    private let textField: UITextField = {
+    let textField: UITextField = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title2)
         textField.placeholder = "Title"
@@ -22,14 +22,14 @@ class ProjectViewController: UIViewController {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
         return datePicker
     }()
     
-    private let textView: UITextView = {
+    let textView: UITextView = {
         let textView = UITextView()
         textView.font = .preferredFont(forTextStyle: .subheadline)
         textView.layer.masksToBounds = false

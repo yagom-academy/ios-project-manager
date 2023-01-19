@@ -68,9 +68,10 @@ extension MainViewController: ProjectListActionDelegate {
     }
     
     func editProject(willEdit project: Project) {
-        let editorViewController = EditViewController()
-        editorViewController.modalPresentationStyle = .pageSheet
-        let navigationController = UINavigationController(rootViewController: editorViewController)
+        let editViewModel = EditViewModel()
+        let editViewController = EditViewController(viewModel: editViewModel)
+        editViewController.modalPresentationStyle = .pageSheet
+        let navigationController = UINavigationController(rootViewController: editViewController)
         present(navigationController, animated: true)
     }
 }
