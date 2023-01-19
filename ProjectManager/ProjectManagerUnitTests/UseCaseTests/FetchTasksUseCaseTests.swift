@@ -53,7 +53,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
         usecase.fetchTasks()
         XCTAssertNotNil(tasksList)
         
-        createUseCaseStub.addTask(
+        createUseCaseStub.create(
             title: "Test",
             content: "Test",
             deadLine: 1674140400

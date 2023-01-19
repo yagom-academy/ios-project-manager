@@ -35,7 +35,7 @@ final class CreateTaskUseCaseTests: XCTestCase {
                 XCTAssertTrue(isSuccess)
             }).disposed(by: dispose)
         
-        usecase.addTask(
+        usecase.create(
             title: "제목제목제목",
             content: "내용내용내용",
             deadLine: 1674148800

@@ -73,7 +73,7 @@ final class TaskCreateViewModel {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.createTaskUseCase.addTask(
+                self.createTaskUseCase.create(
                     title: self.title,
                     content: self.content,
                     deadLine: self.date

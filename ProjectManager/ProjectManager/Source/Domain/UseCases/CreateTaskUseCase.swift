@@ -20,12 +20,9 @@ final class CreateTaskUseCase {
         self.repository = repository
     }
     
-    func addTask(id: String,
-                 title: String,
-                 content: String,
-                 deadLine: Double,
-                 state: Task.State,
-                 isExpired: Bool
+    func create(title: String,
+                content: String,
+                deadLine: Double
     ) {
         let task = Task(
             title: title,
