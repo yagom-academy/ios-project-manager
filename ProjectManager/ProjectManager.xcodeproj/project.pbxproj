@@ -17,8 +17,6 @@
 		1ABD6596297698E0002E288B /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6592297698E0002E288B /* ProjectTableViewCell.swift */; };
 		1ABD65982976999F002E288B /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65972976999F002E288B /* Reusable.swift */; };
 		1ABD659C29769A8E002E288B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD659B29769A8E002E288B /* Date.swift */; };
-		1ABD65A72976A6EB002E288B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65A62976A6EB002E288B /* CoreDataManager.swift */; };
-		1ABD65AA2976A6FA002E288B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65A92976A6FA002E288B /* NetworkManager.swift */; };
 		1ABD65AC2976A753002E288B /* DummyProjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65AB2976A753002E288B /* DummyProjects.swift */; };
 		1ABD65AE2976E177002E288B /* ProjectListViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65AD2976E177002E288B /* ProjectListViewController+TableView.swift */; };
 		1ABD65B529770063002E288B /* ProjectListViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65B429770063002E288B /* ProjectListViewController+DataSource.swift */; };
@@ -45,8 +43,6 @@
 		1ABD6592297698E0002E288B /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		1ABD65972976999F002E288B /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		1ABD659B29769A8E002E288B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		1ABD65A62976A6EB002E288B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		1ABD65A92976A6FA002E288B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1ABD65AB2976A753002E288B /* DummyProjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyProjects.swift; sourceTree = "<group>"; };
 		1ABD65AD2976E177002E288B /* ProjectListViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectListViewController+TableView.swift"; sourceTree = "<group>"; };
 		1ABD65B429770063002E288B /* ProjectListViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectListViewController+DataSource.swift"; sourceTree = "<group>"; };
@@ -128,8 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				1ABD65882976883D002E288B /* ProjectManager.swift */,
-				1ABD65A62976A6EB002E288B /* CoreDataManager.swift */,
-				1ABD65A92976A6FA002E288B /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -300,8 +294,6 @@
 				1ABD65892976883D002E288B /* ProjectManager.swift in Sources */,
 				1ABD659C29769A8E002E288B /* Date.swift in Sources */,
 				1ABD65BB2977229B002E288B /* ProjectView.swift in Sources */,
-				1ABD65AA2976A6FA002E288B /* NetworkManager.swift in Sources */,
-				1ABD65A72976A6EB002E288B /* CoreDataManager.swift in Sources */,
 				1ABD65C62977C568002E288B /* ProjectViewController+Delegate.swift in Sources */,
 				1ABD658029768574002E288B /* Project.swift in Sources */,
 			);
