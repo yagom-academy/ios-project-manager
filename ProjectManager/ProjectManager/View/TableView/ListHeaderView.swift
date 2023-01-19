@@ -35,9 +35,9 @@ final class ListHeaderView: UITableViewHeaderFooterView {
     }
     
     func configureLayout() {
-        self.contentView.backgroundColor = UIColor.systemGray6
-        self.addSubview(statusLabel)
-        self.addSubview(listNumberImage)
+        contentView.backgroundColor = UIColor.systemGray6
+        addSubview(statusLabel)
+        addSubview(listNumberImage)
         
         NSLayoutConstraint.activate([
             statusLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),

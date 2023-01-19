@@ -42,19 +42,18 @@ final class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
         
-        configureNavagationBar()
-        configureListView()
+        configureNavigationBar()
+        configureContentView()
         applyAllSnapshot()
     }
     
-    // MARK: - View layout
-    private func configureNavagationBar() {
-        self.navigationItem.title = "Project Manager"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                                 target: self,
-                                                                 action: #selector(tappedAddButton))
+    private func configureNavigationBar() {
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(tappedAddButton))
     }
     
     @objc private func tappedAddButton() {
@@ -75,12 +74,12 @@ final class ListViewController: UIViewController {
         present(viewController, animated: true)
     }
     
-    private func configureListView() {
-        configureTableViews()
+    private func configureContentView() {
+        setTableViews()
         configureLayout()
     }
     
-    private func configureTableViews() {
+    private func setTableViews() {
         let tableviews = [todoTableView, doingTableView, doneTableView]
         
         tableviews.forEach {
@@ -90,13 +89,13 @@ final class ListViewController: UIViewController {
     }
     
     private func configureLayout() {
-        self.view.addSubview(tableStackView)
+        view.addSubview(tableStackView)
         
         NSLayoutConstraint.activate([
-            tableStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            tableStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            tableStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            tableStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            tableStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
@@ -105,8 +104,7 @@ final class ListViewController: UIViewController {
 extension ListViewController {
     private func configureDataSource(of tableView: ListTableView) -> UITableViewDiffableDataSource<ListSection, TodoModel> {
         let dataSource = UITableViewDiffableDataSource<ListSection, TodoModel>(tableView: tableView) { tableView, indexPath, todoItem in
-            let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier,
-                                                     for: indexPath) as? ListTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier, for: indexPath) as? ListTableViewCell
             
             cell?.configureContent(title: todoItem.title,
                                    body: todoItem.body,
@@ -183,7 +181,21 @@ extension ListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    private func fetchCellItem(from tableView: UITableView, indexPath: IndexPath) -> TodoModel? {
+        guard let dataSource = tableView.dataSource as? UITableViewDiffableDataSource<ListSection, TodoModel>,
+              let todoItem = dataSource.itemIdentifier(for: indexPath) else {
+            return nil
+        }
+        return todoItem
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = fetchDeleteAction(tableView, indexPath: indexPath)
+        let configuration = UISwipeActionsConfiguration(actions: [delete])
+        return configuration
+    }
+    
+    private func fetchDeleteAction(_ tableView: UITableView, indexPath: IndexPath) -> UIContextualAction{
         let delete = UIContextualAction(style: .destructive, title: "delete") { _, _, completion in
             guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath) else { return }
             
@@ -192,17 +204,7 @@ extension ListViewController: UITableViewDelegate {
             tableView.reloadData()
             completion(true)
         }
-        
-        let configuration = UISwipeActionsConfiguration(actions: [delete])
-        return configuration
-    }
-    
-    private func fetchCellItem(from tableView: UITableView, indexPath: IndexPath) -> TodoModel? {
-        guard let dataSource = tableView.dataSource as? UITableViewDiffableDataSource<ListSection, TodoModel>,
-              let todoItem = dataSource.itemIdentifier(for: indexPath) else {
-            return nil
-        }
-        return todoItem
+        return delete
     }
 }
 

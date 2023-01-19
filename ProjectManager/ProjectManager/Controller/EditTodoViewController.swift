@@ -19,7 +19,7 @@ class EditTodoViewController: UIViewController {
     private var todoItem: TodoModel?
     
     override func loadView() {
-        self.view = todoView
+        view = todoView
     }
     
     override func viewDidLoad() {
@@ -41,7 +41,7 @@ class EditTodoViewController: UIViewController {
     }
     
     @objc private func tappedEdit() {
-        guard var itemBeEdited = self.todoItem else { return }
+        guard var itemBeEdited = todoItem else { return }
         
         itemBeEdited.title = todoView.titleTextField.text ?? ""
         itemBeEdited.body = todoView.bodyTextView.text ?? ""
@@ -55,7 +55,7 @@ class EditTodoViewController: UIViewController {
     }
     
     func prepareView(with itemBeEdited: TodoModel) {
-        self.todoItem = itemBeEdited
+        todoItem = itemBeEdited
         todoView.updateContent(title: itemBeEdited.title,
                                body: itemBeEdited.body,
                                date: itemBeEdited.date.convertDoubleToDate())

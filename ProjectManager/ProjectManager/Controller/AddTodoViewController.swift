@@ -17,7 +17,7 @@ final class AddTodoViewController: UIViewController {
     private let todoView: TodoItemView = TodoItemView()
     
     override func loadView() {
-        self.view = todoView
+        view = todoView
     }
 
     override func viewDidLoad() {
