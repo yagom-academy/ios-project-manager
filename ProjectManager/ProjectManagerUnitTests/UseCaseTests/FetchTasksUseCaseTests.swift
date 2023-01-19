@@ -69,8 +69,8 @@ final class FetchTasksUseCaseTests: XCTestCase {
     }
     
     func test_when_updating_task_is_successful_then_renewing_tasksList_is_successful() {
-        let updateUseCaseStub = UpdateTaskUseCase(delegate: usecase,
-                                                  repository: taskRepositoryMock)
+        let updateUseCaseStub = DefaultUpdateTaskUseCase(delegate: usecase,
+                                                         repository: taskRepositoryMock)
         var tasksList: [Task]? = nil
         usecase.tasks
             .subscribe(onNext: { tasks in
@@ -97,8 +97,8 @@ final class FetchTasksUseCaseTests: XCTestCase {
     }
     
     func test_when_updating_task_is_failed_then_tasksList_is_not_renewed() {
-        let updateUseCaseStub = UpdateTaskUseCase(delegate: usecase,
-                                                  repository: taskRepositoryMock)
+        let updateUseCaseStub = DefaultUpdateTaskUseCase(delegate: usecase,
+                                                         repository: taskRepositoryMock)
         var tasksList: [Task]? = nil
         usecase.tasks
             .subscribe(onNext: { tasks in

@@ -1,5 +1,5 @@
 //
-//  UpdateTaskUseCase.swift
+//  DefaultUpdateTaskUseCase.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -7,7 +7,12 @@
 
 import RxSwift
 
-final class UpdateTaskUseCase {
+protocol UpdateTaskUseCase {
+    var isUpdatedSuccess: PublishSubject<Bool> { get }
+    func update(_ task: Task)
+}
+
+final class DefaultUpdateTaskUseCase: UpdateTaskUseCase {
     private weak var delegate: DidEndUpdatingDelegate?
     private let repository: TaskRepository
 
