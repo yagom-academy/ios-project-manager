@@ -196,7 +196,7 @@ extension ListViewController: UITableViewDelegate {
     }
     
     private func fetchDeleteAction(_ tableView: UITableView, indexPath: IndexPath) -> UIContextualAction{
-        let delete = UIContextualAction(style: .destructive, title: "delete") { _, _, completion in
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { _, _, completion in
             guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath) else { return }
             
             MockDataManager.shared.removeTodo(item: cellItem)
@@ -204,6 +204,8 @@ extension ListViewController: UITableViewDelegate {
             tableView.reloadData()
             completion(true)
         }
+        
+        delete.image = UIImage(systemName: "xmark.bin")
         return delete
     }
 }
