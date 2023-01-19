@@ -85,8 +85,8 @@ class AddToDoViewController: UIViewController {
             return
         }
         let data = detailView.currentContent()
-        let toDo = ToDo(title: data.title ?? Constant.emptyTitle,
-                        body: data.body ?? Constant.emptyBody,
+        let toDo = ToDo(title: data.title,
+                        body: data.body,
                         deadline: data.deadline,
                         state: .toDo)
         viewModel.addToDo(item: toDo)

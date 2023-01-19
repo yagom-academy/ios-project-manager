@@ -92,13 +92,14 @@ class ToDoDetailView: UIView {
         return false
     }
     
-    func currentContent() -> ToDoData {
-        return ToDoData(title: titleTextField.text,
-                        body: bodyTextView.text,
-                        deadline: datePicker.date)
+    func currentContent() -> ToDo {
+        return ToDo(title: titleTextField.text ?? .init(),
+                    body: bodyTextView.text,
+                    deadline: datePicker.date,
+                    state: .toDo)
     }
     
-    func setupContent(data: ToDoData) {
+    func setupContent(data: ToDo) {
         titleTextField.text = data.title
         bodyTextView.text = data.body
         datePicker.date = data.deadline
