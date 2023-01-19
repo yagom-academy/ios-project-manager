@@ -15,6 +15,8 @@ struct DoneState: Equatable {
 enum DoneAction {
   // User Action
   case didDelete(IndexSet)
+  case movingToTodo(Project)
+  case movingToDoing(Project)
   case detailAction(DetailAction)
   
   // Inner Action
@@ -36,6 +38,14 @@ let DoneReducer = Reducer<DoneState, DoneAction, DoneEnvironment>.combine([
     switch action {
     case let .didDelete(indexSet):
       indexSet.forEach { state.projects.remove(at: $0) }
+      return .none
+      
+    case let .movingToTodo(project):
+      state.projects.removeAll(where: { $0 == project })
+      return .none
+      
+    case let .movingToDoing(project):
+      state.projects.removeAll(where: { $0 == project })
       return .none
       
     case .detailAction:

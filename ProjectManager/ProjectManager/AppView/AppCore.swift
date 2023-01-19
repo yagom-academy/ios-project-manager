@@ -18,6 +18,10 @@ enum AppAction {
   case todoListAction(TodoAction)
   case doingListAction(DoingAction)
   case doneListAction(DoneAction)
+  
+  case _movingTodo(Project)
+  case _movingDoing(Project)
+  case _movingDone(Project)
 }
 
 struct AppEnvironment {
@@ -62,29 +66,43 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
     case .navigateAction:
       return .none
       
-    case let .todoListAction(.movingToDoing(id)):
-      guard let index = state.todoListState.projects.firstIndex(where: { $0.id == id }) else {
-        return .none
-      }
-      let project = state.todoListState.projects.remove(at: index)
-      state.doingListState.projects.append(project)
-      return .none
+    case let .todoListAction(.movingToDoing(project)):
+      return Effect(value: ._movingDoing(project))
       
-    case let .todoListAction(.movingToDone(id)):
-      guard let index = state.todoListState.projects.firstIndex(where: { $0.id == id }) else {
-        return .none
-      }
-      let project = state.todoListState.projects.remove(at: index)
-      state.doneListState.projects.append(project)
-      return .none
+    case let .todoListAction(.movingToDone(project)):
+      return Effect(value: ._movingDone(project))
       
     case .todoListAction:
       return .none
       
+    case let .doingListAction(.movingToTodo(project)):
+      return Effect(value: ._movingTodo(project))
+      
+    case let .doingListAction(.movingToDone(project)):
+      return Effect(value: ._movingDone(project))
+      
     case .doingListAction:
       return .none
       
+    case let .doneListAction(.movingToDoing(project)):
+      return Effect(value: ._movingDoing(project))
+      
+    case let .doneListAction(.movingToTodo(project)):
+      return Effect(value: ._movingTodo(project))
+      
     case .doneListAction:
+      return .none
+      
+    case let ._movingTodo(project):
+      state.todoListState.projects.append(project)
+      return .none
+      
+    case let ._movingDoing(project):
+      state.doingListState.projects.append(project)
+      return .none
+      
+    case let ._movingDone(project):
+      state.doneListState.projects.append(project)
       return .none
     }
   }

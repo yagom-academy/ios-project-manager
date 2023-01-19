@@ -34,11 +34,11 @@ struct TodoBoardListView: View {
               .listRowSeparator(.hidden)
               .contextMenu {
                 Button("Moving To Doing") {
-                  viewStore.send(.movingToDoing(id: project.id))
+                  viewStore.send(.movingToDoing(project))
                 }
                 
                 Button("Moving To Done") {
-                  viewStore.send(.movingToDone(id: project.id))
+                  viewStore.send(.movingToDone(project))
                 }
               }
           }
