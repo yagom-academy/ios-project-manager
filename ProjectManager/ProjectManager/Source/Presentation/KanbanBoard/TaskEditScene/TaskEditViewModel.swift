@@ -24,6 +24,7 @@ final class TaskEditViewModel {
     // MARK: - Output
     struct Output {
         let isSuccess = PublishRelay<Bool>()
+        let isFill = PublishRelay<Bool>()
     }
     
     // MARK: - Input
@@ -40,6 +41,12 @@ final class TaskEditViewModel {
         updateTaskUseCase.isUpdatedSuccess
             .subscribe(onNext: { isUpdatedSuccess in
                 output.isSuccess.accept(isUpdatedSuccess)
+            })
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(input.titleDidEditEvent, input.contentDidEditEvent)
+            .subscribe(onNext: { title, content in
+                output.isFill.accept(!title.isEmpty && !content.isEmpty)
             })
             .disposed(by: disposeBag)
         
