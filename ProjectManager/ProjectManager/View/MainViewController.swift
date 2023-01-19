@@ -119,6 +119,7 @@ final class MainViewController: UIViewController {
     
     @objc private func dismissModal() {
         fetchData()
+        
         self.todoTableView.reloadData()
         self.doneTableView.reloadData()
         self.doingTableView.reloadData()
@@ -233,24 +234,47 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
     private func setupLongPress() {
-        let longPressedGesture = UILongPressGestureRecognizer(
+        let todoLongPressedGesture = UILongPressGestureRecognizer(
             target: self,
             action: #selector(handleLongPress(gestureRecognizer:))
         )
-        longPressedGesture.delegate = self
-        longPressedGesture.minimumPressDuration = 1
-        longPressedGesture.delaysTouchesBegan = true
+        let doingLongPressedGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(handleLongPress(gestureRecognizer:))
+        )
+        let doneLongPressedGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(handleLongPress(gestureRecognizer:))
+        )
         
-        todoTableView.addGestureRecognizer(longPressedGesture)
-//        doingTableView.addGestureRecognizer(longPressedGesture)
-//        doneTableView.addGestureRecognizer(longPressedGesture)
+        [todoLongPressedGesture, doingLongPressedGesture, doneLongPressedGesture].forEach {
+            $0.delegate = self
+            $0.minimumPressDuration = 1.5
+            $0.delaysTouchesBegan = true
+        }
+        
+        todoTableView.addGestureRecognizer(todoLongPressedGesture)
+        doingTableView.addGestureRecognizer(doingLongPressedGesture)
+        doneTableView.addGestureRecognizer(doneLongPressedGesture)
     }
     
     @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let location = gestureRecognizer.location(in: todoTableView)
-        guard let indexPath = todoTableView.indexPathForRow(at: location) else { return }
+        guard let tableView = gestureRecognizer.view as? CustomTableView else {
+            return
+        }
+        
+        let location = gestureRecognizer.location(in: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return }
         let indexPathRow = indexPath.row
-        let data = todoData[indexPathRow]
+        
+        var data = TodoModel()
+        if tableView == todoTableView {
+            data = todoData[indexPathRow]
+        } else if tableView == doingTableView {
+            data = doingData[indexPathRow]
+        } else if tableView == doneTableView {
+            data = doneData[indexPathRow]
+        }
         
         if gestureRecognizer.state == .began {
             guard let id = data.id else { return }
@@ -262,7 +286,7 @@ extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentation
                 origin: location,
                 size: .zero
             )
-            containerController.popoverPresentationController?.sourceView = todoTableView
+            containerController.popoverPresentationController?.sourceView = tableView
             containerController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
             
             self.present(containerController, animated: true)
