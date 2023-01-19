@@ -45,7 +45,7 @@ final class TaskCreateViewModelTests: XCTestCase {
             titleDidEditEvent: titleDidEditEvent.asObservable(),
             contentDidEditEvent: contentDidEditEvent.asObservable(),
             datePickerDidEditEvent: datePickerDidEditEvent.asObservable(),
-            doneButtonTapEvent: Observable.just(())
+            doneButtonTapEvent: Observable.empty()
         )
         
         // when
@@ -78,8 +78,8 @@ final class TaskCreateViewModelTests: XCTestCase {
         ])
         
         input = TaskCreateViewModel.Input(
-            titleDidEditEvent: Observable.just(""),
-            contentDidEditEvent: Observable.just(""),
+            titleDidEditEvent: Observable.empty(),
+            contentDidEditEvent: Observable.empty(),
             datePickerDidEditEvent: Observable.just(Date()),
             doneButtonTapEvent: doneButtonTapObserver.asObservable()
         )
