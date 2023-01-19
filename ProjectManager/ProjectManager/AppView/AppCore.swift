@@ -8,7 +8,7 @@ import ComposableArchitecture
 
 struct AppState: Equatable {
   var sheetState = SheetState()
-  var todoListState = TodoState()
+  var todoListState = TodoState(projects: [])
   var doingListState = DoingState()
   var doneListState = DoneState()
 }
