@@ -203,6 +203,23 @@ extension ListViewController: UITableViewDelegate {
         presentDetailView(viewModel: detailViewModel)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let project = fetchProject(tableView, index: indexPath.row) else {
+            return nil
+        }
+        let deleteAction = UIContextualAction(style: .destructive,
+                                              title: Text.deleteSwipeTitle) { (_, _, success) in
+            self.viewModel?.removeProject(project)
+            success(true)
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+
+        let swipeActionConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+
+        return swipeActionConfiguration
+    }
 }
 
 extension ListViewController: DetailProjectDelegate {

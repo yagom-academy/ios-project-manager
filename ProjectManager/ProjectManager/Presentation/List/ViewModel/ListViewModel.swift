@@ -87,6 +87,16 @@ final class ListViewModel {
     func saveProject(_ project: Project) {
         listUseCase.saveProject(project)
     }
+    
+    func moveProject(_ project: Project, to state: State) {
+        var project = project
+        project.state = state
+        listUseCase.saveProject(project)
+    }
+    
+    func removeProject(_ project: Project) {
+        listUseCase.removeProject(project)
+    }
 }
 
 extension ListViewModel: ListOutput {
