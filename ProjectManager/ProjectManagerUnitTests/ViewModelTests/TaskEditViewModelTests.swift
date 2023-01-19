@@ -52,8 +52,8 @@ final class TaskEditViewModelTests: XCTestCase {
         
         input = TaskEditViewModel.Input(titleDidEditEvent: titleDidEditEventTestable.asObservable(),
                                         contentDidEditEvent: contentDidEditEventTestable.asObservable(),
-                                        datePickerDidEditEvent: Observable.just(Date()),
-                                        doneButtonTapEvent: Observable.just(()))
+                                        datePickerDidEditEvent: Observable.empty(),
+                                        doneButtonTapEvent: Observable.empty())
         
         let output = viewModel.transform(from: input)
         output.isFill
@@ -80,9 +80,9 @@ final class TaskEditViewModelTests: XCTestCase {
         
         let isUpdatedObserver = scheduler.createObserver(Bool.self)
         
-        input = TaskEditViewModel.Input(titleDidEditEvent: Observable.just(""),
-                                        contentDidEditEvent: Observable.just(""),
-                                        datePickerDidEditEvent: Observable.just(Date()),
+        input = TaskEditViewModel.Input(titleDidEditEvent: Observable.empty(),
+                                        contentDidEditEvent: Observable.empty(),
+                                        datePickerDidEditEvent: Observable.empty(),
                                         doneButtonTapEvent: editButtonDidTapTestable.asObservable())
         
         let output = viewModel.transform(from: input)
