@@ -22,7 +22,7 @@ final class UpdateTaskUseCaseTests: XCTestCase {
     
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
-        usecase = UpdateTaskUseCase(
+        usecase = DefaultUpdateTaskUseCase(
             delegate: DidEndUpdatingDelegateStub(),
             repository: taskRepositoryMock
         )
