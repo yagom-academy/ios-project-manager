@@ -19,7 +19,7 @@ struct ProjectManagerAppView: View {
         )
       )
       
-      HStack {
+      HStack(spacing: 0) {
         BoardListView(
           store: self.store.scope(
             state: \.todoListState,
