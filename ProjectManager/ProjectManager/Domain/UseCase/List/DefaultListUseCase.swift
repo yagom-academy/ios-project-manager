@@ -7,13 +7,12 @@
 
 final class DefaultListUseCase: ListUseCase {
 
+    var listOutput: ListOutput?
     private var list: [Project] {
         didSet {
             listOutput?.updateList()
         }
     }
-    
-    var listOutput: ListOutput?
 
     init(list: [Project]) {
         self.list = list

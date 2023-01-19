@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
     typealias Text = Constant.Text
     typealias Style = Constant.Style
@@ -24,12 +24,14 @@ class DetailViewController: UIViewController {
 
         return stackView
     }()
+    
     private let  titleTextField: DetailTextField = {
         let textFiled = DetailTextField()
         textFiled.placeholder = Text.titlePlaceHolder
         
         return textFiled
     }()
+    
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
@@ -38,6 +40,7 @@ class DetailViewController: UIViewController {
         
         return datePicker
     }()
+    
     private let descriptionTextView: DetailTextView = {
         let textView = DetailTextView()
         textView.keyboardDismissMode = .onDrag
@@ -92,6 +95,7 @@ class DetailViewController: UIViewController {
         guard let date = values?.deadline else {
             return
         }
+        
         titleTextField.text = values?.title
         datePicker.date = date
         descriptionTextView.text = values?.description
@@ -192,8 +196,8 @@ class DetailViewController: UIViewController {
                                       preferredStyle: .alert)
         let doneAction = UIAlertAction(title: Text.doneButton,
                                        style: .default)
+        
         alert.addAction(doneAction)
-
         present(alert, animated: true, completion: nil)
     }
 }

@@ -12,7 +12,6 @@ final class DefaultDetailUseCase: DetailUseCase {
     typealias Number = Constant.Number
     
     private let project: Project
-    
     var state: State {
         return project.state
     }

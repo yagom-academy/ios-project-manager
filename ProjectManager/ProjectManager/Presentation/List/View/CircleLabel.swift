@@ -11,11 +11,20 @@ final class CircleLabel: UILabel {
     
     typealias Style = Constant.Style
     typealias Color = Constant.Color
+    
+    override var intrinsicContentSize: CGSize {
+        var contentSize = super.intrinsicContentSize
+        contentSize.width += Style.circleViewWidthPadding
+        contentSize.height += Style.circleViewHeightPadding
+
+        return contentSize
+    }
 
     init(circleColor: CGColor = Color.circleBackground,
          textColor: UIColor = Color.circleText,
          frame: CGRect) {
         super.init(frame: frame)
+        
         configure(circleColor: circleColor, textColor: textColor)
     }
 
@@ -34,13 +43,5 @@ final class CircleLabel: UILabel {
         layer.backgroundColor = circleColor
         self.textColor = textColor
         self.textAlignment = .center
-    }
-
-    override var intrinsicContentSize: CGSize {
-        var contentSize = super.intrinsicContentSize
-        contentSize.width += Style.circleViewWidthPadding
-        contentSize.height += Style.circleViewHeightPadding
-
-        return contentSize
     }
 }

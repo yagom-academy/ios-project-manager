@@ -29,6 +29,7 @@ final class ListHeaderView: UIView {
 
         return stackView
     }()
+    
     private let titleLabel: UILabel = UILabel()
     private let countLabel: CircleLabel = CircleLabel(frame: .zero)
     

@@ -2,12 +2,12 @@
 //  DetailTextField.swift
 //  ProjectManager
 //
-//  Created by 이준영 on 2023/01/19.
+//  Created by GUNDY on 2023/01/19.
 //
 
 import UIKit
 
-class DetailTextField: UITextField {
+final class DetailTextField: UITextField {
     
     typealias Style = Constant.Style
 
@@ -22,14 +22,14 @@ class DetailTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override open func textRect(forBounds bounds: CGRect) -> CGRect {
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: UIEdgeInsets(top: Style.listTitleMargin,
                                              left: Style.listTitleMargin,
                                              bottom: Style.listTitleMargin,
                                              right: Style.listTitleMargin))
     }
     
-    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: UIEdgeInsets(top: Style.listTitleMargin,
                                              left: Style.listTitleMargin,
                                              bottom: Style.listTitleMargin,

@@ -41,6 +41,7 @@ final class ListViewController: UIViewController {
         
         return listView
     }()
+    
     private lazy var doingListView: ListView = {
         let listView = ListView(state: .doing, frame: .zero, style: .plain)
         listView.delegate = self
@@ -51,6 +52,7 @@ final class ListViewController: UIViewController {
         
         return listView
     }()
+    
     private lazy var doneListView: ListView = {
         let listView = ListView(state: .done, frame: .zero, style: .plain)
         listView.delegate = self
@@ -125,10 +127,12 @@ final class ListViewController: UIViewController {
             self.toDoListView.reloadData()
             self.toDoHeaderView.setCount(number: list.count)
         }
+        
         viewModel?.bindDoingList() { list in
             self.doingListView.reloadData()
             self.doingHeaderView.setCount(number: list.count)
         }
+        
         viewModel?.bindDoneList() { list in
             self.doneListView.reloadData()
             self.doneHeaderView.setCount(number: list.count)
@@ -188,6 +192,7 @@ extension ListViewController: UITableViewDataSource {
               let texts = viewModel?.convertToText(from: project) else {
             return cell
         }
+        
         switch project.state {
         case .done:
             cell.configure(title: texts.title,
@@ -210,6 +215,7 @@ extension ListViewController: UITableViewDelegate {
         guard let project = fetchProject(tableView, index: indexPath.row) else {
             return
         }
+        
         let detailViewModel = DetailViewModel(detailUseCase: DefaultDetailUseCase(project: project))
         
         presentDetailView(viewModel: detailViewModel)
@@ -221,13 +227,14 @@ extension ListViewController: UITableViewDelegate {
         guard let project = fetchProject(tableView, index: indexPath.row) else {
             return nil
         }
+        
         let deleteAction = UIContextualAction(style: .destructive,
                                               title: Text.deleteSwipeTitle) { (_, _, success) in
             self.viewModel?.removeProject(project)
             success(true)
         }
+        
         deleteAction.image = UIImage(systemName: "trash")
-
         let swipeActionConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
 
         return swipeActionConfiguration
@@ -303,6 +310,7 @@ extension ListViewController: UIGestureRecognizerDelegate {
             project.state = .done
             title = Text.moveToDone
         }
+        
         return UIAlertAction(title: title, style: .default) { [weak self] _ in
             self?.viewModel?.saveProject(project)
         }

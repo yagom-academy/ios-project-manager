@@ -2,12 +2,12 @@
 //  DetailTextView.swift
 //  ProjectManager
 //
-//  Created by 이준영 on 2023/01/19.
+//  Created by GUNDY on 2023/01/19.
 //
 
 import UIKit
 
-class DetailTextView: UITextView {
+final class DetailTextView: UITextView {
 
     typealias Style = Constant.Style
 

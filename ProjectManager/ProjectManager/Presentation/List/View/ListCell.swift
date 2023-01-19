@@ -18,6 +18,7 @@ final class ListCell: UITableViewCell, Reusable {
 
         return label
     }()
+    
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
@@ -28,12 +29,14 @@ final class ListCell: UITableViewCell, Reusable {
 
         return label
     }()
+    
     private let deadlineLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
 
         return label
     }()
+    
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, deadlineLabel])
         stackView.axis = .vertical

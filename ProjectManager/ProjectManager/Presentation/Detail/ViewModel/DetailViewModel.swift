@@ -17,11 +17,13 @@ final class DetailViewModel {
             editHandler?(isEditable)
         }
     }
+    
     private var isValidText: Bool = true {
         didSet {
             textHandler?(isValidText)
         }
     }
+    
     private var editHandler: ((Bool) -> Void)?
     private var textHandler: ((Bool) -> Void)?
 

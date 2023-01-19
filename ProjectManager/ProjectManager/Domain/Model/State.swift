@@ -5,7 +5,7 @@
 //  Created by GUNDY on 2023/01/17.
 //
 
-enum State: CaseIterable {
+enum State {
 
     case toDo
     case doing

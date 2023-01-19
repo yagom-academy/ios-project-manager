@@ -17,16 +17,19 @@ final class ListViewModel {
             toDoListHandler?(toDoList)
         }
     }
+    
     private var doingList: [Project] {
         didSet {
             doingListHandler?(doingList)
         }
     }
+    
     private var doneList: [Project] {
         didSet {
             doneListHandler?(doneList)
         }
     }
+    
     private var toDoListHandler: (([Project]) -> Void)?
     private var doingListHandler: (([Project]) -> Void)?
     private var doneListHandler: (([Project]) -> Void)?
@@ -36,7 +39,6 @@ final class ListViewModel {
         toDoList = listUseCase.fetchProjectList(state: .toDo)
         doingList = listUseCase.fetchProjectList(state: .doing)
         doneList = listUseCase.fetchProjectList(state: .done)
-        
         configureListUseCase()
     }
     

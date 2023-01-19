@@ -16,6 +16,7 @@ final class ListView: UITableView {
     init(state: State, frame: CGRect, style: UITableView.Style) {
         self.state = state
         super.init(frame: frame, style: style)
+        
         configureUIComponent()
     }
 
