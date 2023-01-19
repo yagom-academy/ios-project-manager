@@ -20,7 +20,7 @@ final class DeleteTaskUseCase {
         self.repository = repository
     }
 
-    func deleteTask(_ task: Task) {
+    func delete(_ task: Task) {
         let entity = translater.toEntity(with: task)
 
         repository.delete(entity)

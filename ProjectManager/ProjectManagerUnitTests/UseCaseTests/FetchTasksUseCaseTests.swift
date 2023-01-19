@@ -140,7 +140,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
             return XCTFail()
         }
         
-        deleteTaskUseCaseStub.deleteTask(previousFirstTask)
+        deleteTaskUseCaseStub.delete(previousFirstTask)
         
         guard let currentFirstTask = tasksList?.first else { return XCTFail() }
         XCTAssertNotEqual(currentFirstTask.id, previousFirstTask.id)
@@ -169,7 +169,7 @@ final class FetchTasksUseCaseTests: XCTestCase {
                               deadLine: .init(),
                               state: .done)
         
-        deleteTaskUseCaseStub.deleteTask(targetTask)
+        deleteTaskUseCaseStub.delete(targetTask)
         
         guard let currentFirstTask = tasksList?.first else { return XCTFail() }
         XCTAssertEqual(currentFirstTask.id, previousFirstTask.id)

@@ -46,7 +46,7 @@ final class DeleteTaskUseCaseTests: XCTestCase {
             .disposed(by: disposeBag)
         
         // when, then
-        usecase.deleteTask(task)
+        usecase.delete(task)
     }
     
     func test_delete_task_failure() {
@@ -66,6 +66,6 @@ final class DeleteTaskUseCaseTests: XCTestCase {
             .disposed(by: disposeBag)
         
         // when, then
-        usecase.deleteTask(task)
+        usecase.delete(task)
     }
 }

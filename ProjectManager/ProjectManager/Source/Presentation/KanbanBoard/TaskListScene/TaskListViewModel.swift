@@ -78,6 +78,6 @@ private extension TaskListViewModel {
               let task = tasks.value[state]?[indexPath.item] else {
             return
         }
-        deleteTaskUseCase.deleteTask(task)
+        deleteTaskUseCase.delete(task)
     }
 }
