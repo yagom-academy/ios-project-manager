@@ -9,9 +9,7 @@ import UIKit
 
 final class ListViewController: UIViewController {
     private enum ListSection: Hashable {
-        case todo
-        case doing
-        case done
+        case main
     }
     
     private let tableStackView: UIStackView = {
@@ -32,9 +30,15 @@ final class ListViewController: UIViewController {
     private lazy var doingDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: doingTableView)
     private lazy var doneDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: doneTableView)
     
-    private let todoModels: [TodoModel] = MockDataManager.shared.mockModels.filter { $0.status == .todo }
-    private let doingModels: [TodoModel] = MockDataManager.shared.mockModels.filter { $0.status == .doing }
-    private let doneModels: [TodoModel] = MockDataManager.shared.mockModels.filter { $0.status == .done }
+    private var todoModels: [TodoModel] {
+        MockDataManager.shared.mockModels.filter { $0.status == .todo }
+    }
+    private var doingModels: [TodoModel] {
+        MockDataManager.shared.mockModels.filter { $0.status == .doing }
+    }
+    private var doneModels: [TodoModel] {
+        MockDataManager.shared.mockModels.filter { $0.status == .done }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,25 +117,27 @@ extension ListViewController {
     }
     
     private func applyAllSnapshot() {
-        applySnapshot(section: ListSection.todo)
-        applySnapshot(section: ListSection.doing)
-        applySnapshot(section: ListSection.done)
+        applySnapshot(todoTableView)
+        applySnapshot(doingTableView)
+        applySnapshot(doneTableView)
     }
     
-    private func applySnapshot(section: ListSection) {
+    private func applySnapshot(_ tableView: ListTableView) {
         var snapshot = NSDiffableDataSourceSnapshot<ListSection, TodoModel>()
-        snapshot.appendSections([section])
+        snapshot.appendSections([.main])
         
-        switch section {
-        case .todo:
+        switch tableView {
+        case todoTableView:
             snapshot.appendItems(todoModels)
             todoDataSource.apply(snapshot)
-        case .doing:
+        case doingTableView:
             snapshot.appendItems(doingModels)
             doingDataSource.apply(snapshot)
-        case .done:
+        case doneTableView:
             snapshot.appendItems(doneModels)
             doneDataSource.apply(snapshot)
+        default:
+            break
         }
     }
 }
@@ -204,7 +210,7 @@ extension ListViewController: UITableViewDelegate {
 extension ListViewController: AddTodoViewDelegate {
     func addNewTodoItem(with item: TodoModel) {
         MockDataManager.shared.addNewTodo(item: item)
-        applySnapshot(section: .todo)
+        applySnapshot(todoTableView)
         todoTableView.reloadData()
     }
 }
@@ -213,5 +219,6 @@ extension ListViewController: AddTodoViewDelegate {
 extension ListViewController: EditTodoViewDelegate {
     func editTodoItem(with item: TodoModel) {
         MockDataManager.shared.editTodo(item: item)
+        applyAllSnapshot()
     }
 }
