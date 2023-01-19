@@ -2,34 +2,103 @@
 //  TaskCreateViewModelTests.swift
 //  ProjectManagerUnitTests
 //
-//  Created by 이정민 on 2023/01/18.
+//  Created by ayaan, jpush on 2023/01/18.
 //
 
 import XCTest
 
+import RxSwift
+import RxTest
+
 final class TaskCreateViewModelTests: XCTestCase {
-
+    var viewModel: TaskCreateViewModel!
+    var disposeBag: DisposeBag!
+    var input: TaskCreateViewModel.Input!
+    var output: TaskCreateViewModel.Output!
+    var scheduler: TestScheduler!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewModel = TaskCreateViewModel(createTaskUseCase: CreateTaskUseCaseMock())
+        
+        disposeBag = DisposeBag()
+        scheduler = TestScheduler(initialClock: 0)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func test_title_content_bind_success() {
+        // given
+        let titleDidEditEvent = scheduler.createHotObservable([
+            .next(10, "TestTitle"),
+            .next(20, ""),
+            .next(30, "TestTitle2"),
+            .next(40, "")
+        ])
+        let contentDidEditEvent = scheduler.createHotObservable([
+            .next(15, "testContent"),
+            .next(25, "testContent2"),
+            .next(35, "")
+        ])
+        let datePickerDidEditEvent = scheduler.createHotObservable([
+            .next(0, Date())
+        ])
+        
+        input = TaskCreateViewModel.Input(
+            titleDidEditEvent: titleDidEditEvent.asObservable(),
+            contentDidEditEvent: contentDidEditEvent.asObservable(),
+            datePickerDidEditEvent: datePickerDidEditEvent.asObservable(),
+            doneButtonTapEvent: Observable.just(())
+        )
+        
+        // when
+        let isFillObserver = scheduler.createObserver(Bool.self)
+        
+        viewModel.transform(from: input)
+            .isFill
+            .subscribe(isFillObserver)
+            .disposed(by: disposeBag)
+        
+        scheduler.start()
+        
+        // then
+        XCTAssertEqual(isFillObserver.events, [
+            .next(15, true),
+            .next(20, false),
+            .next(25, false),
+            .next(30, true),
+            .next(35, false),
+            .next(40, false)
+        ])
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func test_tappedDoneButton_success() {
+        // given
+        let doneButtonTapObserver = scheduler.createHotObservable([
+            .next(0, ()),
+            .next(10, ()),
+            .next(50, ())
+        ])
+        
+        input = TaskCreateViewModel.Input(
+            titleDidEditEvent: Observable.just(""),
+            contentDidEditEvent: Observable.just(""),
+            datePickerDidEditEvent: Observable.just(Date()),
+            doneButtonTapEvent: doneButtonTapObserver.asObservable()
+        )
+        
+        // when
+        let tappedDoneButton = scheduler.createObserver(Bool.self)
+        
+        viewModel.transform(from: input)
+            .isSuccess
+            .subscribe(tappedDoneButton)
+            .disposed(by: disposeBag)
+        
+        scheduler.start()
+        // then
+        
+        XCTAssertEqual(tappedDoneButton.events, [
+            .next(0, true),
+            .next(10, true),
+            .next(50, true),
+        ])
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
