@@ -13,17 +13,50 @@ struct BoardListView: View {
   var body: some View {
     WithViewStore(store) { viewStore in
       List {
-        
-        Section(viewStore.projects.count.description) {
+        Section {
           ForEach(viewStore.projects, id: \.id) { project in
             BoardListCellView(project: project)
               .listRowSeparator(.hidden)
           }
+        } header: {
+          BoardListSectionHeader(
+            projectState: .todo,
+            count: viewStore.projects.count
+          )
         }
       }
       .listSectionSeparator(.hidden)
       .listStyle(.plain)
     }
+  }
+}
+
+struct BoardListSectionHeader: View {
+  let projectState: ProjectState
+  let count: Int
+  
+  var body: some View {
+    HStack {
+      Text(projectState.description)
+        .font(.largeTitle)
+        .bold()
+        .foregroundColor(.accentColor)
+      
+      Spacer()
+      
+      Text(count.description)
+        .font(.title)
+        .foregroundColor(.black)
+        .bold()
+        .padding()
+        .background(
+          Circle()
+            .fill(.white)
+        )
+    }
+    .padding()
+    .background(Color.secondaryBackground)
+    .cornerRadius(10)
   }
 }
 
