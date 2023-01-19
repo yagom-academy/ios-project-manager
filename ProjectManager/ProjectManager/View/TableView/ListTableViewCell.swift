@@ -16,6 +16,7 @@ final class ListTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fill
+        stackView.spacing = 2
         return stackView
     }()
     
@@ -24,6 +25,7 @@ final class ListTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.numberOfLines = 1
+        label.text = "title"
         return label
     }()
     
@@ -33,6 +35,7 @@ final class ListTableViewCell: UITableViewCell {
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.numberOfLines = 3
         label.textColor = UIColor.systemGray
+        label.text = "body"
         return label
     }()
     
@@ -41,6 +44,7 @@ final class ListTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 1
+        label.text = "0000.00.00"
         return label
     }()
     
