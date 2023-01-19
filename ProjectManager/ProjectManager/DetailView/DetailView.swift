@@ -58,13 +58,12 @@ struct ProjectDetailView: View {
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Button("Cancel") {
-              // TODO: - Cancel Button Action
+              viewStore.send(.didCancelTap)
             }
           }
           
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
-              // TODO: - Done Button Action
               viewStore.send(.didDoneTap)
             }
           }

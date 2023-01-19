@@ -59,6 +59,9 @@ let navigateReducer = Reducer<NavigateState, NavigateAction, NavigateEnvironment
       )
       return Effect(value: .didTapPresent(false))
       
+    case .detailAction(.didCancelTap):
+      return Effect(value: .didTapPresent(false))
+      
     case .detailAction:
       return .none
     }

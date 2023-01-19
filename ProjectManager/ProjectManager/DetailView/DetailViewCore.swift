@@ -15,6 +15,7 @@ struct DetailState: Equatable {
 
 enum DetailAction {
   // User Action
+  case didCancelTap
   case didDoneTap
   
   // Inner Action
@@ -29,6 +30,9 @@ struct DetailEnvironment {
 
 let detailReducer = Reducer<DetailState, DetailAction, DetailEnvironment> { state, action, environment in
   switch action {
+  case .didCancelTap:
+    return .none
+    
   case .didDoneTap:
     return .none
     
