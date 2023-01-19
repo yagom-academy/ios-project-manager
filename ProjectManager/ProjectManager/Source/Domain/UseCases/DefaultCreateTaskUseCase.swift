@@ -1,5 +1,5 @@
 //
-//  CreateTaskUseCase.swift
+//  DefaultCreateTaskUseCase.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/17.
@@ -7,7 +7,15 @@
 
 import RxSwift
 
-final class CreateTaskUseCase {
+protocol CreateTaskUseCase {
+    var isCreatedSuccess: PublishSubject<Bool> { get }
+    
+    func create(title: String,
+                content: String,
+                deadLine: Double)
+}
+
+final class DefaultCreateTaskUseCase: CreateTaskUseCase {
     private weak var delegate: DidEndCreatingTaskDelegate?
     private let repository: TaskRepository
     
