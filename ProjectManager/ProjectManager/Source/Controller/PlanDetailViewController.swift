@@ -15,13 +15,11 @@ final class PlanDetailViewController: UIViewController {
     private let changedPlan: (Plan?) -> Void
     private let planManager = PlanManager()
     private let alertManager = AlertManager()
-    private var delegate: AlertDelegate
 
-    init(navigationTitle: String, plan: Plan?, isAdding: Bool, delegate: AlertDelegate, changedPlan: @escaping (Plan?) -> Void) {
+    init(navigationTitle: String, plan: Plan?, isAdding: Bool, changedPlan: @escaping (Plan?) -> Void) {
         self.navigationTitle = navigationTitle
         self.plan = plan
         self.isAdding = isAdding
-        self.delegate = delegate
         self.changedPlan = changedPlan
         super.init(nibName: nil, bundle: nil)
     }
@@ -59,8 +57,8 @@ final class PlanDetailViewController: UIViewController {
                                     rightButton: configureNavigationDoneBarButton())
 
 
-            planDetailView.configureTextView(title: plan?.title ?? Content.emptyString,
-                                             description: plan?.description ?? Content.emptyString,
+            planDetailView.configureTextView(title: plan?.title ?? PlanText.emptyString,
+                                             description: plan?.description ?? PlanText.emptyString,
                                              deadline: plan?.deadline ?? Date(),
                                              isEditable: isEditable)
         }
@@ -101,10 +99,12 @@ final class PlanDetailViewController: UIViewController {
 
     private func configureNavigationDoneBarButton() -> UIBarButtonItem {
         let buttonAction = UIAction { [weak self] _ in
-            self?.save()
-            self?.changedPlan(self?.plan)
+            if self?.isContentSave() == true {
+                self?.changedPlan(self?.plan)
+                self?.dismiss(animated: true, completion: nil)
+            }
 
-            self?.dismiss(animated: true, completion: nil)
+            self?.present(self?.alertManager.showErrorAlert(title: Content.notSaving) ?? UIAlertController(), animated: true)
         }
 
         let button = UIBarButtonItem(systemItem: .done, primaryAction: buttonAction)
@@ -112,22 +112,21 @@ final class PlanDetailViewController: UIViewController {
         return button
     }
 
-    private func save() {
+    private func isContentSave() -> Bool {
         let inputPlan = planDetailView.sendUserPlan()
 
-        do {
-            try planManager.save(title: inputPlan.title,
+        if planManager.isValidContent(inputPlan.title, inputPlan.description) {
+            planManager.save(title: inputPlan.title,
                              description: inputPlan.description,
                              deadline: inputPlan.deadline,
                              plan: &plan)
-        } catch {
-            delegate.showErrorAlert(title: Content.notSaving)
         }
+
+        return planManager.isValidContent(inputPlan.title, inputPlan.description)
     }
 
     private enum Content {
         static let notSaving = "빈 내용은 저장되지 않습니다."
-        static let emptyString = ""
     }
 }
 

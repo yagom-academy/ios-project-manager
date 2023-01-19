@@ -111,9 +111,9 @@ final class PlanDetailView: UIView {
     }
 
     func setPlaceholder() {
-        titleTextView.text = "Title"
+        titleTextView.text = PlanText.title
         titleTextView.textColor = .systemGray3
-        descriptionTextView.text = "Description"
+        descriptionTextView.text = PlanText.description
         descriptionTextView.textColor = .systemGray3
     }
 

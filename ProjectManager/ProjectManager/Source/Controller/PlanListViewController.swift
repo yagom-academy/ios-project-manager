@@ -53,8 +53,7 @@ final class PlanListViewController: UIViewController {
     private func configureNavigationBarButton() -> UIBarButtonItem {
         let detailViewController = PlanDetailViewController(navigationTitle: Content.toDo,
                                                             plan: nil,
-                                                            isAdding: true,
-                                                            delegate: self) { plan in
+                                                            isAdding: true) { plan in
             guard let plan = plan else {
                 let errorAlert = self.alertManager.showErrorAlert(title: Content.savingError)
                 self.present(errorAlert, animated: true)
@@ -151,8 +150,7 @@ extension PlanListViewController: UITableViewDelegate {
 
         let detailViewController = PlanDetailViewController(navigationTitle: String(describing: plan?.status),
                                                             plan: plan,
-                                                            isAdding: false,
-                                                            delegate: self) { plan in
+                                                            isAdding: false) { plan in
             guard let plan = plan else {
                 let errorAlert = self.alertManager.showErrorAlert(title: Content.savingError)
                 self.present(errorAlert, animated: true)
@@ -280,11 +278,5 @@ extension PlanListViewController: UIGestureRecognizerDelegate {
         }
 
         return action
-    }
-}
-
-extension PlanListViewController: AlertDelegate {
-    func showErrorAlert(title: String) {
-        present(self.alertManager.showErrorAlert(title: title), animated: true)
     }
 }

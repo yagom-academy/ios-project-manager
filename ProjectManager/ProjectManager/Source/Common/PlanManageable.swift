@@ -8,8 +8,8 @@
 import Foundation
 
 protocol PlanManageable {
-    func create(title: String, description: String, deadline: Date) throws -> Plan?
-    func save(title: String, description: String, deadline: Date, plan: inout Plan?) throws
+    func create(title: String, description: String, deadline: Date) -> Plan?
+    func save(title: String, description: String, deadline: Date, plan: inout Plan?)
     func update(list: inout [Plan], id: UUID, status: Plan.Status)
     func update(planList: inout [Plan], plan: Plan)
     func fetch(id: UUID?) -> UUID?
