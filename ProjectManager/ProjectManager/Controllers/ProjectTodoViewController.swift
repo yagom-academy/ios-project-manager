@@ -143,7 +143,7 @@ extension ProjectTodoViewController {
 
     @objc
     private func prepareForEditing() {
-        self.isEditing = true
+        isEditing = true
         projectTodoViewModel.editingProjectTodo = projectTodoViewModel.projectTodo
         if isAdding {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
@@ -159,7 +159,7 @@ extension ProjectTodoViewController {
 
     @objc
     private func prepareForeViewing() {
-        self.isEditing = false
+        isEditing = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
                                                            target: self,
                                                            action: #selector(prepareForEditing))

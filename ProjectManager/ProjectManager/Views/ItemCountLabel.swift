@@ -10,11 +10,11 @@ import UIKit
 class ItemCountLabel: UILabel {
     init() {
         super.init(frame: .zero)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.textColor = ProjectColor.itemCountLabelFontColor.color
-        self.font = UIFont.preferredFont(forTextStyle: .body)
-        self.adjustsFontForContentSizeCategory = true
-        self.textAlignment = .center
+        translatesAutoresizingMaskIntoConstraints = false
+        textColor = ProjectColor.itemCountLabelFontColor.color
+        font = UIFont.preferredFont(forTextStyle: .body)
+        adjustsFontForContentSizeCategory = true
+        textAlignment = .center
     }
 
     required init?(coder: NSCoder) {

@@ -32,7 +32,7 @@ final class ProjectTodoListViewController: UIViewController {
     init(projectTodoListViewModel: ProjectTodoListViewModel) {
         self.projectTodoListViewModel = projectTodoListViewModel
         super.init(nibName: nil, bundle: nil)
-        self.view.backgroundColor = ProjectColor.listViewBackground.color
+        view.backgroundColor = ProjectColor.listViewBackground.color
     }
 
     required init?(coder: NSCoder) {
@@ -252,7 +252,7 @@ extension ProjectTodoListViewController: UIGestureRecognizerDelegate {
             makeAlertActionsToMoveState(for: projectTodo).forEach(alertController.addAction(_:))
             guard let popover = alertController.popoverPresentationController else { return }
             popover.sourceView = view
-            let locationInView = gestureRecognizer.location(in: self.view)
+            let locationInView = gestureRecognizer.location(in: view)
             popover.sourceRect = CGRect(x: locationInView.x, y: locationInView.y, width: 75, height: 75)
             present(alertController, animated: true)
         }

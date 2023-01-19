@@ -12,13 +12,13 @@ class TitleTextField: UITextField {
 
     init() {
         super.init(frame: .zero)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.placeholder = NSLocalizedString("Title", comment: "TitleTextField placeholder")
-        self.font = UIFont.preferredFont(forTextStyle: .title3)
-        self.adjustsFontForContentSizeCategory = true
-        self.backgroundColor = ProjectColor.defaultBackground.color
-        self.layer.borderWidth = Constants.borderWidth
-        self.addShadow()
+        translatesAutoresizingMaskIntoConstraints = false
+        placeholder = NSLocalizedString("Title", comment: "TitleTextField placeholder")
+        font = UIFont.preferredFont(forTextStyle: .title3)
+        adjustsFontForContentSizeCategory = true
+        backgroundColor = ProjectColor.defaultBackground.color
+        layer.borderWidth = Constants.borderWidth
+        addShadow()
     }
 
     required init?(coder: NSCoder) {

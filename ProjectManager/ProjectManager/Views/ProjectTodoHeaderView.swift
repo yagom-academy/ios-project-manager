@@ -19,8 +19,8 @@ final class ProjectTodoHeaderView: UIView {
 
     init() {
         super.init(frame: .zero)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = ProjectColor.collectionViewBackground.color
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = ProjectColor.collectionViewBackground.color
         configureHierarchy()
     }
 
@@ -29,13 +29,13 @@ final class ProjectTodoHeaderView: UIView {
     }
 
     func updateSubviewsText(title: String, itemCountText: String) {
-        self.titleLabel.text = title
-        self.itemCountLabel.text = itemCountText
+        titleLabel.text = title
+        itemCountLabel.text = itemCountText
     }
 
     private func configureHierarchy() {
-        self.addSubview(titleLabel)
-        self.addSubview(itemCountLabel)
+        addSubview(titleLabel)
+        addSubview(itemCountLabel)
         let spacing = Constants.defaultSpacing
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
