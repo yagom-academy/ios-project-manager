@@ -8,20 +8,20 @@ class MainViewController: UIViewController {
         static let title = "Project Manager"
     }
     
-    private let todoTableView: ToDoListView = {
-        let tableView = ToDoListView(status: .toDo, viewModel: ToDoListViewModel())
+    private let todoTableView: ToDoListViewController = {
+        let tableView = ToDoListViewController(status: .toDo, viewModel: ToDoListViewModel())
         
         return tableView
     }()
     
-    private let doingTableView: ToDoListView = {
-        let tableView = ToDoListView(status: .doing, viewModel: ToDoListViewModel())
+    private let doingTableView: ToDoListViewController = {
+        let tableView = ToDoListViewController(status: .doing, viewModel: ToDoListViewModel())
         
         return tableView
     }()
     
-    private let doneTableView: ToDoListView = {
-        let tableView = ToDoListView(status: .done, viewModel: ToDoListViewModel())
+    private let doneTableView: ToDoListViewController = {
+        let tableView = ToDoListViewController(status: .done, viewModel: ToDoListViewModel())
         
         return tableView
     }()
@@ -59,9 +59,9 @@ class MainViewController: UIViewController {
     }
     
     private func setupView() {
-        stackView.addArrangedSubview(todoTableView)
-        stackView.addArrangedSubview(doingTableView)
-        stackView.addArrangedSubview(doneTableView)
+        stackView.addArrangedSubview(todoTableView.view)
+        stackView.addArrangedSubview(doingTableView.view)
+        stackView.addArrangedSubview(doneTableView.view)
         view.addSubview(stackView)
         
         let safeArea = view.safeAreaLayoutGuide
@@ -76,7 +76,13 @@ class MainViewController: UIViewController {
     
     @objc
     private func presentDetailView() {
-        let editToDoViewController = EditToDoViewController(viewModel: todoTableView.viewModel)
+        let toDo = ToDo(title: "",
+                        body: "",
+                        deadline: Date(),
+                        state: .toDo)
+        let editToDoViewController = AddToDoViewController(viewModel: todoTableView.viewModel,
+                                                           toDo: toDo)
+        
         let navigationController = UINavigationController(rootViewController: editToDoViewController)
         
         present(navigationController, animated: true)
