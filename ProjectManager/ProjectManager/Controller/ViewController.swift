@@ -18,9 +18,9 @@ class ViewController: UIViewController {
     let dataSourceVM = DataSourceViewModel()
     let taskListVM = TaskListViewModel()
     
-    private lazy var todoDataSource = dataSourceVM.makeDataSource(tableView: todoTableView, taskListVM.todoTasks)
-    private lazy var doingDataSource = dataSourceVM.makeDataSource(tableView: doingTableView, taskListVM.doingTasks)
-    private lazy var doneDataSource = dataSourceVM.makeDataSource(tableView: doneTableView, taskListVM.doneTasks)
+    private lazy var todoDataSource = makeDataSource(tableView: todoTableView, taskListVM.todoTasks)
+    private lazy var doingDataSource = makeDataSource(tableView: doingTableView, taskListVM.doingTasks)
+    private lazy var doneDataSource = makeDataSource(tableView: doneTableView, taskListVM.doneTasks)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +74,31 @@ class ViewController: UIViewController {
         doneHeaderView.setTaskCountLabel(taskListVM, status: .done)
     }
 }
+
+extension ViewController: GestureRecognizerHelperDelegate {
+    func sendLongPressGesture(gesture: UIGestureRecognizer) {
+        print("이동")
+    }
+    
+    func makeDataSource(tableView: UITableView,
+                        _ tasks: [Task]) -> UITableViewDiffableDataSource<Section, Task> {
+        
+        dataSourceVM.registerCell(tableView: tableView)
+        
+        let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, task in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell",
+                                                     for: indexPath) as? TableViewCell ?? TableViewCell()
+            cell.titleLabel.text = task.title
+            cell.descriptionLabel.text = task.description
+            cell.dateLabel.text = task.date?.description
+            cell.gestureRecognizerHelperDelegate = self
+            return cell
+        }
+        dataSourceVM.configureSnapShot(dataSource: dataSource, tasks: tasks)
+        return dataSource
+    }
+}
+
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
