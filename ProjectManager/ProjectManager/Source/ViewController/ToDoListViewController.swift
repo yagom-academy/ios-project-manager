@@ -131,4 +131,25 @@ extension ToDoListViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+    
+    func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil,
+                                          previewProvider: nil,
+                                          actionProvider: { _ in
+            let inspectAction = UIAction(title: NSLocalizedString("Move To Doing", comment: ""),
+                                         image: nil) { _ in
+                self.updateToDoState(indexPath: indexPath.item, state: .doing)
+            }
+            let duplicateAction = UIAction(title: NSLocalizedString("Move To Done", comment: ""),
+                                           image: nil) { _ in
+                self.updateToDoState(indexPath: indexPath.item, state: .done)
+            }
+            
+            return UIMenu(title: "", children: [inspectAction, duplicateAction])
+        })
+    }
 }
