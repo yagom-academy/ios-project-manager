@@ -49,6 +49,8 @@
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		D34F77DF2978E5FF005DCE66 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77DE2978E5FF005DCE66 /* Date+.swift */; };
+		D34F77E02978E602005DCE66 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77DE2978E5FF005DCE66 /* Date+.swift */; };
 		D36715D8296D495400A4A9DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D36715D7296D495400A4A9DD /* GoogleService-Info.plist */; };
 		D36715DB296D4CCB00A4A9DD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D36715DA296D4CCB00A4A9DD /* FirebaseAnalytics */; };
 		D36F87052977B1A70006C392 /* FetchTasksUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F87042977B1A70006C392 /* FetchTasksUseCaseTests.swift */; };
@@ -130,6 +132,7 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D34F77DE2978E5FF005DCE66 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		D36715D7296D495400A4A9DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D36F87042977B1A70006C392 /* FetchTasksUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTasksUseCaseTests.swift; sourceTree = "<group>"; };
 		D37836F82976C5A500844849 /* UpdateTaskUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTaskUseCase.swift; sourceTree = "<group>"; };
@@ -290,6 +293,7 @@
 			children = (
 				AC67580F29762C9800C2BDE2 /* Double+Formatter.swift */,
 				AC67581229762DE700C2BDE2 /* String+Formatter.swift */,
+				D34F77DE2978E5FF005DCE66 /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -598,6 +602,7 @@
 				D37954032976574900A3F02F /* TaskEntityDummy.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				AC67583D29766C4400C2BDE2 /* CreateTaskUseCase.swift in Sources */,
+				D34F77DF2978E5FF005DCE66 /* Date+.swift in Sources */,
 				AC5F3CCE2977CEE3007D5F80 /* TaskDetailViewController.swift in Sources */,
 				AC67581029762C9800C2BDE2 /* Double+Formatter.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
@@ -652,6 +657,7 @@
 				D379544129769AFB00A3F02F /* CreateTaskUseCaseTests.swift in Sources */,
 				D379544929769B2500A3F02F /* FetchTasksUseCase.swift in Sources */,
 				D379544629769B1600A3F02F /* String+Formatter.swift in Sources */,
+				D34F77E02978E602005DCE66 /* Date+.swift in Sources */,
 				AC5F3CC02977CE0C007D5F80 /* TaskCreateViewModel.swift in Sources */,
 				D379544529769B1400A3F02F /* Double+Formatter.swift in Sources */,
 			);
