@@ -13,14 +13,21 @@ extension UIStackView {
                      distribution: UIStackView.Distribution = .fill,
                      alignment: UIStackView.Alignment = .fill,
                      spacing: CGFloat = 0,
-                     backgroundColor: UIColor = .systemBackground) {
+                     backgroundColor: UIColor = .systemBackground,
+                     margin: CGFloat = .zero,
+                     cornerRadius: CGFloat = 0) {
         self.init(frame: .zero)
         self.axis = axis
         self.distribution = distribution
         self.alignment = alignment
         self.spacing = spacing
         self.backgroundColor = backgroundColor
-        self.layoutMargins = layoutMargins
-        translatesAutoresizingMaskIntoConstraints = false
+        self.layoutMargins = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
+        self.layer.cornerRadius = cornerRadius
+        self.translatesAutoresizingMaskIntoConstraints = false
+    
+        if layoutMargins != .zero {
+            isLayoutMarginsRelativeArrangement = true
+        }
     }
 }

@@ -28,13 +28,13 @@ final class ListCell: UITableViewCell {
     private var titleLabel = UILabel(font: .title3)
     private var descriptionLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
     private var dateLabel = UILabel(font: .body, numberOfLines: 0)
-    private var totalView = UIView(backgroundColor: .tertiarySystemBackground,
-                                   cornerRadius: Default.radius)
     private var stackView = UIStackView(axis: .vertical,
-                                        distribution: .fillProportionally,
+                                        distribution: .fill,
                                         alignment: .leading,
                                         spacing: Default.stackSpacing,
-                                        backgroundColor: .tertiarySystemBackground)
+                                        backgroundColor: .tertiarySystemBackground,
+                                        margin: Default.margin,
+                                        cornerRadius: Default.radius)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -84,31 +84,18 @@ extension ListCell {
     
     private func configureHierarchy() {
         [titleLabel, descriptionLabel, dateLabel].forEach { stackView.addArrangedSubview($0) }
-        
-        totalView.addSubview(stackView)
-        contentView.addSubview(totalView)
+        contentView.addSubview(stackView)
     }
     
     private func configureLayout() {
-        descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-        
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: totalView.leadingAnchor,
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                                constant: Default.margin),
-            stackView.trailingAnchor.constraint(equalTo: totalView.trailingAnchor,
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
                                                 constant: -Default.margin),
-            stackView.topAnchor.constraint(equalTo: totalView.topAnchor,
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor,
                                            constant: Default.margin),
-            stackView.bottomAnchor.constraint(equalTo: totalView.bottomAnchor,
-                                              constant: -Default.margin),
-            
-            totalView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                               constant: Default.margin),
-            totalView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                constant: -Default.margin),
-            totalView.topAnchor.constraint(equalTo: contentView.topAnchor,
-                                           constant: Default.margin),
-            totalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
                                               constant: -Default.margin)
         ])
     }

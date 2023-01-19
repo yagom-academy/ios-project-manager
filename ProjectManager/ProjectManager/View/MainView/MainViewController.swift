@@ -147,7 +147,7 @@ extension MainViewController: UITableViewDelegate {
         let editingViewModel = EditingViewModel(editTargetModel: self.mainViewModel,
                                                 project: projectToEdit,
                                                 isNewProject: false,
-                                                process: cellViewModel.currentState)
+                                                state: cellViewModel.currentState)
         
         let editViewController = EditingViewController(viewModel: editingViewModel)
         editViewController.modalPresentationStyle = .formSheet
