@@ -14,7 +14,7 @@ final class ListItemCellViewModel {
         var isOverDue: Bool = false
     }
     
-    private let listItem: ListItem
+    private var listItem: ListItem
     private(set) var listType: ListType
     private var handler: ((ListItemData) -> Void)?
     private var listItemData: ListItemData {
@@ -40,7 +40,7 @@ final class ListItemCellViewModel {
         self.handler = handler
     }
     
-    func updateItem(using updatedListItem: ListItem) {
+    func updateData(using updatedListItem: ListItem) {
         let hourIntervalUntilToday = Calendar.calculateHourUntilToday(updatedListItem.dueDate)
         
         guard let dueDate = Calendar.changeHourUntilToday(
@@ -59,6 +59,13 @@ final class ListItemCellViewModel {
         )
         
         listItemData = updatedData
+        updateListItem(title: updatedData.title, body: updatedData.body, dueDate: dueDate)
+    }
+    
+    func updateListItem(title: String, body: String, dueDate: Date) {
+        listItem.title = title
+        listItem.body = body
+        listItem.dueDate = dueDate
     }
     
     func moveType(to newType: ListType) {

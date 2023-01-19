@@ -109,6 +109,6 @@ class ListItemCell: UITableViewCell {
     }
     
     func update(_ listItem: ListItem) {
-        viewModel?.updateItem(using: listItem)
+        viewModel?.updateData(using: listItem)
     }
 }
