@@ -14,7 +14,7 @@
 		B43D8D3C29765F3E00986169 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43D8D3B29765F3E00986169 /* ToDoCell.swift */; };
 		B43D8D3F29765FAB00986169 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43D8D3E29765FAB00986169 /* ReusableView.swift */; };
 		B43D8D412976E9CD00986169 /* ItemCountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43D8D402976E9CD00986169 /* ItemCountLabel.swift */; };
-		B481F9F62977986D00597E8C /* EditToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9F52977986D00597E8C /* EditToDoViewController.swift */; };
+		B481F9F62977986D00597E8C /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9F52977986D00597E8C /* AddToDoViewController.swift */; };
 		B481F9F82977D18D00597E8C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B481F9F72977D18D00597E8C /* .swiftlint.yml */; };
 		B481F9FB2977DB0800597E8C /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */; };
 		B481F9FF29782AD200597E8C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9FE29782AD200597E8C /* Observable.swift */; };
@@ -34,7 +34,7 @@
 		B43D8D3B29765F3E00986169 /* ToDoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
 		B43D8D3E29765FAB00986169 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		B43D8D402976E9CD00986169 /* ItemCountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCountLabel.swift; sourceTree = "<group>"; };
-		B481F9F52977986D00597E8C /* EditToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToDoViewController.swift; sourceTree = "<group>"; };
+		B481F9F52977986D00597E8C /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
 		B481F9F72977D18D00597E8C /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
 		B481F9FE29782AD200597E8C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				B481F9F52977986D00597E8C /* EditToDoViewController.swift */,
+				B481F9F52977986D00597E8C /* AddToDoViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 				B481F9FB2977DB0800597E8C /* ToDoListViewModel.swift in Sources */,
 				B43D8D3F29765FAB00986169 /* ReusableView.swift in Sources */,
 				B43D8D3829757EF400986169 /* ToDoListView.swift in Sources */,
-				B481F9F62977986D00597E8C /* EditToDoViewController.swift in Sources */,
+				B481F9F62977986D00597E8C /* AddToDoViewController.swift in Sources */,
 				B4200E4729717B74000E2B8B /* ToDoState.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				B43D8D3A29757F9800986169 /* ToDoHeaderView.swift in Sources */,
