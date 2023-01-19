@@ -26,7 +26,7 @@ struct TodoEnvironment {
   init() { }
 }
 
-let TodoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
+let todoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
   detailReducer
     .optional()
     .pullback(

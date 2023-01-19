@@ -26,7 +26,7 @@ struct DoingEnvironment {
   init() { }
 }
 
-let DoingReducer = Reducer<DoingState, DoingAction, DoingEnvironment>.combine([
+let doingReducer = Reducer<DoingState, DoingAction, DoingEnvironment>.combine([
   detailReducer
     .optional()
     .pullback(

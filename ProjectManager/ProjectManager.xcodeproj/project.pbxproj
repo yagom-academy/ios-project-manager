@@ -24,7 +24,7 @@
 		189D2B3029769E020022F549 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D2B2F29769E020022F549 /* Int.swift */; };
 		18AB3C0C29796F0B00854929 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 18AB3C0B29796F0B00854929 /* ComposableArchitecture */; };
 		18AB3C0F297983CC00854929 /* TodoCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C0E297983CC00854929 /* TodoCore.swift */; };
-		18AB3C11297984CF00854929 /* DoginCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C10297984CF00854929 /* DoginCore.swift */; };
+		18AB3C11297984CF00854929 /* DoingCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C10297984CF00854929 /* DoingCore.swift */; };
 		18AB3C13297985C400854929 /* DoneCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C12297985C400854929 /* DoneCore.swift */; };
 		18AB3C1629798AF600854929 /* TodoBoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C1529798AF600854929 /* TodoBoardListView.swift */; };
 		18AB3C1829798B1000854929 /* DoingBoardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB3C1729798B1000854929 /* DoingBoardListView.swift */; };
@@ -50,7 +50,7 @@
 		1858234629728273001AE6BC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		189D2B2F29769E020022F549 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		18AB3C0E297983CC00854929 /* TodoCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCore.swift; sourceTree = "<group>"; };
-		18AB3C10297984CF00854929 /* DoginCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoginCore.swift; sourceTree = "<group>"; };
+		18AB3C10297984CF00854929 /* DoingCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingCore.swift; sourceTree = "<group>"; };
 		18AB3C12297985C400854929 /* DoneCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneCore.swift; sourceTree = "<group>"; };
 		18AB3C1529798AF600854929 /* TodoBoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoardListView.swift; sourceTree = "<group>"; };
 		18AB3C1729798B1000854929 /* DoingBoardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingBoardListView.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				18AB3C0E297983CC00854929 /* TodoCore.swift */,
-				18AB3C10297984CF00854929 /* DoginCore.swift */,
+				18AB3C10297984CF00854929 /* DoingCore.swift */,
 				18AB3C12297985C400854929 /* DoneCore.swift */,
 			);
 			path = Cores;
@@ -266,7 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1804381E2975B451000CC2DA /* ProjectManagerAppView.swift in Sources */,
-				18AB3C11297984CF00854929 /* DoginCore.swift in Sources */,
+				18AB3C11297984CF00854929 /* DoingCore.swift in Sources */,
 				1854F126297578150082FB88 /* NavigationCore.swift in Sources */,
 				189D2B3029769E020022F549 /* Int.swift in Sources */,
 				18AB3C1829798B1000854929 /* DoingBoardListView.swift in Sources */,

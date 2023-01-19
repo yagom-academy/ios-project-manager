@@ -35,21 +35,21 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
       action: /AppAction.navigateAction,
       environment: { _ in NavigateEnvironment() }
     ),
-  TodoReducer
+  todoReducer
     .pullback(
       state: \.todoListState,
       action: /AppAction.todoListAction,
       environment: { _ in TodoEnvironment() }
     ),
   
-  DoingReducer
+  doingReducer
     .pullback(
       state: \.doingListState,
       action: /AppAction.doingListAction,
       environment: { _ in DoingEnvironment() }
     ),
   
-  DoneReducer
+  doneReducer
     .pullback(
       state: \.doneListState,
       action: /AppAction.doneListAction,
