@@ -37,8 +37,8 @@ final class FetchTasksUseCaseTests: XCTestCase {
     }
     
     func test_when_creating_task_is_successful_then_renewing_tasksList_is_successful() {
-        let createUseCaseStub = CreateTaskUseCase(delegate: usecase,
-                                                  repository: taskRepositoryMock)
+        let createUseCaseStub = DefaultCreateTaskUseCase(delegate: usecase,
+                                                         repository: taskRepositoryMock)
         var tasksList: [Task]? = nil
         var previousTasksListCount: Int? = nil
         var currentTasksListCount: Int? = nil

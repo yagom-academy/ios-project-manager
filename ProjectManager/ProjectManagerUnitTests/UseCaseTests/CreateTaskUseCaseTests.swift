@@ -22,10 +22,7 @@ final class CreateTaskUseCaseTests: XCTestCase {
     
     override func setUpWithError() throws {
         taskRepositoryMock = MockTaskRepository(taskEntities: TaskEntityDummy.dummys)
-        usecase = CreateTaskUseCase(
-            delegate: EndEditTask(),
-            repository: taskRepositoryMock
-        )
+        usecase = CreateTaskUseCaseMock()
         dispose = DisposeBag()
     }
     
