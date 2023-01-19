@@ -20,7 +20,6 @@ enum SheetAction {
   case detailAction(DetailAction)
   
   // Inner Action
-  case _toggleNavigationState(Bool)
 }
 
 struct SheetEnvironment {
@@ -39,16 +38,15 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
   Reducer<SheetState, SheetAction, SheetEnvironment> { state, action, environment in
     switch action {
     case let .didTapPresent(isPresent):
-      if state.isPresent != isPresent {
-        return Effect(value: ._toggleNavigationState(isPresent))
+      if isPresent {
+        state.isPresent = true
+        state.detailState = DetailState()
+        return .none
       } else {
+        state.isPresent = false
+        state.detailState = nil
         return .none
       }
-      
-    case let ._toggleNavigationState(isPresent):
-      state.isPresent = isPresent
-      state.detailState = DetailState()
-      return .none
       
     case .detailAction(.didDoneTap):
       guard let detail = state.detailState else { return .none }
