@@ -32,27 +32,9 @@ final class ListViewController: UIViewController {
     private lazy var doingDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: doingTableView)
     private lazy var doneDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: doneTableView)
     
-    // 테스트용 todoModels
-    private var mockModels: [TodoModel] = [TodoModel(title: "todo test1",
-                                                     body: "todo test1",
-                                                     status: .todo,
-                                                     date: 1673967757.6580071),
-                                           TodoModel(title: "todo test1",
-                                                     body: "todo test1\ntodo test1\ntodo test1\ntodo test1",
-                                                     status: .todo,
-                                                     date: 1673968167.6580071),
-                                           TodoModel(title: "doing test1",
-                                                     body: "doing test1",
-                                                     status: .doing,
-                                                     date: 1673967977.6580071),
-                                           TodoModel(title: "done test1",
-                                                     body: "done test1",
-                                                     status: .done,
-                                                     date: 1673967754.6580071),
-                                           TodoModel(title: "done test1",
-                                                     body: "done test1",
-                                                     status: .done,
-                                                     date: 1673968037.6580071)]
+    private let todoModels: [TodoModel] = MockDataManager.shared.mockModels.filter { $0.status == .todo }
+    private let doingModels: [TodoModel] = MockDataManager.shared.mockModels.filter { $0.status == .doing }
+    private let doneModels: [TodoModel] = MockDataManager.shared.mockModels.filter { $0.status == .done }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,18 +113,26 @@ extension ListViewController {
     }
     
     private func applyAllSnapshot() {
-        applySnapshot(section: ListSection.todo, status: TodoModel.TodoStatus.todo, dataSource: todoDataSource)
-        applySnapshot(section: ListSection.doing, status: TodoModel.TodoStatus.doing, dataSource: doingDataSource)
-        applySnapshot(section: ListSection.done, status: TodoModel.TodoStatus.done, dataSource: doneDataSource)
+        applySnapshot(section: ListSection.todo)
+        applySnapshot(section: ListSection.doing)
+        applySnapshot(section: ListSection.done)
     }
     
-    private func applySnapshot(section: ListSection,
-                               status: TodoModel.TodoStatus,
-                               dataSource: UITableViewDiffableDataSource<ListSection, TodoModel>) {
+    private func applySnapshot(section: ListSection) {
         var snapshot = NSDiffableDataSourceSnapshot<ListSection, TodoModel>()
         snapshot.appendSections([section])
-        snapshot.appendItems(mockModels.filter{ $0.status == status })
-        dataSource.apply(snapshot)
+        
+        switch section {
+        case .todo:
+            snapshot.appendItems(todoModels)
+            todoDataSource.apply(snapshot)
+        case .doing:
+            snapshot.appendItems(doingModels)
+            doingDataSource.apply(snapshot)
+        case .done:
+            snapshot.appendItems(doneModels)
+            doneDataSource.apply(snapshot)
+        }
     }
 }
 
@@ -159,20 +149,20 @@ extension ListViewController: UITableViewDelegate {
         
         switch tableView {
         case todoTableView:
-            requestViewUpdate(to: headerView, status: .todo)
+            requestViewUpdate(to: headerView, title: "TODO", itemCount: todoModels.count)
         case doingTableView:
-            requestViewUpdate(to: headerView, status: .doing)
+            requestViewUpdate(to: headerView, title: "DOING", itemCount: doingModels.count)
         case doneTableView:
-            requestViewUpdate(to: headerView, status: .done)
+            requestViewUpdate(to: headerView, title: "DONE", itemCount: doneModels.count)
         default:
             break
         }
         return headerView
     }
     
-    private func requestViewUpdate(to headerView: ListHeaderView, status: TodoModel.TodoStatus) {
-        headerView.setTitle(status.rawValue)
-        headerView.updateCount(mockModels.filter { $0.status == status }.count)
+    private func requestViewUpdate(to headerView: ListHeaderView, title: String, itemCount: Int) {
+        headerView.setTitle(title)
+        headerView.updateCount(itemCount)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -189,10 +179,9 @@ extension ListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "delete") { _, _, completion in
-            guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath),
-                  let index = self.fetchTodoIndex(cellItem) else { return }
+            guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath) else { return }
             
-            self.mockModels.remove(at: index)
+            MockDataManager.shared.removeTodo(item: cellItem)
             self.applyAllSnapshot()
             tableView.reloadData()
             completion(true)
@@ -209,21 +198,13 @@ extension ListViewController: UITableViewDelegate {
         }
         return todoItem
     }
-    
-    private func fetchTodoIndex(_ todoItem: TodoModel) -> Int? {
-        guard let item = self.mockModels.filter({ $0.id == todoItem.id }).first,
-              let index = self.mockModels.firstIndex(of: item) else {
-            return nil
-        }
-        return index
-    }
 }
 
 // MARK: - AddTodoViewDelegate
 extension ListViewController: AddTodoViewDelegate {
     func addNewTodoItem(with item: TodoModel) {
-        mockModels.append(item)
-        applySnapshot(section: .todo, status: .todo, dataSource: todoDataSource)
+        MockDataManager.shared.addNewTodo(item: item)
+        applySnapshot(section: .todo)
         todoTableView.reloadData()
     }
 }
@@ -231,9 +212,6 @@ extension ListViewController: AddTodoViewDelegate {
 // MARK: - EditTodoViewDelegate
 extension ListViewController: EditTodoViewDelegate {
     func editTodoItem(with item: TodoModel) {
-        guard let index = fetchTodoIndex(item) else { return }
-        
-        mockModels[index] = item
-        applyAllSnapshot()
+        MockDataManager.shared.editTodo(item: item)
     }
 }
