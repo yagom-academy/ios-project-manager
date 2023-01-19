@@ -8,21 +8,30 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ProjectDetailView: View {
-  let store: StoreOf<DetailViewStore>
+  let store: Store<DetailState, DetailAction>
   
   var body: some View {
     WithViewStore(store) { viewStore in
       NavigationView {
         VStack {
-          TextField("Title",text: viewStore.binding(\.$title))
-            .padding()
-            .background(.white)
-            .cornerRadius(10)
-            .shadow(color: .gray, radius: 1, y: 1)
+          TextField(
+            "Title",
+            text: viewStore.binding(
+              get: \.title,
+              send: DetailAction._didChangeTitle
+            )
+          )
+          .padding()
+          .background(.white)
+          .cornerRadius(10)
+          .shadow(color: .gray, radius: 1, y: 1)
           
           DatePicker(
             "마감 기한",
-            selection: viewStore.binding(\.$deadLineDate),
+            selection: viewStore.binding(
+              get: \.deadLineDate,
+              send: DetailAction._didChangeDeadLine
+            ),
             in: Date()...,
             displayedComponents: .date
           )
@@ -31,11 +40,16 @@ struct ProjectDetailView: View {
           .cornerRadius(10)
           .shadow(color: .gray, radius: 1, y: 1)
           
-          TextEditor(text: viewStore.binding(\.$description))
-            .padding()
-            .background(.white)
-            .cornerRadius(10)
-            .shadow(color: .gray, radius: 1, y: 1)
+          TextEditor(
+            text: viewStore.binding(
+              get: \.description,
+              send: DetailAction._didChangeDescription
+            )
+          )
+          .padding()
+          .background(.white)
+          .cornerRadius(10)
+          .shadow(color: .gray, radius: 1, y: 1)
         }
         .padding()
         .background(Color.secondaryBackground)
@@ -44,13 +58,13 @@ struct ProjectDetailView: View {
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Button("Cancel") {
-              viewStore.send(.didTapCancelButton)
+              // TODO: - Cancel Button Action
             }
           }
           
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
-              viewStore.send(.didTapDoneButton)
+              // TODO: - Done Button Action
             }
           }
         }
