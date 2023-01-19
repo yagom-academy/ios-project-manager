@@ -52,6 +52,10 @@
 		D34F77DF2978E5FF005DCE66 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77DE2978E5FF005DCE66 /* Date+.swift */; };
 		D34F77E02978E602005DCE66 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77DE2978E5FF005DCE66 /* Date+.swift */; };
 		D34F77E429792FB6005DCE66 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = D34F77E329792FB6005DCE66 /* RxTest */; };
+		D34F77E72979351B005DCE66 /* FetchTasksUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77E62979351B005DCE66 /* FetchTasksUseCaseMock.swift */; };
+		D34F77E92979352C005DCE66 /* CreateTaskUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77E82979352C005DCE66 /* CreateTaskUseCaseMock.swift */; };
+		D34F77EB29793537005DCE66 /* UpdateTaskUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77EA29793537005DCE66 /* UpdateTaskUseCaseMock.swift */; };
+		D34F77ED29793544005DCE66 /* DeleteTaskUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77EC29793544005DCE66 /* DeleteTaskUseCaseMock.swift */; };
 		D36715D8296D495400A4A9DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D36715D7296D495400A4A9DD /* GoogleService-Info.plist */; };
 		D36715DB296D4CCB00A4A9DD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D36715DA296D4CCB00A4A9DD /* FirebaseAnalytics */; };
 		D36F87052977B1A70006C392 /* FetchTasksUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F87042977B1A70006C392 /* FetchTasksUseCaseTests.swift */; };
@@ -134,6 +138,10 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D34F77DE2978E5FF005DCE66 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		D34F77E62979351B005DCE66 /* FetchTasksUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTasksUseCaseMock.swift; sourceTree = "<group>"; };
+		D34F77E82979352C005DCE66 /* CreateTaskUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskUseCaseMock.swift; sourceTree = "<group>"; };
+		D34F77EA29793537005DCE66 /* UpdateTaskUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTaskUseCaseMock.swift; sourceTree = "<group>"; };
+		D34F77EC29793544005DCE66 /* DeleteTaskUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTaskUseCaseMock.swift; sourceTree = "<group>"; };
 		D36715D7296D495400A4A9DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D36F87042977B1A70006C392 /* FetchTasksUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTasksUseCaseTests.swift; sourceTree = "<group>"; };
 		D37836F82976C5A500844849 /* UpdateTaskUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTaskUseCase.swift; sourceTree = "<group>"; };
@@ -281,6 +289,7 @@
 		AC5F3CDC29783CC7007D5F80 /* ViewModelTests */ = {
 			isa = PBXGroup;
 			children = (
+				D34F77E5297934EB005DCE66 /* Mock */,
 				AC5F3CDD29783CFD007D5F80 /* TaskCreateViewModelTests.swift */,
 				AC5F3CDF29783D13007D5F80 /* TaskEditViewModelTests.swift */,
 				AC5F3CE129783D38007D5F80 /* TaskDetailViewModelTests.swift */,
@@ -362,6 +371,17 @@
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		D34F77E5297934EB005DCE66 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				D34F77E62979351B005DCE66 /* FetchTasksUseCaseMock.swift */,
+				D34F77E82979352C005DCE66 /* CreateTaskUseCaseMock.swift */,
+				D34F77EA29793537005DCE66 /* UpdateTaskUseCaseMock.swift */,
+				D34F77EC29793544005DCE66 /* DeleteTaskUseCaseMock.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		D379543729769A8500A3F02F /* ProjectManagerUnitTests */ = {
@@ -636,20 +656,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC5F3CDE29783CFD007D5F80 /* TaskCreateViewModelTests.swift in Sources */,
+				D34F77E72979351B005DCE66 /* FetchTasksUseCaseMock.swift in Sources */,
 				D379544329769B0700A3F02F /* TaskEntityDummy.swift in Sources */,
 				D379545029769E9800A3F02F /* TranslaterTests.swift in Sources */,
 				D36F87052977B1A70006C392 /* FetchTasksUseCaseTests.swift in Sources */,
 				AC5F3CA32976C46A007D5F80 /* DeleteTaskUseCaseTests.swift in Sources */,
+				D34F77EB29793537005DCE66 /* UpdateTaskUseCaseMock.swift in Sources */,
 				D379544A29769B2800A3F02F /* DidEndEditingTaskDelegate.swift in Sources */,
 				AC5F3CBD2977CE04007D5F80 /* TaskListViewModel.swift in Sources */,
 				D37836FE2976D1CC00844849 /* UpdateTaskUseCaseTests.swift in Sources */,
 				D379544429769B0900A3F02F /* MockTaskRepository.swift in Sources */,
 				AC5F3CE429783D4E007D5F80 /* StateUpdateViewModelTests.swift in Sources */,
 				D379544B29769B2B00A3F02F /* Translater.swift in Sources */,
+				D34F77ED29793544005DCE66 /* DeleteTaskUseCaseMock.swift in Sources */,
 				AC5F3CE229783D38007D5F80 /* TaskDetailViewModelTests.swift in Sources */,
 				D379544729769B1E00A3F02F /* TaskRepository.swift in Sources */,
 				D379544829769B2200A3F02F /* CreateTaskUseCase.swift in Sources */,
 				AC5F3CB42977CDE7007D5F80 /* StateUpdateViewModel.swift in Sources */,
+				D34F77E92979352C005DCE66 /* CreateTaskUseCaseMock.swift in Sources */,
 				AC5F3CE029783D13007D5F80 /* TaskEditViewModelTests.swift in Sources */,
 				AC5F3CA12976C24D007D5F80 /* DeleteTaskUseCase.swift in Sources */,
 				D37836FC2976C99300844849 /* UpdateTaskUseCase.swift in Sources */,
