@@ -8,13 +8,7 @@
 import UIKit
 
 final class ModalViewContoller: UIViewController {
-    enum WriteMode {
-        case create
-        case edit
-    }
-    
     private let data: TodoModel?
-    private let writeMode: WriteMode
     private let coreDataManager = CoreDataManager()
     
     private let textField: UITextField = {
@@ -57,8 +51,7 @@ final class ModalViewContoller: UIViewController {
         return textView
     }()
     
-    init(mode: WriteMode, model: TodoModel? = nil) {
-        self.writeMode = mode
+    init(model: TodoModel? = nil) {
         self.data = model
         super.init(nibName: nil, bundle: nil)
     }
@@ -77,6 +70,13 @@ final class ModalViewContoller: UIViewController {
         setData()
     }
     
+    private func isChange(input: Bool) {
+        textView.isSelectable = input
+        textField.isEnabled = input
+        datePicker.isEnabled = input
+        navigationItem.rightBarButtonItem?.isEnabled = input
+    }
+    
     private func setData() {
         guard let data = data,
               let todoDate = data.todoDate else { return }
@@ -89,8 +89,7 @@ final class ModalViewContoller: UIViewController {
     private func setNavigation() {
         navigationItem.title = "TODO"
         
-        switch writeMode {
-        case .create:
+        if data == nil {
             let leftBarButton = UIBarButtonItem(
                 barButtonSystemItem: .cancel,
                 target: self,
@@ -104,29 +103,36 @@ final class ModalViewContoller: UIViewController {
                 action: #selector(tapRightButton)
             )
             navigationItem.rightBarButtonItem = rightBarButton
-        case .edit:
-            let leftBarButton = UIBarButtonItem(
-                barButtonSystemItem: .edit,
-                target: self,
-                action: #selector(tapEditButton)
-            )
-            navigationItem.leftBarButtonItem = leftBarButton
-            let rightBarButton = UIBarButtonItem(
-                barButtonSystemItem: .done,
-                target: self,
-                action: #selector(tapUpdateRightButton)
-            )
-            navigationItem.rightBarButtonItem = rightBarButton
+            
+            return
         }
+        
+        let leftBarButton = UIBarButtonItem(
+            title: "Edit",
+            style: .plain,
+            target: self,
+            action: #selector(tapEditButton)
+        )
+        navigationItem.leftBarButtonItem = leftBarButton
+        let rightBarButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(tapUpdateRightButton)
+        )
+        navigationItem.rightBarButtonItem = rightBarButton
+        isChange(input: false)
     }
     
-    // TODO: -Left Right Button 입력 함수 구현
     @objc private func tapCancelButton() {
         dismiss(animated: true)
     }
     
     @objc private func tapEditButton() {
-        dismiss(animated: true)
+        if navigationItem.leftBarButtonItem?.title == "Cancel" {
+            dismiss(animated: true)
+        }
+        isChange(input: true)
+        navigationItem.leftBarButtonItem?.title = "Cancel"
     }
     
     @objc private func tapRightButton() {

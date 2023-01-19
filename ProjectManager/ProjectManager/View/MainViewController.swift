@@ -101,7 +101,7 @@ final class MainViewController: UIViewController {
     }
     
     @objc func tapAddButton() {
-        let modalController = UINavigationController(rootViewController: ModalViewContoller(mode: .create))
+        let modalController = UINavigationController(rootViewController: ModalViewContoller())
         modalController.modalPresentationStyle = .formSheet
         
         self.present(modalController, animated: true, completion: nil)
@@ -192,10 +192,7 @@ extension MainViewController: UITableViewDelegate {
             data = nil
         }
         
-        let modalController = UINavigationController(rootViewController: ModalViewContoller(
-            mode: .edit,
-            model: data
-        ))
+        let modalController = UINavigationController(rootViewController: ModalViewContoller(model: data))
         modalController.modalPresentationStyle = .formSheet
         self.present(modalController, animated: true, completion: nil)
         
