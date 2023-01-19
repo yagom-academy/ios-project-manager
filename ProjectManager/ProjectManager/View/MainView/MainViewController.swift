@@ -8,11 +8,11 @@ import UIKit
 final class MainViewController: UIViewController {
     
     private let mainViewModel = MainViewModel()
-    private let lists: [ListView] = [ListView(), ListView(), ListView()]
+    private let listViews: [ListView] = [ListView(), ListView(), ListView()]
     private var dataSources: [DataSource?] = [nil, nil, nil]
-    private let listStack = UIStackView(distribution: .fillEqually,
-                                        spacing: Default.stackSpacing,
-                                        backgroundColor: .systemGray4)
+    private let listStackView = UIStackView(distribution: .fillEqually,
+                                            spacing: Default.stackSpacing,
+                                            backgroundColor: .systemGray4)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,18 +31,20 @@ final class MainViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        Process.allCases.forEach { process in
-            dataSources[process.index] = generateDataSource(process: process)
+        ProjectState.allCases.forEach { state in
+            dataSources[state.index] = generateDataSource(in: state)
         }
     }
     
-    private func generateDataSource(process: Process) -> DataSource {
-        return DataSource(tableView: lists[process.index].projectList) { tableView, _, item in
+    private func generateDataSource(in state: ProjectState) -> DataSource {
+        let tableViewOfState = listViews[state.index].projectTableView
+        
+        return DataSource(tableView: tableViewOfState) { tableView, _, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier)
             as? ListCell
             
             cell?.delegate = self
-            cell?.cellViewModel = ListCellViewModel(project: item, process: process)
+            cell?.cellViewModel = ListCellViewModel(project: item, state: state)
             cell?.cellViewModel?.setupCell()
             
             return cell
@@ -50,23 +52,27 @@ final class MainViewController: UIViewController {
     }
     
     private func takeInitialSnapShot() {
-        Process.allCases.forEach { process in
-            dataSources[process.index]?.applyInitialSnapShot(mainViewModel.readData(in: process))
+        ProjectState.allCases.forEach { state in
+            let projects = mainViewModel.fetchProjects(in: state)
+            dataSources[state.index]?.applyInitialSnapShot(projects)
+                
         }
     }
     
     private func bidingViewModel() {
-        mainViewModel.updateDatas = { [weak self] datas, datasCount in
-            self?.dataSources.enumerated().forEach { index, dataSource in
-                dataSource?.reload(datas[index]) }
-            self?.lists.enumerated().forEach { index, list in
-                (list as ListView).setupCountText(datasCount[index]) }
+        mainViewModel.update = { [weak self] projectsGroup, numberOfProject in
+            self?.dataSources.enumerated().forEach { state, dataSource in
+                dataSource?.reload(projectsGroup[state])
+            }
+            self?.listViews.enumerated().forEach { state, listView in
+                (listView as ListView).setupCountText(numberOfProject[state])
+            }
         }
     }
     
     private func setUpListTitles() {
-        Process.allCases.forEach { process in
-            lists[process.index].setupListTitle(mainViewModel.readTitle(of: process))
+        ProjectState.allCases.forEach { state in
+            listViews[state.index].setupListTitle(mainViewModel.readTitle(of: state))
         }
     }
 }
@@ -102,16 +108,18 @@ extension MainViewController {
 extension MainViewController {
     
     private func configureHierarchy() {
-        lists.forEach { listStack.addArrangedSubview($0) }
-        view.addSubview(listStack)
+        listViews.forEach { listStackView.addArrangedSubview($0) }
+        view.addSubview(listStackView)
     }
     
     private func configureLayout() {
+        let safeAreaGuide = view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
-            listStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            listStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            listStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            listStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            listStackView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
+            listStackView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
+            listStackView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
+            listStackView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
         ])
     }
 }
@@ -120,7 +128,7 @@ extension MainViewController {
 extension MainViewController: UITableViewDelegate {
     
     private func setupListsDelegator() {
-        lists.forEach {
+        listViews.forEach {
             $0.setupProjectList(delegator: self, color: .secondarySystemBackground)
         }
     }
@@ -134,12 +142,12 @@ extension MainViewController: UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) as? ListCell,
               let cellViewModel = cell.cellViewModel else { return }
         
-        let process = cellViewModel.currentProcess
-        let projectToEdit = mainViewModel.readData(in: process)[indexPath.item]
+        let state = cellViewModel.currentState
+        let projectToEdit = mainViewModel.fetchProjects(in: state)[indexPath.item]
         let editingViewModel = EditingViewModel(editTargetModel: self.mainViewModel,
                                                 project: projectToEdit,
                                                 isNewProject: false,
-                                                process: cellViewModel.currentProcess)
+                                                process: cellViewModel.currentState)
         
         let editViewController = EditingViewController(viewModel: editingViewModel)
         editViewController.modalPresentationStyle = .formSheet
@@ -153,10 +161,11 @@ extension MainViewController: UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) as? ListCell,
               let cellViewModel = cell.cellViewModel else { return nil }
         
-        let process = cellViewModel.currentProcess
-        let project = mainViewModel.readData(in: process)[indexPath.item]
-        let delete = UIContextualAction(style: .destructive, title: Title.deleteAction) { _, _, _ in
-            self.mainViewModel.deleteData(project, in: process)
+        let state = cellViewModel.currentState
+        let project = mainViewModel.fetchProjects(in: state)[indexPath.item]
+        let delete = UIContextualAction(style: .destructive,
+                                        title: Title.deleteAction) { _, _, _ in
+            self.mainViewModel.delete(project, in: state)
         }
         
         return UISwipeActionsConfiguration(actions: [delete])
@@ -165,8 +174,7 @@ extension MainViewController: UITableViewDelegate {
 
 // MARK: - Handling LongPressGesture of Cell
 extension MainViewController: ListCellDelegate {
-    func showPopoverMenu(_ sender: UILongPressGestureRecognizer,
-                         using model: ListCellViewModel) {
+    func showPopoverMenu(_ sender: UILongPressGestureRecognizer, using model: ListCellViewModel) {
         guard  let project = model.currentProject,
                sender.state == .began else { return }
         
@@ -174,25 +182,27 @@ extension MainViewController: ListCellDelegate {
         menuAlert.makePopoverStyle()
         menuAlert.popoverPresentationController?.sourceView = sender.view
         
-        let actions = generateMovingActions(about: project, in: model.currentProcess)
+        let actions = generateMovingActions(about: project, in: model.currentState)
         actions.forEach { menuAlert.addAction($0) }
         
         self.present(menuAlert, animated: true)
     }
     
     private func generateMovingActions(about project: Project,
-                                       in process: Process) -> [UIAlertAction] {
-        return process.movingOption.map { optionTitle, otherOptionProcess in
+                                       in state: ProjectState) -> [UIAlertAction] {
+        let alertActions =  state.movingOption.map { optionTitle, movedState in
             UIAlertAction(title: optionTitle, style: .default) { _ in
-                self.moveProject(project, from: process, to: otherOptionProcess)
+                self.moveProject(project, from: state, to: movedState)
             }
         }
+        
+        return alertActions
     }
     
     private func moveProject(_ project: Project,
-                             from currentProcess: Process,
-                             to process: Process) {
-        mainViewModel.moveData(project, from: currentProcess, to: process)
+                             from currentState: ProjectState,
+                             to movedState: ProjectState) {
+        mainViewModel.move(project, from: currentState, to: movedState)
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Process: Int, CaseIterable {
+enum ProjectState: Int, CaseIterable {
     case todo = 0, doing, done
     
     var title: String {
@@ -25,7 +25,7 @@ enum Process: Int, CaseIterable {
         return rawValue
     }
     
-    var movingOption: [(optionTitle: String, moveTo: Process)] {
+    var movingOption: [(optionTitle: String, moveTo: ProjectState)] {
         switch self {
         case .todo:
             return  [(optionTitle: Title.moveToDoing, moveTo: .doing),
@@ -40,7 +40,7 @@ enum Process: Int, CaseIterable {
     }
 }
 
-extension Process {
+extension ProjectState {
     
     private enum Title {
         

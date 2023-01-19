@@ -34,7 +34,7 @@ class EditingViewModelTests: XCTestCase {
         // given: 추가되어있던 데이터의 수정모드라서 처음에 realOnly모드일 때
         let project = SampleData.project2
         let mainViewModel = MainViewModel()
-        mainViewModel.registerProject(project, in: .doing)
+        mainViewModel.add(project, in: .doing)
         
         sut = EditingViewModel(editTargetModel: mainViewModel,
                                project: project,
@@ -51,10 +51,10 @@ class EditingViewModelTests: XCTestCase {
     func test_registerProject () {
         // given, when: 프로젝트를 등록하면
         guard let project = project else { return }
-        sut?.registerProject(project)
+        sut?.register(project)
         
         // then: mainViewModel의 todo배열에 추가된다.
-        let addedData = mainViewModel?.readData(in: .todo).first
+        let addedData = mainViewModel?.readProject(in: .todo).first
         XCTAssertEqual(project.title, addedData?.title)
         XCTAssertEqual(project.description, addedData?.description)
         XCTAssertEqual(project.date, addedData?.date)
@@ -64,7 +64,7 @@ class EditingViewModelTests: XCTestCase {
         // given: doing 배열에 추가되어있던 프로젝트데이터가 있을 때
         var project = SampleData.project2
         let mainViewModel = MainViewModel()
-        mainViewModel.registerProject(project, in: .doing)
+        mainViewModel.add(project, in: .doing)
         
         sut = EditingViewModel(editTargetModel: mainViewModel,
                                project: project,
@@ -74,10 +74,10 @@ class EditingViewModelTests: XCTestCase {
         // when: project를 수정한 후
         project.title = "수정된 타이틀"
         project.description = "수정된 Description"
-        sut?.editProject(project)
+        sut?.edit(project)
         
         // then: 등록되어있던 doing배열의 project데이터가 수정된다.
-        let editedData = mainViewModel.readData(in: .doing).first
+        let editedData = mainViewModel.readProject(in: .doing).first
         XCTAssertEqual("수정된 타이틀", editedData?.title)
         XCTAssertEqual("수정된 Description", editedData?.description)
     }
@@ -92,7 +92,7 @@ class EditingViewModelTests: XCTestCase {
                          dateInput: newProject.date)
         
         // then: mainViewModel의 TODO에 추가된다.
-        let addedData = mainViewModel?.readData(in: .todo).first
+        let addedData = mainViewModel?.readProject(in: .todo).first
         XCTAssertEqual(newProject.title, addedData?.title)
         XCTAssertEqual(newProject.description, addedData?.description)
         XCTAssertEqual(newProject.date, addedData?.date)
@@ -102,7 +102,7 @@ class EditingViewModelTests: XCTestCase {
         // given: doon 배열에 추가되어있던 프로젝트데이터가 있을 때
         var project = SampleData.project2
         let mainViewModel = MainViewModel()
-        mainViewModel.registerProject(project, in: .done)
+        mainViewModel.add(project, in: .done)
         
         sut = EditingViewModel(editTargetModel: mainViewModel,
                                project: project,
@@ -117,7 +117,7 @@ class EditingViewModelTests: XCTestCase {
                          dateInput: project.date)
         
         // then: mainViewModel의 TODO에 추가된다.
-        let editedData = mainViewModel.readData(in: .done).first
+        let editedData = mainViewModel.readProject(in: .done).first
         XCTAssertEqual("수정된 테스트 Ttile", editedData?.title)
         XCTAssertEqual("수정된 테스트 Description", editedData?.description)
     }

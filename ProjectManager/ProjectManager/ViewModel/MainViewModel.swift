@@ -9,18 +9,18 @@ import Foundation
 
 final class MainViewModel {
     
-    private let processTitles: [String] = Process.allCases.map { process in
-        return process.title
+    private let stateTitles: [String] = ProjectState.allCases.map { state in
+        return state.title
     }
     
-    private var datas: [[Project]] = [[], [], []] {
+    private var projectsGroup: [[Project]] = [[], [], []] {
         didSet {
-            updateDatas(datas, datasCount(datas))
+            update(projectsGroup, numberOfProjectByState(projectsGroup))
         }
     }
     
-    private var datasCount = { (datas: [[Project]]) -> [String] in
-        datas.map { String($0.count) }
+    private var numberOfProjectByState = { (projectGroups: [[Project]]) -> [String] in
+        projectGroups.map { String($0.count) }
     }
     
     var newProject: Project {
@@ -30,37 +30,37 @@ final class MainViewModel {
                        uuid: UUID())
     }
     
-    var updateDatas: ([[Project]], [String]) -> Void = { _, _ in }
+    var update: ([[Project]], [String]) -> Void = { _, _ in }
     
-    func readTitle(of process: Process) -> String {
-        return processTitles[process.index]
+    func readTitle(of state: ProjectState) -> String {
+        return stateTitles[state.index]
     }
     
-    func readData(in process: Process) -> [Project] {
-        return datas[process.index]
+    func fetchProjects(in state: ProjectState) -> [Project] {
+        return projectsGroup[state.index]
     }
     
-    func registerProject(_ project: Project, in process: Process) {
-        datas[process.index].append(project)
+    func add(_ project: Project, in state: ProjectState) {
+        projectsGroup[state.index].append(project)
     }
     
-    func editProject(_ project: Project, in process: Process) {
-        datas[process.index].enumerated().forEach { index, data in
-            guard data.uuid == project.uuid else { return }
-            datas[process.index][index] = project
+    func edit(_ project: Project, in state: ProjectState) {
+        projectsGroup[state.index].enumerated().forEach { index, addedProject in
+            guard addedProject.uuid == project.uuid else { return }
+            projectsGroup[state.index][index] = project
         }
     }
     
-    func deleteData(_ project: Project, in process: Process) {
-        datas[process.index].enumerated().forEach { index, data in
+    func delete(_ project: Project, in state: ProjectState) {
+        projectsGroup[state.index].enumerated().forEach { index, data in
             guard data.uuid == project.uuid else { return }
-            datas[process.index].remove(at: index)
+            projectsGroup[state.index].remove(at: index)
         }
     }
     
-    func moveData(_ project: Project, from currentProcess: Process, to process: Process) {
-        deleteData(project, in: currentProcess)
-        registerProject(project, in: process)
+    func move(_ project: Project, from currentState: ProjectState, to state: ProjectState) {
+        delete(project, in: currentState)
+        add(project, in: state)
     }
 }
 

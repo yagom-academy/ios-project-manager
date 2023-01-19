@@ -12,11 +12,11 @@ final class ListView: UIView {
     private let headView = UIView(backgroundColor: .systemGroupedBackground)
     private let titleLabel = UILabel(font: .title1, textAlignment: .center)
     private let countLabel = CircleLabel(text: Default.count)
-    private let separatorLine = UIView(backgroundColor: .systemGray3)
-    private let headStack = UIStackView(axis: .vertical, alignment: .leading)
-    private let headAndListStack = UIStackView(axis: .vertical,
-                                               spacing: Default.stackSpacing,
-                                               backgroundColor: .systemGroupedBackground)
+    private let separatorLineView = UIView(backgroundColor: .systemGray3)
+    private let headStackView = UIStackView(axis: .vertical, alignment: .leading)
+    private let headAndListStackView = UIStackView(axis: .vertical,
+                                                   spacing: Default.stackSpacing,
+                                                   backgroundColor: .systemGroupedBackground)
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -27,7 +27,7 @@ final class ListView: UIView {
         return tableView
     }()
     
-    var projectList: UITableView {
+    var projectTableView: UITableView {
         return tableView
     }
     
@@ -60,9 +60,9 @@ extension ListView {
     
     private func configureHierarchy() {
         [titleLabel, countLabel].forEach { headView.addSubview($0) }
-        [headView, separatorLine].forEach { headStack.addArrangedSubview($0) }
-        [headStack, tableView].forEach { headAndListStack.addArrangedSubview($0) }
-        addSubview(headAndListStack)
+        [headView, separatorLineView].forEach { headStackView.addArrangedSubview($0) }
+        [headStackView, tableView].forEach { headAndListStackView.addArrangedSubview($0) }
+        addSubview(headAndListStackView)
     }
     
     private func configureLayout() {
@@ -78,16 +78,16 @@ extension ListView {
             countLabel.centerYAnchor.constraint(equalTo: headView.centerYAnchor),
             countLabel.widthAnchor.constraint(greaterThanOrEqualTo: countLabel.heightAnchor),
             
-            headStack.heightAnchor.constraint(equalTo: heightAnchor,
-                                              multiplier: Default.headStackHeightRatio),
+            headStackView.heightAnchor.constraint(equalTo: heightAnchor,
+                                                  multiplier: Default.headStackHeightRatio),
             
-            separatorLine.heightAnchor.constraint(equalToConstant: Default.separatorLineHeight),
-            separatorLine.widthAnchor.constraint(equalTo: headStack.widthAnchor),
+            separatorLineView.heightAnchor.constraint(equalToConstant: Default.separatorLineHeight),
+            separatorLineView.widthAnchor.constraint(equalTo: headStackView.widthAnchor),
             
-            headAndListStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            headAndListStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            headAndListStack.topAnchor.constraint(equalTo: topAnchor),
-            headAndListStack.bottomAnchor.constraint(equalTo: bottomAnchor)
+            headAndListStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            headAndListStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            headAndListStackView.topAnchor.constraint(equalTo: topAnchor),
+            headAndListStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

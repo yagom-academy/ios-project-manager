@@ -10,7 +10,7 @@ import Foundation
 final class ListCellViewModel {
     
     private var project: Project?
-    private var process: Process
+    private var state: ProjectState
     
     private var title: String = Default.title {
         didSet {
@@ -26,20 +26,20 @@ final class ListCellViewModel {
     
     private var date: String = Default.date {
         didSet {
-            updateDateDate(date, isMissDeadLine, process)
+            updateDateDate(date, isMissDeadLine, state)
         }
     }
     
     var updateTitleDate: (String) -> Void = { _ in }
     var updateDescriptionDate: (String) -> Void = { _ in }
-    var updateDateDate: (String, Bool, Process) -> Void = { _, _, _ in }
+    var updateDateDate: (String, Bool, ProjectState) -> Void = { _, _, _ in }
     
     var currentProject: Project? {
         return project
     }
     
-    var currentProcess: Process {
-        return process
+    var currentState: ProjectState {
+        return state
     }
     
     var isMissDeadLine: Bool {
@@ -49,9 +49,9 @@ final class ListCellViewModel {
         return deadLine < today
     }
     
-    init(project: Project? = nil, process: Process = .todo) {
+    init(project: Project? = nil, state: ProjectState = .todo) {
         self.project = project
-        self.process = process
+        self.state = state
     }
     
     func setupCell() {

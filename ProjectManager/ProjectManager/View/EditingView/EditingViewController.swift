@@ -39,7 +39,7 @@ final class EditingViewController: UIViewController {
         return textView
     }()
     
-    private let stack = UIStackView(axis: .vertical)
+    private let stackView = UIStackView(axis: .vertical)
     
     init(viewModel: EditingViewModel) {
         self.editViewModel = viewModel
@@ -146,29 +146,34 @@ extension EditingViewController {
 // MARK: - Layout
 extension EditingViewController {
     private func configureHierarchy() {
-        [titleField, dataPicker, descriptionTextView].forEach { stack.addArrangedSubview($0) }
+        [titleField, dataPicker, descriptionTextView].forEach { stackView.addArrangedSubview($0) }
         
-        view.addSubview(stack)
+        view.addSubview(stackView)
     }
     
     private func configureLayout() {
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            titleField.heightAnchor.constraint(greaterThanOrEqualTo: stack.heightAnchor,
+            titleField.heightAnchor.constraint(greaterThanOrEqualTo: stackView.heightAnchor,
                                                multiplier: Default.titleHeightRatio),
-            descriptionTextView.heightAnchor.constraint(greaterThanOrEqualTo: stack.heightAnchor,
-                                               multiplier: Default.descriptionHeightRatio),
-            dataPicker.heightAnchor.constraint(lessThanOrEqualTo: stack.heightAnchor,
+            
+            descriptionTextView.heightAnchor.constraint(greaterThanOrEqualTo:
+                                                            stackView.heightAnchor,
+                                                        multiplier:
+                                                            Default.descriptionHeightRatio),
+            
+            dataPicker.heightAnchor.constraint(lessThanOrEqualTo: stackView.heightAnchor,
                                                multiplier: Default.dataPickerHeightRatio),
-            stack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,
-                                           constant: Default.margin),
-            stack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,
-                                            constant: -Default.margin),
-            stack.topAnchor.constraint(equalTo: safeArea.topAnchor,
-                                       constant: Default.stackTopMargin),
-            stack.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,
-                                          constant: -Default.margin)
+            
+            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,
+                                               constant: Default.margin),
+            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,
+                                                constant: -Default.margin),
+            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor,
+                                           constant: Default.stackTopMargin),
+            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,
+                                              constant: -Default.margin)
         ])
     }
 }

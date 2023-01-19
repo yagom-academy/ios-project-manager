@@ -30,11 +30,11 @@ final class ListCell: UITableViewCell {
     private var dateLabel = UILabel(font: .body, numberOfLines: 0)
     private var totalView = UIView(backgroundColor: .tertiarySystemBackground,
                                    cornerRadius: Default.radius)
-    private var stack = UIStackView(axis: .vertical,
-                                    distribution: .fillProportionally,
-                                    alignment: .leading,
-                                    spacing: Default.stackSpacing,
-                                    backgroundColor: .tertiarySystemBackground)
+    private var stackView = UIStackView(axis: .vertical,
+                                        distribution: .fillProportionally,
+                                        alignment: .leading,
+                                        spacing: Default.stackSpacing,
+                                        backgroundColor: .tertiarySystemBackground)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -53,10 +53,10 @@ final class ListCell: UITableViewCell {
             self?.descriptionLabel.text = data
         }
         
-        cellViewModel?.updateDateDate = { [weak self] data, isMissDeadLine, process in
+        cellViewModel?.updateDateDate = { [weak self] data, isMissDeadLine, state in
             self?.dateLabel.text = data
             
-            guard isMissDeadLine && process != .done else { return }
+            guard isMissDeadLine && state != .done else { return }
             self?.dateLabel.textColor = .red
         }
     }
@@ -83,9 +83,9 @@ final class ListCell: UITableViewCell {
 extension ListCell {
     
     private func configureHierarchy() {
-        [titleLabel, descriptionLabel, dateLabel].forEach { stack.addArrangedSubview($0) }
+        [titleLabel, descriptionLabel, dateLabel].forEach { stackView.addArrangedSubview($0) }
         
-        totalView.addSubview(stack)
+        totalView.addSubview(stackView)
         contentView.addSubview(totalView)
     }
     
@@ -93,14 +93,14 @@ extension ListCell {
         descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         
         NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: totalView.leadingAnchor,
+            stackView.leadingAnchor.constraint(equalTo: totalView.leadingAnchor,
+                                               constant: Default.margin),
+            stackView.trailingAnchor.constraint(equalTo: totalView.trailingAnchor,
+                                                constant: -Default.margin),
+            stackView.topAnchor.constraint(equalTo: totalView.topAnchor,
                                            constant: Default.margin),
-            stack.trailingAnchor.constraint(equalTo: totalView.trailingAnchor,
-                                            constant: -Default.margin),
-            stack.topAnchor.constraint(equalTo: totalView.topAnchor,
-                                       constant: Default.margin),
-            stack.bottomAnchor.constraint(equalTo: totalView.bottomAnchor,
-                                          constant: -Default.margin),
+            stackView.bottomAnchor.constraint(equalTo: totalView.bottomAnchor,
+                                              constant: -Default.margin),
             
             totalView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                                constant: Default.margin),

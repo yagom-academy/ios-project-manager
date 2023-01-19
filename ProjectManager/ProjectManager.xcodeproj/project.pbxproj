@@ -16,7 +16,7 @@
 		41656B8B296D5EC6006BC519 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8A296D5EC6006BC519 /* FirebaseFirestore */; };
 		41656B8D296D5EC6006BC519 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8C296D5EC6006BC519 /* FirebaseFirestoreSwift */; };
 		417C502129711D7D00CEC6DA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502029711D7D00CEC6DA /* MainViewModel.swift */; };
-		417C502329711E3600CEC6DA /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502229711E3600CEC6DA /* Process.swift */; };
+		417C502329711E3600CEC6DA /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502229711E3600CEC6DA /* ProjectState.swift */; };
 		417C50252971256000CEC6DA /* ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C50242971256000CEC6DA /* ListCellViewModel.swift */; };
 		417C502D29716C1700CEC6DA /* EditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502C29716C1700CEC6DA /* EditingViewController.swift */; };
 		417C502F2971868B00CEC6DA /* UITextField +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502E2971868B00CEC6DA /* UITextField +.swift */; };
@@ -57,7 +57,7 @@
 		412B8E3329729EB500C29DA4 /* Date +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date +.swift"; sourceTree = "<group>"; };
 		41656B87296D57F9006BC519 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		417C502029711D7D00CEC6DA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		417C502229711E3600CEC6DA /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
+		417C502229711E3600CEC6DA /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
 		417C50242971256000CEC6DA /* ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellViewModel.swift; sourceTree = "<group>"; };
 		417C502C29716C1700CEC6DA /* EditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingViewController.swift; sourceTree = "<group>"; };
 		417C502E2971868B00CEC6DA /* UITextField +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField +.swift"; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				41E26BEB2970E0F8005E1C94 /* Project.swift */,
-				417C502229711E3600CEC6DA /* Process.swift */,
+				417C502229711E3600CEC6DA /* ProjectState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -421,7 +421,7 @@
 				412B8E2D2972753C00C29DA4 /* DataSource.swift in Sources */,
 				417C502D29716C1700CEC6DA /* EditingViewController.swift in Sources */,
 				417C50252971256000CEC6DA /* ListCellViewModel.swift in Sources */,
-				417C502329711E3600CEC6DA /* Process.swift in Sources */,
+				417C502329711E3600CEC6DA /* ProjectState.swift in Sources */,
 				41E26BF72970E54A005E1C94 /* UIStackView +.swift in Sources */,
 				417C502129711D7D00CEC6DA /* MainViewModel.swift in Sources */,
 			);

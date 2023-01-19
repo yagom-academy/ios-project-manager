@@ -12,7 +12,7 @@ final class EditingViewModel {
     private var project: Project
     private let editTargetModel: MainViewModel
     private let isNewProject: Bool
-    private let process: Process
+    private let state: ProjectState
     
     private var mode: EditingMode = .editable {
         didSet {
@@ -39,7 +39,7 @@ final class EditingViewModel {
     }
     
     var barTitle: String {
-        return process.title
+        return state.title
     }
     
     var leftBarOptionTitle: String {
@@ -62,10 +62,10 @@ final class EditingViewModel {
     init(editTargetModel: MainViewModel,
          project: Project,
          isNewProject: Bool = true,
-         process: Process = .todo) {
+         state: ProjectState = .todo) {
         self.project = project
         self.editTargetModel = editTargetModel
-        self.process = process
+        self.state = state
         self.isNewProject = isNewProject
     }
     
@@ -83,19 +83,19 @@ final class EditingViewModel {
         project.description = descriptionInput
         project.date = dateInput
         
-        isNewProject ? registerProject(project) : editProject(project)
+        isNewProject ? register(project) : edit(project)
     }
     
     func changeModeToEditable() {
         self.mode = .editable
     }
     
-    func registerProject(_ project: Project) {
-        editTargetModel.registerProject(project, in: .todo)
+    func register(_ project: Project) {
+        editTargetModel.add(project, in: .todo)
     }
     
-    func editProject(_ project: Project) {
-        editTargetModel.editProject(project, in: process)
+    func edit(_ project: Project) {
+        editTargetModel.edit(project, in: state)
     }
 }
 
