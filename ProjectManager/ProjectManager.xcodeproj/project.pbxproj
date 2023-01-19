@@ -13,6 +13,7 @@
 		26545EBE29769A8B00B02353 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26545EBD29769A8B00B02353 /* Date+.swift */; };
 		26563B9F29794653003EA92B /* MockDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26563B9E29794653003EA92B /* MockDataManager.swift */; };
 		26563BA4297960CA003EA92B /* NameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26563BA3297960CA003EA92B /* NameSpace.swift */; };
+		26563BA629798124003EA92B /* LimitableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26563BA529798124003EA92B /* LimitableTextView.swift */; };
 		26720F8629717A8700A26042 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F8529717A8700A26042 /* ListHeaderView.swift */; };
 		26720F882971C5CF00A26042 /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F872971C5CF00A26042 /* ListTableView.swift */; };
 		26720F8A2971CDB300A26042 /* TodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F892971CDB300A26042 /* TodoItemView.swift */; };
@@ -34,6 +35,7 @@
 		26545EBD29769A8B00B02353 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		26563B9E29794653003EA92B /* MockDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataManager.swift; sourceTree = "<group>"; };
 		26563BA3297960CA003EA92B /* NameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSpace.swift; sourceTree = "<group>"; };
+		26563BA529798124003EA92B /* LimitableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitableTextView.swift; sourceTree = "<group>"; };
 		26720F8529717A8700A26042 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
 		26720F872971C5CF00A26042 /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListTableView.swift; path = ProjectManager/View/TableView/ListTableView.swift; sourceTree = SOURCE_ROOT; };
 		26720F892971CDB300A26042 /* TodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemView.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		26545EB82976955800B02353 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				26563BA529798124003EA92B /* LimitableTextView.swift */,
 				26563BA3297960CA003EA92B /* NameSpace.swift */,
 				26545EBB29769A2B00B02353 /* Double+.swift */,
 				26545EBD29769A8B00B02353 /* Date+.swift */,
@@ -247,6 +250,7 @@
 				26720F8A2971CDB300A26042 /* TodoItemView.swift in Sources */,
 				26720F8629717A8700A26042 /* ListHeaderView.swift in Sources */,
 				268E3B4E296EFAA3003BF2AD /* TodoModel.swift in Sources */,
+				26563BA629798124003EA92B /* LimitableTextView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				268E3B50296EFD6C003BF2AD /* ListTableViewCell.swift in Sources */,
 				2642F1792975AAC8008E2145 /* EditTodoViewController.swift in Sources */,

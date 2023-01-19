@@ -25,6 +25,7 @@ class EditTodoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
+        todoView.bodyTextView.delegate = self
     }
     
     private func configureNavigationBar() {
@@ -59,5 +60,17 @@ class EditTodoViewController: UIViewController {
         todoView.updateContent(title: itemBeEdited.title,
                                body: itemBeEdited.body,
                                date: itemBeEdited.date.convertDoubleToDate())
+    }
+}
+
+extension EditTodoViewController: LimitableTextView {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let currentText = textView.text,
+              let range = Range(range, in: currentText) else {
+            return false
+        }
+       
+        let changedText = currentText.replacingCharacters(in: range, with: text)
+        return changedText.count <= TodoItemValue.bodyLimit
     }
 }

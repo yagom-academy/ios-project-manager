@@ -19,10 +19,11 @@ final class AddTodoViewController: UIViewController {
     override func loadView() {
         view = todoView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
+        todoView.bodyTextView.delegate = self
     }
     
     private func configureNavigationBar() {
@@ -49,5 +50,17 @@ final class AddTodoViewController: UIViewController {
         
         delegate?.addNewTodoItem(with: newTodoItem)
         dismiss(animated: true)
+    }
+}
+
+extension AddTodoViewController: LimitableTextView {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let currentText = textView.text,
+              let range = Range(range, in: currentText) else {
+            return false
+        }
+       
+        let changedText = currentText.replacingCharacters(in: range, with: text)
+        return changedText.count <= TodoItemValue.bodyLimit
     }
 }
