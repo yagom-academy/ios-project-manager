@@ -162,21 +162,29 @@ class CustomPopUpView: UIView {
     // MARK: Private Methods
     
     private func checkTextFieldDefaultValue() {
-        if let title = titleTextField.text,
-           let body = bodyTextView.text {
-            if title == NameSpace.defaultTitleLabel,
-               body == NameSpace.defaultBodyLabel {
-                titleTextField.text = String()
-                bodyTextView.text = String()
-            } else if title == NameSpace.defaultTitleLabel
-                        || title == NameSpace.emptyTitleLabel
-                        || title.isEmpty {
-                titleTextField.text = NameSpace.emptyTitleLabel
-            } else if body == NameSpace.defaultBodyLabel
-                        || body == NameSpace.emptyBodyLabel
-                        || body.isEmpty {
-                bodyTextView.text = NameSpace.emptyBodyLabel
+        if var title = titleTextField.text,
+           var body = bodyTextView.text {
+            if title == NameSpace.defaultTitleLabel
+                || title == NameSpace.emptyTitleLabel
+                || title.isEmpty {
+                title = NameSpace.emptyTitleLabel
             }
+            if body == NameSpace.defaultBodyLabel
+                || body == NameSpace.emptyBodyLabel
+                || body.isEmpty {
+                body = NameSpace.emptyBodyLabel
+            }
+            
+            if title == NameSpace.defaultTitleLabel && body == NameSpace.defaultBodyLabel {
+                title = String()
+                body = String()
+            } else if title == NameSpace.emptyTitleLabel && body == NameSpace.emptyBodyLabel {
+                title = String()
+                body = String()
+            }
+            
+            titleTextField.text = title
+            bodyTextView.text = body
         }
     }
     
