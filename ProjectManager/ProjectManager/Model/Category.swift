@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Category {
+enum Category: CustomStringConvertible {
     case todo
     case doing
     case done
