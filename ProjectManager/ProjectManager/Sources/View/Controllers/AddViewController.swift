@@ -7,12 +7,17 @@
 
 import UIKit
 
-protocol AddActionDelegate: AnyObject {
-    func addProject(title: String, deadline: Calendar, description: String)
-}
-
 final class AddViewController: ProjectViewController {
-    weak var delegate: AddActionDelegate?
+    private let viewModel: AddViewModel?
+    
+    init(viewModel: AddViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +39,7 @@ extension AddViewController {
             // 얼럿?
             return
         }
-        delegate?.addProject(title: title, deadline: deadline, description: description)
+        viewModel?.addProject(title: title, deadline: deadline, description: description)
         dismiss(animated: true)
     }
 }

@@ -7,16 +7,14 @@
 
 import Foundation
 
-protocol MainViewModelProtocol: EditProjectDelegate {
+protocol MainViewModelProtocol: ViewModelDelegate {
     var models: [Project] { get set }
     var closure: (([Project]) -> Void)? { get set }
     
-    func createProject(title: String, deadline: Calendar, description: String)
     func deleteProject(with project: Project)
 }
 
 final class MainViewModel: MainViewModelProtocol {
-    
     var models: [Project] = [] {
         didSet {
             closure?(models)
@@ -24,17 +22,6 @@ final class MainViewModel: MainViewModelProtocol {
     }
 
     var closure: (([Project]) -> Void)?
-    
-    func createProject(title: String, deadline: Calendar, description: String) {
-        let project = Project(
-            title: title,
-            deadline: deadline,
-            description: description,
-            state: .todo
-        )
-        
-        models.append(project)
-    }
     
     func deleteProject(with project: Project) {
         models = models.filter { $0.id != project.id }
@@ -46,6 +33,12 @@ final class MainViewModel: MainViewModelProtocol {
 }
 
 extension MainViewModel {
+    func addProject(_ project: Project?) {
+        guard let project = project else { return }
+
+        models.append(project)
+    }
+    
     func updateProject(_ project: Project?) {
         guard let project = project,
               let index = models.firstIndex(where: { $0.id == project.id })

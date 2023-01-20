@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol EditProjectDelegate: AnyObject {
-    func updateProject(_ project: Project?)
-}
-
 final class EditViewModel {
     private var isEditing: Bool? {
         didSet {
@@ -26,7 +22,7 @@ final class EditViewModel {
     
     var editingHandler: (() -> Void)?
     var componentsHandler: ((Project?) -> Void)?
-    weak var delegate: EditProjectDelegate?
+    weak var delegate: ViewModelDelegate?
     
     func changeEditMode(_ state: Bool) {
         isEditing = state

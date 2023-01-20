@@ -48,20 +48,15 @@ final class MainViewController: UIViewController {
 // MARK: Action Method
 extension MainViewController {
     private func tapAddButton(_ sender: UIAction) {
-        let addViewController = AddViewController()
-        addViewController.delegate = self
+        let addViewModel = AddViewModel()
+        let addViewController = AddViewController(viewModel: addViewModel)
+        
+        addViewModel.delegate = viewModel
         addViewController.modalPresentationStyle = .pageSheet
+        
         let navigationController = UINavigationController(rootViewController: addViewController)
         present(navigationController, animated: true)
     }
-}
-
-// MARK: AddAction Delegate
-extension MainViewController: AddActionDelegate {
-    func addProject(title: String, deadline: Calendar, description: String) {
-        viewModel.createProject(title: title, deadline: deadline, description: description)
-    }
-    
 }
 
 // MARK: ProjectListAction Delegate
@@ -86,7 +81,6 @@ extension MainViewController: ProjectListActionDelegate {
         editViewController.modalPresentationStyle = .pageSheet
         
         let navigationController = UINavigationController(rootViewController: editViewController)
-        
         present(navigationController, animated: true)
     }
 }

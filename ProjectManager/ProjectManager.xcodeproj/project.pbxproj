@@ -24,6 +24,8 @@
 		E35F5DA32976C411008D3ADC /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5DA22976C411008D3ADC /* ProjectViewController.swift */; };
 		E35F5DA52977E654008D3ADC /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5DA42977E654008D3ADC /* State.swift */; };
 		E35F5DA729797FC5008D3ADC /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5DA629797FC5008D3ADC /* EditViewModel.swift */; };
+		E35F5DA9297A61C9008D3ADC /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5DA8297A61C9008D3ADC /* AddViewModel.swift */; };
+		E35F5DAB297A65D6008D3ADC /* ViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5DAA297A65D6008D3ADC /* ViewModelDelegate.swift */; };
 		E3DE2151296F970C00C4BB47 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E3DE2150296F970C00C4BB47 /* FirebaseFirestore */; };
 		E3DE2153296F970C00C4BB47 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E3DE2152296F970C00C4BB47 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
@@ -48,6 +50,8 @@
 		E35F5DA22976C411008D3ADC /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		E35F5DA42977E654008D3ADC /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		E35F5DA629797FC5008D3ADC /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		E35F5DA8297A61C9008D3ADC /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
+		E35F5DAA297A65D6008D3ADC /* ViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +88,10 @@
 		0C0950612975738200C1E3F3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E35F5DAA297A65D6008D3ADC /* ViewModelDelegate.swift */,
 				E35F5D982975780E008D3ADC /* MainViewModel.swift */,
 				E35F5DA629797FC5008D3ADC /* EditViewModel.swift */,
+				E35F5DA8297A61C9008D3ADC /* AddViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -261,7 +267,9 @@
 			files = (
 				E35F5DA729797FC5008D3ADC /* EditViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				E35F5DAB297A65D6008D3ADC /* ViewModelDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				E35F5DA9297A61C9008D3ADC /* AddViewModel.swift in Sources */,
 				E35F5D9B297582B6008D3ADC /* Project.swift in Sources */,
 				E35F5DA52977E654008D3ADC /* State.swift in Sources */,
 				E35F5DA32976C411008D3ADC /* ProjectViewController.swift in Sources */,
