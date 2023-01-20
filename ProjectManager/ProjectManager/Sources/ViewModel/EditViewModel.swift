@@ -7,45 +7,40 @@
 
 import Foundation
 
+protocol EditProjectDelegate: AnyObject {
+    func updateProject(_ project: Project?)
+}
+
 final class EditViewModel {
-    struct ViewProject {
-        let title: String?
-        let deadline: Calendar?
-        let description: String?
-        
-        init(title: String? = nil, deadline: Calendar? = nil, description: String? = nil) {
-            self.title = title
-            self.deadline = deadline
-            self.description = description
-        }
-    }
-    
     private var isEditing: Bool? {
         didSet {
             editingHandler?()
         }
     }
     
-    private var viewProject: ViewProject = ViewProject() {
+    private var project: Project? {
         didSet {
-            componentsHandler?(viewProject)
+            componentsHandler?(project)
         }
     }
     
     var editingHandler: (() -> Void)?
-    var componentsHandler: ((ViewProject) -> Void)?
+    var componentsHandler: ((Project?) -> Void)?
+    weak var delegate: EditProjectDelegate?
     
     func changeEditMode(_ state: Bool) {
         isEditing = state
     }
     
     func setupProject(_ project: Project) {
-        let viewProject = ViewProject(
-            title: project.title,
-            deadline: project.deadline,
-            description: project.description
-        )
+        self.project = project
+    }
+    
+    func updateProject(title: String, deadline: Calendar, description: String) {
+        project?.title = title
+        project?.deadline = deadline
+        project?.description = description
         
-        self.viewProject = viewProject
+        delegate?.updateProject(project)
     }
 }

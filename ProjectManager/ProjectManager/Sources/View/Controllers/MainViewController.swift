@@ -82,6 +82,7 @@ extension MainViewController: ProjectListActionDelegate {
         
         editViewModel.setupProject(project)
         editViewModel.changeEditMode(false)
+        editViewModel.delegate = viewModel
         editViewController.modalPresentationStyle = .pageSheet
         
         let navigationController = UINavigationController(rootViewController: editViewController)
