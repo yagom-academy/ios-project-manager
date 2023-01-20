@@ -38,7 +38,7 @@ final class ProjectViewController: UIViewController {
     }
 
     // MARK: Initialization
-    init(with project: Project = Project(),
+    init(with project: Project = Project(status: .todo, title: "", description: "", dueDate: Date()),
          mode: ViewMode = .add,
          completion: ((Project) -> ())? = nil) {
         self.project = project
