@@ -119,7 +119,7 @@ private extension TaskDetailViewController {
     func bind() {
         let input = TaskDetailViewModel.Input(editButtonTappedEvent: editBarButton.rx.tap.asObservable(),
                                               doneButtonTappedEvent: doneBarButton.rx.tap.asObservable())
-        let output = viewModel.transform(with: input)
+        let output = viewModel.transform(from: input)
         
         setContents(with: output.task)
     }
