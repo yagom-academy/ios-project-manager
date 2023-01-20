@@ -1,5 +1,5 @@
 //
-//  Todo.swift
+//  Plan.swift
 //  ProjectManager
 //
 //  Created by Kyo on 2023/01/12.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Todo: Hashable {
+struct Plan: Hashable {
     var title: String
     var content: String?
     var deadLine: Date?

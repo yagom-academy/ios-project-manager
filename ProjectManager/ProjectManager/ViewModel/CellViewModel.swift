@@ -8,22 +8,22 @@
 import Foundation
 
 final class CellViewModel {
-    private var data: Todo {
+    private var data: Plan {
         didSet {
             dataHandler?(data)
         }
     }
     
-    private var dataHandler: ((Todo?) -> Void)?
+    private var dataHandler: ((Plan?) -> Void)?
     
-    init(data: Todo) {
+    init(data: Plan) {
         self.data = data
     }
 }
 
 // MARK: - Method
 extension CellViewModel {
-    func bindDate(handler: @escaping (Todo?) -> Void) {
+    func bindDate(handler: @escaping (Plan?) -> Void) {
         handler(data)
         self.dataHandler = handler
     }

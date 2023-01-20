@@ -7,7 +7,7 @@
 import UIKit
 
 protocol DataSharable: AnyObject {
-    func shareData(data: Todo)
+    func shareData(data: Plan)
 }
 
 protocol GestureRelayable: AnyObject {
@@ -19,8 +19,8 @@ protocol GestureRelayable: AnyObject {
 }
 
 final class MainViewController: UIViewController {
-    typealias DataSource = UITableViewDiffableDataSource<Section, Todo>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Todo>
+    typealias DataSource = UITableViewDiffableDataSource<Section, Plan>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Plan>
     
     enum Section {
         case main
@@ -183,7 +183,7 @@ extension MainViewController {
         return dataSource
     }
     
-    private func applySnapshot(process: Process, data: [Todo], animating: Bool) {
+    private func applySnapshot(process: Process, data: [Plan], animating: Bool) {
         var snapshot = Snapshot()
         
         snapshot.appendSections([.main])
@@ -247,7 +247,7 @@ extension MainViewController: UITableViewDelegate {
 
 // MARK: - DataSharable Delegate Protocol
 extension MainViewController: DataSharable {
-    func shareData(data: Todo) {
+    func shareData(data: Plan) {
         viewModel.updateData(data: data)
     }
 }

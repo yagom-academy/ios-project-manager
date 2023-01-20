@@ -11,47 +11,47 @@ final class MainViewModel {
     private var updateDataProcess: Process?
     private var updateDataIndex: Int?
     
-    private var todoData: [Todo] = [] {
+    private var todoData: [Plan] = [] {
         didSet {
             todoHandler?(todoData)
         }
     }
     
-    private var doingData: [Todo] = [] {
+    private var doingData: [Plan] = [] {
         didSet {
             doingHandler?(doingData)
         }
     }
     
-    private var doneData: [Todo] = [] {
+    private var doneData: [Plan] = [] {
         didSet {
             doneHandler?(doneData)
         }
     }
     
-    private var todoHandler: (([Todo]) -> Void)?
-    private var doingHandler: (([Todo]) -> Void)?
-    private var doneHandler: (([Todo]) -> Void)?
+    private var todoHandler: (([Plan]) -> Void)?
+    private var doingHandler: (([Plan]) -> Void)?
+    private var doneHandler: (([Plan]) -> Void)?
 }
 
 // MARK: - Method
 extension MainViewModel {
-    func bindTodo(handler: @escaping ([Todo]) -> Void) {
+    func bindTodo(handler: @escaping ([Plan]) -> Void) {
         handler(todoData)
         self.todoHandler = handler
     }
     
-    func bindDoing(handler: @escaping ([Todo]) -> Void) {
+    func bindDoing(handler: @escaping ([Plan]) -> Void) {
         handler(doingData)
         self.doingHandler = handler
     }
     
-    func bindDone(handler: @escaping ([Todo]) -> Void) {
+    func bindDone(handler: @escaping ([Plan]) -> Void) {
         handler(doneData)
         self.doneHandler = handler
     }
     
-    func updateData(data: Todo) {
+    func updateData(data: Plan) {
         guard let index = updateDataIndex else {
             todoData.append(data)
             return
@@ -71,7 +71,7 @@ extension MainViewModel {
         resetUpdateInfo()
     }
     
-    func fetchSeletedData() -> Todo? {
+    func fetchSeletedData() -> Plan? {
         guard let process = updateDataProcess else { return nil }
         guard let index = updateDataIndex else { return nil }
         

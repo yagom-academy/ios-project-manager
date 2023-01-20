@@ -48,7 +48,7 @@ final class DetailViewModel {
     private var descriptionHandler: ((String) -> Void)?
     private var editableHandler: ((Bool) -> Void)?
     
-    init(data: Todo?) {
+    init(data: Plan?) {
         guard let data = data else {
             mode = .new
             isEdiatable = true
@@ -99,7 +99,7 @@ extension DetailViewModel {
         isEdiatable.toggle()
     }
     
-    func createData(title: String, content: String?, date: Date?) -> Todo {
-        return Todo(title: title, content: content, deadLine: date)
+    func createData(title: String, content: String?, date: Date?) -> Plan {
+        return Plan(title: title, content: content, deadLine: date)
     }
 }
