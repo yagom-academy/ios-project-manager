@@ -226,20 +226,15 @@ extension ListViewController: UITableViewDelegate {
         
         switch tableView {
         case todoTableView:
-            updateView(headerView, title: ListViewTitle.Header.todo, itemCount: todoModels.count)
+            headerView.updateView(title: ListViewTitle.Header.todo, count: todoModels.count)
         case doingTableView:
-            updateView(headerView, title: ListViewTitle.Header.doing, itemCount: doingModels.count)
+            headerView.updateView(title: ListViewTitle.Header.doing, count: doingModels.count)
         case doneTableView:
-            updateView(headerView, title: ListViewTitle.Header.done, itemCount: doneModels.count)
+            headerView.updateView(title: ListViewTitle.Header.done, count: doneModels.count)
         default:
             break
         }
         return headerView
-    }
-    
-    private func updateView(_ headerView: ListHeaderView, title: String, itemCount: Int) {
-        headerView.setTitle(title)
-        headerView.updateCount(itemCount)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -269,13 +264,12 @@ extension ListViewController: UITableViewDelegate {
     }
     
     private func makeDeleteAction(_ tableView: UITableView, indexPath: IndexPath) -> UIContextualAction{
-        let delete = UIContextualAction(style: .destructive, title: SwipeActionTitle.delete) { _, _, completion in
+        let delete = UIContextualAction(style: .destructive, title: SwipeActionTitle.delete) { _, _, _ in
             guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath) else { return }
             
             MockDataManager.shared.removeTodo(item: cellItem)
-            self.applyAllSnapshot()
             tableView.reloadData()
-            completion(true)
+            self.applyAllSnapshot()
         }
         
         delete.image = UIImage(systemName: SwipeActionTitle.deleteImage)
@@ -287,8 +281,8 @@ extension ListViewController: UITableViewDelegate {
 extension ListViewController: AddTodoViewDelegate {
     func addNewTodoItem(with item: TodoModel) {
         MockDataManager.shared.createTodo(item: item)
-        applySnapshot(todoTableView)
         todoTableView.reloadData()
+        applySnapshot(todoTableView)
     }
 }
 

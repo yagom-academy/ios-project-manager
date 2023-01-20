@@ -18,11 +18,14 @@ final class ListHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    private let listNumberImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = UIColor.black
-        return imageView
+    private let listCountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.cornerRadius = 35 / 2
+        label.textAlignment = .center
+        label.layer.backgroundColor = UIColor.black.cgColor
+        label.textColor = .white
+        return label
     }()
     
     override init(reuseIdentifier: String?) {
@@ -37,28 +40,23 @@ final class ListHeaderView: UITableViewHeaderFooterView {
     func configureLayout() {
         contentView.backgroundColor = UIColor.systemGray6
         addSubview(statusLabel)
-        addSubview(listNumberImage)
+        addSubview(listCountLabel)
         
         NSLayoutConstraint.activate([
             statusLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             statusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            statusLabel.trailingAnchor.constraint(equalTo: listNumberImage.leadingAnchor, constant: -5),
+            statusLabel.trailingAnchor.constraint(equalTo: listCountLabel.leadingAnchor, constant: -5),
             statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             
-            listNumberImage.heightAnchor.constraint(equalToConstant: 35),
-            listNumberImage.widthAnchor.constraint(equalTo: listNumberImage.heightAnchor),
-            listNumberImage.centerYAnchor.constraint(equalTo: statusLabel.centerYAnchor),
-            listNumberImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            listCountLabel.heightAnchor.constraint(equalToConstant: 35),
+            listCountLabel.widthAnchor.constraint(equalTo: listCountLabel.heightAnchor),
+            listCountLabel.centerYAnchor.constraint(equalTo: statusLabel.centerYAnchor),
+            listCountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
     
-    func setTitle(_ title: String) {
+    func updateView(title: String, count: Int) {
         statusLabel.text = title
-    }
-    
-    func updateCount(_ count: Int) {
-        DispatchQueue.main.async { [weak self] in
-            self?.listNumberImage.image = UIImage(systemName: "\(count)" + HeaderViewValue.countImage)
-        }
+        listCountLabel.text = count.description
     }
 }

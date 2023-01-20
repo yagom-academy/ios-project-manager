@@ -9,7 +9,6 @@ import Foundation
 
 enum HeaderViewValue {
     static let identifier = "ListHeaderView"
-    static let countImage = ".circle.fill"
 }
 
 enum ListTableViewValue {

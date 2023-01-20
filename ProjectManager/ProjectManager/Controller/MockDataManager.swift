@@ -10,26 +10,31 @@ final class MockDataManager {
     
     private init() {}
     
-    private(set) var mockModels: [TodoModel] = [TodoModel(title: "todo test1",
-                                                     body: "todo test1",
-                                                     status: .todo,
-                                                     date: 1673967757.6580071),
-                                           TodoModel(title: "todo test1",
-                                                     body: "todo test1\ntodo test1\ntodo test1\ntodo test1",
-                                                     status: .todo,
-                                                     date: 1673968167.6580071),
-                                           TodoModel(title: "doing test1",
-                                                     body: "doing test1",
-                                                     status: .doing,
-                                                     date: 1673967977.6580071),
-                                           TodoModel(title: "done test1",
-                                                     body: "done test1",
-                                                     status: .done,
-                                                     date: 1673967754.6580071),
-                                           TodoModel(title: "done test1",
-                                                     body: "done test1",
-                                                     status: .done,
-                                                     date: 1673968037.6580071)]
+    private(set) var mockModels: [TodoModel] = [TodoModel(title: "책상정리",
+                                                          body: "집중이 안될땐 역시나 책상정리",
+                                                          status: .todo,
+                                                          date: 1673967757.6580071),
+                                                TodoModel(title: "일기쓰기",
+                                                          body: "오늘은 밥먹었음 ㅎ",
+                                                          status: .todo,
+                                                          date: 1673968167.6580071),
+                                                TodoModel(title: "TIL 작성하기",
+                                                          body: "TIL을 작성하면\n오늘의 상큼한 마무리도 되고\n나중에 포르폴리오 용으로도 좋죠!",
+                                                          status: .doing,
+                                                          date: 1673967977.6580071),
+                                                TodoModel(title: "프로젝트 회고 작성",
+                                                          body: """
+                                                                프로젝트 회고를 작성하면 내가 이번 프로젝트에서 무엇을 놓쳤는지 명확히 알 수 있어요.
+                                                                프로젝트 회고를 작성하면 내가 이번 프로젝트에서 무엇을 놓쳤는지 명확히 알 수 있어요.
+                                                                프로젝트 회고를 작성하면 내가 이번 프로젝트에서 무엇을 놓쳤는지 명확히 알 수 있어요.
+                                                                프로젝트 회고를 작성하면 내가 이번 프로젝트에서 무엇을 놓쳤는지 명확히 알 수 있어요.
+                                                                """,
+                                                          status: .done,
+                                                          date: 1673967754.6580071),
+                                                TodoModel(title: "오늘의 할일 찾기",
+                                                          body: "뭐가 있지?",
+                                                          status: .done,
+                                                          date: 1673968037.6580071)]
     
     func createTodo(item: TodoModel) {
         mockModels.append(item)
