@@ -25,6 +25,7 @@ final class TaskEditViewModel {
     struct Output {
         let isSuccess = PublishRelay<Bool>()
         let isFill = PublishRelay<Bool>()
+        let task: Task
     }
     
     // MARK: - Input
@@ -33,10 +34,11 @@ final class TaskEditViewModel {
         let contentDidEditEvent: Observable<String>
         let datePickerDidEditEvent: Observable<Date>
         let doneButtonTapEvent: Observable<Void>
+        let cancelButtonTapEvent: Observable<Void>
     }
     
     func transform(from input: Input) -> Output {
-        let output = Output()
+        let output = Output(task: self.task)
         
         updateTaskUseCase.isUpdatedSuccess
             .subscribe(onNext: { isUpdatedSuccess in
@@ -79,6 +81,12 @@ final class TaskEditViewModel {
                 guard let self = self else { return }
                 
                 self.updateTaskUseCase.update(self.task)
+            })
+            .disposed(by: disposeBag)
+        
+        input.cancelButtonTapEvent
+            .subscribe(onNext: { [weak self] _ in
+                // coordinator todo
             })
             .disposed(by: disposeBag)
     }

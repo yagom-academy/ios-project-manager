@@ -16,7 +16,6 @@ final class TaskDetailViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         
-        
         label.layer.shadowColor = UIColor.black.cgColor
         label.layer.shadowOffset = CGSize(width: 0, height: 4)
         label.layer.shadowOpacity = 0.3

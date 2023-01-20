@@ -26,7 +26,7 @@ final class TaskDetailViewModel {
         self.task = task
     }
     
-    func transform(with input: Input) -> Output {
+    func transform(from input: Input) -> Output {
         input.editButtonTappedEvent
             .subscribe(onNext: {
                 // coordinator todo
