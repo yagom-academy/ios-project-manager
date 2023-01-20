@@ -72,6 +72,7 @@ final class ListCell: UITableViewCell {
             self?.dateLabel.textColor = work.endDate < Date() ? .red : .black
         }
     }
+    
     func configureData(work: Work) {
         viewModel.work = work
     }
@@ -91,9 +92,7 @@ final class ListCell: UITableViewCell {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-}
-
-extension ListCell {
+    
     private func confgiureGesture() {
          let longPressedGesture = UILongPressGestureRecognizer(target: self,
                                                                action: #selector(handleLongPress(gestureRecognizer:)))
