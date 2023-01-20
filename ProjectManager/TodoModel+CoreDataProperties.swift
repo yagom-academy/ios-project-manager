@@ -9,11 +9,10 @@
 import Foundation
 import CoreData
 
-extension TodoModel{
+extension TodoModel {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<TodoModel> {
         return NSFetchRequest<TodoModel>(entityName: "TodoModel")
     }
-    
     @NSManaged public var body: String?
     @NSManaged public var id: UUID?
     @NSManaged public var title: String?

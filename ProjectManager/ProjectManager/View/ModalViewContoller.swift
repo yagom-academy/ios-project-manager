@@ -63,15 +63,41 @@ final class ModalViewContoller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
-        textView.delegate = self
         
         configureLayout()
         setNavigation()
         setData()
     }
+}
+
+// MARK: - Business Logic
+extension ModalViewContoller {
+    private func configureLayout() {
+        let safeArea = self.view.safeAreaLayoutGuide
+        textView.delegate = self
+        
+        [textField, datePicker, textView].forEach {
+            self.view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            textField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
+            textField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
+            
+            datePicker.topAnchor.constraint(equalTo: textField.bottomAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
+            datePicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
+            
+            textView.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
+            textView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
+            textView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
+            textView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -8)
+        ])
+    }
     
-    private func isChange(input: Bool) {
-        textView.isSelectable = input
+    private func editMode(is input: Bool) {
         textField.isEnabled = input
         datePicker.isEnabled = input
         navigationItem.rightBarButtonItem?.isEnabled = input
@@ -100,7 +126,7 @@ final class ModalViewContoller: UIViewController {
             let rightBarButton = UIBarButtonItem(
                 barButtonSystemItem: .done,
                 target: self,
-                action: #selector(tapRightButton)
+                action: #selector(tapDoneButton1)
             )
             navigationItem.rightBarButtonItem = rightBarButton
             
@@ -117,12 +143,15 @@ final class ModalViewContoller: UIViewController {
         let rightBarButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
-            action: #selector(tapUpdateRightButton)
+            action: #selector(tapDoneButton1)
         )
         navigationItem.rightBarButtonItem = rightBarButton
-        isChange(input: false)
+        editMode(is: false)
     }
-    
+}
+
+// MARK: - objc Logic
+extension ModalViewContoller {
     @objc private func tapCancelButton() {
         dismiss(animated: true)
     }
@@ -131,57 +160,34 @@ final class ModalViewContoller: UIViewController {
         if navigationItem.leftBarButtonItem?.title == "Cancel" {
             dismiss(animated: true)
         }
-        isChange(input: true)
+        
+        editMode(is: true)
         navigationItem.leftBarButtonItem?.title = "Cancel"
     }
     
-    @objc private func tapRightButton() {
+    @objc private func tapDoneButton1() {
         guard let title = textField.text else { return }
         guard let body = textView.text else { return }
         
-        coreDataManager.saveData(title: title, body: body, todoDate: datePicker.date)
-        
-        let notification = Notification.Name("DismissForReload")
-        NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
-        dismiss(animated: true)
-    }
-    
-    @objc private func tapUpdateRightButton() {
-        guard let title = textField.text else { return }
-        guard let body = textView.text else { return }
-        guard let id = data?.id else { return }
-        guard let state = data?.state,
-              let state = State(rawValue: state) else { return }
-        
-        coreDataManager.updateData(title: title, body: body, todoDate: datePicker.date, id: id, state: state)
-        
-        let notification = Notification.Name("DismissForReload")
-        NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
-        dismiss(animated: true)
-    }
-    
-    private func configureLayout() {
-        [textField, datePicker, textView].forEach {
-            self.view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
+        if let data = data {
+            let state = data.state
+            guard let state = State(rawValue: state) else { return }
+            guard let id = data.id else { return }
+            
+            coreDataManager.updateData(
+                title: title,
+                body: body,
+                todoDate: datePicker.date,
+                id: id,
+                state: state
+            )
+        } else {
+            coreDataManager.saveData(title: title, body: body, todoDate: datePicker.date)
         }
         
-        let safeArea = self.view.safeAreaLayoutGuide
-        
-        NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            textField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
-            textField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
-            
-            datePicker.topAnchor.constraint(equalTo: textField.bottomAnchor),
-            datePicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
-            datePicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
-            
-            textView.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
-            textView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
-            textView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
-            textView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -8)
-        ])
+        let notification = Notification.Name("DismissForReload")
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
+        dismiss(animated: true)
     }
 }
 
@@ -192,6 +198,10 @@ extension ModalViewContoller: UITextViewDelegate {
         shouldChangeTextIn range: NSRange,
         replacementText text: String
     ) -> Bool {
+        if !textField.isEnabled {
+            return false
+        }
+        
         let currentText = textView.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)

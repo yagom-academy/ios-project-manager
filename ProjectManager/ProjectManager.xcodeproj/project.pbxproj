@@ -127,8 +127,8 @@
 			isa = PBXGroup;
 			children = (
 				F677850229702E690033E33E /* UILabel.swift */,
-				F6749454297A73E500035153 /* UIStackView.swift */,
 				F6749456297A7BC500035153 /* UIButton.swift */,
+				F6749454297A73E500035153 /* UIStackView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
