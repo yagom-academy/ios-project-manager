@@ -7,8 +7,9 @@
 
 import UIKit
 
-class ProjectCell: UITableViewCell {
+final class ProjectCell: UITableViewCell {
     static let reuseIdentifier = String(describing: ProjectCell.self)
+    private var projectCellViewModel: ProjectCellViewModel?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -63,10 +64,26 @@ class ProjectCell: UITableViewCell {
             totalStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
+}
+
+// MARK: Configure ProjectListCellViewModel
+extension ProjectCell {
+    func setupViewModel(_ viewModel: ProjectCellViewModel) {
+        projectCellViewModel = viewModel
+        bindProjectCellViewModel()
+    }
     
-    func configureComponents(with project: Project) {
-        titleLabel.text = project.title
-        descriptionLabel.text = project.description
-        dateLabel.text = project.deadline.description
+    private func bindProjectCellViewModel() {
+        projectCellViewModel?.titleHandler = { [weak self] text in
+            self?.titleLabel.text = text
+        }
+        
+        projectCellViewModel?.deadlineHandler = { [weak self] text in
+            self?.dateLabel.text = text
+        }
+        
+        projectCellViewModel?.descriptionHandler = { [weak self] text in
+            self?.descriptionLabel.text = text
+        }
     }
 }

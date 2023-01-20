@@ -88,7 +88,9 @@ extension ProjectListViewController {
                     return UITableViewCell()
                 }
                 
-                cell.configureComponents(with: project)
+                let viewModel = ProjectCellViewModel()
+                cell.setupViewModel(viewModel)
+                viewModel.makeCellData(project)
                 
                 return cell
             }
