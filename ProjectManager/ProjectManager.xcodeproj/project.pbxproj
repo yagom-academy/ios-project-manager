@@ -10,11 +10,11 @@
 		3C015EEB296EEE410022D053 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C015EEA296EEE410022D053 /* Process.swift */; };
 		3C015EEF296EF2480022D053 /* ProcessStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C015EEE296EF2480022D053 /* ProcessStackView.swift */; };
 		3C07B2EF296D6647007283D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C07B2EE296D6647007283D2 /* FirebaseFirestore */; };
-		3C07B2F3296D69E4007283D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C07B2F2296D69E4007283D2 /* GoogleService-Info.plist */; };
 		3C07B2F6296D6AAA007283D2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */; };
 		3C582076297827050004DD77 /* MainViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C582075297827050004DD77 /* MainViewModelTest.swift */; };
 		3C58207D297827580004DD77 /* DetailViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C58207C297827580004DD77 /* DetailViewModelTest.swift */; };
 		3C58207F297827630004DD77 /* CellViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C58207E297827630004DD77 /* CellViewModelTest.swift */; };
+		3C85DC67297A2959005B7FCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C85DC66297A2959005B7FCD /* GoogleService-Info.plist */; };
 		3C9627A929728F2F003B0139 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627A829728F2F003B0139 /* DetailViewModel.swift */; };
 		3C9627B1297301AE003B0139 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627B0297301AE003B0139 /* DetailView.swift */; };
 		3C9627B3297301E5003B0139 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9627B2297301E5003B0139 /* DetailViewController.swift */; };
@@ -47,12 +47,12 @@
 /* Begin PBXFileReference section */
 		3C015EEA296EEE410022D053 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		3C015EEE296EF2480022D053 /* ProcessStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStackView.swift; sourceTree = "<group>"; };
-		3C07B2F2296D69E4007283D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3C582073297827050004DD77 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C582075297827050004DD77 /* MainViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTest.swift; sourceTree = "<group>"; };
 		3C58207C297827580004DD77 /* DetailViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModelTest.swift; sourceTree = "<group>"; };
 		3C58207E297827630004DD77 /* CellViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModelTest.swift; sourceTree = "<group>"; };
+		3C85DC66297A2959005B7FCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C9627A829728F2F003B0139 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		3C9627B0297301AE003B0139 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		3C9627B2297301E5003B0139 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				3C07B2F2296D69E4007283D2 /* GoogleService-Info.plist */,
+				3C85DC66297A2959005B7FCD /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -311,8 +311,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C07B2F6296D6AAA007283D2 /* .swiftlint.yml in Resources */,
+				3C85DC67297A2959005B7FCD /* GoogleService-Info.plist in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
-				3C07B2F3296D69E4007283D2 /* GoogleService-Info.plist in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
