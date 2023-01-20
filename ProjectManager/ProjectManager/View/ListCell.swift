@@ -14,7 +14,7 @@ protocol CellDelegate: AnyObject {
 final class ListCell: UITableViewCell {
     static let identifier = ListCell.description()
 
-    var viewModel = ListCellViewModel()
+    var viewModel: ListCellViewModel?
     
     weak var delegate: CellDelegate?
     
@@ -56,7 +56,6 @@ final class ListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         confgiureGesture()
-        configureBind()
         configureLayout()
     }
     
@@ -65,16 +64,22 @@ final class ListCell: UITableViewCell {
     }
     
     private func configureBind() {
-        viewModel.bind { [weak self] work in
+        viewModel?.bindTextValue { [weak self] work in
             self?.titleLabel.text = work.title
             self?.bodyLabel.text = work.body
             self?.dateLabel.text = work.endDateToString
             self?.dateLabel.textColor = work.endDate < Date() ? .red : .black
         }
+        
+        viewModel?.bindTextColor { [weak self] in
+            self?.dateLabel.textColor = $0
+        }
     }
     
-    func configureData(work: Work) {
-        viewModel.work = work
+    func configureData(viewModel: ListCellViewModel) {
+        self.viewModel = viewModel
+        configureBind()
+        viewModel.load()
     }
     
     private func configureLayout() {
@@ -103,8 +108,6 @@ final class ListCell: UITableViewCell {
      }
     
     @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        if gestureRecognizer.state == .ended {
-            delegate?.showPopover(soruceView: self, work: viewModel.work)
-        }
+        viewModel?.pressEndedIsValid(state: gestureRecognizer.state, delegate: delegate, sourceView: self)
     }
 }

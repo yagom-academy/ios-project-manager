@@ -113,11 +113,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch tableView {
         case doneListView.tableView:
-            cell.configureData(work: viewModel.doneList[indexPath.row])
+            cell.configureData(viewModel: ListCellViewModel(work: viewModel.doneList[indexPath.row]))
         case doingListView.tableView:
-            cell.configureData(work: viewModel.doingList[indexPath.row])
+            cell.configureData(viewModel: ListCellViewModel(work: viewModel.doingList[indexPath.row]))
         case todoListView.tableView:
-            cell.configureData(work: viewModel.todoList[indexPath.row])
+            cell.configureData(viewModel: ListCellViewModel(work: viewModel.todoList[indexPath.row]))
         default:
             break
         }
