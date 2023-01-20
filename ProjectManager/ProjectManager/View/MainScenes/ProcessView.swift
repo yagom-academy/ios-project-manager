@@ -7,7 +7,14 @@
 
 import UIKit
 
-final class ProcessStackView: UIStackView {
+final class ProcessView: UIStackView {
+    typealias DataSource = UITableViewDiffableDataSource<Section, Plan>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Plan>
+    
+    enum Section {
+        case main
+    }
+    
     private enum UIConstant {
         static let headerViewHeight = 70.0
         static let stackViewSpacing = 1.0
@@ -15,7 +22,12 @@ final class ProcessStackView: UIStackView {
         static let topBottomValue = 10.0
         static let leadingValue = 20.0
         static let countLabelWidth = 30.0
+        static let headerSectionHeight = 7.0
+        static let deleteSwipeTitle = "Delete"
     }
+
+    private lazy var dataSource = configureDataSource()
+    private let viewModel: ProcessViewModel
     
     private let titleLabel = UILabel(fontStyle: .largeTitle)
     private let countLabel = UILabel(fontStyle: .title3)
@@ -35,12 +47,15 @@ final class ProcessStackView: UIStackView {
     }()
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    weak var delegate: GestureRelayable?
     
-    init(process: Process) {
-        titleLabel.text = "\(process)"
+    weak var presentDelegate: PopoverPresentable?
+    weak var selectDataDelegate: EventManageable?
+    
+    init(viewModel: ProcessViewModel) {
+        self.viewModel = viewModel
         super.init(frame: .zero)
         setupView()
+        setupBind()
         setupLabel()
         setupTableView()
         setupCosntraint()
@@ -51,13 +66,92 @@ final class ProcessStackView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func changeCountLabel(_ count: String) {
-        countLabel.text = count
+    private func setupBind() {
+        viewModel.bindDatas(handler: { [weak self] datas in
+            self?.countLabel.text = String(datas.count)
+            self?.applySnapshot(data: datas, animating: true)
+        })
+    }
+    
+    func updateData(_ data: [Plan]) {
+        viewModel.updateDatas(data: data)
+    }
+}
+
+// MARK: - Diffable DataSource, Snapshot
+extension ProcessView {
+    private func configureDataSource() -> DataSource {
+        let dataSource = DataSource(tableView: tableView) { tableView, indexPath, plan in
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: ProcessTableViewCell.identifier,
+                for: indexPath
+            ) as? ProcessTableViewCell else {
+                let errorCell = UITableViewCell()
+                return errorCell
+            }
+            
+            cell.viewModel = CellViewModel(data: plan)
+            return cell
+        }
+        return dataSource
+    }
+    
+    private func applySnapshot(data: [Plan], animating: Bool) {
+        var snapshot = Snapshot()
+        
+        snapshot.appendSections([.main])
+        snapshot.appendItems(data)
+        
+        dataSource.apply(snapshot, animatingDifferences: animating)
+    }
+}
+
+// MARK: - TableView Delegate
+extension ProcessView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UIConstant.headerSectionHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectDataDelegate?.handleEvent(
+            process: viewModel.process,
+            index: indexPath.row,
+            event: .edit
+        )
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        
+        let delete = UIContextualAction(
+            style: .normal,
+            title: UIConstant.deleteSwipeTitle
+        ) { [weak self] _, _, _ in
+            guard let self = self else { return }
+            self.selectDataDelegate?.handleEvent(
+                process: self.viewModel.process,
+                index: indexPath.row,
+                event: .delete
+            )
+        }
+        
+        delete.backgroundColor = .red
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [delete])
+        swipeConfiguration.performsFirstActionWithFullSwipe = true
+        return swipeConfiguration
     }
 }
 
 // MARK: - Long Press Gesture
-extension ProcessStackView {
+extension ProcessView {
     private func setupGesture() {
         let longPress = UILongPressGestureRecognizer(
             target: self,
@@ -74,13 +168,19 @@ extension ProcessStackView {
         guard let indexPath = tableView.indexPathForRow(at: point) else { return }
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
-        delegate?.relayGesture(sender, indexPath: indexPath, cell: cell)
+        presentDelegate?.showPopover(
+            process: viewModel.process,
+            sender: sender,
+            cell: cell,
+            indexPath: indexPath
+        )
     }
 }
 
 // MARK: - UI Configuration
-extension ProcessStackView {
+extension ProcessView {
     private func setupView() {
+        titleLabel.text = "\(viewModel.process)"
         [headerView, tableView].forEach(addArrangedSubview(_:))
         axis = .vertical
         alignment = .fill
@@ -99,6 +199,7 @@ extension ProcessStackView {
     }
     
     private func setupTableView() {
+        tableView.delegate = self
         tableView.backgroundColor = .systemGray5
         tableView.register(
             ProcessTableViewCell.self,

@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3C015EEB296EEE410022D053 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C015EEA296EEE410022D053 /* Process.swift */; };
-		3C015EEF296EF2480022D053 /* ProcessStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C015EEE296EF2480022D053 /* ProcessStackView.swift */; };
+		3C015EEF296EF2480022D053 /* ProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C015EEE296EF2480022D053 /* ProcessView.swift */; };
 		3C07B2EF296D6647007283D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C07B2EE296D6647007283D2 /* FirebaseFirestore */; };
 		3C07B2F6296D6AAA007283D2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */; };
+		3C2F6F6A297A898F00FC1391 /* ProcessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2F6F69297A898F00FC1391 /* ProcessViewModel.swift */; };
+		3C2F6F6C297ADB8F00FC1391 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2F6F6B297ADB8F00FC1391 /* Event.swift */; };
 		3C582076297827050004DD77 /* MainViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C582075297827050004DD77 /* MainViewModelTest.swift */; };
 		3C58207D297827580004DD77 /* DetailViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C58207C297827580004DD77 /* DetailViewModelTest.swift */; };
 		3C58207F297827630004DD77 /* CellViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C58207E297827630004DD77 /* CellViewModelTest.swift */; };
@@ -46,8 +48,10 @@
 
 /* Begin PBXFileReference section */
 		3C015EEA296EEE410022D053 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
-		3C015EEE296EF2480022D053 /* ProcessStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessStackView.swift; sourceTree = "<group>"; };
+		3C015EEE296EF2480022D053 /* ProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessView.swift; sourceTree = "<group>"; };
 		3C07B2F5296D6AAA007283D2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3C2F6F69297A898F00FC1391 /* ProcessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessViewModel.swift; sourceTree = "<group>"; };
+		3C2F6F6B297ADB8F00FC1391 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		3C582073297827050004DD77 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C582075297827050004DD77 /* MainViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTest.swift; sourceTree = "<group>"; };
 		3C58207C297827580004DD77 /* DetailViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModelTest.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 			children = (
 				3C015EEA296EEE410022D053 /* Process.swift */,
 				3CD2E2C3297029D600B2E9A4 /* Plan.swift */,
+				3C2F6F6B297ADB8F00FC1391 /* Event.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 				3CD2E2C62970304600B2E9A4 /* MainViewModel.swift */,
 				3CFC2B58297449DA00F32E56 /* CellViewModel.swift */,
 				3C9627A829728F2F003B0139 /* DetailViewModel.swift */,
+				3C2F6F69297A898F00FC1391 /* ProcessViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -153,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				3C015EEE296EF2480022D053 /* ProcessStackView.swift */,
+				3C015EEE296EF2480022D053 /* ProcessView.swift */,
 				3CB4C4BA296FB66C0084069A /* ProcessTableViewCell.swift */,
 			);
 			path = MainScenes;
@@ -357,16 +363,18 @@
 			files = (
 				3CFC2B59297449DA00F32E56 /* CellViewModel.swift in Sources */,
 				3CB4C4BE296FC6660084069A /* Identifierable.swift in Sources */,
-				3C015EEF296EF2480022D053 /* ProcessStackView.swift in Sources */,
+				3C015EEF296EF2480022D053 /* ProcessView.swift in Sources */,
 				3CD2E2C92970485500B2E9A4 /* DateFormatter+Extension.swift in Sources */,
 				3C9627A929728F2F003B0139 /* DetailViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				3C9627B3297301E5003B0139 /* DetailViewController.swift in Sources */,
 				3C9627B1297301AE003B0139 /* DetailView.swift in Sources */,
+				3C2F6F6C297ADB8F00FC1391 /* Event.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				3CB4C4BB296FB66C0084069A /* ProcessTableViewCell.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				3CB4C4C1296FC8390084069A /* UIComponent+Extension.swift in Sources */,
+				3C2F6F6A297A898F00FC1391 /* ProcessViewModel.swift in Sources */,
 				3C015EEB296EEE410022D053 /* Process.swift in Sources */,
 				3CD2E2C4297029D600B2E9A4 /* Plan.swift in Sources */,
 				3CD2E2C72970304600B2E9A4 /* MainViewModel.swift in Sources */,
