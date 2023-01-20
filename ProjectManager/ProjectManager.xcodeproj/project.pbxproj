@@ -24,15 +24,10 @@
 		AC5F3CBF2977CE0C007D5F80 /* TaskCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CBE2977CE0C007D5F80 /* TaskCreateViewModel.swift */; };
 		AC5F3CC02977CE0C007D5F80 /* TaskCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CBE2977CE0C007D5F80 /* TaskCreateViewModel.swift */; };
 		AC5F3CC82977CEC2007D5F80 /* StateUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CC62977CEC2007D5F80 /* StateUpdateViewController.swift */; };
-		AC5F3CCA2977CEC2007D5F80 /* StateUpdateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5F3CC72977CEC2007D5F80 /* StateUpdateViewController.xib */; };
-		AC5F3CCB2977CEC2007D5F80 /* StateUpdateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5F3CC72977CEC2007D5F80 /* StateUpdateViewController.xib */; };
 		AC5F3CCE2977CEE3007D5F80 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CCC2977CEE3007D5F80 /* TaskDetailViewController.swift */; };
-		AC5F3CCF2977CEE3007D5F80 /* TaskDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5F3CCD2977CEE3007D5F80 /* TaskDetailViewController.xib */; };
 		AC5F3CD22977CEF3007D5F80 /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CD02977CEF3007D5F80 /* TaskEditViewController.swift */; };
-		AC5F3CD32977CEF3007D5F80 /* TaskEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5F3CD12977CEF3007D5F80 /* TaskEditViewController.xib */; };
 		AC5F3CD62977CF05007D5F80 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CD42977CF05007D5F80 /* TaskListViewController.swift */; };
 		AC5F3CDA2977CF17007D5F80 /* TaskCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CD82977CF17007D5F80 /* TaskCreateViewController.swift */; };
-		AC5F3CDB2977CF17007D5F80 /* TaskCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5F3CD92977CF17007D5F80 /* TaskCreateViewController.xib */; };
 		AC5F3CDE29783CFD007D5F80 /* TaskCreateViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CDD29783CFD007D5F80 /* TaskCreateViewModelTests.swift */; };
 		AC5F3CE029783D13007D5F80 /* TaskEditViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CDF29783D13007D5F80 /* TaskEditViewModelTests.swift */; };
 		AC5F3CE429783D4E007D5F80 /* StateUpdateViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CE329783D4E007D5F80 /* StateUpdateViewModelTests.swift */; };
@@ -110,14 +105,10 @@
 		AC5F3CBB2977CE04007D5F80 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		AC5F3CBE2977CE0C007D5F80 /* TaskCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreateViewModel.swift; sourceTree = "<group>"; };
 		AC5F3CC62977CEC2007D5F80 /* StateUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdateViewController.swift; sourceTree = "<group>"; };
-		AC5F3CC72977CEC2007D5F80 /* StateUpdateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StateUpdateViewController.xib; sourceTree = "<group>"; };
 		AC5F3CCC2977CEE3007D5F80 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
-		AC5F3CCD2977CEE3007D5F80 /* TaskDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailViewController.xib; sourceTree = "<group>"; };
 		AC5F3CD02977CEF3007D5F80 /* TaskEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
-		AC5F3CD12977CEF3007D5F80 /* TaskEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskEditViewController.xib; sourceTree = "<group>"; };
 		AC5F3CD42977CF05007D5F80 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		AC5F3CD82977CF17007D5F80 /* TaskCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreateViewController.swift; sourceTree = "<group>"; };
-		AC5F3CD92977CF17007D5F80 /* TaskCreateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCreateViewController.xib; sourceTree = "<group>"; };
 		AC5F3CDD29783CFD007D5F80 /* TaskCreateViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreateViewModelTests.swift; sourceTree = "<group>"; };
 		AC5F3CDF29783D13007D5F80 /* TaskEditViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewModelTests.swift; sourceTree = "<group>"; };
 		AC5F3CE329783D4E007D5F80 /* StateUpdateViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdateViewModelTests.swift; sourceTree = "<group>"; };
@@ -250,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				AC5F3CC62977CEC2007D5F80 /* StateUpdateViewController.swift */,
-				AC5F3CC72977CEC2007D5F80 /* StateUpdateViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -259,7 +249,6 @@
 			isa = PBXGroup;
 			children = (
 				AC5F3CCC2977CEE3007D5F80 /* TaskDetailViewController.swift */,
-				AC5F3CCD2977CEE3007D5F80 /* TaskDetailViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -268,7 +257,6 @@
 			isa = PBXGroup;
 			children = (
 				AC5F3CD02977CEF3007D5F80 /* TaskEditViewController.swift */,
-				AC5F3CD12977CEF3007D5F80 /* TaskEditViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -287,7 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				AC5F3CD82977CF17007D5F80 /* TaskCreateViewController.swift */,
-				AC5F3CD92977CF17007D5F80 /* TaskCreateViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -605,13 +592,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC5F3CD32977CEF3007D5F80 /* TaskEditViewController.xib in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				D36715D8296D495400A4A9DD /* GoogleService-Info.plist in Resources */,
-				AC5F3CCF2977CEE3007D5F80 /* TaskDetailViewController.xib in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
-				AC5F3CCA2977CEC2007D5F80 /* StateUpdateViewController.xib in Resources */,
-				AC5F3CDB2977CF17007D5F80 /* TaskCreateViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,7 +602,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC5F3CCB2977CEC2007D5F80 /* StateUpdateViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
