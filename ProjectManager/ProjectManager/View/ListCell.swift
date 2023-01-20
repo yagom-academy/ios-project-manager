@@ -102,7 +102,7 @@ final class ListCell: UITableViewCell {
          self.addGestureRecognizer(longPressedGesture)
      }
     
-    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .ended {
             delegate?.showPopover(soruceView: self, work: viewModel.work)
         }
