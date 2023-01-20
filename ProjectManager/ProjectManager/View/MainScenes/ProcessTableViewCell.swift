@@ -57,6 +57,7 @@ final class ProcessTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         [titleLabel, descriptionLabel, dateLabel].forEach {
             $0.text = ""
         }
