@@ -22,29 +22,26 @@ final class ListTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.numberOfLines = 1
-        label.text = PlaceHolder.tableViewtitle
+        label.text = PlaceHolder.tableViewTitle
         return label
     }()
     
     private let bodyLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.numberOfLines = 3
         label.textColor = UIColor.systemGray
-        label.text = PlaceHolder.tableViewbody
+        label.text = PlaceHolder.tableViewBody
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 1
-        label.text = PlaceHolder.tableViewdate
+        label.text = PlaceHolder.tableViewDate
         return label
     }()
     

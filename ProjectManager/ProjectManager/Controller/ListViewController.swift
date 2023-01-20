@@ -12,7 +12,7 @@ final class ListViewController: UIViewController {
         case main
     }
     
-    private let tableStackView: UIStackView = {
+    private let listStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
@@ -85,20 +85,20 @@ final class ListViewController: UIViewController {
         
         tableviews.forEach {
             $0.delegate = self
-            tableStackView.addArrangedSubview($0)
+            listStackView.addArrangedSubview($0)
             $0.addGestureRecognizer(UILongPressGestureRecognizer(target: self,
                                                                  action: #selector(self.pressTableView)))
         }
     }
     
     private func configureLayout() {
-        view.addSubview(tableStackView)
+        view.addSubview(listStackView)
         
         NSLayoutConstraint.activate([
-            tableStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            listStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            listStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            listStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            listStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
@@ -256,19 +256,19 @@ extension ListViewController: UITableViewDelegate {
     
     private func fetchCellItem(from tableView: UITableView, indexPath: IndexPath) -> TodoModel? {
         guard let dataSource = tableView.dataSource as? ListDataSource,
-              let todoItem = dataSource.itemIdentifier(for: indexPath) else {
+              let cellItem = dataSource.itemIdentifier(for: indexPath) else {
             return nil
         }
-        return todoItem
+        return cellItem
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = fetchDeleteAction(tableView, indexPath: indexPath)
-        let configuration = UISwipeActionsConfiguration(actions: [delete])
+        let deleteAction = makeDeleteAction(tableView, indexPath: indexPath)
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         return configuration
     }
     
-    private func fetchDeleteAction(_ tableView: UITableView, indexPath: IndexPath) -> UIContextualAction{
+    private func makeDeleteAction(_ tableView: UITableView, indexPath: IndexPath) -> UIContextualAction{
         let delete = UIContextualAction(style: .destructive, title: SwipeActionTitle.delete) { _, _, completion in
             guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath) else { return }
             

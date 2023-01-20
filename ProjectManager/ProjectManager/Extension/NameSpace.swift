@@ -2,7 +2,7 @@
 //  NameSpace.swift
 //  ProjectManager
 //
-//  Created by 유연수 on 2023/01/19.
+//  Created by 애쉬 on 2023/01/19.
 //
 
 import Foundation
@@ -17,14 +17,14 @@ enum ListTableViewValue {
 }
 
 enum PlaceHolder {
-    static let itemViewtitle = " Title"
+    static let itemViewTitle = " Title"
     static let itemViewBody = """
                       할일의 내용을 입력해주세요.
                       입력 가능한 글자수는 1000자로 제한됩니다.
                       """
-    static let tableViewtitle = "title"
-    static let tableViewbody = "body"
-    static let tableViewdate = "0000. 0. 0"
+    static let tableViewTitle = "title"
+    static let tableViewBody = "body"
+    static let tableViewDate = "0000. 0. 0"
 }
 
 enum DatePickerValue {
