@@ -18,34 +18,51 @@ final class MainViewController: UIViewController {
     private var doingData = [TodoModel]()
     private var doneData = [TodoModel]()
     
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
+    private let stackView = UIStackView(
+        axis: .horizontal,
+        alignment: .fill,
+        distribution: .fillEqually
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
         
+        configureLayout()
+        setupNavigationBar()
+        fetchData()
+        setupLongPress()
+    }
+}
+// MARK: - Business Method
+extension MainViewController {
+    private func configureLayout() {
+        self.view.addSubview(stackView)
+        let safeArea = self.view.safeAreaLayoutGuide
+        
         [todoTableView, doingTableView, doneTableView].forEach {
             $0.delegate = self
             $0.dataSource = self
+            stackView.addArrangedSubview($0)
         }
         
-        autoLayoutSetting()
-        setupNavigationBar()
-        fetchData()
-        todoTableView.reloadData()
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+        ])
+    }
+    
+    private func setupNavigationBar() {
+        let rightBarbutton = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(tapAddButton)
+        )
         
-        // TODO: -notification, present modal 에서 추후 등록
-        registDismissNotification()
-        
-        setupLongPress()
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = rightBarbutton
     }
     
     private func fetchData() {
@@ -64,46 +81,24 @@ final class MainViewController: UIViewController {
         doneData = .init()
         
         data.forEach {
-            switch $0.state {
-            case 0:
+            switch State(rawValue: $0.state) {
+            case .todo:
                 todoData.append($0)
-            case 1:
+            case .doing:
                 doingData.append($0)
-            case 2:
+            case .done:
                 doneData.append($0)
-            default:
+            case .none:
                 return
             }
         }
-    }
-    
-    private func autoLayoutSetting() {
-        self.view.addSubview(stackView)
-        [todoTableView, doingTableView, doneTableView].forEach(stackView.addArrangedSubview(_:))
-        
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
-    
-    private func setupNavigationBar() {
-        let rightBarbutton = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(tapAddButton)
-        )
-        
-        navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = rightBarbutton
     }
     
     @objc func tapAddButton() {
         let modalController = UINavigationController(rootViewController: ModalViewContoller())
         modalController.modalPresentationStyle = .formSheet
         
+        registDismissNotification()
         self.present(modalController, animated: true, completion: nil)
     }
     
@@ -125,6 +120,7 @@ final class MainViewController: UIViewController {
         self.doingTableView.reloadData()
     }
 }
+
 
 // MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
@@ -162,18 +158,19 @@ extension MainViewController: UITableViewDelegate {
                 let removeData = self.todoData.remove(at: indexPath.row)
                 guard let id = removeData.id else { return }
                 self.coredataManager.deleteDate(id: id)
-                self.todoTableView.reloadData()
+//                self.todoTableView.reloadData()
             } else if tableView == self.doingTableView {
                 let removeData = self.doingData.remove(at: indexPath.row)
                 guard let id = removeData.id else { return }
                 self.coredataManager.deleteDate(id: id)
-                self.doingTableView.reloadData()
+//                self.doingTableView.reloadData()
             } else if tableView == self.doneTableView {
                 let removeData = self.doneData.remove(at: indexPath.row)
                 guard let id = removeData.id else { return }
                 self.coredataManager.deleteDate(id: id)
-                self.doneTableView.reloadData()
+//                self.doneTableView.reloadData()
             }
+            tableView.reloadData()
         }
         
         return UISwipeActionsConfiguration(actions: [actions])
@@ -248,6 +245,7 @@ extension MainViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - GesutreRecognizer, PopoverPresentationController Delegate
 extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
     private func setupLongPress() {
         let todoLongPressedGesture = UILongPressGestureRecognizer(
@@ -265,7 +263,7 @@ extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentation
         
         [todoLongPressedGesture, doingLongPressedGesture, doneLongPressedGesture].forEach {
             $0.delegate = self
-            $0.minimumPressDuration = 1.5
+            $0.minimumPressDuration = 1
             $0.delaysTouchesBegan = true
         }
         
