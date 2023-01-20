@@ -53,15 +53,14 @@ final class EditingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         bidingViewModel()
         editViewModel.initialSetupView()
+        configureHierarchy()
+        configureLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        view.backgroundColor = .systemBackground
-        configureHierarchy()
-        configureLayout()
         setupNavigationBar()
     }
     

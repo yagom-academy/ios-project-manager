@@ -17,16 +17,16 @@ final class DataSource: UITableViewDiffableDataSource<Section, Project> {
     
     private var snapShot = SnapShot()
     
-    func applyInitialSnapShot(_ datas: [Project]) {
+    func applyInitialSnapShot(_ projects: [Project]) {
         snapShot.appendSections([.main])
-        snapShot.appendItems(datas, toSection: .main)
+        snapShot.appendItems(projects, toSection: .main)
         self.apply(snapShot)
     }
     
-    func reload(_ datas: [Project]) {
+    func reload(_ projects: [Project]) {
         snapShot.deleteAllItems()
         snapShot.appendSections([.main])
-        snapShot.appendItems(datas)
+        snapShot.appendItems(projects)
         self.apply(snapShot)
     }
 }

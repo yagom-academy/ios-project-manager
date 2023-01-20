@@ -55,7 +55,7 @@ class MainViewModelTests: XCTestCase {
         sut?.edit(project, of: state)
         
         // then project의 제목이 수정되었다.
-        XCTAssertEqual("테스트수정제목", sut?.fetchProject(index: 0, of: state).title )
+        XCTAssertEqual("테스트수정제목", sut?.fetchProject(index: 0, of: state)?.title)
     }
 
     func test_deleteData_배열에추가되어있는Data삭제확인() {

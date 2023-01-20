@@ -42,7 +42,11 @@ final class MainViewModel {
         return projectsGroup[state.index]
     }
     
-    func fetchProject(index: Int, of state: ProjectState) -> Project {
+    func fetchProject(index: Int, of state: ProjectState) -> Project? {
+        guard index < projectsGroup[state.index].count else {
+            return nil
+        }
+        
         return projectsGroup[state.index][index]
     }
     

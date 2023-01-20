@@ -77,7 +77,11 @@ class EditingViewModelTests: XCTestCase {
         sut?.edit(project)
         
         // then: 등록되어있던 doing배열의 project데이터가 수정된다.
-        let editedData = mainViewModel.fetchProject(index: 0, of: .doing)
+        guard let editedData = mainViewModel.fetchProject(index: 0, of: .doing) else {
+            XCTFail("fetchProject Index 범위 초과")
+            return
+        }
+        
         XCTAssertEqual("수정된 타이틀", editedData.title)
         XCTAssertEqual("수정된 Description", editedData.description)
     }
@@ -117,7 +121,10 @@ class EditingViewModelTests: XCTestCase {
                          dateInput: project.date)
         
         // then: mainViewModel의 TODO에 추가된다.
-        let editedData = mainViewModel.fetchProject(index: 0, of: .done)
+        guard let editedData = mainViewModel.fetchProject(index: 0, of: .done) else {
+            XCTFail("fetchProject Index 범위 초과")
+            return
+        }
         XCTAssertEqual("수정된 테스트 Ttile", editedData.title)
         XCTAssertEqual("수정된 테스트 Description", editedData.description)
     }

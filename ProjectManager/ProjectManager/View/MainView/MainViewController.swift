@@ -137,10 +137,12 @@ extension MainViewController: UITableViewDelegate {
     
     private func showEditingView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? ListCell,
-              let cellViewModel = cell.cellViewModel else { return }
-        
-        let state = cellViewModel.currentState
-        let projectToEdit = mainViewModel.fetchProject(index: indexPath.item, of: state)
+              let cellViewModel = cell.cellViewModel,
+              let projectToEdit = mainViewModel.fetchProject(index: indexPath.item,
+                                                             of: cellViewModel.currentState) else {
+            return
+        }
+  
         let editingViewModel = EditingViewModel(editTargetModel: self.mainViewModel,
                                                 project: projectToEdit,
                                                 isNewProject: false,
@@ -156,13 +158,15 @@ extension MainViewController: UITableViewDelegate {
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {
         guard let cell = tableView.cellForRow(at: indexPath) as? ListCell,
-              let cellViewModel = cell.cellViewModel else { return nil }
-        
-        let state = cellViewModel.currentState
-        let project = mainViewModel.fetchProject(index: indexPath.item, of: state)
+              let cellViewModel = cell.cellViewModel,
+              let project = mainViewModel.fetchProject(index: indexPath.item,
+                                                       of: cellViewModel.currentState) else {
+            return nil
+        }
+
         let delete = UIContextualAction(style: .destructive,
                                         title: Title.deleteAction) { _, _, _ in
-            self.mainViewModel.delete(project, of: state)
+            self.mainViewModel.delete(project, of: cellViewModel.currentState)
         }
         
         return UISwipeActionsConfiguration(actions: [delete])
