@@ -160,8 +160,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension MainViewController: WorkFormDelegate, CellDelegate {
-    func showPopover(cell: ListCell) {
-        guard let work = cell.viewModel.work else { return }
+    func showPopover(soruceView: UIView?, work: Work?) {
+        guard let work else { return }
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -173,7 +173,7 @@ extension MainViewController: WorkFormDelegate, CellDelegate {
             self.viewModel.moveWork(data: work, category: work.category.other.1)
         }))
         
-        actionSheet.popoverPresentationController?.sourceView = cell
+        actionSheet.popoverPresentationController?.sourceView = soruceView
         present(actionSheet, animated: true, completion: nil)
     }
     

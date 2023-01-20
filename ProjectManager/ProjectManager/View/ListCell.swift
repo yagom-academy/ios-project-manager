@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CellDelegate: AnyObject {
-    func showPopover(cell: ListCell)
+    func showPopover(soruceView: UIView?, work: Work?)
 }
 
 final class ListCell: UITableViewCell {
@@ -105,7 +105,7 @@ extension ListCell {
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .ended {
-            delegate?.showPopover(cell: self)
+            delegate?.showPopover(soruceView: self, work: viewModel.work)
         }
     }
 }
