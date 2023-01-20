@@ -49,10 +49,19 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     private func tapAddButton(_ sender: UIAction) {
         let addViewController = AddViewController()
+        addViewController.delegate = self
         addViewController.modalPresentationStyle = .pageSheet
         let navigationController = UINavigationController(rootViewController: addViewController)
         present(navigationController, animated: true)
     }
+}
+
+// MARK: AddAction Delegate
+extension MainViewController: AddActionDelegate {
+    func addProject(title: String, deadline: Calendar, description: String) {
+        viewModel.createProject(title: title, deadline: deadline, description: description)
+    }
+    
 }
 
 // MARK: ProjectListAction Delegate
@@ -70,8 +79,13 @@ extension MainViewController: ProjectListActionDelegate {
     func editProject(willEdit project: Project) {
         let editViewModel = EditViewModel()
         let editViewController = EditViewController(viewModel: editViewModel)
+        
+        editViewModel.setupProject(project)
+        editViewModel.changeEditMode(false)
         editViewController.modalPresentationStyle = .pageSheet
+        
         let navigationController = UINavigationController(rootViewController: editViewController)
+        
         present(navigationController, animated: true)
     }
 }

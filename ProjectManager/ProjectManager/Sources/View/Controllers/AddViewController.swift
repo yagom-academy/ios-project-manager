@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol AddActionDelegate: AnyObject {
+    func addProject(title: String, deadline: Calendar, description: String)
+}
+
 final class AddViewController: ProjectViewController {
+    weak var delegate: AddActionDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigation()
@@ -22,11 +28,13 @@ extension AddViewController {
     
     private func tapDoneButton(_ sender: UIAction) {
         guard let title = textField.text,
+              let deadline = datePicker.calendar,
               let description = textView.text
         else {
+            // 얼럿?
             return
         }
-        
+        delegate?.addProject(title: title, deadline: deadline, description: description)
         dismiss(animated: true)
     }
 }

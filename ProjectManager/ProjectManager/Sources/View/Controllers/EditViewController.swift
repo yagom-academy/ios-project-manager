@@ -13,6 +13,7 @@ final class EditViewController: ProjectViewController {
     init(viewModel: EditViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        bindViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -22,16 +23,12 @@ final class EditViewController: ProjectViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigation()
-        viewModel.editingHandler = {
-            self.toggleUserInteractionEnabled()
-        }
         
-        viewModel.changeEditMode(state: false)
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        viewModel.changeEditMode(state: editing)
+        viewModel.changeEditMode(editing)
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             systemItem: .done,
             primaryAction: UIAction(handler: tapDoneButton)
@@ -41,6 +38,18 @@ final class EditViewController: ProjectViewController {
     func toggleUserInteractionEnabled() {
         [textView, textField, datePicker].forEach {
             $0.isUserInteractionEnabled.toggle()
+        }
+    }
+    
+    private func bindViewModel() {
+        viewModel.componentsHandler = { [weak self] viewProject in
+            self?.textField.text = viewProject.title
+            self?.datePicker.calendar = viewProject.deadline
+            self?.textView.text = viewProject.description
+        }
+        
+        viewModel.editingHandler = { [weak self] in
+            self?.toggleUserInteractionEnabled()
         }
     }
 }

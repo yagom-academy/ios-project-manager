@@ -11,7 +11,7 @@ protocol MainViewModelProtocol {
     var models: [Project] { get set }
     var closure: (([Project]) -> Void)? { get set }
     
-    func createProject(title: String, deadline: Date, description: String)
+    func createProject(title: String, deadline: Calendar, description: String)
     func updateProject()
     func deleteProject(with project: Project)
 }
@@ -25,10 +25,10 @@ final class MainViewModel: MainViewModelProtocol {
 
     var closure: (([Project]) -> Void)?
     
-    func createProject(title: String, deadline: Date, description: String) {
+    func createProject(title: String, deadline: Calendar, description: String) {
         let project = Project(
             title: title,
-            deadline: deadline.description,
+            deadline: deadline,
             description: description,
             state: .todo
         )

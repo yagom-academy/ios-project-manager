@@ -10,7 +10,7 @@ import Foundation
 struct Project: Hashable {
     let id: UUID = UUID()
     var title: String
-    var deadline: String
+    var deadline: Calendar
     var description: String
     var state: State
 }
