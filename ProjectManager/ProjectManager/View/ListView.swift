@@ -71,6 +71,7 @@ final class ListView: UIView {
         configureBind()
         configureLayout()
         configureData()
+        backgroundColor = .systemGray5
     }
     
     required init?(coder: NSCoder) {
@@ -94,7 +95,6 @@ final class ListView: UIView {
     }
     
     private func configureLayout() {
-        backgroundColor = .systemGray5
         categoryStackView.addArrangedSubview(categoryLabel)
         categoryStackView.addArrangedSubview(categoryCountLabel)
         categoryStackView.addArrangedSubview(blankView)
