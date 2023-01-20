@@ -12,7 +12,7 @@ import RxCocoa
 final class KanbanBoardView: UICollectionView {
     private let layout: UICollectionViewLayout = {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
-                                              heightDimension: .fractionalWidth(1.0))
+                                              heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -27,6 +27,7 @@ final class KanbanBoardView: UICollectionView {
     init() {
         super.init(frame: .zero, collectionViewLayout: layout)
         register(KanbanBoardCell.self, forCellWithReuseIdentifier: KanbanBoardCell.reuseIdentifier)
+        isScrollEnabled = false
     }
     
     @available(*, unavailable)
