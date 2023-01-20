@@ -10,11 +10,12 @@ import Foundation
 final class WorkFormViewModel {
     var work: Work? {
         didSet {
+            guard work != nil else { return }
             workHandler?(work)
         }
     }
     
-    var isEdit: Bool = true {
+    var isEdit: Bool {
         didSet {
             isEditHandler?(isEdit)
         }
@@ -31,10 +32,18 @@ final class WorkFormViewModel {
         isEditHandler = handler
     }
     
-    func reloadWork() {
-        if work != nil {
-            workHandler?(work)
-        }
+    init(work: Work? = nil, isEdit: Bool = true) {
+        self.work = work
+        self.isEdit = isEdit
+    }
+    
+    func load() {
+        workHandler?(work)
+        isEditHandler?(isEdit)
+    }
+    
+    func toggleEdit() {
+        isEdit.toggle()
     }
     
     func updateWork(title: String?, body: String?, date: Date) -> Work? {
@@ -45,5 +54,4 @@ final class WorkFormViewModel {
         }
         return work
     }
-    
 }

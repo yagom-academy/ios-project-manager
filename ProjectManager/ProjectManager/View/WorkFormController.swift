@@ -12,7 +12,7 @@ protocol WorkFormDelegate: AnyObject {
 }
 
 final class WorkFormViewController: UIViewController {
-    var viewModel = WorkFormViewModel()
+    var viewModel: WorkFormViewModel?
     
     weak var delegate: WorkFormDelegate?
     
@@ -26,7 +26,7 @@ final class WorkFormViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var titleTextField: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Title"
@@ -34,20 +34,17 @@ final class WorkFormViewController: UIViewController {
         textField.backgroundColor = .systemBackground
         textField.layer.shadowOffset = CGSize(width: 0, height: 3)
         textField.layer.shadowOpacity = 0.3
-        textField.isEnabled = viewModel.isEdit
-        textField.textColor = viewModel.isEdit ? .black : .systemGray3
         return textField
     }()
     
-    private lazy var datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.preferredDatePickerStyle = .wheels
-        datePicker.isEnabled = viewModel.isEdit
         return datePicker
     }()
     
-    private lazy var bodyTextView: UITextView = {
+    private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.preferredFont(forTextStyle: .body)
@@ -55,8 +52,6 @@ final class WorkFormViewController: UIViewController {
         textView.backgroundColor = .systemBackground
         textView.layer.shadowOffset = CGSize(width: 0, height: 3)
         textView.layer.shadowOpacity = 0.3
-        textView.isEditable = viewModel.isEdit
-        textView.textColor = viewModel.isEdit ? .black : .systemGray3
         return textView
     }()
     
@@ -65,12 +60,12 @@ final class WorkFormViewController: UIViewController {
         configureNavigationBar()
         configureLayout()
         configureBind()
-        configureWork()
+        configureData()
         bodyTextView.delegate = self
     }
     
     private func configureBind() {
-        viewModel.bindIsEdit { [weak self] in
+        viewModel?.bindIsEdit { [weak self] in
             self?.titleTextField.isEnabled = $0
             self?.titleTextField.textColor = $0 ? .black : .systemGray3
             self?.bodyTextView.isEditable = $0
@@ -78,20 +73,20 @@ final class WorkFormViewController: UIViewController {
             self?.datePicker.isEnabled = $0
         }
         
-        viewModel.bindWork { [weak self] work in
+        viewModel?.bindWork { [weak self] work in
             self?.titleTextField.text = work?.title
             self?.bodyTextView.text = work?.body
             self?.datePicker.date = work?.endDate ?? Date()
         }
     }
     
-    private func configureWork() {
-        viewModel.reloadWork()
+    private func configureData() {
+        viewModel?.load()
     }
     
     private func configureNavigationBar() {
         navigationItem.title = "TODO"
-        if viewModel.work != nil {
+        if viewModel?.work != nil {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self,
                                                                action: #selector(editButtonTapped))
         } else {
@@ -121,7 +116,7 @@ final class WorkFormViewController: UIViewController {
     }
     
     @objc private func editButtonTapped() {
-        viewModel.isEdit.toggle()
+        viewModel?.toggleEdit()
     }
     
     @objc private func cancelButtonTapped() {
@@ -129,7 +124,7 @@ final class WorkFormViewController: UIViewController {
     }
     
     @objc private func doneButtonTapped() {
-        guard let work = viewModel.updateWork(title: titleTextField.text,
+        guard let work = viewModel?.updateWork(title: titleTextField.text,
                                               body: bodyTextView.text,
                                               date: datePicker.date) else { return }
         

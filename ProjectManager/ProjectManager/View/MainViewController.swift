@@ -82,6 +82,8 @@ final class MainViewController: UIViewController {
     @objc private func addTapped() {
         let workFormViewController = WorkFormViewController()
         let navigationViewController = UINavigationController(rootViewController: workFormViewController)
+        
+        workFormViewController.viewModel = WorkFormViewModel()
         workFormViewController.delegate = self
         navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
@@ -143,16 +145,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch tableView {
         case doneListView.tableView:
-            workFormViewController.viewModel.work = viewModel.doneList[indexPath.row]
+            workFormViewController.viewModel = WorkFormViewModel(work: viewModel.doneList[indexPath.row],
+                                                                 isEdit: false)
         case doingListView.tableView:
-            workFormViewController.viewModel.work = viewModel.doingList[indexPath.row]
+            workFormViewController.viewModel = WorkFormViewModel(work: viewModel.doingList[indexPath.row],
+                                                                 isEdit: false)
         case todoListView.tableView:
-            workFormViewController.viewModel.work = viewModel.todoList[indexPath.row]
+            workFormViewController.viewModel = WorkFormViewModel(work: viewModel.todoList[indexPath.row],
+                                                                 isEdit: false)
         default:
             break
         }
         
-        workFormViewController.viewModel.isEdit = false
         workFormViewController.delegate = self
         navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         

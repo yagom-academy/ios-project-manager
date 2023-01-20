@@ -13,7 +13,6 @@ final class ListCellViewModel {
             if let work {
                 cellHandler?(work)
             }
-            
         }
     }
     
