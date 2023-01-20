@@ -63,7 +63,7 @@ final class WorkFormViewModel {
     
     func updateWork(title: String?, body: String?, date: Date) -> Work? {
         if let work {
-            self.work = Work(category: work.category, title: title, body: body, endDate: date)
+            self.work = Work(id: work.id, category: work.category, title: title, body: body, endDate: date)
         } else {
             work = Work(category: .todo, title: title, body: body, endDate: date)
         }
