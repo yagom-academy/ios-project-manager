@@ -53,7 +53,7 @@ final class MainViewModel {
         let doingTitle = "Move To Doing"
         let doneTitle = "Move To Done"
 
-        let categories = [.todo, .doing, .done].filter { $0 != category }.compactMap { category in
+        let categoriesAndTitles = [.todo, .doing, .done].filter { $0 != category }.compactMap { category in
             switch category {
             case .todo:
                 return (category: category, title: todoTitle)
@@ -64,7 +64,7 @@ final class MainViewModel {
             }
         }
         
-        return categories
+        return categoriesAndTitles
     }
     
     func updateWork(data: Work) {
@@ -116,4 +116,3 @@ final class MainViewModel {
         }
     }
 }
-

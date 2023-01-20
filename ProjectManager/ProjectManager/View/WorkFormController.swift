@@ -67,16 +67,19 @@ final class WorkFormViewController: UIViewController {
     private func configureBind() {
         viewModel?.bindIsEdit { [weak self] in
             self?.titleTextField.isEnabled = $0
-            self?.titleTextField.textColor = $0 ? .black : .systemGray3
             self?.bodyTextView.isEditable = $0
-            self?.bodyTextView.textColor = $0 ? .black : .systemGray3
             self?.datePicker.isEnabled = $0
         }
         
+        viewModel?.bindTextColor { [weak self] in
+            self?.titleTextField.textColor = $0
+            self?.bodyTextView.textColor = $0
+        }
+        
         viewModel?.bindWork { [weak self] work in
-            self?.titleTextField.text = work?.title
-            self?.bodyTextView.text = work?.body
-            self?.datePicker.date = work?.endDate ?? Date()
+            self?.titleTextField.text = work.title
+            self?.bodyTextView.text = work.body
+            self?.datePicker.date = work.endDate
         }
     }
     
