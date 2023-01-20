@@ -8,6 +8,7 @@
 import RxSwift
 
 final class MockTaskRepository: TaskRepository {
+    static let shared = MockTaskRepository(taskEntities: [])
     private var taskEntities: [TaskEntity]
     
     init(taskEntities: [TaskEntity]) {
