@@ -166,19 +166,36 @@ extension ToDoListViewController: UITableViewDelegate {
         contextMenuConfigurationForRowAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil,
-                                          previewProvider: nil,
-                                          actionProvider: { _ in
-            let inspectAction = UIAction(title: NSLocalizedString("Move To Doing", comment: ""),
-                                         image: nil) { _ in
-                self.updateToDoState(indexPath: indexPath.item, state: .doing)
-            }
-            let duplicateAction = UIAction(title: NSLocalizedString("Move To Done", comment: ""),
-                                           image: nil) { _ in
-                self.updateToDoState(indexPath: indexPath.item, state: .done)
-            }
-            
-            return UIMenu(title: "", children: [inspectAction, duplicateAction])
+        let moveToTodo = UIAction(title: NSLocalizedString("Move To Todo", comment: ""),
+                                     image: nil) { _ in
+            self.updateState(indexPath: indexPath.item, state: .toDo)
+        }
+        let moveToDoing = UIAction(title: NSLocalizedString("Move To Doing", comment: ""),
+                                     image: nil) { _ in
+            self.updateState(indexPath: indexPath.item, state: .doing)
+        }
+        let moveToDone = UIAction(title: NSLocalizedString("Move To Done", comment: ""),
+                                       image: nil) { _ in
+            self.updateState(indexPath: indexPath.item, state: .done)
+        }
+        
+        let menu: UIMenu
+        
+        switch status {
+        case .toDo:
+            menu = UIMenu(children: [moveToDoing, moveToDone])
+        case .doing:
+            menu = UIMenu(children: [moveToTodo, moveToDone])
+        case .done:
+            menu = UIMenu(children: [moveToTodo, moveToDoing])
+        }
+        
+        let contextMenu = UIContextMenuConfiguration(actionProvider: { _ in
+            return UIMenu(children: [])
+        })
+        
+        return UIContextMenuConfiguration(actionProvider: { _ in
+            return menu
         })
     }
 }
