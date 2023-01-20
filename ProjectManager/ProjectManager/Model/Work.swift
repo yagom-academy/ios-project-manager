@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Work {
+struct Work: Equatable {
     let id = UUID()
     var category: Category
     var title: String?
@@ -19,8 +19,4 @@ struct Work {
         dateFormatter.dateFormat = "YYYY. MM. dd"
         return dateFormatter.string(from: endDate)
     }
-}
-
-protocol WorkDelegate: AnyObject {
-    func send(data: Work)
 }

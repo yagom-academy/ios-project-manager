@@ -159,7 +159,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension MainViewController: WorkDelegate, CellDelegate {
+extension MainViewController: WorkFormDelegate, CellDelegate {
     func showPopover(cell: ListCell) {
         guard let work = cell.viewModel.work else { return }
         

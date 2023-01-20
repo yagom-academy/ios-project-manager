@@ -7,10 +7,14 @@
 
 import UIKit
 
+protocol WorkFormDelegate: AnyObject {
+    func send(data: Work)
+}
+
 final class WorkFormViewController: UIViewController {
     var viewModel = WorkFormViewModel()
     
-    weak var delegate: WorkDelegate?
+    weak var delegate: WorkFormDelegate?
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
