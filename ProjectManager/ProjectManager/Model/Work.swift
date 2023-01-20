@@ -9,10 +9,10 @@ import Foundation
 
 struct Work: Equatable {
     let id = UUID()
-    var category: Category
-    var title: String?
-    var body: String?
-    var endDate: Date
+    let category: Category
+    let title: String?
+    let body: String?
+    let endDate: Date
     
     var endDateToString: String {
         let dateFormatter = DateFormatter()

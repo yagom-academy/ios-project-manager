@@ -45,60 +45,40 @@ final class MainViewModel {
     func updateWork(data: Work) {
         switch data.category {
         case .todo:
-            let index = todoList.firstIndex { $0.id == data.id }
-            
-            if let index {
+            if let index = todoList.firstIndex(of: data) {
                 todoList[index] = data
-                return
+            } else {
+                todoList.append(data)
             }
-            todoList.append(data)
         case .doing:
-            let index = doingList.firstIndex { $0.id == data.id }
-            
-            if let index {
+            if let index = doingList.firstIndex(of: data) {
                 doingList[index] = data
-                return
+            } else {
+                doingList.append(data)
             }
-            doingList.append(data)
         case .done:
-            let index = doneList.firstIndex { $0.id == data.id }
-            
-            if let index {
+            if let index = doneList.firstIndex(of: data) {
                 doneList[index] = data
-                return
+            } else {
+                doneList.append(data)
             }
-            doneList.append(data)
         }
     }
     
     func moveWork(data: Work, category: Category) {
+        // 얘는 무조건 어펜드
         switch data.category {
         case .todo:
-            let index = todoList.firstIndex { $0.id == data.id }
-            
-            if let index {
-                var work = todoList.remove(at: index)
-                
-                work.category = category
-                updateWork(data: work)
-            }
+            guard let index = todoList.firstIndex(of: data) else { return }
+            todoList.remove(at: index)
         case .doing:
-            let index = doingList.firstIndex { $0.id == data.id }
-            
-            if let index {
-                var work = doingList.remove(at: index)
-                work.category = category
-                updateWork(data: work)
-            }
+            guard let index = doingList.firstIndex(of: data) else { return }
+            doingList.remove(at: index)
         case .done:
-            let index = doneList.firstIndex { $0.id == data.id }
-            
-            if let index {
-                var work = doneList.remove(at: index)
-                work.category = category
-                updateWork(data: work)
-            }
+            guard let index = doneList.firstIndex(of: data) else { return }
+            doneList.remove(at: index)
         }
+        updateWork(data: Work(category: category, title: data.title, body: data.body, endDate: data.endDate))
     }
     
     func deleteWork(data: Work) {
