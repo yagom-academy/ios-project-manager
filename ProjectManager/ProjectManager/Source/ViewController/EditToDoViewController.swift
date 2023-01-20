@@ -17,11 +17,13 @@ class EditToDoViewController: UIViewController {
     
     let viewModel: ToDoListViewModel
     private let indexPath: Int
+    private let status: ToDoState
     private let detailView = ToDoDetailView()
     
-    init(viewModel: ToDoListViewModel, indexPath: Int) {
+    init(viewModel: ToDoListViewModel, indexPath: Int, status: ToDoState) {
         self.viewModel = viewModel
         self.indexPath = indexPath
+        self.status = status
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -46,7 +48,7 @@ class EditToDoViewController: UIViewController {
     }
     
     private func setupContent() {
-        if let data = viewModel.fetchToDo(index: indexPath) {
+        if let data = viewModel.fetchToDo(index: indexPath, state: self.status) {
             detailView.setupContent(data: data)
             return
         }
@@ -117,7 +119,8 @@ class EditToDoViewController: UIViewController {
             return
         }
         let data = detailView.currentContent()
-        viewModel.update(indexPath: indexPath,
+        viewModel.update(currentState: self.status,
+                         indexPath: indexPath,
                          title: data.title,
                          body: data.body,
                          deadline: data.deadline)

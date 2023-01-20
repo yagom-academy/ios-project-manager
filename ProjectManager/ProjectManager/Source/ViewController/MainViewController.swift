@@ -8,20 +8,22 @@ class MainViewController: UIViewController {
         static let title = "Project Manager"
     }
     
-    private let todoTableView: ToDoListViewController = {
-        let tableView = ToDoListViewController(status: .toDo, viewModel: ToDoListViewModel())
+    private let viewModel = ToDoListViewModel()
+    
+    private lazy var todoTableView: ToDoListViewController = {
+        let tableView = ToDoListViewController(status: .toDo, viewModel: viewModel)
         
         return tableView
     }()
     
-    private let doingTableView: ToDoListViewController = {
-        let tableView = ToDoListViewController(status: .doing, viewModel: ToDoListViewModel())
+    private lazy var doingTableView: ToDoListViewController = {
+        let tableView = ToDoListViewController(status: .doing, viewModel: viewModel)
         
         return tableView
     }()
     
-    private let doneTableView: ToDoListViewController = {
-        let tableView = ToDoListViewController(status: .done, viewModel: ToDoListViewModel())
+    private lazy var doneTableView: ToDoListViewController = {
+        let tableView = ToDoListViewController(status: .done, viewModel: viewModel)
         
         return tableView
     }()

@@ -56,6 +56,11 @@ class ToDoListViewController: UIViewController {
         tableView.delegate = self
         setupView()
         setupViewModel()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updated),
+                                               name: Notification.Name("updated"),
+                                               object: nil)
     }
     
     private func setupView() {
@@ -72,9 +77,22 @@ class ToDoListViewController: UIViewController {
     }
     
     private func setupViewModel() {
-        viewModel.model.bind { item in
-            self.appendData(item: item)
-            self.tableView.reloadData()
+        switch status {
+        case .toDo:
+            viewModel.todoModel.bind { item in
+                self.appendData(item: item)
+                self.tableView.reloadData()
+            }
+        case .doing:
+            viewModel.doingModel.bind { item in
+                self.appendData(item: item)
+                self.tableView.reloadData()
+            }
+        case .done:
+            viewModel.doneModel.bind { item in
+                self.appendData(item: item)
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -88,24 +106,35 @@ class ToDoListViewController: UIViewController {
     
     private func deleteToDo(indexPath: Int) {
         var currentSnapshot = dataSource.snapshot()
-        guard let item = viewModel.fetchToDo(index: indexPath) else { return }
+        guard let item = viewModel.fetchToDo(index: indexPath, state: self.status) else { return }
         
         currentSnapshot.deleteItems([item])
         dataSource.apply(currentSnapshot)
-        viewModel.delete(indexPath: indexPath)
+        viewModel.delete(indexPath: indexPath, state: self.status)
+    }
+    
+    @objc
+    private func updated() {
+        appendData(item: self.viewModel.fetchList(state: self.status))
+        self.tableView.reloadData()
+    }
+    
+    private func updateState(indexPath: Int, state: ToDoState) {
+        viewModel.updateStatus(indexPath: indexPath, currentState: self.status, changeState: state)
     }
 }
 
 extension ToDoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ToDoHeaderView(status: self.status, count: self.viewModel.model.value.count)
+        let headerView = ToDoHeaderView(status: self.status, count: self.viewModel.count(state: self.status))
         
         return headerView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let editToDoViewController = EditToDoViewController(viewModel: viewModel,
-                                                            indexPath: indexPath.item)
+                                                            indexPath: indexPath.item,
+                                                            status: status)
         
         let navigationController = UINavigationController(rootViewController: editToDoViewController)
         
@@ -119,7 +148,7 @@ extension ToDoListViewController: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive,
                                               title: nil) { [weak self] (_, _, success) in
-            if self?.viewModel.fetchToDo(index: indexPath.item) != nil {
+            if self?.viewModel.fetchToDo(index: indexPath.item, state: self?.status ?? .toDo) != nil {
                 self?.deleteToDo(indexPath: indexPath.item)
                 self?.tableView.reloadData()
                 success(true)

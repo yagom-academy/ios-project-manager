@@ -4,28 +4,109 @@
 import Foundation
 
 class ToDoListViewModel {
-    let state: String = ToDoState.toDo.description
-    
-    let model: Observable<[ToDo]> = Observable([])
+    let todoModel: Observable<[ToDo]> = Observable([])
+    let doingModel: Observable<[ToDo]> = Observable([])
+    let doneModel: Observable<[ToDo]> = Observable([])
     
     func addToDo(item: ToDo) {
-        model.value.append(item)
+        todoModel.value.append(item)
+        NotificationCenter.default.post(name: Notification.Name("updated"), object: nil)
     }
     
-    func fetchToDo(index: Int) -> ToDo? {
-        return model.value[index]
+    func fetchToDo(index: Int, state: ToDoState) -> ToDo? {
+        switch state {
+        case .toDo:
+            return todoModel.value[index]
+        case .doing:
+            return doingModel.value[index]
+        case .done:
+            return doneModel.value[index]
+        }
     }
     
-    func update(indexPath: Int, title: String, body: String, deadline: Date) {
-        var data = model.value[indexPath]
+    func fetchList(state: ToDoState) -> [ToDo] {
+        switch state {
+        case .toDo:
+            return todoModel.value
+        case .doing:
+            return doingModel.value
+        case .done:
+            return doneModel.value
+        }
+    }
+    
+    func update(currentState: ToDoState,
+                indexPath: Int,
+                title: String,
+                body: String,
+                deadline: Date) {
+        var data: ToDo
+        var model: Observable<[ToDo]>
+        
+        switch currentState {
+        case .toDo:
+            data = todoModel.value[indexPath]
+            model = self.todoModel
+        case .doing:
+            data = doingModel.value[indexPath]
+            model = self.doingModel
+        case .done:
+            data = doneModel.value[indexPath]
+            model = self.doneModel
+        }
+        
         data.title = title
         data.body = body
         data.deadline = deadline
-        
-        self.model.value[indexPath] = data
+        model.value[indexPath] = data
     }
     
-    func delete(indexPath: Int) {
-        model.value.remove(at: indexPath)
+    func updateStatus(indexPath: Int, currentState: ToDoState, changeState: ToDoState) {
+        var data: ToDo
+        var model: Observable<[ToDo]>
+        
+        switch currentState {
+        case .toDo:
+            data = todoModel.value.remove(at: indexPath)
+        case .doing:
+            data = doingModel.value.remove(at: indexPath)
+        case .done:
+            data = doneModel.value.remove(at: indexPath)
+        }
+        
+        switch changeState {
+        case .toDo:
+            model = self.todoModel
+        case .doing:
+            model = self.doingModel
+        case .done:
+            model = self.doneModel
+        }
+        
+        data.state = changeState
+        model.value.append(data)
+        NotificationCenter.default.post(name: Notification.Name("updated"), object: nil)
+    }
+    
+    func delete(indexPath: Int, state: ToDoState) {
+        switch state {
+        case .toDo:
+            todoModel.value.remove(at: indexPath)
+        case .doing:
+            doingModel.value.remove(at: indexPath)
+        case .done:
+            doneModel.value.remove(at: indexPath)
+        }
+    }
+    
+    func count(state: ToDoState) -> Int {
+        switch state {
+        case .toDo:
+            return todoModel.value.count
+        case .doing:
+            return doingModel.value.count
+        case .done:
+            return doneModel.value.count
+        }
     }
 }
