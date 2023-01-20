@@ -63,11 +63,6 @@ final class ToDoListViewController: UIViewController {
         tableView.delegate = self
         setupView()
         setupViewModel()
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updated),
-                                               name: Notification.Name.updated,
-                                               object: nil)
     }
     
     private func setupView() {
