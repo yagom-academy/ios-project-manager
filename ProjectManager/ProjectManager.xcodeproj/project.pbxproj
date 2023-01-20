@@ -78,6 +78,7 @@
 		D379544C29769B3700A3F02F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141A29761DA10069CFFA /* Task.swift */; };
 		D379544D29769B3F00A3F02F /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141829761D950069CFFA /* TaskEntity.swift */; };
 		D379545029769E9800A3F02F /* TranslaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D379544F29769E9800A3F02F /* TranslaterTests.swift */; };
+		D38445A6297ADE8A00C8BBC6 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38445A5297ADE8A00C8BBC6 /* UITableView+.swift */; };
 		D3E203BA29757FF60015AD16 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203B929757FF60015AD16 /* RxCocoa */; };
 		D3E203BC29757FF60015AD16 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BB29757FF60015AD16 /* RxRelay */; };
 		D3E203BE29757FF60015AD16 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BD29757FF60015AD16 /* RxSwift */; };
@@ -145,6 +146,7 @@
 		D37954082976617300A3F02F /* DefaultFetchTasksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFetchTasksUseCase.swift; sourceTree = "<group>"; };
 		D379543629769A8500A3F02F /* ProjectManagerUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D379544F29769E9800A3F02F /* TranslaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslaterTests.swift; sourceTree = "<group>"; };
+		D38445A5297ADE8A00C8BBC6 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +299,7 @@
 				AC67580F29762C9800C2BDE2 /* Double+Formatter.swift */,
 				AC67581229762DE700C2BDE2 /* String+Formatter.swift */,
 				D34F77DE2978E5FF005DCE66 /* Date+.swift */,
+				D38445A5297ADE8A00C8BBC6 /* UITableView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				AC25141B29761DA10069CFFA /* Task.swift in Sources */,
 				D37836F92976C5A500844849 /* DefaultUpdateTaskUseCase.swift in Sources */,
 				AC5F3CB92977CDFD007D5F80 /* TaskEditViewModel.swift in Sources */,
+				D38445A6297ADE8A00C8BBC6 /* UITableView+.swift in Sources */,
 				AC5F3CB32977CDE7007D5F80 /* StateUpdateViewModel.swift in Sources */,
 				AC5F3CB62977CDF2007D5F80 /* TaskDetailViewModel.swift in Sources */,
 				AC5F3CBC2977CE04007D5F80 /* TaskListViewModel.swift in Sources */,

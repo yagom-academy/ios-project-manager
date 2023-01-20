@@ -11,6 +11,7 @@ import RxSwift
 import RxRelay
 
 final class TaskListViewModel {
+    typealias PopoverMaterials = (indexPath: IndexPath, rect: CGRect)
     private let fetchTasksUseCase: FetchTasksUseCase
     private let deleteTaskUseCase: DeleteTaskUseCase
     private let disposeBag = DisposeBag()
@@ -19,7 +20,7 @@ final class TaskListViewModel {
         let viewWillAppearEvent: Observable<Void>
         let createButtonTapEvent: Observable<Void>
         let indexPathToDelete: Observable<IndexPath>
-        let indexPathToLongPress: Observable<IndexPath>
+        let indexPathToLongPress: Observable<PopoverMaterials>
         let selectedTaskEvent: Observable<IndexPath>
     }
     
@@ -73,7 +74,7 @@ private extension TaskListViewModel {
             .disposed(by: disposeBag)
         
         input.indexPathToLongPress
-            .subscribe(onNext: { [weak self] indexPath in
+            .subscribe(onNext: { [weak self] materials in
                 //coordinator to do
             })
             .disposed(by: disposeBag)

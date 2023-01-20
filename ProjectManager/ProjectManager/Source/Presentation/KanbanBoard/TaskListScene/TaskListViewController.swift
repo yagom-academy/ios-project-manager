@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 
 final class TaskListViewController: UIViewController {
+    typealias PopoverMaterials = (indexPath: IndexPath, rect: CGRect)
     private enum Section {
         case main
     }
@@ -39,7 +40,7 @@ final class TaskListViewController: UIViewController {
     private var viewModel: TaskListViewModel
     private let viewWillAppearEvent = PublishRelay<Void>()
     private let indexPathToDelete = PublishRelay<IndexPath>()
-    private let indexPathToLongPress = PublishRelay<IndexPath>()
+    private let indexPathToLongPress = PublishRelay<PopoverMaterials>()
     private let selectedTaskEvent = PublishRelay<IndexPath>()
     private let disposeBag = DisposeBag()
     
@@ -123,8 +124,8 @@ extension TaskListViewController: KanbanBoardDelegate {
     func kanbanBoard(didDeletedAt indexPath: IndexPath) {
         indexPathToDelete.accept(indexPath)
     }
-    func kanbanBoard(didLongPressedAt indexPath: IndexPath) {
-        indexPathToLongPress.accept(indexPath)
+    func kanbanBoard(didLongPressedAt indexPath: IndexPath, rect: CGRect) {
+        indexPathToLongPress.accept((indexPath, rect))
     }
 }
 

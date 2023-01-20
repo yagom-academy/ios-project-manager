@@ -10,7 +10,7 @@ import UIKit
 protocol KanbanBoardDelegate: AnyObject {
     func KanbanBoard(didSelectedAt indexPath: IndexPath)
     func kanbanBoard(didDeletedAt indexPath: IndexPath)
-    func kanbanBoard(didLongPressedAt indexPath: IndexPath)
+    func kanbanBoard(didLongPressedAt indexPath: IndexPath, rect: CGRect)
 }
 
 final class KanbanBoardCell: UICollectionViewCell, ReusableView {
@@ -135,11 +135,13 @@ private extension KanbanBoardCell {
     
     @objc func longPressGesture(_ sender: UILongPressGestureRecognizer) {
         let point = sender.location(in: tableView)
-        if sender.state == .ended,
-           let indexPath = tableView.indexPathForRow(at: point),
-           let state = state {
+        if sender.state == .ended {
+            guard let indexPath = tableView.indexPathForRow(at: point),
+                  let originRect = tableView.frameInWindow(cellRowAt: indexPath),
+                  let state = state else { return }
             let longPressedIndexPath = IndexPath(item: indexPath.row, section: state.rawValue)
-            delegate?.kanbanBoard(didLongPressedAt: longPressedIndexPath)
+            let rect = CGRect(x: originRect.midX, y: originRect.midY, width: 0, height: 0)
+            delegate?.kanbanBoard(didLongPressedAt: longPressedIndexPath, rect: rect)
         }
     }
 }
