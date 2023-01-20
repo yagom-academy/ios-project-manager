@@ -66,7 +66,7 @@ final class ToDoListViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updated),
-                                               name: Notification.Name("updated"),
+                                               name: Notification.Name.updated,
                                                object: nil)
     }
     
