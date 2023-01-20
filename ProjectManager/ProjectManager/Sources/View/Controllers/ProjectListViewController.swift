@@ -18,6 +18,7 @@ final class ProjectListViewController: UIViewController {
     }
     
     private let header: HeaderView
+    private let headerViewModel: HeaderViewModel = HeaderViewModel()
     private let tableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section, Project>?
     weak var delegate: ProjectListActionDelegate?
@@ -31,8 +32,10 @@ final class ProjectListViewController: UIViewController {
     }()
     
     init(state: State) {
-        header = HeaderView(title: state.name)
+        header = HeaderView(viewModel: headerViewModel)
+        
         super.init(nibName: nil, bundle: nil)
+        headerViewModel.setupTitle(state.name)
     }
     
     required init?(coder: NSCoder) {
@@ -51,6 +54,8 @@ final class ProjectListViewController: UIViewController {
 // MARK: Interface Method
 extension ProjectListViewController {
     func updateList(with data: [Project]) {
+        headerViewModel.updateCellCount(to: data.count)
+        
         var snapshot = NSDiffableDataSourceSnapshot<Section, Project>()
         snapshot.appendSections([.main])
         snapshot.appendItems(data)

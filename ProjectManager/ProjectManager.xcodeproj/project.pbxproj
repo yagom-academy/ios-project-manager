@@ -27,6 +27,7 @@
 		E35F5DA729797FC5008D3ADC /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5DA629797FC5008D3ADC /* EditViewModel.swift */; };
 		E35F5DA9297A61C9008D3ADC /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5DA8297A61C9008D3ADC /* AddViewModel.swift */; };
 		E35F5DAB297A65D6008D3ADC /* ViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5DAA297A65D6008D3ADC /* ViewModelDelegate.swift */; };
+		E35F5DAD297A7073008D3ADC /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35F5DAC297A7073008D3ADC /* HeaderViewModel.swift */; };
 		E3DE2151296F970C00C4BB47 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E3DE2150296F970C00C4BB47 /* FirebaseFirestore */; };
 		E3DE2153296F970C00C4BB47 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E3DE2152296F970C00C4BB47 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		E35F5DA629797FC5008D3ADC /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		E35F5DA8297A61C9008D3ADC /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		E35F5DAA297A65D6008D3ADC /* ViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDelegate.swift; sourceTree = "<group>"; };
+		E35F5DAC297A7073008D3ADC /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				E35F5DA629797FC5008D3ADC /* EditViewModel.swift */,
 				E35F5DA8297A61C9008D3ADC /* AddViewModel.swift */,
 				0CD73D63297A6ACB00593B4D /* ProjectCellViewModel.swift */,
+				E35F5DAC297A7073008D3ADC /* HeaderViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				0CD73D64297A6ACB00593B4D /* ProjectCellViewModel.swift in Sources */,
 				E35F5DAB297A65D6008D3ADC /* ViewModelDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				E35F5DAD297A7073008D3ADC /* HeaderViewModel.swift in Sources */,
 				E35F5DA9297A61C9008D3ADC /* AddViewModel.swift in Sources */,
 				E35F5D9B297582B6008D3ADC /* Project.swift in Sources */,
 				E35F5DA52977E654008D3ADC /* State.swift in Sources */,

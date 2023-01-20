@@ -18,7 +18,7 @@ final class HeaderView: UIView {
     
     private let countLabel: CountLabel = {
         let countLabel = CountLabel()
-        countLabel.text = "1,000"
+        countLabel.text = "0"
         countLabel.textAlignment = .center
         countLabel.textColor = .white
         countLabel.backgroundColor = .black
@@ -26,18 +26,26 @@ final class HeaderView: UIView {
         return countLabel
     }()
     
-    init(title: String) {
-        super.init(frame: .zero)
-        self.backgroundColor = .systemBackground
-        titleLabel.text = title
+    private let headerViewModel: HeaderViewModel
+    
+    init(viewModel: HeaderViewModel) {
+        headerViewModel = viewModel
         
-        addSubview(titleLabel)
-        addSubview(countLabel)
+        super.init(frame: .zero)
+        configureView()
         configureLayout()
+        bindHeaderViewModel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureView() {
+        self.backgroundColor = .systemBackground
+        
+        addSubview(titleLabel)
+        addSubview(countLabel)
     }
     
     private func configureLayout() {
@@ -50,5 +58,15 @@ final class HeaderView: UIView {
             countLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 0.8),
             countLabel.widthAnchor.constraint(greaterThanOrEqualTo: titleLabel.heightAnchor, multiplier: 0.8)
         ])
+    }
+    
+    private func bindHeaderViewModel() {
+        headerViewModel.cellCountHandler = { [weak self] count in
+            self?.countLabel.text = count
+        }
+        
+        headerViewModel.titleHandler = { [weak self] title in
+            self?.titleLabel.text = title
+        }
     }
 }
