@@ -8,7 +8,7 @@
 import RxRelay
 import RxSwift
 
-protocol FetchTasksUseCase {
+protocol FetchTasksUseCase: DidEndEditingTaskDelegate {
     var tasks: BehaviorSubject<[Task]> { get }
     
     func fetchAllTasks()
@@ -33,7 +33,7 @@ final class DefaultFetchTasksUseCase: FetchTasksUseCase {
     }
 }
 
-extension DefaultFetchTasksUseCase: DidEndEditingTaskDelegate {
+extension DefaultFetchTasksUseCase {
     func didEndCreating(task: Task) {
         guard var tasksList = try? tasks.value() else {
             return
