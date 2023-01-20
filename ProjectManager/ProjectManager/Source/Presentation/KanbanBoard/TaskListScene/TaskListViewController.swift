@@ -15,6 +15,9 @@ final class TaskListViewController: UIViewController {
     private enum Section {
         case main
     }
+    private enum Constant {
+        static let title = "Project Manager"
+    }
     private let kanbanBoardView = KanbanBoardView()
     private lazy var kanbanBoardDataSource: UICollectionViewDiffableDataSource = {
         return UICollectionViewDiffableDataSource<Section, KanbanBoardModel>(
@@ -70,6 +73,7 @@ final class TaskListViewController: UIViewController {
 
 private extension TaskListViewController {
     func setUI() {
+        title = Constant.title
         view.backgroundColor = .systemBackground
         navigationItem.setRightBarButton(plusBarButtonItem, animated: true)
         kanbanBoardView.translatesAutoresizingMaskIntoConstraints = false
