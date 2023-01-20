@@ -8,32 +8,15 @@
 import UIKit
 
 final class PopoverViewController: UIViewController {
-    private let notification = Notification.Name("DismissForReload")
-    private let coredataManager = CoreDataManager()
     private let id: UUID
     private let state: State
+    private let coredataManager = CoreDataManager()
+    private let notification = Notification.Name("DismissForReload")
     
-    private let topButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Move To DOING", for: .normal)
-        button.setTitleColor(.systemGray, for: .normal)
-        
-        return button
-    }()
-    
-    private let bottomButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Move To DONE", for: .normal)
-        button.setTitleColor(.systemGray, for: .normal)
-        
-        return button
-    }()
-    
+    private let topButton = UIButton(title: "Move To DOING", titleColor: .systemBlue)
+    private let bottomButton = UIButton(title: "Move To DONE", titleColor: .systemBlue)
     private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .fillEqually
+        let stackView = UIStackView(axis: .vertical, alignment: .center, distribution: .fillEqually)
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -73,14 +56,15 @@ final class PopoverViewController: UIViewController {
     }
     
     private func configureLayout() {
+        let safeArea = view.safeAreaLayoutGuide
         self.view.addSubview(stackView)
         [topButton, bottomButton].forEach(stackView.addArrangedSubview(_:))
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
     

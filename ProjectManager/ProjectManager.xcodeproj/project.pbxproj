@@ -15,6 +15,7 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		F645CD9E296D4A9500954025 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F645CD9D296D4A9500954025 /* .swiftlint.yml */; };
 		F6749455297A73E500035153 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6749454297A73E500035153 /* UIStackView.swift */; };
+		F6749457297A7BC500035153 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6749456297A7BC500035153 /* UIButton.swift */; };
 		F67784F9297027F50033E33E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F67784F8297027F50033E33E /* GoogleService-Info.plist */; };
 		F677850129702DDA0033E33E /* TodoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677850029702DDA0033E33E /* TodoCustomCell.swift */; };
 		F677850329702E690033E33E /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677850229702E690033E33E /* UILabel.swift */; };
@@ -45,6 +46,7 @@
 		EA002B804324C571EA65A5B7 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		F645CD9D296D4A9500954025 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		F6749454297A73E500035153 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
+		F6749456297A7BC500035153 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		F67784F8297027F50033E33E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F677850029702DDA0033E33E /* TodoCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCustomCell.swift; sourceTree = "<group>"; };
 		F677850229702E690033E33E /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				F677850229702E690033E33E /* UILabel.swift */,
 				F6749454297A73E500035153 /* UIStackView.swift */,
+				F6749456297A7BC500035153 /* UIButton.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6749457297A7BC500035153 /* UIButton.swift in Sources */,
 				F677850329702E690033E33E /* UILabel.swift in Sources */,
 				F6F0755E297139BE00856794 /* CustomHeaderView.swift in Sources */,
 				F677850129702DDA0033E33E /* TodoCustomCell.swift in Sources */,
