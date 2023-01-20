@@ -116,4 +116,4 @@ extension ProcessTableViewCell {
     }
 }
 
-extension ProcessTableViewCell: IdentifierUsable { }
+extension ProcessTableViewCell: Identifierable { }

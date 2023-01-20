@@ -7,9 +7,9 @@
 
 import UIKit
 
-protocol IdentifierUsable where Self: UIView { }
+protocol Identifierable where Self: UIView { }
 
-extension IdentifierUsable {
+extension Identifierable {
     static var identifier: String {
         return String.init(describing: self)
     }
