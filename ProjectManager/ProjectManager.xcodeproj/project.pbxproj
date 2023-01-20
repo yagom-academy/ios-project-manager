@@ -179,7 +179,6 @@
 		AC5F3CA92977CD30007D5F80 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				D35CC411297A6BD2000C13B8 /* Protocol */,
 				AC5F3CAA2977CD39007D5F80 /* KanbanBoard */,
 			);
 			path = Presentation;
@@ -247,6 +246,7 @@
 		AC5F3CC42977CE98007D5F80 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D35CC411297A6BD2000C13B8 /* Protocol */,
 				D34F77F029796C79005DCE66 /* KanbanBoardView.swift */,
 				D34F77F229797782005DCE66 /* KanbanBoardCell.swift */,
 				D35CC40F297A2E6D000C13B8 /* TaskCell.swift */,
