@@ -56,7 +56,7 @@ final class TaskListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUI()
         bindViewModel()
     }
@@ -66,8 +66,6 @@ final class TaskListViewController: UIViewController {
         
         viewWillAppearEvent.accept(())
     }
-    
-    
 }
 
 private extension TaskListViewController {
@@ -79,26 +77,28 @@ private extension TaskListViewController {
         
         let safeArea = view.safeAreaLayoutGuide
         let spacing: CGFloat = 8
-
+        
         NSLayoutConstraint.activate([
             kanbanBoardView.topAnchor.constraint(equalTo: safeArea.topAnchor,
-                                           constant: spacing),
+                                                 constant: spacing),
             kanbanBoardView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,
-                                               constant: spacing),
+                                                     constant: spacing),
             kanbanBoardView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,
-                                                constant: -spacing),
+                                                      constant: -spacing),
             kanbanBoardView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor,
-                                              constant: -spacing),
+                                                    constant: -spacing),
         ])
     }
     
     func bindViewModel() {
-        let input = TaskListViewModel.Input(viewWillAppearEvent: viewWillAppearEvent.asObservable(),
-                                            createButtonTapEvent: plusBarButtonItem.rx.tap.asObservable(),
-                                            indexPathToDelete: indexPathToDelete.asObservable(),
-                                            indexPathToLongPress: indexPathToLongPress.asObservable(),
-                                            selectedTaskEvent: selectedTaskEvent.asObservable())
+        let input = TaskListViewModel.Input(
+            viewWillAppearEvent: viewWillAppearEvent.asObservable(),
+            createButtonTapEvent: plusBarButtonItem.rx.tap.asObservable(),
+            indexPathToDelete: indexPathToDelete.asObservable(),
+            indexPathToLongPress: indexPathToLongPress.asObservable(),
+            selectedTaskEvent: selectedTaskEvent.asObservable())
         let output = viewModel.transform(from: input)
+        
         output.kanbanBoardModels
             .asDriver()
             .drive(onNext: { [weak self] kanbanBoardModels in
@@ -128,5 +128,3 @@ extension TaskListViewController: KanbanBoardDelegate {
         indexPathToLongPress.accept((indexPath, rect))
     }
 }
-
-

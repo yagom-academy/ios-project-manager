@@ -142,7 +142,7 @@ private extension TaskEditViewController {
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
-            
+        
         setContents(with: output.task)
     }
     

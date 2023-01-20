@@ -68,6 +68,7 @@ private extension StateUpdateViewModel {
     
     func updateTaskState(to state: Task.State) {
         guard task.state != state else { return }
+        
         task.state = state
         updateTaskUseCase.update(task)
     }

@@ -99,8 +99,8 @@ private extension StateUpdateViewController {
             moveToDoingButtonTapEvent: moveToDoingButton.rx.tap.asObservable(),
             moveToDoneButtonTapEvent: moveToDoneButton.rx.tap.asObservable()
         )
-        
         let output = viewModel.transform(from: input)
+        
         output.isSuccess
             .subscribe(onNext: { [weak self] isSuccess in
                 if isSuccess {

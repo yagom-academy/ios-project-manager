@@ -85,6 +85,7 @@ final class KanbanBoardCoordinator {
         let taskListViewModel = TaskListViewModel(fetchTasksUseCase: fetchTasksUseCase,
                                                   deleteTaskUseCase: deleteTaskUseCase,
                                                   action: taskListViewModelActions)
+        
         return TaskListViewController(viewModel: taskListViewModel)
     }
 }

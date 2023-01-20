@@ -120,6 +120,7 @@ private extension TaskListViewModel {
               let task = try? tasks.value()[state]?[indexPath.item] else {
             return
         }
+        
         action?.showTaskDetailScene(task) { [weak self] isTappedEditButton in
             if isTappedEditButton {
                 self?.action?.showTaskEditScene(task, self?.fetchTasksUseCase)
@@ -132,6 +133,7 @@ private extension TaskListViewModel {
               let task = try? tasks.value()[state]?[indexPath.item] else {
             return
         }
+        
         action?.showStateUpdatePopover(task, sourceRect, fetchTasksUseCase)
     }
 }

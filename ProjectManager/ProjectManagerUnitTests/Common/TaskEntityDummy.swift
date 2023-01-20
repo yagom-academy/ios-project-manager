@@ -13,7 +13,7 @@ struct TaskEntityDummy {
             id: "1",
             title: "RxSwift 추가",
             content: "제곧내",
-            deadLine: 1674140400, // 2023년
+            deadLine: 1674140400,
             state: Task.State.toDo.rawValue
         ),
         

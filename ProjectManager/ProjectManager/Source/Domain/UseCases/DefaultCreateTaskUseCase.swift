@@ -10,9 +10,7 @@ import RxSwift
 protocol CreateTaskUseCase {
     var isCreatedSuccess: PublishSubject<Bool> { get }
     
-    func create(title: String,
-                content: String,
-                deadLine: Double)
+    func create(title: String, content: String, deadLine: Double)
 }
 
 final class DefaultCreateTaskUseCase: CreateTaskUseCase {
@@ -28,16 +26,8 @@ final class DefaultCreateTaskUseCase: CreateTaskUseCase {
         self.repository = repository
     }
     
-    func create(title: String,
-                content: String,
-                deadLine: Double
-    ) {
-        let task = Task(
-            title: title,
-            content: content,
-            deadLine: deadLine
-        )
-        
+    func create(title: String, content: String, deadLine: Double) {
+        let task = Task(title: title, content: content, deadLine: deadLine)
         let entity = translater.toEntity(with: task)
         
         repository.create(entity)

@@ -16,7 +16,7 @@ final class TaskDetailViewModel {
     struct Input {
         let editButtonTappedEvent: Observable<Void>
     }
-
+    
     // MARK: - Output
     struct Output {
         let task: Task
@@ -36,5 +36,4 @@ final class TaskDetailViewModel {
         
         return Output(task: self.task)
     }
-    
 }
