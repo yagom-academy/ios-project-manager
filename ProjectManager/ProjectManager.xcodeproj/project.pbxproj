@@ -66,10 +66,7 @@
 		B4200E3E29717573000E2B8B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B481FA02297979E600597E8C /* Extension */,
 				B43D8D3D29765F8A00986169 /* Protocol */,
-				B4200E4529717B60000E2B8B /* Enum */,
-				B4200E40297175A0000E2B8B /* App */,
 				B4200E42297178EE000E2B8B /* Model */,
 				B43D8D3629757EA500986169 /* View */,
 				B4200E41297175AD000E2B8B /* ViewController */,
@@ -81,6 +78,9 @@
 		B4200E3F2971757C000E2B8B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B4200E40297175A0000E2B8B /* App */,
+				B4200E4529717B60000E2B8B /* Enum */,
+				B481FA02297979E600597E8C /* Extension */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);

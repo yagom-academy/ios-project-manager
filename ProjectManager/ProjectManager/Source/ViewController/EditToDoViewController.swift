@@ -3,8 +3,8 @@
 
 import UIKit
 
-class EditToDoViewController: UIViewController {
-
+final class EditToDoViewController: UIViewController {
+    
     private enum Constant {
         static let title = "TODO"
         static let doneButtonTitle = "Done"

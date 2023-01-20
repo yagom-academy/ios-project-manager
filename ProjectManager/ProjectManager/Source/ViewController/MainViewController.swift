@@ -3,7 +3,8 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
+    
     private enum Constant {
         static let title = "Project Manager"
     }

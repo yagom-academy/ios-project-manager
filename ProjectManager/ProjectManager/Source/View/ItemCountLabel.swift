@@ -3,7 +3,8 @@
 
 import UIKit
 
-class ItemCountLabel: UILabel {
+final class ItemCountLabel: UILabel {
+    
     private enum Constant {
         static let maxCount: Int = 99
     }

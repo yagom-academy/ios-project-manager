@@ -3,7 +3,8 @@
 
 import UIKit
 
-class ToDoListViewController: UIViewController {
+final class ToDoListViewController: UIViewController {
+    
     enum Schedule: Hashable {
         case main
     }
@@ -173,15 +174,15 @@ extension ToDoListViewController: UITableViewDelegate {
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
         let moveToTodo = UIAction(title: NSLocalizedString("Move To Todo", comment: ""),
-                                     image: nil) { _ in
+                                  image: nil) { _ in
             self.updateState(indexPath: indexPath.item, state: .toDo)
         }
         let moveToDoing = UIAction(title: NSLocalizedString("Move To Doing", comment: ""),
-                                     image: nil) { _ in
+                                   image: nil) { _ in
             self.updateState(indexPath: indexPath.item, state: .doing)
         }
         let moveToDone = UIAction(title: NSLocalizedString("Move To Done", comment: ""),
-                                       image: nil) { _ in
+                                  image: nil) { _ in
             self.updateState(indexPath: indexPath.item, state: .done)
         }
         
@@ -195,10 +196,6 @@ extension ToDoListViewController: UITableViewDelegate {
         case .done:
             menu = UIMenu(children: [moveToTodo, moveToDoing])
         }
-        
-        let contextMenu = UIContextMenuConfiguration(actionProvider: { _ in
-            return UIMenu(children: [])
-        })
         
         return UIContextMenuConfiguration(actionProvider: { _ in
             return menu

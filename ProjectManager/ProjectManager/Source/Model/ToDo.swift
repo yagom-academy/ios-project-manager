@@ -4,6 +4,7 @@
 import Foundation
 
 struct ToDo: Hashable {
+    
     var id: UUID = UUID()
     var title: String
     var body: String
@@ -16,7 +17,7 @@ struct ToDo: Hashable {
         self.deadline = deadline
         self.state = state
     }
-
+    
     var isOverDeadline: Bool {
         return deadline < Date()
     }

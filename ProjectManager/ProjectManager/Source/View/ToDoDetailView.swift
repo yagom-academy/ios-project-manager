@@ -3,11 +3,10 @@
 
 import UIKit
 
-class ToDoDetailView: UIView {
+final class ToDoDetailView: UIView {
+    
     private enum Constant {
         static let titlePlaceHolder = "Title"
-        static let emptyTitle = "제목 없음"
-        static let emptyBody = "내용 없음"
     }
     
     private let titleTextField: UITextField = {
@@ -42,7 +41,6 @@ class ToDoDetailView: UIView {
     private let bodyTextView: UITextView = {
         let textView = UITextView()
         
-        textView.text = Constant.emptyBody
         textView.font = UIFont.preferredFont(forTextStyle: .callout)
         textView.textColor = .black
         textView.backgroundColor = .systemBackground

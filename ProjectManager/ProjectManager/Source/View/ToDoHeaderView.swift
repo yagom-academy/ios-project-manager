@@ -3,7 +3,8 @@
 
 import UIKit
 
-class ToDoHeaderView: UIView {
+final class ToDoHeaderView: UIView {
+    
     private let status: ToDoState
     private let count: Int
     

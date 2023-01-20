@@ -3,7 +3,7 @@
 
 import UIKit
 
-class AddToDoViewController: UIViewController {
+final class AddToDoViewController: UIViewController {
     
     private enum Constant {
         static let title = "TODO"

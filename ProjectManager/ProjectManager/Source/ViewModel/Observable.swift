@@ -4,6 +4,7 @@
 import Foundation
 
 final class Observable<T> {
+    
     typealias Listener = (T) -> Void
     
     var listener: Listener?

@@ -3,8 +3,8 @@
 
 import UIKit
 
-class ToDoCell: UITableViewCell, ReusableView {
-
+final class ToDoCell: UITableViewCell, ReusableView {
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         

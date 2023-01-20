@@ -3,7 +3,8 @@
 
 import Foundation
 
-class ToDoListViewModel {
+final class ToDoListViewModel {
+    
     let todoModel: Observable<[ToDo]> = Observable([])
     let doingModel: Observable<[ToDo]> = Observable([])
     let doneModel: Observable<[ToDo]> = Observable([])
