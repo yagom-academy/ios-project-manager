@@ -35,6 +35,7 @@ final class TaskCreateViewModel {
         let contentDidEditEvent: Observable<String>
         let datePickerDidEditEvent: Observable<Date>
         let doneButtonTapEvent: Observable<Void>
+        let cancelButtonTapEvent: Observable<Void>
     }
     
     func transform(from input: Input) -> Output {
@@ -85,6 +86,12 @@ final class TaskCreateViewModel {
                     content: self.content,
                     deadLine: self.date
                 )
+            })
+            .disposed(by: disposeBag)
+        
+        input.cancelButtonTapEvent
+            .subscribe(onNext: { [weak self] _ in
+                // coordinater finish
             })
             .disposed(by: disposeBag)
     }
