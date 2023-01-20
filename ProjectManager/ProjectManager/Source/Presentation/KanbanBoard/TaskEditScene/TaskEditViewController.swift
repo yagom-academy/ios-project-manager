@@ -12,7 +12,7 @@ import RxSwift
 
 final class TaskEditViewController: UIViewController {
     private enum Constant {
-        static let maximumContentLength = 10
+        static let maximumContentLength = 1000
     }
     private let viewModel: TaskEditViewModel
     private let disposeBag = DisposeBag()

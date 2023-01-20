@@ -12,7 +12,7 @@ import RxSwift
 
 final class TaskCreateViewController: UIViewController {
     private enum Constant {
-        static let maximumContentLength = 10
+        static let maximumContentLength = 1000
         static let spacing = CGFloat(8)
     }
     private let viewModel: TaskCreateViewModel
