@@ -139,6 +139,13 @@ private extension TaskCreateViewController {
     }
     
     func showAlert() {
-        // 실패 알럿 alert
+        let alertController = UIAlertController(title: "생성 실패",
+                                                message: "생성에 실패했습니다.",
+                                                preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인", style: .default)
+        
+        alertController.addAction(action)
+        
+        present(alertController, animated: true)
     }
 }
