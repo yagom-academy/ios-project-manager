@@ -35,11 +35,13 @@ final class MockDataManager {
         mockModels.append(item)
     }
     
-    func updateTodo(item: TodoModel) {
-        guard let previousItem = MockDataManager.shared.mockModels.filter({ $0.id == item.id }).first,
+    func updateTodo(item: TodoModel, status: TodoModel.TodoStatus) {
+        guard var previousItem = MockDataManager.shared.mockModels.filter({ $0.id == item.id }).first,
               let index = MockDataManager.shared.mockModels.firstIndex(of: previousItem) else { return }
         
-        mockModels[index] = item
+        previousItem = item
+        previousItem.status = status
+        mockModels[index] = previousItem
     }
     
     func removeTodo(item: TodoModel) {

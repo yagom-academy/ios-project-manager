@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26354188297A2A8200DE5AC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26354187297A2A8200DE5AC4 /* GoogleService-Info.plist */; };
 		2642F17529757091008E2145 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642F17429757091008E2145 /* AddTodoViewController.swift */; };
 		2642F1792975AAC8008E2145 /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642F1782975AAC8008E2145 /* EditTodoViewController.swift */; };
 		26545EBC29769A2B00B02353 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26545EBB29769A2B00B02353 /* Double+.swift */; };
@@ -19,7 +20,6 @@
 		26720F8A2971CDB300A26042 /* TodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26720F892971CDB300A26042 /* TodoItemView.swift */; };
 		268E3B4E296EFAA3003BF2AD /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E3B4D296EFAA3003BF2AD /* TodoModel.swift */; };
 		268E3B50296EFD6C003BF2AD /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E3B4F296EFD6C003BF2AD /* ListTableViewCell.swift */; };
-		269576EB296DB83500F62494 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 269576EA296DB83400F62494 /* GoogleService-Info.plist */; };
 		269576EE296DB95800F62494 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 269576ED296DB95800F62494 /* FirebaseAnalytics */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -29,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26354187297A2A8200DE5AC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2642F17429757091008E2145 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
 		2642F1782975AAC8008E2145 /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
 		26545EBB29769A2B00B02353 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
@@ -41,7 +42,6 @@
 		26720F892971CDB300A26042 /* TodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemView.swift; sourceTree = "<group>"; };
 		268E3B4D296EFAA3003BF2AD /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		268E3B4F296EFD6C003BF2AD /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
-		269576EA296DB83400F62494 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				269576EA296DB83400F62494 /* GoogleService-Info.plist */,
+				26354187297A2A8200DE5AC4 /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -210,7 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
-				269576EB296DB83500F62494 /* GoogleService-Info.plist in Resources */,
+				26354188297A2A8200DE5AC4 /* GoogleService-Info.plist in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

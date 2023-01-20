@@ -26,9 +26,10 @@ final class ListViewController: UIViewController {
     private let doingTableView = ListTableView()
     private let doneTableView = ListTableView()
     
-    private lazy var todoDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: todoTableView)
-    private lazy var doingDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: doingTableView)
-    private lazy var doneDataSource: UITableViewDiffableDataSource<ListSection, TodoModel> = configureDataSource(of: doneTableView)
+    private typealias ListDataSource = UITableViewDiffableDataSource<ListSection, TodoModel>
+    private lazy var todoDataSource: ListDataSource = configureDataSource(of: todoTableView)
+    private lazy var doingDataSource: ListDataSource = configureDataSource(of: doingTableView)
+    private lazy var doneDataSource: ListDataSource = configureDataSource(of: doneTableView)
     
     private var todoModels: [TodoModel] {
         MockDataManager.shared.mockModels.filter { $0.status == .todo }
@@ -85,6 +86,8 @@ final class ListViewController: UIViewController {
         tableviews.forEach {
             $0.delegate = self
             tableStackView.addArrangedSubview($0)
+            $0.addGestureRecognizer(UILongPressGestureRecognizer(target: self,
+                                                                 action: #selector(self.pressTableView)))
         }
     }
     
@@ -100,10 +103,80 @@ final class ListViewController: UIViewController {
     }
 }
 
+// MARK: - configure Popover
+extension ListViewController {
+    @objc func pressTableView(_ sender: UILongPressGestureRecognizer) {
+        guard let tableView = sender.view as? UITableView else { return }
+        
+        let location = sender.location(in: tableView)
+        
+        guard let indexPath = tableView.indexPathForRow(at: location),
+              let cell = tableView.cellForRow(at: indexPath) else { return }
+        
+        let alert = makeAlert(for: tableView, indexPath: indexPath)
+        
+        presentPopover(alert: alert, sourceView: cell)
+    }
+    
+    private func makeAlert(for tableView: UITableView, indexPath: IndexPath) -> UIAlertController {
+        guard let cellItem = fetchCellItem(from: tableView, indexPath: indexPath) else {
+            return UIAlertController(title: TodoError.loadError.title,
+                                     message: TodoError.loadError.message,
+                                     preferredStyle: .alert)
+        }
+        
+        let moveToTodo = UIAlertAction(title: AlertMenu.toTodo, style: .default) { [weak self] _ in
+            MockDataManager.shared.updateTodo(item: cellItem, status: .todo)
+            self?.todoTableView.reloadData()
+            tableView.reloadData()
+            self?.applyAllSnapshot()
+        }
+        let moveToDoing = UIAlertAction(title: AlertMenu.toDoing, style: .default) { [weak self] _ in
+            MockDataManager.shared.updateTodo(item: cellItem, status: .doing)
+            self?.doingTableView.reloadData()
+            tableView.reloadData()
+            self?.applyAllSnapshot()
+        }
+        let moveToDone = UIAlertAction(title: AlertMenu.toDone, style: .default) { [weak self] _ in
+            MockDataManager.shared.updateTodo(item: cellItem, status: .done)
+            self?.doneTableView.reloadData()
+            tableView.reloadData()
+            self?.applyAllSnapshot()
+        }
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        switch tableView {
+        case todoTableView:
+            alert.addAction(moveToDoing)
+            alert.addAction(moveToDone)
+        case doingTableView:
+            alert.addAction(moveToTodo)
+            alert.addAction(moveToDone)
+        case doneTableView:
+            alert.addAction(moveToTodo)
+            alert.addAction(moveToDoing)
+        default:
+            break
+        }
+        
+        return alert
+    }
+    
+    private func presentPopover(alert: UIAlertController, sourceView: UITableViewCell) {
+        guard let popover = alert.popoverPresentationController else { return }
+        
+        popover.sourceView = sourceView
+        popover.sourceRect = sourceView.bounds
+        
+        present(alert, animated: true)
+    }
+}
+
 // MARK: - TableView DataSource and Snapshot
 extension ListViewController {
-    private func configureDataSource(of tableView: ListTableView) -> UITableViewDiffableDataSource<ListSection, TodoModel> {
-        let dataSource = UITableViewDiffableDataSource<ListSection, TodoModel>(tableView: tableView) { tableView, indexPath, todoItem in
+    private func configureDataSource(of tableView: ListTableView) -> ListDataSource {
+        let dataSource = ListDataSource(tableView: tableView) { tableView, indexPath, todoItem in
             let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier, for: indexPath) as? ListTableViewCell
             
             cell?.configureContent(title: todoItem.title,
@@ -114,13 +187,13 @@ extension ListViewController {
         return dataSource
     }
     
-    private func applyAllSnapshot() {
+    func applyAllSnapshot() {
         applySnapshot(todoTableView)
         applySnapshot(doingTableView)
         applySnapshot(doneTableView)
     }
     
-    private func applySnapshot(_ tableView: ListTableView) {
+    func applySnapshot(_ tableView: ListTableView) {
         var snapshot = NSDiffableDataSourceSnapshot<ListSection, TodoModel>()
         snapshot.appendSections([.main])
         
@@ -182,7 +255,7 @@ extension ListViewController: UITableViewDelegate {
     }
     
     private func fetchCellItem(from tableView: UITableView, indexPath: IndexPath) -> TodoModel? {
-        guard let dataSource = tableView.dataSource as? UITableViewDiffableDataSource<ListSection, TodoModel>,
+        guard let dataSource = tableView.dataSource as? ListDataSource,
               let todoItem = dataSource.itemIdentifier(for: indexPath) else {
             return nil
         }
@@ -222,7 +295,7 @@ extension ListViewController: AddTodoViewDelegate {
 // MARK: - EditTodoViewDelegate
 extension ListViewController: EditTodoViewDelegate {
     func editTodoItem(with item: TodoModel) {
-        MockDataManager.shared.updateTodo(item: item)
+        MockDataManager.shared.updateTodo(item: item, status: item.status)
         applyAllSnapshot()
     }
 }
