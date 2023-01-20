@@ -43,10 +43,12 @@ final class TaskListViewModelTests: XCTestCase {
         )
         
         // when
-        viewModel.bind(with: input)
-        viewModel.tasks
+        let output = viewModel.transform(from: input)
+        output.kanbanBoardModels
             .subscribe(onNext: { tasks in
-                isEmptyObserver.on(.next(tasks.isEmpty))
+                tasks.forEach {
+                    isEmptyObserver.on(.next($0.tasks.isEmpty))
+                }
             })
             .disposed(by: disposeBag)
         
@@ -54,7 +56,11 @@ final class TaskListViewModelTests: XCTestCase {
         
         // then
         XCTAssertEqual(isEmptyObserver.events, [
+            .next(0, true), //empty
             .next(0, true),
+            .next(0, true),
+            .next(10, false), //non empty
+            .next(10, false),
             .next(10, false)
         ])
     }

@@ -20,7 +20,12 @@ struct TaskEntityDummy {
         TaskEntity(
             id: "2",
             title: "제목제목제목",
-            content: "내용내용내용",
+            content: """
+                    내용내용내용
+                    세줄이 넘는
+                    내용입니다
+                    내용내용
+                    """,
             deadLine: 1673881200,
             state: Task.State.toDo.rawValue
         ),

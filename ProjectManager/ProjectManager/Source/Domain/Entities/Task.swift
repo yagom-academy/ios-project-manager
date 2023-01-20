@@ -15,7 +15,7 @@ struct Task {
     var state: State
     var isExpired: Bool
     
-    enum State: Int {
+    enum State: Int, CaseIterable {
         case toDo
         case doing
         case done
@@ -34,5 +34,15 @@ struct Task {
         self.deadLine = deadLine
         self.state = state
         self.isExpired = deadLine < Date.startOfCurrentDay.timeIntervalSince1970
+    }
+}
+
+extension Task: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
+    
+    static func == (_ lhs: Self, _ rhs: Self) -> Bool {
+        return lhs.id == rhs.id
     }
 }

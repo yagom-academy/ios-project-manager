@@ -31,7 +31,6 @@
 		AC5F3CD22977CEF3007D5F80 /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CD02977CEF3007D5F80 /* TaskEditViewController.swift */; };
 		AC5F3CD32977CEF3007D5F80 /* TaskEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5F3CD12977CEF3007D5F80 /* TaskEditViewController.xib */; };
 		AC5F3CD62977CF05007D5F80 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CD42977CF05007D5F80 /* TaskListViewController.swift */; };
-		AC5F3CD72977CF05007D5F80 /* TaskListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5F3CD52977CF05007D5F80 /* TaskListViewController.xib */; };
 		AC5F3CDA2977CF17007D5F80 /* TaskCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CD82977CF17007D5F80 /* TaskCreateViewController.swift */; };
 		AC5F3CDB2977CF17007D5F80 /* TaskCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5F3CD92977CF17007D5F80 /* TaskCreateViewController.xib */; };
 		AC5F3CDE29783CFD007D5F80 /* TaskCreateViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F3CDD29783CFD007D5F80 /* TaskCreateViewModelTests.swift */; };
@@ -44,8 +43,6 @@
 		AC67583D29766C4400C2BDE2 /* DefaultCreateTaskUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67583C29766C4400C2BDE2 /* DefaultCreateTaskUseCase.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
-		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		D34F77DF2978E5FF005DCE66 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77DE2978E5FF005DCE66 /* Date+.swift */; };
@@ -55,6 +52,12 @@
 		D34F77E92979352C005DCE66 /* CreateTaskUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77E82979352C005DCE66 /* CreateTaskUseCaseMock.swift */; };
 		D34F77EB29793537005DCE66 /* UpdateTaskUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77EA29793537005DCE66 /* UpdateTaskUseCaseMock.swift */; };
 		D34F77ED29793544005DCE66 /* DeleteTaskUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77EC29793544005DCE66 /* DeleteTaskUseCaseMock.swift */; };
+		D34F77F129796C79005DCE66 /* KanbanBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77F029796C79005DCE66 /* KanbanBoardView.swift */; };
+		D34F77F329797782005DCE66 /* KanbanBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F77F229797782005DCE66 /* KanbanBoardCell.swift */; };
+		D35CC410297A2E6D000C13B8 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CC40F297A2E6D000C13B8 /* TaskCell.swift */; };
+		D35CC413297A6BF1000C13B8 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CC412297A6BF1000C13B8 /* ReusableView.swift */; };
+		D35CC416297A6FC7000C13B8 /* KanbanBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CC415297A6FC7000C13B8 /* KanbanBoardModel.swift */; };
+		D35CC417297A6FD4000C13B8 /* KanbanBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CC415297A6FC7000C13B8 /* KanbanBoardModel.swift */; };
 		D36715D8296D495400A4A9DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D36715D7296D495400A4A9DD /* GoogleService-Info.plist */; };
 		D36715DB296D4CCB00A4A9DD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D36715DA296D4CCB00A4A9DD /* FirebaseAnalytics */; };
 		D36F87052977B1A70006C392 /* FetchTasksUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F87042977B1A70006C392 /* FetchTasksUseCaseTests.swift */; };
@@ -113,7 +116,6 @@
 		AC5F3CD02977CEF3007D5F80 /* TaskEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
 		AC5F3CD12977CEF3007D5F80 /* TaskEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskEditViewController.xib; sourceTree = "<group>"; };
 		AC5F3CD42977CF05007D5F80 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
-		AC5F3CD52977CF05007D5F80 /* TaskListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskListViewController.xib; sourceTree = "<group>"; };
 		AC5F3CD82977CF17007D5F80 /* TaskCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreateViewController.swift; sourceTree = "<group>"; };
 		AC5F3CD92977CF17007D5F80 /* TaskCreateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCreateViewController.xib; sourceTree = "<group>"; };
 		AC5F3CDD29783CFD007D5F80 /* TaskCreateViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreateViewModelTests.swift; sourceTree = "<group>"; };
@@ -130,8 +132,6 @@
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C7431F0C25F51E1D0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -140,6 +140,11 @@
 		D34F77E82979352C005DCE66 /* CreateTaskUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskUseCaseMock.swift; sourceTree = "<group>"; };
 		D34F77EA29793537005DCE66 /* UpdateTaskUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTaskUseCaseMock.swift; sourceTree = "<group>"; };
 		D34F77EC29793544005DCE66 /* DeleteTaskUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTaskUseCaseMock.swift; sourceTree = "<group>"; };
+		D34F77F029796C79005DCE66 /* KanbanBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanBoardView.swift; sourceTree = "<group>"; };
+		D34F77F229797782005DCE66 /* KanbanBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanBoardCell.swift; sourceTree = "<group>"; };
+		D35CC40F297A2E6D000C13B8 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		D35CC412297A6BF1000C13B8 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
+		D35CC415297A6FC7000C13B8 /* KanbanBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanBoardModel.swift; sourceTree = "<group>"; };
 		D36715D7296D495400A4A9DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D36F87042977B1A70006C392 /* FetchTasksUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTasksUseCaseTests.swift; sourceTree = "<group>"; };
 		D37836F82976C5A500844849 /* DefaultUpdateTaskUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUpdateTaskUseCase.swift; sourceTree = "<group>"; };
@@ -177,6 +182,7 @@
 		AC5F3CA92977CD30007D5F80 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				D35CC411297A6BD2000C13B8 /* Protocol */,
 				AC5F3CAA2977CD39007D5F80 /* KanbanBoard */,
 			);
 			path = Presentation;
@@ -207,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				AC5F3CC42977CE98007D5F80 /* View */,
+				AC5F3CD42977CF05007D5F80 /* TaskListViewController.swift */,
 				AC5F3CBB2977CE04007D5F80 /* TaskListViewModel.swift */,
 			);
 			path = TaskListScene;
@@ -269,8 +276,9 @@
 		AC5F3CC42977CE98007D5F80 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AC5F3CD42977CF05007D5F80 /* TaskListViewController.swift */,
-				AC5F3CD52977CF05007D5F80 /* TaskListViewController.xib */,
+				D34F77F029796C79005DCE66 /* KanbanBoardView.swift */,
+				D34F77F229797782005DCE66 /* KanbanBoardCell.swift */,
+				D35CC40F297A2E6D000C13B8 /* TaskCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -364,8 +372,6 @@
 			children = (
 				D3E203C2297580D20015AD16 /* Source */,
 				D3E203C1297580CA0015AD16 /* Resource */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -379,6 +385,14 @@
 				D34F77EC29793544005DCE66 /* DeleteTaskUseCaseMock.swift */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		D35CC411297A6BD2000C13B8 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D35CC412297A6BF1000C13B8 /* ReusableView.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		D379543729769A8500A3F02F /* ProjectManagerUnitTests */ = {
@@ -449,6 +463,7 @@
 				AC25141829761D950069CFFA /* TaskEntity.swift */,
 				AC25141A29761DA10069CFFA /* Task.swift */,
 				AC25141C297622180069CFFA /* Translater.swift */,
+				D35CC415297A6FC7000C13B8 /* KanbanBoardModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -591,12 +606,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC5F3CD32977CEF3007D5F80 /* TaskEditViewController.xib in Resources */,
-				AC5F3CD72977CF05007D5F80 /* TaskListViewController.xib in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				D36715D8296D495400A4A9DD /* GoogleService-Info.plist in Resources */,
 				AC5F3CCF2977CEE3007D5F80 /* TaskDetailViewController.xib in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
-				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
 				AC5F3CCA2977CEC2007D5F80 /* StateUpdateViewController.xib in Resources */,
 				AC5F3CDB2977CF17007D5F80 /* TaskCreateViewController.xib in Resources */,
 			);
@@ -620,14 +633,15 @@
 				AC675835297656AE00C2BDE2 /* DidEndEditingTaskDelegate.swift in Sources */,
 				AC5F3CD62977CF05007D5F80 /* TaskListViewController.swift in Sources */,
 				D37954022976539200A3F02F /* MockTaskRepository.swift in Sources */,
+				D34F77F329797782005DCE66 /* KanbanBoardCell.swift in Sources */,
 				D37954042976574C00A3F02F /* TaskDummy.swift in Sources */,
 				D37954032976574900A3F02F /* TaskEntityDummy.swift in Sources */,
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				AC67583D29766C4400C2BDE2 /* DefaultCreateTaskUseCase.swift in Sources */,
 				D34F77DF2978E5FF005DCE66 /* Date+.swift in Sources */,
 				AC5F3CCE2977CEE3007D5F80 /* TaskDetailViewController.swift in Sources */,
 				AC67581029762C9800C2BDE2 /* Double+Formatter.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				D35CC410297A2E6D000C13B8 /* TaskCell.swift in Sources */,
 				AC25141B29761DA10069CFFA /* Task.swift in Sources */,
 				D37836F92976C5A500844849 /* DefaultUpdateTaskUseCase.swift in Sources */,
 				AC5F3CB92977CDFD007D5F80 /* TaskEditViewModel.swift in Sources */,
@@ -637,10 +651,13 @@
 				AC5F3CBF2977CE0C007D5F80 /* TaskCreateViewModel.swift in Sources */,
 				AC25141D297622180069CFFA /* Translater.swift in Sources */,
 				AC5F3CA02976C24D007D5F80 /* DefaultDeleteTaskUseCase.swift in Sources */,
+				D35CC416297A6FC7000C13B8 /* KanbanBoardModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				D3795400297651BB00A3F02F /* TaskRepository.swift in Sources */,
 				AC25141929761D950069CFFA /* TaskEntity.swift in Sources */,
 				AC5F3CC82977CEC2007D5F80 /* StateUpdateViewController.swift in Sources */,
+				D34F77F129796C79005DCE66 /* KanbanBoardView.swift in Sources */,
+				D35CC413297A6BF1000C13B8 /* ReusableView.swift in Sources */,
 				AC67581329762DE700C2BDE2 /* String+Formatter.swift in Sources */,
 				AC5F3CDA2977CF17007D5F80 /* TaskCreateViewController.swift in Sources */,
 				D37954092976617300A3F02F /* DefaultFetchTasksUseCase.swift in Sources */,
@@ -655,6 +672,7 @@
 				AC5F3CDE29783CFD007D5F80 /* TaskCreateViewModelTests.swift in Sources */,
 				D34F77E72979351B005DCE66 /* FetchTasksUseCaseMock.swift in Sources */,
 				D379544329769B0700A3F02F /* TaskEntityDummy.swift in Sources */,
+				D35CC417297A6FD4000C13B8 /* KanbanBoardModel.swift in Sources */,
 				D379545029769E9800A3F02F /* TranslaterTests.swift in Sources */,
 				D36F87052977B1A70006C392 /* FetchTasksUseCaseTests.swift in Sources */,
 				AC5F3CA32976C46A007D5F80 /* DeleteTaskUseCaseTests.swift in Sources */,
@@ -699,14 +717,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C7431F0B25F51E1D0094C4CF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C7431F0C25F51E1D0094C4CF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
