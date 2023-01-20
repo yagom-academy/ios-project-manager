@@ -16,8 +16,16 @@ final class TaskDetailViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         
+        
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowOffset = CGSize(width: 0, height: 4)
+        label.layer.shadowOpacity = 0.3
+        label.layer.shadowRadius = 5
+        label.layer.masksToBounds = false
+        
         label.numberOfLines = 0
         label.font = .boldSystemFont(ofSize: 24)
+        label.backgroundColor = .systemBackground
         
         return label
     }()
@@ -32,8 +40,14 @@ final class TaskDetailViewController: UIViewController {
     private let contentLabel: UITextView = {
         let textView = UITextView()
         
-        textView.isEditable = false
+        textView.layer.shadowColor = UIColor.black.cgColor
+        textView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        textView.layer.shadowOpacity = 0.5
+        textView.layer.shadowRadius = 5
+        textView.layer.masksToBounds = false
+        
         textView.font = .systemFont(ofSize: 18)
+        textView.backgroundColor = .systemBackground
         
         return textView
     }()
