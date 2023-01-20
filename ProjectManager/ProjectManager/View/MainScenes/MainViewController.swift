@@ -52,8 +52,7 @@ final class MainViewController: UIViewController {
     }
 
     @objc private func addButtonTapped() {
-        viewModel.setupUploadDataProcess(process: .todo)
-        viewModel.setupUploadDataIndex(index: nil)
+        viewModel.configureUploadDataInfo(process: .todo, index: nil)
         
         presentDetailView()
     }
@@ -93,14 +92,9 @@ final class MainViewController: UIViewController {
 // MARK: - DataSharable, EventManageable Delegate Protocol
 extension MainViewController: DataSharable, EventManageable {
     func handleEvent(process: Process, index: Int, event: Event) {
-        self.viewModel.setupUploadDataIndex(index: index)
-        self.viewModel.setupUploadDataProcess(process: process)
+        viewModel.configureUploadDataInfo(process: process, index: index)
         
-        if event == .edit {
-            presentDetailView()
-        } else {
-            viewModel.deleteData()
-        }
+        event == .edit ? presentDetailView() : viewModel.deleteData()
     }
     
     func shareData(data: Plan) {
@@ -118,9 +112,7 @@ extension MainViewController: PopoverPresentable {
     ) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        viewModel.setupUploadDataProcess(process: process)
-        viewModel.setupUploadDataIndex(index: indexPath.row)
-        
+        viewModel.configureUploadDataInfo(process: process, index: indexPath.row)
         viewModel.configureButtonProcess(process: process).forEach { process in
             let action = UIAlertAction(
                 title: "Move To " + "\(process)",

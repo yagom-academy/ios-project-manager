@@ -64,11 +64,7 @@ final class DetailViewModel {
 // MARK: - Method
 extension DetailViewModel {
     func isNewMode() -> Bool {
-        if mode == .new {
-            return true
-        } else {
-            return false
-        }
+        return mode == .new
     }
     
     func bindTitle(handler: @escaping (String) -> Void) {

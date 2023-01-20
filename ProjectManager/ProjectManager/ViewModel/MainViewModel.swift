@@ -135,11 +135,8 @@ extension MainViewModel {
         resetUpdateInfo()
     }
     
-    func setupUploadDataProcess(process: Process) {
+    func configureUploadDataInfo(process: Process, index: Int?) {
         updateDataProcess = process
-    }
-    
-    func setupUploadDataIndex(index: Int?) {
         updateDataIndex = index
     }
     
