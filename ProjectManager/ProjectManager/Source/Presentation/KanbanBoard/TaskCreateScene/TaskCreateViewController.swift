@@ -11,6 +11,10 @@ import RxCocoa
 import RxSwift
 
 final class TaskCreateViewController: UIViewController {
+    private enum Constant {
+        static let maximumContentLength = 10
+        static let spacing = CGFloat(8)
+    }
     private let viewModel: TaskCreateViewModel
     private let disposeBag = DisposeBag()
     
@@ -91,7 +95,7 @@ final class TaskCreateViewController: UIViewController {
 
 private extension TaskCreateViewController {
     func setUI() {
-        let spacing: CGFloat = 8
+        let spacing = Constant.spacing
         let safeArea = view.safeAreaLayoutGuide
         
         [titleTextField, datePickerView, contentTextView].forEach { view in
@@ -102,6 +106,7 @@ private extension TaskCreateViewController {
         
         titleTextField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         contentTextView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        contentTextView.delegate = self
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: spacing),
@@ -117,11 +122,11 @@ private extension TaskCreateViewController {
     }
     
     func bind() {
-        let input = TaskCreateViewModel.Input(titleDidEditEvent: titleTextField.rx.text.orEmpty.asObservable(),
-                                              contentDidEditEvent: contentTextView.rx.text.orEmpty.asObservable(),
-                                              datePickerDidEditEvent: datePickerView.rx.date.asObservable(),
-                                              doneButtonTapEvent: doneBarButton.rx.tap.asObservable())
-        
+        let input = TaskCreateViewModel.Input(
+            titleDidEditEvent: titleTextField.rx.text.orEmpty.asObservable(),
+            contentDidEditEvent: contentTextView.rx.text.orEmpty.asObservable(),
+            datePickerDidEditEvent: datePickerView.rx.date.asObservable(),
+            doneButtonTapEvent: doneBarButton.rx.tap.asObservable())
         let output = viewModel.transform(from: input)
         
         output.isFill
@@ -156,5 +161,14 @@ private extension TaskCreateViewController {
         alertController.addAction(action)
         
         present(alertController, animated: true)
+    }
+}
+
+extension TaskCreateViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let lengthOfTextToAdd: Int = text.count - range.length
+        let addedTextLength: Int = textView.text.count + lengthOfTextToAdd
+        
+        return addedTextLength <= Constant.maximumContentLength
     }
 }

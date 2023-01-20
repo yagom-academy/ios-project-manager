@@ -11,6 +11,9 @@ import RxCocoa
 import RxSwift
 
 final class TaskEditViewController: UIViewController {
+    private enum Constant {
+        static let maximumContentLength = 10
+    }
     private let viewModel: TaskEditViewModel
     private let disposeBag = DisposeBag()
     
@@ -163,5 +166,14 @@ private extension TaskEditViewController {
         alertController.addAction(action)
         
         present(alertController, animated: true)
+    }
+}
+
+extension TaskEditViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let lengthOfTextToAdd: Int = text.count - range.length
+        let addedTextLength: Int = textView.text.count + lengthOfTextToAdd
+        
+        return addedTextLength <= Constant.maximumContentLength
     }
 }
