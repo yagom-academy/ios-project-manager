@@ -7,11 +7,11 @@
 
 import UIKit
 
-class TodoCustomCell: UITableViewCell {
-    let titleLabel = UILabel(fontStyle: .title3, textColor: .label)
-    let bodyLabel = UILabel(fontStyle: .body, numberOfLines: 3, textColor: .systemGray)
-    let dateLabel = UILabel(fontStyle: .caption1, textColor: .label)
-    let stackView = UIStackView(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 4)
+final class TodoCustomCell: UITableViewCell {
+    private let titleLabel = UILabel(fontStyle: .title3, textColor: .label)
+    private let bodyLabel = UILabel(fontStyle: .body, numberOfLines: 3, textColor: .systemGray)
+    private let dateLabel = UILabel(fontStyle: .caption1, textColor: .label)
+    private let stackView = UIStackView(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 4)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,7 +27,7 @@ class TodoCustomCell: UITableViewCell {
         dateLabel.textColor = .label
     }
     
-    func constraintLayout() {
+    private func constraintLayout() {
         let safeArea = self.contentView.safeAreaLayoutGuide
         self.contentView.addSubview(stackView)
         [titleLabel, bodyLabel, dateLabel].forEach(stackView.addArrangedSubview(_:))

@@ -7,15 +7,15 @@
 
 import UIKit
 
-class CustomHeaderView: UITableViewHeaderFooterView {
-    let titleLabel: UILabel = {
+final class CustomHeaderView: UITableViewHeaderFooterView {
+    private let titleLabel: UILabel = {
         let label = UILabel(fontStyle: .title1, textColor: .label)
         label.layer.cornerRadius = 0.5
         
         return label
     }()
     
-    let countLabel: UILabel = {
+    private let countLabel: UILabel = {
         let label = UILabel(fontStyle: .title2, textColor: .systemBackground)
         label.font = .preferredFont(forTextStyle: .title2)
         label.textAlignment = .center
@@ -26,7 +26,7 @@ class CustomHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    let stackView = UIStackView(
+    private let stackView = UIStackView(
         axis: .horizontal,
         alignment: .center,
         distribution: .equalSpacing,
@@ -47,7 +47,7 @@ class CustomHeaderView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureContents() {
+    private func configureContents() {
         let safeArea = contentView.safeAreaLayoutGuide
         contentView.addSubview(stackView)
         [titleLabel, countLabel].forEach(stackView.addArrangedSubview(_:))
