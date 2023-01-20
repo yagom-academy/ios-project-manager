@@ -34,6 +34,12 @@ class ToDoListViewController: UIViewController {
             
             cell.configure(title: item.title, body: item.body, deadline: item.deadline)
             
+            if item.isOverDeadline {
+                cell.changeDeadlineColor(.systemRed)
+            } else {
+                cell.changeDeadlineColor(.black)
+            }
+            
             return cell
         }
         

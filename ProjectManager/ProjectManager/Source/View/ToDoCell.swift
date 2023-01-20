@@ -75,4 +75,8 @@ class ToDoCell: UITableViewCell, ReusableView {
         bodyLabel.text = body
         deadlineLabel.text = DateFormatter.convert(date: deadline)
     }
+    
+    func changeDeadlineColor(_ color: UIColor) {
+        deadlineLabel.textColor = color
+    }
 }

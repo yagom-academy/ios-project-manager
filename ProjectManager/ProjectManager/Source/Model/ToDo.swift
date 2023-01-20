@@ -16,4 +16,8 @@ struct ToDo: Hashable {
         self.deadline = deadline
         self.state = state
     }
+
+    var isOverDeadline: Bool {
+        return deadline < Date()
+    }
 }
