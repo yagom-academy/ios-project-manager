@@ -11,17 +11,7 @@ class TodoCustomCell: UITableViewCell {
     let titleLabel = UILabel(fontStyle: .title3, textColor: .label)
     let bodyLabel = UILabel(fontStyle: .body, numberOfLines: 3, textColor: .systemGray)
     let dateLabel = UILabel(fontStyle: .caption1, textColor: .label)
-    
-    let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.spacing = 4
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
+    let stackView = UIStackView(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 4)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
