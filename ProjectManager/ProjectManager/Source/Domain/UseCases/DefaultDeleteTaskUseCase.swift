@@ -21,7 +21,7 @@ final class DefaultDeleteTaskUseCase: DeleteTaskUseCase {
     private let disposeBag = DisposeBag()
     let isDeletedSuccess = PublishSubject<Bool>()
 
-    init(delegate: DidEndDeletingDelegate, repository: TaskRepository) {
+    init(delegate: DidEndDeletingDelegate? = nil, repository: TaskRepository) {
         self.delegate = delegate
         self.repository = repository
     }

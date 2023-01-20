@@ -20,7 +20,7 @@ final class DefaultUpdateTaskUseCase: UpdateTaskUseCase {
     private let disposeBag = DisposeBag()
     let isUpdatedSuccess = PublishSubject<Bool>()
 
-    init(delegate: DidEndUpdatingDelegate, repository: TaskRepository) {
+    init(delegate: DidEndUpdatingDelegate? = nil, repository: TaskRepository) {
         self.delegate = delegate
         self.repository = repository
     }

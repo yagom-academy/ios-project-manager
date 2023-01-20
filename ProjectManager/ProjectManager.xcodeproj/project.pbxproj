@@ -79,6 +79,7 @@
 		D379544D29769B3F00A3F02F /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC25141829761D950069CFFA /* TaskEntity.swift */; };
 		D379545029769E9800A3F02F /* TranslaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D379544F29769E9800A3F02F /* TranslaterTests.swift */; };
 		D38445A6297ADE8A00C8BBC6 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38445A5297ADE8A00C8BBC6 /* UITableView+.swift */; };
+		D38445A9297AF7CF00C8BBC6 /* KanbanBoardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38445A8297AF7CF00C8BBC6 /* KanbanBoardCoordinator.swift */; };
 		D3E203BA29757FF60015AD16 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203B929757FF60015AD16 /* RxCocoa */; };
 		D3E203BC29757FF60015AD16 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BB29757FF60015AD16 /* RxRelay */; };
 		D3E203BE29757FF60015AD16 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BD29757FF60015AD16 /* RxSwift */; };
@@ -147,6 +148,7 @@
 		D379543629769A8500A3F02F /* ProjectManagerUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D379544F29769E9800A3F02F /* TranslaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslaterTests.swift; sourceTree = "<group>"; };
 		D38445A5297ADE8A00C8BBC6 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		D38445A8297AF7CF00C8BBC6 /* KanbanBoardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanBoardCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 		AC5F3CAA2977CD39007D5F80 /* KanbanBoard */ = {
 			isa = PBXGroup;
 			children = (
+				D38445A7297AF7A500C8BBC6 /* Coordinator */,
 				AC5F3CAC2977CD62007D5F80 /* TaskListScene */,
 				AC5F3CAF2977CD89007D5F80 /* StateUpdatePopOverScene */,
 				AC5F3CAE2977CD77007D5F80 /* TaskDetailScene */,
@@ -196,7 +199,7 @@
 		AC5F3CAB2977CD4D007D5F80 /* TaskCreateScene */ = {
 			isa = PBXGroup;
 			children = (
-				AC5F3CC52977CE9B007D5F80 /* View */,
+				AC5F3CD82977CF17007D5F80 /* TaskCreateViewController.swift */,
 				AC5F3CBE2977CE0C007D5F80 /* TaskCreateViewModel.swift */,
 			);
 			path = TaskCreateScene;
@@ -215,7 +218,7 @@
 		AC5F3CAD2977CD6A007D5F80 /* TaskEditScene */ = {
 			isa = PBXGroup;
 			children = (
-				AC5F3CC32977CE95007D5F80 /* View */,
+				AC5F3CD02977CEF3007D5F80 /* TaskEditViewController.swift */,
 				AC5F3CB82977CDFD007D5F80 /* TaskEditViewModel.swift */,
 			);
 			path = TaskEditScene;
@@ -224,7 +227,7 @@
 		AC5F3CAE2977CD77007D5F80 /* TaskDetailScene */ = {
 			isa = PBXGroup;
 			children = (
-				AC5F3CC22977CE90007D5F80 /* View */,
+				AC5F3CCC2977CEE3007D5F80 /* TaskDetailViewController.swift */,
 				AC5F3CB52977CDF2007D5F80 /* TaskDetailViewModel.swift */,
 			);
 			path = TaskDetailScene;
@@ -233,34 +236,10 @@
 		AC5F3CAF2977CD89007D5F80 /* StateUpdatePopOverScene */ = {
 			isa = PBXGroup;
 			children = (
-				AC5F3CC12977CE7D007D5F80 /* View */,
+				AC5F3CC62977CEC2007D5F80 /* StateUpdateViewController.swift */,
 				AC5F3CB22977CDE7007D5F80 /* StateUpdateViewModel.swift */,
 			);
 			path = StateUpdatePopOverScene;
-			sourceTree = "<group>";
-		};
-		AC5F3CC12977CE7D007D5F80 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				AC5F3CC62977CEC2007D5F80 /* StateUpdateViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		AC5F3CC22977CE90007D5F80 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				AC5F3CCC2977CEE3007D5F80 /* TaskDetailViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		AC5F3CC32977CE95007D5F80 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				AC5F3CD02977CEF3007D5F80 /* TaskEditViewController.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		AC5F3CC42977CE98007D5F80 /* View */ = {
@@ -269,14 +248,6 @@
 				D34F77F029796C79005DCE66 /* KanbanBoardView.swift */,
 				D34F77F229797782005DCE66 /* KanbanBoardCell.swift */,
 				D35CC40F297A2E6D000C13B8 /* TaskCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		AC5F3CC52977CE9B007D5F80 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				AC5F3CD82977CF17007D5F80 /* TaskCreateViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -404,6 +375,14 @@
 				D37954012976539200A3F02F /* MockTaskRepository.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		D38445A7297AF7A500C8BBC6 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				D38445A8297AF7CF00C8BBC6 /* KanbanBoardCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		D3E203C1297580CA0015AD16 /* Resource */ = {
@@ -625,6 +604,7 @@
 				D34F77DF2978E5FF005DCE66 /* Date+.swift in Sources */,
 				AC5F3CCE2977CEE3007D5F80 /* TaskDetailViewController.swift in Sources */,
 				AC67581029762C9800C2BDE2 /* Double+Formatter.swift in Sources */,
+				D38445A9297AF7CF00C8BBC6 /* KanbanBoardCoordinator.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D35CC410297A2E6D000C13B8 /* TaskCell.swift in Sources */,
 				AC25141B29761DA10069CFFA /* Task.swift in Sources */,

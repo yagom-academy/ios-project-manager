@@ -120,8 +120,7 @@ private extension TaskCreateViewController {
         let input = TaskCreateViewModel.Input(titleDidEditEvent: titleTextField.rx.text.orEmpty.asObservable(),
                                               contentDidEditEvent: contentTextView.rx.text.orEmpty.asObservable(),
                                               datePickerDidEditEvent: datePickerView.rx.date.asObservable(),
-                                              doneButtonTapEvent: doneBarButton.rx.tap.asObservable(),
-                                              cancelButtonTapEvent: cancelBarButton.rx.tap.asObservable())
+                                              doneButtonTapEvent: doneBarButton.rx.tap.asObservable())
         
         let output = viewModel.transform(from: input)
         
@@ -133,9 +132,17 @@ private extension TaskCreateViewController {
         
         output.isSuccess
             .subscribe(onNext: { [weak self] isSuccess in
-                if !isSuccess {
+                if isSuccess {
+                    self?.dismiss(animated: true)
+                } else {
                     self?.showAlert()
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        cancelBarButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
     }

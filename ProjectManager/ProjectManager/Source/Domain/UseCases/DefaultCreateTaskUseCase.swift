@@ -23,7 +23,7 @@ final class DefaultCreateTaskUseCase: CreateTaskUseCase {
     private let disposeBag = DisposeBag()
     let isCreatedSuccess = PublishSubject<Bool>()
     
-    init(delegate: DidEndCreatingTaskDelegate, repository: TaskRepository) {
+    init(delegate: DidEndCreatingTaskDelegate? = nil, repository: TaskRepository) {
         self.delegate = delegate
         self.repository = repository
     }

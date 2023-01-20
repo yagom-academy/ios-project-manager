@@ -10,11 +10,19 @@ import Foundation
 import RxSwift
 import RxRelay
 
+struct TaskListViewModelActions {
+    let showTaskCreateScene: (DidEndCreatingTaskDelegate?) -> Void
+    let showTaskDetailScene: (Task, @escaping (_ isTappedEditButton: Bool) -> Void) -> Void
+    let showTaskEditScene: (Task, DidEndUpdatingDelegate?) -> Void
+    let showStateUpdatePopover: (Task, CGRect, DidEndUpdatingDelegate?) -> Void
+}
+
 final class TaskListViewModel {
     typealias PopoverMaterials = (indexPath: IndexPath, rect: CGRect)
     private let fetchTasksUseCase: FetchTasksUseCase
     private let deleteTaskUseCase: DeleteTaskUseCase
     private let disposeBag = DisposeBag()
+    private let action: TaskListViewModelActions?
     
     struct Input {
         let viewWillAppearEvent: Observable<Void>
@@ -30,9 +38,12 @@ final class TaskListViewModel {
     
     private let tasks = BehaviorSubject<[Task.State: [Task]]>(value: [:])
     
-    init(fetchTasksUseCase: FetchTasksUseCase, deleteTaskUseCase: DeleteTaskUseCase) {
+    init(fetchTasksUseCase: FetchTasksUseCase,
+         deleteTaskUseCase: DeleteTaskUseCase,
+         action: TaskListViewModelActions? = nil) {
         self.fetchTasksUseCase = fetchTasksUseCase
         self.deleteTaskUseCase = deleteTaskUseCase
+        self.action = action
     }
     
     func transform(from input: Input) -> Output {
@@ -69,19 +80,20 @@ private extension TaskListViewModel {
         
         input.createButtonTapEvent
             .subscribe(onNext: { [weak self] _ in
-                //coordinator to do
+                self?.action?.showTaskCreateScene(self?.fetchTasksUseCase)
             })
             .disposed(by: disposeBag)
         
         input.indexPathToLongPress
             .subscribe(onNext: { [weak self] materials in
-                //coordinator to do
+                self?.showStateUpdatePopover(at: materials.indexPath,
+                                             sourceRect: materials.rect)
             })
             .disposed(by: disposeBag)
         
         input.selectedTaskEvent
             .subscribe(onNext: { [weak self] indexPath in
-                //coordinator to do
+                self?.showTaskDetail(at: indexPath)
             })
             .disposed(by: disposeBag)
         
@@ -101,5 +113,25 @@ private extension TaskListViewModel {
             return
         }
         deleteTaskUseCase.delete(task)
+    }
+    
+    func showTaskDetail(at indexPath: IndexPath) {
+        guard let state = Task.State.init(rawValue: indexPath.section),
+              let task = try? tasks.value()[state]?[indexPath.item] else {
+            return
+        }
+        action?.showTaskDetailScene(task) { [weak self] isTappedEditButton in
+            if isTappedEditButton {
+                self?.action?.showTaskEditScene(task, self?.fetchTasksUseCase)
+            }
+        }
+    }
+    
+    func showStateUpdatePopover(at indexPath: IndexPath, sourceRect: CGRect) {
+        guard let state = Task.State.init(rawValue: indexPath.section),
+              let task = try? tasks.value()[state]?[indexPath.item] else {
+            return
+        }
+        action?.showStateUpdatePopover(task, sourceRect, fetchTasksUseCase)
     }
 }

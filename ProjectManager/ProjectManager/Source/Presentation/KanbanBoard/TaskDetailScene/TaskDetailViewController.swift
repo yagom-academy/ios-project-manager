@@ -1,5 +1,5 @@
 //
-//  TaskEditViewController.swift
+//  TaskDetailViewController.swift
 //  ProjectManager
 //
 //  Created by ayaan, jpush on 2023/01/18.
@@ -10,23 +10,24 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class TaskEditViewController: UIViewController {
-    private let viewModel: TaskEditViewModel
+final class TaskDetailViewController: UIViewController {
+    private let viewModel: TaskDetailViewModel
     private let disposeBag = DisposeBag()
     
-    private let titleTextField: UITextField = {
-        let textField = UITextField()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
         
-        textField.layer.shadowColor = UIColor.black.cgColor
-        textField.layer.shadowOffset = CGSize(width: 0, height: 4)
-        textField.layer.shadowOpacity = 0.3
-        textField.layer.shadowRadius = 5
-        textField.layer.masksToBounds = false
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowOffset = CGSize(width: 0, height: 4)
+        label.layer.shadowOpacity = 0.3
+        label.layer.shadowRadius = 5
+        label.layer.masksToBounds = false
         
-        textField.font = .boldSystemFont(ofSize: 24)
-        textField.backgroundColor = .systemBackground
+        label.numberOfLines = 0
+        label.font = .boldSystemFont(ofSize: 24)
+        label.backgroundColor = .systemBackground
         
-        return textField
+        return label
     }()
     private let datePickerView: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -36,7 +37,7 @@ final class TaskEditViewController: UIViewController {
         
         return datePicker
     }()
-    private let contentTextView: UITextView = {
+    private let contentLabel: UITextView = {
         let textView = UITextView()
         
         textView.layer.shadowColor = UIColor.black.cgColor
@@ -47,18 +48,21 @@ final class TaskEditViewController: UIViewController {
         
         textView.font = .systemFont(ofSize: 18)
         textView.backgroundColor = .systemBackground
+        textView.isEditable = false
         
         return textView
     }()
     private let stackView: UIStackView = {
         let stackView = UIStackView()
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.spacing = 8
         
         return stackView
     }()
-    private let cancelBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(systemItem: .cancel)
+    private let editBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(systemItem: .edit)
         
         return barButton
     }()
@@ -68,7 +72,7 @@ final class TaskEditViewController: UIViewController {
         return barButton
     }()
     
-    init(viewModel: TaskEditViewModel) {
+    init(viewModel: TaskDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -87,9 +91,9 @@ final class TaskEditViewController: UIViewController {
     }
 }
 
-private extension TaskEditViewController {
+private extension TaskDetailViewController {
     func setNavigationBarButton() {
-        navigationItem.leftBarButtonItem = cancelBarButton
+        navigationItem.leftBarButtonItem = editBarButton
         navigationItem.rightBarButtonItem = doneBarButton
     }
     
@@ -97,14 +101,14 @@ private extension TaskEditViewController {
         let spacing: CGFloat = 8
         let safeArea = view.safeAreaLayoutGuide
         
-        [titleTextField, datePickerView, contentTextView].forEach { view in
+        [titleLabel, datePickerView, contentLabel].forEach { view in
             stackView.addArrangedSubview(view)
         }
         view.backgroundColor = .systemBackground
         view.addSubview(stackView)
         
-        titleTextField.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        contentTextView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        contentLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: spacing),
@@ -115,46 +119,31 @@ private extension TaskEditViewController {
     }
     
     func bind() {
-        let input = TaskEditViewModel.Input(titleDidEditEvent: titleTextField.rx.text.orEmpty.skip(1).asObservable(),
-                                            contentDidEditEvent: contentTextView.rx.text.orEmpty.skip(1).asObservable(),
-                                            datePickerDidEditEvent: datePickerView.rx.date.asObservable(),
-                                            doneButtonTapEvent: doneBarButton.rx.tap.asObservable(),
-                                            cancelButtonTapEvent: cancelBarButton.rx.tap.asObservable())
+        let input = TaskDetailViewModel.Input(editButtonTappedEvent: editBarButton.rx.tap.asObservable())
+        
+        doneBarButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        editBarButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
         let output = viewModel.transform(from: input)
         
-        output.isFill
-            .subscribe(onNext: { [weak self] isFill in
-                self?.doneBarButton.isEnabled = isFill
-            })
-            .disposed(by: disposeBag)
-        
-        output.isSuccess
-            .subscribe(onNext: { [weak self] isSuccess in
-                if !isSuccess {
-                    self?.showAlert()
-                }
-            })
-            .disposed(by: disposeBag)
-            
         setContents(with: output.task)
     }
     
     func setContents(with task: Task) {
         let date = Date(timeIntervalSince1970: task.deadLine)
         
-        titleTextField.text = task.title
-        contentTextView.text = task.content
-        datePickerView.date = date
-    }
-    
-    func showAlert() {
-        let alertController = UIAlertController(title: "수정 실패",
-                                                message: "수정에 실패했습니다.",
-                                                preferredStyle: .alert)
-        let action = UIAlertAction(title: "확인", style: .default)
-        
-        alertController.addAction(action)
-        
-        present(alertController, animated: true)
+        titleLabel.text = task.title
+        contentLabel.text = task.content
+        datePickerView.minimumDate = date
+        datePickerView.maximumDate = date
     }
 }

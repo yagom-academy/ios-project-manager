@@ -66,6 +66,7 @@ final class StateUpdateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        bind()
     }
 }
 
@@ -101,8 +102,10 @@ private extension StateUpdateViewController {
         
         let output = viewModel.transform(from: input)
         output.isSuccess
-            .subscribe(onNext: { isSuccess in
-                
+            .subscribe(onNext: { [weak self] isSuccess in
+                if isSuccess {
+                    self?.dismiss(animated: true)
+                }
             })
             .disposed(by: disposeBag)
     }

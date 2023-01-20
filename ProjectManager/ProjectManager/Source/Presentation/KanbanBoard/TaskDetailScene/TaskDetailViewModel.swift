@@ -10,11 +10,11 @@ import RxSwift
 final class TaskDetailViewModel {
     private let disposeBag = DisposeBag()
     private let task: Task
+    private let didTappedEditButtonHandler: (Bool) -> Void
     
     // MARK: - Input
     struct Input {
         let editButtonTappedEvent: Observable<Void>
-        let doneButtonTappedEvent: Observable<Void>
     }
 
     // MARK: - Output
@@ -22,20 +22,15 @@ final class TaskDetailViewModel {
         let task: Task
     }
     
-    init(task: Task) {
+    init(task: Task, didTappedEditButtonHandler: @escaping (Bool) -> Void) {
         self.task = task
+        self.didTappedEditButtonHandler = didTappedEditButtonHandler
     }
     
     func transform(from input: Input) -> Output {
         input.editButtonTappedEvent
-            .subscribe(onNext: {
-                // coordinator todo
-            })
-            .disposed(by: disposeBag)
-        
-        input.doneButtonTappedEvent
-            .subscribe(onNext: {
-                // coordinator todo
+            .subscribe(onNext: { [weak self] _ in
+                self?.didTappedEditButtonHandler(true)
             })
             .disposed(by: disposeBag)
         

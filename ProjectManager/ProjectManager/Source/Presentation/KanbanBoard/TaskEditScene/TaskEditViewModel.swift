@@ -34,7 +34,6 @@ final class TaskEditViewModel {
         let contentDidEditEvent: Observable<String>
         let datePickerDidEditEvent: Observable<Date>
         let doneButtonTapEvent: Observable<Void>
-        let cancelButtonTapEvent: Observable<Void>
     }
     
     func transform(from input: Input) -> Output {
@@ -81,12 +80,6 @@ final class TaskEditViewModel {
                 guard let self = self else { return }
                 
                 self.updateTaskUseCase.update(self.task)
-            })
-            .disposed(by: disposeBag)
-        
-        input.cancelButtonTapEvent
-            .subscribe(onNext: { [weak self] _ in
-                // coordinator todo
             })
             .disposed(by: disposeBag)
     }
