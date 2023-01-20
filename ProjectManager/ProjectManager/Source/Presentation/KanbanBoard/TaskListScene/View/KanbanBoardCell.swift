@@ -8,7 +8,7 @@
 import UIKit
 
 protocol KanbanBoardDelegate: AnyObject {
-    func KanbanBoard(didSelectedAt indexPath: IndexPath)
+    func kanbanBoard(didSelectedAt indexPath: IndexPath)
     func kanbanBoard(didDeletedAt indexPath: IndexPath)
     func kanbanBoard(didLongPressedAt indexPath: IndexPath, rect: CGRect)
 }
@@ -150,7 +150,7 @@ extension KanbanBoardCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let state = state {
             let selectedIndexPath = IndexPath(item: indexPath.row, section: state.rawValue)
-            delegate?.KanbanBoard(didSelectedAt: selectedIndexPath)
+            delegate?.kanbanBoard(didSelectedAt: selectedIndexPath)
         }
     }
     

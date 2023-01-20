@@ -118,7 +118,7 @@ private extension TaskListViewController {
 }
 
 extension TaskListViewController: KanbanBoardDelegate {
-    func KanbanBoard(didSelectedAt indexPath: IndexPath) {
+    func kanbanBoard(didSelectedAt indexPath: IndexPath) {
         selectedTaskEvent.accept(indexPath)
     }
     func kanbanBoard(didDeletedAt indexPath: IndexPath) {
