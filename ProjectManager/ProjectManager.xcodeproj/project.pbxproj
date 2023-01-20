@@ -12,7 +12,6 @@
 		412B8E2B2972437300C29DA4 /* EditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8E2A2972437300C29DA4 /* EditingViewModel.swift */; };
 		412B8E2D2972753C00C29DA4 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8E2C2972753B00C29DA4 /* DataSource.swift */; };
 		412B8E3429729EB500C29DA4 /* Date +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8E3329729EB500C29DA4 /* Date +.swift */; };
-		41656B88296D57F9006BC519 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41656B87296D57F9006BC519 /* GoogleService-Info.plist */; };
 		41656B8B296D5EC6006BC519 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8A296D5EC6006BC519 /* FirebaseFirestore */; };
 		41656B8D296D5EC6006BC519 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8C296D5EC6006BC519 /* FirebaseFirestoreSwift */; };
 		417C502129711D7D00CEC6DA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502029711D7D00CEC6DA /* MainViewModel.swift */; };
@@ -22,6 +21,7 @@
 		417C502F2971868B00CEC6DA /* UITextField +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502E2971868B00CEC6DA /* UITextField +.swift */; };
 		417C503129718D3B00CEC6DA /* UITextView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C503029718D3A00CEC6DA /* UITextView +.swift */; };
 		418FCF10296C606300D80D81 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 418FCF0F296C606300D80D81 /* .swiftlint.yml */; };
+		41AC8101297A2D07000B3427 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41AC8100297A2D07000B3427 /* GoogleService-Info.plist */; };
 		41B7A772297552C300D6BD61 /* UIAlertController +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B7A771297552C300D6BD61 /* UIAlertController +.swift */; };
 		41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BEB2970E0F8005E1C94 /* Project.swift */; };
 		41E26BEE2970E1B5005E1C94 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BED2970E1B5005E1C94 /* ListView.swift */; };
@@ -55,7 +55,6 @@
 		412B8E2A2972437300C29DA4 /* EditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingViewModel.swift; sourceTree = "<group>"; };
 		412B8E2C2972753B00C29DA4 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		412B8E3329729EB500C29DA4 /* Date +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date +.swift"; sourceTree = "<group>"; };
-		41656B87296D57F9006BC519 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		417C502029711D7D00CEC6DA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		417C502229711E3600CEC6DA /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
 		417C50242971256000CEC6DA /* ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellViewModel.swift; sourceTree = "<group>"; };
@@ -63,6 +62,7 @@
 		417C502E2971868B00CEC6DA /* UITextField +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField +.swift"; sourceTree = "<group>"; };
 		417C503029718D3A00CEC6DA /* UITextView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView +.swift"; sourceTree = "<group>"; };
 		418FCF0F296C606300D80D81 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		41AC8100297A2D07000B3427 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41B7A771297552C300D6BD61 /* UIAlertController +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController +.swift"; sourceTree = "<group>"; };
 		41E26BEB2970E0F8005E1C94 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		41E26BED2970E1B5005E1C94 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				41656B87296D57F9006BC519 /* GoogleService-Info.plist */,
+				41AC8100297A2D07000B3427 /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -338,8 +338,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				418FCF10296C606300D80D81 /* .swiftlint.yml in Resources */,
+				41AC8101297A2D07000B3427 /* GoogleService-Info.plist in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
-				41656B88296D57F9006BC519 /* GoogleService-Info.plist in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
