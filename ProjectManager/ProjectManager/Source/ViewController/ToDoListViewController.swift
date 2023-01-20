@@ -115,12 +115,6 @@ final class ToDoListViewController: UIViewController {
         viewModel.delete(indexPath: indexPath, state: self.status)
     }
     
-    @objc
-    private func updated() {
-        appendData(item: self.viewModel.fetchList(state: self.status))
-        self.tableView.reloadData()
-    }
-    
     private func updateState(indexPath: Int, state: ToDoState) {
         viewModel.updateStatus(indexPath: indexPath, currentState: self.status, changeState: state)
     }
