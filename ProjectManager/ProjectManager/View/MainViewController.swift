@@ -153,23 +153,20 @@ extension MainViewController: UITableViewDelegate {
             style: .destructive,
             title: "Delete"
         ) { _, _, _ in
-            // 데이터 삭제
             if tableView == self.todoTableView {
                 let removeData = self.todoData.remove(at: indexPath.row)
                 guard let id = removeData.id else { return }
                 self.coredataManager.deleteDate(id: id)
-//                self.todoTableView.reloadData()
             } else if tableView == self.doingTableView {
                 let removeData = self.doingData.remove(at: indexPath.row)
                 guard let id = removeData.id else { return }
                 self.coredataManager.deleteDate(id: id)
-//                self.doingTableView.reloadData()
             } else if tableView == self.doneTableView {
                 let removeData = self.doneData.remove(at: indexPath.row)
                 guard let id = removeData.id else { return }
                 self.coredataManager.deleteDate(id: id)
-//                self.doneTableView.reloadData()
             }
+            
             tableView.reloadData()
         }
         
@@ -245,7 +242,7 @@ extension MainViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - GesutreRecognizer, PopoverPresentationController Delegate
+// MARK: - GesutreRecognizer, PopoverPresentationController Delegate
 extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
     private func setupLongPress() {
         let todoLongPressedGesture = UILongPressGestureRecognizer(
@@ -291,8 +288,9 @@ extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentation
         }
         
         if gestureRecognizer.state == .began {
-            guard let id = data.id else { return }
-            guard let state = State(rawValue: data.state) else { return }
+            guard let id = data.id,
+                  let state = State(rawValue: data.state) else { return }
+            
             let containerController = PopoverViewController(id: id, state: state)
             
             containerController.modalPresentationStyle = .popover
