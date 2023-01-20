@@ -48,6 +48,25 @@ final class MainViewModel {
         doneListHandler?(doneList)
     }
     
+    func categoryToOthers(category: Category) -> [(category: Category, title: String)] {
+        let todoTitle = "Move To Todo"
+        let doingTitle = "Move To Doing"
+        let doneTitle = "Move To Done"
+
+        let categories = [.todo, .doing, .done].filter { $0 != category }.compactMap { category in
+            switch category {
+            case .todo:
+                return (category: category, title: todoTitle)
+            case .doing:
+                return (category: category, title: doingTitle)
+            case .done:
+                return (category: category, title: doneTitle)
+            }
+        }
+        
+        return categories
+    }
+    
     func updateWork(data: Work) {
         switch data.category {
         case .todo:
@@ -97,3 +116,4 @@ final class MainViewModel {
         }
     }
 }
+

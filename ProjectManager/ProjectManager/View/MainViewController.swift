@@ -170,16 +170,14 @@ extension MainViewController: WorkFormDelegate, CellDelegate {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        actionSheet.addAction(UIAlertAction(title: work.category.otherDescription.0, style: .default, handler: { _ in
-            self.viewModel.moveWork(data: work, category: work.category.other.0)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: work.category.otherDescription.1, style: .default, handler: { _ in
-            self.viewModel.moveWork(data: work, category: work.category.other.1)
-        }))
+        viewModel.categoryToOthers(category: work.category).forEach { (category: Category, title: String) in
+            actionSheet.addAction(UIAlertAction(title: title, style: .default, handler: { _ in
+                self.viewModel.moveWork(data: work, category: category)
+            }))
+        }
         
         actionSheet.popoverPresentationController?.sourceView = soruceView
-        present(actionSheet, animated: true, completion: nil)
+        present(actionSheet, animated: true)
     }
     
     func send(data: Work) {
