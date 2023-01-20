@@ -14,7 +14,7 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		D02B4704296D4794001FD6CC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D02B4703296D4794001FD6CC /* .swiftlint.yml */; };
-		D07C5D1D296D6498001AF867 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D07C5D1C296D6498001AF867 /* GoogleService-Info.plist */; };
+		D053E479297ADE6200F80975 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D053E478297ADE6200F80975 /* GoogleService-Info.plist */; };
 		D07C5D27297012CF001AF867 /* ProjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07C5D26297012CF001AF867 /* ProjectData.swift */; };
 		D0AE9D712973E5900068DA0A /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AE9D702973E5900068DA0A /* AddViewController.swift */; };
 		D0AE9D732973F8BF0068DA0A /* CustomPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AE9D722973F8BF0068DA0A /* CustomPopUpView.swift */; };
@@ -37,7 +37,7 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02B4703296D4794001FD6CC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		D07C5D1C296D6498001AF867 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D053E478297ADE6200F80975 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D07C5D26297012CF001AF867 /* ProjectData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectData.swift; sourceTree = "<group>"; };
 		D0AE9D702973E5900068DA0A /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		D0AE9D722973F8BF0068DA0A /* CustomPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopUpView.swift; sourceTree = "<group>"; };
@@ -92,8 +92,8 @@
 			children = (
 				D07C5D1E296E7CF6001AF867 /* Source */,
 				D07C5D1F296E7CFB001AF867 /* Resource */,
-				D07C5D1C296D6498001AF867 /* GoogleService-Info.plist */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				D053E478297ADE6200F80975 /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -120,7 +120,6 @@
 				D07C5D21296E7FDA001AF867 /* App */,
 				D07C5D22296E7FE3001AF867 /* Model */,
 				D07C5D23296E7FEF001AF867 /* View */,
-				D07C5D24296E7FF8001AF867 /* ViewModel */,
 				D07C5D25296E8026001AF867 /* Controller */,
 			);
 			path = Model;
@@ -155,13 +154,6 @@
 				D0E080342970583800BCB151 /* MainTableViewCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		D07C5D24296E7FF8001AF867 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D07C5D25296E8026001AF867 /* Controller */ = {
@@ -243,8 +235,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D02B4704296D4794001FD6CC /* .swiftlint.yml in Resources */,
+				D053E479297ADE6200F80975 /* GoogleService-Info.plist in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
-				D07C5D1D296D6498001AF867 /* GoogleService-Info.plist in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
