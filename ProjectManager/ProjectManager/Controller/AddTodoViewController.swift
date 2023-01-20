@@ -53,7 +53,7 @@ final class AddTodoViewController: UIViewController {
     }
 }
 
-extension AddTodoViewController: LimitableTextView {
+extension AddTodoViewController: LimitableTextCount {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let currentText = textView.text,
               let range = Range(range, in: currentText) else {

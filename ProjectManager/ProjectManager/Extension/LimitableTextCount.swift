@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol LimitableTextView: UITextViewDelegate {
+protocol LimitableTextCount: UITextViewDelegate {
     override func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
 }
