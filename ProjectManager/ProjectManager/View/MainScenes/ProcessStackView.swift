@@ -38,7 +38,7 @@ final class ProcessStackView: UIStackView {
     weak var delegate: GestureRelayable?
     
     init(process: Process) {
-        titleLabel.text = process.titleValue
+        titleLabel.text = "\(process)"
         super.init(frame: .zero)
         setupView()
         setupLabel()

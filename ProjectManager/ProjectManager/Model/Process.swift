@@ -11,8 +11,10 @@ enum Process: CaseIterable {
     case todo
     case doing
     case done
-    
-    var titleValue: String {
+}
+
+extension Process: CustomStringConvertible {
+    var description: String {
         switch self {
         case .todo:
             return "TODO"

@@ -88,7 +88,7 @@ extension DetailViewController {
 // MARK: - UI Confuration
 extension DetailViewController {
     private func setupNavigationBar() {
-        title = Process.todo.titleValue
+        title = "\(Process.todo)"
         
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .systemGray6

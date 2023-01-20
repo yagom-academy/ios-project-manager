@@ -280,7 +280,7 @@ extension MainViewController: GestureRelayable {
             $0 != selectProcess
         }.forEach { process in
             let action = UIAlertAction(
-                title: "Move To \(process.titleValue)",
+                title: "Move To " + "\(process)",
                 style: .default
             ) { [weak self] _ in
                 self?.viewModel.changeProcess(after: process, index: indexPath.row)
