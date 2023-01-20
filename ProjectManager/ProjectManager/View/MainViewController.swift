@@ -9,9 +9,9 @@ import UIKit
 final class MainViewController: UIViewController {
     private let viewModel = MainViewModel()
     
-    private let todoListView = ListView(category: .todo)
-    private let doingListView = ListView(category: .doing)
-    private let doneListView = ListView(category: .done)
+    private let todoListView = ListView(viewModel: ListViewModel(category: .todo))
+    private let doingListView = ListView(viewModel: ListViewModel(category: .doing))
+    private let doneListView = ListView(viewModel: ListViewModel(category: .done))
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -30,6 +30,7 @@ final class MainViewController: UIViewController {
         configureLayout()
         configureTableView()
         configureBind()
+        configureData()
     }
     
     private func configureLayout() {
@@ -56,18 +57,15 @@ final class MainViewController: UIViewController {
     
     private func configureBind() {
         viewModel.bindTodoList { [weak self] in
-            self?.todoListView.viewModel.categoryCount = $0.count
-            self?.todoListView.tableView.reloadData()
+            self?.todoListView.didChangeCountValue(count: $0.count)
         }
         
         viewModel.bindDoingList { [weak self] in
-            self?.doingListView.viewModel.categoryCount = $0.count
-            self?.doingListView.tableView.reloadData()
+            self?.doingListView.didChangeCountValue(count: $0.count)
         }
         
         viewModel.bindDoneList { [weak self] in
-            self?.doneListView.viewModel.categoryCount = $0.count
-            self?.doneListView.tableView.reloadData()
+            self?.doneListView.didChangeCountValue(count: $0.count)
         }
     }
     
@@ -75,6 +73,10 @@ final class MainViewController: UIViewController {
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self, action: #selector(addTapped))
+    }
+    
+    private func configureData() {
+        viewModel.load()
     }
     
     @objc private func addTapped() {
@@ -123,7 +125,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
-        
         switch tableView {
         case doneListView.tableView:
             viewModel.deleteWork(data: viewModel.doneList[indexPath.row])

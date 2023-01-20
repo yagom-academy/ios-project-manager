@@ -42,6 +42,12 @@ final class MainViewModel {
         doneListHandler = handler
     }
     
+    func load() {
+        todoListHandler?(todoList)
+        doingListHandler?(doingList)
+        doneListHandler?(doneList)
+    }
+    
     func updateWork(data: Work) {
         switch data.category {
         case .todo:
@@ -66,7 +72,6 @@ final class MainViewModel {
     }
     
     func moveWork(data: Work, category: Category) {
-        // 얘는 무조건 어펜드
         switch data.category {
         case .todo:
             guard let index = todoList.firstIndex(of: data) else { return }

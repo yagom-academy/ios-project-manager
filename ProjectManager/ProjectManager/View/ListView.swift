@@ -8,9 +8,7 @@
 import UIKit
 
 final class ListView: UIView {
-    private let category: Category
-    
-    let viewModel = ListViewModel()
+    let viewModel: ListViewModel
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -46,11 +44,10 @@ final class ListView: UIView {
         return stackView
     }()
     
-    lazy var categoryLabel: UILabel = {
+    private let categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title2)
-        label.text = category.description
         return label
     }()
     
@@ -60,7 +57,6 @@ final class ListView: UIView {
         label.backgroundColor = .black
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "0"
         return label
     }()
     
@@ -69,20 +65,31 @@ final class ListView: UIView {
         return view
     }()
     
-    init(category: Category) {
-        self.category = category
+    init(viewModel: ListViewModel) {
+        self.viewModel = viewModel
         super.init(frame: CGRect())
         configureBind()
         configureLayout()
+        configureData()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func configureData() {
+        categoryLabel.text = viewModel.category.description
+        viewModel.load()
+    }
+    
+    func didChangeCountValue(count: Int) {
+        viewModel.categoryCount = count
+    }
+    
     private func configureBind() {
         viewModel.bindCount { [weak self] in
-            self?.categoryCountLabel.text = ($0 ?? 0).description
+            self?.categoryCountLabel.text = $0.description
+            self?.tableView.reloadData()
         }
     }
     
