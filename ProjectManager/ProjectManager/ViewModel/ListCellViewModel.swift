@@ -11,7 +11,7 @@ final class ListCellViewModel {
     var work: Work {
         didSet {
             cellHandler?(work)
-            textColor()
+            colorHandler?(checkEndDateColor(date: work.endDate))
         }
     }
 
@@ -24,7 +24,7 @@ final class ListCellViewModel {
     
     func load() {
         cellHandler?(work)
-        textColor()
+        colorHandler?(checkEndDateColor(date: work.endDate))
     }
     
     func bindTextValue(handler: @escaping (Work) -> Void) {
@@ -35,11 +35,11 @@ final class ListCellViewModel {
         colorHandler = handler
     }
     
-    func textColor() {
-        if work.endDate < Date() {
-            colorHandler?(.red)
+    func checkEndDateColor(date: Date) -> UIColor {
+        if date < Date() {
+            return .red
         } else {
-            colorHandler?(.black)
+            return .black
         }
     }
     
