@@ -45,15 +45,17 @@ final class KanbanBoardCell: UICollectionViewCell, ReusableView {
         
         return label
     }()
-    private let countLabel: UILabel = {
-        let label = UILabel()
+    private let countLabel: CircleLabel = {
+        let label = CircleLabel()
         
         label.textAlignment = .left
         label.font = UIFont.boldSystemFont(ofSize: 30)
-        label.textColor = .black
+        label.backgroundColor = .black
+        label.textColor = .white
         
         return label
     }()
+    private let blankView = UIView()
     private let topStackView = UIStackView()
     private let tableView = UITableView(frame: .zero,
                                         style: .insetGrouped)
@@ -77,7 +79,7 @@ final class KanbanBoardCell: UICollectionViewCell, ReusableView {
     func configure(tasks: [Task], state: Task.State, delegate: KanbanBoardDelegate) {
         self.state = state
         self.delegate = delegate
-        titleLabel.text = "\(state.rawValue)"
+        titleLabel.text = "\(state.title)"
         countLabel.text = "\(tasks.count)"
         apply(with: tasks)
     }
@@ -96,7 +98,9 @@ private extension KanbanBoardCell {
         
         topStackView.addArrangedSubview(titleLabel)
         topStackView.addArrangedSubview(countLabel)
+        topStackView.addArrangedSubview(blankView)
         topStackView.axis = .horizontal
+        topStackView.spacing = spacing
         
         contentStackView.addArrangedSubview(topStackView)
         contentStackView.addArrangedSubview(tableView)
@@ -148,6 +152,7 @@ private extension KanbanBoardCell {
 
 extension KanbanBoardCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if let state = state {
             let selectedIndexPath = IndexPath(item: indexPath.row, section: state.rawValue)
             delegate?.kanbanBoard(didSelectedAt: selectedIndexPath)

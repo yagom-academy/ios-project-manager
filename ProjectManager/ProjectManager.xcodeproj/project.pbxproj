@@ -80,6 +80,7 @@
 		D379545029769E9800A3F02F /* TranslaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D379544F29769E9800A3F02F /* TranslaterTests.swift */; };
 		D38445A6297ADE8A00C8BBC6 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38445A5297ADE8A00C8BBC6 /* UITableView+.swift */; };
 		D38445A9297AF7CF00C8BBC6 /* KanbanBoardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38445A8297AF7CF00C8BBC6 /* KanbanBoardCoordinator.swift */; };
+		D38445AB297B35C400C8BBC6 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38445AA297B35C400C8BBC6 /* CircleLabel.swift */; };
 		D3E203BA29757FF60015AD16 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203B929757FF60015AD16 /* RxCocoa */; };
 		D3E203BC29757FF60015AD16 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BB29757FF60015AD16 /* RxRelay */; };
 		D3E203BE29757FF60015AD16 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D3E203BD29757FF60015AD16 /* RxSwift */; };
@@ -149,6 +150,7 @@
 		D379544F29769E9800A3F02F /* TranslaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslaterTests.swift; sourceTree = "<group>"; };
 		D38445A5297ADE8A00C8BBC6 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		D38445A8297AF7CF00C8BBC6 /* KanbanBoardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanBoardCoordinator.swift; sourceTree = "<group>"; };
+		D38445AA297B35C400C8BBC6 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 				D34F77F029796C79005DCE66 /* KanbanBoardView.swift */,
 				D34F77F229797782005DCE66 /* KanbanBoardCell.swift */,
 				D35CC40F297A2E6D000C13B8 /* TaskCell.swift */,
+				D38445AA297B35C400C8BBC6 /* CircleLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -628,6 +631,7 @@
 				AC5F3CDA2977CF17007D5F80 /* TaskCreateViewController.swift in Sources */,
 				D37954092976617300A3F02F /* DefaultFetchTasksUseCase.swift in Sources */,
 				AC5F3CD22977CEF3007D5F80 /* TaskEditViewController.swift in Sources */,
+				D38445AB297B35C400C8BBC6 /* CircleLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

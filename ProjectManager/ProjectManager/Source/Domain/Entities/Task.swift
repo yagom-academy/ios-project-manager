@@ -7,18 +7,31 @@
 
 import Foundation
 
-struct Task {
+struct Task: Hashable {
     let id: String
     var title: String
     var content: String
     var deadLine: Double
     var state: State
-    var isExpired: Bool
+    var isExpired: Bool {
+        deadLine < Date.startOfCurrentDay.timeIntervalSince1970
+    }
     
     enum State: Int, CaseIterable {
         case toDo
         case doing
         case done
+        
+        var title: String {
+            switch self {
+            case .toDo:
+                return "TODO"
+            case .doing:
+                return "DOING"
+            case .done:
+                return "DONE"
+            }
+        }
     }
     
     init(
@@ -33,16 +46,5 @@ struct Task {
         self.content = content
         self.deadLine = deadLine
         self.state = state
-        self.isExpired = deadLine < Date.startOfCurrentDay.timeIntervalSince1970
-    }
-}
-
-extension Task: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-    }
-    
-    static func == (_ lhs: Self, _ rhs: Self) -> Bool {
-        return lhs.id == rhs.id
     }
 }
