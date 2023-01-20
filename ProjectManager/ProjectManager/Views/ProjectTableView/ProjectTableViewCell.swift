@@ -77,9 +77,13 @@ final class ProjectTableViewCell: UITableViewCell {
             dueDateLabel.textColor = .black
         }
 
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+
         titleLabel.text = project.title
         descriptionLabel.text = project.description
-        dueDateLabel.text = project.dueDate.string
+        dueDateLabel.text = project.dueDate.convertToString(using: dateFormatter)
     }
 }
 
