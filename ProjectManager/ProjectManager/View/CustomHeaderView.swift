@@ -9,39 +9,29 @@ import UIKit
 
 class CustomHeaderView: UITableViewHeaderFooterView {
     let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title1)
+        let label = UILabel(fontStyle: .title1, textColor: .label)
         label.layer.cornerRadius = 0.5
-        label.textColor = .label
-        label.text = "TODO"
         
         return label
     }()
     
     let countLabel: UILabel = {
-        let label = UILabel()
+        let label = UILabel(fontStyle: .title2, textColor: .systemBackground)
         label.font = .preferredFont(forTextStyle: .title2)
         label.textAlignment = .center
-        
         label.layer.borderWidth = 1
         label.layer.borderColor = UIColor.label.cgColor
         label.layer.backgroundColor = UIColor.label.cgColor
-        label.textColor = .systemBackground
-        label.text = "0"
         
         return label
     }()
     
-    let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        stackView.alignment = .center
-        stackView.distribution = .equalSpacing
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
+    let stackView = UIStackView(
+        axis: .horizontal,
+        alignment: .center,
+        distribution: .equalSpacing,
+        spacing: 8
+    )
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
