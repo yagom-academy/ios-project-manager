@@ -65,6 +65,8 @@ final class TaskCreateViewController: UIViewController {
     private let doneBarButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem(systemItem: .done)
         
+        barButton.isEnabled = false
+        
         return barButton
     }()
     
