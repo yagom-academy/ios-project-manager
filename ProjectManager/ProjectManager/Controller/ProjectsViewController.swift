@@ -54,13 +54,13 @@ extension ProjectsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
-        case projectsManageView.fetchTodoView():
+        case projectsManageView.fetchTodoTableView():
             let cell = projectsManageView.dequeueReusableToDoCellWith(identifier: TaskCell.cellIdentifier) ?? UITableViewCell()
             return cell
-        case projectsManageView.fetchDoingView():
+        case projectsManageView.fetchDoingTableView():
             let cell = projectsManageView.dequeueReusableDoingCellWith(identifier: TaskCell.cellIdentifier) ?? UITableViewCell()
             return cell
-        case projectsManageView.fetchDoneView():
+        case projectsManageView.fetchDoneTableView():
             let cell = projectsManageView.dequeueToDoReusableDoneCellWith(identifier: TaskCell.cellIdentifier) ?? UITableViewCell()
             return cell
         default:

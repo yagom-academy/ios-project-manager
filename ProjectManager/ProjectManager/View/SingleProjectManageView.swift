@@ -94,4 +94,8 @@ class SingleProjectManageView: UIView {
     func dequeueReusableCellWith(identifier: String) -> UITableViewCell? {
         return tableView.dequeueReusableCell(withIdentifier: identifier)
     }
+
+    func fetchTableView() -> UITableView {
+        return tableView
+    }
 }

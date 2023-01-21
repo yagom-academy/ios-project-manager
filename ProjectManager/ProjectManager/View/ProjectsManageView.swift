@@ -149,15 +149,15 @@ class ProjectsManageView: UIView {
         return doneView.dequeueReusableCellWith(identifier: identifier)
     }
 
-    func fetchTodoView() -> SingleProjectManageView {
-        return todoView
+    func fetchTodoTableView() -> UITableView {
+        return todoView.fetchTableView()
     }
 
-    func fetchDoingView() -> SingleProjectManageView {
-        return doingView
+    func fetchDoingTableView() -> UITableView {
+        return doingView.fetchTableView()
     }
 
-    func fetchDoneView() -> SingleProjectManageView {
-        return doneView
+    func fetchDoneTableView() -> UITableView {
+        return doneView.fetchTableView()
     }
 }
