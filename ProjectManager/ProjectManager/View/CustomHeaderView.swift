@@ -8,14 +8,14 @@
 import UIKit
 
 final class CustomHeaderView: UITableViewHeaderFooterView {
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel(fontStyle: .title1, textColor: .label)
         label.layer.cornerRadius = 0.5
         
         return label
     }()
     
-    private let countLabel: UILabel = {
+    let countLabel: UILabel = {
         let label = UILabel(fontStyle: .title2, textColor: .systemBackground)
         label.font = .preferredFont(forTextStyle: .title2)
         label.textAlignment = .center

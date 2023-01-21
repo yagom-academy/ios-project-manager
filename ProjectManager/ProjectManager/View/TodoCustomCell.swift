@@ -8,10 +8,10 @@
 import UIKit
 
 final class TodoCustomCell: UITableViewCell {
-    private let titleLabel = UILabel(fontStyle: .title3, textColor: .label)
-    private let bodyLabel = UILabel(fontStyle: .body, numberOfLines: 3, textColor: .systemGray)
-    private let dateLabel = UILabel(fontStyle: .caption1, textColor: .label)
-    private let stackView = UIStackView(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 4)
+    let titleLabel = UILabel(fontStyle: .title3, textColor: .label)
+    let bodyLabel = UILabel(fontStyle: .body, numberOfLines: 3, textColor: .systemGray)
+    let dateLabel = UILabel(fontStyle: .caption1, textColor: .label)
+    let stackView = UIStackView(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 4)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

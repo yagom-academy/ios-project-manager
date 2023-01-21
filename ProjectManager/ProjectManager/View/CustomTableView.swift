@@ -8,7 +8,7 @@
 import UIKit
 
 final class CustomTableView: UITableView {
-    private let title: String
+    let title: String
     
     init(title: String) {
         self.title = title
