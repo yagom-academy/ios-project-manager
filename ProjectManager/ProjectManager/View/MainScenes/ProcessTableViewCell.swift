@@ -18,16 +18,11 @@ final class ProcessTableViewCell: UITableViewCell {
         static let trailingValue = -10.0
     }
     
-    var viewModel: CellViewModel? {
-        didSet {
-            setupBind()
-            checkDeadLine()
-        }
-    }
-    
     private let titleLabel = UILabel(fontStyle: .title2)
     private let contentLabel = UILabel(fontStyle: .body)
     private let dateLabel = UILabel(fontStyle: .body)
+    
+    private var viewModel: CellViewModel?
     
     private lazy var stackView = UIStackView(
         views: [titleLabel, contentLabel, dateLabel],
@@ -69,6 +64,8 @@ final class ProcessTableViewCell: UITableViewCell {
             self?.titleLabel.text = data.title
             self?.contentLabel.text = data.content
             self?.dateLabel.text = data.convertDeadline
+            
+            self?.checkDeadLine()
         }
     }
     
@@ -79,6 +76,11 @@ final class ProcessTableViewCell: UITableViewCell {
         } else {
             dateLabel.textColor = .black
         }
+    }
+    
+    func setupViewModel(_ viewModel: CellViewModel) {
+        self.viewModel = viewModel
+        setupBind()
     }
 }
 

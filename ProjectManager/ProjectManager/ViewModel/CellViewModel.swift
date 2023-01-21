@@ -29,9 +29,6 @@ extension CellViewModel {
     }
     
     func checkOverDeadLine() -> Bool {
-        if data.isOverDeadLine {
-            return true
-        }
-        return false
+        return data.isOverDeadLine
     }
 }
