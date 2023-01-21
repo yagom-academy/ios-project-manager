@@ -55,13 +55,20 @@ extension ProjectsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
         case projectsManageView.fetchTodoTableView():
-            let cell = projectsManageView.dequeueReusableToDoCellWith(identifier: TaskCell.cellIdentifier) ?? UITableViewCell()
+            guard let cell = projectsManageView.dequeueReusableToDoCellWith(identifier: TaskCell.cellIdentifier) as? TaskCell else {
+                return UITableViewCell()
+            }
+            cell.configureData(task: Task(title: "제목", description: "내용내용내용", date: Date()))
             return cell
         case projectsManageView.fetchDoingTableView():
-            let cell = projectsManageView.dequeueReusableDoingCellWith(identifier: TaskCell.cellIdentifier) ?? UITableViewCell()
+            guard let cell = projectsManageView.dequeueReusableDoingCellWith(identifier: TaskCell.cellIdentifier) as? TaskCell else {
+                return UITableViewCell()
+            }
             return cell
         case projectsManageView.fetchDoneTableView():
-            let cell = projectsManageView.dequeueToDoReusableDoneCellWith(identifier: TaskCell.cellIdentifier) ?? UITableViewCell()
+            guard let cell = projectsManageView.dequeueToDoReusableDoneCellWith(identifier: TaskCell.cellIdentifier) as? TaskCell else {
+                return UITableViewCell()
+            }
             return cell
         default:
             return UITableViewCell()

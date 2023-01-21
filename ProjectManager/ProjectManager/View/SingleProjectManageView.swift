@@ -59,6 +59,9 @@ class SingleProjectManageView: UIView {
         self.backgroundColor = .orange
         addSubview(header)
         addSubview(tableView)
+        tableView.rowHeight = 120
+        tableView.separatorColor = .systemGray2
+        tableView.separatorInset = UIEdgeInsets(top: .zero, left: .zero, bottom: .zero, right: .zero)
     }
 
     private func configureConstraints() {

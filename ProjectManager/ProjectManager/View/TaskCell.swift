@@ -9,7 +9,43 @@ import UIKit
 
 class TaskCell: UITableViewCell {
 
+    enum Constant {
+        static let spacing = 10.0
+    }
+
     static let cellIdentifier = String.init(describing: TaskCell.self)
+
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.adjustsFontSizeToFitWidth = false
+        label.lineBreakMode = .byTruncatingTail
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    override var frame: CGRect {
+        get {
+            return super.frame
+        }
+        set (newFrame) {
+            var frame = newFrame
+            frame.origin.y += 8
+            frame.size.height -= 8
+            super.frame = frame
+        }
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -19,9 +55,41 @@ class TaskCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configureData(task: Task) {
+        titleLabel.text = task.title
+        descriptionLabel.text = task.description
+        dateLabel.text = task.date.description
+    }
+
+    func configureUI() {
+        addSubview(titleLabel)
+        addSubview(descriptionLabel)
+        addSubview(dateLabel)
+
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.spacing),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constant.spacing),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.spacing)
+        ])
+
+        NSLayoutConstraint.activate([
+            descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            dateLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            dateLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 5),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
     }
 }
