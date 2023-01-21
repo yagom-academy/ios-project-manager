@@ -126,7 +126,7 @@ extension ModalViewContoller {
             let rightBarButton = UIBarButtonItem(
                 barButtonSystemItem: .done,
                 target: self,
-                action: #selector(tapDoneButton1)
+                action: #selector(tapDoneButton)
             )
             navigationItem.rightBarButtonItem = rightBarButton
             
@@ -143,7 +143,7 @@ extension ModalViewContoller {
         let rightBarButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
-            action: #selector(tapDoneButton1)
+            action: #selector(tapDoneButton)
         )
         navigationItem.rightBarButtonItem = rightBarButton
         editMode(is: false)
@@ -165,7 +165,7 @@ extension ModalViewContoller {
         navigationItem.leftBarButtonItem?.title = "Cancel"
     }
     
-    @objc private func tapDoneButton1() {
+    @objc private func tapDoneButton() {
         guard let title = textField.text else { return }
         guard let body = textView.text else { return }
         

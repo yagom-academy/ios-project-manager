@@ -66,7 +66,7 @@ extension MainViewController {
     }
     
     private func fetchData() {
-        let result = coredataManager.fetch()
+        let result = coredataManager.fetchData()
         switch result {
         case .success(let data):
             distributeData(data: data)

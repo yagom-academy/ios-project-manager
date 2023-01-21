@@ -9,7 +9,7 @@ import CoreData
 import UIKit
 
 final class CoreDataManager {
-    func fetch() ->  Result<[TodoModel], CoreDataError> {
+    func fetchData() ->  Result<[TodoModel], CoreDataError> {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let context = appDelegate?.persistentContainer.viewContext
         
