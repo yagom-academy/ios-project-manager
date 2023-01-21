@@ -73,7 +73,7 @@ final class ProcessView: UIStackView {
         })
     }
     
-    func updateData(_ data: [Plan]) {
+    func updateView(_ data: [Plan]) {
         viewModel.updateDatas(data: data)
     }
 }
@@ -119,10 +119,9 @@ extension ProcessView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectDataDelegate?.handleEvent(
+        selectDataDelegate?.shareUpdateEvent(
             process: viewModel.process,
-            index: indexPath.row,
-            event: .edit
+            index: indexPath.row
         )
     }
     
@@ -136,10 +135,9 @@ extension ProcessView: UITableViewDelegate {
             title: UIConstant.deleteSwipeTitle
         ) { [weak self] _, _, _ in
             guard let self = self else { return }
-            self.selectDataDelegate?.handleEvent(
+            self.selectDataDelegate?.shareDeleteEvent(
                 process: self.viewModel.process,
-                index: indexPath.row,
-                event: .delete
+                index: indexPath.row
             )
         }
         

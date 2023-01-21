@@ -88,10 +88,7 @@ extension MainViewModel {
         }
     }
     
-    func deleteData() {
-        guard let index = updateDataIndex else { return }
-        guard let process = updateDataProcess else { return }
-        
+    func deleteData(process: Process, index: Int) {
         switch process {
         case .todo:
             guard index < todoData.count else { return }
@@ -107,7 +104,7 @@ extension MainViewModel {
         resetUpdateInfo()
     }
     
-    func changeProcess(after: Process, index: Int) {
+    func changeProcess(after: Process) {
         guard let index = updateDataIndex else { return }
         guard let process = updateDataProcess else { return }
         
@@ -135,7 +132,7 @@ extension MainViewModel {
         resetUpdateInfo()
     }
     
-    func configureUploadDataInfo(process: Process, index: Int?) {
+    func prepareForEvent(process: Process, index: Int?) {
         updateDataProcess = process
         updateDataIndex = index
     }

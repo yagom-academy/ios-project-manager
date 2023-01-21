@@ -6,12 +6,13 @@
 
 import UIKit
 
-protocol DataSharable: AnyObject {
+protocol DataManageable: AnyObject {
     func shareData(data: Plan)
 }
 
 protocol EventManageable: AnyObject {
-    func handleEvent(process: Process, index: Int, event: Event)
+    func shareUpdateEvent(process: Process, index: Int?)
+    func shareDeleteEvent(process: Process, index: Int)
 }
 
 protocol PopoverPresentable: AnyObject {
@@ -50,24 +51,18 @@ final class MainViewController: UIViewController {
         setupView()
         setupConstraint()
     }
-
-    @objc private func addButtonTapped() {
-        viewModel.configureUploadDataInfo(process: .todo, index: nil)
-        
-        presentDetailView()
-    }
     
     private func setupBinding() {
         viewModel.bindTodo { [weak self] data in
-            self?.todoView.updateData(data)
+            self?.todoView.updateView(data)
         }
         
         viewModel.bindDoing { [weak self] data in
-            self?.doingView.updateData(data)
+            self?.doingView.updateView(data)
         }
         
         viewModel.bindDone { [weak self] data in
-            self?.doneView.updateData(data)
+            self?.doneView.updateView(data)
         }
     }
     
@@ -89,12 +84,23 @@ final class MainViewController: UIViewController {
     }
 }
 
+// MARK: - Action
+extension MainViewController {
+    @objc private func addButtonTapped() {
+        shareUpdateEvent(process: .todo, index: nil)
+    }
+}
+
 // MARK: - DataSharable, EventManageable Delegate Protocol
-extension MainViewController: DataSharable, EventManageable {
-    func handleEvent(process: Process, index: Int, event: Event) {
-        viewModel.configureUploadDataInfo(process: process, index: index)
+extension MainViewController: DataManageable, EventManageable {
+    func shareUpdateEvent(process: Process, index: Int?) {
+        viewModel.prepareForEvent(process: process, index: index)
         
-        event == .edit ? presentDetailView() : viewModel.deleteData()
+        presentDetailView()
+    }
+    
+    func shareDeleteEvent(process: Process, index: Int) {
+        viewModel.deleteData(process: process, index: index)
     }
     
     func shareData(data: Plan) {
@@ -112,13 +118,14 @@ extension MainViewController: PopoverPresentable {
     ) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        viewModel.configureUploadDataInfo(process: process, index: indexPath.row)
+        viewModel.prepareForEvent(process: process, index: indexPath.row)
+        
         viewModel.configureButtonProcess(process: process).forEach { process in
             let action = UIAlertAction(
                 title: "Move To " + "\(process)",
                 style: .default
             ) { [weak self] _ in
-                self?.viewModel.changeProcess(after: process, index: indexPath.row)
+                self?.viewModel.changeProcess(after: process)
                 self?.dismiss(animated: true)
             }
             alert.addAction(action)

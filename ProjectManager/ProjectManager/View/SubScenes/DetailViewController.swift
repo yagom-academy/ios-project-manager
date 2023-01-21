@@ -11,7 +11,7 @@ final class DetailViewController: UIViewController {
     private let detailView = DetailView()
     private let viewModel: DetailViewModel
     
-    weak var delegate: DataSharable?
+    weak var delegate: DataManageable?
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
