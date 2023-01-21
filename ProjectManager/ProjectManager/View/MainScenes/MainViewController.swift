@@ -16,10 +16,10 @@ protocol EventManageable: AnyObject {
 }
 
 protocol PopoverPresentable: AnyObject {
-    func showPopover(
+    func presentPopover(
         process: Process,
         sender: UILongPressGestureRecognizer,
-        cell: UITableViewCell,
+        view: UIView,
         indexPath: IndexPath
     )
 }
@@ -110,10 +110,10 @@ extension MainViewController: DataManageable, EventManageable {
 
 // MARK: - PopoverPresentable Protocol
 extension MainViewController: PopoverPresentable {
-    func showPopover(
+    func presentPopover(
         process: Process,
         sender: UILongPressGestureRecognizer,
-        cell: UITableViewCell,
+        view: UIView,
         indexPath: IndexPath
     ) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -132,7 +132,8 @@ extension MainViewController: PopoverPresentable {
         }
         
         guard let popover = alert.popoverPresentationController else { return }
-        popover.sourceView = cell.contentView
+        popover.permittedArrowDirections = .up
+        popover.sourceView = view
         
         present(alert, animated: true)
     }

@@ -166,10 +166,10 @@ extension ProcessView {
         guard let indexPath = tableView.indexPathForRow(at: point) else { return }
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
-        presentDelegate?.showPopover(
+        presentDelegate?.presentPopover(
             process: viewModel.process,
             sender: sender,
-            cell: cell,
+            view: cell,
             indexPath: indexPath
         )
     }
