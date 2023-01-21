@@ -43,6 +43,60 @@ class ProjectsManageView: UIView {
         return view
     }()
 
+    weak var todoViewDelegate: UITableViewDelegate? {
+        get {
+            return todoView.delegate
+        }
+        set {
+            todoView.delegate = newValue
+        }
+    }
+
+    weak var todoViewDataSource: UITableViewDataSource? {
+        get {
+            return todoView.dataSource
+        }
+        set {
+            todoView.dataSource = newValue
+        }
+    }
+
+    weak var doingViewDelegate: UITableViewDelegate? {
+        get {
+            return doingView.delegate
+        }
+        set {
+            doingView.delegate = newValue
+        }
+    }
+
+    weak var doingViewDataSource: UITableViewDataSource? {
+        get {
+            return doingView.dataSource
+        }
+        set {
+            doingView.dataSource = newValue
+        }
+    }
+
+    weak var doneViewDelegate: UITableViewDelegate? {
+        get {
+            return doneView.delegate
+        }
+        set {
+            doneView.delegate = newValue
+        }
+    }
+
+    weak var doneViewDataSource: UITableViewDataSource? {
+        get {
+            return doneView.dataSource
+        }
+        set {
+            doneView.dataSource = newValue
+        }
+    }
+
     // MARK: - LifeCycles
 
     override init(frame: CGRect) {
@@ -75,5 +129,35 @@ class ProjectsManageView: UIView {
             stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+    func registerAllTableViews(cellClass: AnyClass?, forCellReuseIdentifier identifier: String) {
+        todoView.register(cellClass: cellClass, forCellReuseIdentifier: identifier)
+        doingView.register(cellClass: cellClass, forCellReuseIdentifier: identifier)
+        doneView.register(cellClass: cellClass, forCellReuseIdentifier: identifier)
+    }
+
+    func dequeueReusableToDoCellWith(identifier: String) -> UITableViewCell? {
+        return todoView.dequeueReusableCellWith(identifier: identifier)
+    }
+
+    func dequeueReusableDoingCellWith(identifier: String) -> UITableViewCell? {
+        return doingView.dequeueReusableCellWith(identifier: identifier)
+    }
+
+    func dequeueToDoReusableDoneCellWith(identifier: String) -> UITableViewCell? {
+        return doneView.dequeueReusableCellWith(identifier: identifier)
+    }
+
+    func fetchTodoView() -> SingleProjectManageView {
+        return todoView
+    }
+
+    func fetchDoingView() -> SingleProjectManageView {
+        return doingView
+    }
+
+    func fetchDoneView() -> SingleProjectManageView {
+        return doneView
     }
 }

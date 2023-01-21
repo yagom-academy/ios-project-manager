@@ -23,6 +23,24 @@ class SingleProjectManageView: UIView {
         return tableView
     }()
 
+    weak var delegate: UITableViewDelegate? {
+        get {
+            return tableView.delegate
+        }
+        set {
+            tableView.delegate = newValue
+        }
+    }
+
+    weak var dataSource: UITableViewDataSource? {
+        get {
+            return tableView.dataSource
+        }
+        set {
+            tableView.dataSource = newValue
+        }
+    }
+
     // MARK: - LifeCycles
 
     override init(frame: CGRect) {
@@ -67,5 +85,13 @@ class SingleProjectManageView: UIView {
 
     func setHeaderItemCount(count: Int) {
         header.setItemCount(count)
+    }
+
+    func register(cellClass: AnyClass?, forCellReuseIdentifier identifier: String) {
+        tableView.register(cellClass, forCellReuseIdentifier: identifier)
+    }
+
+    func dequeueReusableCellWith(identifier: String) -> UITableViewCell? {
+        return tableView.dequeueReusableCell(withIdentifier: identifier)
     }
 }
