@@ -31,9 +31,9 @@ final class DetailViewModel {
         }
     }
     
-    private var description: String = Constant.defaultText {
+    private var content: String = Constant.defaultText {
         didSet {
-            descriptionHandler?(description)
+            contentHandler?(content)
         }
     }
     
@@ -45,7 +45,7 @@ final class DetailViewModel {
     
     private var titleHandler: ((String) -> Void)?
     private var dateHandler: ((Date) -> Void)?
-    private var descriptionHandler: ((String) -> Void)?
+    private var contentHandler: ((String) -> Void)?
     private var editableHandler: ((Bool) -> Void)?
     
     init(data: Plan?) {
@@ -56,7 +56,7 @@ final class DetailViewModel {
         }
         self.title = data.title
         self.date = data.deadLine ?? Date()
-        self.description = data.content ?? Constant.defaultText
+        self.content = data.content ?? Constant.defaultText
         mode = .edit
     }
 }
@@ -77,9 +77,9 @@ extension DetailViewModel {
         self.dateHandler = handler
     }
     
-    func bindDescription(handler: @escaping (String) -> Void) {
-        handler(description)
-        self.descriptionHandler = handler
+    func bindContent(handler: @escaping (String) -> Void) {
+        handler(content)
+        self.contentHandler = handler
     }
     
     func bindEditable(handler: @escaping (Bool) -> Void) {

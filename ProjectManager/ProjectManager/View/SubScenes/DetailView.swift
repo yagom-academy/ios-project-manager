@@ -27,7 +27,7 @@ final class DetailView: UIView {
         return textField
     }()
     
-    let descriptionTextView: UITextView = {
+    let contentTextView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .white
         textView.layer.masksToBounds = false
@@ -40,7 +40,7 @@ final class DetailView: UIView {
     let datePicker = UIDatePicker()
     
     private lazy var addStackView = UIStackView(
-        views: [titleTextField, datePicker, descriptionTextView],
+        views: [titleTextField, datePicker, contentTextView],
         axis: .vertical,
         alignment: .fill,
         distribution: .fill,
@@ -63,7 +63,7 @@ extension DetailView {
     private func setupView() {
         backgroundColor = .white
         titleTextField.setPadding(padding: 20)
-        [titleTextField, descriptionTextView].forEach {
+        [titleTextField, contentTextView].forEach {
             $0.layer.shadowOpacity = 0.5
             $0.layer.shadowRadius = 0.3
             $0.layer.shadowOffset = CGSize(width: 1, height: 3)

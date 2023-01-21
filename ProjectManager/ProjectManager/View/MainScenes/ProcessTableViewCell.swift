@@ -10,7 +10,7 @@ import UIKit
 final class ProcessTableViewCell: UITableViewCell {
     private enum UIConstant {
         static let titleNumberLine = 1
-        static let descriptionNumberLine = 3
+        static let contentNumberLine = 3
         static let stackViewSpacing = 5.0
         static let topValue = 10.0
         static let bottomValue = -10.0
@@ -25,12 +25,12 @@ final class ProcessTableViewCell: UITableViewCell {
         }
     }
     
-    let titleLabel = UILabel(fontStyle: .title2)
-    let descriptionLabel = UILabel(fontStyle: .body)
-    let dateLabel = UILabel(fontStyle: .body)
+    private let titleLabel = UILabel(fontStyle: .title2)
+    private let contentLabel = UILabel(fontStyle: .body)
+    private let dateLabel = UILabel(fontStyle: .body)
     
     private lazy var stackView = UIStackView(
-        views: [titleLabel, descriptionLabel, dateLabel],
+        views: [titleLabel, contentLabel, dateLabel],
         axis: .vertical,
         alignment: .leading,
         distribution: .fill,
@@ -58,7 +58,7 @@ final class ProcessTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        [titleLabel, descriptionLabel, dateLabel].forEach {
+        [titleLabel, contentLabel, dateLabel].forEach {
             $0.text = ""
         }
     }
@@ -67,7 +67,7 @@ final class ProcessTableViewCell: UITableViewCell {
         viewModel?.bindDate { [weak self] data in
             guard let data = data else { return }
             self?.titleLabel.text = data.title
-            self?.descriptionLabel.text = data.content
+            self?.contentLabel.text = data.content
             self?.dateLabel.text = data.convertDeadline
         }
     }
@@ -91,7 +91,7 @@ extension ProcessTableViewCell {
     
     private func setupLabel() {
         titleLabel.numberOfLines = UIConstant.titleNumberLine
-        descriptionLabel.numberOfLines = UIConstant.descriptionNumberLine
+        contentLabel.numberOfLines = UIConstant.contentNumberLine
     }
     
     private func setupConstraint() {

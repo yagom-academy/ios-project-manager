@@ -34,7 +34,7 @@ final class DetailViewController: UIViewController {
     
     private func setupDelegate() {
         detailView.titleTextField.delegate = self
-        detailView.descriptionTextView.delegate = self
+        detailView.contentTextView.delegate = self
     }
     
     private func setupBinding() {
@@ -46,8 +46,8 @@ final class DetailViewController: UIViewController {
             self?.detailView.datePicker.setDate(date, animated: true)
         }
         
-        viewModel.bindDescription { [weak self] description in
-            self?.detailView.descriptionTextView.text = description
+        viewModel.bindContent { [weak self] content in
+            self?.detailView.contentTextView.text = content
         }
         
         viewModel.bindEditable { [weak self] editable in
@@ -65,7 +65,7 @@ extension DetailViewController {
         delegate?.shareData(
             data: viewModel.createData(
                 title: title,
-                content: detailView.descriptionTextView.text,
+                content: detailView.contentTextView.text,
                 date: date
             )
         )
