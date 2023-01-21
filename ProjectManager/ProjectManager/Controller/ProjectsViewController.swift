@@ -30,9 +30,5 @@ class ProjectsViewController: UIViewController {
     @objc private func showAddProjectView() {
         let addProjectViewController = AddProjectViewController()
         self.present(addProjectViewController, animated: true)
-
-        let presentationController = addProjectViewController.popoverPresentationController
-        presentationController?.permittedArrowDirections = .up
-        presentationController?.sourceView = self.view
     }
 }
