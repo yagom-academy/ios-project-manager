@@ -113,7 +113,7 @@ final class DetailViewController: UIViewController {
 
     private func configureSubViews() {
         let spacing: CGFloat = 8
-        
+
         NSLayoutConstraint.activate([
             navigationBar.topAnchor.constraint(equalTo: view.topAnchor),
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),

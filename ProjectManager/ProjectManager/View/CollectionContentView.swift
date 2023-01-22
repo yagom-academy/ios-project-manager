@@ -1,20 +1,23 @@
 //
-//  DoneContentView.swift
+//  TodoContentView.swift
 //  ProjectManager
 //
-//  Created by Mangdi on 2023/01/18.
+//  Created by Mangdi on 2023/01/12.
 //
 
 import UIKit
 
-final class DoneContentView: UIView, UIContentView {
+final class CollectionContentView: UIView, UIContentView {
+    private var type: KindOfCollectionView
+
     struct Configutation: UIContentConfiguration {
         var title: String?
         var body: String?
         var date: String?
+        var type: KindOfCollectionView
 
         func makeContentView() -> UIView & UIContentView {
-            return DoneContentView(configuration: self)
+            return CollectionContentView(configuration: self, type: type)
         }
 
         func updated(for state: UIConfigurationState) -> Configutation {
@@ -65,8 +68,9 @@ final class DoneContentView: UIView, UIContentView {
         }
     }
 
-    init(configuration: UIContentConfiguration) {
+    init(configuration: UIContentConfiguration, type: KindOfCollectionView) {
         self.configuration = configuration
+        self.type = type
         super.init(frame: .zero)
         configureSubViews()
     }
@@ -76,14 +80,63 @@ final class DoneContentView: UIView, UIContentView {
     }
 
     private func configure(configuration: UIContentConfiguration) {
-        if let configuration = configuration as? Configutation {
+        if let configuration = configuration as? Configutation,
+           let date = configuration.date {
             titleLabel.text = configuration.title
             bodyLabel.text = configuration.body
             dateLabel.text = configuration.date
+            settingDateLabelTextColor(date: date)
         } else {
             titleLabel.text = "nil"
             bodyLabel.text = "nil"
             dateLabel.text = "nil"
+        }
+    }
+
+    private func settingDateLabelTextColor(date: String) {
+        guard type != .doneCollectionView else { return }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        let currentDate = formatter.string(from: Date())
+        let currentDates = currentDate.replacingOccurrences(of: " ", with: "").components(separatedBy: ["."])
+        let settingDates = date.replacingOccurrences(of: " ", with: "").components(separatedBy: ["."])
+        let currentDateNumbers = currentDates.compactMap { Int($0) }
+        let settingDateNumbers = settingDates.compactMap { Int($0) }
+        let currentYear = currentDateNumbers[0]
+        let currentMonth = currentDateNumbers[1]
+        let currentDay = currentDateNumbers[2]
+        let settingYear = settingDateNumbers[0]
+        let settingMonth = settingDateNumbers[1]
+        let settingDay = settingDateNumbers[2]
+
+        if settingYear < currentYear {
+            dateLabel.textColor = .systemRed
+            return
+        }
+
+        if settingYear > currentYear {
+            dateLabel.textColor = .black
+            return
+        }
+
+        if settingYear == currentYear {
+            if settingMonth < currentMonth {
+                dateLabel.textColor = .systemRed
+            }
+
+            if settingMonth > currentMonth {
+                dateLabel.textColor = .black
+            }
+
+            if settingMonth == currentMonth {
+                if settingDay >= currentDay {
+                    dateLabel.textColor = .black
+                } else {
+                    dateLabel.textColor = .systemRed
+                }
+            }
+            return
         }
     }
 

@@ -7,6 +7,7 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    // MARK: - Property
 
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
@@ -396,7 +397,7 @@ final class MainViewController: UIViewController {
 
     private func configureTodoDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
-            var contentConfiguration = TodoContentView.Configutation()
+            var contentConfiguration = CollectionContentView.Configutation(type: .todoCollectionView)
             guard let todoModel = self?.todoLists.first(where: { todoModel in
                 todoModel.id == itemIdentifier
             }) else {
@@ -417,7 +418,7 @@ final class MainViewController: UIViewController {
 
     private func configureDoingDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
-            var contentConfiguration = TodoContentView.Configutation()
+            var contentConfiguration = CollectionContentView.Configutation(type: .doingCollectionView)
             guard let todoModel = self?.doingLists.first(where: { todoModel in
                 todoModel.id == itemIdentifier
             }) else {
@@ -438,7 +439,7 @@ final class MainViewController: UIViewController {
 
     private func configureDoneDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
-            var contentConfiguration = DoneContentView.Configutation()
+            var contentConfiguration = CollectionContentView.Configutation(type: .doneCollectionView)
             guard let todoModel = self?.doneLists.first(where: { todoModel in
                 todoModel.id == itemIdentifier
             }) else {
@@ -491,7 +492,6 @@ final class MainViewController: UIViewController {
         todoCollectionView.addGestureRecognizer(longPressGesture)
         doingCollectionView.addGestureRecognizer(longPressGesture2)
         doneCollectionView.addGestureRecognizer(longPressGesture3)
-
     }
 
     private func showPopoverMenu(collectionView: UICollectionView, indexPath: IndexPath) {
