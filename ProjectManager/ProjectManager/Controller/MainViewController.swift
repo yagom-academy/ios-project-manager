@@ -7,8 +7,8 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    
     // MARK: - Property
-
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -230,9 +230,9 @@ final class MainViewController: UIViewController {
 
         todoCollectionView.delegate = self
         setUpLongGestureRecognizerOnCollection()
-        configureTodoDataSource()
-        configureDoingDataSource()
-        configureDoneDataSource()
+        configureDataSource(type: .todoCollectionView)
+        configureDataSource(type: .doingCollectionView)
+        configureDataSource(type: .doneCollectionView)
         configureSectionHeader()
         updateTodoSnapshot()
         updateDoingSnapshot()
@@ -395,52 +395,43 @@ final class MainViewController: UIViewController {
         }
     }
 
-    private func configureTodoDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
-            var contentConfiguration = CollectionContentView.Configutation(type: .todoCollectionView)
-            guard let todoModel = self?.todoLists.first(where: { todoModel in
-                todoModel.id == itemIdentifier
-            }) else {
-                cell.contentConfiguration = contentConfiguration
-                return
-            }
-
-            contentConfiguration.title = todoModel.title
-            contentConfiguration.body = todoModel.body
-            contentConfiguration.date = todoModel.date
-            cell.contentConfiguration = contentConfiguration
+    private func getLists(type: KindOfCollectionView) -> [TodoModel] {
+        switch type {
+        case .todoCollectionView:
+            return todoLists
+        case .doingCollectionView:
+            return doingLists
+        case .doneCollectionView:
+            return doneLists
         }
-
-        todoDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: todoCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-        })
     }
 
-    private func configureDoingDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
-            var contentConfiguration = CollectionContentView.Configutation(type: .doingCollectionView)
-            guard let todoModel = self?.doingLists.first(where: { todoModel in
-                todoModel.id == itemIdentifier
-            }) else {
-                cell.contentConfiguration = contentConfiguration
-                return
-            }
-
-            contentConfiguration.title = todoModel.title
-            contentConfiguration.body = todoModel.body
-            contentConfiguration.date = todoModel.date
-            cell.contentConfiguration = contentConfiguration
+    private func getCollectionView(type: KindOfCollectionView) -> UICollectionView {
+        switch type {
+        case .todoCollectionView:
+            return todoCollectionView
+        case .doingCollectionView:
+            return doingCollectionView
+        case .doneCollectionView:
+            return doneCollectionView
         }
-
-        doingDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doingCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-        })
     }
 
-    private func configureDoneDataSource() {
+    private func getDataSource(type: KindOfCollectionView, dataSource: UICollectionViewDiffableDataSource<Int, TodoModel.ID>) {
+        switch type {
+        case .todoCollectionView:
+            todoDataSource = dataSource
+        case .doingCollectionView:
+            doingDataSource = dataSource
+        case .doneCollectionView:
+            doneDataSource = dataSource
+        }
+    }
+
+    private func configureDataSource(type: KindOfCollectionView) {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoModel.ID> { [weak self] cell, _, itemIdentifier in
-            var contentConfiguration = CollectionContentView.Configutation(type: .doneCollectionView)
-            guard let todoModel = self?.doneLists.first(where: { todoModel in
+            var contentConfiguration = CollectionContentView.Configutation(type: type)
+            guard let todoModel = self?.getLists(type: type).first(where: { todoModel in
                 todoModel.id == itemIdentifier
             }) else {
                 cell.contentConfiguration = contentConfiguration
@@ -453,9 +444,11 @@ final class MainViewController: UIViewController {
             cell.contentConfiguration = contentConfiguration
         }
 
-        doneDataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: doneCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+        let dataSource = UICollectionViewDiffableDataSource<Int, TodoModel.ID>(collectionView: getCollectionView(type: type), cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+
+        getDataSource(type: type, dataSource: dataSource)
     }
 
     private func updateTodoSnapshot() {
