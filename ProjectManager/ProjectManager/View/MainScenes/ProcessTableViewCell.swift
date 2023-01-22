@@ -59,22 +59,18 @@ final class ProcessTableViewCell: UITableViewCell {
     }
     
     private func setupBind() {
-        viewModel?.bindDate { [weak self] data in
-            guard let data = data else { return }
+        viewModel?.bindData { [weak self] data in
             self?.titleLabel.text = data.title
             self?.contentLabel.text = data.content
             self?.dateLabel.text = data.convertDeadline
-            
             self?.checkDeadLine()
         }
     }
     
     private func checkDeadLine() {
-        guard let viewModel = viewModel else { return }
-        if viewModel.checkOverDeadLine() {
+        guard viewModel?.checkOverDeadLine() != true else {
             dateLabel.textColor = .red
-        } else {
-            dateLabel.textColor = .black
+            return
         }
     }
     

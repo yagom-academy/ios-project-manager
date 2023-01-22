@@ -14,7 +14,7 @@ final class CellViewModel {
         }
     }
     
-    private var dataHandler: ((Plan?) -> Void)?
+    private var dataHandler: ((Plan) -> Void)?
     
     init(data: Plan) {
         self.data = data
@@ -23,7 +23,7 @@ final class CellViewModel {
 
 // MARK: - Method
 extension CellViewModel {
-    func bindDate(handler: @escaping (Plan?) -> Void) {
+    func bindData(handler: @escaping (Plan) -> Void) {
         handler(data)
         self.dataHandler = handler
     }
