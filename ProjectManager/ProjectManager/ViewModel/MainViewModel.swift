@@ -15,11 +15,11 @@ final class MainViewModel {
     
     private var projectsGroup: [[Project]] = [[], [], []] {
         didSet {
-            update(projectsGroup, numberOfProjectByState(projectsGroup))
+            update(projectsGroup, numberOfProjectInState(projectsGroup))
         }
     }
     
-    private var numberOfProjectByState = { (projectGroups: [[Project]]) -> [String] in
+    private var numberOfProjectInState = { (projectGroups: [[Project]]) -> [String] in
         projectGroups.map { String($0.count) }
     }
     
@@ -50,17 +50,6 @@ final class MainViewModel {
         return projectsGroup[state.index][index]
     }
     
-    func add(_ project: Project, in state: ProjectState) {
-        projectsGroup[state.index].append(project)
-    }
-    
-    func edit(_ project: Project, of state: ProjectState) {
-        projectsGroup[state.index].enumerated().forEach { index, addedProject in
-            guard addedProject.uuid == project.uuid else { return }
-            projectsGroup[state.index][index] = project
-        }
-    }
-    
     func delete(_ project: Project, of state: ProjectState) {
         projectsGroup[state.index].enumerated().forEach { index, data in
             guard data.uuid == project.uuid else { return }
@@ -71,6 +60,37 @@ final class MainViewModel {
     func move(_ project: Project, from currentState: ProjectState, to state: ProjectState) {
         delete(project, of: currentState)
         add(project, in: state)
+    }
+    
+    func save(_ project: Project, in state: ProjectState) {
+        if checkContains(project, in: state) {
+            edit(project, of: state)
+        } else {
+            add(project, in: state)
+        }
+    }
+    
+    private func checkContains(_ project: Project, in state: ProjectState) -> Bool {
+        var isContains: Bool = false
+        
+        projectsGroup[state.index].forEach { savedProject in
+            if savedProject.uuid == project.uuid {
+                isContains = true
+            }
+        }
+        
+        return isContains
+    }
+    
+    private func add(_ project: Project, in state: ProjectState) {
+        projectsGroup[state.index].append(project)
+    }
+    
+    private func edit(_ project: Project, of state: ProjectState) {
+        projectsGroup[state.index].enumerated().forEach { index, savedProject in
+            guard savedProject.uuid == project.uuid else { return }
+            projectsGroup[state.index][index] = project
+        }
     }
 }
 

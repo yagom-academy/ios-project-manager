@@ -9,7 +9,8 @@ import UIKit
 
 final class EditingViewController: UIViewController {
     
-    private var editViewModel: EditingViewModel
+    private var projectViewModel: ProjectViewModel
+    private var editMode: EditingMode
     
     private let titleField: UITextField = {
         let field = UITextField(font: .headline, placeHolder: Default.titlePlaceHolder)
@@ -21,7 +22,7 @@ final class EditingViewController: UIViewController {
         return field
     }()
     
-    private let dataPicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let dataPicker = UIDatePicker()
         dataPicker.datePickerMode = .date
         dataPicker.preferredDatePickerStyle = .wheels
@@ -34,59 +35,61 @@ final class EditingViewController: UIViewController {
         let textView = UITextView(font: .title2)
         textView.layer.cornerRadius = Default.radius
         textView.keyboardDismissMode = .interactive
-        textView.addShadow(backGroundColor: .white, shadowColor: .black)
         
         return textView
     }()
     
     private let stackView = UIStackView(axis: .vertical)
     
-    init(viewModel: EditingViewModel) {
-        self.editViewModel = viewModel
+    init(projectViewModel: ProjectViewModel, editMode: EditingMode) {
+        self.projectViewModel = projectViewModel
+        self.editMode = editMode
         super.init(nibName: nil, bundle: nil)
         addKeyboardNotifications()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        bidingViewModel()
-        editViewModel.initialSetupView()
         configureHierarchy()
         configureLayout()
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigationBar()
     }
     
-    private func bidingViewModel() {
-        editViewModel.changeMode = { [weak self] in
-            self?.toggleMode()
-            self?.setupNavigationBar()
-        }
+    private func setupView() {
+        titleField.text = projectViewModel.project.title
+        datePicker.date = projectViewModel.project.date
+        descriptionTextView.text = projectViewModel.project.description
         
-        editViewModel.updateTitle = { [weak self] title in
-            self?.titleField.text = title
-        }
-        
-        editViewModel.updateDate = { [weak self] date in
-            self?.dataPicker.date = date
-        }
-        
-        editViewModel.updateDescription = { [weak self] description in
-            self?.descriptionTextView.text = description
+        if editMode == .readOnly {
+            makeReadOnlyModeView()
         }
     }
     
-    private func toggleMode() {
-        titleField.isUserInteractionEnabled = !titleField.isUserInteractionEnabled
-        descriptionTextView.isUserInteractionEnabled = !descriptionTextView.isUserInteractionEnabled
-        dataPicker.isUserInteractionEnabled = !dataPicker.isUserInteractionEnabled
+    private func editProject() {
+        projectViewModel.project.title = titleField.text
+        projectViewModel.project.date = datePicker.date
+        projectViewModel.project.description = descriptionTextView.text
+    }
+    
+    private func makeReadOnlyModeView() {
+        [titleField, datePicker, descriptionTextView].forEach { view in
+            view.isUserInteractionEnabled = false
+        }
+    }
+    
+    private func makeEditableModeView() {
+        [titleField, datePicker, descriptionTextView].forEach { view in
+            view.isUserInteractionEnabled = true
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -107,15 +110,15 @@ extension EditingViewController {
     
     func generateNavigationItem() -> UINavigationItem {
         let navigationItem = UINavigationItem()
-        let leftBarButton = UIBarButtonItem(title: editViewModel.leftBarOptionTitle)
-        let rightBarButton = UIBarButtonItem(title: editViewModel.rightBarOptionTitle)
+        navigationItem.title = projectViewModel.state.title
         
-        leftBarButton.action = editViewModel.isEditable ?
+        let leftBarButton = UIBarButtonItem(title: editMode.barOptionTitle.left)
+        leftBarButton.action = editMode == .editable ?
         #selector(cancelEditing) : #selector(changeModeToEditable)
         
+        let rightBarButton = UIBarButtonItem(title: editMode.barOptionTitle.right)
         rightBarButton.action = #selector(doneEditing)
         
-        navigationItem.title = editViewModel.barTitle
         navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.rightBarButtonItem = rightBarButton
         
@@ -123,7 +126,8 @@ extension EditingViewController {
     }
     
     @objc private func changeModeToEditable() {
-        editViewModel.changeModeToEditable()
+        editMode = .editable
+        makeEditableModeView()
         descriptionTextView.becomeFirstResponder()
     }
     
@@ -133,19 +137,22 @@ extension EditingViewController {
     }
     
     @objc private func doneEditing() {
-        editViewModel.doneEditing(titleInput: self.titleField.text,
-                                  descriptionInput: self.descriptionTextView.text,
-                                  dateInput: self.dataPicker.date)
-        
+        editProject()
         descriptionTextView.resignFirstResponder()
         dismiss(animated: true)
+        
+        NotificationCenter.default.post(name: Notification.Name("editingDone"),
+                                        object: nil,
+                                        userInfo: ["project": projectViewModel.project,
+                                                   "state": projectViewModel.state])
     }
 }
 
 // MARK: - Layout
 extension EditingViewController {
     private func configureHierarchy() {
-        [titleField, dataPicker, descriptionTextView].forEach { stackView.addArrangedSubview($0) }
+        [titleField, datePicker, descriptionTextView].forEach { view in
+            stackView.addArrangedSubview(view) }
         
         view.addSubview(stackView)
     }
@@ -162,7 +169,7 @@ extension EditingViewController {
                                                         multiplier:
                                                             Default.descriptionHeightRatio),
             
-            dataPicker.heightAnchor.constraint(lessThanOrEqualTo: stackView.heightAnchor,
+            datePicker.heightAnchor.constraint(lessThanOrEqualTo: stackView.heightAnchor,
                                                multiplier: Default.dataPickerHeightRatio),
             
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,
@@ -207,6 +214,22 @@ extension EditingViewController {
     }
 }
 
+extension EditingViewController {
+    enum EditingMode {
+        case editable
+        case readOnly
+        
+        var barOptionTitle: (left: String, right: String) {
+            switch self {
+            case .editable:
+                return (left: Title.Cancel, right: Title.Done)
+            case .readOnly:
+                return (left: Title.Edit, right: Title.Done)
+            }
+        }
+    }
+}
+
 // MARK: - NameSpace
 extension EditingViewController {
     
@@ -222,5 +245,12 @@ extension EditingViewController {
         static let dataPickerHeightRatio = 1 - descriptionHeightRatio - titleHeightRatio
         static let margin: CGFloat = 10
         static let stackTopMargin = navigationBarHeight
+    }
+    
+    private enum Title {
+        
+        static let Cancel = "Cancel"
+        static let Done = "Done"
+        static let Edit = "Edit"
     }
 }

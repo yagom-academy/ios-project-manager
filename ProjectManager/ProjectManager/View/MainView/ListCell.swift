@@ -7,24 +7,17 @@
 
 import UIKit
 
-protocol ListCellDelegate: AnyObject {
-    
-    func showPopoverMenu(_ sender: UILongPressGestureRecognizer, using model: ListCellViewModel)
-}
-
 final class ListCell: UITableViewCell {
     
     static let identifier = "projectCell"
     
-    var cellViewModel: ListCellViewModel? {
+    private(set) var projectViewModel: ProjectViewModel? {
         didSet {
-            if cellViewModel != nil {
-                bidingViewModel()
-            }
+            setupTitleLabelText()
+            setupDateLabelText()
+            setupDescriptionLabelText()
         }
     }
-    
-    weak var delegate: ListCellDelegate?
     private var titleLabel = UILabel(font: .title3)
     private var descriptionLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
     private var dateLabel = UILabel(font: .body, numberOfLines: 0)
@@ -44,34 +37,45 @@ final class ListCell: UITableViewCell {
         registerLongPressGestureRecognizer()
     }
     
-    private func bidingViewModel() {
-        cellViewModel?.updateTitleDate = { [weak self] data in
-            self?.titleLabel.text = data
-        }
-        
-        cellViewModel?.updateDescriptionDate = { [weak self] data in
-            self?.descriptionLabel.text = data
-        }
-        
-        cellViewModel?.updateDateDate = { [weak self] data, isMissDeadLine, state in
-            self?.dateLabel.text = data
-            
-            guard isMissDeadLine && state != .done else { return }
-            self?.dateLabel.textColor = .red
-        }
+    func setupViewModel(_ projectViewModel: ProjectViewModel) {
+        self.projectViewModel = projectViewModel
     }
     
+    private func setupTitleLabelText() {
+        titleLabel.text = projectViewModel?.project.title
+    }
+    
+    private func setupDescriptionLabelText() {
+        descriptionLabel.text = projectViewModel?.project.description
+    }
+    
+    private func setupDateLabelText() {
+        guard let date = projectViewModel?.project.date else { return }
+        
+        dateLabel.text = date.changeDotFormatString()
+        
+        if date.isPast() {
+            dateLabel.textColor = .red
+        } else {
+            dateLabel.textColor = .black
+        }
+    }
+
     private func registerLongPressGestureRecognizer() {
-        let longPressGesture = UILongPressGestureRecognizer( target: self,
-                                                             action: #selector(moveToOtherList))
+        let longPressGesture = UILongPressGestureRecognizer(target: self,
+                                                            action: #selector(notifyLongPressed))
         longPressGesture.delaysTouchesBegan = true
         
         self.contentView.addGestureRecognizer(longPressGesture)
     }
     
-    @objc private func moveToOtherList(_ sender: UILongPressGestureRecognizer) {
-        guard let cellViewModel = cellViewModel else { return }
-        delegate?.showPopoverMenu(sender, using: cellViewModel)
+    @objc private func notifyLongPressed(_ sender: UILongPressGestureRecognizer) {
+        guard let projectViewModel = projectViewModel else { return }
+        
+        NotificationCenter.default.post(name: Notification.Name("cellLongPressed"),
+                                        object: sender.view,
+                                        userInfo: ["project": projectViewModel.project,
+                                                   "state": projectViewModel.state])
     }
     
     required init?(coder: NSCoder) {

@@ -25,6 +25,8 @@ final class MainViewController: UIViewController {
         setUpNavigationBar()
         configureHierarchy()
         configureLayout()
+        addEditingDoneObserver()
+        addLongPressedCellObserver()
     }
     
     private func configureDataSource() {
@@ -36,13 +38,11 @@ final class MainViewController: UIViewController {
     private func generateDataSource(in state: ProjectState) -> DataSource {
         let tableViewOfState = listViews[state.index].projectTableView
         
-        return DataSource(tableView: tableViewOfState) { tableView, _, item in
+        return DataSource(tableView: tableViewOfState) { tableView, _, project in
             let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier)
             as? ListCell
             
-            cell?.delegate = self
-            cell?.cellViewModel = ListCellViewModel(project: item, state: state)
-            cell?.cellViewModel?.setupCell()
+            cell?.setupViewModel(ProjectViewModel(project: project, state: state))
             
             return cell
         }
@@ -91,9 +91,9 @@ extension MainViewController {
             guard let self = self else { return }
             
             let newProject = self.mainViewModel.generateNewProject()
-            let editingViewModel = EditingViewModel(editTargetModel: self.mainViewModel,
-                                                    project: newProject)
-            let editViewController = EditingViewController(viewModel: editingViewModel)
+            let projectViewModel = ProjectViewModel(project: newProject, state: .todo)
+            let editViewController = EditingViewController(projectViewModel: projectViewModel,
+                                                           editMode: .editable)
             editViewController.modalPresentationStyle = .formSheet
             
             self.navigationController?.present(editViewController, animated: true)
@@ -135,55 +135,78 @@ extension MainViewController: UITableViewDelegate {
         showEditingView(tableView, didSelectRowAt: indexPath)
     }
     
-    private func showEditingView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ListCell,
-              let cellViewModel = cell.cellViewModel,
-              let projectToEdit = mainViewModel.fetchProject(index: indexPath.item,
-                                                             of: cellViewModel.currentState) else {
-            return
-        }
-  
-        let editingViewModel = EditingViewModel(editTargetModel: self.mainViewModel,
-                                                project: projectToEdit,
-                                                isNewProject: false,
-                                                state: cellViewModel.currentState)
-        
-        let editViewController = EditingViewController(viewModel: editingViewModel)
-        editViewController.modalPresentationStyle = .formSheet
-        
-        self.navigationController?.present(editViewController, animated: true)
-    }
-    
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {
         guard let cell = tableView.cellForRow(at: indexPath) as? ListCell,
-              let cellViewModel = cell.cellViewModel,
+              let state = cell.projectViewModel?.state,
               let project = mainViewModel.fetchProject(index: indexPath.item,
-                                                       of: cellViewModel.currentState) else {
+                                                       of: state) else {
             return nil
         }
-
+        
         let delete = UIContextualAction(style: .destructive,
                                         title: Title.deleteAction) { _, _, _ in
-            self.mainViewModel.delete(project, of: cellViewModel.currentState)
+            self.mainViewModel.delete(project, of: state)
         }
         
         return UISwipeActionsConfiguration(actions: [delete])
     }
 }
 
+// MARK: - HandlingEditingView
+extension MainViewController {
+    private func addEditingDoneObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(editProject),
+                                               name: Notification.Name("editingDone"),
+                                               object: nil)
+    }
+    
+    @objc private func editProject(notification: Notification) {
+        guard let project = notification.userInfo?["project"] as? Project,
+              let state = notification.userInfo?["state"] as? ProjectState else { return }
+        
+        mainViewModel.save(project, in: state)
+    }
+    
+    private func showEditingView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ListCell,
+              let state = cell.projectViewModel?.state,
+              let projectToEdit = mainViewModel.fetchProject(index: indexPath.item,
+                                                             of: state) else {
+            return
+        }
+        
+        let projectViewModel = ProjectViewModel(project: projectToEdit,
+                                                state: state)
+        
+        let editViewController = EditingViewController(projectViewModel: projectViewModel,
+                                                       editMode: .readOnly)
+        editViewController.modalPresentationStyle = .formSheet
+
+        self.navigationController?.present(editViewController, animated: true)
+    }
+}
+
 // MARK: - Handling LongPressGesture of Cell
-extension MainViewController: ListCellDelegate {
-    func showPopoverMenu(_ sender: UILongPressGestureRecognizer, using model: ListCellViewModel) {
-        guard  let project = model.currentProject,
-               sender.state == .began else { return }
+extension MainViewController {
+    private func addLongPressedCellObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(showPopoverMenu),
+                                               name: Notification.Name("cellLongPressed"),
+                                               object: nil)
+    }
+    
+    @objc private func showPopoverMenu(notification: Notification) {
+        guard let project = notification.userInfo?["project"] as? Project,
+              let state = notification.userInfo?["state"] as? ProjectState else { return }
         
         let menuAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         menuAlert.makePopoverStyle()
-        menuAlert.popoverPresentationController?.sourceView = sender.view
+        menuAlert.popoverPresentationController?.sourceView = notification.object as? UIView
         
-        let actions = generateMovingActions(about: project, in: model.currentState)
+        let actions = generateMovingActions(about: project, in: state)
         actions.forEach { menuAlert.addAction($0) }
         
         self.present(menuAlert, animated: true)

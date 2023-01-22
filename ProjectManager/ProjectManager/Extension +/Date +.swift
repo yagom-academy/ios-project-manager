@@ -15,4 +15,11 @@ extension Date {
         
         return dateFormatter.string(from: self)
     }
+    
+    func isPast() -> Bool {
+        let today = Date().changeDotFormatString()
+        let date = self.changeDotFormatString()
+        
+        return today > date ? true : false
+    }
 }

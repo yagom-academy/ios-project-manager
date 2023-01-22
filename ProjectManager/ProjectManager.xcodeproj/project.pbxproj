@@ -9,18 +9,17 @@
 /* Begin PBXBuildFile section */
 		4115A8402970EB1F0062A061 /* UIView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4115A83F2970EB1F0062A061 /* UIView +.swift */; };
 		4115A84329710B800062A061 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4115A84229710B800062A061 /* CircleLabel.swift */; };
-		412B8E2B2972437300C29DA4 /* EditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8E2A2972437300C29DA4 /* EditingViewModel.swift */; };
 		412B8E2D2972753C00C29DA4 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8E2C2972753B00C29DA4 /* DataSource.swift */; };
 		412B8E3429729EB500C29DA4 /* Date +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8E3329729EB500C29DA4 /* Date +.swift */; };
 		41656B8B296D5EC6006BC519 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8A296D5EC6006BC519 /* FirebaseFirestore */; };
 		41656B8D296D5EC6006BC519 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8C296D5EC6006BC519 /* FirebaseFirestoreSwift */; };
 		417C502129711D7D00CEC6DA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502029711D7D00CEC6DA /* MainViewModel.swift */; };
 		417C502329711E3600CEC6DA /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502229711E3600CEC6DA /* ProjectState.swift */; };
-		417C50252971256000CEC6DA /* ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C50242971256000CEC6DA /* ListCellViewModel.swift */; };
 		417C502D29716C1700CEC6DA /* EditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502C29716C1700CEC6DA /* EditingViewController.swift */; };
 		417C502F2971868B00CEC6DA /* UITextField +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C502E2971868B00CEC6DA /* UITextField +.swift */; };
 		417C503129718D3B00CEC6DA /* UITextView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417C503029718D3A00CEC6DA /* UITextView +.swift */; };
 		418FCF10296C606300D80D81 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 418FCF0F296C606300D80D81 /* .swiftlint.yml */; };
+		41A138AE297C35510025BA93 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A138AD297C35510025BA93 /* ProjectViewModel.swift */; };
 		41AC8101297A2D07000B3427 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41AC8100297A2D07000B3427 /* GoogleService-Info.plist */; };
 		41B7A772297552C300D6BD61 /* UIAlertController +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B7A771297552C300D6BD61 /* UIAlertController +.swift */; };
 		41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BEB2970E0F8005E1C94 /* Project.swift */; };
@@ -52,16 +51,15 @@
 /* Begin PBXFileReference section */
 		4115A83F2970EB1F0062A061 /* UIView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView +.swift"; sourceTree = "<group>"; };
 		4115A84229710B800062A061 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
-		412B8E2A2972437300C29DA4 /* EditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingViewModel.swift; sourceTree = "<group>"; };
 		412B8E2C2972753B00C29DA4 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		412B8E3329729EB500C29DA4 /* Date +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date +.swift"; sourceTree = "<group>"; };
 		417C502029711D7D00CEC6DA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		417C502229711E3600CEC6DA /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
-		417C50242971256000CEC6DA /* ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellViewModel.swift; sourceTree = "<group>"; };
 		417C502C29716C1700CEC6DA /* EditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingViewController.swift; sourceTree = "<group>"; };
 		417C502E2971868B00CEC6DA /* UITextField +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField +.swift"; sourceTree = "<group>"; };
 		417C503029718D3A00CEC6DA /* UITextView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView +.swift"; sourceTree = "<group>"; };
 		418FCF0F296C606300D80D81 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		41A138AD297C35510025BA93 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		41AC8100297A2D07000B3427 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41B7A771297552C300D6BD61 /* UIAlertController +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController +.swift"; sourceTree = "<group>"; };
 		41E26BEB2970E0F8005E1C94 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -118,8 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				417C502029711D7D00CEC6DA /* MainViewModel.swift */,
-				417C50242971256000CEC6DA /* ListCellViewModel.swift */,
-				412B8E2A2972437300C29DA4 /* EditingViewModel.swift */,
+				41A138AD297C35510025BA93 /* ProjectViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -406,11 +403,11 @@
 			files = (
 				412B8E3429729EB500C29DA4 /* Date +.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
-				412B8E2B2972437300C29DA4 /* EditingViewModel.swift in Sources */,
 				4115A84329710B800062A061 /* CircleLabel.swift in Sources */,
 				41E26BF22970E23B005E1C94 /* ListCell.swift in Sources */,
 				41B7A772297552C300D6BD61 /* UIAlertController +.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				41A138AE297C35510025BA93 /* ProjectViewModel.swift in Sources */,
 				41E26BEE2970E1B5005E1C94 /* ListView.swift in Sources */,
 				41E26BF42970E392005E1C94 /* UILabel +.swift in Sources */,
 				417C503129718D3B00CEC6DA /* UITextView +.swift in Sources */,
@@ -420,7 +417,6 @@
 				41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */,
 				412B8E2D2972753C00C29DA4 /* DataSource.swift in Sources */,
 				417C502D29716C1700CEC6DA /* EditingViewController.swift in Sources */,
-				417C50252971256000CEC6DA /* ListCellViewModel.swift in Sources */,
 				417C502329711E3600CEC6DA /* ProjectState.swift in Sources */,
 				41E26BF72970E54A005E1C94 /* UIStackView +.swift in Sources */,
 				417C502129711D7D00CEC6DA /* MainViewModel.swift in Sources */,
