@@ -9,7 +9,7 @@ import UIKit
 
 final class CellPopoverViewController: UIViewController {
 
-    private let firstButton: UIButton = {
+    private let poppverFirstButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .white
@@ -18,7 +18,7 @@ final class CellPopoverViewController: UIViewController {
         return button
     }()
 
-    private let secondButton: UIButton = {
+    private let popoverSecondButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .white
@@ -47,8 +47,8 @@ final class CellPopoverViewController: UIViewController {
         view.backgroundColor = .systemGray4
         view.addSubview(verticalStackView)
         settingButtons()
-        firstButton.addTarget(self, action: #selector(touchUpFirstButton(_:)), for: .touchUpInside)
-        secondButton.addTarget(self, action: #selector(touchUpSecondButton(_:)), for: .touchUpInside)
+        poppverFirstButton.addTarget(self, action: #selector(touchUpFirstButton(_:)), for: .touchUpInside)
+        popoverSecondButton.addTarget(self, action: #selector(touchUpSecondButton(_:)), for: .touchUpInside)
     }
 
     override func viewDidLayoutSubviews() {
@@ -67,8 +67,8 @@ final class CellPopoverViewController: UIViewController {
         let spacing: CGFloat = 8
         let largeSpacing: CGFloat = 20
 
-        verticalStackView.addArrangedSubview(firstButton)
-        verticalStackView.addArrangedSubview(secondButton)
+        verticalStackView.addArrangedSubview(poppverFirstButton)
+        verticalStackView.addArrangedSubview(popoverSecondButton)
 
         NSLayoutConstraint.activate([
             verticalStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: spacing),
@@ -82,14 +82,14 @@ final class CellPopoverViewController: UIViewController {
         guard let mode = cellToChange else { return }
         switch mode {
         case .todo:
-            firstButton.setTitle("Move to DOING", for: .normal)
-            secondButton.setTitle("Move to DONE", for: .normal)
+            poppverFirstButton.setTitle("Move to DOING", for: .normal)
+            popoverSecondButton.setTitle("Move to DONE", for: .normal)
         case .doing:
-            firstButton.setTitle("Move to TODO", for: .normal)
-            secondButton.setTitle("Move to DONE", for: .normal)
+            poppverFirstButton.setTitle("Move to TODO", for: .normal)
+            popoverSecondButton.setTitle("Move to DONE", for: .normal)
         case .done:
-            firstButton.setTitle("Move to TODO", for: .normal)
-            secondButton.setTitle("Move to DOING", for: .normal)
+            poppverFirstButton.setTitle("Move to TODO", for: .normal)
+            popoverSecondButton.setTitle("Move to DOING", for: .normal)
         }
     }
 }
