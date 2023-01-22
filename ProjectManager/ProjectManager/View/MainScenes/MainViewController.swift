@@ -120,7 +120,7 @@ extension MainViewController: PopoverPresentable {
         
         viewModel.prepareForEvent(process: process, index: indexPath.row)
         
-        viewModel.configureButtonProcess(process: process).forEach { process in
+        viewModel.configureButtonProcess().forEach { process in
             let action = UIAlertAction(
                 title: "Move To " + "\(process)",
                 style: .default

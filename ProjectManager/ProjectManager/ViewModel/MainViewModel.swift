@@ -142,9 +142,9 @@ extension MainViewModel {
         updateDataProcess = nil
     }
     
-    func configureButtonProcess(process: Process) -> [Process] {
+    func configureButtonProcess() -> [Process] {
         return Process.allCases.filter {
-            $0 != process
+            $0 != updateDataProcess
         }
     }
 }

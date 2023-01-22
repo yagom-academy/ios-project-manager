@@ -31,11 +31,11 @@ final class DetailViewModelTest: XCTestCase {
     }
 
     func test_data를_신규추가할때_Edit이_가능한지_check() {
-        XCTAssertTrue(sut.fetchEditable())
+        XCTAssertTrue(sut.isEdiatable)
     }
 
     func test_data를_변경할때_Edit이_가능한지_check() {
         sut = DetailViewModel(data: TestData.data1)
-        XCTAssertFalse(sut.fetchEditable())
+        XCTAssertFalse(sut.isEdiatable)
     }
 }
