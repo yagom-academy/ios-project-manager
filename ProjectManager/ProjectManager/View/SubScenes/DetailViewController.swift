@@ -142,10 +142,10 @@ extension DetailViewController {
 // MARK: - UITextFieldDelegate, UITextViewDelegate
 extension DetailViewController: UITextFieldDelegate, UITextViewDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return viewModel.fetchEditable()
+        return viewModel.isEdiatable
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        return viewModel.fetchEditable()
+        return viewModel.isEdiatable
     }
 }

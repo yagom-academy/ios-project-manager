@@ -37,7 +37,7 @@ final class DetailViewModel {
         }
     }
     
-    private var isEdiatable = false {
+    private(set) var isEdiatable = false {
         didSet {
             editableHandler?(isEdiatable)
         }
@@ -85,10 +85,6 @@ extension DetailViewModel {
     func bindEditable(handler: @escaping (Bool) -> Void) {
         handler(isEdiatable)
         self.editableHandler = handler
-    }
-    
-    func fetchEditable() -> Bool {
-        return isEdiatable
     }
     
     func toggle() {
