@@ -9,6 +9,7 @@ import UIKit
 
 final class DetailViewController: UIViewController {
 
+    // MARK: - Property
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -111,6 +112,7 @@ final class DetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Method
     private func configureSubViews() {
         let spacing: CGFloat = 8
 

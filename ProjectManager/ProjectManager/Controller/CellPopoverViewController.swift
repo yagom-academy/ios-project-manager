@@ -9,6 +9,7 @@ import UIKit
 
 final class CellPopoverViewController: UIViewController {
 
+    // MARK: - Property
     private let poppverFirstButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -63,6 +64,7 @@ final class CellPopoverViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Method
     private func configureSubViews() {
         let spacing: CGFloat = 8
         let largeSpacing: CGFloat = 20
