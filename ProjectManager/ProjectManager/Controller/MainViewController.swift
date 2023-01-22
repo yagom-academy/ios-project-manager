@@ -7,7 +7,7 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    
+
     // MARK: - Property
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
@@ -256,6 +256,8 @@ final class MainViewController: UIViewController {
         doneEmptyView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
         configureSubViews()
     }
+
+    // MARK: - Method
     private func configureSubViews() {
         todoStackView.addArrangedSubview(todoTitleLabel)
         todoStackView.addArrangedSubview(todoCountLabel)
