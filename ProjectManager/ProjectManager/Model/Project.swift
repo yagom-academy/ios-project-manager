@@ -10,7 +10,7 @@ import Foundation
 struct Project: Hashable {
     
     var title: String?
-    var description: String?
+    var detail: String?
     var date: Date
     let uuid: UUID
 }

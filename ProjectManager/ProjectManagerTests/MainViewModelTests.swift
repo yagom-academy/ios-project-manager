@@ -27,7 +27,7 @@ class MainViewModelTests: XCTestCase {
         
         // then: Title, Description이 빈 값인 새로운 Project 객체가 생성된다
         XCTAssertEqual("", result?.title)
-        XCTAssertEqual("", result?.description)
+        XCTAssertEqual("", result?.detail)
     }
 
     func test_readTitle_todo일때_TODO출력() {

@@ -29,7 +29,7 @@ final class MainViewModel {
     
     func generateNewProject() -> Project {
         let newProject =  Project(title: Default.title,
-                                  description: Default.description,
+                                  detail: Default.detail,
                                   date: Default.date,
                                   uuid: UUID())
         
@@ -102,7 +102,7 @@ extension MainViewModel {
     private enum Default {
         
         static let title = ""
-        static let description = ""
+        static let detail = ""
         static let date = Date()
     }
 }

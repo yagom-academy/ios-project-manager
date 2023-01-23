@@ -31,7 +31,7 @@ final class EditingViewController: UIViewController {
         return dataPicker
     }()
     
-    private let descriptionTextView: UITextView = {
+    private let detailTextView: UITextView = {
         let textView = UITextView(font: .title2)
         textView.layer.cornerRadius = Default.radius
         textView.keyboardDismissMode = .interactive
@@ -63,7 +63,7 @@ final class EditingViewController: UIViewController {
     private func setupView() {
         titleField.text = projectViewModel.project.title
         datePicker.date = projectViewModel.project.date
-        descriptionTextView.text = projectViewModel.project.description
+        detailTextView.text = projectViewModel.project.detail
         
         if editMode == .readOnly {
             makeReadOnlyModeView()
@@ -73,17 +73,17 @@ final class EditingViewController: UIViewController {
     private func editProject() {
         projectViewModel.project.title = titleField.text
         projectViewModel.project.date = datePicker.date
-        projectViewModel.project.description = descriptionTextView.text
+        projectViewModel.project.detail = detailTextView.text
     }
     
     private func makeReadOnlyModeView() {
-        [titleField, datePicker, descriptionTextView].forEach { view in
+        [titleField, datePicker, detailTextView].forEach { view in
             view.isUserInteractionEnabled = false
         }
     }
     
     private func makeEditableModeView() {
-        [titleField, datePicker, descriptionTextView].forEach { view in
+        [titleField, datePicker, detailTextView].forEach { view in
             view.isUserInteractionEnabled = true
         }
     }
@@ -128,17 +128,17 @@ extension EditingViewController {
     @objc private func changeModeToEditable() {
         editMode = .editable
         makeEditableModeView()
-        descriptionTextView.becomeFirstResponder()
+        detailTextView.becomeFirstResponder()
     }
     
     @objc private func cancelEditing() {
         dismiss(animated: true)
-        descriptionTextView.resignFirstResponder()
+        detailTextView.resignFirstResponder()
     }
     
     @objc private func doneEditing() {
         editProject()
-        descriptionTextView.resignFirstResponder()
+        detailTextView.resignFirstResponder()
         dismiss(animated: true)
         
         NotificationCenter.default.post(name: Notification.Name("editingDone"),
@@ -151,7 +151,7 @@ extension EditingViewController {
 // MARK: - Layout
 extension EditingViewController {
     private func configureHierarchy() {
-        [titleField, datePicker, descriptionTextView].forEach { view in
+        [titleField, datePicker, detailTextView].forEach { view in
             stackView.addArrangedSubview(view) }
         
         view.addSubview(stackView)
@@ -162,12 +162,12 @@ extension EditingViewController {
         
         NSLayoutConstraint.activate([
             titleField.heightAnchor.constraint(greaterThanOrEqualTo: stackView.heightAnchor,
-                                               multiplier: Default.titleHeightRatio),
+                                               multiplier: Default.titleTextFieldHeightRatio),
             
-            descriptionTextView.heightAnchor.constraint(greaterThanOrEqualTo:
+            detailTextView.heightAnchor.constraint(greaterThanOrEqualTo:
                                                             stackView.heightAnchor,
                                                         multiplier:
-                                                            Default.descriptionHeightRatio),
+                                                            Default.detailTextViewHeightRatio),
             
             datePicker.heightAnchor.constraint(lessThanOrEqualTo: stackView.heightAnchor,
                                                multiplier: Default.dataPickerHeightRatio),
@@ -240,9 +240,9 @@ extension EditingViewController {
         static let titlePadding: CGFloat = 20
         static let origin: CGFloat = 0
         static let navigationBarHeight: CGFloat = 70
-        static let descriptionHeightRatio = 0.4
-        static let titleHeightRatio = 0.1
-        static let dataPickerHeightRatio = 1 - descriptionHeightRatio - titleHeightRatio
+        static let detailTextViewHeightRatio = 0.4
+        static let titleTextFieldHeightRatio = 0.1
+        static let dataPickerHeightRatio = 1 - detailTextViewHeightRatio - titleTextFieldHeightRatio
         static let margin: CGFloat = 10
         static let stackTopMargin = navigationBarHeight
     }

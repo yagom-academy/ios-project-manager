@@ -15,11 +15,11 @@ final class ListCell: UITableViewCell {
         didSet {
             setupTitleLabelText()
             setupDateLabelText()
-            setupDescriptionLabelText()
+            setupDetailLabelText()
         }
     }
     private var titleLabel = UILabel(font: .title3)
-    private var descriptionLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
+    private var detailLabel = UILabel(font: .body, textColor: .systemGray2, numberOfLines: 3)
     private var dateLabel = UILabel(font: .body, numberOfLines: 0)
     private var stackView = UIStackView(axis: .vertical,
                                         distribution: .fill,
@@ -45,8 +45,8 @@ final class ListCell: UITableViewCell {
         titleLabel.text = projectViewModel?.project.title
     }
     
-    private func setupDescriptionLabelText() {
-        descriptionLabel.text = projectViewModel?.project.description
+    private func setupDetailLabelText() {
+        detailLabel.text = projectViewModel?.project.detail
     }
     
     private func setupDateLabelText() {
@@ -87,7 +87,7 @@ final class ListCell: UITableViewCell {
 extension ListCell {
     
     private func configureHierarchy() {
-        [titleLabel, descriptionLabel, dateLabel].forEach { label in
+        [titleLabel, detailLabel, dateLabel].forEach { label in
             stackView.addArrangedSubview(label)
         }
         contentView.addSubview(stackView)
