@@ -114,7 +114,7 @@ final class IssueViewController: UIViewController {
     
     private func configureNavigationBar() {
         if isEditable {
-            title = Status.todo.description
+            title = String(describing: Status.todo)
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
                 self.updateIssue()
@@ -126,7 +126,7 @@ final class IssueViewController: UIViewController {
                 self.dismiss(animated: true)
             })
         } else {
-            title = issue.status.description
+            title = String(describing: issue.status)
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
                 self.updateIssue()

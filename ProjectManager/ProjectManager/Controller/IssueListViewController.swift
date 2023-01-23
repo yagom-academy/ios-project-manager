@@ -89,7 +89,7 @@ final class IssueListViewController: UIViewController {
     }
     
     private func configureHeaderView() {
-        headerView = HeaderView(title: status.description, count: issueCount)
+        headerView = HeaderView(title: String(describing: status), count: issueCount)
     }
     
     private func configureCollectionView() {
@@ -194,7 +194,7 @@ final class IssueListViewController: UIViewController {
     }
     
     private func createAlertAction(issue: Issue, to status: Status) -> UIAlertAction {
-        let action = UIAlertAction(title: Constant.Namespace.alertActionText + status.description,
+        let action = UIAlertAction(title: Constant.Namespace.alertActionText + String(describing: status),
                                    style: .default) { _ in
             var modifiedIssue = issue
             modifiedIssue.status = status

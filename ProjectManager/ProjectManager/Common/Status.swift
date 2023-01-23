@@ -9,7 +9,9 @@ enum Status: CaseIterable {
     case todo
     case doing
     case done
+}
 
+extension Status: CustomStringConvertible {
     var description: String {
         switch self {
         case .todo:
