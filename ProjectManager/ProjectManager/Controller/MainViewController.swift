@@ -8,6 +8,18 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    private enum Constant {
+        enum Namespace {
+            static let navigationTitle = "Project Manager"
+            static let plusImage = "plus"
+        }
+        
+        enum LayoutConstant {
+            static let mainStackViewMargin = CGFloat(8)
+            static let columnSpacing = CGFloat(16)
+        }
+    }
+    
     private lazy var todoListViewController = IssueListViewController(status: .todo, delegate: self)
     private lazy var doingListViewController = IssueListViewController(status: .doing, delegate: self)
     private lazy var doneListViewController = IssueListViewController(status: .done, delegate: self)
@@ -15,14 +27,14 @@ final class MainViewController: UIViewController {
     private var mainStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = LayoutConstant.columnSpacing
+        stack.spacing = Constant.LayoutConstant.columnSpacing
         stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstant.mainStackViewMargin,
-                                                                 leading: LayoutConstant.mainStackViewMargin,
-                                                                 bottom: LayoutConstant.mainStackViewMargin,
-                                                                 trailing: LayoutConstant.mainStackViewMargin)
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.mainStackViewMargin,
+                                                                 leading: Constant.LayoutConstant.mainStackViewMargin,
+                                                                 bottom: Constant.LayoutConstant.mainStackViewMargin,
+                                                                 trailing: Constant.LayoutConstant.mainStackViewMargin)
         
         return stack
     }()
@@ -40,8 +52,8 @@ final class MainViewController: UIViewController {
     
     private func configureNavigationBar() {
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
-        title = Namespace.navigationTitle
-        let plusButton = UIBarButtonItem(image: UIImage(systemName: Namespace.plusImage),
+        title = Constant.Namespace.navigationTitle
+        let plusButton = UIBarButtonItem(image: UIImage(systemName: Constant.Namespace.plusImage),
                                          primaryAction: UIAction { _ in
             let issueViewcontroller = IssueViewController(delegate: self.todoListViewController)
             let navigationViewController = UINavigationController(rootViewController: issueViewcontroller)
@@ -80,17 +92,5 @@ extension MainViewController: IssueListDelegate {
         case .done:
             doneListViewController.addIssue(issue: issue)
         }
-    }
-}
-
-extension MainViewController {
-    enum Namespace {
-        static let navigationTitle = "Project Manager"
-        static let plusImage = "plus"
-    }
-    
-    enum LayoutConstant {
-        static let mainStackViewMargin = CGFloat(8)
-        static let columnSpacing = CGFloat(16)
     }
 }

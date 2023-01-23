@@ -8,6 +8,15 @@
 import UIKit
 
 final class CustomContentView: UIView, UIContentView {
+    private enum Constant {
+        enum LayoutConstant {
+            static let margin = CGFloat(8)
+            static let borderWidth = CGFloat(1)
+            static let cornerRadius = CGFloat(8)
+            static let maxBodyLineCount = 3
+        }
+    }
+    
     var configuration: UIContentConfiguration {
         didSet {
             configureContents(using: configuration)
@@ -19,13 +28,13 @@ final class CustomContentView: UIView, UIContentView {
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstant.margin,
-                                                                 leading: LayoutConstant.margin,
-                                                                 bottom: LayoutConstant.margin,
-                                                                 trailing: LayoutConstant.margin)
-        stack.layer.borderWidth = LayoutConstant.borderWidth
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.margin,
+                                                                 leading: Constant.LayoutConstant.margin,
+                                                                 bottom: Constant.LayoutConstant.margin,
+                                                                 trailing: Constant.LayoutConstant.margin)
+        stack.layer.borderWidth = Constant.LayoutConstant.borderWidth
         stack.layer.borderColor = UIColor.systemGray.cgColor
-        stack.layer.cornerRadius = LayoutConstant.cornerRadius
+        stack.layer.cornerRadius = Constant.LayoutConstant.cornerRadius
         
         return stack
     }()
@@ -41,7 +50,7 @@ final class CustomContentView: UIView, UIContentView {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
-        label.numberOfLines = LayoutConstant.maxBodyLineCount
+        label.numberOfLines = Constant.LayoutConstant.maxBodyLineCount
         
         return label
     }()
@@ -61,10 +70,10 @@ final class CustomContentView: UIView, UIContentView {
     }
     
     private func configureViews() {
-        directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstant.margin,
-                                                           leading: LayoutConstant.margin,
-                                                           bottom: LayoutConstant.margin,
-                                                           trailing: LayoutConstant.margin)
+        directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.margin,
+                                                           leading: Constant.LayoutConstant.margin,
+                                                           bottom: Constant.LayoutConstant.margin,
+                                                           trailing: Constant.LayoutConstant.margin)
         configureStackView()
     }
     
@@ -93,12 +102,5 @@ final class CustomContentView: UIView, UIContentView {
            deadline.isOverdue {
             dueDateLabel.textColor = .systemRed
         }
-    }
-
-    enum LayoutConstant {
-        static let margin = CGFloat(8)
-        static let borderWidth = CGFloat(1)
-        static let cornerRadius = CGFloat(8)
-        static let maxBodyLineCount = 3
     }
 }

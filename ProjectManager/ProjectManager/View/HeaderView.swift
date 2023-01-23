@@ -8,6 +8,13 @@
 import UIKit
 
 final class HeaderView: UIView {
+    private enum Constant {
+        enum LayoutConstant {
+            static let countLabelSizeRatio = CGFloat(0.8)
+            static let margin = CGFloat(8)
+        }
+    }
+    
     private var title: String?
     private var count: Int?
     private let stackView: UIStackView = {
@@ -47,9 +54,9 @@ final class HeaderView: UIView {
     
     private func configureViews() {
         directionalLayoutMargins = NSDirectionalEdgeInsets(top: .zero,
-                                                           leading: LayoutConstant.margin,
+                                                           leading: Constant.LayoutConstant.margin,
                                                            bottom: .zero,
-                                                           trailing: LayoutConstant.margin)
+                                                           trailing: Constant.LayoutConstant.margin)
         configureStackView()
         configureTitleLabel()
         configureCountLabel()
@@ -77,13 +84,8 @@ final class HeaderView: UIView {
         
         NSLayoutConstraint.activate([
             countLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor,
-                                               multiplier: LayoutConstant.countLabelSizeRatio),
+                                               multiplier: Constant.LayoutConstant.countLabelSizeRatio),
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
         ])
-    }
-    
-    enum LayoutConstant {
-        static let countLabelSizeRatio = CGFloat(0.8)
-        static let margin = CGFloat(8)
     }
 }

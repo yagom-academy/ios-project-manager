@@ -8,21 +8,38 @@
 import UIKit
 
 final class IssueListViewController: UIViewController {
+    private enum Constant {
+        enum Section {
+            case main
+        }
+
+        enum LayoutConstant {
+            static let spacing = CGFloat(8)
+            static let margin = CGFloat(12)
+        }
+        
+        enum Namespace {
+            static let delete = "Delete"
+            static let minimumPressDuration = 0.5
+            static let alertActionText = "Move to "
+        }
+    }
+    
     private var status: Status
     private var issueCount: Int = .zero
     private var issues: [Issue] = []
     private var delegate: IssueListDelegate?
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Issue>?
+    private var dataSource: UICollectionViewDiffableDataSource<Constant.Section, Issue>?
     
     private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.spacing = LayoutConstant.spacing
+        stack.spacing = Constant.LayoutConstant.spacing
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstant.margin,
-                                                                 leading: LayoutConstant.margin,
-                                                                 bottom: LayoutConstant.margin,
-                                                                 trailing: LayoutConstant.margin)
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.margin,
+                                                                 leading: Constant.LayoutConstant.margin,
+                                                                 bottom: Constant.LayoutConstant.margin,
+                                                                 trailing: Constant.LayoutConstant.margin)
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         return stack
@@ -81,7 +98,7 @@ final class IssueListViewController: UIViewController {
         listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
         listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
             let deleteAction = UIContextualAction(style: .destructive,
-                                                  title: Namespace.delete) { _, _, _  in
+                                                  title: Constant.Namespace.delete) { _, _, _  in
                 guard let issue = self.dataSource?.itemIdentifier(for: indexPath) else { return }
                 
                 self.deleteIssue(issue: issue)
@@ -103,7 +120,7 @@ final class IssueListViewController: UIViewController {
             cell.item = item
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, Issue>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Constant.Section, Issue>(collectionView: collectionView) {
             collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                     for: indexPath,
@@ -114,7 +131,7 @@ final class IssueListViewController: UIViewController {
     }
     
     private func applySnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Issue>()
+        var snapshot = NSDiffableDataSourceSnapshot<Constant.Section, Issue>()
         snapshot.appendSections([.main])
         snapshot.appendItems(issues, toSection: .main)
         dataSource?.apply(snapshot, animatingDifferences: true)
@@ -132,7 +149,7 @@ final class IssueListViewController: UIViewController {
     private func setLongPressGestureRecognizer() {
         let gestureRecognizer = UILongPressGestureRecognizer(target: self,
                                                              action: #selector(handleLongPress(gestureRecognizer: )))
-        gestureRecognizer.minimumPressDuration = Namespace.minimumPressDuration
+        gestureRecognizer.minimumPressDuration = Constant.Namespace.minimumPressDuration
         self.view.addGestureRecognizer(gestureRecognizer)
     }
     
@@ -177,7 +194,7 @@ final class IssueListViewController: UIViewController {
     }
     
     private func createAlertAction(issue: Issue, to status: Status) -> UIAlertAction {
-        let action = UIAlertAction(title: "Move to " + status.description,
+        let action = UIAlertAction(title: Constant.Namespace.alertActionText + status.description,
                                    style: .default) { _ in
             var modifiedIssue = issue
             modifiedIssue.status = status
@@ -186,20 +203,6 @@ final class IssueListViewController: UIViewController {
         }
 
         return action
-    }
-    
-    enum Section {
-        case main
-    }
-
-    enum LayoutConstant {
-        static let spacing = CGFloat(8)
-        static let margin = CGFloat(12)
-    }
-    
-    enum Namespace {
-        static let delete = "Delete"
-        static let minimumPressDuration = 0.5
     }
 }
 

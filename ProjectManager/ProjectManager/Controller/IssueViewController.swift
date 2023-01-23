@@ -8,6 +8,23 @@
 import UIKit
 
 final class IssueViewController: UIViewController {
+    private enum Constant {
+        enum LayoutConstant {
+            static let stackViewSpacing = CGFloat(8)
+            static let margin = CGFloat(20)
+            static let titleTextFieldPadding = CGFloat(12)
+            static let shadowRadius = CGFloat(4)
+        }
+        
+        enum Namespace {
+            static let maxBodyTextCount = 1000
+            static let done = "Done"
+            static let edit = "Edit"
+            static let cancel = "Cancel"
+            static let title = "Title"
+        }
+    }
+    
     private var issue: Issue?
     private var delegate: IssueManageable
     private var isEditable: Bool = true {
@@ -21,27 +38,27 @@ final class IssueViewController: UIViewController {
     private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.spacing = LayoutConstant.stackViewSpacing
+        stack.spacing = Constant.LayoutConstant.stackViewSpacing
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: LayoutConstant.margin,
-                                                                 leading: LayoutConstant.margin,
-                                                                 bottom: LayoutConstant.margin,
-                                                                 trailing: LayoutConstant.margin)
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.margin,
+                                                                 leading: Constant.LayoutConstant.margin,
+                                                                 bottom: Constant.LayoutConstant.margin,
+                                                                 trailing: Constant.LayoutConstant.margin)
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         return stack
     }()
     
     private var titleTextField: PaddedTextField = {
-        let padding = UIEdgeInsets(top: LayoutConstant.titleTextFieldPadding,
-                                   left: LayoutConstant.titleTextFieldPadding,
-                                   bottom: LayoutConstant.titleTextFieldPadding,
-                                   right: LayoutConstant.titleTextFieldPadding)
+        let padding = UIEdgeInsets(top: Constant.LayoutConstant.titleTextFieldPadding,
+                                   left: Constant.LayoutConstant.titleTextFieldPadding,
+                                   bottom: Constant.LayoutConstant.titleTextFieldPadding,
+                                   right: Constant.LayoutConstant.titleTextFieldPadding)
         let textField = PaddedTextField(padding: padding)
         textField.backgroundColor = .systemBackground
-        textField.placeholder = Namespace.title
+        textField.placeholder = Constant.Namespace.title
         textField.setContentHuggingPriority(.required, for: .vertical)
-        textField.addShadow(radius: LayoutConstant.shadowRadius)
+        textField.addShadow(radius: Constant.LayoutConstant.shadowRadius)
         
         return textField
     }()
@@ -60,7 +77,7 @@ final class IssueViewController: UIViewController {
         let textView = UITextView()
         textView.backgroundColor = .systemBackground
         textView.setContentHuggingPriority(.defaultLow, for: .vertical)
-        textView.addShadow(radius: LayoutConstant.shadowRadius)
+        textView.addShadow(radius: Constant.LayoutConstant.shadowRadius)
         
         return textView
     }()
@@ -98,25 +115,25 @@ final class IssueViewController: UIViewController {
     private func configureNavigationBar() {
         if issue == nil {
             title = Status.todo.description
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Namespace.done,
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
                 self.createIssue()
                 self.delegate.addIssue(issue: self.issue)
                 self.dismiss(animated: true)
             })
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: Namespace.cancel,
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constant.Namespace.cancel,
                                                                primaryAction: UIAction { _ in
                 self.dismiss(animated: true)
             })
         } else {
             title = issue?.status.description
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Namespace.done,
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
                 self.updateIssue()
                 self.delegate.updateIssue(issue: self.issue)
                 self.dismiss(animated: true)
             })
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: Namespace.edit,
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constant.Namespace.edit,
                                                                primaryAction: UIAction { _ in
                 self.isEditable = true
             })
@@ -145,31 +162,15 @@ final class IssueViewController: UIViewController {
     private func createIssue() {
         issue = Issue(id: UUID(),
                       status: .todo,
-                      title: titleTextField.text ?? Namespace.empty,
+                      title: titleTextField.text ?? String.init(),
                       body: bodyTextView.text,
                       deadline: datePicker.date)
     }
     
     private func updateIssue() {
-        issue?.title = titleTextField.text ?? Namespace.empty
+        issue?.title = titleTextField.text ?? String.init()
         issue?.body = bodyTextView.text
         issue?.deadline = datePicker.date
-    }
-    
-    enum LayoutConstant {
-        static let stackViewSpacing = CGFloat(8)
-        static let margin = CGFloat(20)
-        static let titleTextFieldPadding = CGFloat(12)
-        static let shadowRadius = CGFloat(4)
-    }
-    
-    enum Namespace {
-        static let maxBodyTextCount = 1000
-        static let empty = ""
-        static let done = "Done"
-        static let edit = "Edit"
-        static let cancel = "Cancel"
-        static let title = "Title"
     }
 }
 
