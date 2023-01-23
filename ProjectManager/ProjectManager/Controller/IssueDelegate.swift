@@ -6,6 +6,6 @@
 //
 
 protocol IssueDelegate {
-    func addIssue(issue: Issue)
-    func updateIssue(issue: Issue)
+    func shouldAdd(issue: Issue)
+    func shouldUpdate(issue: Issue)
 }

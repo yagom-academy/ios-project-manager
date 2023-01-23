@@ -86,11 +86,11 @@ extension MainViewController: IssueListDelegate {
     func shouldDeliver(issue: Issue) {
         switch issue.status {
         case .todo:
-            todoListViewController.addIssue(issue: issue)
+            todoListViewController.shouldAdd(issue: issue)
         case .doing:
-            doingListViewController.addIssue(issue: issue)
+            doingListViewController.shouldAdd(issue: issue)
         case .done:
-            doneListViewController.addIssue(issue: issue)
+            doneListViewController.shouldAdd(issue: issue)
         }
     }
 }

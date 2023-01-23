@@ -118,7 +118,7 @@ final class IssueViewController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
                 self.updateIssue()
-                self.delegate.addIssue(issue: self.issue)
+                self.delegate.shouldAdd(issue: self.issue)
                 self.dismiss(animated: true)
             })
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constant.Namespace.cancel,
@@ -130,7 +130,7 @@ final class IssueViewController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
                 self.updateIssue()
-                self.delegate.updateIssue(issue: self.issue)
+                self.delegate.shouldUpdate(issue: self.issue)
                 self.dismiss(animated: true)
             })
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constant.Namespace.edit,

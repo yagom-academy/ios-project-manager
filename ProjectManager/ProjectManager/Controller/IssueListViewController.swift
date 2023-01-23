@@ -207,12 +207,12 @@ final class IssueListViewController: UIViewController {
 }
 
 extension IssueListViewController: IssueDelegate {
-    func addIssue(issue: Issue) {
+    func shouldAdd(issue: Issue) {
         issues.append(issue)
         applySnapshot()
     }
     
-    func updateIssue(issue: Issue) {
+    func shouldUpdate(issue: Issue) {
         guard let index = issues.firstIndex(where: {$0.id == issue.id}) else { return }
         
         issues[index] = issue
