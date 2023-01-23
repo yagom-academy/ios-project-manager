@@ -17,16 +17,10 @@ final class CountLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    }
-    
-    convenience init(frame: CGRect = .zero, count: Int) {
-        self.init(frame: frame)
-        self.text = Constant.Namespace.formatCount(count)
-        font = .preferredFont(forTextStyle: .headline)
-        backgroundColor = .systemFill
-        textAlignment = .center
         translatesAutoresizingMaskIntoConstraints = false
-        layer.masksToBounds = true
+        backgroundColor = .systemFill
+        font = .preferredFont(forTextStyle: .headline)
+        textAlignment = .center
     }
     
     required init?(coder: NSCoder) {
@@ -36,6 +30,7 @@ final class CountLabel: UILabel {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         layer.cornerRadius = bounds.size.height / 2
+        layer.masksToBounds = true
     }
 }
 

@@ -16,7 +16,6 @@ final class HeaderView: UIView {
     }
     
     private var title: String?
-    private var count: Int?
     private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -35,21 +34,20 @@ final class HeaderView: UIView {
         return label
     }()
     
-    private var countLabel = CountLabel()
+    let countLabel = CountLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    }
-
-    convenience init(frame: CGRect = .zero, title: String, count: Int) {
-        self.init(frame: frame)
-        self.title = title
-        self.count = count
         configureViews()
     }
-    
+
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureContent(title: String, count: Int) {
+        titleLabel.text = title
+        countLabel.updateCountLabel(with: count)
     }
     
     private func configureViews() {
@@ -57,13 +55,14 @@ final class HeaderView: UIView {
                                                            leading: Constant.LayoutConstant.margin,
                                                            bottom: .zero,
                                                            trailing: Constant.LayoutConstant.margin)
+        addSubview(stackView)
         configureStackView()
-        configureTitleLabel()
         configureCountLabel()
     }
     
     private func configureStackView() {
-        addSubview(stackView)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(countLabel)
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
@@ -73,15 +72,7 @@ final class HeaderView: UIView {
         ])
     }
     
-    private func configureTitleLabel() {
-        titleLabel.text = title
-        stackView.addArrangedSubview(titleLabel)
-    }
-    
     private func configureCountLabel() {
-        countLabel = CountLabel(count: count ?? .zero)
-        stackView.addArrangedSubview(countLabel)
-        
         NSLayoutConstraint.activate([
             countLabel.heightAnchor.constraint(equalTo: titleLabel.heightAnchor,
                                                multiplier: Constant.LayoutConstant.countLabelSizeRatio),
