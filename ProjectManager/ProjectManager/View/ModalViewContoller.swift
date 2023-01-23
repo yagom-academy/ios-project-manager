@@ -10,7 +10,7 @@ import UIKit
 final class ModalViewContoller: UIViewController {
     private let data: TodoModel?
     
-    private let textField: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.font = .preferredFont(forTextStyle: .title1)
@@ -27,7 +27,7 @@ final class ModalViewContoller: UIViewController {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    private let deadlineDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = UIDatePickerStyle.wheels
@@ -35,7 +35,7 @@ final class ModalViewContoller: UIViewController {
         return datePicker
     }()
     
-    private let textView: UITextView = {
+    private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.font = .preferredFont(forTextStyle: .title3)
         
@@ -73,32 +73,32 @@ final class ModalViewContoller: UIViewController {
 extension ModalViewContoller {
     private func configureLayout() {
         let safeArea = self.view.safeAreaLayoutGuide
-        textView.delegate = self
+        bodyTextView.delegate = self
         
-        [textField, datePicker, textView].forEach { contents in
+        [titleTextField, deadlineDatePicker, bodyTextView].forEach { contents in
             self.view.addSubview(contents)
             contents.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            textField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
-            textField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
+            titleTextField.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            titleTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
+            titleTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
             
-            datePicker.topAnchor.constraint(equalTo: textField.bottomAnchor),
-            datePicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
-            datePicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
+            deadlineDatePicker.topAnchor.constraint(equalTo: titleTextField.bottomAnchor),
+            deadlineDatePicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
+            deadlineDatePicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
             
-            textView.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
-            textView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
-            textView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
-            textView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -8)
+            bodyTextView.topAnchor.constraint(equalTo: deadlineDatePicker.bottomAnchor),
+            bodyTextView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
+            bodyTextView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
+            bodyTextView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -8)
         ])
     }
     
     private func editMode(is input: Bool) {
-        textField.isEnabled = input
-        datePicker.isEnabled = input
+        titleTextField.isEnabled = input
+        deadlineDatePicker.isEnabled = input
         navigationItem.rightBarButtonItem?.isEnabled = input
     }
     
@@ -106,9 +106,9 @@ extension ModalViewContoller {
         guard let data = data,
               let todoDate = data.todoDate else { return }
         
-        textField.text = data.title
-        datePicker.date = todoDate
-        textView.text = data.body
+        titleTextField.text = data.title
+        deadlineDatePicker.date = todoDate
+        bodyTextView.text = data.body
     }
     
     private func setNavigation() {
@@ -165,8 +165,8 @@ extension ModalViewContoller {
     }
     
     @objc private func tapDoneButton() {
-        guard let title = textField.text else { return }
-        guard let body = textView.text else { return }
+        guard let title = titleTextField.text else { return }
+        guard let body = bodyTextView.text else { return }
         
         if let data = data {
             let state = data.state
@@ -176,12 +176,12 @@ extension ModalViewContoller {
             CoreDataManager.shared.updateData(
                 title: title,
                 body: body,
-                todoDate: datePicker.date,
+                todoDate: deadlineDatePicker.date,
                 id: id,
                 state: state
             )
         } else {
-            CoreDataManager.shared.saveData(title: title, body: body, todoDate: datePicker.date)
+            CoreDataManager.shared.saveData(title: title, body: body, todoDate: deadlineDatePicker.date)
         }
         
         let notification = Notification.Name("DismissForReload")
@@ -197,7 +197,7 @@ extension ModalViewContoller: UITextViewDelegate {
         shouldChangeTextIn range: NSRange,
         replacementText text: String
     ) -> Bool {
-        if !textField.isEnabled {
+        if !titleTextField.isEnabled {
             return false
         }
         

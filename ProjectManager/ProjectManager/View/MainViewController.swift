@@ -119,13 +119,13 @@ extension MainViewController {
     }
 }
 
-
 // MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let view = tableView.dequeueReusableHeaderFooterView(
+        let dequeuedTableViewHeaderFooterView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: "CustomHeaderView"
-        ) as? CustomHeaderView else {
+        )
+        guard let view = dequeuedTableViewHeaderFooterView as? CustomHeaderView else {
             return UIView()
         }
         
