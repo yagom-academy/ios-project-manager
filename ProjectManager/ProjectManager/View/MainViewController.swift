@@ -38,10 +38,10 @@ extension MainViewController {
         self.view.addSubview(stackView)
         let safeArea = self.view.safeAreaLayoutGuide
         
-        [todoTableView, doingTableView, doneTableView].forEach {
-            $0.delegate = self
-            $0.dataSource = self
-            stackView.addArrangedSubview($0)
+        [todoTableView, doingTableView, doneTableView].forEach { tableView in
+            tableView.delegate = self
+            tableView.dataSource = self
+            stackView.addArrangedSubview(tableView)
         }
         
         NSLayoutConstraint.activate([
@@ -78,14 +78,14 @@ extension MainViewController {
         doingData = .init()
         doneData = .init()
         
-        data.forEach {
-            switch State(rawValue: $0.state) {
+        data.forEach { data in
+            switch State(rawValue: data.state) {
             case .todo:
-                todoData.append($0)
+                todoData.append(data)
             case .doing:
-                doingData.append($0)
+                doingData.append(data)
             case .done:
-                doneData.append($0)
+                doneData.append(data)
             case .none:
                 return
             }
@@ -256,10 +256,12 @@ extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentation
             action: #selector(handleLongPress(gestureRecognizer:))
         )
         
-        [todoLongPressedGesture, doingLongPressedGesture, doneLongPressedGesture].forEach {
-            $0.delegate = self
-            $0.minimumPressDuration = 1
-            $0.delaysTouchesBegan = true
+        [todoLongPressedGesture,
+         doingLongPressedGesture,
+         doneLongPressedGesture].forEach { longPressedGesture in
+            longPressedGesture.delegate = self
+            longPressedGesture.minimumPressDuration = 1
+            longPressedGesture.delaysTouchesBegan = true
         }
         
         todoTableView.addGestureRecognizer(todoLongPressedGesture)

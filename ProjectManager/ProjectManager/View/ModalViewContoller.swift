@@ -75,9 +75,9 @@ extension ModalViewContoller {
         let safeArea = self.view.safeAreaLayoutGuide
         textView.delegate = self
         
-        [textField, datePicker, textView].forEach {
-            self.view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
+        [textField, datePicker, textView].forEach { contents in
+            self.view.addSubview(contents)
+            contents.translatesAutoresizingMaskIntoConstraints = false
         }
         
         NSLayoutConstraint.activate([
