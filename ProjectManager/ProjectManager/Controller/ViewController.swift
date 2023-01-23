@@ -102,33 +102,36 @@ extension ViewController: GestureRecognizerHelperDelegate {
     }
     
     private func popOverAlert(tableView: UITableView, indexPathRow: Int, viewPoint: CGPoint) {
-        var firstTitle = String()
-        var secondTitle = String()
-        
+        let popOverAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
         switch tableView {
         case todoTableView:
-            firstTitle = "Mote to Doing"
-            secondTitle = "Mote to Done"
+            makeAction(tasks: taskListVM.todoTasks, status: .doing, indexPathRow: indexPathRow, popOverAlertController)
+            makeAction(tasks: taskListVM.todoTasks, status: .done, indexPathRow: indexPathRow, popOverAlertController)
         case doingTableView:
-            firstTitle = "Move to Todo"
-            secondTitle = "Move to Done"
+            makeAction(tasks: taskListVM.doingTasks, status: .todo, indexPathRow: indexPathRow, popOverAlertController)
+            makeAction(tasks: taskListVM.doingTasks, status: .done, indexPathRow: indexPathRow, popOverAlertController)
         case doneTableView:
-            firstTitle = "Move to Todo"
-            secondTitle = "Move to doing"
+            makeAction(tasks: taskListVM.doneTasks, status: .todo, indexPathRow: indexPathRow, popOverAlertController)
+            makeAction(tasks: taskListVM.doneTasks, status: .doing, indexPathRow: indexPathRow, popOverAlertController)
         default:
             break
         }
-        let popOverAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: firstTitle, style: .default, handler: nil)
-        let noAction = UIAlertAction(title: secondTitle, style: .default, handler: nil)
-        popOverAlertController.addAction(okAction)
-        popOverAlertController.addAction(noAction)
         popOverAlertController.modalPresentationStyle = .popover
         popOverAlertController.popoverPresentationController?.sourceView = tableView
         popOverAlertController.popoverPresentationController?.permittedArrowDirections = [.up]
         popOverAlertController.popoverPresentationController?.sourceRect = CGRect(x: viewPoint.x, y: viewPoint.y, width: 50, height: 50)
         present(popOverAlertController, animated: true)
     }
+    
+    private func makeAction(tasks: [Task], status: Status, indexPathRow: Int, _ popOvevViewController: UIAlertController) {
+        let alertTitle = "Mote to \(status.rawValue)"
+        let firstAction = UIAlertAction(title: alertTitle, style: .default) { _ in
+            self.taskListVM.moveToStatus(tasks: tasks, indexPathRow: indexPathRow, to: status)
+        }
+        popOvevViewController.addAction(firstAction)
+    }
+    
 }
 
 extension ViewController: UITableViewDelegate {

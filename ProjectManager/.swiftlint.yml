@@ -22,3 +22,4 @@ disabled_rules:
 - function_body_length
 - block_based_kvo
 - class_delegate_protocol
+- for_where

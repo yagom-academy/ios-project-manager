@@ -14,7 +14,7 @@ class TaskListViewModel {
     
     var tasks: [Task] = [] {
         didSet {
-            sortOutLastTasks()
+            sortOutTasks()
         }
     }
     
@@ -61,9 +61,18 @@ extension TaskListViewModel {
         case .todo:
             todoTasks.append(lastTask)
         case .doing:
-            doneTasks.append(lastTask)
+            doingTasks.append(lastTask)
         case .done:
             doneTasks.append(lastTask)
+        }
+    }
+    
+    private func deleteTaskWithSameId(statusTasks: [Task], indexPathRow: Int) {
+        for index in tasks.startIndex...tasks.endIndex {
+            if tasks[index].uuid == statusTasks[indexPathRow].uuid {
+                tasks.remove(at: index)
+                return
+            }
         }
     }
 }
@@ -82,6 +91,13 @@ extension TaskListViewModel {
         case .done:
             doneTasks[indexPathRow] = newTask
         }
-        
     }
+    
+    func moveToStatus(tasks: [Task], indexPathRow: Int, to status: Status) {
+        let beforeTask = tasks[indexPathRow]
+        let newTask = Task(title: beforeTask.title, description: beforeTask.description, date: beforeTask.date, status: status)
+        deleteTaskWithSameId(statusTasks: tasks, indexPathRow: indexPathRow)
+        create(task: newTask)
+    }
+    
 }
