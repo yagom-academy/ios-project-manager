@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		57A73ED52975557D007B6587 /* IssueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED42975557D007B6587 /* IssueManager.swift */; };
 		57A73ED92975A1E8007B6587 /* IssueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED82975A1E8007B6587 /* IssueListViewController.swift */; };
-		57A73EDB29768C3D007B6587 /* IssueManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDA29768C3D007B6587 /* IssueManageable.swift */; };
+		57A73EDB29768C3D007B6587 /* IssueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDA29768C3D007B6587 /* IssueDelegate.swift */; };
 		57A73EDD2977BE12007B6587 /* IssueListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDC2977BE12007B6587 /* IssueListDelegate.swift */; };
 		57A73EE02977C7D8007B6587 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDF2977C7D8007B6587 /* Date+.swift */; };
 		57A73EE22977EEAB007B6587 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EE12977EEAB007B6587 /* PaddedTextField.swift */; };
@@ -38,7 +38,7 @@
 /* Begin PBXFileReference section */
 		57A73ED42975557D007B6587 /* IssueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueManager.swift; sourceTree = "<group>"; };
 		57A73ED82975A1E8007B6587 /* IssueListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewController.swift; sourceTree = "<group>"; };
-		57A73EDA29768C3D007B6587 /* IssueManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueManageable.swift; sourceTree = "<group>"; };
+		57A73EDA29768C3D007B6587 /* IssueDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDelegate.swift; sourceTree = "<group>"; };
 		57A73EDC2977BE12007B6587 /* IssueListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListDelegate.swift; sourceTree = "<group>"; };
 		57A73EDF2977C7D8007B6587 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		57A73EE12977EEAB007B6587 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				57A73ED82975A1E8007B6587 /* IssueListViewController.swift */,
 				57B117482975215A00073006 /* IssueViewController.swift */,
-				57A73EDA29768C3D007B6587 /* IssueManageable.swift */,
+				57A73EDA29768C3D007B6587 /* IssueDelegate.swift */,
 				57A73EDC2977BE12007B6587 /* IssueListDelegate.swift */,
 			);
 			path = Controller;
@@ -251,7 +251,7 @@
 				57AA866329703BBB00E2971D /* Status.swift in Sources */,
 				57B1171D297077DD00073006 /* CustomContentView.swift in Sources */,
 				57A73EE02977C7D8007B6587 /* Date+.swift in Sources */,
-				57A73EDB29768C3D007B6587 /* IssueManageable.swift in Sources */,
+				57A73EDB29768C3D007B6587 /* IssueDelegate.swift in Sources */,
 				57AA8665297057C900E2971D /* CustomListCell.swift in Sources */,
 				57A73EE42977F25D007B6587 /* UITextField+.swift in Sources */,
 				57B117432972EAB900073006 /* DateFormatterManager.swift in Sources */,

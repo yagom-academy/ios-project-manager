@@ -26,7 +26,7 @@ final class IssueViewController: UIViewController {
     }
     
     private var issue: Issue
-    private var delegate: IssueManageable
+    private var delegate: IssueDelegate
     private var isEditable: Bool = true {
         didSet {
             titleTextField.isEnabled = isEditable
@@ -82,13 +82,13 @@ final class IssueViewController: UIViewController {
         return textView
     }()
     
-    init(delegate: IssueManageable) {
+    init(delegate: IssueDelegate) {
         self.delegate = delegate
         self.issue = Issue(id: UUID(), status: .todo, title: String.init(), body: String.init(), deadline: datePicker.date)
         super.init(nibName: nil, bundle: nil)
     }
     
-    init(issue: Issue, delegate: IssueManageable) {
+    init(issue: Issue, delegate: IssueDelegate) {
         self.issue = issue
         self.delegate = delegate
         defer { self.isEditable = false }

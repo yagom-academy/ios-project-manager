@@ -206,10 +206,8 @@ final class IssueListViewController: UIViewController {
     }
 }
 
-extension IssueListViewController: IssueManageable {
-    func addIssue(issue: Issue?) {
-        guard let issue = issue else { return }
-        
+extension IssueListViewController: IssueDelegate {
+    func addIssue(issue: Issue) {
         issues.append(issue)
         applySnapshot()
     }
