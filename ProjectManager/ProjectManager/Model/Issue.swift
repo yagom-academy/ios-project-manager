@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: Hashable 하므로 굳이 ID가 없어도 비교가 가능
 struct Issue: Hashable {
     var id: UUID
     var status: Status
