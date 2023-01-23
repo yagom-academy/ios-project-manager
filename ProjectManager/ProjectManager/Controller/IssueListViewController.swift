@@ -53,10 +53,14 @@ final class IssueListViewController: UIViewController {
         configureStackView()
         configureHeaderView()
         configureCollectionView()
-        embedInStack()
     }
     
     private func configureStackView() {
+        guard let headerView = headerView,
+              let collectionView = collectionView else { return }
+        
+        stackView.addArrangedSubview(headerView)
+        stackView.addArrangedSubview(collectionView)
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
@@ -89,14 +93,6 @@ final class IssueListViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.delegate = self
-    }
-    
-    private func embedInStack() {
-        guard let headerView = headerView,
-              let collectionView = collectionView else { return }
-        
-        stackView.addArrangedSubview(headerView)
-        stackView.addArrangedSubview(collectionView)
     }
     
     private func configureDataSource() {
