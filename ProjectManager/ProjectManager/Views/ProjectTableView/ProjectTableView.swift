@@ -8,10 +8,7 @@
 import UIKit
 
 final class ProjectTableView: UITableView {
-    private var headerTitle: String
-
-    init(headerTitle: String, frame: CGRect, style: UITableView.Style) {
-        self.headerTitle = headerTitle
+    override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
 
         register(ProjectTableViewCell.self,
@@ -20,10 +17,6 @@ final class ProjectTableView: UITableView {
                  forHeaderFooterViewReuseIdentifier: ProjectTableViewHeaderView.reuseIdentifier)
 
         backgroundColor = .systemGray6
-    }
-
-    convenience init(headerTitle: String) {
-        self.init(headerTitle: headerTitle, frame: CGRect.zero, style: .plain)
     }
 
     @available(*, unavailable)
