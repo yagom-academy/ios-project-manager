@@ -7,14 +7,21 @@
 
 import UIKit
 
+// TODO: issue 생성/삭제 시 countlabel 업데이트 delegate
 final class CountLabel: UILabel {
+    enum Constant {
+        enum Namespace {
+            static let maxCount = 99
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
     convenience init(frame: CGRect = .zero, count: Int) {
         self.init(frame: frame)
-        self.text = Namespace.formatCount(count)
+        self.text = Constant.Namespace.formatCount(count)
         font = .preferredFont(forTextStyle: .headline)
         backgroundColor = .systemFill
         textAlignment = .center
@@ -30,15 +37,11 @@ final class CountLabel: UILabel {
         super.draw(rect)
         layer.cornerRadius = bounds.size.height / 2
     }
-    
-    enum Namespace {
-        static let maxCount = 99
-    }
 }
 
-private extension CountLabel.Namespace {
+private extension CountLabel.Constant.Namespace {
     static func formatCount(_ count: Int) -> String {
-        return (count > CountLabel.Namespace.maxCount ?
-                "\(CountLabel.Namespace.maxCount)+" : count.description)
+        return (count > CountLabel.Constant.Namespace.maxCount ?
+                "\(CountLabel.Constant.Namespace.maxCount)+" : count.description)
     }
 }
