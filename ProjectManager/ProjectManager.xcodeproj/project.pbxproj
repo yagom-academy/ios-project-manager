@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5772F437297E860600D1DA30 /* IssueCountDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5772F436297E860600D1DA30 /* IssueCountDelegate.swift */; };
 		57A73ED52975557D007B6587 /* IssueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED42975557D007B6587 /* IssueManager.swift */; };
 		57A73ED92975A1E8007B6587 /* IssueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED82975A1E8007B6587 /* IssueListViewController.swift */; };
 		57A73EDB29768C3D007B6587 /* IssueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDA29768C3D007B6587 /* IssueDelegate.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5772F436297E860600D1DA30 /* IssueCountDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCountDelegate.swift; sourceTree = "<group>"; };
 		57A73ED42975557D007B6587 /* IssueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueManager.swift; sourceTree = "<group>"; };
 		57A73ED82975A1E8007B6587 /* IssueListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewController.swift; sourceTree = "<group>"; };
 		57A73EDA29768C3D007B6587 /* IssueDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				57A73ED82975A1E8007B6587 /* IssueListViewController.swift */,
+				5772F436297E860600D1DA30 /* IssueCountDelegate.swift */,
 				57B117482975215A00073006 /* IssueViewController.swift */,
 				57A73EDA29768C3D007B6587 /* IssueDelegate.swift */,
 				57A73EDC2977BE12007B6587 /* IssueListDelegate.swift */,
@@ -253,6 +256,7 @@
 				57A73EE02977C7D8007B6587 /* Date+.swift in Sources */,
 				57A73EDB29768C3D007B6587 /* IssueDelegate.swift in Sources */,
 				57AA8665297057C900E2971D /* CustomListCell.swift in Sources */,
+				5772F437297E860600D1DA30 /* IssueCountDelegate.swift in Sources */,
 				57A73EE42977F25D007B6587 /* UITextField+.swift in Sources */,
 				57B117432972EAB900073006 /* DateFormatterManager.swift in Sources */,
 				57A73ED52975557D007B6587 /* IssueManager.swift in Sources */,
