@@ -100,7 +100,7 @@ extension MainViewController {
         self.present(modalController, animated: true, completion: nil)
     }
     
-    func registDismissNotification() {
+    private func registDismissNotification() {
         let notification = Notification.Name("DismissForReload")
         NotificationCenter.default.addObserver(
             self,
@@ -112,10 +112,9 @@ extension MainViewController {
     
     @objc private func dismissModal() {
         fetchData()
-        
-        self.todoTableView.reloadData()
-        self.doneTableView.reloadData()
-        self.doingTableView.reloadData()
+        [self.todoTableView, self.doneTableView, self.doingTableView].forEach { tableView in
+            tableView.reloadData()
+        }
     }
 }
 
@@ -197,12 +196,11 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
+        let dequeuedReusableCell = tableView.dequeueReusableCell(
             withIdentifier: "TodoCustomCell",
             for: indexPath
-        ) as? TodoCustomCell else {
-            return UITableViewCell()
-        }
+        )
+        guard let cell = dequeuedReusableCell as? TodoCustomCell else { return UITableViewCell() }
         
         let data = saveData(of: tableView, to: indexPath.row)
         
@@ -267,27 +265,15 @@ extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentation
     }
     
     @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        guard let tableView = gestureRecognizer.view as? CustomTableView else {
-            return
-        }
+        guard let tableView = gestureRecognizer.view as? CustomTableView else { return }
         
         let location = gestureRecognizer.location(in: tableView)
         guard let indexPath = tableView.indexPathForRow(at: location) else { return }
-        let indexPathRow = indexPath.row
-        
-        var data = TodoModel()
-        if tableView == todoTableView {
-            data = todoData[indexPathRow]
-        } else if tableView == doingTableView {
-            data = doingData[indexPathRow]
-        } else if tableView == doneTableView {
-            data = doneData[indexPathRow]
-        }
+        guard let data = saveData(of: tableView, to: indexPath.row) else { return }
         
         if gestureRecognizer.state == .began {
             guard let id = data.id,
                   let state = State(rawValue: data.state) else { return }
-            
             let containerController = PopoverViewController(id: id, state: state)
             
             containerController.modalPresentationStyle = .popover
