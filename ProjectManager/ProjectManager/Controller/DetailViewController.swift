@@ -10,17 +10,32 @@ import UIKit
 final class DetailViewController: UIViewController {
 
     // MARK: - Property
+    private lazy var leftBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: nil)
+        return barButtonItem
+    }()
+
+    private lazy var rightBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: nil)
+        return barButtonItem
+    }()
+
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         let navigationItem = UINavigationItem(title: "TODO")
         switch mode {
         case .add:
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(addTodo))
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissView))
+            rightBarButtonItem.action = #selector(addTodo)
+            navigationItem.rightBarButtonItem = rightBarButtonItem
+            leftBarButtonItem.action = #selector(dismissView)
+            navigationItem.leftBarButtonItem = leftBarButtonItem
         case .modify:
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissView))
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editTodo))
+            rightBarButtonItem.action = #selector(dismissView)
+            navigationItem.rightBarButtonItem = rightBarButtonItem
+            leftBarButtonItem.action = #selector(editTodo)
+            leftBarButtonItem.title = "Edit"
+            navigationItem.leftBarButtonItem = leftBarButtonItem
         }
         navigationBar.items = [navigationItem]
         navigationBar.barTintColor = UIColor.systemGray6
