@@ -26,7 +26,7 @@ final class IssueViewController: UIViewController {
     }
     
     private var issue: Issue
-    private var delegate: IssueDelegate
+    private var delegate: IssueDelegate?
     private var isEditable: Bool = true {
         didSet {
             titleTextField.isEnabled = isEditable
@@ -118,7 +118,7 @@ final class IssueViewController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
                 self.updateIssue()
-                self.delegate.shouldAdd(issue: self.issue)
+                self.delegate?.shouldAdd(issue: self.issue)
                 self.dismiss(animated: true)
             })
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constant.Namespace.cancel,
@@ -130,7 +130,7 @@ final class IssueViewController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
                 self.updateIssue()
-                self.delegate.shouldUpdate(issue: self.issue)
+                self.delegate?.shouldUpdate(issue: self.issue)
                 self.dismiss(animated: true)
             })
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constant.Namespace.edit,
