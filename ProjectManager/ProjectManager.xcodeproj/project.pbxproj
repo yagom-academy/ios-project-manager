@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AB76E0C297E695200E56344 /* UITableViewCell+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB76E0B297E695200E56344 /* UITableViewCell+Reusable.swift */; };
 		1ABD658029768574002E288B /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD657F29768574002E288B /* Project.swift */; };
 		1ABD6583297686C0002E288B /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6582297686C0002E288B /* ProjectListView.swift */; };
 		1ABD658629768753002E288B /* CRUDable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD658529768753002E288B /* CRUDable.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1AB76E0B297E695200E56344 /* UITableViewCell+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Reusable.swift"; sourceTree = "<group>"; };
 		1ABD657F29768574002E288B /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		1ABD6582297686C0002E288B /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		1ABD658529768753002E288B /* CRUDable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUDable.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				1ABD659B29769A8E002E288B /* Date.swift */,
+				1AB76E0B297E695200E56344 /* UITableViewCell+Reusable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				1ABD6594297698E0002E288B /* ProjectTableViewHeaderView.swift in Sources */,
 				1ABD65892976883D002E288B /* ProjectManager.swift in Sources */,
 				1ABD659C29769A8E002E288B /* Date.swift in Sources */,
+				1AB76E0C297E695200E56344 /* UITableViewCell+Reusable.swift in Sources */,
 				1ABD65BB2977229B002E288B /* ProjectView.swift in Sources */,
 				1ABD65C62977C568002E288B /* ProjectViewController+Delegate.swift in Sources */,
 				1ABD658029768574002E288B /* Project.swift in Sources */,
