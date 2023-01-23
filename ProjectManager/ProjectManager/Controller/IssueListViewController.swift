@@ -26,9 +26,14 @@ final class IssueListViewController: UIViewController {
     }
     
     private var status: Status
-    private var issueCount: Int = .zero
-    private var issues: [Issue] = []
-    private var delegate: IssueListDelegate?
+    private var issues: [Issue] = [] {
+        didSet {
+            issueCountDelegate?.updateCountLabel(with: issues.count)
+        }
+    }
+    
+    private var issueListDelegate: IssueListDelegate?
+    private var issueCountDelegate: IssueCountDelegate?
     private var dataSource: UICollectionViewDiffableDataSource<Constant.Section, Issue>?
     
     private var stackView: UIStackView = {
@@ -45,12 +50,13 @@ final class IssueListViewController: UIViewController {
         return stack
     }()
     
-    private var headerView: HeaderView?
+    private var headerView = HeaderView()
     private var collectionView: UICollectionView?
     
     init(frame: CGRect = .zero, status: Status, delegate: IssueListDelegate) {
         self.status = status
-        self.delegate = delegate
+        self.issueListDelegate = delegate
+        self.issueCountDelegate = headerView.countLabel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -73,8 +79,7 @@ final class IssueListViewController: UIViewController {
     }
     
     private func configureStackView() {
-        guard let headerView = headerView,
-              let collectionView = collectionView else { return }
+        guard let collectionView = collectionView else { return }
         
         stackView.addArrangedSubview(headerView)
         stackView.addArrangedSubview(collectionView)
@@ -89,7 +94,7 @@ final class IssueListViewController: UIViewController {
     }
     
     private func configureHeaderView() {
-        headerView = HeaderView(title: String(describing: status), count: issueCount)
+        headerView.configureContent(title: String(describing: status), count: issues.count)
     }
     
     private func configureCollectionView() {
@@ -199,7 +204,7 @@ final class IssueListViewController: UIViewController {
             var modifiedIssue = issue
             modifiedIssue.status = status
             self.deleteIssue(issue: issue)
-            self.delegate?.shouldDeliver(issue: modifiedIssue)
+            self.issueListDelegate?.shouldDeliver(issue: modifiedIssue)
         }
 
         return action
