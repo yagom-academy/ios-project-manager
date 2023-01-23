@@ -10,7 +10,7 @@
 		57A73ED52975557D007B6587 /* IssueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED42975557D007B6587 /* IssueManager.swift */; };
 		57A73ED92975A1E8007B6587 /* IssueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73ED82975A1E8007B6587 /* IssueListViewController.swift */; };
 		57A73EDB29768C3D007B6587 /* IssueManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDA29768C3D007B6587 /* IssueManageable.swift */; };
-		57A73EDD2977BE12007B6587 /* IssueDelieverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDC2977BE12007B6587 /* IssueDelieverable.swift */; };
+		57A73EDD2977BE12007B6587 /* IssueListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDC2977BE12007B6587 /* IssueListDelegate.swift */; };
 		57A73EE02977C7D8007B6587 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EDF2977C7D8007B6587 /* Date+.swift */; };
 		57A73EE22977EEAB007B6587 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EE12977EEAB007B6587 /* PaddedTextField.swift */; };
 		57A73EE42977F25D007B6587 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A73EE32977F25D007B6587 /* UITextField+.swift */; };
@@ -39,7 +39,7 @@
 		57A73ED42975557D007B6587 /* IssueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueManager.swift; sourceTree = "<group>"; };
 		57A73ED82975A1E8007B6587 /* IssueListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewController.swift; sourceTree = "<group>"; };
 		57A73EDA29768C3D007B6587 /* IssueManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueManageable.swift; sourceTree = "<group>"; };
-		57A73EDC2977BE12007B6587 /* IssueDelieverable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDelieverable.swift; sourceTree = "<group>"; };
+		57A73EDC2977BE12007B6587 /* IssueListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListDelegate.swift; sourceTree = "<group>"; };
 		57A73EDF2977C7D8007B6587 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		57A73EE12977EEAB007B6587 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		57A73EE32977F25D007B6587 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 				57A73ED82975A1E8007B6587 /* IssueListViewController.swift */,
 				57B117482975215A00073006 /* IssueViewController.swift */,
 				57A73EDA29768C3D007B6587 /* IssueManageable.swift */,
-				57A73EDC2977BE12007B6587 /* IssueDelieverable.swift */,
+				57A73EDC2977BE12007B6587 /* IssueListDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -244,7 +244,7 @@
 			files = (
 				57A73EE22977EEAB007B6587 /* PaddedTextField.swift in Sources */,
 				57B117492975215A00073006 /* IssueViewController.swift in Sources */,
-				57A73EDD2977BE12007B6587 /* IssueDelieverable.swift in Sources */,
+				57A73EDD2977BE12007B6587 /* IssueListDelegate.swift in Sources */,
 				57B117212971406700073006 /* CountLabel.swift in Sources */,
 				57B1171B29706A3100073006 /* CustomContentConfiguration.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,

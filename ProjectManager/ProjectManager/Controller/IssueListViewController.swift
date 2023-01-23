@@ -11,7 +11,7 @@ final class IssueListViewController: UIViewController {
     private var status: Status
     private var issueCount: Int = .zero
     private var issues: [Issue] = []
-    private var delegate: IssueDeliverable
+    private var delegate: IssueListDelegate
     private var dataSource: UICollectionViewDiffableDataSource<Section, Issue>?
     
     private var stackView: UIStackView = {
@@ -31,7 +31,7 @@ final class IssueListViewController: UIViewController {
     private var headerView: HeaderView?
     private var collectionView: UICollectionView?
     
-    init(frame: CGRect = .zero, status: Status, delegate: IssueDeliverable) {
+    init(frame: CGRect = .zero, status: Status, delegate: IssueListDelegate) {
         self.status = status
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
@@ -186,7 +186,7 @@ final class IssueListViewController: UIViewController {
             var modifiedIssue = issue
             modifiedIssue.status = status
             self.deleteIssue(issue: issue)
-            self.delegate.deliverIssue(issue: modifiedIssue)
+            self.delegate.shouldDeliverIssue(_ issue: modifiedIssue)
         }
 
         return action
