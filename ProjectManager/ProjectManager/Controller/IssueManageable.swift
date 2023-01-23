@@ -7,5 +7,5 @@
 
 protocol IssueManageable {
     func addIssue(issue: Issue?)
-    func updateIssue(issue: Issue?)
+    func updateIssue(issue: Issue)
 }

@@ -25,7 +25,7 @@ final class IssueViewController: UIViewController {
         }
     }
     
-    private var issue: Issue?
+    private var issue: Issue
     private var delegate: IssueManageable
     private var isEditable: Bool = true {
         didSet {
@@ -84,8 +84,8 @@ final class IssueViewController: UIViewController {
     
     init(delegate: IssueManageable) {
         self.delegate = delegate
+        self.issue = Issue(id: UUID(), status: .todo, title: String.init(), body: String.init(), deadline: datePicker.date)
         super.init(nibName: nil, bundle: nil)
-        configureNavigationBar()
     }
     
     init(issue: Issue, delegate: IssueManageable) {
@@ -93,7 +93,6 @@ final class IssueViewController: UIViewController {
         self.delegate = delegate
         defer { self.isEditable = false }
         super.init(nibName: nil, bundle: nil)
-        configureNavigationBar()
     }
     
     required init?(coder: NSCoder) {
@@ -109,15 +108,16 @@ final class IssueViewController: UIViewController {
     private func configureUI() {
         view.addSubview(stackView)
         view.backgroundColor = .systemBackground
+        configureNavigationBar()
         configureStackView()
     }
     
     private func configureNavigationBar() {
-        if issue == nil {
+        if isEditable {
             title = Status.todo.description
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
-                self.createIssue()
+                self.updateIssue()
                 self.delegate.addIssue(issue: self.issue)
                 self.dismiss(animated: true)
             })
@@ -126,7 +126,7 @@ final class IssueViewController: UIViewController {
                 self.dismiss(animated: true)
             })
         } else {
-            title = issue?.status.description
+            title = issue.status.description
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
                                                                 primaryAction: UIAction { _ in
                 self.updateIssue()
@@ -152,25 +152,15 @@ final class IssueViewController: UIViewController {
     }
     
     private func configureContents() {
-        guard let issue = issue else { return }
-        
         titleTextField.text = issue.title
         datePicker.date = issue.deadline
         bodyTextView.text = issue.body
     }
-    
-    private func createIssue() {
-        issue = Issue(id: UUID(),
-                      status: .todo,
-                      title: titleTextField.text ?? String.init(),
-                      body: bodyTextView.text,
-                      deadline: datePicker.date)
-    }
-    
+
     private func updateIssue() {
-        issue?.title = titleTextField.text ?? String.init()
-        issue?.body = bodyTextView.text
-        issue?.deadline = datePicker.date
+        issue.title = titleTextField.text ?? String.init()
+        issue.body = bodyTextView.text
+        issue.deadline = datePicker.date
     }
 }
 

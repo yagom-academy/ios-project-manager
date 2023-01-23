@@ -67,9 +67,9 @@ final class IssueListViewController: UIViewController {
     }
     
     private func configureUI() {
-        configureStackView()
         configureHeaderView()
         configureCollectionView()
+        configureStackView()
     }
     
     private func configureStackView() {
@@ -214,9 +214,8 @@ extension IssueListViewController: IssueManageable {
         applySnapshot()
     }
     
-    func updateIssue(issue: Issue?) {
-        guard let issue = issue,
-              let index = issues.firstIndex(where: {$0.id == issue.id}) else { return }
+    func updateIssue(issue: Issue) {
+        guard let index = issues.firstIndex(where: {$0.id == issue.id}) else { return }
         
         issues[index] = issue
         applySnapshot()
