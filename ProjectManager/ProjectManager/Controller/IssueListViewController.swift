@@ -11,7 +11,7 @@ final class IssueListViewController: UIViewController {
     private var status: Status
     private var issueCount: Int = .zero
     private var issues: [Issue] = []
-    private var delegate: IssueListDelegate
+    private var delegate: IssueListDelegate?
     private var dataSource: UICollectionViewDiffableDataSource<Section, Issue>?
     
     private var stackView: UIStackView = {
@@ -186,7 +186,7 @@ final class IssueListViewController: UIViewController {
             var modifiedIssue = issue
             modifiedIssue.status = status
             self.deleteIssue(issue: issue)
-            self.delegate.shouldDeliverIssue(_ issue: modifiedIssue)
+            self.delegate?.shouldDeliver(issue: modifiedIssue)
         }
 
         return action

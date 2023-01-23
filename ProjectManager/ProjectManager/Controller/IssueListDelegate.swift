@@ -6,5 +6,5 @@
 //
 
 protocol IssueListDelegate {
-    func shouldDeliverIssue(_ issue: Issue)
+    func shouldDeliver(issue: Issue)
 }

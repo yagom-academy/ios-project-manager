@@ -71,14 +71,14 @@ final class MainViewController: UIViewController {
 }
 
 extension MainViewController: IssueListDelegate {
-    func shouldDeliverIssue(_ issue: Issue) {
-        switch _ issue.status {
+    func shouldDeliver(issue: Issue) {
+        switch issue.status {
         case .todo:
-            todoListViewController.addIssue(issue: _ issue)
+            todoListViewController.addIssue(issue: issue)
         case .doing:
-            doingListViewController.addIssue(issue: _ issue)
+            doingListViewController.addIssue(issue: issue)
         case .done:
-            doneListViewController.addIssue(issue: _ issue)
+            doneListViewController.addIssue(issue: issue)
         }
     }
 }
