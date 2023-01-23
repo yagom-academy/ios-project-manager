@@ -8,7 +8,8 @@
 import UIKit
 
 final class ProjectView: UIView {
-    let stackView: UIStackView = {
+    // MARK: Private Properties
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fill
         stackView.axis = .vertical
@@ -17,16 +18,16 @@ final class ProjectView: UIView {
         return stackView
     }()
 
-    let titleTextField: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.layer.borderWidth = 1.0
         textField.layer.borderColor = UIColor.systemGray5.cgColor
         textField.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-        textField.placeholder = "제목 없음"
+        textField.placeholder = "제목없음"
         return textField
     }()
 
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
@@ -35,7 +36,7 @@ final class ProjectView: UIView {
         return datePicker
     }()
 
-    let descriptionTextView: UITextView = {
+    private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.layer.borderWidth = 1.0
         textView.layer.borderColor = UIColor.systemGray5.cgColor
@@ -43,8 +44,21 @@ final class ProjectView: UIView {
         return textView
     }()
 
+    // MARK: Properties
     var isTexting: Bool = false
+    var title: String {
+        return titleTextField.text ?? "제목없음"
+    }
 
+    var projectDescription: String {
+        return descriptionTextView.text
+    }
+
+    var dueDate: Date {
+        return datePicker.date
+    }
+
+    // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -56,6 +70,7 @@ final class ProjectView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Configure View
     private func configureView() {
         backgroundColor = .systemBackground
         addSubview(stackView)
@@ -77,9 +92,26 @@ final class ProjectView: UIView {
         }
     }
 
+    // MARK: Methods
     func configure(with project: Project) {
         titleTextField.text = project.title
         descriptionTextView.text = project.description
         datePicker.date = project.dueDate
+    }
+
+    func configureTextFieldDelegate(by viewController: UITextFieldDelegate) {
+        titleTextField.delegate = viewController
+    }
+
+    func configureTextViewDelegate(by viewController: UITextViewDelegate) {
+        descriptionTextView.delegate = viewController
+    }
+
+    func addDescriptionTextViewBottomContentInset(_ inset: CGFloat) {
+        descriptionTextView.contentInset.bottom += inset
+    }
+
+    func resetDescriptionTextViewBottomContentInset() {
+        descriptionTextView.contentInset.bottom = 0
     }
 }
