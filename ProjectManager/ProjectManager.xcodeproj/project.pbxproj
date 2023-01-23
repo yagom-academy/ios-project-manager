@@ -28,7 +28,6 @@
 		41E26BF42970E392005E1C94 /* UILabel +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BF32970E392005E1C94 /* UILabel +.swift */; };
 		41E26BF72970E54A005E1C94 /* UIStackView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BF62970E54A005E1C94 /* UIStackView +.swift */; };
 		41F66E9929766A1200C84995 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F66E9829766A1200C84995 /* MainViewModelTests.swift */; };
-		41F66EA529768A0800C84995 /* EditingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F66EA429768A0800C84995 /* EditingViewModelTests.swift */; };
 		41F66EA629768AD900C84995 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F66E9F29766BE900C84995 /* SampleData.swift */; };
 		A5C18EFAEAF65DB9D5CE16F7 /* libPods-ProjectManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93494D9060542F77E2C2A0FB /* libPods-ProjectManager.a */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -70,7 +69,6 @@
 		41F66E9629766A1200C84995 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F66E9829766A1200C84995 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
 		41F66E9F29766BE900C84995 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
-		41F66EA429768A0800C84995 /* EditingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingViewModelTests.swift; sourceTree = "<group>"; };
 		88A63D223064AE992482D512 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		93494D9060542F77E2C2A0FB /* libPods-ProjectManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProjectManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,7 +177,6 @@
 			children = (
 				41F66E9F29766BE900C84995 /* SampleData.swift */,
 				41F66E9829766A1200C84995 /* MainViewModelTests.swift */,
-				41F66EA429768A0800C84995 /* EditingViewModelTests.swift */,
 			);
 			path = ProjectManagerTests;
 			sourceTree = "<group>";
@@ -391,7 +388,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41F66EA529768A0800C84995 /* EditingViewModelTests.swift in Sources */,
 				41F66EA629768AD900C84995 /* SampleData.swift in Sources */,
 				41F66E9929766A1200C84995 /* MainViewModelTests.swift in Sources */,
 			);
