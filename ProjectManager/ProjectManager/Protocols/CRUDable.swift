@@ -2,7 +2,7 @@
 //  CRUDable.swift
 //  ProjectManager
 //
-//  Created by 노유빈 on 2023/01/17.
+//  Created by 로빈 on 2023/01/17.
 //
 
 protocol CRUDable {

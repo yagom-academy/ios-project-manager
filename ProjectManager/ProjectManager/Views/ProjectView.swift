@@ -2,7 +2,7 @@
 //  ProjectView.swift
 //  ProjectManager
 //
-//  Created by 로빈솜 on 2023/01/16.
+//  Created by 로빈 on 2023/01/16.
 //
 
 import UIKit
@@ -13,7 +13,6 @@ final class ProjectView: UIView {
         let stackView = UIStackView()
         stackView.distribution = .fill
         stackView.axis = .vertical
-        stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -41,6 +40,7 @@ final class ProjectView: UIView {
         textView.layer.borderWidth = 1.0
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.font = UIFont.preferredFont(forTextStyle: .title3)
+        textView.setContentHuggingPriority(.defaultLow, for: .vertical)
         return textView
     }()
 
@@ -63,6 +63,7 @@ final class ProjectView: UIView {
         super.init(frame: frame)
 
         configureView()
+        configureConstraints()
     }
 
     @available(*, unavailable)
@@ -75,14 +76,16 @@ final class ProjectView: UIView {
         backgroundColor = .systemBackground
         addSubview(stackView)
 
-        stackView.addArrangedSubview(titleTextField)
-        stackView.addArrangedSubview(datePicker)
-        stackView.addArrangedSubview(descriptionTextView)
+        [titleTextField, datePicker, descriptionTextView].forEach {
+            stackView.addArrangedSubview($0)
+        }
+    }
 
+    private func configureConstraints() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
         ])
 
         if #available(iOS 15.0, *) {
