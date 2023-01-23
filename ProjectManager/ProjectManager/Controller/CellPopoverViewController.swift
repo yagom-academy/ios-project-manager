@@ -34,7 +34,7 @@ final class CellPopoverViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
-        stackView.spacing = 8
+        stackView.spacing = CGFloat(Literal.spacing)
         return stackView
     }()
 
@@ -53,6 +53,8 @@ final class CellPopoverViewController: UIViewController {
     }
 
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
         configureSubViews()
     }
 
@@ -66,17 +68,14 @@ final class CellPopoverViewController: UIViewController {
 
     // MARK: - Method
     private func configureSubViews() {
-        let spacing: CGFloat = 8
-        let largeSpacing: CGFloat = 20
-
         verticalStackView.addArrangedSubview(poppverFirstButton)
         verticalStackView.addArrangedSubview(popoverSecondButton)
 
         NSLayoutConstraint.activate([
-            verticalStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: spacing),
-            verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
-            verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
-            verticalStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -largeSpacing)
+            verticalStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: CGFloat(Literal.spacing)),
+            verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CGFloat(Literal.spacing)),
+            verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -CGFloat(Literal.spacing)),
+            verticalStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -CGFloat(Literal.largeSpacing))
         ])
     }
 
@@ -84,14 +83,14 @@ final class CellPopoverViewController: UIViewController {
         guard let mode = cellToChange else { return }
         switch mode {
         case .todo:
-            poppverFirstButton.setTitle("Move to DOING", for: .normal)
-            popoverSecondButton.setTitle("Move to DONE", for: .normal)
+            poppverFirstButton.setTitle(Literal.moveToDoing, for: .normal)
+            popoverSecondButton.setTitle(Literal.moveToTodo, for: .normal)
         case .doing:
-            poppverFirstButton.setTitle("Move to TODO", for: .normal)
-            popoverSecondButton.setTitle("Move to DONE", for: .normal)
+            poppverFirstButton.setTitle(Literal.moveToTodo, for: .normal)
+            popoverSecondButton.setTitle(Literal.moveToDone, for: .normal)
         case .done:
-            poppverFirstButton.setTitle("Move to TODO", for: .normal)
-            popoverSecondButton.setTitle("Move to DOING", for: .normal)
+            poppverFirstButton.setTitle(Literal.moveToTodo, for: .normal)
+            popoverSecondButton.setTitle(Literal.moveToDoing, for: .normal)
         }
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		091AA9FD296ED42900AC71AB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 091AA9FC296ED42900AC71AB /* .swiftlint.yml */; };
+		09C50306297EAA4F00F57012 /* Literal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C50305297EAA4F00F57012 /* Literal.swift */; };
 		09C816C2297293CE00DC54D2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C816C1297293CD00DC54D2 /* DetailViewController.swift */; };
 		09C9BDC82973BD730047E966 /* DetailViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9BDC72973BD730047E966 /* DetailViewDelegate.swift */; };
 		09C9BDCE2974518A0047E966 /* DetailViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9BDCD2974518A0047E966 /* DetailViewMode.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		091AA9FC296ED42900AC71AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		09C50305297EAA4F00F57012 /* Literal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Literal.swift; sourceTree = "<group>"; };
 		09C816C1297293CD00DC54D2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		09C9BDC72973BD730047E966 /* DetailViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewDelegate.swift; sourceTree = "<group>"; };
 		09C9BDCD2974518A0047E966 /* DetailViewMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewMode.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				09C9CCB52975D22F00C5E6C7 /* CellPopoverViewDelegate.swift */,
 				09C9CCB72975E1A500C5E6C7 /* CellPopoverViewMode.swift */,
 				09CCBBF52977D568006045B2 /* KindOfCollectionView.swift */,
+				09C50305297EAA4F00F57012 /* Literal.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				09C9CCB42975C01200C5E6C7 /* CellPopoverViewController.swift in Sources */,
 				09C9CCB82975E1A500C5E6C7 /* CellPopoverViewMode.swift in Sources */,
 				09C9CCB62975D22F00C5E6C7 /* CellPopoverViewDelegate.swift in Sources */,
+				09C50306297EAA4F00F57012 /* Literal.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				09C816C2297293CE00DC54D2 /* DetailViewController.swift in Sources */,
 				09D2D7DB2971AB7500571B7B /* TodoModel.swift in Sources */,

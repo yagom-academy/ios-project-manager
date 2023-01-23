@@ -114,28 +114,26 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Method
     private func configureSubViews() {
-        let spacing: CGFloat = 8
-
         NSLayoutConstraint.activate([
             navigationBar.topAnchor.constraint(equalTo: view.topAnchor),
             navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             titleTextField.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 4),
-            titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
-            titleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
+            titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CGFloat(Literal.spacing)),
+            titleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -CGFloat(Literal.spacing)),
             titleTextField.bottomAnchor.constraint(equalTo: datePicker.topAnchor),
             titleTextField.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.1),
 
             datePicker.topAnchor.constraint(equalTo: titleTextField.bottomAnchor),
-            datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
-            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
+            datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CGFloat(Literal.spacing)),
+            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -CGFloat(Literal.spacing)),
             datePicker.bottomAnchor.constraint(equalTo: bodyTextView.topAnchor),
 
             bodyTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
-            bodyTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
-            bodyTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
-            bodyTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -spacing*2)
+            bodyTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CGFloat(Literal.spacing)),
+            bodyTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -CGFloat(Literal.spacing)),
+            bodyTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: CGFloat(-Literal.spacing*2))
         ])
     }
 
