@@ -35,8 +35,8 @@ final class CountLabel: UILabel {
 }
 
 private extension CountLabel.Constant.Namespace {
-    static func formatCount(_ count: Int) -> String {
-        return (count > CountLabel.Constant.Namespace.maxCount ?
-                "\(CountLabel.Constant.Namespace.maxCount)+" : count.description)
+    static func formatLabelText(_ issueCount: Int) -> String {
+        return (issueCount > CountLabel.Constant.Namespace.maxCount ?
+                "\(CountLabel.Constant.Namespace.maxCount)+" : issueCount.description)
     }
 }
