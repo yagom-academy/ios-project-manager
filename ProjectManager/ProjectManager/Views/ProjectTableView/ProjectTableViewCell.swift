@@ -2,7 +2,7 @@
 //  ProjectTableViewCell.swift
 //  ProjectManager
 //
-//  Created by 노유빈 on 2023/01/13.
+//  Created by 로빈 on 2023/01/13.
 //
 
 import UIKit
@@ -86,6 +86,3 @@ final class ProjectTableViewCell: UITableViewCell {
         dueDateLabel.text = project.dueDate.convertToString(using: dateFormatter)
     }
 }
-
-// MARK: Reusable 프로토콜 채택
-extension ProjectTableViewCell: Reusable { }
