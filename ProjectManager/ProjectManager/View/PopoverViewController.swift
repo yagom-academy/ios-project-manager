@@ -10,7 +10,6 @@ import UIKit
 final class PopoverViewController: UIViewController {
     private let id: UUID
     private let state: State
-    private let coredataManager = CoreDataManager()
     private let notification = Notification.Name("DismissForReload")
     
     private let topButton = UIButton(title: "Move To DOING", titleColor: .systemBlue)
@@ -89,19 +88,19 @@ final class PopoverViewController: UIViewController {
     }
     
     @objc private func tapTodoButton() {
-        coredataManager.updateData(id: id, state: .todo)
+        CoreDataManager.shared.updateData(id: id, state: .todo)
         NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
         dismiss(animated: true)
     }
     
     @objc private func tapDoingButton() {
-        coredataManager.updateData(id: id, state: .doing)
+        CoreDataManager.shared.updateData(id: id, state: .doing)
         NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
         dismiss(animated: true)
     }
     
     @objc private func tapDoneButton() {
-        coredataManager.updateData(id: id, state: .done)
+        CoreDataManager.shared.updateData(id: id, state: .done)
         NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
         dismiss(animated: true)
     }

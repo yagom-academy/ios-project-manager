@@ -9,10 +9,14 @@ import CoreData
 import UIKit
 
 final class CoreDataManager {
+    static let shared = CoreDataManager()
+    
+    private init() {}
+    
+    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    
     func fetchData() ->  Result<[TodoModel], CoreDataError> {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let context = appDelegate?.persistentContainer.viewContext
-        
         do {
             if let contact = try context?.fetch(TodoModel.fetchRequest()) {
                 return .success(contact)
@@ -25,10 +29,8 @@ final class CoreDataManager {
     }
     
     func saveData(title: String, body: String, todoDate: Date) {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let context = appDelegate?.persistentContainer.viewContext
-        
-        let entity = NSEntityDescription.entity(forEntityName: "TodoModel", in: context!)
+        guard let context = appDelegate?.persistentContainer.viewContext else { return }
+        let entity = NSEntityDescription.entity(forEntityName: "TodoModel", in: context)
         
         if let entity = entity {
             let info = NSManagedObject(entity: entity, insertInto: context)
@@ -39,7 +41,7 @@ final class CoreDataManager {
             info.setValue(UUID(), forKey: "id")
             
             do {
-                try context?.save()
+                try context.save()
             } catch {
                 print(error.localizedDescription)
             }
@@ -53,31 +55,24 @@ final class CoreDataManager {
         id: UUID,
         state: State
     ) {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let context = appDelegate?.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "TodoModel")
+        guard let context = appDelegate?.persistentContainer.viewContext else { return }
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "TodoModel")
         fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
         
         do {
-            guard let test = try context?.fetch(fetchRequest) else { return }
+            let test = try context.fetch(fetchRequest)
             guard let updatingData = test[0] as? NSManagedObject else { return }
             
-            if title != nil {
+            if title != nil, body != nil, todoDate != nil {
                 updatingData.setValue(title, forKey: "title")
-            }
-            
-            if body != nil {
                 updatingData.setValue(body, forKey: "body")
-            }
-            
-            if todoDate != nil {
                 updatingData.setValue(todoDate, forKey: "todoDate")
             }
-            
+            print("update")
             updatingData.setValue(state.rawValue, forKey: "state")
             
             do {
-                try context?.save()
+                try context.save()
             } catch {
                 print(error.localizedDescription)
             }
@@ -87,18 +82,17 @@ final class CoreDataManager {
     }
     
     func deleteDate(id: UUID) {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let context = appDelegate?.persistentContainer.viewContext
+        guard let context = appDelegate?.persistentContainer.viewContext else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "TodoModel")
         fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
         
         do {
-            guard let test = try context?.fetch(fetchRequest) else { return }
+            let test = try context.fetch(fetchRequest)
             guard let objectDelete = test[0] as? NSManagedObject else { return }
             
-            context?.delete(objectDelete)
+            context.delete(objectDelete)
             do {
-                try context?.save()
+                try context.save()
             } catch {
                 print(error.localizedDescription)
             }

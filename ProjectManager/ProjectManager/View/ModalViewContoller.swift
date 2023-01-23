@@ -9,7 +9,6 @@ import UIKit
 
 final class ModalViewContoller: UIViewController {
     private let data: TodoModel?
-    private let coreDataManager = CoreDataManager()
     
     private let textField: UITextField = {
         let textField = UITextField()
@@ -174,7 +173,7 @@ extension ModalViewContoller {
             guard let state = State(rawValue: state) else { return }
             guard let id = data.id else { return }
             
-            coreDataManager.updateData(
+            CoreDataManager.shared.updateData(
                 title: title,
                 body: body,
                 todoDate: datePicker.date,
@@ -182,7 +181,7 @@ extension ModalViewContoller {
                 state: state
             )
         } else {
-            coreDataManager.saveData(title: title, body: body, todoDate: datePicker.date)
+            CoreDataManager.shared.saveData(title: title, body: body, todoDate: datePicker.date)
         }
         
         let notification = Notification.Name("DismissForReload")

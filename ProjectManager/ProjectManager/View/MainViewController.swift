@@ -12,8 +12,6 @@ final class MainViewController: UIViewController {
     private let doingTableView = CustomTableView(title: "DOING")
     private let doneTableView = CustomTableView(title: "DONE")
     
-    private let coredataManager = CoreDataManager()
-    
     private var todoData = [TodoModel]()
     private var doingData = [TodoModel]()
     private var doneData = [TodoModel]()
@@ -66,7 +64,7 @@ extension MainViewController {
     }
     
     private func fetchData() {
-        let result = coredataManager.fetchData()
+        let result = CoreDataManager.shared.fetchData()
         switch result {
         case .success(let data):
             distributeData(data: data)
@@ -156,15 +154,15 @@ extension MainViewController: UITableViewDelegate {
             if tableView == self.todoTableView {
                 let removeData = self.todoData.remove(at: indexPath.row)
                 guard let id = removeData.id else { return }
-                self.coredataManager.deleteDate(id: id)
+                CoreDataManager.shared.deleteDate(id: id)
             } else if tableView == self.doingTableView {
                 let removeData = self.doingData.remove(at: indexPath.row)
                 guard let id = removeData.id else { return }
-                self.coredataManager.deleteDate(id: id)
+                CoreDataManager.shared.deleteDate(id: id)
             } else if tableView == self.doneTableView {
                 let removeData = self.doneData.remove(at: indexPath.row)
                 guard let id = removeData.id else { return }
-                self.coredataManager.deleteDate(id: id)
+                CoreDataManager.shared.deleteDate(id: id)
             }
             
             tableView.reloadData()
