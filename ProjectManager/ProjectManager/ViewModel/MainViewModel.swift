@@ -20,7 +20,9 @@ final class MainViewModel {
     }
     
     private var numberOfProjectInState = { (projectGroups: [[Project]]) -> [String] in
-        projectGroups.map { String($0.count) }
+        return projectGroups.map { projects in
+            String(projects.count)
+        }
     }
     
     var update: ([[Project]], [String]) -> Void = { _, _ in }

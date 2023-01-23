@@ -87,7 +87,9 @@ final class ListCell: UITableViewCell {
 extension ListCell {
     
     private func configureHierarchy() {
-        [titleLabel, descriptionLabel, dateLabel].forEach { stackView.addArrangedSubview($0) }
+        [titleLabel, descriptionLabel, dateLabel].forEach { label in
+            stackView.addArrangedSubview(label)
+        }
         contentView.addSubview(stackView)
     }
     

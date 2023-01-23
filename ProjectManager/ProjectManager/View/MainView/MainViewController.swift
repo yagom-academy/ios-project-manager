@@ -51,8 +51,8 @@ final class MainViewController: UIViewController {
     private func takeInitialSnapShot() {
         ProjectState.allCases.forEach { state in
             let projects = mainViewModel.fetchProjects(of: state)
+            
             dataSources[state.index]?.applyInitialSnapShot(projects)
-                
         }
     }
     
@@ -105,7 +105,10 @@ extension MainViewController {
 extension MainViewController {
     
     private func configureHierarchy() {
-        listViews.forEach { listStackView.addArrangedSubview($0) }
+        listViews.forEach { listView in
+            listStackView.addArrangedSubview(listView)
+        }
+        
         view.addSubview(listStackView)
     }
     
@@ -125,8 +128,8 @@ extension MainViewController {
 extension MainViewController: UITableViewDelegate {
     
     private func setupListsDelegator() {
-        listViews.forEach {
-            $0.setupProjectList(delegator: self, color: .secondarySystemBackground)
+        listViews.forEach { listView in
+            listView.setupProjectList(delegator: self, color: .secondarySystemBackground)
         }
     }
     
@@ -207,7 +210,9 @@ extension MainViewController {
         menuAlert.popoverPresentationController?.sourceView = notification.object as? UIView
         
         let actions = generateMovingActions(about: project, in: state)
-        actions.forEach { menuAlert.addAction($0) }
+        actions.forEach { action in
+            menuAlert.addAction(action)
+        }
         
         self.present(menuAlert, animated: true)
     }
