@@ -26,3 +26,9 @@ struct Project: Hashable {
         self.dueDate = dueDate
     }
 }
+
+extension Project {
+    var isDueDateExpired: Bool {
+        return dueDate.isExpired
+    }
+}
