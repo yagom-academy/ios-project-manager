@@ -35,7 +35,7 @@ final class ProjectTableViewCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.distribution = .fill
+        stackView.distribution = .equalSpacing
         stackView.spacing = 4
         return stackView
     }()
@@ -52,7 +52,9 @@ final class ProjectTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         selectionStyle = .none
+
         configureView()
+        configureConstraints()
     }
 
     @available(*, unavailable)
@@ -67,7 +69,9 @@ final class ProjectTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(descriptionLabel)
         stackView.addArrangedSubview(dueDateLabel)
+    }
 
+    private func configureConstraints() {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -78,7 +82,7 @@ final class ProjectTableViewCell: UITableViewCell {
 
     // MARK: Internal Method
     func configure(with project: Project) {
-        if project.dueDate.isExpired {
+        if project.isDueDateExpired {
             dueDateLabel.textColor = .systemRed
         } else {
             dueDateLabel.textColor = .black
