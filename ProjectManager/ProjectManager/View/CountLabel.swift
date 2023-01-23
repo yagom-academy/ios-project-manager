@@ -7,7 +7,6 @@
 
 import UIKit
 
-// TODO: issue 생성/삭제 시 countlabel 업데이트 delegate
 final class CountLabel: UILabel {
     enum Constant {
         enum Namespace {
@@ -38,5 +37,11 @@ private extension CountLabel.Constant.Namespace {
     static func formatLabelText(_ issueCount: Int) -> String {
         return (issueCount > CountLabel.Constant.Namespace.maxCount ?
                 "\(CountLabel.Constant.Namespace.maxCount)+" : issueCount.description)
+    }
+}
+
+extension CountLabel: IssueCountDelegate {
+    func updateCountLabel(with issueCount: Int) {
+        self.text = Constant.Namespace.formatLabelText(issueCount)
     }
 }
