@@ -69,16 +69,16 @@ final class ProjectListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func makeRightNavigationBarButton() -> UIBarButtonItem {
-        let projectViewController = ProjectViewController(with: Project(status: .todo,
-                                                                        title: "제목없음",
-                                                                        description: " ",
-                                                                        dueDate: Date()),
-                                                          mode: .add,
-                                                          delegate: self)
+    private func presentProjectViewController() {
+        let project = Project(status: .todo, title: "제목없음", description: " ", dueDate: Date())
+        let projectViewController = ProjectViewController(with: project, mode: .add, delegate: self)
 
+        present(UINavigationController(rootViewController: projectViewController), animated: false)
+    }
+
+    private func makeRightNavigationBarButton() -> UIBarButtonItem {
         let touchUpAddButtonAction = UIAction { [weak self] _ in
-            self?.present(UINavigationController(rootViewController: projectViewController), animated: false)
+            self?.presentProjectViewController()
         }
 
         let addButton = UIBarButtonItem(systemItem: .add, primaryAction: touchUpAddButtonAction)
