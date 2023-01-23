@@ -87,9 +87,9 @@ final class CollectionContentView: UIView, UIContentView {
             dateLabel.text = configuration.date
             settingDateLabelTextColor(date: date)
         } else {
-            titleLabel.text = "nil"
-            bodyLabel.text = "nil"
-            dateLabel.text = "nil"
+            titleLabel.text = nil
+            bodyLabel.text = nil
+            dateLabel.text = nil
         }
     }
 
