@@ -172,19 +172,9 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var data: TodoModel?
-        switch tableView {
-        case todoTableView:
-            data = todoData[indexPath.row]
-        case doingTableView:
-            data = doingData[indexPath.row]
-        case doneTableView:
-            data = doneData[indexPath.row]
-        default:
-            data = nil
-        }
-        
+        let data = saveData(of: tableView, to: indexPath.row)
         let modalController = UINavigationController(rootViewController: ModalViewContoller(model: data))
+        
         modalController.modalPresentationStyle = .formSheet
         self.present(modalController, animated: true, completion: nil)
         
@@ -214,22 +204,14 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        var data = TodoModel()
+        let data = saveData(of: tableView, to: indexPath.row)
         
-        if tableView == todoTableView {
-            data = todoData[indexPath.row]
-        } else if tableView == doingTableView {
-            data = doingData[indexPath.row]
-        } else if tableView == doneTableView {
-            data = doneData[indexPath.row]
-        }
-        
-        guard let todoDate = data.todoDate else { return cell }
+        guard let todoDate = data?.todoDate else { return cell }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        cell.titleLabel.text = data.title
-        cell.bodyLabel.text = data.body
+        cell.titleLabel.text = data?.title
+        cell.bodyLabel.text = data?.body
         cell.dateLabel.text = dateFormatter.string(from: todoDate)
         
         if todoDate < Date() {
@@ -237,6 +219,21 @@ extension MainViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+// MARK: - TableView Business Logic
+extension MainViewController {
+    func saveData(of tableView: UITableView, to indexPathRow: Int) -> TodoModel? {
+        switch tableView {
+        case todoTableView:
+            return todoData[indexPathRow]
+        case doingTableView:
+            return doingData[indexPathRow]
+        case doneTableView:
+            return doneData[indexPathRow]
+        default:
+            return nil
+        }
     }
 }
 
