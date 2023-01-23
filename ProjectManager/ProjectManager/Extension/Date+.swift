@@ -21,6 +21,6 @@ extension Date {
         
         guard let remainingDays = calendar.dateComponents([.day], from: today, to: deadline).day else { return false }
         
-        return remainingDays < 0 ? true : false
+        return remainingDays < .zero ? true : false
     }
 }

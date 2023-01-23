@@ -166,7 +166,7 @@ final class IssueViewController: UIViewController {
 
 extension IssueViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text.count > 1000 {
+        if textView.text.count > Constant.Namespace.maxBodyTextCount {
             textView.deleteBackward()
         }
     }
