@@ -7,7 +7,7 @@
 import UIKit
 
 protocol DataManageable: AnyObject {
-    func shareData(data: Plan, process: Process, index: Int?)
+    func shareData(_ data: Plan, process: Process, index: Int?)
 }
 
 protocol EventManageable: AnyObject {
@@ -16,11 +16,7 @@ protocol EventManageable: AnyObject {
 }
 
 protocol GestureManageable: AnyObject {
-    func shareLongPress(
-        process: Process,
-        view: UIView,
-        index: Int
-    )
+    func shareLongPress(process: Process, view: UIView, index: Int)
 }
 
 final class MainViewController: UIViewController {
@@ -63,6 +59,10 @@ final class MainViewController: UIViewController {
         viewModel.bindDone { [weak self] data in
             self?.doneView.updateView(data)
         }
+        
+        viewModel.bindProcessList { [weak self] processList in
+            self?.showPopOver(processList: processList)
+        }
     }
     
     private func presentDetailView(process: Process, index: Int?) {
@@ -80,6 +80,27 @@ final class MainViewController: UIViewController {
             rootViewController: detailViewController
         )
         present(detailNavigationController, animated: true)
+    }
+    
+    private func showPopOver(processList: [Process]) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        processList.forEach { afterProcess in
+            let action = UIAlertAction(
+                title: "Move To " + "\(afterProcess)",
+                style: .default
+            ) { [weak self] _ in
+                self?.viewModel.changeProcess(afterProcess)
+            }
+            
+            alert.addAction(action)
+        }
+        
+        guard let popover = alert.popoverPresentationController else { return }
+        popover.permittedArrowDirections = .up
+        popover.sourceView = viewModel.movePlan?.view
+        
+        present(alert, animated: true)
     }
 }
 
@@ -100,40 +121,16 @@ extension MainViewController: DataManageable, EventManageable {
         viewModel.deleteData(process: process, index: index)
     }
     
-    func shareData(data: Plan, process: Process, index: Int?) {
+    func shareData(_ data: Plan, process: Process, index: Int?) {
         viewModel.updateData(data: data, process: process, index: index)
     }
 }
 
 // MARK: - GestureManageable Protocol
 extension MainViewController: GestureManageable {
-    func shareLongPress(
-        process: Process,
-        view: UIView,
-        index: Int
-    ) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        viewModel.configureButton(process: process).forEach { afterProcess in
-            let action = UIAlertAction(
-                title: "Move To " + "\(afterProcess)",
-                style: .default
-            ) { [weak self] _ in
-                self?.viewModel.changeProcess(
-                    before: process,
-                    after: afterProcess,
-                    index: index
-                )
-                self?.dismiss(animated: true)
-            }
-            alert.addAction(action)
-        }
-        
-        guard let popover = alert.popoverPresentationController else { return }
-        popover.permittedArrowDirections = .up
-        popover.sourceView = view
-        
-        present(alert, animated: true)
+    func shareLongPress(process: Process, view: UIView, index: Int) {
+        viewModel.configureMovePlan(MovePlan(process: process, view: view, index: index))
+        viewModel.configureProcessList(process: process)
     }
 }
 

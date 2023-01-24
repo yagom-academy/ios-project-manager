@@ -26,9 +26,18 @@ final class MainViewModel {
         }
     }
     
+    private var popOverProcessList: [Process] = [] {
+        didSet {
+            processListHandler?(popOverProcessList)
+        }
+    }
+    
+    private(set) var movePlan: MovePlan?
+    
     private var todoHandler: (([Plan]) -> Void)?
     private var doingHandler: (([Plan]) -> Void)?
     private var doneHandler: (([Plan]) -> Void)?
+    private var processListHandler: (([Process]) -> Void)?
 }
 
 // MARK: - Method
@@ -46,6 +55,10 @@ extension MainViewModel {
     func bindDone(handler: @escaping ([Plan]) -> Void) {
         handler(doneData)
         self.doneHandler = handler
+    }
+    
+    func bindProcessList(handler: @escaping ([Process]) -> Void) {
+        self.processListHandler = handler
     }
     
     func updateData(data: Plan, process: Process, index: Int?) {
@@ -94,7 +107,10 @@ extension MainViewModel {
         }
     }
     
-    func changeProcess(before: Process, after: Process, index: Int) {
+    func changeProcess(_ after: Process) {
+        guard let before = movePlan?.beforeProcess else { return }
+        guard let index = movePlan?.index else { return }
+        
         switch before {
         case .todo:
             if after == .doing {
@@ -115,9 +131,19 @@ extension MainViewModel {
                 doingData.append(doneData.remove(at: index))
             }
         }
+        
+        movePlan = nil
     }
     
-    func configureButton(process: Process) -> [Process] {
+    func configureMovePlan(_ movePlan: MovePlan) {
+        self.movePlan = movePlan
+    }
+    
+    func configureProcessList(process: Process) {
+        popOverProcessList = configureButton(process: process)
+    }
+    
+    private func configureButton(process: Process) -> [Process] {
         return Process.allCases.filter {
             $0 != process
         }

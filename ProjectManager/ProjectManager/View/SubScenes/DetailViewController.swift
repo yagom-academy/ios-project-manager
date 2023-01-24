@@ -63,7 +63,7 @@ extension DetailViewController {
         let date = datePickerWheel(detailView.datePicker)
         
         delegate?.shareData(
-            data: viewModel.createData(
+            viewModel.createData(
                 title: title,
                 content: detailView.contentTextView.text,
                 date: date
