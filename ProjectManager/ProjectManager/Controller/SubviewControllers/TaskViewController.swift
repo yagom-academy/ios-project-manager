@@ -14,10 +14,15 @@ class TaskViewController: UIViewController {
     }
     
     var type: TaskStatus
-    var dataSource: UITableViewDiffableDataSource<Section, Task>?
+    var dataSource: UITableViewDiffableDataSource<Section, Task>
 
     init(type: TaskStatus) {
         self.type = type
+        self.dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: projectListView.fetchTableView(), cellProvider: { tableView, indexPath, uuid  in
+            let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.cellIdentifier)
+
+            return cell
+        })
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -45,11 +50,6 @@ class TaskViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: projectListView.fetchTableView(), cellProvider: { tableView, indexPath, uuid  in
-            let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.cellIdentifier)
-
-            return cell
-        })
         projectListView.dataSource = dataSource
     }
 }
