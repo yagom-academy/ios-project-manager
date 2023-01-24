@@ -40,6 +40,10 @@ class TaskViewController: UIViewController {
         projectListView.setHeaderText(text: type.rawValue)
         projectListView.setHeaderItemCount(count: 0)
         projectListView.register(cellClass: TaskCell.self, forCellReuseIdentifier: TaskCell.cellIdentifier)
+        configureDataSource()
+    }
+    
+    private func configureDataSource() {
         let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: projectListView.fetchTableView(), cellProvider: { tableView, indexPath, uuid  in
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.cellIdentifier)
 
@@ -47,5 +51,4 @@ class TaskViewController: UIViewController {
         })
         projectListView.dataSource = dataSource
     }
-
 }
