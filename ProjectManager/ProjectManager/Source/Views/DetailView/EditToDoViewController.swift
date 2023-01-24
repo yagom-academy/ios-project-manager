@@ -109,7 +109,7 @@ final class EditToDoViewController: UIViewController {
     
     @objc
     private func tappedDoneButton() {
-        if detailView.validToDoTitle() == false {
+        if detailView.hasTitle == false {
             let alert = UIAlertController(title: "제목을 입력해주세요.", message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "확인", style: .default)
             
