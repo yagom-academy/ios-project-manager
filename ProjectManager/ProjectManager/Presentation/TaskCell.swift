@@ -32,6 +32,8 @@ final class TaskCell: UITableViewCell {
         return stack
     }()
     
+    var viewModel: TaskItemViewModel?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -41,11 +43,14 @@ final class TaskCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setUp(with data: Task) {
-        taskTitleLabel.text = data.title
-        taskDescriptionLabel.text = data.description
-        taskExpirationLabel.text = data.expireDate.description
+}
+
+extension TaskCell {
+    func setUp() {
+        guard let viewModel = self.viewModel else { return }
+        taskTitleLabel.text = viewModel.title
+        taskDescriptionLabel.text = viewModel.description
+        taskExpirationLabel.text = viewModel.date.converted()
     }
     
     private func layout() {
