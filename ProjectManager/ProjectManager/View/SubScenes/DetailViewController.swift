@@ -53,6 +53,10 @@ final class DetailViewController: UIViewController {
         viewModel.bindEditable { [weak self] editable in
             self?.detailView.datePicker.isEnabled = editable
         }
+        
+        viewModel.bindFinishEvent { [weak self] in
+            self?.dismiss(animated: true)
+        }
     }
 }
 
@@ -71,15 +75,16 @@ extension DetailViewController {
             process: viewModel.process,
             index: viewModel.index
         )
-        dismiss(animated: true)
+        
+        viewModel.finishEdit()
     }
     
     @objc private func editButtonTapped() {
-        viewModel.toggle()
+        viewModel.editToggle()
     }
     
     @objc private func cancelButtonTapped() {
-        dismiss(animated: true)
+        viewModel.finishEdit()
     }
     
     @objc private func datePickerWheel(_ sender: UIDatePicker) -> Date? {

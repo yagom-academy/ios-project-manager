@@ -33,6 +33,12 @@ final class DetailViewModel {
         }
     }
     
+    private var isfinishEdit = false {
+        didSet {
+            finishHandler?()
+        }
+    }
+    
     private(set) var isEdiatable = false {
         didSet {
             editableHandler?(isEdiatable)
@@ -43,6 +49,7 @@ final class DetailViewModel {
     private var dateHandler: ((Date) -> Void)?
     private var contentHandler: ((String) -> Void)?
     private var editableHandler: ((Bool) -> Void)?
+    private var finishHandler: (() -> Void)?
     
     init(data: Plan?, process: Process, index: Int?) {
         self.process = process
@@ -84,8 +91,16 @@ extension DetailViewModel {
         self.editableHandler = handler
     }
     
-    func toggle() {
+    func bindFinishEvent(handler: @escaping () -> Void) {
+        self.finishHandler = handler
+    }
+    
+    func editToggle() {
         isEdiatable.toggle()
+    }
+    
+    func finishEdit() {
+        isfinishEdit.toggle()
     }
     
     func createData(title: String, content: String?, date: Date?) -> Plan {
