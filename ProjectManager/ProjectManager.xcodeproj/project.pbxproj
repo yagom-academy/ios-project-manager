@@ -83,8 +83,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectsViewController.swift */,
 				3C73C6C0297503E100C58F32 /* AddProjectViewController.swift */,
-				3CF17BAA297FD59200A4C46D /* TaskViewController.swift */,
-				3CF17BAC297FDEBC00A4C46D /* TodoTaskViewController.swift */,
+				3CF17BAE297FF25600A4C46D /* SubviewControllers */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -95,6 +94,15 @@
 				3CF17BA2297BD90900A4C46D /* Task.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3CF17BAE297FF25600A4C46D /* SubviewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3CF17BAA297FD59200A4C46D /* TaskViewController.swift */,
+				3CF17BAC297FDEBC00A4C46D /* TodoTaskViewController.swift */,
+			);
+			path = SubviewControllers;
 			sourceTree = "<group>";
 		};
 		C2CD449DC73F2B252AF4C5DB /* Frameworks */ = {
