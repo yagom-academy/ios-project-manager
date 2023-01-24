@@ -28,8 +28,6 @@ enum ProjectState: Int, Codable {
       return "DOING"
     case .done:
       return "DONE"
-    @unknown default:
-      return ""
     }
   }
 }
