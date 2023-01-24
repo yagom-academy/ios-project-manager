@@ -8,6 +8,11 @@
 import UIKit
 import RxSwift
 
+fileprivate enum Common {
+    static let doingTitle = "DOING"
+    static let doneTitle = "DONE"
+}
+
 final class TaskSwitchViewController: UIViewController {
 
 // MARK: View
@@ -15,14 +20,14 @@ final class TaskSwitchViewController: UIViewController {
     private var doingButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
-        button.setTitle("DOING", for: .normal)
+        button.setTitle(Common.doingTitle, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         return button
     }()
     private var doneButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
-        button.setTitle("DONE", for: .normal)
+        button.setTitle(Common.doneTitle, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         return button
     }()
@@ -98,7 +103,7 @@ extension TaskSwitchViewController {
     func asPopover() {
         self.modalPresentationStyle = .popover
         self.preferredContentSize = CGSize(width: 250, height: 100)
-//        self.popoverPresentationController?.permittedArrowDirections = [.left]
+        self.popoverPresentationController?.permittedArrowDirections = [.left, .right]
     }
 
     private func layoutViews() {
