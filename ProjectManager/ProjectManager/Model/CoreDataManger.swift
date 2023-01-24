@@ -68,7 +68,6 @@ final class CoreDataManager {
                 updatingData.setValue(body, forKey: "body")
                 updatingData.setValue(todoDate, forKey: "todoDate")
             }
-            print("update")
             updatingData.setValue(state.rawValue, forKey: "state")
             
             do {

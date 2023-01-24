@@ -30,6 +30,7 @@ final class MainViewController: UIViewController {
         setupNavigationBar()
         fetchData()
         setupLongPress()
+        registDismissNotification()
     }
 }
 // MARK: - Business Method
@@ -96,7 +97,6 @@ extension MainViewController {
         let modalController = UINavigationController(rootViewController: ModalViewContoller())
         modalController.modalPresentationStyle = .formSheet
         
-        registDismissNotification()
         self.present(modalController, animated: true, completion: nil)
     }
     
