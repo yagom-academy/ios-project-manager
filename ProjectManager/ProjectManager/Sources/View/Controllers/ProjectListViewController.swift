@@ -10,6 +10,7 @@ import UIKit
 protocol ProjectListActionDelegate: AnyObject {
     func deleteProject(willDelete project: Project)
     func editProject(willEdit project: Project)
+    func changeProjectState(with state: State, to project: Project)
 }
 
 final class ProjectListViewController: UIViewController {
@@ -21,6 +22,7 @@ final class ProjectListViewController: UIViewController {
     private let headerViewModel: HeaderViewModel = HeaderViewModel()
     private let tableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section, Project>?
+    private let state: State
     weak var delegate: ProjectListActionDelegate?
     
     private let stackView: UIStackView = {
@@ -32,10 +34,10 @@ final class ProjectListViewController: UIViewController {
     }()
     
     init(state: State) {
+        self.state = state
         header = HeaderView(viewModel: headerViewModel)
         
         super.init(nibName: nil, bundle: nil)
-        headerViewModel.setupTitle(state.name)
     }
     
     required init?(coder: NSCoder) {
@@ -52,17 +54,27 @@ final class ProjectListViewController: UIViewController {
     
     @objc private func pressProjectCell(_ sender: UIGestureRecognizer) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: "Move to DOING", style: .default)
-        let action2 = UIAlertAction(title: "Move to DONE", style: .default)
-        alert.addAction(action1)
-        alert.addAction(action2)
         let location = sender.location(in: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: location),
+              let project = dataSource?.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+
+        State.allCases.filter { $0 != self.state }.forEach { state in
+            let action = UIAlertAction(title: "Move To \(state.name)", style: .default) { _ in
+                self.delegate?.changeProjectState(with: state, to: project)
+            }
+            alert.addAction(action)
+        }
+        
         alert.modalPresentationStyle = .popover
         alert.popoverPresentationController?.sourceView = tableView
         alert.popoverPresentationController?.sourceRect = CGRect(
             x: location.x,
             y: location.y,
-            width: 0, height: 0
+            width: 0,
+            height: 0
         )
         alert.popoverPresentationController?.permittedArrowDirections = [.up, .down]
         
@@ -156,6 +168,7 @@ extension ProjectListViewController {
             stackView.addArrangedSubview($0)
         }
         
+        headerViewModel.setupTitle(state.name)
         view.addSubview(stackView)
     }
     

@@ -64,6 +64,21 @@ extension MainViewModel {
         }
     }
     
+    func changeStateProject(state: State, project: Project) {
+        deleteProject(with: project)
+        var changedProject = project
+        changedProject.state = state
+        
+        switch state {
+        case .todo:
+            todoList.append(changedProject)
+        case .doing:
+            doingList.append(changedProject)
+        case .done:
+            doneList.append(changedProject)
+        }
+    }
+    
     private func changeProject(in list: inout [Project], to project: Project) {
         guard let index = list.firstIndex(where: { $0.id == project.id }) else { return }
         list[index] = project

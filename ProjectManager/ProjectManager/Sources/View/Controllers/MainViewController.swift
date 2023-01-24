@@ -73,6 +73,10 @@ extension MainViewController {
 
 // MARK: ProjectListAction Delegate
 extension MainViewController: ProjectListActionDelegate {
+    func changeProjectState(with state: State, to project: Project) {
+        viewModel.changeStateProject(state: state, project: project)
+    }
+    
     private func configureProjectListActionDelegate() {
         [toDoViewController, doingViewController, doneViewController].forEach {
             $0.delegate = self
