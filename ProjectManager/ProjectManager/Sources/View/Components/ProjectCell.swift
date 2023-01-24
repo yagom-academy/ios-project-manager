@@ -64,6 +64,11 @@ final class ProjectCell: UITableViewCell {
             totalStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
+    
+    func configureLongPressGesture(target: Any?, action: Selector?) {
+        let gesture = UILongPressGestureRecognizer(target: target, action: action)
+        addGestureRecognizer(gesture)
+    }
 }
 
 // MARK: Configure ProjectListCellViewModel

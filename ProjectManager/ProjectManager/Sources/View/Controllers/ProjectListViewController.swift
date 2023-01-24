@@ -49,6 +49,25 @@ final class ProjectListViewController: UIViewController {
         configureTableView()
         configureDataSource()
     }
+    
+    @objc private func pressProjectCell(_ sender: UIGestureRecognizer) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let action1 = UIAlertAction(title: "Move to DOING", style: .default)
+        let action2 = UIAlertAction(title: "Move to DONE", style: .default)
+        alert.addAction(action1)
+        alert.addAction(action2)
+        let location = sender.location(in: tableView)
+        alert.modalPresentationStyle = .popover
+        alert.popoverPresentationController?.sourceView = tableView
+        alert.popoverPresentationController?.sourceRect = CGRect(
+            x: location.x,
+            y: location.y,
+            width: 0, height: 0
+        )
+        alert.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+        
+        present(alert, animated: true)
+    }
 }
 
 // MARK: Interface Method
@@ -85,7 +104,7 @@ extension ProjectListViewController {
     private func configureDataSource() {
         dataSource = UITableViewDiffableDataSource<Section, Project>(
             tableView: tableView,
-            cellProvider: { tableView, indexPath, project in
+            cellProvider: { [weak self] tableView, indexPath, project in
                 guard let cell = tableView.dequeueReusableCell(
                     withIdentifier: ProjectCell.reuseIdentifier,
                     for: indexPath
@@ -95,6 +114,10 @@ extension ProjectListViewController {
                 
                 let viewModel = ProjectCellViewModel()
                 cell.setupViewModel(viewModel)
+                cell.configureLongPressGesture(
+                    target: self,
+                    action: #selector(self?.pressProjectCell)
+                )
                 viewModel.makeCellData(project)
                 
                 return cell

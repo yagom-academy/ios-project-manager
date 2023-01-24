@@ -8,14 +8,13 @@
 import Foundation
 
 protocol MainViewModelProtocol: ViewModelDelegate {
-    var models: [Project] { get set }
     var closure: (([Project]) -> Void)? { get set }
     
     func deleteProject(with project: Project)
 }
 
 final class MainViewModel: MainViewModelProtocol {
-    var models: [Project] = [] {
+    private var models: [Project] = [] {
         didSet {
             closure?(models)
         }
