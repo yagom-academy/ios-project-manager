@@ -71,6 +71,7 @@ class TaskCell: UITableViewCell {
     func configureData(task: Task) {
         titleLabel.text = task.title
         descriptionLabel.text = task.description
+        dateLabel.textColor = checkIfDatePassedNow(date: task.date) ? .red : .black
         dateLabel.text = task.date.description
     }
 
@@ -97,5 +98,9 @@ class TaskCell: UITableViewCell {
             dateLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constant.spacing),
             dateLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: Constant.nagativeSpacing)
         ])
+    }
+
+    func checkIfDatePassedNow(date: Date) -> Bool {
+        return Date() > date
     }
 }
