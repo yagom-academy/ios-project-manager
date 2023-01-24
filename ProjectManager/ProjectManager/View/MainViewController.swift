@@ -124,20 +124,13 @@ extension MainViewController: UITableViewDelegate {
         let dequeuedTableViewHeaderFooterView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: "CustomHeaderView"
         )
-        guard let view = dequeuedTableViewHeaderFooterView as? CustomHeaderView else {
+        guard let view = dequeuedTableViewHeaderFooterView as? CustomHeaderView,
+              let table = tableView as? CustomTableView else {
             return UIView()
         }
         
-        guard let table = tableView as? CustomTableView else { return UIView() }
         view.titleLabel.text = table.title
-        
-        if tableView == self.todoTableView {
-            view.countLabel.text = todoData.count.description
-        } else if tableView == self.doingTableView {
-            view.countLabel.text = doingData.count.description
-        } else if tableView == self.doneTableView {
-            view.countLabel.text = doneData.count.description
-        }
+        view.countLabel.text = countCell(of: tableView).description
         
         return view
     }
@@ -150,20 +143,7 @@ extension MainViewController: UITableViewDelegate {
             style: .destructive,
             title: "Delete"
         ) { _, _, _ in
-            if tableView == self.todoTableView {
-                let removeData = self.todoData.remove(at: indexPath.row)
-                guard let id = removeData.id else { return }
-                CoreDataManager.shared.deleteDate(id: id)
-            } else if tableView == self.doingTableView {
-                let removeData = self.doingData.remove(at: indexPath.row)
-                guard let id = removeData.id else { return }
-                CoreDataManager.shared.deleteDate(id: id)
-            } else if tableView == self.doneTableView {
-                let removeData = self.doneData.remove(at: indexPath.row)
-                guard let id = removeData.id else { return }
-                CoreDataManager.shared.deleteDate(id: id)
-            }
-            
+            self.swipeAction(of: tableView, to: indexPath.row)
             tableView.reloadData()
         }
         
@@ -184,15 +164,7 @@ extension MainViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == todoTableView {
-            return todoData.count
-        } else if tableView == doingTableView {
-            return doingData.count
-        } else if tableView == doneTableView {
-            return doneData.count
-        }
-        
-        return .zero
+        return countCell(of: tableView)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -231,6 +203,34 @@ extension MainViewController {
             return doneData[indexPathRow]
         default:
             return nil
+        }
+    }
+    
+    private func countCell(of tableView: UITableView) -> Int {
+        if tableView == self.todoTableView {
+            return todoData.count
+        } else if tableView == self.doingTableView {
+            return doingData.count
+        } else if tableView == self.doneTableView {
+            return doneData.count
+        }
+        
+        return .zero
+    }
+    
+    private func swipeAction(of tableView: UITableView, to indexPathRow: Int) {
+        if tableView == self.todoTableView {
+            let removeData = self.todoData.remove(at: indexPathRow)
+            guard let id = removeData.id else { return }
+            CoreDataManager.shared.deleteDate(id: id)
+        } else if tableView == self.doingTableView {
+            let removeData = self.doingData.remove(at: indexPathRow)
+            guard let id = removeData.id else { return }
+            CoreDataManager.shared.deleteDate(id: id)
+        } else if tableView == self.doneTableView {
+            let removeData = self.doneData.remove(at: indexPathRow)
+            guard let id = removeData.id else { return }
+            CoreDataManager.shared.deleteDate(id: id)
         }
     }
 }
