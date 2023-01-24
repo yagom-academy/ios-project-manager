@@ -1,16 +1,10 @@
-//
-//  ProjectManager - ViewController.swift
-//  Created by yagom. 
-//  Copyright © yagom. All rights reserved.
-// 
-
 import UIKit
 import RxSwift
 import RxCocoa
 
-final class ProjectManagerViewController: UIViewController {
+final class ProjectManagerViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    // MARK: View Initialization
+    // MARK: View
     
     var todoTableView: UITableView = {
         let table = UITableView()
@@ -77,7 +71,6 @@ final class ProjectManagerViewController: UIViewController {
     }()
     
     // MARK: ViewModel
-    
     var viewModel: ProjectManagerViewModel?
     let disposeBag = DisposeBag()
     
@@ -89,14 +82,54 @@ final class ProjectManagerViewController: UIViewController {
         configureNavigationController()
         configureView()
         combineViews()
+        addTableviewLongPressRecognizers()
+        
         bindViewModel()
-        bindTagSwitching()
+        bindLongPressGesturesToTableViews()
+        bindSelectionActionToCell()
     }
 }
 
 // MARK: Functions
 
 extension ProjectManagerViewController {
+    
+    private func addTableviewLongPressRecognizers() {
+        let todoLongPressGesture = UILongPressGestureRecognizer()
+        let todoLongPressAction = #selector(todoTableView.didLongPress)
+        todoLongPressGesture.addTarget(todoTableView, action: todoLongPressAction)
+        todoLongPressGesture.numberOfTapsRequired = 1
+        
+        let doingLongPressGesture = UILongPressGestureRecognizer()
+        let doingLongPressAction = #selector(doingTableView.didLongPress)
+        doingLongPressGesture.addTarget(doingTableView, action: doingLongPressAction)
+        doingLongPressGesture.numberOfTapsRequired = 1
+        
+        let doneLongPressGesture = UILongPressGestureRecognizer()
+        let doneLongPressAction =  #selector(doingTableView.didLongPress)
+        doneLongPressGesture.addTarget(doneTableView, action: doneLongPressAction)
+        doneLongPressGesture.numberOfTapsRequired = 1
+        
+        todoTableView.addGestureRecognizer(todoLongPressGesture)
+        doingTableView.addGestureRecognizer(doingLongPressGesture)
+        doneTableView.addGestureRecognizer(doneLongPressGesture)
+        
+        todoLongPressGesture.delegate = self
+        doingLongPressGesture.delegate = self
+        doneLongPressGesture.delegate = self
+    }
+    
+    private func switcher(task: Task, on view: UIView) {
+        let switcher = TaskSwitchViewController()
+        switcher.asPopover()
+        switcher.sourceView(view: view)
+        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
+        let viewModel = TaskSwitchViewModel(useCase: useCase, task: task)
+        switcher.viewModel = viewModel
+        
+        self.present(switcher, animated: true)
+    }
+    
     private func configureNavigationController() {
         if let navigationController = self.navigationController {
             let navigationBar = navigationController.navigationBar
@@ -114,31 +147,90 @@ extension ProjectManagerViewController {
     
     @objc
     private func tapNavigationAddButton() {
-        let rootView = AddTaskViewController()
-        let view = UINavigationController(rootViewController: rootView)
-        view.modalPresentationStyle = .formSheet
-        
+        let addTaskView = AddTaskViewController()
+        addTaskView.modalPresentationStyle = .formSheet
+        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
+        addTaskView.viewmodel = AddTaskViewModel(useCase: useCase)
+        let navigation = UINavigationController(rootViewController: addTaskView)
+        self.present(navigation, animated: true)
+    }
+
+    private func popOver(cell: UITableViewCell, item: Task) {
+        let view = TaskSwitchViewController()
+        view.sourceView(view: cell)
         self.present(view, animated: true)
+    }
+    
+    private func createEditView(with item: TaskItemViewModel) -> UINavigationController {
+        let editView = EditTaskViewController()
+        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
+        editView.viewModel = EditTaskViewModel(item: item, useCase: useCase)
+        let navigation = UINavigationController(rootViewController: editView)
+        return navigation
     }
 }
 
-// MARK: TableView Delegate
-
-extension ProjectManagerViewController: UITableViewDelegate {
+extension ProjectManagerViewController {
     
-    private func popOver(cell: UITableViewCell, item: Task) {
-        let view = TaskSwitchViewController()
+    private func bindLongPressGesturesToTableViews() {
+        todoTableView.rx
+            .methodInvoked(#selector(todoTableView.didLongPress))
+            .withLatestFrom(self.todoTableView.rx.itemSelected)
+            .subscribe(onNext: { index in
+                if let cell = self.todoTableView.cellForRow(at: index) as? TaskCell,
+                   let viewModel = cell.viewModel {
+                    self.switcher(task: viewModel.task, on: cell)
+                }
+            })
+            .disposed(by: disposeBag)
         
-        view.modalPresentationStyle = .popover
-        view.popoverPresentationController?.sourceView = cell.contentView
-        view.preferredContentSize = CGSize(width: 250, height: 100)
-        view.popoverPresentationController?.permittedArrowDirections = [.left]
+        doingTableView.rx
+            .methodInvoked(#selector(doingTableView.didLongPress))
+            .withLatestFrom(doingTableView.rx.itemSelected)
+            .subscribe(onNext: { index in
+                if let cell = self.doingTableView.cellForRow(at: index) as? TaskCell,
+                   let viewModel = cell.viewModel {
+                    self.switcher(task: viewModel.task, on: cell)
+                }
+            })
+            .disposed(by: disposeBag)
         
-        self.present(view, animated: true)
+        doneTableView.rx
+            .methodInvoked(#selector(doneTableView.didLongPress))
+            .withLatestFrom(doneTableView.rx.itemSelected)
+            .subscribe(onNext: { index in
+                if let cell = self.doneTableView.cellForRow(at: index) as? TaskCell,
+                   let viewModel = cell.viewModel {
+                    self.switcher(task: viewModel.task, on: cell)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
-    private func bindTagSwitching() {
-        // TODO: bind tag switcher
+    private func bindSelectionActionToCell() {
+        self.todoTableView.rx
+            .modelSelected(TaskItemViewModel.self)
+            .subscribe(onNext: { item in
+                let view = self.createEditView(with: item)
+                self.present(view, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        self.doingTableView.rx
+            .modelSelected(TaskItemViewModel.self)
+            .subscribe(onNext: { item in
+                let view = self.createEditView(with: item)
+                self.present(view, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        self.doneTableView.rx
+            .modelSelected(TaskItemViewModel.self)
+            .subscribe(onNext: { item in
+                let view = self.createEditView(with: item)
+                self.present(view, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func bindViewModel() {
@@ -174,7 +266,8 @@ extension ProjectManagerViewController: UITableViewDelegate {
                     .bind(to: self.todoTableView.rx.items) { (tableview, index, item) in
                         guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
                         else { return TaskCell() }
-                        // TODO: inject cell viewmodel
+                        cell.viewModel = item
+                        cell.setUp()
                         return cell
                     }
                     .disposed(by: disposeBag)
@@ -183,7 +276,8 @@ extension ProjectManagerViewController: UITableViewDelegate {
                     .bind(to: self.doingTableView.rx.items) { (tableview, index, item) in
                         guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
                         else { return TaskCell() }
-                        // TODO: inject cell viewmodel
+                        cell.viewModel = item
+                        cell.setUp()
                         return cell
                     }
                     .disposed(by: disposeBag)
@@ -192,7 +286,8 @@ extension ProjectManagerViewController: UITableViewDelegate {
                     .bind(to: self.doneTableView.rx.items) { (tableview, index, item) in
                         guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
                         else { return TaskCell() }
-                        // TODO: inject cell viewmodel
+                        cell.viewModel = item
+                        cell.setUp()
                         return cell
                     }
                     .disposed(by: disposeBag)
@@ -201,7 +296,6 @@ extension ProjectManagerViewController: UITableViewDelegate {
 }
 
 // MARK: Layout
-
 extension ProjectManagerViewController {
     private func combineViews() {
         todoStackView.addArrangedSubview(todoStatusView)
@@ -227,4 +321,3 @@ extension ProjectManagerViewController {
         ])
     }
 }
-

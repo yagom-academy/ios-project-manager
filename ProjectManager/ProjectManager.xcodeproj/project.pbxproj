@@ -34,6 +34,7 @@
 		DFDDB69529804DD300C14CE2 /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69429804DD300C14CE2 /* AddTaskViewModel.swift */; };
 		DFDDB69D2980511B00C14CE2 /* EditTaskVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69C2980511B00C14CE2 /* EditTaskVIewModel.swift */; };
 		DFDDB69F2980513200C14CE2 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69E2980513200C14CE2 /* EditTaskViewController.swift */; };
+		DFDDB6A1298051FC00C14CE2 /* UITableView + didLongPress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6A0298051FC00C14CE2 /* UITableView + didLongPress.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		DFDDB69429804DD300C14CE2 /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
 		DFDDB69C2980511B00C14CE2 /* EditTaskVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVIewModel.swift; sourceTree = "<group>"; };
 		DFDDB69E2980513200C14CE2 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
+		DFDDB6A0298051FC00C14CE2 /* UITableView + didLongPress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + didLongPress.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +100,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				DFDDB68F29804B2900C14CE2 /* Utilities */,
+				DFDDB68F29804B2900C14CE2 /* Extensions */,
 				DFDDB6822980442300C14CE2 /* Common */,
 				DF4682942977994300E3BC06 /* Resources */,
 				DF4682932977992F00E3BC06 /* Application */,
@@ -204,12 +206,13 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		DFDDB68F29804B2900C14CE2 /* Utilities */ = {
+		DFDDB68F29804B2900C14CE2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				DFDDB69029804B4800C14CE2 /* Date + converted.swift */,
+				DFDDB6A0298051FC00C14CE2 /* UITableView + didLongPress.swift */,
 			);
-			path = Utilities;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		DFDDB69B2980510C00C14CE2 /* EditTask */ = {
@@ -309,6 +312,7 @@
 				DFCA28422977DFBE00C1EBF2 /* TaskStatusView.swift in Sources */,
 				DFDDB69129804B4800C14CE2 /* Date + converted.swift in Sources */,
 				DFDDB69F2980513200C14CE2 /* EditTaskViewController.swift in Sources */,
+				DFDDB6A1298051FC00C14CE2 /* UITableView + didLongPress.swift in Sources */,
 				DF4682992977A85A00E3BC06 /* ProjectManagerViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
