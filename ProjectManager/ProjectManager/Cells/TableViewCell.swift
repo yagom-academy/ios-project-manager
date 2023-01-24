@@ -20,6 +20,12 @@ class TableViewCell: UITableViewCell {
         addGesture()
     }
     
+    func configureCell(task: Task) {
+        titleLabel.text = task.title
+        descriptionLabel.text = task.description
+        dateLabel.text = task.date?.formattedDateToString()
+    }
+        
     private func addGesture() {
         gesture = UILongPressGestureRecognizer(target: self,
                                                action: #selector(handleLongPress))

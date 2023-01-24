@@ -67,9 +67,7 @@ class ViewController: UIViewController {
         let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, task in
             let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell",
                                                      for: indexPath) as? TableViewCell ?? TableViewCell()
-            cell.titleLabel.text = task.title
-            cell.descriptionLabel.text = task.description
-            cell.dateLabel.text = task.date?.description
+            cell.configureCell(task: task)
             cell.gestureRecognizerHelperDelegate = self
             return cell
         }
@@ -86,7 +84,7 @@ class ViewController: UIViewController {
     
     private func setupSuperViewColor() {
         view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1)
-    }
+    }    
 }
 
 extension ViewController: GestureRecognizerHelperDelegate {
