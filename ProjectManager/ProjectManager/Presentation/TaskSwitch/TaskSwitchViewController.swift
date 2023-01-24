@@ -98,7 +98,7 @@ extension TaskSwitchViewController {
     func asPopover() {
         self.modalPresentationStyle = .popover
         self.preferredContentSize = CGSize(width: 250, height: 100)
-        self.popoverPresentationController?.permittedArrowDirections = [.left]
+//        self.popoverPresentationController?.permittedArrowDirections = [.left]
     }
 
     private func layoutViews() {

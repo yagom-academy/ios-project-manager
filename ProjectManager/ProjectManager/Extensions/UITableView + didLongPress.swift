@@ -7,6 +7,9 @@
 
 import UIKit
 
-extension UITableView {
-    @objc func didLongPress() { }
+extension UITableView: UIGestureRecognizerDelegate {
+    @objc func didLongPress() {
+        print(#function)
+        
+    }
 }

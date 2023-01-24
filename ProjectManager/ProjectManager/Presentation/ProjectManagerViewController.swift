@@ -92,31 +92,32 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
 
 // MARK: Functions
 
-extension ProjectManagerViewController {
+extension ProjectManagerViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     private func addTableviewLongPressRecognizers() {
         let todoLongPressGesture = UILongPressGestureRecognizer()
         let todoLongPressAction = #selector(todoTableView.didLongPress)
         todoLongPressGesture.addTarget(todoTableView, action: todoLongPressAction)
-        todoLongPressGesture.numberOfTapsRequired = 1
         
         let doingLongPressGesture = UILongPressGestureRecognizer()
         let doingLongPressAction = #selector(doingTableView.didLongPress)
         doingLongPressGesture.addTarget(doingTableView, action: doingLongPressAction)
-        doingLongPressGesture.numberOfTapsRequired = 1
         
         let doneLongPressGesture = UILongPressGestureRecognizer()
         let doneLongPressAction =  #selector(doingTableView.didLongPress)
         doneLongPressGesture.addTarget(doneTableView, action: doneLongPressAction)
-        doneLongPressGesture.numberOfTapsRequired = 1
         
         todoTableView.addGestureRecognizer(todoLongPressGesture)
         doingTableView.addGestureRecognizer(doingLongPressGesture)
         doneTableView.addGestureRecognizer(doneLongPressGesture)
         
-        todoLongPressGesture.delegate = self
-        doingLongPressGesture.delegate = self
-        doneLongPressGesture.delegate = self
+        todoLongPressGesture.delegate = todoTableView
+        doingLongPressGesture.delegate = doingTableView
+        doneLongPressGesture.delegate = doneTableView
     }
     
     private func switcher(task: Task, on view: UIView) {
