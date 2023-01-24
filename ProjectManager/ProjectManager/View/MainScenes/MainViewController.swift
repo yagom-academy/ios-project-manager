@@ -130,7 +130,6 @@ extension MainViewController: DataManageable, EventManageable {
 extension MainViewController: GestureManageable {
     func shareLongPress(process: Process, view: UIView, index: Int) {
         viewModel.configureMovePlan(MovePlan(process: process, view: view, index: index))
-        viewModel.configureProcessList(process: process)
     }
 }
 

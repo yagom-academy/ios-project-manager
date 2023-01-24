@@ -137,10 +137,7 @@ extension MainViewModel {
     
     func configureMovePlan(_ movePlan: MovePlan) {
         self.movePlan = movePlan
-    }
-    
-    func configureProcessList(process: Process) {
-        popOverProcessList = configureButton(process: process)
+        popOverProcessList = configureButton(process: movePlan.beforeProcess)
     }
     
     private func configureButton(process: Process) -> [Process] {
