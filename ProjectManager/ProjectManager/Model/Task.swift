@@ -12,10 +12,10 @@ struct Task {
     let description: String
     let date: Date
     var status: TaskStatus
+}
 
-    enum TaskStatus {
-        case todo
-        case done
-        case doing
-    }
+enum TaskStatus: String {
+    case todo = "TODO"
+    case done = "DONE"
+    case doing = "DOING"
 }

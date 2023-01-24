@@ -13,24 +13,6 @@ class ProjectsViewController: UIViewController {
         static let stackViewSpacing: CGFloat = 10
     }
 
-    private let todoView: ProjectListView = {
-        let view = ProjectListView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    private let doingView: ProjectListView = {
-        let view = ProjectListView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    private let doneView: ProjectListView = {
-        let view = ProjectListView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fillEqually
@@ -50,13 +32,30 @@ class ProjectsViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .white
         view.addSubview(stackView)
-        stackView.addArrangedSubview(todoView)
-        stackView.addArrangedSubview(doingView)
-        stackView.addArrangedSubview(doneView)
+        configureChildViewControllers()
         configureConstraints()
-        todoView.setHeaderText(text: "TODO")
-        doingView.setHeaderText(text: "DOING")
-        doneView.setHeaderText(text: "DONE")
+    }
+
+    private func configureChildViewControllers() {
+        let todoViewController = TaskViewController(type: .todo)
+        let doingViewController = TaskViewController(type: .doing)
+        let doneViewController = TaskViewController(type: .done)
+
+        todoViewController.willMove(toParent: self)
+        doingViewController.willMove(toParent: self)
+        doneViewController.willMove(toParent: self)
+
+        stackView.addArrangedSubview(todoViewController.view)
+        stackView.addArrangedSubview(doingViewController.view)
+        stackView.addArrangedSubview(doneViewController.view)
+
+        self.addChild(todoViewController)
+        self.addChild(doingViewController)
+        self.addChild(doneViewController)
+
+        todoViewController.didMove(toParent: self)
+        doingViewController.didMove(toParent: self)
+        doneViewController.didMove(toParent: self)
     }
 
     private func configureConstraints() {
