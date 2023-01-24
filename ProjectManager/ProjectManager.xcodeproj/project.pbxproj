@@ -23,6 +23,7 @@
 		DF5CAE6E296E4C7300398676 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF5CAE6D296E4C7300398676 /* FirebaseFirestoreSwift */; };
 		DFCA283F2977C3BC00C1EBF2 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */; };
 		DFCA28422977DFBE00C1EBF2 /* TaskStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */; };
+		DFDDB6842980443100C14CE2 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6832980443100C14CE2 /* ViewModelType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
 		DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusView.swift; sourceTree = "<group>"; };
+		DFDDB6832980443100C14CE2 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				DFDDB6822980442300C14CE2 /* Common */,
 				DF4682942977994300E3BC06 /* Resources */,
 				DF4682932977992F00E3BC06 /* Application */,
 				DF468290297798D400E3BC06 /* Presentation */,
@@ -162,6 +165,14 @@
 			children = (
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		DFDDB6822980442300C14CE2 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DFDDB6832980443100C14CE2 /* ViewModelType.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +263,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				DF1550A8297957F900A7FDC7 /* TaskSwitchPopOverView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				DFDDB6842980443100C14CE2 /* ViewModelType.swift in Sources */,
 				DFCA283F2977C3BC00C1EBF2 /* TaskCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
