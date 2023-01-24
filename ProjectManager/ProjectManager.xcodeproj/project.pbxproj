@@ -9,10 +9,21 @@
 /* Begin PBXBuildFile section */
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
-		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
-		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		EB9B14012971916500D601F1 /* ProjectTodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B14002971916500D601F1 /* ProjectTodoListViewController.swift */; };
+		EB9B140329719C0000D601F1 /* ProjectTodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B140229719C0000D601F1 /* ProjectTodo.swift */; };
+		EB9B140529719C1A00D601F1 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B140429719C1A00D601F1 /* ProjectState.swift */; };
+		EB9B14082971AD0600D601F1 /* ProjectColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B14072971AD0600D601F1 /* ProjectColor.swift */; };
+		EB9B140A2971AEC800D601F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B14092971AEC800D601F1 /* Constants.swift */; };
+		EB9B140C2971B8AC00D601F1 /* ProjectTodoListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B140B2971B8AC00D601F1 /* ProjectTodoListContentView.swift */; };
+		EB9B140E2971C2B000D601F1 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B140D2971C2B000D601F1 /* Date+.swift */; };
+		EB9B1410297237DC00D601F1 /* ProjectTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B140F297237DC00D601F1 /* ProjectTodoViewController.swift */; };
+		EB9B14122972386C00D601F1 /* TitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B14112972386C00D601F1 /* TitleTextField.swift */; };
+		EB9B1414297239BE00D601F1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B1413297239BE00D601F1 /* UIView+.swift */; };
+		EB9B141629727A6B00D601F1 /* ProjectTodoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B141529727A6B00D601F1 /* ProjectTodoHeaderView.swift */; };
+		EB9B141829727AD100D601F1 /* ItemCountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9B141729727AD100D601F1 /* ItemCountLabel.swift */; };
+		EBBB2E6E2975749400FDF6B8 /* ProjectTodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBB2E6D2975749400FDF6B8 /* ProjectTodoListViewModel.swift */; };
+		EBBB2E70297589E200FDF6B8 /* ProjectTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBB2E6F297589E200FDF6B8 /* ProjectTodoViewModel.swift */; };
 		EBDA9B6E296D376A00568E3B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = EBDA9B6D296D376A00568E3B /* .swiftlint.yml */; };
 		EBDA9B71296D3DF600568E3B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EBDA9B70296D3DF600568E3B /* FirebaseFirestore */; };
 		EBDA9B73296D3DF600568E3B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBDA9B72296D3DF600568E3B /* FirebaseFirestoreSwift */; };
@@ -22,11 +33,22 @@
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C7431F0C25F51E1D0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB9B14002971916500D601F1 /* ProjectTodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoListViewController.swift; sourceTree = "<group>"; };
+		EB9B140229719C0000D601F1 /* ProjectTodo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodo.swift; sourceTree = "<group>"; };
+		EB9B140429719C1A00D601F1 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
+		EB9B14072971AD0600D601F1 /* ProjectColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectColor.swift; sourceTree = "<group>"; };
+		EB9B14092971AEC800D601F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		EB9B140B2971B8AC00D601F1 /* ProjectTodoListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoListContentView.swift; sourceTree = "<group>"; };
+		EB9B140D2971C2B000D601F1 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		EB9B140F297237DC00D601F1 /* ProjectTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoViewController.swift; sourceTree = "<group>"; };
+		EB9B14112972386C00D601F1 /* TitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextField.swift; sourceTree = "<group>"; };
+		EB9B1413297239BE00D601F1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		EB9B141529727A6B00D601F1 /* ProjectTodoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoHeaderView.swift; sourceTree = "<group>"; };
+		EB9B141729727AD100D601F1 /* ItemCountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCountLabel.swift; sourceTree = "<group>"; };
+		EBBB2E6D2975749400FDF6B8 /* ProjectTodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoListViewModel.swift; sourceTree = "<group>"; };
+		EBBB2E6F297589E200FDF6B8 /* ProjectTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoViewModel.swift; sourceTree = "<group>"; };
 		EBDA9B6D296D376A00568E3B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,14 +86,81 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				EB9B14062971AAC100D601F1 /* Common */,
+				EB9B13FF2971913600D601F1 /* Extensions */,
+				EB9B13FC297190F700D601F1 /* Models */,
+				EBBB2E6C2975718700FDF6B8 /* ViewModels */,
+				EB9B13FE2971910F00D601F1 /* Controllers */,
+				EB9B13FD2971910600D601F1 /* Views */,
+				EB9B13FB297190D200D601F1 /* SupportFiles */,
 				EBDA9B6D296D376A00568E3B /* .swiftlint.yml */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		EB9B13FB297190D200D601F1 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		EB9B13FC297190F700D601F1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EB9B140229719C0000D601F1 /* ProjectTodo.swift */,
+				EB9B140429719C1A00D601F1 /* ProjectState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EB9B13FD2971910600D601F1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EB9B140B2971B8AC00D601F1 /* ProjectTodoListContentView.swift */,
+				EB9B14112972386C00D601F1 /* TitleTextField.swift */,
+				EB9B141529727A6B00D601F1 /* ProjectTodoHeaderView.swift */,
+				EB9B141729727AD100D601F1 /* ItemCountLabel.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EB9B13FE2971910F00D601F1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EB9B14002971916500D601F1 /* ProjectTodoListViewController.swift */,
+				EB9B140F297237DC00D601F1 /* ProjectTodoViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		EB9B13FF2971913600D601F1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EB9B140D2971C2B000D601F1 /* Date+.swift */,
+				EB9B1413297239BE00D601F1 /* UIView+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EB9B14062971AAC100D601F1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				EB9B14092971AEC800D601F1 /* Constants.swift */,
+				EB9B14072971AD0600D601F1 /* ProjectColor.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		EBBB2E6C2975718700FDF6B8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EBBB2E6D2975749400FDF6B8 /* ProjectTodoListViewModel.swift */,
+				EBBB2E6F297589E200FDF6B8 /* ProjectTodoViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,9 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBDA9B6E296D376A00568E3B /* .swiftlint.yml in Resources */,
-				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
-				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,32 +262,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				EB9B1414297239BE00D601F1 /* UIView+.swift in Sources */,
+				EB9B141629727A6B00D601F1 /* ProjectTodoHeaderView.swift in Sources */,
+				EB9B140C2971B8AC00D601F1 /* ProjectTodoListContentView.swift in Sources */,
+				EB9B1410297237DC00D601F1 /* ProjectTodoViewController.swift in Sources */,
+				EBBB2E70297589E200FDF6B8 /* ProjectTodoViewModel.swift in Sources */,
+				EBBB2E6E2975749400FDF6B8 /* ProjectTodoListViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				EB9B14122972386C00D601F1 /* TitleTextField.swift in Sources */,
+				EB9B140529719C1A00D601F1 /* ProjectState.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				EB9B14012971916500D601F1 /* ProjectTodoListViewController.swift in Sources */,
+				EB9B140A2971AEC800D601F1 /* Constants.swift in Sources */,
+				EB9B140329719C0000D601F1 /* ProjectTodo.swift in Sources */,
+				EB9B141829727AD100D601F1 /* ItemCountLabel.swift in Sources */,
+				EB9B14082971AD0600D601F1 /* ProjectColor.swift in Sources */,
+				EB9B140E2971C2B000D601F1 /* Date+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		C7431F0B25F51E1D0094C4CF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C7431F0C25F51E1D0094C4CF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C7431F1125F51E1E0094C4CF /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C7431F1425F51E1E0094C4CF /* Debug */ = {
@@ -325,7 +406,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/SupportFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -344,7 +425,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/SupportFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
