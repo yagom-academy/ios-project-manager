@@ -10,7 +10,7 @@ import Foundation
 final class MainViewModel {
     
     private let localDataManager: some ProjectCRUDable = CoreDataManager()
-    
+    private let remoteDataManager: some ProjectRemoteCRUDable = FireBaseStoreManager()
     private let stateTitles: [String] = ProjectState.allCases.map { state in
         return state.title
     }
@@ -75,8 +75,10 @@ final class MainViewModel {
     func delete(_ project: Project, of state: ProjectState) {
         projectsGroup[state.index].enumerated().forEach { index, data in
             guard data.uuid == project.uuid else { return }
+            
             projectsGroup[state.index].remove(at: index)
             localDataManager.delete(ProjectViewModel(project: project, state: state))
+            remoteDataManager.delete(ProjectViewModel(project: project, state: state))
         }
     }
     
@@ -108,6 +110,7 @@ final class MainViewModel {
     private func add(_ project: Project, in state: ProjectState) {
         projectsGroup[state.index].append(project)
         localDataManager.create(ProjectViewModel(project: project, state: state))
+        remoteDataManager.create(ProjectViewModel(project: project, state: state))
     }
     
     private func edit(_ project: Project, of state: ProjectState) {
@@ -115,6 +118,7 @@ final class MainViewModel {
             guard savedProject.uuid == project.uuid else { return }
             projectsGroup[state.index][index] = project
             localDataManager.update(ProjectViewModel(project: project, state: state))
+            remoteDataManager.update(ProjectViewModel(project: project, state: state))
         }
     }
 }

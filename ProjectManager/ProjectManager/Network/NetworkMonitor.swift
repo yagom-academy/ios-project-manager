@@ -1,5 +1,5 @@
 //
-//  NetworkChecker.swift
+//  NetworkMonitor.swift
 //  ProjectManager
 //
 //  Created by 써니쿠키 on 2023/01/24.
@@ -14,7 +14,7 @@ protocol NetworkCheckerDelegate: AnyObject {
     func informUserOfNoNetwork()
 }
 
-final class NetworkChecker {
+final class NetworkMonitor {
     
     var delegate: NetworkCheckerDelegate?
     private let monitor = NWPathMonitor()

@@ -43,8 +43,8 @@ final class FireBaseStoreManager {
     }
 }
 
-extension FireBaseStoreManager: ProjectCRUDable {
-    
+extension FireBaseStoreManager: ProjectRemoteCRUDable {
+        
     func create(_ data: ProjectViewModel) {
         let projectUuid = data.project.uuid
         
@@ -94,6 +94,12 @@ extension FireBaseStoreManager: ProjectCRUDable {
         let allProjectViewModels = read()
         allProjectViewModels.forEach { projectViewModel in
             delete(projectViewModel)
+        }
+    }
+    
+    func updateAfterNetworkConnection(projectViewModels: [ProjectViewModel]) {
+        projectViewModels.forEach { projectViewModel in
+            update(projectViewModel)
         }
     }
 }

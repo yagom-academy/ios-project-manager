@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - CRUDable Base Protocol
 protocol CRUDable {
     
     associatedtype DataType
@@ -22,6 +23,13 @@ protocol CRUDable {
     func deleteAll()
 }
 
+// MARK: - CRUDable 타입지정: ProjectViewModel
 protocol ProjectCRUDable: CRUDable where DataType == ProjectViewModel {
 
+}
+
+// MARK: - RemoteDataBase용 ProjectCRUDable
+protocol ProjectRemoteCRUDable: ProjectCRUDable {
+    
+    func updateAfterNetworkConnection(projectViewModels: [ProjectViewModel])
 }
