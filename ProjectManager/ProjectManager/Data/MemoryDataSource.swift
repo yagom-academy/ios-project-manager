@@ -14,7 +14,6 @@ final class MemoryDataSource: DataSourceType {
     private var items: [Task] = [] {
         didSet {
             subject.onNext(items)
-            print(items)
         }
     }
 

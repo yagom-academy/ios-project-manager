@@ -54,7 +54,6 @@ extension AddTaskViewController {
         guard let viewmodel = self.viewmodel,
               let button = navigationItem.rightBarButtonItem else { return }
         let done = button.rx.tap.asObservable()
-            .debug()
         let title = titleTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
         let description = descriptionTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
         let date = datePickerView.rx.date.asObservable()

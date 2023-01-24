@@ -13,7 +13,6 @@ class TaskStatusView: UIView {
     var taskNameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "HEllo Im title"
         return label
     }()
     var taskCountLabel: UILabel = {

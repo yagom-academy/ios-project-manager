@@ -66,7 +66,6 @@ extension EditTaskViewController {
               let editButton = navigationItem.leftBarButtonItem else { return }
         let edit = editButton.rx.tap.asObservable()
         let done = doneButton.rx.tap.asObservable()
-            .debug()
         let title = titleTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
         let description = descriptionTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
         let date = datePickerView.rx.date.asObservable()

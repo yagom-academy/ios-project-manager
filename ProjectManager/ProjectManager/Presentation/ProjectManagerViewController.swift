@@ -2,39 +2,47 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+fileprivate enum Common {
+    static let todo = "TODO"
+    static let doing = "DOING"
+    static let done = "DONE"
+    static let cellReuseIdentifier = "task"
+    static let navigationItemTitle = "Project Manager"
+}
+
 final class ProjectManagerViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: View
     
     var todoTableView: UITableView = {
         let table = UITableView()
-        table.register(TaskCell.self, forCellReuseIdentifier: "task")
+        table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
         return table
     }()
     var doingTableView: UITableView = {
         let table = UITableView()
-        table.register(TaskCell.self, forCellReuseIdentifier: "task")
+        table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
         return table
     }()
     var doneTableView: UITableView = {
         let table = UITableView()
-        table.register(TaskCell.self, forCellReuseIdentifier: "task")
+        table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
         return table
     }()
     
     var todoStatusView: TaskStatusView = {
         let view = TaskStatusView()
-        view.taskNameLabel.text = "TODO"
+        view.taskNameLabel.text = Common.todo
         return view
     }()
     var doingStatusView: TaskStatusView = {
         let view = TaskStatusView()
-        view.taskNameLabel.text = "Doing"
+        view.taskNameLabel.text = Common.doing
         return view
     }()
     var doneStatusView: TaskStatusView = {
         let view = TaskStatusView()
-        view.taskNameLabel.text = "DONE"
+        view.taskNameLabel.text = Common.done
         return view
     }()
     
@@ -120,7 +128,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
         doneLongPressGesture.delegate = doneTableView
     }
     
-    private func switcher(task: Task, on view: UIView) {
+    private func presentTaskTagSwitcher(task: Task, on view: UIView) {
         let switcher = TaskSwitchViewController()
         switcher.asPopover()
         switcher.sourceView(view: view)
@@ -138,7 +146,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
             let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
                                                  action: #selector(tapNavigationAddButton))
             navigationItem.rightBarButtonItem = rightAddButton
-            navigationItem.title = "Project Manager"
+            navigationItem.title = Common.navigationItemTitle
         }
     }
     
@@ -171,7 +179,11 @@ extension ProjectManagerViewController: UITableViewDelegate {
     }
 }
 
+// MARK: Bindings
+
 extension ProjectManagerViewController {
+    
+    // MARK: Long Press Gesture
     
     private func bindLongPressGesturesToTableViews() {
         todoTableView.rx
@@ -180,7 +192,7 @@ extension ProjectManagerViewController {
             .subscribe(onNext: { index in
                 if let cell = self.todoTableView.cellForRow(at: index) as? TaskCell,
                    let viewModel = cell.viewModel {
-                    self.switcher(task: viewModel.task, on: cell)
+                    self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
                 }
             })
             .disposed(by: disposeBag)
@@ -191,7 +203,7 @@ extension ProjectManagerViewController {
             .subscribe(onNext: { index in
                 if let cell = self.doingTableView.cellForRow(at: index) as? TaskCell,
                    let viewModel = cell.viewModel {
-                    self.switcher(task: viewModel.task, on: cell)
+                    self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
                 }
             })
             .disposed(by: disposeBag)
@@ -202,11 +214,13 @@ extension ProjectManagerViewController {
             .subscribe(onNext: { index in
                 if let cell = self.doneTableView.cellForRow(at: index) as? TaskCell,
                    let viewModel = cell.viewModel {
-                    self.switcher(task: viewModel.task, on: cell)
+                    self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
                 }
             })
             .disposed(by: disposeBag)
     }
+    
+    // MARK: Cell Action
     
     private func bindSelectionActionToCell() {
         self.todoTableView.rx
@@ -265,7 +279,9 @@ extension ProjectManagerViewController {
                 
                 output.todoItems
                     .bind(to: self.todoTableView.rx.items) { (tableview, index, item) in
-                        guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
+                        guard let cell = tableview.dequeueReusableCell(withIdentifier:
+                                                                        Common.cellReuseIdentifier)
+                        as? TaskCell
                         else { return TaskCell() }
                         cell.viewModel = item
                         cell.setUp()
@@ -275,7 +291,9 @@ extension ProjectManagerViewController {
 
                 output.doingItems
                     .bind(to: self.doingTableView.rx.items) { (tableview, index, item) in
-                        guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
+                        guard let cell = tableview.dequeueReusableCell(withIdentifier:
+                                                                        Common.cellReuseIdentifier)
+                        as? TaskCell
                         else { return TaskCell() }
                         cell.viewModel = item
                         cell.setUp()
@@ -285,7 +303,9 @@ extension ProjectManagerViewController {
 
                 output.doneItems
                     .bind(to: self.doneTableView.rx.items) { (tableview, index, item) in
-                        guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
+                        guard let cell = tableview.dequeueReusableCell(withIdentifier:
+                                                                        Common.cellReuseIdentifier)
+                        as? TaskCell
                         else { return TaskCell() }
                         cell.viewModel = item
                         cell.setUp()
@@ -293,7 +313,6 @@ extension ProjectManagerViewController {
                     }
                     .disposed(by: disposeBag)
     }
-    
 }
 
 // MARK: Layout
