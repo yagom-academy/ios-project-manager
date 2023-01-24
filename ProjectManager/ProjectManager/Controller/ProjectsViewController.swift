@@ -58,7 +58,7 @@ extension ProjectsViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = projectsManageView.dequeueReusableToDoCellWith(identifier: TaskCell.cellIdentifier) as? TaskCell else {
                 return UITableViewCell()
             }
-            cell.configureData(task: Task(title: "제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목", description: "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용", date: Date()))
+            cell.configureData(task: Task(title: "제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목", description: "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용", date: Date(), status: .doing))
             return cell
         case projectsManageView.fetchDoingTableView():
             guard let cell = projectsManageView.dequeueReusableDoingCellWith(identifier: TaskCell.cellIdentifier) as? TaskCell else {
