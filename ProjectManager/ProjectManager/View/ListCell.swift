@@ -68,7 +68,6 @@ final class ListCell: UITableViewCell {
             self?.titleLabel.text = work.title
             self?.bodyLabel.text = work.body
             self?.dateLabel.text = work.endDateToString
-            self?.dateLabel.textColor = work.endDate < Date() ? .red : .black
         }
         
         viewModel?.bindTextColor { [weak self] in
