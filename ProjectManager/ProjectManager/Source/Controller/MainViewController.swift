@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
     
     private let projectManagerView = MainProjectManagerView()
     private let section: [String] = [
-        NameSpace.todoAllUpper,
+        MainNameSpace.todoAllUpper,
         NameSpace.doingAllUpper,
         NameSpace.doneAllUpper
     ]
@@ -122,7 +122,7 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch tableView {
         case projectManagerView.leftTableView:
-            return NameSpace.todoAllUpper + "  " + String(todoList.count)
+            return MainNameSpace.todoAllUpper + "  " + String(todoList.count)
         case projectManagerView.centerTableView:
             return NameSpace.doingAllUpper + "  " + String(doingList.count)
         case projectManagerView.rightTableView:
@@ -273,4 +273,14 @@ extension MainViewController: UIGestureRecognizerDelegate {
             }
         }
     }
+}
+
+// MARK: - NameSpace
+
+private enum NameSpace {
+    static let doingAllUpper = "DOING"
+    static let doneAllUpper = "DONE"
+    
+    static let moveToDoing = "Move to DOING"
+    static let moveToDone = "Move to DONE"
 }

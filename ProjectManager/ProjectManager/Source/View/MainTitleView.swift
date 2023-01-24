@@ -39,3 +39,9 @@ class MainTitleView: UIView {
         ])
     }
 }
+
+// MARK: - NameSpace
+
+private enum NameSpace {
+    static let projectManagerTitle = "Project Manager"
+}

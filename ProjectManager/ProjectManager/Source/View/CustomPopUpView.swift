@@ -2,7 +2,7 @@
 //  CustomPopUpView.swift
 //  ProjectManager
 //
-//  Created by yonggeun Kim on 2023/01/15.
+//  Created by Dragon on 2023/01/15.
 //
 
 import UIKit
@@ -58,7 +58,7 @@ class CustomPopUpView: UIView {
     }()
     private let stateLabel: UILabel = {
         let label = UILabel()
-        label.text = NameSpace.todoAllUpper
+        label.text = MainNameSpace.todoAllUpper
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .headline, compatibleWith: .none)
         return label
@@ -90,7 +90,7 @@ class CustomPopUpView: UIView {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: NameSpace.defaultDatePickerLocale)
+        datePicker.locale = Locale(identifier: MainNameSpace.defaultDatePickerLocale)
         datePicker.timeZone = .autoupdatingCurrent
         return datePicker
     }()
@@ -325,4 +325,20 @@ extension CustomPopUpView: UITextViewDelegate {
             textView.deleteBackward()
         }
     }
+}
+
+// MARK: - NameSpace
+
+private enum NameSpace {
+    static let edit = "Edit"
+    static let cancel = "Cancel"
+    static let done = "Done"
+    
+    static let defaultTitleLabel = "Title"
+    static let defaultBodyLabel = "내용을 입력해주세요. (1000자 제한)"
+    static let emptyTitleLabel = "[제목없음]"
+    static let emptyBodyLabel = "[내용없음]"
+    
+    static let titleTextLimitCount = 45
+    static let bodyTextLimitCount = 1000
 }
