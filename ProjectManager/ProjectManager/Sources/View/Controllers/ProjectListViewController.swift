@@ -163,6 +163,7 @@ extension ProjectListViewController: UITableViewDelegate {
 extension ProjectListViewController {
     private func configureView() {
         tableView.backgroundColor = .systemGray6
+        tableView.separatorStyle = .none
         
         [header, tableView].forEach {
             stackView.addArrangedSubview($0)
