@@ -108,11 +108,11 @@ final class MainViewModel {
     func deleteWork(data: Work) {
         switch data.category {
         case .todo:
-            todoList = todoList.filter { $0.id != data.id }
+            todoList = todoList.filter { $0 != data }
         case .doing:
-            doingList = doingList.filter { $0.id != data.id }
+            doingList = doingList.filter { $0 != data }
         case .done:
-            doneList = doneList.filter { $0.id != data.id }
+            doneList = doneList.filter { $0 != data }
         }
     }
 }
