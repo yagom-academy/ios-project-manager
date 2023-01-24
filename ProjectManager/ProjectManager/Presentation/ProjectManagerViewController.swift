@@ -143,7 +143,59 @@ extension ProjectManagerViewController: UITableViewDelegate {
     
     private func bindViewModel() {
         guard let viewModel = self.viewModel else { return }
-        // TODO: bind viewmodel
+        
+        let updateTrigger = self.rx
+                    .methodInvoked(#selector(UIViewController.viewWillAppear(_:)))
+                    .map { _ in }
+
+                let input = ProjectManagerViewModel.Input(update: updateTrigger)
+                let output = viewModel.transform(input: input)
+
+                // MARK: Status View
+                
+                output.todoItems
+                    .map { String($0.count) }
+                    .bind(to: self.todoStatusView.taskCountLabel.rx.text)
+                    .disposed(by: disposeBag)
+
+                output.doingItems
+                    .map { String($0.count) }
+                    .bind(to: self.doingStatusView.taskCountLabel.rx.text)
+                    .disposed(by: disposeBag)
+
+                output.doneItems
+                    .map { String($0.count) }
+                    .bind(to: self.doneStatusView.taskCountLabel.rx.text)
+                    .disposed(by: disposeBag)
+
+                // MARK: Table View Cell
+                
+                output.todoItems
+                    .bind(to: self.todoTableView.rx.items) { (tableview, index, item) in
+                        guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
+                        else { return TaskCell() }
+                        // TODO: inject cell viewmodel
+                        return cell
+                    }
+                    .disposed(by: disposeBag)
+
+                output.doingItems
+                    .bind(to: self.doingTableView.rx.items) { (tableview, index, item) in
+                        guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
+                        else { return TaskCell() }
+                        // TODO: inject cell viewmodel
+                        return cell
+                    }
+                    .disposed(by: disposeBag)
+
+                output.doneItems
+                    .bind(to: self.doneTableView.rx.items) { (tableview, index, item) in
+                        guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
+                        else { return TaskCell() }
+                        // TODO: inject cell viewmodel
+                        return cell
+                    }
+                    .disposed(by: disposeBag)
     }
     
 }
