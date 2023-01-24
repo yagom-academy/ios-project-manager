@@ -24,6 +24,8 @@
 		DFCA283F2977C3BC00C1EBF2 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */; };
 		DFCA28422977DFBE00C1EBF2 /* TaskStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */; };
 		DFDDB6842980443100C14CE2 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6832980443100C14CE2 /* ViewModelType.swift */; };
+		DFDDB6862980455700C14CE2 /* MemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6852980455700C14CE2 /* MemoryDataSource.swift */; };
+		DFDDB6882980457A00C14CE2 /* DataSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6872980457A00C14CE2 /* DataSourceType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusView.swift; sourceTree = "<group>"; };
 		DFDDB6832980443100C14CE2 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		DFDDB6852980455700C14CE2 /* MemoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataSource.swift; sourceTree = "<group>"; };
+		DFDDB6872980457A00C14CE2 /* DataSourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,8 @@
 		DFDDB67F298042F300C14CE2 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DFDDB6872980457A00C14CE2 /* DataSourceType.swift */,
+				DFDDB6852980455700C14CE2 /* MemoryDataSource.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -263,7 +269,9 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				DF1550A8297957F900A7FDC7 /* TaskSwitchPopOverView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				DFDDB6882980457A00C14CE2 /* DataSourceType.swift in Sources */,
 				DFDDB6842980443100C14CE2 /* ViewModelType.swift in Sources */,
+				DFDDB6862980455700C14CE2 /* MemoryDataSource.swift in Sources */,
 				DFCA283F2977C3BC00C1EBF2 /* TaskCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

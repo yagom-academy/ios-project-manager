@@ -45,7 +45,7 @@ final class TaskCell: UITableViewCell {
     func setUp(with data: Task) {
         taskTitleLabel.text = data.title
         taskDescriptionLabel.text = data.description
-        taskExpirationLabel.text = data.expireDate?.description
+        taskExpirationLabel.text = data.expireDate.description
     }
     
     private func layout() {

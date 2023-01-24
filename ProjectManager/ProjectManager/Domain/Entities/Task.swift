@@ -7,11 +7,16 @@
 
 import Foundation
 
-struct Task {
-    var title: String?
-    var description: String?
-    var expireDate: Date?
-    var tag: Status?
+struct Task: Equatable {
+    var title: String
+    var description: String
+    var expireDate: Date
+    var tag: Status
+    var uuid: UUID
+
+    public static func == (lhs: Task, rhs: Task) -> Bool {
+        return lhs.uuid == rhs.uuid
+    }
 }
 
 enum Status {

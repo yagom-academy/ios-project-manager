@@ -69,7 +69,8 @@ extension AddTaskViewController {
         let newTask = Task(title: titleTextView.text,
                            description: descriptionTextView.text,
                            expireDate: datePickerView.date,
-                           tag: .todo)
+                           tag: .todo,
+                           uuid: UUID())
         subject.onNext(newTask)
         self.dismiss(animated: true)
     }
