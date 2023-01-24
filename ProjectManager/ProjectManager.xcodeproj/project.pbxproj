@@ -66,11 +66,11 @@
 		B4200E3E29717573000E2B8B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B43D8D3D29765F8A00986169 /* Protocol */,
+				B4200E40297175A0000E2B8B /* App */,
 				B4200E42297178EE000E2B8B /* Model */,
-				B43D8D3629757EA500986169 /* View */,
-				B4200E41297175AD000E2B8B /* ViewController */,
-				B481F9F92977DAC400597E8C /* ViewModel */,
+				B4A5F7CE297FA5D900E24A40 /* Views */,
+				B43D8D3D29765F8A00986169 /* Protocol */,
+				B481F9F92977DAC400597E8C /* Common */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -78,7 +78,6 @@
 		B4200E3F2971757C000E2B8B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				B4200E40297175A0000E2B8B /* App */,
 				B4200E4529717B60000E2B8B /* Enum */,
 				B481FA02297979E600597E8C /* Extension */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -94,17 +93,6 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		B4200E41297175AD000E2B8B /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				B43D8D3729757EF400986169 /* ToDoListViewController.swift */,
-				B481F9F52977986D00597E8C /* AddToDoViewController.swift */,
-				B481FA0529797CA400597E8C /* EditToDoViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		B4200E42297178EE000E2B8B /* Model */ = {
@@ -123,17 +111,6 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
-		B43D8D3629757EA500986169 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B481FA002979716900597E8C /* ToDoDetailView.swift */,
-				B43D8D3B29765F3E00986169 /* ToDoCell.swift */,
-				B43D8D3929757F9800986169 /* ToDoHeaderView.swift */,
-				B43D8D402976E9CD00986169 /* ItemCountLabel.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		B43D8D3D29765F8A00986169 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,13 +119,12 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		B481F9F92977DAC400597E8C /* ViewModel */ = {
+		B481F9F92977DAC400597E8C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */,
 				B481F9FE29782AD200597E8C /* Observable.swift */,
 			);
-			path = ViewModel;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		B481FA02297979E600597E8C /* Extension */ = {
@@ -157,6 +133,54 @@
 				B481FA0329797A0400597E8C /* DateFormatter+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B4A5F7CA297FA02200E24A40 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				B481FA002979716900597E8C /* ToDoDetailView.swift */,
+				B481F9F52977986D00597E8C /* AddToDoViewController.swift */,
+				B481FA0529797CA400597E8C /* EditToDoViewController.swift */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		B4A5F7CB297FA05900E24A40 /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				B43D8D3729757EF400986169 /* ToDoListViewController.swift */,
+				B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */,
+				B4A5F7CD297FA11400E24A40 /* Custom */,
+			);
+			path = ListView;
+			sourceTree = "<group>";
+		};
+		B4A5F7CC297FA06C00E24A40 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		B4A5F7CD297FA11400E24A40 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				B43D8D3929757F9800986169 /* ToDoHeaderView.swift */,
+				B43D8D402976E9CD00986169 /* ItemCountLabel.swift */,
+				B43D8D3B29765F3E00986169 /* ToDoCell.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		B4A5F7CE297FA5D900E24A40 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B4A5F7CC297FA06C00E24A40 /* MainView */,
+				B4A5F7CB297FA05900E24A40 /* ListView */,
+				B4A5F7CA297FA02200E24A40 /* DetailView */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
