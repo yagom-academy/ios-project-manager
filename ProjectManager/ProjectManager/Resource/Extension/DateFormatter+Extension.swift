@@ -4,9 +4,9 @@
 import Foundation
 
 extension DateFormatter {
-    static func convert(date: Date) -> String {
+    static func convertToString(to date: Date, style: DateFormatter.Style) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
+        dateFormatter.dateStyle = style
         
         return dateFormatter.string(from: date)
     }

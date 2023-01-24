@@ -73,7 +73,7 @@ final class ToDoCell: UITableViewCell, ReusableView {
     func configure(title: String, body: String, deadline: Date) {
         titleLabel.text = title
         bodyLabel.text = body
-        deadlineLabel.text = DateFormatter.convert(date: deadline)
+        deadlineLabel.text = DateFormatter.convertToString(to: deadline, style: .long)
     }
     
     func changeDeadlineColor(_ color: UIColor) {
