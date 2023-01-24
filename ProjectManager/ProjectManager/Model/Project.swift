@@ -7,7 +7,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct Project: Decodable, Identifiable, Equatable {
+struct Project: Codable, Identifiable, Equatable {
   var id: UUID = UUID()
   let title: String
   let date: Int
@@ -15,7 +15,7 @@ struct Project: Decodable, Identifiable, Equatable {
   var state: ProjectState = .todo
 }
 
-enum ProjectState: Int, CaseIterable, Decodable {
+enum ProjectState: Int, CaseIterable, Codable {
   case todo = 1
   case doing = 2
   case done = 3
