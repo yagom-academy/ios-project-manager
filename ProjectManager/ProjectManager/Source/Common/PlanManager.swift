@@ -9,15 +9,7 @@ import Foundation
 
 final class PlanManager: PlanManageable {
     func create(title: String, description: String, deadline: Date) -> Plan? {
-        var plan: Plan?
-
-        plan = Plan(status: .todo,
-                    title: title,
-                    description: description,
-                    deadline: deadline,
-                    id: UUID())
-
-        return plan
+return .init(status: .todo, title: title, description: description, deadline: deadline, id: .init())
     }
 
     func insert(planList: inout [Plan], plan: Plan) {
