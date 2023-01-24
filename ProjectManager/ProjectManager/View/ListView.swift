@@ -10,6 +10,10 @@ import UIKit
 final class ListView: UIView {
     let viewModel: ListViewModel
     
+    weak var mainViewDelegate: MainViewDelegate?
+    weak var cellDelgate: CellDelegate?
+    weak var workFormDelegate: WorkFormDelegate?
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,6 +72,7 @@ final class ListView: UIView {
     init(viewModel: ListViewModel) {
         self.viewModel = viewModel
         super.init(frame: CGRect())
+        configureTableView()
         configureBind()
         configureLayout()
         configureData()
@@ -78,18 +83,26 @@ final class ListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func didChangeWorkList(works: [Work]) {
+        viewModel.workList = works
+    }
+    
     private func configureData() {
         categoryLabel.text = viewModel.category.description
         viewModel.load()
     }
     
-    func didChangeCountValue(count: Int) {
-        viewModel.categoryCount = count
+    private func configureTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     private func configureBind() {
         viewModel.bindCount { [weak self] in
             self?.categoryCountLabel.text = $0.description
+        }
+        
+        viewModel.bindWorkList { [weak self] _ in
             self?.tableView.reloadData()
         }
     }
@@ -111,5 +124,38 @@ final class ListView: UIView {
             
             lineView.heightAnchor.constraint(equalToConstant: 1)
         ])
+    }
+}
+
+extension ListView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.workList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath)
+                as? ListCell else { return ListCell() }
+
+        cell.delegate = cellDelgate
+        cell.configureData(viewModel: ListCellViewModel(work: viewModel.workList[indexPath.row]))
+    
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        mainViewDelegate?.deleteWork(work: viewModel.workList[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let workFormViewController = WorkFormViewController()
+        let navigationViewController = UINavigationController(rootViewController: workFormViewController)
+        
+        workFormViewController.viewModel = WorkFormViewModel(work: viewModel.workList[indexPath.row])
+                
+        workFormViewController.delegate = workFormDelegate
+        navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
+        
+        mainViewDelegate?.presentModal(navigationViewController, animated: true)
     }
 }

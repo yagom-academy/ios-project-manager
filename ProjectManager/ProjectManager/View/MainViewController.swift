@@ -6,6 +6,11 @@
 
 import UIKit
 
+protocol MainViewDelegate: AnyObject {
+    func deleteWork(work: Work)
+    func presentModal(_ viewController: UIViewController, animated: Bool)
+}
+
 final class MainViewController: UIViewController {
     private let viewModel = MainViewModel()
     
@@ -28,7 +33,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureLayout()
-        configureTableView()
+        configureListView()
         configureBind()
         configureData()
     }
@@ -48,24 +53,25 @@ final class MainViewController: UIViewController {
         ])
     }
     
-    private func configureTableView() {
+    private func configureListView() {
         [todoListView, doingListView, doneListView].forEach {
-            $0.tableView.delegate = self
-            $0.tableView.dataSource = self
+            $0.cellDelgate = self
+            $0.workFormDelegate = self
+            $0.mainViewDelegate = self
         }
     }
     
     private func configureBind() {
         viewModel.bindTodoList { [weak self] in
-            self?.todoListView.didChangeCountValue(count: $0.count)
+            self?.todoListView.didChangeWorkList(works: $0)
         }
         
         viewModel.bindDoingList { [weak self] in
-            self?.doingListView.didChangeCountValue(count: $0.count)
+            self?.doingListView.didChangeWorkList(works: $0)
         }
         
         viewModel.bindDoneList { [weak self] in
-            self?.doneListView.didChangeCountValue(count: $0.count)
+            self?.doneListView.didChangeWorkList(works: $0)
         }
     }
     
@@ -91,80 +97,15 @@ final class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case doneListView.tableView:
-            return viewModel.doneList.count
-        case doingListView.tableView:
-            return viewModel.doingList.count
-        case todoListView.tableView:
-            return viewModel.todoList.count
-        default:
-            return 0
-        }
+extension MainViewController: WorkFormDelegate, CellDelegate, MainViewDelegate {
+    func deleteWork(work: Work) {
+        viewModel.deleteWork(data: work)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath)
-                as? ListCell else { return ListCell() }
-        
-        cell.delegate = self
-        
-        switch tableView {
-        case doneListView.tableView:
-            cell.configureData(viewModel: ListCellViewModel(work: viewModel.doneList[indexPath.row]))
-        case doingListView.tableView:
-            cell.configureData(viewModel: ListCellViewModel(work: viewModel.doingList[indexPath.row]))
-        case todoListView.tableView:
-            cell.configureData(viewModel: ListCellViewModel(work: viewModel.todoList[indexPath.row]))
-        default:
-            break
-        }
-        
-        return cell
+    func presentModal(_ viewController: UIViewController, animated: Bool) {
+        present(viewController, animated: animated)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
-                   forRowAt indexPath: IndexPath) {
-        switch tableView {
-        case doneListView.tableView:
-            viewModel.deleteWork(data: viewModel.doneList[indexPath.row])
-        case doingListView.tableView:
-            viewModel.deleteWork(data: viewModel.doingList[indexPath.row])
-        case todoListView.tableView:
-            viewModel.deleteWork(data: viewModel.todoList[indexPath.row])
-        default:
-            break
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let workFormViewController = WorkFormViewController()
-        let navigationViewController = UINavigationController(rootViewController: workFormViewController)
-        
-        switch tableView {
-        case doneListView.tableView:
-            workFormViewController.viewModel = WorkFormViewModel(work: viewModel.doneList[indexPath.row],
-                                                                 isEdit: false)
-        case doingListView.tableView:
-            workFormViewController.viewModel = WorkFormViewModel(work: viewModel.doingList[indexPath.row],
-                                                                 isEdit: false)
-        case todoListView.tableView:
-            workFormViewController.viewModel = WorkFormViewModel(work: viewModel.todoList[indexPath.row],
-                                                                 isEdit: false)
-        default:
-            break
-        }
-        
-        workFormViewController.delegate = self
-        navigationViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
-        
-        present(navigationViewController, animated: true)
-    }
-}
-
-extension MainViewController: WorkFormDelegate, CellDelegate {
     func showPopover(soruceView: UIView?, work: Work?) {
         guard let work else { return }
         
