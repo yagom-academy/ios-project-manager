@@ -6,15 +6,20 @@
 
 import SwiftUI
 
-struct TitleTextModifier: ViewModifier {
+struct TextFontModifier: ViewModifier {
+  var userFont: Font
+  
   func body(content: Content) -> some View {
     content
-      .font(.system(size: 28, weight: .bold))
+      .font(userFont)
   }
 }
 
 extension View {
-  func customTitleStyle() -> some View {
-    modifier(TitleTextModifier())
+  func textFont(
+    size: CGFloat,
+    weight: Font.Weight = .regular
+  ) -> some View {
+    modifier(TextFontModifier(userFont: .system(size: size, weight: weight)))
   }
 }

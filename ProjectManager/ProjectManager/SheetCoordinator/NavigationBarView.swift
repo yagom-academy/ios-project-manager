@@ -18,7 +18,7 @@ struct NavigationBarView: View {
           
           Text(viewStore.title)
             .foregroundColor(.accentColor)
-            .customTitleStyle()
+            .textFont(size: 28, weight: .bold)
           
           Spacer()
         }
@@ -30,7 +30,7 @@ struct NavigationBarView: View {
             viewStore.send(.didTapPresent(true))
           } label: {
             Image(systemName: "plus")
-              .customTitleStyle()
+              .textFont(size: 28, weight: .bold)
           }
         }
         .padding([.vertical, .trailing])
