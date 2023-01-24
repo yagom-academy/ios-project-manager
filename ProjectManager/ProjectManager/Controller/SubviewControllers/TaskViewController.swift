@@ -9,6 +9,10 @@ import UIKit
 
 class TaskViewController: UIViewController {
 
+    enum Section {
+        case main
+    }
+    
     var type: TaskStatus
 
     init(type: TaskStatus) {
@@ -35,6 +39,13 @@ class TaskViewController: UIViewController {
         super.viewDidLoad()
         projectListView.setHeaderText(text: type.rawValue)
         projectListView.setHeaderItemCount(count: 0)
+        projectListView.register(cellClass: TaskCell.self, forCellReuseIdentifier: TaskCell.cellIdentifier)
+        let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: projectListView.fetchTableView(), cellProvider: { tableView, indexPath, uuid  in
+            let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.cellIdentifier)
+
+            return cell
+        })
+        projectListView.dataSource = dataSource
     }
 
 }
