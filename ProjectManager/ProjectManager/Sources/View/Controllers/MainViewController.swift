@@ -22,9 +22,9 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private var viewModel: MainViewModelProtocol
+    private var viewModel: MainViewModel
     
-    init(viewModel: MainViewModelProtocol) {
+    init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,8 +39,20 @@ final class MainViewController: UIViewController {
         configureView()
         configureLayout()
         configureProjectListActionDelegate()
-        viewModel.closure = { [weak self] models in
-            self?.toDoViewController.updateList(with: models)
+        bindViewModel()
+    }
+    
+    private func bindViewModel() {
+        viewModel.todoHandler = { [weak self] todoList in
+            self?.toDoViewController.updateList(with: todoList)
+        }
+        
+        viewModel.doingHandler = { [weak self] doingList in
+            self?.doingViewController.updateList(with: doingList)
+        }
+        
+        viewModel.doneHandler = { [weak self] doneList in
+            self?.doneViewController.updateList(with: doneList)
         }
     }
 }

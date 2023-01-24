@@ -7,23 +7,36 @@
 
 import Foundation
 
-protocol MainViewModelProtocol: ViewModelDelegate {
-    var closure: (([Project]) -> Void)? { get set }
-    
-    func deleteProject(with project: Project)
-}
-
-final class MainViewModel: MainViewModelProtocol {
-    private var models: [Project] = [] {
+final class MainViewModel: ViewModelDelegate {
+    private var todoList: [Project] = [] {
         didSet {
-            closure?(models)
+            todoHandler?(todoList)
+        }
+    }
+    private var doingList: [Project] = [] {
+        didSet {
+            doingHandler?(doingList)
+        }
+    }
+    private var doneList: [Project] = [] {
+        didSet {
+            doneHandler?(doneList)
         }
     }
 
-    var closure: (([Project]) -> Void)?
-    
+    var todoHandler: (([Project]) -> Void)?
+    var doingHandler: (([Project]) -> Void)?
+    var doneHandler: (([Project]) -> Void)?
+
     func deleteProject(with project: Project) {
-        models = models.filter { $0.id != project.id }
+        switch project.state {
+        case .todo:
+            todoList = todoList.filter { $0.id != project.id }
+        case .doing:
+            doingList = doingList.filter { $0.id != project.id }
+        case .done:
+            doneList = doneList.filter { $0.id != project.id }
+        }
     }
     
     private func changeDateString(from date: Date) -> String {
@@ -35,16 +48,24 @@ extension MainViewModel {
     func addProject(_ project: Project?) {
         guard let project = project else { return }
 
-        models.append(project)
+        todoList.append(project)
     }
     
     func updateProject(_ project: Project?) {
-        guard let project = project,
-              let index = models.firstIndex(where: { $0.id == project.id })
-        else {
-            return
-        }
+        guard let project = project else { return }
         
-        models[index] = project
+        switch project.state {
+        case .todo:
+            changeProject(in: &todoList, to: project)
+        case .doing:
+            changeProject(in: &doingList, to: project)
+        case .done:
+            changeProject(in: &doneList, to: project)
+        }
+    }
+    
+    private func changeProject(in list: inout [Project], to project: Project) {
+        guard let index = list.firstIndex(where: { $0.id == project.id }) else { return }
+        list[index] = project
     }
 }
