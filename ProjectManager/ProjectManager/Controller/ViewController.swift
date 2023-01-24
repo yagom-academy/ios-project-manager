@@ -103,7 +103,7 @@ extension ViewController: GestureRecognizerHelperDelegate {
     
     private func popOverAlert(tableView: UITableView, indexPathRow: Int, viewPoint: CGPoint) {
         let popOverAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
+        
         switch tableView {
         case todoTableView:
             makeAction(tasks: taskListVM.todoTasks, status: .doing, indexPathRow: indexPathRow, popOverAlertController)
@@ -161,4 +161,21 @@ extension ViewController: UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: "삭제") { [weak self] _, _, _ in
+            guard let self = self else { return }
+            switch tableView {
+            case self.todoTableView:
+                self.taskListVM.delete(tasks: self.taskListVM.todoTasks, indexPathRow: indexPath.row)
+            case self.doingTableView:
+                self.taskListVM.delete(tasks: self.taskListVM.doingTasks, indexPathRow: indexPath.row)
+            case self.doneTableView:
+                self.taskListVM.delete(tasks: self.taskListVM.doneTasks, indexPathRow: indexPath.row)
+            default:
+                break
+            }
+        }
+        delete.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
