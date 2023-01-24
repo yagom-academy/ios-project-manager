@@ -31,6 +31,7 @@
 		DFDDB68E298047A100C14CE2 /* TaskItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */; };
 		DFDDB69129804B4800C14CE2 /* Date + converted.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69029804B4800C14CE2 /* Date + converted.swift */; };
 		DFDDB69329804C3A00C14CE2 /* TaskSwitchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69229804C3A00C14CE2 /* TaskSwitchViewModel.swift */; };
+		DFDDB69529804DD300C14CE2 /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69429804DD300C14CE2 /* AddTaskViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemViewModel.swift; sourceTree = "<group>"; };
 		DFDDB69029804B4800C14CE2 /* Date + converted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + converted.swift"; sourceTree = "<group>"; };
 		DFDDB69229804C3A00C14CE2 /* TaskSwitchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSwitchViewModel.swift; sourceTree = "<group>"; };
+		DFDDB69429804DD300C14CE2 /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		DF155096297816D200A7FDC7 /* AddTask */ = {
 			isa = PBXGroup;
 			children = (
+				DFDDB69429804DD300C14CE2 /* AddTaskViewModel.swift */,
 				DF155097297820CA00A7FDC7 /* AddTaskViewController.swift */,
 			);
 			path = AddTask;
@@ -114,8 +117,8 @@
 		DF1550A6297957E200A7FDC7 /* TaskSwitch */ = {
 			isa = PBXGroup;
 			children = (
-				DF1550A7297957F900A7FDC7 /* TaskSwitchViewController.swift */,
 				DFDDB69229804C3A00C14CE2 /* TaskSwitchViewModel.swift */,
+				DF1550A7297957F900A7FDC7 /* TaskSwitchViewController.swift */,
 			);
 			path = TaskSwitch;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF46828F2977977700E3BC06 /* Task.swift in Sources */,
+				DFDDB69529804DD300C14CE2 /* AddTaskViewModel.swift in Sources */,
 				DFDDB68E298047A100C14CE2 /* TaskItemViewModel.swift in Sources */,
 				DFDDB69329804C3A00C14CE2 /* TaskSwitchViewModel.swift in Sources */,
 				DF155098297820CA00A7FDC7 /* AddTaskViewController.swift in Sources */,

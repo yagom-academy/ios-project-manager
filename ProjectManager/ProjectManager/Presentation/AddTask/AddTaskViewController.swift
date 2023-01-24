@@ -10,8 +10,7 @@ import RxSwift
 
 final class AddTaskViewController: UIViewController {
     
-    // MARK: Subview
-    let subject = PublishSubject<Task>()
+    // MARK: View
     
     private var titleTextView: UITextView = {
         let textView = UITextView()
@@ -33,6 +32,9 @@ final class AddTaskViewController: UIViewController {
         return textView
     }()
     
+    var viewmodel: AddTaskViewModel?
+    let disposeBag = DisposeBag()
+    
     // MARK: ViewDidLoad
     
     override func viewDidLoad() {
@@ -40,38 +42,48 @@ final class AddTaskViewController: UIViewController {
         
         configureNavigationBar()
         configureViewLayout()
+        bindViewModel()
     }
 }
 
 // MARK: Functions
 
 extension AddTaskViewController {
+    
+    func bindViewModel() {
+        guard let viewmodel = self.viewmodel,
+              let button = navigationItem.rightBarButtonItem else { return }
+        let done = button.rx.tap.asObservable()
+            .debug()
+        let title = titleTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
+        let description = descriptionTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
+        let date = datePickerView.rx.date.asObservable()
+        let input = AddTaskViewModel.Input(doneTrigger: done,
+                                           titleTrigger: title,
+                                           descriptionTrigger: description,
+                                           dateTrigger: date)
+        let output = viewmodel.transform(input: input)
+        output.createdTask
+            .subscribe(onNext: { _ in
+                self.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func configureNavigationBar() {
         self.navigationItem.title = "TODO"
         self.navigationController?.navigationBar.backgroundColor = .systemGray3
         let rightButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                          target: self, action: #selector(tapDoneButton))
+                                          target: self, action: #selector(dismissView))
         let leftButton = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                         target: self, action: #selector(tapCancelButton))
+                                         target: self, action: #selector(dismissView))
         self.navigationItem.rightBarButtonItem = rightButton
         self.navigationItem.leftBarButtonItem = leftButton
     }
     
     @objc
-    private func tapCancelButton() {
+    private func dismissView() {
         // TODO: Add action
-        self.dismiss(animated: true)
-    }
-    
-    @objc
-    private func tapDoneButton() {
-        // TODO: Add action
-        let newTask = Task(title: titleTextView.text,
-                           description: descriptionTextView.text,
-                           expireDate: datePickerView.date,
-                           tag: .todo,
-                           uuid: UUID())
-        subject.onNext(newTask)
         self.dismiss(animated: true)
     }
 }
@@ -84,7 +96,7 @@ extension AddTaskViewController {
         view.addSubview(titleTextView)
         view.addSubview(datePickerView)
         view.addSubview(descriptionTextView)
-
+        
         titleTextView.backgroundColor = .systemPink
         descriptionTextView.backgroundColor = .systemBrown
         
