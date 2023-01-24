@@ -14,7 +14,7 @@ class TaskViewController: UIViewController {
     }
     
     var type: TaskStatus
-    var dataSource: UITableViewDiffableDataSource
+    var dataSource: UITableViewDiffableDataSource<Section, Task>?
 
     init(type: TaskStatus) {
         self.type = type
