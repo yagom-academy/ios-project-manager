@@ -80,7 +80,7 @@
 				DF4682932977992F00E3BC06 /* Application */,
 				DF468290297798D400E3BC06 /* Presentation */,
 				DF468291297798DA00E3BC06 /* Domain */,
-				DF468292297798F000E3BC06 /* Data */,
+				DFDDB67F298042F300C14CE2 /* Data */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -112,11 +112,12 @@
 		DF468290297798D400E3BC06 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				DF1550A6297957E200A7FDC7 /* TaskSwitchPopOverView */,
 				DF155096297816D200A7FDC7 /* AddTask */,
-				DFF040992977EB420049DEC0 /* TaskStatus */,
-				DFF040982977EB320049DEC0 /* TaskCell */,
-				DF4682952977A72700E3BC06 /* ProjectManager */,
+				DF1550A6297957E200A7FDC7 /* TaskSwitchPopOverView */,
+				DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */,
+				DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */,
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+				DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -124,16 +125,10 @@
 		DF468291297798DA00E3BC06 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				DFDDB6812980433D00C14CE2 /* UseCase */,
 				DF46828D2977974D00E3BC06 /* Entities */,
 			);
 			path = Domain;
-			sourceTree = "<group>";
-		};
-		DF468292297798F000E3BC06 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		DF4682932977992F00E3BC06 /* Application */ = {
@@ -155,69 +150,18 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		DF4682952977A72700E3BC06 /* ProjectManager */ = {
+		DFDDB67F298042F300C14CE2 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				DF4682962977A82A00E3BC06 /* ViewModel */,
-				DF4682972977A83100E3BC06 /* View */,
 			);
-			path = ProjectManager;
+			path = Data;
 			sourceTree = "<group>";
 		};
-		DF4682962977A82A00E3BC06 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		DF4682972977A83100E3BC06 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		DFF040982977EB320049DEC0 /* TaskCell */ = {
-			isa = PBXGroup;
-			children = (
-				DFF0409A2977FE6F0049DEC0 /* ViewModel */,
-				DFF0409C2977FE7B0049DEC0 /* View */,
-			);
-			path = TaskCell;
-			sourceTree = "<group>";
-		};
-		DFF040992977EB420049DEC0 /* TaskStatus */ = {
-			isa = PBXGroup;
-			children = (
-				DFF0409D2977FEA60049DEC0 /* View */,
-			);
-			path = TaskStatus;
-			sourceTree = "<group>";
-		};
-		DFF0409A2977FE6F0049DEC0 /* ViewModel */ = {
+		DFDDB6812980433D00C14CE2 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		DFF0409C2977FE7B0049DEC0 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		DFF0409D2977FEA60049DEC0 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */,
-			);
-			path = View;
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
