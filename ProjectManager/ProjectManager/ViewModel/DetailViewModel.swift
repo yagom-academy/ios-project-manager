@@ -11,13 +11,9 @@ final class DetailViewModel {
     private enum Constant {
         static let defaultText = ""
     }
-    
-    private enum Mode {
-        case new
-        case edit
-    }
-    
-    private var mode: Mode?
+
+    private(set) var index: Int?
+    private(set) var process: Process
     
     private var title: String = Constant.defaultText {
         didSet {
@@ -48,23 +44,24 @@ final class DetailViewModel {
     private var contentHandler: ((String) -> Void)?
     private var editableHandler: ((Bool) -> Void)?
     
-    init(data: Plan?) {
+    init(data: Plan?, process: Process, index: Int?) {
+        self.process = process
         guard let data = data else {
-            mode = .new
             isEdiatable = true
             return
         }
+        self.index = index
         self.title = data.title
         self.date = data.deadLine ?? Date()
         self.content = data.content ?? Constant.defaultText
-        mode = .edit
+        isEdiatable = false
     }
 }
 
 // MARK: - Method
 extension DetailViewModel {
     func isNewMode() -> Bool {
-        return mode == .new
+        return index == nil
     }
     
     func bindTitle(handler: @escaping (String) -> Void) {

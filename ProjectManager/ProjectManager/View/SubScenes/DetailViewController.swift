@@ -67,7 +67,9 @@ extension DetailViewController {
                 title: title,
                 content: detailView.contentTextView.text,
                 date: date
-            )
+            ),
+            process: viewModel.process,
+            index: viewModel.index
         )
         dismiss(animated: true)
     }

@@ -7,7 +7,7 @@
 import UIKit
 
 protocol DataManageable: AnyObject {
-    func shareData(data: Plan)
+    func shareData(data: Plan, process: Process, index: Int?)
 }
 
 protocol EventManageable: AnyObject {
@@ -66,9 +66,9 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func presentDetailView() {
-        let selectedData = viewModel.fetchSeletedData()
-        let detailViewModel = DetailViewModel(data: selectedData)
+    private func presentDetailView(process: Process, index: Int?) {
+        let selectedData = viewModel.fetchSeletedData(process: process, index: index)
+        let detailViewModel = DetailViewModel(data: selectedData, process: process, index: index)
         
         let detailViewController = DetailViewController(
             viewModel: detailViewModel
@@ -91,20 +91,18 @@ extension MainViewController {
     }
 }
 
-// MARK: - DataSharable, EventManageable Delegate Protocol
+// MARK: - DataManageable, EventManageable Delegate Protocol
 extension MainViewController: DataManageable, EventManageable {
     func shareUpdateEvent(process: Process, index: Int?) {
-        viewModel.prepareForEvent(process: process, index: index)
-        
-        presentDetailView()
+        presentDetailView(process: process, index: index)
     }
     
     func shareDeleteEvent(process: Process, index: Int) {
         viewModel.deleteData(process: process, index: index)
     }
     
-    func shareData(data: Plan) {
-        viewModel.updateData(data: data)
+    func shareData(data: Plan, process: Process, index: Int?) {
+        viewModel.updateData(data: data, process: process, index: index)
     }
 }
 
@@ -118,14 +116,16 @@ extension MainViewController: PopoverPresentable {
     ) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        viewModel.prepareForEvent(process: process, index: indexPath.row)
-        
-        viewModel.configureButtonProcess().forEach { process in
+        viewModel.configureButton(process: process).forEach { afterProcess in
             let action = UIAlertAction(
-                title: "Move To " + "\(process)",
+                title: "Move To " + "\(afterProcess)",
                 style: .default
             ) { [weak self] _ in
-                self?.viewModel.changeProcess(after: process)
+                self?.viewModel.changeProcess(
+                    before: process,
+                    after: afterProcess,
+                    index: indexPath.row
+                )
                 self?.dismiss(animated: true)
             }
             alert.addAction(action)

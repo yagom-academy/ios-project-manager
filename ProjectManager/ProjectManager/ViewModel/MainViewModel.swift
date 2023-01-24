@@ -8,9 +8,6 @@
 import Foundation
 
 final class MainViewModel {
-    private var updateDataProcess: Process?
-    private var updateDataIndex: Int?
-    
     private var todoData: [Plan] = [] {
         didSet {
             todoHandler?(todoData)
@@ -51,13 +48,11 @@ extension MainViewModel {
         self.doneHandler = handler
     }
     
-    func updateData(data: Plan) {
-        guard let index = updateDataIndex else {
+    func updateData(data: Plan, process: Process, index: Int?) {
+        guard let index = index else {
             todoData.append(data)
             return
         }
-        
-        guard let process = updateDataProcess else { return }
         
         switch process {
         case .todo:
@@ -67,13 +62,10 @@ extension MainViewModel {
         case .done:
             doneData[index] = data
         }
-        
-        resetUpdateInfo()
     }
     
-    func fetchSeletedData() -> Plan? {
-        guard let process = updateDataProcess else { return nil }
-        guard let index = updateDataIndex else { return nil }
+    func fetchSeletedData(process: Process, index: Int?) -> Plan? {
+        guard let index = index else { return nil }
         
         switch process {
         case .todo:
@@ -100,15 +92,10 @@ extension MainViewModel {
             guard index < doneData.count else { return }
             doneData.remove(at: index)
         }
-        
-        resetUpdateInfo()
     }
     
-    func changeProcess(after: Process) {
-        guard let index = updateDataIndex else { return }
-        guard let process = updateDataProcess else { return }
-        
-        switch process {
+    func changeProcess(before: Process, after: Process, index: Int) {
+        switch before {
         case .todo:
             if after == .doing {
                 doingData.append(todoData.remove(at: index))
@@ -128,23 +115,11 @@ extension MainViewModel {
                 doingData.append(doneData.remove(at: index))
             }
         }
-        
-        resetUpdateInfo()
     }
     
-    func prepareForEvent(process: Process, index: Int?) {
-        updateDataProcess = process
-        updateDataIndex = index
-    }
-    
-    func resetUpdateInfo() {
-        updateDataIndex = nil
-        updateDataProcess = nil
-    }
-    
-    func configureButtonProcess() -> [Process] {
+    func configureButton(process: Process) -> [Process] {
         return Process.allCases.filter {
-            $0 != updateDataProcess
+            $0 != process
         }
     }
 }
