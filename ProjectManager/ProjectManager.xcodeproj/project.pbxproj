@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3C70A36E296FB4C9009BAB6C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3C70A36D296FB4C9009BAB6C /* .swiftlint.yml */; };
-		3C73C6B8296FC31B00C58F32 /* ProjectsManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C73C6B7296FC31B00C58F32 /* ProjectsManageView.swift */; };
 		3C73C6BA296FC97800C58F32 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C73C6B9296FC97800C58F32 /* HeaderView.swift */; };
 		3C73C6BC297117EF00C58F32 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C73C6BB297117EF00C58F32 /* ProjectListView.swift */; };
 		3C73C6C1297503E100C58F32 /* AddProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C73C6C0297503E100C58F32 /* AddProjectViewController.swift */; };
@@ -26,7 +25,6 @@
 
 /* Begin PBXFileReference section */
 		3C70A36D296FB4C9009BAB6C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		3C73C6B7296FC31B00C58F32 /* ProjectsManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsManageView.swift; sourceTree = "<group>"; };
 		3C73C6B9296FC97800C58F32 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		3C73C6BB297117EF00C58F32 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		3C73C6C0297503E100C58F32 /* AddProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectViewController.swift; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 		3C73C6BD2974FFA700C58F32 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3C73C6B7296FC31B00C58F32 /* ProjectsManageView.swift */,
 				3C73C6BB297117EF00C58F32 /* ProjectListView.swift */,
 				3C73C6B9296FC97800C58F32 /* HeaderView.swift */,
 				3CF17B9E297BBA1000A4C46D /* TaskCell.swift */,
@@ -269,7 +266,6 @@
 				C7431F0A25F51E1D0094C4CF /* ProjectsViewController.swift in Sources */,
 				3CF17B9F297BBA1000A4C46D /* TaskCell.swift in Sources */,
 				3CF17BAD297FDEBC00A4C46D /* TodoTaskViewController.swift in Sources */,
-				3C73C6B8296FC31B00C58F32 /* ProjectsManageView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				3CF17BA3297BD90900A4C46D /* Task.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
