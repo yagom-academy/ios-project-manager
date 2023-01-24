@@ -12,7 +12,7 @@ struct Task {
     let description: String
     let date: Date
     var status: TaskStatus
-    
+
     enum TaskStatus {
         case todo
         case done

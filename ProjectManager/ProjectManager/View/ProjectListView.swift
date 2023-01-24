@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SingleProjectManageView: UIView {
+class ProjectListView: UIView {
 
     private let header: HeaderView = {
         let header = HeaderView()

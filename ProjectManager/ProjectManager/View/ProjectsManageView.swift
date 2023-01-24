@@ -25,20 +25,20 @@ class ProjectsManageView: UIView {
         return stackView
     }()
 
-    private let todoView: SingleProjectManageView = {
-        let view = SingleProjectManageView()
+    private let todoView: ProjectListView = {
+        let view = ProjectListView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private let doingView: SingleProjectManageView = {
-        let view = SingleProjectManageView()
+    private let doingView: ProjectListView = {
+        let view = ProjectListView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private let doneView: SingleProjectManageView = {
-        let view = SingleProjectManageView()
+    private let doneView: ProjectListView = {
+        let view = ProjectListView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
