@@ -14,11 +14,16 @@ class TaskViewController: UIViewController {
     }
     
     var type: TaskStatus
+    var filteredTasks: [Task] = [] {
+        didSet {
+            applySnapShot()
+        }
+    }
     var dataSource: UITableViewDiffableDataSource<Section, Task>
 
     init(type: TaskStatus) {
         self.type = type
-        self.dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: projectListView.fetchTableView(), cellProvider: { tableView, indexPath, uuid  in
+        self.dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: projectListView.fetchTableView(), cellProvider: { tableView, _, _  in
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.cellIdentifier)
 
             return cell
@@ -51,5 +56,12 @@ class TaskViewController: UIViewController {
     
     private func configureDataSource() {
         projectListView.dataSource = dataSource
+    }
+
+    func applySnapShot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Task>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(filteredTasks)
+        self.dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
