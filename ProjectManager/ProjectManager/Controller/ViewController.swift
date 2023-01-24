@@ -25,7 +25,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSuperViewColor()
-        setTableHeaderLabel()
         todoTableView.dataSource = todoDataSource
         doingTableView.dataSource = doingDataSource
         doneTableView.dataSource = doneDataSource
@@ -45,14 +44,17 @@ class ViewController: UIViewController {
     private func reloadTasksTableViewDataSource() {
         taskListVM.reloadTodoTasks = { [weak self] tasks in
             guard let self = self else { return }
+            self.todoHeaderView.setTaskCountLabel(self.taskListVM, status: .todo)
             self.update(dataSource: self.todoDataSource, tasksStatus: tasks)
         }
         taskListVM.reloadDoingTasks = { [weak self] tasks in
             guard let self = self else { return }
+            self.doingHeaderView.setTaskCountLabel(self.taskListVM, status: .doing)
             self.update(dataSource: self.doingDataSource, tasksStatus: tasks)
         }
         taskListVM.reloadDoneTasks = { [weak self] tasks in
             guard let self = self else { return }
+            self.doneHeaderView.setTaskCountLabel(self.taskListVM, status: .done)
             self.update(dataSource: self.doneDataSource, tasksStatus: tasks)
         }
     }
@@ -84,12 +86,6 @@ class ViewController: UIViewController {
     
     private func setupSuperViewColor() {
         view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1)
-    }
-    
-    private func setTableHeaderLabel() {
-        todoHeaderView.setTaskCountLabel(taskListVM, status: .todo)
-        doingHeaderView.setTaskCountLabel(taskListVM, status: .doing)
-        doneHeaderView.setTaskCountLabel(taskListVM, status: .done)
     }
 }
 
