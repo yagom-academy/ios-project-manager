@@ -128,10 +128,10 @@
 				DF155096297816D200A7FDC7 /* AddTask */,
 				DF1550A6297957E200A7FDC7 /* TaskSwitchPopOverView */,
 				DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */,
+				DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */,
 				DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */,
 				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
 				DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */,
-				DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";

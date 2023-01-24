@@ -13,6 +13,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let rootViewController = ProjectManagerViewController()
+        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
+        let viewModel = ProjectManagerViewModel(useCase: useCase)
+        rootViewController.viewModel = viewModel
         let mainViewController = UINavigationController(rootViewController: rootViewController)
         
         window = UIWindow(windowScene: windowScene)
@@ -28,8 +31,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneWillEnterForeground(_ scene: UIScene) { }
     
-    func sceneDidEnterBackground(_ scene: UIScene) { }
-    
-    
+    func sceneDidEnterBackground(_ scene: UIScene) { } 
 }
 

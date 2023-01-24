@@ -78,7 +78,7 @@ final class ProjectManagerViewController: UIViewController {
     
     // MARK: ViewModel
     
-    let viewModel = ProjectManagerViewModel()
+    var viewModel: ProjectManagerViewModel?
     let disposeBag = DisposeBag()
     
     // MARK: ViewDidLoad
@@ -118,12 +118,6 @@ extension ProjectManagerViewController {
         let view = UINavigationController(rootViewController: rootView)
         view.modalPresentationStyle = .formSheet
         
-        rootView.subject
-            .bind(onNext: {
-                self.viewModel.addTask(task: $0)
-            })
-            .disposed(by: disposeBag)
-        
         self.present(view, animated: true)
     }
 }
@@ -143,65 +137,13 @@ extension ProjectManagerViewController: UITableViewDelegate {
         self.present(view, animated: true)
     }
     
-    // TODO: Gestures
-    
     private func bindTagSwitching() {
-        todoTableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] index in
-                guard let self = self else { return }
-                guard let cell = self.todoTableView.cellForRow(at: index) else { return }
-                self.popOver(cell: cell, item: self.viewModel.tasks[index.row])
-            })
-            .disposed(by: disposeBag)
+        // TODO: bind tag switcher
     }
     
     private func bindViewModel() {
-        
-        todoTableView.rx.setDelegate(self).disposed(by: disposeBag)
-        viewModel.subject
-            .share()
-            .map { $0.filter { $0.tag == .todo } }
-            .bind(to: todoTableView.rx.items) { tableview, row, item in
-                self.todoStatusView.setUpCount(count: tableview.numberOfRows(inSection: .zero))
-                guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
-                else {
-                    return TaskCell()
-                }
-                cell.setUp(with: item)
-                return cell
-            }
-            .disposed(by: disposeBag)
-        
-        doingTableView.rx.setDelegate(self).disposed(by: disposeBag)
-        viewModel.subject
-            .share()
-            .map { $0.filter { $0.tag == .doing } }
-            .bind(to: doingTableView.rx.items) { tableview, row, item in
-                self.doingStatusView.setUpCount(count: tableview.numberOfRows(inSection: .zero))
-                guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
-                else {
-                    return TaskCell()
-                }
-                cell.setUp(with: item)
-                return cell
-            }
-            .disposed(by: disposeBag)
-        
-        doneTableView.rx.setDelegate(self).disposed(by: disposeBag)
-        viewModel.subject
-            .share()
-            .map { $0.filter { $0.tag == .done } }
-            .bind(to: doneTableView.rx.items) { tableview, row, item in
-                self.doneStatusView.setUpCount(count: tableview.numberOfRows(inSection: .zero))
-                guard let cell = tableview.dequeueReusableCell(withIdentifier: "task") as? TaskCell
-                else {
-                    return TaskCell()
-                }
-                cell.setUp(with: item)
-                return cell
-            }
-            .disposed(by: disposeBag)
-        
+        guard let viewModel = self.viewModel else { return }
+        // TODO: bind viewmodel
     }
     
 }

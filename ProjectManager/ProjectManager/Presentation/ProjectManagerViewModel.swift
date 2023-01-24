@@ -8,22 +8,41 @@
 import Foundation
 import RxSwift
 
-// TODO: Create ViewModel
-final class ProjectManagerViewModel {
-    var tasks: [Task] = [] {
-        didSet {
-            subject.onNext(tasks)
+final class ProjectManagerViewModel: ViewModelType {
+    private var useCase: TaskUseCaseType
+
+    init(useCase: TaskUseCaseType) {
+        self.useCase = useCase
+    }
+}
+
+extension ProjectManagerViewModel {
+
+    func transform(input: Input) -> Output {
+
+        let update = input.update.flatMapLatest {
+            return self.useCase.getTasks()
+                .map { $0.map { TaskItemViewModel(task: $0) } }
         }
+
+        let todoItems = update.map { $0.filter { $0.tag == .todo } }
+        let doingItems = update.map { $0.filter { $0.tag == .doing } }
+        let doneItems = update.map { $0.filter { $0.tag == .done } }
+
+        return Output(todoItems: todoItems,
+                      doingItems: doingItems,
+                      doneItems: doneItems)
     }
-    let subject: BehaviorSubject<[Task]>
-    
-    init() {
-        self.subject = BehaviorSubject(value: tasks)
+}
+
+extension ProjectManagerViewModel {
+    struct Input {
+        let update: Observable<Void>
     }
-    
-    func addTask(task: Task) {
-        tasks.append(task)
-        subject.onNext(tasks)
-        print(task)
+
+    struct Output {
+        let todoItems: Observable<[TaskItemViewModel]>
+        let doingItems: Observable<[TaskItemViewModel]>
+        let doneItems: Observable<[TaskItemViewModel]>
     }
 }
