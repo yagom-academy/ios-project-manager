@@ -21,3 +21,7 @@ protocol CRUDable {
     
     func deleteAll()
 }
+
+protocol ProjectCRUDable: CRUDable where DataType == ProjectViewModel {
+
+}

@@ -49,10 +49,8 @@ final class CoreDataManager {
     }
 }
 
-extension CoreDataManager: CRUDable {
-    
-    typealias DataType = ProjectViewModel
-    
+extension CoreDataManager: ProjectCRUDable {
+
     func create(_ data: ProjectViewModel) {
         let projectCoreModel = ProjectCoreModel(context: context)
         projectCoreModel.title = data.project.title
