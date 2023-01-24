@@ -13,7 +13,7 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		DF155098297820CA00A7FDC7 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF155097297820CA00A7FDC7 /* AddTaskViewController.swift */; };
-		DF1550A8297957F900A7FDC7 /* TaskSwitchPopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1550A7297957F900A7FDC7 /* TaskSwitchPopOverView.swift */; };
+		DF1550A8297957F900A7FDC7 /* TaskSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1550A7297957F900A7FDC7 /* TaskSwitchViewController.swift */; };
 		DF46828F2977977700E3BC06 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF46828E2977977700E3BC06 /* Task.swift */; };
 		DF4682992977A85A00E3BC06 /* ProjectManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */; };
 		DF5CAE65296D52B900398676 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DF5CAE64296D52B900398676 /* RxCocoa */; };
@@ -30,6 +30,7 @@
 		DFDDB68C298046B100C14CE2 /* TaskItemsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */; };
 		DFDDB68E298047A100C14CE2 /* TaskItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */; };
 		DFDDB69129804B4800C14CE2 /* Date + converted.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69029804B4800C14CE2 /* Date + converted.swift */; };
+		DFDDB69329804C3A00C14CE2 /* TaskSwitchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69229804C3A00C14CE2 /* TaskSwitchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +42,7 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF155097297820CA00A7FDC7 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
-		DF1550A7297957F900A7FDC7 /* TaskSwitchPopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSwitchPopOverView.swift; sourceTree = "<group>"; };
+		DF1550A7297957F900A7FDC7 /* TaskSwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSwitchViewController.swift; sourceTree = "<group>"; };
 		DF46828E2977977700E3BC06 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
 		DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
@@ -53,6 +54,7 @@
 		DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemsUseCase.swift; sourceTree = "<group>"; };
 		DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemViewModel.swift; sourceTree = "<group>"; };
 		DFDDB69029804B4800C14CE2 /* Date + converted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + converted.swift"; sourceTree = "<group>"; };
+		DFDDB69229804C3A00C14CE2 /* TaskSwitchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSwitchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,12 +111,13 @@
 			path = AddTask;
 			sourceTree = "<group>";
 		};
-		DF1550A6297957E200A7FDC7 /* TaskSwitchPopOverView */ = {
+		DF1550A6297957E200A7FDC7 /* TaskSwitch */ = {
 			isa = PBXGroup;
 			children = (
-				DF1550A7297957F900A7FDC7 /* TaskSwitchPopOverView.swift */,
+				DF1550A7297957F900A7FDC7 /* TaskSwitchViewController.swift */,
+				DFDDB69229804C3A00C14CE2 /* TaskSwitchViewModel.swift */,
 			);
-			path = TaskSwitchPopOverView;
+			path = TaskSwitch;
 			sourceTree = "<group>";
 		};
 		DF46828D2977974D00E3BC06 /* Entities */ = {
@@ -129,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				DF155096297816D200A7FDC7 /* AddTask */,
-				DF1550A6297957E200A7FDC7 /* TaskSwitchPopOverView */,
+				DF1550A6297957E200A7FDC7 /* TaskSwitch */,
 				DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */,
 				DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */,
 				DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */,
@@ -283,13 +286,14 @@
 			files = (
 				DF46828F2977977700E3BC06 /* Task.swift in Sources */,
 				DFDDB68E298047A100C14CE2 /* TaskItemViewModel.swift in Sources */,
+				DFDDB69329804C3A00C14CE2 /* TaskSwitchViewModel.swift in Sources */,
 				DF155098297820CA00A7FDC7 /* AddTaskViewController.swift in Sources */,
 				DFCA28422977DFBE00C1EBF2 /* TaskStatusView.swift in Sources */,
 				DFDDB69129804B4800C14CE2 /* Date + converted.swift in Sources */,
 				DF4682992977A85A00E3BC06 /* ProjectManagerViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				DF1550A8297957F900A7FDC7 /* TaskSwitchPopOverView.swift in Sources */,
+				DF1550A8297957F900A7FDC7 /* TaskSwitchViewController.swift in Sources */,
 				DFDDB68C298046B100C14CE2 /* TaskItemsUseCase.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				DFDDB6882980457A00C14CE2 /* DataSourceType.swift in Sources */,

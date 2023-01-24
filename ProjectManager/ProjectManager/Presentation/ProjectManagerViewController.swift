@@ -127,7 +127,7 @@ extension ProjectManagerViewController {
 extension ProjectManagerViewController: UITableViewDelegate {
     
     private func popOver(cell: UITableViewCell, item: Task) {
-        let view = TaskSwitchPopOverView()
+        let view = TaskSwitchViewController()
         
         view.modalPresentationStyle = .popover
         view.popoverPresentationController?.sourceView = cell.contentView
