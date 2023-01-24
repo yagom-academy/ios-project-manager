@@ -48,7 +48,7 @@ final class ProcessView: UIStackView {
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
-    weak var presentDelegate: PopoverPresentable?
+    weak var gestureDelegate: GestureManageable?
     weak var selectDataDelegate: EventManageable?
     
     init(viewModel: ProcessViewModel) {
@@ -166,9 +166,8 @@ extension ProcessView {
         guard let indexPath = tableView.indexPathForRow(at: point) else { return }
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
-        presentDelegate?.presentPopover(
+        gestureDelegate?.shareLongPress(
             process: viewModel.process,
-            sender: sender,
             view: cell,
             indexPath: indexPath
         )

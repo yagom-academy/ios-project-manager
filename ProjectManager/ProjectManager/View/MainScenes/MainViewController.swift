@@ -15,10 +15,9 @@ protocol EventManageable: AnyObject {
     func shareDeleteEvent(process: Process, index: Int)
 }
 
-protocol PopoverPresentable: AnyObject {
-    func presentPopover(
+protocol GestureManageable: AnyObject {
+    func shareLongPress(
         process: Process,
-        sender: UILongPressGestureRecognizer,
         view: UIView,
         indexPath: IndexPath
     )
@@ -106,11 +105,10 @@ extension MainViewController: DataManageable, EventManageable {
     }
 }
 
-// MARK: - PopoverPresentable Protocol
-extension MainViewController: PopoverPresentable {
-    func presentPopover(
+// MARK: - GestureManageable Protocol
+extension MainViewController: GestureManageable {
+    func shareLongPress(
         process: Process,
-        sender: UILongPressGestureRecognizer,
         view: UIView,
         indexPath: IndexPath
     ) {
@@ -162,7 +160,7 @@ extension MainViewController {
         view.addSubview(mainStackView)
         [todoView, doingView, doneView].forEach {
             $0.selectDataDelegate = self
-            $0.presentDelegate = self
+            $0.gestureDelegate = self
         }
     }
     
