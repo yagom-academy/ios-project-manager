@@ -5,13 +5,14 @@ import Foundation
 
 struct ToDo: Hashable {
     
-    var id: UUID = UUID()
+    var id: UUID
     var title: String
     var body: String
     var deadline: Date
     var state: ToDoState
     
-    init(title: String, body: String, deadline: Date, state: ToDoState) {
+    init(id: UUID = UUID(), title: String, body: String, deadline: Date, state: ToDoState) {
+        self.id = id
         self.title = title
         self.body = body
         self.deadline = deadline
