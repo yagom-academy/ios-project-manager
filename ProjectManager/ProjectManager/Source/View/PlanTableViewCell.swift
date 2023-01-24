@@ -89,4 +89,3 @@ final class PlanTableViewCell: UITableViewCell {
     }
 }
 
-extension PlanTableViewCell: CellReusable { }

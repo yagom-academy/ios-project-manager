@@ -73,4 +73,3 @@ final class PlanListHeaderView: UITableViewHeaderFooterView {
     }
 }
 
-extension PlanListHeaderView: CellReusable { }
