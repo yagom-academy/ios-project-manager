@@ -11,20 +11,26 @@ class TaskCell: UITableViewCell {
 
     enum Constant {
         static let spacing = 10.0
+        static let nagativeSpacing = -10.0
     }
 
     static let cellIdentifier = String.init(describing: TaskCell.self)
 
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .title3)
         label.adjustsFontSizeToFitWidth = false
-        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .systemGray
+        label.font = .preferredFont(forTextStyle: .body)
+        label.adjustsFontSizeToFitWidth = false
+        label.numberOfLines = 3
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -74,9 +80,9 @@ class TaskCell: UITableViewCell {
         addSubview(dateLabel)
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.spacing),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constant.spacing),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.spacing)
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constant.spacing),
+            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constant.nagativeSpacing),
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Constant.spacing)
         ])
 
         NSLayoutConstraint.activate([
@@ -88,8 +94,8 @@ class TaskCell: UITableViewCell {
         NSLayoutConstraint.activate([
             dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            dateLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 5),
-            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            dateLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constant.spacing),
+            dateLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: Constant.nagativeSpacing)
         ])
     }
 }

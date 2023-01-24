@@ -59,7 +59,8 @@ class SingleProjectManageView: UIView {
         self.backgroundColor = .orange
         addSubview(header)
         addSubview(tableView)
-        tableView.rowHeight = 120
+        tableView.estimatedRowHeight = 110
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorColor = .systemGray2
         tableView.separatorInset = UIEdgeInsets(top: .zero, left: .zero, bottom: .zero, right: .zero)
     }
