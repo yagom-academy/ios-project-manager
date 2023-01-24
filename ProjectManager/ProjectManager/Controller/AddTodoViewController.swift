@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AddTodoViewDelegate: AnyObject {
-    func addNewTodoItem(with item: TodoModel)
+    func add(todo item: TodoModel)
 }
 
 final class AddTodoViewController: UIViewController {
@@ -48,7 +48,7 @@ final class AddTodoViewController: UIViewController {
                                     body: todoView.bodyTextView.text,
                                     date: todoView.datePicker.date.convertDateToDouble())
         
-        delegate?.addNewTodoItem(with: newTodoItem)
+        delegate?.add(todo: newTodoItem)
         dismiss(animated: true)
     }
 }

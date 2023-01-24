@@ -126,19 +126,19 @@ extension ListViewController {
         }
         
         let moveToTodo = UIAlertAction(title: AlertMenu.toTodo, style: .default) { [weak self] _ in
-            MockDataManager.shared.updateTodo(item: cellItem, status: .todo)
+            MockDataManager.shared.update(todo: cellItem, status: .todo)
             self?.todoTableView.reloadData()
             tableView.reloadData()
             self?.applyAllSnapshot()
         }
         let moveToDoing = UIAlertAction(title: AlertMenu.toDoing, style: .default) { [weak self] _ in
-            MockDataManager.shared.updateTodo(item: cellItem, status: .doing)
+            MockDataManager.shared.update(todo: cellItem, status: .doing)
             self?.doingTableView.reloadData()
             tableView.reloadData()
             self?.applyAllSnapshot()
         }
         let moveToDone = UIAlertAction(title: AlertMenu.toDone, style: .default) { [weak self] _ in
-            MockDataManager.shared.updateTodo(item: cellItem, status: .done)
+            MockDataManager.shared.update(todo: cellItem, status: .done)
             self?.doneTableView.reloadData()
             tableView.reloadData()
             self?.applyAllSnapshot()
@@ -267,7 +267,7 @@ extension ListViewController: UITableViewDelegate {
         let delete = UIContextualAction(style: .destructive, title: SwipeActionTitle.delete) { _, _, _ in
             guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath) else { return }
             
-            MockDataManager.shared.removeTodo(item: cellItem)
+            MockDataManager.shared.remove(todo: cellItem)
             tableView.reloadData()
             self.applyAllSnapshot()
         }
@@ -279,8 +279,8 @@ extension ListViewController: UITableViewDelegate {
 
 // MARK: - AddTodoViewDelegate
 extension ListViewController: AddTodoViewDelegate {
-    func addNewTodoItem(with item: TodoModel) {
-        MockDataManager.shared.createTodo(item: item)
+    func add(todo item: TodoModel) {
+        MockDataManager.shared.create(todo: item)
         todoTableView.reloadData()
         applySnapshot(todoTableView)
     }
@@ -288,8 +288,8 @@ extension ListViewController: AddTodoViewDelegate {
 
 // MARK: - EditTodoViewDelegate
 extension ListViewController: EditTodoViewDelegate {
-    func editTodoItem(with item: TodoModel) {
-        MockDataManager.shared.updateTodo(item: item, status: item.status)
+    func edit(todo item: TodoModel) {
+        MockDataManager.shared.update(todo: item, status: item.status)
         applyAllSnapshot()
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol EditTodoViewDelegate: AnyObject {
-    func editTodoItem(with item: TodoModel)
+    func edit(todo item: TodoModel)
 }
 
 class EditTodoViewController: UIViewController {
@@ -48,7 +48,7 @@ class EditTodoViewController: UIViewController {
         itemBeEdited.body = todoView.bodyTextView.text ?? ""
         itemBeEdited.date = todoView.datePicker.date.convertDateToDouble()
         
-        delegate?.editTodoItem(with: itemBeEdited)
+        delegate?.edit(todo: itemBeEdited)
     }
     
     @objc private func tappedDone() {

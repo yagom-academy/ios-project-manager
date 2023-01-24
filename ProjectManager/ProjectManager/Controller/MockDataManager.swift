@@ -36,21 +36,21 @@ final class MockDataManager {
                                                           status: .done,
                                                           date: 1673968037.6580071)]
     
-    func createTodo(item: TodoModel) {
-        mockModels.append(item)
+    func create(todo: TodoModel) {
+        mockModels.append(todo)
     }
     
-    func updateTodo(item: TodoModel, status: TodoModel.TodoStatus) {
-        guard var previousItem = MockDataManager.shared.mockModels.filter({ $0.id == item.id }).first,
+    func update(todo: TodoModel, status: TodoModel.TodoStatus) {
+        guard var previousItem = MockDataManager.shared.mockModels.filter({ $0.id == todo.id }).first,
               let index = MockDataManager.shared.mockModels.firstIndex(of: previousItem) else { return }
         
-        previousItem = item
+        previousItem = todo
         previousItem.status = status
         mockModels[index] = previousItem
     }
     
-    func removeTodo(item: TodoModel) {
-        guard let item = MockDataManager.shared.mockModels.filter({ $0.id == item.id }).first,
+    func remove(todo: TodoModel) {
+        guard let item = MockDataManager.shared.mockModels.filter({ $0.id == todo.id }).first,
               let index = MockDataManager.shared.mockModels.firstIndex(of: item) else { return }
         
         mockModels.remove(at: index)
