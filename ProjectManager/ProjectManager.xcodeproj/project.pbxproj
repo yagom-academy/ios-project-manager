@@ -26,6 +26,8 @@
 		DFDDB6842980443100C14CE2 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6832980443100C14CE2 /* ViewModelType.swift */; };
 		DFDDB6862980455700C14CE2 /* MemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6852980455700C14CE2 /* MemoryDataSource.swift */; };
 		DFDDB6882980457A00C14CE2 /* DataSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6872980457A00C14CE2 /* DataSourceType.swift */; };
+		DFDDB68A2980469100C14CE2 /* TaskUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */; };
+		DFDDB68C298046B100C14CE2 /* TaskItemsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		DFDDB6832980443100C14CE2 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		DFDDB6852980455700C14CE2 /* MemoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataSource.swift; sourceTree = "<group>"; };
 		DFDDB6872980457A00C14CE2 /* DataSourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceType.swift; sourceTree = "<group>"; };
+		DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUseCaseType.swift; sourceTree = "<group>"; };
+		DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemsUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,8 @@
 		DFDDB6812980433D00C14CE2 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */,
+				DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -268,9 +274,11 @@
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				DF1550A8297957F900A7FDC7 /* TaskSwitchPopOverView.swift in Sources */,
+				DFDDB68C298046B100C14CE2 /* TaskItemsUseCase.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				DFDDB6882980457A00C14CE2 /* DataSourceType.swift in Sources */,
 				DFDDB6842980443100C14CE2 /* ViewModelType.swift in Sources */,
+				DFDDB68A2980469100C14CE2 /* TaskUseCaseType.swift in Sources */,
 				DFDDB6862980455700C14CE2 /* MemoryDataSource.swift in Sources */,
 				DFCA283F2977C3BC00C1EBF2 /* TaskCell.swift in Sources */,
 			);
