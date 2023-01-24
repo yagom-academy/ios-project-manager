@@ -28,6 +28,7 @@
 		DFDDB6882980457A00C14CE2 /* DataSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6872980457A00C14CE2 /* DataSourceType.swift */; };
 		DFDDB68A2980469100C14CE2 /* TaskUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */; };
 		DFDDB68C298046B100C14CE2 /* TaskItemsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */; };
+		DFDDB68E298047A100C14CE2 /* TaskItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		DFDDB6872980457A00C14CE2 /* DataSourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceType.swift; sourceTree = "<group>"; };
 		DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUseCaseType.swift; sourceTree = "<group>"; };
 		DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemsUseCase.swift; sourceTree = "<group>"; };
+		DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				DFCA28412977DFBE00C1EBF2 /* TaskStatusView.swift */,
 				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
 				DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */,
+				DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF46828F2977977700E3BC06 /* Task.swift in Sources */,
+				DFDDB68E298047A100C14CE2 /* TaskItemViewModel.swift in Sources */,
 				DF155098297820CA00A7FDC7 /* AddTaskViewController.swift in Sources */,
 				DFCA28422977DFBE00C1EBF2 /* TaskStatusView.swift in Sources */,
 				DF4682992977A85A00E3BC06 /* ProjectManagerViewModel.swift in Sources */,
