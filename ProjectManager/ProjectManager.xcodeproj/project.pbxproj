@@ -32,6 +32,7 @@
 		41E26BF22970E23B005E1C94 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BF12970E23B005E1C94 /* ListCell.swift */; };
 		41E26BF42970E392005E1C94 /* UILabel +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BF32970E392005E1C94 /* UILabel +.swift */; };
 		41E26BF72970E54A005E1C94 /* UIStackView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E26BF62970E54A005E1C94 /* UIStackView +.swift */; };
+		41EF5FD1297FCF7A00F7EDF2 /* FireBaseStoreManager + ProjectCRUDable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF5FD0297FCF7A00F7EDF2 /* FireBaseStoreManager + ProjectCRUDable.swift */; };
 		41F66E9929766A1200C84995 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F66E9829766A1200C84995 /* MainViewModelTests.swift */; };
 		41F66EA629768AD900C84995 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F66E9F29766BE900C84995 /* SampleData.swift */; };
 		A5C18EFAEAF65DB9D5CE16F7 /* libPods-ProjectManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93494D9060542F77E2C2A0FB /* libPods-ProjectManager.a */; };
@@ -76,6 +77,7 @@
 		41E26BF12970E23B005E1C94 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		41E26BF32970E392005E1C94 /* UILabel +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel +.swift"; sourceTree = "<group>"; };
 		41E26BF62970E54A005E1C94 /* UIStackView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView +.swift"; sourceTree = "<group>"; };
+		41EF5FD0297FCF7A00F7EDF2 /* FireBaseStoreManager + ProjectCRUDable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireBaseStoreManager + ProjectCRUDable.swift"; sourceTree = "<group>"; };
 		41F66E9629766A1200C84995 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F66E9829766A1200C84995 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
 		41F66E9F29766BE900C84995 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				41C14BA8297E800200C2FB4A /* CRUDable.swift */,
+				41EF5FCF297FCBD500F7EDF2 /* FireBaseStore */,
 				41C14B9B297E78A500C2FB4A /* CoreData */,
 			);
 			path = DataBase;
@@ -200,6 +203,15 @@
 				4115A84129710B530062A061 /* Custom */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		41EF5FCF297FCBD500F7EDF2 /* FireBaseStore */ = {
+			isa = PBXGroup;
+			children = (
+				41EF5FD0297FCF7A00F7EDF2 /* FireBaseStoreManager + ProjectCRUDable.swift */,
+				41AC8100297A2D07000B3427 /* GoogleService-Info.plist */,
+			);
+			path = FireBaseStore;
 			sourceTree = "<group>";
 		};
 		41F66E9729766A1200C84995 /* ProjectManagerTests */ = {
@@ -252,7 +264,6 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				41AC8100297A2D07000B3427 /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -440,6 +451,7 @@
 				41E26BF42970E392005E1C94 /* UILabel +.swift in Sources */,
 				417C503129718D3B00CEC6DA /* UITextView +.swift in Sources */,
 				41C14BA5297E7B2800C2FB4A /* ProjectCoreModel + CoreDataProperties.swift in Sources */,
+				41EF5FD1297FCF7A00F7EDF2 /* FireBaseStoreManager + ProjectCRUDable.swift in Sources */,
 				41C14BA1297E78FE00C2FB4A /* CoreData.xcdatamodeld in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				4115A8402970EB1F0062A061 /* UIView +.swift in Sources */,
