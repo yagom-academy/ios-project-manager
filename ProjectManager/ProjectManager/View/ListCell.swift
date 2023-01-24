@@ -14,7 +14,7 @@ protocol CellDelegate: AnyObject {
 final class ListCell: UITableViewCell {
     static let identifier = ListCell.description()
 
-    var viewModel: ListCellViewModel?
+    private var viewModel: ListCellViewModel?
     
     weak var delegate: CellDelegate?
     
