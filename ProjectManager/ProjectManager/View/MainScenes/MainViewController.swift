@@ -19,7 +19,7 @@ protocol GestureManageable: AnyObject {
     func shareLongPress(
         process: Process,
         view: UIView,
-        indexPath: IndexPath
+        index: Int
     )
 }
 
@@ -110,7 +110,7 @@ extension MainViewController: GestureManageable {
     func shareLongPress(
         process: Process,
         view: UIView,
-        indexPath: IndexPath
+        index: Int
     ) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -122,7 +122,7 @@ extension MainViewController: GestureManageable {
                 self?.viewModel.changeProcess(
                     before: process,
                     after: afterProcess,
-                    index: indexPath.row
+                    index: index
                 )
                 self?.dismiss(animated: true)
             }

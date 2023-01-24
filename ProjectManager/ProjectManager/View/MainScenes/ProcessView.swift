@@ -169,7 +169,7 @@ extension ProcessView {
         gestureDelegate?.shareLongPress(
             process: viewModel.process,
             view: cell,
-            indexPath: indexPath
+            index: indexPath.row
         )
     }
 }
