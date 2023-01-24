@@ -13,7 +13,7 @@ enum DataManagementMode {
     case read
 }
 
-class AddViewController: UIViewController {
+final class AddViewController: UIViewController {
     
     // MARK: Internal Properties
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTitleView: UIView {
+final class MainTitleView: UIView {
     
     // MARK: Properties
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomPopUpView: UIView {
+final class CustomPopUpView: UIView {
     
     // MARK: Internal Properties
     
@@ -112,11 +112,17 @@ class CustomPopUpView: UIView {
     
     // MARK: Initializer
     
-    override func draw(_ rect: CGRect) {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
         setUpTopBarStackView()
         setUpContentStackView()
         configureLayout()
         configureTextDelegate()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Internal Methods
