@@ -1,7 +1,7 @@
 //
 //  ProjectManager - MainViewController.swift
 //  Created by 써니쿠키
-// 
+//
 
 import UIKit
 
@@ -18,8 +18,8 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureDataSource()
-        takeInitialSnapShot()
         bidingViewModel()
+        initialSetup()
         setupListsDelegator()
         setUpListTitles()
         setUpNavigationBar()
@@ -48,14 +48,6 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func takeInitialSnapShot() {
-        ProjectState.allCases.forEach { state in
-            let projects = mainViewModel.fetchProjects(of: state)
-            
-            dataSources[state.index]?.applyInitialSnapShot(projects)
-        }
-    }
-    
     private func bidingViewModel() {
         mainViewModel.update = { [weak self] projectsGroup, numberOfProject in
             self?.dataSources.enumerated().forEach { state, dataSource in
@@ -65,8 +57,19 @@ final class MainViewController: UIViewController {
                 (listView as ListView).setupCountText(numberOfProject[state])
             }
         }
+        
+        mainViewModel.updateNetwork = { [weak self] isNetworkConnected in
+            DispatchQueue.main.async {
+                self?.switchSyncButton(accordingTo: isNetworkConnected)
+            }
+        }
     }
     
+    private func initialSetup() {
+        mainViewModel.updateNetwork(mainViewModel.networkIsConnected)
+        mainViewModel.initialFetchSavedProjects()
+    }
+
     private func setUpListTitles() {
         ProjectState.allCases.forEach { state in
             listViews[state.index].setupListTitle(mainViewModel.readTitle(of: state))
@@ -78,12 +81,44 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     
     private func setUpNavigationBar() {
-        let barButton = UIBarButtonItem(image: UIImage(systemName: Default.barButtonImage),
-                                        primaryAction: showEditingViewForRegister())
+        let syncButton = UIBarButtonItem()
+        let plusButton = UIBarButtonItem(image: UIImage(systemName: Default.barButtonImage),
+                                         primaryAction: showEditingViewForRegister())
+        let historyButton = UIBarButtonItem(title: "History",
+                                            image: nil,
+                                            primaryAction: showHistory(),
+                                            menu: .none)
         
-        self.navigationController?.navigationBar.topItem?.title = Title.navigationBar
-        self.navigationController?.navigationBar.topItem?.setRightBarButton(barButton,
-                                                                            animated: true)
+        let navigationBarTopItem = self.navigationController?.navigationBar.topItem
+        navigationBarTopItem?.title = Title.navigationBar
+        navigationBarTopItem?.setRightBarButtonItems([plusButton, syncButton], animated: true)
+        navigationBarTopItem?.setLeftBarButton(historyButton, animated: true)
+    }
+    
+    private func switchSyncButton(accordingTo isNetworkConnected: Bool) {
+        let syncButton = UIBarButtonItem()
+        
+        if isNetworkConnected {
+            let syncImage = UIImage(systemName: "arrow.triangle.2.circlepath")
+            
+            syncButton.primaryAction = syncRemoteData()
+            syncButton.image = syncImage
+        } else {
+            let syncExclamationMarkImage = UIImage(
+                systemName: "exclamationmark.arrow.triangle.2.circlepath")?
+                .withTintColor(.systemRed, renderingMode: .alwaysOriginal)
+            
+            syncButton.primaryAction = informOfNoNetwork()
+            syncButton.image = syncExclamationMarkImage
+        }
+        
+        let navigationBarTopItem = self.navigationController?.navigationBar.topItem
+        navigationBarTopItem?.rightBarButtonItems?[1] = syncButton
+    }
+    
+    func showHistory() -> UIAction {
+        // 구현예정
+        return UIAction { _ in print("history") }
     }
     
     private func showEditingViewForRegister() -> UIAction {
@@ -97,6 +132,32 @@ extension MainViewController {
             editViewController.modalPresentationStyle = .formSheet
             
             self.navigationController?.present(editViewController, animated: true)
+        }
+    }
+    
+    private func syncRemoteData() -> UIAction {
+        return UIAction { [weak self] _ in
+            self?.mainViewModel.updateRemoteDataBase()
+            
+            let alert = UIAlertController(title: "Backup completed",
+                                          message: nil,
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(okAction)
+            
+            self?.navigationController?.present(alert, animated: true)
+        }
+    }
+    
+    private func informOfNoNetwork() -> UIAction {
+        return UIAction { [weak self] _ in
+            let alert = UIAlertController(title: "Backup failed",
+                                          message: "Please check the network connection",
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Close", style: .default)
+            alert.addAction(okAction)
+            
+            self?.navigationController?.present(alert, animated: true)
         }
     }
 }
@@ -187,7 +248,7 @@ extension MainViewController {
         let editViewController = EditingViewController(projectViewModel: projectViewModel,
                                                        editMode: .readOnly)
         editViewController.modalPresentationStyle = .formSheet
-
+        
         self.navigationController?.present(editViewController, animated: true)
     }
 }

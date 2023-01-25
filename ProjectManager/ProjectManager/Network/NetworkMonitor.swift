@@ -8,37 +8,24 @@
 import Foundation
 import Network
 
-protocol NetworkCheckerDelegate: AnyObject {
+protocol NetworkMonitorDelegate: AnyObject {
     
-    func updateRemoteDataBase()
-    func informUserOfNoNetwork()
+    func handlingNetworkChanges(isConnected: Bool)
 }
 
 final class NetworkMonitor {
     
-    var delegate: NetworkCheckerDelegate?
+    var delegate: NetworkMonitorDelegate?
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue(label: "NetworkMonitor")
-    private var isConnected: Bool = true {
-        didSet {
-            if isConnected {
-                delegate?.updateRemoteDataBase()
-            } else {
-                delegate?.informUserOfNoNetwork()
-            }
-        }
-    }
-   
-    init() {
-        monitorNetworkChanges()
-    }
     
-    private func monitorNetworkChanges() {
+    func monitorNetworkChanges() {
         monitor.pathUpdateHandler = { [weak self] path in
             if path.status == .satisfied {
-                self?.isConnected = true
+                self?.delegate?.handlingNetworkChanges(isConnected: true)
             } else {
-                self?.isConnected = false
+                self?.delegate?.handlingNetworkChanges(isConnected: false)
+
             }
         }
         

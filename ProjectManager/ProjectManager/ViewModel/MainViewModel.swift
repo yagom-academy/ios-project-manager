@@ -9,6 +9,7 @@ import Foundation
 
 final class MainViewModel {
     
+    private let networkMonitor: NetworkMonitor = NetworkMonitor()
     private let localDataManager: some ProjectCRUDable = CoreDataManager()
     private let remoteDataManager: some ProjectRemoteCRUDable = FireBaseStoreManager()
     private let stateTitles: [String] = ProjectState.allCases.map { state in
@@ -27,13 +28,21 @@ final class MainViewModel {
         }
     }
     
-    var update: ([[Project]], [String]) -> Void = { _, _ in }
-    
-    init() {
-        initialFetchCoreData()
+    private(set) var networkIsConnected: Bool = true {
+        didSet {
+            updateNetwork(networkIsConnected)
+        }
     }
     
-    func initialFetchCoreData() {
+    var update: ([[Project]], [String]) -> Void = { _, _ in }
+    var updateNetwork: (Bool) -> Void = { _ in }
+    
+    init() {
+        networkMonitor.delegate = self
+        networkMonitor.monitorNetworkChanges()
+    }
+    
+    func initialFetchSavedProjects() {
         let projectViewModels = localDataManager.read()
         var initialProjectsGroup: [[Project]] = [[], [], []]
         
@@ -119,6 +128,29 @@ final class MainViewModel {
             projectsGroup[state.index][index] = project
             localDataManager.update(ProjectViewModel(project: project, state: state))
             remoteDataManager.update(ProjectViewModel(project: project, state: state))
+        }
+    }
+}
+
+// MARK: - networkMonitor Delegate
+extension MainViewModel: NetworkMonitorDelegate {
+    func handlingNetworkChanges(isConnected: Bool) {
+        if isConnected {
+            self.networkIsConnected = true
+            updateRemoteDataBase()
+        } else {
+            self.networkIsConnected = false
+        }
+    }
+    
+    func updateRemoteDataBase() {
+        projectsGroup.enumerated().forEach { stateIndex, projects in
+            let projectViewModels = projects.map { project in
+                ProjectViewModel(project: project,
+                                 state: ProjectState(rawValue: stateIndex) ?? .todo)
+            }
+            
+            remoteDataManager.updateAfterNetworkConnection(projectViewModels: projectViewModels)
         }
     }
 }
