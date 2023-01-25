@@ -16,6 +16,9 @@
 		AE484F6C29755BED00A8B502 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6B29755BED00A8B502 /* DateFormatterManager.swift */; };
 		AE484F6E29755D4000A8B502 /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6D29755D4000A8B502 /* PlanListView.swift */; };
 		AE484F7029755EC800A8B502 /* PlanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6F29755EC800A8B502 /* PlanDetailView.swift */; };
+		AE5527C529815BA5003CABDF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5527C429815BA5003CABDF /* MainViewController.swift */; };
+		AE5527C729815BD4003CABDF /* PlanDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5527C629815BD4003CABDF /* PlanDelegate.swift */; };
+		AE5527C9298162D7003CABDF /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5527C8298162D7003CABDF /* Store.swift */; };
 		AE6BF0872978E7A900D15C42 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6BF0862978E7A900D15C42 /* AlertManager.swift */; };
 		AE737E712978277400A1FAAE /* PlanListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE737E702978277400A1FAAE /* PlanListHeaderView.swift */; };
 		AED9DE63296EC8590090C31A /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9DE62296EC8590090C31A /* Plan.swift */; };
@@ -40,6 +43,9 @@
 		AE484F6B29755BED00A8B502 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		AE484F6D29755D4000A8B502 /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
 		AE484F6F29755EC800A8B502 /* PlanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailView.swift; sourceTree = "<group>"; };
+		AE5527C429815BA5003CABDF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		AE5527C629815BD4003CABDF /* PlanDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDelegate.swift; sourceTree = "<group>"; };
+		AE5527C8298162D7003CABDF /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		AE6BF0862978E7A900D15C42 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		AE737E702978277400A1FAAE /* PlanListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListHeaderView.swift; sourceTree = "<group>"; };
 		AED9DE62296EC8590090C31A /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
@@ -111,8 +117,9 @@
 		AED9DE66296EC8E20090C31A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1AF33C082975670200162E3B /* MockData.swift */,
 				AED9DE62296EC8590090C31A /* Plan.swift */,
+				AE5527C8298162D7003CABDF /* Store.swift */,
+				1AF33C082975670200162E3B /* MockData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -132,8 +139,10 @@
 		AED9DE68296EC8F70090C31A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				AE5527C429815BA5003CABDF /* MainViewController.swift */,
 				1ACE9BFC296E8A02005F77B7 /* PlanListViewController.swift */,
 				AED9DE64296EC8A80090C31A /* PlanDetailViewController.swift */,
+				AE5527C629815BD4003CABDF /* PlanDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -305,6 +314,7 @@
 				AED9DE63296EC8590090C31A /* Plan.swift in Sources */,
 				AEDCE7B82979470D00397FBE /* Namespace.swift in Sources */,
 				1ACE9BFD296E8A02005F77B7 /* PlanListViewController.swift in Sources */,
+				AE5527C729815BD4003CABDF /* PlanDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				AE484F6C29755BED00A8B502 /* DateFormatterManager.swift in Sources */,
 				1ACE9C0A296EAB63005F77B7 /* PlanTableView.swift in Sources */,
@@ -313,7 +323,9 @@
 				AED9DE6A296ECA980090C31A /* PlanManageable.swift in Sources */,
 				1ACE9C01296E8CFD005F77B7 /* PlanTableViewCell.swift in Sources */,
 				1AF33C092975670200162E3B /* MockData.swift in Sources */,
+				AE5527C9298162D7003CABDF /* Store.swift in Sources */,
 				AED9DE6C296ECDCA0090C31A /* PlanManager.swift in Sources */,
+				AE5527C529815BA5003CABDF /* MainViewController.swift in Sources */,
 				AE484F7029755EC800A8B502 /* PlanDetailView.swift in Sources */,
 				AE484F6E29755D4000A8B502 /* PlanListView.swift in Sources */,
 			);

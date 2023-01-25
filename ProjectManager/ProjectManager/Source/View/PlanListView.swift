@@ -8,19 +8,7 @@
 import UIKit
 
 final class PlanListView: UIView {
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = LayoutConstraint.spacing
-        stackView.backgroundColor = .systemGray6
-        return stackView
-    }()
-
-    lazy var toDoTableView = PlanTableView(frame: .zero, style: .insetGrouped)
-    lazy var doingTableView = PlanTableView(frame: .zero, style: .insetGrouped)
-    lazy var doneTableView = PlanTableView(frame: .zero, style: .insetGrouped)
+    private lazy var tableView = PlanTableView(frame: .zero, style: .insetGrouped)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,21 +20,17 @@ final class PlanListView: UIView {
     }
 
     private func configureLayout() {
-        addSubview(stackView)
-
-        stackView.addArrangedSubview(toDoTableView)
-        stackView.addArrangedSubview(doingTableView)
-        stackView.addArrangedSubview(doneTableView)
+        addSubview(tableView)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
-    private enum LayoutConstraint {
-        static let spacing: CGFloat = 8
+    func setTableViewDelegate(_ delegate: UITableViewDelegate) {
+        tableView.delegate = delegate
     }
 }

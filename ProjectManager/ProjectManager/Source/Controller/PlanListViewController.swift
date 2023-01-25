@@ -7,37 +7,41 @@
 
 import UIKit
 
-final class PlanListViewController: UIViewController {
+final class PlanListViewController: UITableViewController {
     typealias DataSource = UITableViewDiffableDataSource<Int, Plan>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Plan>
 
+    private enum LayoutConstraint {
+        static let headerViewHeight: CGFloat = 50
+    }
+    private var status: Plan.Status
     private var planManager = PlanManager()
+    private var planListDelegate: PlanListDelegate?
+    private var alertDelegate: AlertDelegate?
     private lazy var planListView = PlanListView(frame: view.bounds)
-    private let alertManager = AlertManager()
-
-    private lazy var toDoDataSource = configureDataSource(tableView: planListView.toDoTableView)
-    private lazy var doingDataSource = configureDataSource(tableView: planListView.doingTableView)
-    private lazy var doneDataSource = configureDataSource(tableView: planListView.doneTableView)
-
-    private var planList = MockData.projects
-    private var todoList: [Plan] {
-        return planList.filter { $0.status == .todo }
+    private lazy var dataSource = configureDataSource()
+    private var planList: [Plan] = [] {
+        didSet {
+            tableView.reloadData()
+            configureSnapshot(items: planList)
+        }
     }
 
-    private var doingList: [Plan] {
-        return planList.filter { $0.status == .doing }
+    init(status: Plan.Status, delegate: PlanListDelegate, tableView: UITableView) {
+        self.status = status
+        self.planListDelegate = delegate
+
+        super.init(nibName: nil, bundle: nil)
+        self.tableView = tableView
     }
 
-    private var doneList: [Plan] {
-        return planList.filter { $0.status == .done }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        configureNavigationBar()
+    override func viewWillAppear(_ animated: Bool) {
+        fetch()
         configureView()
-        configureSnapshot()
         configureLongPressGestureRecognizer()
     }
 
@@ -45,35 +49,7 @@ final class PlanListViewController: UIViewController {
         view.addSubview(planListView)
 
         planListView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        planListView.toDoTableView.delegate = self
-        planListView.doingTableView.delegate = self
-        planListView.doneTableView.delegate = self
-    }
-
-    private func configureNavigationBarButton() -> UIBarButtonItem {
-        let detailViewController = PlanDetailViewController(navigationTitle: Content.toDo,
-                                                            plan: nil,
-                                                            isAdding: true) { plan in
-            guard let plan = plan else {
-                self.present(self.alertManager.showErrorAlert(title: Content.savingError), animated: true)
-
-                return
-            }
-
-            self.planManager.insert(planList: &self.planList, plan: plan)
-            self.configureSnapshot()
-        }
-
-        let buttonAction = UIAction { [weak self] _ in
-            self?.present(detailViewController, animated: true)
-        }
-
-        return UIBarButtonItem(systemItem: .add, primaryAction: buttonAction)
-    }
-
-    private func configureNavigationBar() {
-        navigationItem.title = Content.navigationTitle
-        navigationItem.rightBarButtonItem = configureNavigationBarButton()
+        planListView.setTableViewDelegate(self)
     }
 
     private func configureCell(_ cell: UITableViewCell, with todo: Plan) {
@@ -85,132 +61,69 @@ final class PlanListViewController: UIViewController {
     }
 
 
-    private func configureDataSource(tableView: UITableView) -> DataSource {
-        let dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, todo in
+    private func configureDataSource() -> DataSource {
+        let dataSource = DataSource(tableView: tableView) { tableView, indexPath, todo in
             let cell = tableView.dequeueReusableCell(withIdentifier: PlanTableViewCell.reuseIdentifier, for: indexPath)
             self.configureCell(cell, with: todo)
             return cell
-        })
+        }
 
         return dataSource
     }
 
-    private func configureSnapshot() {
-        var todoSnapshot = Snapshot()
-        var doingSnapshot = Snapshot()
-        var doneSnapshot = Snapshot()
+    private func configureSnapshot(items: [Plan]) {
+        var snapshot = Snapshot()
 
-        todoSnapshot.appendSections([Content.zero])
-        doingSnapshot.appendSections([Content.zero])
-        doneSnapshot.appendSections([Content.zero])
-
-        todoSnapshot.appendItems(todoList)
-        doingSnapshot.appendItems(doingList)
-        doneSnapshot.appendItems(doneList)
-
-        toDoDataSource.apply(todoSnapshot)
-        doingDataSource.apply(doingSnapshot)
-        doneDataSource.apply(doneSnapshot)
+        snapshot.appendSections([Content.zero])
+        snapshot.appendItems(items)
+        dataSource.apply(snapshot)
     }
 
     private func configureLongPressGestureRecognizer() {
-        let tableViews = [planListView.toDoTableView, planListView.doingTableView, planListView.doneTableView]
-
-        tableViews.forEach { tableView in
-            let gestureRecognizer = UILongPressGestureRecognizer(target: self,
-                                                                 action: #selector(tappedLongPress))
-            gestureRecognizer.minimumPressDuration = Content.minimumPressDuration
-            gestureRecognizer.delegate = self
-            gestureRecognizer.delaysTouchesBegan = true
-            tableView.addGestureRecognizer(gestureRecognizer)
-        }
-    }
-
-    private enum Content {
-        static let toDo = "🗒 TODO"
-        static let doing = "🏃‍♀️ DOING"
-        static let done = "🙆‍♀️ DONE"
-        static let delete = "Delete"
-        static let navigationTitle = "Project Manager"
-        static let savingError = "할일을 저장하지 못 헀습니다."
-        static let unknownError = "알 수 없는 오류"
-        static let loadingError = "할일을 불러오지 못 헀습니다."
-        static let actionSheetText = "Move to "
-        static let zero = 0
-        static let minimumPressDuration = 0.5
-        static let headerViewHeight: CGFloat = 50
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                             action: #selector(tappedLongPress))
+        gestureRecognizer.minimumPressDuration = Content.minimumPressDuration
+        gestureRecognizer.delegate = self
+        gestureRecognizer.delaysTouchesBegan = true
+        tableView.addGestureRecognizer(gestureRecognizer)
     }
 }
 
-extension PlanListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension PlanListViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let plan = didSelected(in: tableView, to: indexPath)
-
-        let detailViewController = PlanDetailViewController(navigationTitle: String(describing: plan?.status),
-                                                            plan: plan,
-                                                            isAdding: false) { plan in
-            guard let plan = plan else {
-                self.present(self.alertManager.showErrorAlert(title: Content.savingError), animated: true)
-                return
-            }
-
-            self.planManager.update(planList: &self.planList, plan: plan)
-            self.configureSnapshot()
-        }
+        let detailViewController = PlanDetailViewController(navigationTitle: status.name,
+                                                            plan: planList[indexPath.row],
+                                                            isAdding: false)
 
         present(detailViewController, animated: true)
     }
 
-    func didSelected(in tableView: UITableView, to indexPath: IndexPath) -> Plan? {
-        switch tableView {
-        case planListView.toDoTableView:
-            return toDoDataSource.itemIdentifier(for: indexPath)
-        case planListView.doingTableView:
-            return doingDataSource.itemIdentifier(for: indexPath)
-        case planListView.doneTableView:
-            return doneDataSource.itemIdentifier(for: indexPath)
-        default:
-            return nil
-        }
-    }
-
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let plan = didSelected(in: tableView, to: indexPath)
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
         let deleteAction = UIContextualAction(style: .destructive, title: Content.delete) { _, _, _  in
             let handler: (UIAlertAction) -> Void = { _ in
-                self.planManager.delete(planList: &self.planList, id: plan?.id)
-                self.configureSnapshot()
+                self.delete(plan: self.planList[indexPath.row])
             }
 
-            self.present(self.alertManager.showDeleteAlert(handler: handler), animated: true)
+            self.alertDelegate?.showDeleteAlert(handler: handler)
         }
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlanListHeaderView.reuseIdentifier)
                 as? PlanListHeaderView else { return UIView() }
 
-        switch tableView {
-        case planListView.toDoTableView:
-            headerView.configure(title: Content.toDo, count: todoList.count)
-        case planListView.doingTableView:
-            headerView.configure(title: Content.doing, count: doingList.count)
-        case planListView.doneTableView:
-            headerView.configure(title: Content.done, count: doneList.count)
-        default:
-            present(alertManager.showErrorAlert(title: Content.unknownError), animated: true)
-        }
+        headerView.configure(title: status.name, count: planList.count)
 
         return headerView
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return Content.headerViewHeight
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return LayoutConstraint.headerViewHeight
     }
 }
 
@@ -225,22 +138,20 @@ extension PlanListViewController: UIGestureRecognizerDelegate {
         case .began:
             presentPopoverMenu(tableView: tableView, indexPath: indexPath)
         default:
-            present(alertManager.showErrorAlert(title: Content.unknownError), animated: true)
+            alertDelegate?.showErrorAlert(title: Content.unknownError)
         }
     }
 
     private func presentPopoverMenu(tableView: UITableView, indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else {
-            present(alertManager.showErrorAlert(title: Content.loadingError), animated: true)
+            alertDelegate?.showErrorAlert(title: Content.loadingError)
 
             return
         }
 
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        guard let plan = didSelected(in: tableView, to: indexPath) else { return }
-
-        moveState(to: plan).forEach { alert.addAction($0) }
+        moveState(to: planList[indexPath.row]).forEach { alert.addAction($0) }
 
         let popover = alert.popoverPresentationController
         popover?.sourceView = cell
@@ -268,10 +179,38 @@ extension PlanListViewController: UIGestureRecognizerDelegate {
     private func configureAlertAction(to plan: Plan, by status: Plan.Status) -> UIAlertAction {
         let actionTitle = Content.actionSheetText + String(describing: status)
         let action = UIAlertAction(title: actionTitle, style: .default) { _ in
-            self.planManager.update(list: &self.planList, id: plan.id, status: status)
-            self.configureSnapshot()
+            // TODO: 리펙 필요
+            var changedPlan = plan
+            changedPlan.status = status
+
+            self.updateStatus(plan: plan, status: status)
+            self.fetch()
+            self.planListDelegate?.sendToUpdate(plan: changedPlan)
         }
 
         return action
+    }
+}
+
+extension PlanListViewController: PlanDelegate {
+    func add(plan: Plan) {
+        planManager.insert(plan: plan)
+    }
+
+    func fetch() {
+        planList = planManager.fetchAll(status: status)
+    }
+
+    func update(plan: Plan) {
+        planManager.update(plan: plan)
+    }
+
+    func updateStatus(plan: Plan, status: Plan.Status) {
+        planManager.update(id: plan.id, status: status)
+        fetch()
+    }
+
+    func delete(plan: Plan) {
+        planManager.delete(id: plan.id)
     }
 }

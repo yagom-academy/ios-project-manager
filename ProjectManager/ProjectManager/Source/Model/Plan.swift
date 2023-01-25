@@ -12,6 +12,17 @@ struct Plan: Hashable {
         case todo
         case doing
         case done
+
+        var name: String {
+            switch self {
+            case .todo:
+                return Content.toDo
+            case .doing:
+                return Content.doing
+            case .done:
+                return Content.done
+            }
+        }
     }
 
     var status: Status

@@ -8,12 +8,18 @@
 import Foundation
 
 final class PlanManager: PlanManageable {
+    private var store = Store(planList: MockData.projects).planList
+
     func create(title: String, description: String, deadline: Date) -> Plan? {
-return .init(status: .todo, title: title, description: description, deadline: deadline, id: .init())
+        return .init(status: .todo, title: title, description: description, deadline: deadline, id: .init())
     }
 
-    func insert(planList: inout [Plan], plan: Plan) {
-        planList.append(plan)
+    func insert(plan: Plan) {
+        store.append(plan)
+    }
+
+    func fetchAll(status: Plan.Status) -> [Plan] {
+        return store.filter { $0.status == status }
     }
 
     func fetch(id: UUID?) -> UUID? {
@@ -22,8 +28,8 @@ return .init(status: .todo, title: title, description: description, deadline: de
         return id
     }
 
-    func fetchIndex(list: [Plan] ,id: UUID) -> Array<Plan>.Index? {
-        return list.firstIndex(where: { $0.id == id})
+    func fetchIndex(id: UUID) -> Array<Plan>.Index? {
+        return store.firstIndex(where: { $0.id == id})
     }
 
     func save(title: String, description: String, deadline: Date, plan: inout Plan?) {
@@ -38,26 +44,26 @@ return .init(status: .todo, title: title, description: description, deadline: de
         }
     }
 
-    func update(planList: inout [Plan], plan: Plan) {
-        guard let index = planList.firstIndex(where: { $0.id == plan.id}) else { return }
+    func update(plan: Plan) {
+        guard let index = fetchIndex(id: plan.id) else { return }
 
-        planList[index].title = plan.title
-        planList[index].description = plan.description
-        planList[index].deadline = plan.deadline
+        store[index].title = plan.title
+        store[index].description = plan.description
+        store[index].deadline = plan.deadline
     }
 
-    func update(list: inout [Plan], id: UUID, status: Plan.Status) {
-        guard let index = fetchIndex(list: list, id: id) else { return }
+    func update(id: UUID, status: Plan.Status) {
+        guard let index = fetchIndex(id: id) else { return }
 
-        list[index].status = status
+        store[index].status = status
     }
 
-    func delete(planList: inout [Plan], id: UUID?) {
+    func delete(id: UUID?) {
         guard let id = id else { return }
 
-        guard let index = fetchIndex(list: planList, id: id) else { return }
+        guard let index = fetchIndex(id: id) else { return }
 
-        planList.remove(at: index)
+        store.remove(at: index)
     }
 
     func isValidContent(_ title: String?, _ description: String?) -> Bool {

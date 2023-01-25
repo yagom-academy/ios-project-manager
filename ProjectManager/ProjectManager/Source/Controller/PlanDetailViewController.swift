@@ -12,15 +12,13 @@ final class PlanDetailViewController: UIViewController {
     private var plan: Plan?
     private let navigationTitle: String
     private let isAdding: Bool
-    private let changedPlan: (Plan?) -> Void
     private let planManager = PlanManager()
     private let alertManager = AlertManager()
 
-    init(navigationTitle: String, plan: Plan?, isAdding: Bool, changedPlan: @escaping (Plan?) -> Void) {
+    init(navigationTitle: String, plan: Plan?, isAdding: Bool) {
         self.navigationTitle = navigationTitle
         self.plan = plan
         self.isAdding = isAdding
-        self.changedPlan = changedPlan
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -96,7 +94,7 @@ final class PlanDetailViewController: UIViewController {
     private func configureNavigationDoneBarButton() -> UIBarButtonItem {
         let buttonAction = UIAction { [weak self] _ in
             if self?.isContentSave() == true {
-                self?.changedPlan(self?.plan)
+                // TODO: savepoint
                 self?.dismiss(animated: true, completion: nil)
             }
 

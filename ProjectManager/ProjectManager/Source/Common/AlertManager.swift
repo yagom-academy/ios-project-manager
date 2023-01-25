@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol AlertDelegate {
+    func showDeleteAlert(handler: @escaping ((UIAlertAction) -> Void))
+    func showErrorAlert(title: String)
+}
+
 final class AlertManager {
     func showDeleteAlert(handler: @escaping ((UIAlertAction) -> Void)) -> UIAlertController {
         let alert: UIAlertController = UIAlertController(title: AlertMessage.deletePlan,
