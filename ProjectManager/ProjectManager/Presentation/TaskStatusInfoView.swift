@@ -1,5 +1,5 @@
 //
-//  TaskStatusView.swift
+//  TaskStatusInfoView.swift
 //  ProjectManager
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class TaskStatusView: UIView {
+class TaskStatusInfoView: UIView {
 
 // MARK: View
     
@@ -52,7 +52,7 @@ class TaskStatusView: UIView {
 
 // MARK: Functions
 
-extension TaskStatusView {
+extension TaskStatusInfoView {
     func setUpCount(count: Int) {
         self.taskCountLabel.text = count.description
     }
@@ -64,7 +64,7 @@ extension TaskStatusView {
 
 // MARK: Layout
 
-extension TaskStatusView {
+extension TaskStatusInfoView {
     private func configureViewLayout() {
         wholeStackView.addArrangedSubview(taskNameLabel)
         wholeStackView.addArrangedSubview(taskCountLabel)

@@ -36,20 +36,20 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
         return table
     }()
     
-    private var todoStatusView: TaskStatusView = {
-        let view = TaskStatusView()
+    private var todoStatusView: TaskStatusInfoView = {
+        let view = TaskStatusInfoView()
         view.setTitle(with: Common.todo)
         view.backgroundColor = .systemGray6
         return view
     }()
-    private var doingStatusView: TaskStatusView = {
-        let view = TaskStatusView()
+    private var doingStatusView: TaskStatusInfoView = {
+        let view = TaskStatusInfoView()
         view.setTitle(with: Common.doing)
         view.backgroundColor = .systemGray6
         return view
     }()
-    private var doneStatusView: TaskStatusView = {
-        let view = TaskStatusView()
+    private var doneStatusView: TaskStatusInfoView = {
+        let view = TaskStatusInfoView()
         view.setTitle(with: Common.done)
         view.backgroundColor = .systemGray6
         return view
