@@ -1,20 +1,21 @@
 //
-//  EditTaskVIewModel.swift
+//  EditTaskViewModel.swift
 //  ProjectManager
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
+
 
 import Foundation
 import RxSwift
 
 final class EditTaskViewModel: ViewModelType {
+    private let disposeBag = DisposeBag()
+    private var useCase: TaskItemsUseCase
     var title: String
     var description: String
     var date: Date
     var tag: Status
     var task: Task
-    var useCase: TaskItemsUseCase
     
     init(item: TaskItemViewModel, useCase: TaskItemsUseCase) {
         self.title = item.title
@@ -24,40 +25,53 @@ final class EditTaskViewModel: ViewModelType {
         self.task = item.task
         self.useCase = useCase
     }
-    
+}
+
+// MARK: Function
+
+extension EditTaskViewModel {
     func transform(input: Input) -> Output {
         
         let canEdit = input.editTrigger.flatMapLatest {
             return Observable.just(true)
         }
         
-        let title = input.titleTrigger
+        let _ = input.titleTrigger
             .subscribe(onNext: {
                 self.title = $0
             })
-        let description = input.descriptionTrigger
+            .disposed(by: disposeBag)
+        let _ = input.descriptionTrigger
             .subscribe(onNext: {
                 self.description = $0
             })
-        let date = input.dateTrigger
+            .disposed(by: disposeBag)
+        let _ = input.dateTrigger
             .subscribe(onNext: {
                 self.date = $0
             })
-
+            .disposed(by: disposeBag)
+        
         
         let editedTask = input.doneTrigger
             .flatMapLatest {
-                let editedTask = Task(title: self.title,
-                                      description: self.description,
-                                      expireDate: self.date,
-                                      tag: self.tag,
-                                      uuid: self.task.uuid)
-            return self.useCase.update(task: editedTask)
-        }
+                let editedTask = self.reformTask()
+                return self.useCase.update(task: editedTask)
+            }
         
         return Output(canEdit: canEdit, editedTask: editedTask)
     }
+    
+    private func reformTask() -> Task {
+        return Task(title: title,
+                    description: description,
+                    expireDate: date,
+                    tag: tag,
+                    uuid: task.uuid)
+    }
 }
+
+// MARK: Input & Output
 
 extension EditTaskViewModel {
     struct Input {
@@ -67,7 +81,6 @@ extension EditTaskViewModel {
         let descriptionTrigger: Observable<String>
         let dateTrigger: Observable<Date>
     }
-    
     struct Output {
         let canEdit: Observable<Bool>
         let editedTask: Observable<Task>
