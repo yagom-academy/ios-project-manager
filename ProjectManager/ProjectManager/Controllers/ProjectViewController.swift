@@ -14,9 +14,9 @@ final class ProjectViewController: UIViewController {
         case edit
     }
 
-    private lazy var projectView: ProjectView  = {
-        let view = ProjectView(frame: view.bounds)
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    private let projectView: ProjectView  = {
+        let view = ProjectView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -29,6 +29,7 @@ final class ProjectViewController: UIViewController {
         super.viewDidLoad()
 
         configureView()
+        configureConstraints()
         configureNavigationBar()
         configureDelegate()
 
@@ -58,7 +59,17 @@ final class ProjectViewController: UIViewController {
     private func configureView() {
         view.addSubview(projectView)
 
+        view.backgroundColor = .systemBackground
         projectView.configure(with: project)
+    }
+
+    private func configureConstraints() {
+        NSLayoutConstraint.activate([
+            projectView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            projectView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            projectView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            projectView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
     }
 
     // MARK: Configure NavigationBar
