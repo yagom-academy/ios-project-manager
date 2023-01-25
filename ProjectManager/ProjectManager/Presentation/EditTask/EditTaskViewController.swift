@@ -42,7 +42,7 @@ final class EditTaskViewController: UIViewController {
     }()
     
     var viewModel: EditTaskViewModel?
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     // MARK: ViewDidLoad
     
@@ -52,44 +52,37 @@ final class EditTaskViewController: UIViewController {
         configureNavigationBar()
         configureViewLayout()
         insertData()
-        bind()
+        bindViewModel()
     }
 }
 
 // MARK: Functions
 extension EditTaskViewController {
     
-    func insertData() {
+    private func insertData() {
         guard let viewModel = self.viewModel else { return }
-        self.titleTextView.text = viewModel.title
-        self.datePickerView.date = viewModel.date
-        self.descriptionTextView.text = viewModel.description
+        titleTextView.text = viewModel.title
+        datePickerView.date = viewModel.date
+        descriptionTextView.text = viewModel.description
     }
     
-    func bind() {
+    func bindViewModel() {
         guard let viewModel = self.viewModel,
               let doneButton = navigationItem.rightBarButtonItem,
               let editButton = navigationItem.leftBarButtonItem
         else { return }
         
-        let editTrigger = editButton.rx
-            .tap
-            .asObservable()
-        let doneTrigger = doneButton.rx
-            .tap
-            .asObservable()
-        let title = titleTextView.rx
-            .text
+        let editTrigger = editButton.rx.tap.asObservable()
+        let doneTrigger = doneButton.rx.tap.asObservable()
+        let title = titleTextView.rx.text
             .orEmpty
             .filter { !$0.isEmpty }
             .asObservable()
-        let description = descriptionTextView.rx
-            .text
-            .orEmpty.filter { !$0.isEmpty }
+        let description = descriptionTextView.rx.text
+            .orEmpty
+            .filter { !$0.isEmpty }
             .asObservable()
-        let date = datePickerView.rx
-            .date
-            .asObservable()
+        let date = datePickerView.rx.date.asObservable()
         
         let input = EditTaskViewModel.Input(editTrigger: editTrigger, doneTrigger: doneTrigger,
                                             titleTrigger: title, descriptionTrigger: description,
@@ -110,9 +103,9 @@ extension EditTaskViewController {
     }
     
     private func toggleEditability() {
-        self.titleTextView.isEditable.toggle()
-        self.datePickerView.isEnabled.toggle()
-        self.descriptionTextView.isEditable.toggle()
+        titleTextView.isEditable.toggle()
+        datePickerView.isEnabled.toggle()
+        descriptionTextView.isEditable.toggle()
         
         switch titleTextView.isEditable {
         case true:
@@ -125,18 +118,18 @@ extension EditTaskViewController {
     }
     
     private func configureNavigationBar() {
-        self.navigationItem.title = Common.navigationTitle
-        self.navigationController?.navigationBar.backgroundColor = .systemGray3
+        navigationItem.title = Common.navigationTitle
+        navigationController?.navigationBar.backgroundColor = .systemGray3
         let rightButton = UIBarButtonItem(barButtonSystemItem: .done,
                                           target: self, action: nil)
         let leftButton = UIBarButtonItem(barButtonSystemItem: .edit,
                                          target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = rightButton
-        self.navigationItem.leftBarButtonItem = leftButton
+        navigationItem.rightBarButtonItem = rightButton
+        navigationItem.leftBarButtonItem = leftButton
     }
     
     private func dismissView() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 
