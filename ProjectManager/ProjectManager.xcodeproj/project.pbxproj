@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1804381E2975B451000CC2DA /* ProjectManagerAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804381D2975B451000CC2DA /* ProjectManagerAppView.swift */; };
-		180438202975B7E2000CC2DA /* DetailViewCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804381F2975B7E2000CC2DA /* DetailViewCore.swift */; };
+		180438202975B7E2000CC2DA /* DetailCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804381F2975B7E2000CC2DA /* DetailCore.swift */; };
 		18186ABC296FE62B00E0B695 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186ABB296FE62B00E0B695 /* Font.swift */; };
 		18186AC2296FE81500E0B695 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC1296FE81500E0B695 /* Project.swift */; };
 		18186AC729703A6500E0B695 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18186AC629703A6500E0B695 /* Color.swift */; };
@@ -48,7 +48,7 @@
 
 /* Begin PBXFileReference section */
 		1804381D2975B451000CC2DA /* ProjectManagerAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerAppView.swift; sourceTree = "<group>"; };
-		1804381F2975B7E2000CC2DA /* DetailViewCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewCore.swift; sourceTree = "<group>"; };
+		1804381F2975B7E2000CC2DA /* DetailCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCore.swift; sourceTree = "<group>"; };
 		18186ABB296FE62B00E0B695 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		18186AC1296FE81500E0B695 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		18186AC629703A6500E0B695 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -192,7 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				1858234629728273001AE6BC /* DetailView.swift */,
-				1804381F2975B7E2000CC2DA /* DetailViewCore.swift */,
+				1804381F2975B7E2000CC2DA /* DetailCore.swift */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";
@@ -348,7 +348,7 @@
 				18AB3C1629798AF600854929 /* TodoBoardListView.swift in Sources */,
 				18AB3C13297985C400854929 /* DoneCore.swift in Sources */,
 				18359AB6296C1F81000D6C73 /* ProjectManagerApp.swift in Sources */,
-				180438202975B7E2000CC2DA /* DetailViewCore.swift in Sources */,
+				180438202975B7E2000CC2DA /* DetailCore.swift in Sources */,
 				187A145D2979B7C300311B7A /* Date.swift in Sources */,
 				1854F13029757DFF0082FB88 /* BoardListComponents.swift in Sources */,
 				181DF174297148C4003EC956 /* Image.swift in Sources */,
