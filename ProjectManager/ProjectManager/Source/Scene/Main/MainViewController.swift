@@ -69,89 +69,50 @@ class MainViewController: UIViewController {
         projectManagerView.rightTableView.addGestureRecognizer(rightTableViewLongPressAction)
     }
     
-    private func createLeftTableViewActionSheet() {
-        let actionSheet = UIAlertController(
-            title: nil,
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        let firstAlertAction = UIAlertAction(
-            title: NameSpace.moveToDoing,
-            style: .default) { [self] _ in
+    private func createActionSheet(tableView: UITableView) {
+        let actionSheet = createActionSheet(title: nil, message: nil)
+        var firstAlertAction: UIAlertAction
+        var secondAlertAction: UIAlertAction
+        
+        switch tableView {
+        case projectManagerView.leftTableView:
+            firstAlertAction = createAlertAction(title: NameSpace.moveToDoing) { [self] in
                 selectEditMode(from: .todo, to: .doing)
                 projectManagerView.reloadTableView()
             }
-        let secondAlertAction = UIAlertAction(
-            title: NameSpace.moveToDone,
-            style: .default) { [self] _ in
+            secondAlertAction = createAlertAction(title: NameSpace.moveToDone) { [self] in
                 selectEditMode(from: .todo, to: .done)
                 projectManagerView.reloadTableView()
             }
-        
-        actionSheet.addAction(firstAlertAction)
-        actionSheet.addAction(secondAlertAction)
-        
-        checkPopOverPresentation(device: .pad,
-                                 actionSheet: actionSheet,
-                                 tableView: projectManagerView.leftTableView)
-        
-        present(actionSheet, animated: true)
-    }
-    
-    private func createCenterTableViewActionSheet() {
-        let actionSheet = UIAlertController(
-            title: nil,
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        let firstAlertAction = UIAlertAction(
-            title: NameSpace.moveToTodo,
-            style: .default) { [self] _ in
+        case projectManagerView.centerTableView:
+            firstAlertAction = createAlertAction(title: NameSpace.moveToTodo) { [self] in
                 selectEditMode(from: .doing, to: .todo)
                 projectManagerView.reloadTableView()
             }
-        let secondAlertAction = UIAlertAction(
-            title: NameSpace.moveToDone,
-            style: .default) { [self] _ in
+            secondAlertAction = createAlertAction(title: NameSpace.moveToDone) { [self] in
                 selectEditMode(from: .doing, to: .done)
                 projectManagerView.reloadTableView()
             }
-        
-        actionSheet.addAction(firstAlertAction)
-        actionSheet.addAction(secondAlertAction)
-        
-        checkPopOverPresentation(device: .pad,
-                                 actionSheet: actionSheet,
-                                 tableView: projectManagerView.centerTableView)
-        
-        present(actionSheet, animated: true)
-    }
-    
-    private func createRightTableViewActionSheet() {
-        let actionSheet = UIAlertController(
-            title: nil,
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        let firstAlertAction = UIAlertAction(
-            title: NameSpace.moveToTodo,
-            style: .default) { [self] _ in
+        case projectManagerView.rightTableView:
+            firstAlertAction = createAlertAction(title: NameSpace.moveToTodo) { [self] in
                 selectEditMode(from: .done, to: .todo)
                 projectManagerView.reloadTableView()
             }
-        let secondAlertAction = UIAlertAction(
-            title: NameSpace.moveToDone,
-            style: .default) { [self] _ in
+            secondAlertAction = createAlertAction(title: NameSpace.moveToDoing) { [self] in
                 selectEditMode(from: .done, to: .doing)
                 projectManagerView.reloadTableView()
             }
+        default:
+            firstAlertAction = UIAlertAction()
+            secondAlertAction = UIAlertAction()
+        }
         
         actionSheet.addAction(firstAlertAction)
         actionSheet.addAction(secondAlertAction)
         
         checkPopOverPresentation(device: .pad,
                                  actionSheet: actionSheet,
-                                 tableView: projectManagerView.rightTableView)
+                                 tableView: tableView)
         
         present(actionSheet, animated: true)
     }
@@ -388,7 +349,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 
                 if let cellRow = projectManagerView.leftTableView.indexPathForRow(at: location) {
                     editedListCount = cellRow.row
-                    createLeftTableViewActionSheet()
+                    createActionSheet(tableView: projectManagerView.leftTableView)
                 }
             }
         }
@@ -404,7 +365,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 
                 if let cellRow = projectManagerView.centerTableView.indexPathForRow(at: location) {
                     editedListCount = cellRow.row
-                    createCenterTableViewActionSheet()
+                    createActionSheet(tableView: projectManagerView.centerTableView)
                 }
             }
         }
@@ -420,12 +381,16 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 
                 if let cellRow = projectManagerView.rightTableView.indexPathForRow(at: location) {
                     editedListCount = cellRow.row
-                    createRightTableViewActionSheet()
+                    createActionSheet(tableView: projectManagerView.rightTableView)
                 }
             }
         }
     }
 }
+
+// MARK: - AlertPresentable
+
+extension MainViewController: AlertPresentable {}
 
 // MARK: - NameSpace
 
