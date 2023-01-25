@@ -20,6 +20,8 @@ enum SheetAction {
   case detailAction(DetailAction)
   
   // Inner Action
+  case _createDetailState
+  case _deleteDetailState
 }
 
 struct SheetEnvironment {
@@ -37,16 +39,21 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
   
   Reducer<SheetState, SheetAction, SheetEnvironment> { state, action, environment in
     switch action {
-    case let .didTapPresent(isPresent):
-      if isPresent {
-        state.isPresent = true
-        state.detailState = DetailState(title: "", description: "", editMode: false)
-        return .none
-      } else {
-        state.isPresent = false
-        state.detailState = nil
-        return .none
-      }
+    case .didTapPresent(true):
+      state.isPresent = true
+      return Effect(value: ._createDetailState)
+      
+    case .didTapPresent(false):
+      state.isPresent = false
+      return Effect(value: ._deleteDetailState)
+      
+    case ._createDetailState:
+      state.detailState = DetailState(editMode: false)
+      return .none
+      
+    case ._deleteDetailState:
+      state.detailState = nil
+      return .none
       
     case .detailAction(.didDoneTap):
       guard let detail = state.detailState else { return .none }
