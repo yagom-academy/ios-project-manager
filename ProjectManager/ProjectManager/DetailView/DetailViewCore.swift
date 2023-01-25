@@ -20,7 +20,7 @@ struct DetailState: Equatable, Identifiable {
   init(
     title: String = "",
     description: String = "",
-    deadLineDate: Date = Date().convertDate(),
+    deadLineDate: Date = Date(),
     editMode: Bool = false
   ) {
     self.title = title
@@ -68,7 +68,7 @@ let detailReducer = Reducer<DetailState, DetailAction, DetailEnvironment> { stat
     return .none
     
   case let ._didChangeDeadLine(changedDate):
-    state.deadLineDate = changedDate.convertDate()
+    state.deadLineDate = changedDate
     return .none
   }
 }.debug()

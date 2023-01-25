@@ -52,7 +52,7 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
       guard let detail = state.detailState else { return .none }
       state.createdProject = Project(
         title: detail.title,
-        date: Int(detail.deadLineDate.timeIntervalSince1970),
+        date: detail.deadLineDate,
         description: detail.description
       )
       return Effect(value: .didTapPresent(false))
