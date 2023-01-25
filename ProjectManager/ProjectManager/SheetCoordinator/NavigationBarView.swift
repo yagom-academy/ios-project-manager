@@ -12,7 +12,6 @@ struct NavigationBarView: View {
   
   var body: some View {
     WithViewStore(navigationStore) { viewStore in
-      
       HStack(alignment: .center) {
         Spacer()
         
@@ -29,7 +28,7 @@ struct NavigationBarView: View {
             .textFont(size: 28, weight: .bold)
         }
       }
-      .padding([.vertical, .trailing])
+      .padding()
       .background(Color.secondaryBackground)
       .sheet(
         isPresented: viewStore.binding(
