@@ -128,7 +128,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHS-j5-sfw">
                                 <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
                                 <items>
-                                    <navigationItem title="기본값" id="AIZ-v0-cch">
+                                    <navigationItem title="Todo" id="AIZ-v0-cch">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="HMC-qf-vTB">
                                             <connections>
                                                 <action selector="tapDone:" destination="Jjh-ee-fpi" id="Qq2-aa-pQI"/>
@@ -191,7 +191,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RlD-w5-6b2">
                                 <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
                                 <items>
-                                    <navigationItem title="기본값" id="NGJ-Et-VdQ">
+                                    <navigationItem title="Edit" id="NGJ-Et-VdQ">
                                         <barButtonItem key="leftBarButtonItem" title="Edit" id="xo3-XR-Jfx">
                                             <connections>
                                                 <action selector="tapEdit:" destination="kWF-JT-1Q2" id="HJ2-Yd-Doq"/>
