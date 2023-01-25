@@ -10,7 +10,7 @@ import ComposableArchitecture
 struct Project: Codable, Identifiable, Equatable {
   var id = UUID()
   let title: String
-  let date: Int
+  let date: Date
   let description: String
   var state: ProjectState = .todo
 }
