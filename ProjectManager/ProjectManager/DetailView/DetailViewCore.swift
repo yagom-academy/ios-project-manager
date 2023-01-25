@@ -73,4 +73,4 @@ let detailReducer = Reducer<DetailState, DetailAction, DetailEnvironment> { stat
     state.deadLineDate = changedDate
     return .none
   }
-}.debug()
+}
