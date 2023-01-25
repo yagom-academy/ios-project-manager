@@ -26,7 +26,7 @@ extension MenuPresentable {
         menuAlert.popoverPresentationController?.sourceView = sender.view
         
         actionTypes.forEach {
-            let action = makeAlertAction(of: $0, viewModel: viewModel)
+            let action = makeAlertAction(of: $0, viewModel)
             
             menuAlert.addAction(action)
         }
@@ -34,7 +34,7 @@ extension MenuPresentable {
         present(menuAlert, animated: true)
     }
     
-    func makeAlertAction(of type: ListType, viewModel: ListItemCellViewModel) -> UIAlertAction {
+    func makeAlertAction(of type: ListType, _ viewModel: ListItemCellViewModel) -> UIAlertAction {
         let title: String
         
         switch type {
