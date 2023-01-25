@@ -41,15 +41,8 @@ final class PlanListViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         fetch()
-        configureView()
+        self.tableView.delegate = self
         configureLongPressGestureRecognizer()
-    }
-
-    private func configureView() {
-        view.addSubview(planListView)
-
-        planListView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        planListView.setTableViewDelegate(self)
     }
 
     private func configureCell(_ cell: UITableViewCell, with todo: Plan) {
@@ -95,9 +88,9 @@ extension PlanListViewController {
 
         let detailViewController = PlanDetailViewController(navigationTitle: status.name,
                                                             plan: planList[indexPath.row],
-                                                            isAdding: false)
-
-        present(detailViewController, animated: true)
+                                                            isAdding: false,
+                                                            delegate: self)
+        present(UINavigationController(rootViewController: detailViewController), animated: true)
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -195,6 +188,7 @@ extension PlanListViewController: UIGestureRecognizerDelegate {
 extension PlanListViewController: PlanDelegate {
     func add(plan: Plan) {
         planManager.insert(plan: plan)
+        fetch()
     }
 
     func fetch() {
@@ -203,6 +197,7 @@ extension PlanListViewController: PlanDelegate {
 
     func update(plan: Plan) {
         planManager.update(plan: plan)
+        fetch()
     }
 
     func updateStatus(plan: Plan, status: Plan.Status) {
@@ -212,5 +207,6 @@ extension PlanListViewController: PlanDelegate {
 
     func delete(plan: Plan) {
         planManager.delete(id: plan.id)
+        fetch()
     }
 }

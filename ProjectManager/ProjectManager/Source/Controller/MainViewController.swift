@@ -42,7 +42,8 @@ final class MainViewController: UIViewController {
     private func configureNavigationBarButton() -> UIBarButtonItem {
         let detailViewController = PlanDetailViewController(navigationTitle: Content.toDo,
                                                             plan: nil,
-                                                            isAdding: true)
+                                                            isAdding: true,
+                                                            delegate: self.todoListViewController)
 
         let buttonAction = UIAction { [weak self] _ in
             self?.present(detailViewController, animated: true)
@@ -89,11 +90,11 @@ extension MainViewController: PlanListDelegate {
     func sendToUpdate(plan: Plan) {
         switch plan.status {
         case .todo:
-            todoListViewController.updateStatus(plan: plan)
+            todoListViewController.updateStatus(plan: plan, status: .todo)
         case .doing:
-            doingListViewController.updateStatus(plan: plan)
+            doingListViewController.updateStatus(plan: plan, status: .doing)
         case .done:
-            doneListViewController.updateStatus(plan: plan)
+            doneListViewController.updateStatus(plan: plan, status: .done)
         }
     }
 }

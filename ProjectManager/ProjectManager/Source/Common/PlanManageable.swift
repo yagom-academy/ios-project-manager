@@ -8,10 +8,9 @@
 import Foundation
 
 protocol PlanManageable {
-    func create(title: String, description: String, deadline: Date) -> Plan?
-    func save(title: String, description: String, deadline: Date, plan: inout Plan?)
+    func create(title: String, description: String, deadline: Date) -> Plan
     func update(plan: Plan)
     func update(id: UUID, status: Plan.Status)
-    func fetch(id: UUID?) -> UUID?
+    func isExistID(id: UUID?) -> Bool
     func delete(id: UUID?)
 }

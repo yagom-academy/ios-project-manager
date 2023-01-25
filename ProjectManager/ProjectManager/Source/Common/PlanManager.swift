@@ -10,7 +10,7 @@ import Foundation
 final class PlanManager: PlanManageable {
     private var store = Store(planList: MockData.projects).planList
 
-    func create(title: String, description: String, deadline: Date) -> Plan? {
+    func create(title: String, description: String, deadline: Date) -> Plan {
         return .init(status: .todo, title: title, description: description, deadline: deadline, id: .init())
     }
 
@@ -22,26 +22,14 @@ final class PlanManager: PlanManageable {
         return store.filter { $0.status == status }
     }
 
-    func fetch(id: UUID?) -> UUID? {
-        guard id != nil else { return nil }
+    func isExistID(id: UUID?) -> Bool {
+        guard id != nil else { return false }
 
-        return id
+        return true
     }
 
     func fetchIndex(id: UUID) -> Array<Plan>.Index? {
         return store.firstIndex(where: { $0.id == id})
-    }
-
-    func save(title: String, description: String, deadline: Date, plan: inout Plan?) {
-        if fetch(id: plan?.id) == nil {
-            plan = create(title: title,
-                          description: description,
-                          deadline: deadline)
-        } else {
-            plan?.title = title
-            plan?.description = description
-            plan?.deadline = deadline
-        }
     }
 
     func update(plan: Plan) {

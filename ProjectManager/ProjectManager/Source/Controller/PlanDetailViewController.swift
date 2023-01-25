@@ -14,11 +14,13 @@ final class PlanDetailViewController: UIViewController {
     private let isAdding: Bool
     private let planManager = PlanManager()
     private let alertManager = AlertManager()
+    private var planDelegate: PlanDelegate?
 
-    init(navigationTitle: String, plan: Plan?, isAdding: Bool) {
+    init(navigationTitle: String, plan: Plan?, isAdding: Bool, delegate: PlanDelegate) {
         self.navigationTitle = navigationTitle
         self.plan = plan
         self.isAdding = isAdding
+        self.planDelegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -94,7 +96,6 @@ final class PlanDetailViewController: UIViewController {
     private func configureNavigationDoneBarButton() -> UIBarButtonItem {
         let buttonAction = UIAction { [weak self] _ in
             if self?.isContentSave() == true {
-                // TODO: savepoint
                 self?.dismiss(animated: true, completion: nil)
             }
 
@@ -108,13 +109,28 @@ final class PlanDetailViewController: UIViewController {
         let inputPlan = planDetailView.sendUserPlan()
 
         if planManager.isValidContent(inputPlan.title, inputPlan.description) {
-            planManager.save(title: inputPlan.title,
-                             description: inputPlan.description,
-                             deadline: inputPlan.deadline,
-                             plan: &plan)
+            save(title: inputPlan.title, description: inputPlan.description, deadline: inputPlan.deadline)
         }
 
         return planManager.isValidContent(inputPlan.title, inputPlan.description)
+    }
+
+    func save(title: String, description: String, deadline: Date) {
+        guard var plan = plan else { return }
+
+        if planManager.isExistID(id: plan.id) == false {
+            plan = planManager.create(title: title,
+                          description: description,
+                          deadline: deadline)
+
+            planDelegate?.add(plan: plan)
+        } else {
+            plan.title = title
+            plan.description = description
+            plan.deadline = deadline
+            
+            planDelegate?.update(plan: plan)
+        }
     }
 
     private enum Content {
