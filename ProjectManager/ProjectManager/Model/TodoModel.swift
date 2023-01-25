@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct TodoModel: Hashable {
+struct TodoModel: Hashable, Identifiable {
     let id: UUID = UUID()
     var title: String = ""
     var body: String = ""
-    var status: TodoStatus = TodoStatus.todo
+    var status: TodoStatus = .todo
     var date: TimeInterval = 0.0
     
     enum TodoStatus {
