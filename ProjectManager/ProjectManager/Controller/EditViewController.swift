@@ -13,30 +13,31 @@ class EditViewController: UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     var taskListVM: TaskListViewModel?
     var taskVM: TaskViewModel?
+    var tasks: [Task]?
     var indexPathRow: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTask()
         setEditableMode(mode: false)
+        setUpTasks()
     }
-    
     
     @IBAction func tapEdit(_ sender: UIBarButtonItem) {
         setEditableMode(mode: true)
     }
     
     @IBAction func tapDone(_ sender: UIBarButtonItem) {
-        guard let indexPathRow = indexPathRow,
+        guard let taskListVM = taskListVM,
+              let tasks = tasks,
+              let indexPathRow = indexPathRow,
               let status = taskVM?.status else { return }
         
         let task = Task(title: titleTextField.text,
                         description: descriptionTextView.text,
                         date: datePicker.date,
                         status: status)
-        taskListVM?.update(status: status,
-                           newTask: task,
-                           indexPathRow: indexPathRow)
+        taskListVM.update(task: task, tasks: tasks, indexPathRow: indexPathRow)
         dismiss(animated: true)
     }
     
@@ -52,6 +53,20 @@ class EditViewController: UIViewController {
         descriptionTextView.text = taskVM?.description
     }
     
+    private func setUpTasks() {
+        let status = taskVM?.status
+        switch status {
+        case .todo:
+            tasks = taskListVM?.todoTasks
+        case .doing:
+            tasks = taskListVM?.doingTasks
+        case .done:
+            tasks = taskListVM?.doneTasks
+        default:
+            break
+        }
+    }
+    
     func setUpTaskListVM(_ taskListViewModel: TaskListViewModel) {
         self.taskListVM = taskListViewModel
     }
@@ -59,4 +74,5 @@ class EditViewController: UIViewController {
     func setUpTaskVM(task: Task) {
         self.taskVM = TaskViewModel(task)
     }
+    
 }

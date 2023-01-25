@@ -123,7 +123,6 @@ extension ViewController: GestureRecognizerHelperDelegate {
         }
         popOvevViewController.addAction(firstAction)
     }
-    
 }
 
 extension ViewController: UITableViewDelegate {

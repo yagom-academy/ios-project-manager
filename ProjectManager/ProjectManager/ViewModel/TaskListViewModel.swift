@@ -60,31 +60,27 @@ extension TaskListViewModel {
         tasks.append(task)
     }
     
-    func update(status: Status, newTask: Task, indexPathRow: Int) {
-        switch status {
-        case .todo:
-            todoTasks[indexPathRow] = newTask
-        case .doing:
-            doingTasks[indexPathRow] = newTask
-        case .done:
-            doneTasks[indexPathRow] = newTask
-        }
+    func update(task: Task, tasks: [Task], indexPathRow: Int) {
+        delete(tasks: tasks, indexPathRow: indexPathRow)
+        create(task: task)
     }
+    
     
     func moveToStatus(tasks: [Task], indexPathRow: Int, to status: Status) {
         let beforeTask = tasks[indexPathRow]
-        let newTask = Task(title: beforeTask.title, description: beforeTask.description, date: beforeTask.date, status: status)
+        let newTask = Task(title: beforeTask.title,
+                           description: beforeTask.description,
+                           date: beforeTask.date, status: status)
         delete(tasks: tasks, indexPathRow: indexPathRow)
         create(task: newTask)
     }
     
     func delete(tasks: [Task], indexPathRow: Int) {
-        for index in self.tasks.startIndex...self.tasks.endIndex {
+        for index in self.tasks.startIndex..<self.tasks.endIndex {
             if self.tasks[index].uuid == tasks[indexPathRow].uuid {
                 self.tasks.remove(at: index)
                 return
             }
         }
     }
-    
 }
