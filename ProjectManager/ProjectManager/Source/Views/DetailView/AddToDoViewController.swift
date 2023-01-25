@@ -15,7 +15,14 @@ final class AddToDoViewController: UIViewController {
     }
     
     let viewModel: ToDoListViewModel
-    private let detailView = ToDoDetailView()
+    
+    private let detailView: ToDoDetailView = {
+        let view = ToDoDetailView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
     
     init(viewModel: ToDoListViewModel) {
         self.viewModel = viewModel
@@ -55,7 +62,6 @@ final class AddToDoViewController: UIViewController {
     }
     
     private func setupView() {
-        detailView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(detailView)
         
         let safeArea = view.safeAreaLayoutGuide
