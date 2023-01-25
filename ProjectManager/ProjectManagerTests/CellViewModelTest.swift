@@ -13,7 +13,7 @@ final class CellViewModelTest: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = CellViewModel(data: TestData.oldData)
+        sut = CellViewModel()
     }
 
     override func tearDownWithError() throws {
@@ -22,6 +22,7 @@ final class CellViewModelTest: XCTestCase {
     }
 
     func test_check_DeadLine() {
+        sut.setupData(TestData.oldData)
         // output : 마감기한이 지났다면 True
         XCTAssertTrue(sut.checkOverDeadLine())
     }

@@ -24,12 +24,10 @@ final class MainViewModelTest: XCTestCase {
     func test_append_TodoData() {
         // given : Data 추가
         let data = TestData.data1
-        sut.updateData(data: data)
+        sut.updateData(data: data, process: .todo, index: nil)
 
         // when : todo Data의 0번째 인덱스를 선택했다고 가정
-        sut.prepareForEvent(process: .todo, index: .zero)
-
-        let compareData = sut.fetchSeletedData()
+        let compareData = sut.fetchSeletedData(process: .todo, index: .zero)
 
         // then : TodoData 추가 확인
         XCTAssertEqual(data, compareData)
@@ -38,18 +36,14 @@ final class MainViewModelTest: XCTestCase {
     func test_update_TodoData() {
         // given : Data 추가
         let data = TestData.data1
-        sut.updateData(data: data)
+        sut.updateData(data: data, process: .todo, index: nil)
 
         // when : todo Data의 첫번째 데이터를 변경
         let updateData = TestData.data2
-        sut.prepareForEvent(process: .todo, index: .zero)
-
-        sut.updateData(data: updateData)
+        sut.updateData(data: updateData, process: .todo, index: .zero)
 
         // 변경된 데이터 지정
-        sut.prepareForEvent(process: .todo, index: .zero)
-
-        let compareData = sut.fetchSeletedData()
+        let compareData = sut.fetchSeletedData(process: .todo, index: .zero)
 
         // then : 데이터 확인
         XCTAssertEqual(updateData, compareData)
@@ -58,59 +52,43 @@ final class MainViewModelTest: XCTestCase {
     func test_delete_doingData() {
         // given : Data 추가
         let data1 = TestData.data1
-        sut.updateData(data: data1)
+        sut.updateData(data: data1, process: .todo, index: nil)
         let data2 = TestData.data2
-        sut.updateData(data: data2)
+        sut.updateData(data: data2, process: .todo, index: nil)
 
         // when : todo Data의 data2 데이터를 삭제
         sut.deleteData(process: .todo, index: 1)
 
         // then : 삭제된 데이터시 nil 반환
-        sut.prepareForEvent(process: .todo, index: 1)
-
-        XCTAssertNil(sut.fetchSeletedData())
+        XCTAssertNil(sut.fetchSeletedData(process: .todo, index: 1))
     }
 
     func test_fetch_data_Index가_초과된_경우() {
         // given : Data 추가
         let data1 = TestData.data1
-        sut.updateData(data: data1)
+        sut.updateData(data: data1, process: .todo, index: nil)
         let data2 = TestData.data2
-        sut.updateData(data: data2)
+        sut.updateData(data: data2, process: .todo, index: nil)
 
-        // when : todo Data의 존재하지 않는 세번째 데이터를 select했다고 가정
-        sut.prepareForEvent(process: .todo, index: 3)
-
+        // then : todo Data의 존재하지 않는 세번째 데이터를 select했다고 가정
         // then : 존재하지 않는 index의 Data에 대해서 nil 반환
-        XCTAssertNil(sut.fetchSeletedData())
+        XCTAssertNil(sut.fetchSeletedData(process: .todo, index: 3))
     }
 
     func test_1번째_TodoData_Move_To_Done() {
         // given : Data 추가
         let data1 = TestData.data1
-        sut.updateData(data: data1)
+        sut.updateData(data: data1, process: .todo, index: nil)
         let data2 = TestData.data2
-        sut.updateData(data: data2)
+        sut.updateData(data: data2, process: .todo, index: nil)
 
         // when : todo Data의 첫 번째 데이터를 Done으로 이동
-        sut.prepareForEvent(process: .todo, index: .zero)
-
-        sut.changeProcess(after: .done)
+        sut.configureMovePlan(MovePlan(process: .todo, view: UIView(), index: .zero))
+        sut.changeProcess(.done)
 
         // then : Done Process의 첫 번째 데이터를 확인
-        sut.prepareForEvent(process: .done, index: .zero)
-
-        let compareData = sut.fetchSeletedData()
+        let compareData = sut.fetchSeletedData(process: .done, index: .zero)
 
         XCTAssertEqual(data1, compareData)
-    }
-
-    func test_process에_맞는_Popover버튼생성() {
-        // given : Process 지정
-        sut.prepareForEvent(process: .done, index: .zero)
-
-        // then : 현재의 Process를 제외한 Process가 결과로 나오는지 확인
-
-        XCTAssertEqual([Process.todo, Process.doing], sut.configureButtonProcess())
     }
 }

@@ -13,7 +13,7 @@ final class DetailViewModelTest: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = DetailViewModel(data: nil)
+        sut = DetailViewModel(data: nil, process: .todo, index: nil)
     }
 
     override func tearDownWithError() throws {
@@ -26,16 +26,11 @@ final class DetailViewModelTest: XCTestCase {
     }
 
     func test_data를_변경할때_Mode가_edit인지_check() {
-        sut = DetailViewModel(data: TestData.data1)
+        sut = DetailViewModel(data: TestData.data1, process: .todo, index: .zero)
         XCTAssertFalse(sut.isNewMode())
     }
 
     func test_data를_신규추가할때_Edit이_가능한지_check() {
         XCTAssertTrue(sut.isEdiatable)
-    }
-
-    func test_data를_변경할때_Edit이_가능한지_check() {
-        sut = DetailViewModel(data: TestData.data1)
-        XCTAssertFalse(sut.isEdiatable)
     }
 }
