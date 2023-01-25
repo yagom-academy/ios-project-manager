@@ -26,7 +26,7 @@ final class DetailStoreTests: XCTestCase {
       $0.description = "테스트"
     }
     
-    let result = Date(timeIntervalSince1970: 0).convertDate()
+    let result = Date(timeIntervalSince1970: 0)
     await store.send(._didChangeDeadLine(Date(timeIntervalSince1970: 0))) {
       Thread.sleep(forTimeInterval: TimeInterval(1))
       $0.deadLineDate = result
