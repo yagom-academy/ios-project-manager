@@ -17,13 +17,15 @@ struct SheetState: Equatable {
 enum SheetAction {
   // User Action
   case didTapPresent(Bool)
-  case detailAction(DetailAction)
   
   // Inner Action
   case _setIsPresent
   case _setIsNotPresent
   case _createDetailState
   case _deleteDetailState
+  
+  // Child Action
+  case detailAction(DetailAction)
 }
 
 struct SheetEnvironment {
@@ -71,6 +73,7 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
       state.detailState = nil
       return .none
       
+    // Child Action
     case .detailAction(.didDoneTap):
       guard let detail = state.detailState else { return .none }
       state.createdProject = Project(
