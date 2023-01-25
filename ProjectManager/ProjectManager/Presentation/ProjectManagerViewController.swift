@@ -38,19 +38,19 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
     
     private var todoStatusView: TaskStatusView = {
         let view = TaskStatusView()
-        view.taskNameLabel.text = Common.todo
+        view.setTitle(with: Common.todo)
         view.backgroundColor = .systemGray6
         return view
     }()
     private var doingStatusView: TaskStatusView = {
         let view = TaskStatusView()
-        view.taskNameLabel.text = Common.doing
+        view.setTitle(with: Common.doing)
         view.backgroundColor = .systemGray6
         return view
     }()
     private var doneStatusView: TaskStatusView = {
         let view = TaskStatusView()
-        view.taskNameLabel.text = Common.done
+        view.setTitle(with: Common.done)
         view.backgroundColor = .systemGray6
         return view
     }()
@@ -287,18 +287,24 @@ extension ProjectManagerViewController {
         // MARK: Status View
         
         output.todoItems
-            .map { String($0.count) }
-            .bind(to: self.todoStatusView.taskCountLabel.rx.text)
+            .map { $0.count }
+            .subscribe(onNext: { count in
+                self.todoStatusView.setUpCount(count: count)
+            })
             .disposed(by: disposeBag)
         
         output.doingItems
-            .map { String($0.count) }
-            .bind(to: self.doingStatusView.taskCountLabel.rx.text)
+            .map { $0.count }
+            .subscribe(onNext: { count in
+                self.doingStatusView.setUpCount(count: count)
+            })
             .disposed(by: disposeBag)
         
         output.doneItems
-            .map { String($0.count) }
-            .bind(to: self.doneStatusView.taskCountLabel.rx.text)
+            .map { $0.count }
+            .subscribe(onNext: { count in
+                self.doneStatusView.setUpCount(count: count)
+            })
             .disposed(by: disposeBag)
         
         // MARK: Table View Cell

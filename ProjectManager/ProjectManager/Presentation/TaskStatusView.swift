@@ -10,13 +10,13 @@ import RxSwift
 
 class TaskStatusView: UIView {
     
-    var taskNameLabel: UILabel = {
+    private var taskNameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = label.font.withSize(30)
         return label
     }()
-    var taskCountLabel: UILabel = {
+    private var taskCountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
@@ -25,7 +25,7 @@ class TaskStatusView: UIView {
         return label
     }()
     
-    var wholeStackView: UIStackView = {
+    private var wholeStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
@@ -49,10 +49,14 @@ class TaskStatusView: UIView {
         self.taskCountLabel.text = count.description
     }
     
+    func setTitle(with string: String) {
+        self.taskNameLabel.text = string
+    }
+    
 }
 
 extension TaskStatusView {
-    func configureViewLayout() {
+    private func configureViewLayout() {
         wholeStackView.addArrangedSubview(taskNameLabel)
         wholeStackView.addArrangedSubview(taskCountLabel)
         
