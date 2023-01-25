@@ -35,7 +35,7 @@ final class MainViewModel {
         totalListItems[0].append(item)
     }
     
-    func fetch(targetItem: ListItem, from type: ListType) -> (ListItem?, Int?) {
+    func fetch(targetItem: ListItem, from type: ListType) -> (item: ListItem?, index: Int?) {
         var resultItem: ListItem?
         var resultIndex: Int?
         
@@ -52,8 +52,8 @@ final class MainViewModel {
     func move(targetItem: ListItem, from currentType: ListType, to newType: ListType) {
         let result = fetch(targetItem: targetItem, from: currentType)
         
-        guard let item = result.0,
-              let index = result.1
+        guard let item = result.item,
+              let index = result.index
         else {
             return
         }
