@@ -42,6 +42,16 @@ final class MockDataManager {
         }
     }
     
+    var todoList: [TodoModel] {
+        self.mockModels.filter { $0.status == .todo }
+    }
+    var doingList: [TodoModel] {
+        self.mockModels.filter { $0.status == .doing }
+    }
+    var doneList: [TodoModel] {
+        self.mockModels.filter { $0.status == .done }
+    }
+    
     func create(todo: TodoModel) {
         mockModels.append(todo)
     }

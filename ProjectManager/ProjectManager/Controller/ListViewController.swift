@@ -32,13 +32,13 @@ final class ListViewController: UIViewController {
     private lazy var doneDataSource: ListDataSource = configureDataSource(of: doneTableView)
     
     private var todoModels: [TodoModel] {
-        MockDataManager.shared.mockModels.filter { $0.status == .todo }
+        MockDataManager.shared.todoList
     }
     private var doingModels: [TodoModel] {
-        MockDataManager.shared.mockModels.filter { $0.status == .doing }
+        MockDataManager.shared.doingList
     }
     private var doneModels: [TodoModel] {
-        MockDataManager.shared.mockModels.filter { $0.status == .done }
+        MockDataManager.shared.doneList
     }
     
     override func viewDidLoad() {
