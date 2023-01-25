@@ -5,6 +5,8 @@
 //  Created by 애쉬 on 2023/01/19.
 //
 
+import Foundation
+
 final class MockDataManager {
     static let shared: MockDataManager = MockDataManager()
     
@@ -34,7 +36,11 @@ final class MockDataManager {
                                                 TodoModel(title: "오늘의 할일 찾기",
                                                           body: "뭐가 있지?",
                                                           status: .done,
-                                                          date: 1673968037.6580071)]
+                                                          date: 1673968037.6580071)] {
+        didSet {
+            NotificationCenter.default.post(name: Notification.Name.mockModels, object: nil)
+        }
+    }
     
     func create(todo: TodoModel) {
         mockModels.append(todo)
@@ -55,4 +61,8 @@ final class MockDataManager {
         
         mockModels.remove(at: index)
     }
+}
+
+extension Notification.Name {
+    static let mockModels = Notification.Name("mockModels")
 }

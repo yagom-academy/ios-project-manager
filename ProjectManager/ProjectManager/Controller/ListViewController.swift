@@ -58,14 +58,13 @@ final class ListViewController: UIViewController {
     
     @objc private func tappedAddButton() {
         let newTodoItem = TodoModel()
-        let addViewController = AddTodoViewController()
+        let todoViewController = TodoViewController()
         
-        addViewController.delegate = self
-        
-        showTodoItemView(with: newTodoItem, nextViewController: addViewController)
+        todoViewController.configureAddView(with: newTodoItem)
+        showTodoItemView(nextViewController: todoViewController)
     }
     
-    private func showTodoItemView(with todoItem: TodoModel, nextViewController: UIViewController) {
+    private func showTodoItemView(nextViewController: UIViewController) {
         let viewController = UINavigationController(rootViewController: nextViewController)
         
         viewController.modalPresentationStyle = .formSheet
@@ -78,6 +77,7 @@ final class ListViewController: UIViewController {
         setTableViews()
         configureLayout()
         applyAllSnapshot()
+        addTodoObserver()
     }
     
     private func setTableViews() {
@@ -100,6 +100,20 @@ final class ListViewController: UIViewController {
             listStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             listStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    private func addTodoObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateView),
+                                               name: Notification.Name.mockModels,
+                                               object: nil)
+    }
+    
+    @objc private func updateView() {
+        applyAllSnapshot()
+        todoTableView.tableHeaderView?.layoutIfNeeded()
+        doingTableView.tableHeaderView?.layoutIfNeeded()
+        doneTableView.tableHeaderView?.layoutIfNeeded()
     }
 }
 
@@ -127,21 +141,15 @@ extension ListViewController {
         
         let moveToTodo = UIAlertAction(title: AlertMenu.toTodo, style: .default) { [weak self] _ in
             MockDataManager.shared.update(todo: cellItem, status: .todo)
-            self?.todoTableView.reloadData()
-            tableView.reloadData()
-            self?.applyAllSnapshot()
+            self?.updateView()
         }
         let moveToDoing = UIAlertAction(title: AlertMenu.toDoing, style: .default) { [weak self] _ in
             MockDataManager.shared.update(todo: cellItem, status: .doing)
-            self?.doingTableView.reloadData()
-            tableView.reloadData()
-            self?.applyAllSnapshot()
+            self?.updateView()
         }
         let moveToDone = UIAlertAction(title: AlertMenu.toDone, style: .default) { [weak self] _ in
             MockDataManager.shared.update(todo: cellItem, status: .done)
-            self?.doneTableView.reloadData()
-            tableView.reloadData()
-            self?.applyAllSnapshot()
+            self?.updateView()
         }
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -240,11 +248,10 @@ extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cellItem = fetchCellItem(from: tableView, indexPath: indexPath) else { return }
         
-        let editViewController = EditTodoViewController()
-        editViewController.delegate = self
-        editViewController.prepareView(with: cellItem)
+        let editViewController = TodoViewController()
+        editViewController.configureEditView(with: cellItem)
         
-        showTodoItemView(with: cellItem, nextViewController: editViewController)
+        showTodoItemView(nextViewController: editViewController)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -268,28 +275,10 @@ extension ListViewController: UITableViewDelegate {
             guard let cellItem = self.fetchCellItem(from: tableView, indexPath: indexPath) else { return }
             
             MockDataManager.shared.remove(todo: cellItem)
-            tableView.reloadData()
-            self.applyAllSnapshot()
+            self.updateView()
         }
         
         delete.image = UIImage(systemName: SwipeActionTitle.deleteImage)
         return delete
-    }
-}
-
-// MARK: - AddTodoViewDelegate
-extension ListViewController: AddTodoViewDelegate {
-    func add(todo item: TodoModel) {
-        MockDataManager.shared.create(todo: item)
-        todoTableView.reloadData()
-        applySnapshot(todoTableView)
-    }
-}
-
-// MARK: - EditTodoViewDelegate
-extension ListViewController: EditTodoViewDelegate {
-    func edit(todo item: TodoModel) {
-        MockDataManager.shared.update(todo: item, status: item.status)
-        applyAllSnapshot()
     }
 }
