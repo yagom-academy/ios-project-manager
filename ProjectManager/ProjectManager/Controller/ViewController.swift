@@ -45,17 +45,17 @@ class ViewController: UIViewController {
         taskListVM.reloadTodoTasks = { [weak self] tasks in
             guard let self = self else { return }
             self.todoHeaderView.setTaskCountLabel(self.taskListVM, status: .todo)
-            self.update(dataSource: self.todoDataSource, tasksStatus: tasks)
+            self.dataSourceVM.configureSnapShot(dataSource: self.todoDataSource, tasks: tasks)
         }
         taskListVM.reloadDoingTasks = { [weak self] tasks in
             guard let self = self else { return }
             self.doingHeaderView.setTaskCountLabel(self.taskListVM, status: .doing)
-            self.update(dataSource: self.doingDataSource, tasksStatus: tasks)
+            self.dataSourceVM.configureSnapShot(dataSource: self.doingDataSource, tasks: tasks)
         }
         taskListVM.reloadDoneTasks = { [weak self] tasks in
             guard let self = self else { return }
             self.doneHeaderView.setTaskCountLabel(self.taskListVM, status: .done)
-            self.update(dataSource: self.doneDataSource, tasksStatus: tasks)
+            self.dataSourceVM.configureSnapShot(dataSource: self.doneDataSource, tasks: tasks)
         }
     }
     
@@ -73,17 +73,9 @@ class ViewController: UIViewController {
         return dataSource
     }
     
-    private func update(dataSource: UITableViewDiffableDataSource<Section, Task>,
-                        tasksStatus: [Task]) {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
-        snapShot.appendSections([.main])
-        snapShot.appendItems(tasksStatus)
-        dataSource.apply(snapShot, animatingDifferences: true)
-    }
-    
     private func setupSuperViewColor() {
         view.backgroundColor = Preset.defaultBackground
-    }    
+    }
 }
 
 extension ViewController: GestureRecognizerHelperDelegate {
