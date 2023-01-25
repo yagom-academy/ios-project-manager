@@ -14,21 +14,21 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
     
     // MARK: View
     
-    var todoTableView: UITableView = {
+    private var todoTableView: UITableView = {
         let table = UITableView()
         table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
         table.separatorStyle = .none
         table.backgroundColor = .systemGray6
         return table
     }()
-    var doingTableView: UITableView = {
+    private var doingTableView: UITableView = {
         let table = UITableView()
         table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
         table.separatorStyle = .none
         table.backgroundColor = .systemGray6
         return table
     }()
-    var doneTableView: UITableView = {
+    private var doneTableView: UITableView = {
         let table = UITableView()
         table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
         table.separatorStyle = .none
@@ -36,33 +36,33 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
         return table
     }()
     
-    var todoStatusView: TaskStatusView = {
+    private var todoStatusView: TaskStatusView = {
         let view = TaskStatusView()
         view.taskNameLabel.text = Common.todo
         view.backgroundColor = .systemGray6
         return view
     }()
-    var doingStatusView: TaskStatusView = {
+    private var doingStatusView: TaskStatusView = {
         let view = TaskStatusView()
         view.taskNameLabel.text = Common.doing
         view.backgroundColor = .systemGray6
         return view
     }()
-    var doneStatusView: TaskStatusView = {
+    private var doneStatusView: TaskStatusView = {
         let view = TaskStatusView()
         view.taskNameLabel.text = Common.done
         view.backgroundColor = .systemGray6
         return view
     }()
     
-    var todoStackView: UIStackView = {
+    private var todoStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
         stack.axis = .vertical
         return stack
     }()
-    var doingStackView: UIStackView = {
+    private var doingStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -70,7 +70,7 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
         
         return stack
     }()
-    var doneStackView: UIStackView = {
+    private var doneStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -79,7 +79,7 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
         return stack
     }()
     
-    var wholeStackView: UIStackView = {
+    private var wholeStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fillEqually
@@ -88,8 +88,9 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
     }()
     
     // MARK: ViewModel
+    
     var viewModel: ProjectManagerViewModel?
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     // MARK: ViewDidLoad
     
@@ -277,11 +278,11 @@ extension ProjectManagerViewController {
                                                   delete: deletedTrigger)
         let output = viewModel.transform(input: input)
         
+        // MARK: Delete Output
+        
         output.deletedItem
             .subscribe()
             .disposed(by: disposeBag)
-        
-        
         
         // MARK: Status View
         
