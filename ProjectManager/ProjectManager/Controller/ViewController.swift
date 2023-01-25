@@ -129,25 +129,23 @@ extension ViewController: GestureRecognizerHelperDelegate {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let editViewController = storyboard?.instantiateViewController(withIdentifier: "editViewController") as? EditViewController ?? EditViewController()
-        sendDelegateInfo(editViewController, tableView, indexPath)
+        setUpTaskVM(editViewController, tableView, indexPath)
         editViewController.setUpTaskListVM(taskListVM)
+        editViewController.indexPathRow = indexPath.row
         editViewController.modalPresentationStyle = .formSheet
         present(editViewController, animated: true)
     }
     
-    private func sendDelegateInfo(_ editViewController: EditViewController,
-                                  _ tableView: UITableView,
-                                  _ indexPath: IndexPath ) {
+    private func setUpTaskVM(_ editViewController: EditViewController,
+                             _ tableView: UITableView,
+                             _ indexPath: IndexPath) {
         switch tableView {
         case todoTableView:
-            let info = DelegateInfo(status: .todo, indexPathRow: indexPath.row)
-            editViewController.setUpDelegateInfo(info: info)
+            editViewController.setUpTaskVM(task: taskListVM.todoTasks[indexPath.row])
         case doingTableView:
-            let info = DelegateInfo(status: .doing, indexPathRow: indexPath.row)
-            editViewController.setUpDelegateInfo(info: info)
+            editViewController.setUpTaskVM(task: taskListVM.doingTasks[indexPath.row])
         case doneTableView:
-            let info = DelegateInfo(status: .done, indexPathRow: indexPath.row)
-            editViewController.setUpDelegateInfo(info: info)
+            editViewController.setUpTaskVM(task: taskListVM.doneTasks[indexPath.row])
         default:
             break
         }

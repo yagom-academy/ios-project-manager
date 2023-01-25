@@ -12,12 +12,12 @@ class EditViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
     var taskListVM: TaskListViewModel?
+    var taskVM: TaskViewModel?
     var indexPathRow: Int?
-    var status: Status?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpSelectedTask()
+        configureTask()
         setEditableMode(mode: false)
     }
     
@@ -28,7 +28,7 @@ class EditViewController: UIViewController {
     
     @IBAction func tapDone(_ sender: UIBarButtonItem) {
         guard let indexPathRow = indexPathRow,
-              let status = status else { return }
+              let status = taskVM?.status else { return }
         
         let task = Task(title: titleTextField.text,
                         description: descriptionTextView.text,
@@ -46,37 +46,17 @@ class EditViewController: UIViewController {
         descriptionTextView.isUserInteractionEnabled = mode
     }
     
-    private func setUpSelectedTask() {
-        guard let indexPathRow = indexPathRow,
-              let taskListVM = taskListVM else { return }
-        
-        switch status {
-        case .todo:
-            let task = taskListVM.todoTasks[indexPathRow]
-            configureTask(task: task)
-        case .doing:
-            let task = taskListVM.doingTasks[indexPathRow]
-            configureTask(task: task)
-        case .done:
-            let task = taskListVM.doneTasks[indexPathRow]
-            configureTask(task: task)
-        default:
-            break
-        }
+    private func configureTask() {
+        titleTextField.text = taskVM?.title
+        datePicker.date = taskVM?.date ?? Date()
+        descriptionTextView.text = taskVM?.description
     }
     
-    private func configureTask(task: Task) {
-        titleTextField.text = task.title
-        datePicker.date = task.date ?? Date()
-        descriptionTextView.text = task.description
+    func setUpTaskListVM(_ taskListViewModel: TaskListViewModel) {
+        self.taskListVM = taskListViewModel
     }
     
-    func setUpTaskListVM(_ taskListVM: TaskListViewModel) {
-        self.taskListVM = taskListVM
-    }
-    
-    func setUpDelegateInfo(info: DelegateInfo) {
-        indexPathRow = info.indexPathRow
-        status = info.status
+    func setUpTaskVM(task: Task) {
+        self.taskVM = TaskViewModel(task)
     }
 }

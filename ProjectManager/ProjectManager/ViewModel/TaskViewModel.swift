@@ -25,4 +25,7 @@ extension TaskViewModel {
     var date: Date? {
         return self.task.date
     }
+    var status: Status {
+        return self.task.status
+    }
 }
