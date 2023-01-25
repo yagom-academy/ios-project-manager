@@ -10,7 +10,11 @@ import UIKit
 class AddProjectViewController: UIViewController {
 
     // MARK: - Properties
-    private let datePicker = UIDatePicker()
+    private let datePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        return datePicker
+    }()
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -21,6 +25,7 @@ class AddProjectViewController: UIViewController {
 
     // MARK: - UI
     private func configureUI() {
+        view.addSubview(datePicker)
         configureDatePicker()
         configureContraints()
     }
@@ -34,8 +39,6 @@ class AddProjectViewController: UIViewController {
     }
 
     private func configureContraints() {
-        view.addSubview(datePicker)
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             datePicker.widthAnchor.constraint(equalToConstant: 400),
             datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
