@@ -3,18 +3,19 @@
 //  ProjectManager
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
+
 
 import Foundation
 import RxSwift
 
 final class AddTaskViewModel: ViewModelType {
+    private let disposeBag = DisposeBag()
     var title: String
     var description: String
     var date: Date
     var tag: Status
     var useCase: TaskItemsUseCase
-
+    
     init(useCase: TaskItemsUseCase) {
         self.title = ""
         self.description = ""
@@ -22,34 +23,47 @@ final class AddTaskViewModel: ViewModelType {
         self.tag = .todo
         self.useCase = useCase
     }
+}
 
+// MARK: Function
+
+extension AddTaskViewModel {
     func transform(input: Input) -> Output {
-
-        let title = input.titleTrigger
+        
+        let _ = input.titleTrigger
             .subscribe(onNext: {
                 self.title = $0
             })
-        let description = input.descriptionTrigger
+            .disposed(by: disposeBag)
+        let _ = input.descriptionTrigger
             .subscribe(onNext: {
                 self.description = $0
             })
-        let date = input.dateTrigger
+            .disposed(by: disposeBag)
+        let _ = input.dateTrigger
             .subscribe(onNext: {
-            self.date = $0
+                self.date = $0
             })
-
+            .disposed(by: disposeBag)
+        
         let createdTask = input.doneTrigger.flatMapLatest {
-            let newTask = Task(title: self.title,
-                               description: self.description,
-                               expireDate: self.date,
-                               tag: self.tag,
-                               uuid: UUID())
+            let newTask = self.creatTask()
             return self.useCase.create(task: newTask)
         }
-
+        
         return Output(createdTask: createdTask)
     }
+    
+    private func creatTask() -> Task {
+        return Task(title: title,
+                    description: description,
+                    expireDate: date,
+                    tag: tag,
+                    uuid: UUID())
+    }
 }
+
+// MARK: Input & Output
 
 extension AddTaskViewModel {
     struct Input {
@@ -58,7 +72,6 @@ extension AddTaskViewModel {
         let descriptionTrigger: Observable<String>
         let dateTrigger: Observable<Date>
     }
-
     struct Output {
         let createdTask: Observable<Task>
     }
