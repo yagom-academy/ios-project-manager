@@ -8,3 +8,7 @@ opt_in_rules:
     - empty_string
 
 line_length: 100
+
+disabled_rules:
+    - trailing_whitespace
+    - void_function_in_ternary
