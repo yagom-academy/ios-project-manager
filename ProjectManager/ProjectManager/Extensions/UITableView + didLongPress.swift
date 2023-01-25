@@ -8,8 +8,5 @@
 import UIKit
 
 extension UITableView: UIGestureRecognizerDelegate {
-    @objc func didLongPress() {
-        print(#function)
-        
-    }
+    @objc func didLongPress() { }
 }
