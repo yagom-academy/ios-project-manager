@@ -86,7 +86,7 @@ final class ListViewController: UIViewController {
             $0.delegate = self
             listStackView.addArrangedSubview($0)
             $0.addGestureRecognizer(UILongPressGestureRecognizer(target: self,
-                                                                 action: #selector(self.pressTableView)))
+                                                                 action: #selector(self.pressTableViewCell)))
         }
     }
     
@@ -118,7 +118,7 @@ final class ListViewController: UIViewController {
 
 // MARK: - configure Popover
 extension ListViewController {
-    @objc func pressTableView(_ sender: UILongPressGestureRecognizer) {
+    @objc func pressTableViewCell(_ sender: UILongPressGestureRecognizer) {
         guard let tableView = sender.view as? UITableView else { return }
         
         let location = sender.location(in: tableView)
