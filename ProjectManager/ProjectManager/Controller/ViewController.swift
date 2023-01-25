@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSuperViewColor()
-        tableViewDeclaration([todoTableView, doingTableView, doneTableView], [todoDataSource, doingDataSource, doneDataSource])
+        tableViewAttributeDeclaration([todoTableView, doingTableView, doneTableView], [todoDataSource, doingDataSource, doneDataSource])
         reloadTasksTableViewDataSource()
     }
     
@@ -34,8 +34,8 @@ class ViewController: UIViewController {
         present(addViewController, animated: true)
     }
     
-    private func tableViewDeclaration(_ tableViews: [UITableView], _ dataSources: [UITableViewDiffableDataSource<Section, Task>]) {
-        for index in 0...tableViews.count {
+    private func tableViewAttributeDeclaration(_ tableViews: [UITableView], _ dataSources: [UITableViewDiffableDataSource<Section, Task>]) {
+        for index in 0..<tableViews.count {
             tableViews[index].delegate = self
             tableViews[index].dataSource = dataSources[index]
         }
