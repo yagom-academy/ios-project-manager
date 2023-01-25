@@ -252,10 +252,6 @@ private enum Constant {
     static let doing = "DOING"
     static let done = "DONE"
     
-    static let moveToToDo = "Move to TODO"
-    static let moveToDoing = "Move to DOING"
-    static let moveToDone = "Move to DONE"
-    
     static let swipeDelete = "Delete"
     
     static let viewBackgroundColor: UIColor = .init(cgColor: CGColor(

@@ -39,11 +39,11 @@ extension MenuPresentable {
         
         switch type {
         case .todo:
-            title = "Move To TODO"
+            title = Constant.moveToToDo
         case .doing:
-            title = "Move To DOING"
+            title = Constant.moveToDoing
         case .done:
-            title = "Move To DONE"
+            title = Constant.moveToDone
         }
         
         let action = UIAlertAction(title: title, style: .default) { _ in
@@ -53,4 +53,10 @@ extension MenuPresentable {
         
         return action
     }
+}
+
+private enum Constant {
+    static let moveToToDo = "Move to TODO"
+    static let moveToDoing = "Move to DOING"
+    static let moveToDone = "Move to DONE"
 }
