@@ -16,9 +16,6 @@ class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    @IBAction func tapEdit(_ sender: UIBarButtonItem) {
-        
-    }
     
     @IBAction func tapDone(_ sender: UIBarButtonItem) {
         guard let titleTextFiled = titleTextFiled,

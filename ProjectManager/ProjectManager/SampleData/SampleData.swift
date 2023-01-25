@@ -8,7 +8,6 @@
 import Foundation
 
 struct SampleDummyData {
-            
     var sampleDummy: [Task] {
         var tasks = [Task]()
         let dateFormatter = DateFormatter()
@@ -28,5 +27,4 @@ struct SampleDummyData {
         tasks.append(Task(title: "이어떤가업무고 끝냈습니다.", description: "끝난업무야", date: dateFormatter.date(from: "2006 .6 .22"), status: .doing))
         return tasks
     }
-    
 }

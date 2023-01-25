@@ -14,10 +14,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var todoHeaderView: CustomTableHeader!
     @IBOutlet weak var doingHeaderView: CustomTableHeader!
     @IBOutlet weak var doneHeaderView: CustomTableHeader!
-    
-    let dataSourceVM = DataSourceViewModel()
-    let taskListVM = TaskListViewModel()
-    
+    private let dataSourceVM = DataSourceViewModel()
+    private let taskListVM = TaskListViewModel()
     private lazy var todoDataSource = makeDataSource(tableView: todoTableView, taskListVM.todoTasks)
     private lazy var doingDataSource = makeDataSource(tableView: doingTableView, taskListVM.doingTasks)
     private lazy var doneDataSource = makeDataSource(tableView: doneTableView, taskListVM.doneTasks)
@@ -61,9 +59,7 @@ class ViewController: UIViewController {
     
     private func makeDataSource(tableView: UITableView,
                                 _ tasks: [Task]) -> UITableViewDiffableDataSource<Section, Task> {
-        
         dataSourceVM.registerCell(tableView: tableView)
-        
         let dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: tableView) { _, indexPath, task in
             let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell",
                                                      for: indexPath) as? TableViewCell ?? TableViewCell()
@@ -75,7 +71,8 @@ class ViewController: UIViewController {
         return dataSource
     }
     
-    private func update(dataSource: UITableViewDiffableDataSource<Section, Task>, tasksStatus: [Task]) {
+    private func update(dataSource: UITableViewDiffableDataSource<Section, Task>,
+                        tasksStatus: [Task]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
         snapShot.appendSections([.main])
         snapShot.appendItems(tasksStatus)
@@ -83,7 +80,7 @@ class ViewController: UIViewController {
     }
     
     private func setupSuperViewColor() {
-        view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1)
+        view.backgroundColor = Preset.defaultBackground
     }    
 }
 
@@ -114,7 +111,7 @@ extension ViewController: GestureRecognizerHelperDelegate {
         popOverAlertController.modalPresentationStyle = .popover
         popOverAlertController.popoverPresentationController?.sourceView = tableView
         popOverAlertController.popoverPresentationController?.permittedArrowDirections = [.up]
-        popOverAlertController.popoverPresentationController?.sourceRect = CGRect(x: viewPoint.x, y: viewPoint.y, width: 50, height: 50)
+        popOverAlertController.popoverPresentationController?.sourceRect = Preset.defaultpopOverArrowPoint(viewPoint)
         present(popOverAlertController, animated: true)
     }
     

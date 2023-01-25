@@ -13,7 +13,6 @@ class CustomTableHeader: UIView {
     @IBOutlet weak var taskCountView: UIView!
     @IBOutlet weak var taskCountLabel: UILabel!
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -26,9 +25,7 @@ class CustomTableHeader: UIView {
     }
     
     private func xibSetup() {
-        guard let view = loadViewFromNib(nib: "CustomTableHeader") else {
-            return
-        }
+        guard let view = loadViewFromNib(nib: "CustomTableHeader") else { return }
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(view)
@@ -37,21 +34,20 @@ class CustomTableHeader: UIView {
     private func loadViewFromNib(nib: String) -> UIView? {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nib, bundle: bundle)
-        return nib.instantiate(withOwner: self, options: nil).first as? UIView
+        return nib.instantiate(withOwner: self,
+                               options: nil).first as? UIView
     }
     
     private func setHeaderViewColor() {
-        contentsView.backgroundColor = UIColor(red: 0.969,
-                                               green: 0.969,
-                                               blue: 0.969,
-                                               alpha: 1)
+        contentsView.backgroundColor = Preset.defaultBackground
     }
     
     private func setContentsViewShape() {
         taskCountView.layer.cornerRadius = taskCountView.frame.width / 2
     }
     
-    func setTaskCountLabel(_ viewModel: TaskListViewModel, status: Status) {
+    func setTaskCountLabel(_ viewModel: TaskListViewModel,
+                           status: Status) {
         taskStatusLabel.text = status.rawValue
         switch status {
         case .todo:
@@ -61,6 +57,5 @@ class CustomTableHeader: UIView {
         case .done:
             taskCountLabel.text = String(viewModel.doneTasks.count)
         }
-        
     }
 }

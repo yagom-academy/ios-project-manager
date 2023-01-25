@@ -31,6 +31,7 @@
 		D2400AFE2976852000B24E6B /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AFD2976852000B24E6B /* SampleData.swift */; };
 		D2400B002976854600B24E6B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2400AFF2976854500B24E6B /* Status.swift */; };
 		D2C3549229801C9900EB8856 /* Extension + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C3549129801C9900EB8856 /* Extension + Date.swift */; };
+		D2C354942980FEF500EB8856 /* ColorPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C354932980FEF500EB8856 /* ColorPreset.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		D2400AFD2976852000B24E6B /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		D2400AFF2976854500B24E6B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		D2C3549129801C9900EB8856 /* Extension + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + Date.swift"; sourceTree = "<group>"; };
+		D2C354932980FEF500EB8856 /* ColorPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreset.swift; sourceTree = "<group>"; };
 		EFD4DCB7AD44E7D4BF32A078 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 				D2400AF02971487400B24E6B /* Section.swift */,
 				D2400AFF2976854500B24E6B /* Status.swift */,
 				D200DDA229780BC00003FB56 /* DelegateInfo.swift */,
+				D2C354932980FEF500EB8856 /* ColorPreset.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				D2400AEB2971413900B24E6B /* TaskList.swift in Sources */,
 				D2400AD72970048A00B24E6B /* TableViewCell.swift in Sources */,
 				D2C3549229801C9900EB8856 /* Extension + Date.swift in Sources */,
+				D2C354942980FEF500EB8856 /* ColorPreset.swift in Sources */,
 				D200DDA1297802FA0003FB56 /* EditViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D2400AF12971487400B24E6B /* Section.swift in Sources */,

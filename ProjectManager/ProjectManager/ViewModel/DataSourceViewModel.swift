@@ -16,6 +16,7 @@ struct DataSourceViewModel {
     }
     
     func registerCell(tableView: UITableView) {
-        tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "tableViewCell")
+        tableView.register(UINib(nibName: "TableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "tableViewCell")
     }
 }
