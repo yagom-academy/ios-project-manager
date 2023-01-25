@@ -36,12 +36,6 @@ final class ToDoHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        listCountLabel.layer.cornerRadius = listCountLabel.bounds.size.height * 0.5
-    }
-    
     private func setupViews() {
         addSubview(titleLabel)
         addSubview(listCountLabel)
