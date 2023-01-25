@@ -25,9 +25,9 @@ class MainViewController: UIViewController {
         
         return stackView
     }()
-    private let todoListStackView = ListStackView(title: Constant.todo)
-    private let doingListStackView = ListStackView(title: Constant.doing)
-    private let doneListStackView = ListStackView(title: Constant.done)
+    private let todoListStackView = ListStackView(title: Constant.uppercasedTodo)
+    private let doingListStackView = ListStackView(title: Constant.uppercasedDoing)
+    private let doneListStackView = ListStackView(title: Constant.uppercasedDone)
     
     private var todoListDataSource: DataSource?
     private var doingListDataSource: DataSource?
@@ -246,6 +246,49 @@ extension MainViewController: ListFormViewControllerDelegate {
 // MARK: - MenuPresentable
 
 extension MainViewController: MenuPresentable {
+    func didLongPressGesture(_ sender: UIGestureRecognizer, _ viewModel: ListItemCellViewModel) {
+        guard sender.state == .began else { return }
+        
+        showPopoverMenu(sender, viewModel)
+    }
+    
+    func showPopoverMenu(_ sender: UIGestureRecognizer, _ viewModel: ListItemCellViewModel) {
+        let actionTypes = ListType.allCases.filter { $0 != viewModel.listType }
+        let menuAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+        menuAlert.modalPresentationStyle = .popover
+        menuAlert.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+        menuAlert.popoverPresentationController?.sourceView = sender.view
+        
+        actionTypes.forEach {
+            let action = makeAlertAction(of: $0, viewModel)
+            
+            menuAlert.addAction(action)
+        }
+        
+        present(menuAlert, animated: true)
+    }
+    
+    func makeAlertAction(of type: ListType, _ viewModel: ListItemCellViewModel) -> UIAlertAction {
+        let title: String
+        
+        switch type {
+        case .todo:
+            title = Constant.moveToToDo
+        case .doing:
+            title = Constant.moveToDoing
+        case .done:
+            title = Constant.moveToDone
+        }
+        
+        let action = UIAlertAction(title: title, style: .default) { _ in
+            self.move(listItem: viewModel.listItem, from: viewModel.listType, to: type)
+            viewModel.moveType(to: type)
+        }
+        
+        return action
+    }
+    
     func move(listItem: ListItem, from currentType: ListType, to newType: ListType) {
         mainViewModel.move(targetItem: listItem, from: currentType, to: newType)
     }
@@ -255,9 +298,13 @@ extension MainViewController: MenuPresentable {
 
 private enum Constant {
     static let navigationTitle = "Project Manager"
-    static let todo = "TODO"
-    static let doing = "DOING"
-    static let done = "DONE"
+    static let uppercasedTodo = "TODO"
+    static let uppercasedDoing = "DOING"
+    static let uppercasedDone = "DONE"
+    
+    static let moveToToDo = "Move to TODO"
+    static let moveToDoing = "Move to DOING"
+    static let moveToDone = "Move to DONE"
     
     static let swipeDelete = "Delete"
     
