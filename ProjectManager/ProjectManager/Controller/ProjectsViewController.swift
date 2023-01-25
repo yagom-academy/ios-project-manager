@@ -77,7 +77,6 @@ class ProjectsViewController: UIViewController {
         let addProjectViewController = AddProjectViewController()
         let secondNavigationController = UINavigationController(rootViewController: addProjectViewController)
         secondNavigationController.modalPresentationStyle = .formSheet
-        secondNavigationController.preferredContentSize = CGSize(width: Constant.preferredAddViewContentSize, height: Constant.preferredAddViewContentSize)
         self.present(secondNavigationController, animated: true)
     }
 }
