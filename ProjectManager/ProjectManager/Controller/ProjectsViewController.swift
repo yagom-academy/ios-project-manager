@@ -11,6 +11,7 @@ class ProjectsViewController: UIViewController {
     enum Constant {
         static let navigationTitle = "Project Manager"
         static let stackViewSpacing: CGFloat = 10
+        static let preferredAddViewContentSize: CGFloat = 650
     }
 
     private let stackView: UIStackView = {
@@ -75,6 +76,8 @@ class ProjectsViewController: UIViewController {
     @objc private func showAddProjectView() {
         let addProjectViewController = AddProjectViewController()
         let secondNavigationController = UINavigationController(rootViewController: addProjectViewController)
+        secondNavigationController.modalPresentationStyle = .formSheet
+        secondNavigationController.preferredContentSize = CGSize(width: Constant.preferredAddViewContentSize, height: Constant.preferredAddViewContentSize)
         self.present(secondNavigationController, animated: true)
     }
 }
