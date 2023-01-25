@@ -51,11 +51,11 @@ struct BoardListCellView: View {
           .lineLimit(3)
           .font(.body)
         
-        Text(project.date.convertedDateDescription)
+        Text(project.date.onlyDate())
           .lineLimit(1)
           .font(.footnote)
           .foregroundColor(
-            project.date << Int(Date().convertDate().timeIntervalSince1970) ? .red : .black
+            project.date.onlyDate() <= Date().onlyDate() ? .red : .black
           )
       }
       
@@ -74,7 +74,7 @@ struct BoardListView_Previews: PreviewProvider {
     BoardListCellView(
       project: Project(
         title: "Example",
-        date: 99999999,
+        date: Date(),
         description: "Example"
       )
     )

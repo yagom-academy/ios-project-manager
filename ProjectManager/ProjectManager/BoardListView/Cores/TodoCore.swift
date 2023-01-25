@@ -63,7 +63,7 @@ let todoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
       state.selectedState = DetailState(
         title: project.title,
         description: project.description,
-        deadLineDate: project.date.convertedDate,
+        deadLineDate: project.date,
         editMode: true
       )
       
@@ -78,7 +78,7 @@ let todoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
       
       let newItem = Project(
         title: detail.title,
-        date: Int(detail.deadLineDate.timeIntervalSince1970),
+        date: detail.deadLineDate,
         description: detail.description
       )
       state.projects[index] = newItem
