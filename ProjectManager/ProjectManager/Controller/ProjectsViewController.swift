@@ -75,8 +75,22 @@ class ProjectsViewController: UIViewController {
 
     @objc private func showAddProjectView() {
         let addProjectViewController = AddProjectViewController()
+        addProjectViewController.delegate = self
         let secondNavigationController = UINavigationController(rootViewController: addProjectViewController)
         secondNavigationController.modalPresentationStyle = .formSheet
         self.present(secondNavigationController, animated: true)
+    }
+    
+    private func updateTodoTask(with task: Task) {
+        guard let controller = self.children[0] as? TaskViewController else {
+            return
+        }
+        controller.filteredTasks.append(task)
+    }
+}
+
+extension ProjectsViewController: TaskAddDelegate {
+    func taskDidAdded(_ task: Task) {
+        updateTodoTask(with: task)
     }
 }

@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TaskAddDelegate: AnyObject {
+    func taskDidAdded(_ task: Task)
+}
+
 class AddProjectViewController: UIViewController {
 
     enum Constant {
@@ -17,6 +21,7 @@ class AddProjectViewController: UIViewController {
     }
     
     let taskSettingView = TaskSettingView()
+    weak var delegate: TaskAddDelegate?
 
     // MARK: - LifeCycle
     override func loadView() {
@@ -46,6 +51,10 @@ class AddProjectViewController: UIViewController {
     }
 
     @objc private func saveAndDismissCurrentViewController() {
+        guard let task = taskSettingView.fetchTask() else {
+            return
+        }
+        delegate?.taskDidAdded(task)
         self.dismissCurrentViewController()
     }
     // MARK: - Helpers

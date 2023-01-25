@@ -82,4 +82,15 @@ class TaskSettingView: UIView {
             stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.stackViewSpacing)
         ])
     }
+    
+    func fetchTask() -> Task? {
+        guard let title = titleTextField.text else {
+            return nil
+        }
+        guard let description = descriptionTextView.text else {
+            return nil
+        }
+        
+        return Task(id: UUID(), title: title, description: description, date: Date(), status: .todo)
+    }
 }
