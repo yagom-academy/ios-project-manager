@@ -26,6 +26,7 @@ class ProjectViewController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.locale = .current
         return datePicker
     }()
     

@@ -32,7 +32,7 @@ final class EditViewModel {
         self.project = project
     }
     
-    func updateProject(title: String, deadline: Calendar, description: String) {
+    func updateProject(title: String, deadline: Date, description: String) {
         project?.title = title
         project?.deadline = deadline
         project?.description = description

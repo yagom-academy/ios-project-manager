@@ -33,13 +33,11 @@ extension AddViewController {
     
     private func tapDoneButton(_ sender: UIAction) {
         guard let title = textField.text,
-              let deadline = datePicker.calendar,
               let description = textView.text
         else {
-            // 얼럿?
             return
         }
-        viewModel?.addProject(title: title, deadline: deadline, description: description)
+        viewModel?.addProject(title: title, deadline: datePicker.date, description: description)
         dismiss(animated: true)
     }
 }

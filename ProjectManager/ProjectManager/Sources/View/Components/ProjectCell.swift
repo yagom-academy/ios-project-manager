@@ -7,6 +7,20 @@
 
 import UIKit
 
+enum DateColor {
+    case red
+    case black
+    
+    var value: UIColor {
+        switch self {
+        case .red:
+            return .systemRed
+        case .black:
+            return .black
+        }
+    }
+}
+
 final class ProjectCell: UITableViewCell {
     static let reuseIdentifier = String(describing: ProjectCell.self)
     private var projectCellViewModel: ProjectCellViewModel?
@@ -95,8 +109,9 @@ extension ProjectCell {
             self?.titleLabel.text = text
         }
         
-        projectCellViewModel?.deadlineHandler = { [weak self] text in
-            self?.dateLabel.text = text
+        projectCellViewModel?.deadlineHandler = { [weak self] deadline in
+            self?.dateLabel.text = deadline?.date
+            self?.dateLabel.textColor = deadline?.color.value
         }
         
         projectCellViewModel?.descriptionHandler = { [weak self] text in

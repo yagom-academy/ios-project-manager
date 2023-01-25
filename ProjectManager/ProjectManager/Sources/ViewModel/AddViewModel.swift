@@ -16,7 +16,7 @@ final class AddViewModel {
     
     weak var delegate: ViewModelDelegate?
     
-    func addProject(title: String, deadline: Calendar, description: String) {
+    func addProject(title: String, deadline: Date, description: String) {
         project = Project(title: title, deadline: deadline, description: description, state: .todo)
     }
 }

@@ -42,9 +42,10 @@ final class EditViewController: ProjectViewController {
     
     private func bindViewModel() {
         viewModel.componentsHandler = { [weak self] viewProject in
-            self?.textField.text = viewProject?.title
-            self?.datePicker.calendar = viewProject?.deadline
-            self?.textView.text = viewProject?.description
+            guard let viewProject = viewProject else { return }
+            self?.textField.text = viewProject.title
+            self?.datePicker.date = viewProject.deadline
+            self?.textView.text = viewProject.description
         }
         
         viewModel.editingHandler = { [weak self] in
@@ -61,13 +62,12 @@ extension EditViewController {
     
     private func tapDoneButton(_ sender: UIAction) {
         guard let title = textField.text,
-              let deadline = datePicker.calendar,
               let description = textView.text
         else {
             return
         }
         
-        viewModel.updateProject(title: title, deadline: deadline, description: description)
+        viewModel.updateProject(title: title, deadline: datePicker.date, description: description)
         dismiss(animated: true)
     }
 }

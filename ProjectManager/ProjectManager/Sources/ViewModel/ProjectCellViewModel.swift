@@ -8,12 +8,14 @@
 import Foundation
 
 final class ProjectCellViewModel {
+    typealias DeadLine = (date: String?, color: DateColor)
+    
     private var title: String? {
         didSet {
             titleHandler?(title)
         }
     }
-    private var deadline: String? {
+    private var deadline: DeadLine? {
         didSet {
             deadlineHandler?(deadline)
         }
@@ -26,12 +28,12 @@ final class ProjectCellViewModel {
     }
     
     var titleHandler: ((String?) -> Void)?
-    var deadlineHandler: ((String?) -> Void)?
+    var deadlineHandler: ((DeadLine?) -> Void)?
     var descriptionHandler: ((String?) -> Void)?
     
     func makeCellData(_ project: Project) {
         title = project.title
-        deadline = project.deadline.description
         description = project.description
+        deadline = (project.deadline.convertString(), Date() > project.deadline ? .red : .black)
     }
 }

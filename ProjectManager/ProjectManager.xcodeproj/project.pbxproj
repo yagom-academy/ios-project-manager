@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C1BC0A4297639230043D873 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1BC0A3297639230043D873 /* ProjectCell.swift */; };
+		0CC8B7F12980C2700011E5FB /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC8B7F02980C2700011E5FB /* Date+.swift */; };
 		0CD73D6029797A4900593B4D /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD73D5F29797A4900593B4D /* EditViewController.swift */; };
 		0CD73D6229797ACB00593B4D /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD73D6129797ACB00593B4D /* AddViewController.swift */; };
 		0CD73D64297A6ACB00593B4D /* ProjectCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD73D63297A6ACB00593B4D /* ProjectCellViewModel.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		0C1BC0A3297639230043D873 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
+		0CC8B7F02980C2700011E5FB /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		0CD73D5F29797A4900593B4D /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		0CD73D6129797ACB00593B4D /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		0CD73D63297A6ACB00593B4D /* ProjectCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCellViewModel.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		0C095062297573CF00C1E3F3 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0CC8B7EF2980C25C0011E5FB /* Extension */,
 				0C0950602975737600C1E3F3 /* Model */,
 				0C09505F2975734600C1E3F3 /* View */,
 				0C0950612975738200C1E3F3 /* ViewModel */,
@@ -143,6 +146,14 @@
 				0CD73D6129797ACB00593B4D /* AddViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0CC8B7EF2980C25C0011E5FB /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0CC8B7F02980C2700011E5FB /* Date+.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -273,6 +284,7 @@
 			files = (
 				E35F5DA729797FC5008D3ADC /* EditViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				0CC8B7F12980C2700011E5FB /* Date+.swift in Sources */,
 				0CD73D64297A6ACB00593B4D /* ProjectCellViewModel.swift in Sources */,
 				E35F5DAB297A65D6008D3ADC /* ViewModelDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
