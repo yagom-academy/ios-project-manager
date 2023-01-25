@@ -40,10 +40,10 @@ final class TaskSwitchViewController: UIViewController {
         return stack
     }()
 
+    // MARK: Initialization
+    
     var viewModel: TaskSwitchViewModel?
-    let disposeBag = DisposeBag()
-
-// MARK: ViewDidLoad
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,10 +54,21 @@ final class TaskSwitchViewController: UIViewController {
     }
 }
 
-// MARK: Action
+// MARK: Function
+
 extension TaskSwitchViewController {
 
-    func bindViewModel() {
+    func asPopover() {
+        modalPresentationStyle = .popover
+        preferredContentSize = CGSize(width: 250, height: 100)
+        popoverPresentationController?.permittedArrowDirections = [.left, .right]
+    }
+    
+    func sourceView(view: UIView) {
+        popoverPresentationController?.sourceView = view
+    }
+    
+    private func bindViewModel() {
         guard let viewModel = self.viewModel else { return }
 
         let doingButton = doingButton.rx.tap.asObservable()
@@ -77,10 +88,6 @@ extension TaskSwitchViewController {
             .disposed(by: disposeBag)
     }
 
-    func sourceView(view: UIView) {
-        self.popoverPresentationController?.sourceView = view
-    }
-
     private func addButtonActions() {
         doingButton.addTarget(self, action: #selector(tapDoingButton), for: .touchDown)
         doneButton.addTarget(self, action: #selector(tapDoneButton), for: .touchDown)
@@ -97,28 +104,23 @@ extension TaskSwitchViewController {
     }
 }
 
-// MARK: Style
+// MARK: Layout
+
 extension TaskSwitchViewController {
 
-    func asPopover() {
-        self.modalPresentationStyle = .popover
-        self.preferredContentSize = CGSize(width: 250, height: 100)
-        self.popoverPresentationController?.permittedArrowDirections = [.left, .right]
-    }
-
     private func layoutViews() {
-        self.wholeStackView.addArrangedSubview(doingButton)
-        self.wholeStackView.addArrangedSubview(doneButton)
-        self.view.addSubview(wholeStackView)
-        self.view.backgroundColor = .systemGray4
-        self.view.directionalLayoutMargins = .init(top: 8, leading: 8,
+        wholeStackView.addArrangedSubview(doingButton)
+        wholeStackView.addArrangedSubview(doneButton)
+        view.addSubview(wholeStackView)
+        view.backgroundColor = .systemGray4
+        view.directionalLayoutMargins = .init(top: 8, leading: 8,
                                                    bottom: 8, trailing: 8)
 
         NSLayoutConstraint.activate([
-            self.wholeStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            self.wholeStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            self.wholeStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            self.wholeStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+            wholeStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            wholeStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            wholeStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            wholeStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
         ])
     }
 }
