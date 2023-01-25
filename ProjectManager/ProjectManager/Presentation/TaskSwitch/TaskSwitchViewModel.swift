@@ -9,8 +9,8 @@ import Foundation
 import RxSwift
 
 final class TaskSwitchViewModel: ViewModelType {
-    var useCase: TaskItemsUseCase
-    var task: Task
+    private var useCase: TaskItemsUseCase
+    private var task: Task
 
     init(useCase: TaskItemsUseCase, task: Task) {
         self.useCase = useCase
@@ -18,43 +18,42 @@ final class TaskSwitchViewModel: ViewModelType {
     }
 }
 
-// MARK: Action
+// MARK: Function
+
 extension TaskSwitchViewModel {
     func transform(input: Input) -> Output {
         let switchDoing = input.doingTrigger
             .flatMapLatest { _ in
-                let task = self.task
-                let switchedTask = Task(title: task.title,
-                                        description: task.description,
-                                        expireDate: task.expireDate,
-                                        tag: .doing,
-                                        uuid: task.uuid)
-                return self.useCase.update(task: switchedTask)
+                let switched = self.switchTask(to: .doing)
+                return self.useCase.update(task: switched)
             }
 
         let switchDone = input.doneTrigger
             .flatMapLatest { _ in
-                let task = self.task
-                let switchedTask = Task(title: task.title,
-                                        description: task.description,
-                                        expireDate: task.expireDate,
-                                        tag: .done,
-                                        uuid: task.uuid)
-                return self.useCase.update(task: switchedTask)
+                let switched = self.switchTask(to: .done)
+                return self.useCase.update(task: switched)
             }
 
         return Output(doingSwitched: switchDoing,
                       doneSwitched: switchDone)
     }
+    
+    private func switchTask(to tag: Status) -> Task {
+        return Task(title: task.title,
+                    description: task.description,
+                    expireDate: task.expireDate,
+                    tag: tag,
+                    uuid: task.uuid)
+    }
 }
 
 // MARK: Input & Output
+
 extension TaskSwitchViewModel {
     struct Input {
         let doingTrigger: Observable<Void>
         let doneTrigger: Observable<Void>
     }
-
     struct Output {
         let doingSwitched: Observable<Task>
         let doneSwitched: Observable<Task>
