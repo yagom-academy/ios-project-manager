@@ -47,7 +47,7 @@ extension MenuPresentable {
         }
         
         let action = UIAlertAction(title: title, style: .default) { _ in
-            self.move(listItem: viewModel.currentItem, from: viewModel.listType, to: type)
+            self.move(listItem: viewModel.listItem, from: viewModel.listType, to: type)
             viewModel.moveType(to: type)
         }
         

@@ -14,16 +14,13 @@ final class ListItemCellViewModel {
         var isOverDue: Bool = false
     }
     
-    private var listItem: ListItem
+    private(set) var listItem: ListItem
     private(set) var listType: ListType
     private var handler: ((ListItemData) -> Void)?
     private var listItemData: ListItemData {
         didSet {
             self.handler?(listItemData)
         }
-    }
-    var currentItem: ListItem {
-        return listItem
     }
     
     init(listItem: ListItem, listType: ListType) {

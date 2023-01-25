@@ -188,7 +188,7 @@ extension MainViewController: UITableViewDelegate {
         
         let formViewModel = ListFormViewModel(
             index: indexPath.row,
-            listItem: cellViewModel.currentItem,
+            listItem: cellViewModel.listItem,
             listType: cellViewModel.listType
         )
         let viewController = ListFormViewController(formViewModel: formViewModel)
