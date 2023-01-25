@@ -5,12 +5,17 @@
 //  Created by 애쉬 on 2023/01/19.
 //
 
+import Foundation
+
 enum HeaderViewValue {
     static let identifier = "ListHeaderView"
+    static let countLabelWidth = CGFloat(35)
+    static let circleCornerRadius = countLabelWidth / 2
 }
 
 enum ListTableViewValue {
     static let identifier = "ListTableViewCell"
+    static let estimatedRowHeight = CGFloat(150)
 }
 
 enum PlaceHolder {

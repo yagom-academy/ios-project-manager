@@ -19,7 +19,7 @@ final class ListHeaderView: UITableViewHeaderFooterView {
     private let listCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 35 / 2
+        label.layer.cornerRadius = HeaderViewValue.circleCornerRadius
         label.textAlignment = .center
         label.layer.backgroundColor = UIColor.black.cgColor
         label.textColor = .white
@@ -47,7 +47,7 @@ final class ListHeaderView: UITableViewHeaderFooterView {
             statusLabel.trailingAnchor.constraint(equalTo: listCountLabel.leadingAnchor, constant: -5),
             statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             
-            listCountLabel.heightAnchor.constraint(equalToConstant: 35),
+            listCountLabel.heightAnchor.constraint(equalToConstant: HeaderViewValue.countLabelWidth),
             listCountLabel.widthAnchor.constraint(equalTo: listCountLabel.heightAnchor),
             listCountLabel.centerYAnchor.constraint(equalTo: statusLabel.centerYAnchor),
             listCountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
