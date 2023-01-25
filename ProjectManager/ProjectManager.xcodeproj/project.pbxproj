@@ -16,6 +16,7 @@
 		3CF17BAB297FD59200A4C46D /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BAA297FD59200A4C46D /* TaskViewController.swift */; };
 		3CF17BAD297FDEBC00A4C46D /* TodoTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BAC297FDEBC00A4C46D /* TodoTaskViewController.swift */; };
 		3CF17BB92980DD1200A4C46D /* TaskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BB82980DD1200A4C46D /* TaskSettingView.swift */; };
+		3CF17BBC2980E6D700A4C46D /* FakeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BBB2980E6D700A4C46D /* FakeDataManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectsViewController.swift */; };
@@ -34,6 +35,7 @@
 		3CF17BAA297FD59200A4C46D /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		3CF17BAC297FDEBC00A4C46D /* TodoTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskViewController.swift; sourceTree = "<group>"; };
 		3CF17BB82980DD1200A4C46D /* TaskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSettingView.swift; sourceTree = "<group>"; };
+		3CF17BBB2980E6D700A4C46D /* FakeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataManager.swift; sourceTree = "<group>"; };
 		90D792EA8DEBACFF161C5AB8 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A888AA2339C9E6D317547533 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +107,14 @@
 			path = SubviewControllers;
 			sourceTree = "<group>";
 		};
+		3CF17BBA2980E6C400A4C46D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3CF17BBB2980E6D700A4C46D /* FakeDataManager.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		C2CD449DC73F2B252AF4C5DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +144,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				3CF17BBA2980E6C400A4C46D /* Service */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				3C73C6BF2974FFC100C58F32 /* Model */,
@@ -270,6 +281,7 @@
 				3CF17B9F297BBA1000A4C46D /* TaskCell.swift in Sources */,
 				3CF17BAD297FDEBC00A4C46D /* TodoTaskViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				3CF17BBC2980E6D700A4C46D /* FakeDataManager.swift in Sources */,
 				3CF17BB92980DD1200A4C46D /* TaskSettingView.swift in Sources */,
 				3CF17BA3297BD90900A4C46D /* Task.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
