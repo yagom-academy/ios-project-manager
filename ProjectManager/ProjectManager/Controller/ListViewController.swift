@@ -43,8 +43,6 @@ final class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
         configureNavigationBar()
         configureContentView()
     }
@@ -74,6 +72,7 @@ final class ListViewController: UIViewController {
     }
     
     private func configureContentView() {
+        view.backgroundColor = .white
         setTableViews()
         configureLayout()
         applyAllSnapshot()
