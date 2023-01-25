@@ -45,6 +45,8 @@ extension AddViewController {
 // MARK: UI Configuration
 extension AddViewController {
     private func configureNavigation() {
+        navigationItem.title = State.todo.name
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             systemItem: .done,
             primaryAction: UIAction(handler: tapDoneButton)

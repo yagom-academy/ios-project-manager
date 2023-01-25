@@ -43,6 +43,7 @@ final class EditViewController: ProjectViewController {
     private func bindViewModel() {
         viewModel.componentsHandler = { [weak self] viewProject in
             guard let viewProject = viewProject else { return }
+            self?.navigationItem.title = viewProject.state.name
             self?.textField.text = viewProject.title
             self?.datePicker.date = viewProject.deadline
             self?.textView.text = viewProject.description
