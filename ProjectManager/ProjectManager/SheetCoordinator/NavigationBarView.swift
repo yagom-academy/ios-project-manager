@@ -12,29 +12,24 @@ struct NavigationBarView: View {
   
   var body: some View {
     WithViewStore(navigationStore) { viewStore in
-      ZStack {
-        HStack {
-          Spacer()
-          
-          Text(viewStore.title)
-            .foregroundColor(.accentColor)
-            .textFont(size: 28, weight: .bold)
-          
-          Spacer()
-        }
+      
+      HStack(alignment: .center) {
+        Spacer()
         
-        HStack {
-          Spacer()
-          
-          Button {
-            viewStore.send(.didTapPresent(true))
-          } label: {
-            Image(systemName: "plus")
-              .textFont(size: 28, weight: .bold)
-          }
+        Text(viewStore.title)
+          .foregroundColor(.accentColor)
+          .textFont(size: 28, weight: .bold)
+        
+        Spacer()
+        
+        Button {
+          viewStore.send(.didTapPresent(true))
+        } label: {
+          Image(systemName: "plus")
+            .textFont(size: 28, weight: .bold)
         }
-        .padding([.vertical, .trailing])
       }
+      .padding([.vertical, .trailing])
       .background(Color.secondaryBackground)
       .sheet(
         isPresented: viewStore.binding(
