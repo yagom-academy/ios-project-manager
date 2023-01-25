@@ -22,7 +22,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSuperViewColor()
+        setUpDefaultHeaderViewLabel()
+        setUpSuperViewColor()
         tableViewAttributeDeclaration([todoTableView, doingTableView, doneTableView], [todoDataSource, doingDataSource, doneDataSource])
         reloadTasksTableViewDataSource()
     }
@@ -73,8 +74,14 @@ class ViewController: UIViewController {
         return dataSource
     }
     
-    private func setupSuperViewColor() {
+    private func setUpSuperViewColor() {
         view.backgroundColor = Preset.defaultBackground
+    }
+    
+    private func setUpDefaultHeaderViewLabel() {
+        todoHeaderView.setTaskCountLabel(taskListVM, status: .todo)
+        doingHeaderView.setTaskCountLabel(taskListVM, status: .doing)
+        doneHeaderView.setTaskCountLabel(taskListVM, status: .done)
     }
 }
 
