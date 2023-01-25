@@ -8,8 +8,6 @@
 import UIKit
 
 final class ListTableViewCell: UITableViewCell {
-    static let identifier = ListTableViewValue.identifier
-    
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false

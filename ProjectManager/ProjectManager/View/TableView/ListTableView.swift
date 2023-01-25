@@ -13,8 +13,8 @@ final class ListTableView: UITableView {
         backgroundColor = .systemGray6
         rowHeight = UITableView.automaticDimension
         estimatedRowHeight = 150
-        register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.identifier)
-        register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: ListHeaderView.identifier)
+        register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewValue.identifier)
+        register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderViewValue.identifier)
     }
     
     required init?(coder: NSCoder) {

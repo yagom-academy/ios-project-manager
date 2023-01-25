@@ -184,7 +184,7 @@ extension ListViewController {
 extension ListViewController {
     private func configureDataSource(of tableView: ListTableView) -> ListDataSource {
         let dataSource = ListDataSource(tableView: tableView) { tableView, indexPath, todoItem in
-            let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier, for: indexPath) as? ListTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewValue.identifier, for: indexPath) as? ListTableViewCell
             
             cell?.configureContent(title: todoItem.title,
                                    body: todoItem.body,
@@ -227,7 +227,7 @@ extension ListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ListHeaderView.identifier) as? ListHeaderView else {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderViewValue.identifier) as? ListHeaderView else {
             return UIView()
         }
         

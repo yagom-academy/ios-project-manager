@@ -8,8 +8,6 @@
 import UIKit
 
 final class ListHeaderView: UITableViewHeaderFooterView {
-    static let identifier = HeaderViewValue.identifier
-    
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
