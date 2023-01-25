@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Task : Hashable {
+struct Task: Hashable {
     let id: UUID
     let title: String
     let description: String

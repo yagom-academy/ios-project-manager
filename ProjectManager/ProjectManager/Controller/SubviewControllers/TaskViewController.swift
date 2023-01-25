@@ -12,7 +12,7 @@ class TaskViewController: UIViewController {
     enum Section {
         case main
     }
-    
+
     var type: TaskStatus
     var filteredTasks: [Task] = [] {
         didSet {
@@ -53,7 +53,7 @@ class TaskViewController: UIViewController {
         projectListView.register(cellClass: TaskCell.self, forCellReuseIdentifier: TaskCell.cellIdentifier)
         configureDataSource()
     }
-    
+
     private func configureDataSource() {
         projectListView.dataSource = dataSource
     }
