@@ -24,6 +24,14 @@ class TableViewCell: UITableViewCell {
         titleLabel.text = task.title
         descriptionLabel.text = task.description
         dateLabel.text = task.date?.formattedDateToString()
+        setDataLabelRed(task: task)
+    }
+    
+    private func setDataLabelRed(task: Task) {
+        guard let taskDate = task.date else { return }
+        if taskDate <= Date() {
+            dateLabel.textColor = .red
+        }
     }
         
     private func addGesture() {
