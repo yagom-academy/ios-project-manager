@@ -35,13 +35,18 @@ class AddProjectViewController: UIViewController {
         configureDatePicker()
         configureContraints()
     }
+    
+    private func configureNavigationItem() {
+        navigationItem.title = Constant.navigationTitle
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
+    }
 
     private func configureDatePicker() {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
         datePicker.locale = .current
         datePicker.timeZone = .current
-        datePicker.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
     }
 
     private func configureContraints() {
@@ -52,17 +57,6 @@ class AddProjectViewController: UIViewController {
         ])
     }
 
-    private func configureNavigationItem() {
-        navigationItem.title = Constant.navigationTitle
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
-    }
-
     // MARK: - Selectors
-    @objc
-    private func handleDatePicker(_ sender: UIDatePicker) {
-        print("Sender: "+sender.date.description)
-        print(Date())
-    }
     // MARK: - Helpers
 }
