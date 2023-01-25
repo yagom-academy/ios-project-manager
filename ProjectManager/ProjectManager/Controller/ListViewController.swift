@@ -111,9 +111,9 @@ final class ListViewController: UIViewController {
     
     @objc private func updateView() {
         applyAllSnapshot()
-        todoTableView.tableHeaderView?.layoutIfNeeded()
-        doingTableView.tableHeaderView?.layoutIfNeeded()
-        doneTableView.tableHeaderView?.layoutIfNeeded()
+        todoTableView.reloadData()
+        doingTableView.reloadData()
+        doneTableView.reloadData()
     }
 }
 
