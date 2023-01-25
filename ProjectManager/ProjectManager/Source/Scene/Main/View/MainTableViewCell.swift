@@ -69,7 +69,7 @@ final class MainTableViewCell: UITableViewCell {
     // MARK: Private Methods
     
     private func checkDate(deadline: Double) {
-        if Date().timeIntervalSince1970 > deadline {
+        if Date().timeIntervalSince1970 > deadline + NameSpace.dayToSecond {
             dateLabel.textColor = .systemRed
         }
     }
@@ -112,4 +112,10 @@ final class MainTableViewCell: UITableViewCell {
             )
         ])
     }
+}
+
+// MARK: - NameSpace
+
+private enum NameSpace {
+    static let dayToSecond = 86400.0
 }

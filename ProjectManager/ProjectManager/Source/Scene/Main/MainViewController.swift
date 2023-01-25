@@ -6,6 +6,12 @@
 
 import UIKit
 
+enum Section {
+    case todo
+    case doing
+    case done
+}
+
 class MainViewController: UIViewController {
     
     // MARK: Private Properties
@@ -16,7 +22,7 @@ class MainViewController: UIViewController {
         NameSpace.doingAllUpper,
         NameSpace.doneAllUpper
     ]
-    private var editedTodoListCount: Int?
+    private var editedListCount: Int?
     private var todoList: [ProjectData] = []
     private var doingList: [ProjectData] = []
     private var doneList: [ProjectData] = []
@@ -45,45 +51,135 @@ class MainViewController: UIViewController {
     }
     
     private func setUpTableViewLongPressAction() {
-        let longPressAction = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressTableView))
+        let leftTableViewLongPressAction = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didLongPressLeftTableView)
+        )
+        let centerTableViewLongPressAction = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didLongPressCenterTableView)
+        )
+        let rightTableViewLongPressAction = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didLongPressRightTableView)
+        )
         
-        projectManagerView.leftTableView.addGestureRecognizer(longPressAction)
+        projectManagerView.leftTableView.addGestureRecognizer(leftTableViewLongPressAction)
+        projectManagerView.centerTableView.addGestureRecognizer(centerTableViewLongPressAction)
+        projectManagerView.rightTableView.addGestureRecognizer(rightTableViewLongPressAction)
     }
     
-    private func createActionSheet() {
+    private func createLeftTableViewActionSheet() {
         let actionSheet = UIAlertController(
             title: nil,
             message: nil,
             preferredStyle: .actionSheet
         )
-        let moveToDoing = UIAlertAction(
+        let firstAlertAction = UIAlertAction(
             title: NameSpace.moveToDoing,
             style: .default) { [self] _ in
-                if let todoListCount = editedTodoListCount {
-                    doingList.append(todoList[todoListCount])
-                    todoList.remove(at: todoListCount)
-                    projectManagerView.reloadTableView()
-                }
+                selectEditMode(from: .todo, to: .doing)
+                projectManagerView.reloadTableView()
             }
-        let moveToDone = UIAlertAction(
+        let secondAlertAction = UIAlertAction(
             title: NameSpace.moveToDone,
             style: .default) { [self] _ in
-                if let todoListCount = editedTodoListCount {
-                    doneList.append(todoList[todoListCount])
-                    todoList.remove(at: todoListCount)
-                    projectManagerView.reloadTableView()
-                }
+                selectEditMode(from: .todo, to: .done)
+                projectManagerView.reloadTableView()
             }
         
-        actionSheet.addAction(moveToDoing)
-        actionSheet.addAction(moveToDone)
+        actionSheet.addAction(firstAlertAction)
+        actionSheet.addAction(secondAlertAction)
         
-        checkPopOverPresentation(device: .pad, actionSheet: actionSheet)
+        checkPopOverPresentation(device: .pad, actionSheet: actionSheet, view: view)
         
         present(actionSheet, animated: true)
     }
     
-    private func checkPopOverPresentation(device: UIUserInterfaceIdiom, actionSheet: UIAlertController) {
+    private func createCenterTableViewActionSheet() {
+        let actionSheet = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        let firstAlertAction = UIAlertAction(
+            title: NameSpace.moveToTodo,
+            style: .default) { [self] _ in
+                selectEditMode(from: .doing, to: .todo)
+                projectManagerView.reloadTableView()
+            }
+        let secondAlertAction = UIAlertAction(
+            title: NameSpace.moveToDone,
+            style: .default) { [self] _ in
+                selectEditMode(from: .doing, to: .done)
+                projectManagerView.reloadTableView()
+            }
+        
+        actionSheet.addAction(firstAlertAction)
+        actionSheet.addAction(secondAlertAction)
+        
+        checkPopOverPresentation(device: .pad, actionSheet: actionSheet, view: view)
+        
+        present(actionSheet, animated: true)
+    }
+    
+    private func createRightTableViewActionSheet() {
+        let actionSheet = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        let firstAlertAction = UIAlertAction(
+            title: NameSpace.moveToTodo,
+            style: .default) { [self] _ in
+                selectEditMode(from: .done, to: .todo)
+                projectManagerView.reloadTableView()
+            }
+        let secondAlertAction = UIAlertAction(
+            title: NameSpace.moveToDone,
+            style: .default) { [self] _ in
+                selectEditMode(from: .done, to: .doing)
+                projectManagerView.reloadTableView()
+            }
+        
+        actionSheet.addAction(firstAlertAction)
+        actionSheet.addAction(secondAlertAction)
+        
+        checkPopOverPresentation(device: .pad, actionSheet: actionSheet, view: view)
+        
+        present(actionSheet, animated: true)
+    }
+    
+    private func selectEditMode(from remove: Section, to add: Section) {
+        if let editedCount = editedListCount {
+            var addData: ProjectData
+            
+            switch remove {
+            case .todo:
+                addData = todoList[editedCount]
+                todoList.remove(at: editedCount)
+            case .doing:
+                addData = doingList[editedCount]
+                doingList.remove(at: editedCount)
+            case .done:
+                addData = doneList[editedCount]
+                doneList.remove(at: editedCount)
+            }
+            
+            switch add {
+            case .todo:
+                todoList.append(addData)
+            case .doing:
+                doingList.append(addData)
+            case .done:
+                doneList.append(addData)
+            }
+        }
+    }
+    
+    private func checkPopOverPresentation(device: UIUserInterfaceIdiom,
+                                          actionSheet: UIAlertController,
+                                          view: UIView) {
         if device == .pad {
             if let presenter = actionSheet.popoverPresentationController {
                 presenter.permittedArrowDirections = []
@@ -232,7 +328,7 @@ extension MainViewController: UITableViewDataSource {
             break
         }
         
-        editedTodoListCount = indexPath.row
+        editedListCount = indexPath.row
         
         navigationController?.present(popUpViewController, animated: true)
     }
@@ -247,7 +343,7 @@ extension MainViewController: DataSendable {
             todoList.append(data)
             projectManagerView.reloadTableView()
         case .edit:
-            if let todoListCount = editedTodoListCount {
+            if let todoListCount = editedListCount {
                 todoList[todoListCount] = data
                 projectManagerView.reloadTableView()
             }
@@ -261,14 +357,48 @@ extension MainViewController: DataSendable {
 
 extension MainViewController: UIGestureRecognizerDelegate {
     @objc
-    private func didLongPressTableView(sender: UILongPressGestureRecognizer) {
+    private func didLongPressLeftTableView(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             let touchPoint = sender.location(in: projectManagerView.leftTableView)
+            
             if projectManagerView.leftTableView.indexPathForRow(at: touchPoint) != nil {
                 let location = sender.location(in: sender.view)
+                
                 if let cellRow = projectManagerView.leftTableView.indexPathForRow(at: location) {
-                    editedTodoListCount = cellRow.row
-                    createActionSheet()
+                    editedListCount = cellRow.row
+                    createLeftTableViewActionSheet()
+                }
+            }
+        }
+    }
+    
+    @objc
+    private func didLongPressCenterTableView(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: projectManagerView.centerTableView)
+            
+            if projectManagerView.centerTableView.indexPathForRow(at: touchPoint) != nil {
+                let location = sender.location(in: sender.view)
+                
+                if let cellRow = projectManagerView.centerTableView.indexPathForRow(at: location) {
+                    editedListCount = cellRow.row
+                    createCenterTableViewActionSheet()
+                }
+            }
+        }
+    }
+    
+    @objc
+    private func didLongPressRightTableView(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: projectManagerView.rightTableView)
+            
+            if projectManagerView.rightTableView.indexPathForRow(at: touchPoint) != nil {
+                let location = sender.location(in: sender.view)
+                
+                if let cellRow = projectManagerView.rightTableView.indexPathForRow(at: location) {
+                    editedListCount = cellRow.row
+                    createRightTableViewActionSheet()
                 }
             }
         }
@@ -281,6 +411,7 @@ private enum NameSpace {
     static let doingAllUpper = "DOING"
     static let doneAllUpper = "DONE"
     
+    static let moveToTodo = "Move to TODO"
     static let moveToDoing = "Move to DOING"
     static let moveToDone = "Move to DONE"
 }

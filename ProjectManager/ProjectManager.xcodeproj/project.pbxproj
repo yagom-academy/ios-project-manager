@@ -23,6 +23,7 @@
 		D0F45347298066C500DFBBF2 /* MainNameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F45344298066C500DFBBF2 /* MainNameSpace.swift */; };
 		D0F45348298066C500DFBBF2 /* ProjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F45345298066C500DFBBF2 /* ProjectData.swift */; };
 		D0F45349298066C500DFBBF2 /* DataSendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F45346298066C500DFBBF2 /* DataSendable.swift */; };
+		D0F4535129815ECE00DFBBF2 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F4535029815ECE00DFBBF2 /* AlertPresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		D0F45344298066C500DFBBF2 /* MainNameSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNameSpace.swift; sourceTree = "<group>"; };
 		D0F45345298066C500DFBBF2 /* ProjectData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectData.swift; sourceTree = "<group>"; };
 		D0F45346298066C500DFBBF2 /* DataSendable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSendable.swift; sourceTree = "<group>"; };
+		D0F4535029815ECE00DFBBF2 /* AlertPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				D0F45345298066C500DFBBF2 /* ProjectData.swift */,
 				D0F45344298066C500DFBBF2 /* MainNameSpace.swift */,
 				D0F45346298066C500DFBBF2 /* DataSendable.swift */,
+				D0F4535029815ECE00DFBBF2 /* AlertPresentable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				D0F4535129815ECE00DFBBF2 /* AlertPresentable.swift in Sources */,
 				D0E0803329701BE700BCB151 /* MainProjectManagerView.swift in Sources */,
 				D0AE9D712973E5900068DA0A /* AddViewController.swift in Sources */,
 				D0AE9D732973F8BF0068DA0A /* CustomPopUpView.swift in Sources */,
