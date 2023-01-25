@@ -91,6 +91,6 @@ class TaskSettingView: UIView {
             return nil
         }
         
-        return Task(id: UUID(), title: title, description: description, date: Date(), status: .todo)
+        return Task(id: UUID(), title: title, description: description, date: datePicker.date, status: .todo)
     }
 }
