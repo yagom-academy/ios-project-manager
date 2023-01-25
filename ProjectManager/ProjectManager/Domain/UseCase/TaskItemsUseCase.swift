@@ -8,7 +8,7 @@
 import RxSwift
 
 final class TaskItemsUseCase {
-    let datasource: DataSourceType
+    private let datasource: DataSourceType
 
     init(datasource: DataSourceType) {
         self.datasource = datasource
