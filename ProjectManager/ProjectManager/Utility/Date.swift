@@ -8,10 +8,9 @@
 import Foundation
 
 extension Date {
-  static let dateFormatter = DateFormatter()
+  static let onlyDateFormat = FormatStyle.dateTime.year().month().day()
   
-  func convertDate() -> Date {
-    let calendar = Calendar.current
-    return calendar.startOfDay(for: self)
+  func onlyDate() -> String {
+    return self.formatted(Self.onlyDateFormat)
   }
 }
