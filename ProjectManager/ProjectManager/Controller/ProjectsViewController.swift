@@ -74,6 +74,7 @@ class ProjectsViewController: UIViewController {
 
     @objc private func showAddProjectView() {
         let addProjectViewController = AddProjectViewController()
-        self.present(addProjectViewController, animated: true)
+        let secondNavigationController = UINavigationController(rootViewController: addProjectViewController)
+        self.present(secondNavigationController, animated: true)
     }
 }

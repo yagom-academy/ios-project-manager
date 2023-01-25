@@ -9,6 +9,11 @@ import UIKit
 
 class AddProjectViewController: UIViewController {
 
+    enum Constant {
+        static let datePickerWidth: CGFloat = 400
+        static let navigationTitle = "TODO"
+    }
+
     // MARK: - Properties
     private let datePicker = {
         let datePicker = UIDatePicker()
@@ -26,6 +31,7 @@ class AddProjectViewController: UIViewController {
     // MARK: - UI
     private func configureUI() {
         view.addSubview(datePicker)
+        configureNavigationItem()
         configureDatePicker()
         configureContraints()
     }
@@ -40,10 +46,16 @@ class AddProjectViewController: UIViewController {
 
     private func configureContraints() {
         NSLayoutConstraint.activate([
-            datePicker.widthAnchor.constraint(equalToConstant: 400),
+            datePicker.widthAnchor.constraint(equalToConstant: Constant.datePickerWidth),
             datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             datePicker.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+
+    private func configureNavigationItem() {
+        navigationItem.title = Constant.navigationTitle
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
     }
 
     // MARK: - Selectors
