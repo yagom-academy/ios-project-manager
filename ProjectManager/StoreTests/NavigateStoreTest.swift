@@ -21,13 +21,26 @@ final class NavigateStoreTest: XCTestCase {
       environment: SheetEnvironment()
     )
     
-    await store.send(.didTapPresent(true)) {
+    await store.send(._setIsPresent) {
       $0.isPresent = true
-      $0.detailState = DetailState()
     }
     
-    await store.send(.didTapPresent(false)) {
+    await store.send(._setIsNotPresent) {
       $0.isPresent = false
+    }
+    
+    let mockState = DetailState(title: "", description: "", deadLineDate: Date(), editMode: false)
+    await store.send(
+      ._createDetailState(
+        id: mockState.id,
+        currentDate: mockState.deadLineDate,
+        isEdit: mockState.editMode
+      )
+    ) {
+      $0.detailState = mockState
+    }
+    
+    await store.send(._deleteDetailState) {
       $0.detailState = nil
     }
   }
