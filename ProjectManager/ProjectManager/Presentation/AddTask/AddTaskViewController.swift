@@ -8,6 +8,10 @@
 import UIKit
 import RxSwift
 
+fileprivate enum Common {
+    static let navigationTitle = "TODO"
+}
+
 final class AddTaskViewController: UIViewController {
     
     // MARK: View
@@ -15,6 +19,8 @@ final class AddTaskViewController: UIViewController {
     private var titleTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainerInset = .init(top: 3, left: 3, bottom: 3, right: 3)
+        textView.font = .systemFont(ofSize: 20)
         return textView
     }()
     private var datePickerView: UIDatePicker = {
@@ -29,6 +35,8 @@ final class AddTaskViewController: UIViewController {
     private var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainerInset = .init(top: 3, left: 3, bottom: 3, right: 3)
+        textView.font = .systemFont(ofSize: 20)
         return textView
     }()
     
@@ -70,7 +78,7 @@ extension AddTaskViewController {
     }
     
     private func configureNavigationBar() {
-        self.navigationItem.title = "TODO"
+        self.navigationItem.title = Common.navigationTitle
         self.navigationController?.navigationBar.backgroundColor = .systemGray3
         let rightButton = UIBarButtonItem(barButtonSystemItem: .done,
                                           target: self, action: #selector(dismissView))
@@ -82,7 +90,6 @@ extension AddTaskViewController {
     
     @objc
     private func dismissView() {
-        // TODO: Add action
         self.dismiss(animated: true)
     }
 }
@@ -96,8 +103,8 @@ extension AddTaskViewController {
         view.addSubview(datePickerView)
         view.addSubview(descriptionTextView)
         
-        titleTextView.backgroundColor = .systemPink
-        descriptionTextView.backgroundColor = .systemBrown
+        titleTextView.backgroundColor = .systemGray6
+        descriptionTextView.backgroundColor = .systemGray6
         
         NSLayoutConstraint.activate([
             titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,

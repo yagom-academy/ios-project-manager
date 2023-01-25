@@ -17,32 +17,41 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
     var todoTableView: UITableView = {
         let table = UITableView()
         table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
+        table.separatorStyle = .none
+        table.backgroundColor = .systemGray6
         return table
     }()
     var doingTableView: UITableView = {
         let table = UITableView()
         table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
+        table.separatorStyle = .none
+        table.backgroundColor = .systemGray6
         return table
     }()
     var doneTableView: UITableView = {
         let table = UITableView()
         table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
+        table.separatorStyle = .none
+        table.backgroundColor = .systemGray6
         return table
     }()
     
     var todoStatusView: TaskStatusView = {
         let view = TaskStatusView()
         view.taskNameLabel.text = Common.todo
+        view.backgroundColor = .systemGray6
         return view
     }()
     var doingStatusView: TaskStatusView = {
         let view = TaskStatusView()
         view.taskNameLabel.text = Common.doing
+        view.backgroundColor = .systemGray6
         return view
     }()
     var doneStatusView: TaskStatusView = {
         let view = TaskStatusView()
         view.taskNameLabel.text = Common.done
+        view.backgroundColor = .systemGray6
         return view
     }()
     
@@ -142,7 +151,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
     private func configureNavigationController() {
         if let navigationController = self.navigationController {
             let navigationBar = navigationController.navigationBar
-            navigationBar.backgroundColor = UIColor.systemGray
+//            navigationBar.backgroundColor = UIColor.systemGray
             let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
                                                  action: #selector(tapNavigationAddButton))
             navigationItem.rightBarButtonItem = rightAddButton
@@ -284,7 +293,7 @@ extension ProjectManagerViewController {
                         as? TaskCell
                         else { return TaskCell() }
                         cell.viewModel = item
-                        cell.setUp()
+                        cell.setupUsingViewModel()
                         return cell
                     }
                     .disposed(by: disposeBag)
@@ -296,7 +305,7 @@ extension ProjectManagerViewController {
                         as? TaskCell
                         else { return TaskCell() }
                         cell.viewModel = item
-                        cell.setUp()
+                        cell.setupUsingViewModel()
                         return cell
                     }
                     .disposed(by: disposeBag)
@@ -308,7 +317,7 @@ extension ProjectManagerViewController {
                         as? TaskCell
                         else { return TaskCell() }
                         cell.viewModel = item
-                        cell.setUp()
+                        cell.setupUsingViewModel()
                         return cell
                     }
                     .disposed(by: disposeBag)

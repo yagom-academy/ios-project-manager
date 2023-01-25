@@ -19,6 +19,7 @@ final class EditTaskViewController: UIViewController {
     private var titleTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = .systemFont(ofSize: 20)
         textView.isEditable = false
         return textView
     }()
@@ -35,6 +36,7 @@ final class EditTaskViewController: UIViewController {
     private var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = .systemFont(ofSize: 20)
         textView.isEditable = false
         return textView
     }()

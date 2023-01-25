@@ -12,11 +12,13 @@ final class TaskCell: UITableViewCell {
     private var taskTitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
+        label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
     private var taskDescriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
+        label.textColor = .systemGray3
         return label
     }()
     private var taskExpirationLabel: UILabel = {
@@ -29,6 +31,7 @@ final class TaskCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.alignment = .leading
+        stack.spacing = 3
         return stack
     }()
     
@@ -46,23 +49,39 @@ final class TaskCell: UITableViewCell {
 }
 
 extension TaskCell {
-    func setUp() {
+    func setupUsingViewModel() {
         guard let viewModel = self.viewModel else { return }
         taskTitleLabel.text = viewModel.title
         taskDescriptionLabel.text = viewModel.description
+        
+        if viewModel.date <= Date() {
+            taskExpirationLabel.attributedText = viewModel.date.expired()
+            return
+        }
+        
         taskExpirationLabel.text = viewModel.date.converted()
     }
     
     private func layout() {
-        wholeStackView.addArrangedSubview(taskTitleLabel)
-        wholeStackView.addArrangedSubview(taskDescriptionLabel)
-        wholeStackView.addArrangedSubview(taskExpirationLabel)
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
+        self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+        
+        self.wholeStackView.backgroundColor = .white
+        self.wholeStackView.addArrangedSubview(taskTitleLabel)
+        self.wholeStackView.addArrangedSubview(taskDescriptionLabel)
+        self.wholeStackView.addArrangedSubview(taskExpirationLabel)
         self.contentView.addSubview(wholeStackView)
+        
         NSLayoutConstraint.activate([
-            wholeStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            wholeStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            wholeStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            wholeStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 8),
+            self.wholeStackView.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                                     constant: 8),
+            self.wholeStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
+                                                        constant: -8),
+            self.wholeStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
+                                                         constant: 8),
+            self.wholeStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
+                                                          constant: -8),
         ])
     }
     
