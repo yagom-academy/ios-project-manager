@@ -13,12 +13,15 @@ class TaskStatusView: UIView {
     var taskNameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.font = label.font.withSize(30)
         return label
     }()
     var taskCountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .white
         label.text = "0"
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -26,6 +29,8 @@ class TaskStatusView: UIView {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
+        stack.distribution = .equalSpacing
+        stack.spacing = 20
         stack.alignment = .center
         return stack
     }()
@@ -58,19 +63,15 @@ extension TaskStatusView {
             wholeStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
         ])
         
-        taskNameLabel.backgroundColor = .systemPink
-        taskCountLabel.backgroundColor = .systemBlue
+        taskCountLabel.backgroundColor = .black
         NSLayoutConstraint.activate([
             self.taskNameLabel.widthAnchor.constraint(equalToConstant: 100),
             self.taskNameLabel.heightAnchor.constraint(equalToConstant: 40),
-            self.taskNameLabel.leadingAnchor.constraint(equalTo: self.wholeStackView.leadingAnchor,
-                                                        constant: -10),
-
             self.taskCountLabel.widthAnchor.constraint(equalToConstant: 40),
-            self.taskCountLabel.heightAnchor.constraint(equalToConstant: 40),
-            self.taskCountLabel.leadingAnchor.constraint(equalTo: self.taskNameLabel.trailingAnchor,
-                                                         constant: 10),
-            self.taskCountLabel.trailingAnchor.constraint(greaterThanOrEqualTo: self.wholeStackView.trailingAnchor)
+            self.taskCountLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
+        taskCountLabel.layer.cornerRadius = 20
+        taskCountLabel.clipsToBounds = true
     }
 }

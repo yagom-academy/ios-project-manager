@@ -3,10 +3,14 @@
 //  ProjectManager
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
+
 
 import UIKit
 import RxSwift
+
+fileprivate enum Common {
+    static let navigationTitle = "TODO"
+}
 
 final class EditTaskViewController: UIViewController {
     
@@ -63,18 +67,33 @@ extension EditTaskViewController {
     func bind() {
         guard let viewModel = self.viewModel,
               let doneButton = navigationItem.rightBarButtonItem,
-              let editButton = navigationItem.leftBarButtonItem else { return }
-        let edit = editButton.rx.tap.asObservable()
-        let done = doneButton.rx.tap.asObservable()
-        let title = titleTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
-        let description = descriptionTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
-        let date = datePickerView.rx.date.asObservable()
-        let input = EditTaskViewModel.Input(editTrigger: edit,
-                                           doneTrigger: done,
-                                           titleTrigger: title,
-                                           descriptionTrigger: description,
-                                           dateTrigger: date)
+              let editButton = navigationItem.leftBarButtonItem
+        else { return }
+        
+        let editTrigger = editButton.rx
+            .tap
+            .asObservable()
+        let doneTrigger = doneButton.rx
+            .tap
+            .asObservable()
+        let title = titleTextView.rx
+            .text
+            .orEmpty
+            .filter { !$0.isEmpty }
+            .asObservable()
+        let description = descriptionTextView.rx
+            .text
+            .orEmpty.filter { !$0.isEmpty }
+            .asObservable()
+        let date = datePickerView.rx
+            .date
+            .asObservable()
+        
+        let input = EditTaskViewModel.Input(editTrigger: editTrigger, doneTrigger: doneTrigger,
+                                            titleTrigger: title, descriptionTrigger: description,
+                                            dateTrigger: date)
         let output = viewModel.transform(input: input)
+        
         output.canEdit
             .subscribe(onNext: { _ in
                 self.toggleEditability()
@@ -92,10 +111,19 @@ extension EditTaskViewController {
         self.titleTextView.isEditable.toggle()
         self.datePickerView.isEnabled.toggle()
         self.descriptionTextView.isEditable.toggle()
+        
+        switch titleTextView.isEditable {
+        case true:
+            titleTextView.backgroundColor = .systemGray6
+            descriptionTextView.backgroundColor = .systemGray6
+        case false:
+            titleTextView.backgroundColor = .white
+            descriptionTextView.backgroundColor = .white
+        }
     }
     
     private func configureNavigationBar() {
-        self.navigationItem.title = "TODO"
+        self.navigationItem.title = Common.navigationTitle
         self.navigationController?.navigationBar.backgroundColor = .systemGray3
         let rightButton = UIBarButtonItem(barButtonSystemItem: .done,
                                           target: self, action: nil)
@@ -117,9 +145,6 @@ extension EditTaskViewController {
         view.addSubview(titleTextView)
         view.addSubview(datePickerView)
         view.addSubview(descriptionTextView)
-        
-        titleTextView.backgroundColor = .systemPink
-        descriptionTextView.backgroundColor = .systemBrown
         
         NSLayoutConstraint.activate([
             titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
