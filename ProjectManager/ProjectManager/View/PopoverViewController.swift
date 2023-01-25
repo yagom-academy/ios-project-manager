@@ -104,4 +104,14 @@ final class PopoverViewController: UIViewController {
         NotificationCenter.default.post(name: notification, object: nil, userInfo: nil)
         dismiss(animated: true)
     }
+    
+    func configureView(
+        _ sourceRect: CGRect,
+        _ sourceView: UIView,
+        _ arrowDirections: UIPopoverArrowDirection = [.up, .down]
+    ) {
+        self.popoverPresentationController?.sourceRect = sourceRect
+        self.popoverPresentationController?.sourceView = sourceView
+        self.popoverPresentationController?.permittedArrowDirections = arrowDirections
+    }
 }

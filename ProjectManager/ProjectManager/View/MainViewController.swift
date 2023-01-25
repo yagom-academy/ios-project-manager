@@ -189,7 +189,7 @@ extension MainViewController: UITableViewDataSource {
 }
 // MARK: - TableView Business Logic
 extension MainViewController {
-    func saveData(of tableView: UITableView, to indexPathRow: Int) -> TodoModel? {
+    private func saveData(of tableView: UITableView, to indexPathRow: Int) -> TodoModel? {
         guard let tableView = tableView as? CustomTableView else { return nil }
         return tableView.data[indexPathRow]
     }
@@ -208,8 +208,8 @@ extension MainViewController {
     }
 }
 
-// MARK: - GesutreRecognizer, PopoverPresentationController Delegate
-extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
+// MARK: - GesutreRecognizer, PopoverPresentationController
+extension MainViewController {
     private func setupLongPress() {
         let todoLongPressedGesture = UILongPressGestureRecognizer(
             target: self,
@@ -226,11 +226,7 @@ extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentation
         
         [todoLongPressedGesture,
          doingLongPressedGesture,
-         doneLongPressedGesture].forEach { longPressedGesture in
-            longPressedGesture.delegate = self
-            longPressedGesture.minimumPressDuration = 1
-            longPressedGesture.delaysTouchesBegan = true
-        }
+         doneLongPressedGesture].forEach { longPressedGesture in longPressedGesture.minimumPressDuration = 1 }
         
         todoTableView.addGestureRecognizer(todoLongPressedGesture)
         doingTableView.addGestureRecognizer(doingLongPressedGesture)
@@ -248,14 +244,8 @@ extension MainViewController: UIGestureRecognizerDelegate, UIPopoverPresentation
             guard let id = data.id,
                   let state = State(rawValue: data.state) else { return }
             let containerController = PopoverViewController(id: id, state: state)
-            
             containerController.modalPresentationStyle = .popover
-            containerController.popoverPresentationController?.sourceRect = CGRect(
-                origin: location,
-                size: .zero
-            )
-            containerController.popoverPresentationController?.sourceView = tableView
-            containerController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+            containerController.configureView(CGRect(origin: location, size: .zero), tableView)
             
             self.present(containerController, animated: true)
         }
