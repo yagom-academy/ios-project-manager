@@ -41,18 +41,6 @@ class TaskCell: UITableViewCell {
         return label
     }()
 
-    override var frame: CGRect {
-        get {
-            return super.frame
-        }
-        set (newFrame) {
-            var frame = newFrame
-            frame.origin.y += 8
-            frame.size.height -= 8
-            super.frame = frame
-        }
-    }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
