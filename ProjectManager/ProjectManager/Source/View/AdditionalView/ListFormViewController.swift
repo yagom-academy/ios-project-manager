@@ -57,7 +57,7 @@ class ListFormViewController: UIViewController {
         )
         navigationItem.title = Constant.todo
         navigationItem.rightBarButtonItem = .init(
-            title: Constant.doneButton,
+            title: Constant.addButton,
             style: .done,
             target: self,
             action: #selector(addNewItem)
@@ -174,4 +174,5 @@ private enum Constant {
     static let cancelButton = "Cancel"
     static let editButton = "Edit"
     static let doneButton = "Done"
+    static let addButton = "ADD"
 }
