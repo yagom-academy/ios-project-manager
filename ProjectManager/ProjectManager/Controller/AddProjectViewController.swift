@@ -38,8 +38,8 @@ class AddProjectViewController: UIViewController {
     
     private func configureNavigationItem() {
         navigationItem.title = Constant.navigationTitle
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissCurrentViewController))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveAndDismissCurrentViewController))
     }
 
     private func configureDatePicker() {
@@ -58,5 +58,12 @@ class AddProjectViewController: UIViewController {
     }
 
     // MARK: - Selectors
+    @objc private func dismissCurrentViewController() {
+        self.dismiss(animated: true)
+    }
+
+    @objc private func saveAndDismissCurrentViewController() {
+        self.dismissCurrentViewController()
+    }
     // MARK: - Helpers
 }
