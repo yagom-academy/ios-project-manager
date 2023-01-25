@@ -15,42 +15,14 @@ class AddProjectViewController: UIViewController {
         static let titleTextFieldPlaceHolder = "Title"
         static let stackViewSpacing: CGFloat = 10
     }
-
-    // MARK: - Properties
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.distribution = .fill
-        stackView.axis = .vertical
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
     
-    private let titleTextField = {
-        let textField = UITextField()
-        textField.placeholder = Constant.titleTextFieldPlaceHolder
-        textField.layer.cornerRadius = 2
-        textField.layer.borderColor = UIColor.systemGray2.cgColor
-        textField.layer.borderWidth = 1
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
-    
-    private let datePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        return datePicker
-    }()
-    
-    private let descriptionTextView: UITextView = {
-        let textView = UITextView()
-        textView.layer.cornerRadius = 2
-        textView.layer.borderColor = UIColor.systemGray2.cgColor
-        textView.layer.borderWidth = 1
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
-    }()
+    let taskSettingView = TaskSettingView()
 
     // MARK: - LifeCycle
+    override func loadView() {
+        view = taskSettingView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -59,35 +31,13 @@ class AddProjectViewController: UIViewController {
 
     // MARK: - UI
     private func configureUI() {
-        view.addSubview(stackView)
-        stackView.addArrangedSubview(titleTextField)
-        stackView.addArrangedSubview(datePicker)
-        stackView.addArrangedSubview(descriptionTextView)
         configureNavigationItem()
-        configureDatePicker()
-        configureContraints()
     }
     
     private func configureNavigationItem() {
         navigationItem.title = Constant.navigationTitle
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissCurrentViewController))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveAndDismissCurrentViewController))
-    }
-
-    private func configureDatePicker() {
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.datePickerMode = .date
-        datePicker.locale = .current
-        datePicker.timeZone = .current
-    }
-
-    private func configureContraints() {
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constant.stackViewSpacing),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constant.stackViewSpacing),
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constant.stackViewSpacing),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.stackViewSpacing)
-        ])
     }
 
     // MARK: - Selectors
