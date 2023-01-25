@@ -11,7 +11,7 @@ struct Task: Equatable {
     var title: String
     var description: String
     var expireDate: Date
-    var tag: Status
+    var status: Status
     var uuid: UUID
 
     public static func == (lhs: Task, rhs: Task) -> Bool {

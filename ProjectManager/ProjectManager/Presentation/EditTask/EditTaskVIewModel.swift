@@ -14,14 +14,14 @@ final class EditTaskViewModel: ViewModelType {
     var title: String
     var description: String
     var date: Date
-    var tag: Status
+    var status: Status
     var task: Task
     
     init(item: TaskItemViewModel, useCase: TaskItemsUseCase) {
         self.title = item.title
         self.description = item.description
         self.date = item.date
-        self.tag = item.tag
+        self.status = item.status
         self.task = item.task
         self.useCase = useCase
     }
@@ -66,7 +66,7 @@ extension EditTaskViewModel {
         return Task(title: title,
                     description: description,
                     expireDate: date,
-                    tag: tag,
+                    status: status,
                     uuid: task.uuid)
     }
 }

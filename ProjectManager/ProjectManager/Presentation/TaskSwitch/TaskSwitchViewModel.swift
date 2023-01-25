@@ -38,11 +38,11 @@ extension TaskSwitchViewModel {
                       doneSwitched: switchDone)
     }
     
-    private func switchTask(to tag: Status) -> Task {
+    private func switchTask(to status: Status) -> Task {
         return Task(title: task.title,
                     description: task.description,
                     expireDate: task.expireDate,
-                    tag: tag,
+                    status: status,
                     uuid: task.uuid)
     }
 }

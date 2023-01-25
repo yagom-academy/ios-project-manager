@@ -12,13 +12,13 @@ final class TaskItemViewModel {
     let title: String
     let description: String
     let date: Date
-    let tag: Status
+    let status: Status
 
     init(task: Task) {
         self.task = task
         self.title = task.title
         self.description = task.description
         self.date = task.expireDate
-        self.tag = task.tag
+        self.status = task.status
     }
 }

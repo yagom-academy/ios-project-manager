@@ -14,13 +14,13 @@ final class AddTaskViewModel: ViewModelType {
     var title: String
     var description: String
     var date: Date
-    var tag: Status
+    var status: Status
     
     init(useCase: TaskItemsUseCase) {
         self.title = ""
         self.description = ""
         self.date = Date()
-        self.tag = .todo
+        self.status = .todo
         self.useCase = useCase
     }
 }
@@ -58,7 +58,7 @@ extension AddTaskViewModel {
         return Task(title: title,
                     description: description,
                     expireDate: date,
-                    tag: tag,
+                    status: status,
                     uuid: UUID())
     }
 }

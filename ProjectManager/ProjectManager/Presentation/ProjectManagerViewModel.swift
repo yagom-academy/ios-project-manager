@@ -29,9 +29,9 @@ extension ProjectManagerViewModel {
             return self.useCase.delete(task: item.task)
         }
 
-        let todoItems = update.map { $0.filter { $0.tag == .todo } }
-        let doingItems = update.map { $0.filter { $0.tag == .doing } }
-        let doneItems = update.map { $0.filter { $0.tag == .done } }
+        let todoItems = update.map { $0.filter { $0.status == .todo } }
+        let doingItems = update.map { $0.filter { $0.status == .doing } }
+        let doneItems = update.map { $0.filter { $0.status == .done } }
 
         return Output(todoItems: todoItems,
                       doingItems: doingItems,
