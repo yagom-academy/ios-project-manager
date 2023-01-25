@@ -8,7 +8,7 @@ import Foundation
 import ComposableArchitecture
 
 struct DetailState: Equatable, Identifiable {
-  let id: UUID = UUID()
+  let id: UUID
   
   var title: String
   var description: String
@@ -18,11 +18,13 @@ struct DetailState: Equatable, Identifiable {
   var isEditMode: Bool = false
   
   init(
+    id: UUID = UUID(),
     title: String = "",
     description: String = "",
     deadLineDate: Date = Date(),
     editMode: Bool = false
   ) {
+    self.id = id
     self.title = title
     self.description = description
     self.deadLineDate = deadLineDate

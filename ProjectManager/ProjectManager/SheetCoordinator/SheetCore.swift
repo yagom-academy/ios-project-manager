@@ -5,6 +5,7 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import ComposableArchitecture
+import Foundation
 
 struct SheetState: Equatable {
   var isPresent: Bool = false
@@ -21,7 +22,7 @@ enum SheetAction {
   // Inner Action
   case _setIsPresent
   case _setIsNotPresent
-  case _createDetailState
+  case _createDetailState(id: UUID, currentDate: Date, isEdit: Bool)
   case _deleteDetailState
   
   // Child Action
@@ -45,9 +46,13 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
     switch action {
     // UserAction
     case .didTapPresent(true):
+      let id = UUID()
+      let currentDate = Date()
+      let isEdit = false
+      
       return Effect.concatenate([
         Effect(value: ._setIsPresent),
-        Effect(value: ._createDetailState)
+        Effect(value: ._createDetailState(id: id, currentDate: currentDate, isEdit: isEdit))
       ])
       
     case .didTapPresent(false):
@@ -65,8 +70,8 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
       state.isPresent = false
       return .none
       
-    case ._createDetailState:
-      state.detailState = DetailState(editMode: false)
+    case let ._createDetailState(id, date, isEdit):
+      state.detailState = DetailState(id: id, deadLineDate: date, editMode: isEdit)
       return .none
       
     case ._deleteDetailState:

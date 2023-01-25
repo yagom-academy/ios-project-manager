@@ -61,6 +61,7 @@ let todoReducer = Reducer<TodoState, TodoAction, TodoEnvironment>.combine([
       
       state.selectedProject = project
       state.selectedState = DetailState(
+        id: project.id,
         title: project.title,
         description: project.description,
         deadLineDate: project.date,
