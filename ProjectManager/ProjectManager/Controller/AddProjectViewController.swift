@@ -12,13 +12,36 @@ class AddProjectViewController: UIViewController {
     enum Constant {
         static let datePickerWidth: CGFloat = 400
         static let navigationTitle = "TODO"
+        static let titleTextFieldPlaceHolder = "Title"
+        static let stackViewSpacing: CGFloat = 10
     }
 
     // MARK: - Properties
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fill
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let titleTextField = {
+        let textField = UITextField()
+        textField.placeholder = Constant.titleTextFieldPlaceHolder
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     private let datePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
+    }()
+    
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
     }()
 
     // MARK: - LifeCycle
@@ -30,7 +53,10 @@ class AddProjectViewController: UIViewController {
 
     // MARK: - UI
     private func configureUI() {
-        view.addSubview(datePicker)
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(titleTextField)
+        stackView.addArrangedSubview(datePicker)
+        stackView.addArrangedSubview(descriptionTextView)
         configureNavigationItem()
         configureDatePicker()
         configureContraints()
@@ -51,9 +77,10 @@ class AddProjectViewController: UIViewController {
 
     private func configureContraints() {
         NSLayoutConstraint.activate([
-            datePicker.widthAnchor.constraint(equalToConstant: Constant.datePickerWidth),
-            datePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            datePicker.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constant.stackViewSpacing),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constant.stackViewSpacing),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constant.stackViewSpacing),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: Constant.stackViewSpacing)
         ])
     }
 
