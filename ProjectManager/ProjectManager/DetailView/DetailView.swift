@@ -18,7 +18,7 @@ struct ProjectDetailView: View {
             "Title",
             text: viewStore.binding(
               get: \.title,
-              send: DetailAction._didChangeTitle
+              send: DetailAction._setNewTitle
             )
           )
           .detailItemStyle()
@@ -28,7 +28,7 @@ struct ProjectDetailView: View {
             "마감 기한",
             selection: viewStore.binding(
               get: \.deadLineDate,
-              send: DetailAction._didChangeDeadLine
+              send: DetailAction._setNewDeadLine
             ),
             in: Date()...,
             displayedComponents: .date
@@ -40,7 +40,7 @@ struct ProjectDetailView: View {
           TextEditor(
             text: viewStore.binding(
               get: \.description,
-              send: DetailAction._didChangeDescription
+              send: DetailAction._setNewDescription
             )
           )
           .detailItemStyle()

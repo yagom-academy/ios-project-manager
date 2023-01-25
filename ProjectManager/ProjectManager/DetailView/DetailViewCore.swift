@@ -40,9 +40,9 @@ enum DetailAction {
   case didDoneTap
   
   // Inner Action
-  case _didChangeTitle(String)
-  case _didChangeDescription(String)
-  case _didChangeDeadLine(Date)
+  case _setNewTitle(String)
+  case _setNewDescription(String)
+  case _setNewDeadLine(Date)
 }
 
 struct DetailEnvironment {
@@ -61,15 +61,15 @@ let detailReducer = Reducer<DetailState, DetailAction, DetailEnvironment> { stat
   case .didDoneTap:
     return .none
     
-  case let ._didChangeTitle(changedTitle):
+  case let ._setNewTitle(changedTitle):
     state.title = changedTitle
     return .none
     
-  case let ._didChangeDescription(changedDescription):
+  case let ._setNewDescription(changedDescription):
     state.description = changedDescription
     return .none
     
-  case let ._didChangeDeadLine(changedDate):
+  case let ._setNewDeadLine(changedDate):
     state.deadLineDate = changedDate
     return .none
   }
