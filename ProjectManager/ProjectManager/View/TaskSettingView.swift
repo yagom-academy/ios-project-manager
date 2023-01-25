@@ -84,10 +84,14 @@ class TaskSettingView: UIView {
     }
     
     func fetchTask() -> Task? {
-        guard let title = titleTextField.text else {
+        guard let title = titleTextField.text,
+              title != ""
+        else {
             return nil
         }
-        guard let description = descriptionTextView.text else {
+        guard let description = descriptionTextView.text,
+            description != ""
+        else {
             return nil
         }
         
