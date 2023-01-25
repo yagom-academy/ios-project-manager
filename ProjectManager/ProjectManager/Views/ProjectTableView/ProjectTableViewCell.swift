@@ -40,13 +40,6 @@ final class ProjectTableViewCell: UITableViewCell {
         return stackView
     }()
 
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = .current
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        return dateFormatter
-    }()
-
     // MARK: Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -90,6 +83,6 @@ final class ProjectTableViewCell: UITableViewCell {
 
         titleLabel.text = project.title
         descriptionLabel.text = project.description
-        dueDateLabel.text = project.dueDate.convertToString(using: dateFormatter)
+        dueDateLabel.text = project.dueDate.convertToString(format: "yyyy.MM.dd")
     }
 }

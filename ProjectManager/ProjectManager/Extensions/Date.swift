@@ -22,4 +22,11 @@ extension Date {
     func convertToString(using dateFormatter: DateFormatter) -> String {
         return dateFormatter.string(from: self)
     }
+
+    func convertToString(format string: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = string
+        return dateFormatter.string(from: self)
+    }
 }
