@@ -20,6 +20,8 @@ enum SheetAction {
   case detailAction(DetailAction)
   
   // Inner Action
+  case _setIsPresent
+  case _setIsNotPresent
   case _createDetailState
   case _deleteDetailState
 }
@@ -39,13 +41,27 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
   
   Reducer<SheetState, SheetAction, SheetEnvironment> { state, action, environment in
     switch action {
+    // UserAction
     case .didTapPresent(true):
-      state.isPresent = true
-      return Effect(value: ._createDetailState)
+      return Effect.concatenate([
+        Effect(value: ._setIsPresent),
+        Effect(value: ._createDetailState)
+      ])
       
     case .didTapPresent(false):
+      return Effect.concatenate([
+        Effect(value: ._setIsNotPresent),
+        Effect(value: ._deleteDetailState)
+      ])
+      
+    // Inner Action
+    case ._setIsPresent:
+      state.isPresent = true
+      return .none
+      
+    case ._setIsNotPresent:
       state.isPresent = false
-      return Effect(value: ._deleteDetailState)
+      return .none
       
     case ._createDetailState:
       state.detailState = DetailState(editMode: false)
@@ -62,10 +78,16 @@ let sheetReducer = Reducer<SheetState, SheetAction, SheetEnvironment>.combine([
         date: detail.deadLineDate,
         description: detail.description
       )
-      return Effect(value: .didTapPresent(false))
+      return Effect.concatenate([
+        Effect(value: ._setIsNotPresent),
+        Effect(value: ._deleteDetailState)
+      ])
       
     case .detailAction(.didCancelTap):
-      return Effect(value: .didTapPresent(false))
+      return Effect.concatenate([
+        Effect(value: ._setIsNotPresent),
+        Effect(value: ._deleteDetailState)
+      ])
       
     case .detailAction:
       return .none
