@@ -6,5 +6,5 @@
 //
 
 protocol DataSendable {
-    func sendData(with data: ProjectData, mode: DataManagementMode)
+    func sendData(with data: ProjectData, mode: DataManagementMode, section: Section)
 }

@@ -69,13 +69,13 @@ class MainViewController: UIViewController {
         projectManagerView.rightTableView.addGestureRecognizer(rightTableViewLongPressAction)
     }
     
-    private func createActionSheet(tableView: UITableView) {
+    private func createActionSheet(section: Section) {
         let actionSheet = createActionSheet(title: nil, message: nil)
         var firstAlertAction: UIAlertAction
         var secondAlertAction: UIAlertAction
         
-        switch tableView {
-        case projectManagerView.leftTableView:
+        switch section {
+        case .todo:
             firstAlertAction = createAlertAction(title: NameSpace.moveToDoing) { [self] in
                 selectEditMode(from: .todo, to: .doing)
                 projectManagerView.reloadTableView()
@@ -84,7 +84,7 @@ class MainViewController: UIViewController {
                 selectEditMode(from: .todo, to: .done)
                 projectManagerView.reloadTableView()
             }
-        case projectManagerView.centerTableView:
+        case .doing:
             firstAlertAction = createAlertAction(title: NameSpace.moveToTodo) { [self] in
                 selectEditMode(from: .doing, to: .todo)
                 projectManagerView.reloadTableView()
@@ -93,7 +93,7 @@ class MainViewController: UIViewController {
                 selectEditMode(from: .doing, to: .done)
                 projectManagerView.reloadTableView()
             }
-        case projectManagerView.rightTableView:
+        case .done:
             firstAlertAction = createAlertAction(title: NameSpace.moveToTodo) { [self] in
                 selectEditMode(from: .done, to: .todo)
                 projectManagerView.reloadTableView()
@@ -102,9 +102,6 @@ class MainViewController: UIViewController {
                 selectEditMode(from: .done, to: .doing)
                 projectManagerView.reloadTableView()
             }
-        default:
-            firstAlertAction = UIAlertAction()
-            secondAlertAction = UIAlertAction()
         }
         
         actionSheet.addAction(firstAlertAction)
@@ -112,7 +109,7 @@ class MainViewController: UIViewController {
         
         checkPopOverPresentation(device: .pad,
                                  actionSheet: actionSheet,
-                                 tableView: tableView)
+                                 section: section)
         
         present(actionSheet, animated: true)
     }
@@ -146,19 +143,24 @@ class MainViewController: UIViewController {
     
     private func checkPopOverPresentation(device: UIUserInterfaceIdiom,
                                           actionSheet: UIAlertController,
-                                          tableView: UITableView) {
+                                          section: Section) {
         guard let editedCount = editedListCount else { return }
         let sourceRectX: Int
+        let sourceRectY: Int
         
-        switch tableView {
-        case projectManagerView.leftTableView:
+        switch section {
+        case .todo:
             sourceRectX = Int(view.bounds.midX / 3)
-        case projectManagerView.centerTableView:
+            sourceRectY = Int(projectManagerView.leftTableView.rectForRow(
+                at: IndexPath(row: editedCount, section: 0)).maxY)
+        case .doing:
             sourceRectX = Int(view.bounds.midX)
-        case projectManagerView.rightTableView:
+            sourceRectY = Int(projectManagerView.centerTableView.rectForRow(
+                at: IndexPath(row: editedCount, section: 0)).maxY)
+        case .done:
             sourceRectX = Int(view.bounds.maxX - (view.bounds.midX / 3))
-        default:
-            sourceRectX = 0
+            sourceRectY = Int(projectManagerView.rightTableView.rectForRow(
+                at: IndexPath(row: editedCount, section: 0)).maxY)
         }
         
         if device == .pad {
@@ -167,9 +169,7 @@ class MainViewController: UIViewController {
                 presenter.sourceView = view
                 presenter.sourceRect = CGRect(
                     x: sourceRectX,
-                    y: Int(tableView.rectForRow(
-                        at: IndexPath(row: editedCount, section: 0)).maxY
-                    ) + NameSpace.actionSheetLocationMargin,
+                    y: sourceRectY + NameSpace.actionSheetLocationMargin,
                     width: 0,
                     height: 0
                 )
@@ -303,10 +303,13 @@ extension MainViewController: UITableViewDataSource {
         switch tableView {
         case projectManagerView.leftTableView:
             popUpViewController.savedData = todoList[indexPath.row]
+            popUpViewController.dataSection = .todo
         case projectManagerView.centerTableView:
             popUpViewController.savedData = doingList[indexPath.row]
+            popUpViewController.dataSection = .doing
         case projectManagerView.rightTableView:
             popUpViewController.savedData = doneList[indexPath.row]
+            popUpViewController.dataSection = .done
         default:
             break
         }
@@ -320,14 +323,21 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - DataSendDelegate
 
 extension MainViewController: DataSendable {
-    func sendData(with data: ProjectData, mode: DataManagementMode) {
+    func sendData(with data: ProjectData, mode: DataManagementMode, section: Section) {
         switch mode {
         case .create:
             todoList.append(data)
             projectManagerView.reloadTableView()
         case .edit:
-            if let todoListCount = editedListCount {
-                todoList[todoListCount] = data
+            if let editedListCount = editedListCount {
+                switch section {
+                case .todo:
+                    todoList[editedListCount] = data
+                case .doing:
+                    doingList[editedListCount] = data
+                case .done:
+                    doneList[editedListCount] = data
+                }
                 projectManagerView.reloadTableView()
             }
         case .read:
@@ -349,7 +359,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 
                 if let cellRow = projectManagerView.leftTableView.indexPathForRow(at: location) {
                     editedListCount = cellRow.row
-                    createActionSheet(tableView: projectManagerView.leftTableView)
+                    createActionSheet(section: .todo)
                 }
             }
         }
@@ -365,7 +375,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 
                 if let cellRow = projectManagerView.centerTableView.indexPathForRow(at: location) {
                     editedListCount = cellRow.row
-                    createActionSheet(tableView: projectManagerView.centerTableView)
+                    createActionSheet(section: .doing)
                 }
             }
         }
@@ -381,7 +391,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 
                 if let cellRow = projectManagerView.rightTableView.indexPathForRow(at: location) {
                     editedListCount = cellRow.row
-                    createActionSheet(tableView: projectManagerView.rightTableView)
+                    createActionSheet(section: .done)
                 }
             }
         }

@@ -20,6 +20,7 @@ final class AddViewController: UIViewController {
     var delegate: DataSendable?
     var savedData: ProjectData?
     var dataManagementMode: DataManagementMode = .read
+    var dataSection: Section = .todo
     
     // MARK: Private Properties
     
@@ -82,11 +83,11 @@ final class AddViewController: UIViewController {
         switch dataManagementMode {
         case .create:
             if let userInputData: ProjectData = customPopUpView.saveProjectData() {
-                delegate?.sendData(with: userInputData, mode: .create)
+                delegate?.sendData(with: userInputData, mode: .create, section: .todo)
             }
         case . edit:
             if let userInputData: ProjectData = customPopUpView.saveProjectData() {
-                delegate?.sendData(with: userInputData, mode: .edit)
+                delegate?.sendData(with: userInputData, mode: .edit, section: dataSection)
             }
         case .read:
             break
