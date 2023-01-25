@@ -56,11 +56,7 @@ final class PlanTableViewCell: UITableViewCell {
 
         guard let validate = DateFormatterManager.isExpiredDate(todo.deadline) else { return }
 
-        if validate {
-            deadlineLabel.textColor = .red
-        } else if todo.status == .done {
-            return
-        }
+deadlineLabel.textColor = validate ? .red : .someColor
     }
 
     private func configureLayout() {
