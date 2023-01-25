@@ -12,10 +12,6 @@ final class MainViewController: UIViewController {
     private let doingTableView = CustomTableView(title: "DOING")
     private let doneTableView = CustomTableView(title: "DONE")
     
-    private var todoData = [TodoModel]()
-    private var doingData = [TodoModel]()
-    private var doneData = [TodoModel]()
-    
     private let stackView = UIStackView(
         axis: .horizontal,
         alignment: .fill,
@@ -75,18 +71,18 @@ extension MainViewController {
     }
     
     private func distributeData(data: [TodoModel]) {
-        todoData = .init()
-        doingData = .init()
-        doneData = .init()
+        todoTableView.data = .init()
+        doingTableView.data = .init()
+        doneTableView.data = .init()
         
         data.forEach { data in
             switch State(rawValue: data.state) {
             case .todo:
-                todoData.append(data)
+                todoTableView.data.append(data)
             case .doing:
-                doingData.append(data)
+                doingTableView.data.append(data)
             case .done:
-                doneData.append(data)
+                doneTableView.data.append(data)
             case .none:
                 return
             }
@@ -194,44 +190,21 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - TableView Business Logic
 extension MainViewController {
     func saveData(of tableView: UITableView, to indexPathRow: Int) -> TodoModel? {
-        switch tableView {
-        case todoTableView:
-            return todoData[indexPathRow]
-        case doingTableView:
-            return doingData[indexPathRow]
-        case doneTableView:
-            return doneData[indexPathRow]
-        default:
-            return nil
-        }
+        guard let tableView = tableView as? CustomTableView else { return nil }
+        return tableView.data[indexPathRow]
     }
     
     private func countCell(of tableView: UITableView) -> Int {
-        if tableView == self.todoTableView {
-            return todoData.count
-        } else if tableView == self.doingTableView {
-            return doingData.count
-        } else if tableView == self.doneTableView {
-            return doneData.count
-        }
-        
-        return .zero
+        guard let tableView = tableView as? CustomTableView else { return .zero }
+        return tableView.data.count
     }
     
     private func swipeAction(of tableView: UITableView, to indexPathRow: Int) {
-        if tableView == self.todoTableView {
-            let removeData = self.todoData.remove(at: indexPathRow)
-            guard let id = removeData.id else { return }
-            CoreDataManager.shared.deleteDate(id: id)
-        } else if tableView == self.doingTableView {
-            let removeData = self.doingData.remove(at: indexPathRow)
-            guard let id = removeData.id else { return }
-            CoreDataManager.shared.deleteDate(id: id)
-        } else if tableView == self.doneTableView {
-            let removeData = self.doneData.remove(at: indexPathRow)
-            guard let id = removeData.id else { return }
-            CoreDataManager.shared.deleteDate(id: id)
-        }
+        guard let tableView = tableView as? CustomTableView else { return }
+        
+        let removeData = tableView.data.remove(at: indexPathRow)
+        guard let id = removeData.id else { return }
+        CoreDataManager.shared.deleteDate(id: id)
     }
 }
 

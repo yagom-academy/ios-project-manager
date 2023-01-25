@@ -9,6 +9,7 @@ import UIKit
 
 final class CustomTableView: UITableView {
     let title: String
+    var data = [TodoModel]()
     
     init(title: String) {
         self.title = title
