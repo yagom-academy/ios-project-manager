@@ -29,9 +29,9 @@ class MainViewController: UIViewController {
     private let doingListStackView = ListStackView(title: Constant.doing)
     private let doneListStackView = ListStackView(title: Constant.done)
     
-    private lazy var todoListDataSource = configureDataSource(of: .todo)
-    private lazy var doingListDataSource = configureDataSource(of: .doing)
-    private lazy var doneListDataSource = configureDataSource(of: .done)
+    private var todoListDataSource: DataSource?
+    private var doingListDataSource: DataSource?
+    private var doneListDataSource: DataSource?
     
     private var mainViewModel: MainViewModel = .init()
     
@@ -46,6 +46,7 @@ class MainViewController: UIViewController {
         configureTableViewDelegate()
         bindHandlers()
         updateAllCountLabels()
+        configureAllDataSource()
     }
     
     // MARK: Private Methods
@@ -129,6 +130,12 @@ class MainViewController: UIViewController {
 // MARK: - UITableViewDiffableDataSource & SnapShot
 
 extension MainViewController {
+    private func configureAllDataSource() {
+        todoListDataSource = configureDataSource(of: .todo)
+        doingListDataSource = configureDataSource(of: .doing)
+        doneListDataSource = configureDataSource(of: .done)
+    }
+    
     private func configureDataSource(of type: ListType) -> DataSource {
         let tableView: UITableView
         
@@ -169,11 +176,11 @@ extension MainViewController {
         
         switch type {
         case .todo:
-            todoListDataSource.apply(snapShot, animatingDifferences: true)
+            todoListDataSource?.apply(snapShot, animatingDifferences: true)
         case .doing:
-            doingListDataSource.apply(snapShot, animatingDifferences: true)
+            doingListDataSource?.apply(snapShot, animatingDifferences: true)
         case .done:
-            doneListDataSource.apply(snapShot, animatingDifferences: true)
+            doneListDataSource?.apply(snapShot, animatingDifferences: true)
         }
     }
 }
