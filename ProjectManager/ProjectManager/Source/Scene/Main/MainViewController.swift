@@ -91,7 +91,9 @@ class MainViewController: UIViewController {
         actionSheet.addAction(firstAlertAction)
         actionSheet.addAction(secondAlertAction)
         
-        checkPopOverPresentation(device: .pad, actionSheet: actionSheet, view: view)
+        checkPopOverPresentation(device: .pad,
+                                 actionSheet: actionSheet,
+                                 tableView: projectManagerView.leftTableView)
         
         present(actionSheet, animated: true)
     }
@@ -118,7 +120,9 @@ class MainViewController: UIViewController {
         actionSheet.addAction(firstAlertAction)
         actionSheet.addAction(secondAlertAction)
         
-        checkPopOverPresentation(device: .pad, actionSheet: actionSheet, view: view)
+        checkPopOverPresentation(device: .pad,
+                                 actionSheet: actionSheet,
+                                 tableView: projectManagerView.centerTableView)
         
         present(actionSheet, animated: true)
     }
@@ -145,7 +149,9 @@ class MainViewController: UIViewController {
         actionSheet.addAction(firstAlertAction)
         actionSheet.addAction(secondAlertAction)
         
-        checkPopOverPresentation(device: .pad, actionSheet: actionSheet, view: view)
+        checkPopOverPresentation(device: .pad,
+                                 actionSheet: actionSheet,
+                                 tableView: projectManagerView.rightTableView)
         
         present(actionSheet, animated: true)
     }
@@ -179,14 +185,30 @@ class MainViewController: UIViewController {
     
     private func checkPopOverPresentation(device: UIUserInterfaceIdiom,
                                           actionSheet: UIAlertController,
-                                          view: UIView) {
+                                          tableView: UITableView) {
+        guard let editedCount = editedListCount else { return }
+        let sourceRectX: Int
+        
+        switch tableView {
+        case projectManagerView.leftTableView:
+            sourceRectX = Int(view.bounds.midX / 3)
+        case projectManagerView.centerTableView:
+            sourceRectX = Int(view.bounds.midX)
+        case projectManagerView.rightTableView:
+            sourceRectX = Int(view.bounds.maxX - (view.bounds.midX / 3))
+        default:
+            sourceRectX = 0
+        }
+        
         if device == .pad {
             if let presenter = actionSheet.popoverPresentationController {
-                presenter.permittedArrowDirections = []
+                presenter.permittedArrowDirections = .up
                 presenter.sourceView = view
                 presenter.sourceRect = CGRect(
-                    x: view.bounds.midX,
-                    y: view.bounds.maxY,
+                    x: sourceRectX,
+                    y: Int(tableView.rectForRow(
+                        at: IndexPath(row: editedCount, section: 0)).maxY
+                    ) + NameSpace.actionSheetLocationMargin,
                     width: 0,
                     height: 0
                 )
@@ -414,4 +436,6 @@ private enum NameSpace {
     static let moveToTodo = "Move to TODO"
     static let moveToDoing = "Move to DOING"
     static let moveToDone = "Move to DONE"
+    
+    static let actionSheetLocationMargin = 40
 }
