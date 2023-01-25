@@ -298,7 +298,7 @@ extension CustomPopUpView: UITextFieldDelegate {
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
         if let textCount = textField.text?.count {
-            if textCount < 45 {
+            if textCount < NameSpace.titleTextCountLimit {
                 return true
             }
             return false
@@ -327,7 +327,7 @@ extension CustomPopUpView: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text.count > 1000 {
+        if textView.text.count > NameSpace.bodyTextCountLimit {
             textView.deleteBackward()
         }
     }
@@ -345,6 +345,6 @@ private enum NameSpace {
     static let emptyTitleLabel = "[제목없음]"
     static let emptyBodyLabel = "[내용없음]"
     
-    static let titleTextLimitCount = 45
-    static let bodyTextLimitCount = 1000
+    static let titleTextCountLimit = 45
+    static let bodyTextCountLimit = 1000
 }
