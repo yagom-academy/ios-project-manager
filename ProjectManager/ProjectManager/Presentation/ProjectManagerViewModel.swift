@@ -24,6 +24,10 @@ extension ProjectManagerViewModel {
             return self.useCase.getTasks()
                 .map { $0.map { TaskItemViewModel(task: $0) } }
         }
+        
+        let delete = input.delete.flatMapLatest { item in
+            return self.useCase.delete(task: item.task)
+        }
 
         let todoItems = update.map { $0.filter { $0.tag == .todo } }
         let doingItems = update.map { $0.filter { $0.tag == .doing } }
@@ -31,18 +35,21 @@ extension ProjectManagerViewModel {
 
         return Output(todoItems: todoItems,
                       doingItems: doingItems,
-                      doneItems: doneItems)
+                      doneItems: doneItems,
+                      deletedItem: delete)
     }
 }
 
 extension ProjectManagerViewModel {
     struct Input {
         let update: Observable<Void>
+        let delete: Observable<TaskItemViewModel>
     }
 
     struct Output {
         let todoItems: Observable<[TaskItemViewModel]>
         let doingItems: Observable<[TaskItemViewModel]>
         let doneItems: Observable<[TaskItemViewModel]>
+        let deletedItem: Observable<Task>
     }
 }

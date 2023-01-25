@@ -149,14 +149,11 @@ extension ProjectManagerViewController: UITableViewDelegate {
     }
     
     private func configureNavigationController() {
-        if let navigationController = self.navigationController {
-            let navigationBar = navigationController.navigationBar
-//            navigationBar.backgroundColor = UIColor.systemGray
-            let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
-                                                 action: #selector(tapNavigationAddButton))
-            navigationItem.rightBarButtonItem = rightAddButton
-            navigationItem.title = Common.navigationItemTitle
-        }
+        let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
+                                             action: #selector(tapNavigationAddButton))
+        navigationItem.rightBarButtonItem = rightAddButton
+        navigationItem.title = Common.navigationItemTitle
+        
     }
     
     private func configureView() {
@@ -172,7 +169,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
         let navigation = UINavigationController(rootViewController: addTaskView)
         self.present(navigation, animated: true)
     }
-
+    
     private func popOver(cell: UITableViewCell, item: Task) {
         let view = TaskSwitchViewController()
         view.sourceView(view: cell)
@@ -260,67 +257,86 @@ extension ProjectManagerViewController {
     private func bindViewModel() {
         guard let viewModel = self.viewModel else { return }
         
+        let todoDeleted = todoTableView.rx
+            .modelDeleted(TaskItemViewModel.self)
+            .asObservable()
+        let doingDeleted = doingTableView.rx
+            .modelDeleted(TaskItemViewModel.self)
+            .asObservable()
+        let doneDeleted = doneTableView.rx
+            .modelDeleted(TaskItemViewModel.self)
+            .asObservable()
+        
+        let deletedTrigger = Observable.merge(todoDeleted, doingDeleted, doneDeleted)
+        
         let updateTrigger = self.rx
-                    .methodInvoked(#selector(UIViewController.viewWillAppear(_:)))
-                    .map { _ in }
-
-                let input = ProjectManagerViewModel.Input(update: updateTrigger)
-                let output = viewModel.transform(input: input)
-
-                // MARK: Status View
-                
-                output.todoItems
-                    .map { String($0.count) }
-                    .bind(to: self.todoStatusView.taskCountLabel.rx.text)
-                    .disposed(by: disposeBag)
-
-                output.doingItems
-                    .map { String($0.count) }
-                    .bind(to: self.doingStatusView.taskCountLabel.rx.text)
-                    .disposed(by: disposeBag)
-
-                output.doneItems
-                    .map { String($0.count) }
-                    .bind(to: self.doneStatusView.taskCountLabel.rx.text)
-                    .disposed(by: disposeBag)
-
-                // MARK: Table View Cell
-                
-                output.todoItems
-                    .bind(to: self.todoTableView.rx.items) { (tableview, index, item) in
-                        guard let cell = tableview.dequeueReusableCell(withIdentifier:
-                                                                        Common.cellReuseIdentifier)
+            .methodInvoked(#selector(UIViewController.viewWillAppear(_:)))
+            .map { _ in }
+        
+        let input = ProjectManagerViewModel.Input(update: updateTrigger,
+                                                  delete: deletedTrigger)
+        let output = viewModel.transform(input: input)
+        
+        output.deletedItem
+            .subscribe()
+            .disposed(by: disposeBag)
+        
+        
+        
+        // MARK: Status View
+        
+        output.todoItems
+            .map { String($0.count) }
+            .bind(to: self.todoStatusView.taskCountLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.doingItems
+            .map { String($0.count) }
+            .bind(to: self.doingStatusView.taskCountLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.doneItems
+            .map { String($0.count) }
+            .bind(to: self.doneStatusView.taskCountLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        // MARK: Table View Cell
+        
+        output.todoItems
+            .bind(to: self.todoTableView.rx.items) { (tableview, index, item) in
+                guard let cell = tableview.dequeueReusableCell(withIdentifier:
+                                                                Common.cellReuseIdentifier)
                         as? TaskCell
-                        else { return TaskCell() }
-                        cell.viewModel = item
-                        cell.setupUsingViewModel()
-                        return cell
-                    }
-                    .disposed(by: disposeBag)
-
-                output.doingItems
-                    .bind(to: self.doingTableView.rx.items) { (tableview, index, item) in
-                        guard let cell = tableview.dequeueReusableCell(withIdentifier:
-                                                                        Common.cellReuseIdentifier)
+                else { return TaskCell() }
+                cell.viewModel = item
+                cell.setupUsingViewModel()
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        output.doingItems
+            .bind(to: self.doingTableView.rx.items) { (tableview, index, item) in
+                guard let cell = tableview.dequeueReusableCell(withIdentifier:
+                                                                Common.cellReuseIdentifier)
                         as? TaskCell
-                        else { return TaskCell() }
-                        cell.viewModel = item
-                        cell.setupUsingViewModel()
-                        return cell
-                    }
-                    .disposed(by: disposeBag)
-
-                output.doneItems
-                    .bind(to: self.doneTableView.rx.items) { (tableview, index, item) in
-                        guard let cell = tableview.dequeueReusableCell(withIdentifier:
-                                                                        Common.cellReuseIdentifier)
+                else { return TaskCell() }
+                cell.viewModel = item
+                cell.setupUsingViewModel()
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        output.doneItems
+            .bind(to: self.doneTableView.rx.items) { (tableview, index, item) in
+                guard let cell = tableview.dequeueReusableCell(withIdentifier:
+                                                                Common.cellReuseIdentifier)
                         as? TaskCell
-                        else { return TaskCell() }
-                        cell.viewModel = item
-                        cell.setupUsingViewModel()
-                        return cell
-                    }
-                    .disposed(by: disposeBag)
+                else { return TaskCell() }
+                cell.viewModel = item
+                cell.setupUsingViewModel()
+                return cell
+            }
+            .disposed(by: disposeBag)
     }
 }
 
