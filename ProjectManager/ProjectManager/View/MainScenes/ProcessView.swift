@@ -90,7 +90,7 @@ extension ProcessView {
                 return errorCell
             }
             
-            cell.setupViewModel(CellViewModel(data: plan))
+            cell.setupViewModel(CellViewModel(), plan)
             return cell
         }
         return dataSource

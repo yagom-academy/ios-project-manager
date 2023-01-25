@@ -42,9 +42,14 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()
+        setupInitial()
         setupNavigationBar()
         setupView()
         setupConstraint()
+    }
+    
+    private func setupInitial() {
+        viewModel.setupInitial()
     }
     
     private func setupBinding() {
@@ -64,7 +69,10 @@ final class MainViewController: UIViewController {
             self?.showPopOver(processList: processList)
         }
     }
-    
+}
+
+// MARK: - present DetailView, PopOver
+extension MainViewController {
     private func presentDetailView(process: Process, index: Int?) {
         let selectedData = viewModel.fetchSeletedData(process: process, index: index)
         let detailViewModel = DetailViewModel(data: selectedData, process: process, index: index)
@@ -103,6 +111,7 @@ final class MainViewController: UIViewController {
         present(alert, animated: true)
     }
 }
+
 
 // MARK: - Action
 extension MainViewController {

@@ -43,17 +43,14 @@ final class MainViewModel {
 // MARK: - Method
 extension MainViewModel {
     func bindTodo(handler: @escaping ([Plan]) -> Void) {
-        handler(todoData)
         self.todoHandler = handler
     }
     
     func bindDoing(handler: @escaping ([Plan]) -> Void) {
-        handler(doingData)
         self.doingHandler = handler
     }
     
     func bindDone(handler: @escaping ([Plan]) -> Void) {
-        handler(doneData)
         self.doneHandler = handler
     }
     
@@ -61,20 +58,10 @@ extension MainViewModel {
         self.processListHandler = handler
     }
     
-    func updateData(data: Plan, process: Process, index: Int?) {
-        guard let index = index else {
-            todoData.append(data)
-            return
-        }
-        
-        switch process {
-        case .todo:
-            todoData[index] = data
-        case .doing:
-            doingData[index] = data
-        case .done:
-            doneData[index] = data
-        }
+    func setupInitial() {
+        todoData = []
+        doingData = []
+        doneData = []
     }
     
     func fetchSeletedData(process: Process, index: Int?) -> Plan? {
@@ -93,6 +80,36 @@ extension MainViewModel {
         }
     }
     
+    func configureMovePlan(_ movePlan: MovePlan) {
+        self.movePlan = movePlan
+        popOverProcessList = configureButton(process: movePlan.beforeProcess)
+    }
+
+    private func configureButton(process: Process) -> [Process] {
+        return Process.allCases.filter {
+            $0 != process
+        }
+    }
+}
+
+// MARK: - Update, Delete Data, Change Process
+extension MainViewModel {
+    func updateData(data: Plan, process: Process, index: Int?) {
+        guard let index = index else {
+            todoData.append(data)
+            return
+        }
+        
+        switch process {
+        case .todo:
+            todoData[index] = data
+        case .doing:
+            doingData[index] = data
+        case .done:
+            doneData[index] = data
+        }
+    }
+
     func deleteData(process: Process, index: Int) {
         switch process {
         case .todo:
@@ -133,16 +150,5 @@ extension MainViewModel {
         }
         
         movePlan = nil
-    }
-    
-    func configureMovePlan(_ movePlan: MovePlan) {
-        self.movePlan = movePlan
-        popOverProcessList = configureButton(process: movePlan.beforeProcess)
-    }
-    
-    private func configureButton(process: Process) -> [Process] {
-        return Process.allCases.filter {
-            $0 != process
-        }
     }
 }

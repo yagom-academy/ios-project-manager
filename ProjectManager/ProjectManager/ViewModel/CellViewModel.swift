@@ -8,24 +8,23 @@
 import Foundation
 
 final class CellViewModel {
-    private var data: Plan {
+    private var data: Plan = Plan(title: "") {
         didSet {
             dataHandler?(data)
         }
     }
     
     private var dataHandler: ((Plan) -> Void)?
-    
-    init(data: Plan) {
-        self.data = data
-    }
 }
 
 // MARK: - Method
 extension CellViewModel {
     func bindData(handler: @escaping (Plan) -> Void) {
-        handler(data)
         self.dataHandler = handler
+    }
+    
+    func setupData(_ data: Plan) {
+        self.data = data
     }
     
     func checkOverDeadLine() -> Bool {

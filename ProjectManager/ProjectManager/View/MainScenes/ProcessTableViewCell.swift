@@ -74,9 +74,10 @@ final class ProcessTableViewCell: UITableViewCell {
         }
     }
     
-    func setupViewModel(_ viewModel: CellViewModel) {
+    func setupViewModel(_ viewModel: CellViewModel, _ data: Plan) {
         self.viewModel = viewModel
         setupBind()
+        self.viewModel?.setupData(data)
     }
 }
 
