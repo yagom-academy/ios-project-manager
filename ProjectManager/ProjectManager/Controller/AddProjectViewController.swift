@@ -28,6 +28,9 @@ class AddProjectViewController: UIViewController {
     private let titleTextField = {
         let textField = UITextField()
         textField.placeholder = Constant.titleTextFieldPlaceHolder
+        textField.layer.cornerRadius = 2
+        textField.layer.borderColor = UIColor.systemGray2.cgColor
+        textField.layer.borderWidth = 1
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -40,6 +43,9 @@ class AddProjectViewController: UIViewController {
     
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
+        textView.layer.cornerRadius = 2
+        textView.layer.borderColor = UIColor.systemGray2.cgColor
+        textView.layer.borderWidth = 1
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -78,9 +84,9 @@ class AddProjectViewController: UIViewController {
     private func configureContraints() {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constant.stackViewSpacing),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constant.stackViewSpacing),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constant.stackViewSpacing),
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constant.stackViewSpacing),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: Constant.stackViewSpacing)
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.stackViewSpacing)
         ])
     }
 
