@@ -82,7 +82,7 @@ class ProjectsViewController: UIViewController {
     }
     
     private func updateTodoTask(with task: Task) {
-        guard let controller = self.children[0] as? TaskViewController else {
+        guard let controller = self.children.first as? TaskViewController else {
             return
         }
         controller.filteredTasks.append(task)
