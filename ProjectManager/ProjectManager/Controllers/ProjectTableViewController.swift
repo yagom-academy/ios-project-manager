@@ -16,11 +16,10 @@ final class ProjectTableViewController: UITableViewController {
     private var projectList: [Project] = [] {
         didSet {
             configureSnapshot(items: self.projectList)
-            print("\(status.name) 업데이트")
         }
     }
 
-    private let delegate: ProjectTableViewControllerDelegate
+    private weak var delegate: ProjectDelegate?
     private lazy var dataSource = makeDataSource()
 
     // MARK: View Life Cycle
@@ -29,7 +28,7 @@ final class ProjectTableViewController: UITableViewController {
     }
 
     // MARK: Initialization
-    init(status: ProjectStatus, tableView: UITableView, delegate: ProjectTableViewControllerDelegate) {
+    init(status: ProjectStatus, tableView: UITableView, delegate: ProjectDelegate?) {
         self.status = status
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
@@ -99,8 +98,8 @@ final class ProjectTableViewController: UITableViewController {
         var statusChangedProject = project
         statusChangedProject.status = status
 
-        delegate.projectTableViewController(self, didDeleteProject: project)
-        delegate.projectTableViewController(self, didUpdateProject: statusChangedProject)
+        delegate?.delete(project: project)
+        delegate?.create(project: statusChangedProject)
     }
 
     private func makeAlertController(with project: Project) -> UIAlertController {
@@ -173,8 +172,8 @@ extension ProjectTableViewController {
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let targetProject = projectList[indexPath.row]
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, success) in
-            self.delegate.projectTableViewController(self, didDeleteProject: targetProject)
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, success) in
+            self?.delegate?.delete(project: targetProject)
             success(true)
         }
 
@@ -187,15 +186,8 @@ extension ProjectTableViewController {
         let targetProject = projectList[indexPath.row]
         let projectViewController = ProjectViewController(with: targetProject,
                                                           mode: .edit,
-                                                          delegate: self)
+                                                          delegate: delegate)
 
         present(UINavigationController(rootViewController: projectViewController), animated: false)
-    }
-}
-
-// MARK: ProjectViewControllerDelegate
-extension ProjectTableViewController: ProjectViewControllerDelegate {
-    func projectViewController(_ projectViewController: ProjectViewController, didUpdateProject project :Project) {
-        delegate.projectTableViewController(self, didUpdateProject: project)
     }
 }

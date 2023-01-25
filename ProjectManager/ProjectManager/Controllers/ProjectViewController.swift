@@ -21,7 +21,7 @@ final class ProjectViewController: UIViewController {
     }()
 
     private let mode: ViewMode
-    private let delegate: ProjectViewControllerDelegate
+    private weak var delegate: ProjectDelegate?
     private var project: Project
 
     // MARK: View Life Cycle
@@ -41,7 +41,7 @@ final class ProjectViewController: UIViewController {
     // MARK: Initialization
     init(with project: Project,
          mode: ViewMode,
-         delegate: ProjectViewControllerDelegate) {
+         delegate: ProjectDelegate?) {
         self.project = project
         self.mode = mode
         self.delegate = delegate
@@ -70,7 +70,7 @@ final class ProjectViewController: UIViewController {
 
     private func touchUpRightBarButton() {
         fetchProjectViewData()
-        delegate.projectViewController(self, didUpdateProject: project)
+        delegate?.update(project: project)
         
         dismiss(animated: true, completion: nil)
     }

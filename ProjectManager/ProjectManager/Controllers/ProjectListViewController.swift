@@ -154,22 +154,19 @@ final class ProjectListViewController: UIViewController {
     }
 }
 
-// MARK: ProjectViewControllerDelegate
-extension ProjectListViewController: ProjectViewControllerDelegate {
-    func projectViewController(_ projectViewController: ProjectViewController, didUpdateProject project :Project) {
+// MARK: Project Delegate
+extension ProjectListViewController: ProjectDelegate {
+    func create(project: Project) {
         projectManager.create(project: project)
         updateProjectList()
     }
-}
 
-// MARK: ProjectTableViewControllerDelegate
-extension ProjectListViewController: ProjectTableViewControllerDelegate {
-    func projectTableViewController(_ projectTableViewController: ProjectTableViewController, didUpdateProject project: Project) {
+    func update(project: Project) {
         projectManager.update(project: project)
         updateProjectList()
     }
 
-    func projectTableViewController(_ projectTableViewController: ProjectTableViewController, didDeleteProject project: Project) {
+    func delete(project: Project) {
         projectManager.delete(project: project)
         updateProjectList()
     }

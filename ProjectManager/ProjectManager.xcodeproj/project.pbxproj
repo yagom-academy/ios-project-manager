@@ -10,8 +10,7 @@
 		1A426170297BB97A005C5ACD /* ProjectStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A42616F297BB97A005C5ACD /* ProjectStatus.swift */; };
 		1AB76E0C297E695200E56344 /* UITableViewCell+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB76E0B297E695200E56344 /* UITableViewCell+Reusable.swift */; };
 		1AB76E10297E8BAC00E56344 /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB76E0F297E8BAC00E56344 /* ProjectTableViewController.swift */; };
-		1AB76E12297EE57A00E56344 /* ProjectTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB76E11297EE57A00E56344 /* ProjectTableViewControllerDelegate.swift */; };
-		1AB76E14297EFC9B00E56344 /* ProjectViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB76E13297EFC9B00E56344 /* ProjectViewControllerDelegate.swift */; };
+		1AB76E402980B74D00E56344 /* ProjectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB76E3F2980B74D00E56344 /* ProjectDelegate.swift */; };
 		1ABD658029768574002E288B /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD657F29768574002E288B /* Project.swift */; };
 		1ABD658629768753002E288B /* CRUDable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD658529768753002E288B /* CRUDable.swift */; };
 		1ABD65892976883D002E288B /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD65882976883D002E288B /* ProjectManager.swift */; };
@@ -34,10 +33,8 @@
 		1A42616F297BB97A005C5ACD /* ProjectStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStatus.swift; sourceTree = "<group>"; };
 		1AB76E0B297E695200E56344 /* UITableViewCell+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Reusable.swift"; sourceTree = "<group>"; };
 		1AB76E0F297E8BAC00E56344 /* ProjectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
-		1AB76E11297EE57A00E56344 /* ProjectTableViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewControllerDelegate.swift; sourceTree = "<group>"; };
-		1AB76E13297EFC9B00E56344 /* ProjectViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewControllerDelegate.swift; sourceTree = "<group>"; };
+		1AB76E3F2980B74D00E56344 /* ProjectDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDelegate.swift; sourceTree = "<group>"; };
 		1ABD657F29768574002E288B /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		1ABD6582297686C0002E288B /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		1ABD658529768753002E288B /* CRUDable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUDable.swift; sourceTree = "<group>"; };
 		1ABD65882976883D002E288B /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		1ABD658D2976963A002E288B /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 		1ABD657D29768314002E288B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1ABD6582297686C0002E288B /* ProjectListView.swift */,
 				1ABD65BA2977229B002E288B /* ProjectView.swift */,
 				1ABD6599297699A7002E288B /* ProjectTableView */,
 			);
@@ -115,8 +111,7 @@
 			children = (
 				1ABD658529768753002E288B /* CRUDable.swift */,
 				1ABD65972976999F002E288B /* Reusable.swift */,
-				1AB76E11297EE57A00E56344 /* ProjectTableViewControllerDelegate.swift */,
-				1AB76E13297EFC9B00E56344 /* ProjectViewControllerDelegate.swift */,
+				1AB76E3F2980B74D00E56344 /* ProjectDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -254,18 +249,17 @@
 				1ABD6596297698E0002E288B /* ProjectTableViewCell.swift in Sources */,
 				1ABD6595297698E0002E288B /* ProjectTableView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				1AB76E12297EE57A00E56344 /* ProjectTableViewControllerDelegate.swift in Sources */,
 				1ABD658E2976963A002E288B /* ProjectViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				1AB76E10297E8BAC00E56344 /* ProjectTableViewController.swift in Sources */,
 				1ABD6594297698E0002E288B /* ProjectTableViewHeaderView.swift in Sources */,
 				1ABD65892976883D002E288B /* ProjectManager.swift in Sources */,
 				1A426170297BB97A005C5ACD /* ProjectStatus.swift in Sources */,
+				1AB76E402980B74D00E56344 /* ProjectDelegate.swift in Sources */,
 				1ABD659C29769A8E002E288B /* Date.swift in Sources */,
 				1AB76E0C297E695200E56344 /* UITableViewCell+Reusable.swift in Sources */,
 				1ABD65BB2977229B002E288B /* ProjectView.swift in Sources */,
 				1ABD658029768574002E288B /* Project.swift in Sources */,
-				1AB76E14297EFC9B00E56344 /* ProjectViewControllerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
