@@ -14,14 +14,14 @@ final class ListTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fill
-        stackView.spacing = 2
+        stackView.spacing = Constraint.stackViewSpacing
         return stackView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
-        label.numberOfLines = 1
+        label.numberOfLines = Constraint.titleLines
         label.text = PlaceHolder.tableViewTitle
         return label
     }()
@@ -29,7 +29,7 @@ final class ListTableViewCell: UITableViewCell {
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title3)
-        label.numberOfLines = 3
+        label.numberOfLines = Constraint.bodyLines
         label.textColor = UIColor.systemGray
         label.text = PlaceHolder.tableViewBody
         return label
@@ -38,7 +38,7 @@ final class ListTableViewCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.numberOfLines = 1
+        label.numberOfLines = Constraint.dateLines
         label.text = PlaceHolder.tableViewDate
         return label
     }()
@@ -61,10 +61,10 @@ final class ListTableViewCell: UITableViewCell {
         mainStackView.addArrangedSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constraint.stackViewTop),
+            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraint.stackViewLeading),
+            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraint.stackViewTrailing),
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constraint.stackViewBottom)
         ])
     }
     
@@ -80,5 +80,18 @@ final class ListTableViewCell: UITableViewCell {
         } else {
             dateLabel.textColor = .black
         }
+    }
+    
+    private enum Constraint {
+        static let stackViewSpacing: CGFloat = 2
+        
+        static let titleLines = 1
+        static let bodyLines = 3
+        static let dateLines = 1
+        
+        static let stackViewTop: CGFloat = 10
+        static let stackViewLeading: CGFloat = 5
+        static let stackViewTrailing: CGFloat = -5
+        static let stackViewBottom: CGFloat = -10
     }
 }

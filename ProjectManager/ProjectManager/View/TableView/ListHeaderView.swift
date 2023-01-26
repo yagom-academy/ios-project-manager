@@ -35,10 +35,10 @@ final class ListHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    private let listCountLabel: UILabel = {
+    private let countLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = HeaderViewValue.circleCornerRadius
+        label.layer.cornerRadius = Constraint.countCornerRadius
         label.textAlignment = .center
         label.layer.backgroundColor = UIColor.black.cgColor
         label.textColor = .white
@@ -58,18 +58,18 @@ final class ListHeaderView: UITableViewHeaderFooterView {
     func configureLayout() {
         contentView.backgroundColor = UIColor.systemGray6
         addSubview(statusLabel)
-        addSubview(listCountLabel)
+        addSubview(countLabel)
         
         NSLayoutConstraint.activate([
-            statusLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            statusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            statusLabel.trailingAnchor.constraint(equalTo: listCountLabel.leadingAnchor, constant: -5),
-            statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            statusLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constraint.statusTop),
+            statusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraint.statusLeading),
+            statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constraint.statusBottom),
             
-            listCountLabel.heightAnchor.constraint(equalToConstant: HeaderViewValue.countLabelWidth),
-            listCountLabel.widthAnchor.constraint(equalTo: listCountLabel.heightAnchor),
-            listCountLabel.centerYAnchor.constraint(equalTo: statusLabel.centerYAnchor),
-            listCountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            countLabel.heightAnchor.constraint(equalToConstant: Constraint.countHeight),
+            countLabel.widthAnchor.constraint(equalToConstant: Constraint.countWidth),
+            countLabel.centerYAnchor.constraint(equalTo: statusLabel.centerYAnchor),
+            countLabel.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: Constraint.countLeading),
+            countLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraint.countTrailing)
         ])
     }
     
@@ -80,6 +80,18 @@ final class ListHeaderView: UITableViewHeaderFooterView {
     }
     
     func updateCountLabel(_ count: Int) {
-        listCountLabel.text = count.description
+        countLabel.text = count.description
+    }
+    
+    private enum Constraint {
+        static let statusTop: CGFloat = 0
+        static let statusLeading: CGFloat = 10
+        static let statusBottom: CGFloat = -5
+        
+        static let countHeight: CGFloat = countWidth
+        static let countWidth: CGFloat = 35
+        static let countCornerRadius: CGFloat = countWidth / 2
+        static let countLeading: CGFloat = 5
+        static let countTrailing: CGFloat = -5
     }
 }

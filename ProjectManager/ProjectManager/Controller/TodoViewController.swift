@@ -22,15 +22,15 @@ final class TodoViewController: UIViewController {
         stackView.alignment = .fill
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.spacing = Constraint.stackViewSpacing
         return stackView
     }()
     
     private(set) var titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = PlaceHolder.itemViewTitle
-        textField.layer.cornerRadius = 5
-        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = Constraint.titleCornerLadius
+        textField.layer.borderWidth = Constraint.titleBorderWidth
         textField.layer.borderColor = UIColor.systemGray3.cgColor
         textField.isEnabled = true
         return textField
@@ -52,13 +52,30 @@ final class TodoViewController: UIViewController {
     private(set) var bodyTextView: UITextView = {
         let textView = UITextView()
         textView.text = PlaceHolder.itemViewBody
-        textView.layer.cornerRadius = 5
-        textView.layer.borderWidth = 1
+        textView.layer.cornerRadius = Constraint.bodyCornerLaduis
+        textView.layer.borderWidth = Constraint.bodyBorderWidth
         textView.font = UIFont.preferredFont(forTextStyle: .body, compatibleWith: .none)
         textView.layer.borderColor = UIColor.systemGray3.cgColor
         textView.isEditable = true
         return textView
     }()
+    
+    private enum Constraint {
+        static let stackViewSpacing: CGFloat = 10
+        
+        static let titleCornerLadius: CGFloat = 5
+        static let bodyCornerLaduis: CGFloat = 5
+        
+        static let titleBorderWidth: CGFloat = 1
+        static let bodyBorderWidth: CGFloat = 1
+        
+        static let stackViewTop: CGFloat = 10
+        static let stackViewLeading: CGFloat = 10
+        static let stackViewTrailing: CGFloat = -10
+        static let stackViewBottom: CGFloat = -15
+        
+        static let titleHeight: CGFloat = 40
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,18 +97,19 @@ final class TodoViewController: UIViewController {
     }
     
     private func configureLayout() {
+        view.addSubview(mainStackView)
+        
         mainStackView.addArrangedSubview(titleTextField)
         mainStackView.addArrangedSubview(datePicker)
         mainStackView.addArrangedSubview(bodyTextView)
-        view.addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constraint.stackViewTop),
+            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constraint.stackViewLeading),
+            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constraint.stackViewTrailing),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: Constraint.stackViewBottom),
             
-            titleTextField.heightAnchor.constraint(equalToConstant: 40)
+            titleTextField.heightAnchor.constraint(equalToConstant: Constraint.titleHeight)
         ])
     }
     
@@ -188,6 +206,6 @@ extension TodoViewController: LimitableTextCount {
         }
         
         let changedText = currentText.replacingCharacters(in: range, with: text)
-        return changedText.count <= TodoItemValue.bodyLimit
+        return changedText.count <= TodoViewValue.bodyLimit
     }
 }

@@ -9,13 +9,11 @@ import Foundation
 
 enum HeaderViewValue {
     static let identifier = ListHeaderView.self.description()
-    static let countLabelWidth = CGFloat(35)
-    static let circleCornerRadius = countLabelWidth / 2
 }
 
 enum ListTableViewValue {
     static let cellIdentifier = ListTableViewCell.self.description()
-    static let estimatedRowHeight = CGFloat(150)
+    static let headerHeight: CGFloat = 60
 }
 
 enum PlaceHolder {
@@ -57,8 +55,9 @@ enum TodoViewTitle {
     static let edit = "Edit"
 }
 
-enum TodoItemValue {
+enum TodoViewValue {
     static let bodyLimit = 1000
+    static let size = CGSize(width: 650, height: 650)
 }
 
 enum AlertMenu {

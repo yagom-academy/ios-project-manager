@@ -15,12 +15,16 @@ final class ListViewController: UIViewController {
     private let listStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 5
+        stackView.spacing = Constraint.stackViewSpacing
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
         stackView.backgroundColor = UIColor.systemGray5
         return stackView
     }()
+    
+    private enum Constraint {
+        static let stackViewSpacing: CGFloat = 5
+    }
     
     private let todoTableView = ListTableView()
     private let doingTableView = ListTableView()
@@ -66,7 +70,7 @@ final class ListViewController: UIViewController {
         let viewController = UINavigationController(rootViewController: viewController)
         
         viewController.modalPresentationStyle = .formSheet
-        viewController.preferredContentSize = CGSize(width: 650, height: 650)
+        viewController.preferredContentSize = TodoViewValue.size
         
         present(viewController, animated: true)
     }
@@ -85,8 +89,10 @@ final class ListViewController: UIViewController {
         tableviews.forEach {
             $0.delegate = self
             listStackView.addArrangedSubview($0)
-            $0.addGestureRecognizer(UILongPressGestureRecognizer(target: self,
-                                                                 action: #selector(self.pressTableViewCell)))
+            $0.addGestureRecognizer(UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(self.pressTableViewCell))
+            )
         }
     }
     
@@ -237,7 +243,7 @@ extension ListViewController {
 // MARK: - UITableViewDelegate
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        return ListTableViewValue.headerHeight
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
