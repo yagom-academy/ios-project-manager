@@ -14,7 +14,7 @@ protocol CRUDable {
     
     func create(_ data: DataType)
     
-    func read() -> [DataType]
+    func read(completion: @escaping (Result<[DataType], Error>) -> Void)
     
     func update(_ data: DataType)
     

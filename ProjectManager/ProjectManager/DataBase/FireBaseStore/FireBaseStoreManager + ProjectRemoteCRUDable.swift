@@ -54,12 +54,15 @@ extension FireBaseStoreManager: ProjectRemoteCRUDable {
             .setData(changeToFields(from: data))
     }
     
-    func read() -> [ProjectViewModel] {
-        var projectViewModels: [ProjectViewModel] = []
-        
+    func read(completion: @escaping (Result<[ProjectViewModel], Error>) -> Void) {
         fireStore.collection(collectionName).getDocuments { snapshot, error in
-            guard let documents = snapshot?.documents,
-                  error == nil else { return }
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let documents = snapshot?.documents else { return }
+            var projectViewModels: [ProjectViewModel] = []
             
             documents.forEach { [weak self] document in
                 guard let self = self else { return }
@@ -67,9 +70,9 @@ extension FireBaseStoreManager: ProjectRemoteCRUDable {
                 let projectViewModel = self.changeToProjectViewModel(from: document)
                 projectViewModels.append(projectViewModel)
             }
+            
+            completion(.success(projectViewModels))
         }
-        
-        return projectViewModels
     }
     
     func update(_ data: ProjectViewModel) {
@@ -91,10 +94,17 @@ extension FireBaseStoreManager: ProjectRemoteCRUDable {
     }
     
     func deleteAll() {
-        let allProjectViewModels = read()
-        allProjectViewModels.forEach { projectViewModel in
-            delete(projectViewModel)
+        read { result in
+            switch result {
+            case .success(let projectViewModels):
+                projectViewModels.forEach { projectViewModel in
+                    self.delete(projectViewModel)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
+        
     }
     
     func updateAfterNetworkConnection(projectViewModels: [ProjectViewModel]) {

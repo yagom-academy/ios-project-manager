@@ -49,7 +49,7 @@ final class MainViewController: UIViewController {
     }
     
     private func bidingViewModel() {
-        mainViewModel.update = { [weak self] projectsGroup, numberOfProject in
+        mainViewModel.updateProjects = { [weak self] projectsGroup, numberOfProject in
             self?.dataSources.enumerated().forEach { state, dataSource in
                 dataSource?.reload(projectsGroup[state])
             }
@@ -118,16 +118,20 @@ extension MainViewController {
 
     private func showHistory() -> UIAction {
         return UIAction { [weak self] action in
-            guard let sender: UIBarButtonItem = action.sender as? UIBarButtonItem else { return }
+            guard let self = self,
+                  let sender = action.sender as? UIBarButtonItem else { return }
             
-            let historyView = HistoryViewController()
-            historyView.modalPresentationStyle = .popover
-            historyView.popoverPresentationController?.barButtonItem = sender
-            historyView.popoverPresentationController?.permittedArrowDirections = .up
-            historyView.preferredContentSize = .init(width: (self?.view.frame.width ?? 400) * 0.4,
-                                                     height: (self?.view.frame.width ?? 400) * 0.4)
+            let historyViewController = ProjectHistoryViewController(
+                viewModel: ProjectHistoryViewModel(histories: self.mainViewModel.projectHistories))
             
-            self?.navigationController?.present(historyView, animated: true)
+            historyViewController.modalPresentationStyle = .popover
+            historyViewController.popoverPresentationController?.barButtonItem = sender
+            historyViewController.popoverPresentationController?.permittedArrowDirections = .up
+            historyViewController.preferredContentSize = CGSize(
+                width: (self.view.frame.width) * 0.4,
+                height: (self.view.frame.width) * 0.4)
+            
+            self.navigationController?.present(historyViewController, animated: true)
         }
     }
 
@@ -137,7 +141,7 @@ extension MainViewController {
             
             let newProject = self.mainViewModel.generateNewProject()
             let projectViewModel = ProjectViewModel(project: newProject, state: .todo)
-            let editViewController = EditingViewController(projectViewModel: projectViewModel,
+            let editViewController = EditingViewController(viewModel: projectViewModel,
                                                            editMode: .editable)
             editViewController.modalPresentationStyle = .formSheet
             
@@ -255,7 +259,7 @@ extension MainViewController {
         let projectViewModel = ProjectViewModel(project: projectToEdit,
                                                 state: state)
         
-        let editViewController = EditingViewController(projectViewModel: projectViewModel,
+        let editViewController = EditingViewController(viewModel: projectViewModel,
                                                        editMode: .readOnly)
         editViewController.modalPresentationStyle = .formSheet
         

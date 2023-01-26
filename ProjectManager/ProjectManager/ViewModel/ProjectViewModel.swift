@@ -8,6 +8,7 @@
 import Foundation
 
 struct ProjectViewModel {
+    
     var project: Project
     var state: ProjectState
 }

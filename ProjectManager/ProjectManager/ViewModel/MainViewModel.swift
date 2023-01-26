@@ -12,6 +12,7 @@ final class MainViewModel {
     private let networkMonitor: NetworkMonitor = NetworkMonitor()
     private let localDataManager: some ProjectCRUDable = CoreDataManager()
     private let remoteDataManager: some ProjectRemoteCRUDable = FireBaseStoreManager()
+    
     private let stateTitles: [String] = ProjectState.allCases.map { state in
         return state.title
     }
@@ -43,17 +44,23 @@ final class MainViewModel {
     }
     
     func initialFetchSavedProjects() {
-        let projectViewModels = localDataManager.read()
-        var initialProjectsGroup: [[Project]] = [[], [], []]
-        
-        projectViewModels.forEach { projectViewModel in
-            let stateIndex = projectViewModel.state.index
-            let project = projectViewModel.project
-            
-            initialProjectsGroup[stateIndex].append(project)
+        localDataManager.read { result in
+            switch result {
+            case .success(let projectViewModels):
+                var initialProjectsGroup: [[Project]] = [[], [], []]
+                
+                projectViewModels.forEach { projectViewModel in
+                    let stateIndex = projectViewModel.state.index
+                    let project = projectViewModel.project
+                    
+                    initialProjectsGroup[stateIndex].append(project)
+                }
+                
+                self.projectsGroup = initialProjectsGroup
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
-        
-        projectsGroup = initialProjectsGroup
     }
     
     func generateNewProject() -> Project {
@@ -92,8 +99,16 @@ final class MainViewModel {
     }
     
     func move(_ project: Project, from currentState: ProjectState, to state: ProjectState) {
-        delete(project, of: currentState)
-        add(project, in: state)
+        projectsGroup[currentState.index].enumerated().forEach { index, data in
+            guard data.uuid == project.uuid else { return }
+            
+            projectsGroup[currentState.index].remove(at: index)
+            projectsGroup[state.index].append(project)
+            localDataManager.update(ProjectViewModel(project: project, state: state))
+            remoteDataManager.update(ProjectViewModel(project: project, state: state))
+            projectHistories.append(ProjectHistory(Project: project,
+                                                   change: .move(from: currentState, to: state)))
+        }
     }
     
     func save(_ project: Project, in state: ProjectState) {
@@ -125,6 +140,7 @@ final class MainViewModel {
     private func edit(_ project: Project, of state: ProjectState) {
         projectsGroup[state.index].enumerated().forEach { index, savedProject in
             guard savedProject.uuid == project.uuid else { return }
+            
             projectsGroup[state.index][index] = project
             localDataManager.update(ProjectViewModel(project: project, state: state))
             remoteDataManager.update(ProjectViewModel(project: project, state: state))

@@ -62,7 +62,7 @@ extension CoreDataManager: ProjectCRUDable {
         saveContext()
     }
     
-    func read() -> [ProjectViewModel] {
+    func read(completion: @escaping (Result<[ProjectViewModel], Error>) -> Void) {
         let request = NSFetchRequest<ProjectCoreModel>(entityName: entityName)
         let projectCoreModels = fetchContext(request: request)
         let projectViewModels = projectCoreModels.map { projectCoreModel in
@@ -72,7 +72,7 @@ extension CoreDataManager: ProjectCRUDable {
                                               uuid: projectCoreModel.uuid),
                              state: projectCoreModel.state)}
         
-        return projectViewModels
+        completion(.success(projectViewModels))
     }
     
     func update(_ data: ProjectViewModel) {
