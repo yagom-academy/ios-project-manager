@@ -9,6 +9,12 @@ import UIKit
 
 class TaskCell: UITableViewCell {
 
+    var task: Task? {
+        didSet {
+            configureData()
+        }
+    }
+
     enum Constant {
         static let spacing = 10.0
         static let nagativeSpacing = -10.0
@@ -56,11 +62,11 @@ class TaskCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureData(task: Task) {
-        titleLabel.text = task.title
-        descriptionLabel.text = task.description
-        dateLabel.textColor = checkIfDatePassedNow(date: task.date) ? .red : .black
-        dateLabel.text = task.date.description
+    func configureData() {
+        titleLabel.text = self.task?.title
+        descriptionLabel.text = self.task?.description
+        dateLabel.textColor = checkIfDatePassedNow(date: self.task?.date ?? Date()) ? .red : .black
+        dateLabel.text = self.task?.date.description
     }
 
     func configureUI() {
