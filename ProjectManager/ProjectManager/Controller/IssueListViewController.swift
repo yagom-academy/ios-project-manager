@@ -48,12 +48,37 @@ final class IssueListViewController: UIViewController {
             trailing: Constant.LayoutConstant.margin
         )
         stack.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return stack
     }()
     
     private let headerView = HeaderView()
-    private var collectionView: UICollectionView?
+    private lazy var listLayout : UICollectionViewCompositionalLayout = {
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
+        listConfiguration.separatorConfiguration.topSeparatorVisibility = .hidden
+        listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
+        listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
+            let deleteAction = UIContextualAction(
+                style: .destructive,
+                title: Constant.Namespace.delete
+            ) { _, _, _  in
+                guard let issue = self.dataSource?.itemIdentifier(for: indexPath) else { return }
+                
+                self.deleteIssue(issue: issue)
+            }
+            
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
+        
+        return UICollectionViewCompositionalLayout.list(using: listConfiguration)
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: listLayout)
+        collectionView.delegate = self
+        
+        return collectionView
+    }()
     
     init(frame: CGRect = .zero, status: Status, delegate: IssueListDelegate) {
         self.status = status
@@ -76,13 +101,10 @@ final class IssueListViewController: UIViewController {
     
     private func configureUI() {
         configureHeaderView()
-        configureCollectionView()
         configureStackView()
     }
     
     private func configureStackView() {
-        guard let collectionView = collectionView else { return }
-        
         stackView.addArrangedSubview(headerView)
         stackView.addArrangedSubview(collectionView)
         view.addSubview(stackView)
@@ -99,31 +121,7 @@ final class IssueListViewController: UIViewController {
         headerView.configureContent(title: String(describing: status), count: issues.count)
     }
     
-    private func configureCollectionView() {
-        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfiguration.separatorConfiguration.topSeparatorVisibility = .hidden
-        listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
-        listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
-            let deleteAction = UIContextualAction(
-                style: .destructive,
-                title: Constant.Namespace.delete
-            ) { _, _, _  in
-                guard let issue = self.dataSource?.itemIdentifier(for: indexPath) else { return }
-                
-                self.deleteIssue(issue: issue)
-            }
-            
-            return UISwipeActionsConfiguration(actions: [deleteAction])
-        }
-        
-        let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView?.delegate = self
-    }
-    
     private func configureDataSource() {
-        guard let collectionView = collectionView else { return }
-        
         let cellRegistration = UICollectionView.CellRegistration<CustomListCell, Issue> {
             (cell, indexPath, item) in
             cell.item = item
@@ -170,13 +168,13 @@ final class IssueListViewController: UIViewController {
         guard gestureRecognizer.state != .recognized else { return }
         
         let point = gestureRecognizer.location(in: collectionView)
-        let indexPath = self.collectionView?.indexPathForItem(at: point)
+        let indexPath = self.collectionView.indexPathForItem(at: point)
         showPopover(indexPath: indexPath)
     }
     
     private func showPopover(indexPath: IndexPath?) {
         guard let indexPath = indexPath,
-              let selectedCell = collectionView?.cellForItem(at: indexPath) as? CustomListCell,
+              let selectedCell = collectionView.cellForItem(at: indexPath) as? CustomListCell,
               let issue = selectedCell.item else { return }
         
         let alertController = UIAlertController(
