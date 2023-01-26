@@ -19,7 +19,7 @@ final class HistoryCell: UITableViewCell, ReusableView {
     private let createdAtLabel: UILabel = {
         let label = UILabel()
         
-        label.textColor = .systemGray3
+        label.textColor = .systemGray
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .caption1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +29,7 @@ final class HistoryCell: UITableViewCell, ReusableView {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
         setupViews()
     }
     
