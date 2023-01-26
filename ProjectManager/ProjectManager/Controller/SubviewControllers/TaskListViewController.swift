@@ -16,6 +16,7 @@ class TaskListViewController: UIViewController {
     var filteredTasks: [Task] = [] {
         didSet {
             applySnapShot()
+            projectListView.setHeaderItemCount(count: filteredTasks.count)
         }
     }
     var dataSource: UITableViewDiffableDataSource<Section, Task>
@@ -52,6 +53,7 @@ class TaskListViewController: UIViewController {
         projectListView.setHeaderItemCount(count: 0)
         projectListView.register(cellClass: TaskCell.self, forCellReuseIdentifier: TaskCell.cellIdentifier)
         configureDataSource()
+        registerLongPressedObserver()
     }
 
     private func configureDataSource() {
@@ -70,4 +72,45 @@ extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+
+extension TaskListViewController {
+    private func registerLongPressedObserver() {
+        NotificationCenter.default.addObserver(self,
+                                       selector: #selector(showPopoverMenu),
+                                       name: Notification.Name("cellLongPressed"),
+                                       object: nil)
+    }
+    
+    @objc private func showPopoverMenu(_ notification: Notification) {
+        guard let task = notification.userInfo?["task"] as? Task else {
+            return
+        }
+        let menuAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        menuAlert.modalPresentationStyle = .popover
+        menuAlert.popoverPresentationController?.permittedArrowDirections = .up
+        menuAlert.popoverPresentationController?.sourceView = notification.object as? UIView
+        
+        let actions = generateMovingActions(task: task)
+        actions.forEach { action in
+            menuAlert.addAction(action)
+        }
+        
+        self.present(menuAlert, animated: true)
+    }
+    
+    private func generateMovingActions(task: Task) -> [UIAlertAction] {
+        let alertActions =  task.status.movingOption.map { optionTitle, movedState in
+            UIAlertAction(title: optionTitle, style: .default) { _ in
+                self.moveProject(task, from: task.status, to: movedState)
+            }
+        }
+        
+        return alertActions
+    }
+    
+    private func moveProject(_ task: Task, from currentStatus: TaskStatus, to futureStatus: TaskStatus) {
+        print("move \(task) from \(currentStatus) to \(futureStatus)")
+    }
+    
 }

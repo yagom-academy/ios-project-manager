@@ -109,7 +109,12 @@ extension TaskCell {
         self.contentView.addGestureRecognizer(longPressGesture)
     }
     
-    @objc private func notifyLongPressed() {
-        print("long pressed")
+    @objc private func notifyLongPressed(_ sender: UILongPressGestureRecognizer) {
+        if let task {
+            NotificationCenter.default.post(
+                name: Notification.Name("cellLongPressed"),
+                object: sender.view,
+                userInfo: ["task": task])
+        }
     }
 }
