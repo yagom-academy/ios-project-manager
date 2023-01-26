@@ -20,8 +20,6 @@ final class ListTableView: UITableView {
     
     private func configureView() {
         backgroundColor = .systemGray6
-        rowHeight = UITableView.automaticDimension
-        estimatedRowHeight = ListTableViewValue.estimatedRowHeight
         register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewValue.identifier)
         register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderViewValue.identifier)
     }

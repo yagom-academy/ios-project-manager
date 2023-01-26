@@ -75,8 +75,8 @@ final class ListViewController: UIViewController {
         view.backgroundColor = .white
         setTableViews()
         configureLayout()
-        applyAllSnapshot()
         addTodoObserver()
+        updateView()
     }
     
     private func setTableViews() {

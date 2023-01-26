@@ -53,17 +53,12 @@ final class ListTableViewCell: UITableViewCell {
         print("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        dateLabel.textColor = .black
-    }
-    
     private func configureLayout() {
+        contentView.addSubview(mainStackView)
+        
         mainStackView.addArrangedSubview(titleLabel)
         mainStackView.addArrangedSubview(bodyLabel)
         mainStackView.addArrangedSubview(dateLabel)
-        
-        contentView.addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
@@ -74,14 +69,14 @@ final class ListTableViewCell: UITableViewCell {
     }
     
     func configureContent(title: String, body: String, date: Date) {
-        DispatchQueue.main.async { [weak self] in
-            self?.titleLabel.text = title
-            self?.bodyLabel.text = body
-            self?.dateLabel.text = date.customDescription
-            
-            if date < Date() {
-                self?.dateLabel.textColor = .red
-            }
+        titleLabel.text = title
+        bodyLabel.text = body
+        dateLabel.text = date.customDescription
+        
+        if date < Date() {
+            dateLabel.textColor = .red
+        } else {
+            dateLabel.textColor = .black
         }
     }
 }
