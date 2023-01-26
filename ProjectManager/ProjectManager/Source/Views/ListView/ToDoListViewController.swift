@@ -78,19 +78,19 @@ final class ToDoListViewController: UIViewController {
     private func setupViewModel() {
         switch status {
         case .toDo:
-            viewModel.todoModel.bind { item in
-                self.appendData(item: item)
-                self.tableView.reloadData()
+            viewModel.todoModel.bind { [weak self] item in
+                self?.appendData(item: item)
+                self?.tableView.reloadData()
             }
         case .doing:
-            viewModel.doingModel.bind { item in
-                self.appendData(item: item)
-                self.tableView.reloadData()
+            viewModel.doingModel.bind { [weak self] item in
+                self?.appendData(item: item)
+                self?.tableView.reloadData()
             }
         case .done:
-            viewModel.doneModel.bind { item in
-                self.appendData(item: item)
-                self.tableView.reloadData()
+            viewModel.doneModel.bind { [weak self] item in
+                self?.appendData(item: item)
+                self?.tableView.reloadData()
             }
         }
     }
