@@ -83,6 +83,12 @@ class TaskSettingView: UIView {
         ])
     }
     
+    func configureTaskData(with task: Task) {
+        titleTextField.text = task.title
+        descriptionTextView.text = task.description
+        datePicker.date = task.date
+    }
+    
     func fetchTask() -> Task? {
         guard let title = titleTextField.text,
               title != ""

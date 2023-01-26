@@ -78,8 +78,8 @@ class TaskListViewController: UIViewController {
         }
     }
     
-    private func showEditProjectView() {
-        let addProjectViewController = EditProjectViewController(type: type)
+    private func showEditProjectView(with task: Task) {
+        let addProjectViewController = EditProjectViewController(task: task)
         let secondNavigationController = UINavigationController(rootViewController: addProjectViewController)
         secondNavigationController.modalPresentationStyle = .formSheet
         self.present(secondNavigationController, animated: true)
@@ -88,7 +88,8 @@ class TaskListViewController: UIViewController {
 
 extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showEditProjectView()
+        let task = filteredTasks[indexPath.row]
+        showEditProjectView(with: task)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

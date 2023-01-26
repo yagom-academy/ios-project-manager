@@ -9,10 +9,10 @@ import UIKit
 
 class EditProjectViewController: AddProjectViewController {
 
-    private var type: TaskStatus
+    private var task: Task
     
-    init(type: TaskStatus) {
-        self.type = type
+    init(task: Task) {
+        self.task = task
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -22,13 +22,12 @@ class EditProjectViewController: AddProjectViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        taskSettingView.configureTaskData(with: task)
     }
     
     override func configureNavigationItem() {
-        navigationItem.title = type.rawValue
+        navigationItem.title = task.status.rawValue
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
     }
 }
