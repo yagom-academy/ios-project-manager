@@ -70,13 +70,18 @@ final class ToDoCell: UITableViewCell, ReusableView {
         ])
     }
     
-    func configure(title: String, body: String, deadline: Date) {
-        titleLabel.text = title
-        bodyLabel.text = body
-        deadlineLabel.text = DateFormatter.convertToString(to: deadline, style: .long)
+    func configure(with item: ToDo) {
+        titleLabel.text = item.title
+        bodyLabel.text = item.body
+        deadlineLabel.text = DateFormatter.convertToString(to: item.deadline, style: .long)
+        configureDeadlineColor(with: item.isOverDeadline)
     }
     
-    func changeDeadlineColor(_ color: UIColor) {
-        deadlineLabel.textColor = color
+    private func configureDeadlineColor(with isOverDeadline: Bool) {
+        if isOverDeadline {
+            deadlineLabel.textColor = .systemRed
+        } else {
+            deadlineLabel.textColor = .black
+        }
     }
 }

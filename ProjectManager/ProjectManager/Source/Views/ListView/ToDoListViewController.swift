@@ -33,13 +33,7 @@ final class ToDoListViewController: UIViewController {
                 for: indexPath
             ) as? ToDoCell else { return UITableViewCell() }
             
-            cell.configure(title: item.title, body: item.body, deadline: item.deadline)
-            
-            if item.isOverDeadline {
-                cell.changeDeadlineColor(.systemRed)
-            } else {
-                cell.changeDeadlineColor(.black)
-            }
+            cell.configure(with: item)
             
             return cell
         }
