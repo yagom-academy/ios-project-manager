@@ -32,13 +32,13 @@ final class ListViewController: UIViewController {
     private lazy var doneDataSource = configureDataSource(of: doneTableView)
     
     private var todoModels: [TodoModel] {
-        MockDataManager.shared.todoList
+        MockDataManager.shared.fetchList(status: .todo)
     }
     private var doingModels: [TodoModel] {
-        MockDataManager.shared.doingList
+        MockDataManager.shared.fetchList(status: .doing)
     }
     private var doneModels: [TodoModel] {
-        MockDataManager.shared.doneList
+        MockDataManager.shared.fetchList(status: .done)
     }
     
     override func viewDidLoad() {

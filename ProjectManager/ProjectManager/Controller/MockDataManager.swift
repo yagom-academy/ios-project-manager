@@ -52,6 +52,10 @@ final class MockDataManager {
         self.mockModels.filter { $0.status == .done }
     }
     
+    func fetchList(status: TodoModel.TodoStatus) -> [TodoModel] {
+        return mockModels.filter { $0.status == status }
+    }
+    
     func create(todo: TodoModel) {
         mockModels.append(todo)
     }
