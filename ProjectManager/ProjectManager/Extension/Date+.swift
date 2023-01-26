@@ -20,7 +20,6 @@ extension Date {
         let today = Date().dateComponents
         
         guard let remainingDays = calendar.dateComponents([.day], from: today, to: deadline).day else { return false }
-        
         return remainingDays < .zero ? true : false
     }
 }

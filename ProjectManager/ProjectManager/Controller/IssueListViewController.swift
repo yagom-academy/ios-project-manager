@@ -48,7 +48,6 @@ final class IssueListViewController: UIViewController {
             trailing: Constant.LayoutConstant.margin
         )
         stack.translatesAutoresizingMaskIntoConstraints = false
-
         return stack
     }()
     
@@ -66,17 +65,14 @@ final class IssueListViewController: UIViewController {
                 
                 self.deleteIssue(issue: issue)
             }
-            
             return UISwipeActionsConfiguration(actions: [deleteAction])
         }
-        
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }()
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: listLayout)
         collectionView.delegate = self
-        
         return collectionView
     }()
     
@@ -202,7 +198,6 @@ final class IssueListViewController: UIViewController {
             actions.append(createAlertAction(issue: issue, to: .todo))
             actions.append(createAlertAction(issue: issue, to: .doing))
         }
-        
         return actions
     }
     
@@ -216,7 +211,6 @@ final class IssueListViewController: UIViewController {
             self.deleteIssue(issue: issue)
             self.issueListDelegate?.shouldDeliver(issue: modifiedIssue)
         }
-        
         return action
     }
 }

@@ -37,14 +37,12 @@ final class CustomContentView: UIView, UIContentView {
         stack.layer.borderWidth = Constant.LayoutConstant.borderWidth
         stack.layer.borderColor = UIColor.systemGray.cgColor
         stack.layer.cornerRadius = Constant.LayoutConstant.cornerRadius
-        
         return stack
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
-        
         return label
     }()
     
@@ -53,7 +51,6 @@ final class CustomContentView: UIView, UIContentView {
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
         label.numberOfLines = Constant.LayoutConstant.maxBodyLineCount
-        
         return label
     }()
     
