@@ -8,9 +8,9 @@ import UIKit
 
 class ProjectsViewController: UIViewController {
 
-    private let todoViewController = TaskViewController(type: .todo)
-    private let doingViewController = TaskViewController(type: .doing)
-    private let doneViewController = TaskViewController(type: .done)
+    private let todoViewController = TaskTodoListViewController()
+    private let doingViewController = TaskDoingListViewController()
+    private let doneViewController = TaskDoneListViewController()
     
     enum Constant {
         static let navigationTitle = "Project Manager"

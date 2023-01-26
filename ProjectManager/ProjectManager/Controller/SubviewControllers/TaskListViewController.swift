@@ -7,13 +7,13 @@
 
 import UIKit
 
-class TaskViewController: UIViewController {
+class TaskListViewController: UIViewController {
 
     enum Section {
         case main
     }
 
-    var type: TaskStatus
+    private var type: TaskStatus
     var filteredTasks: [Task] = [] {
         didSet {
             applySnapShot()
