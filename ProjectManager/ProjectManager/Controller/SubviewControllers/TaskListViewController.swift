@@ -8,7 +8,6 @@
 import UIKit
 
 class TaskListViewController: UIViewController {
-
     enum Section {
         case main
     }
@@ -20,6 +19,12 @@ class TaskListViewController: UIViewController {
         }
     }
     var dataSource: UITableViewDiffableDataSource<Section, Task>
+
+    private let projectListView: ProjectListView = {
+        let view = ProjectListView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     init(type: TaskStatus) {
         self.type = type
@@ -35,12 +40,6 @@ class TaskListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private let projectListView: ProjectListView = {
-        let view = ProjectListView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     override func loadView() {
         super.loadView()
         view = projectListView
@@ -48,6 +47,7 @@ class TaskListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        projectListView.delegate = self
         projectListView.setHeaderText(text: type.rawValue)
         projectListView.setHeaderItemCount(count: 0)
         projectListView.register(cellClass: TaskCell.self, forCellReuseIdentifier: TaskCell.cellIdentifier)
@@ -63,5 +63,11 @@ class TaskListViewController: UIViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems(filteredTasks)
         self.dataSource.apply(snapshot, animatingDifferences: true)
+    }
+}
+
+extension TaskListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
