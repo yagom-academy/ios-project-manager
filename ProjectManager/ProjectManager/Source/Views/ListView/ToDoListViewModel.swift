@@ -88,14 +88,23 @@ final class ToDoListViewModel {
     }
     
     func delete(index: Int, state: ToDoState) {
+        let deletedItem: ToDo
+        
         switch state {
         case .toDo:
-            todoModel.value.remove(at: index)
+            deletedItem = todoModel.value.remove(at: index)
         case .doing:
-            doingModel.value.remove(at: index)
+            deletedItem = doingModel.value.remove(at: index)
         case .done:
-            doneModel.value.remove(at: index)
+            deletedItem = doneModel.value.remove(at: index)
         }
+        
+        NotificationCenter.default.post(name: Notification.Name.deleted,
+                                        object: nil,
+                                        userInfo: [
+                                            "Title": deletedItem.title,
+                                            "State": state.description
+                                        ])
     }
     
     func count(state: ToDoState) -> Int {
