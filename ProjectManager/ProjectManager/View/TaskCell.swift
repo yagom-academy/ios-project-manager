@@ -61,7 +61,7 @@ class TaskCell: UITableViewCell {
         titleLabel.text = self.task?.title
         descriptionLabel.text = self.task?.description
         dateLabel.textColor = checkIfDatePassedNow(date: self.task?.date ?? Date()) ? .red : .black
-        dateLabel.text = self.task?.date.description
+        dateLabel.text = self.task?.date.customDateDescription
     }
 
     func configureUI() {
