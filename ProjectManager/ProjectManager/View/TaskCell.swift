@@ -56,6 +56,7 @@ class TaskCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
+        configureLongPressGesture()
     }
 
     required init?(coder: NSCoder) {
@@ -96,5 +97,19 @@ class TaskCell: UITableViewCell {
 
     func checkIfDatePassedNow(date: Date) -> Bool {
         return Date() > date
+    }
+}
+
+extension TaskCell {
+    private func configureLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self,
+                                                            action: #selector(notifyLongPressed))
+        longPressGesture.delaysTouchesBegan = true
+        
+        self.contentView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc private func notifyLongPressed() {
+        print("long pressed")
     }
 }
