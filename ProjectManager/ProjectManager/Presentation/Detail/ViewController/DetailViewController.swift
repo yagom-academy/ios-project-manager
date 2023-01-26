@@ -26,9 +26,10 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
     
-    private let titleTextField: DetailTextField = {
-        let textFiled = DetailTextField()
+    private let titleTextField: UITextField = {
+        let textFiled = UITextField()
         textFiled.placeholder = Text.titlePlaceHolder
+        textFiled.setShadow()
         
         return textFiled
     }()
@@ -42,10 +43,11 @@ final class DetailViewController: UIViewController {
         return datePicker
     }()
     
-    private let descriptionTextView: DetailTextView = {
-        let textView = DetailTextView()
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
         textView.keyboardDismissMode = .onDrag
         textView.layer.borderColor = Color.detailTextViewBorder
+        textView.setShadow()
         
         return textView
     }()
