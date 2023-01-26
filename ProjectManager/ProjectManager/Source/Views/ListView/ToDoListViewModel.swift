@@ -87,14 +87,14 @@ final class ToDoListViewModel {
         model.value.append(data)
     }
     
-    func delete(indexPath: Int, state: ToDoState) {
+    func delete(index: Int, state: ToDoState) {
         switch state {
         case .toDo:
-            todoModel.value.remove(at: indexPath)
+            todoModel.value.remove(at: index)
         case .doing:
-            doingModel.value.remove(at: indexPath)
+            doingModel.value.remove(at: index)
         case .done:
-            doneModel.value.remove(at: indexPath)
+            doneModel.value.remove(at: index)
         }
     }
     
