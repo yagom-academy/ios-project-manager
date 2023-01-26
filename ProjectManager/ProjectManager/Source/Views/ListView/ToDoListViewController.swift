@@ -157,16 +157,13 @@ extension ToDoListViewController: UITableViewDelegate {
         contextMenuConfigurationForRowAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-        let moveToTodo = UIAction(title: NSLocalizedString("Move To Todo", comment: ""),
-                                  image: nil) { _ in
+        let moveToTodo = UIAction(title: "Move To Todo", image: nil) { _ in
             self.updateState(indexPath: indexPath.item, state: .toDo)
         }
-        let moveToDoing = UIAction(title: NSLocalizedString("Move To Doing", comment: ""),
-                                   image: nil) { _ in
+        let moveToDoing = UIAction(title: "Move To Doing", image: nil) { _ in
             self.updateState(indexPath: indexPath.item, state: .doing)
         }
-        let moveToDone = UIAction(title: NSLocalizedString("Move To Done", comment: ""),
-                                  image: nil) { _ in
+        let moveToDone = UIAction(title: "Move To Done", image: nil) { _ in
             self.updateState(indexPath: indexPath.item, state: .done)
         }
         
