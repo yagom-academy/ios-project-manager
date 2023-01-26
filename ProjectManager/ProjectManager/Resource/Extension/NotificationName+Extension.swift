@@ -5,4 +5,6 @@ import Foundation
 
 extension Notification.Name {
     static let deleted = Notification.Name("Deleted")
+    static let added = Notification.Name("Added")
+    static let moved = Notification.Name("Moved")
 }

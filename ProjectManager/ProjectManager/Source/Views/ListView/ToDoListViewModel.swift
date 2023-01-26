@@ -11,6 +11,10 @@ final class ToDoListViewModel {
     
     func addToDo(item: ToDo) {
         todoModel.value.append(item)
+        
+        NotificationCenter.default.post(name: Notification.Name.added,
+                                        object: nil,
+                                        userInfo: ["Title": item.title])
     }
     
     func fetchToDo(index: Int, state: ToDoState) -> ToDo? {
@@ -85,6 +89,14 @@ final class ToDoListViewModel {
         
         data.state = changeState
         model.value.append(data)
+        
+        NotificationCenter.default.post(name: Notification.Name.moved,
+                                        object: nil,
+                                        userInfo: [
+                                            "Title": data.title,
+                                            "PastState": currentState.description,
+                                            "CurrentState": changeState.description
+                                        ])
     }
     
     func delete(index: Int, state: ToDoState) {
