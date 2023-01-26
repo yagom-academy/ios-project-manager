@@ -8,6 +8,25 @@
 import UIKit
 
 final class ListHeaderView: UITableViewHeaderFooterView {
+    var status: HeaderStatus?
+    
+    enum HeaderStatus {
+        case todo
+        case doing
+        case done
+        
+        var title: String {
+            switch self {
+            case .todo:
+                return "TODO"
+            case .doing:
+                return "DOING"
+            case .done:
+                return "DONE"
+            }
+        }
+    }
+    
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -54,8 +73,13 @@ final class ListHeaderView: UITableViewHeaderFooterView {
         ])
     }
     
-    func updateView(title: String, count: Int) {
-        statusLabel.text = title
+    func configureView(status: HeaderStatus, count: Int) {
+        self.status = status
+        statusLabel.text = self.status?.title
+        updateCountLabel(count)
+    }
+    
+    func updateCountLabel(_ count: Int) {
         listCountLabel.text = count.description
     }
 }

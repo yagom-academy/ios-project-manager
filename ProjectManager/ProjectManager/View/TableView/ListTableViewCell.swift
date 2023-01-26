@@ -54,7 +54,6 @@ final class ListTableViewCell: UITableViewCell {
     }
     
     private func configureLayout() {
-        print(ListTableViewValue.cellIdentifier)
         contentView.addSubview(mainStackView)
         
         mainStackView.addArrangedSubview(titleLabel)

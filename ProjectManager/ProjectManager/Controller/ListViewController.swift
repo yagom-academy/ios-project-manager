@@ -75,8 +75,8 @@ final class ListViewController: UIViewController {
         view.backgroundColor = .white
         configureTableViews()
         configureLayout()
+        applyAllSnapshot()
         addTodoObserver()
-        updateView()
     }
     
     private func configureTableViews() {
@@ -102,17 +102,33 @@ final class ListViewController: UIViewController {
     }
     
     private func addTodoObserver() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateView),
-                                               name: Notification.Name.mockModels,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateView),
+            name: Notification.Name.mockModels,
+            object: nil)
     }
     
     @objc private func updateView() {
         applyAllSnapshot()
-        todoTableView.reloadData()
-        doingTableView.reloadData()
-        doneTableView.reloadData()
+        updateHeaderView()
+    }
+    
+    private func updateHeaderView() {
+        [todoTableView, doingTableView, doneTableView].forEach {
+            guard let headerView = $0.headerView(forSection: 0) as? ListHeaderView else { return }
+            
+            switch headerView.status {
+            case .todo:
+                headerView.updateCountLabel(todoModels.count)
+            case .doing:
+                headerView.updateCountLabel(doingModels.count)
+            case .done:
+                headerView.updateCountLabel(doneModels.count)
+            default:
+                return
+            }
+        }
     }
 }
 
@@ -138,17 +154,17 @@ extension ListViewController {
                                      preferredStyle: .alert)
         }
         
-        let moveToTodo = UIAlertAction(title: AlertMenu.toTodo, style: .default) { [weak self] _ in
+        let moveToTodo = UIAlertAction(title: AlertMenu.toTodo, style: .default) { _ in
             MockDataManager.shared.update(todo: cellItem, status: .todo)
-            self?.updateView()
+            self.updateView()
         }
-        let moveToDoing = UIAlertAction(title: AlertMenu.toDoing, style: .default) { [weak self] _ in
+        let moveToDoing = UIAlertAction(title: AlertMenu.toDoing, style: .default) { _ in
             MockDataManager.shared.update(todo: cellItem, status: .doing)
-            self?.updateView()
+            self.updateView()
         }
-        let moveToDone = UIAlertAction(title: AlertMenu.toDone, style: .default) { [weak self] _ in
+        let moveToDone = UIAlertAction(title: AlertMenu.toDone, style: .default) { _ in
             MockDataManager.shared.update(todo: cellItem, status: .done)
-            self?.updateView()
+            self.updateView()
         }
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -231,11 +247,14 @@ extension ListViewController: UITableViewDelegate {
         
         switch tableView {
         case todoTableView:
-            headerView.updateView(title: ListViewTitle.Header.todo, count: todoModels.count)
+            headerView.configureView(status: ListHeaderView.HeaderStatus.todo,
+                                     count: todoModels.count)
         case doingTableView:
-            headerView.updateView(title: ListViewTitle.Header.doing, count: doingModels.count)
+            headerView.configureView(status: ListHeaderView.HeaderStatus.doing,
+                                     count: doingModels.count)
         case doneTableView:
-            headerView.updateView(title: ListViewTitle.Header.done, count: doneModels.count)
+            headerView.configureView(status: ListHeaderView.HeaderStatus.done,
+                                     count: doneModels.count)
         default:
             break
         }
