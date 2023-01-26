@@ -9,22 +9,22 @@ final class ProjectManagerViewController: UIViewController {
         static let title = "Project Manager"
     }
     
-    private let viewModel = ToDoListViewModel()
+    private let listViewModel = ToDoListViewModel()
     
     private lazy var todoTableView: ToDoListViewController = {
-        let tableView = ToDoListViewController(status: .toDo, viewModel: viewModel)
+        let tableView = ToDoListViewController(status: .toDo, viewModel: listViewModel)
         
         return tableView
     }()
     
     private lazy var doingTableView: ToDoListViewController = {
-        let tableView = ToDoListViewController(status: .doing, viewModel: viewModel)
+        let tableView = ToDoListViewController(status: .doing, viewModel: listViewModel)
         
         return tableView
     }()
     
     private lazy var doneTableView: ToDoListViewController = {
-        let tableView = ToDoListViewController(status: .done, viewModel: viewModel)
+        let tableView = ToDoListViewController(status: .done, viewModel: listViewModel)
         
         return tableView
     }()
