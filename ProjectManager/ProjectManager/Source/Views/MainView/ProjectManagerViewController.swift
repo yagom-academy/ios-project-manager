@@ -1,9 +1,9 @@
-//  ProjectManager - MainViewController.swift
+//  ProjectManager - ProjectManagerViewController.swift
 //  created by zhilly on 2023/01/11
 
 import UIKit
 
-final class MainViewController: UIViewController {
+final class ProjectManagerViewController: UIViewController {
     
     private enum Constant {
         static let title = "Project Manager"
