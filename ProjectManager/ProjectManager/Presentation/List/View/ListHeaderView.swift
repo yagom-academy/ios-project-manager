@@ -16,24 +16,31 @@ final class ListHeaderView: UIView {
 
     private let titleView: UIStackView = {
         let stackView = UIStackView()
+//        stackView.backgroundColor = .red
         stackView.axis = .horizontal
         stackView.spacing = Style.stackViewSpacing
-        stackView.alignment = .fill
-        stackView.distribution = .equalSpacing
-        stackView.layoutMargins = UIEdgeInsets(top: Style.listTitleMargin,
-                                               left: Style.listTitleMargin,
-                                               bottom: Style.listTitleMargin,
-                                               right: Style.listTitleMargin)
+        stackView.alignment = .center
+        stackView.distribution = .fill
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         return stackView
     }()
     
-    private let titleLabel: UILabel = UILabel()
-    private let countLabel: CircleLabel = CircleLabel(frame: .zero)
+    private let titleLabel = UILabel()
+    private let countLabel = CircleLabel(frame: .zero)
+    private let bumperView: UIView =  {
+        let view = UIView()
+        view.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        
+        return view
+    }()
+    private let leftPaddingView = UIView()
+    private let rightPaddingView = UIView()
+    private let padding: CGFloat
     
-    init(title: String, frame: CGRect) {
+    init(title: String, padding: CGFloat, frame: CGRect) {
+        self.padding = padding
         super.init(frame: frame)
         
         configure()
@@ -46,6 +53,8 @@ final class ListHeaderView: UIView {
     }
     
     private func configure() {
+        leftPaddingView.backgroundColor = .systemGray3
+        rightPaddingView.backgroundColor = .systemGray3
         configureViewHierarchy()
         configureLayoutConstraint()
     }
@@ -66,7 +75,7 @@ final class ListHeaderView: UIView {
     }
 
     private func configureViewHierarchy() {
-        [titleLabel, countLabel].forEach {
+        [leftPaddingView, titleLabel, countLabel, bumperView, rightPaddingView].forEach {
             titleView.addArrangedSubview($0)
         }
         addSubview(titleView)
@@ -76,7 +85,12 @@ final class ListHeaderView: UIView {
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: topAnchor),
             titleView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            titleView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            titleView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            leftPaddingView.widthAnchor.constraint(equalToConstant: padding),
+            leftPaddingView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: 16),
+            rightPaddingView.widthAnchor.constraint(equalToConstant: padding),
+            rightPaddingView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: 16),
         ])
     }
 }

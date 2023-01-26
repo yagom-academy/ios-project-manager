@@ -10,7 +10,7 @@ protocol DetailProject {
     var delegate: DetailProjectDelegate? { get set }
 }
 
-protocol DetailProjectDelegate {
+protocol DetailProjectDelegate: AnyObject {
     
     var viewModel: ListViewModel? { get set }
     func detailProject(willSave project: Project)

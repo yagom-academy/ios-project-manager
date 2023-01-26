@@ -14,7 +14,7 @@ final class DetailViewController: UIViewController {
     typealias Color = Constant.Color
     
     var viewModel: DetailViewModel?
-    var delegate: DetailProjectDelegate?
+    weak var delegate: DetailProjectDelegate?
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -26,7 +26,7 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
     
-    private let  titleTextField: DetailTextField = {
+    private let titleTextField: DetailTextField = {
         let textFiled = DetailTextField()
         textFiled.placeholder = Text.titlePlaceHolder
         

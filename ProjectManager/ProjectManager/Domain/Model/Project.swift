@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Project {
+struct Project: Hashable {
 
     var title: String
     var description: String
@@ -27,5 +27,3 @@ struct Project {
         self.identifier = identifier
     }
 }
-
-extension Project: Hashable { }

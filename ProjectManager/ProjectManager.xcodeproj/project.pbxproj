@@ -30,6 +30,7 @@
 		BF88450929769F52001C9459 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450829769F52001C9459 /* ListCell.swift */; };
 		BFB0AE442978D91F00B71886 /* DetailTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0AE432978D91F00B71886 /* DetailTextField.swift */; };
 		BFB0AE462978E42200B71886 /* DetailTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0AE452978E42200B71886 /* DetailTextView.swift */; };
+		BFB0AE842981AF0D00B71886 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0AE832981AF0D00B71886 /* ListCollectionViewCell.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ListViewController.swift */; };
@@ -61,6 +62,7 @@
 		BF88450829769F52001C9459 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		BFB0AE432978D91F00B71886 /* DetailTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextField.swift; sourceTree = "<group>"; };
 		BFB0AE452978E42200B71886 /* DetailTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextView.swift; sourceTree = "<group>"; };
+		BFB0AE832981AF0D00B71886 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				BF8845002976887D001C9459 /* ListHeaderView.swift */,
 				BF88450429769D35001C9459 /* Reusable.swift */,
 				BF88450829769F52001C9459 /* ListCell.swift */,
+				BFB0AE832981AF0D00B71886 /* ListCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				BF8845012976887D001C9459 /* ListHeaderView.swift in Sources */,
 				BFB0AE442978D91F00B71886 /* DetailTextField.swift in Sources */,
 				BF8844792973B4C1001C9459 /* DetailViewController.swift in Sources */,
+				BFB0AE842981AF0D00B71886 /* ListCollectionViewCell.swift in Sources */,
 				BF8844702972E080001C9459 /* DetailViewModel.swift in Sources */,
 				BF6CA755296EA27800F88564 /* Date+.swift in Sources */,
 				BF8844F729766BB2001C9459 /* DefaultDetailUseCase.swift in Sources */,
