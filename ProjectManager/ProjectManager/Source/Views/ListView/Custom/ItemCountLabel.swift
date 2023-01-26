@@ -11,17 +11,7 @@ final class ItemCountLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    }
-    
-    convenience init(frame: CGRect = .zero, count: Int) {
-        self.init(frame: frame)
-        text = convertToText(count)
-        textColor = .white
-        font = .preferredFont(forTextStyle: .headline)
-        textAlignment = .center
-        backgroundColor = .black
-        layer.masksToBounds = true
-        translatesAutoresizingMaskIntoConstraints = false
+        setupView()
     }
     
     @available(*, unavailable)
@@ -32,6 +22,19 @@ final class ItemCountLabel: UILabel {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.size.height / 2
+    }
+    
+    private func setupView() {
+        textColor = .white
+        font = .preferredFont(forTextStyle: .headline)
+        textAlignment = .center
+        backgroundColor = .black
+        layer.masksToBounds = true
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func updateCount(with count: Int) {
+        text = convertToText(count)
     }
     
     private func convertToText(_ count: Int) -> String {

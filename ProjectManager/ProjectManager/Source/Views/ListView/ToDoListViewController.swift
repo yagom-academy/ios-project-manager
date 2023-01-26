@@ -20,7 +20,10 @@ final class ToDoListViewController: UIViewController {
         
         tableView.backgroundColor = .systemGray6
         tableView.sectionHeaderHeight = 50
-        tableView.register(ToDoCell.self, forCellReuseIdentifier: ToDoCell.reuseIdentifier)
+        tableView.register(ToDoCell.self,
+                           forCellReuseIdentifier: ToDoCell.reuseIdentifier)
+        tableView.register(ToDoHeaderView.self,
+                           forHeaderFooterViewReuseIdentifier: ToDoHeaderView.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
@@ -116,7 +119,14 @@ final class ToDoListViewController: UIViewController {
 
 extension ToDoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ToDoHeaderView(status: self.status, count: self.viewModel.count(state: self.status))
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: ToDoHeaderView.reuseIdentifier
+        ) as? ToDoHeaderView else {
+            return UIView()
+        }
+        
+        headerView.configure(status: self.status,
+                             count: viewModel.count(state: self.status))
         
         return headerView
     }
