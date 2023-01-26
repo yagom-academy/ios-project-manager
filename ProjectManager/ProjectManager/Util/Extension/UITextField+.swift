@@ -12,8 +12,8 @@ extension UITextField {
     typealias Style = Constant.Style
 
     func setShadow(color: UIColor = .systemBackground,
-                         opacity: Float = Style.shadowOpacity,
-                         offset: CGSize = Style.shadowOffset) {
+                   opacity: Float = Style.shadowOpacity,
+                   offset: CGSize = Style.shadowOffset) {
         backgroundColor = color
         layer.shadowOpacity = opacity
         layer.shadowOffset = offset

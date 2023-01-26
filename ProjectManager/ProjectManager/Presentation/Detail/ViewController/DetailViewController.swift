@@ -104,12 +104,7 @@ final class DetailViewController: UIViewController {
         datePicker.date = date
         descriptionTextView.text = values?.description
         descriptionTextView.delegate = self
-        
-        if viewModel?.isEditable == false {
-            titleTextField.isEnabled = false
-            datePicker.isEnabled = false
-            descriptionTextView.isEditable = false
-        }
+        configureEditable()
     }
     
     private func configureHandler() {
@@ -117,9 +112,7 @@ final class DetailViewController: UIViewController {
             if isEditable == true {
                 self.navigationItem.leftBarButtonItem = self.makeLeftButton()
                 self.navigationItem.rightBarButtonItem = self.makeDoneButton()
-                self.titleTextField.isEnabled = true
-                self.datePicker.isEnabled = true
-                self.descriptionTextView.isEditable = true
+                self.configureEditable()
             }
         }
         
@@ -130,6 +123,12 @@ final class DetailViewController: UIViewController {
                 self?.descriptionTextView.layer.borderWidth = Style.detailTextViewBoderWidth
             }
         }
+    }
+    
+    private func configureEditable() {
+        titleTextField.isEnabled = viewModel?.isEditable ?? false
+        datePicker.isEnabled = viewModel?.isEditable ?? false
+        descriptionTextView.isEditable = viewModel?.isEditable ?? false
     }
     
     private func makeDoneButton() -> UIBarButtonItem {
