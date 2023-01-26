@@ -108,11 +108,11 @@ final class DetailViewController: UIViewController {
     }
     
     private func configureHandler() {
-        viewModel?.bindEditable { isEditable in
+        viewModel?.bindEditable { [weak self] isEditable in
             if isEditable == true {
-                self.navigationItem.leftBarButtonItem = self.makeLeftButton()
-                self.navigationItem.rightBarButtonItem = self.makeDoneButton()
-                self.configureEditable()
+                self?.navigationItem.leftBarButtonItem = self?.makeLeftButton()
+                self?.navigationItem.rightBarButtonItem = self?.makeDoneButton()
+                self?.configureEditable()
             }
         }
         
@@ -142,14 +142,14 @@ final class DetailViewController: UIViewController {
         let action: UIAction
         switch viewModel?.isEditable == true  {
         case true:
-            action = UIAction { _ in
-                self.saveProjectIfValid() {
-                    self.dismiss(animated: true)
+            action = UIAction { [weak self] _ in
+                self?.saveProjectIfValid() {
+                    self?.dismiss(animated: true)
                 }
             }
         case false:
-            action = UIAction { _ in
-                self.dismiss(animated: true)
+            action = UIAction { [weak self] _ in
+                self?.dismiss(animated: true)
             }
         }
 
@@ -171,16 +171,16 @@ final class DetailViewController: UIViewController {
     }
     
     private func tappedCancelButtonAction() -> UIAction {
-        let action = UIAction { _ in
-            self.dismiss(animated: true)
+        let action = UIAction { [weak self] _ in
+            self?.dismiss(animated: true)
         }
 
         return action
     }
     
     private func tappedEditButtonAction() -> UIAction {
-        let action = UIAction { _ in
-            self.viewModel?.changeEditable(state: true)
+        let action = UIAction { [weak self] _ in
+            self?.viewModel?.changeEditable(state: true)
         }
 
         return action
