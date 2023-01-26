@@ -19,7 +19,7 @@ final class MainViewModel {
     
     private var projectsGroup: [[Project]] = [[], [], []] {
         didSet {
-            update(projectsGroup, numberOfProjectInState(projectsGroup))
+            updateProjects(projectsGroup, numberOfProjectInState(projectsGroup))
         }
     }
     
@@ -35,7 +35,10 @@ final class MainViewModel {
         }
     }
     
-    var update: ([[Project]], [String]) -> Void = { _, _ in }
+    private(set) var projectHistories: [ProjectHistory] = []
+
+    var updateProjects: ([[Project]], [String]) -> Void = { _, _ in }
+    var updateProjectHistories: ([ProjectHistoryViewModel]) -> Void = { _ in }
     var updateNetwork: (Bool) -> Void = { _ in }
     
     init() {
@@ -95,6 +98,9 @@ final class MainViewModel {
             projectsGroup[state.index].remove(at: index)
             localDataManager.delete(ProjectViewModel(project: project, state: state))
             remoteDataManager.delete(ProjectViewModel(project: project, state: state))
+            
+            let projectHistory = ProjectHistory(Project: project, change: .remove(from: state))
+            projectHistories.insert(projectHistory, at: 0)
         }
     }
     
@@ -106,8 +112,10 @@ final class MainViewModel {
             projectsGroup[state.index].append(project)
             localDataManager.update(ProjectViewModel(project: project, state: state))
             remoteDataManager.update(ProjectViewModel(project: project, state: state))
-            projectHistories.append(ProjectHistory(Project: project,
-                                                   change: .move(from: currentState, to: state)))
+            
+            let projectHistory = ProjectHistory(Project: project,
+                                                change: .move(from: currentState, to: state))
+            projectHistories.insert(projectHistory, at: 0)
         }
     }
     
@@ -135,6 +143,9 @@ final class MainViewModel {
         projectsGroup[state.index].append(project)
         localDataManager.create(ProjectViewModel(project: project, state: state))
         remoteDataManager.create(ProjectViewModel(project: project, state: state))
+        
+        let projectHistory = ProjectHistory(Project: project, change: .add)
+        projectHistories.insert(projectHistory, at: 0)
     }
     
     private func edit(_ project: Project, of state: ProjectState) {
@@ -144,6 +155,9 @@ final class MainViewModel {
             projectsGroup[state.index][index] = project
             localDataManager.update(ProjectViewModel(project: project, state: state))
             remoteDataManager.update(ProjectViewModel(project: project, state: state))
+            
+            let projectHistory = ProjectHistory(Project: project, change: .update)
+            projectHistories.insert(projectHistory, at: 0)
         }
     }
 }

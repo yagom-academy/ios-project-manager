@@ -22,4 +22,11 @@ extension Date {
         
         return today > date ? true : false
     }
+    
+    func changeHistoryDateFormatString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, y h:m:s a"
+        
+        return dateFormatter.string(from: self)
+    }
 }

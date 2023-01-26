@@ -18,6 +18,7 @@ extension UILabel {
         self.textColor = textColor
         self.numberOfLines = numberOfLines
         self.textAlignment = textAlignment
+        lineBreakMode = .byWordWrapping
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

@@ -8,8 +8,11 @@
 import Foundation
 import UIKit
 
-final class HistoryViewController: UIViewController {
-
+final class ProjectHistoryViewController: UIViewController {
+    
+    private let projectHistoryViewModel: ProjectHistoryViewModel
+    private var dataSource: HistoryDataSource?
+    
     private let historyListCollectionView: UICollectionView = {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
@@ -22,15 +25,22 @@ final class HistoryViewController: UIViewController {
         
         return collectionView
     }()
-    
-    private var dataSource: HistoryDataSource?
+
+    init(viewModel: ProjectHistoryViewModel) {
+        self.projectHistoryViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureDataSource()
+        applySnapShot()
         configureHierarchy()
         configureLayout()
-        configureDataSource()
-        dataSource?.applyInitialSnapShot([1,2,3,4,5,6,7,8,9,10])
+    }
+    
+    private func applySnapShot() {
+        dataSource?.applyInitialSnapShot(projectHistoryViewModel.histories)
     }
     
     private func configureHierarchy() {
@@ -51,14 +61,15 @@ final class HistoryViewController: UIViewController {
         ])
     }
     
-    typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Int>
+    typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell,
+                                                                   ProjectHistory>
     
     private func generateCellRegistration() -> CellRegistration {
-        let cellRegistration = CellRegistration { cell, indexPath, item in
+        let cellRegistration = CellRegistration { cell, _, projectHistory in
             var content = UIListContentConfiguration.subtitleCell()
-            content.text = "testText"
+            content.text = self.projectHistoryViewModel.fetchHistoryTitle(projectHistory)
             content.textProperties.font = .preferredFont(forTextStyle: .title3)
-            content.secondaryText = "secondaryText"
+            content.secondaryText = self.projectHistoryViewModel.fetchHistoryDate(projectHistory)
             content.secondaryTextProperties.color = .systemGray2
             content.secondaryTextProperties.font = .preferredFont(forTextStyle: .body)
             
@@ -80,5 +91,9 @@ final class HistoryViewController: UIViewController {
             
             return cell
         })
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

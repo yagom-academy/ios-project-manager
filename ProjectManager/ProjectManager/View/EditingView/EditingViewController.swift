@@ -41,8 +41,8 @@ final class EditingViewController: UIViewController {
     
     private let stackView = UIStackView(axis: .vertical)
     
-    init(projectViewModel: ProjectViewModel, editMode: EditingMode) {
-        self.projectViewModel = projectViewModel
+    init(viewModel: ProjectViewModel, editMode: EditingMode) {
+        self.projectViewModel = viewModel
         self.editMode = editMode
         super.init(nibName: nil, bundle: nil)
         addKeyboardNotifications()

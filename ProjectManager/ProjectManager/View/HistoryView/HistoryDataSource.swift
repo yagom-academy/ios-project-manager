@@ -7,22 +7,22 @@
 
 import UIKit
 
-final class HistoryDataSource: UICollectionViewDiffableDataSource<Section, Int> {
+final class HistoryDataSource: UICollectionViewDiffableDataSource<Section, ProjectHistory> {
     
-    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, Int>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, ProjectHistory>
     
     private var snapShot = SnapShot()
     
-    func applyInitialSnapShot(_ numbers: [Int]) {
+    func applyInitialSnapShot(_ histories: [ProjectHistory]) {
         snapShot.appendSections([.main])
-        snapShot.appendItems(numbers, toSection: .main)
+        snapShot.appendItems(histories, toSection: .main)
         self.apply(snapShot)
     }
     
-    func reload(_ numbers: [Int]) {
+    func reload(_ histories: [ProjectHistory]) {
         snapShot.deleteAllItems()
         snapShot.appendSections([.main])
-        snapShot.appendItems(numbers)
+        snapShot.appendItems(histories)
         self.apply(snapShot)
     }
 }
