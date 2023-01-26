@@ -11,5 +11,9 @@ opt_in_rules:
   - closure_spacing
   - implicitly_unwrapped_optional
   - vertical_whitespace_closing_braces
+  
+disabled_rules:
+  - trailing_whitespace
+  - class_delegate_protocol
 
 line_length: 100
