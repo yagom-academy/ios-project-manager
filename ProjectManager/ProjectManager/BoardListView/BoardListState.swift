@@ -91,4 +91,4 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
       return .none
     }
   }
-]).debug()
+])
