@@ -115,7 +115,7 @@ final class EditToDoViewController: UIViewController {
     
     @objc
     private func tappedDoneButton() {
-        if detailView.hasTitle == false {
+        guard detailView.hasTitle == true else {
             let alert = UIAlertController(title: "제목을 입력해주세요.", message: nil, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "확인", style: .default)
             
@@ -124,6 +124,7 @@ final class EditToDoViewController: UIViewController {
             
             return
         }
+        
         let data = detailView.currentContent()
         viewModel.update(currentState: self.status,
                          indexPath: indexPath,
