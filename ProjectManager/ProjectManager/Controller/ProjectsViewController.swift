@@ -8,6 +8,10 @@ import UIKit
 
 class ProjectsViewController: UIViewController {
 
+    private let todoViewController = TaskViewController(type: .todo)
+    private let doingViewController = TaskViewController(type: .doing)
+    private let doneViewController = TaskViewController(type: .done)
+    
     enum Constant {
         static let navigationTitle = "Project Manager"
         static let stackViewSpacing: CGFloat = 10
@@ -38,10 +42,6 @@ class ProjectsViewController: UIViewController {
     }
 
     private func configureChildViewControllers() {
-        let todoViewController = TaskViewController(type: .todo)
-        let doingViewController = TaskViewController(type: .doing)
-        let doneViewController = TaskViewController(type: .done)
-
         todoViewController.willMove(toParent: self)
         doingViewController.willMove(toParent: self)
         doneViewController.willMove(toParent: self)
@@ -82,10 +82,7 @@ class ProjectsViewController: UIViewController {
     }
     
     private func updateTodoTask(with task: Task) {
-        guard let controller = self.children.first as? TaskViewController else {
-            return
-        }
-        controller.filteredTasks.append(task)
+        todoViewController.filteredTasks.append(task)
     }
 }
 
