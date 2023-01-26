@@ -46,10 +46,13 @@ class ProjectsViewController: UIViewController {
         doingViewController.willMove(toParent: self)
         doneViewController.willMove(toParent: self)
         
-        todoViewController.delegate = self
-        doingViewController.delegate = self
-        doneViewController.delegate = self
-
+        todoViewController.moveDelegate = self
+        todoViewController.editDelgate = self
+        doingViewController.moveDelegate = self
+        doingViewController.editDelgate = self
+        doneViewController.moveDelegate = self
+        doneViewController.editDelgate = self
+        
         stackView.addArrangedSubview(todoViewController.view)
         stackView.addArrangedSubview(doingViewController.view)
         stackView.addArrangedSubview(doneViewController.view)
@@ -90,7 +93,22 @@ class ProjectsViewController: UIViewController {
     }
 }
 
-extension ProjectsViewController: TaskAddDelegate, TaskMoveDelegate {
+extension ProjectsViewController: TaskAddDelegate, TaskMoveDelegate, TaskEditDelegate {
+    func taskDidEdited(to newTask: Task, from task: Task) {
+        print("여기까지옴")
+        switch task.status {
+        case .todo:
+            todoViewController.deleteTask(task)
+            todoViewController.filteredTasks.append(newTask)
+        case .done:
+            doneViewController.deleteTask(task)
+            doneViewController.filteredTasks.append(newTask)
+        case .doing:
+            doingViewController.deleteTask(task)
+            doingViewController.filteredTasks.append(newTask)
+        }
+    }
+
     func taskDidAdded(_ task: Task) {
         updateTodoTask(with: task)
     }

@@ -9,6 +9,7 @@ import UIKit
 
 protocol TaskAddDelegate: AnyObject {
     func taskDidAdded(_ task: Task)
+    func taskDidEdited(to newTask: Task, from task: Task)
 }
 
 class AddProjectViewController: UIViewController {

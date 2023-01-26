@@ -24,7 +24,8 @@ class TaskListViewController: UIViewController {
         }
     }
     var dataSource: UITableViewDiffableDataSource<Section, Task>
-    weak var delegate: TaskMoveDelegate?
+    weak var moveDelegate: TaskMoveDelegate?
+    weak var editDelgate: TaskEditDelegate?
 
     private let projectListView: ProjectListView = {
         let view = ProjectListView()
@@ -53,16 +54,20 @@ class TaskListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        projectListView.delegate = self
-        projectListView.setHeaderText(text: type.rawValue)
-        projectListView.setHeaderItemCount(count: 0)
-        projectListView.register(cellClass: TaskCell.self, forCellReuseIdentifier: TaskCell.cellIdentifier)
         configureDataSource()
+        configureProjectListView()
         registerLongPressedObserver()
     }
 
     private func configureDataSource() {
         projectListView.dataSource = dataSource
+    }
+    
+    private func configureProjectListView() {
+        projectListView.delegate = self
+        projectListView.setHeaderText(text: type.rawValue)
+        projectListView.setHeaderItemCount(count: 0)
+        projectListView.register(cellClass: TaskCell.self, forCellReuseIdentifier: TaskCell.cellIdentifier)
     }
 
     func applySnapShot() {
@@ -73,14 +78,16 @@ class TaskListViewController: UIViewController {
     }
     
     func deleteTask(_ task: Task) {
+        print("delete")
         if let index = filteredTasks.firstIndex(of: task) {
             filteredTasks.remove(at: index)
         }
     }
     
     private func showEditProjectView(with task: Task) {
-        let addProjectViewController = EditProjectViewController(task: task)
-        let secondNavigationController = UINavigationController(rootViewController: addProjectViewController)
+        let editProjectViewController = EditProjectViewController(task: task)
+        editProjectViewController.editDelegate = self
+        let secondNavigationController = UINavigationController(rootViewController: editProjectViewController)
         secondNavigationController.modalPresentationStyle = .formSheet
         self.present(secondNavigationController, animated: true)
     }
@@ -122,10 +129,16 @@ extension TaskListViewController {
     private func generateMovingActions(task: Task) -> [UIAlertAction] {
         let alertActions =  task.status.movingOption.map { optionTitle, movedState in
             UIAlertAction(title: optionTitle, style: .default) { _ in
-                self.delegate?.taskDidMoved(task, from: task.status, to: movedState)
+                self.moveDelegate?.taskDidMoved(task, from: task.status, to: movedState)
             }
         }
         
         return alertActions
+    }
+}
+
+extension TaskListViewController: TaskEditDelegate {
+    func taskDidEdited(to newTask: Task, from task: Task) {
+        self.editDelgate?.taskDidEdited(to: newTask, from: task)
     }
 }

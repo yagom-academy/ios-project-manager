@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol TaskEditDelegate: AnyObject {
+    func taskDidEdited(to newTask: Task, from task: Task)
+}
+
 class EditProjectViewController: AddProjectViewController {
 
     private var task: Task
+    var editDelegate: TaskEditDelegate?
     
     init(task: Task) {
         self.task = task
@@ -27,7 +32,15 @@ class EditProjectViewController: AddProjectViewController {
     
     override func configureNavigationItem() {
         navigationItem.title = task.status.rawValue
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editAndDismissViewController))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissCurrentViewController))
+    }
+    
+    @objc private func editAndDismissViewController() {
+        let newTask = taskSettingView.fetchTask()
+        if let newTask {
+            self.editDelegate?.taskDidEdited(to: newTask, from: task)
+        }
+        dismissCurrentViewController()
     }
 }
