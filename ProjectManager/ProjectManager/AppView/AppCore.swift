@@ -71,6 +71,30 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
     case .sheetAction:
       return .none
       
+    case let .todoListAction(.movingToDoing(project)):
+      state.doingListState.projects.append(project)
+      return .none
+      
+    case let .todoListAction(.movingToDone(project)):
+      state.doneListState.projects.append(project)
+      return .none
+
+    case let .doingListAction(.movingToTodo(project)):
+      state.todoListState.projects.append(project)
+      return .none
+      
+    case let .doingListAction(.movingToDone(project)):
+      state.doneListState.projects.append(project)
+      return .none
+      
+    case let .doneListAction(.movingToTodo(project)):
+      state.todoListState.projects.append(project)
+      return .none
+      
+    case let .doneListAction(.movingToDoing(project)):
+      state.doingListState.projects.append(project)
+      return .none
+      
     case .todoListAction:
       return .none
       

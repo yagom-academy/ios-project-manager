@@ -28,6 +28,7 @@ enum BoardListAction {
   // Inner Action
   case _createDetailState(Project)
   case _dismissItem
+  case _deleteProject(Project)
   
   // Child Action
   case detailAction(DetailAction)
@@ -83,7 +84,15 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
       state.projects[index] = newItem
       
       return Effect(value: ._dismissItem)
-    default:
+    case .movingToTodo(let project), .movingToDoing(let project), .movingToDone(let project):
+      return Effect(value: ._deleteProject(project))
+      
+    case let ._deleteProject(project):
+      guard let firstIndex = state.projects.firstIndex(of: project) else { return .none }
+      state.projects.remove(at: firstIndex)
+      return .none
+      
+    case .detailAction:
       return .none
     }
   }
