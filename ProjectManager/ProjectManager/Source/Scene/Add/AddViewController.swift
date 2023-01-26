@@ -52,6 +52,8 @@ final class AddViewController: UIViewController {
     }
     
     private func setUpTopLeftButton(mode: DataManagementMode) {
+        customPopUpView.topLeftButton.removeTarget(nil, action: nil, for: .allEvents)
+        
         switch mode {
         case .create:
             customPopUpView.configureTopButtonText(left: MainNameSpace.cancel)
@@ -64,7 +66,7 @@ final class AddViewController: UIViewController {
             customPopUpView.configureTopButtonText(left: MainNameSpace.cancel)
             customPopUpView.topLeftButton.addTarget(
                 self,
-                action: #selector(didTapEditButton),
+                action: #selector(didTapCancelButton),
                 for: .touchDown
             )
         case .read:
@@ -78,6 +80,8 @@ final class AddViewController: UIViewController {
     }
     
     private func setUpTopRightButton(mode: DataManagementMode) {
+        customPopUpView.topRightButton.removeTarget(nil, action: nil, for: .allEvents)
+        
         switch mode {
         case .create:
             customPopUpView.configureTopButtonText(right: MainNameSpace.done)
@@ -92,15 +96,7 @@ final class AddViewController: UIViewController {
             for: .touchDown
         )
     }
-    
-//    private func setUpCancelButton() {
-//        customPopUpView.cancelButton.addTarget(
-//            self,
-//            action: #selector(didTapCancelButton),
-//            for: .touchDown
-//        )
-//    }
-    
+
     // MARK: Action Methods
     
     @objc
@@ -132,8 +128,7 @@ final class AddViewController: UIViewController {
         ) { [self] in
             dataManagementMode = .edit
             customPopUpView.checkDataAccess(mode: dataManagementMode)
-            setUpTopLeftButton(mode: dataManagementMode)
-            setUpTopRightButton(mode: dataManagementMode)
+            configureButtonAction()
         }
         let secondAlertAction = createAlertAction(
             title: NameSpace.editButtonSecondAlertActionTitle
@@ -147,7 +142,7 @@ final class AddViewController: UIViewController {
     
     @objc
     private func didTapCancelButton() {
-        dismiss(animated: true)
+        self.dismiss(animated: true)
     }
 }
 

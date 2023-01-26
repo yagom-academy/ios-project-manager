@@ -143,6 +143,7 @@ final class CustomPopUpView: UIView {
     func showProjectData(with projectData: ProjectData) {
         titleTextField.text = projectData.title
         bodyTextView.text = projectData.body
+        datePicker.date = Date(timeIntervalSince1970: projectData.deadline)
     }
     
     func checkDataAccess(mode: DataManagementMode) {
