@@ -103,15 +103,6 @@ final class ToDoListViewController: UIViewController {
         dataSource.apply(snapshot)
     }
     
-    private func deleteToDo(indexPath: Int) {
-        var currentSnapshot = dataSource.snapshot()
-        guard let item = viewModel.fetchToDo(index: indexPath, state: self.status) else { return }
-        
-        currentSnapshot.deleteItems([item])
-        dataSource.apply(currentSnapshot)
-        viewModel.delete(indexPath: indexPath, state: self.status)
-    }
-    
     private func updateState(indexPath: Int, state: ToDoState) {
         viewModel.updateStatus(indexPath: indexPath, currentState: self.status, changeState: state)
     }
@@ -148,9 +139,9 @@ extension ToDoListViewController: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive,
                                               title: nil) { [weak self] (_, _, success) in
-            if self?.viewModel.fetchToDo(index: indexPath.item, state: self?.status ?? .toDo) != nil {
-                self?.deleteToDo(indexPath: indexPath.item)
-                self?.tableView.reloadData()
+            if let self = self,
+               self.viewModel.fetchToDo(index: indexPath.item, state: self.status) != nil {
+                self.viewModel.delete(index: indexPath.item, state: self.status)
                 success(true)
             } else {
                 success(false)
