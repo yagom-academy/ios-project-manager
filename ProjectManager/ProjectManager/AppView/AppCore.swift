@@ -18,9 +18,7 @@ enum AppAction {
   case sheetAction(SheetAction)
 
   // Inner Action
-//  case _movingTodo(Project)
-//  case _movingDoing(Project)
-//  case _movingDone(Project)
+  case _movingTo(targetStatus: ProjectState, newItem: Project)
   
   // Child Action
   case todoListAction(BoardListAction)
@@ -71,29 +69,35 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
     case .sheetAction:
       return .none
       
-    case let .todoListAction(.movingToDoing(project)):
-      state.doingListState.projects.append(project)
-      return .none
-      
-    case let .todoListAction(.movingToDone(project)):
-      state.doneListState.projects.append(project)
-      return .none
+    case .todoListAction(.movingToDoing(let project)), .doneListAction(.movingToDoing(let project)):
+      var newItem = project
+      newItem.state = .doing
+      return Effect(value: ._movingTo(targetStatus: .doing, newItem: newItem))
 
-    case let .doingListAction(.movingToTodo(project)):
-      state.todoListState.projects.append(project)
-      return .none
+    case .todoListAction(.movingToDone(let project)), .doingListAction(.movingToDone(let project)):
+      var newItem = project
+      newItem.state = .done
+      return Effect(value: ._movingTo(targetStatus: .done, newItem: newItem))
+
+    case .doingListAction(.movingToTodo(let project)), .doneListAction(.movingToTodo(let project)):
+      var newItem = project
+      newItem.state = .todo
+      return Effect(value: ._movingTo(targetStatus: .todo, newItem: newItem))
       
-    case let .doingListAction(.movingToDone(project)):
-      state.doneListState.projects.append(project)
-      return .none
-      
-    case let .doneListAction(.movingToTodo(project)):
-      state.todoListState.projects.append(project)
-      return .none
-      
-    case let .doneListAction(.movingToDoing(project)):
-      state.doingListState.projects.append(project)
-      return .none
+    case let ._movingTo(targetStatus, newItem):
+      switch targetStatus {
+      case .todo:
+        state.todoListState.projects.append(newItem)
+        return .none
+        
+      case .doing:
+        state.doingListState.projects.append(newItem)
+        return .none
+        
+      case .done:
+        state.doneListState.projects.append(newItem)
+        return .none
+      }
       
     case .todoListAction:
       return .none
@@ -105,4 +109,4 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine([
       return .none
     }
   }
-]).debug()
+])

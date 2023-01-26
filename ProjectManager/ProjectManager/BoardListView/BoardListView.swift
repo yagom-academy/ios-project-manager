@@ -26,60 +26,58 @@ struct BoardListView: View {
           .cornerRadius(10)
         
         
-        List {
-          ForEach(viewStore.projects, id: \.id) { project in
-            BoardListCellView(project: project)
-              .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
-              .listRowSeparator(.hidden)
-              .onTapGesture {
-                viewStore.send(.tapDetailShow(project))
-              }
-              .contextMenu {
-                switch viewStore.status {
-                case .todo:
-                  Button("DOING") {
-                    viewStore.send(.movingToDoing(project))
-                  }
-                  
-                  Button("DONE") {
-                    viewStore.send(.movingToDone(project))
-                  }
+        List(viewStore.projects, id: \.id) { project in
+          BoardListCellView(project: project)
+            .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+            .listRowSeparator(.hidden)
+            .onTapGesture {
+              viewStore.send(.tapDetailShow(project))
+            }
+            .contextMenu {
+              switch viewStore.status {
+              case .todo:
+                Button("DOING") {
+                  viewStore.send(.movingToDoing(project))
+                }
+                
+                Button("DONE") {
+                  viewStore.send(.movingToDone(project))
+                }
 
-                case .doing:
-                  Button("TODO") {
-                    viewStore.send(.movingToTodo(project))
-                  }
-                  
-                  Button("DONE") {
-                    viewStore.send(.movingToDone(project))
-                  }
-                  
-                case .done:
-                  Button("TODO") {
-                    viewStore.send(.movingToTodo(project))
-                  }
-                  
-                  Button("DOING") {
-                    viewStore.send(.movingToDoing(project))
-                  }
+              case .doing:
+                Button("TODO") {
+                  viewStore.send(.movingToTodo(project))
+                }
+                
+                Button("DONE") {
+                  viewStore.send(.movingToDone(project))
+                }
+                
+              case .done:
+                Button("TODO") {
+                  viewStore.send(.movingToTodo(project))
+                }
+                
+                Button("DOING") {
+                  viewStore.send(.movingToDoing(project))
                 }
               }
-          }
-          .sheet(
-            item: viewStore.binding(
-              get: \.selectedProject,
-              send: ._dismissItem
-            )
-          ) { store in
-            IfLetStore(
-              self.store.scope(
-                state: \.selectedProject,
-                action: BoardListAction.detailAction
+            }
+            .sheet(
+              item: viewStore.binding(
+                get: \.selectedProject,
+                send: ._dismissItem
               )
             ) { store in
-              ProjectDetailView(store: store)
+              IfLetStore(
+                self.store.scope(
+                  state: \.selectedProject,
+                  action: BoardListAction.detailAction
+                )
+              ) { store in
+                ProjectDetailView(store: store)
+              }
             }
-          }
         }
         .listStyle(.plain)
       }

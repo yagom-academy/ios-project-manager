@@ -65,7 +65,8 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
       return .none
       
     case .detailAction(.didDoneTap):
-      guard let selectedState = state.selectedProject else {
+      guard let selectedState = state.selectedProject,
+            let index = state.projects.firstIndex(where: { $0.id == selectedState.id }) else {
         return .none
       }
       
@@ -73,22 +74,16 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
         id: selectedState.id,
         title: selectedState.title,
         date: selectedState.deadLineDate,
-        description: selectedState.description,
-        state: state.status
+        description: selectedState.description
       )
-      
-      guard let index = state.projects.firstIndex(where: { $0.id == newItem.id }) else {
-        return .none
-      }
-      
       state.projects[index] = newItem
-      
       return Effect(value: ._dismissItem)
+      
     case .movingToTodo(let project), .movingToDoing(let project), .movingToDone(let project):
       return Effect(value: ._deleteProject(project))
       
     case let ._deleteProject(project):
-      guard let firstIndex = state.projects.firstIndex(of: project) else { return .none }
+      guard let firstIndex = state.projects.firstIndex(where: { $0.id == project.id }) else { return .none }
       state.projects.remove(at: firstIndex)
       return .none
       
@@ -96,4 +91,4 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
       return .none
     }
   }
-])
+]).debug()
