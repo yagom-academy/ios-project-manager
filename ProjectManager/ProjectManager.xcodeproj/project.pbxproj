@@ -16,7 +16,7 @@
 		3CF17BAB297FD59200A4C46D /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BAA297FD59200A4C46D /* TaskListViewController.swift */; };
 		3CF17BB92980DD1200A4C46D /* TaskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BB82980DD1200A4C46D /* TaskSettingView.swift */; };
 		3CF17BBC2980E6D700A4C46D /* FakeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BBB2980E6D700A4C46D /* FakeDataManager.swift */; };
-		3CF17BC82982401A00A4C46D /* TaskTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BC72982401A00A4C46D /* TaskTodoViewController.swift */; };
+		3CF17BC82982401A00A4C46D /* TaskTodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BC72982401A00A4C46D /* TaskTodoListViewController.swift */; };
 		3CF17BCB2982407400A4C46D /* TaskDoingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BCA2982407400A4C46D /* TaskDoingListViewController.swift */; };
 		3CF17BCD2982408100A4C46D /* TaskDoneListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BCC2982408100A4C46D /* TaskDoneListViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -37,7 +37,7 @@
 		3CF17BAA297FD59200A4C46D /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		3CF17BB82980DD1200A4C46D /* TaskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSettingView.swift; sourceTree = "<group>"; };
 		3CF17BBB2980E6D700A4C46D /* FakeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataManager.swift; sourceTree = "<group>"; };
-		3CF17BC72982401A00A4C46D /* TaskTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTodoViewController.swift; sourceTree = "<group>"; };
+		3CF17BC72982401A00A4C46D /* TaskTodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTodoListViewController.swift; sourceTree = "<group>"; };
 		3CF17BCA2982407400A4C46D /* TaskDoingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDoingListViewController.swift; sourceTree = "<group>"; };
 		3CF17BCC2982408100A4C46D /* TaskDoneListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDoneListViewController.swift; sourceTree = "<group>"; };
 		90D792EA8DEBACFF161C5AB8 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				3CF17BAA297FD59200A4C46D /* TaskListViewController.swift */,
-				3CF17BC72982401A00A4C46D /* TaskTodoViewController.swift */,
+				3CF17BC72982401A00A4C46D /* TaskTodoListViewController.swift */,
 				3CF17BCA2982407400A4C46D /* TaskDoingListViewController.swift */,
 				3CF17BCC2982408100A4C46D /* TaskDoneListViewController.swift */,
 			);
@@ -292,7 +292,7 @@
 				3CF17BB92980DD1200A4C46D /* TaskSettingView.swift in Sources */,
 				3CF17BA3297BD90900A4C46D /* Task.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				3CF17BC82982401A00A4C46D /* TaskTodoViewController.swift in Sources */,
+				3CF17BC82982401A00A4C46D /* TaskTodoListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
