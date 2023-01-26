@@ -98,12 +98,41 @@ final class AddViewController: UIViewController {
     
     @objc
     private func didTapEditButton() {
-        dataManagementMode = .edit
-        customPopUpView.checkDataAccess(mode: dataManagementMode)
+        let alert = createAlert(
+            title: NameSpace.editButtonAlertTitle,
+            message: NameSpace.editButtonAlertMessage
+        )
+        let firstAlertAction = createAlertAction(
+            title: NameSpace.editButtonFirstAlertActionTitle
+        ) { [self] in
+            dataManagementMode = .edit
+            customPopUpView.checkDataAccess(mode: dataManagementMode)
+        }
+        let secondAlertAction = createAlertAction(
+            title: NameSpace.editButtonSecondAlertActionTitle
+        ) {}
+        
+        alert.addAction(firstAlertAction)
+        alert.addAction(secondAlertAction)
+        
+        present(alert, animated: true)
     }
     
     @objc
     private func didTapCancelButton() {
         dismiss(animated: true)
     }
+}
+
+// MARK: - AlertPresentable
+
+extension AddViewController: AlertPresentable {}
+
+// MARK: - NameSpace
+
+private enum NameSpace {
+    static let editButtonAlertTitle = "모드전환"
+    static let editButtonAlertMessage = "프로젝트 정보를 편집하시겠습니까?"
+    static let editButtonFirstAlertActionTitle = "편집"
+    static let editButtonSecondAlertActionTitle = "취소"
 }
