@@ -23,7 +23,7 @@ final class HistoryViewModel {
         
         let title = "Removed '\(deletedTitle)' from \(from)."
         let history = History(title: title,
-                              createdAt: DateFormatter.convertToString(to: Date(), style: .full))
+                              createdAt: DateFormatter.convertToFullString(to: Date()))
         
         model.value.insert(history, at: 0)
     }
