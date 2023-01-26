@@ -56,6 +56,15 @@ final class MainTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        bodyLabel.text = nil
+        dateLabel.text = nil
+        dateLabel.textColor = nil
+    }
+    
     // MARK: Internal Methods
     
     func configureLabel(data: ProjectData) {
