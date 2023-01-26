@@ -46,7 +46,7 @@ class AddProjectViewController: UIViewController {
     }
 
     // MARK: - Selectors
-    @objc private func dismissCurrentViewController() {
+    @objc func dismissCurrentViewController() {
         self.dismiss(animated: true)
     }
 

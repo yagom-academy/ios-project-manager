@@ -28,6 +28,6 @@ class EditProjectViewController: AddProjectViewController {
     override func configureNavigationItem() {
         navigationItem.title = task.status.rawValue
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissCurrentViewController))
     }
 }
