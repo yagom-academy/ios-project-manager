@@ -92,7 +92,7 @@ final class ListViewController: UIViewController {
         ])
     }
     
-    private func presentDetailView(viewModel: DetailViewModel) {
+    private func presentDetailView(viewModel: DetailViewModel?) {
         let projectViewController = DetailViewController()
         projectViewController.viewModel = viewModel
         projectViewController.delegate = self
@@ -131,8 +131,8 @@ final class ListViewController: UIViewController {
     
     private func addPlanAction() -> UIAction {
         let action = UIAction { _ in
-            let useCase = DefaultDetailUseCase(project: Project())
-            self.presentDetailView(viewModel: DetailViewModel(detailUseCase: useCase, isNewProject: true))
+            let detailViewModel = self.viewModel?.makeDetailViewModel(project: nil)
+            self.presentDetailView(viewModel: detailViewModel)
         }
         
         return action

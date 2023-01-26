@@ -56,8 +56,8 @@ final class DetailViewModel {
     }
     
     func fetchValues() -> (title: String, description: String, deadline: Date) {
-        return (detailUseCase.fetchText(of: .title),
-                detailUseCase.fetchText(of: .description),
+        return (detailUseCase.fetchTitleText(),
+                detailUseCase.fetchDescriptionText(),
                 detailUseCase.fetchDeadline())
     }
     

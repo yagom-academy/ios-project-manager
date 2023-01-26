@@ -20,13 +20,12 @@ final class DefaultDetailUseCase: DetailUseCase {
         self.project = project
     }
     
-    func fetchText(of item: ProjectTextItem) -> String {
-        switch item {
-        case .title:
-            return project.title
-        case .description:
-            return project.description
-        }
+    func fetchTitleText() -> String {
+        return project.title
+    }
+    
+    func fetchDescriptionText() -> String {
+        return project.description
     }
     
     func fetchDeadline() -> Date {

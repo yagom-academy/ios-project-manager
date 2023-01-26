@@ -100,6 +100,16 @@ final class ListViewModel {
     func removeProject(_ project: Project) {
         listUseCase.removeProject(project)
     }
+    
+    func makeDetailViewModel(project: Project?) -> DetailViewModel {
+        let detailUsecase: DetailUseCase
+        guard let project = project else {
+            detailUsecase = DefaultDetailUseCase(project: Project())
+            return DetailViewModel(detailUseCase: detailUsecase, isNewProject: true)
+        }
+        detailUsecase = DefaultDetailUseCase(project: project)
+        return DetailViewModel(detailUseCase: detailUsecase)
+    }
 }
 
 extension ListViewModel: ListOutput {
