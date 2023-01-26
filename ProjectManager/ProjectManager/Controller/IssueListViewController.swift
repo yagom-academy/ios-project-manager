@@ -12,7 +12,7 @@ final class IssueListViewController: UIViewController {
         enum Section {
             case main
         }
-
+        
         enum LayoutConstant {
             static let spacing = CGFloat(8)
             static let margin = CGFloat(12)
@@ -41,16 +41,18 @@ final class IssueListViewController: UIViewController {
         stack.axis = .vertical
         stack.spacing = Constant.LayoutConstant.spacing
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.margin,
-                                                                 leading: Constant.LayoutConstant.margin,
-                                                                 bottom: Constant.LayoutConstant.margin,
-                                                                 trailing: Constant.LayoutConstant.margin)
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: Constant.LayoutConstant.margin,
+            leading: Constant.LayoutConstant.margin,
+            bottom: Constant.LayoutConstant.margin,
+            trailing: Constant.LayoutConstant.margin
+        )
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         return stack
     }()
     
-    private var headerView = HeaderView()
+    private let headerView = HeaderView()
     private var collectionView: UICollectionView?
     
     init(frame: CGRect = .zero, status: Status, delegate: IssueListDelegate) {
@@ -59,7 +61,7 @@ final class IssueListViewController: UIViewController {
         self.issueCountDelegate = headerView.countLabel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -102,8 +104,10 @@ final class IssueListViewController: UIViewController {
         listConfiguration.separatorConfiguration.topSeparatorVisibility = .hidden
         listConfiguration.separatorConfiguration.bottomSeparatorVisibility = .hidden
         listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
-            let deleteAction = UIContextualAction(style: .destructive,
-                                                  title: Constant.Namespace.delete) { _, _, _  in
+            let deleteAction = UIContextualAction(
+                style: .destructive,
+                title: Constant.Namespace.delete
+            ) { _, _, _  in
                 guard let issue = self.dataSource?.itemIdentifier(for: indexPath) else { return }
                 
                 self.deleteIssue(issue: issue)
@@ -127,9 +131,11 @@ final class IssueListViewController: UIViewController {
         
         dataSource = UICollectionViewDiffableDataSource<Constant.Section, Issue>(collectionView: collectionView) {
             collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
-                                                                    for: indexPath,
-                                                                    item: itemIdentifier)
+            let cell = collectionView.dequeueConfiguredReusableCell(
+                using: cellRegistration,
+                for: indexPath,
+                item: itemIdentifier
+            )
             
             return cell
         }
@@ -152,8 +158,10 @@ final class IssueListViewController: UIViewController {
     }
     
     private func setLongPressGestureRecognizer() {
-        let gestureRecognizer = UILongPressGestureRecognizer(target: self,
-                                                             action: #selector(handleLongPress(gestureRecognizer: )))
+        let gestureRecognizer = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(handleLongPress(gestureRecognizer: ))
+        )
         gestureRecognizer.minimumPressDuration = Constant.Namespace.minimumPressDuration
         self.view.addGestureRecognizer(gestureRecognizer)
     }
@@ -171,9 +179,11 @@ final class IssueListViewController: UIViewController {
               let selectedCell = collectionView?.cellForItem(at: indexPath) as? CustomListCell,
               let issue = selectedCell.item else { return }
         
-        let alertController = UIAlertController(title: nil,
-                                                message: nil,
-                                                preferredStyle: .actionSheet)
+        let alertController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
         createAlertActions(for: issue).forEach(alertController.addAction(_:))
         alertController.popoverPresentationController?.sourceView = collectionView
         alertController.popoverPresentationController?.sourceRect = selectedCell.frame
@@ -199,14 +209,16 @@ final class IssueListViewController: UIViewController {
     }
     
     private func createAlertAction(issue: Issue, to status: Status) -> UIAlertAction {
-        let action = UIAlertAction(title: Constant.Namespace.alertActionText + String(describing: status),
-                                   style: .default) { _ in
+        let action = UIAlertAction(
+            title: Constant.Namespace.alertActionText + String(describing: status),
+            style: .default
+        ) { _ in
             var modifiedIssue = issue
             modifiedIssue.status = status
             self.deleteIssue(issue: issue)
             self.issueListDelegate?.shouldDeliver(issue: modifiedIssue)
         }
-
+        
         return action
     }
 }

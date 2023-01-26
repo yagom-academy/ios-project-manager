@@ -40,20 +40,24 @@ final class IssueViewController: UIViewController {
         stack.axis = .vertical
         stack.spacing = Constant.LayoutConstant.stackViewSpacing
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.margin,
-                                                                 leading: Constant.LayoutConstant.margin,
-                                                                 bottom: Constant.LayoutConstant.margin,
-                                                                 trailing: Constant.LayoutConstant.margin)
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: Constant.LayoutConstant.margin,
+            leading: Constant.LayoutConstant.margin,
+            bottom: Constant.LayoutConstant.margin,
+            trailing: Constant.LayoutConstant.margin
+        )
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         return stack
     }()
     
     private var titleTextField: PaddedTextField = {
-        let padding = UIEdgeInsets(top: Constant.LayoutConstant.titleTextFieldPadding,
-                                   left: Constant.LayoutConstant.titleTextFieldPadding,
-                                   bottom: Constant.LayoutConstant.titleTextFieldPadding,
-                                   right: Constant.LayoutConstant.titleTextFieldPadding)
+        let padding = UIEdgeInsets(
+            top: Constant.LayoutConstant.titleTextFieldPadding,
+            left: Constant.LayoutConstant.titleTextFieldPadding,
+            bottom: Constant.LayoutConstant.titleTextFieldPadding,
+            right: Constant.LayoutConstant.titleTextFieldPadding
+        )
         let textField = PaddedTextField(padding: padding)
         textField.backgroundColor = .systemBackground
         textField.placeholder = Constant.Namespace.title
@@ -84,7 +88,13 @@ final class IssueViewController: UIViewController {
     
     init(delegate: IssueDelegate) {
         self.delegate = delegate
-        self.issue = Issue(id: UUID(), status: .todo, title: String.init(), body: String.init(), deadline: datePicker.date)
+        self.issue = Issue(
+            id: UUID(),
+            status: .todo,
+            title: String.init(),
+            body: String.init(),
+            deadline: datePicker.date
+        )
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -115,28 +125,32 @@ final class IssueViewController: UIViewController {
     private func configureNavigationBar() {
         if isEditable {
             title = String(describing: Status.todo)
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
-                                                                primaryAction: UIAction { _ in
-                self.updateIssue()
-                self.delegate?.shouldAdd(issue: self.issue)
-                self.dismiss(animated: true)
-            })
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constant.Namespace.cancel,
-                                                               primaryAction: UIAction { _ in
-                self.dismiss(animated: true)
-            })
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: Constant.Namespace.done,
+                primaryAction: UIAction { _ in
+                    self.updateIssue()
+                    self.delegate?.shouldAdd(issue: self.issue)
+                    self.dismiss(animated: true)
+                })
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: Constant.Namespace.cancel,
+                primaryAction: UIAction { _ in
+                    self.dismiss(animated: true)
+                })
         } else {
             title = String(describing: issue.status)
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.Namespace.done,
-                                                                primaryAction: UIAction { _ in
-                self.updateIssue()
-                self.delegate?.shouldUpdate(issue: self.issue)
-                self.dismiss(animated: true)
-            })
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constant.Namespace.edit,
-                                                               primaryAction: UIAction { _ in
-                self.isEditable = true
-            })
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: Constant.Namespace.done,
+                primaryAction: UIAction { _ in
+                    self.updateIssue()
+                    self.delegate?.shouldUpdate(issue: self.issue)
+                    self.dismiss(animated: true)
+                })
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: Constant.Namespace.edit,
+                primaryAction: UIAction { _ in
+                    self.isEditable = true
+                })
         }
     }
     
@@ -147,7 +161,7 @@ final class IssueViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
-
+        
         [titleTextField, datePicker, bodyTextView].forEach(stackView.addArrangedSubview(_:))
     }
     
@@ -156,7 +170,7 @@ final class IssueViewController: UIViewController {
         datePicker.date = issue.deadline
         bodyTextView.text = issue.body
     }
-
+    
     private func updateIssue() {
         issue.title = titleTextField.text ?? String.init()
         issue.body = bodyTextView.text

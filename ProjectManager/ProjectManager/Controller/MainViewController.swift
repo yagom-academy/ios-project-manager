@@ -31,14 +31,16 @@ final class MainViewController: UIViewController {
         stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.mainStackViewMargin,
-                                                                 leading: Constant.LayoutConstant.mainStackViewMargin,
-                                                                 bottom: Constant.LayoutConstant.mainStackViewMargin,
-                                                                 trailing: Constant.LayoutConstant.mainStackViewMargin)
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: Constant.LayoutConstant.mainStackViewMargin,
+            leading: Constant.LayoutConstant.mainStackViewMargin,
+            bottom: Constant.LayoutConstant.mainStackViewMargin,
+            trailing: Constant.LayoutConstant.mainStackViewMargin
+        )
         
         return stack
     }()
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -53,12 +55,13 @@ final class MainViewController: UIViewController {
     private func configureNavigationBar() {
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         title = Constant.Namespace.navigationTitle
-        let plusButton = UIBarButtonItem(image: UIImage(systemName: Constant.Namespace.plusImage),
-                                         primaryAction: UIAction { _ in
-            let issueViewcontroller = IssueViewController(delegate: self.todoListViewController)
-            let navigationViewController = UINavigationController(rootViewController: issueViewcontroller)
-            self.present(navigationViewController, animated: true)
-        })
+        let plusButton = UIBarButtonItem(
+            image: UIImage(systemName: Constant.Namespace.plusImage),
+            primaryAction: UIAction { _ in
+                let issueViewcontroller = IssueViewController(delegate: self.todoListViewController)
+                let navigationViewController = UINavigationController(rootViewController: issueViewcontroller)
+                self.present(navigationViewController, animated: true)
+            })
         navigationItem.rightBarButtonItem = plusButton
     }
     
@@ -72,7 +75,7 @@ final class MainViewController: UIViewController {
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
-
+    
     private func configureChildViewControllers() {
         [todoListViewController, doingListViewController, doneListViewController].forEach {
             addChild($0)

@@ -28,10 +28,12 @@ final class CustomContentView: UIView, UIContentView {
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.margin,
-                                                                 leading: Constant.LayoutConstant.margin,
-                                                                 bottom: Constant.LayoutConstant.margin,
-                                                                 trailing: Constant.LayoutConstant.margin)
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: Constant.LayoutConstant.margin,
+            leading: Constant.LayoutConstant.margin,
+            bottom: Constant.LayoutConstant.margin,
+            trailing: Constant.LayoutConstant.margin
+        )
         stack.layer.borderWidth = Constant.LayoutConstant.borderWidth
         stack.layer.borderColor = UIColor.systemGray.cgColor
         stack.layer.cornerRadius = Constant.LayoutConstant.cornerRadius
@@ -64,16 +66,18 @@ final class CustomContentView: UIView, UIContentView {
         configureViews()
         configureContents(using: configuration)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     private func configureViews() {
-        directionalLayoutMargins = NSDirectionalEdgeInsets(top: Constant.LayoutConstant.margin,
-                                                           leading: Constant.LayoutConstant.margin,
-                                                           bottom: Constant.LayoutConstant.margin,
-                                                           trailing: Constant.LayoutConstant.margin)
+        directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: Constant.LayoutConstant.margin,
+            leading: Constant.LayoutConstant.margin,
+            bottom: Constant.LayoutConstant.margin,
+            trailing: Constant.LayoutConstant.margin
+        )
         configureStackView()
     }
     
@@ -97,7 +101,7 @@ final class CustomContentView: UIView, UIContentView {
         titleLabel.text = configuration.title
         bodyLabel.text = configuration.body
         dueDateLabel.text = DateFormatterManager().formatDate(deadline)
-                
+        
         if configuration.status != .done,
            deadline.isOverdue {
             dueDateLabel.textColor = .systemRed

@@ -8,7 +8,12 @@
 import UIKit
 
 extension UITextView {
-    func addShadow(color: CGColor = UIColor.systemGray.cgColor, opacity: Float = 1, radius: CGFloat, offset: CGSize = CGSize.zero) {
+    func addShadow(
+        color: CGColor = UIColor.systemGray.cgColor,
+        opacity: Float = 1,
+        radius: CGFloat,
+        offset: CGSize = CGSize.zero
+    ) {
         self.clipsToBounds = false
         self.layer.shadowColor = color
         self.layer.shadowOpacity = opacity
