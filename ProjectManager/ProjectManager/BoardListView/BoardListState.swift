@@ -56,7 +56,14 @@ let boardListReducer = Reducer<BoardListState, BoardListAction, BoardListEnviron
       return Effect(value: ._createDetailState(project))
       
     case let ._createDetailState(project):
-      let existingState = DetailState(id: project.id, title: project.title, description: project.description, deadLineDate: project.date, editMode: true)
+      let existingState = DetailState(
+        id: project.id,
+        projectStatus: project.state,
+        title: project.title,
+        description: project.description,
+        deadLineDate: project.date,
+        editMode: true
+      )
       state.selectedProject = existingState
       return .none
       

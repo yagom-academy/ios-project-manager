@@ -48,7 +48,7 @@ struct ProjectDetailView: View {
         }
         .padding()
         .background(Color.secondaryBackground)
-        .navigationTitle("TODO")
+        .navigationTitle(viewStore.projectStatus.description)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {

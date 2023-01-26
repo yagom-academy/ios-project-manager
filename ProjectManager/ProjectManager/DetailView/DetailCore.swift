@@ -9,6 +9,7 @@ import ComposableArchitecture
 
 struct DetailState: Equatable, Identifiable {
   let id: UUID
+  let projectStatus: ProjectState
   
   var title: String
   var description: String
@@ -19,12 +20,14 @@ struct DetailState: Equatable, Identifiable {
   
   init(
     id: UUID = UUID(),
+    projectStatus: ProjectState = .todo,
     title: String = "",
     description: String = "",
     deadLineDate: Date = Date(),
     editMode: Bool = false
   ) {
     self.id = id
+    self.projectStatus = projectStatus
     self.title = title
     self.description = description
     self.deadLineDate = deadLineDate
