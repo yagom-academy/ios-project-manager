@@ -27,9 +27,9 @@ final class ListViewController: UIViewController {
     private let doneTableView = ListTableView()
     
     private typealias ListDataSource = UITableViewDiffableDataSource<ListSection, TodoModel>
-    private lazy var todoDataSource: ListDataSource = configureDataSource(of: todoTableView)
-    private lazy var doingDataSource: ListDataSource = configureDataSource(of: doingTableView)
-    private lazy var doneDataSource: ListDataSource = configureDataSource(of: doneTableView)
+    private lazy var todoDataSource = configureDataSource(of: todoTableView)
+    private lazy var doingDataSource = configureDataSource(of: doingTableView)
+    private lazy var doneDataSource = configureDataSource(of: doneTableView)
     
     private var todoModels: [TodoModel] {
         MockDataManager.shared.todoList
@@ -73,13 +73,13 @@ final class ListViewController: UIViewController {
     
     private func configureContentView() {
         view.backgroundColor = .white
-        setTableViews()
+        configureTableViews()
         configureLayout()
         addTodoObserver()
         updateView()
     }
     
-    private func setTableViews() {
+    private func configureTableViews() {
         let tableviews = [todoTableView, doingTableView, doneTableView]
         
         tableviews.forEach {
