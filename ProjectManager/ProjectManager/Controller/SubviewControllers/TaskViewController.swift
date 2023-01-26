@@ -25,7 +25,7 @@ class TaskViewController: UIViewController {
         self.type = type
         self.dataSource = UITableViewDiffableDataSource<Section, Task>(tableView: projectListView.fetchTableView(), cellProvider: { tableView, _, task  in
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.cellIdentifier) as? TaskCell
-            cell?.configureData(task: task)
+            cell?.task = task
             return cell
         })
         super.init(nibName: nil, bundle: nil)
