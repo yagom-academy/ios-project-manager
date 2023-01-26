@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TaskMoveDelegate: AnyObject {
+    func taskDidMoved(_ task: Task, from currentStatus: TaskStatus, to futureStatus: TaskStatus)
+}
+
 class TaskListViewController: UIViewController {
     enum Section {
         case main
@@ -20,6 +24,7 @@ class TaskListViewController: UIViewController {
         }
     }
     var dataSource: UITableViewDiffableDataSource<Section, Task>
+    weak var delegate: TaskMoveDelegate?
 
     private let projectListView: ProjectListView = {
         let view = ProjectListView()
@@ -66,6 +71,12 @@ class TaskListViewController: UIViewController {
         snapshot.appendItems(filteredTasks)
         self.dataSource.apply(snapshot, animatingDifferences: true)
     }
+    
+    func deleteTask(_ task: Task) {
+        if let index = filteredTasks.firstIndex(of: task) {
+            filteredTasks.remove(at: index)
+        }
+    }
 }
 
 extension TaskListViewController: UITableViewDelegate {
@@ -102,15 +113,10 @@ extension TaskListViewController {
     private func generateMovingActions(task: Task) -> [UIAlertAction] {
         let alertActions =  task.status.movingOption.map { optionTitle, movedState in
             UIAlertAction(title: optionTitle, style: .default) { _ in
-                self.moveProject(task, from: task.status, to: movedState)
+                self.delegate?.taskDidMoved(task, from: task.status, to: movedState)
             }
         }
         
         return alertActions
     }
-    
-    private func moveProject(_ task: Task, from currentStatus: TaskStatus, to futureStatus: TaskStatus) {
-        print("move \(task) from \(currentStatus) to \(futureStatus)")
-    }
-    
 }

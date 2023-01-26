@@ -45,6 +45,10 @@ class ProjectsViewController: UIViewController {
         todoViewController.willMove(toParent: self)
         doingViewController.willMove(toParent: self)
         doneViewController.willMove(toParent: self)
+        
+        todoViewController.delegate = self
+        doingViewController.delegate = self
+        doneViewController.delegate = self
 
         stackView.addArrangedSubview(todoViewController.view)
         stackView.addArrangedSubview(doingViewController.view)
@@ -86,8 +90,29 @@ class ProjectsViewController: UIViewController {
     }
 }
 
-extension ProjectsViewController: TaskAddDelegate {
+extension ProjectsViewController: TaskAddDelegate, TaskMoveDelegate {
     func taskDidAdded(_ task: Task) {
         updateTodoTask(with: task)
+    }
+    
+    func taskDidMoved(_ task: Task, from currentStatus: TaskStatus, to futureStatus: TaskStatus) {
+        switch currentStatus {
+        case .todo:
+            todoViewController.deleteTask(task)
+        case .done:
+            doneViewController.deleteTask(task)
+        case .doing:
+            doingViewController.deleteTask(task)
+        }
+        
+        let newTask = Task(id: task.id, title: task.title, description: task.description, date: task.date, status: futureStatus)
+        switch futureStatus {
+        case .todo:
+            todoViewController.filteredTasks.append(newTask)
+        case .done:
+            doneViewController.filteredTasks.append(newTask)
+        case .doing:
+            doingViewController.filteredTasks.append(newTask)
+        }
     }
 }
