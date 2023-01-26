@@ -11,21 +11,13 @@ final class CustomPopUpView: UIView {
     
     // MARK: Internal Properties
     
-    let editButton: UIButton = {
+    let topLeftButton: UIButton = {
         let button = UIButton()
-        button.setTitle(NameSpace.edit, for: .normal)
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
-    let cancelButton: UIButton = {
+    let topRightButton: UIButton = {
         let button = UIButton()
-        button.setTitle(NameSpace.cancel, for: .normal)
-        button.setTitleColor(UIColor.blue, for: .normal)
-        return button
-    }()
-    let doneButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(NameSpace.done, for: .normal)
         button.setTitleColor(UIColor.blue, for: .normal)
         return button
     }()
@@ -165,6 +157,15 @@ final class CustomPopUpView: UIView {
         }
     }
     
+    func configureTopButtonText(left: String? = nil, right: String? = nil) {
+        if let leftButtonText = left {
+            topLeftButton.setTitle(leftButtonText, for: .normal)
+        }
+        if let rightButtonText = right {
+            topRightButton.setTitle(rightButtonText, for: .normal)
+        }
+    }
+    
     // MARK: Private Methods
     
     private func checkTextFieldDefaultValue() {
@@ -211,12 +212,12 @@ final class CustomPopUpView: UIView {
     private func setUpTopBarStackView() {
         if titleTextField.text == NameSpace.defaultTitleLabel,
            bodyTextView.text == NameSpace.defaultBodyLabel {
-            topBarStackView.addArrangedSubview(cancelButton)
+            topBarStackView.addArrangedSubview(topLeftButton)
         } else {
-            topBarStackView.addArrangedSubview(editButton)
+            topBarStackView.addArrangedSubview(topLeftButton)
         }
         topBarStackView.addArrangedSubview(stateLabel)
-        topBarStackView.addArrangedSubview(doneButton)
+        topBarStackView.addArrangedSubview(topRightButton)
     }
     
     private func setUpContentStackView() {
@@ -336,10 +337,6 @@ extension CustomPopUpView: UITextViewDelegate {
 // MARK: - NameSpace
 
 private enum NameSpace {
-    static let edit = "Edit"
-    static let cancel = "Cancel"
-    static let done = "Done"
-    
     static let defaultTitleLabel = "Title"
     static let defaultBodyLabel = "내용을 입력해주세요. (1000자 제한)"
     static let emptyTitleLabel = "[제목없음]"

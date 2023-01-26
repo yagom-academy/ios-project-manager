@@ -133,8 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				D0B05E412981A8E3003FC65A /* Protocol */,
-				D0F45345298066C500DFBBF2 /* ProjectData.swift */,
 				D0F45344298066C500DFBBF2 /* MainNameSpace.swift */,
+				D0F45345298066C500DFBBF2 /* ProjectData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

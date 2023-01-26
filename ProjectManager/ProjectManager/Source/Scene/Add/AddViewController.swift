@@ -47,34 +47,59 @@ final class AddViewController: UIViewController {
     }
     
     private func configureButtonAction() {
-        setUpDoneButton()
-        setUpEditButton()
-        setUpCancelButton()
+        setUpTopLeftButton(mode: dataManagementMode)
+        setUpTopRightButton(mode: dataManagementMode)
     }
     
-    private func setUpDoneButton() {
-        customPopUpView.doneButton.addTarget(
+    private func setUpTopLeftButton(mode: DataManagementMode) {
+        switch mode {
+        case .create:
+            customPopUpView.configureTopButtonText(left: MainNameSpace.cancel)
+            customPopUpView.topLeftButton.addTarget(
+                self,
+                action: #selector(didTapCancelButton),
+                for: .touchDown
+            )
+        case .edit:
+            customPopUpView.configureTopButtonText(left: MainNameSpace.cancel)
+            customPopUpView.topLeftButton.addTarget(
+                self,
+                action: #selector(didTapEditButton),
+                for: .touchDown
+            )
+        case .read:
+            customPopUpView.configureTopButtonText(left: MainNameSpace.edit)
+            customPopUpView.topLeftButton.addTarget(
+                self,
+                action: #selector(didTapEditButton),
+                for: .touchDown
+            )
+        }
+    }
+    
+    private func setUpTopRightButton(mode: DataManagementMode) {
+        switch mode {
+        case .create:
+            customPopUpView.configureTopButtonText(right: MainNameSpace.done)
+        case .edit:
+            customPopUpView.configureTopButtonText(right: MainNameSpace.save)
+        case .read:
+            customPopUpView.configureTopButtonText(right: MainNameSpace.close)
+        }
+        customPopUpView.topRightButton.addTarget(
             self,
             action: #selector(didTapDoneButton),
             for: .touchDown
         )
     }
     
-    private func setUpEditButton() {
-        customPopUpView.editButton.addTarget(
-            self,
-            action: #selector(didTapEditButton),
-            for: .touchDown
-        )
-    }
-    
-    private func setUpCancelButton() {
-        customPopUpView.cancelButton.addTarget(
-            self,
-            action: #selector(didTapCancelButton),
-            for: .touchDown
-        )
-    }
+//    private func setUpCancelButton() {
+//        customPopUpView.cancelButton.addTarget(
+//            self,
+//            action: #selector(didTapCancelButton),
+//            for: .touchDown
+//        )
+//    }
     
     // MARK: Action Methods
     
@@ -107,6 +132,8 @@ final class AddViewController: UIViewController {
         ) { [self] in
             dataManagementMode = .edit
             customPopUpView.checkDataAccess(mode: dataManagementMode)
+            setUpTopLeftButton(mode: dataManagementMode)
+            setUpTopRightButton(mode: dataManagementMode)
         }
         let secondAlertAction = createAlertAction(
             title: NameSpace.editButtonSecondAlertActionTitle
