@@ -9,7 +9,7 @@ final class MainViewController: UIViewController {
     
     private let mainViewModel = MainViewModel()
     private let listViews: [ListView] = [ListView(), ListView(), ListView()]
-    private var dataSources: [DataSource?] = [nil, nil, nil]
+    private var dataSources: [ProjectDataSource?] = [nil, nil, nil]
     private let listStackView = UIStackView(distribution: .fillEqually,
                                             spacing: Default.stackSpacing,
                                             backgroundColor: .systemGray4)
@@ -35,10 +35,10 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func generateDataSource(in state: ProjectState) -> DataSource {
+    private func generateDataSource(in state: ProjectState) -> ProjectDataSource {
         let tableViewOfState = listViews[state.index].projectTableView
         
-        return DataSource(tableView: tableViewOfState) { tableView, _, project in
+        return ProjectDataSource(tableView: tableViewOfState) { tableView, _, project in
             let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier)
             as? ListCell
             
@@ -115,12 +115,22 @@ extension MainViewController {
         let navigationBarTopItem = self.navigationController?.navigationBar.topItem
         navigationBarTopItem?.rightBarButtonItems?[1] = syncButton
     }
-    
-    func showHistory() -> UIAction {
-        // 구현예정
-        return UIAction { _ in print("history") }
+
+    private func showHistory() -> UIAction {
+        return UIAction { [weak self] action in
+            guard let sender: UIBarButtonItem = action.sender as? UIBarButtonItem else { return }
+            
+            let historyView = HistoryViewController()
+            historyView.modalPresentationStyle = .popover
+            historyView.popoverPresentationController?.barButtonItem = sender
+            historyView.popoverPresentationController?.permittedArrowDirections = .up
+            historyView.preferredContentSize = .init(width: (self?.view.frame.width ?? 400) * 0.4,
+                                                     height: (self?.view.frame.width ?? 400) * 0.4)
+            
+            self?.navigationController?.present(historyView, animated: true)
+        }
     }
-    
+
     private func showEditingViewForRegister() -> UIAction {
         return UIAction { [weak self] _ in
             guard let self = self else { return }

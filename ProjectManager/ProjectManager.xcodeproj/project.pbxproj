@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		4115A8402970EB1F0062A061 /* UIView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4115A83F2970EB1F0062A061 /* UIView +.swift */; };
 		4115A84329710B800062A061 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4115A84229710B800062A061 /* CircleLabel.swift */; };
-		412B8E2D2972753C00C29DA4 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8E2C2972753B00C29DA4 /* DataSource.swift */; };
+		412B8E2D2972753C00C29DA4 /* ProjectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8E2C2972753B00C29DA4 /* ProjectDataSource.swift */; };
 		412B8E3429729EB500C29DA4 /* Date +.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B8E3329729EB500C29DA4 /* Date +.swift */; };
+		415D8860298239F700075F56 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415D885F298239F700075F56 /* HistoryViewController.swift */; };
+		415D88652982728800075F56 /* HistoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415D88642982728800075F56 /* HistoryDataSource.swift */; };
 		416057BE29800F0400AC8885 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416057BD29800F0400AC8885 /* NetworkMonitor.swift */; };
 		41656B8B296D5EC6006BC519 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8A296D5EC6006BC519 /* FirebaseFirestore */; };
 		41656B8D296D5EC6006BC519 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 41656B8C296D5EC6006BC519 /* FirebaseFirestoreSwift */; };
@@ -57,8 +59,10 @@
 /* Begin PBXFileReference section */
 		4115A83F2970EB1F0062A061 /* UIView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView +.swift"; sourceTree = "<group>"; };
 		4115A84229710B800062A061 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
-		412B8E2C2972753B00C29DA4 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		412B8E2C2972753B00C29DA4 /* ProjectDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataSource.swift; sourceTree = "<group>"; };
 		412B8E3329729EB500C29DA4 /* Date +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date +.swift"; sourceTree = "<group>"; };
+		415D885F298239F700075F56 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		415D88642982728800075F56 /* HistoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataSource.swift; sourceTree = "<group>"; };
 		416057BD29800F0400AC8885 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		417C502029711D7D00CEC6DA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		417C502229711E3600CEC6DA /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
@@ -124,6 +128,15 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		415D886129823A3400075F56 /* HistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				415D885F298239F700075F56 /* HistoryViewController.swift */,
+				415D88642982728800075F56 /* HistoryDataSource.swift */,
+			);
+			path = HistoryView;
+			sourceTree = "<group>";
+		};
 		416057BC29800EE900AC8885 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,7 +160,7 @@
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				41E26BED2970E1B5005E1C94 /* ListView.swift */,
 				41E26BF12970E23B005E1C94 /* ListCell.swift */,
-				412B8E2C2972753B00C29DA4 /* DataSource.swift */,
+				412B8E2C2972753B00C29DA4 /* ProjectDataSource.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -210,6 +223,7 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				417C502A29716BDD00CEC6DA /* MainView */,
 				417C502B29716BEA00CEC6DA /* EditingView */,
+				415D886129823A3400075F56 /* HistoryView */,
 				4115A84129710B530062A061 /* Custom */,
 			);
 			path = View;
@@ -456,6 +470,7 @@
 				41E26BF22970E23B005E1C94 /* ListCell.swift in Sources */,
 				41B7A772297552C300D6BD61 /* UIAlertController +.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				415D8860298239F700075F56 /* HistoryViewController.swift in Sources */,
 				41A138AE297C35510025BA93 /* ProjectViewModel.swift in Sources */,
 				41E26BEE2970E1B5005E1C94 /* ListView.swift in Sources */,
 				41C14BA7297E7CB000C2FB4A /* CoreDataManager + ProjectCRUDable.swift in Sources */,
@@ -470,12 +485,13 @@
 				417C502F2971868B00CEC6DA /* UITextField +.swift in Sources */,
 				41C14BA4297E7B2800C2FB4A /* ProjectCoreModel + CoreDataClass.swift in Sources */,
 				41E26BEC2970E0F8005E1C94 /* Project.swift in Sources */,
-				412B8E2D2972753C00C29DA4 /* DataSource.swift in Sources */,
+				412B8E2D2972753C00C29DA4 /* ProjectDataSource.swift in Sources */,
 				41C14BA9297E800200C2FB4A /* CRUDable.swift in Sources */,
 				417C502D29716C1700CEC6DA /* EditingViewController.swift in Sources */,
 				417C502329711E3600CEC6DA /* ProjectState.swift in Sources */,
 				41E26BF72970E54A005E1C94 /* UIStackView +.swift in Sources */,
 				417C502129711D7D00CEC6DA /* MainViewModel.swift in Sources */,
+				415D88652982728800075F56 /* HistoryDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

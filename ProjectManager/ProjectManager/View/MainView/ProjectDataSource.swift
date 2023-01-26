@@ -11,7 +11,7 @@ enum Section {
     case main
 }
 
-final class DataSource: UITableViewDiffableDataSource<Section, Project> {
+final class ProjectDataSource: UITableViewDiffableDataSource<Section, Project> {
     
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, Project>
     
