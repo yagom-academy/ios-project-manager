@@ -323,6 +323,5 @@ extension MainViewController {
         
         static let deleteAction = "Delete"
         static let navigationBar = "Project Manager"
-        
     }
 }

@@ -36,9 +36,8 @@ final class MainViewModel {
     }
     
     private(set) var projectHistories: [ProjectHistory] = []
-
+    
     var updateProjects: ([[Project]], [String]) -> Void = { _, _ in }
-    var updateProjectHistories: ([ProjectHistoryViewModel]) -> Void = { _ in }
     var updateNetwork: (Bool) -> Void = { _ in }
     
     init() {

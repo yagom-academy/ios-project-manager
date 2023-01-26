@@ -13,16 +13,9 @@ final class HistoryDataSource: UICollectionViewDiffableDataSource<Section, Proje
     
     private var snapShot = SnapShot()
     
-    func applyInitialSnapShot(_ histories: [ProjectHistory]) {
+    func applySnapShot(_ histories: [ProjectHistory]) {
         snapShot.appendSections([.main])
         snapShot.appendItems(histories, toSection: .main)
-        self.apply(snapShot)
-    }
-    
-    func reload(_ histories: [ProjectHistory]) {
-        snapShot.deleteAllItems()
-        snapShot.appendSections([.main])
-        snapShot.appendItems(histories)
         self.apply(snapShot)
     }
 }

@@ -10,13 +10,15 @@ import UIKit
 
 final class ProjectHistoryViewController: UIViewController {
     
+    typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell,
+                                                                   ProjectHistory>
+    
     private let projectHistoryViewModel: ProjectHistoryViewModel
     private var dataSource: HistoryDataSource?
     
     private let historyListCollectionView: UICollectionView = {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
@@ -40,7 +42,7 @@ final class ProjectHistoryViewController: UIViewController {
     }
     
     private func applySnapShot() {
-        dataSource?.applyInitialSnapShot(projectHistoryViewModel.histories)
+        dataSource?.applySnapShot(projectHistoryViewModel.histories)
     }
     
     private func configureHierarchy() {
@@ -60,9 +62,6 @@ final class ProjectHistoryViewController: UIViewController {
                                                                 constant: -10)
         ])
     }
-    
-    typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell,
-                                                                   ProjectHistory>
     
     private func generateCellRegistration() -> CellRegistration {
         let cellRegistration = CellRegistration { cell, _, projectHistory in
