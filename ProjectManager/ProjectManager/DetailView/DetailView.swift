@@ -53,8 +53,20 @@ struct ProjectDetailView: View {
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             if viewStore.editMode {
-              Button(viewStore.isEditMode ? "Apply" : "Edit") {
-                viewStore.send(.didEditTap)
+              if viewStore.isEditMode {
+                Button("Apply") {
+                  UIApplication.shared.sendAction(
+                    #selector(UIResponder.resignFirstResponder),
+                    to: nil,
+                    from: nil,
+                    for: nil
+                  )
+                  viewStore.send(.didEditTap)
+                }
+              } else {
+                Button("Edit") {
+                  viewStore.send(.didEditTap)
+                }
               }
             } else {
               Button("Cancel") {
