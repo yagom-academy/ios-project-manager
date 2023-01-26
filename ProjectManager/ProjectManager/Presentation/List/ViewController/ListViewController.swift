@@ -56,38 +56,6 @@ final class ListViewController: UIViewController {
     private let doneHeaderView = ListHeaderView(title: Text.doneTitle,
                                                 padding: 4,
                                                 frame: .zero)
-    private lazy var toDoListView: ListView = {
-        let listView = ListView(state: .toDo, frame: .zero, style: .plain)
-        listView.delegate = self
-        listView.dataSource = self
-        listView.register(ListCell.self,
-                          forCellReuseIdentifier: ListCell.reuseIdentifier)
-        listView.separatorStyle = .none
-        
-        return listView
-    }()
-    
-    private lazy var doingListView: ListView = {
-        let listView = ListView(state: .doing, frame: .zero, style: .plain)
-        listView.delegate = self
-        listView.dataSource = self
-        listView.register(ListCell.self,
-                          forCellReuseIdentifier: ListCell.reuseIdentifier)
-        listView.separatorStyle = .none
-        
-        return listView
-    }()
-    
-    private lazy var doneListView: ListView = {
-        let listView = ListView(state: .done, frame: .zero, style: .plain)
-        listView.delegate = self
-        listView.dataSource = self
-        listView.register(ListCell.self,
-                          forCellReuseIdentifier: ListCell.reuseIdentifier)
-        listView.separatorStyle = .none
-        
-        return listView
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,30 +109,24 @@ final class ListViewController: UIViewController {
     
     private func configureHandler() {
         viewModel?.bindToDoList() { list in
-            self.toDoListView.reloadData()
             self.toDoHeaderView.setCount(number: list.count)
         }
         
         viewModel?.bindDoingList() { list in
-            self.doingListView.reloadData()
             self.doingHeaderView.setCount(number: list.count)
         }
         
         viewModel?.bindDoneList() { list in
-            self.doneListView.reloadData()
             self.doneHeaderView.setCount(number: list.count)
         }
     }
     
     private func configureLongPressGestureRecognizer() {
-        [toDoListView, doingListView, doneListView].forEach { listView in
-            let gestureRecognizer = UILongPressGestureRecognizer(target: self,
-                                                                 action: #selector(tappedLongPress))
-            gestureRecognizer.minimumPressDuration = 1
-            gestureRecognizer.delegate = self
-            gestureRecognizer.delaysTouchesBegan = true
-            listView.addGestureRecognizer(gestureRecognizer)
-        }
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                             action: #selector(tappedLongPress))
+        gestureRecognizer.minimumPressDuration = 1
+        gestureRecognizer.delegate = self
+        gestureRecognizer.delaysTouchesBegan = true
     }
     
     private func addPlanAction() -> UIAction {
@@ -181,15 +143,6 @@ final class ListViewController: UIViewController {
                                      primaryAction: addPlanAction())
         
         return button
-    }
-    
-    private func fetchProject(_ tableView: UITableView, index: Int) -> Project? {
-        guard let listView = tableView as? ListView,
-              let list = viewModel?.fetchList(of: listView.state) else {
-            return nil
-        }
-        
-        return list[index]
     }
     
     private func fetchProject(for indexPath: IndexPath) -> Project? {
@@ -240,7 +193,20 @@ final class ListViewController: UIViewController {
     
     func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Project> { (cell, indexPath, project) in
-            cell.configure(title: project.title, description: project.description, deadline: project.deadline.localeFormattedText)
+            guard let values = self.viewModel?.fetchValues(from: project) else {
+                return
+            }
+            switch project.state {
+            case .done:
+                cell.configure(title: values.title,
+                               description: values.description,
+                               deadline: values.deadline)
+            default:
+                cell.configure(title: values.title,
+                               description: values.description,
+                               deadline: values.deadline,
+                               isOverDue: values.isOverdue)
+            }
         }
         dataSource = UICollectionViewDiffableDataSource<State, Project>(collectionView: projectCollectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, project: Project) -> UICollectionViewCell? in
@@ -263,95 +229,30 @@ final class ListViewController: UIViewController {
     }
 }
 
-extension ListViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let listView = tableView as? ListView,
-              let count = viewModel?.fetchCount(of: listView.state) else {
-            return .zero
-        }
-        
-        return count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(cellType: ListCell.self, for: indexPath)
-        guard let project = fetchProject(tableView, index: indexPath.row),
-              let texts = viewModel?.convertToText(from: project) else {
-            return cell
-        }
-        
-        switch project.state {
-        case .done:
-            cell.configure(title: texts.title,
-                           description: texts.description,
-                           deadline: texts.deadline)
-        default:
-            cell.configure(title: texts.title,
-                           description: texts.description,
-                           deadline: texts.deadline,
-                           isOverDue: project.deadline.isOverdue)
-        }
-        
-        return cell
-    }
-}
-
-extension ListViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let project = fetchProject(tableView, index: indexPath.row) else {
-            return
-        }
-        
-        let detailViewModel = DetailViewModel(detailUseCase: DefaultDetailUseCase(project: project))
-        
-        presentDetailView(viewModel: detailViewModel)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView,
-                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let project = fetchProject(tableView, index: indexPath.row) else {
-            return nil
-        }
-        
-        let deleteAction = UIContextualAction(style: .destructive,
-                                              title: Text.deleteSwipeTitle) { (_, _, success) in
-            self.viewModel?.removeProject(project)
-            success(true)
-        }
-        
-        deleteAction.image = UIImage(systemName: "trash")
-        let swipeActionConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
-        
-        return swipeActionConfiguration
-    }
-}
-
 extension ListViewController: UIGestureRecognizerDelegate {
     
     @objc func tappedLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        guard let listView = gestureRecognizer.view as? ListView else {
+        guard let collectionView = gestureRecognizer.view as? UICollectionView else {
             return
         }
         
-        let tappedPoint = gestureRecognizer.location(in: listView)
-        guard let indexPath = listView.indexPathForRow(at: tappedPoint) else {
+        let tappedPoint = gestureRecognizer.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: tappedPoint) else {
             return
         }
         
         switch gestureRecognizer.state {
         case .began:
-            presentPopoverMenu(listView: listView, indexPath: indexPath)
+            presentPopoverMenu(collectionView: collectionView, indexPath: indexPath)
         default:
             return
         }
     }
     
-    private func presentPopoverMenu(listView: ListView, indexPath: IndexPath) {
-        guard let tappedCell = listView.cellForRow(at: indexPath),
-              let project = viewModel?.fetchList(of: listView.state)[indexPath.row] else {
+    private func presentPopoverMenu(collectionView: UICollectionView, indexPath: IndexPath) {
+        guard let tappedCell = collectionView.cellForItem(at: indexPath),
+              let state = State(rawValue: indexPath.section),
+              let project = viewModel?.fetchList(of: state)[indexPath.item] else {
             return
         }
         
@@ -410,47 +311,5 @@ extension ListViewController: DetailProjectDelegate {
     func detailProject(willSave project: Project) {
         viewModel?.saveProject(project)
         projectCollectionView.reloadData()
-    }
-}
-
-extension ListViewController: UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return viewModel?.fetchCount(of: .toDo) ?? .zero
-        case 1:
-            return viewModel?.fetchCount(of: .doing) ?? .zero
-        case 2:
-            return viewModel?.fetchCount(of: .done) ?? .zero
-        default:
-            return .zero
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.reuseIdentifier,
-                                                            for: indexPath) as? ListCollectionViewCell,
-              let project = fetchProject(for: indexPath),
-              let texts = viewModel?.convertToText(from: project) else {
-            return ListCollectionViewCell()
-        }
-        
-        switch project.state {
-        case .done:
-            cell.configure(title: texts.title,
-                           description: texts.description,
-                           deadline: texts.deadline)
-        default:
-            cell.configure(title: texts.title,
-                           description: texts.description,
-                           deadline: texts.deadline,
-                           isOverDue: project.deadline.isOverdue)
-        }
-        
-        return cell
     }
 }

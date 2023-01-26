@@ -5,7 +5,7 @@
 //  Created by GUNDY on 2023/01/17.
 //
 
-enum State {
+enum State: Int {
 
     case toDo
     case doing

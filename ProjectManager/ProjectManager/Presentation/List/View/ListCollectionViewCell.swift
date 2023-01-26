@@ -97,8 +97,6 @@ final class ListCollectionViewCell: UICollectionViewCell, Reusable {
     }
 
     private func setDeadlineColor(isOverDue: Bool) {
-        if isOverDue {
-            deadlineLabel.textColor = Color.overDue
-        }
+        deadlineLabel.textColor = isOverDue ? Color.overDue : .label
     }
 }

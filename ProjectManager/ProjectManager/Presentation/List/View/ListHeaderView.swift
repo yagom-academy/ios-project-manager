@@ -14,9 +14,8 @@ final class ListHeaderView: UIView {
     typealias Color = Constant.Color
     typealias Number = Constant.Number
 
-    private let titleView: UIStackView = {
+    private let headerStackView: UIStackView = {
         let stackView = UIStackView()
-//        stackView.backgroundColor = .red
         stackView.axis = .horizontal
         stackView.spacing = Style.stackViewSpacing
         stackView.alignment = .center
@@ -28,7 +27,13 @@ final class ListHeaderView: UIView {
     }()
     
     private let titleLabel = UILabel()
-    private let countLabel = CircleLabel(frame: .zero)
+    private let countLabel: CircleLabel = {
+        let label = CircleLabel(frame: .zero)
+        label.configure(circleColor: Color.circleBackground,
+                        textColor: Color.circleText)
+        
+        return label
+    }()
     private let bumperView: UIView =  {
         let view = UIView()
         view.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -67,26 +72,22 @@ final class ListHeaderView: UIView {
         guard let count = number else {
             return
         }
-        if count > Number.maxCount {
-            countLabel.text = Text.overCount
-        } else {
-            countLabel.text = String(count)
-        }
+        countLabel.text = (count > Number.maxCount) ? Text.overCount : String(count)
     }
 
     private func configureViewHierarchy() {
         [leftPaddingView, titleLabel, countLabel, bumperView, rightPaddingView].forEach {
-            titleView.addArrangedSubview($0)
+            headerStackView.addArrangedSubview($0)
         }
-        addSubview(titleView)
+        addSubview(headerStackView)
     }
 
     private func configureLayoutConstraint() {
         NSLayoutConstraint.activate([
-            titleView.topAnchor.constraint(equalTo: topAnchor),
-            titleView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            titleView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            titleView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            headerStackView.topAnchor.constraint(equalTo: topAnchor),
+            headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            headerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             leftPaddingView.widthAnchor.constraint(equalToConstant: padding),
             leftPaddingView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: 16),
             rightPaddingView.widthAnchor.constraint(equalToConstant: padding),

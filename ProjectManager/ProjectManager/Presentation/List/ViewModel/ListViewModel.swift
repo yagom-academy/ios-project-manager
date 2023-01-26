@@ -61,7 +61,7 @@ final class ListViewModel {
     func fetchList(of state: State) -> [Project] {
         switch state {
         case .toDo:
-            return toDoList
+            return [.init(title: "제목",deadline: .init(timeIntervalSince1970: 0)), .init(title: "제목", description: "내용")]
         case .doing:
             return doingList
         case .done:
@@ -80,10 +80,11 @@ final class ListViewModel {
         }
     }
 
-    func convertToText(from project: Project) -> (title: String, description: String, deadline: String) {
+    func fetchValues(from project: Project) -> (title: String, description: String, deadline: String, isOverdue: Bool) {
         return (project.title.isEmpty ? Text.cellTitleDefaultValue : project.title,
                 project.description.isEmpty ? Text.cellDescriptionDefaultValue : project.description,
-                project.deadline.localeFormattedText)
+                project.deadline.localeFormattedText,
+                project.deadline.isOverdue)
     }
     
     func saveProject(_ project: Project) {

@@ -112,16 +112,12 @@ final class DetailViewController: UIViewController {
             if isEditable == true {
                 self?.navigationItem.leftBarButtonItem = self?.makeLeftButton()
                 self?.navigationItem.rightBarButtonItem = self?.makeDoneButton()
-                self?.configureEditable()
             }
+            self?.configureEditable()
         }
         
         viewModel?.bindValidText { [weak self] isValid in
-            if isValid {
-                self?.descriptionTextView.layer.borderWidth = .zero
-            } else {
-                self?.descriptionTextView.layer.borderWidth = Style.detailTextViewBoderWidth
-            }
+            self?.descriptionTextView.layer.borderWidth = isValid ? .zero : Style.detailTextViewBoderWidth
         }
     }
     
@@ -143,9 +139,7 @@ final class DetailViewController: UIViewController {
         switch viewModel?.isEditable == true  {
         case true:
             action = UIAction { [weak self] _ in
-                self?.saveProjectIfValid() {
-                    self?.dismiss(animated: true)
-                }
+                self?.saveProjectIfValid()
             }
         case false:
             action = UIAction { [weak self] _ in
@@ -186,7 +180,7 @@ final class DetailViewController: UIViewController {
         return action
     }
     
-    private func saveProjectIfValid(handler: () -> ()) {
+    private func saveProjectIfValid() {
         guard viewModel?.validateDeadline(date: datePicker.date) == true else {
             showAlert(message: Text.invalidDeadlineMessage)
             return
@@ -204,7 +198,7 @@ final class DetailViewController: UIViewController {
         }
         
         delegate?.detailProject(willSave: project)
-        handler()
+        dismiss(animated: true)
     }
     
     private func showAlert(message: String) {

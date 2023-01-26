@@ -16,32 +16,14 @@ final class CircleLabel: UILabel {
         var contentSize = super.intrinsicContentSize
         contentSize.width += Style.circleViewWidthPadding
         contentSize.height += Style.circleViewHeightPadding
+        layer.cornerRadius = contentSize.height.half
 
         return contentSize
     }
-
-    init(circleColor: CGColor = Color.circleBackground,
-         textColor: UIColor = Color.circleText,
-         frame: CGRect) {
-        super.init(frame: frame)
-        
-        configure(circleColor: circleColor, textColor: textColor)
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-
-        layer.cornerRadius = intrinsicContentSize.height.half
-    }
-
     func configure(circleColor: CGColor, textColor: UIColor) {
-        layer.backgroundColor = circleColor
         self.textColor = textColor
         self.textAlignment = .center
+        layer.backgroundColor = circleColor
     }
 }

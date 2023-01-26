@@ -16,7 +16,6 @@
 		BF8844702972E080001C9459 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446E2972E080001C9459 /* DetailViewModel.swift */; };
 		BF8844712972E080001C9459 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446F2972E080001C9459 /* ListViewModel.swift */; };
 		BF8844792973B4C1001C9459 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844782973B4C1001C9459 /* DetailViewController.swift */; };
-		BF88447F2973CE46001C9459 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88447E2973CE46001C9459 /* ListView.swift */; };
 		BF8844812973DBD2001C9459 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844802973DBD2001C9459 /* CircleLabel.swift */; };
 		BF8844832973EC0E001C9459 /* CGFloat+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844822973EC0E001C9459 /* CGFloat+.swift */; };
 		BF8844E529766611001C9459 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8844E429766611001C9459 /* State.swift */; };
@@ -27,7 +26,6 @@
 		BF8845012976887D001C9459 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8845002976887D001C9459 /* ListHeaderView.swift */; };
 		BF88450529769D35001C9459 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450429769D35001C9459 /* Reusable.swift */; };
 		BF88450729769DA3001C9459 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450629769DA3001C9459 /* UITableView+.swift */; };
-		BF88450929769F52001C9459 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88450829769F52001C9459 /* ListCell.swift */; };
 		BFB0AE442978D91F00B71886 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0AE432978D91F00B71886 /* UITextField+.swift */; };
 		BFB0AE462978E42200B71886 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0AE452978E42200B71886 /* UITextView+.swift */; };
 		BFB0AE842981AF0D00B71886 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB0AE832981AF0D00B71886 /* ListCollectionViewCell.swift */; };
@@ -48,7 +46,6 @@
 		BF88446E2972E080001C9459 /* DetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		BF88446F2972E080001C9459 /* ListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		BF8844782973B4C1001C9459 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		BF88447E2973CE46001C9459 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		BF8844802973DBD2001C9459 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		BF8844822973EC0E001C9459 /* CGFloat+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+.swift"; sourceTree = "<group>"; };
 		BF8844E429766611001C9459 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
@@ -59,7 +56,6 @@
 		BF8845002976887D001C9459 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
 		BF88450429769D35001C9459 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		BF88450629769DA3001C9459 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
-		BF88450829769F52001C9459 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		BFB0AE432978D91F00B71886 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		BFB0AE452978E42200B71886 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		BFB0AE832981AF0D00B71886 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -96,11 +92,8 @@
 		BF5C4A1B296C79DD0049CA88 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BF88447E2973CE46001C9459 /* ListView.swift */,
-				BF8844802973DBD2001C9459 /* CircleLabel.swift */,
 				BF8845002976887D001C9459 /* ListHeaderView.swift */,
 				BF88450429769D35001C9459 /* Reusable.swift */,
-				BF88450829769F52001C9459 /* ListCell.swift */,
 				BFB0AE832981AF0D00B71886 /* ListCollectionViewCell.swift */,
 			);
 			path = View;
@@ -124,6 +117,7 @@
 				BF88450629769DA3001C9459 /* UITableView+.swift */,
 				BFB0AE432978D91F00B71886 /* UITextField+.swift */,
 				BFB0AE452978E42200B71886 /* UITextView+.swift */,
+				BF8844802973DBD2001C9459 /* CircleLabel.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -387,7 +381,6 @@
 				BF8844812973DBD2001C9459 /* CircleLabel.swift in Sources */,
 				BF88446C2972DFE7001C9459 /* Project.swift in Sources */,
 				BF7F44342978975A00C9E7A6 /* DetailProject.swift in Sources */,
-				BF88447F2973CE46001C9459 /* ListView.swift in Sources */,
 				BF8845012976887D001C9459 /* ListHeaderView.swift in Sources */,
 				BFB0AE442978D91F00B71886 /* UITextField+.swift in Sources */,
 				BF8844792973B4C1001C9459 /* DetailViewController.swift in Sources */,
@@ -397,7 +390,6 @@
 				BF8844F729766BB2001C9459 /* DefaultDetailUseCase.swift in Sources */,
 				BF8844F529766B92001C9459 /* DetailUseCase.swift in Sources */,
 				BF8844E529766611001C9459 /* State.swift in Sources */,
-				BF88450929769F52001C9459 /* ListCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
