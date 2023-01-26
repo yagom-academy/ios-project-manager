@@ -95,7 +95,6 @@ class ProjectsViewController: UIViewController {
 
 extension ProjectsViewController: TaskAddDelegate, TaskMoveDelegate, TaskEditDelegate {
     func taskDidEdited(to newTask: Task, from task: Task) {
-        print("여기까지옴")
         switch task.status {
         case .todo:
             todoViewController.deleteTask(task)
