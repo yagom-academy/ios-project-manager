@@ -14,6 +14,11 @@
 		B43D8D3C29765F3E00986169 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43D8D3B29765F3E00986169 /* ToDoCell.swift */; };
 		B43D8D3F29765FAB00986169 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43D8D3E29765FAB00986169 /* ReusableView.swift */; };
 		B43D8D412976E9CD00986169 /* ItemCountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43D8D402976E9CD00986169 /* ItemCountLabel.swift */; };
+		B4438CBA2982E99300B7006E /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4438CB92982E99300B7006E /* HistoryTableViewController.swift */; };
+		B4438CBC2982EA1400B7006E /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4438CBB2982EA1400B7006E /* HistoryViewModel.swift */; };
+		B4438CBE2982F72C00B7006E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4438CBD2982F72C00B7006E /* History.swift */; };
+		B4438CC02982F74F00B7006E /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4438CBF2982F74F00B7006E /* NotificationName+Extension.swift */; };
+		B4438CC22982FB2E00B7006E /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4438CC12982FB2E00B7006E /* HistoryCell.swift */; };
 		B481F9F62977986D00597E8C /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9F52977986D00597E8C /* AddToDoViewController.swift */; };
 		B481F9F82977D18D00597E8C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B481F9F72977D18D00597E8C /* .swiftlint.yml */; };
 		B481F9FB2977DB0800597E8C /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */; };
@@ -36,6 +41,11 @@
 		B43D8D3B29765F3E00986169 /* ToDoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
 		B43D8D3E29765FAB00986169 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		B43D8D402976E9CD00986169 /* ItemCountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCountLabel.swift; sourceTree = "<group>"; };
+		B4438CB92982E99300B7006E /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		B4438CBB2982EA1400B7006E /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		B4438CBD2982F72C00B7006E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		B4438CBF2982F74F00B7006E /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
+		B4438CC12982FB2E00B7006E /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		B481F9F52977986D00597E8C /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
 		B481F9F72977D18D00597E8C /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		B481F9FA2977DB0800597E8C /* ToDoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
@@ -99,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				B4200E4329717911000E2B8B /* ToDo.swift */,
+				B4438CBD2982F72C00B7006E /* History.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -119,6 +130,16 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		B4438CB82982E97400B7006E /* HistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				B4438CB92982E99300B7006E /* HistoryTableViewController.swift */,
+				B4438CBB2982EA1400B7006E /* HistoryViewModel.swift */,
+				B4438CC12982FB2E00B7006E /* HistoryCell.swift */,
+			);
+			path = HistoryView;
+			sourceTree = "<group>";
+		};
 		B481F9F92977DAC400597E8C /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				B481FA0329797A0400597E8C /* DateFormatter+Extension.swift */,
+				B4438CBF2982F74F00B7006E /* NotificationName+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -177,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				B4A5F7CC297FA06C00E24A40 /* MainView */,
+				B4438CB82982E97400B7006E /* HistoryView */,
 				B4A5F7CB297FA05900E24A40 /* ListView */,
 				B4A5F7CA297FA02200E24A40 /* DetailView */,
 			);
@@ -304,16 +327,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				B481F9FB2977DB0800597E8C /* ToDoListViewModel.swift in Sources */,
+				B4438CBC2982EA1400B7006E /* HistoryViewModel.swift in Sources */,
+				B4438CBE2982F72C00B7006E /* History.swift in Sources */,
 				B43D8D3F29765FAB00986169 /* ReusableView.swift in Sources */,
+				B4438CBA2982E99300B7006E /* HistoryTableViewController.swift in Sources */,
 				B481FA0629797CA400597E8C /* EditToDoViewController.swift in Sources */,
 				B43D8D3829757EF400986169 /* ToDoListViewController.swift in Sources */,
 				B481F9F62977986D00597E8C /* AddToDoViewController.swift in Sources */,
 				B4200E4729717B74000E2B8B /* ToDoState.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
+				B4438CC02982F74F00B7006E /* NotificationName+Extension.swift in Sources */,
 				B43D8D3A29757F9800986169 /* ToDoHeaderView.swift in Sources */,
 				B481FA012979716900597E8C /* ToDoDetailView.swift in Sources */,
 				B481FA0429797A0400597E8C /* DateFormatter+Extension.swift in Sources */,
 				B43D8D412976E9CD00986169 /* ItemCountLabel.swift in Sources */,
+				B4438CC22982FB2E00B7006E /* HistoryCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				B481F9FF29782AD200597E8C /* Observable.swift in Sources */,
