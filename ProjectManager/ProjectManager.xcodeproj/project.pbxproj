@@ -16,6 +16,7 @@
 		3CF17BAB297FD59200A4C46D /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BAA297FD59200A4C46D /* TaskListViewController.swift */; };
 		3CF17BB92980DD1200A4C46D /* TaskSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BB82980DD1200A4C46D /* TaskSettingView.swift */; };
 		3CF17BBC2980E6D700A4C46D /* FakeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BBB2980E6D700A4C46D /* FakeDataManager.swift */; };
+		3CF17BCF2982643600A4C46D /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF17BCE2982643600A4C46D /* EditProjectViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectsViewController.swift */; };
@@ -34,6 +35,7 @@
 		3CF17BAA297FD59200A4C46D /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		3CF17BB82980DD1200A4C46D /* TaskSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSettingView.swift; sourceTree = "<group>"; };
 		3CF17BBB2980E6D700A4C46D /* FakeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataManager.swift; sourceTree = "<group>"; };
+		3CF17BCE2982643600A4C46D /* EditProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectViewController.swift; sourceTree = "<group>"; };
 		90D792EA8DEBACFF161C5AB8 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A888AA2339C9E6D317547533 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +85,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectsViewController.swift */,
 				3C73C6C0297503E100C58F32 /* AddProjectViewController.swift */,
+				3CF17BCE2982643600A4C46D /* EditProjectViewController.swift */,
 				3CF17BAE297FF25600A4C46D /* SubviewControllers */,
 			);
 			path = Controller;
@@ -280,6 +283,7 @@
 				3CF17BBC2980E6D700A4C46D /* FakeDataManager.swift in Sources */,
 				3CF17BB92980DD1200A4C46D /* TaskSettingView.swift in Sources */,
 				3CF17BA3297BD90900A4C46D /* Task.swift in Sources */,
+				3CF17BCF2982643600A4C46D /* EditProjectViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

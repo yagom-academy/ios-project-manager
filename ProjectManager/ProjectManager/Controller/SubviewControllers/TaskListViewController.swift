@@ -77,10 +77,18 @@ class TaskListViewController: UIViewController {
             filteredTasks.remove(at: index)
         }
     }
+    
+    private func showEditProjectView() {
+        let addProjectViewController = EditProjectViewController(type: type)
+        let secondNavigationController = UINavigationController(rootViewController: addProjectViewController)
+        secondNavigationController.modalPresentationStyle = .formSheet
+        self.present(secondNavigationController, animated: true)
+    }
 }
 
 extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        showEditProjectView()
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

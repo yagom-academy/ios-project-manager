@@ -39,7 +39,7 @@ class AddProjectViewController: UIViewController {
         configureNavigationItem()
     }
     
-    private func configureNavigationItem() {
+    func configureNavigationItem() {
         navigationItem.title = Constant.navigationTitle
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissCurrentViewController))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveAndDismissCurrentViewController))
