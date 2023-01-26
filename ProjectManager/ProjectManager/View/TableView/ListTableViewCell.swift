@@ -61,19 +61,21 @@ final class ListTableViewCell: UITableViewCell {
         mainStackView.addArrangedSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
     
-    func configureContent(title: String, body: String, date: Date) {
-        titleLabel.text = title
-        bodyLabel.text = body
-        dateLabel.text = date.customDescription
+    func configureContent(with todo: TodoModel) {
+        titleLabel.text = todo.title
+        bodyLabel.text = todo.body
         
-        if date < Date() {
+        let todoDate = todo.date.convertDoubleToDate()
+        dateLabel.text = todoDate.customDescription
+        
+        if todoDate < Date(), todo.status != TodoModel.TodoStatus.done {
             dateLabel.textColor = .red
         } else {
             dateLabel.textColor = .black

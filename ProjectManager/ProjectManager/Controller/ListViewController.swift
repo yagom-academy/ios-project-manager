@@ -186,9 +186,7 @@ extension ListViewController {
         let dataSource = ListDataSource(tableView: tableView) { tableView, indexPath, todoItem in
             let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewValue.identifier, for: indexPath) as? ListTableViewCell
             
-            cell?.configureContent(title: todoItem.title,
-                                   body: todoItem.body,
-                                   date: todoItem.date.convertDoubleToDate())
+            cell?.configureContent(with: todoItem)
             return cell
         }
         return dataSource

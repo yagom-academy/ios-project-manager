@@ -140,6 +140,7 @@ final class TodoViewController: UIViewController {
             dismiss(animated: true)
         case .edit:
             MockDataManager.shared.update(todo: todoItem, status: todoItem.status)
+            isEditing = false
         }
     }
     
@@ -168,6 +169,7 @@ extension TodoViewController {
             datePicker.isEnabled = true
             bodyTextView.isEditable = true
         } else {
+            navigationItem.rightBarButtonItem = editButtonItem
             titleTextField.layer.borderColor = UIColor.systemGray5.cgColor
             bodyTextView.layer.borderColor = UIColor.systemGray5.cgColor
             
