@@ -12,6 +12,11 @@ protocol TaskMoveDelegate: AnyObject {
 }
 
 class TaskListViewController: UIViewController {
+    
+    enum Constant {
+        static let deleteSwipeText = "Delete"
+    }
+    
     enum Section {
         case main
     }
@@ -78,7 +83,6 @@ class TaskListViewController: UIViewController {
     }
     
     func deleteTask(_ task: Task) {
-        print("delete")
         if let index = filteredTasks.firstIndex(of: task) {
             filteredTasks.remove(at: index)
         }
@@ -98,6 +102,19 @@ extension TaskListViewController: UITableViewDelegate {
         let task = filteredTasks[indexPath.row]
         showEditProjectView(with: task)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let cell = tableView.cellForRow(at: indexPath) as? TaskCell else {
+            return nil
+        }
+        let delete = UIContextualAction(style: .normal, title: Constant.deleteSwipeText) {_, _, _ in
+            if let task = cell.task {
+                self.deleteTask(task)
+            }
+        }
+        delete.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }
 
