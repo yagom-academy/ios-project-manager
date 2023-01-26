@@ -184,7 +184,7 @@ extension ListViewController {
 extension ListViewController {
     private func configureDataSource(of tableView: ListTableView) -> ListDataSource {
         let dataSource = ListDataSource(tableView: tableView) { tableView, indexPath, todoItem in
-            let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewValue.identifier, for: indexPath) as? ListTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewValue.cellIdentifier, for: indexPath) as? ListTableViewCell
             
             cell?.configureContent(with: todoItem)
             return cell

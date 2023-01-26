@@ -20,7 +20,7 @@ final class ListTableView: UITableView {
     
     private func configureView() {
         backgroundColor = .systemGray6
-        register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewValue.identifier)
+        register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewValue.cellIdentifier)
         register(ListHeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderViewValue.identifier)
     }
 }

@@ -8,13 +8,13 @@
 import Foundation
 
 enum HeaderViewValue {
-    static let identifier = "ListHeaderView"
+    static let identifier = ListHeaderView.self.description()
     static let countLabelWidth = CGFloat(35)
     static let circleCornerRadius = countLabelWidth / 2
 }
 
 enum ListTableViewValue {
-    static let identifier = "ListTableViewCell"
+    static let cellIdentifier = ListTableViewCell.self.description()
     static let estimatedRowHeight = CGFloat(150)
 }
 
