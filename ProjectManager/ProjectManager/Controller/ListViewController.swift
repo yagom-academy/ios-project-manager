@@ -59,11 +59,11 @@ final class ListViewController: UIViewController {
         let todoViewController = TodoViewController()
         
         todoViewController.configureAddView(with: newTodoItem)
-        showTodoItemView(nextViewController: todoViewController)
+        showTodoItemViewController(todoViewController)
     }
     
-    private func showTodoItemView(nextViewController: UIViewController) {
-        let viewController = UINavigationController(rootViewController: nextViewController)
+    private func showTodoItemViewController(_ viewController: UIViewController) {
+        let viewController = UINavigationController(rootViewController: viewController)
         
         viewController.modalPresentationStyle = .formSheet
         viewController.preferredContentSize = CGSize(width: 650, height: 650)
@@ -248,7 +248,7 @@ extension ListViewController: UITableViewDelegate {
         let editViewController = TodoViewController()
         editViewController.configureEditView(with: cellItem)
         
-        showTodoItemView(nextViewController: editViewController)
+        showTodoItemViewController(editViewController)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
