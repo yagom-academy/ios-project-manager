@@ -16,14 +16,14 @@ final class AddTaskViewController: UIViewController {
     
     // MARK: View
     
-    private var titleTextView: UITextView = {
+    private let titleTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainerInset = .init(top: 3, left: 3, bottom: 3, right: 3)
         textView.font = .systemFont(ofSize: 20)
         return textView
     }()
-    private var datePickerView: UIDatePicker = {
+    private let datePickerView: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
@@ -32,7 +32,7 @@ final class AddTaskViewController: UIViewController {
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
-    private var descriptionTextView: UITextView = {
+    private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainerInset = .init(top: 3, left: 3, bottom: 3, right: 3)
@@ -41,7 +41,7 @@ final class AddTaskViewController: UIViewController {
     }()
     
     var viewmodel: AddTaskViewModel?
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     // MARK: ViewDidLoad
     
@@ -58,7 +58,7 @@ final class AddTaskViewController: UIViewController {
 
 extension AddTaskViewController {
     
-    func bindViewModel() {
+    private func bindViewModel() {
         guard let viewmodel = self.viewmodel,
               let button = navigationItem.rightBarButtonItem else { return }
         let done = button.rx.tap.asObservable()
