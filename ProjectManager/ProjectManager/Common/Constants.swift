@@ -22,6 +22,10 @@ enum Constants {
     static let historyItemMaxCount = 7
     static let bottomViewHeight = CGFloat(50)
 
+    // MARK: Notification
+
+    static let notificationHour = 9
+
     // MARK: Database
 
     static let databaseCollection = "projectTodos"

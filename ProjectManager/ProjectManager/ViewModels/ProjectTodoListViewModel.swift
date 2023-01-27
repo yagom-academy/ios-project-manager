@@ -12,6 +12,7 @@ final class ProjectTodoListViewModel {
     private var updatedProjectTodosID: [UUID] = []
     private let databaseManager = DatabaseManager()
     private let persistenceManager = PersistenceManager()
+    private let userNotificationManager = UserNotificationManager()
     private var projectTodos: [ProjectTodo] {
         didSet {
             onUpdated(updatedProjectTodosID)
@@ -39,20 +40,31 @@ final class ProjectTodoListViewModel {
         projectTodos.append(projectTodo)
         databaseManager.add(projectTodo)
         persistenceManager.add(projectTodo)
+        userNotificationManager.registerNotification(identifier: projectTodo.id,
+                                                  title: projectTodo.title,
+                                                  dueDate: projectTodo.dueDate)
     }
 
     func update(projectTodo: ProjectTodo) {
         guard let index = projectTodos.firstIndex(where: { $0.id == projectTodo.id }) else { return }
         updatedProjectTodosID.append(projectTodo.id)
+        projectTodos[index] = projectTodo
         databaseManager.update(projectTodo)
         persistenceManager.update(projectTodo)
-        projectTodos[index] = projectTodo
+        if projectTodo.state == .todo {
+            userNotificationManager.updateNotification(identifier: projectTodo.id,
+                                                    title: projectTodo.title,
+                                                    dueDate: projectTodo.dueDate)
+        } else {
+            userNotificationManager.removeNotification(with: projectTodo.id)
+        }
     }
 
     func delete(for projectTodoID: UUID) {
         projectTodos.removeAll(where: { $0.id == projectTodoID })
         databaseManager.delete(projectTodoID)
         persistenceManager.delete(projectTodoID)
+        userNotificationManager.removeNotification(with: projectTodoID)
     }
 
     func projectTodoViewModel(for projectTodoID: UUID) -> ProjectTodoViewModel? {

@@ -36,6 +36,7 @@
 		EBFD66622983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66612983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift */; };
 		EBFD66642983F50100F7BB36 /* UndoRedoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66632983F50100F7BB36 /* UndoRedoView.swift */; };
 		EBFD666D2983FB3000F7BB36 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBFD666F2983FB3000F7BB36 /* Localizable.strings */; };
+		EBFD66712984012500F7BB36 /* UserNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66702984012500F7BB36 /* UserNotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		EBFD66612983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoHistoryViewController.swift; sourceTree = "<group>"; };
 		EBFD66632983F50100F7BB36 /* UndoRedoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoView.swift; sourceTree = "<group>"; };
 		EBFD666E2983FB3000F7BB36 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EBFD66702984012500F7BB36 /* UserNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				EBFD665D2983C2B200F7BB36 /* ProjectTodoHistory.swift */,
 				EBFD66562983B76500F7BB36 /* DatabaseManager.swift */,
 				EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */,
+				EBFD66702984012500F7BB36 /* UserNotificationManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			files = (
 				EB9B1414297239BE00D601F1 /* UIView+.swift in Sources */,
 				EB9B141629727A6B00D601F1 /* ProjectTodoHeaderView.swift in Sources */,
+				EBFD66712984012500F7BB36 /* UserNotificationManager.swift in Sources */,
 				EB9B140C2971B8AC00D601F1 /* ProjectTodoListContentView.swift in Sources */,
 				EB9B1410297237DC00D601F1 /* ProjectTodoViewController.swift in Sources */,
 				EBFD66572983B76500F7BB36 /* DatabaseManager.swift in Sources */,
