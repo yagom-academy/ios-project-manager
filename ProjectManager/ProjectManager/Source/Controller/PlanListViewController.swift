@@ -15,10 +15,9 @@ final class PlanListViewController: UITableViewController {
         static let headerViewHeight: CGFloat = 50
     }
     private var status: Plan.Status
-    private var planManager = PlanManager()
+    private let planManager = PlanManager()
     private var planListDelegate: PlanListDelegate?
     private var alertDelegate: AlertDelegate?
-    private lazy var planListView = PlanListView(frame: view.bounds)
     private lazy var dataSource = configureDataSource()
     private var planList: [Plan] = [] {
         didSet {
@@ -27,9 +26,10 @@ final class PlanListViewController: UITableViewController {
         }
     }
 
-    init(status: Plan.Status, delegate: PlanListDelegate, tableView: UITableView) {
+    init(status: Plan.Status, planListDelegate: PlanListDelegate, alertDelegate: AlertDelegate, tableView: UITableView) {
         self.status = status
-        self.planListDelegate = delegate
+        self.planListDelegate = planListDelegate
+        self.alertDelegate = alertDelegate
 
         super.init(nibName: nil, bundle: nil)
         self.tableView = tableView

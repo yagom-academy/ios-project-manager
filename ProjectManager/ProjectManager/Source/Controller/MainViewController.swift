@@ -14,14 +14,17 @@ final class MainViewController: UIViewController {
 
     private let alertManager = AlertManager()
     private lazy var todoListViewController = PlanListViewController(status: .todo,
-                                                                      delegate: self,
+                                                                      planListDelegate: self,
+                                                                      alertDelegate: self,
                                                                       tableView: PlanTableView())
     private lazy var doingListViewController = PlanListViewController(status: .doing,
-                                                                      delegate: self,
+                                                                      planListDelegate: self,
+                                                                      alertDelegate: self,
                                                                       tableView: PlanTableView())
     private lazy var doneListViewController = PlanListViewController(status: .done,
-                                                                      delegate: self,
-                                                                      tableView: PlanTableView())
+                                                                     planListDelegate: self,
+                                                                     alertDelegate: self,
+                                                                     tableView: PlanTableView())
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -96,5 +99,15 @@ extension MainViewController: PlanListDelegate {
         case .done:
             doneListViewController.updateStatus(plan: plan, status: .done)
         }
+    }
+}
+
+extension MainViewController: AlertDelegate {
+    func showDeleteAlert(handler: ((UIAlertAction) -> Void)?) {
+        present(alertManager.showDeleteAlert(handler: handler), animated: true)
+    }
+
+    func showErrorAlert(title: String) {
+        present(alertManager.showErrorAlert(title: title), animated: true)
     }
 }

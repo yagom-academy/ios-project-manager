@@ -14,7 +14,6 @@
 		1AF33C092975670200162E3B /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF33C082975670200162E3B /* MockData.swift */; };
 		99F500458C3FBEF1DA2B48BB /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3722A1FE1CDB8ED39CA8B9E3 /* Pods_ProjectManager.framework */; };
 		AE484F6C29755BED00A8B502 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6B29755BED00A8B502 /* DateFormatterManager.swift */; };
-		AE484F6E29755D4000A8B502 /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6D29755D4000A8B502 /* PlanListView.swift */; };
 		AE484F7029755EC800A8B502 /* PlanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE484F6F29755EC800A8B502 /* PlanDetailView.swift */; };
 		AE5527C529815BA5003CABDF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5527C429815BA5003CABDF /* MainViewController.swift */; };
 		AE5527C729815BD4003CABDF /* PlanDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5527C629815BD4003CABDF /* PlanDelegate.swift */; };
@@ -41,7 +40,6 @@
 		1AF33C082975670200162E3B /* MockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		3722A1FE1CDB8ED39CA8B9E3 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE484F6B29755BED00A8B502 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
-		AE484F6D29755D4000A8B502 /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
 		AE484F6F29755EC800A8B502 /* PlanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailView.swift; sourceTree = "<group>"; };
 		AE5527C429815BA5003CABDF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AE5527C629815BD4003CABDF /* PlanDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDelegate.swift; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 				1ACE9C00296E8CFD005F77B7 /* PlanTableViewCell.swift */,
 				1ACE9C09296EAB63005F77B7 /* PlanTableView.swift */,
 				AE737E702978277400A1FAAE /* PlanListHeaderView.swift */,
-				AE484F6D29755D4000A8B502 /* PlanListView.swift */,
 				AE484F6F29755EC800A8B502 /* PlanDetailView.swift */,
 			);
 			path = View;
@@ -327,7 +324,6 @@
 				AED9DE6C296ECDCA0090C31A /* PlanManager.swift in Sources */,
 				AE5527C529815BA5003CABDF /* MainViewController.swift in Sources */,
 				AE484F7029755EC800A8B502 /* PlanDetailView.swift in Sources */,
-				AE484F6E29755D4000A8B502 /* PlanListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
