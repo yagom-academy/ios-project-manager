@@ -2,7 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-fileprivate enum Common {
+fileprivate enum LocalNames {
     static let todo = "TODO"
     static let doing = "DOING"
     static let done = "DONE"
@@ -16,21 +16,21 @@ final class ProjectManagerViewController: UIViewController {
     
     private var todoTableView: UITableView = {
         let table = UITableView()
-        table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
+        table.register(TaskCell.self, forCellReuseIdentifier: LocalNames.cellReuseIdentifier)
         table.separatorStyle = .none
         table.backgroundColor = .systemGray6
         return table
     }()
     private var doingTableView: UITableView = {
         let table = UITableView()
-        table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
+        table.register(TaskCell.self, forCellReuseIdentifier: LocalNames.cellReuseIdentifier)
         table.separatorStyle = .none
         table.backgroundColor = .systemGray6
         return table
     }()
     private var doneTableView: UITableView = {
         let table = UITableView()
-        table.register(TaskCell.self, forCellReuseIdentifier: Common.cellReuseIdentifier)
+        table.register(TaskCell.self, forCellReuseIdentifier: LocalNames.cellReuseIdentifier)
         table.separatorStyle = .none
         table.backgroundColor = .systemGray6
         return table
@@ -38,19 +38,19 @@ final class ProjectManagerViewController: UIViewController {
     
     private var todoStatusView: TaskStatusInfoView = {
         let view = TaskStatusInfoView()
-        view.setTitle(with: Common.todo)
+        view.setTitle(with: LocalNames.todo)
         view.backgroundColor = .systemGray6
         return view
     }()
     private var doingStatusView: TaskStatusInfoView = {
         let view = TaskStatusInfoView()
-        view.setTitle(with: Common.doing)
+        view.setTitle(with: LocalNames.doing)
         view.backgroundColor = .systemGray6
         return view
     }()
     private var doneStatusView: TaskStatusInfoView = {
         let view = TaskStatusInfoView()
-        view.setTitle(with: Common.done)
+        view.setTitle(with: LocalNames.done)
         view.backgroundColor = .systemGray6
         return view
     }()
@@ -153,7 +153,7 @@ extension ProjectManagerViewController: UITableViewDelegate, UIGestureRecognizer
         let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
                                              action: #selector(tapNavigationAddButton))
         navigationItem.rightBarButtonItem = rightAddButton
-        navigationItem.title = Common.navigationItemTitle
+        navigationItem.title = LocalNames.navigationItemTitle
         
     }
     
@@ -312,7 +312,7 @@ extension ProjectManagerViewController {
         output.todoItems
             .bind(to: self.todoTableView.rx.items) { (tableview, index, item) in
                 guard let cell = tableview.dequeueReusableCell(withIdentifier:
-                                                                Common.cellReuseIdentifier)
+                                                                LocalNames.cellReuseIdentifier)
                         as? TaskCell
                 else { return TaskCell() }
                 cell.viewModel = item
@@ -324,7 +324,7 @@ extension ProjectManagerViewController {
         output.doingItems
             .bind(to: self.doingTableView.rx.items) { (tableview, index, item) in
                 guard let cell = tableview.dequeueReusableCell(withIdentifier:
-                                                                Common.cellReuseIdentifier)
+                                                                LocalNames.cellReuseIdentifier)
                         as? TaskCell
                 else { return TaskCell() }
                 cell.viewModel = item
@@ -336,7 +336,7 @@ extension ProjectManagerViewController {
         output.doneItems
             .bind(to: self.doneTableView.rx.items) { (tableview, index, item) in
                 guard let cell = tableview.dequeueReusableCell(withIdentifier:
-                                                                Common.cellReuseIdentifier)
+                                                                LocalNames.cellReuseIdentifier)
                         as? TaskCell
                 else { return TaskCell() }
                 cell.viewModel = item
