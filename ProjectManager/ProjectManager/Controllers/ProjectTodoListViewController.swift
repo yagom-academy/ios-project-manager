@@ -328,7 +328,8 @@ extension ProjectTodoListViewController: UIGestureRecognizerDelegate {
     }
 
     private func makeAlertActionToMoveState(for projectTodo: ProjectTodo, toState: ProjectState) -> UIAlertAction {
-        let actionTitle = "Move to " + String(describing: toState)
+        let actionTitleFormat = NSLocalizedString("Move to %@", comment: "Move Action Title")
+        let actionTitle = String(format: actionTitleFormat, String(describing: toState))
         let action = UIAlertAction(title: actionTitle, style: .default) { [weak self] _ in
             var modifiedProject = projectTodo
             modifiedProject.state = toState
