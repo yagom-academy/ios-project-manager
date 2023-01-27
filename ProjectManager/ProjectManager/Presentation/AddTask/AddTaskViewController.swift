@@ -49,7 +49,8 @@ final class AddTaskViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationBar()
-        configureViewLayout()
+        combineViews()
+        configureViewConstraints()
         bindViewModel()
     }
 }
@@ -60,20 +61,35 @@ extension AddTaskViewController {
     
     private func bindViewModel() {
         guard let viewmodel = self.viewmodel,
-              let button = navigationItem.rightBarButtonItem else { return }
-        let done = button.rx.tap.asObservable()
-        let title = titleTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
-        let description = descriptionTextView.rx.text.orEmpty.filter { !$0.isEmpty }.asObservable()
-        let date = datePickerView.rx.date.asObservable()
+              let button = navigationItem.rightBarButtonItem
+        else {
+            return
+        }
+        
+        let done = button.rx.tap
+            .asObservable()
+        let title = titleTextView.rx.text
+            .orEmpty
+            .filter { !$0.isEmpty }
+            .asObservable()
+        let description = descriptionTextView.rx.text
+            .orEmpty
+            .filter { !$0.isEmpty }
+            .asObservable()
+        let date = datePickerView.rx.date
+            .asObservable()
+        
         let input = AddTaskViewModel.Input(doneTrigger: done,
                                            titleTrigger: title,
                                            descriptionTrigger: description,
                                            dateTrigger: date)
         let output = viewmodel.transform(input: input)
         output.createdTask
-            .subscribe(onNext: { _ in
-                self.dismiss(animated: true)
-            })
+            .subscribe(
+                onNext: { _ in
+                    self.dismiss(animated: true)
+                }
+            )
             .disposed(by: disposeBag)
     }
     
@@ -97,7 +113,8 @@ extension AddTaskViewController {
 // MARK: Layout
 
 extension AddTaskViewController {
-    private func configureViewLayout() {
+    
+    private func combineViews() {
         view.backgroundColor = .white
         view.addSubview(titleTextView)
         view.addSubview(datePickerView)
@@ -105,16 +122,22 @@ extension AddTaskViewController {
         
         titleTextView.backgroundColor = .systemGray6
         descriptionTextView.backgroundColor = .systemGray6
+    }
+    
+    private func configureViewConstraints() {
+        let viewSafeLayoutGuide = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            titleTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+            titleTextView.topAnchor.constraint(equalTo: viewSafeLayoutGuide.topAnchor,
                                                constant: 10),
             titleTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                    constant: 10),
             titleTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                     constant: -10),
             titleTextView.heightAnchor.constraint(equalToConstant: 80),
-            
+        ])
+        
+        NSLayoutConstraint.activate([
             datePickerView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor,
                                                 constant: 10),
             datePickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
@@ -122,7 +145,9 @@ extension AddTaskViewController {
             datePickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                      constant: -10),
             datePickerView.heightAnchor.constraint(equalToConstant: 180),
-            
+        ])
+        
+        NSLayoutConstraint.activate([
             descriptionTextView.topAnchor.constraint(equalTo: datePickerView.bottomAnchor,
                                                      constant: 10),
             descriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
