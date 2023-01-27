@@ -65,7 +65,7 @@ final class MainViewController: UIViewController {
     
     private func configureProjectListActionDelegate() {
         [toDoViewController, doingViewController, doneViewController].forEach {
-            $0.delegate = self
+            $0.setDelegate(self)
         }
     }
 }
@@ -76,7 +76,7 @@ extension MainViewController {
         let addViewModel = AddViewModel()
         let addViewController = AddViewController(viewModel: addViewModel)
         
-        addViewModel.delegate = viewModel
+        addViewModel.setDelegate(viewModel)
         addViewController.modalPresentationStyle = .pageSheet
         
         let navigationController = UINavigationController(rootViewController: addViewController)
@@ -100,7 +100,7 @@ extension MainViewController: ProjectListActionDelegate {
         
         editViewModel.setProject(project)
         editViewModel.changeEditMode(false)
-        editViewModel.delegate = viewModel
+        editViewModel.setDelegate(viewModel)
         editViewController.modalPresentationStyle = .pageSheet
         
         let navigationController = UINavigationController(rootViewController: editViewController)

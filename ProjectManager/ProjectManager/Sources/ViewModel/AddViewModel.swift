@@ -13,10 +13,19 @@ final class AddViewModel {
             delegate?.addProject(project)
         }
     }
+    private weak var delegate: ViewModelDelegate?
     
-    weak var delegate: ViewModelDelegate?
-    
-    func addProject(title: String, deadline: Date, description: String) {
+    func addProject(title: String?, deadline: Date, description: String?) {
+        guard let title = title,
+              let description = description
+        else {
+            return
+        }
+        
         project = Project(title: title, deadline: deadline, description: description, state: .todo)
+    }
+    
+    func setDelegate(_ delegate: ViewModelDelegate) {
+        self.delegate = delegate
     }
 }

@@ -23,7 +23,7 @@ final class ProjectListViewController: UIViewController {
     private let tableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section, Project>?
     private let state: State
-    weak var delegate: ProjectListActionDelegate?
+    private weak var delegate: ProjectListActionDelegate?
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -82,6 +82,10 @@ final class ProjectListViewController: UIViewController {
         alert.popoverPresentationController?.permittedArrowDirections = [.up, .down]
         
         present(alert, animated: true)
+    }
+    
+    func setDelegate(_ delegate: ProjectListActionDelegate) {
+        self.delegate = delegate
     }
 }
 

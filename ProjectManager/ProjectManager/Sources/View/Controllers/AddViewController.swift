@@ -32,12 +32,7 @@ extension AddViewController {
     }
     
     private func tapDoneButton(_ sender: UIAction) {
-        guard let title = textField.text,
-              let description = textView.text
-        else {
-            return
-        }
-        viewModel?.addProject(title: title, deadline: datePicker.date, description: description)
+        viewModel?.addProject(title: textField.text, deadline: datePicker.date, description: textView.text)
         dismiss(animated: true)
     }
 }
