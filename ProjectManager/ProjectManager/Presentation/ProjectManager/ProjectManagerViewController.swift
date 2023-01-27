@@ -17,7 +17,7 @@ final class ProjectManagerViewController: UIViewController {
     
     // MARK: View
     
-    private var todoTableView: UITableView = {
+    private let todoTableView: UITableView = {
         let table = UITableView()
         table.register(TaskCell.self, forCellReuseIdentifier: Identifier.cellReuse)
         table.separatorStyle = .none
@@ -25,7 +25,7 @@ final class ProjectManagerViewController: UIViewController {
         
         return table
     }()
-    private var doingTableView: UITableView = {
+    private let doingTableView: UITableView = {
         let table = UITableView()
         table.register(TaskCell.self, forCellReuseIdentifier: Identifier.cellReuse)
         table.separatorStyle = .none
@@ -33,7 +33,7 @@ final class ProjectManagerViewController: UIViewController {
         
         return table
     }()
-    private var doneTableView: UITableView = {
+    private let doneTableView: UITableView = {
         let table = UITableView()
         table.register(TaskCell.self, forCellReuseIdentifier: Identifier.cellReuse)
         table.separatorStyle = .none
@@ -42,21 +42,21 @@ final class ProjectManagerViewController: UIViewController {
         return table
     }()
     
-    private var todoStatusView: TaskStatusInfoView = {
+    private let todoStatusView: TaskStatusInfoView = {
         let view = TaskStatusInfoView()
         view.setTitle(with: Titles.todo)
         view.backgroundColor = .systemGray6
         
         return view
     }()
-    private var doingStatusView: TaskStatusInfoView = {
+    private let doingStatusView: TaskStatusInfoView = {
         let view = TaskStatusInfoView()
         view.setTitle(with: Titles.doing)
         view.backgroundColor = .systemGray6
         
         return view
     }()
-    private var doneStatusView: TaskStatusInfoView = {
+    private let doneStatusView: TaskStatusInfoView = {
         let view = TaskStatusInfoView()
         view.setTitle(with: Titles.done)
         view.backgroundColor = .systemGray6
@@ -64,7 +64,7 @@ final class ProjectManagerViewController: UIViewController {
         return view
     }()
     
-    private var todoStackView: UIStackView = {
+    private let todoStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -72,7 +72,7 @@ final class ProjectManagerViewController: UIViewController {
         
         return stack
     }()
-    private var doingStackView: UIStackView = {
+    private let doingStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -80,7 +80,7 @@ final class ProjectManagerViewController: UIViewController {
         
         return stack
     }()
-    private var doneStackView: UIStackView = {
+    private let doneStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
@@ -89,7 +89,7 @@ final class ProjectManagerViewController: UIViewController {
         return stack
     }()
     
-    private var wholeStackView: UIStackView = {
+    private let wholeStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fillEqually
@@ -204,7 +204,7 @@ extension ProjectManagerViewController {
     private func bindLongPressGesturesToTableViews() {
         todoTableView.rx
             .methodInvoked(#selector(todoTableView.didLongPress))
-            .withLatestFrom(self.todoTableView.rx.itemSelected)
+            .withLatestFrom(todoTableView.rx.itemSelected)
             .subscribe(
                 onNext: { index in
                     if let cell = self.todoTableView.cellForRow(at: index) as? TaskCell,
@@ -245,7 +245,7 @@ extension ProjectManagerViewController {
     // MARK: Cell Action
     
     private func bindSelectionActionToCell() {
-        self.todoTableView.rx
+        todoTableView.rx
             .modelSelected(TaskItemViewModel.self)
             .subscribe(
                 onNext: { item in
@@ -255,7 +255,7 @@ extension ProjectManagerViewController {
             )
             .disposed(by: disposeBag)
         
-        self.doingTableView.rx
+        doingTableView.rx
             .modelSelected(TaskItemViewModel.self)
             .subscribe(
                 onNext: { item in
@@ -265,7 +265,7 @@ extension ProjectManagerViewController {
             )
             .disposed(by: disposeBag)
         
-        self.doneTableView.rx
+        doneTableView.rx
             .modelSelected(TaskItemViewModel.self)
             .subscribe(
                 onNext: { item in
@@ -345,6 +345,7 @@ extension ProjectManagerViewController {
                 }
                 cell.viewModel = item
                 cell.setupUsingViewModel()
+                
                 return cell
             }
             .disposed(by: disposeBag)
@@ -358,6 +359,7 @@ extension ProjectManagerViewController {
                 }
                 cell.viewModel = item
                 cell.setupUsingViewModel()
+                
                 return cell
             }
             .disposed(by: disposeBag)
@@ -371,6 +373,7 @@ extension ProjectManagerViewController {
                 }
                 cell.viewModel = item
                 cell.setupUsingViewModel()
+                
                 return cell
             }
             .disposed(by: disposeBag)
