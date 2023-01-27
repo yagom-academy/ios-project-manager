@@ -10,6 +10,7 @@ import Foundation
 final class ProjectTodoListViewModel {
     private var onUpdated: ([UUID]) -> Void = { _ in }
     private var updatedProjectTodosID: [UUID] = []
+    private var databaseManager = DatabaseManager()
     private var projectTodos: [ProjectTodo] {
         didSet {
             onUpdated(updatedProjectTodosID)
@@ -21,22 +22,31 @@ final class ProjectTodoListViewModel {
         self.projectTodos = projectTodos
     }
 
+    func fetchDataFromDatabase() {
+        databaseManager.fetchProjectTodos { [weak self] projectTodos in
+            self?.projectTodos = projectTodos
+        }
+    }
+
     func bind(onUpdated: @escaping ([UUID]) -> Void) {
         self.onUpdated = onUpdated
     }
 
     func add(projectTodo: ProjectTodo) {
         projectTodos.append(projectTodo)
+        databaseManager.add(projectTodo)
     }
 
     func update(projectTodo: ProjectTodo) {
         guard let index = projectTodos.firstIndex(where: { $0.id == projectTodo.id }) else { return }
         updatedProjectTodosID.append(projectTodo.id)
+        databaseManager.update(projectTodo)
         projectTodos[index] = projectTodo
     }
 
     func delete(for projectTodoID: UUID) {
         projectTodos.removeAll(where: { $0.id == projectTodoID })
+        databaseManager.delete(projectTodoID)
     }
 
     func projectTodoViewModel(for projectTodoID: UUID) -> ProjectTodoViewModel? {
