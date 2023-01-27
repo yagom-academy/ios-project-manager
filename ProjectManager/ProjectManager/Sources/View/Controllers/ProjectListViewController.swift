@@ -60,11 +60,14 @@ final class ProjectListViewController: UIViewController {
         else {
             return
         }
-
-        State.allCases.filter { $0 != self.state }.forEach { state in
-            let action = UIAlertAction(title: "Move To \(state.name)", style: .default) { _ in
-                self.delegate?.changeProjectState(with: state, to: project)
-            }
+        
+        let allProjectStates = State.allCases
+        allProjectStates
+            .filter { $0 != self.state }
+            .forEach { state in
+                let action = UIAlertAction(title: "Move To \(state.name)", style: .default) { _ in
+                    self.delegate?.changeProjectState(with: state, to: project)
+                }
             alert.addAction(action)
         }
         
@@ -125,7 +128,7 @@ extension ProjectListViewController {
                 }
                 
                 let viewModel = ProjectCellViewModel()
-                cell.setupViewModel(viewModel)
+                cell.setViewModel(viewModel)
                 cell.configureLongPressGesture(
                     target: self,
                     action: #selector(self?.pressProjectCell)
@@ -169,7 +172,7 @@ extension ProjectListViewController {
             stackView.addArrangedSubview($0)
         }
         
-        headerViewModel.setupTitle(state.name)
+        headerViewModel.setTitle(state.name)
         view.addSubview(stackView)
     }
     

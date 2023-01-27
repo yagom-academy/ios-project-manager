@@ -23,7 +23,7 @@ enum DateColor {
 
 final class ProjectCell: UITableViewCell {
     static let reuseIdentifier = String(describing: ProjectCell.self)
-    private var projectCellViewModel: ProjectCellViewModel?
+    private var viewModel: ProjectCellViewModel?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -61,7 +61,7 @@ final class ProjectCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureSubViews()
+        configureSubviews()
         configureLayout()
     }
     
@@ -69,7 +69,7 @@ final class ProjectCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureSubViews() {
+    private func configureSubviews() {
         [titleLabel, descriptionLabel, dateLabel].forEach {
             totalStackView.addArrangedSubview($0)
         }
@@ -99,22 +99,22 @@ final class ProjectCell: UITableViewCell {
 
 // MARK: Configure ProjectListCellViewModel
 extension ProjectCell {
-    func setupViewModel(_ viewModel: ProjectCellViewModel) {
-        projectCellViewModel = viewModel
+    func setViewModel(_ viewModel: ProjectCellViewModel) {
+        self.viewModel = viewModel
         bindProjectCellViewModel()
     }
     
     private func bindProjectCellViewModel() {
-        projectCellViewModel?.titleHandler = { [weak self] text in
+        viewModel?.titleHandler = { [weak self] text in
             self?.titleLabel.text = text
         }
         
-        projectCellViewModel?.deadlineHandler = { [weak self] deadline in
+        viewModel?.deadlineHandler = { [weak self] deadline in
             self?.dateLabel.text = deadline?.date
             self?.dateLabel.textColor = deadline?.color.value
         }
         
-        projectCellViewModel?.descriptionHandler = { [weak self] text in
+        viewModel?.descriptionHandler = { [weak self] text in
             self?.descriptionLabel.text = text
         }
     }

@@ -55,6 +55,12 @@ final class MainViewController: UIViewController {
             self?.doneViewController.updateList(with: doneList)
         }
     }
+    
+    private func configureProjectListActionDelegate() {
+        [toDoViewController, doingViewController, doneViewController].forEach {
+            $0.delegate = self
+        }
+    }
 }
 
 // MARK: Action Method
@@ -77,12 +83,6 @@ extension MainViewController: ProjectListActionDelegate {
         viewModel.changeStateProject(state: state, project: project)
     }
     
-    private func configureProjectListActionDelegate() {
-        [toDoViewController, doingViewController, doneViewController].forEach {
-            $0.delegate = self
-        }
-    }
-    
     func deleteProject(willDelete project: Project) {
         viewModel.deleteProject(with: project)
     }
@@ -91,7 +91,7 @@ extension MainViewController: ProjectListActionDelegate {
         let editViewModel = EditViewModel()
         let editViewController = EditViewController(viewModel: editViewModel)
         
-        editViewModel.setupProject(project)
+        editViewModel.setProject(project)
         editViewModel.changeEditMode(false)
         editViewModel.delegate = viewModel
         editViewController.modalPresentationStyle = .pageSheet

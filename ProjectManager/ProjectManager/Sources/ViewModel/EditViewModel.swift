@@ -28,7 +28,7 @@ final class EditViewModel {
         isEditing = state
     }
     
-    func setupProject(_ project: Project) {
+    func setProject(_ project: Project) {
         self.project = project
     }
     

@@ -29,7 +29,7 @@ final class HeaderViewModel {
     var titleHandler: ((String?) -> Void)?
     var cellCountHandler: ((String?) -> Void)?
     
-    func setupTitle(_ title: String) {
+    func setTitle(_ title: String) {
         self.title = title
     }
     
