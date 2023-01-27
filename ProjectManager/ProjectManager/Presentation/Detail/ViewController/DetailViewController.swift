@@ -191,13 +191,10 @@ final class DetailViewController: UIViewController {
             return
         }
         
-        guard let project = viewModel?.makeProject(title: titleTextField.text ?? "",
-                                             description: descriptionTextView.text,
-                                                   deadline: datePicker.date) else {
-            preconditionFailure("viewModel이 올바르지 않습니다.")
-        }
-        
-        delegate?.detailProject(willSave: project)
+        delegate?.detailProject(willSave: (title: titleTextField.text ?? "",
+                                           description: descriptionTextView.text ?? "",
+                                           deadline: datePicker.date,
+                                           identifier: viewModel?.fetchIdentifier()))
         dismiss(animated: true)
     }
     

@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         let window = UIWindow(windowScene: windowScene)
         let listViewController = ListViewController()
-        let listUseCase = DefaultListUseCase(list: [])
+        let listUseCase = DefaultListUseCase()
         listViewController.viewModel = ListViewModel(listUseCase: listUseCase)
         let navigationController = UINavigationController(rootViewController: listViewController)
 

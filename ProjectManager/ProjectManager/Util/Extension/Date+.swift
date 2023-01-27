@@ -8,13 +8,14 @@
 import Foundation
 
 extension Date {
-
+    
+    static let dateFormatter = DateFormatter()
     var isOverdue: Bool {
         return (Int(Date().timeIntervalSinceReferenceDate) / 86400) > (Int(self.timeIntervalSinceReferenceDate) / 86400)
     }
     
     var localeFormattedText: String {
-        let dateFormatter = DateFormatter()
+        let dateFormatter = Self.dateFormatter
         dateFormatter.locale = Locale(identifier: Locale.preferredLanguages[0])
         dateFormatter.dateStyle = .long
 

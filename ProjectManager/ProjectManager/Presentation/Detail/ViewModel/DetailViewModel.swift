@@ -12,6 +12,9 @@ final class DetailViewModel {
     typealias Text = Constant.Text
 
     private var detailUseCase: DetailUseCase
+    private let project: Project
+    private let state: State
+    private let isNewProject: Bool
     private(set) var isEditable: Bool {
         didSet {
             editHandler?(isEditable)
@@ -27,8 +30,11 @@ final class DetailViewModel {
     private var editHandler: ((Bool) -> Void)?
     private var textHandler: ((Bool) -> Void)?
 
-    init(detailUseCase: DetailUseCase, isNewProject: Bool = false) {
+    init(detailUseCase: DetailUseCase, project: Project, state: State = .toDo, isNewProject: Bool = false) {
         self.detailUseCase = detailUseCase
+        self.project = project
+        self.state = state
+        self.isNewProject = isNewProject
         isEditable = isNewProject
     }
 
@@ -41,7 +47,7 @@ final class DetailViewModel {
     }
     
     func fetchNavigationTitle() -> String {
-        switch detailUseCase.state {
+        switch state {
         case .toDo:
             return Text.toDoTitle
         case .doing:
@@ -56,9 +62,14 @@ final class DetailViewModel {
     }
     
     func fetchValues() -> (title: String, description: String, deadline: Date) {
-        return (detailUseCase.fetchTitleText(),
-                detailUseCase.fetchDescriptionText(),
-                detailUseCase.fetchDeadline())
+        return (project.title, project.description, project.deadline)
+    }
+    
+    func fetchIdentifier() -> UUID? {
+        guard !isNewProject else {
+            return nil
+        }
+        return project.identifier
     }
     
     func validateDescription(text: String) {
@@ -69,15 +80,5 @@ final class DetailViewModel {
     
     func validateDeadline(date: Date) -> Bool {
         return detailUseCase.isValidateDeadline(date: date)
-    }
-    
-    func makeProject(title: String, description: String, deadline: Date) -> Project {
-        let project = Project(title: title,
-                              description: description,
-                              deadline: deadline,
-                              state: detailUseCase.state,
-                              identifier: detailUseCase.fetchIdentifier())
-        
-        return project
     }
 }

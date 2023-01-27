@@ -9,11 +9,6 @@ import Foundation
 
 protocol DetailUseCase {
     
-    var state: State { get }
-    func fetchTitleText() -> String
-    func fetchDescriptionText() -> String
-    func fetchDeadline() -> Date
-    func fetchIdentifier() -> UUID
     func isValidateDescription(text: String) -> Bool
     func isValidateDeadline(date: Date) -> Bool
 }

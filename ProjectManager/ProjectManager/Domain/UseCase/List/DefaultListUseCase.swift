@@ -5,57 +5,32 @@
 //  Created by GUNDY on 2023/01/17.
 //
 
+import Foundation
+
 final class DefaultListUseCase: ListUseCase {
 
-    var listOutput: ListOutput?
-    private var list: [Project] {
-        didSet {
-            listOutput?.updateList()
-        }
-    }
-
-    init(list: [Project]) {
-        self.list = list
-    }
-
-    func fetchProjectList(state: State) -> [Project] {
-        let filteredList: [Project] = list.filter {
-            $0.state == state
-        }
-
-        return filteredList
-    }
-    
-    func saveProject(_ project: Project) {
-        guard let index = fetchIndex(of: project) else {
-            addNewProject(project)
-            return
+    func makeProject(title: String, description: String, deadline: Date, identifier: UUID?) -> Project {
+        guard let identifier = identifier else {
+            return Project(title: title, description: description, deadline: deadline)
         }
         
-        editProject(project, index: index)
+        return Project(title: title, description: description, deadline: deadline, identifier: identifier)
     }
 
-    private func addNewProject(_ project: Project) {
-        list.append(project)
-    }
-
-    private func editProject(_ project: Project, index: Int) {
+    func editProject(list: [Project], project: Project) -> [Project] {
+        var list = list
+        guard let index = list.firstIndex(where: { $0.identifier == project.identifier }) else {
+            return list
+        }
         list[index] = project
+        
+        return list
     }
 
-    private func fetchIndex(of project: Project) -> Int? {
-        let index: Int? = list.firstIndex {
-            $0.identifier == project.identifier
-        }
-
-        return index
-    }
-
-    func removeProject(_ project: Project) {
-        guard let index = fetchIndex(of: project) else {
-            return
-        }
-
+    func removeProject(list: [Project], index: Int) -> [Project] {
+        var list = list
         list.remove(at: index)
+        
+        return list
     }
 }

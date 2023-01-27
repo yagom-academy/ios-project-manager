@@ -12,21 +12,11 @@ final class ListViewModel {
     typealias Text = Constant.Text
 
     var listUseCase: ListUseCase
-    private var toDoList: [Project] {
+    private var projectList: [Project] = [] {
         didSet {
-            toDoListHandler?(toDoList)
-        }
-    }
-    
-    private var doingList: [Project] {
-        didSet {
-            doingListHandler?(doingList)
-        }
-    }
-    
-    private var doneList: [Project] {
-        didSet {
-            doneListHandler?(doneList)
+            toDoListHandler?(fetchList(of: .toDo))
+            doingListHandler?(fetchList(of: .doing))
+            doneListHandler?(fetchList(of: .done))
         }
     }
     
@@ -36,16 +26,8 @@ final class ListViewModel {
 
     init(listUseCase: ListUseCase) {
         self.listUseCase = listUseCase
-        toDoList = listUseCase.fetchProjectList(state: .toDo)
-        doingList = listUseCase.fetchProjectList(state: .doing)
-        doneList = listUseCase.fetchProjectList(state: .done)
-        configureListUseCase()
     }
     
-    private func configureListUseCase() {
-        listUseCase.listOutput = self
-    }
-
     func bindToDoList(handler: @escaping ([Project]) -> Void) {
         self.toDoListHandler = handler
     }
@@ -61,62 +43,93 @@ final class ListViewModel {
     func fetchList(of state: State) -> [Project] {
         switch state {
         case .toDo:
-            return [.init(title: "제목",deadline: .init(timeIntervalSince1970: 0)), .init(title: "제목", description: "내용")]
+            return projectList.filter { $0.state == .toDo }
         case .doing:
-            return doingList
+            return projectList.filter { $0.state == .doing }
         case .done:
-            return doneList
+            return projectList.filter { $0.state == .done }
         }
     }
     
     func fetchCount(of state: State) -> Int {
-        switch state {
-        case .toDo:
-            return toDoList.count
-        case .doing:
-            return doingList.count
-        case .done:
-            return doneList.count
-        }
+        return fetchList(of: state).count
+    }
+    
+    private func fetchProject(state: State, index: Int) -> Project {
+        return fetchList(of: state)[index]
     }
 
-    func fetchValues(from project: Project) -> (title: String, description: String, deadline: String, isOverdue: Bool) {
+    func fetchTexts(state: State, index: Int) -> (title: String,
+                                                   description: String,
+                                                   deadline: String) {
+        let project = fetchProject(state: state, index: index)
+        
         return (project.title.isEmpty ? Text.cellTitleDefaultValue : project.title,
                 project.description.isEmpty ? Text.cellDescriptionDefaultValue : project.description,
-                project.deadline.localeFormattedText,
-                project.deadline.isOverdue)
+                project.deadline.localeFormattedText)
     }
     
-    func saveProject(_ project: Project) {
-        listUseCase.saveProject(project)
+    func isOverdue(state: State, index: Int) -> Bool {
+        return fetchProject(state: state, index: index).deadline.isOverdue
     }
     
-    func moveProject(_ project: Project, to state: State) {
-        var project = project
-        project.state = state
-        listUseCase.saveProject(project)
+    func fetchIdentifier(state: State, index: Int) -> UUID {
+        return fetchProject(state: state, index: index).identifier
     }
     
-    func removeProject(_ project: Project) {
-        listUseCase.removeProject(project)
-    }
-    
-    func makeDetailViewModel(project: Project?) -> DetailViewModel {
-        let detailUsecase: DetailUseCase
-        guard let project = project else {
-            detailUsecase = DefaultDetailUseCase(project: Project())
-            return DetailViewModel(detailUseCase: detailUsecase, isNewProject: true)
+    func saveProject(title: String,
+                     description: String,
+                     deadline: Date,
+                     identifier: UUID?) {
+        guard let identifier = identifier else {
+            addProject(title: title, description: description, deadline: deadline)
+            return
         }
-        detailUsecase = DefaultDetailUseCase(project: project)
-        return DetailViewModel(detailUseCase: detailUsecase)
+        editProject(title: title, description: description, deadline: deadline, identifier: identifier)
     }
-}
-
-extension ListViewModel: ListOutput {
     
-    func updateList() {
-        toDoList = listUseCase.fetchProjectList(state: .toDo)
-        doingList = listUseCase.fetchProjectList(state: .doing)
-        doneList = listUseCase.fetchProjectList(state: .done)
+    private func addProject(title: String,
+                    description: String,
+                    deadline: Date) {
+        let project = listUseCase.makeProject(title: title,
+                                              description: description,
+                                              deadline: deadline,
+                                              identifier: nil)
+        
+        projectList.append(project)
+    }
+    
+    private func editProject(title: String,
+                     description: String,
+                     deadline: Date,
+                     identifier: UUID) {
+        let project = listUseCase.makeProject(title: title,
+                                              description: description,
+                                              deadline: deadline,
+                                              identifier: identifier)
+        projectList = listUseCase.editProject(list: projectList, project: project)
+    }
+    
+    func moveProject(identifier: UUID, to state: State) {
+        guard var project = projectList.filter({ $0.identifier == identifier }).first else {
+            return
+        }
+        project.state = state
+        projectList = listUseCase.editProject(list: projectList, project: project)
+    }
+    
+    func removeProject(identifier: UUID) {
+        guard let index = projectList.firstIndex(where: { $0.identifier == identifier }) else {
+            return
+        }
+        projectList = listUseCase.removeProject(list: projectList, index: index)
+    }
+    
+    func makeDetailViewModel(project: Project? = nil) -> DetailViewModel {
+        let detailUsecase = DefaultDetailUseCase()
+        guard let project = project else {
+            return DetailViewModel(detailUseCase: detailUsecase, project: Project(), isNewProject: true)
+        }
+        return DetailViewModel(detailUseCase: detailUsecase, project: project)
     }
 }

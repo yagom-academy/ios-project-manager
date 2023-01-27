@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BF6CA755296EA27800F88564 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6CA754296EA27800F88564 /* Date+.swift */; };
-		BF7F44302978650B00C9E7A6 /* ListOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7F442F2978650B00C9E7A6 /* ListOutput.swift */; };
 		BF7F44342978975A00C9E7A6 /* DetailProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7F44332978975A00C9E7A6 /* DetailProject.swift */; };
 		BF884468297057A6001C9459 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF884467297057A6001C9459 /* Constant.swift */; };
 		BF88446C2972DFE7001C9459 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88446B2972DFE7001C9459 /* Project.swift */; };
@@ -37,7 +36,6 @@
 
 /* Begin PBXFileReference section */
 		BF6CA754296EA27800F88564 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
-		BF7F442F2978650B00C9E7A6 /* ListOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOutput.swift; sourceTree = "<group>"; };
 		BF7F44332978975A00C9E7A6 /* DetailProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProject.swift; sourceTree = "<group>"; };
 		BF884467297057A6001C9459 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		BF88446B2972DFE7001C9459 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -191,7 +189,6 @@
 			isa = PBXGroup;
 			children = (
 				BF8844F029766B26001C9459 /* ListUseCase.swift */,
-				BF7F442F2978650B00C9E7A6 /* ListOutput.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -364,7 +361,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF7F44302978650B00C9E7A6 /* ListOutput.swift in Sources */,
 				BFB0AE462978E42200B71886 /* UITextView+.swift in Sources */,
 				BF884468297057A6001C9459 /* Constant.swift in Sources */,
 				BF8844F329766B53001C9459 /* DefaultListUseCase.swift in Sources */,

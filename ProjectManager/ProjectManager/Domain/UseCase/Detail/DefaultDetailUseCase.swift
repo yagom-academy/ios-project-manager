@@ -11,31 +11,6 @@ final class DefaultDetailUseCase: DetailUseCase {
     
     typealias Number = Constant.Number
     
-    private let project: Project
-    var state: State {
-        return project.state
-    }
-    
-    init(project: Project) {
-        self.project = project
-    }
-    
-    func fetchTitleText() -> String {
-        return project.title
-    }
-    
-    func fetchDescriptionText() -> String {
-        return project.description
-    }
-    
-    func fetchDeadline() -> Date {
-        return project.deadline
-    }
-    
-    func fetchIdentifier() -> UUID {
-        return project.identifier
-    }
-    
     func isValidateDescription(text: String) -> Bool {
         return text.count <= Number.descriptionLimit
     }

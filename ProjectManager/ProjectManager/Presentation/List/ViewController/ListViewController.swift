@@ -193,19 +193,21 @@ final class ListViewController: UIViewController {
     
     func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Project> { (cell, indexPath, project) in
-            guard let values = self.viewModel?.fetchValues(from: project) else {
+            guard let state = State(rawValue: indexPath.section),
+                  let isOverdue = self.viewModel?.isOverdue(state: state, index: indexPath.item),
+                  let texts = self.viewModel?.fetchTexts(state: state, index: indexPath.item) else {
                 return
             }
-            switch project.state {
+            switch state {
             case .done:
-                cell.configure(title: values.title,
-                               description: values.description,
-                               deadline: values.deadline)
+                cell.configure(title: texts.title,
+                               description: texts.description,
+                               deadline: texts.deadline)
             default:
-                cell.configure(title: values.title,
-                               description: values.description,
-                               deadline: values.deadline,
-                               isOverDue: values.isOverdue)
+                cell.configure(title: texts.title,
+                               description: texts.description,
+                               deadline: texts.deadline,
+                               isOverdue: isOverdue)
             }
         }
         dataSource = UICollectionViewDiffableDataSource<State, Project>(collectionView: projectCollectionView) {
@@ -301,15 +303,18 @@ extension ListViewController: UIGestureRecognizerDelegate {
         }
         
         return UIAlertAction(title: title, style: .default) { [weak self] _ in
-            self?.viewModel?.saveProject(project)
+            self?.viewModel?.moveProject(identifier: project.identifier, to: state)
         }
     }
 }
 
 extension ListViewController: DetailProjectDelegate {
     
-    func detailProject(willSave project: Project) {
-        viewModel?.saveProject(project)
-        projectCollectionView.reloadData()
+    func detailProject(willSave: (title: String, description: String, deadline: Date, identifier: UUID?)) {
+        viewModel?.saveProject(title: willSave.title,
+                               description: willSave.description,
+                               deadline: willSave.deadline,
+                               identifier: willSave.identifier)
+        configureSnapshot()
     }
 }

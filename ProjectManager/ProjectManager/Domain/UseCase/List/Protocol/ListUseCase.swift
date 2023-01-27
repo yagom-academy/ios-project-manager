@@ -5,10 +5,11 @@
 //  Created by GUNDY on 2023/01/17.
 //
 
+import Foundation
+
 protocol ListUseCase {
     
-    var listOutput: ListOutput? { get set }
-    func fetchProjectList(state: State) -> [Project]
-    func saveProject(_ project: Project)
-    func removeProject(_ project: Project)
+    func makeProject(title: String, description: String, deadline: Date, identifier: UUID?) -> Project
+    func editProject(list: [Project], project: Project) -> [Project]
+    func removeProject(list: [Project], index: Int) -> [Project]
 }

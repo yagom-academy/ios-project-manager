@@ -5,6 +5,8 @@
 //  Created by GUNDY on 2023/01/19.
 //
 
+import Foundation
+
 protocol DetailProject {
     
     var delegate: DetailProjectDelegate? { get set }
@@ -13,5 +15,5 @@ protocol DetailProject {
 protocol DetailProjectDelegate: AnyObject {
     
     var viewModel: ListViewModel? { get set }
-    func detailProject(willSave project: Project)
+    func detailProject(willSave: (title: String, description: String, deadline: Date, identifier: UUID?))
 }
