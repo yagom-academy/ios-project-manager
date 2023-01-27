@@ -29,7 +29,6 @@
 		DFDDB68A2980469100C14CE2 /* TaskUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */; };
 		DFDDB68C298046B100C14CE2 /* TaskItemsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */; };
 		DFDDB68E298047A100C14CE2 /* TaskItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */; };
-		DFDDB69129804B4800C14CE2 /* Date + converted.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69029804B4800C14CE2 /* Date + converted.swift */; };
 		DFDDB69329804C3A00C14CE2 /* TaskSwitchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69229804C3A00C14CE2 /* TaskSwitchViewModel.swift */; };
 		DFDDB69529804DD300C14CE2 /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69429804DD300C14CE2 /* AddTaskViewModel.swift */; };
 		DFDDB69D2980511B00C14CE2 /* EditTaskVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69C2980511B00C14CE2 /* EditTaskVIewModel.swift */; };
@@ -57,7 +56,6 @@
 		DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUseCaseType.swift; sourceTree = "<group>"; };
 		DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemsUseCase.swift; sourceTree = "<group>"; };
 		DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItemViewModel.swift; sourceTree = "<group>"; };
-		DFDDB69029804B4800C14CE2 /* Date + converted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + converted.swift"; sourceTree = "<group>"; };
 		DFDDB69229804C3A00C14CE2 /* TaskSwitchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSwitchViewModel.swift; sourceTree = "<group>"; };
 		DFDDB69429804DD300C14CE2 /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
 		DFDDB69C2980511B00C14CE2 /* EditTaskVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVIewModel.swift; sourceTree = "<group>"; };
@@ -217,7 +215,6 @@
 		DFDDB68F29804B2900C14CE2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DFDDB69029804B4800C14CE2 /* Date + converted.swift */,
 				DFDDB6A0298051FC00C14CE2 /* UITableView + didLongPress.swift */,
 			);
 			path = Extensions;
@@ -318,7 +315,6 @@
 				DFDDB69329804C3A00C14CE2 /* TaskSwitchViewModel.swift in Sources */,
 				DF155098297820CA00A7FDC7 /* AddTaskViewController.swift in Sources */,
 				DFCA28422977DFBE00C1EBF2 /* TaskStatusInfoView.swift in Sources */,
-				DFDDB69129804B4800C14CE2 /* Date + converted.swift in Sources */,
 				DFDDB69F2980513200C14CE2 /* EditTaskViewController.swift in Sources */,
 				DFDDB6A1298051FC00C14CE2 /* UITableView + didLongPress.swift in Sources */,
 				DF4682992977A85A00E3BC06 /* ProjectManagerViewModel.swift in Sources */,

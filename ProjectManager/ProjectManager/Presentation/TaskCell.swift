@@ -107,3 +107,25 @@ extension TaskCell {
         taskExpirationLabel.text = nil
     }
 }
+
+private extension Date {
+    
+    func converted() -> String {
+        return createTaskCellDateFormatter().string(from: self)
+    }
+    
+    func expired() -> NSAttributedString {
+        let string = createTaskCellDateFormatter().string(from: self)
+        let range = NSRange(location: 0, length: string.count)
+        let mutableString = NSMutableAttributedString(string: string)
+        mutableString.setAttributes([.foregroundColor: UIColor.systemRed], range: range)
+        
+        return mutableString
+    }
+    
+    private func createTaskCellDateFormatter() -> DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.setLocalizedDateFormatFromTemplate("yyyyMMMdd")
+        return dateFormatter
+    }
+}
