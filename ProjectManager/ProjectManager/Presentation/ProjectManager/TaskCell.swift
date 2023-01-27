@@ -11,28 +11,28 @@ final class TaskCell: UITableViewCell {
     
     // MARK: View
     
-    private var taskTitleLabel: UILabel = {
+    private let taskTitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .boldSystemFont(ofSize: 20)
         
         return label
     }()
-    private var taskDescriptionLabel: UILabel = {
+    private let taskDescriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
         label.textColor = .systemGray3
         
         return label
     }()
-    private var taskExpirationLabel: UILabel = {
+    private let taskExpirationLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         
         return label
     }()
     
-    private var wholeStackView: UIStackView = {
+    private let wholeStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
