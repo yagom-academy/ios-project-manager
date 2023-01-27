@@ -16,7 +16,7 @@ final class EditTaskViewController: UIViewController {
     
     // MARK: Subview
     
-    private var titleTextView: UITextView = {
+    private let titleTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .systemFont(ofSize: 20)
@@ -24,7 +24,7 @@ final class EditTaskViewController: UIViewController {
         
         return textView
     }()
-    private var datePickerView: UIDatePicker = {
+    private let datePickerView: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
@@ -35,7 +35,7 @@ final class EditTaskViewController: UIViewController {
         
         return picker
     }()
-    private var descriptionTextView: UITextView = {
+    private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .systemFont(ofSize: 20)
