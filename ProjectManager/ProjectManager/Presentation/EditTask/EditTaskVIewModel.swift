@@ -11,11 +11,11 @@ import RxSwift
 final class EditTaskViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     private var useCase: TaskItemsUseCase
-    var title: String
-    var description: String
-    var date: Date
-    var status: Task.Status
-    var task: Task
+    private var title: String
+    private var description: String
+    private var date: Date
+    private var status: Task.Status
+    private var task: Task
     
     init(item: TaskItemViewModel, useCase: TaskItemsUseCase) {
         self.title = item.title
@@ -30,11 +30,19 @@ final class EditTaskViewModel: ViewModelType {
 // MARK: Function
 
 extension EditTaskViewModel {
+    
     func transform(input: Input) -> Output {
         
         let canEdit = input.editTrigger.flatMapLatest {
             return Observable.just(true)
         }
+        
+        let initialSetUpItem = input.initialSetUpTrigger
+            .map { _ in
+                return InitialEditItem(title: self.title,
+                                       date: self.date,
+                                       description: self.description)
+            }
         
         let _ = input.titleTrigger
             .subscribe(onNext: {
@@ -59,7 +67,9 @@ extension EditTaskViewModel {
                 return self.useCase.update(task: editedTask)
             }
         
-        return Output(canEdit: canEdit, editedTask: editedTask)
+        return Output(canEdit: canEdit,
+                      editedTask: editedTask,
+                      initialSetUpData: initialSetUpItem)
     }
     
     private func reformTask() -> Task {
@@ -75,6 +85,7 @@ extension EditTaskViewModel {
 
 extension EditTaskViewModel {
     struct Input {
+        let initialSetUpTrigger: Observable<Void>
         let editTrigger: Observable<Void>
         let doneTrigger: Observable<Void>
         let titleTrigger: Observable<String>
@@ -84,5 +95,11 @@ extension EditTaskViewModel {
     struct Output {
         let canEdit: Observable<Bool>
         let editedTask: Observable<Task>
+        let initialSetUpData: Observable<InitialEditItem>
+    }
+    struct InitialEditItem {
+        let title: String
+        let date: Date
+        let description: String
     }
 }

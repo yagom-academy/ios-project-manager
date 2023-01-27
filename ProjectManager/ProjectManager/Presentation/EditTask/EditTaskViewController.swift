@@ -51,7 +51,6 @@ final class EditTaskViewController: UIViewController {
         
         configureNavigationBar()
         configureViewLayout()
-        insertData()
         bindViewModel()
     }
 }
@@ -59,19 +58,15 @@ final class EditTaskViewController: UIViewController {
 // MARK: Functions
 extension EditTaskViewController {
     
-    private func insertData() {
-        guard let viewModel = self.viewModel else { return }
-        titleTextView.text = viewModel.title
-        datePickerView.date = viewModel.date
-        descriptionTextView.text = viewModel.description
-    }
-    
     func bindViewModel() {
         guard let viewModel = self.viewModel,
               let doneButton = navigationItem.rightBarButtonItem,
               let editButton = navigationItem.leftBarButtonItem
         else { return }
         
+        let initialSetUpTrigger = self.rx
+            .methodInvoked(#selector(viewWillAppear))
+            .map { _ in }
         let editTrigger = editButton.rx.tap.asObservable()
         let doneTrigger = doneButton.rx.tap.asObservable()
         let title = titleTextView.rx.text
@@ -84,10 +79,20 @@ extension EditTaskViewController {
             .asObservable()
         let date = datePickerView.rx.date.asObservable()
         
-        let input = EditTaskViewModel.Input(editTrigger: editTrigger, doneTrigger: doneTrigger,
+        let input = EditTaskViewModel.Input(initialSetUpTrigger: initialSetUpTrigger,
+                                            editTrigger: editTrigger, doneTrigger: doneTrigger,
                                             titleTrigger: title, descriptionTrigger: description,
                                             dateTrigger: date)
         let output = viewModel.transform(input: input)
+        
+        output.initialSetUpData
+            .subscribe(onNext: { initialData in
+                self.titleTextView.text = initialData.title
+                self.datePickerView.date = initialData.date
+                self.descriptionTextView.text = initialData.description
+                
+            })
+            .disposed(by: disposeBag)
         
         output.canEdit
             .subscribe(onNext: { _ in
