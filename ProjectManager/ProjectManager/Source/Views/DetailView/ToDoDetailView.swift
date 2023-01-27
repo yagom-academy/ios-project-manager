@@ -89,11 +89,11 @@ final class ToDoDetailView: UIView {
         ])
     }
     
-    func currentContent() -> ToDo {
-        return ToDo(title: titleTextField.text ?? .init(),
-                    body: bodyTextView.text,
-                    deadline: datePicker.date,
-                    state: .toDo)
+    func currentContent() -> ToDoDataForm {
+        return ToDoDataForm(title: titleTextField.text ?? .init(),
+                            body: bodyTextView.text,
+                            deadline: datePicker.date,
+                            state: .toDo)
     }
     
     func setupContent(data: ToDo) {

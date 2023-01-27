@@ -1,10 +1,10 @@
 //  ProjectManager - ToDoState.swift
 //  created by zhilly on 2023/01/13
 
-enum ToDoState {
-    case toDo
-    case doing
-    case done
+enum ToDoState: Int16 {
+    case toDo = 1
+    case doing = 2
+    case done = 3
 }
 
 extension ToDoState: CustomStringConvertible {

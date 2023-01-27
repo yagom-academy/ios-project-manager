@@ -92,11 +92,11 @@ final class AddToDoViewController: UIViewController {
         }
         
         let data = detailView.currentContent()
-        let toDo = ToDo(title: data.title,
+        let todo = ToDo(title: data.title,
                         body: data.body,
                         deadline: data.deadline,
-                        state: .toDo)
-        viewModel.addToDo(item: toDo)
+                        state: data.state)
+        viewModel.addToDo(item: todo)
         
         dismiss(animated: true)
     }

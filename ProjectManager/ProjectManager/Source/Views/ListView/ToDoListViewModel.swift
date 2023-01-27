@@ -9,8 +9,16 @@ final class ToDoListViewModel {
     let doingModel: Observable<[ToDo]> = Observable([])
     let doneModel: Observable<[ToDo]> = Observable([])
     
+    private let todoCoreDataManager = ToDoManager.shared
+    
     func addToDo(item: ToDo) {
         todoModel.value.append(item)
+        
+        do {
+            try todoCoreDataManager.add(item)
+        } catch {
+            print("CoreData Add Error!")
+        }
         
         NotificationCenter.default.post(name: Notification.Name.added,
                                         object: nil,
