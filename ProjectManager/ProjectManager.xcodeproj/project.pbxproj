@@ -29,6 +29,8 @@
 		EBDA9B73296D3DF600568E3B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBDA9B72296D3DF600568E3B /* FirebaseFirestoreSwift */; };
 		EBFD66552983B6E600F7BB36 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBFD66542983B6E600F7BB36 /* GoogleService-Info.plist */; };
 		EBFD66572983B76500F7BB36 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66562983B76500F7BB36 /* DatabaseManager.swift */; };
+		EBFD665A2983BE2800F7BB36 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66582983BE2800F7BB36 /* Model.xcdatamodeld */; };
+		EBFD665C2983BEE800F7BB36 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		EBDA9B6D296D376A00568E3B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		EBFD66542983B6E600F7BB36 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EBFD66562983B76500F7BB36 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		EBFD66592983BE2800F7BB36 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				EBFD66582983BE2800F7BB36 /* Model.xcdatamodeld */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				EBFD66542983B6E600F7BB36 /* GoogleService-Info.plist */,
 			);
@@ -118,6 +123,7 @@
 				EB9B140229719C0000D601F1 /* ProjectTodo.swift */,
 				EB9B140429719C1A00D601F1 /* ProjectState.swift */,
 				EBFD66562983B76500F7BB36 /* DatabaseManager.swift */,
+				EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -274,6 +280,7 @@
 				EB9B140C2971B8AC00D601F1 /* ProjectTodoListContentView.swift in Sources */,
 				EB9B1410297237DC00D601F1 /* ProjectTodoViewController.swift in Sources */,
 				EBFD66572983B76500F7BB36 /* DatabaseManager.swift in Sources */,
+				EBFD665A2983BE2800F7BB36 /* Model.xcdatamodeld in Sources */,
 				EBBB2E70297589E200FDF6B8 /* ProjectTodoViewModel.swift in Sources */,
 				EBBB2E6E2975749400FDF6B8 /* ProjectTodoListViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
@@ -284,6 +291,7 @@
 				EB9B140A2971AEC800D601F1 /* Constants.swift in Sources */,
 				EB9B140329719C0000D601F1 /* ProjectTodo.swift in Sources */,
 				EB9B141829727AD100D601F1 /* ItemCountLabel.swift in Sources */,
+				EBFD665C2983BEE800F7BB36 /* PersistenceManager.swift in Sources */,
 				EB9B14082971AD0600D601F1 /* ProjectColor.swift in Sources */,
 				EB9B140E2971C2B000D601F1 /* Date+.swift in Sources */,
 			);
@@ -492,6 +500,19 @@
 			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		EBFD66582983BE2800F7BB36 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EBFD66592983BE2800F7BB36 /* Model.xcdatamodel */,
+			);
+			currentVersion = EBFD66592983BE2800F7BB36 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
