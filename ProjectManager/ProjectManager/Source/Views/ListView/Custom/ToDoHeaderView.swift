@@ -3,7 +3,7 @@
 
 import UIKit
 
-class ToDoHeaderView: UITableViewHeaderFooterView, ReusableView {
+final class ToDoHeaderView: UITableViewHeaderFooterView, ReusableView {
     
     private var titleLabel: UILabel = {
         let label = UILabel()
