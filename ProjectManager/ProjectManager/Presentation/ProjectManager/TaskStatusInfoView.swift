@@ -8,9 +8,9 @@
 import UIKit
 import RxSwift
 
-class TaskStatusInfoView: UIView {
+final class TaskStatusInfoView: UIView {
 
-// MARK: View
+    // MARK: View
     
     private var taskNameLabel: UILabel = {
         let label = UILabel()
@@ -26,7 +26,6 @@ class TaskStatusInfoView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     private var wholeStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +36,7 @@ class TaskStatusInfoView: UIView {
         return stack
     }()
     
-// MARK: Initialization
+    // MARK: Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,37 +49,37 @@ class TaskStatusInfoView: UIView {
     }
 }
 
-// MARK: Functions
-
 extension TaskStatusInfoView {
+    
+    // MARK: Functions
+    
     func setUpCount(count: Int) {
-        self.taskCountLabel.text = count.description
+        taskCountLabel.text = count.description
     }
     
     func setTitle(with string: String) {
-        self.taskNameLabel.text = string
+        taskNameLabel.text = string
     }
-}
 
-// MARK: Layout
-
-extension TaskStatusInfoView {
+    // MARK: Layout
+    
     private func configureViewLayout() {
         wholeStackView.addArrangedSubview(taskNameLabel)
         wholeStackView.addArrangedSubview(taskCountLabel)
-        self.addSubview(wholeStackView)
+        addSubview(wholeStackView)
         
         NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: 80),
-            wholeStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            wholeStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
+            heightAnchor.constraint(equalToConstant: 80),
+            wholeStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            wholeStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
         ])
+        
         NSLayoutConstraint.activate([
-            self.taskNameLabel.widthAnchor.constraint(equalToConstant: 100),
-            self.taskNameLabel.heightAnchor.constraint(equalToConstant: 40),
+            taskNameLabel.widthAnchor.constraint(equalToConstant: 100),
+            taskNameLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            self.taskCountLabel.widthAnchor.constraint(equalToConstant: 40),
-            self.taskCountLabel.heightAnchor.constraint(equalToConstant: 40)
+            taskCountLabel.widthAnchor.constraint(equalToConstant: 40),
+            taskCountLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         taskCountLabel.backgroundColor = .black
