@@ -12,14 +12,14 @@ final class TaskStatusInfoView: UIView {
 
     // MARK: View
     
-    private var taskNameLabel: UILabel = {
+    private let taskNameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = label.font.withSize(30)
         
         return label
     }()
-    private var taskCountLabel: UILabel = {
+    private let taskCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .black
@@ -32,7 +32,7 @@ final class TaskStatusInfoView: UIView {
         return label
     }()
     
-    private var wholeStackView: UIStackView = {
+    private let wholeStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
