@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectTodo {
+struct ProjectTodo: Codable {
     let id: UUID
     var state: ProjectState
     var title: String

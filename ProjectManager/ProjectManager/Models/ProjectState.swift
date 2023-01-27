@@ -5,7 +5,7 @@
 //  Created by junho lee on 2023/01/13.
 //
 
-enum ProjectState: Int, CaseIterable {
+enum ProjectState: Int, CaseIterable, Codable {
     case todo, doing, done
 }
 

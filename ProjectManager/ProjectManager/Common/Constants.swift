@@ -8,6 +8,8 @@
 import Foundation
 
 enum Constants {
+    // MARK: View
+
     static let programName = "Project Manager"
     static let defaultSpacing = CGFloat(10)
     static let smallSpacing = CGFloat(5)
@@ -16,4 +18,12 @@ enum Constants {
     static let descriptionTextViewMaxTextLength = 1000
     static let itemCountLabelMaxCount = 99
     static let collectionViewMinimumPressDuration = 0.5
+
+    // MARK: Database
+
+    static let databaseCollection = "projectTodos"
+    static let databaseStateField = "state"
+    static let databaseTitleField = "title"
+    static let databaseDescriptionField = "description"
+    static let databaseDueDateField = "dueDate"
 }
