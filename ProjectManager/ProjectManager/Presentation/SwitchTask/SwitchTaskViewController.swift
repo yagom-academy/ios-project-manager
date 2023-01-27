@@ -122,18 +122,10 @@ extension SwitchTaskViewController {
     private func configureViewConstraints() {
         
         NSLayoutConstraint.activate([
-            wholeStackView.topAnchor.constraint(
-                equalTo: view.layoutMarginsGuide.topAnchor
-            ),
-            wholeStackView.bottomAnchor.constraint(
-                equalTo: view.layoutMarginsGuide.bottomAnchor)
-            ,
-            wholeStackView.leadingAnchor.constraint(
-                equalTo: view.layoutMarginsGuide.leadingAnchor
-            ),
-            wholeStackView.trailingAnchor.constraint(
-                equalTo: view.layoutMarginsGuide.trailingAnchor
-            ),
+            wholeStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            wholeStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            wholeStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            wholeStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
         ])
     }
 }
