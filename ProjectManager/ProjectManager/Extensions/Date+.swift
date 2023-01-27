@@ -22,4 +22,12 @@ extension Date {
         dateFormatter.timeStyle = .none
         return dateFormatter.string(from: self)
     }
+
+    func localizedDateTimeString() -> String {
+        let dateFormatter = Self.dateFormatter
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? Locale.current.description)
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .medium
+        return dateFormatter.string(from: self)
+    }
 }

@@ -33,6 +33,7 @@
 		EBFD665C2983BEE800F7BB36 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */; };
 		EBFD665E2983C2B200F7BB36 /* ProjectTodoHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD665D2983C2B200F7BB36 /* ProjectTodoHistory.swift */; };
 		EBFD66602983C4C000F7BB36 /* ProjectTodoHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD665F2983C4C000F7BB36 /* ProjectTodoHistoryViewModel.swift */; };
+		EBFD66622983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66612983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		EBFD665D2983C2B200F7BB36 /* ProjectTodoHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoHistory.swift; sourceTree = "<group>"; };
 		EBFD665F2983C4C000F7BB36 /* ProjectTodoHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoHistoryViewModel.swift; sourceTree = "<group>"; };
+		EBFD66612983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoHistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			children = (
 				EB9B14002971916500D601F1 /* ProjectTodoListViewController.swift */,
 				EB9B140F297237DC00D601F1 /* ProjectTodoViewController.swift */,
+				EBFD66612983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				EBFD66602983C4C000F7BB36 /* ProjectTodoHistoryViewModel.swift in Sources */,
 				EB9B141829727AD100D601F1 /* ItemCountLabel.swift in Sources */,
 				EBFD665C2983BEE800F7BB36 /* PersistenceManager.swift in Sources */,
+				EBFD66622983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift in Sources */,
 				EB9B14082971AD0600D601F1 /* ProjectColor.swift in Sources */,
 				EB9B140E2971C2B000D601F1 /* Date+.swift in Sources */,
 			);

@@ -8,6 +8,7 @@
 import Foundation
 
 enum Constants {
+
     // MARK: View
 
     static let programName = "Project Manager"
@@ -18,6 +19,7 @@ enum Constants {
     static let descriptionTextViewMaxTextLength = 1000
     static let itemCountLabelMaxCount = 99
     static let collectionViewMinimumPressDuration = 0.5
+    static let historyItemMaxCount = 7
 
     // MARK: Database
 

@@ -57,6 +57,11 @@ final class ProjectTodoListViewController: UIViewController {
 
     private func configureNavigationItem() {
         navigationItem.title = Constants.programName
+        let historyBarButtonItemTitle = NSLocalizedString("History", comment: "History Button Title")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: historyBarButtonItemTitle,
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(didPressHistoryButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(didPressAddButton))
@@ -219,6 +224,16 @@ extension ProjectTodoListViewController {
         }
         let navigationController = UINavigationController(rootViewController: projectTodoViewController)
         present(navigationController, animated: true)
+    }
+
+    @objc
+    private func didPressHistoryButton(_ sender: UIBarButtonItem) {
+        let projectTodoHistoryViewController = ProjectTodoHistoryViewController(
+            projectTodoHistoryViewModel: projectTodoHistoryViewModel
+        )
+        projectTodoHistoryViewController.modalPresentationStyle = .popover
+        projectTodoHistoryViewController.popoverPresentationController?.barButtonItem = sender
+        present(projectTodoHistoryViewController, animated: true)
     }
 }
 
