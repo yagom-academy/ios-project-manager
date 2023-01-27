@@ -11,10 +11,10 @@ import RxSwift
 final class AddTaskViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     private var useCase: TaskItemsUseCase
-    var title: String
-    var description: String
-    var date: Date
-    var status: Task.Status
+    private var title: String
+    private var description: String
+    private var date: Date
+    private var status: Task.Status
     
     init(useCase: TaskItemsUseCase) {
         self.title = ""
