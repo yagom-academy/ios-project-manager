@@ -279,18 +279,18 @@ extension ProjectManagerViewController {
     private func bindViewModel() {
         guard let viewModel = self.viewModel else { return }
         
-        let todoDeleted = todoTableView.rx
+        let todoDeletedTrigger = todoTableView.rx
             .modelDeleted(TaskItemViewModel.self)
             .asObservable()
-        let doingDeleted = doingTableView.rx
+        let doingDeletedTrigger = doingTableView.rx
             .modelDeleted(TaskItemViewModel.self)
             .asObservable()
-        let doneDeleted = doneTableView.rx
+        let doneDeletedTrigger = doneTableView.rx
             .modelDeleted(TaskItemViewModel.self)
             .asObservable()
-        
-        let deletedTrigger = Observable.merge(todoDeleted, doingDeleted, doneDeleted)
-        
+        let deletedTrigger = Observable.merge(todoDeletedTrigger,
+                                              doingDeletedTrigger,
+                                              doneDeletedTrigger)
         let updateTrigger = self.rx
             .methodInvoked(#selector(UIViewController.viewWillAppear(_:)))
             .map { _ in }
