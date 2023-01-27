@@ -288,13 +288,16 @@ extension ListViewController: UIGestureRecognizerDelegate {
         switch project.state {
         case .toDo:
             return [makeMoveAction(project: project, to: .doing),
-                    makeMoveAction(project: project, to: .done)]
+                    makeMoveAction(project: project, to: .done),
+                    makeDeleteAction(project: project)]
         case .doing:
             return [makeMoveAction(project: project, to: .toDo),
-                    makeMoveAction(project: project, to: .done)]
+                    makeMoveAction(project: project, to: .done),
+                    makeDeleteAction(project: project)]
         case .done:
             return [makeMoveAction(project: project, to: .toDo),
-                    makeMoveAction(project: project, to: .doing)]
+                    makeMoveAction(project: project, to: .doing),
+                    makeDeleteAction(project: project)]
         }
     }
     
@@ -315,6 +318,13 @@ extension ListViewController: UIGestureRecognizerDelegate {
         
         return UIAlertAction(title: title, style: .default) { [weak self] _ in
             self?.viewModel?.moveProject(identifier: project.identifier, to: state)
+            self?.configureSnapshot()
+        }
+    }
+    
+    private func makeDeleteAction(project: Project) -> UIAlertAction {
+        return UIAlertAction(title: Text.deleteActionTitle, style: .destructive) { [weak self] _ in
+            self?.viewModel?.removeProject(identifier: project.identifier)
             self?.configureSnapshot()
         }
     }
@@ -342,5 +352,6 @@ extension ListViewController {
         static let moveToToDo: String = "Move to TODO"
         static let moveToDoing: String = "Move to DOING"
         static let moveToDone: String = "Move to DONE"
+        static let deleteActionTitle: String = "Delete"
     }
 }
