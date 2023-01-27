@@ -33,51 +33,68 @@ extension EditTaskViewModel {
     
     func transform(input: Input) -> Output {
         
-        let canEdit = input.editTrigger.flatMapLatest {
-            return Observable.just(true)
-        }
+        let canEdit = input.editTrigger
+            .flatMapLatest {
+                return Observable.just(true)
+            }
         
         let initialSetUpItem = input.initialSetUpTrigger
             .map { _ in
-                return InitialEditItem(title: self.title,
-                                       date: self.date,
-                                       description: self.description)
+                return InitialEditItem(
+                    title: self.title,
+                    date: self.date,
+                    description: self.description
+                )
             }
         
-        let _ = input.titleTrigger
-            .subscribe(onNext: {
-                self.title = $0
-            })
+        input.titleTrigger
+            .subscribe(
+                onNext: {
+                    self.title = $0
+                }
+            )
             .disposed(by: disposeBag)
-        let _ = input.descriptionTrigger
-            .subscribe(onNext: {
-                self.description = $0
-            })
+        
+        input.descriptionTrigger
+            .subscribe(
+                onNext: {
+                    self.description = $0
+                }
+            )
             .disposed(by: disposeBag)
-        let _ = input.dateTrigger
-            .subscribe(onNext: {
-                self.date = $0
-            })
+        
+        input.dateTrigger
+            .subscribe(
+                onNext: {
+                    self.date = $0
+                }
+            )
             .disposed(by: disposeBag)
         
         
         let editedTask = input.doneTrigger
             .flatMapLatest {
                 let editedTask = self.reformTask()
-                return self.useCase.update(task: editedTask)
+                
+                return self.useCase
+                    .update(task: editedTask)
             }
         
-        return Output(canEdit: canEdit,
-                      editedTask: editedTask,
-                      initialSetUpData: initialSetUpItem)
+        return Output(
+            canEdit: canEdit,
+            editedTask: editedTask,
+            initialSetUpData: initialSetUpItem
+        )
     }
     
     private func reformTask() -> Task {
-        return Task(title: title,
-                    description: description,
-                    expireDate: date,
-                    status: status,
-                    uuid: task.uuid)
+        return Task(
+            title: title,
+            description: description,
+            expireDate: date,
+            status: status,
+            uuid: task.uuid
+        )
     }
 }
 
