@@ -31,6 +31,7 @@
 		EBFD66572983B76500F7BB36 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66562983B76500F7BB36 /* DatabaseManager.swift */; };
 		EBFD665A2983BE2800F7BB36 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66582983BE2800F7BB36 /* Model.xcdatamodeld */; };
 		EBFD665C2983BEE800F7BB36 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */; };
+		EBFD665E2983C2B200F7BB36 /* ProjectTodoHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD665D2983C2B200F7BB36 /* ProjectTodoHistory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		EBFD66562983B76500F7BB36 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		EBFD66592983BE2800F7BB36 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		EBFD665D2983C2B200F7BB36 /* ProjectTodoHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoHistory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			children = (
 				EB9B140229719C0000D601F1 /* ProjectTodo.swift */,
 				EB9B140429719C1A00D601F1 /* ProjectState.swift */,
+				EBFD665D2983C2B200F7BB36 /* ProjectTodoHistory.swift */,
 				EBFD66562983B76500F7BB36 /* DatabaseManager.swift */,
 				EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */,
 			);
@@ -285,6 +288,7 @@
 				EBBB2E6E2975749400FDF6B8 /* ProjectTodoListViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				EB9B14122972386C00D601F1 /* TitleTextField.swift in Sources */,
+				EBFD665E2983C2B200F7BB36 /* ProjectTodoHistory.swift in Sources */,
 				EB9B140529719C1A00D601F1 /* ProjectState.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				EB9B14012971916500D601F1 /* ProjectTodoListViewController.swift in Sources */,
