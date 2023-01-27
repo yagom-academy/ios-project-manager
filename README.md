@@ -54,15 +54,15 @@
 │   ├── TaskStatusView.swift
 │   ├── ProjectManagerViewController.swift
 │   └── ProjectManagerViewModel.swift
-└── Domain
-    ├── UseCase
-    │   ├── TaskUseCaseType.swift
-    │   └── TaskItemsUseCase.swift
-    ├── Entities
-    │   └── Task.swift
-    └── Data
-        ├── DataSourceType.swift
-        └── MemoryDataSource.swift
+├── Domain
+│   ├── UseCase
+│   │   ├── TaskUseCaseType.swift
+│   │   └── TaskItemsUseCase.swift
+│   └── Entities
+│       └── Task.swift
+└── Data
+    ├── DataSourceType.swift
+    └── MemoryDataSource.swift
 ```
 
 ### Layer 구조
