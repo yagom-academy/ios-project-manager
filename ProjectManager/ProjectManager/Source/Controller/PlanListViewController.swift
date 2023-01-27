@@ -8,8 +8,9 @@
 import UIKit
 
 final class PlanListViewController: UITableViewController {
-    typealias DataSource = UITableViewDiffableDataSource<Int, Plan>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Plan>
+    typealias Section = Int
+    typealias DataSource = UITableViewDiffableDataSource<Section, Plan>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Plan>
 
     private enum LayoutConstraint {
         static let headerViewHeight: CGFloat = 50
