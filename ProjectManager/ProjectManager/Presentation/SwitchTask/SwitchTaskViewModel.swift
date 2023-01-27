@@ -9,8 +9,8 @@ import Foundation
 import RxSwift
 
 final class SwitchTaskViewModel: ViewModelType {
-    private var useCase: TaskItemsUseCase
-    private var task: Task
+    private let useCase: TaskItemsUseCase
+    private let task: Task
     
     init(useCase: TaskItemsUseCase, task: Task) {
         self.useCase = useCase
