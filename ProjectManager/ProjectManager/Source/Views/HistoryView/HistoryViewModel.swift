@@ -4,10 +4,13 @@
 import Foundation
 
 final class HistoryViewModel {
+    
     let model: Observable<[History]> = Observable([])
+    private let historyCoreDataManager = HistoryManager.shared
     
     init() {
         setupNotification()
+        fetchToCoreData()
     }
     
     private func setupNotification() {
@@ -27,6 +30,31 @@ final class HistoryViewModel {
                                                object: nil)
     }
     
+    private func fetchToCoreData() {
+        var fetchedData: [History]
+        
+        do {
+            fetchedData = try historyCoreDataManager.fetchObjects()
+            setToDoData(item: fetchedData)
+        } catch {
+            print("CoreData fetched data Fail!")
+        }
+    }
+    
+    private func setToDoData(item: [History]) {
+        item.forEach { item in
+            model.value.insert(item, at: 0)
+        }
+    }
+    
+    private func addToCoreData(item: History) {
+        do {
+            try historyCoreDataManager.add(item)
+        } catch {
+            print("CoreData Add Error!")
+        }
+    }
+    
     @objc
     func appendDeletedHistory(_ notification: Notification) {
         guard let data = notification.userInfo,
@@ -37,9 +65,10 @@ final class HistoryViewModel {
         
         let title = "Removed '\(deletedTitle)' from \(from)."
         let history = History(title: title,
-                              createdAt: DateFormatter.convertToFullString(to: Date()))
+                              createdAt: Date())
         
         model.value.insert(history, at: 0)
+        addToCoreData(item: history)
     }
     
     @objc
@@ -51,9 +80,10 @@ final class HistoryViewModel {
         
         let title = "Added '\(addedTitle)'."
         let history = History(title: title,
-                              createdAt: DateFormatter.convertToFullString(to: Date()))
+                              createdAt: Date())
         
         model.value.insert(history, at: 0)
+        addToCoreData(item: history)
     }
     
     @objc
@@ -67,8 +97,9 @@ final class HistoryViewModel {
         
         let title = "Moved '\(deletedTitle)' from \(pastState) to \(currentState)."
         let history = History(title: title,
-                              createdAt: DateFormatter.convertToFullString(to: Date()))
+                              createdAt: Date())
         
         model.value.insert(history, at: 0)
+        addToCoreData(item: history)
     }
 }

@@ -3,14 +3,26 @@
 
 import Foundation
 
-struct History: Hashable {
-    let id: UUID
-    let title: String
-    let createdAt: String
+struct History: ManagedObjectModel {
     
-    init(id: UUID = UUID(), title: String, createdAt: String) {
-        self.id = id
+    var objectID: String?
+    let title: String
+    let createdAt: Date
+    
+    init(objectID: String? = nil, title: String, createdAt: Date) {
+        self.objectID = objectID
         self.title = title
         self.createdAt = createdAt
+    }
+    
+    init?(from historyCoreModel: HistoryCoreModel) {
+        guard let title = historyCoreModel.title,
+              let createdAt = historyCoreModel.createdAt else {
+            return nil
+        }
+        
+        self.title = title
+        self.createdAt = createdAt
+        self.objectID = historyCoreModel.objectID.uriRepresentation().absoluteString
     }
 }

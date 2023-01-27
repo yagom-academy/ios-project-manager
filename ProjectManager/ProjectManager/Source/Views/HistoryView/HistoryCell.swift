@@ -55,6 +55,6 @@ final class HistoryCell: UITableViewCell, ReusableView {
     
     func configure(with item: History) {
         titleLabel.text = item.title
-        createdAtLabel.text = item.createdAt
+        createdAtLabel.text = DateFormatter.convertToFullString(to: item.createdAt)  
     }
 }

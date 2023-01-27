@@ -28,7 +28,7 @@ final class ToDoManager: CoreDataManageable {
     
     func add(_ todo: ToDo) throws {
         guard let entity = NSEntityDescription.entity(forEntityName: "ToDoCoreModel", in: context) else {
-            throw ToDoError.failedFetchEntity
+            throw CoreDataManagerError.failedFetchEntity
         }
         let todoObject = NSManagedObject(entity: entity, insertInto: context)
         
@@ -49,7 +49,7 @@ final class ToDoManager: CoreDataManageable {
     
     func update(_ todo: ToDo) throws {
         guard let objectID = fetchObjectID(from: todo.objectID) else {
-            throw ToDoError.invalidObjectID
+            throw CoreDataManagerError.invalidObjectID
         }
         let todoObject = context.object(with: objectID)
         
@@ -63,7 +63,7 @@ final class ToDoManager: CoreDataManageable {
     
     func remove(_ todo: ToDo) throws {
         guard let objectID = fetchObjectID(from: todo.objectID) else {
-            throw ToDoError.invalidObjectID
+            throw CoreDataManagerError.invalidObjectID
         }
         let todoObject = context.object(with: objectID)
         
