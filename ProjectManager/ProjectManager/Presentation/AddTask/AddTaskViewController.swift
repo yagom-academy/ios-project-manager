@@ -21,6 +21,7 @@ final class AddTaskViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainerInset = .init(top: 3, left: 3, bottom: 3, right: 3)
         textView.font = .systemFont(ofSize: 20)
+        
         return textView
     }()
     private let datePickerView: UIDatePicker = {
@@ -30,6 +31,7 @@ final class AddTaskViewController: UIViewController {
         picker.minimumDate = Date()
         picker.maximumDate = .distantFuture
         picker.translatesAutoresizingMaskIntoConstraints = false
+        
         return picker
     }()
     private let descriptionTextView: UITextView = {
@@ -37,6 +39,7 @@ final class AddTaskViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainerInset = .init(top: 3, left: 3, bottom: 3, right: 3)
         textView.font = .systemFont(ofSize: 20)
+        
         return textView
     }()
     
@@ -79,10 +82,12 @@ extension AddTaskViewController {
         let date = datePickerView.rx.date
             .asObservable()
         
-        let input = AddTaskViewModel.Input(doneTrigger: done,
-                                           titleTrigger: title,
-                                           descriptionTrigger: description,
-                                           dateTrigger: date)
+        let input = AddTaskViewModel.Input(
+            doneTrigger: done,
+            titleTrigger: title,
+            descriptionTrigger: description,
+            dateTrigger: date
+        )
         let output = viewmodel.transform(input: input)
         output.createdTask
             .subscribe(
@@ -96,10 +101,14 @@ extension AddTaskViewController {
     private func configureNavigationBar() {
         navigationItem.title = Titles.navigationItem
         navigationController?.navigationBar.backgroundColor = .systemGray3
-        let rightButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                          target: self, action: #selector(dismissView))
-        let leftButton = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                         target: self, action: #selector(dismissView))
+        let rightButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self, action: #selector(dismissView)
+        )
+        let leftButton = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self, action: #selector(dismissView)
+        )
         navigationItem.rightBarButtonItem = rightButton
         navigationItem.leftBarButtonItem = leftButton
     }
@@ -128,34 +137,58 @@ extension AddTaskViewController {
         let viewSafeLayoutGuide = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            titleTextView.topAnchor.constraint(equalTo: viewSafeLayoutGuide.topAnchor,
-                                               constant: 10),
-            titleTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                   constant: 10),
-            titleTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                    constant: -10),
-            titleTextView.heightAnchor.constraint(equalToConstant: 80),
+            titleTextView.topAnchor.constraint(
+                equalTo: viewSafeLayoutGuide.topAnchor,
+                constant: 10
+            ),
+            titleTextView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 10
+            ),
+            titleTextView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -10
+            ),
+            titleTextView.heightAnchor.constraint(
+                equalToConstant: 80
+            ),
         ])
         
         NSLayoutConstraint.activate([
-            datePickerView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor,
-                                                constant: 10),
-            datePickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                    constant: 10),
-            datePickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                     constant: -10),
-            datePickerView.heightAnchor.constraint(equalToConstant: 180),
+            datePickerView.topAnchor.constraint(
+                equalTo: titleTextView.bottomAnchor,
+                constant: 10
+            ),
+            datePickerView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 10
+            ),
+            datePickerView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -10
+            ),
+            datePickerView.heightAnchor.constraint(
+                equalToConstant: 180
+            ),
         ])
         
         NSLayoutConstraint.activate([
-            descriptionTextView.topAnchor.constraint(equalTo: datePickerView.bottomAnchor,
-                                                     constant: 10),
-            descriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                         constant: 10),
-            descriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                          constant: -10),
-            descriptionTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                                        constant: -10),
+            descriptionTextView.topAnchor.constraint(
+                equalTo: datePickerView.bottomAnchor,
+                constant: 10
+            ),
+            descriptionTextView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 10
+            ),
+            descriptionTextView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -10
+            ),
+            descriptionTextView.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor,
+                constant: -10
+            ),
         ])
     }
 }
