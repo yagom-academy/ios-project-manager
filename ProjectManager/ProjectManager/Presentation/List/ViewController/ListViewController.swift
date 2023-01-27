@@ -105,16 +105,16 @@ final class ListViewController: UIViewController {
     }
     
     private func configureHandler() {
-        viewModel?.bindToDoList() { list in
-            self.toDoHeaderView.setCount(number: list.count)
+        viewModel?.bindToDoList() { [weak self] list in
+            self?.toDoHeaderView.setCount(number: list.count)
         }
         
-        viewModel?.bindDoingList() { list in
-            self.doingHeaderView.setCount(number: list.count)
+        viewModel?.bindDoingList() { [weak self] list in
+            self?.doingHeaderView.setCount(number: list.count)
         }
         
-        viewModel?.bindDoneList() { list in
-            self.doneHeaderView.setCount(number: list.count)
+        viewModel?.bindDoneList() { [weak self] list in
+            self?.doneHeaderView.setCount(number: list.count)
         }
     }
     
@@ -128,9 +128,9 @@ final class ListViewController: UIViewController {
     }
     
     private func addPlanAction() -> UIAction {
-        let action = UIAction { _ in
-            let detailViewModel = self.viewModel?.makeDetailViewModel()
-            self.presentDetailView(viewModel: detailViewModel)
+        let action = UIAction { [weak self] _ in
+            let detailViewModel = self?.viewModel?.makeDetailViewModel()
+            self?.presentDetailView(viewModel: detailViewModel)
         }
         
         return action
