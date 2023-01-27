@@ -15,25 +15,30 @@ final class TaskCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .boldSystemFont(ofSize: 20)
+        
         return label
     }()
     private var taskDescriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
         label.textColor = .systemGray3
+        
         return label
     }()
     private var taskExpirationLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
+        
         return label
     }()
+    
     private var wholeStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.alignment = .leading
         stack.spacing = 3
+        
         return stack
     }()
     
@@ -44,7 +49,8 @@ final class TaskCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        configureViewsLayout()
+        combineViews()
+        configureViewsConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -55,6 +61,7 @@ final class TaskCell: UITableViewCell {
 // MARK: Function
 
 extension TaskCell {
+    
     func setupUsingViewModel() {
         guard let viewModel = self.viewModel else { return }
         taskTitleLabel.text = viewModel.title
@@ -62,6 +69,7 @@ extension TaskCell {
         
         if viewModel.date <= Date() {
             taskExpirationLabel.attributedText = viewModel.date.expired()
+            
             return
         }
         
@@ -73,29 +81,37 @@ extension TaskCell {
 
 extension TaskCell {
     
-    private func configureViewsLayout() {
-        let contentViewInset = UIEdgeInsets(top: 10, left: 10,
-                                            bottom: 10, right: 10)
-        contentView.frame.inset(by: contentViewInset)
-        
-        layer.cornerRadius = 10
-        clipsToBounds = true
-        
+    private func combineViews() {
         wholeStackView.backgroundColor = .white
         wholeStackView.addArrangedSubview(taskTitleLabel)
         wholeStackView.addArrangedSubview(taskDescriptionLabel)
         wholeStackView.addArrangedSubview(taskExpirationLabel)
         contentView.addSubview(wholeStackView)
+    }
+    
+    private func configureViewsConstraints() {
+        let contentViewInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        contentView.frame.inset(by: contentViewInset)
+        layer.cornerRadius = 10
+        clipsToBounds = true
         
         NSLayoutConstraint.activate([
-            wholeStackView.topAnchor.constraint(equalTo: contentView.topAnchor,
-                                                constant: 8),
-            wholeStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
-                                                   constant: -8),
-            wholeStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                    constant: 8),
-            wholeStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                     constant: -8),
+            wholeStackView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: 8
+            ),
+            wholeStackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -8
+            ),
+            wholeStackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 8
+            ),
+            wholeStackView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -8
+            ),
         ])
     }
     
