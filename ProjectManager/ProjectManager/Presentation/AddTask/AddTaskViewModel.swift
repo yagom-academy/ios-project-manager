@@ -10,7 +10,7 @@ import RxSwift
 
 final class AddTaskViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
-    private var useCase: TaskItemsUseCase
+    private let useCase: TaskItemsUseCase
     private var title: String
     private var description: String
     private var date: Date

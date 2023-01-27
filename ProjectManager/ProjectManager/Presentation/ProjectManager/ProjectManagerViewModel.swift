@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 final class ProjectManagerViewModel: ViewModelType {
-    private var useCase: TaskUseCaseType
+    private let useCase: TaskUseCaseType
     
     init(useCase: TaskUseCaseType) {
         self.useCase = useCase
