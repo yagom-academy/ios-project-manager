@@ -109,8 +109,8 @@ final class ProjectManagerViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationController()
-        configureView()
         combineViews()
+        configureViewConstraints()
         addTableviewLongPressRecognizers()
         performBindings()
     }
@@ -156,10 +156,6 @@ extension ProjectManagerViewController {
                                              action: #selector(tapNavigationAddButton))
         navigationItem.rightBarButtonItem = rightAddButton
         navigationItem.title = Titles.navigationItem
-    }
-    
-    private func configureView() {
-        view.backgroundColor = .systemGray3
     }
     
     @objc
@@ -397,8 +393,11 @@ extension ProjectManagerViewController {
         wholeStackView.addArrangedSubview(doingStackView)
         wholeStackView.addArrangedSubview(doneStackView)
         
-        self.view.addSubview(wholeStackView)
-        
+        view.addSubview(wholeStackView)
+        view.backgroundColor = .systemGray3
+    }
+    
+    private func configureViewConstraints() {
         NSLayoutConstraint.activate([
             wholeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             wholeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
