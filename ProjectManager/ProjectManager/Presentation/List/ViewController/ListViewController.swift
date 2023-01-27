@@ -38,6 +38,7 @@ final class ListViewController: UIViewController {
                                               collectionViewLayout: createLayout())
         collectionView.backgroundColor = .clear
         collectionView.isScrollEnabled = false
+        collectionView.delegate = self
         collectionView.register(ListCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ListCollectionViewCell.reuseIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -124,14 +125,15 @@ final class ListViewController: UIViewController {
     private func configureLongPressGestureRecognizer() {
         let gestureRecognizer = UILongPressGestureRecognizer(target: self,
                                                              action: #selector(tappedLongPress))
-        gestureRecognizer.minimumPressDuration = 1
+        gestureRecognizer.minimumPressDuration = 0.5
         gestureRecognizer.delegate = self
         gestureRecognizer.delaysTouchesBegan = true
+        projectCollectionView.addGestureRecognizer(gestureRecognizer)
     }
     
     private func addPlanAction() -> UIAction {
         let action = UIAction { _ in
-            let detailViewModel = self.viewModel?.makeDetailViewModel(project: nil)
+            let detailViewModel = self.viewModel?.makeDetailViewModel()
             self.presentDetailView(viewModel: detailViewModel)
         }
         
@@ -231,6 +233,19 @@ final class ListViewController: UIViewController {
     }
 }
 
+extension ListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let state = State(rawValue: indexPath.section),
+              let list = viewModel?.fetchList(of: state) else {
+            return
+        }
+        let project = list[indexPath.item]
+        let detailViewModel = viewModel?.makeDetailViewModel(project: project)
+        presentDetailView(viewModel: detailViewModel)
+    }
+}
+
 extension ListViewController: UIGestureRecognizerDelegate {
     
     @objc func tappedLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -304,6 +319,7 @@ extension ListViewController: UIGestureRecognizerDelegate {
         
         return UIAlertAction(title: title, style: .default) { [weak self] _ in
             self?.viewModel?.moveProject(identifier: project.identifier, to: state)
+            self?.configureSnapshot()
         }
     }
 }
