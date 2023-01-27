@@ -47,8 +47,9 @@ final class SwitchTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        layoutViews()
+        
+        combineViews()
+        configureViewConstraints()
         configureAsPopover()
         addButtonActions()
         bindViewModel()
@@ -58,15 +59,15 @@ final class SwitchTaskViewController: UIViewController {
 // MARK: Function
 
 extension SwitchTaskViewController {
+    
+    func sourceView(view: UIView) {
+        popoverPresentationController?.sourceView = view
+    }
 
     private func configureAsPopover() {
         modalPresentationStyle = .popover
         preferredContentSize = CGSize(width: 250, height: 100)
         popoverPresentationController?.permittedArrowDirections = [.left, .right]
-    }
-    
-    func sourceView(view: UIView) {
-        popoverPresentationController?.sourceView = view
     }
     
     private func bindViewModel() {
@@ -96,12 +97,12 @@ extension SwitchTaskViewController {
 
     @objc
     private func tapDoingButton() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 
     @objc
     private func tapDoneButton() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 
@@ -109,13 +110,15 @@ extension SwitchTaskViewController {
 
 extension SwitchTaskViewController {
 
-    private func layoutViews() {
+    private func combineViews() {
         wholeStackView.addArrangedSubview(doingButton)
         wholeStackView.addArrangedSubview(doneButton)
         view.addSubview(wholeStackView)
         view.backgroundColor = .systemGray4
         view.directionalLayoutMargins = .init(top: 8, leading: 8, bottom: 8, trailing: 8)
-
+    }
+    
+    private func configureViewConstraints() {
         NSLayoutConstraint.activate([
             wholeStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             wholeStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
