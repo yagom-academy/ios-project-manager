@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    private let toDoViewController = ProjectListViewController(state: .todo)
-    private let doingViewController = ProjectListViewController(state: .doing)
-    private let doneViewController = ProjectListViewController(state: .done)
+    private let toDoViewController: ProjectListViewController
+    private let doingViewController: ProjectListViewController
+    private let doneViewController: ProjectListViewController
     
     private let totalStackView: UIStackView = {
         let stackView = UIStackView()
@@ -24,8 +24,15 @@ final class MainViewController: UIViewController {
     
     private var viewModel: MainViewModel
     
-    init(viewModel: MainViewModel) {
+    init(viewModel: MainViewModel,
+         toDoViewController: ProjectListViewController,
+         doingViewController: ProjectListViewController,
+         doneViewController: ProjectListViewController
+    ) {
         self.viewModel = viewModel
+        self.toDoViewController = toDoViewController
+        self.doingViewController = doingViewController
+        self.doneViewController = doneViewController
         super.init(nibName: nil, bundle: nil)
     }
     

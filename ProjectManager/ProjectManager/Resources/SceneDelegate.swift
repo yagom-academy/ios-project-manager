@@ -15,8 +15,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
+        
         let viewModel = MainViewModel()
-        let mainViewController = MainViewController(viewModel: viewModel)
+        let toDoViewController = ProjectListViewController(state: .todo)
+        let doingViewController = ProjectListViewController(state: .doing)
+        let doneViewController = ProjectListViewController(state: .done)
+        
+        let mainViewController = MainViewController(
+            viewModel: viewModel,
+            toDoViewController: toDoViewController,
+            doingViewController: doingViewController,
+            doneViewController: doneViewController
+        )
+        
         let navigationController = UINavigationController(rootViewController: mainViewController)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
