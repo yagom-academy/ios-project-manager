@@ -11,6 +11,7 @@ final class HistoryCell: UITableViewCell, ReusableView {
         label.textColor = .black
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .title3)
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
