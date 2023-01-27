@@ -5,7 +5,7 @@ import Foundation
 import CoreData
 
 final class HistoryManager: CoreDataManageable {
-
+    
     static let shared = HistoryManager()
     
     lazy var persistentContainer: NSPersistentContainer = {

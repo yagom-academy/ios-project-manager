@@ -5,11 +5,11 @@ import Foundation
 import CoreData
 
 extension ToDoCoreModel {
-
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ToDoCoreModel> {
         return NSFetchRequest<ToDoCoreModel>(entityName: "ToDoCoreModel")
     }
-
+    
     @NSManaged public var id: UUID?
     @NSManaged public var state: Int16
     @NSManaged public var title: String?

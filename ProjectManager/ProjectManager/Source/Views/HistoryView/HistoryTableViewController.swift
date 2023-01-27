@@ -4,7 +4,7 @@
 import UIKit
 
 class HistoryTableViewController: UITableViewController {
-
+    
     enum Schedule: Hashable {
         case main
     }

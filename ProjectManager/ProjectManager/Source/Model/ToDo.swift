@@ -4,7 +4,7 @@
 import Foundation
 
 struct ToDo: ManagedObjectModel {
-
+    
     var objectID: String?
     var title: String
     var body: String

@@ -5,12 +5,11 @@ import Foundation
 import CoreData
 
 extension HistoryCoreModel {
-
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<HistoryCoreModel> {
         return NSFetchRequest<HistoryCoreModel>(entityName: "HistoryCoreModel")
     }
-
+    
     @NSManaged public var title: String?
     @NSManaged public var createdAt: Date?
-
 }

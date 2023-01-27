@@ -5,7 +5,7 @@ import Foundation
 import CoreData
 
 final class ToDoManager: CoreDataManageable {
-
+    
     static let shared = ToDoManager()
     
     lazy var persistentContainer: NSPersistentContainer = {
