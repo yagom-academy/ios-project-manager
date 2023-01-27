@@ -1,5 +1,5 @@
 //
-//  TaskSwitchPopOverView.swift
+//  SwitchTaskViewController.swift
 //  ProjectManager
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
@@ -13,7 +13,7 @@ fileprivate enum Common {
     static let doneTitle = "DONE"
 }
 
-final class TaskSwitchViewController: UIViewController {
+final class SwitchTaskViewController: UIViewController {
 
 // MARK: View
     
@@ -42,13 +42,14 @@ final class TaskSwitchViewController: UIViewController {
 
     // MARK: Initialization
     
-    var viewModel: TaskSwitchViewModel?
+    var viewModel: SwitchTaskViewModel?
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         layoutViews()
+        configureAsPopover()
         addButtonActions()
         bindViewModel()
     }
@@ -56,9 +57,9 @@ final class TaskSwitchViewController: UIViewController {
 
 // MARK: Function
 
-extension TaskSwitchViewController {
+extension SwitchTaskViewController {
 
-    func asPopover() {
+    private func configureAsPopover() {
         modalPresentationStyle = .popover
         preferredContentSize = CGSize(width: 250, height: 100)
         popoverPresentationController?.permittedArrowDirections = [.left, .right]
@@ -74,7 +75,7 @@ extension TaskSwitchViewController {
         let doingButton = doingButton.rx.tap.asObservable()
         let doneButton = doneButton.rx.tap.asObservable()
 
-        let input = TaskSwitchViewModel.Input(doingTrigger: doingButton,
+        let input = SwitchTaskViewModel.Input(doingTrigger: doingButton,
                                               doneTrigger: doneButton)
 
         let output = viewModel.transform(input: input)
@@ -106,15 +107,14 @@ extension TaskSwitchViewController {
 
 // MARK: Layout
 
-extension TaskSwitchViewController {
+extension SwitchTaskViewController {
 
     private func layoutViews() {
         wholeStackView.addArrangedSubview(doingButton)
         wholeStackView.addArrangedSubview(doneButton)
         view.addSubview(wholeStackView)
         view.backgroundColor = .systemGray4
-        view.directionalLayoutMargins = .init(top: 8, leading: 8,
-                                                   bottom: 8, trailing: 8)
+        view.directionalLayoutMargins = .init(top: 8, leading: 8, bottom: 8, trailing: 8)
 
         NSLayoutConstraint.activate([
             wholeStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),

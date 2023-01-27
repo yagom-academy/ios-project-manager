@@ -165,11 +165,10 @@ extension ProjectManagerViewController {
     }
     
     private func presentTaskTagSwitcher(task: Task, on view: UIView) {
-        let switcher = TaskSwitchViewController()
-        switcher.asPopover()
+        let switcher = SwitchTaskViewController()
         switcher.sourceView(view: view)
         let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
-        let viewModel = TaskSwitchViewModel(useCase: useCase, task: task)
+        let viewModel = SwitchTaskViewModel(useCase: useCase, task: task)
         switcher.viewModel = viewModel
         
         self.present(switcher, animated: true)

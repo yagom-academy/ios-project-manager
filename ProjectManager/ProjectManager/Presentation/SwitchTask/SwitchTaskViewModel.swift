@@ -1,5 +1,5 @@
 //
-//  TaskSwitchViewModel.swift
+//  SwitchTaskViewModel.swift
 //  ProjectManager
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class TaskSwitchViewModel: ViewModelType {
+final class SwitchTaskViewModel: ViewModelType {
     private var useCase: TaskItemsUseCase
     private var task: Task
 
@@ -20,7 +20,7 @@ final class TaskSwitchViewModel: ViewModelType {
 
 // MARK: Function
 
-extension TaskSwitchViewModel {
+extension SwitchTaskViewModel {
     func transform(input: Input) -> Output {
         let switchDoing = input.doingTrigger
             .flatMapLatest { _ in
@@ -49,7 +49,7 @@ extension TaskSwitchViewModel {
 
 // MARK: Input & Output
 
-extension TaskSwitchViewModel {
+extension SwitchTaskViewModel {
     struct Input {
         let doingTrigger: Observable<Void>
         let doneTrigger: Observable<Void>
