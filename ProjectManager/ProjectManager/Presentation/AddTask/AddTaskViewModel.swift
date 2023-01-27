@@ -14,7 +14,7 @@ final class AddTaskViewModel: ViewModelType {
     var title: String
     var description: String
     var date: Date
-    var status: Status
+    var status: Task.Status
     
     init(useCase: TaskItemsUseCase) {
         self.title = ""

@@ -12,7 +12,7 @@ final class TaskItemViewModel {
     let title: String
     let description: String
     let date: Date
-    let status: Status
+    let status: Task.Status
 
     init(task: Task) {
         self.task = task

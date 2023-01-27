@@ -19,8 +19,10 @@ struct Task: Equatable {
     }
 }
 
-enum Status {
-    case todo
-    case doing
-    case done
+extension Task {
+    enum Status {
+        case todo
+        case doing
+        case done
+    }
 }

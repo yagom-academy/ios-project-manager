@@ -14,7 +14,7 @@ final class EditTaskViewModel: ViewModelType {
     var title: String
     var description: String
     var date: Date
-    var status: Status
+    var status: Task.Status
     var task: Task
     
     init(item: TaskItemViewModel, useCase: TaskItemsUseCase) {
