@@ -30,6 +30,9 @@ struct Plan: Hashable, Equatable, Identifiable, Sendable {
     var description: String
     var deadline: Date
     let id: UUID
+    var validContent: Bool {
+        return ((title != PlanText.title && title != PlanText.emptyString) || (description != PlanText.description && description != PlanText.emptyString))
+    }
 }
 
 extension UUID: @unchecked Sendable { }

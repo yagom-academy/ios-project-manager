@@ -53,8 +53,4 @@ final class PlanManager: PlanManageable {
 
         store.remove(at: index)
     }
-
-    func isValidContent(_ title: String?, _ description: String?) -> Bool {
-        return ((title != PlanText.title && title != PlanText.emptyString) || (description != PlanText.description && description != PlanText.emptyString))
-    }
 }

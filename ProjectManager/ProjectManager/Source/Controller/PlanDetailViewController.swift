@@ -105,14 +105,14 @@ final class PlanDetailViewController: UIViewController {
         return UIBarButtonItem(systemItem: .done, primaryAction: buttonAction)
     }
 
-    private func isContentSave() -> Bool {
+    private func isContentSave() -> Bool? {
         let inputPlan = planDetailView.sendUserPlan()
 
-        if planManager.isValidContent(inputPlan.title, inputPlan.description) {
+        if plan?.validContent == true {
             save(title: inputPlan.title, description: inputPlan.description, deadline: inputPlan.deadline)
         }
 
-        return planManager.isValidContent(inputPlan.title, inputPlan.description)
+        return plan?.validContent
     }
 
     func save(title: String, description: String, deadline: Date) {
