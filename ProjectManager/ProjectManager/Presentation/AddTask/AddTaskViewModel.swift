@@ -17,8 +17,8 @@ final class AddTaskViewModel: ViewModelType {
     private var status: Task.Status
     
     init(useCase: TaskItemsUseCase) {
-        self.title = ""
-        self.description = ""
+        self.title = .init()
+        self.description = .init()
         self.date = Date()
         self.status = .todo
         self.useCase = useCase
@@ -30,36 +30,48 @@ final class AddTaskViewModel: ViewModelType {
 extension AddTaskViewModel {
     func transform(input: Input) -> Output {
         
-        let _ = input.titleTrigger
-            .subscribe(onNext: {
-                self.title = $0
-            })
-            .disposed(by: disposeBag)
-        let _ = input.descriptionTrigger
-            .subscribe(onNext: {
-                self.description = $0
-            })
-            .disposed(by: disposeBag)
-        let _ = input.dateTrigger
-            .subscribe(onNext: {
-                self.date = $0
-            })
+        input.titleTrigger
+            .subscribe(
+                onNext: {
+                    self.title = $0
+                }
+            )
             .disposed(by: disposeBag)
         
-        let createdTask = input.doneTrigger.flatMapLatest {
-            let newTask = self.creatTask()
-            return self.useCase.create(task: newTask)
-        }
+        input.descriptionTrigger
+            .subscribe(
+                onNext: {
+                    self.description = $0
+                }
+            )
+            .disposed(by: disposeBag)
+        
+        input.dateTrigger
+            .subscribe(
+                onNext: {
+                    self.date = $0
+                }
+            )
+            .disposed(by: disposeBag)
+        
+        let createdTask = input.doneTrigger
+            .flatMapLatest {
+                let newTask = self.creatTask()
+                return self.useCase
+                    .create(task: newTask)
+            }
         
         return Output(createdTask: createdTask)
     }
     
     private func creatTask() -> Task {
-        return Task(title: title,
-                    description: description,
-                    expireDate: date,
-                    status: status,
-                    uuid: UUID())
+        return Task(
+            title: title,
+            description: description,
+            expireDate: date,
+            status: status,
+            uuid: UUID()
+        )
     }
 }
 
