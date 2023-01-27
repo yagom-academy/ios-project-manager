@@ -104,10 +104,7 @@ final class ProjectManagerViewController: UIViewController {
         configureView()
         combineViews()
         addTableviewLongPressRecognizers()
-        
-        bindViewModel()
-        bindLongPressGesturesToTableViews()
-        bindSelectionActionToCell()
+        perfomBindings()
     }
 }
 
@@ -189,6 +186,12 @@ extension ProjectManagerViewController {
 // MARK: Bindings
 
 extension ProjectManagerViewController {
+    
+    private func perfomBindings() {
+        bindViewModel()
+        bindLongPressGesturesToTableViews()
+        bindSelectionActionToCell()
+    }
     
     // MARK: Long Press Gesture
     
