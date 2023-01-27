@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DateFormatterManager {
+struct DateFormatterManager {
     static func formatDate(_ date: Date) -> String {
         return DateFormatter.localizedString(from: date, dateStyle: .long, timeStyle: .none)
     }
