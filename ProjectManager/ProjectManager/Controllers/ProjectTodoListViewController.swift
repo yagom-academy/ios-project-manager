@@ -24,6 +24,7 @@ final class ProjectTodoListViewController: UIViewController {
         stackView.spacing = Constants.defaultSpacing
         return stackView
     }()
+    private let bottomView = UndoRedoView()
     private var projectStateCount: Int {
         return projectTodoListViewModel.projectStateCount()
     }
@@ -50,6 +51,8 @@ final class ProjectTodoListViewController: UIViewController {
         configureLongPressGestureRecognizerOnCollectionView()
         configureDataSources()
         configureHierarchy()
+        configureRedoUndoButtonAction()
+        updateEnableUndoRedoButton()
         bindProjectTodoListViewModel()
         updateSnapshot()
         updateProjectTodoHeaderViewText()
@@ -108,6 +111,7 @@ final class ProjectTodoListViewController: UIViewController {
                                                   title: deleteActionTitle) { [weak self] _, _, completion in
                 self?.projectTodoListViewModel.delete(for: projectTodo.id)
                 self?.projectTodoHistoryViewModel.add(ProjectTodoHistory(action: .remove, oldValue: projectTodo))
+                self?.registerUndoDelete(projectTodo)
                 completion(false)
             }
             return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -144,12 +148,28 @@ final class ProjectTodoListViewController: UIViewController {
             stackView.addArrangedSubview(projectTodoStackViews[index])
         }
         view.addSubview(stackView)
+        view.addSubview(bottomView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+
+            bottomView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
+            bottomView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomView.heightAnchor.constraint(equalToConstant: Constants.bottomViewHeight)
         ])
+    }
+
+    private func configureRedoUndoButtonAction() {
+        bottomView.addTargetToUndoButton(self, action: #selector(didPressUndoButton), for: .touchUpInside)
+        bottomView.addTargetToRedoButton(self, action: #selector(didPressRedoButton), for: .touchUpInside)
+    }
+
+    private func updateEnableUndoRedoButton() {
+        bottomView.updateEnableUndoRedoButton(isEnabledUndoButton: undoManager?.canUndo ?? false,
+                                              isEnabledRedoButton: undoManager?.canRedo ?? false)
     }
 
     private func bindProjectTodoListViewModel() {
@@ -220,6 +240,7 @@ extension ProjectTodoListViewController {
             guard let projectTodo else { return }
             self?.projectTodoListViewModel.add(projectTodo: projectTodo)
             self?.projectTodoHistoryViewModel.add(ProjectTodoHistory(action: .add, newValue: projectTodo))
+            self?.registerUndoAdd(projectTodo)
             self?.dismiss(animated: true)
         }
         let navigationController = UINavigationController(rootViewController: projectTodoViewController)
@@ -235,9 +256,20 @@ extension ProjectTodoListViewController {
         projectTodoHistoryViewController.popoverPresentationController?.barButtonItem = sender
         present(projectTodoHistoryViewController, animated: true)
     }
+
+    @objc
+    private func didPressUndoButton(_ sender: UIButton) {
+        undoManager?.undo()
+    }
+
+    @objc
+    private func didPressRedoButton(_ sender: UIButton) {
+        undoManager?.redo()
+    }
 }
 
 // MARK: - CollectionViewDelegate
+
 extension ProjectTodoListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let dataSource = collectionView.dataSource as? DataSource,
@@ -258,6 +290,7 @@ extension ProjectTodoListViewController: UICollectionViewDelegate {
 }
 
 // MARK: - GestureRecognizerDelegate
+
 extension ProjectTodoListViewController: UIGestureRecognizerDelegate {
     @objc
     private func didLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -303,7 +336,41 @@ extension ProjectTodoListViewController: UIGestureRecognizerDelegate {
             self?.projectTodoHistoryViewModel.add(ProjectTodoHistory(action: .move,
                                                                      oldValue: projectTodo,
                                                                      newValue: modifiedProject))
+            self?.registerUndoUpdate(from: projectTodo, to: modifiedProject)
         }
         return action
+    }
+}
+
+// MARK: - UndoManager
+
+extension ProjectTodoListViewController {
+    private func registerUndoUpdate(from oldValue: ProjectTodo, to newValue: ProjectTodo) {
+        undoManager?.registerUndo(withTarget: self, handler: {
+            $0.projectTodoListViewModel.update(projectTodo: oldValue)
+            $0.projectTodoHistoryViewModel.add(ProjectTodoHistory(action: .move,
+                                                                  oldValue: newValue,
+                                                                  newValue: oldValue))
+            $0.registerUndoUpdate(from: newValue, to: oldValue)
+        })
+        updateEnableUndoRedoButton()
+    }
+
+    private func registerUndoAdd(_ newValue: ProjectTodo) {
+        undoManager?.registerUndo(withTarget: self, handler: {
+            $0.projectTodoListViewModel.delete(for: newValue.id)
+            $0.projectTodoHistoryViewModel.add(ProjectTodoHistory(action: .remove, oldValue: newValue))
+            $0.registerUndoDelete(newValue)
+        })
+        updateEnableUndoRedoButton()
+    }
+
+    private func registerUndoDelete(_ oldValue: ProjectTodo) {
+        undoManager?.registerUndo(withTarget: self, handler: {
+            $0.projectTodoListViewModel.add(projectTodo: oldValue)
+            $0.projectTodoHistoryViewModel.add(ProjectTodoHistory(action: .add, newValue: oldValue))
+            $0.registerUndoAdd(oldValue)
+        })
+        updateEnableUndoRedoButton()
     }
 }

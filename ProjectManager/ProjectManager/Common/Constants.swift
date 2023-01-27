@@ -20,6 +20,7 @@ enum Constants {
     static let itemCountLabelMaxCount = 99
     static let collectionViewMinimumPressDuration = 0.5
     static let historyItemMaxCount = 7
+    static let bottomViewHeight = CGFloat(50)
 
     // MARK: Database
 
