@@ -110,12 +110,13 @@ final class ProjectManagerViewController: UIViewController {
 
 // MARK: Functions
 
-extension ProjectManagerViewController: UITableViewDelegate, UIGestureRecognizerDelegate {
-    
+extension ProjectManagerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+}
+
+extension ProjectManagerViewController: UIGestureRecognizerDelegate {
     private func addTableviewLongPressRecognizers() {
         let todoLongPressGesture = UILongPressGestureRecognizer()
         let todoLongPressAction = #selector(todoTableView.didLongPress)
@@ -137,17 +138,9 @@ extension ProjectManagerViewController: UITableViewDelegate, UIGestureRecognizer
         doingLongPressGesture.delegate = doingTableView
         doneLongPressGesture.delegate = doneTableView
     }
-    
-    private func presentTaskTagSwitcher(task: Task, on view: UIView) {
-        let switcher = TaskSwitchViewController()
-        switcher.asPopover()
-        switcher.sourceView(view: view)
-        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
-        let viewModel = TaskSwitchViewModel(useCase: useCase, task: task)
-        switcher.viewModel = viewModel
-        
-        self.present(switcher, animated: true)
-    }
+}
+
+extension ProjectManagerViewController {
     
     private func configureNavigationController() {
         let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
@@ -171,10 +164,15 @@ extension ProjectManagerViewController: UITableViewDelegate, UIGestureRecognizer
         self.present(navigation, animated: true)
     }
     
-    private func popOver(cell: UITableViewCell, item: Task) {
-        let view = TaskSwitchViewController()
-        view.sourceView(view: cell)
-        self.present(view, animated: true)
+    private func presentTaskTagSwitcher(task: Task, on view: UIView) {
+        let switcher = TaskSwitchViewController()
+        switcher.asPopover()
+        switcher.sourceView(view: view)
+        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
+        let viewModel = TaskSwitchViewModel(useCase: useCase, task: task)
+        switcher.viewModel = viewModel
+        
+        self.present(switcher, animated: true)
     }
     
     private func createEditView(with item: TaskItemViewModel) -> UINavigationController {
