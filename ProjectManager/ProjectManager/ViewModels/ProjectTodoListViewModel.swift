@@ -10,7 +10,8 @@ import Foundation
 final class ProjectTodoListViewModel {
     private var onUpdated: ([UUID]) -> Void = { _ in }
     private var updatedProjectTodosID: [UUID] = []
-    private var databaseManager = DatabaseManager()
+    private let databaseManager = DatabaseManager()
+    private let persistenceManager = PersistenceManager()
     private var projectTodos: [ProjectTodo] {
         didSet {
             onUpdated(updatedProjectTodosID)
@@ -35,18 +36,21 @@ final class ProjectTodoListViewModel {
     func add(projectTodo: ProjectTodo) {
         projectTodos.append(projectTodo)
         databaseManager.add(projectTodo)
+        persistenceManager.add(projectTodo)
     }
 
     func update(projectTodo: ProjectTodo) {
         guard let index = projectTodos.firstIndex(where: { $0.id == projectTodo.id }) else { return }
         updatedProjectTodosID.append(projectTodo.id)
         databaseManager.update(projectTodo)
+        persistenceManager.update(projectTodo)
         projectTodos[index] = projectTodo
     }
 
     func delete(for projectTodoID: UUID) {
         projectTodos.removeAll(where: { $0.id == projectTodoID })
         databaseManager.delete(projectTodoID)
+        persistenceManager.delete(projectTodoID)
     }
 
     func projectTodoViewModel(for projectTodoID: UUID) -> ProjectTodoViewModel? {
