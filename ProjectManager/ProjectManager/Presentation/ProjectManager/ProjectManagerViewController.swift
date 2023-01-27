@@ -10,7 +10,7 @@ fileprivate enum Common {
     static let navigationItemTitle = "Project Manager"
 }
 
-final class ProjectManagerViewController: UIViewController, UIGestureRecognizerDelegate {
+final class ProjectManagerViewController: UIViewController {
     
     // MARK: View
     
@@ -110,7 +110,7 @@ final class ProjectManagerViewController: UIViewController, UIGestureRecognizerD
 
 // MARK: Functions
 
-extension ProjectManagerViewController: UITableViewDelegate {
+extension ProjectManagerViewController: UITableViewDelegate, UIGestureRecognizerDelegate {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

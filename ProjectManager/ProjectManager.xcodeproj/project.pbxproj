@@ -138,14 +138,10 @@
 			isa = PBXGroup;
 			children = (
 				DFDDB6822980442300C14CE2 /* Common */,
-				DFDDB69B2980510C00C14CE2 /* EditTask */,
+				DFCB8B1D2983D7C800033998 /* ProjectManager */,
 				DF155096297816D200A7FDC7 /* AddTask */,
+				DFDDB69B2980510C00C14CE2 /* EditTask */,
 				DF1550A6297957E200A7FDC7 /* TaskSwitch */,
-				DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */,
-				DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */,
-				DFCA28412977DFBE00C1EBF2 /* TaskStatusInfoView.swift */,
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
-				DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -185,6 +181,18 @@
 				DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		DFCB8B1D2983D7C800033998 /* ProjectManager */ = {
+			isa = PBXGroup;
+			children = (
+				DFCA28412977DFBE00C1EBF2 /* TaskStatusInfoView.swift */,
+				DFCA283E2977C3BC00C1EBF2 /* TaskCell.swift */,
+				DFDDB68D298047A100C14CE2 /* TaskItemViewModel.swift */,
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+				DF4682982977A85A00E3BC06 /* ProjectManagerViewModel.swift */,
+			);
+			path = ProjectManager;
 			sourceTree = "<group>";
 		};
 		DFDDB67F298042F300C14CE2 /* Data */ = {
