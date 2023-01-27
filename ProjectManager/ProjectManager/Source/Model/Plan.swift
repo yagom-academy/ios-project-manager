@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Plan: Hashable, Equatable, Identifiable {
+struct Plan: Hashable, Equatable, Identifiable, Sendable {
     enum Status {
         case todo
         case doing
@@ -31,3 +31,6 @@ struct Plan: Hashable, Equatable, Identifiable {
     var deadline: Date
     let id: UUID
 }
+
+extension UUID: @unchecked Sendable { }
+extension Date: @unchecked Sendable { }
