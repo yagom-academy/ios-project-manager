@@ -101,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				DFDDB68F29804B2900C14CE2 /* Extensions */,
-				DFDDB6822980442300C14CE2 /* Common */,
 				DF4682942977994300E3BC06 /* Resources */,
 				DF4682932977992F00E3BC06 /* Application */,
 				DF468290297798D400E3BC06 /* Presentation */,
@@ -140,6 +139,7 @@
 		DF468290297798D400E3BC06 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DFDDB6822980442300C14CE2 /* Common */,
 				DFDDB69B2980510C00C14CE2 /* EditTask */,
 				DF155096297816D200A7FDC7 /* AddTask */,
 				DF1550A6297957E200A7FDC7 /* TaskSwitch */,
@@ -155,6 +155,7 @@
 		DF468291297798DA00E3BC06 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				DFCB8B1C2983CFBD00033998 /* Common */,
 				DFDDB6812980433D00C14CE2 /* UseCase */,
 				DF46828D2977974D00E3BC06 /* Entities */,
 			);
@@ -180,6 +181,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		DFCB8B1C2983CFBD00033998 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		DFDDB67F298042F300C14CE2 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,7 +201,6 @@
 		DFDDB6812980433D00C14CE2 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				DFDDB6892980469100C14CE2 /* TaskUseCaseType.swift */,
 				DFDDB68B298046B100C14CE2 /* TaskItemsUseCase.swift */,
 			);
 			path = UseCase;
