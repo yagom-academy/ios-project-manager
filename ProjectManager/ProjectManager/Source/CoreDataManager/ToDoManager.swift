@@ -56,7 +56,7 @@ final class ToDoManager: CoreDataManageable {
         todoObject.setValue(todo.title, forKey: "title")
         todoObject.setValue(todo.body, forKey: "body")
         todoObject.setValue(todo.deadline, forKey: "deadline")
-        todoObject.setValue(todo.state, forKey: "state")
+        todoObject.setValue(todo.state.rawValue, forKey: "state")
         
         try context.save()
     }

@@ -11,6 +11,10 @@ final class ToDoListViewModel {
     
     private let todoCoreDataManager = ToDoManager.shared
     
+    init() {
+        fetchToCoreData()
+    }
+    
     func addToDo(item: ToDo) {
         todoModel.value.append(item)
         
@@ -20,9 +24,20 @@ final class ToDoListViewModel {
             print("CoreData Add Error!")
         }
         
-        NotificationCenter.default.post(name: Notification.Name.added,
+        NotificationCenter.default.post(name: .added,
                                         object: nil,
                                         userInfo: ["Title": item.title])
+    }
+    
+    private func fetchToCoreData() {
+        var fetchedData: [ToDo]
+        
+        do {
+            fetchedData = try todoCoreDataManager.fetchObjects()
+            setToDoData(item: fetchedData)
+        } catch {
+            print("CoreData fetched data Fail!")
+        }
     }
     
     func fetchToDo(index: Int, state: ToDoState) -> ToDo? {
@@ -36,14 +51,16 @@ final class ToDoListViewModel {
         }
     }
     
-    func fetchList(state: ToDoState) -> [ToDo] {
-        switch state {
-        case .toDo:
-            return todoModel.value
-        case .doing:
-            return doingModel.value
-        case .done:
-            return doneModel.value
+    private func setToDoData(item: [ToDo]) {
+        item.forEach { item in
+            switch item.state {
+            case .toDo:
+                todoModel.value.append(item)
+            case .doing:
+                doingModel.value.append(item)
+            case .done:
+                doneModel.value.append(item)
+            }
         }
     }
     
@@ -71,6 +88,12 @@ final class ToDoListViewModel {
         data.body = body
         data.deadline = deadline
         model.value[indexPath] = data
+        
+        do {
+            try todoCoreDataManager.update(data)
+        } catch {
+            print("CoreData updated data Fail!")
+        }
     }
     
     func updateStatus(indexPath: Int, currentState: ToDoState, changeState: ToDoState) {
@@ -98,7 +121,13 @@ final class ToDoListViewModel {
         data.state = changeState
         model.value.append(data)
         
-        NotificationCenter.default.post(name: Notification.Name.moved,
+        do {
+            try todoCoreDataManager.update(data)
+        } catch {
+            print("CoreData updated data Fail!")
+        }
+        
+        NotificationCenter.default.post(name: .moved,
                                         object: nil,
                                         userInfo: [
                                             "Title": data.title,
@@ -119,7 +148,13 @@ final class ToDoListViewModel {
             deletedItem = doneModel.value.remove(at: index)
         }
         
-        NotificationCenter.default.post(name: Notification.Name.deleted,
+        do {
+            try todoCoreDataManager.remove(deletedItem)
+        } catch {
+            print("CoreData deleted data Fail!")
+        }
+        
+        NotificationCenter.default.post(name: .deleted,
                                         object: nil,
                                         userInfo: [
                                             "Title": deletedItem.title,

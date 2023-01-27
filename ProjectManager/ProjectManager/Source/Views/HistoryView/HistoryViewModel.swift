@@ -7,19 +7,23 @@ final class HistoryViewModel {
     let model: Observable<[History]> = Observable([])
     
     init() {
+        setupNotification()
+    }
+    
+    private func setupNotification() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(appendDeletedHistory(_:)),
-                                               name: NSNotification.Name.deleted,
+                                               name: .deleted,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(appendAddedHistory(_:)),
-                                               name: NSNotification.Name.added,
+                                               name: .added,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(appendMovedHistory(_:)),
-                                               name: NSNotification.Name.moved,
+                                               name: .moved,
                                                object: nil)
     }
     
