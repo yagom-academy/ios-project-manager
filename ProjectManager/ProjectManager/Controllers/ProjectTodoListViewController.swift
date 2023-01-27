@@ -12,6 +12,7 @@ final class ProjectTodoListViewController: UIViewController {
     // MARK: - Properties
 
     private var projectTodoListViewModel: ProjectTodoListViewModel
+    private var projectTodoHistoryViewModel: ProjectTodoHistoryViewModel
     private var collectionViews: [UICollectionView] = []
     private var dataSources: [DataSource] = []
     private var projectTodoHeaderViews: [ProjectTodoHeaderView] = []
@@ -29,8 +30,10 @@ final class ProjectTodoListViewController: UIViewController {
 
     // MARK: - Configure
 
-    init(projectTodoListViewModel: ProjectTodoListViewModel) {
+    init(projectTodoListViewModel: ProjectTodoListViewModel,
+         projectTodoHistoryViewModel: ProjectTodoHistoryViewModel) {
         self.projectTodoListViewModel = projectTodoListViewModel
+        self.projectTodoHistoryViewModel = projectTodoHistoryViewModel
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = ProjectColor.listViewBackground.color
     }
@@ -99,6 +102,7 @@ final class ProjectTodoListViewController: UIViewController {
             let deleteAction = UIContextualAction(style: .destructive,
                                                   title: deleteActionTitle) { [weak self] _, _, completion in
                 self?.projectTodoListViewModel.delete(for: projectTodo.id)
+                self?.projectTodoHistoryViewModel.add(ProjectTodoHistory(action: .remove, oldValue: projectTodo))
                 completion(false)
             }
             return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -207,9 +211,10 @@ extension ProjectTodoListViewController {
         let navigationTitle = String(describing: newProjectTodoViewModel.projectTodo.state)
         let projectTodoViewController = ProjectTodoViewController(navigationTitle: navigationTitle,
                                                                   projectTodoViewModel: newProjectTodoViewModel,
-                                                                  isAdding: true) { [weak self] project in
-            guard let project else { return }
-            self?.projectTodoListViewModel.add(projectTodo: project)
+                                                                  isAdding: true) { [weak self] projectTodo in
+            guard let projectTodo else { return }
+            self?.projectTodoListViewModel.add(projectTodo: projectTodo)
+            self?.projectTodoHistoryViewModel.add(ProjectTodoHistory(action: .add, newValue: projectTodo))
             self?.dismiss(animated: true)
         }
         let navigationController = UINavigationController(rootViewController: projectTodoViewController)
@@ -280,6 +285,9 @@ extension ProjectTodoListViewController: UIGestureRecognizerDelegate {
             var modifiedProject = projectTodo
             modifiedProject.state = toState
             self?.projectTodoListViewModel.update(projectTodo: modifiedProject)
+            self?.projectTodoHistoryViewModel.add(ProjectTodoHistory(action: .move,
+                                                                     oldValue: projectTodo,
+                                                                     newValue: modifiedProject))
         }
         return action
     }

@@ -9,15 +9,15 @@ import Foundation
 
 struct ProjectTodoHistory {
     var id: UUID = UUID()
+    var action: Action
     var oldValue: ProjectTodo?
     var newValue: ProjectTodo?
-    var action: Action
     var date: Date
 
-    init(oldValue: ProjectTodo? = nil, newValue: ProjectTodo? = nil, action: Action, date: Date) {
+    init(action: Action, oldValue: ProjectTodo? = nil, newValue: ProjectTodo? = nil, date: Date = Date()) {
+        self.action = action
         self.oldValue = oldValue
         self.newValue = newValue
-        self.action = action
         self.date = date
     }
 }

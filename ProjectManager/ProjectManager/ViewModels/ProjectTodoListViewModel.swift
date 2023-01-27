@@ -24,7 +24,9 @@ final class ProjectTodoListViewModel {
     }
 
     func fetchDataFromDatabase() {
+        projectTodos = persistenceManager.fetchProjectTodos()
         databaseManager.fetchProjectTodos { [weak self] projectTodos in
+            self?.updatedProjectTodosID = projectTodos.map({ $0.id })
             self?.projectTodos = projectTodos
         }
     }
@@ -60,8 +62,7 @@ final class ProjectTodoListViewModel {
     }
 
     func projectTodo(for projectTodoID: UUID) -> ProjectTodo? {
-        guard let projectTodo = projectTodos.first(where: { $0.id == projectTodoID }) else { return nil }
-        return projectTodo
+        return projectTodos.first(where: { $0.id == projectTodoID })
     }
 
     func projectTodoIDs(for stateIndex: Int) -> [UUID] {
@@ -69,8 +70,7 @@ final class ProjectTodoListViewModel {
     }
 
     func projectState(for index: Int) -> ProjectState? {
-        guard let projectState = ProjectState(rawValue: index) else { return nil }
-        return projectState
+        return ProjectState(rawValue: index)
     }
 
     func projectTodosCount(for index: Int) -> Int {

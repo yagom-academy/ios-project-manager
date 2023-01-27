@@ -16,8 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         let projectTodoListViewModel = ProjectTodoListViewModel()
         projectTodoListViewModel.fetchDataFromDatabase()
+        let projectTodoHistoryViewModel = ProjectTodoHistoryViewModel()
         let navigationController = UINavigationController(
-            rootViewController: ProjectTodoListViewController(projectTodoListViewModel: projectTodoListViewModel)
+            rootViewController: ProjectTodoListViewController(projectTodoListViewModel: projectTodoListViewModel,
+                                                              projectTodoHistoryViewModel: projectTodoHistoryViewModel)
         )
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
