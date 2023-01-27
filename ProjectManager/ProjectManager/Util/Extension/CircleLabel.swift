@@ -9,13 +9,10 @@ import UIKit
 
 final class CircleLabel: UILabel {
     
-    typealias Style = Constant.Style
-    typealias Color = Constant.Color
-    
     override var intrinsicContentSize: CGSize {
         var contentSize = super.intrinsicContentSize
-        contentSize.width += Style.circleViewWidthPadding
-        contentSize.height += Style.circleViewHeightPadding
+        contentSize.width += 16
+        contentSize.height += 4
         layer.cornerRadius = contentSize.height.half
 
         return contentSize

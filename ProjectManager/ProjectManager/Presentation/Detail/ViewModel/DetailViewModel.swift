@@ -9,8 +9,6 @@ import Foundation
 
 final class DetailViewModel {
     
-    typealias Text = Constant.Text
-
     private var detailUseCase: DetailUseCase
     private let project: Project
     private let state: State
@@ -80,5 +78,15 @@ final class DetailViewModel {
     
     func validateDeadline(date: Date) -> Bool {
         return detailUseCase.isValidateDeadline(date: date)
+    }
+}
+
+extension DetailViewModel {
+    
+    enum Text {
+        
+        static let toDoTitle: String = "TODO"
+        static let doingTitle: String = "DOING"
+        static let doneTitle: String = "DONE"
     }
 }

@@ -8,8 +8,6 @@
 import Foundation
 
 final class ListViewModel {
-    
-    typealias Text = Constant.Text
 
     var listUseCase: ListUseCase
     private var projectList: [Project] = [] {
@@ -131,5 +129,14 @@ final class ListViewModel {
             return DetailViewModel(detailUseCase: detailUsecase, project: Project(), isNewProject: true)
         }
         return DetailViewModel(detailUseCase: detailUsecase, project: project)
+    }
+}
+
+extension ListViewModel {
+    
+    enum Text {
+        
+        static let cellTitleDefaultValue: String = "제목없음"
+        static let cellDescriptionDefaultValue: String = "본문없음"
     }
 }

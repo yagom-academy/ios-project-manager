@@ -9,10 +9,8 @@ import UIKit
 
 extension UITextView {
 
-    typealias Style = Constant.Style
-
-    func setShadow(opacity: Float = Style.shadowOpacity,
-                   offset: CGSize = Style.shadowOffset) {
+    func setShadow(opacity: Float = 0.5,
+                   offset: CGSize = CGSize(width: 0, height: 4)) {
         layer.masksToBounds = false
         layer.shadowOpacity = opacity
         layer.shadowOffset = offset

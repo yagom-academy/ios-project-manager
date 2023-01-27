@@ -8,14 +8,10 @@ import UIKit
 
 final class ListViewController: UIViewController {
     
-    typealias Text = Constant.Text
-    typealias Style = Constant.Style
-    typealias Color = Constant.Color
-    
     var viewModel: ListViewModel?
     private lazy var projectListHeaderStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [toDoHeaderView, doingHeaderView, doneHeaderView])
-        stackView.backgroundColor = Color.listBackground
+        stackView.backgroundColor = .systemGray5
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
@@ -24,7 +20,7 @@ final class ListViewController: UIViewController {
     }()
     private lazy var projectListStackView: UIStackView  = {
         let stackView = UIStackView(arrangedSubviews: [projectListHeaderStackView, projectCollectionView])
-        stackView.backgroundColor = Color.listViewSpacing
+        stackView.backgroundColor = .systemGray3
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -88,7 +84,7 @@ final class ListViewController: UIViewController {
             projectListStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             projectListStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             projectListStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                                         constant: Style.stackViewBottomInset),
+                                                         constant: -28),
             projectListStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
@@ -332,5 +328,19 @@ extension ListViewController: DetailProjectDelegate {
                                deadline: willSave.deadline,
                                identifier: willSave.identifier)
         configureSnapshot()
+    }
+}
+
+extension ListViewController {
+    
+    enum Text {
+        
+        static let navigationTitle: String = "Project Manager"
+        static let toDoTitle: String = "TODO"
+        static let doingTitle: String = "DOING"
+        static let doneTitle: String = "DONE"
+        static let moveToToDo: String = "Move to TODO"
+        static let moveToDoing: String = "Move to DOING"
+        static let moveToDone: String = "Move to DONE"
     }
 }

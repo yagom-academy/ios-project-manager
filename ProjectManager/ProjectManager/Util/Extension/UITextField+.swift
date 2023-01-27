@@ -9,11 +9,9 @@ import UIKit
 
 extension UITextField {
     
-    typealias Style = Constant.Style
-
     func setShadow(color: UIColor = .systemBackground,
-                   opacity: Float = Style.shadowOpacity,
-                   offset: CGSize = Style.shadowOffset) {
+                   opacity: Float = 0.5,
+                   offset: CGSize = CGSize(width: 0, height: 4)) {
         backgroundColor = color
         layer.shadowOpacity = opacity
         layer.shadowOffset = offset

@@ -9,15 +9,12 @@ import UIKit
 
 final class ListHeaderView: UIView {
 
-    typealias Text = Constant.Text
-    typealias Style = Constant.Style
-    typealias Color = Constant.Color
     typealias Number = Constant.Number
 
     private let headerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = Style.stackViewSpacing
+        stackView.spacing = 8
         stackView.alignment = .center
         stackView.distribution = .fill
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -29,8 +26,8 @@ final class ListHeaderView: UIView {
     private let titleLabel = UILabel()
     private let countLabel: CircleLabel = {
         let label = CircleLabel(frame: .zero)
-        label.configure(circleColor: Color.circleBackground,
-                        textColor: Color.circleText)
+        label.configure(circleColor: UIColor.black.cgColor,
+                        textColor: .white)
         
         return label
     }()
@@ -72,7 +69,7 @@ final class ListHeaderView: UIView {
         guard let count = number else {
             return
         }
-        countLabel.text = (count > Number.maxCount) ? Text.overCount : String(count)
+        countLabel.text = (count > Number.maxCountOfList) ? Text.overCount : String(count)
     }
 
     private func configureViewHierarchy() {
@@ -93,5 +90,13 @@ final class ListHeaderView: UIView {
             rightPaddingView.widthAnchor.constraint(equalToConstant: padding),
             rightPaddingView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: 16),
         ])
+    }
+}
+
+extension ListHeaderView {
+    
+    enum Text {
+        
+        static let overCount: String = "\(Number.maxCountOfList)+"
     }
 }

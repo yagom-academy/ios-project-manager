@@ -9,16 +9,12 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
-    typealias Text = Constant.Text
-    typealias Style = Constant.Style
-    typealias Color = Constant.Color
-    
     var viewModel: DetailViewModel?
     weak var delegate: DetailProjectDelegate?
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = Style.detailStackViewSpacing
+        stackView.spacing = 20
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +42,7 @@ final class DetailViewController: UIViewController {
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.keyboardDismissMode = .onDrag
-        textView.layer.borderColor = Color.detailTextViewBorder
+        textView.layer.borderColor = UIColor.red.cgColor
         textView.setShadow()
         
         return textView
@@ -84,13 +80,13 @@ final class DetailViewController: UIViewController {
     private func configureLayoutConstraint() {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                           constant: Style.detailStackViewTopAnchor),
+                                           constant: 4),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-                                               constant: Style.detailStackViewLeadingAnchor),
+                                               constant: 12),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                              constant: Style.detailStackViewBottomAnchor),
+                                              constant: -20),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                                                constant: Style.detailStackViewTrailingAnchor)
+                                                constant: -12)
         ])
     }
     
@@ -117,7 +113,7 @@ final class DetailViewController: UIViewController {
         }
         
         viewModel?.bindValidText { [weak self] isValid in
-            self?.descriptionTextView.layer.borderWidth = isValid ? .zero : Style.detailTextViewBoderWidth
+            self?.descriptionTextView.layer.borderWidth = isValid ? .zero : 2
         }
     }
     
@@ -218,3 +214,14 @@ extension DetailViewController: UITextViewDelegate {
 }
 
 extension DetailViewController: DetailProject { }
+
+extension DetailViewController {
+    
+    enum Text {
+        
+        static let doneButton: String = "Done"
+        static let titlePlaceHolder: String = "Title"
+        static let invalidDeadlineMessage: String = "기한은 과거일 수 없습니다."
+        static let invalidDescriptionMessage: String = "본문은 \(Constant.Number.descriptionLimit)자를 넘을 수 없습니다."
+    }
+}
