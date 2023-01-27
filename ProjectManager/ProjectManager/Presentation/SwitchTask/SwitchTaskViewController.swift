@@ -17,7 +17,7 @@ final class SwitchTaskViewController: UIViewController {
 
 // MARK: View
     
-    private var doingButton: UIButton = {
+    private let doingButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
         button.setTitle(Titles.doing, for: .normal)
@@ -25,7 +25,7 @@ final class SwitchTaskViewController: UIViewController {
         
         return button
     }()
-    private var doneButton: UIButton = {
+    private let doneButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
         button.setTitle(Titles.done, for: .normal)
@@ -33,7 +33,7 @@ final class SwitchTaskViewController: UIViewController {
         
         return button
     }()
-    private var wholeStackView: UIStackView = {
+    private let wholeStackView: UIStackView = {
        let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
