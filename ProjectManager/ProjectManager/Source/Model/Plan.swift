@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Plan: Hashable {
+struct Plan: Hashable, Equatable, Identifiable {
     enum Status {
         case todo
         case doing
