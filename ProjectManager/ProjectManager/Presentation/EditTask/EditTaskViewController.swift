@@ -21,6 +21,7 @@ final class EditTaskViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .systemFont(ofSize: 20)
         textView.isEditable = false
+        
         return textView
     }()
     private var datePickerView: UIDatePicker = {
@@ -31,6 +32,7 @@ final class EditTaskViewController: UIViewController {
         picker.maximumDate = .distantFuture
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.isEnabled = false
+        
         return picker
     }()
     private var descriptionTextView: UITextView = {
@@ -38,6 +40,7 @@ final class EditTaskViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .systemFont(ofSize: 20)
         textView.isEditable = false
+        
         return textView
     }()
     
@@ -62,7 +65,9 @@ extension EditTaskViewController {
         guard let viewModel = self.viewModel,
               let doneButton = navigationItem.rightBarButtonItem,
               let editButton = navigationItem.leftBarButtonItem
-        else { return }
+        else {
+            return
+        }
         
         let initialSetUpTrigger = self.rx
             .methodInvoked(#selector(viewWillAppear))
@@ -79,31 +84,38 @@ extension EditTaskViewController {
             .asObservable()
         let date = datePickerView.rx.date.asObservable()
         
-        let input = EditTaskViewModel.Input(initialSetUpTrigger: initialSetUpTrigger,
-                                            editTrigger: editTrigger, doneTrigger: doneTrigger,
-                                            titleTrigger: title, descriptionTrigger: description,
-                                            dateTrigger: date)
+        let input = EditTaskViewModel.Input(
+            initialSetUpTrigger: initialSetUpTrigger,
+            editTrigger: editTrigger, doneTrigger: doneTrigger,
+            titleTrigger: title, descriptionTrigger: description,
+            dateTrigger: date
+        )
         let output = viewModel.transform(input: input)
         
         output.initialSetUpData
-            .subscribe(onNext: { initialData in
-                self.titleTextView.text = initialData.title
-                self.datePickerView.date = initialData.date
-                self.descriptionTextView.text = initialData.description
-                
-            })
+            .subscribe(
+                onNext: { initialData in
+                    self.titleTextView.text = initialData.title
+                    self.datePickerView.date = initialData.date
+                    self.descriptionTextView.text = initialData.description
+                }
+            )
             .disposed(by: disposeBag)
         
         output.canEdit
-            .subscribe(onNext: { _ in
-                self.toggleEditability()
-            })
+            .subscribe(
+                onNext: { _ in
+                    self.toggleEditability()
+                }
+            )
             .disposed(by: disposeBag)
         
         output.editedTask
-            .subscribe(onNext: { _ in
-                self.dismissView()
-            })
+            .subscribe(
+                onNext: { _ in
+                    self.dismissView()
+                }
+            )
             .disposed(by: disposeBag)
     }
     
@@ -125,10 +137,16 @@ extension EditTaskViewController {
     private func configureNavigationBar() {
         navigationItem.title = Titles.navigationItem
         navigationController?.navigationBar.backgroundColor = .systemGray3
-        let rightButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                          target: self, action: nil)
-        let leftButton = UIBarButtonItem(barButtonSystemItem: .edit,
-                                         target: self, action: nil)
+        let rightButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: nil
+        )
+        let leftButton = UIBarButtonItem(
+            barButtonSystemItem: .edit,
+            target: self,
+            action: nil
+        )
         navigationItem.rightBarButtonItem = rightButton
         navigationItem.leftBarButtonItem = leftButton
     }
