@@ -3,12 +3,15 @@
 > 👩🏻‍💻 2023.01.09~ 진행 중
 
 
-**프로젝트를 세 개의 상태인 예정(TODO)/ 진행중(DOING)/ 완료(DONE)로 나누어 관리할 수 있습니다.**
+**프로젝트를 세 개의 상태인 예정(TODO)/ 진행중(DOING)/ 완료(DONE)로 나누어 관리하는 앱입니다.**
+**프로젝트에 관한 데이터들은 서버와 기기에 자동 됩니다.**
 - 프로젝트에 대한 제목, 예정 기한, 상세 내용을 등록할 수 있습니다.
 - 처음 프로젝트를 등록하면 예정(TODO)리스트 에 등록됩니다.
-- 등록된 프로젝트가 진행사항에 따라 TODO, DOING, DONE 리스트로 이동시킬 수 있습니다.
-- 메인 화면에서 세 개의 상태에 대해 리스트로 관리 할 수 있습니다.
 - 등록된 프로젝트들에 대해 상세보기/ 수정/ 삭제가 가능합니다.
+- 등록된 프로젝트가 진행사항에 따라 TODO, DOING, DONE 리스트로 이동시킬 수 있습니다.
+- 변경사항(등록, 수정, 삭제, 이동)에 대한 변경내역을 저장하고, 볼 수 있습니다.
+- 네트워크가 없이 사용할 때는 프로젝트 정보들을 기기에만 자동 저장하고, 후에 네트워크 재연결시 서버에 변경사항들에 대해 자동저장합니다. 
+
 
 
 ## 📖 목차
@@ -36,19 +39,41 @@
 
 ## 📱 기능 소개
 
-| **Main 화면** | 
-| :-------------------------------------------: | 
-| **세 단계로 프로젝트 관리** | 
-| <img width = 500, src = "https://i.imgur.com/BjGJlLu.gif"> | 
-| **삭제 혹은 진행상황에 맞게 이동** |
-| <img width = 500,  src = "https://i.imgur.com/iVSI94W.gif"> |
+### 1. **Main 화면** 
 
-| **등록/자세히보기/수정 화면** | 
+| **세 단계로 프로젝트 관리** | **삭제 혹은 진행상황에 맞게 이동** |
+| :-------------------------------------------: | :-------------------------------------------: | 
+| <img width = 500, src = "https://i.imgur.com/BjGJlLu.gif"> |  <img width = 500,  src = "https://i.imgur.com/iVSI94W.gif"> |
+
+
+### 2. **등록/자세히보기/수정 화면** 
+
+| **새로운 프로젝트 등록** | **등록된 프로젝트 상세내용 보기 및 <br> edit버튼으로 내용 수정** |
+| :-------------------------------------------: | :-------------------------------------------: | 
+| <img width = 500, src = "https://i.imgur.com/McbxWDC.gif"> | <img width = 500, src = "https://i.imgur.com/HaeWUnS.gif"> |
+
+### 3. **변경내역 화면**
+
+| **History버튼 터치 시 프로젝트 변경내역 표시** |
 | :-------------------------------------------: | 
-| **새로운 프로젝트 등록** |
-| <img width = 500, src = "https://i.imgur.com/McbxWDC.gif"> |
-| **등록된 프로젝트 자세히 보기 및 내용 수정** |
-| <img width = 500, src = "https://i.imgur.com/HaeWUnS.gif"> |
+|<img width = 300, src = "https://i.imgur.com/Zl63Y2E.gif">|
+
+
+### 4. **네트워크 상태 확인**
+
+| **네트워크 연결상태에 따른 서버 동기화 버튼 변경** |
+| :-------------------------------------------: | 
+| <img width = 300, src = "https://i.imgur.com/89c4jxk.gif"> |
+
+
+| **연결된 네트워크가 있을 때 <br> 동기화 버튼 터치 시 Alert** | **연결된 네트워크 없을 때 <br> 동기화 버튼 터치 시 Alert** |
+| :-------------------------------------------: | :-------------------------------------------: | 
+| <img width = 500, src = "https://i.imgur.com/RsGMuXr.png"> | <img width = 500, src = "https://i.imgur.com/EBRIDn0.png"> |
+
+### 5. **FireStore 자동 동기화**
+
+|<img width = 600, src = "https://i.imgur.com/Eifnjc1.gif">|
+| -------- |
 
 ---
 
@@ -60,80 +85,123 @@
 | <img height = 70, src = "https://i.imgur.com/q6rTXrE.png">     | <img height = 70, src = "https://i.imgur.com/DSnI74h.png">     | <img height = 70, src = "https://i.imgur.com/by0H2pU.png">    | <img height = 70, src = "https://i.imgur.com/fEhv9lS.png"> <img height = 70, src = "https://i.imgur.com/uIBJ8aO.png">     | <img height = 70, src = "https://i.imgur.com/ezwfWM7.png">     |
 | UIKit | CoreData | Firebase| CocoaPods / SPM | MVVM |
 
-(FireBase와, CoreData는 Step3에서 적용 예정입니다.)
-
 ---
 
 ## 👀 Class Diagram
 
 
+### 1️⃣ MVVM 
+MainViewModel을 기준으로, DTO형식의 ViewModel을 추가로 사용하는 구성입니다. 
+ 
+| ![](https://i.imgur.com/ivZpLXy.jpg) |
+| :-------------------------------------------: | 
+
+
+- 리팩토링전(~Step2), View 하나당, ViewModel 하나씩 짝지어 구성했었습니다. 그렇게 했을 때, MVC구조보다 오히려 구조가 더 복잡해보였기 때문에 Step3를 진행하기 전에 MainViewModel 한 개로 통합하는 구조로 리팩토링했습니다.
+
+<details>
+<summary>[리팩토링 이전 UML] </summary>
+	
+Step2 리팩토링 전, View하나 당 ViewModel하나로 구성해본 로직의 UML
+
 | ![](https://i.imgur.com/uF4sTaz.jpg) |
 | :-------------------------------------------: | 
 
-- MVVM 패턴에서 위와같이 View 하나당, ViewModel 하나씩 짝지어 만들었을 때(현재 3쌍) MVC구조보다 오히려 구조가 더 복잡해졌다고 판단되서 EditingView, CellView의 ViewModel들을 MainViewModel 한 개로 사용하는 구조로 리팩토링 할 예정입니다.
+</details> </br> 
+
+### 2️⃣ Server DB / Local DB CRUD
+인스턴스를 생성할 때, 타입을 구체화타입이 아닌 추상화타입으로 구현해 놓아 추후 DB가 바뀔 경우에 대비했습니다.
+| <img width = 600 src = "https://i.imgur.com/aOCtPBS.jpg"> |
+| :-------------------------------------------: | 
 
 ---
 
 ## 🗂 폴더 구조
 ```
 ProjectManager
-├── AppDelegate
-├── SceneDelegate
-├── GoogleService-Info.plist
-├── Info.plist
-│
-├── Model
-│   ├── Project
-│   └── ProjectState
-│
-├── View
-│   └── MainView
-│   │   ├── DataSource
-│   │   ├── ListCell
-│   │   ├── ListView
-│   │   └── MainViewController
-│   ├── EditingView
-│   │   └── EditingViewController
-│   ├── Custom
-│   └── └── CircleLabel
-│
-└── ViewModel
-│   ├── MainViewModel
-│   ├── EditingViewModel
-│   └── ListCellViewModel
-│
-├── Extension +
-│   ├── Date +
-│   ├── UIAlertController +
-│   ├── UILabel +
-│   ├── UIStackView +
-│   ├── UITextField +
-│   ├── UITextView +
-│   └── UIView +
-│
-ProjectManagerTests
-├── SampleData
-├── MainViewModelTests
-└── EditingViewModelTests
-│
-Pods
-└── swiftlint
+├── ProjectManager
+│   ├── AppDelegate
+│   ├── SceneDelegate
+│   ├── Info.plist
+│   │ 
+│   ├── DataBase
+│   │   ├── CRUDable
+│   │   ├── CoreData
+│   │   │   ├── CoreDataManager + ProjectCRUDable
+│   │   │   ├── ProjectCoreModel + CoreDataClass
+│   │   │   ├── ProjectCoreModel + CoreDataProperties
+│   │   │   └── CoreData.xcdatamodeld
+│   │   │       └── ProjectCoreData.xcdatamodel
+│   │   │           └── contents
+│   │   └── FireBaseStore
+│   │       ├── FireBaseStoreManager + ProjectRemoteCRUDable
+│   │       └── GoogleService-Info.plist
+│   │
+│   ├── Network
+│   │   └── NetworkMonitor
+│   │ 
+│   ├── Model
+│   │   ├── Project
+│   │   ├── ProjectState
+│   │   ├── ProjectHistory
+│   │   └── ProjectChange
+│   │
+│   ├── View
+│   │   ├── MainView
+│   │   │   ├── MainViewController
+│   │   │   ├── ListView
+│   │   │   ├── ListCell
+│   │   │   └── ProjectDataSource
+│   │   ├── EditingView
+│   │   │   └── EditingViewController
+│   │   ├── HistoryView
+│   │   │   ├── HistoryDataSource
+│   │   │   └── ProjectHistoryViewController
+│   │   └── Custom
+│   │       └── CircleLabel
+│   │
+│   └── ViewModel
+│   │   ├── MainViewModel
+│   │   ├── ProjectViewModel
+│   │   └── ProjectHistoryViewModel
+│   │
+│   ├── Extension +
+│   │   ├── Date +
+│   │   ├── UIAlertController +
+│   │   ├── UILabel +
+│   │   ├── UIStackView +
+│   │   ├── UITextField +
+│   │   ├── UITextView +
+│   │   └── UIView +
+│   │
+└── ProjectManagerTests
+│   ├── SampleData
+│   └── MainViewModelTests
+│   │
+├── Podfile
+│   ├── SwiftLint
+└── └── └── swiftlint
 ```
 
 ---
 
 ## 📝 프로젝트에서 경험하고 배운 것
 
-- MVVM 디자인패턴
-	 - [X] MVVM디자인 패턴을 공부하고 적용했습니다.
-	 - [X] Closure를 이용해 ViewModel과 View를 바인딩했습니다.
-- ViewModel의 UnitTest
-	- [X] MVVM의 장점으로 ViewController에서 ViewModel로 분리된 로직들의 UnitTest가 가능하다는 장점을 살려, ViewModel의 UnitTest를 진행했습니다.
-- modal의 formSheet, Alert의 PopoverStyle 사용
-	 - [X] 등록/수정 뷰를 전체화면 중 중앙에 작게 보여주기위해 modal의 formSheet로 화면을 보여줍니다.
-	 - [X] Cell의 이동 옵션을 메뉴로 보여주기 위해 Alert의 PopoverStyle을 사용했습니다.
-- UIGestureRecognizer
-     - [X] Cell을 길게 터치했을 때 액션을 추가하기 위해 Cell에 `UILongPressGestureRecognizer`로 Gesture를 추가했습니다. 
+- [X] MVVM 디자인패턴
+	 -  MVVM디자인 패턴을 공부하고 적용했습니다.
+	 -  Closure를 이용해 ViewModel과 View를 바인딩했습니다.
+- [X] ViewModel의 UnitTest
+	- MVVM의 장점으로 ViewController에서 ViewModel로 분리된 로직들의 UnitTest가 가능하다는 장점을 살려, ViewModel의 UnitTest를 진행했습니다.
+- [X] ServerDateBase에 동기화 저장 
+	 - FireBase의 FireStroe를 사용해 서버와 통신하여 동기화합니다.
+- [X] 네트워크 연결 모니터링
+	 - NWPathMonitor타입을 사용해 네트워크 연결상태를 모니터링합니다
+	 - 네트워크 연결이 없을 때 동기화버튼 이미지 변경으로 사용자에게 알립니다.
+- [X] modal의 formSheet, PopoverStyle 사용
+	 - 등록/수정 뷰를 전체화면 중 중앙에 작게 보여주기위해 modal의 formSheet로 화면을 보여줍니다.
+	 - Cell의 이동 옵션을 메뉴와, 프로젝트 변경내역을 보여줄 때, modalPresentationStyle로 PopoverStyle로 보여줍니다.
+- [X] UIGestureRecognizer
+     - Cell을 길게 터치했을 때 액션을 추가하기 위해 Cell에 `UILongPressGestureRecognizer`로 Gesture를 추가했습니다. 
 
 ---
 
@@ -198,8 +266,10 @@ Pods
 |   | 진행 내용 |
 | :--------: | -------- |
 | 1 | MVVM 아키텍쳐 공부 및 적용 |
-| 2 | 메인 화면, 등록/수정/상세보기 View 및 기능 구현 | 
-| 3 | 리뷰어 리뷰 후 리팩토링 | 
+| 2 | 메인 화면 구현 및 기능 구현 |
+| 3 | 프로젝트 등록/수정/상세보기에 관한 화면들과 기능 구현 | 
+| 4 | 다른 리스트로 이동하는 옵션을 보여주는 팝오버 화면과 기능 구현 | 
+| 5 | 리뷰어 리뷰 후 리팩토링 | 
 
 <details>
 <summary>[Details - Step2 타입별 기능 설명]  </summary>
@@ -226,7 +296,7 @@ Pods
 	- `datas`가 변할 때마다 `updateDatas`클로저를 호출합니다.
 	- 그 외, 뷰에 보여줄 `ListTitles`배열, `datasCount`를 갖습니다.
 
-#### 3️⃣ ListCellViewModel - ListCell
+#### 3️⃣ (Deprecated❗️) ListCellViewModel - ListCell
 리스트의 각 Cell을 컨트롤합니다.
 - ListCell (V)
 	- 제목 / 목표날짜 / 상세내용요약 을 나타낼 View를 그리고 layout합니다.
@@ -237,7 +307,7 @@ Pods
 	- 목표날짜를 오늘과 비교해 기한이 지났는지 확인합니다.(`isMissDeadLine`)
 	- cell의 내용을 구성합니다(`setupCell`)
 
-#### 4️⃣ EditingViewModel - EditingViewController
+#### 4️⃣ (Deprecated❗️) EditingViewModel - EditingViewController
 리스트에 새로운 프로젝트를 추가하는 뷰/ 추가 되어있던 프로젝트를 자세히 보고, 수정할 수 있는 뷰를 컨트롤합니다.
 - EditingViewController (V)
 	- Editable모드/ ReadOnly모드가 있습니다.
@@ -248,8 +318,61 @@ Pods
 	- Editable모드/ ReadOnly모드구분하고 `title` / `date` / `description` 을 String 타입으로 갖습니다.
 	- 새로운 프로젝트라면 새로운 데이터를 추가하고, 기존 프로젝트라면 해당 데이터를 수정합니다. 이 때, `MainViewModel`의 `datas`를 변경해줍니다.
 	
-</details> </br> </br>
+</details> </br>
+
+
+
+### 🕒 Step3 - (총 4일) 2023.01.23 ~ 2023.01.26
+|   | 진행 내용 |
+| :--------: | -------- |
+| 1 | 리팩토링 - ViewModel 하나로 통합사용 |
+| 2 | FireBase, CoreData CRUD 구현 및 적용, 데이터 저장 실시간 동기화 | 
+| 3 | 네트워크 연결상태 모니터링 기능 구현과 연결상태를 보여주는 UI/UX 구현 | 
+| 4 | 프로젝트 변경내역을 보여주는 화면 구현 및 기능 구현 | 
+
+<details>
+<summary>[Details - Step3 타입별 기능 설명]  </summary>
+
+#### 1️⃣ MainViewController(리팩토링)
+세 개의 프로젝트 과정(TODO/ DOING/ DONE)을 리스트 세 개로 보여주고 컨트롤 합니다.
+- MainViewModel을 통해 화면을 업데이트합니다. 
+- MainViewModel의 `projectsGroup`값이 변경 될 때마다 호출 되는 `updateProjects`클로저를 바인딩해, 값이 변경되면 `dataSource`에 새로운 `snapshot`을 찍습니다.
+- MainViewModel의 `networkIsConnected`값이 변경 될 때마다 호출 되는 `updateNetwork`클로저를 바인딩해, 네트워크가 연결이 변경되면 동기화버튼의 이미지를 바꿔줍니다.
+- 네비게이션 바의 + 버튼 터치시 프로젝트 등록화면을 보여줍니다.
+- 셀 터치 시 등록된 프로젝트 상세 내용의 화면을 보여줍니다.
+- 셀을 길게 터치 시 셀을 다른 리스트로 옮길 수 있는 옵션메뉴를 보여주고, 옵션 터치 시 셀을 이동시킵니다.
+- 네비게이션바의 History 버튼 터치 시 변경내역의 화면을 보여줍니다.
+
+#### 2️⃣ MainViewModel 
+- 세 개의 리스트에 담길 데이터가 2차원 배열인 `projectsGroup`을 갖습니다.
+- 프로젝트를 추가/ 삭제/ 수정/ 이동/ 읽기를 담당하는 메서드들을 갖고, 이 메서드들을 사용해 `projectsGroup`값을 변경시키고, 값이 변할 때마다 `updateDatas`클로저를 호출합니다. 또, 변경내용을 `projectHistories`배열에 기록합니다.
+- `NetworkMonitorDelegate`를 채택해 네트워크변경에 따라 `networkIsConnected`프로퍼티값을 변경합니다. 값이 변경되면 `updateNetwork`클로저를 호출합니다. 만약 네트워크가 다시 연결되는 상황이라면 서버DB에 데이터를 자동으로 동기화합니다.
+
+#### 3️⃣ ProjectViewModel / ProjectHistoryViewModel
+- MainViewModel에서 프로젝트 데이터들을 관리하면서 프로젝트 등록/수정/편집 화면이나 변경내역화면을 보여줄 때 화면의 데이터를 전달하기 DTO역할의 뷰모델입니다.
+
+#### 4️⃣ ProjectChange / ProjectHistory
+- ProjectChange는 프로젝트가 변경되는 종류 4가지(add, remove, update, move)를 case로 갖습니다.
+- ProjectHistory는 DTO Model로 어떤 프로젝트(Project)를 언제(Date) 어떻게 변경하는지(ProjectChange)의 정보를 담습니다.
+
+#### 5️⃣ ProjectHistoryViewController / HistoryDataSource
+- 프로젝트 변경내역을 보여주는 화면입니다.
+- `ProjectHistoryViewModel`에 저장되어있는 변경내역을 Cell에 담아 보여줍니다.
 	
+#### 6️⃣ NetworkMonitor / NetworkMonitorDelegate
+- 네트워크 연결상태의 변경사항을 모니터링하고, 변경시 핸들링 할 수 있도록 Delegate로 값을 넘겨줍니다.
+	
+#### 7️⃣ CRUDable / ProjectCRUDable / ProjectRemoteCRUDable 프로토콜
+- `CRUDable` 프로토콜에서 데이터를 Create, Read, Updatem, Delete 하는 메서드를 선언합니다. 데이터 타입을 구체화에서 정할 수 있도록 `associatedtype` 으로 DataType을 사용합니다.
+- `ProjectCRUDable`프로토콜은 CRUDable 프로토콜을 채택하고, 프로젝트매니저에 적용할 수 있도록 DataType을을 `ProjectViewModel` 타입으로 지정합니다.
+- `ProjectRemoteCRUDable` 프로토콜은 `ProjectCRUDable`프로토콜을 채택하고, 서버 재연결 시 자동 동기화를 하는 메서드를 선언합니다.
+
+#### 8️⃣ FireBaseStoreManager / CoreDataManager
+- `FireBaseStoreManager`는 FireStore에 데이터를 동기화하는 서버DB로 `ProjectRemoteCRUDable` 프로토콜을 채택한 후 CRUD 메서드를 구현합니다.
+- `CoreDataManager`는 CoreData에 데이터를 동기화하는 로컬DB로 `ProjectCRUDable` 프로토콜을 채택한 후 CRUD 메서드를 구현합니다.
+	
+</details> </br>
+
 ---
 
 ## 💭 고민한 부분
@@ -286,11 +409,65 @@ Pods
 	- `UICollectionViewCompositionalLayout.list`는 Cell Custom이 어려운 단점이 있고, 프로젝트 요구사항에도 cell사이에 간격이 있는것을 보고 Custom이 필요한 것 같아 Cell Custom이 더 쉬운 `UITableView`를 선택했습니다.
 
 ### 3️⃣ MVVM의 장점은 무엇인가? ➡️ UnitTest ?
-MVVM 디자인패턴을 처음 공부해보고 접목해보면서 장점이 무엇인가에 대한 생각을 많이 했습니다. 
+MVVM을 사용하면서 느낀 장점으론 `ViewController`의 로직이 뷰모델로 분리되기 때문에 `UnitTest`를 더 쉽게 할수있다는 것과, 방대해지는 `ViewController`의 일을 분담시킬 수 있다는 점이었습니다. 더불어 Data가 뷰에 Binding되어있기 때문에, Data에 변경을 주는 로직마다 뷰를 업데이트 해줘야하는 추가 작업을 하지 않아도 된다는 점이었습니다.
 
-공부할 때는, MVVM의 장점으로 `ViewController`의 로직이 뷰모델로 분리되기 때문에 `UnitTest`를 더 쉽게 할수있다는 것과, 방대해지는 `ViewController`의 일을 분담시킬 수 있다는 점이 있었습니다.
+### 4️⃣ 추후 로컬DB, 서버DB 의 기술스택이 변경될 때를 대비하는 방법 
+추후 로컬DB, 서버DB가 바뀔 경우에 대비해 `CRUDable`프로토콜에 CRUD메서드로 인터페이스로 만든 후, 인스턴스를 생성할 때 구체화타입이 아닌 추상화인 프로토콜타입으로 사용했습니다.
 
-확실히 ViewModel로 분리된 로직들은 쉽게 `UnitTest`할 수 있었습니다. 다만, 현재(Step2)까지는 ViewController-ViewModel 를 한 쌍씩 만듣면서 구조가 MVC보다 더 복잡해고, 리뷰어와 상의 후 ViewModel을 하나로 사용하는 방향으로 리팩토링해보고 MVVM의 장점을 다시 생각해 볼 수 있을 것 같습니다.
+1. `Base Protocol`과, 이를 채택한 후 `DataType`을 지정한 `ProjectCRUDable`을 선언했고, 인터넷 재 연결 시 동기화 업데이트를 해야하는 서버 데이터베이스용으로는 `ProjectRemoteCRUDable` 프로토콜을 생성해 `ProjectCRUDable`을 채택하도록 구성했습니다.
+	```swift
+	// MARK: - CRUDable Base Protocol
+	protocol CRUDable {
+
+		associatedtype DataType
+
+		func create(_ data: DataType)  
+		func read(completion: @escaping (Result<[DataType], Error>) -> Void)    
+		func update(_ data: DataType)    
+		func delete(_ data: DataType)   
+		func deleteAll()
+	}
+
+	// MARK: - CRUDable 타입지정: ProjectViewModel
+	protocol ProjectCRUDable: CRUDable where DataType == ProjectViewModel {
+
+	}
+
+	// MARK: - RemoteDataBase용 ProjectCRUDable
+	protocol ProjectRemoteCRUDable: ProjectCRUDable {
+
+		func updateAfterNetworkConnection(projectViewModels: [ProjectViewModel])
+	}
+	```
+
+2. `CoreDataManager` 클래스는 `ProjectCRUDable`을 채택하고,
+ 서버DB인 `FireBaseStoreManager` 클래스는 `ProjectRemoteCRUDable`를 채택합니다
+	```swift
+	class CoreDataManager: ProjectCRUDable { 
+		// CRUD 구현
+	}
+
+	class FireBaseStoreManager: ProjectRemoteCRUDable {
+		// CRUD 구현
+	}
+	```
+
+3. ViewModel에서 인스턴스로 생성할 때, 타입을 구체화타입이 아닌 추상화 타입인 `ProjectCRUDable`, `ProjectRemoteCRUDable`를 사용했습니다.
+추후 DB가 바뀔 경우 같은 프로토콜을 채택한 타입의 인스턴스로 수정이 가능하게 했습니다.
+```swift
+private let localDataManager: ✅ some ProjectCRUDable = CoreDataManager()
+private let remoteDataManager: ✅ some ProjectRemoteCRUDable = FireBaseStoreManager()
+```
+
+### 5️⃣. 네트워크에 연결되어있지 않다는 것을 사용자에게 알려줄 수 있는 UI/UX고민
+- 처음 생각했던 것은 Alert을 보여주는 것이었습니다. 이 방법을 사용하지 않은 이유는, HIG에 나와있기를 Alert은 즉시 필요한 중요한 정보를 제공하는 목적이라 소개하기 때문입니다.
+- 프로젝트 매니저 같은 경우엔 로컬DB인 CoreData에도 저장을 하고있고, 실제로 처음 앱을 켰을 때 데이터를 가져오는 곳도 CoreData이기 때문에 네트워크 끊김이 앱에 크게 영향을 끼치지 않는다고 생각했고, 아래 영상처럼 동기화 버튼을 하나 추가해 네트워크가 없을 시엔 색깔과 느낌표가 추가된 이미지로 바뀌도록 만들었습니다.
+
+- 아래 영상처럼 네트워가 없을 때 동기화버튼 이미지가 바뀌도록 구현했습니다.
+	| <img width = 300, src = "https://i.imgur.com/89c4jxk.gif"> |
+	| ---------- |
+
+</details> </br> </br>
 
 ---
 
@@ -306,7 +483,7 @@ MVVM 디자인패턴을 처음 공부해보고 접목해보면서 장점이 무�
   &nbsp;
     <table>
       <tr>
-    	 <td colspan="3"> <strong>요구사항 예시화면의 Cell 간격</strong> </td>
+    	 <td colspan= "3"> <strong>요구사항 예시화면의 Cell 간격</strong> </td>
       </tr>
       <tr>
         <td>&nbsp;&nbsp;<img width = 300, src = "https://i.imgur.com/Mua53fH.png">&nbsp;&nbsp;</td>
@@ -325,6 +502,31 @@ MVVM 디자인패턴을 처음 공부해보고 접목해보면서 장점이 무�
         <td>&nbsp;&nbsp;<img width = 300, src = "https://i.imgur.com/aT53pOQ.png">&nbsp;&nbsp;&nbsp;</td>
       </tr>
     </table>
+	
+### 2️⃣ formSheet화면에 NavigationBar의 Width가 적용디되는 시점
+- formSheet 스타일의 화면에 네비게이션 바를 설치하면서(setupNavigationBar()) 크기를 지정해 줄 때, `width`값을 View의 넓이와 같도록 하기위해 아래와같이 frame.width로 지정해주었고, `ViewDidLoad()`에서 이 메서드를 호출했을 때, 정상적으로 셋팅이 되지않는 문제가 있었습니다. 원인은 formSheet로 작아지기 전 view가 기기의 전체화면과 크기가 같을 때의 View의 넓이가 적용되었기 때문이었습니다.
+```swift
+private func setupNavigationBar() {
+	let navigationBar = UINavigationBar(frame: CGRect(x: Default.origin,
+							    y: Default.origin,
+							    width: ✅ view.frame.width,
+							    height: Default.navigationBarHeight))
+	// ...	
+}
+```
+
+- **✅ 수정: `setupNavigationBar()` 호출 시점을 `ViewWillAppear()`에서 호출되도록 수정했습니다.**
+  
+| ViewDidLoad()에서 호출 시 | ViewWillAppear()에서 호출 시| 
+| :--------: | :--------: | 
+|   ![](https://i.imgur.com/5zL6zfd.png)     |  ![](https://i.imgur.com/c5gke01.png)  |
+
+ 
+
+
+
+
+
 
 
 ## 🔗 참고 링크
@@ -336,8 +538,10 @@ MVVM 디자인패턴을 처음 공부해보고 접목해보면서 장점이 무�
 - [developer(Article)-Displaying transient content in a popover](https://developer.apple.com/documentation/uikit/windows_and_screens/displaying_transient_content_in_a_popover)
 - [developer-UIAlertController.Style.actionSheet](https://developer.apple.com/documentation/uikit/uialertcontroller/style/actionsheet)
 - [developer-DatePicker](https://developer.apple.com/documentation/swiftui/datepicker)
+- [developer-NWPathMonitor](https://developer.apple.com/documentation/network/nwpathmonitor)
 
 [공식문서 외]
 - [Firebase 문서 Apple 플랫폼용 Firebase](https://firebase.google.com/docs/ios/installation-methods?authuser=0&hl=ko#cocoapods)
+- [Get data with Cloud Firestore](https://firebase.google.com/docs/firestore/query-data/get-data)
 - [Github-protocorn93/iOS-Architecture - MVVM](https://github.com/protocorn93/iOS-Architecture)
 - [Kodeco-MVVM](https://www.kodeco.com/6733535-ios-mvvm-tutorial-refactoring-from-mvc)
