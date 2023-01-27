@@ -16,16 +16,22 @@ final class TaskStatusInfoView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.font = label.font.withSize(30)
+        
         return label
     }()
     private var taskCountLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .black
+        label.layer.cornerRadius = 20
+        label.clipsToBounds = true
         label.textAlignment = .center
         label.textColor = .white
         label.text = "0"
-        label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
+    
     private var wholeStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +39,7 @@ final class TaskStatusInfoView: UIView {
         stack.distribution = .equalSpacing
         stack.spacing = 20
         stack.alignment = .center
+        
         return stack
     }()
     
@@ -41,6 +48,7 @@ final class TaskStatusInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        combineViews()
         configureViewLayout()
     }
     
@@ -63,10 +71,13 @@ extension TaskStatusInfoView {
 
     // MARK: Layout
     
-    private func configureViewLayout() {
+    private func combineViews() {
         wholeStackView.addArrangedSubview(taskNameLabel)
         wholeStackView.addArrangedSubview(taskCountLabel)
         addSubview(wholeStackView)
+    }
+    
+    private func configureViewLayout() {
         
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 80),
@@ -81,9 +92,5 @@ extension TaskStatusInfoView {
             taskCountLabel.widthAnchor.constraint(equalToConstant: 40),
             taskCountLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
-        
-        taskCountLabel.backgroundColor = .black
-        taskCountLabel.layer.cornerRadius = 20
-        taskCountLabel.clipsToBounds = true
     }
 }
