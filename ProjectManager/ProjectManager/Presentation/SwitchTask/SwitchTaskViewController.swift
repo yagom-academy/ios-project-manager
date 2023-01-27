@@ -22,6 +22,7 @@ final class SwitchTaskViewController: UIViewController {
         button.backgroundColor = .white
         button.setTitle(Titles.doing, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
+        
         return button
     }()
     private var doneButton: UIButton = {
@@ -29,6 +30,7 @@ final class SwitchTaskViewController: UIViewController {
         button.backgroundColor = .white
         button.setTitle(Titles.done, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
+        
         return button
     }()
     private var wholeStackView: UIStackView = {
@@ -37,6 +39,7 @@ final class SwitchTaskViewController: UIViewController {
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.spacing = 10
+        
         return stack
     }()
 
@@ -72,13 +75,11 @@ extension SwitchTaskViewController {
     
     private func bindViewModel() {
         guard let viewModel = self.viewModel else { return }
-
         let doingButton = doingButton.rx.tap.asObservable()
         let doneButton = doneButton.rx.tap.asObservable()
 
         let input = SwitchTaskViewModel.Input(doingTrigger: doingButton,
                                               doneTrigger: doneButton)
-
         let output = viewModel.transform(input: input)
 
         output.doingSwitched
@@ -119,11 +120,20 @@ extension SwitchTaskViewController {
     }
     
     private func configureViewConstraints() {
+        
         NSLayoutConstraint.activate([
-            wholeStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            wholeStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            wholeStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            wholeStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+            wholeStackView.topAnchor.constraint(
+                equalTo: view.layoutMarginsGuide.topAnchor
+            ),
+            wholeStackView.bottomAnchor.constraint(
+                equalTo: view.layoutMarginsGuide.bottomAnchor)
+            ,
+            wholeStackView.leadingAnchor.constraint(
+                equalTo: view.layoutMarginsGuide.leadingAnchor
+            ),
+            wholeStackView.trailingAnchor.constraint(
+                equalTo: view.layoutMarginsGuide.trailingAnchor
+            ),
         ])
     }
 }
