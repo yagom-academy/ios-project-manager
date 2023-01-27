@@ -2,12 +2,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-fileprivate enum LocalNames {
+fileprivate enum Titles {
     static let todo = "TODO"
     static let doing = "DOING"
     static let done = "DONE"
-    static let cellReuseIdentifier = "task"
-    static let navigationItemTitle = "Project Manager"
+    static let navigationItem = "Project Manager"
+}
+
+fileprivate enum Identifier {
+    static let cellReuse = "task"
 }
 
 final class ProjectManagerViewController: UIViewController {
@@ -16,21 +19,21 @@ final class ProjectManagerViewController: UIViewController {
     
     private var todoTableView: UITableView = {
         let table = UITableView()
-        table.register(TaskCell.self, forCellReuseIdentifier: LocalNames.cellReuseIdentifier)
+        table.register(TaskCell.self, forCellReuseIdentifier: Identifier.cellReuse)
         table.separatorStyle = .none
         table.backgroundColor = .systemGray6
         return table
     }()
     private var doingTableView: UITableView = {
         let table = UITableView()
-        table.register(TaskCell.self, forCellReuseIdentifier: LocalNames.cellReuseIdentifier)
+        table.register(TaskCell.self, forCellReuseIdentifier: Identifier.cellReuse)
         table.separatorStyle = .none
         table.backgroundColor = .systemGray6
         return table
     }()
     private var doneTableView: UITableView = {
         let table = UITableView()
-        table.register(TaskCell.self, forCellReuseIdentifier: LocalNames.cellReuseIdentifier)
+        table.register(TaskCell.self, forCellReuseIdentifier: Identifier.cellReuse)
         table.separatorStyle = .none
         table.backgroundColor = .systemGray6
         return table
@@ -38,19 +41,19 @@ final class ProjectManagerViewController: UIViewController {
     
     private var todoStatusView: TaskStatusInfoView = {
         let view = TaskStatusInfoView()
-        view.setTitle(with: LocalNames.todo)
+        view.setTitle(with: Titles.todo)
         view.backgroundColor = .systemGray6
         return view
     }()
     private var doingStatusView: TaskStatusInfoView = {
         let view = TaskStatusInfoView()
-        view.setTitle(with: LocalNames.doing)
+        view.setTitle(with: Titles.doing)
         view.backgroundColor = .systemGray6
         return view
     }()
     private var doneStatusView: TaskStatusInfoView = {
         let view = TaskStatusInfoView()
-        view.setTitle(with: LocalNames.done)
+        view.setTitle(with: Titles.done)
         view.backgroundColor = .systemGray6
         return view
     }()
@@ -146,7 +149,7 @@ extension ProjectManagerViewController {
         let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
                                              action: #selector(tapNavigationAddButton))
         navigationItem.rightBarButtonItem = rightAddButton
-        navigationItem.title = LocalNames.navigationItemTitle
+        navigationItem.title = Titles.navigationItem
         
     }
     
@@ -309,7 +312,7 @@ extension ProjectManagerViewController {
         output.todoItems
             .bind(to: self.todoTableView.rx.items) { (tableview, index, item) in
                 guard let cell = tableview.dequeueReusableCell(withIdentifier:
-                                                                LocalNames.cellReuseIdentifier)
+                                                                Identifier.cellReuse)
                         as? TaskCell
                 else { return TaskCell() }
                 cell.viewModel = item
@@ -321,7 +324,7 @@ extension ProjectManagerViewController {
         output.doingItems
             .bind(to: self.doingTableView.rx.items) { (tableview, index, item) in
                 guard let cell = tableview.dequeueReusableCell(withIdentifier:
-                                                                LocalNames.cellReuseIdentifier)
+                                                                Identifier.cellReuse)
                         as? TaskCell
                 else { return TaskCell() }
                 cell.viewModel = item
@@ -333,7 +336,7 @@ extension ProjectManagerViewController {
         output.doneItems
             .bind(to: self.doneTableView.rx.items) { (tableview, index, item) in
                 guard let cell = tableview.dequeueReusableCell(withIdentifier:
-                                                                LocalNames.cellReuseIdentifier)
+                                                                Identifier.cellReuse)
                         as? TaskCell
                 else { return TaskCell() }
                 cell.viewModel = item

@@ -8,9 +8,9 @@
 import UIKit
 import RxSwift
 
-fileprivate enum Common {
-    static let doingTitle = "DOING"
-    static let doneTitle = "DONE"
+fileprivate enum Titles {
+    static let doing = "DOING"
+    static let done = "DONE"
 }
 
 final class SwitchTaskViewController: UIViewController {
@@ -20,14 +20,14 @@ final class SwitchTaskViewController: UIViewController {
     private var doingButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
-        button.setTitle(Common.doingTitle, for: .normal)
+        button.setTitle(Titles.doing, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         return button
     }()
     private var doneButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
-        button.setTitle(Common.doneTitle, for: .normal)
+        button.setTitle(Titles.done, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         return button
     }()

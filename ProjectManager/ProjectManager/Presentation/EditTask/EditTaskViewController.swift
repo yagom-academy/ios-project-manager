@@ -8,8 +8,8 @@
 import UIKit
 import RxSwift
 
-fileprivate enum LocalNames {
-    static let navigationTitle = "TODO"
+fileprivate enum Titles {
+    static let navigationItem = "TODO"
 }
 
 final class EditTaskViewController: UIViewController {
@@ -123,7 +123,7 @@ extension EditTaskViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = LocalNames.navigationTitle
+        navigationItem.title = Titles.navigationItem
         navigationController?.navigationBar.backgroundColor = .systemGray3
         let rightButton = UIBarButtonItem(barButtonSystemItem: .done,
                                           target: self, action: nil)
