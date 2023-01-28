@@ -7,7 +7,8 @@
 
 import UIKit
 
-class MainTableViewDelegate: NSObject, UITableViewDelegate {
+final class MainTableViewDelegate: NSObject, UITableViewDelegate, TableViewMethoding {
+    
     var controller: UIViewController?
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -48,23 +49,5 @@ class MainTableViewDelegate: NSObject, UITableViewDelegate {
         controller?.present(modalController, animated: true)
         
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    private func saveData(of tableView: UITableView, to indexPathRow: Int) -> TodoModel? {
-        guard let tableView = tableView as? CustomTableView else { return nil }
-        return tableView.data[indexPathRow]
-    }
-    
-    private func countCell(of tableView: UITableView) -> Int {
-        guard let tableView = tableView as? CustomTableView else { return .zero }
-        return tableView.data.count
-    }
-    
-    private func swipeAction(of tableView: UITableView, to indexPathRow: Int) {
-        guard let tableView = tableView as? CustomTableView else { return }
-        
-        let removeData = tableView.data.remove(at: indexPathRow)
-        guard let id = removeData.id else { return }
-        CoreDataManager.shared.deleteDate(id: id)
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTableViewDataSource: NSObject, UITableViewDataSource {
+final class MainTableViewDataSource: NSObject, UITableViewDataSource, TableViewMethoding {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return countCell(of: tableView)
@@ -35,15 +35,5 @@ class MainTableViewDataSource: NSObject, UITableViewDataSource {
         }
         
         return cell
-    }
-    
-    private func saveData(of tableView: UITableView, to indexPathRow: Int) -> TodoModel? {
-        guard let tableView = tableView as? CustomTableView else { return nil }
-        return tableView.data[indexPathRow]
-    }
-    
-    private func countCell(of tableView: UITableView) -> Int {
-        guard let tableView = tableView as? CustomTableView else { return .zero }
-        return tableView.data.count
     }
 }
