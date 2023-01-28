@@ -24,7 +24,7 @@ final class ProjectTodoListViewController: UIViewController {
         stackView.spacing = Constants.defaultSpacing
         return stackView
     }()
-    private let bottomView = UndoRedoView()
+    private let projectTodoFooterView = ProjectTodoFooterView()
     private var projectStateCount: Int {
         return projectTodoListViewModel.projectStateCount()
     }
@@ -53,6 +53,7 @@ final class ProjectTodoListViewController: UIViewController {
         configureHierarchy()
         configureRedoUndoButtonAction()
         updateEnableUndoRedoButton()
+        updateShowHideDisconnectedNetworkLabel(isConnected: projectTodoListViewModel.isNetworkConnected)
         bindProjectTodoListViewModel()
         updateSnapshot()
         updateProjectTodoHeaderViewText()
@@ -148,34 +149,45 @@ final class ProjectTodoListViewController: UIViewController {
             stackView.addArrangedSubview(projectTodoStackViews[index])
         }
         view.addSubview(stackView)
-        view.addSubview(bottomView)
+        view.addSubview(projectTodoFooterView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 
-            bottomView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
-            bottomView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            bottomView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            bottomView.heightAnchor.constraint(equalToConstant: Constants.bottomViewHeight)
+            projectTodoFooterView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
+            projectTodoFooterView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            projectTodoFooterView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            projectTodoFooterView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            projectTodoFooterView.heightAnchor.constraint(equalToConstant: Constants.bottomViewHeight)
         ])
     }
 
     private func configureRedoUndoButtonAction() {
-        bottomView.addTargetToUndoButton(self, action: #selector(didPressUndoButton), for: .touchUpInside)
-        bottomView.addTargetToRedoButton(self, action: #selector(didPressRedoButton), for: .touchUpInside)
+        projectTodoFooterView.addTargetToUndoButton(self, action: #selector(didPressUndoButton), for: .touchUpInside)
+        projectTodoFooterView.addTargetToRedoButton(self, action: #selector(didPressRedoButton), for: .touchUpInside)
     }
 
     private func updateEnableUndoRedoButton() {
-        bottomView.updateEnableUndoRedoButton(isEnabledUndoButton: undoManager?.canUndo ?? false,
+        projectTodoFooterView.updateEnableUndoRedoButton(isEnabledUndoButton: undoManager?.canUndo ?? false,
                                               isEnabledRedoButton: undoManager?.canRedo ?? false)
+    }
+
+    private func updateShowHideDisconnectedNetworkLabel(isConnected: Bool) {
+        if isConnected {
+            projectTodoFooterView.hideDisconnectedNetworkLabel()
+        } else {
+            projectTodoFooterView.showDisconnectedNetworkLabel()
+        }
     }
 
     private func bindProjectTodoListViewModel() {
         projectTodoListViewModel.bind { [weak self] itemIDs in
             self?.updateSnapshot(itemIDs)
             self?.updateProjectTodoHeaderViewText()
+        }
+        projectTodoListViewModel.bind { [weak self] isConnected in
+            self?.updateShowHideDisconnectedNetworkLabel(isConnected: isConnected)
         }
     }
 }

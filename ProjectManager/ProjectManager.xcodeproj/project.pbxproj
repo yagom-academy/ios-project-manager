@@ -34,9 +34,10 @@
 		EBFD665E2983C2B200F7BB36 /* ProjectTodoHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD665D2983C2B200F7BB36 /* ProjectTodoHistory.swift */; };
 		EBFD66602983C4C000F7BB36 /* ProjectTodoHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD665F2983C4C000F7BB36 /* ProjectTodoHistoryViewModel.swift */; };
 		EBFD66622983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66612983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift */; };
-		EBFD66642983F50100F7BB36 /* UndoRedoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66632983F50100F7BB36 /* UndoRedoView.swift */; };
+		EBFD66642983F50100F7BB36 /* ProjectTodoFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66632983F50100F7BB36 /* ProjectTodoFooterView.swift */; };
 		EBFD666D2983FB3000F7BB36 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBFD666F2983FB3000F7BB36 /* Localizable.strings */; };
 		EBFD66712984012500F7BB36 /* UserNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66702984012500F7BB36 /* UserNotificationManager.swift */; };
+		EBFD66732984E7EA00F7BB36 /* NetworkMonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD66722984E7EA00F7BB36 /* NetworkMonitorManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,9 +68,10 @@
 		EBFD665D2983C2B200F7BB36 /* ProjectTodoHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoHistory.swift; sourceTree = "<group>"; };
 		EBFD665F2983C4C000F7BB36 /* ProjectTodoHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoHistoryViewModel.swift; sourceTree = "<group>"; };
 		EBFD66612983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoHistoryViewController.swift; sourceTree = "<group>"; };
-		EBFD66632983F50100F7BB36 /* UndoRedoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoView.swift; sourceTree = "<group>"; };
+		EBFD66632983F50100F7BB36 /* ProjectTodoFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTodoFooterView.swift; sourceTree = "<group>"; };
 		EBFD666E2983FB3000F7BB36 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EBFD66702984012500F7BB36 /* UserNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationManager.swift; sourceTree = "<group>"; };
+		EBFD66722984E7EA00F7BB36 /* NetworkMonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				EBFD66562983B76500F7BB36 /* DatabaseManager.swift */,
 				EBFD665B2983BEE800F7BB36 /* PersistenceManager.swift */,
 				EBFD66702984012500F7BB36 /* UserNotificationManager.swift */,
+				EBFD66722984E7EA00F7BB36 /* NetworkMonitorManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,7 +153,7 @@
 				EB9B14112972386C00D601F1 /* TitleTextField.swift */,
 				EB9B141529727A6B00D601F1 /* ProjectTodoHeaderView.swift */,
 				EB9B141729727AD100D601F1 /* ItemCountLabel.swift */,
-				EBFD66632983F50100F7BB36 /* UndoRedoView.swift */,
+				EBFD66632983F50100F7BB36 /* ProjectTodoFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -317,8 +320,9 @@
 				EBFD665C2983BEE800F7BB36 /* PersistenceManager.swift in Sources */,
 				EBFD66622983E76B00F7BB36 /* ProjectTodoHistoryViewController.swift in Sources */,
 				EB9B14082971AD0600D601F1 /* ProjectColor.swift in Sources */,
-				EBFD66642983F50100F7BB36 /* UndoRedoView.swift in Sources */,
+				EBFD66642983F50100F7BB36 /* ProjectTodoFooterView.swift in Sources */,
 				EB9B140E2971C2B000D601F1 /* Date+.swift in Sources */,
+				EBFD66732984E7EA00F7BB36 /* NetworkMonitorManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

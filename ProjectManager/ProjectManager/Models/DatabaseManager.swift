@@ -40,6 +40,12 @@ final class DatabaseManager {
         }
     }
 
+    func updateAll(_ projectTodos: [ProjectTodo]) {
+        projectTodos.forEach { projectTodo in
+            add(projectTodo)
+        }
+    }
+
     func update(_ projectTodo: ProjectTodo) {
         let reference = database.collection(Constants.databaseCollection).document(projectTodo.id.uuidString)
         reference.updateData([

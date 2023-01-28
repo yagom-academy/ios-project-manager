@@ -14,6 +14,9 @@ enum ProjectColor {
     case overdueDate
     case itemCountLabelCircleColor
     case itemCountLabelFontColor
+    case networkStatusLabelFontColor
+    case undoButtonTintColor
+    case redoButtonTintColor
 
     var color: UIColor {
         switch self {
@@ -29,6 +32,12 @@ enum ProjectColor {
             return UIColor.black
         case .itemCountLabelFontColor:
             return UIColor.white
+        case .networkStatusLabelFontColor:
+            return UIColor.systemRed
+        case .undoButtonTintColor:
+            return UIColor.systemBlue
+        case .redoButtonTintColor:
+            return UIColor.systemRed
         }
     }
 }

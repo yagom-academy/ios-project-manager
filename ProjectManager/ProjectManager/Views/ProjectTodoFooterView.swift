@@ -1,5 +1,5 @@
 //
-//  UndoRedoView.swift
+//  ProjectTodoFooterView.swift
 //  ProjectManager
 //
 //  Created by junho lee on 2023/01/27.
@@ -7,7 +7,17 @@
 
 import UIKit
 
-class UndoRedoView: UIView {
+class ProjectTodoFooterView: UIView {
+    private let disconnectedNetworkLabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = NSLocalizedString("The network connection is disconnected.",
+                                       comment: "Disconnected Network Label Text")
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.adjustsFontForContentSizeCategory = true
+        label.isHidden = true
+        return label
+    }()
     private let undoButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -34,13 +44,20 @@ class UndoRedoView: UIView {
     }
 
     private func configureHierarchy() {
+        addSubview(disconnectedNetworkLabel)
         addSubview(undoButton)
         addSubview(redoButton)
         NSLayoutConstraint.activate([
+            disconnectedNetworkLabel.topAnchor.constraint(equalTo: topAnchor),
+            disconnectedNetworkLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                                              constant: Constants.defaultSpacing),
+            disconnectedNetworkLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+
             undoButton.topAnchor.constraint(equalTo: topAnchor),
             undoButton.trailingAnchor.constraint(equalTo: redoButton.leadingAnchor,
                                                  constant: -Constants.defaultSpacing),
             undoButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+
             redoButton.topAnchor.constraint(equalTo: topAnchor),
             redoButton.trailingAnchor.constraint(equalTo: trailingAnchor,
                                                  constant: -Constants.defaultSpacing),
@@ -59,5 +76,13 @@ class UndoRedoView: UIView {
     func updateEnableUndoRedoButton(isEnabledUndoButton: Bool, isEnabledRedoButton: Bool) {
         undoButton.isEnabled = isEnabledUndoButton
         redoButton.isEnabled = isEnabledRedoButton
+    }
+
+    func showDisconnectedNetworkLabel() {
+        disconnectedNetworkLabel.isHidden = false
+    }
+
+    func hideDisconnectedNetworkLabel() {
+        disconnectedNetworkLabel.isHidden = true
     }
 }

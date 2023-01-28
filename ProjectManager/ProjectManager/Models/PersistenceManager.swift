@@ -18,10 +18,10 @@ final class PersistenceManager {
         return container
     }()
     private var context: NSManagedObjectContext {
-        return persistentContainer.viewContext
+        persistentContainer.viewContext
     }
     private var request: NSFetchRequest<ProjectTodoManagedObject> {
-        return ProjectTodoManagedObject.fetchRequest()
+        ProjectTodoManagedObject.fetchRequest()
     }
 
     private func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {

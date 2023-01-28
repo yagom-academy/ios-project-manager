@@ -8,32 +8,61 @@
 import Foundation
 
 final class ProjectTodoListViewModel {
-    private var onUpdated: ([UUID]) -> Void = { _ in }
-    private var updatedProjectTodosID: [UUID] = []
+    private var onUpdatedProjectTodos: ([UUID]) -> Void = { _ in }
+    private var onUpdatedNetworkStatus: (Bool) -> Void = { _ in }
     private let databaseManager = DatabaseManager()
     private let persistenceManager = PersistenceManager()
     private let userNotificationManager = UserNotificationManager()
+    private let networkMonitorManager = NetworkMonitorManager()
+    private var updatedProjectTodosID: [UUID] = []
     private var projectTodos: [ProjectTodo] {
         didSet {
-            onUpdated(updatedProjectTodosID)
+            onUpdatedProjectTodos(updatedProjectTodosID)
             updatedProjectTodosID.removeAll()
         }
+    }
+    var isNetworkConnected: Bool {
+        networkMonitorManager.currentStatus == .satisfied
     }
 
     init(projectTodos: [ProjectTodo] = []) {
         self.projectTodos = projectTodos
+        configureNetworkMonitoring()
+        if networkMonitorManager.currentStatus == .satisfied {
+            fetchDataFromCoreData()
+        } else {
+            fetchDataFromDatabase()
+        }
+    }
+
+    private func configureNetworkMonitoring() {
+        networkMonitorManager.startMonitoring { [weak self] status in
+            guard let self else { return }
+            self.onUpdatedNetworkStatus(status == .satisfied)
+            let reconnectedNetwork = self.networkMonitorManager.lastStatus != .satisfied && status == .satisfied
+            if reconnectedNetwork {
+                self.databaseManager.updateAll(self.projectTodos)
+            }
+        }
     }
 
     func fetchDataFromDatabase() {
-        projectTodos = persistenceManager.fetchProjectTodos()
         databaseManager.fetchProjectTodos { [weak self] projectTodos in
             self?.updatedProjectTodosID = projectTodos.map({ $0.id })
             self?.projectTodos = projectTodos
         }
     }
 
-    func bind(onUpdated: @escaping ([UUID]) -> Void) {
-        self.onUpdated = onUpdated
+    func fetchDataFromCoreData() {
+        projectTodos = persistenceManager.fetchProjectTodos()
+    }
+
+    func bind(onUpdatedProjectTodos: @escaping ([UUID]) -> Void) {
+        self.onUpdatedProjectTodos = onUpdatedProjectTodos
+    }
+
+    func bind(onUpdatedNetworkStatus: @escaping (Bool) -> Void) {
+        self.onUpdatedNetworkStatus = onUpdatedNetworkStatus
     }
 
     func add(projectTodo: ProjectTodo) {
