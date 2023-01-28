@@ -7,9 +7,13 @@
 
 import UIKit
 
+protocol DataSendable {
+    func sendData(model: TodoModel)
+}
+
 final class MainTableViewDelegate: NSObject, UITableViewDelegate, TableViewMethoding {
     
-    var controller: UIViewController?
+    var someDelegate: DataSendable?
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let dequeuedTableViewHeaderFooterView = tableView.dequeueReusableHeaderFooterView(
@@ -42,11 +46,8 @@ final class MainTableViewDelegate: NSObject, UITableViewDelegate, TableViewMetho
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = saveData(of: tableView, to: indexPath.row)
-        let modalController = UINavigationController(rootViewController: ModalViewContoller(model: data))
-        
-        modalController.modalPresentationStyle = .formSheet
-        controller?.present(modalController, animated: true)
+        guard let data = saveData(of: tableView, to: indexPath.row) else { return }
+        someDelegate?.sendData(model: data)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

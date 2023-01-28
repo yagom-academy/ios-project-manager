@@ -12,8 +12,8 @@ final class MainViewController: UIViewController {
     private let doingTableView = CustomTableView(title: "DOING")
     private let doneTableView = CustomTableView(title: "DONE")
     
-    private let tableViewDataSource = MainTableViewDataSource()
-    private let tableViewDelegate = MainTableViewDelegate()
+    private let mainTableViewDataSource = MainTableViewDataSource()
+    private let mainTableViewDelegate = MainTableViewDelegate()
     
     private let stackView = UIStackView(
         axis: .horizontal,
@@ -26,25 +26,19 @@ final class MainViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         
         configureLayout()
+        configureTableView()
         setupNavigationBar()
         fetchData()
         setupLongPress()
         registDismissNotification()
     }
 }
+
 // MARK: - Business Method
 extension MainViewController {
     private func configureLayout() {
         self.view.addSubview(stackView)
         let safeArea = self.view.safeAreaLayoutGuide
-        
-        [todoTableView, doingTableView, doneTableView].forEach { tableView in
-            tableView.delegate = tableViewDelegate
-            tableView.dataSource = tableViewDataSource
-            stackView.addArrangedSubview(tableView)
-        }
-        
-        tableViewDelegate.controller = self
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -53,6 +47,16 @@ extension MainViewController {
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
         
+    }
+    
+    private func configureTableView() {
+        mainTableViewDelegate.someDelegate = self
+        
+        [todoTableView, doingTableView, doneTableView].forEach { tableView in
+            tableView.delegate = mainTableViewDelegate
+            tableView.dataSource = mainTableViewDataSource
+            stackView.addArrangedSubview(tableView)
+        }
     }
     
     private func setupNavigationBar() {
@@ -182,5 +186,15 @@ extension MainViewController {
             
             self.present(containerController, animated: true)
         }
+    }
+}
+
+// MARK: - DataSenable
+extension MainViewController: DataSendable {
+    func sendData(model: TodoModel) {
+        let modalController = UINavigationController(rootViewController: ModalViewContoller(model: model))
+        
+        modalController.modalPresentationStyle = .formSheet
+        present(modalController, animated: true, completion: nil)
     }
 }
