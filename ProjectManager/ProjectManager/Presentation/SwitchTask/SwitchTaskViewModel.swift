@@ -24,17 +24,19 @@ extension SwitchTaskViewModel {
     
     func transform(input: Input) -> Output {
         let switchDoing = input.doingTrigger
-            .flatMapLatest { _ in
+            .flatMap { _ in
                 let switched = self.switchTask(to: .doing)
                 
-                return self.useCase.update(task: switched)
+                return self.useCase
+                    .update(task: switched)
             }
         
         let switchDone = input.doneTrigger
-            .flatMapLatest { _ in
+            .flatMap { _ in
                 let switched = self.switchTask(to: .done)
                 
-                return self.useCase.update(task: switched)
+                return self.useCase
+                    .update(task: switched)
             }
         
         return Output(doingSwitched: switchDoing, doneSwitched: switchDone)

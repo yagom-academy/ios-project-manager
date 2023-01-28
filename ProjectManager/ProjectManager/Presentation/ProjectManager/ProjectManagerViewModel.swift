@@ -20,14 +20,15 @@ extension ProjectManagerViewModel {
     
     func transform(input: Input) -> Output {
         
-        let update = input.update.flatMapLatest {
-            return self.useCase
-                .getTasks()
-                .map { $0.map { TaskItemViewModel(task: $0) } }
-        }
+        let update = input.update
+            .flatMap {
+                return self.useCase
+                    .getTasks()
+                    .map { $0.map { TaskItemViewModel(task: $0) } }
+            }
         
         let delete = input.delete
-            .flatMapLatest { item in
+            .flatMap { item in
                 return self.useCase
                     .delete(task: item.task)
             }

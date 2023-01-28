@@ -34,7 +34,7 @@ extension EditTaskViewModel {
     func transform(input: Input) -> Output {
         
         let canEdit = input.editTrigger
-            .flatMapLatest {
+            .flatMap {
                 return Observable.just(true)
             }
         
@@ -73,7 +73,7 @@ extension EditTaskViewModel {
         
         
         let editedTask = input.doneTrigger
-            .flatMapLatest {
+            .flatMap {
                 let editedTask = self.reformTask()
                 
                 return self.useCase

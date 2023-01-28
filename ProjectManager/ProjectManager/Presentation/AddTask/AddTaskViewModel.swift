@@ -55,7 +55,7 @@ extension AddTaskViewModel {
             .disposed(by: disposeBag)
         
         let createdTask = input.doneTrigger
-            .flatMapLatest {
+            .flatMap {
                 let newTask = self.creatTask()
                 return self.useCase
                     .create(task: newTask)
