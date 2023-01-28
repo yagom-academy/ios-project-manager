@@ -12,6 +12,9 @@ final class MainViewController: UIViewController {
     private let doingTableView = CustomTableView(title: "DOING")
     private let doneTableView = CustomTableView(title: "DONE")
     
+    private let tableViewDataSource = MainTableViewDataSource()
+    private let tableViewDelegate = MainTableViewDelegate()
+    
     private let stackView = UIStackView(
         axis: .horizontal,
         alignment: .fill,
@@ -36,10 +39,12 @@ extension MainViewController {
         let safeArea = self.view.safeAreaLayoutGuide
         
         [todoTableView, doingTableView, doneTableView].forEach { tableView in
-            tableView.delegate = self
-            tableView.dataSource = self
+            tableView.delegate = tableViewDelegate
+            tableView.dataSource = tableViewDataSource
             stackView.addArrangedSubview(tableView)
         }
+        
+        tableViewDelegate.controller = self
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -47,6 +52,7 @@ extension MainViewController {
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+        
     }
     
     private func setupNavigationBar() {
@@ -114,79 +120,6 @@ extension MainViewController {
     }
 }
 
-// MARK: - UITableViewDelegate
-extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let dequeuedTableViewHeaderFooterView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: "CustomHeaderView"
-        )
-        guard let view = dequeuedTableViewHeaderFooterView as? CustomHeaderView,
-              let table = tableView as? CustomTableView else {
-            return UIView()
-        }
-        
-        view.titleLabel.text = table.title
-        view.countLabel.text = countCell(of: tableView).description
-        
-        return view
-    }
-    
-    func tableView(
-        _ tableView: UITableView,
-        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-    ) -> UISwipeActionsConfiguration? {
-        let actions = UIContextualAction(
-            style: .destructive,
-            title: "Delete"
-        ) { _, _, _ in
-            self.swipeAction(of: tableView, to: indexPath.row)
-            tableView.reloadData()
-        }
-        
-        return UISwipeActionsConfiguration(actions: [actions])
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = saveData(of: tableView, to: indexPath.row)
-        let modalController = UINavigationController(rootViewController: ModalViewContoller(model: data))
-        
-        modalController.modalPresentationStyle = .formSheet
-        self.present(modalController, animated: true, completion: nil)
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension MainViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countCell(of: tableView)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let dequeuedReusableCell = tableView.dequeueReusableCell(
-            withIdentifier: "TodoCustomCell",
-            for: indexPath
-        )
-        guard let cell = dequeuedReusableCell as? TodoCustomCell else { return UITableViewCell() }
-        
-        let data = saveData(of: tableView, to: indexPath.row)
-        
-        guard let todoDate = data?.todoDate else { return cell }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        cell.titleLabel.text = data?.title
-        cell.bodyLabel.text = data?.body
-        cell.dateLabel.text = dateFormatter.string(from: todoDate)
-        
-        if todoDate < Date() {
-            cell.dateLabel.textColor = .red
-        }
-        
-        return cell
-    }
-}
 // MARK: - TableView Business Logic
 extension MainViewController {
     private func saveData(of tableView: UITableView, to indexPathRow: Int) -> TodoModel? {
