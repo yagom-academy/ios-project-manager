@@ -9,6 +9,9 @@ import Foundation
 import RxSwift
 
 final class SwitchTaskViewModel: ViewModelType {
+    
+    // MARK: Properties
+    
     private let useCase: TaskItemsUseCase
     private let task: Task
     
@@ -16,11 +19,8 @@ final class SwitchTaskViewModel: ViewModelType {
         self.useCase = useCase
         self.task = task
     }
-}
-
-// MARK: Function
-
-extension SwitchTaskViewModel {
+    
+    // MARK: Function(s)
     
     func transform(input: Input) -> Output {
         let switchDoing = input.doingTrigger
@@ -41,6 +41,8 @@ extension SwitchTaskViewModel {
         
         return Output(doingSwitched: switchDoing, doneSwitched: switchDone)
     }
+    
+    // MARK: Private Function(s)
     
     private func switchTask(to status: Task.Status) -> Task {
         return Task(
