@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class ProjectManagerViewModel: ViewModelType {
+final class TaskListViewModel: ViewModelType {
     private let useCase: TaskUseCaseType
     
     init(useCase: TaskUseCaseType) {
@@ -16,7 +16,7 @@ final class ProjectManagerViewModel: ViewModelType {
     }
 }
 
-extension ProjectManagerViewModel {
+extension TaskListViewModel {
     
     func transform(input: Input) -> Output {
         
@@ -46,7 +46,7 @@ extension ProjectManagerViewModel {
     }
 }
 
-extension ProjectManagerViewModel {
+extension TaskListViewModel {
     struct Input {
         let update: Observable<Void>
         let delete: Observable<TaskItemViewModel>

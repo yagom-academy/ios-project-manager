@@ -13,7 +13,7 @@ fileprivate enum Identifier {
     static let cellReuse = "task"
 }
 
-final class ProjectManagerViewController: UIViewController {
+final class TaskListViewController: UIViewController {
     
     // MARK: View
     
@@ -100,7 +100,7 @@ final class ProjectManagerViewController: UIViewController {
     
     // MARK: ViewModel
     
-    var viewModel: ProjectManagerViewModel?
+    var viewModel: TaskListViewModel?
     private let disposeBag = DisposeBag()
     
     // MARK: ViewDidLoad
@@ -118,13 +118,13 @@ final class ProjectManagerViewController: UIViewController {
 
 // MARK: Functions
 
-extension ProjectManagerViewController: UITableViewDelegate {
+extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-extension ProjectManagerViewController: UIGestureRecognizerDelegate {
+extension TaskListViewController: UIGestureRecognizerDelegate {
     private func addTableviewLongPressRecognizers() {
         let todoLongPressGesture = UILongPressGestureRecognizer()
         let todoLongPressAction = #selector(todoTableView.didLongPress)
@@ -148,7 +148,7 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension ProjectManagerViewController {
+extension TaskListViewController {
     
     private func configureNavigationController() {
         let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add,
@@ -191,7 +191,7 @@ extension ProjectManagerViewController {
 
 // MARK: Bindings
 
-extension ProjectManagerViewController {
+extension TaskListViewController {
     
     private func performBindings() {
         bindViewModel()
@@ -295,7 +295,7 @@ extension ProjectManagerViewController {
             .methodInvoked(#selector(UIViewController.viewWillAppear(_:)))
             .map { _ in }
         
-        let input = ProjectManagerViewModel.Input(update: updateTrigger,
+        let input = TaskListViewModel.Input(update: updateTrigger,
                                                   delete: deletedTrigger)
         let output = viewModel.transform(input: input)
         
@@ -381,7 +381,7 @@ extension ProjectManagerViewController {
 }
 
 // MARK: Layout
-extension ProjectManagerViewController {
+extension TaskListViewController {
     private func combineViews() {
         todoStackView.addArrangedSubview(todoStatusView)
         todoStackView.addArrangedSubview(todoTableView)

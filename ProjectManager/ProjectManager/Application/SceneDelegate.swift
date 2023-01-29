@@ -12,9 +12,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let rootViewController = ProjectManagerViewController()
+        let rootViewController = TaskListViewController()
         let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
-        let viewModel = ProjectManagerViewModel(useCase: useCase)
+        let viewModel = TaskListViewModel(useCase: useCase)
         rootViewController.viewModel = viewModel
         let mainViewController = UINavigationController(rootViewController: rootViewController)
         
