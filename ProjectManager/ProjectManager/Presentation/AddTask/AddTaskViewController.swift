@@ -14,7 +14,7 @@ fileprivate enum Titles {
 
 final class AddTaskViewController: UIViewController {
     
-    // MARK: View
+    // MARK: View(s)
     
     private let titleTextView: UITextView = {
         let textView = UITextView()
@@ -46,7 +46,7 @@ final class AddTaskViewController: UIViewController {
     var viewmodel: AddTaskViewModel?
     private let disposeBag = DisposeBag()
     
-    // MARK: ViewDidLoad
+    // MARK: Override(s)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,11 +56,8 @@ final class AddTaskViewController: UIViewController {
         configureViewConstraints()
         bindViewModel()
     }
-}
-
-// MARK: Functions
-
-extension AddTaskViewController {
+    
+    // MARK: Private Function(s)
     
     private func bindViewModel() {
         guard let viewmodel = self.viewmodel,
@@ -90,17 +87,13 @@ extension AddTaskViewController {
         )
         let output = viewmodel.transform(input: input)
         output.createdTask
-            .subscribe(
-                onNext: { _ in
+            .subscribe(onNext: { _ in
                     self.dismiss(animated: true)
-                }
-            )
+                })
             .disposed(by: disposeBag)
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = Titles.navigationItem
-        navigationController?.navigationBar.backgroundColor = .systemGray3
         let rightButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self, action: #selector(dismissView)
@@ -111,17 +104,9 @@ extension AddTaskViewController {
         )
         navigationItem.rightBarButtonItem = rightButton
         navigationItem.leftBarButtonItem = leftButton
+        navigationItem.title = Titles.navigationItem
+        navigationController?.navigationBar.backgroundColor = .systemGray3
     }
-    
-    @objc
-    private func dismissView() {
-        dismiss(animated: true)
-    }
-}
-
-// MARK: Layout
-
-extension AddTaskViewController {
     
     private func combineViews() {
         view.backgroundColor = .white
@@ -190,5 +175,10 @@ extension AddTaskViewController {
                 constant: -10
             ),
         ])
+    }
+    
+    @objc
+    private func dismissView() {
+        dismiss(animated: true)
     }
 }

@@ -56,6 +56,8 @@ final class AddTaskViewModel: ViewModelType {
         return Output(createdTask: createdTask)
     }
     
+    // MARK: Private Function(s)
+    
     private func creatTask() -> Task {
         return Task(
             title: title,
