@@ -14,7 +14,10 @@ fileprivate enum Titles {
 
 final class EditTaskViewController: UIViewController {
     
-    // MARK: Subview
+    var viewModel: EditTaskViewModel?
+    private let disposeBag = DisposeBag()
+    
+    // MARK: View(s)
     
     private let titleTextView: UITextView = {
         let textView = UITextView()
@@ -44,10 +47,7 @@ final class EditTaskViewController: UIViewController {
         return textView
     }()
     
-    var viewModel: EditTaskViewModel?
-    private let disposeBag = DisposeBag()
-    
-    // MARK: ViewDidLoad
+    // MARK: Override(s)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +57,8 @@ final class EditTaskViewController: UIViewController {
         configureViewLayout()
         bindViewModel()
     }
-}
-
-// MARK: Functions
-extension EditTaskViewController {
+    
+    // MARK: Function(s)
     
     func bindViewModel() {
         guard let viewModel = self.viewModel,
@@ -87,38 +85,36 @@ extension EditTaskViewController {
         
         let input = EditTaskViewModel.Input(
             initialSetUpTrigger: initialSetUpTrigger,
-            editTrigger: editTrigger, doneTrigger: doneTrigger,
-            titleTrigger: title, descriptionTrigger: description,
+            editTrigger: editTrigger,
+            doneTrigger: doneTrigger,
+            titleTrigger: title,
+            descriptionTrigger: description,
             dateTrigger: date
         )
         let output = viewModel.transform(input: input)
         
         output.initialSetUpData
-            .subscribe(
-                onNext: { initialData in
-                    self.titleTextView.text = initialData.title
-                    self.datePickerView.date = initialData.date
-                    self.descriptionTextView.text = initialData.description
-                }
-            )
+            .subscribe(onNext: { initialData in
+                self.titleTextView.text = initialData.title
+                self.datePickerView.date = initialData.date
+                self.descriptionTextView.text = initialData.description
+            })
             .disposed(by: disposeBag)
         
         output.canEdit
-            .subscribe(
-                onNext: { _ in
-                    self.toggleEditability()
-                }
-            )
+            .subscribe(onNext: { _ in
+                self.toggleEditability()
+            })
             .disposed(by: disposeBag)
         
         output.editedTask
-            .subscribe(
-                onNext: { _ in
-                    self.dismissView()
-                }
-            )
+            .subscribe(onNext: { _ in
+                self.dismissView()
+            })
             .disposed(by: disposeBag)
     }
+    
+    // MARK: Private Function(s)
     
     private func toggleEditability() {
         titleTextView.isEditable.toggle()
@@ -136,8 +132,6 @@ extension EditTaskViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = Titles.navigationItem
-        navigationController?.navigationBar.backgroundColor = .systemGray3
         let rightButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
@@ -150,15 +144,13 @@ extension EditTaskViewController {
         )
         navigationItem.rightBarButtonItem = rightButton
         navigationItem.leftBarButtonItem = leftButton
+        navigationItem.title = Titles.navigationItem
+        navigationController?.navigationBar.backgroundColor = .systemGray3
     }
     
     private func dismissView() {
         dismiss(animated: true)
     }
-}
-
-// MARK: Layout
-extension EditTaskViewController {
     
     private func combineViews() {
         view.backgroundColor = .white
