@@ -88,8 +88,8 @@ final class AddTaskViewController: UIViewController {
         let output = viewmodel.transform(input: input)
         output.createdTask
             .subscribe(onNext: { _ in
-                    self.dismiss(animated: true)
-                })
+                self.dismiss(animated: true)
+            })
             .disposed(by: disposeBag)
     }
     

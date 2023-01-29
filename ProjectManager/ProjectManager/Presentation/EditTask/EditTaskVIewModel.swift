@@ -9,6 +9,9 @@ import Foundation
 import RxSwift
 
 final class EditTaskViewModel: ViewModelType {
+    
+    // MARK: Property
+    
     private let disposeBag = DisposeBag()
     private let useCase: TaskItemsUseCase
     private var title: String
@@ -25,11 +28,8 @@ final class EditTaskViewModel: ViewModelType {
         self.task = item.task
         self.useCase = useCase
     }
-}
-
-// MARK: Function
-
-extension EditTaskViewModel {
+    
+    // MARK: Function(s)
     
     func transform(input: Input) -> Output {
         
@@ -48,27 +48,21 @@ extension EditTaskViewModel {
             }
         
         input.titleTrigger
-            .subscribe(
-                onNext: {
+            .subscribe(onNext: {
                     self.title = $0
-                }
-            )
+                })
             .disposed(by: disposeBag)
         
         input.descriptionTrigger
-            .subscribe(
-                onNext: {
+            .subscribe(onNext: {
                     self.description = $0
-                }
-            )
+                })
             .disposed(by: disposeBag)
         
         input.dateTrigger
-            .subscribe(
-                onNext: {
+            .subscribe(onNext: {
                     self.date = $0
-                }
-            )
+                })
             .disposed(by: disposeBag)
         
         
@@ -86,6 +80,8 @@ extension EditTaskViewModel {
             initialSetUpData: initialSetUpItem
         )
     }
+    
+    // MARK: Private Function(s)
     
     private func reformTask() -> Task {
         return Task(
