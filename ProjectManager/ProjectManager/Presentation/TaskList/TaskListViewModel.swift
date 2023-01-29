@@ -9,14 +9,16 @@ import Foundation
 import RxSwift
 
 final class TaskListViewModel: ViewModelType {
+    
+    // MARK: Properties
+    
     private let useCase: TaskUseCaseType
     
     init(useCase: TaskUseCaseType) {
         self.useCase = useCase
     }
-}
-
-extension TaskListViewModel {
+    
+    // MARK: Function(s)
     
     func transform(input: Input) -> Output {
         

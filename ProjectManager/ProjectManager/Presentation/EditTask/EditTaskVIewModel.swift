@@ -49,20 +49,20 @@ final class EditTaskViewModel: ViewModelType {
         
         input.titleTrigger
             .subscribe(onNext: {
-                    self.title = $0
-                })
+                self.title = $0
+            })
             .disposed(by: disposeBag)
         
         input.descriptionTrigger
             .subscribe(onNext: {
-                    self.description = $0
-                })
+                self.description = $0
+            })
             .disposed(by: disposeBag)
         
         input.dateTrigger
             .subscribe(onNext: {
-                    self.date = $0
-                })
+                self.date = $0
+            })
             .disposed(by: disposeBag)
         
         

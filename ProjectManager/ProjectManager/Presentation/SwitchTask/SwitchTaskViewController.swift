@@ -3,7 +3,7 @@
 //  ProjectManager
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
+
 
 import UIKit
 import RxSwift
@@ -17,7 +17,7 @@ final class SwitchTaskViewController: UIViewController {
     
     var viewModel: SwitchTaskViewModel?
     private let disposeBag = DisposeBag()
-
+    
     // MARK: View(s)
     
     private let doingButton: UIButton = {
@@ -37,7 +37,7 @@ final class SwitchTaskViewController: UIViewController {
         return button
     }()
     private let wholeStackView: UIStackView = {
-       let stack = UIStackView()
+        let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.distribution = .fillEqually
@@ -65,7 +65,7 @@ final class SwitchTaskViewController: UIViewController {
     }
     
     // MARK: Private Function(s)
-
+    
     private func configureAsPopover() {
         modalPresentationStyle = .popover
         preferredContentSize = CGSize(width: 250, height: 100)
@@ -76,20 +76,20 @@ final class SwitchTaskViewController: UIViewController {
         guard let viewModel = self.viewModel else { return }
         let doingButton = doingButton.rx.tap.asObservable()
         let doneButton = doneButton.rx.tap.asObservable()
-
+        
         let input = SwitchTaskViewModel.Input(doingTrigger: doingButton,
                                               doneTrigger: doneButton)
         let output = viewModel.transform(input: input)
-
+        
         output.doingSwitched
             .subscribe()
             .disposed(by: disposeBag)
-
+        
         output.doneSwitched
             .subscribe()
             .disposed(by: disposeBag)
     }
-
+    
     private func addButtonActions() {
         doingButton.addTarget(self, action: #selector(tapDoingButton), for: .touchDown)
         doneButton.addTarget(self, action: #selector(tapDoneButton), for: .touchDown)
@@ -112,12 +112,12 @@ final class SwitchTaskViewController: UIViewController {
             wholeStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
         ])
     }
-
+    
     @objc
     private func tapDoingButton() {
         dismiss(animated: true)
     }
-
+    
     @objc
     private func tapDoneButton() {
         dismiss(animated: true)

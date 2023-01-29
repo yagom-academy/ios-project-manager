@@ -21,6 +21,9 @@ fileprivate enum Identifier {
 
 final class TaskListViewController: UIViewController {
     
+    var viewModel: TaskListViewModel?
+    private let disposeBag = DisposeBag()
+    
     // MARK: View(s)
     
     private let todoTableView: UITableView = {
@@ -103,9 +106,6 @@ final class TaskListViewController: UIViewController {
         
         return stack
     }()
-    
-    var viewModel: TaskListViewModel?
-    private let disposeBag = DisposeBag()
     
     // MARK: Override(s)
     

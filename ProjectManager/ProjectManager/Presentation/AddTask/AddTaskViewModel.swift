@@ -9,6 +9,9 @@ import Foundation
 import RxSwift
 
 final class AddTaskViewModel: ViewModelType {
+    
+    // MARK: Properties
+    
     private let disposeBag = DisposeBag()
     private let useCase: TaskItemsUseCase
     private var title: String
