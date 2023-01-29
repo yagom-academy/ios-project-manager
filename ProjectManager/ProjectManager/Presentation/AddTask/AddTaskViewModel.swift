@@ -23,34 +23,27 @@ final class AddTaskViewModel: ViewModelType {
         self.status = .todo
         self.useCase = useCase
     }
-}
-
-// MARK: Function
-
-extension AddTaskViewModel {
+    
+    // MARK: Function(s)
+    
     func transform(input: Input) -> Output {
         
         input.titleTrigger
             .subscribe(onNext: {
-                    self.title = $0
-                }
-            )
+                self.title = $0
+            })
             .disposed(by: disposeBag)
         
         input.descriptionTrigger
-            .subscribe(
-                onNext: {
-                    self.description = $0
-                }
-            )
+            .subscribe(onNext: {
+                self.description = $0
+            })
             .disposed(by: disposeBag)
         
         input.dateTrigger
-            .subscribe(
-                onNext: {
-                    self.date = $0
-                }
-            )
+            .subscribe(onNext: {
+                self.date = $0
+            })
             .disposed(by: disposeBag)
         
         let createdTask = input.doneTrigger
