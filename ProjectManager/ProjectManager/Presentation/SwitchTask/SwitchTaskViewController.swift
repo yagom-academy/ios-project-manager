@@ -14,8 +14,11 @@ fileprivate enum Titles {
 }
 
 final class SwitchTaskViewController: UIViewController {
+    
+    var viewModel: SwitchTaskViewModel?
+    private let disposeBag = DisposeBag()
 
-// MARK: View
+    // MARK: View(s)
     
     private let doingButton: UIButton = {
         let button = UIButton(type: .system)
@@ -42,11 +45,8 @@ final class SwitchTaskViewController: UIViewController {
         
         return stack
     }()
-
-    // MARK: Initialization
     
-    var viewModel: SwitchTaskViewModel?
-    private let disposeBag = DisposeBag()
+    // MARK: Override(s)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,15 +57,14 @@ final class SwitchTaskViewController: UIViewController {
         addButtonActions()
         bindViewModel()
     }
-}
-
-// MARK: Function
-
-extension SwitchTaskViewController {
+    
+    // MARK: Function(s)
     
     func sourceView(view: UIView) {
         popoverPresentationController?.sourceView = view
     }
+    
+    // MARK: Private Function(s)
 
     private func configureAsPopover() {
         modalPresentationStyle = .popover
@@ -95,22 +94,7 @@ extension SwitchTaskViewController {
         doingButton.addTarget(self, action: #selector(tapDoingButton), for: .touchDown)
         doneButton.addTarget(self, action: #selector(tapDoneButton), for: .touchDown)
     }
-
-    @objc
-    private func tapDoingButton() {
-        dismiss(animated: true)
-    }
-
-    @objc
-    private func tapDoneButton() {
-        dismiss(animated: true)
-    }
-}
-
-// MARK: Layout
-
-extension SwitchTaskViewController {
-
+    
     private func combineViews() {
         wholeStackView.addArrangedSubview(doingButton)
         wholeStackView.addArrangedSubview(doneButton)
@@ -127,5 +111,15 @@ extension SwitchTaskViewController {
             wholeStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             wholeStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
         ])
+    }
+
+    @objc
+    private func tapDoingButton() {
+        dismiss(animated: true)
+    }
+
+    @objc
+    private func tapDoneButton() {
+        dismiss(animated: true)
     }
 }
