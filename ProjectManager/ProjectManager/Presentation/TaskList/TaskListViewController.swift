@@ -1,3 +1,9 @@
+//
+//  TaskListViewController.swift
+//  ProjectManager
+//
+//  Copyright (c) 2023 Jeremy All rights reserved.
+
 import UIKit
 import RxSwift
 import RxCocoa
@@ -15,7 +21,7 @@ fileprivate enum Identifier {
 
 final class TaskListViewController: UIViewController {
     
-    // MARK: View
+    // MARK: View(s)
     
     private let todoTableView: UITableView = {
         let table = UITableView()
@@ -98,12 +104,10 @@ final class TaskListViewController: UIViewController {
         return stack
     }()
     
-    // MARK: ViewModel
-    
     var viewModel: TaskListViewModel?
     private let disposeBag = DisposeBag()
     
-    // MARK: ViewDidLoad
+    // MARK: Override(s)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,41 +118,8 @@ final class TaskListViewController: UIViewController {
         addTableviewLongPressRecognizers()
         performBindings()
     }
-}
-
-// MARK: Functions
-
-extension TaskListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-extension TaskListViewController: UIGestureRecognizerDelegate {
-    private func addTableviewLongPressRecognizers() {
-        let todoLongPressGesture = UILongPressGestureRecognizer()
-        let todoLongPressAction = #selector(todoTableView.didLongPress)
-        todoLongPressGesture.addTarget(todoTableView, action: todoLongPressAction)
-        
-        let doingLongPressGesture = UILongPressGestureRecognizer()
-        let doingLongPressAction = #selector(doingTableView.didLongPress)
-        doingLongPressGesture.addTarget(doingTableView, action: doingLongPressAction)
-        
-        let doneLongPressGesture = UILongPressGestureRecognizer()
-        let doneLongPressAction =  #selector(doingTableView.didLongPress)
-        doneLongPressGesture.addTarget(doneTableView, action: doneLongPressAction)
-        
-        todoTableView.addGestureRecognizer(todoLongPressGesture)
-        doingTableView.addGestureRecognizer(doingLongPressGesture)
-        doneTableView.addGestureRecognizer(doneLongPressGesture)
-        
-        todoLongPressGesture.delegate = todoTableView
-        doingLongPressGesture.delegate = doingTableView
-        doneLongPressGesture.delegate = doneTableView
-    }
-}
-
-extension TaskListViewController {
+    
+    // MARK: Private Function(s)
     
     private func configureNavigationController() {
         let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add,
@@ -187,11 +158,57 @@ extension TaskListViewController {
         
         return navigation
     }
-}
-
-// MARK: Bindings
-
-extension TaskListViewController {
+    
+    private func addTableviewLongPressRecognizers() {
+        let todoLongPressGesture = UILongPressGestureRecognizer()
+        let todoLongPressAction = #selector(todoTableView.didLongPress)
+        todoLongPressGesture.addTarget(todoTableView, action: todoLongPressAction)
+        
+        let doingLongPressGesture = UILongPressGestureRecognizer()
+        let doingLongPressAction = #selector(doingTableView.didLongPress)
+        doingLongPressGesture.addTarget(doingTableView, action: doingLongPressAction)
+        
+        let doneLongPressGesture = UILongPressGestureRecognizer()
+        let doneLongPressAction =  #selector(doingTableView.didLongPress)
+        doneLongPressGesture.addTarget(doneTableView, action: doneLongPressAction)
+        
+        todoTableView.addGestureRecognizer(todoLongPressGesture)
+        doingTableView.addGestureRecognizer(doingLongPressGesture)
+        doneTableView.addGestureRecognizer(doneLongPressGesture)
+        
+        todoLongPressGesture.delegate = todoTableView
+        doingLongPressGesture.delegate = doingTableView
+        doneLongPressGesture.delegate = doneTableView
+    }
+    
+    private func combineViews() {
+        todoStackView.addArrangedSubview(todoStatusView)
+        todoStackView.addArrangedSubview(todoTableView)
+        
+        doingStackView.addArrangedSubview(doingStatusView)
+        doingStackView.addArrangedSubview(doingTableView)
+        
+        doneStackView.addArrangedSubview(doneStatusView)
+        doneStackView.addArrangedSubview(doneTableView)
+        
+        wholeStackView.addArrangedSubview(todoStackView)
+        wholeStackView.addArrangedSubview(doingStackView)
+        wholeStackView.addArrangedSubview(doneStackView)
+        
+        view.addSubview(wholeStackView)
+        view.backgroundColor = .systemGray3
+    }
+    
+    private func configureViewConstraints() {
+        NSLayoutConstraint.activate([
+            wholeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            wholeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            wholeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            wholeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    // MARK: Binding(s)
     
     private func performBindings() {
         bindViewModel()
@@ -199,70 +216,56 @@ extension TaskListViewController {
         bindSelectionActionToCell()
     }
     
-    // MARK: Long Press Gesture
-    
     private func bindLongPressGesturesToTableViews() {
         todoTableView.rx
             .methodInvoked(#selector(todoTableView.didLongPress))
             .withLatestFrom(todoTableView.rx.itemSelected)
-            .subscribe(
-                onNext: { index in
-                    if let cell = self.todoTableView.cellForRow(at: index) as? TaskCell,
-                       let viewModel = cell.viewModel {
-                        self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
-                    }
+            .subscribe(onNext: { index in
+                if let cell = self.todoTableView.cellForRow(at: index) as? TaskCell,
+                   let viewModel = cell.viewModel {
+                    self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
                 }
-            )
+            })
             .disposed(by: disposeBag)
         
         doingTableView.rx
             .methodInvoked(#selector(doingTableView.didLongPress))
             .withLatestFrom(doingTableView.rx.itemSelected)
-            .subscribe(
-                onNext: { index in
-                    if let cell = self.doingTableView.cellForRow(at: index) as? TaskCell,
-                       let viewModel = cell.viewModel {
-                        self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
-                    }
+            .subscribe(onNext: { index in
+                if let cell = self.doingTableView.cellForRow(at: index) as? TaskCell,
+                   let viewModel = cell.viewModel {
+                    self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
                 }
-            )
+            })
             .disposed(by: disposeBag)
         
         doneTableView.rx
             .methodInvoked(#selector(doneTableView.didLongPress))
             .withLatestFrom(doneTableView.rx.itemSelected)
-            .subscribe(
-                onNext: { index in
-                    if let cell = self.doneTableView.cellForRow(at: index) as? TaskCell,
-                       let viewModel = cell.viewModel {
-                        self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
-                    }
+            .subscribe(onNext: { index in
+                if let cell = self.doneTableView.cellForRow(at: index) as? TaskCell,
+                   let viewModel = cell.viewModel {
+                    self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
                 }
-            )
+            })
             .disposed(by: disposeBag)
     }
-    
-    // MARK: Cell Action
     
     private func bindSelectionActionToCell() {
         todoTableView.rx
             .modelSelected(TaskItemViewModel.self)
-            .subscribe(
-                onNext: { item in
-                    let view = self.createEditView(with: item)
-                    self.present(view, animated: true)
-                }
-            )
+            .subscribe(onNext: { item in
+                let view = self.createEditView(with: item)
+                self.present(view, animated: true)
+            })
             .disposed(by: disposeBag)
         
         doingTableView.rx
             .modelSelected(TaskItemViewModel.self)
-            .subscribe(
-                onNext: { item in
-                    let view = self.createEditView(with: item)
-                    self.present(view, animated: true)
-                }
-            )
+            .subscribe(onNext: { item in
+                let view = self.createEditView(with: item)
+                self.present(view, animated: true)
+            })
             .disposed(by: disposeBag)
         
         doneTableView.rx
@@ -271,8 +274,7 @@ extension TaskListViewController {
                 onNext: { item in
                     let view = self.createEditView(with: item)
                     self.present(view, animated: true)
-                }
-            )
+                })
             .disposed(by: disposeBag)
     }
     
@@ -296,45 +298,33 @@ extension TaskListViewController {
             .map { _ in }
         
         let input = TaskListViewModel.Input(update: updateTrigger,
-                                                  delete: deletedTrigger)
+                                            delete: deletedTrigger)
         let output = viewModel.transform(input: input)
-        
-        // MARK: Delete Output
         
         output.deletedItem
             .subscribe()
             .disposed(by: disposeBag)
         
-        // MARK: Status View
-        
         output.todoItems
             .map { $0.count }
-            .subscribe(
-                onNext: { count in
-                    self.todoStatusView.setUpCount(count: count)
-                }
-            )
+            .subscribe(onNext: { count in
+                self.todoStatusView.setUpCount(count: count)
+            })
             .disposed(by: disposeBag)
         
         output.doingItems
             .map { $0.count }
-            .subscribe(
-                onNext: { count in
-                    self.doingStatusView.setUpCount(count: count)
-                }
-            )
+            .subscribe(onNext: { count in
+                self.doingStatusView.setUpCount(count: count)
+            })
             .disposed(by: disposeBag)
         
         output.doneItems
             .map { $0.count }
-            .subscribe(
-                onNext: { count in
-                    self.doneStatusView.setUpCount(count: count)
-                }
-            )
+            .subscribe(onNext: { count in
+                self.doneStatusView.setUpCount(count: count)
+            })
             .disposed(by: disposeBag)
-        
-        // MARK: Table View Cell
         
         output.todoItems
             .bind(to: todoTableView.rx.items) { tableview, index, item in
@@ -380,32 +370,10 @@ extension TaskListViewController {
     }
 }
 
-// MARK: Layout
-extension TaskListViewController {
-    private func combineViews() {
-        todoStackView.addArrangedSubview(todoStatusView)
-        todoStackView.addArrangedSubview(todoTableView)
-        
-        doingStackView.addArrangedSubview(doingStatusView)
-        doingStackView.addArrangedSubview(doingTableView)
-        
-        doneStackView.addArrangedSubview(doneStatusView)
-        doneStackView.addArrangedSubview(doneTableView)
-        
-        wholeStackView.addArrangedSubview(todoStackView)
-        wholeStackView.addArrangedSubview(doingStackView)
-        wholeStackView.addArrangedSubview(doneStackView)
-        
-        view.addSubview(wholeStackView)
-        view.backgroundColor = .systemGray3
-    }
-    
-    private func configureViewConstraints() {
-        NSLayoutConstraint.activate([
-            wholeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            wholeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            wholeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            wholeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+// MARK: Delegate(s)
+
+extension TaskListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -31,8 +31,7 @@ extension AddTaskViewModel {
     func transform(input: Input) -> Output {
         
         input.titleTrigger
-            .subscribe(
-                onNext: {
+            .subscribe(onNext: {
                     self.title = $0
                 }
             )
