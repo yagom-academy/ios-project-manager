@@ -13,7 +13,7 @@ fileprivate enum Titles {
     static let done = "DONE"
 }
 
-final class SwitchTaskViewController: UIViewController {
+final class SwitchTaskViewController: UIAlertController {
     
     var viewModel: SwitchTaskViewModel?
     private let disposeBag = DisposeBag()
@@ -53,7 +53,7 @@ final class SwitchTaskViewController: UIViewController {
         
         combineViews()
         configureViewConstraints()
-        configureAsPopover()
+        configurePopoverPresentationStyle()
         addButtonActions()
         bindViewModel()
     }
@@ -66,9 +66,7 @@ final class SwitchTaskViewController: UIViewController {
     
     // MARK: Private Function(s)
     
-    private func configureAsPopover() {
-        modalPresentationStyle = .popover
-        preferredContentSize = CGSize(width: 250, height: 100)
+    private func configurePopoverPresentationStyle() {
         popoverPresentationController?.permittedArrowDirections = [.left, .right]
     }
     
@@ -99,7 +97,6 @@ final class SwitchTaskViewController: UIViewController {
         wholeStackView.addArrangedSubview(doingButton)
         wholeStackView.addArrangedSubview(doneButton)
         view.addSubview(wholeStackView)
-        view.backgroundColor = .systemGray4
         view.directionalLayoutMargins = .init(top: 8, leading: 8, bottom: 8, trailing: 8)
     }
     

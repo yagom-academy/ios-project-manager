@@ -130,7 +130,11 @@ final class TaskListViewController: UIViewController {
     }
     
     private func presentTaskTagSwitcher(task: Task, on view: UIView) {
-        let switcher = SwitchTaskViewController()
+        let switcher = SwitchTaskViewController(
+            title: .init(),
+            message: nil,
+            preferredStyle: .actionSheet
+        )
         switcher.sourceView(view: view)
         let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
         let viewModel = SwitchTaskViewModel(useCase: useCase, task: task)
@@ -208,6 +212,7 @@ final class TaskListViewController: UIViewController {
     
     @objc
     private func didLongPress(_ recognizer: UIGestureRecognizer) {
+        guard recognizer.state == .began else  { return }
         let pressPoint = recognizer.location(in: recognizer.view)
         guard let tableView = recognizer.view as? UITableView,
               let indexPath = tableView.indexPathForRow(at: pressPoint),
@@ -246,11 +251,10 @@ final class TaskListViewController: UIViewController {
         
         doneTableView.rx
             .modelSelected(TaskItemViewModel.self)
-            .subscribe(
-                onNext: { item in
-                    let view = self.createEditView(with: item)
-                    self.present(view, animated: true)
-                })
+            .subscribe(onNext: { item in
+                let view = self.createEditView(with: item)
+                self.present(view, animated: true)
+            })
             .disposed(by: disposeBag)
     }
     
