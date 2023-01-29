@@ -33,7 +33,6 @@
 		DFDDB69529804DD300C14CE2 /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69429804DD300C14CE2 /* AddTaskViewModel.swift */; };
 		DFDDB69D2980511B00C14CE2 /* EditTaskVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69C2980511B00C14CE2 /* EditTaskVIewModel.swift */; };
 		DFDDB69F2980513200C14CE2 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB69E2980513200C14CE2 /* EditTaskViewController.swift */; };
-		DFDDB6A1298051FC00C14CE2 /* UITableView + didLongPress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDDB6A0298051FC00C14CE2 /* UITableView + didLongPress.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +59,6 @@
 		DFDDB69429804DD300C14CE2 /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
 		DFDDB69C2980511B00C14CE2 /* EditTaskVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVIewModel.swift; sourceTree = "<group>"; };
 		DFDDB69E2980513200C14CE2 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
-		DFDDB6A0298051FC00C14CE2 /* UITableView + didLongPress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + didLongPress.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +96,6 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				DFDDB68F29804B2900C14CE2 /* Extensions */,
 				DF4682932977992F00E3BC06 /* Application */,
 				DF468290297798D400E3BC06 /* Presentation */,
 				DF468291297798DA00E3BC06 /* Domain */,
@@ -228,14 +225,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		DFDDB68F29804B2900C14CE2 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				DFDDB6A0298051FC00C14CE2 /* UITableView + didLongPress.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		DFDDB69B2980510C00C14CE2 /* EditTask */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,7 +321,6 @@
 				DF155098297820CA00A7FDC7 /* AddTaskViewController.swift in Sources */,
 				DFCA28422977DFBE00C1EBF2 /* TaskStatusInfoView.swift in Sources */,
 				DFDDB69F2980513200C14CE2 /* EditTaskViewController.swift in Sources */,
-				DFDDB6A1298051FC00C14CE2 /* UITableView + didLongPress.swift in Sources */,
 				DF4682992977A85A00E3BC06 /* TaskListViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

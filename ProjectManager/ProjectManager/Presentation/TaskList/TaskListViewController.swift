@@ -129,17 +129,6 @@ final class TaskListViewController: UIViewController {
         navigationItem.title = Titles.navigationItem
     }
     
-    @objc
-    private func tapNavigationAddButton() {
-        let addTaskView = AddTaskViewController()
-        addTaskView.modalPresentationStyle = .formSheet
-        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
-        addTaskView.viewmodel = AddTaskViewModel(useCase: useCase)
-        let navigation = UINavigationController(rootViewController: addTaskView)
-        
-        present(navigation, animated: true)
-    }
-    
     private func presentTaskTagSwitcher(task: Task, on view: UIView) {
         let switcher = SwitchTaskViewController()
         switcher.sourceView(view: view)
@@ -160,25 +149,23 @@ final class TaskListViewController: UIViewController {
     }
     
     private func addTableviewLongPressRecognizers() {
-        let todoLongPressGesture = UILongPressGestureRecognizer()
-        let todoLongPressAction = #selector(todoTableView.didLongPress)
-        todoLongPressGesture.addTarget(todoTableView, action: todoLongPressAction)
+        let todoLongPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didLongPress)
+        )
+        let doingLongPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didLongPress)
+        )
         
-        let doingLongPressGesture = UILongPressGestureRecognizer()
-        let doingLongPressAction = #selector(doingTableView.didLongPress)
-        doingLongPressGesture.addTarget(doingTableView, action: doingLongPressAction)
-        
-        let doneLongPressGesture = UILongPressGestureRecognizer()
-        let doneLongPressAction =  #selector(doingTableView.didLongPress)
-        doneLongPressGesture.addTarget(doneTableView, action: doneLongPressAction)
+        let doneLongPressGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(didLongPress)
+        )
         
         todoTableView.addGestureRecognizer(todoLongPressGesture)
         doingTableView.addGestureRecognizer(doingLongPressGesture)
         doneTableView.addGestureRecognizer(doneLongPressGesture)
-        
-        todoLongPressGesture.delegate = todoTableView
-        doingLongPressGesture.delegate = doingTableView
-        doneLongPressGesture.delegate = doneTableView
     }
     
     private func combineViews() {
@@ -208,47 +195,36 @@ final class TaskListViewController: UIViewController {
         ])
     }
     
+    @objc
+    private func tapNavigationAddButton() {
+        let addTaskView = AddTaskViewController()
+        addTaskView.modalPresentationStyle = .formSheet
+        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
+        addTaskView.viewmodel = AddTaskViewModel(useCase: useCase)
+        let navigation = UINavigationController(rootViewController: addTaskView)
+        
+        present(navigation, animated: true)
+    }
+    
+    @objc
+    private func didLongPress(_ recognizer: UIGestureRecognizer) {
+        let pressPoint = recognizer.location(in: recognizer.view)
+        guard let tableView = recognizer.view as? UITableView,
+              let indexPath = tableView.indexPathForRow(at: pressPoint),
+              let cell = tableView.cellForRow(at: indexPath) as? TaskCell,
+              let cellTask = cell.viewModel?.task
+        else {
+            return
+        }
+        
+        presentTaskTagSwitcher(task: cellTask, on: cell)
+    }
+    
     // MARK: Binding(s)
     
     private func performBindings() {
         bindViewModel()
-        bindLongPressGesturesToTableViews()
         bindSelectionActionToCell()
-    }
-    
-    private func bindLongPressGesturesToTableViews() {
-        todoTableView.rx
-            .methodInvoked(#selector(todoTableView.didLongPress))
-            .withLatestFrom(todoTableView.rx.itemSelected)
-            .subscribe(onNext: { index in
-                if let cell = self.todoTableView.cellForRow(at: index) as? TaskCell,
-                   let viewModel = cell.viewModel {
-                    self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        doingTableView.rx
-            .methodInvoked(#selector(doingTableView.didLongPress))
-            .withLatestFrom(doingTableView.rx.itemSelected)
-            .subscribe(onNext: { index in
-                if let cell = self.doingTableView.cellForRow(at: index) as? TaskCell,
-                   let viewModel = cell.viewModel {
-                    self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        doneTableView.rx
-            .methodInvoked(#selector(doneTableView.didLongPress))
-            .withLatestFrom(doneTableView.rx.itemSelected)
-            .subscribe(onNext: { index in
-                if let cell = self.doneTableView.cellForRow(at: index) as? TaskCell,
-                   let viewModel = cell.viewModel {
-                    self.presentTaskTagSwitcher(task: viewModel.task, on: cell)
-                }
-            })
-            .disposed(by: disposeBag)
     }
     
     private func bindSelectionActionToCell() {
