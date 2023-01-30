@@ -53,7 +53,7 @@ final class UpdateTaskViewController: UIViewController {
         configureNavigationBar(by: operationType)
         bindViewModel()
         combineViews()
-        configureViewLayout()
+        configureViewConstraints()
     }
     
     // MARK: Function(s)
@@ -185,7 +185,7 @@ final class UpdateTaskViewController: UIViewController {
         view.addSubview(descriptionTextView)
     }
     
-    private func configureViewLayout() {
+    private func configureViewConstraints() {
         
         NSLayoutConstraint.activate([
             titleTextView.topAnchor.constraint(
