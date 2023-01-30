@@ -108,13 +108,13 @@ final class UpdateTaskViewController: UIViewController {
         let output = viewModel.transform(input: input)
         
         output.formedTask
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: { [unowned self] _ in
                 self.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
         
         output.initialSetUpData
-            .subscribe(onNext: { data in
+            .subscribe(onNext: { [unowned self] data in
                 self.titleTextView.text = data.title
                 self.descriptionTextView.text = data.description
                 self.datePickerView.date = data.date

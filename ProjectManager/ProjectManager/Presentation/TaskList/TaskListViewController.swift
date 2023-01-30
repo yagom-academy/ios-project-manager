@@ -241,7 +241,7 @@ final class TaskListViewController: UIViewController {
     private func bindSelectionActionToCell() {
         todoTableView.rx
             .modelSelected(TaskItemViewModel.self)
-            .subscribe(onNext: { item in
+            .subscribe(onNext: { [unowned self] item in
                 let view = self.createEditView(with: item)
                 self.present(view, animated: true)
             })
@@ -249,7 +249,7 @@ final class TaskListViewController: UIViewController {
         
         doingTableView.rx
             .modelSelected(TaskItemViewModel.self)
-            .subscribe(onNext: { item in
+            .subscribe(onNext: { [unowned self] item in
                 let view = self.createEditView(with: item)
                 self.present(view, animated: true)
             })
@@ -257,7 +257,7 @@ final class TaskListViewController: UIViewController {
         
         doneTableView.rx
             .modelSelected(TaskItemViewModel.self)
-            .subscribe(onNext: { item in
+            .subscribe(onNext: { [unowned self] item in
                 let view = self.createEditView(with: item)
                 self.present(view, animated: true)
             })
@@ -293,21 +293,21 @@ final class TaskListViewController: UIViewController {
         
         output.todoItems
             .map { $0.count }
-            .subscribe(onNext: { count in
+            .subscribe(onNext: { [unowned self] count in
                 self.todoStatusView.setUpCount(count: count)
             })
             .disposed(by: disposeBag)
         
         output.doingItems
             .map { $0.count }
-            .subscribe(onNext: { count in
+            .subscribe(onNext: { [unowned self] count in
                 self.doingStatusView.setUpCount(count: count)
             })
             .disposed(by: disposeBag)
         
         output.doneItems
             .map { $0.count }
-            .subscribe(onNext: { count in
+            .subscribe(onNext: { [unowned self] count in
                 self.doneStatusView.setUpCount(count: count)
             })
             .disposed(by: disposeBag)

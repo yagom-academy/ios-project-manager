@@ -22,9 +22,11 @@ final class UpdateTaskViewModel: ViewModelType {
     private var description: String
     private var date: Date
     
-    init(useCase: TaskItemsUseCase,
-         operationType: TaskOperationType,
-         item: TaskItemViewModel? = nil) {
+    init(
+        useCase: TaskItemsUseCase,
+        operationType: TaskOperationType,
+        item: TaskItemViewModel? = nil
+    ) {
         self.useCase = useCase
         self.title = item?.title ?? .init()
         self.description = item?.description ?? .init()
@@ -48,19 +50,19 @@ final class UpdateTaskViewModel: ViewModelType {
             }
         
         input.titleTrigger
-            .subscribe(onNext: {
+            .subscribe(onNext: { [unowned self] in
                 self.title = $0
             })
             .disposed(by: disposeBag)
         
         input.descriptionTrigger
-            .subscribe(onNext: {
+            .subscribe(onNext: { [unowned self] in
                 self.description = $0
             })
             .disposed(by: disposeBag)
         
         input.dateTrigger
-            .subscribe(onNext: {
+            .subscribe(onNext: { [unowned self] in
                 self.date = $0
             })
             .disposed(by: disposeBag)
