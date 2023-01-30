@@ -33,10 +33,10 @@
 		B481FA0429797A0400597E8C /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481FA0329797A0400597E8C /* DateFormatter+Extension.swift */; };
 		B481FA0629797CA400597E8C /* EditToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B481FA0529797CA400597E8C /* EditToDoViewController.swift */; };
 		B4AC806629839DFA0095621A /* ToDoCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B4AC806429839DFA0095621A /* ToDoCoreData.xcdatamodeld */; };
-		B4AC806A2983A7DF0095621A /* ToDoDataForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AC80692983A7DF0095621A /* ToDoDataForm.swift */; };
 		B4AC806D2983B4F10095621A /* HistoryCoreModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AC806B2983B4F10095621A /* HistoryCoreModel+CoreDataClass.swift */; };
 		B4AC806E2983B4F10095621A /* HistoryCoreModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AC806C2983B4F10095621A /* HistoryCoreModel+CoreDataProperties.swift */; };
 		B4AC80702983B6890095621A /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AC806F2983B6890095621A /* HistoryManager.swift */; };
+		B4AC8075298748120095621A /* ToDoDataForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AC8074298748120095621A /* ToDoDataForm.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */; };
@@ -71,10 +71,10 @@
 		B481FA0329797A0400597E8C /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		B481FA0529797CA400597E8C /* EditToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToDoViewController.swift; sourceTree = "<group>"; };
 		B4AC806529839DFA0095621A /* ToDoCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDoCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
-		B4AC80692983A7DF0095621A /* ToDoDataForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToDoDataForm.swift; path = ../../../../../../.Trash/ToDoDataForm.swift; sourceTree = "<group>"; };
 		B4AC806B2983B4F10095621A /* HistoryCoreModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HistoryCoreModel+CoreDataClass.swift"; path = "ProjectManager/Source/Model/CoreDataModel/HistoryCoreModel+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		B4AC806C2983B4F10095621A /* HistoryCoreModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HistoryCoreModel+CoreDataProperties.swift"; path = "ProjectManager/Source/Model/CoreDataModel/HistoryCoreModel+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		B4AC806F2983B6890095621A /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
+		B4AC8074298748120095621A /* ToDoDataForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDataForm.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,8 +133,8 @@
 			children = (
 				B4AC80712983BA290095621A /* CoreDataModel */,
 				B4200E4329717911000E2B8B /* ToDo.swift */,
-				B4AC80692983A7DF0095621A /* ToDoDataForm.swift */,
 				B4438CBD2982F72C00B7006E /* History.swift */,
+				B4AC8074298748120095621A /* ToDoDataForm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -392,9 +392,9 @@
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				B4438CC02982F74F00B7006E /* NotificationName+Extension.swift in Sources */,
 				B4438CD52983114E00B7006E /* ToDoCoreModel+CoreDataProperties.swift in Sources */,
+				B4AC8075298748120095621A /* ToDoDataForm.swift in Sources */,
 				B43D8D3A29757F9800986169 /* ToDoHeaderView.swift in Sources */,
 				B4438CD7298316B000B7006E /* ToDoManager.swift in Sources */,
-				B4AC806A2983A7DF0095621A /* ToDoDataForm.swift in Sources */,
 				B481FA012979716900597E8C /* ToDoDetailView.swift in Sources */,
 				B4438CDE29831B8B00B7006E /* CoreDataManagerError.swift in Sources */,
 				B481FA0429797A0400597E8C /* DateFormatter+Extension.swift in Sources */,
