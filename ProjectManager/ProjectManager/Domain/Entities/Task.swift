@@ -8,6 +8,12 @@
 import Foundation
 
 struct Task: Equatable {
+    enum Status {
+        case todo
+        case doing
+        case done
+    }
+    
     var title: String
     var description: String
     var expireDate: Date
@@ -16,13 +22,5 @@ struct Task: Equatable {
 
     public static func == (lhs: Task, rhs: Task) -> Bool {
         return lhs.uuid == rhs.uuid
-    }
-}
-
-extension Task {
-    enum Status {
-        case todo
-        case doing
-        case done
     }
 }
