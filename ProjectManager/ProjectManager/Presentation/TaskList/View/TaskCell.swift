@@ -121,6 +121,8 @@ extension TaskCell {
         taskTitleLabel.text = nil
         taskDescriptionLabel.text = nil
         taskExpirationLabel.text = nil
+        taskExpirationLabel.attributedText = nil
+        viewModel = nil
     }
 }
 
