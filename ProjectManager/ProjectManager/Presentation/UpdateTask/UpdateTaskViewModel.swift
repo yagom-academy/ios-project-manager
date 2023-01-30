@@ -8,35 +8,35 @@
 import Foundation
 import RxSwift
 
-final class EditTaskViewModel: ViewModelType {
+final class UpdateTaskViewModel: ViewModelType {
     
     // MARK: Property
     
     private let disposeBag = DisposeBag()
     private let useCase: TaskItemsUseCase
+    let operationType: TaskOperationType
+    
+    private var task: Task?
+    private var status: Task.Status
     private var title: String
     private var description: String
     private var date: Date
-    private var status: Task.Status
-    private var task: Task
     
-    init(item: TaskItemViewModel, useCase: TaskItemsUseCase) {
-        self.title = item.title
-        self.description = item.description
-        self.date = item.date
-        self.status = item.status
-        self.task = item.task
+    init(useCase: TaskItemsUseCase,
+         operationType: TaskOperationType,
+         item: TaskItemViewModel? = nil) {
         self.useCase = useCase
+        self.title = item?.title ?? .init()
+        self.description = item?.description ?? .init()
+        self.date = item?.date ?? .init()
+        self.status = item?.status ?? .todo
+        self.task = item?.task
+        self.operationType = operationType
     }
     
     // MARK: Function(s)
     
     func transform(input: Input) -> Output {
-        
-        let canEdit = input.editTrigger
-            .flatMap {
-                return Observable.just(true)
-            }
         
         let initialSetUpItem = input.initialSetUpTrigger
             .map { _ in
@@ -66,49 +66,52 @@ final class EditTaskViewModel: ViewModelType {
             .disposed(by: disposeBag)
         
         
-        let editedTask = input.doneTrigger
+        let formedTask = input.doneTrigger
             .flatMap {
-                let editedTask = self.reformTask()
+                let task = self.formTask()
                 
-                return self.useCase
-                    .update(task: editedTask)
+                switch self.operationType {
+                case .add:
+                    return self.useCase
+                        .create(task: task)
+                case .edit:
+                    return self.useCase
+                        .update(task: task)
+                }
             }
         
         return Output(
-            canEdit: canEdit,
-            editedTask: editedTask,
-            initialSetUpData: initialSetUpItem
+            initialSetUpData: initialSetUpItem,
+            formedTask: formedTask
         )
     }
     
     // MARK: Private Function(s)
     
-    private func reformTask() -> Task {
+    private func formTask() -> Task {
         return Task(
             title: title,
             description: description,
             expireDate: date,
             status: status,
-            uuid: task.uuid
+            uuid: task?.uuid ?? UUID()
         )
     }
 }
 
 // MARK: Input & Output
 
-extension EditTaskViewModel {
+extension UpdateTaskViewModel {
     struct Input {
         let initialSetUpTrigger: Observable<Void>
-        let editTrigger: Observable<Void>
         let doneTrigger: Observable<Void>
         let titleTrigger: Observable<String>
         let descriptionTrigger: Observable<String>
         let dateTrigger: Observable<Date>
     }
     struct Output {
-        let canEdit: Observable<Bool>
-        let editedTask: Observable<Task>
         let initialSetUpData: Observable<InitialEditItem>
+        let formedTask: Observable<Task>
     }
     struct InitialEditItem {
         let title: String

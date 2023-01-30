@@ -12,9 +12,8 @@ fileprivate enum Titles {
     static let navigationItem = "TODO"
 }
 
-final class EditTaskViewController: UIViewController {
-    
-    var viewModel: EditTaskViewModel?
+final class UpdateTaskViewController: UIViewController {
+    var viewModel: UpdateTaskViewModel?
     private let disposeBag = DisposeBag()
     
     // MARK: View(s)
@@ -23,7 +22,6 @@ final class EditTaskViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .systemFont(ofSize: 20)
-        textView.isEditable = false
         
         return textView
     }()
@@ -34,7 +32,6 @@ final class EditTaskViewController: UIViewController {
         picker.minimumDate = Date()
         picker.maximumDate = .distantFuture
         picker.translatesAutoresizingMaskIntoConstraints = false
-        picker.isEnabled = false
         
         return picker
     }()
@@ -42,7 +39,6 @@ final class EditTaskViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .systemFont(ofSize: 20)
-        textView.isEditable = false
         
         return textView
     }()
@@ -52,18 +48,35 @@ final class EditTaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureNavigationBar()
+        guard let operationType = self.viewModel?.operationType else { return }
+        setEditability(by: operationType)
+        configureNavigationBar(by: operationType)
+        bindViewModel()
         combineViews()
         configureViewLayout()
-        bindViewModel()
     }
     
     // MARK: Function(s)
     
+    func setEditability(by operationType: TaskOperationType) {
+        if operationType == .edit {
+            titleTextView.isEditable = false
+            datePickerView.isEnabled = false
+            descriptionTextView.isEditable = false
+            
+            titleTextView.backgroundColor = .white
+            descriptionTextView.backgroundColor = .white
+            
+            return
+        }
+        
+        titleTextView.backgroundColor = .systemGray6
+        descriptionTextView.backgroundColor = .systemGray6
+    }
+    
     func bindViewModel() {
         guard let viewModel = self.viewModel,
-              let doneButton = navigationItem.rightBarButtonItem,
-              let editButton = navigationItem.leftBarButtonItem
+              let button = navigationItem.rightBarButtonItem
         else {
             return
         }
@@ -71,8 +84,9 @@ final class EditTaskViewController: UIViewController {
         let initialSetUpTrigger = self.rx
             .methodInvoked(#selector(viewWillAppear))
             .map { _ in }
-        let editTrigger = editButton.rx.tap.asObservable()
-        let doneTrigger = doneButton.rx.tap.asObservable()
+            .asObservable()
+        let done = button.rx.tap
+            .asObservable()
         let title = titleTextView.rx.text
             .orEmpty
             .filter { !$0.isEmpty }
@@ -81,46 +95,79 @@ final class EditTaskViewController: UIViewController {
             .orEmpty
             .filter { !$0.isEmpty }
             .asObservable()
-        let date = datePickerView.rx.date.asObservable()
+        let date = datePickerView.rx.date
+            .asObservable()
         
-        let input = EditTaskViewModel.Input(
+        let input = UpdateTaskViewModel.Input(
             initialSetUpTrigger: initialSetUpTrigger,
-            editTrigger: editTrigger,
-            doneTrigger: doneTrigger,
+            doneTrigger: done,
             titleTrigger: title,
             descriptionTrigger: description,
             dateTrigger: date
         )
         let output = viewModel.transform(input: input)
         
+        output.formedTask
+            .subscribe(onNext: { _ in
+                self.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
         output.initialSetUpData
-            .subscribe(onNext: { initialData in
-                self.titleTextView.text = initialData.title
-                self.datePickerView.date = initialData.date
-                self.descriptionTextView.text = initialData.description
-            })
-            .disposed(by: disposeBag)
-        
-        output.canEdit
-            .subscribe(onNext: { _ in
-                self.toggleEditability()
-            })
-            .disposed(by: disposeBag)
-        
-        output.editedTask
-            .subscribe(onNext: { _ in
-                self.dismissView()
+            .subscribe(onNext: { data in
+                self.titleTextView.text = data.title
+                self.descriptionTextView.text = data.description
+                self.datePickerView.date = data.date
             })
             .disposed(by: disposeBag)
     }
     
     // MARK: Private Function(s)
     
+    private func configureNavigationBar(by operationType: TaskOperationType) {
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: nil
+        )
+        let cancelButton = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(dismissView)
+        )
+        let editButton = UIBarButtonItem(
+            barButtonSystemItem: .edit,
+            target: self,
+            action: #selector(toggleEditability)
+        )
+        
+        switch operationType {
+        case .add:
+            navigationItem.leftBarButtonItem = cancelButton
+        case .edit:
+            navigationItem.leftBarButtonItem = editButton
+        }
+        
+        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.title = Titles.navigationItem
+        navigationController?.navigationBar.backgroundColor = .systemGray3
+    }
+    
+    @objc
+    private func dismissView() {
+        dismiss(animated: true)
+    }
+    
+    @objc
     private func toggleEditability() {
         titleTextView.isEditable.toggle()
         datePickerView.isEnabled.toggle()
         descriptionTextView.isEditable.toggle()
         
+        switchBackgroundColorByEditability()
+    }
+    
+    private func switchBackgroundColorByEditability() {
         switch titleTextView.isEditable {
         case true:
             titleTextView.backgroundColor = .systemGray6
@@ -129,27 +176,6 @@ final class EditTaskViewController: UIViewController {
             titleTextView.backgroundColor = .white
             descriptionTextView.backgroundColor = .white
         }
-    }
-    
-    private func configureNavigationBar() {
-        let rightButton = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: nil
-        )
-        let leftButton = UIBarButtonItem(
-            barButtonSystemItem: .edit,
-            target: self,
-            action: nil
-        )
-        navigationItem.rightBarButtonItem = rightButton
-        navigationItem.leftBarButtonItem = leftButton
-        navigationItem.title = Titles.navigationItem
-        navigationController?.navigationBar.backgroundColor = .systemGray3
-    }
-    
-    private func dismissView() {
-        dismiss(animated: true)
     }
     
     private func combineViews() {

@@ -122,9 +122,11 @@ final class TaskListViewController: UIViewController {
     // MARK: Private Function(s)
     
     private func configureNavigationController() {
-        let rightAddButton = UIBarButtonItem(barButtonSystemItem: .add,
-                                             target: self,
-                                             action: #selector(tapNavigationAddButton))
+        let rightAddButton = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(tapNavigationAddButton)
+        )
         navigationItem.rightBarButtonItem = rightAddButton
         navigationItem.title = Titles.navigationItem
     }
@@ -144,10 +146,14 @@ final class TaskListViewController: UIViewController {
     }
     
     private func createEditView(with item: TaskItemViewModel) -> UINavigationController {
-        let editView = EditTaskViewController()
-        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
-        editView.viewModel = EditTaskViewModel(item: item, useCase: useCase)
+        let editView = UpdateTaskViewController()
         let navigation = UINavigationController(rootViewController: editView)
+        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
+        editView.viewModel = UpdateTaskViewModel(
+            useCase: useCase,
+            operationType: .edit,
+            item: item
+        )
         
         return navigation
     }
@@ -201,11 +207,11 @@ final class TaskListViewController: UIViewController {
     
     @objc
     private func tapNavigationAddButton() {
-        let addTaskView = AddTaskViewController()
-        addTaskView.modalPresentationStyle = .formSheet
-        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
-        addTaskView.viewmodel = AddTaskViewModel(useCase: useCase)
+        let addTaskView = UpdateTaskViewController()
         let navigation = UINavigationController(rootViewController: addTaskView)
+        let useCase = TaskItemsUseCase(datasource: MemoryDataSource.shared)
+        addTaskView.modalPresentationStyle = .formSheet
+        addTaskView.viewModel = UpdateTaskViewModel(useCase: useCase, operationType: .add)
         
         present(navigation, animated: true)
     }
