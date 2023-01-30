@@ -53,7 +53,7 @@ final class SwitchTaskViewController: UIAlertController {
         
         combineViews()
         configureViewConstraints()
-        configurePopoverPresentationStyle()
+        configureArrowDirections()
         addButtonActions()
         bindViewModel()
     }
@@ -66,7 +66,7 @@ final class SwitchTaskViewController: UIAlertController {
     
     // MARK: Private Function(s)
     
-    private func configurePopoverPresentationStyle() {
+    private func configureArrowDirections() {
         popoverPresentationController?.permittedArrowDirections = [.left, .right]
     }
     
