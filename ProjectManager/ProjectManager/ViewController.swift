@@ -7,30 +7,26 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(frame: view.bounds)
-        stackView.backgroundColor = .brown
-        stackView.distribution = .fillEqually
-        stackView.axis = .horizontal
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
+//    private lazy var stackView: UIStackView = {
+//        let stackView = UIStackView(frame: view.bounds)
+//        stackView.backgroundColor = .brown
+//        stackView.distribution = .fillEqually
+//        stackView.axis = .horizontal
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return stackView
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = stackView
+//        view = stackView
+        view.backgroundColor = .white
         configureNavigationBar()
     }
     
     private func configureNavigationBar() {
         self.title = "ProjectManager"
     }
-}
-
-class CollectionView: UICollectionView {
-    
 }
 
 struct collectionViewContent {
