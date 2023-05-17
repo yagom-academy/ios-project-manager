@@ -19,9 +19,9 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureNavigationView()
-        configureView()
-        configureTableView()
+        configureNavigationViewUI()
+        configureViewUI()
+        configureTableViewUI()
     }
 }
 
@@ -38,16 +38,16 @@ extension MainViewController {
 
 // MARK: UI
 extension MainViewController {
-    private func configureNavigationView() {
+    private func configureNavigationViewUI() {
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add)
     }
     
-    private func configureView() {
+    private func configureViewUI() {
         view.backgroundColor = .systemBackground
     }
     
-    private func configureTableView() {
+    private func configureTableViewUI() {
         let tableStackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
         
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
