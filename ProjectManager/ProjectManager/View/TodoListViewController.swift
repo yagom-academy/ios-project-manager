@@ -40,7 +40,10 @@ final class TodoListViewController: UIViewController {
     }
     
     @objc func plusButtonTapped() {
-        let plusTodoViewController = PlusTodoViewController()
+        let todoViewModel = TodoViewModel()
+        let todoView = TodoView(viewModel: todoViewModel)
+        let plusTodoViewController = PlusTodoViewController(todoView: todoView, todoViewModel: todoViewModel)
+        
         present(plusTodoViewController, animated: false)
     }
 }
