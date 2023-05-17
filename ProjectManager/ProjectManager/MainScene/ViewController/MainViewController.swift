@@ -8,9 +8,9 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    private let todoViewController = ListViewController(section: .todo)
-    private let doingViewController = ListViewController(section: .doing)
-    private let doneViewController = ListViewController(section: .done)
+    private let todoViewController = ListViewController(taskState: .todo)
+    private let doingViewController = ListViewController(taskState: .doing)
+    private let doneViewController = ListViewController(taskState: .done)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,15 +22,12 @@ final class MainViewController: UIViewController {
                      Task(title: "abdcc", description: "abasfac", date: Date()),
                      Task(title: "absdfc", description: "aasasfbc", date: Date())]
         
-        let tasks2 = [Task(title: "bcd", description: "abc", date: Date()),
-                     Task(title: "bcdfqe", description: "abasfac", date: Date()),
-                     Task(title: "bcdgqdhg", description: "aasasfbc", date: Date())]
-        
-        
         children.forEach { vc in
             guard let vc = vc as? ListViewController else { return }
             
-            vc.applySnapshot(by: tasks1)
+            tasks1.forEach { task in
+                vc.applySnapshot(by: task)
+            }
         }
     }
 }

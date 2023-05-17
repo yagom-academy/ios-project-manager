@@ -11,11 +11,13 @@ final class ListViewController: UIViewController {
     
     private var todoCollectionView: UICollectionView?
     
-    private var datasource: UICollectionViewDiffableDataSource<TaskState, Task>?
-    private var section: TaskState
+    private var datasource: UICollectionViewDiffableDataSource<Int, Task>?
+    private var snapshot = NSDiffableDataSourceSnapshot<Int, Task>()
+    private var sectionIndex = 0
+    private var taskState: TaskState
     
-    init(section: TaskState) {
-        self.section = section
+    init(taskState: TaskState) {
+        self.taskState = taskState
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -32,11 +34,11 @@ final class ListViewController: UIViewController {
         configureDatasource()
     }
 
-    func applySnapshot(by items: [Task]) {
-        var snapshot = NSDiffableDataSourceSnapshot<TaskState, Task>()
+    func applySnapshot(by item: Task) {
+        snapshot.appendSections([sectionIndex])
+        snapshot.appendItems([item])
         
-        snapshot.appendSections([section])
-        snapshot.appendItems(items)
+        sectionIndex += 1
         
         datasource?.apply(snapshot, animatingDifferences: true)
     }
@@ -66,13 +68,21 @@ extension ListViewController {
     }
     
     private func makeCollectionViewLayout() -> UICollectionViewLayout {
-        var config = UICollectionLayoutListConfiguration(appearance: .grouped)
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            let listConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            let section = NSCollectionLayoutSection.list(using: listConfig, layoutEnvironment: layoutEnvironment)
+            
+            section.contentInsets.bottom = 3
+            
+            return section
+        }
         
-        return UICollectionViewCompositionalLayout.list(using: config)
+        return layout
     }
     
     private func configureCollectionViewUI() {
         let layout = makeCollectionViewLayout()
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
