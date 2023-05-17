@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		26CE60C82A1483380026203C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 26CE60C72A1483380026203C /* .swiftlint.yml */; };
 		26CE60CF2A148FB90026203C /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE60CE2A148FB90026203C /* TaskTableViewCell.swift */; };
+		26CE60D22A14A8DF0026203C /* TaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE60D12A14A8DF0026203C /* TaskState.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		26CE60C72A1483380026203C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		26CE60CE2A148FB90026203C /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		26CE60D12A14A8DF0026203C /* TaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskState.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		26CE60D02A14A8B40026203C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				26CE60D12A14A8DF0026203C /* TaskState.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +94,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				26CE60D02A14A8B40026203C /* Model */,
 				26CE60CB2A148F5B0026203C /* MainScene */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
@@ -189,6 +200,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				26CE60D22A14A8DF0026203C /* TaskState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
