@@ -12,6 +12,10 @@ final class MainViewController: UIViewController {
     private let doingTableView = UITableView()
     private let doneTableView = UITableView()
     
+    private var todoDatasource: UITableViewDiffableDataSource<TaskState, Task>?
+    private var doingDatasource: UITableViewDiffableDataSource<TaskState, Task>?
+    private var doneDatasource: UITableViewDiffableDataSource<TaskState, Task>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +25,18 @@ final class MainViewController: UIViewController {
     }
 }
 
+extension MainViewController {
+    private func configureDelegate() {
+        todoTableView.dataSource = todoDatasource
+        doingTableView.dataSource = doingDatasource
+        doneTableView.dataSource = doneDatasource
+    }
+    
+    private func configureDatasource() {
+    }
+}
+
+// MARK: UI
 extension MainViewController {
     private func configureNavigationView() {
         navigationItem.title = "Project Manager"
