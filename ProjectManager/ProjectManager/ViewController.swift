@@ -7,9 +7,24 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    enum Section: CaseIterable {
+        case todo
+        case doing
+        case done
+    }
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Schedule>?
+    
+    let schedule = Schedule(title: "asd", detail: "asd", expirationDate: "asd")
+    
+    lazy var schedules = [schedule]
+    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCompositionalLayout())
+        
+        collectionView.isScrollEnabled = true
+        collectionView.showsVerticalScrollIndicator = true
         collectionView.backgroundColor = .brown
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -18,10 +33,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .white
         configureUI()
         configureNavigationBar()
+        configureDataSource()
+        applySnapshot()
     }
     
     private func configureNavigationBar() {
@@ -49,8 +66,28 @@ class ViewController: UIViewController {
     }
 }
 
-struct collectionViewContent {
-    let title: String
-    let detail: String
-    let expirationDate: String
+extension ViewController: UICollectionViewDelegate {
+    
+    private func configureDataSource() {
+        
+        self.collectionView.register(ScheduleCell.self, forCellWithReuseIdentifier: "cell")
+        print("뭐야 도대체")
+        
+        self.dataSource = UICollectionViewDiffableDataSource<Section, Schedule> (collectionView: self.collectionView) { (collectionView, indexPath, schedule) -> UICollectionViewListCell? in
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ScheduleCell else { return nil }
+            
+            cell.configureUI()
+            cell.configureLabel(schedule: schedule)
+            
+            return cell
+        }
+    }
+    
+    private func applySnapshot() {
+        var  snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
+        snapshot.appendSections([.todo])
+        snapshot.appendItems(schedules)
+        self.dataSource?.apply(snapshot, animatingDifferences: true)
+    }
 }
