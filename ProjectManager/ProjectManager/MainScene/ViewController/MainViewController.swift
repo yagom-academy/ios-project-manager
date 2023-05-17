@@ -26,13 +26,17 @@ final class MainViewController: UIViewController {
 }
 
 extension MainViewController {
-    private func configureDelegate() {
+    private func configureDatasource() {
+    }
+    
+    private func configureTableView() {
         todoTableView.dataSource = todoDatasource
         doingTableView.dataSource = doingDatasource
         doneTableView.dataSource = doneDatasource
-    }
-    
-    private func configureDatasource() {
+        
+        [todoTableView, doingTableView, doneTableView].forEach { tableView in
+            tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
+        }
     }
 }
 
