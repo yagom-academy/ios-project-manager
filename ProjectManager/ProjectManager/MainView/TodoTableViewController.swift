@@ -27,6 +27,7 @@ class TodoTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
+        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.identifier)
     }
 
     // MARK: - Table view data source
@@ -50,16 +51,21 @@ class TodoTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.text = self.workState.text
-        let badgeView = UILabel()
-        badgeView.text = "5"
-        badgeView.backgroundColor = .black
-        badgeView.textColor = .white
-        badgeView.layer.cornerRadius = 50
-        let titleStackView = UIStackView(arrangedSubviews: [label, badgeView])
+//        let label = UILabel()
+//        label.text = self.workState.text
+//        let badgeView = UILabel()
+//        badgeView.text = "5"
+//        badgeView.backgroundColor = .black
+//        badgeView.textColor = .white
+//        badgeView.layer.cornerRadius = 50
+//        let titleStackView = UIStackView(arrangedSubviews: [label, badgeView])
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderView.identifier) as? HeaderView
+        else { return UIView() }
         
-        return titleStackView
+        headerView.titleLabel.text = workState.text
+        headerView.badgeLabel.text = String(toDoListViewModel.numberOfRowsInSection)
+        
+        return headerView
     }
     
     /*
