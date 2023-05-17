@@ -8,10 +8,13 @@
 import UIKit
 
 class TodoTableViewController: UITableViewController {
-    private var toDoListViewModel: TodoListViewModel
     
-    init(toDoListViewModel: TodoListViewModel) {
+    private var toDoListViewModel: TodoListViewModel
+    private let workState: WorkState
+    
+    init(toDoListViewModel: TodoListViewModel, workState: WorkState) {
         self.toDoListViewModel = toDoListViewModel
+        self.workState = workState
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -46,6 +49,19 @@ class TodoTableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = self.workState.text
+        let badgeView = UILabel()
+        badgeView.text = "5"
+        badgeView.backgroundColor = .black
+        badgeView.textColor = .white
+        badgeView.layer.cornerRadius = 50
+        let titleStackView = UIStackView(arrangedSubviews: [label, badgeView])
+        
+        return titleStackView
+    }
+    
     /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

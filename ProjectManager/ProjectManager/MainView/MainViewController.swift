@@ -13,6 +13,7 @@ final class MainViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .equalSpacing
         
         return stackView
     }()
@@ -26,18 +27,24 @@ final class MainViewController: UIViewController {
     }
     
     private func configureRootView() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGray4
         view.addSubview(stackView)
     }
     
     private func addChildren() {
-        self.addChild(TodoTableViewController(toDoListViewModel: toDoListViewModel))
+        self.addChild(TodoTableViewController(toDoListViewModel: toDoListViewModel, workState: .todo))
+        self.addChild(TodoTableViewController(toDoListViewModel: toDoListViewModel, workState: .doing))
+        self.addChild(TodoTableViewController(toDoListViewModel: toDoListViewModel, workState: .done))
     }
     
     private func configureStackView() {
         self.children.forEach {
             stackView.addArrangedSubview($0.view)
+            NSLayoutConstraint.activate([
+                $0.view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.325)
+            ])
         }
+        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
