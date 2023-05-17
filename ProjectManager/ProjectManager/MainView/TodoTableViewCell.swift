@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ToDoTableViewCell: UITableViewCell {
+final class TodoTableViewCell: UITableViewCell {
     static let identifier = "ToDoCell"
     
     override func awakeFromNib() {

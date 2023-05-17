@@ -29,7 +29,7 @@ final class MainViewController: UIViewController {
     }
     
     private func addChildren() {
-        self.addChild(ToDoTableViewController())
+        self.addChild(TodoTableViewController())
     }
     
     private func configureStackView() {
