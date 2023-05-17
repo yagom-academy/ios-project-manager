@@ -8,26 +8,46 @@ import UIKit
 
 final class TodoListViewController: UIViewController {
     
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        
+        return stackView
+    }()
+    
+    private let todoListViewModel = TodoListViewModel()
+    
     private let todoTableView = UITableView()
+    private let doingTableView = UITableView()
+    private let doneTableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpTableView()
+        setUpView()
+        setUpStackView()
         configureNavigationBar()
     }
     
-    private func setUpTableView() {
+    private func setUpView() {
+        view.addSubview(stackView)
         view.backgroundColor = .white
-        view.addSubview(todoTableView)
-        let safeArea = view.safeAreaLayoutGuide
+        todoTableView.dataSource = self
+    }
+    
+    private func setUpStackView() {
+        stackView.addArrangedSubview(todoTableView)
+        stackView.addArrangedSubview(doingTableView)
+        stackView.addArrangedSubview(doneTableView)
         
-        todoTableView.translatesAutoresizingMaskIntoConstraints = false
+        let safeArea = view.safeAreaLayoutGuide
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            todoTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            todoTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            todoTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            todoTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
     }
     
@@ -40,10 +60,26 @@ final class TodoListViewController: UIViewController {
     }
     
     @objc func plusButtonTapped() {
-        let todoViewModel = TodoViewModel()
-        let todoView = TodoView(viewModel: todoViewModel)
-        let plusTodoViewController = PlusTodoViewController(todoView: todoView, todoViewModel: todoViewModel)
-        
+        let plusTodoViewController = PlusTodoViewController()
         present(plusTodoViewController, animated: false)
+    }
+}
+
+extension TodoListViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return todoListViewModel.numberOfItems
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? TodoTableViewCell else { return UITableViewCell() }
+        let item = todoListViewModel.item(at: indexPath.row)
+        cell.configureCell(with: item)
+        
+        return cell
     }
 }
