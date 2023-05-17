@@ -15,12 +15,27 @@ class ViewController: UIViewController {
         return stackview
     }()
 
-    lazy var toDoTableView = createTableView()
-    lazy var doingTableView = createTableView()
-    lazy var doneTableView = createTableView()
+    lazy var toDoTableView = createTableView(title: "TODO")
+    lazy var doingTableView = createTableView(title: "DOING")
+    lazy var doneTableView = createTableView(title: "DONE")
     
-    private func createTableView() -> UITableView {
+    private func createTableView(title: String) -> UITableView {
         let tableview = UITableView()
+        tableview.backgroundColor = .systemGray6
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 60))
+        
+        let headerLabel = UILabel(frame: headerView.bounds)
+        headerLabel.text = title
+        headerLabel.font = .systemFont(ofSize: 32,weight: .medium)
+        headerLabel.textAlignment = .natural
+        headerView.addSubview(headerLabel)
+        
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20)
+        ])
+        tableview.tableHeaderView = headerView
+        
         return tableview
     }
     
@@ -41,7 +56,7 @@ class ViewController: UIViewController {
         
         doingTableView.delegate = self
         doingTableView.dataSource = self
-        
+
         doneTableView.delegate = self
         doneTableView.dataSource = self
     }
@@ -86,5 +101,21 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
     
-    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//
+//        let title: String?
+//
+//
+//
+//        switch tableView {
+//        case toDoTableView:
+//            return title
+//        case doingTableView:
+//            return "doing"
+//        case doneTableView:
+//            return "done"
+//        default:
+//            return ""
+//        }
+//    }
 }
