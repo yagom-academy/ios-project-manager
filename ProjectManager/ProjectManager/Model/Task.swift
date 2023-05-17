@@ -8,7 +8,7 @@
 import Foundation
 
 struct Task: Hashable {
-    enum State {
+    enum State: CaseIterable {
         case todo
         case doing
         case done

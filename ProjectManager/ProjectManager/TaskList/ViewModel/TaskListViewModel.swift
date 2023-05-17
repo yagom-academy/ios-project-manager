@@ -8,7 +8,7 @@
 import Foundation
 
 final class TaskListViewModel {
-    private var taskList = [Task]()
+    var taskList = [Task]()
     
     init() {
         taskList.append(Task(state: .todo,

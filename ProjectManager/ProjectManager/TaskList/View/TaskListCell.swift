@@ -8,7 +8,7 @@
 import UIKit
 
 class TaskListCell: UICollectionViewCell {    
-    private let titleLabel = {
+    let titleLabel = {
         let label = UILabel()
         
         label.font = .preferredFont(forTextStyle: .title2)
@@ -70,5 +70,11 @@ class TaskListCell: UICollectionViewCell {
             stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
+    }
+    
+    func configure(_ task: Task) {
+        titleLabel.text = task.title
+        bodyLabel.text = task.body
+        deadlineLabel.text = DateFormatter().string(from: task.deadline)        
     }
 }
