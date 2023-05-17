@@ -9,6 +9,8 @@ import UIKit
 
 final class TaskHeaderView: UICollectionReusableView {
     
+    static let identifier = "TaskHeaderView"
+    
     private let titleLabel = {
         let label = UILabel()
         
@@ -39,6 +41,11 @@ final class TaskHeaderView: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateText(by section: TaskState, number: Int) {
+        titleLabel.text = section.titleText
+        contentsInfoLabel.text = "\(number)"
     }
 }
 

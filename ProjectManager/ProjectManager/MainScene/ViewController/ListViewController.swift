@@ -48,11 +48,17 @@ extension ListViewController {
         let cellRegistration = UICollectionView.CellRegistration<TaskListCell, Task> { cell, indexPath, itemIdentifier in
             cell.updateText(by: itemIdentifier)
         }
+        let headerRegistration = UICollectionView.SupplementaryRegistration<TaskHeaderView>(elementKind: TaskHeaderView.identifier) { supplementaryView, elementKind, indexPath in
+            supplementaryView.updateText(by: self.taskState, number: 5)
+        }
         
         datasource = UICollectionViewDiffableDataSource(collectionView: collectionView,
                                                         cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+        datasource?.supplementaryViewProvider = { (view, kind, index) in
+            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: index)
+        }
         
         todoCollectionView?.dataSource = datasource
     }
@@ -68,8 +74,12 @@ extension ListViewController {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             let listConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             let section = NSCollectionLayoutSection.list(using: listConfig, layoutEnvironment: layoutEnvironment)
+            let headerViewSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                        heightDimension: .estimated(100))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerViewSize, elementKind: TaskHeaderView.identifier, alignment: .top)
             
             section.interGroupSpacing = 10
+            section.boundarySupplementaryItems = [header]
             
             return section
         }

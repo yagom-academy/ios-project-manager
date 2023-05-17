@@ -9,4 +9,15 @@ enum TaskState {
     case todo
     case doing
     case done
+    
+    var titleText: String {
+        switch self {
+        case .todo:
+            return "TODO"
+        case .doing:
+            return "DOING"
+        case .done:
+            return "DONE"
+        }
+    }
 }
