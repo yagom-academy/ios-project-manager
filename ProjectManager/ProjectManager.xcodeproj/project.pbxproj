@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08C8CF4E2A14703C00173DEE /* SwiftUIList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CF4D2A14703C00173DEE /* SwiftUIList.swift */; };
 		08E832392A138E1700517880 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08E832382A138E1700517880 /* GoogleService-Info.plist */; };
 		08E8323C2A138F6B00517880 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 08E8323B2A138F6B00517880 /* FirebaseAnalytics */; };
 		08E8323E2A138F6B00517880 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 08E8323D2A138F6B00517880 /* FirebaseFirestore */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08C8CF4D2A14703C00173DEE /* SwiftUIList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIList.swift; sourceTree = "<group>"; };
 		08E832382A138E1700517880 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		08E8323F2A138FAD00517880 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16F11C612A138B4500F1A08C /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +67,7 @@
 			children = (
 				16F11C642A138B4500F1A08C /* ProjectManagerApp.swift */,
 				16F11C662A138B4500F1A08C /* ContentView.swift */,
+				08C8CF4D2A14703C00173DEE /* SwiftUIList.swift */,
 				16F11C682A138B4600F1A08C /* Assets.xcassets */,
 				08E832382A138E1700517880 /* GoogleService-Info.plist */,
 				16F11C6A2A138B4600F1A08C /* Preview Content */,
@@ -165,6 +168,7 @@
 				08E832402A138FAD00517880 /* AppDelegate.swift in Sources */,
 				16F11C672A138B4500F1A08C /* ContentView.swift in Sources */,
 				16F11C652A138B4500F1A08C /* ProjectManagerApp.swift in Sources */,
+				08C8CF4E2A14703C00173DEE /* SwiftUIList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,8 +302,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -330,8 +334,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
