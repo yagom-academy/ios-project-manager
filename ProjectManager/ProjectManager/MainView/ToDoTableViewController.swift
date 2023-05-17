@@ -8,11 +8,13 @@
 import UIKit
 
 class ToDoTableViewController: UITableViewController {
-    var toDoList: [Todo] = []
+    private var toDoList: [Todo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        toDoList = Array(repeating: Todo(title: "hi", date: Date(), body: "body"), count: 20)
+        tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.identifier)
     }
 
     // MARK: - Table view data source
@@ -24,13 +26,12 @@ class ToDoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return toDoList.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ToDoTableViewCell.identifier, for: indexPath) as? ToDoTableViewCell
         else { return UITableViewCell() }
 
-        // Configure the cell...
+        cell.textLabel?.text = toDoList[indexPath.row].title
 
         return cell
     }
