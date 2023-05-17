@@ -9,7 +9,7 @@ import UIKit
 
 final class TaskHeaderView: UICollectionReusableView {
     
-    let titleLabel = {
+    private let titleLabel = {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -17,7 +17,7 @@ final class TaskHeaderView: UICollectionReusableView {
         
         return label
     }()
-    let contentsInfoLabel = {
+    private let contentsInfoLabel = {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +33,8 @@ final class TaskHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -40,4 +42,20 @@ final class TaskHeaderView: UICollectionReusableView {
     }
 }
 
-
+// MARK: UI
+extension TaskHeaderView {
+    private func configureUI() {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, contentsInfoLabel])
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 4
+        
+        self.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
+        ])
+    }
+}
