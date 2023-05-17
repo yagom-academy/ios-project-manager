@@ -31,7 +31,7 @@ class TodoTableViewController: UITableViewController {
         else { return UITableViewCell() }
         
         let todoViewModel = toDoListViewModel.todo(at: indexPath.row)
-        cell.textLabel?.text = todoViewModel.title
+        cell.textLabel?.text = todoViewModel?.title
 
         return cell
     }

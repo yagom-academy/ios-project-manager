@@ -16,8 +16,10 @@ extension TodoListViewModel {
         return self.todoList.count
     }
     
-    func todo(at index: Int) -> TodoViewModel {
-        let todo = todoList[index]
+    func todo(at index: Int) -> TodoViewModel? {
+        guard let todo = todoList[safe: index] else {
+            return nil
+        }
         
         return TodoViewModel(todo: todo)
     }
