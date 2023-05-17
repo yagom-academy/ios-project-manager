@@ -12,19 +12,19 @@ struct SwiftUIList: View {
     let models: [Model]
     
     var body: some View {
-        Form{
-            Section(header: Text(formCase.rawValue)
-                .font(.title)
-                .foregroundColor(.black)
-                .fontWeight(.light)) {
-                List() {
-                    ForEach(models) { model in
-                        CustomFormRow(model: model)
-                    }
+        List {
+            Section {
+                ForEach(models) { model in
+                    CustomFormRow(model: model)
                 }
-                .listSectionSeparator(.visible)
+            } header: {
+                Text(formCase.rawValue)
+                    .font(.title)
+                    .foregroundColor(.black)
+                    .fontWeight(.light)
             }
-        }
+            
+        }.listStyle(.grouped)
     }
 }
 

@@ -16,12 +16,23 @@ struct ContentView: View {
         NavigationStack{
             HStack{
                 SwiftUIList(formCase: .TODO, models: todoModel)
+                
                 SwiftUIList(formCase: .DOING, models: doingModel)
                 SwiftUIList(formCase: .DONE, models: doneModel)
             }
+            .background(Color(UIColor.systemGray3))
             .navigationTitle("Project Manager")
-            .toolbarBackground(.visible, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         }
     }
 }

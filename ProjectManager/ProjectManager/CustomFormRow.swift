@@ -12,7 +12,7 @@ struct CustomFormRow: View {
     
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5.0) {
+        VStack(alignment: .leading, spacing: 8.0) {
             Text(model.title)
                 .lineLimit(1)
             Text(model.body)
