@@ -11,6 +11,7 @@
 		58DA4F452A13678F00A0203C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 58DA4F442A13678F00A0203C /* RealmSwift */; };
 		58DA4F482A136DCA00A0203C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 58DA4F472A136DCA00A0203C /* FirebaseAnalytics */; };
 		58DA4F4A2A136F9700A0203C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 58DA4F492A136F9700A0203C /* GoogleService-Info.plist */; };
+		58DA4F4E2A14BE9700A0203C /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DA4F4D2A14BE9700A0203C /* TodoTableViewCell.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		58DA4F492A136F9700A0203C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		58DA4F4D2A14BE9700A0203C /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				58DA4F4D2A14BE9700A0203C /* TodoTableViewCell.swift */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
@@ -159,6 +162,7 @@
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				58DA4F4E2A14BE9700A0203C /* TodoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
