@@ -7,6 +7,8 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    private var toDoListViewModel: TodoListViewModel = TodoListViewModel()
+    
     private let stackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -29,7 +31,7 @@ final class MainViewController: UIViewController {
     }
     
     private func addChildren() {
-        self.addChild(TodoTableViewController())
+        self.addChild(TodoTableViewController(toDoListViewModel: toDoListViewModel))
     }
     
     private func configureStackView() {
