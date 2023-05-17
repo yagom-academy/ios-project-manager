@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2616AFC42A1525F100C33BB2 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2616AFC32A1525F100C33BB2 /* ListViewController.swift */; };
+		2616AFC62A153A3600C33BB2 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */; };
 		26CE60C82A1483380026203C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 26CE60C72A1483380026203C /* .swiftlint.yml */; };
 		26CE60CF2A148FB90026203C /* TaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE60CE2A148FB90026203C /* TaskListCell.swift */; };
 		26CE60D22A14A8DF0026203C /* TaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE60D12A14A8DF0026203C /* TaskState.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		2616AFC32A1525F100C33BB2 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		26CE60C72A1483380026203C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		26CE60CE2A148FB90026203C /* TaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCell.swift; sourceTree = "<group>"; };
 		26CE60D12A14A8DF0026203C /* TaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskState.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				26CE60CE2A148FB90026203C /* TaskListCell.swift */,
+				2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				26CE60D42A14A9230026203C /* Task.swift in Sources */,
 				26CE60D22A14A8DF0026203C /* TaskState.swift in Sources */,
+				2616AFC62A153A3600C33BB2 /* TaskHeaderView.swift in Sources */,
 				2616AFC42A1525F100C33BB2 /* ListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
