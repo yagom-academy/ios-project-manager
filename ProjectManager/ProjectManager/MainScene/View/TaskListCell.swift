@@ -70,10 +70,10 @@ extension TaskListCell {
         contentView.addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
 }

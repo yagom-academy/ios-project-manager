@@ -8,17 +8,15 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    private var todoCollectionView: UICollectionView?
-    
-    private var datasource: UICollectionViewDiffableDataSource<TaskState, Task>?
+    private let todoViewController = ListViewController(section: .todo)
+    private let doingViewController = ListViewController(section: .doing)
+    private let doneViewController = ListViewController(section: .done)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureNavigationViewUI()
         configureViewUI()
-        configureCollectionViewUI()
-        configureDatasource()
+        configureChildViewControllerUI()
         
         let tasks1 = [Task(title: "abc", description: "abc", date: Date()),
                      Task(title: "abdcc", description: "abasfac", date: Date()),
@@ -28,38 +26,15 @@ final class MainViewController: UIViewController {
                      Task(title: "bcdfqe", description: "abasfac", date: Date()),
                      Task(title: "bcdgqdhg", description: "aasasfbc", date: Date())]
         
-        applySnapshot(by: .doing, tasks1)
-        applySnapshot(by: .done, tasks2)
-        applySnapshot(by: .todo, tasks1)
-    }
-    
-    private func applySnapshot(by section: TaskState, _ items: [Task]) {
-        var snapshot = NSDiffableDataSourceSnapshot<TaskState, Task>()
         
-        snapshot.appendSections([section])
-        snapshot.appendItems(items)
-        
-        datasource?.apply(snapshot, animatingDifferences: true)
-    }
-}
-
-extension MainViewController {
-    private func configureDatasource() {
-        guard let collectionView = todoCollectionView else { return }
-        
-        let cellRegistration = UICollectionView.CellRegistration<TaskListCell, Task> { cell, indexPath, itemIdentifier in
-            cell.updateText(by: itemIdentifier)
+        children.forEach { vc in
+            guard let vc = vc as? ListViewController else { return }
+            
+            vc.applySnapshot(by: tasks1)
         }
-        
-        datasource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-        })
-        
-        todoCollectionView?.dataSource = datasource
     }
 }
 
-// MARK: UI
 extension MainViewController {
     private func configureNavigationViewUI() {
         navigationItem.title = "Project Manager"
@@ -67,30 +42,32 @@ extension MainViewController {
     }
     
     private func configureViewUI() {
-        view.backgroundColor = .systemBackground
+        self.view.backgroundColor = .systemGray5
     }
     
-    private func makeCollectionViewLayout() -> UICollectionViewLayout {
-        var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+    private func configureChildViewControllerUI() {
+        self.addChild(todoViewController)
+        self.addChild(doingViewController)
+        self.addChild(doneViewController)
         
-        return UICollectionViewCompositionalLayout.list(using: config)
-    }
-    
-    private func configureCollectionViewUI() {
-        let layout = makeCollectionViewLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let stackView = UIStackView()
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        children.forEach { childViewController in
+            stackView.addArrangedSubview(childViewController.view)
+        }
         
-        view.addSubview(collectionView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 8
+        stackView.distribution = .fillEqually
+        stackView.backgroundColor = .systemGray3
+        
+        view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        todoCollectionView = collectionView
     }
 }
