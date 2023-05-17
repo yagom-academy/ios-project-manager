@@ -8,14 +8,6 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    private let todoTableView = UITableView()
-    private let doingTableView = UITableView()
-    private let doneTableView = UITableView()
-    
-    private var todoDatasource: UITableViewDiffableDataSource<TaskState, Task>?
-    private var doingDatasource: UITableViewDiffableDataSource<TaskState, Task>?
-    private var doneDatasource: UITableViewDiffableDataSource<TaskState, Task>?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,16 +19,6 @@ final class MainViewController: UIViewController {
 
 extension MainViewController {
     private func configureDatasource() {
-    }
-    
-    private func configureTableView() {
-        todoTableView.dataSource = todoDatasource
-        doingTableView.dataSource = doingDatasource
-        doneTableView.dataSource = doneDatasource
-        
-        [todoTableView, doingTableView, doneTableView].forEach { tableView in
-            tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
-        }
     }
 }
 
@@ -51,20 +33,6 @@ extension MainViewController {
         view.backgroundColor = .systemBackground
     }
     
-    private func configureTableViewUI() {
-        let tableStackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
-        
-        tableStackView.translatesAutoresizingMaskIntoConstraints = false
-        tableStackView.spacing = 0
-        tableStackView.distribution = .fillEqually
-        
-        view.addSubview(tableStackView)
-        
-        NSLayoutConstraint.activate([
-            tableStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+    private func configureCollectionViewUI() {
     }
 }
