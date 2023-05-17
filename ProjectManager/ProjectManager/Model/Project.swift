@@ -4,6 +4,8 @@
 //  Copyright © yagom. All rights reserved.
 //
 
+import Foundation
+
 struct Project {
     var title: String
     var body: String
