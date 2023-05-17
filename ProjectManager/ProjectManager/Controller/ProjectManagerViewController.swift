@@ -25,10 +25,11 @@ final class ProjectManagerViewController: UIViewController {
     
     @objc
     private func addProject() {
-        let addProjectViewController = AddProjectViewController()
-        addProjectViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
+        let rootViewController = AddProjectViewController()
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
-        self.present(addProjectViewController, animated: true, completion: nil)
+        self.present(navigationController, animated: true, completion: nil)
     }
 }
 
