@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Task {
+struct Task: Hashable {
     enum State {
         case todo
         case doing
