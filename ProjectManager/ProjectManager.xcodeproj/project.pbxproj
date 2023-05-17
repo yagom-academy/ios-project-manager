@@ -14,6 +14,7 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		D0DC84792A14A0DC0045C157 /* AddProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC84782A14A0DC0045C157 /* AddProjectViewController.swift */; };
 		D0DC847E2A14EEB30045C157 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC847D2A14EEB30045C157 /* Project.swift */; };
+		D0DC84802A14F17C0045C157 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC847F2A14F17C0045C157 /* ProjectCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0DC84782A14A0DC0045C157 /* AddProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectViewController.swift; sourceTree = "<group>"; };
 		D0DC847D2A14EEB30045C157 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		D0DC847F2A14F17C0045C157 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 		D0DC84762A14A0670045C157 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D0DC847F2A14F17C0045C157 /* ProjectCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0DC84792A14A0DC0045C157 /* AddProjectViewController.swift in Sources */,
+				D0DC84802A14F17C0045C157 /* ProjectCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D0DC847E2A14EEB30045C157 /* Project.swift in Sources */,

@@ -6,7 +6,7 @@
 
 import UIKit
 
-class AddProjectViewController: UIViewController {
+final class AddProjectViewController: UIViewController {
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
