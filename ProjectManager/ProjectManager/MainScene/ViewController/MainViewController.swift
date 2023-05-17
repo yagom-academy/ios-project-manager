@@ -13,7 +13,7 @@ final class MainViewController: UIViewController {
         
         configureNavigationViewUI()
         configureViewUI()
-        configureTableViewUI()
+        configureCollectionViewUI()
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  TaskTableViewCell.swift
+//  TaskListCell.swift
 //  ProjectManager
 //
 //  Created by 강민수 on 2023/05/17.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TaskTableViewCell: UITableViewCell {
+final class TaskListCell: UICollectionViewListCell {
     
     static let identifier = "TaskTableViewCell"
     
@@ -40,8 +40,8 @@ final class TaskTableViewCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         configureUI()
     }
@@ -58,7 +58,7 @@ final class TaskTableViewCell: UITableViewCell {
 }
 
 // MARK: UI
-extension TaskTableViewCell {
+extension TaskListCell {
     private func configureUI() {
         let mainStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, dateLabel])
         
