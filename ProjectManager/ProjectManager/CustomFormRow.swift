@@ -10,7 +10,6 @@ import SwiftUI
 struct CustomFormRow: View {
     let model: Model
     
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
             Text(model.title)
@@ -20,7 +19,6 @@ struct CustomFormRow: View {
                 .foregroundColor(.secondary)
             Text(model.date)
         }
-        
     }
 }
 

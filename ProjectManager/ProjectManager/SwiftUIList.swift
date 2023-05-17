@@ -17,14 +17,20 @@ struct SwiftUIList: View {
                 ForEach(models) { model in
                     CustomFormRow(model: model)
                 }
+                .listRowSeparator(.hidden)
+                .listRowBackground(
+                    Rectangle()
+                        .fill(.white)
+                        .padding(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                )
             } header: {
                 Text(formCase.rawValue)
                     .font(.title)
                     .foregroundColor(.black)
                     .fontWeight(.light)
             }
-            
-        }.listStyle(.grouped)
+        }
+        .listStyle(.grouped)
     }
 }
 

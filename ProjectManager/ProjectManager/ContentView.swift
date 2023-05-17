@@ -16,7 +16,6 @@ struct ContentView: View {
         NavigationStack{
             HStack{
                 SwiftUIList(formCase: .TODO, models: todoModel)
-                
                 SwiftUIList(formCase: .DOING, models: doingModel)
                 SwiftUIList(formCase: .DONE, models: doneModel)
             }
