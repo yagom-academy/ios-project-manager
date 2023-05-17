@@ -47,6 +47,12 @@ final class TaskTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func updateText(by task: Task) {
+        titleLabel.text = task.title
+        descriptionLabel.text = task.description
+        dateLabel.text = task.date.description
+    }
 }
 
 // MARK: UI
