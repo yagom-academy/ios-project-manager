@@ -18,6 +18,28 @@ final class MainViewController: UIViewController {
         configureNavigationViewUI()
         configureViewUI()
         configureCollectionViewUI()
+        configureDatasource()
+        
+        let tasks1 = [Task(title: "abc", description: "abc", date: Date()),
+                     Task(title: "abdcc", description: "abasfac", date: Date()),
+                     Task(title: "absdfc", description: "aasasfbc", date: Date())]
+        
+        let tasks2 = [Task(title: "bcd", description: "abc", date: Date()),
+                     Task(title: "bcdfqe", description: "abasfac", date: Date()),
+                     Task(title: "bcdgqdhg", description: "aasasfbc", date: Date())]
+        
+        applySnapshot(by: .doing, tasks1)
+        applySnapshot(by: .done, tasks2)
+        applySnapshot(by: .todo, tasks1)
+    }
+    
+    private func applySnapshot(by section: TaskState, _ items: [Task]) {
+        var snapshot = NSDiffableDataSourceSnapshot<TaskState, Task>()
+        
+        snapshot.appendSections([section])
+        snapshot.appendItems(items)
+        
+        datasource?.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -32,6 +54,8 @@ extension MainViewController {
         datasource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+        
+        todoCollectionView?.dataSource = datasource
     }
 }
 
@@ -47,18 +71,9 @@ extension MainViewController {
     }
     
     private func makeCollectionViewLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(view.frame.width / 3),
-                                               heightDimension: .fractionalHeight(1.0))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
-        return layout
+        return UICollectionViewCompositionalLayout.list(using: config)
     }
     
     private func configureCollectionViewUI() {
