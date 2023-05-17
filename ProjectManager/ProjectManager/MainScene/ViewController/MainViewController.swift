@@ -18,16 +18,13 @@ final class MainViewController: UIViewController {
         configureViewUI()
         configureChildViewControllerUI()
         
-        let tasks1 = [Task(title: "abc", description: "abc", date: Date()),
+        var tasks1 = [Task(title: "abc", description: "abc", date: Date()),
                      Task(title: "abdcc", description: "abasfac", date: Date()),
                      Task(title: "absdfc", description: "aasasfbc", date: Date())]
         
         children.forEach { vc in
             guard let vc = vc as? ListViewController else { return }
-            
-            tasks1.forEach { task in
-                vc.applySnapshot(by: task)
-            }
+            vc.applySnapshot(by: tasks1)
         }
     }
 }

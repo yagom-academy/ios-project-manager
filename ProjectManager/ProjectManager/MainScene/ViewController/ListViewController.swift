@@ -11,9 +11,8 @@ final class ListViewController: UIViewController {
     
     private var todoCollectionView: UICollectionView?
     
-    private var datasource: UICollectionViewDiffableDataSource<Int, Task>?
-    private var snapshot = NSDiffableDataSourceSnapshot<Int, Task>()
-    private var sectionIndex = 0
+    private var datasource: UICollectionViewDiffableDataSource<TaskState, Task>?
+    private var snapshot = NSDiffableDataSourceSnapshot<TaskState, Task>()
     private var taskState: TaskState
     
     init(taskState: TaskState) {
@@ -34,11 +33,9 @@ final class ListViewController: UIViewController {
         configureDatasource()
     }
 
-    func applySnapshot(by item: Task) {
-        snapshot.appendSections([sectionIndex])
-        snapshot.appendItems([item])
-        
-        sectionIndex += 1
+    func applySnapshot(by items: [Task]) {
+        snapshot.appendSections([taskState])
+        snapshot.appendItems(items)
         
         datasource?.apply(snapshot, animatingDifferences: true)
     }
@@ -72,7 +69,7 @@ extension ListViewController {
             let listConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             let section = NSCollectionLayoutSection.list(using: listConfig, layoutEnvironment: layoutEnvironment)
             
-            section.contentInsets.bottom = 3
+            section.interGroupSpacing = 10
             
             return section
         }
