@@ -11,6 +11,7 @@ final class TaskHeaderView: UICollectionReusableView {
     
     static let identifier = "TaskHeaderView"
     
+    private let contentsInfoLabelWidth: CGFloat = 30
     private let titleLabel = {
         let label = UILabel()
         
@@ -23,12 +24,13 @@ final class TaskHeaderView: UICollectionReusableView {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
-        label.backgroundColor = .black
-        label.layer.backgroundColor = UIColor.black.cgColor
-        label.layer.cornerRadius = 25 / 2
+        label.font = .systemFont(ofSize: 18)
+        label.textColor = .systemBackground
+        label.textAlignment = .center
+        label.backgroundColor = .label
+        label.layer.masksToBounds = true
         label.layer.borderWidth = 1.0
-        label.layer.borderColor = UIColor.black.cgColor
+        label.layer.borderColor = UIColor.white.cgColor
         
         return label
     }()
@@ -62,7 +64,12 @@ extension TaskHeaderView {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
+            
+            contentsInfoLabel.widthAnchor.constraint(equalTo: contentsInfoLabel.heightAnchor),
+            contentsInfoLabel.widthAnchor.constraint(equalToConstant: contentsInfoLabelWidth)
         ])
+        
+        contentsInfoLabel.layer.cornerRadius = contentsInfoLabelWidth / 2
     }
 }
