@@ -61,18 +61,16 @@ extension TodoViewController {
             mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             
             titleTextField.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 10),
             titleTextField.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -10),
-            titleTextField.topAnchor.constraint(equalTo: mainStackView.topAnchor, constant: 5),
             
             datePicker.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 10),
             datePicker.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -10),
             
             descriptionTextView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 10),
-            descriptionTextView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -10),
-            descriptionTextView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: -5)
+            descriptionTextView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -10)
         ])
     }
     
@@ -86,5 +84,9 @@ extension TodoViewController {
     
     private func configureTextViewUI() {
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.clipsToBounds = false
+        descriptionTextView.layer.shadowOpacity = 0.3
+        descriptionTextView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        descriptionTextView.font = .preferredFont(forTextStyle: .title2)
     }
 }
