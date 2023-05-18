@@ -49,7 +49,7 @@ extension ListViewController {
             cell.updateText(by: itemIdentifier)
         }
         let headerRegistration = UICollectionView.SupplementaryRegistration<TaskHeaderView>(elementKind: TaskHeaderView.identifier) { supplementaryView, elementKind, indexPath in
-            supplementaryView.updateText(by: self.taskState, number: 5)
+            supplementaryView.updateText(by: self.taskState, number: self.snapshot.numberOfItems)
         }
         
         datasource = UICollectionViewDiffableDataSource(collectionView: collectionView,
