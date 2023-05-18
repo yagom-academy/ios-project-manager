@@ -12,17 +12,23 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
     private let todoListViewModel = TodoListViewModel()
     private var cancellables: Set<AnyCancellable> = []
     
-    private let stackView: UIStackView = {
+    private let todoTableView = UITableView()
+    private let doingTableView = UITableView()
+    private let doneTableView = UITableView()
+    
+    private let tableStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.backgroundColor = .systemGray6
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
+        stackView.spacing = 10
         
         return stackView
     }()
     
-    private let todoTableView = UITableView()
-    private let doingTableView = UITableView()
-    private let doneTableView = UITableView()
+    private let todoHeaderStackView = HeaderStackView(text: "TODO")
+    private let doingHeaderStackView = HeaderStackView(text: "DOING")
+    private let doneHeaderStackView = HeaderStackView(text: "DONE")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,29 +39,68 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
     }
     
     private func setUpView() {
-        view.addSubview(stackView)
+        view.addSubview(tableStackView)
         view.backgroundColor = .white
         setUpTodoTableView()
+        setUpDoingTableView()
+        setUpDoneTableView()
         setUpStackView()
     }
     
     private func setUpTodoTableView() {
         todoTableView.dataSource = self
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "Cell")
+        todoTableView.tableHeaderView = todoHeaderStackView
+        
+        todoHeaderStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            todoHeaderStackView.centerXAnchor.constraint(equalTo: todoTableView.centerXAnchor),
+            todoHeaderStackView.topAnchor.constraint(equalTo: todoTableView.topAnchor),
+            todoHeaderStackView.widthAnchor.constraint(equalTo: todoTableView.widthAnchor)
+        ])
+        todoHeaderStackView.sizeToFit()
+    }
+    
+    private func setUpDoingTableView() {
+        doingTableView.dataSource = self
+        doingTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "Cell")
+        doingTableView.tableHeaderView = doingHeaderStackView
+        
+        doingHeaderStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            doingHeaderStackView.centerXAnchor.constraint(equalTo: doingTableView.centerXAnchor),
+            doingHeaderStackView.topAnchor.constraint(equalTo: doingTableView.topAnchor),
+            doingHeaderStackView.widthAnchor.constraint(equalTo: doingTableView.widthAnchor)
+        ])
+        doingHeaderStackView.sizeToFit()
+    }
+    
+    private func setUpDoneTableView() {
+        doneTableView.dataSource = self
+        doneTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "Cell")
+        doneTableView.tableHeaderView = doneHeaderStackView
+        
+        doneHeaderStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            doneHeaderStackView.centerXAnchor.constraint(equalTo: doneTableView.centerXAnchor),
+            doneHeaderStackView.topAnchor.constraint(equalTo: doneTableView.topAnchor),
+            doneHeaderStackView.widthAnchor.constraint(equalTo: doneTableView.widthAnchor)
+        ])
+        doneHeaderStackView.sizeToFit()
     }
     
     private func setUpStackView() {
-        stackView.addArrangedSubview(todoTableView)
-        stackView.addArrangedSubview(doingTableView)
-        stackView.addArrangedSubview(doneTableView)
+        tableStackView.addArrangedSubview(todoTableView)
+        tableStackView.addArrangedSubview(doingTableView)
+        tableStackView.addArrangedSubview(doneTableView)
         
         let safeArea = view.safeAreaLayoutGuide
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        tableStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+            tableStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            tableStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
+            tableStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            tableStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10)
         ])
     }
     
