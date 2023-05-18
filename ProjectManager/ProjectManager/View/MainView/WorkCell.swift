@@ -7,12 +7,13 @@
 
 import UIKit
 
-class WorkCell: UICollectionViewCell {
+final class WorkCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         
         label.font = .preferredFont(forTextStyle: .title3)
         label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
         
         return label
     }()
@@ -23,7 +24,7 @@ class WorkCell: UICollectionViewCell {
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
         label.numberOfLines = 3
-        label.lineBreakMode = .byWordWrapping
+        label.lineBreakMode = .byTruncatingTail
         
         return label
     }()
@@ -32,13 +33,15 @@ class WorkCell: UICollectionViewCell {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .callout)
+        label.font = .preferredFont(forTextStyle: .caption1)
         
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -74,8 +77,7 @@ class WorkCell: UICollectionViewCell {
             
             deadlineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             deadlineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            deadlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            deadlineLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            deadlineLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12),
         ])
     }
 }
