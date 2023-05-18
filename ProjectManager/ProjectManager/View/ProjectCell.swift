@@ -9,6 +9,13 @@ import UIKit
 final class ProjectCell: UICollectionViewCell {
     let identifier = "ProjectCell"
     
+    let cellStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
     let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -27,6 +34,7 @@ final class ProjectCell: UICollectionViewCell {
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
+        label.setContentHuggingPriority(.defaultLow, for: .vertical)
         
         return label
     }()
@@ -36,6 +44,14 @@ final class ProjectCell: UICollectionViewCell {
         label.font = .preferredFont(forTextStyle: .subheadline)
         
         return label
+    }()
+    
+    let deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Delete", for: .normal)
+        button.backgroundColor = .systemRed
+        
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -55,7 +71,9 @@ final class ProjectCell: UICollectionViewCell {
     }
     
     private func configureContentStackView() {
-        self.addSubview(contentStackView)
+        self.addSubview(cellStackView)
+        cellStackView.addArrangedSubview(contentStackView)
+        cellStackView.addArrangedSubview(deleteButton)
         contentStackView.addArrangedSubview(titleLabel)
         contentStackView.addArrangedSubview(bodyLabel)
         contentStackView.addArrangedSubview(dateLabel)
@@ -63,10 +81,11 @@ final class ProjectCell: UICollectionViewCell {
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            cellStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            cellStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            cellStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            cellStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            deleteButton.widthAnchor.constraint(equalToConstant: 70)
         ])
     }
 }

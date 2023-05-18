@@ -11,6 +11,8 @@ final class HeaderCell: UICollectionViewCell {
     
     let contentStackView: UIStackView = {
         let stackview = UIStackView()
+        stackview.distribution = .fillEqually
+        stackview.alignment = .center
         stackview.spacing = 20
         stackview.translatesAutoresizingMaskIntoConstraints = false
         
@@ -20,6 +22,7 @@ final class HeaderCell: UICollectionViewCell {
     let statusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.textAlignment = .right
         
         return label
     }()
@@ -68,10 +71,10 @@ final class HeaderCell: UICollectionViewCell {
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            contentStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            contentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            contentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
     }
 }
