@@ -8,15 +8,12 @@
 import UIKit
 
 final class TaskListViewController: UIViewController {
-    enum Section {
-        case main
-    }
-    
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Task>
+    typealias DataSource = UICollectionViewDiffableDataSource<State, Task>
     
     private var dataSource: DataSource?
     private let viewModel = TaskListViewModel()
     private let headerView = TaskListHeaderView()
+    private let state: State
     
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
@@ -44,8 +41,10 @@ final class TaskListViewController: UIViewController {
         return stackView
     }()
     
-    init(title: String) {
-        headerView.setupHeaderTitle(title)
+    init(state: State) {
+        self.state = state
+        headerView.setupTitle(state.description)
+        headerView.updateCount(133)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -109,9 +108,9 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupInitailSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Task>()
+        var snapshot = NSDiffableDataSourceSnapshot<State, Task>()
         
-        snapshot.appendSections([.main])
+        snapshot.appendSections([state])
         snapshot.appendItems(viewModel.taskList)
         
         dataSource?.apply(snapshot, animatingDifferences: false)

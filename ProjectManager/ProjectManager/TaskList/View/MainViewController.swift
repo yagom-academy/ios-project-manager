@@ -8,9 +8,9 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    private let todoViewController = TaskListViewController(title: Task.State.todo.description)
-    private let doingViewController = TaskListViewController(title: Task.State.doing.description)
-    private let doneViewController = TaskListViewController(title: Task.State.done.description)
+    private let todoViewController = TaskListViewController(state: .todo)
+    private let doingViewController = TaskListViewController(state: .doing)
+    private let doneViewController = TaskListViewController(state: .done)
     
     private let mainStackView = {
         let stackView = UIStackView()

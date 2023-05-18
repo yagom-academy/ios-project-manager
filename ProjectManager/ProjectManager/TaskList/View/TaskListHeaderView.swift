@@ -8,10 +8,23 @@
 import UIKit
 
 class TaskListHeaderView: UIView {
-    private let label = {
+    private let titleLabel = {
         let label = UILabel()
         
         label.font = .preferredFont(forTextStyle: .largeTitle)
+        
+        return label
+    }()
+    
+    private lazy var countLabel = {
+        let label = CountLabel()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .title3)
+        label.backgroundColor = .black
+        label.textColor = .white
+        label.textAlignment = .center
+        label.layer.masksToBounds = true
         
         return label
     }()
@@ -21,7 +34,10 @@ class TaskListHeaderView: UIView {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.alignment = .leading
+        stackView.alignment = .center
+        stackView.spacing = 12
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = .init(top: 12, left: 20, bottom: 12, right: 20)
         
         return stackView
     }()
@@ -29,6 +45,7 @@ class TaskListHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.backgroundColor = .systemGray6
         setupStackView()
         setupConstraints()
     }
@@ -37,15 +54,17 @@ class TaskListHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupHeaderTitle(_ title: String) {
-        label.text = title
+    func setupTitle(_ title: String) {
+        titleLabel.text = title
+    }
+    
+    func updateCount(_ count: Int) {
+        countLabel.text = String(count)
     }
     
     private func setupStackView() {
-        stackView.backgroundColor = .systemGray6
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = .init(top: 12, left: 20, bottom: 12, right: 20)
-        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(countLabel)
         
         addSubview(stackView)
     }
@@ -56,7 +75,6 @@ class TaskListHeaderView: UIView {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safe.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
     }
