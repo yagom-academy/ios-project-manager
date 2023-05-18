@@ -20,6 +20,7 @@ final class AddProjectViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "제목을 입력하세요"
+        textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -43,8 +44,26 @@ final class AddProjectViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
         configureAddSubviews()
         configureConstraints()
+    }
+    
+    private func configureUI() {
+        view.backgroundColor = .white
+        title = NameSpace.title
+        
+        preferredContentSize = CGSize(width: 300, height: 300)
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                               target: self,
+                                               action: #selector(doneEdit))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                               target: self,
+                                               action: #selector(doneEdit))
+        
+        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.leftBarButtonItem = cancelButton
     }
     
     private func configureAddSubviews() {
@@ -62,4 +81,18 @@ final class AddProjectViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    @objc
+    private func doneEdit() {
+        self.dismiss(animated: true)
+    }
+    
+    @objc
+    private func cancelEdit() {
+        self.dismiss(animated: true)
+    }
+}
+
+private enum NameSpace {
+    static let title = "TODO"
 }

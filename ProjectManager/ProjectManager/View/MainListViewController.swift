@@ -31,7 +31,8 @@ final class ViewController: UIViewController {
     private func addProject() {
         let addProjectViewController = AddProjectViewController()
         addProjectViewController.modalPresentationStyle = .formSheet
-        navigationController?.present(addProjectViewController, animated: true)
+        let modalViewWithNavigation = UINavigationController(rootViewController: addProjectViewController)
+        navigationController?.present(modalViewWithNavigation, animated: true)
     }
 }
 
