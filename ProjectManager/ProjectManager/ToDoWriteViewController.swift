@@ -8,10 +8,67 @@
 import UIKit
 
 class ToDoWriteViewController: UIViewController {
-
+    
+    private let fullStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.borderStyle = .bezel
+        textField.font = .preferredFont(forTextStyle: .title3)
+        textField.placeholder = "내용을 입력하세요"
+        return textField
+    }()
+    
+    private let datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "en_US")
+        return datePicker
+    }()
+    
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.font = .preferredFont(forTextStyle: .body)
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        return textView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = .white
+        configureViewUI()
     }
+    
+    private func configureViewUI() {
+        view.backgroundColor = .white
+        view.addSubview(fullStackView)
+        
+        fullStackView.addArrangedSubview(titleTextField)
+        fullStackView.addArrangedSubview(datePicker)
+        fullStackView.addArrangedSubview(descriptionTextView)
+        
+        let safeArea = view.safeAreaLayoutGuide
+        
+        fullStackView.translatesAutoresizingMaskIntoConstraints = false
+        fullStackView.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        NSLayoutConstraint.activate([
+            fullStackView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10),
+            fullStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            fullStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20),
+            fullStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            
+            titleTextField.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
 }

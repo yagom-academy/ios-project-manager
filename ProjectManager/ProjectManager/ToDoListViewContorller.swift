@@ -43,7 +43,7 @@ class ToDoListViewContorller: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         setTableView()
-        setUpLayout()
+        configureViewUI()
     }
     
     // MARK: NavigationBar
@@ -76,7 +76,7 @@ class ToDoListViewContorller: UIViewController {
     }
     
     // MARK: Autolayout
-    private func setUpLayout() {
+    private func configureViewUI() {
         view.backgroundColor = .white
         view.addSubview(toDoStackView)
         
