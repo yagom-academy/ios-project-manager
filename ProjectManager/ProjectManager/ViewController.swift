@@ -41,8 +41,16 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         createSchedules()
         configureUI()
+        todoView.configureUI()
         todoView.configureDataSource(schedule: schedule)
         todoView.applySnapshot(schedules: schedules)
+        doingView.configureUI()
+        doingView.configureDataSource(schedule: schedule2)
+        doingView.applySnapshot(schedules: schedules2)
+        doneView.configureUI()
+        doneView.configureDataSource(schedule: schedule3)
+        doneView.applySnapshot(schedules: schedules3)
+        
         configureNavigationBar()
     }
     
@@ -62,7 +70,6 @@ class ViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
-            
         ])
     }
 }
