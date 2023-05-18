@@ -17,11 +17,11 @@ struct SwiftUIList: View {
                 ForEach(models) { model in
                     CustomFormRow(model: model)
                 }
-                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 20, leading: 0, bottom: 10, trailing: 0))
                 .listRowBackground(
                     Rectangle()
                         .fill(.white)
-                        .padding(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                        .padding([.top], 10)
                 )
             } header: {
                 Text(formCase.rawValue)
