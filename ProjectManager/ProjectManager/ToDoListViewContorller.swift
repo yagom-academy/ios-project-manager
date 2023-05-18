@@ -54,7 +54,7 @@ class ToDoListViewContorller: UIViewController {
     }
     
     @objc private func plusButtonTapped() {
-        let toDoWriteViewController = ToDoWriteViewController()
+        let toDoWriteViewController = UINavigationController(rootViewController: ToDoWriteViewController())
         toDoWriteViewController.modalPresentationStyle = .formSheet
         self.present(toDoWriteViewController, animated: true)
     }

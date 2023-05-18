@@ -42,9 +42,35 @@ class ToDoWriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationBar()
         configureViewUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    // MARK: NavigationBar
+    private func configureNavigationBar() {
+        navigationItem.title = "TODO"
+        let cancelButton = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
+        let doneButton = UIBarButtonItem(title: "done" , style: .plain, target: self, action: #selector(doneButtonTapped))
+        
+        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    @objc private func doneButtonTapped() {
+        let toDoWriteViewController = ToDoWriteViewController()
+        toDoWriteViewController.modalPresentationStyle = .formSheet
+        self.present(toDoWriteViewController, animated: true)
+    }
+    
+    @objc private func cancelButtonTapped() {
+        self.dismiss(animated: true)
+    }
+    
+    // MARK: Autolayout
     private func configureViewUI() {
         view.backgroundColor = .white
         view.addSubview(fullStackView)
