@@ -10,4 +10,5 @@ struct Project {
     var title: String
     var body: String
     var date: Date
+    var status: Status
 }

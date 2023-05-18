@@ -7,6 +7,7 @@
 import UIKit
 
 final class ProjectManagerViewController: UIViewController {
+    let projects = Projects().projects
     
     let projectManagerCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -27,12 +28,12 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray6
         title = "Project Manager"
         
         let addProjectButton = UIBarButtonItem(barButtonSystemItem: .add,
-                                             target: self,
-                                             action: #selector(addProject))
+                                               target: self,
+                                               action: #selector(addProject))
         navigationItem.rightBarButtonItem = addProjectButton
         
         projectManagerCollectionView.dataSource = self
@@ -63,19 +64,25 @@ final class ProjectManagerViewController: UIViewController {
 }
 
 extension ProjectManagerViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        let status = Status(rawValue: section)
+        
+        return projects.filter { $0.status == status }.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = projectManagerCollectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as? ProjectCell else { return ProjectCell() }
         
-        cell.configureContent(data: Project(title: "시험용제목", body: "시험용내용", date: Date()))
+        let status = Status(rawValue: indexPath.section)
+        let assignedProjects = projects.filter { $0.status == status }
+        cell.configureContent(data: assignedProjects[indexPath.item])
         
         return cell
     }
-    
-    
 }
 
 extension ProjectManagerViewController: UICollectionViewDelegate {
