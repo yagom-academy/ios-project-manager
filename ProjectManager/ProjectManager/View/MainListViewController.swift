@@ -30,6 +30,7 @@ final class ViewController: UIViewController {
     @objc
     private func addProject() {
         let addProjectViewController = AddProjectViewController()
+        addProjectViewController.modalPresentationStyle = .formSheet
         navigationController?.present(addProjectViewController, animated: true)
     }
 }
