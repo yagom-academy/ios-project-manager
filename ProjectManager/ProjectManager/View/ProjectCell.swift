@@ -50,6 +50,7 @@ final class ProjectCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("Delete", for: .normal)
         button.backgroundColor = .systemRed
+        button.addTarget(self, action: #selector(deleteCell), for: .touchUpInside)
         
         return button
     }()
@@ -68,6 +69,13 @@ final class ProjectCell: UICollectionViewCell {
         titleLabel.text = title
         bodyLabel.text = body
         dateLabel.text = date
+    }
+    
+    var deleteRow : (() -> ()) = {}
+    
+    @objc
+    func deleteCell() {
+        deleteRow()
     }
     
     private func configureContentStackView() {

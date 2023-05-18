@@ -7,7 +7,7 @@
 import UIKit
 
 final class ProjectManagerViewController: UIViewController {
-    let projects = Projects().projects
+    var projects = Projects.shared.projects
     
     let projectManagerCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -91,6 +91,11 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             
             let project = assignedProjects[indexPath.item - 1]
             cell.configureContent(title: project.title, body: project.body, date: "\(project.date)")
+            cell.deleteRow = {
+                guard let removeIndex = self.projects.firstIndex(where: { $0.id == project.id }) else { return }
+                self.projects.remove(at: removeIndex)
+                self.projectManagerCollectionView.reloadData()
+            }
             
             cell.layer.borderWidth = 1
             cell.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
