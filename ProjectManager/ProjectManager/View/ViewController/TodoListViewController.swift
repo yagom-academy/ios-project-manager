@@ -7,8 +7,8 @@
 import UIKit
 import Combine
 
-final class TodoListViewController: UIViewController {
-    
+final class TodoListViewController: UIViewController, SavingItemDelegate {
+   
     private let todoListViewModel = TodoListViewModel()
     private var cancellables: Set<AnyCancellable> = []
     
@@ -29,7 +29,7 @@ final class TodoListViewController: UIViewController {
         
         setUpView()
         configureNavigationBar()
-        configureViewModel()
+        bind()
     }
     
     private func setUpView() {
@@ -68,11 +68,13 @@ final class TodoListViewController: UIViewController {
     }
     
     @objc func plusButtonTapped() {
-        let plusTodoViewController = PlusTodoViewController(todoViewModel: todoListViewModel)
+        let plusTodoViewController = PlusTodoViewController()
+        plusTodoViewController.delegate = self
+
         present(plusTodoViewController, animated: false)
     }
     
-    private func configureViewModel() {
+    private func bind() {
         todoListViewModel.$todoItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -80,6 +82,11 @@ final class TodoListViewController: UIViewController {
             }
             .store(in: &cancellables)
     }
+    
+    func addItem(_ item: TodoItem) {
+        todoListViewModel.todoItems.append(item)
+    }
+    
 }
 
 extension TodoListViewController: UITableViewDataSource {

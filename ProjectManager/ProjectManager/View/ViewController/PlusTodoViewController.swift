@@ -9,18 +9,9 @@ import UIKit
 import Combine
 
 final class PlusTodoViewController: UIViewController {
-
-    private let todoListViewModel: TodoListViewModel
     
-    init(todoViewModel: TodoListViewModel) {
-        self.todoListViewModel = todoViewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    weak var delegate: SavingItemDelegate?
+   
     private let todoView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -130,8 +121,9 @@ final class PlusTodoViewController: UIViewController {
         guard let title = self.titleField.text,
               let body = self.textView.text else { return }
         let date = self.datePicker.date
-
-        todoListViewModel.saveTodoItem(title: title, body: body, date: date)
+        
+        let item = TodoItem(title: title, body: body, date: date)
+        self.delegate?.addItem(item)
         self.dismiss(animated: false)
     }
     
