@@ -1,12 +1,12 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - ToDoListViewContorller.swift
 //  Created by goat.
 //  Copyright © goat. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class ToDoListViewContorller: UIViewController {
     
     private let toDoStackView: UIStackView = {
         let stackview = UIStackView()
@@ -41,8 +41,22 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationBar()
         setTableView()
         setUpLayout()
+    }
+    
+    // MARK: NavigationBar
+    private func configureNavigationBar() {
+        navigationItem.title = "Project Manager"
+        let plusButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonTapped))
+        navigationItem.rightBarButtonItem = plusButton
+    }
+    
+    @objc private func plusButtonTapped() {
+        let toDoWriteViewController = ToDoWriteViewController()
+        toDoWriteViewController.modalPresentationStyle = .formSheet
+        self.present(toDoWriteViewController, animated: true)
     }
     
     // MARK: TableView Setting
@@ -87,11 +101,11 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension ToDoListViewContorller: UITableViewDelegate {
     
 }
 
-extension ViewController: UITableViewDataSource {
+extension ToDoListViewContorller: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
@@ -100,22 +114,4 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath)
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//
-//        let title: String?
-//
-//
-//
-//        switch tableView {
-//        case toDoTableView:
-//            return title
-//        case doingTableView:
-//            return "doing"
-//        case doneTableView:
-//            return "done"
-//        default:
-//            return ""
-//        }
-//    }
 }
