@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheduleCell: UICollectionViewListCell {
+class ScheduleCell: UITableViewCell {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
