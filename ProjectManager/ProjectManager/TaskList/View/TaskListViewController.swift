@@ -16,21 +16,43 @@ final class TaskListViewController: UIViewController {
     
     private var dataSource: DataSource?
     private let viewModel = TaskListViewModel()
+    private let headerView = TaskListHeaderView()
+    
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
         
         collectionView.backgroundColor = .systemGray6
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(TaskListCell.self,
                                 forCellWithReuseIdentifier: TaskListCell.identifier)
-        collectionView.register(TaskListHeaderView.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: TaskListHeaderView.identifier)
-        
-        view.addSubview(collectionView)
         
         return collectionView
     }()
+    
+    private lazy var stackView = {
+        let stackView = UIStackView()
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.backgroundColor = .systemGray3
+        stackView.spacing = 2
+        stackView.addArrangedSubview(headerView)
+        stackView.addArrangedSubview(collectionView)
+        
+        view.addSubview(stackView)
+        
+        return stackView
+    }()
+    
+    init(title: String) {
+        headerView.setupHeaderTitle(title)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +61,15 @@ final class TaskListViewController: UIViewController {
         setupCollectionViewConstraints()
         setupCollectionView()
     }
-    
+
     private func setupCollectionViewConstraints() {
         let safe = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safe.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: safe.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
     }
     
@@ -55,16 +77,16 @@ final class TaskListViewController: UIViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .estimated(40))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
+
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                heightDimension: .estimated(40))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
-        
+
         let layout = UICollectionViewCompositionalLayout(section: section)
-        
+
         return layout
     }
     
@@ -83,22 +105,6 @@ final class TaskListViewController: UIViewController {
             cell.configure(task)
             
             return cell
-        }
-        
-        dataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
-            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
-            
-            guard let header = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: TaskListHeaderView.identifier,
-                for: indexPath
-            ) as? TaskListHeaderView else {
-                return nil
-            }
-            
-            header.label.text = "TODO"
-            
-            return header
         }
     }
     

@@ -8,18 +8,18 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    private let todoViewController = TaskListViewController()
-    private let doingViewController = TaskListViewController()
-    private let doneViewController = TaskListViewController()
+    private let todoViewController = TaskListViewController(title: Task.State.todo.description)
+    private let doingViewController = TaskListViewController(title: Task.State.doing.description)
+    private let doneViewController = TaskListViewController(title: Task.State.done.description)
     
     private let mainStackView = {
         let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = 8
         stackView.distribution = .fillEqually
-        stackView.backgroundColor = .systemGray2
+        stackView.backgroundColor = .systemGray3
         
         return stackView
     }()
