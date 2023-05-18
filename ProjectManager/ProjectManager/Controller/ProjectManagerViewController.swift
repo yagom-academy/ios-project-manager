@@ -12,6 +12,7 @@ final class ProjectManagerViewController: UIViewController {
     let projectManagerCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 0
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(ProjectCell.self, forCellWithReuseIdentifier: "ProjectCell")
@@ -79,12 +80,26 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         
         let status = Status(rawValue: indexPath.section)
         let assignedProjects = projects.filter { $0.status == status }
-        cell.configureContent(data: assignedProjects[indexPath.item])
+        let project = assignedProjects[indexPath.item]
+        cell.configureContent(title: project.title, body: project.body, date: "\(project.date)")
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
         
         return cell
     }
 }
 
-extension ProjectManagerViewController: UICollectionViewDelegate {
-    
+extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width
+        let height = collectionView.frame.height
+        
+        let itemsPerRow: CGFloat = 8
+        let itemsPerColumn: CGFloat = 3
+        
+        let cellWidth = width / itemsPerColumn - 40
+        let cellHeight = height / itemsPerRow
+        
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
 }

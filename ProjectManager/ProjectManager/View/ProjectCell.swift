@@ -38,15 +38,16 @@ final class ProjectCell: UICollectionViewCell {
         return label
     }()
     
-    func configureContent(data: Project) {
-        titleLabel.text = data.title
-        bodyLabel.text = data.body
-        dateLabel.text = "\(data.date)"
+    func configureContent(title: String, body: String, date: String) {
+        titleLabel.text = title
+        bodyLabel.text = body
+        dateLabel.text = date
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureContentStackView()
+        configureConstraint()
     }
     
     required init?(coder: NSCoder) {
