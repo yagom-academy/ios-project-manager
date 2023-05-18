@@ -7,6 +7,8 @@
 import UIKit
 
 final class AddProjectViewController: UIViewController {
+    var projects = Projects.shared.projects
+    
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -48,7 +50,9 @@ final class AddProjectViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .white
-        navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 200/255, green: 200/255, blue: 200/255, alpha: 0.5)
+        navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 200/255,
+                                                                      green: 200/255,
+                                                                      blue: 200/255, alpha: 0.5)
 
         title = "TODO"
         

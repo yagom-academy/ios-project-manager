@@ -9,14 +9,30 @@ import UIKit
 final class ProjectManagerViewController: UIViewController {
     var projects = Projects.shared.projects
     
-    let projectManagerCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 10
+    lazy var projectManagerCollectionView: UICollectionView = {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.scrollDirection = .horizontal
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                  heightDimension: .fractionalHeight(1/8))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
+                                                   heightDimension: .fractionalHeight(1.0))
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            
+            return section
+        }, configuration: configuration)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ProjectCell.self, forCellWithReuseIdentifier: "ProjectCell")
         collectionView.register(HeaderCell.self, forCellWithReuseIdentifier: "HeaderCell")
+        collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .systemGray5
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -39,7 +55,6 @@ final class ProjectManagerViewController: UIViewController {
         navigationItem.rightBarButtonItem = addProjectButton
         
         projectManagerCollectionView.dataSource = self
-        projectManagerCollectionView.delegate = self
     }
     
     @objc
@@ -97,38 +112,11 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
                 self.projectManagerCollectionView.reloadData()
             }
             
+            cell.backgroundColor = .white
             cell.layer.borderWidth = 1
             cell.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
             
             return cell
-        }
-    }
-}
-
-extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.item == 0 {
-            let width = collectionView.frame.width
-            let height = collectionView.frame.height
-            
-            let itemsPerRow: CGFloat = 12
-            let itemsPerColumn: CGFloat = 3
-            
-            let cellWidth = width / itemsPerColumn - 40
-            let cellHeight = height / itemsPerRow
-            
-            return CGSize(width: cellWidth, height: cellHeight)
-        } else {
-            let width = collectionView.frame.width
-            let height = collectionView.frame.height
-            
-            let itemsPerRow: CGFloat = 8
-            let itemsPerColumn: CGFloat = 3
-            
-            let cellWidth = width / itemsPerColumn - 40
-            let cellHeight = height / itemsPerRow
-            
-            return CGSize(width: cellWidth, height: cellHeight)
         }
     }
 }

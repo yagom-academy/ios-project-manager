@@ -11,7 +11,6 @@ final class HeaderCell: UICollectionViewCell {
     
     let contentStackView: UIStackView = {
         let stackview = UIStackView()
-        stackview.distribution = .fillEqually
         stackview.alignment = .center
         stackview.spacing = 20
         stackview.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +21,7 @@ final class HeaderCell: UICollectionViewCell {
     let statusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
-        label.textAlignment = .right
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         return label
     }()

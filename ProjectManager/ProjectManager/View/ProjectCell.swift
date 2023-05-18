@@ -34,7 +34,7 @@ final class ProjectCell: UICollectionViewCell {
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.setContentHuggingPriority(.defaultLow, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         return label
     }()
