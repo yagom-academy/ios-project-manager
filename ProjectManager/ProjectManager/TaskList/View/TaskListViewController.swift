@@ -8,21 +8,34 @@
 import UIKit
 
 final class TaskListViewController: UIViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<Task.State, Task>
+    enum Section {
+        case main
+    }
     
-    private var collectionView: UICollectionView! = nil
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Task>
+    
     private var dataSource: DataSource?
     private let viewModel = TaskListViewModel()
+    private lazy var collectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(TaskListCell.self,
+                                forCellWithReuseIdentifier: TaskListCell.identifier)
+        view.addSubview(collectionView)
+        
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        configureCollectionView()
-        setUpCollectionViewConstraints()
+        setupCollectionViewConstraints()
+        setupCollectionView()
     }
     
-    private func setUpCollectionViewConstraints() {
+    private func setupCollectionViewConstraints() {
         let safe = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
@@ -33,15 +46,29 @@ final class TaskListViewController: UIViewController {
         ])
     }
     
-    private func configureCollectionView() {
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
-        view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+    private func createListLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .estimated(40))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        collectionView.register(TaskListCell.self,
-                                forCellWithReuseIdentifier: TaskListCell.identifier)
-//        collectionView.collectionViewLayout = createCollectionViewLayout()
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .estimated(40))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 12
         
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
+    }
+    
+    private func setupCollectionView() {
+        setupDataSource()
+        setupInitailSnapshot()
+    }
+    
+    private func setupDataSource() {
         dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, task in
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TaskListCell.identifier,
@@ -52,53 +79,14 @@ final class TaskListViewController: UIViewController {
             
             return cell
         }
+    }
+    
+    private func setupInitailSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Task>()
         
-        let snapshot = snapshotForCurrentState()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel.taskList)
+        
         dataSource?.apply(snapshot, animatingDifferences: false)
-    }
-    
-    private func createCollectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) in
-            let sectionLayoutKind = Task.State.allCases[sectionIndex]
-            
-            switch sectionLayoutKind {
-            case .todo:
-                return self.createListLayout()
-            case .doing:
-                return self.createListLayout()
-            case .done:
-                return self.createListLayout()
-            }
-        }
-                
-        return layout
-    }
-    
-    private func createListLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
-                                               heightDimension: .fractionalHeight(1.0))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-
-        let section = NSCollectionLayoutSection(group: group)
-        
-        return section
-    }
-    
-    private func snapshotForCurrentState() -> NSDiffableDataSourceSnapshot<Task.State, Task> {
-        var snapshot = NSDiffableDataSourceSnapshot<Task.State, Task>()
-        snapshot.appendSections([Task.State.todo])
-        snapshot.appendItems([Task(state: .todo, title: "투두테스트", body: "투두투두", deadline: Date())])
-        
-        snapshot.appendSections([Task.State.doing])
-        snapshot.appendItems([Task(state: .doing, title: "두잉테스트", body: "투두투두", deadline: Date())])
-        
-        snapshot.appendSections([Task.State.done])
-        snapshot.appendItems([Task(state: .done, title: "돈테스트", body: "투두투두", deadline: Date())])
-        
-        return snapshot
     }
 }
