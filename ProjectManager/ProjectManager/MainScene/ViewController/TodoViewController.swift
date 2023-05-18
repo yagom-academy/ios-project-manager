@@ -51,7 +51,7 @@ extension TodoViewController {
         
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.axis = .vertical
-        mainStackView.spacing = 0
+        mainStackView.spacing = 8
         mainStackView.alignment = .center
         mainStackView.backgroundColor = .systemBackground
         
@@ -79,6 +79,9 @@ extension TodoViewController {
     private func configureDatePickerUI() {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.datePickerMode = .date
+        datePicker.locale = Locale.current
+        datePicker.timeZone = .autoupdatingCurrent
+        datePicker.preferredDatePickerStyle = .wheels
     }
     
     private func configureTextViewUI() {
