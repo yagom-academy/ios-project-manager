@@ -17,11 +17,21 @@ class ViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, Schedule>?
     
     let schedule = Schedule(title: "asd", detail: "asd", expirationDate: "asd")
+    let schedule2 = Schedule(title: "sdf", detail: "sdf", expirationDate: "sdf")
+    let schedule3 = Schedule(title: "sdf", detail: "sdf", expirationDate: "sdf")
     
-    lazy var schedules = [schedule]
+    var schedules: [Schedule] = []
+    func createSchedules() {
+        for i in 0..<10 {
+            schedules.append(Schedule(title: "\(i)", detail: "hi", expirationDate: "오늘"))
+        }
+    }
+    lazy var schedules2 = [schedule2]
+    lazy var schedules3 = [schedule3]
     
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCompositionalLayout())
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: configureCompositionalLayout())
         
         collectionView.isScrollEnabled = true
         collectionView.showsVerticalScrollIndicator = true
@@ -35,6 +45,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        createSchedules()
         configureUI()
         configureNavigationBar()
         configureDataSource()
@@ -46,7 +57,7 @@ class ViewController: UIViewController {
     }
     
     private func configureCompositionalLayout() -> UICollectionViewLayout {
-        let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         
         return layout
@@ -71,7 +82,6 @@ extension ViewController: UICollectionViewDelegate {
     private func configureDataSource() {
         
         self.collectionView.register(ScheduleCell.self, forCellWithReuseIdentifier: "cell")
-        print("뭐야 도대체")
         
         self.dataSource = UICollectionViewDiffableDataSource<Section, Schedule> (collectionView: self.collectionView) { (collectionView, indexPath, schedule) -> UICollectionViewListCell? in
             
@@ -86,8 +96,10 @@ extension ViewController: UICollectionViewDelegate {
     
     private func applySnapshot() {
         var  snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
-        snapshot.appendSections([.todo])
-        snapshot.appendItems(schedules)
+        snapshot.appendSections([.todo, .doing, .done])
+        snapshot.appendItems(schedules, toSection: .todo)
+        snapshot.appendItems(schedules2, toSection: .doing)
+        snapshot.appendItems(schedules3, toSection: .done)
         self.dataSource?.apply(snapshot, animatingDifferences: true)
     }
 }
