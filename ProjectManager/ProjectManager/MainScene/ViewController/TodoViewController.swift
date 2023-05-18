@@ -9,7 +9,7 @@ import UIKit
 
 final class TodoViewController: UIViewController {
     
-    private let titleTextField = UITextField()
+    private let titleTextField = TodoTitleTextField()
     private let datePicker = UIDatePicker()
     private let descriptionTextView = UITextView()
 
@@ -43,8 +43,7 @@ extension TodoViewController {
     
     private func configureViewUI() {
         view.backgroundColor = .systemGray5
-        
-        configureTextFieldUI()
+
         configureDatePickerUI()
         configureTextViewUI()
         
@@ -64,21 +63,17 @@ extension TodoViewController {
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            titleTextField.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-            titleTextField.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+            titleTextField.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 10),
+            titleTextField.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -10),
+            titleTextField.topAnchor.constraint(equalTo: mainStackView.topAnchor, constant: 5),
             
-            datePicker.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 10),
+            datePicker.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -10),
             
-            descriptionTextView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
-            descriptionTextView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
+            descriptionTextView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 10),
+            descriptionTextView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: -10),
+            descriptionTextView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: -5)
         ])
-    }
-    
-    private func configureTextFieldUI() {
-        titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        titleTextField.borderStyle = .bezel
-        titleTextField.placeholder = "Title"
     }
     
     private func configureDatePickerUI() {
