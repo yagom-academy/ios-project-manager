@@ -1,45 +1,41 @@
 //
-//  ProjectManager - ProjectCell.swift
+//  ProjectManager - HeaderCell.swift
 //  Created by Rhode.
 //  Copyright © yagom. All rights reserved.
 //
 
 import UIKit
 
-final class ProjectCell: UICollectionViewCell {
-    let identifier = "ProjectCell"
+final class HeaderCell: UICollectionViewCell {
+    let identifier = "HeaderCell"
     
     let contentStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let stackview = UIStackView()
+        stackview.spacing = 20
+        stackview.translatesAutoresizingMaskIntoConstraints = false
         
-        return stackView
+        return stackview
     }()
     
-    let titleLabel: UILabel = {
+    let statusLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
-        
-        return label
-    }()
-    
-    let bodyLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
         
         return label
     }()
     
-    let dateLabel: UILabel = {
+    let numberLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.backgroundColor = .black
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.textColor = .white
         
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUI()
         configureContentStackView()
         configureConstraint()
     }
@@ -48,17 +44,26 @@ final class ProjectCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureContent(title: String, body: String, date: String) {
-        titleLabel.text = title
-        bodyLabel.text = body
-        dateLabel.text = date
+    func configureContent(status: Status, number: Int) {
+        switch status {
+        case .todo:
+            statusLabel.text = "TODO"
+        case .doing:
+            statusLabel.text = "DOING"
+        case .done:
+            statusLabel.text = "DONE"
+        }
+        numberLabel.text = "\(number)"
+    }
+    
+    private func configureUI() {
+        contentView.backgroundColor = .systemGray6
     }
     
     private func configureContentStackView() {
         self.addSubview(contentStackView)
-        contentStackView.addArrangedSubview(titleLabel)
-        contentStackView.addArrangedSubview(bodyLabel)
-        contentStackView.addArrangedSubview(dateLabel)
+        contentStackView.addArrangedSubview(statusLabel)
+        contentStackView.addArrangedSubview(numberLabel)
     }
     
     private func configureConstraint() {

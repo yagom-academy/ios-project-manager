@@ -17,6 +17,7 @@
 		D0DC84802A14F17C0045C157 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC847F2A14F17C0045C157 /* ProjectCell.swift */; };
 		D0DC84822A15AE4E0045C157 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC84812A15AE4E0045C157 /* Status.swift */; };
 		D0DC84842A15B4150045C157 /* Projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC84832A15B4150045C157 /* Projects.swift */; };
+		D0DC84862A15C53F0045C157 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC84852A15C53F0045C157 /* HeaderCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		D0DC847F2A14F17C0045C157 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		D0DC84812A15AE4E0045C157 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		D0DC84832A15B4150045C157 /* Projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projects.swift; sourceTree = "<group>"; };
+		D0DC84852A15C53F0045C157 /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 		D0DC84762A14A0670045C157 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D0DC84852A15C53F0045C157 /* HeaderCell.swift */,
 				D0DC847F2A14F17C0045C157 /* ProjectCell.swift */,
 			);
 			path = View;
@@ -176,6 +179,7 @@
 				D0DC84802A14F17C0045C157 /* ProjectCell.swift in Sources */,
 				D0DC84822A15AE4E0045C157 /* Status.swift in Sources */,
 				D0DC84842A15B4150045C157 /* Projects.swift in Sources */,
+				D0DC84862A15C53F0045C157 /* HeaderCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D0DC847E2A14EEB30045C157 /* Project.swift in Sources */,
