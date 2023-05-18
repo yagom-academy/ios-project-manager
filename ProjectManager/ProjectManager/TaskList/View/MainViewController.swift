@@ -19,6 +19,7 @@ class MainViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.spacing = 10
         stackView.distribution = .fillEqually
+        stackView.backgroundColor = .systemGray2
         
         return stackView
     }()
@@ -31,7 +32,7 @@ class MainViewController: UIViewController {
     
     private func setupView() {
         view.addSubview(mainStackView)
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGray5
         
         addChildViews()
         addSubViews()

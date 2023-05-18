@@ -19,9 +19,14 @@ final class TaskListViewController: UIViewController {
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
         
+        collectionView.backgroundColor = .systemGray6
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(TaskListCell.self,
                                 forCellWithReuseIdentifier: TaskListCell.identifier)
+        collectionView.register(TaskListHeaderView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: TaskListHeaderView.identifier)
+        
         view.addSubview(collectionView)
         
         return collectionView
@@ -56,7 +61,7 @@ final class TaskListViewController: UIViewController {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 12
+        section.interGroupSpacing = 10
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         
@@ -78,6 +83,22 @@ final class TaskListViewController: UIViewController {
             cell.configure(task)
             
             return cell
+        }
+        
+        dataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            
+            guard let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: TaskListHeaderView.identifier,
+                for: indexPath
+            ) as? TaskListHeaderView else {
+                return nil
+            }
+            
+            header.label.text = "TODO"
+            
+            return header
         }
     }
     

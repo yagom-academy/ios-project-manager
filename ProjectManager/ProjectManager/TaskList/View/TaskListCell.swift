@@ -39,6 +39,8 @@ class TaskListCell: UICollectionViewCell {
         
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
         return stackView
     }()
@@ -48,6 +50,7 @@ class TaskListCell: UICollectionViewCell {
         
         addSubviews()
         setupConstraints()
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
