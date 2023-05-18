@@ -25,16 +25,20 @@ extension MainViewController {
         configureFlowLayout(flowLayout)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        collectionView.register(WorkCell.self, forCellWithReuseIdentifier: WorkCell.identifier)
+        collectionView.backgroundColor = .systemGray6
+        collectionView.register(WorkCell.self,
+                                forCellWithReuseIdentifier: WorkCell.identifier)
+        collectionView.register(HeaderReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: HeaderReusableView.identifier)
         
         return collectionView
     }
     
     private func configureFlowLayout(_ flowLayout: UICollectionViewFlowLayout) {
         flowLayout.scrollDirection = .vertical
-        flowLayout.itemSize = CGSize(width: view.bounds.width / 3, height: view.bounds.height)
-        flowLayout.minimumInteritemSpacing = 4
+        flowLayout.itemSize = CGSize(width: (view.bounds.width - 20) / 3, height: view.bounds.height / 3)
+        flowLayout.minimumInteritemSpacing = 0
         flowLayout.minimumLineSpacing = 0
         flowLayout.sectionHeadersPinToVisibleBounds = true
     }
@@ -72,8 +76,24 @@ extension MainViewController: UICollectionViewDataSource {
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderReusableView.identifier, for: indexPath) as? HeaderReusableView else { return UICollectionReusableView() }
+            
+            headerView.configure(title: "TODO", count: "3")
+            
+            return headerView
+        } else {
+            return UICollectionReusableView()
+        }
+    }
 }
 
-extension MainViewController: UICollectionViewDelegate {
-    
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let headerHeight: CGFloat = 50
+        let headerWidth = collectionView.bounds.width
+        return CGSize(width: headerWidth, height: headerHeight)
+    }
 }

@@ -15,4 +15,4 @@ extension IdentifierType {
     }
 }
 
-extension UICollectionViewCell: IdentifierType { }
+extension UICollectionReusableView: IdentifierType { }
