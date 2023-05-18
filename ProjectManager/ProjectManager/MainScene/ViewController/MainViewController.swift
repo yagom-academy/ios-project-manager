@@ -27,12 +27,18 @@ final class MainViewController: UIViewController {
             vc.applySnapshot(by: tasks1)
         }
     }
+    
+    @objc private func didTapAddButton() {
+        let todoViewController = UINavigationController(rootViewController: TodoViewController())
+        
+        self.present(todoViewController, animated: true)
+    }
 }
 
 extension MainViewController {
     private func configureNavigationViewUI() {
         navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
     }
     
     private func configureViewUI() {
