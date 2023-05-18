@@ -5,8 +5,12 @@
 // 
 
 import UIKit
+import Combine
 
 final class TodoListViewController: UIViewController {
+    
+    private let todoListViewModel = TodoListViewModel()
+    private var cancellables: Set<AnyCancellable> = []
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -16,24 +20,28 @@ final class TodoListViewController: UIViewController {
         return stackView
     }()
     
-    private let todoListViewModel = TodoListViewModel()
-    
     private let todoTableView = UITableView()
     private let doingTableView = UITableView()
     private let doneTableView = UITableView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpView()
-        setUpStackView()
         configureNavigationBar()
+        configureViewModel()
     }
     
     private func setUpView() {
         view.addSubview(stackView)
         view.backgroundColor = .white
+        setUpTodoTableView()
+        setUpStackView()
+    }
+    
+    private func setUpTodoTableView() {
         todoTableView.dataSource = self
+        todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     private func setUpStackView() {
@@ -60,13 +68,21 @@ final class TodoListViewController: UIViewController {
     }
     
     @objc func plusButtonTapped() {
-        let plusTodoViewController = PlusTodoViewController()
+        let plusTodoViewController = PlusTodoViewController(todoViewModel: todoListViewModel)
         present(plusTodoViewController, animated: false)
+    }
+    
+    private func configureViewModel() {
+        todoListViewModel.$todoItems
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.todoTableView.reloadData()
+            }
+            .store(in: &cancellables)
     }
 }
 
 extension TodoListViewController: UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

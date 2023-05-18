@@ -6,10 +6,20 @@
 //
 
 import UIKit
+import Combine
 
 final class PlusTodoViewController: UIViewController {
+
+    private let todoListViewModel: TodoListViewModel
     
-    private let listViewModel = TodoListViewModel()
+    init(todoViewModel: TodoListViewModel) {
+        self.todoListViewModel = todoViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let todoView: UIView = {
         let view = UIView()
@@ -120,8 +130,8 @@ final class PlusTodoViewController: UIViewController {
         guard let title = self.titleField.text,
               let body = self.textView.text else { return }
         let date = self.datePicker.date
-        
-        listViewModel.saveTodo(title: title, body: body, date: date)
+
+        todoListViewModel.saveTodoItem(title: title, body: body, date: date)
         self.dismiss(animated: false)
     }
     
