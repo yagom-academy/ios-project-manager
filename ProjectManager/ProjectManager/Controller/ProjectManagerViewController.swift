@@ -7,7 +7,7 @@
 import UIKit
 
 final class ProjectManagerViewController: UIViewController {
-    var projects = Projects.shared
+    private var projects = Projects.shared
     
     lazy var projectManagerCollectionView: UICollectionView = {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
@@ -148,6 +148,12 @@ extension ProjectManagerViewController: UICollectionViewDelegate {
         let rootViewController = AddProjectViewController()
         rootViewController.projectManagerViewController = self
         rootViewController.configureEditingStatus(isEditible: false)
+        
+        guard let status = Status(rawValue: indexPath.section) else { return }
+        
+        let assignedProjects = projects.list.filter { $0.status == status }
+        let project = assignedProjects[indexPath.item]
+        rootViewController.configureProject(assignedProject: project)
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         

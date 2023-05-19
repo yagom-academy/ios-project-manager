@@ -8,8 +8,8 @@ import UIKit
 
 final class AddProjectViewController: UIViewController {
     var projectManagerViewController: ProjectManagerViewController?
-    var projects = Projects.shared
-    var project: Project?
+    private var projects = Projects.shared
+    private var project: Project?
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -112,10 +112,13 @@ final class AddProjectViewController: UIViewController {
         if project == nil {
             let project = Project(title: title, body: body, date: date, status: .todo)
             projects.list.append(project)
-            projectManagerViewController?.projectManagerCollectionView.reloadData()
         } else {
-            
+            guard let editIndex = self.projects.list.firstIndex(where: { $0.id == project?.id }) else { return }
+            projects.list[editIndex].title = title
+            projects.list[editIndex].date = date
+            projects.list[editIndex].body = body
         }
+        projectManagerViewController?.projectManagerCollectionView.reloadData()
         self.dismiss(animated: true)
     }
     
