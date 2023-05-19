@@ -61,7 +61,8 @@ extension TodoViewController {
     }
     
     private func configureViewUI() {
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.backgroundColor = .systemGray5
 
         configureDatePickerUI()
         configureTextViewUI()
@@ -72,12 +73,11 @@ extension TodoViewController {
         mainStackView.axis = .vertical
         mainStackView.spacing = 8
         mainStackView.alignment = .center
-        mainStackView.backgroundColor = .systemBackground
         
         view.addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
