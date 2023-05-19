@@ -48,5 +48,3 @@
 [Apple - UITextField: textRect(forBounds:)](https://developer.apple.com/documentation/uikit/uitextfield/1619636-textrect)
 [Apple - UITextField: editingRect(forBounds:)](https://developer.apple.com/documentation/uikit/uitextfield/1619589-editingrect)
 [Apple - CALayer: layer.shadowOffset](https://developer.apple.com/documentation/quartzcore/calayer/1410970-shadowoffset)
-
-
