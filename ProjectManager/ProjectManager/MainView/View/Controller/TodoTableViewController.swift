@@ -45,7 +45,9 @@ final class TodoTableViewController: UITableViewController {
         else { return UITableViewCell() }
         
         let todoViewModel = toDoListViewModel.todo(at: indexPath.row)
-        cell.textLabel?.text = todoViewModel?.title
+        cell.titleLabel.text = todoViewModel?.title
+        cell.bodyLabel.text = todoViewModel?.body
+        cell.dateLabel.text = todoViewModel?.date
 
         return cell
     }

@@ -45,11 +45,13 @@ final class MainViewController: UIViewController {
             ])
         }
         
+        let safe = self.view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: safe.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor),
         ])
     }
 }

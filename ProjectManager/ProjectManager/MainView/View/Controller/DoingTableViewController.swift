@@ -50,6 +50,8 @@ final class DoingTableViewController: UITableViewController {
         return cell
     }
 
+    // MARK: - Table view delegate
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderView.identifier) as? HeaderView
         else { return UIView() }
