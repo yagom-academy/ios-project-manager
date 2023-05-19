@@ -25,7 +25,14 @@ final class TodoTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureTableView()
+    }
+    
+    private func configureTableView() {
+        self.tableView.backgroundColor = .systemGray6
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
         tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.identifier)
     }
@@ -59,7 +66,13 @@ final class TodoTableViewController: UITableViewController {
         headerView.titleLabel.text = workState.text
         headerView.badgeLabel.text = String(toDoListViewModel.numberOfRowsInSection)
         
+        headerView.stackView.alignment = .center
+        
         return headerView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
     
     /*

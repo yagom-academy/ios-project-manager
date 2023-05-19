@@ -64,7 +64,9 @@ final class HeaderView: UITableViewHeaderFooterView {
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             stackView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor),
             stackView.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
 }
