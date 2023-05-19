@@ -1,12 +1,12 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - MainViewController.swift
 //  Created by songjun, vetto. 
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
 
-class ViewController: UIViewController {
+final class MainViewController: UIViewController {
 
     let schedule = Schedule(title: "asd", detail: "asd", expirationDate: "asd")
     let schedule2 = Schedule(title: "sdf", detail: "sdf", expirationDate: "sdf")
