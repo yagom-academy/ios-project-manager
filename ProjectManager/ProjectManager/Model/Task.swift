@@ -12,5 +12,6 @@ struct Task: Hashable {
     let title: String
     let description: String
     let date: Date
+    var state = TaskState.todo
 }
 
