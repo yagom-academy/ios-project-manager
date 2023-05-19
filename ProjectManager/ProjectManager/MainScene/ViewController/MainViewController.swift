@@ -35,9 +35,18 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func didTapAddButton() {
-        let todoViewController = UINavigationController(rootViewController: TodoViewController())
+        let todoViewController = TodoViewController()
+        todoViewController.taskDelegate = self
         
-        self.present(todoViewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: TodoViewController())
+        
+        self.present(navigationController, animated: true)
+    }
+}
+
+extension MainViewController: TaskDelegate {
+    func saveTask(_ task: Task) {
+        viewModel.appendTask(task)
     }
 }
 
