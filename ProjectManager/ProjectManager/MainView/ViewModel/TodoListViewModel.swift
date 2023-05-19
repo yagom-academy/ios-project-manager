@@ -8,7 +8,13 @@
 import Foundation
 
 final class TodoListViewModel {
-    let todoList: [Todo] = Array(repeating: Todo(title: "hi", date: Date(), body: "body", workState: .todo), count: 20)
+    let todoList: [Todo] = [
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hiThere", date: Date(), body: "body", workState: .done),
+        Todo(title: "hi", date: Date(), body: "body", workState: .doing),
+        Todo(title: "hibye", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hibyehi", date: Date(), body: "body", workState: .todo)
+    ]
 }
 
 extension TodoListViewModel {

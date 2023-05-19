@@ -6,7 +6,8 @@
 //
 import Foundation
 
-struct Todo: Hashable {
+struct Todo: Identifiable {
+    let id = UUID()
     let title: String
     let date: Date
     let body: String

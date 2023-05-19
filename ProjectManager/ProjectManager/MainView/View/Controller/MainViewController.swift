@@ -30,6 +30,7 @@ final class MainViewController: UIViewController {
         configureRootView()
         configureCollectionViewLayout()
         configureCollectionView()
+        mainCollectionViewModel.update()
     }
     
     private func collectionViewLayout() -> UICollectionViewLayout {
@@ -69,6 +70,8 @@ final class MainViewController: UIViewController {
     }
     
     private func configureCollectionView() {
+        collectionView.register(TodoCell.self, forCellWithReuseIdentifier: TodoCell.identifier)
+        
         do {
             collectionView.dataSource = try mainCollectionViewModel.makeDataSource()
         } catch {
@@ -76,18 +79,6 @@ final class MainViewController: UIViewController {
         }
         
         collectionView.delegate = self
-    }
-    
-    private func createCellRegistration() -> UICollectionView.CellRegistration<TodoCell, Todo> {
-        let cellRegistration = UICollectionView.CellRegistration<TodoCell, Todo> { cell, indexPath, item in
-            
-            let todoViewModel = self.toDoListViewModel.todo(at: indexPath.row)
-            cell.titleLabel.text = todoViewModel?.title
-            cell.bodyLabel.text = todoViewModel?.body
-            cell.dateLabel.text = todoViewModel?.date
-        }
-        
-        return cellRegistration
     }
 }
 

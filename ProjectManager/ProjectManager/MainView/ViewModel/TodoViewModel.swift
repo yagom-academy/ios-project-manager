@@ -28,14 +28,3 @@ final class TodoViewModel {
     
     var workState: WorkState { return todo.workState }
 }
-
-extension TodoViewModel: Hashable {
-    static func == (lhs: TodoViewModel, rhs: TodoViewModel) -> Bool {
-        return lhs.todo == rhs.todo
-    }
-    
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(todo)
-    }
-}
