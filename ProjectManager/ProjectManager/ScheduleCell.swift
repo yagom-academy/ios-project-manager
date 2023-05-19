@@ -2,12 +2,12 @@
 //  CollectionViewCell.swift
 //  ProjectManager
 //
-//  Created by kimseongjun on 2023/05/17.
+//  Created by songjun, vetto on 2023/05/17.
 //
 
 import UIKit
 
-class ScheduleCell: UITableViewCell {
+class ScheduleCell: UICollectionViewCell {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -40,16 +40,20 @@ class ScheduleCell: UITableViewCell {
     }()
     
     func configureUI() {
-        self.addSubview(stackView)
+
+        contentView.backgroundColor = .white
+        
+        contentView.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(contentLabel)
         stackView.addArrangedSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
-            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 15),
-            stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -15)
+            
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
         ])
     }
     
@@ -59,3 +63,5 @@ class ScheduleCell: UITableViewCell {
         dateLabel.text = schedule.expirationDate
     }
 }
+
+

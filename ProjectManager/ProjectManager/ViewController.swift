@@ -1,6 +1,6 @@
 //
 //  ProjectManager - ViewController.swift
-//  Created by yagom. 
+//  Created by songjun, vetto. 
 //  Copyright © yagom. All rights reserved.
 // 
 
@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        stackView.backgroundColor = .lightGray
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -56,6 +58,7 @@ class ViewController: UIViewController {
     
     private func configureNavigationBar() {
         self.title = "ProjectManager"
+        
     }
     
     private func configureUI() {
@@ -72,5 +75,7 @@ class ViewController: UIViewController {
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
+    
+
 }
 
