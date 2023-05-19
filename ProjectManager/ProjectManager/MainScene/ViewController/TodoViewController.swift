@@ -35,7 +35,7 @@ final class TodoViewController: UIViewController {
     @objc private func didTapDoneButton() {
         guard let title = titleTextField.text,
               let description = descriptionTextView.text else { return }
-        let date = Date()
+        let date = datePicker.date
         let task = Task(title: title, description: description, date: date)
         
         taskDelegate?.saveTask(task)
