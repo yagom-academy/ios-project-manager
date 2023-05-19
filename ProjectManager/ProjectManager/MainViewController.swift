@@ -24,9 +24,7 @@ class MainViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
-        
-        collectionView.backgroundColor = .red
-        
+    
         collectionView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.equalTo(view.safeAreaLayoutGuide)
@@ -41,8 +39,6 @@ class MainViewController: UIViewController {
     }
     @objc private func didTapAddButton() {
         modalPresentationStyle = .fullScreen
+        present(PopupViewController(), animated: true)
     }
-    
-    
 }
-
