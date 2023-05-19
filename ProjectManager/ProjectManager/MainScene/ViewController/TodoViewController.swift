@@ -98,7 +98,6 @@ extension TodoViewController {
     private func configureTextViewUI() {
         descriptionTextView.delegate = self
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.clipsToBounds = false
         descriptionTextView.layer.shadowOpacity = 0.3
         descriptionTextView.layer.shadowOffset = CGSize(width: 0, height: 0)
         descriptionTextView.font = .preferredFont(forTextStyle: .title2)
