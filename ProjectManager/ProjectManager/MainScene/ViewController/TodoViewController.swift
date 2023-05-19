@@ -20,6 +20,12 @@ final class TodoViewController: UIViewController {
         configureViewUI()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        configureShadow()
+    }
+    
     @objc private func didTapCancelButton() {
         self.dismiss(animated: true)
     }
@@ -98,8 +104,24 @@ extension TodoViewController {
     private func configureTextViewUI() {
         descriptionTextView.delegate = self
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.layer.shadowOpacity = 0.3
-        descriptionTextView.layer.shadowOffset = CGSize(width: 0, height: 0)
         descriptionTextView.font = .preferredFont(forTextStyle: .title2)
+        descriptionTextView.layer.borderColor = UIColor.label.cgColor
+        descriptionTextView.layer.borderWidth = 0.3
+    }
+    
+    private func configureShadow() {
+        let contactShadowSize: CGFloat = 5
+        
+        titleTextField.layer.shadowColor = UIColor.label.cgColor
+        titleTextField.layer.shadowOpacity = 0.3
+        titleTextField.layer.shadowOffset = CGSize(width: 0, height: 3)
+        
+        let textFieldShadowPath = CGPath(rect: CGRect(x: contactShadowSize,
+                                             y: titleTextField.frame.height - contactShadowSize,
+                                             width: titleTextField.frame.width - contactShadowSize * 2,
+                                             height: contactShadowSize),
+                                transform: nil)
+
+        titleTextField.layer.shadowPath = textFieldShadowPath
     }
 }
