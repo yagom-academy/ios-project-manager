@@ -7,9 +7,13 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    private typealias DataSource = UICollectionViewDiffableDataSource<WorkState, Todo>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<WorkState, Todo>
+    
     private var toDoListViewModel: TodoListViewModel = TodoListViewModel()
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
+    private var dataSource: DataSource!
     
     private let stackView = {
         let stackView = UIStackView()
@@ -61,5 +65,16 @@ final class MainViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: safe.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
+    }
+    private func createCellRegistration() -> UICollectionView.CellRegistration<TodoCell, Todo> {
+        let cellRegistration = UICollectionView.CellRegistration<TodoCell, Todo> { cell, indexPath, item in
+            
+            let todoViewModel = self.toDoListViewModel.todo(at: indexPath.row)
+            cell.titleLabel.text = todoViewModel?.title
+            cell.bodyLabel.text = todoViewModel?.body
+            cell.dateLabel.text = todoViewModel?.date
+        }
+        
+        return cellRegistration
     }
 }
