@@ -33,8 +33,8 @@ final class MainViewController: UIViewController {
     
     private func addChildren() {
         self.addChild(TodoTableViewController(toDoListViewModel: toDoListViewModel, workState: .todo))
-        self.addChild(TodoTableViewController(toDoListViewModel: toDoListViewModel, workState: .doing))
-        self.addChild(TodoTableViewController(toDoListViewModel: toDoListViewModel, workState: .done))
+        self.addChild(DoingTableViewController(toDoListViewModel: toDoListViewModel, workState: .doing))
+        self.addChild(DoneTableViewController(toDoListViewModel: toDoListViewModel, workState: .done))
     }
     
     private func configureStackView() {

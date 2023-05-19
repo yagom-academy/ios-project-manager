@@ -1,13 +1,13 @@
 //
-//  ToDoTableViewController.swift
+//  DoneTableViewController.swift
 //  ProjectManager
 //
-//  Created by Brody, Rowan on 2023/05/17.
+//  Created by Brody, Rowan on 2023/05/19.
 //
 
 import UIKit
 
-class TodoTableViewController: UITableViewController {
+final class DoneTableViewController: UITableViewController {
     
     private var toDoListViewModel: TodoListViewModel
     private let workState: WorkState
@@ -51,14 +51,6 @@ class TodoTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let label = UILabel()
-//        label.text = self.workState.text
-//        let badgeView = UILabel()
-//        badgeView.text = "5"
-//        badgeView.backgroundColor = .black
-//        badgeView.textColor = .white
-//        badgeView.layer.cornerRadius = 50
-//        let titleStackView = UIStackView(arrangedSubviews: [label, badgeView])
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderView.identifier) as? HeaderView
         else { return UIView() }
         
@@ -76,7 +68,7 @@ class TodoTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     */
 }
