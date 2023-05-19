@@ -13,7 +13,7 @@ final class TodoViewController: UIViewController {
     private let datePicker = UIDatePicker()
     private let descriptionTextView = UITextView()
     
-    var taskDelegate: TaskDelegate?
+    weak var taskDelegate: TaskDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

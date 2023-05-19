@@ -6,7 +6,7 @@
 
 import UIKit
 
-protocol TaskDelegate {
+protocol TaskDelegate: AnyObject {
     func saveTask(_ task: Task)
 }
 
@@ -24,9 +24,7 @@ final class MainViewController: UIViewController {
         configureViewUI()
         configureChildViewControllerUI()
         
-        var tasks1 = [Task(title: "abc", description: "abc", date: Date()),
-                     Task(title: "abdcc", description: "abasfac", date: Date()),
-                     Task(title: "absdfc", description: "aasasfbc", date: Date())]
+        var tasks1: [Task] = []
         
         children.forEach { vc in
             guard let vc = vc as? ListViewController else { return }
@@ -38,7 +36,7 @@ final class MainViewController: UIViewController {
         let todoViewController = TodoViewController()
         todoViewController.taskDelegate = self
         
-        let navigationController = UINavigationController(rootViewController: TodoViewController())
+        let navigationController = UINavigationController(rootViewController: todoViewController)
         
         self.present(navigationController, animated: true)
     }
@@ -47,6 +45,9 @@ final class MainViewController: UIViewController {
 extension MainViewController: TaskDelegate {
     func saveTask(_ task: Task) {
         viewModel.appendTask(task)
+        
+        let tasks = viewModel.filterTasks(by: .todo)
+        todoViewController.applySnapshot(by: tasks)
     }
 }
 
