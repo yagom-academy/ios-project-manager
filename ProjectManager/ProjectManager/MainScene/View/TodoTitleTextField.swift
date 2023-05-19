@@ -14,13 +14,7 @@ final class TodoTitleTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.borderStyle = .roundedRect
-        self.placeholder = "Title"
-        self.font = .preferredFont(forTextStyle: .title2)
-        self.layer.shadowOpacity = 0.3
-        self.layer.shadowColor = UIColor.label.cgColor
-        self.layer.shadowOffset = CGSize(width: 0, height: 3)
+        configureOption()
     }
     
     required init?(coder: NSCoder) {
@@ -37,5 +31,15 @@ final class TodoTitleTextField: UITextField {
         let rect = super.editingRect(forBounds: bounds)
         
         return rect.inset(by: padding)
+    }
+    
+    private func configureOption() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.borderStyle = .roundedRect
+        self.placeholder = "Title"
+        self.font = .preferredFont(forTextStyle: .title2)
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowColor = UIColor.label.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
 }
