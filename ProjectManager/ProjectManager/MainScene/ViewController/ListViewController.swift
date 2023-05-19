@@ -34,10 +34,17 @@ final class ListViewController: UIViewController {
     }
 
     func applySnapshot(by items: [Task]) {
+        deleteSnapshot()
         snapshot.appendSections([taskState])
         snapshot.appendItems(items)
         
         datasource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func deleteSnapshot() {
+        snapshot.deleteSections([taskState])
+        
+        datasource?.apply(snapshot)
     }
 }
 
