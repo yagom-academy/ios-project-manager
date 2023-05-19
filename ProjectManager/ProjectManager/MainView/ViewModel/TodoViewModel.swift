@@ -12,9 +12,10 @@ final class TodoViewModel {
     private let dateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy. MM. dd"
-        
+
         return formatter
     }()
+    
     init(todo: Todo) {
         self.todo = todo
     }
@@ -23,5 +24,16 @@ final class TodoViewModel {
     
     var body: String { return todo.body }
     
-    var date: String { return dateFormatter.string(from: todo.date) }
+    var date: String { return DateFormatter().string(from: todo.date) }
+}
+
+extension TodoViewModel: Hashable {
+    static func == (lhs: TodoViewModel, rhs: TodoViewModel) -> Bool {
+        return lhs.todo == rhs.todo
+    }
+    
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(todo)
+    }
 }
