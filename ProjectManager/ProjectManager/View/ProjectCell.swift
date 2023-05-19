@@ -9,14 +9,14 @@ import UIKit
 final class ProjectCell: UICollectionViewCell {
     let identifier = "ProjectCell"
     
-    let cellStackView: UIStackView = {
+    private let cellStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
-    let contentStackView: UIStackView = {
+    private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,14 +24,14 @@ final class ProjectCell: UICollectionViewCell {
         return stackView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
         
         return label
     }()
     
-    let bodyLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
@@ -39,14 +39,14 @@ final class ProjectCell: UICollectionViewCell {
         return label
     }()
     
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
         
         return label
     }()
     
-    let deleteButton: UIButton = {
+    private let deleteButton: UIButton = {
         let button = UIButton()
         button.setTitle("Delete", for: .normal)
         button.backgroundColor = .systemRed

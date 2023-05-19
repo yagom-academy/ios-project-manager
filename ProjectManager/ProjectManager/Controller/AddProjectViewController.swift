@@ -7,6 +7,7 @@
 import UIKit
 
 final class AddProjectViewController: UIViewController {
+    let projectManagerViewController = ProjectManagerViewController()
     var projects = Projects.shared.projects
     
     private let contentStackView: UIStackView = {
@@ -53,27 +54,62 @@ final class AddProjectViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 200/255,
                                                                       green: 200/255,
                                                                       blue: 200/255, alpha: 0.5)
-
+        
         title = "TODO"
         
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
-                                             target: self,
-                                             action: #selector(editProject))
+                                         target: self,
+                                         action: #selector(editProject))
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                             target: self,
-                                             action: #selector(doneEditingProject))
+                                         target: self,
+                                         action: #selector(doneEditingProject))
         navigationItem.leftBarButtonItem = editButton
         navigationItem.rightBarButtonItem = doneButton
+        
+        titleTextField.isEnabled = false
+        datePicker.isEnabled = false
+        bodyTextView.isEditable = false
     }
     
     @objc
     private func editProject() {
-        print("editProject")
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                           target: self,
+                                           action: #selector(cancelEditingProject))
+        navigationItem.leftBarButtonItem = cancelButton
+        
+        enableView()
     }
     
     @objc
     private func doneEditingProject() {
-        print("doneEditingProject")
+        if titleTextField.isEnabled {
+            guard let title = titleTextField.text else { return }
+            guard let body = bodyTextView.text else { return }
+            let date = datePicker.date
+            let project = Project(title: title, body: body, date: date, status: .todo)
+            projects.append(project)
+            print(projects)
+        }
+        self.dismiss(animated: true)
+        projectManagerViewController.projectManagerCollectionView.reloadData()
+        enableView()
+    }
+    
+    @objc
+    private func cancelEditingProject() {
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
+                                         target: self,
+                                         action: #selector(editProject))
+        navigationItem.leftBarButtonItem = editButton
+        self.dismiss(animated: true)
+        enableView()
+    }
+    
+    private func enableView() {
+        titleTextField.isEnabled.toggle()
+        datePicker.isEnabled.toggle()
+        bodyTextView.isEditable.toggle()
     }
     
     private func configureContentStackView() {
@@ -95,5 +131,5 @@ final class AddProjectViewController: UIViewController {
             bodyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
-
+    
 }

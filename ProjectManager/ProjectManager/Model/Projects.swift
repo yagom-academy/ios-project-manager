@@ -6,7 +6,7 @@
 
 import Foundation
 
-class Projects {
+final class Projects {
     static let shared = Projects()
     
     private init() { }

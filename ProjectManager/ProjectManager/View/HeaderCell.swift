@@ -9,7 +9,7 @@ import UIKit
 final class HeaderCell: UICollectionViewCell {
     let identifier = "HeaderCell"
     
-    let contentStackView: UIStackView = {
+    private let contentStackView: UIStackView = {
         let stackview = UIStackView()
         stackview.alignment = .center
         stackview.spacing = 20
@@ -18,7 +18,7 @@ final class HeaderCell: UICollectionViewCell {
         return stackview
     }()
     
-    let statusLabel: UILabel = {
+    private let statusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -26,7 +26,7 @@ final class HeaderCell: UICollectionViewCell {
         return label
     }()
     
-    let numberLabel: UILabel = {
+    private let numberLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .black
         label.font = UIFont.preferredFont(forTextStyle: .title3)

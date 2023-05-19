@@ -21,7 +21,6 @@ final class ProjectManagerViewController: UIViewController {
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                    heightDimension: .fractionalHeight(1.0))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             
@@ -44,6 +43,7 @@ final class ProjectManagerViewController: UIViewController {
         configureProjectManagerCollectionView()
         configureConstraint()
     }
+
     
     private func configureUI() {
         view.backgroundColor = .systemGray6
@@ -55,6 +55,7 @@ final class ProjectManagerViewController: UIViewController {
         navigationItem.rightBarButtonItem = addProjectButton
         
         projectManagerCollectionView.dataSource = self
+        projectManagerCollectionView.delegate = self
     }
     
     @objc
@@ -110,6 +111,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
                 guard let removeIndex = self.projects.firstIndex(where: { $0.id == project.id }) else { return }
                 self.projects.remove(at: removeIndex)
                 self.projectManagerCollectionView.reloadData()
+                print(self.projects)
             }
             
             cell.backgroundColor = .white
@@ -118,5 +120,15 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             
             return cell
         }
+    }
+}
+
+extension ProjectManagerViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let rootViewController = AddProjectViewController()
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
+        
+        self.present(navigationController, animated: true, completion: nil)
     }
 }
