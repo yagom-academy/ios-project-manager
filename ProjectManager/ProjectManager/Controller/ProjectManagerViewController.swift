@@ -15,22 +15,21 @@ final class ProjectManagerViewController: UIViewController {
         
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalHeight(1/8))
+                                                  heightDimension: .fractionalHeight(1/7))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                    heightDimension: .fractionalHeight(1.0))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: NSCollectionLayoutSpacing.fixed(0), top: NSCollectionLayoutSpacing.fixed(self.view.frame.height/8), trailing: NSCollectionLayoutSpacing.fixed(0), bottom: NSCollectionLayoutSpacing.fixed(0))
+            group.contentInsets.top = self.view.frame.height/8
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                     heightDimension: .fractionalHeight(1/8))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             
-
-            
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [header]
+            section.interGroupSpacing = -self.view.frame.height/8
             section.orthogonalScrollingBehavior = .continuous
             
             return section

@@ -105,16 +105,18 @@ final class AddProjectViewController: UIViewController {
     
     @objc
     private func doneEditingProject() {
-        if titleTextField.isEnabled {
-            guard let title = titleTextField.text else { return }
-            guard let body = bodyTextView.text else { return }
-            let date = datePicker.date
+        guard let title = titleTextField.text else { return }
+        guard let body = bodyTextView.text else { return }
+        let date = datePicker.date
+        
+        if project == nil {
             let project = Project(title: title, body: body, date: date, status: .todo)
             projects.list.append(project)
             projectManagerViewController?.projectManagerCollectionView.reloadData()
+        } else {
+            
         }
         self.dismiss(animated: true)
-        enableView()
     }
     
     @objc

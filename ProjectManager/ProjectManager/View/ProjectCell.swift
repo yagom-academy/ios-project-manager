@@ -27,6 +27,7 @@ final class ProjectCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         return label
     }()
@@ -34,7 +35,6 @@ final class ProjectCell: UICollectionViewCell {
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         return label
     }()
