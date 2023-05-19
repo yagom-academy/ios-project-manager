@@ -37,29 +37,32 @@ extension MainViewController {
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.scrollDirection = .horizontal
+        
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, environment in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .estimated(50))
+                                                  heightDimension: .estimated(20))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
             
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                   heightDimension: .estimated(50))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0/3.0),
+                                                   heightDimension: .estimated(20))
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
-            section.interGroupSpacing = 10
+            section.interGroupSpacing = 8
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0/3.0),
-                                                    heightDimension: .estimated(50))
+                                                    heightDimension: .absolute(50))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                      elementKind: UICollectionView.elementKindSectionHeader,
                                                                      alignment: .top)
             section.boundarySupplementaryItems = [header]
             
             return section
-        }
+        }, configuration: config)
         
         return layout
     }
@@ -72,10 +75,10 @@ extension MainViewController {
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
@@ -113,10 +116,10 @@ extension MainViewController {
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<WorkStatus, Work>()
         
-        WorkStatus.allCases.forEach {
-            snapshot.appendSections([$0])
-            let works = viewModel.works
-            snapshot.appendItems(works, toSection: $0)
+        WorkStatus.allCases.forEach { status in
+            snapshot.appendSections([status])
+            let works = viewModel.works.filter { $0.status == status.title }
+            snapshot.appendItems(works, toSection: status)
         }
         
         dataSource?.apply(snapshot, animatingDifferences: false)
