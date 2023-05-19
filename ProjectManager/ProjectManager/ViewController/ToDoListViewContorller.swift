@@ -91,7 +91,6 @@ class ToDoListViewContorller: UIViewController {
         doingTableView.translatesAutoresizingMaskIntoConstraints = false
         doneTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        
         NSLayoutConstraint.activate([
             toDoStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             toDoStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
