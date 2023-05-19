@@ -19,6 +19,7 @@
 		FBF0628F2A1607570088A9E3 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0628E2A1607570088A9E3 /* CircleLabel.swift */; };
 		FBF062952A165F040088A9E3 /* HeaderStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062942A165F040088A9E3 /* HeaderStackView.swift */; };
 		FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062962A166AD90088A9E3 /* SavingItemDelegate.swift */; };
+		FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062992A16F6930088A9E3 /* DateFormatManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		FBF0628E2A1607570088A9E3 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		FBF062942A165F040088A9E3 /* HeaderStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderStackView.swift; sourceTree = "<group>"; };
 		FBF062962A166AD90088A9E3 /* SavingItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingItemDelegate.swift; sourceTree = "<group>"; };
+		FBF062992A16F6930088A9E3 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				FBF0628C2A14BA780088A9E3 /* TodoItem.swift */,
+				FBF062992A16F6930088A9E3 /* DateFormatManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				FBF0628D2A14BA780088A9E3 /* TodoItem.swift in Sources */,
 				FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
+				FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */,
 				FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FBF062952A165F040088A9E3 /* HeaderStackView.swift in Sources */,

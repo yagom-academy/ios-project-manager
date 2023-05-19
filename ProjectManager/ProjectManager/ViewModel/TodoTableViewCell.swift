@@ -8,7 +8,7 @@
 import UIKit
 
 final class TodoTableViewCell: UITableViewCell {
-    
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

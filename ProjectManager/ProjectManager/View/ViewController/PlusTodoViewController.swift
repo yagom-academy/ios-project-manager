@@ -120,9 +120,10 @@ final class PlusTodoViewController: UIViewController {
     @objc private func doneButtonTapped() {
         guard let title = self.titleField.text,
               let body = self.textView.text else { return }
-        let date = self.datePicker.date
         
+        let date = DateFormatManager.shared.convertToFormattedDate(of: self.datePicker.date)
         let item = TodoItem(title: title, body: body, date: date)
+        
         self.delegate?.addItem(item)
         self.dismiss(animated: false)
     }
