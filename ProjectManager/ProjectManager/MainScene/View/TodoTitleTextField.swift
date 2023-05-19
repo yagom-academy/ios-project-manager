@@ -38,5 +38,7 @@ final class TodoTitleTextField: UITextField {
         self.borderStyle = .roundedRect
         self.placeholder = "Title"
         self.font = .preferredFont(forTextStyle: .title2)
+        self.layer.borderColor = UIColor.label.cgColor
+        self.layer.borderWidth = 0.3
     }
 }
