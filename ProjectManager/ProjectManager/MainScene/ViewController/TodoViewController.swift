@@ -29,6 +29,19 @@ final class TodoViewController: UIViewController {
     }
 }
 
+extension TodoViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let convertedText = text.cString(using: .utf8) else { return false }
+        
+        let backspaceValue = strcmp(convertedText, "\\b")
+        
+        guard range.upperBound < 999 ||
+              backspaceValue == -92 else { return false }
+        
+        return true
+    }
+}
+
 // MARK: UI
 extension TodoViewController {
     private func configureNavigationViewUI() {
@@ -83,6 +96,7 @@ extension TodoViewController {
     }
     
     private func configureTextViewUI() {
+        descriptionTextView.delegate = self
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.clipsToBounds = false
         descriptionTextView.layer.shadowOpacity = 0.3
