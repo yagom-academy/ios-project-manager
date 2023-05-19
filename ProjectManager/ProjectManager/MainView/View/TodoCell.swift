@@ -7,9 +7,7 @@
 
 import UIKit
 
-final class TodoCell: UICollectionViewListCell, Providable {
-    typealias ProvidedItem = TodoViewModel
-    
+final class TodoCell: UICollectionViewListCell {
     let titleLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
@@ -73,7 +71,7 @@ final class TodoCell: UICollectionViewListCell, Providable {
         ])
     }
     
-    func provide(_ item: ProvidedItem) {
+    func provide(_ item: TodoViewModel) {
         titleLabel.text = item.title
         bodyLabel.text = item.body
         dateLabel.text = item.date

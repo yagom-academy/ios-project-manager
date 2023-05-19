@@ -10,4 +10,5 @@ struct Todo: Hashable {
     let title: String
     let date: Date
     let body: String
+    let workState: WorkState
 }

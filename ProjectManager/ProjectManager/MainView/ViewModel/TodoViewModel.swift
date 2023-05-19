@@ -24,7 +24,9 @@ final class TodoViewModel {
     
     var body: String { return todo.body }
     
-    var date: String { return DateFormatter().string(from: todo.date) }
+    var date: String { return dateFormatter.string(from: todo.date) }
+    
+    var workState: WorkState { return todo.workState }
 }
 
 extension TodoViewModel: Hashable {

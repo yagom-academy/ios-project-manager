@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class CollectionViewModel<CellType: UICollectionViewCell & Providable>: NSObject {
-    typealias Item = CellType.ProvidedItem
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
+final class CollectionViewModel: NSObject {
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Todo>
     
     private weak var collectionView: UICollectionView?
-    
     private var dataSource: DataSource?
     private var cellIdentifier: String
+    
+    var items: [Todo] = []
     
     init(collectionView: UICollectionView?, cellReuseIdentifier: String) {
         self.collectionView = collectionView
@@ -29,22 +29,7 @@ final class CollectionViewModel<CellType: UICollectionViewCell & Providable>: NS
     }
 }
 
-// MARK: - DataSource Setting
-
 extension CollectionViewModel {
-    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, item: Item) -> UICollectionViewCell? {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: cellIdentifier,
-            for: indexPath
-        ) as? CellType else {
-            return nil
-        }
-    
-        cell.provide(item)
-        
-        return cell
-    }
-    
     func makeDataSource() throws -> DataSource {
         guard let collectionView = collectionView else {
             throw DataSourceError.noneCollectionView
@@ -54,5 +39,46 @@ extension CollectionViewModel {
         self.dataSource = dataSource
         
         return dataSource
+    }
+    
+    func add(_ item: Todo) {
+        self.items.append(item)
+    
+        update()
+    }
+    
+    func remove(_ item: Todo) {
+        self.items.removeAll { $0 == item }
+        
+        update()
+    }
+    
+    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, item: Todo) -> UICollectionViewCell? {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: cellIdentifier,
+            for: indexPath
+        ) as? TodoCell else {
+            return nil
+        }
+        
+        let todoViewModel = TodoViewModel(todo: item)
+        
+        cell.provide(todoViewModel)
+        
+        return cell
+    }
+    
+    private func update() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Todo>()
+        snapshot.appendSections([.todo, .doing, .done])
+        
+        let todoList = items.filter { $0.workState == .todo }
+        let doingList = items.filter { $0.workState == .doing }
+        let doneList = items.filter { $0.workState == .done }
+        
+        snapshot.appendItems(todoList, toSection: .todo)
+        snapshot.appendItems(doingList, toSection: .doing)
+        snapshot.appendItems(doneList, toSection: .done)
+        dataSource?.apply(snapshot)
     }
 }
