@@ -108,13 +108,13 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         guard let cell = projectManagerCollectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as? ProjectCell else { return ProjectCell() }
         
         let assignedProjects = projects.list.filter { $0.status == status }
-        
         let project = assignedProjects[indexPath.item]
         
         cell.configureContent(title: project.title, body: project.body, date: "\(project.date)")
         cell.deleteRow = {
             guard let removeIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
             self.projects.list.remove(at: removeIndex)
+            self.projectManagerCollectionView.reloadData()
         }
         
         cell.backgroundColor = .white
