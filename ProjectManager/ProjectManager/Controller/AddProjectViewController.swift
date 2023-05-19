@@ -7,8 +7,8 @@
 import UIKit
 
 final class AddProjectViewController: UIViewController {
-    let projectManagerViewController = ProjectManagerViewController()
-    var projects = Projects.shared.projects
+    var projectManagerViewController: ProjectManagerViewController?
+    var projects = Projects.shared
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -88,11 +88,10 @@ final class AddProjectViewController: UIViewController {
             guard let body = bodyTextView.text else { return }
             let date = datePicker.date
             let project = Project(title: title, body: body, date: date, status: .todo)
-            projects.append(project)
-            print(projects)
+            projects.list.append(project)
+            projectManagerViewController?.projectManagerCollectionView.reloadData()
         }
         self.dismiss(animated: true)
-        projectManagerViewController.projectManagerCollectionView.reloadData()
         enableView()
     }
     

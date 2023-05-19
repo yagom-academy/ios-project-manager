@@ -7,7 +7,7 @@
 import UIKit
 
 final class ProjectManagerViewController: UIViewController {
-    var projects = Projects.shared.projects
+    var projects = Projects.shared
     
     lazy var projectManagerCollectionView: UICollectionView = {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
@@ -61,6 +61,7 @@ final class ProjectManagerViewController: UIViewController {
     @objc
     private func addProject() {
         let rootViewController = AddProjectViewController()
+        rootViewController.projectManagerViewController = self
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
@@ -89,12 +90,12 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let status = Status(rawValue: section)
         
-        return projects.filter { $0.status == status }.count + 1
+        return projects.list.filter { $0.status == status }.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let status = Status(rawValue: indexPath.section) else { return ProjectCell() }
-        let assignedProjects = projects.filter { $0.status == status }
+        let assignedProjects = projects.list.filter { $0.status == status }
         
         if indexPath.item == 0 {
             guard let cell = projectManagerCollectionView.dequeueReusableCell(withReuseIdentifier: "HeaderCell", for: indexPath) as? HeaderCell else { return HeaderCell() }
@@ -108,10 +109,9 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             let project = assignedProjects[indexPath.item - 1]
             cell.configureContent(title: project.title, body: project.body, date: "\(project.date)")
             cell.deleteRow = {
-                guard let removeIndex = self.projects.firstIndex(where: { $0.id == project.id }) else { return }
-                self.projects.remove(at: removeIndex)
+                guard let removeIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
+                self.projects.list.remove(at: removeIndex)
                 self.projectManagerCollectionView.reloadData()
-                print(self.projects)
             }
             
             cell.backgroundColor = .white
