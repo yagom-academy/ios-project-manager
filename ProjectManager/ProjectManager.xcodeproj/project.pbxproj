@@ -89,6 +89,16 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		58DC933A2A1749CB0096A103 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -108,15 +118,13 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				58DC933A2A1749CB0096A103 /* Application */,
 				58DC93372A171FEC0096A103 /* Manager */,
 				58DC932F2A1718D40096A103 /* Model */,
 				58DC93342A171C200096A103 /* View */,
 				58DC93352A171C3C0096A103 /* ViewController */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				58DA4F492A136F9700A0203C /* GoogleService-Info.plist */,
 			);
