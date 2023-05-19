@@ -33,6 +33,13 @@ final class TodoViewController: UIViewController {
     }
     
     @objc private func didTapDoneButton() {
+        guard let title = titleTextField.text,
+              let description = descriptionTextView.text else { return }
+        let date = Date()
+        let task = Task(title: title, description: description, date: date)
+        
+        taskDelegate?.saveTask(task)
+        
         self.dismiss(animated: true)
     }
 }
