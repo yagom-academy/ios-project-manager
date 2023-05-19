@@ -9,6 +9,7 @@ import UIKit
 final class AddProjectViewController: UIViewController {
     var projectManagerViewController: ProjectManagerViewController?
     var projects = Projects.shared
+    var project: Project?
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -49,6 +50,34 @@ final class AddProjectViewController: UIViewController {
         configureConstraint()
     }
     
+    func configureEditingStatus(isEditible: Bool) {
+        if !isEditible {
+            titleTextField.isEnabled = false
+            datePicker.isEnabled = false
+            bodyTextView.isEditable = false
+            
+            let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
+                                             target: self,
+                                             action: #selector(editProject))
+            navigationItem.leftBarButtonItem = editButton
+        } else {
+            let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                               target: self,
+                                               action: #selector(cancelEditingProject))
+            navigationItem.leftBarButtonItem = cancelButton
+        }
+    }
+    
+    func configureProject(assignedProject: Project) {
+        project = assignedProject
+        
+        guard let date = project?.date else { return }
+        
+        titleTextField.text = project?.title
+        bodyTextView.text = project?.body
+        datePicker.date = date
+    }
+    
     private func configureUI() {
         view.backgroundColor = .white
         navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 200/255,
@@ -57,18 +86,11 @@ final class AddProjectViewController: UIViewController {
         
         title = "TODO"
         
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
-                                         target: self,
-                                         action: #selector(editProject))
+
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                          target: self,
                                          action: #selector(doneEditingProject))
-        navigationItem.leftBarButtonItem = editButton
         navigationItem.rightBarButtonItem = doneButton
-        
-        titleTextField.isEnabled = false
-        datePicker.isEnabled = false
-        bodyTextView.isEditable = false
     }
     
     @objc
@@ -97,10 +119,6 @@ final class AddProjectViewController: UIViewController {
     
     @objc
     private func cancelEditingProject() {
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
-                                         target: self,
-                                         action: #selector(editProject))
-        navigationItem.leftBarButtonItem = editButton
         self.dismiss(animated: true)
         enableView()
     }

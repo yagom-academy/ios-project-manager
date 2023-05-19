@@ -21,15 +21,24 @@ final class ProjectManagerViewController: UIViewController {
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                    heightDimension: .fractionalHeight(1.0))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: NSCollectionLayoutSpacing.fixed(0), top: NSCollectionLayoutSpacing.fixed(self.view.frame.height/8), trailing: NSCollectionLayoutSpacing.fixed(0), bottom: NSCollectionLayoutSpacing.fixed(0))
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
+                                                    heightDimension: .fractionalHeight(1/8))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            
+
+            
             let section = NSCollectionLayoutSection(group: group)
+            section.boundarySupplementaryItems = [header]
             section.orthogonalScrollingBehavior = .continuous
             
             return section
         }, configuration: configuration)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderView")
         collectionView.register(ProjectCell.self, forCellWithReuseIdentifier: "ProjectCell")
-        collectionView.register(HeaderCell.self, forCellWithReuseIdentifier: "HeaderCell")
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .systemGray5
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +52,6 @@ final class ProjectManagerViewController: UIViewController {
         configureProjectManagerCollectionView()
         configureConstraint()
     }
-
     
     private func configureUI() {
         view.backgroundColor = .systemGray6
@@ -62,6 +70,7 @@ final class ProjectManagerViewController: UIViewController {
     private func addProject() {
         let rootViewController = AddProjectViewController()
         rootViewController.projectManagerViewController = self
+        rootViewController.configureEditingStatus(isEditible: true)
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
@@ -90,42 +99,56 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let status = Status(rawValue: section)
         
-        return projects.list.filter { $0.status == status }.count + 1
+        return projects.list.filter { $0.status == status }.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         guard let status = Status(rawValue: indexPath.section) else { return ProjectCell() }
+        
+        guard let cell = projectManagerCollectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as? ProjectCell else { return ProjectCell() }
+        
         let assignedProjects = projects.list.filter { $0.status == status }
         
-        if indexPath.item == 0 {
-            guard let cell = projectManagerCollectionView.dequeueReusableCell(withReuseIdentifier: "HeaderCell", for: indexPath) as? HeaderCell else { return HeaderCell() }
-            
-            cell.configureContent(status: status, number: assignedProjects.count)
-            
-            return cell
-        } else {
-            guard let cell = projectManagerCollectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as? ProjectCell else { return ProjectCell() }
-            
-            let project = assignedProjects[indexPath.item - 1]
-            cell.configureContent(title: project.title, body: project.body, date: "\(project.date)")
-            cell.deleteRow = {
-                guard let removeIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
-                self.projects.list.remove(at: removeIndex)
-                self.projectManagerCollectionView.reloadData()
-            }
-            
-            cell.backgroundColor = .white
-            cell.layer.borderWidth = 1
-            cell.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
-            
-            return cell
+        let project = assignedProjects[indexPath.item]
+        
+        cell.configureContent(title: project.title, body: project.body, date: "\(project.date)")
+        cell.deleteRow = {
+            guard let removeIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
+            self.projects.list.remove(at: removeIndex)
         }
+        
+        cell.backgroundColor = .white
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        guard kind == UICollectionView.elementKindSectionHeader,
+              let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: "HeaderView",
+                for: indexPath
+              ) as? HeaderView else { return UICollectionReusableView() }
+        
+        guard let status = Status(rawValue: indexPath.section) else { return UICollectionReusableView() }
+        
+        let assignedProjects = projects.list.filter { $0.status == status }
+        
+        header.configureContent(status: status, number: assignedProjects.count)
+        
+        return header
     }
 }
 
 extension ProjectManagerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let rootViewController = AddProjectViewController()
+        rootViewController.projectManagerViewController = self
+        rootViewController.configureEditingStatus(isEditible: false)
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         

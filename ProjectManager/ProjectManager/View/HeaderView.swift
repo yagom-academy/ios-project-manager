@@ -1,13 +1,13 @@
 //
-//  ProjectManager - HeaderCell.swift
+//  ProjectManager - HeaderView.swift
 //  Created by Rhode.
 //  Copyright © yagom. All rights reserved.
 //
 
 import UIKit
 
-final class HeaderCell: UICollectionViewCell {
-    let identifier = "HeaderCell"
+final class HeaderView: UICollectionReusableView {
+    let identifier = "HeaderView"
     
     private let contentStackView: UIStackView = {
         let stackview = UIStackView()
@@ -59,7 +59,7 @@ final class HeaderCell: UICollectionViewCell {
     }
     
     private func configureUI() {
-        contentView.backgroundColor = .systemGray6
+        backgroundColor = .systemGray6
     }
     
     private func configureContentStackView() {
