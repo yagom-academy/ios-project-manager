@@ -8,6 +8,8 @@ import UIKit
 
 final class MainViewController: UIViewController {
     private var toDoListViewModel: TodoListViewModel = TodoListViewModel()
+    private lazy var collectionView = UICollectionView(frame: .zero,
+                                                       collectionViewLayout: collectionViewLayout())
     
     private let stackView = {
         let stackView = UIStackView()
@@ -22,36 +24,42 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         configureRootView()
-        addChildren()
-        configureStackView()
+        configureCollectionViewLayout()
+    }
+    
+    private func collectionViewLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .fractionalWidth(0.2))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .fractionalHeight(1.0))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        layout.configuration.scrollDirection = .horizontal
+        
+        return layout
     }
     
     private func configureRootView() {
         view.backgroundColor = .systemGray4
-        view.addSubview(stackView)
+        view.addSubview(collectionView)
     }
     
-    private func addChildren() {
-        self.addChild(TodoTableViewController(toDoListViewModel: toDoListViewModel, workState: .todo))
-        self.addChild(DoingTableViewController(toDoListViewModel: toDoListViewModel, workState: .doing))
-        self.addChild(DoneTableViewController(toDoListViewModel: toDoListViewModel, workState: .done))
-    }
-    
-    private func configureStackView() {
-        self.children.forEach {
-            stackView.addArrangedSubview($0.view)
-            NSLayoutConstraint.activate([
-                $0.view.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.325)
-            ])
-        }
+    private func configureCollectionViewLayout() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        let safe = self.view.safeAreaLayoutGuide
+        let safe = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: safe.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: safe.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
     }
 }
