@@ -28,3 +28,31 @@ final class CollectionViewModel<CellType: UICollectionViewCell & Providable>: NS
         case done
     }
 }
+
+// MARK: - DataSource Setting
+
+extension CollectionViewModel {
+    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, item: Item) -> UICollectionViewCell? {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: cellIdentifier,
+            for: indexPath
+        ) as? CellType else {
+            return nil
+        }
+    
+        cell.provide(item)
+        
+        return cell
+    }
+    
+    func makeDataSource() throws -> DataSource {
+        guard let collectionView = collectionView else {
+            throw DataSourceError.noneCollectionView
+        }
+        
+        let dataSource = DataSource(collectionView: collectionView, cellProvider: cellProvider)
+        self.dataSource = dataSource
+        
+        return dataSource
+    }
+}
