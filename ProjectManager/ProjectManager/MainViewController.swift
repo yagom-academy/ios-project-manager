@@ -5,8 +5,15 @@
 // 
 
 import UIKit
+import SnapKit
+
+enum Section {
+    case main
+}
 
 class MainViewController: UIViewController {
+    private var dataSource: UICollectionViewDiffableDataSource<Section, String>?
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +23,16 @@ class MainViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
+        view.addSubview(collectionView)
+        
+        collectionView.backgroundColor = .red
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.equalTo(view.safeAreaLayoutGuide)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
     private func configureNavigation() {
