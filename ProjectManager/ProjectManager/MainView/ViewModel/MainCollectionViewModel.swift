@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CollectionViewModel: NSObject {
+final class MainCollectionViewModel: NSObject {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Todo>
     
     private weak var collectionView: UICollectionView?
@@ -29,7 +29,7 @@ final class CollectionViewModel: NSObject {
     }
 }
 
-extension CollectionViewModel {
+extension MainCollectionViewModel {
     func makeDataSource() throws -> DataSource {
         guard let collectionView = collectionView else {
             throw DataSourceError.noneCollectionView

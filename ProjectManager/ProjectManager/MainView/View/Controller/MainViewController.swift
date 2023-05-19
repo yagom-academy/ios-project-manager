@@ -7,13 +7,13 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    private typealias DataSource = UICollectionViewDiffableDataSource<WorkState, Todo>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<WorkState, Todo>
-    
     private var toDoListViewModel: TodoListViewModel = TodoListViewModel()
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    private var dataSource: DataSource!
+    private lazy var mainCollectionViewModel = MainCollectionViewModel(
+        collectionView: collectionView,
+        cellReuseIdentifier: TodoCell.identifier
+    )
     
     private let stackView = {
         let stackView = UIStackView()
@@ -29,6 +29,7 @@ final class MainViewController: UIViewController {
         
         configureRootView()
         configureCollectionViewLayout()
+        configureCollectionView()
     }
     
     private func collectionViewLayout() -> UICollectionViewLayout {
@@ -66,6 +67,17 @@ final class MainViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
     }
+    
+    private func configureCollectionView() {
+        do {
+            collectionView.dataSource = try mainCollectionViewModel.makeDataSource()
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        collectionView.delegate = self
+    }
+    
     private func createCellRegistration() -> UICollectionView.CellRegistration<TodoCell, Todo> {
         let cellRegistration = UICollectionView.CellRegistration<TodoCell, Todo> { cell, indexPath, item in
             
@@ -76,5 +88,11 @@ final class MainViewController: UIViewController {
         }
         
         return cellRegistration
+    }
+}
+
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("move DetailView")
     }
 }
