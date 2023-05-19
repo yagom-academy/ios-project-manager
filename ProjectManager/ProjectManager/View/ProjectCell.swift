@@ -8,6 +8,16 @@ import UIKit
 
 final class ProjectCell: UICollectionViewCell {
     let identifier = "ProjectCell"
+    var deleteRow : (() -> ()) = {}
+    
+    private let cellScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return scrollView
+    }()
     
     private let cellStackView: UIStackView = {
         let stackView = UIStackView()
@@ -69,9 +79,13 @@ final class ProjectCell: UICollectionViewCell {
         titleLabel.text = title
         bodyLabel.text = body
         dateLabel.text = date
+        
+        scrollToZero()
     }
     
-    var deleteRow : (() -> ()) = {}
+    private func scrollToZero() {
+        cellScrollView.setContentOffset(CGPoint.zero, animated: false)
+    }
     
     @objc
     func deleteCell() {
@@ -79,7 +93,8 @@ final class ProjectCell: UICollectionViewCell {
     }
     
     private func configureContentStackView() {
-        self.addSubview(cellStackView)
+        self.addSubview(cellScrollView)
+        cellScrollView.addSubview(cellStackView)
         cellStackView.addArrangedSubview(contentStackView)
         cellStackView.addArrangedSubview(deleteButton)
         contentStackView.addArrangedSubview(titleLabel)
@@ -89,10 +104,17 @@ final class ProjectCell: UICollectionViewCell {
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            cellStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            cellStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            cellStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            cellStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            cellScrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            cellScrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            cellScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            cellScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            cellStackView.topAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.topAnchor),
+            cellStackView.leadingAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.leadingAnchor),
+            cellStackView.trailingAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.trailingAnchor),
+            cellStackView.bottomAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.bottomAnchor),
+            cellStackView.topAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.topAnchor),
+            cellStackView.bottomAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.bottomAnchor),
+            contentStackView.widthAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.widthAnchor),
             deleteButton.widthAnchor.constraint(equalToConstant: 70)
         ])
     }

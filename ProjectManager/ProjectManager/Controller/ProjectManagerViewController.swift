@@ -17,11 +17,11 @@ final class ProjectManagerViewController: UIViewController {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1/7))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
+            
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                    heightDimension: .fractionalHeight(1.0))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            group.contentInsets.top = self.view.frame.height/8
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                     heightDimension: .fractionalHeight(1/8))
@@ -29,7 +29,6 @@ final class ProjectManagerViewController: UIViewController {
             
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [header]
-            section.interGroupSpacing = -self.view.frame.height/8
             section.orthogonalScrollingBehavior = .continuous
             
             return section
@@ -102,10 +101,13 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        print(indexPath)
         
         guard let status = Status(rawValue: indexPath.section) else { return ProjectCell() }
         
         guard let cell = projectManagerCollectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as? ProjectCell else { return ProjectCell() }
+        
         
         let assignedProjects = projects.list.filter { $0.status == status }
         let project = assignedProjects[indexPath.item]
