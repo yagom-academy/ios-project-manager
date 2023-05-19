@@ -6,7 +6,13 @@
 
 import UIKit
 
+protocol TaskDelegate {
+    func saveTask(_ task: Task)
+}
+
 final class MainViewController: UIViewController {
+    
+    private let viewModel = MainViewModel()
     
     private let todoViewController = ListViewController(taskState: .todo)
     private let doingViewController = ListViewController(taskState: .doing)
@@ -35,6 +41,7 @@ final class MainViewController: UIViewController {
     }
 }
 
+// MARK: UI
 extension MainViewController {
     private func configureNavigationViewUI() {
         navigationItem.title = "Project Manager"
