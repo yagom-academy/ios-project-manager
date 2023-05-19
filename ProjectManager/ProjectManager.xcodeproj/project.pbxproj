@@ -14,6 +14,7 @@
 		58DA4F4E2A14BE9700A0203C /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DA4F4D2A14BE9700A0203C /* TodoTableViewCell.swift */; };
 		58DC93312A17193A0096A103 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DC93302A17193A0096A103 /* ToDoList.swift */; };
 		58DC93332A171BA40096A103 /* ToDoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DC93322A171BA40096A103 /* ToDoProtocol.swift */; };
+		58DC93392A1720070096A103 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DC93382A1720070096A103 /* DateFormatterManager.swift */; };
 		58E945FD2A1602A50057EF83 /* ToDoWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E945FC2A1602A50057EF83 /* ToDoWriteViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -28,6 +29,7 @@
 		58DA4F4D2A14BE9700A0203C /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		58DC93302A17193A0096A103 /* ToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
 		58DC93322A171BA40096A103 /* ToDoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProtocol.swift; sourceTree = "<group>"; };
+		58DC93382A1720070096A103 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		58E945FC2A1602A50057EF83 /* ToDoWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoWriteViewController.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,14 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		58DC93372A171FEC0096A103 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				58DC93382A1720070096A103 /* DateFormatterManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +110,7 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				58DC93372A171FEC0096A103 /* Manager */,
 				58DC932F2A1718D40096A103 /* Model */,
 				58DC93342A171C200096A103 /* View */,
 				58DC93352A171C3C0096A103 /* ViewController */,
@@ -194,6 +205,7 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ToDoListViewContorller.swift in Sources */,
 				58E945FD2A1602A50057EF83 /* ToDoWriteViewController.swift in Sources */,
+				58DC93392A1720070096A103 /* DateFormatterManager.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				58DA4F4E2A14BE9700A0203C /* TodoTableViewCell.swift in Sources */,

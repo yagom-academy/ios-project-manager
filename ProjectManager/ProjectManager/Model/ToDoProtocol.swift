@@ -10,5 +10,5 @@ import Foundation
 protocol ToDoProtocl {
     var title: String { get set }
     var description: String { get set }
-    var date: Double { get set }
+    var date: String { get set }
 }

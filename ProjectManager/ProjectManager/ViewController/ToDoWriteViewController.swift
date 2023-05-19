@@ -7,7 +7,18 @@
 
 import UIKit
 
+protocol sendToDoListProtocol {
+    func sendTodoList(data: ToDoList)
+}
+
 class ToDoWriteViewController: UIViewController {
+    
+    var delegate: sendToDoListProtocol?
+    
+    private let navigationBar: UINavigationBar = {
+        let navigationBar = UINavigationBar()
+        return navigationBar
+    }()
     
     private let fullStackView: UIStackView = {
         let stackView = UIStackView()
@@ -58,12 +69,20 @@ class ToDoWriteViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = doneButton
+        
+        navigationBar.setItems([navigationItem], animated: true)
     }
     
     @objc private func doneButtonTapped() {
-        let toDoWriteViewController = ToDoWriteViewController()
-        toDoWriteViewController.modalPresentationStyle = .formSheet
-        self.present(toDoWriteViewController, animated: true)
+        guard let title = titleTextField.text,
+              let description = descriptionTextView.text,
+              let formattedDate = DateFormatterManager.shared.convertDateToString(date: datePicker.date)else { return }
+        
+        let toDoList = ToDoList(title: title, description: description, date: formattedDate)
+        print(toDoList)
+        delegate?.sendTodoList(data: toDoList)
+        
+        self.dismiss(animated: true)
     }
     
     @objc private func cancelButtonTapped() {
@@ -73,6 +92,7 @@ class ToDoWriteViewController: UIViewController {
     // MARK: Autolayout
     private func configureViewUI() {
         view.backgroundColor = .white
+        view.addSubview(navigationBar)
         view.addSubview(fullStackView)
         
         fullStackView.addArrangedSubview(titleTextField)
@@ -81,14 +101,19 @@ class ToDoWriteViewController: UIViewController {
         
         let safeArea = view.safeAreaLayoutGuide
         
-        fullStackView.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
         fullStackView.translatesAutoresizingMaskIntoConstraints = false
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         
         
         NSLayoutConstraint.activate([
-            fullStackView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10),
+            
+            navigationBar.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            
+            fullStackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             fullStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             fullStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20),
             fullStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
@@ -96,5 +121,4 @@ class ToDoWriteViewController: UIViewController {
             titleTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-    
 }

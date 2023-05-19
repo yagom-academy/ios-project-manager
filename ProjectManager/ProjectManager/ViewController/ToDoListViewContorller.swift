@@ -6,7 +6,14 @@
 
 import UIKit
 
-class ToDoListViewContorller: UIViewController {
+class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
+    
+    private var toDoList: [ToDoList]?
+    
+    func sendTodoList(data: ToDoList) {
+        toDoList?.append(data)
+        toDoTableView.reloadData()
+    }
     
     private let toDoStackView: UIStackView = {
         let stackview = UIStackView()
@@ -14,7 +21,7 @@ class ToDoListViewContorller: UIViewController {
         stackview.distribution = .fillEqually
         return stackview
     }()
-
+    
     lazy var toDoTableView = createTableView(title: "TODO")
     lazy var doingTableView = createTableView(title: "DOING")
     lazy var doneTableView = createTableView(title: "DONE")
@@ -41,6 +48,7 @@ class ToDoListViewContorller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        toDoList = []
         configureNavigationBar()
         setTableView()
         configureViewUI()
@@ -54,8 +62,11 @@ class ToDoListViewContorller: UIViewController {
     }
     
     @objc private func plusButtonTapped() {
-        let toDoWriteViewController = UINavigationController(rootViewController: ToDoWriteViewController())
+        let toDoWriteViewController = ToDoWriteViewController()
         toDoWriteViewController.modalPresentationStyle = .formSheet
+        
+        toDoWriteViewController.delegate = self
+        
         self.present(toDoWriteViewController, animated: true)
     }
     
@@ -70,7 +81,7 @@ class ToDoListViewContorller: UIViewController {
         
         doingTableView.delegate = self
         doingTableView.dataSource = self
-
+        
         doneTableView.delegate = self
         doneTableView.dataSource = self
     }
@@ -101,16 +112,18 @@ class ToDoListViewContorller: UIViewController {
 }
 
 extension ToDoListViewContorller: UITableViewDelegate {
-    
 }
 
 extension ToDoListViewContorller: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return toDoList?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath)
-        return cell
+        guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell,
+              let toDoList = self.toDoList else { return UITableViewCell() }
+        
+        toDoTableViewCell.setUpLabel(toDoList: toDoList[indexPath.row])
+        return toDoTableViewCell
     }
 }

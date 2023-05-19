@@ -11,6 +11,8 @@ class ToDoTableViewCell: UITableViewCell {
     
     static let identifier = "ToDoTableViewCell"
     
+    private var toDoList: ToDoList?
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -36,7 +38,6 @@ class ToDoTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureCellUI()
-        setUpLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -67,9 +68,11 @@ class ToDoTableViewCell: UITableViewCell {
             ])
     }
     
-    func setUpLabel() {
-        titleLabel.text = "title"
-        descriptionLabel.text = "description description description description description description description description description description description description description description description description description description description description description description description description description description description "
-        dateLabel.text = "date"
+    func setUpLabel(toDoList: ToDoList) {
+        self.toDoList = toDoList
+        
+        titleLabel.text = toDoList.title
+        descriptionLabel.text = toDoList.description
+        dateLabel.text = toDoList.date
     }
 }
