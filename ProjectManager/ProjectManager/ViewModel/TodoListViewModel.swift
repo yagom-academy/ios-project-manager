@@ -5,7 +5,7 @@
 //  Created by 리지 on 2023/05/17.
 //
 
-import Foundation
+import UIKit
 import Combine
 
 final class TodoListViewModel {
@@ -17,5 +17,21 @@ final class TodoListViewModel {
     
     func item(at index: Int) -> TodoItem {
         return todoItems[index]
+    }
+    
+    func convertDate(of date: Date) -> String {
+        return DateFormatManager.shared.convertToFormattedDate(of: date)
+    }
+    
+    func changeColor(at index: Int) -> UIColor {
+        let item = todoItems[index]
+        let result = DateFormatManager.shared.compareDate(from: item.date)
+        
+        switch result {
+        case .past:
+            return UIColor.red
+        default:
+            return UIColor.black
+        }
     }
 }

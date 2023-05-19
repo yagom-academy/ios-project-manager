@@ -121,7 +121,7 @@ final class PlusTodoViewController: UIViewController {
         guard let title = self.titleField.text,
               let body = self.textView.text else { return }
         
-        let date = DateFormatManager.shared.convertToFormattedDate(of: self.datePicker.date)
+        let date = self.datePicker.date
         let item = TodoItem(title: title, body: body, date: date)
         
         self.delegate?.addItem(item)

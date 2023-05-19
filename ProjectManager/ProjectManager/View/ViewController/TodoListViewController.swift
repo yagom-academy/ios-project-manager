@@ -36,6 +36,7 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
         setUpView()
         configureNavigationBar()
         bind()
+        bindListCount()
     }
     
     private func setUpView() {
@@ -99,7 +100,7 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
         NSLayoutConstraint.activate([
             tableStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             tableStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-            tableStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            tableStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20),
             tableStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10)
         ])
     }
@@ -128,6 +129,18 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
             .store(in: &cancellables)
     }
     
+    private func bindListCount() {
+        todoListViewModel.$todoItems
+            .receive(on: DispatchQueue.main)
+            .map { item in
+                String(item.count)
+            }
+            .sink { count in
+                self.todoHeaderStackView.changeCount(count)
+            }
+            .store(in: &cancellables)
+    }
+    
     func addItem(_ item: TodoItem) {
         todoListViewModel.todoItems.append(item)
     }
@@ -145,8 +158,13 @@ extension TodoListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? TodoTableViewCell else { return UITableViewCell() }
+        
         let item = todoListViewModel.item(at: indexPath.row)
-        cell.configureCell(with: item)
+        let convertDate = todoListViewModel.convertDate(of: item.date)
+        let color = todoListViewModel.changeColor(at: indexPath.row)
+        
+        cell.configureCell(with: item, and: convertDate)
+        cell.changeColor(by: color)
         
         return cell
     }

@@ -34,7 +34,7 @@ final class TodoTableViewCell: UITableViewCell {
         return title
     }()
     
-    private let date: UILabel = {
+    private lazy var date: UILabel = {
         let title = UILabel()
         
         return title
@@ -65,9 +65,13 @@ final class TodoTableViewCell: UITableViewCell {
         ])
     }
     
-    func configureCell(with item: TodoItem) {
+    func configureCell(with item: TodoItem, and convertDate: String) {
         title.text = item.title
         body.text = item.body
-        date.text = item.date.description
+        date.text = convertDate
+    }
+    
+    func changeColor(by color: UIColor) {
+        date.textColor = color
     }
 }

@@ -10,5 +10,5 @@ import Foundation
 struct TodoItem {
     let title: String
     let body: String
-    let date: String
+    let date: Date
 }
