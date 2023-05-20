@@ -20,6 +20,7 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureNavigationViewUI()
         configureViewUI()
         configureChildViewControllerUI()
@@ -27,9 +28,9 @@ final class MainViewController: UIViewController {
     
     @objc private func didTapAddButton() {
         let todoViewController = TodoViewController()
-        todoViewController.taskDelegate = self
-        
         let navigationController = UINavigationController(rootViewController: todoViewController)
+        
+        todoViewController.taskDelegate = self
         
         self.present(navigationController, animated: true)
     }
