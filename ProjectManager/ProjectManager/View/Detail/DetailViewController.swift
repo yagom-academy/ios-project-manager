@@ -13,12 +13,13 @@ final class DetailViewController: UIViewController {
         case edit
     }
     
-    private var viewMode: ViewMode?
     var viewModel: WorkViewModel? // 고민중
+    private var viewMode: ViewMode?
+    private let workInputView = WorkInputView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureUIOption()
     }
     
@@ -31,6 +32,7 @@ final class DetailViewController: UIViewController {
     }
     
     private func configureUIOption() {
+        view = workInputView
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.backgroundColor = .systemGray6
         navigationItem.title = "TODO"

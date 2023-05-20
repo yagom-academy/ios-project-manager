@@ -16,6 +16,7 @@
 		BF851EBE2A1612100028FCDA /* IdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EBD2A1612100028FCDA /* IdentifierType.swift */; };
 		BF851EC12A164D180028FCDA /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EC02A164D180028FCDA /* HeaderReusableView.swift */; };
 		BFFDFABD2A192FF50045402C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFDFABC2A192FF50045402C /* DetailViewController.swift */; };
+		BFFDFABF2A1944540045402C /* WorkInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFDFABE2A1944540045402C /* WorkInputView.swift */; };
 		BFFF1A632A177A5F006F34B3 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFF1A622A177A5F006F34B3 /* CALayer+.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -33,6 +34,7 @@
 		BF851EBD2A1612100028FCDA /* IdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierType.swift; sourceTree = "<group>"; };
 		BF851EC02A164D180028FCDA /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		BFFDFABC2A192FF50045402C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		BFFDFABE2A1944540045402C /* WorkInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkInputView.swift; sourceTree = "<group>"; };
 		BFFF1A622A177A5F006F34B3 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				BFFDFABC2A192FF50045402C /* DetailViewController.swift */,
+				BFFDFABE2A1944540045402C /* WorkInputView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				BF851EBE2A1612100028FCDA /* IdentifierType.swift in Sources */,
 				BF851EC12A164D180028FCDA /* HeaderReusableView.swift in Sources */,
 				BF851EAF2A15F7550028FCDA /* WorkStatus.swift in Sources */,
+				BFFDFABF2A1944540045402C /* WorkInputView.swift in Sources */,
 				BF851EAC2A15F62E0028FCDA /* Work.swift in Sources */,
 				BF851EB42A15FFAE0028FCDA /* WorkViewModel.swift in Sources */,
 			);
