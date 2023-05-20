@@ -7,7 +7,7 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    private let viewModel = MainViewModel()
+    private let viewModel = WorkViewModel()
     private var collectionView: UICollectionView?
     private var dataSource: UICollectionViewDiffableDataSource<WorkStatus, Work>?
     
@@ -25,10 +25,19 @@ final class MainViewController: UIViewController {
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
-                                                            action: nil)
+                                                            action: #selector(moveToAppendWork))
+    }
+    
+    @objc private func moveToAppendWork() {
+        let detailViewController = DetailViewController()
+        detailViewController.configureAddMode()
+        let navigationController = UINavigationController(rootViewController: detailViewController)
+        
+        self.present(navigationController, animated: true)
     }
 }
 
+// MARK: - Collection View Setting
 extension MainViewController {
     private func createCollectionView() -> UICollectionView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())

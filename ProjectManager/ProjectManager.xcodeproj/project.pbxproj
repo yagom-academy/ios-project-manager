@@ -11,10 +11,11 @@
 		BF715FE12A14CDCA00C3D081 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = BF715FE02A14CDCA00C3D081 /* FirebaseAnalytics */; };
 		BF851EAC2A15F62E0028FCDA /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EAB2A15F62E0028FCDA /* Work.swift */; };
 		BF851EAF2A15F7550028FCDA /* WorkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EAE2A15F7550028FCDA /* WorkStatus.swift */; };
-		BF851EB42A15FFAE0028FCDA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EB32A15FFAE0028FCDA /* MainViewModel.swift */; };
+		BF851EB42A15FFAE0028FCDA /* WorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EB32A15FFAE0028FCDA /* WorkViewModel.swift */; };
 		BF851EBB2A1611DB0028FCDA /* WorkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EBA2A1611DB0028FCDA /* WorkCell.swift */; };
 		BF851EBE2A1612100028FCDA /* IdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EBD2A1612100028FCDA /* IdentifierType.swift */; };
 		BF851EC12A164D180028FCDA /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EC02A164D180028FCDA /* HeaderReusableView.swift */; };
+		BFFDFABD2A192FF50045402C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFDFABC2A192FF50045402C /* DetailViewController.swift */; };
 		BFFF1A632A177A5F006F34B3 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFF1A622A177A5F006F34B3 /* CALayer+.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -27,10 +28,11 @@
 		BF715FDD2A14CD8700C3D081 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF851EAB2A15F62E0028FCDA /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		BF851EAE2A15F7550028FCDA /* WorkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkStatus.swift; sourceTree = "<group>"; };
-		BF851EB32A15FFAE0028FCDA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		BF851EB32A15FFAE0028FCDA /* WorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkViewModel.swift; sourceTree = "<group>"; };
 		BF851EBA2A1611DB0028FCDA /* WorkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkCell.swift; sourceTree = "<group>"; };
 		BF851EBD2A1612100028FCDA /* IdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierType.swift; sourceTree = "<group>"; };
 		BF851EC02A164D180028FCDA /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
+		BFFDFABC2A192FF50045402C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BFFF1A622A177A5F006F34B3 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,30 +64,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		BF851EB02A15FF4D0028FCDA /* MainView */ = {
+		BF851EB02A15FF4D0028FCDA /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				BF851EBA2A1611DB0028FCDA /* WorkCell.swift */,
 				BF851EC02A164D180028FCDA /* HeaderReusableView.swift */,
 			);
-			path = MainView;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		BF851EB12A15FF8A0028FCDA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BF851EB22A15FF9B0028FCDA /* MainView */,
+				BF851EB32A15FFAE0028FCDA /* WorkViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		BF851EB22A15FF9B0028FCDA /* MainView */ = {
-			isa = PBXGroup;
-			children = (
-				BF851EB32A15FFAE0028FCDA /* MainViewModel.swift */,
-			);
-			path = MainView;
 			sourceTree = "<group>";
 		};
 		BF851EBC2A1611E90028FCDA /* Protocol */ = {
@@ -99,7 +93,8 @@
 		BFB627CF2A13669C0068A6DA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BF851EB02A15FF4D0028FCDA /* MainView */,
+				BF851EB02A15FF4D0028FCDA /* Main */,
+				BFFDFABB2A192FA90045402C /* Detail */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -122,6 +117,14 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		BFFDFABB2A192FA90045402C /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				BFFDFABC2A192FF50045402C /* DetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		BFFF1A612A177A46006F34B3 /* Extension */ = {
@@ -238,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFFDFABD2A192FF50045402C /* DetailViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				BF851EBB2A1611DB0028FCDA /* WorkCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
@@ -247,7 +251,7 @@
 				BF851EC12A164D180028FCDA /* HeaderReusableView.swift in Sources */,
 				BF851EAF2A15F7550028FCDA /* WorkStatus.swift in Sources */,
 				BF851EAC2A15F62E0028FCDA /* Work.swift in Sources */,
-				BF851EB42A15FFAE0028FCDA /* MainViewModel.swift in Sources */,
+				BF851EB42A15FFAE0028FCDA /* WorkViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  WorkViewModel.swift
 //  ProjectManager
 //
 //  Created by Hyejeong Jeong on 2023/05/18.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MainViewModel {
+final class WorkViewModel {
     var works: [Work] = []
     
     init() {
