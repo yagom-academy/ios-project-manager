@@ -31,6 +31,7 @@ final class ListViewController: UIViewController {
         configureViewUI()
         configureCollectionViewUI()
         configureDatasource()
+        applySnapshot(by: [])
     }
 
     func applySnapshot(by items: [Task]) {

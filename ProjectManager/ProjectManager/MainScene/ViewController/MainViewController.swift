@@ -23,13 +23,6 @@ final class MainViewController: UIViewController {
         configureNavigationViewUI()
         configureViewUI()
         configureChildViewControllerUI()
-        
-        var tasks1: [Task] = []
-        
-        children.forEach { vc in
-            guard let vc = vc as? ListViewController else { return }
-            vc.applySnapshot(by: tasks1)
-        }
     }
     
     @objc private func didTapAddButton() {
