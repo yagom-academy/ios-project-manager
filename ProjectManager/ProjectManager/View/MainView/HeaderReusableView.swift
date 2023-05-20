@@ -26,6 +26,12 @@ final class HeaderReusableView: UICollectionReusableView {
         return imageView
     }()
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        drawBottomBorder()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -56,5 +62,9 @@ final class HeaderReusableView: UICollectionReusableView {
             countImageView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor),
             countImageView.widthAnchor.constraint(equalTo: countImageView.heightAnchor),
         ])
+    }
+    
+    private func drawBottomBorder() {
+        layer.drawBorder(color: .systemGray4, width: 1.0)
     }
 }

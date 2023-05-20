@@ -14,10 +14,18 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        configureUIOption()
         configureCollectionView()
         configureDataSource()
         applySnapshot()
+    }
+    
+    private func configureUIOption() {
+        view.backgroundColor = .systemBackground
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: nil)
     }
 }
 
@@ -44,14 +52,16 @@ extension MainViewController {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .estimated(20))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
+            
+            item.contentInsets = NSDirectionalEdgeInsets(top: 50, leading: 4, bottom: 0, trailing: 4)
             
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0/3.0),
                                                    heightDimension: .estimated(20))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .continuous
+            
+            section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
             section.interGroupSpacing = 8
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0/3.0),
