@@ -36,7 +36,7 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: TaskDelegate {
     func saveTask(_ task: Task) {
-        
+        todoViewController.appendTask(task)
     }
 }
 

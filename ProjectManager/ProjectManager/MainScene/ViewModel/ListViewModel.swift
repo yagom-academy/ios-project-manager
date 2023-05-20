@@ -11,12 +11,4 @@ final class ListViewModel {
     func appendTask(_ task: Task) {
         tasks.append(task)
     }
-    
-    func filterTasks(by state: TaskState) -> [Task] {
-        let filteredTasks = tasks.filter { task in
-            return task.state == state
-        }
-        
-        return filteredTasks
-    }
 }

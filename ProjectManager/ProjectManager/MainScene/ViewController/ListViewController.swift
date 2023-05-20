@@ -34,9 +34,15 @@ final class ListViewController: UIViewController {
         configureDatasource()
         applySnapshot(by: [])
     }
+    
+    func appendTask(_ task: Task) {
+        viewModel.appendTask(task)
+        
+        applySnapshot(by: [task])
+    }
 
     private func applySnapshot(by items: [Task]) {
-        if snapshot.sectionIdentifiers.contains(taskState) {
+        if !snapshot.sectionIdentifiers.contains(taskState) {
             snapshot.appendSections([taskState])
         }
         snapshot.appendItems(items)
