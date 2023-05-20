@@ -49,6 +49,8 @@ final class ProjectManagerViewController: UIViewController {
         configureUI()
         configureProjectManagerCollectionView()
         configureConstraint()
+        configureTapGestureRecognizer()
+        configureLongGestureRecognizer()
     }
     
     private func configureUI() {
@@ -61,7 +63,6 @@ final class ProjectManagerViewController: UIViewController {
         navigationItem.rightBarButtonItem = addProjectButton
         
         projectManagerCollectionView.dataSource = self
-        projectManagerCollectionView.delegate = self
     }
     
     @objc
@@ -101,8 +102,6 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        print(indexPath)
         
         guard let status = Status(rawValue: indexPath.section) else { return ProjectCell() }
         
@@ -145,20 +144,71 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
     }
 }
 
-extension ProjectManagerViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let rootViewController = AddProjectViewController()
-        rootViewController.projectManagerViewController = self
-        rootViewController.configureEditingStatus(isEditible: false)
+extension ProjectManagerViewController: UIGestureRecognizerDelegate {
+    
+    private func configureTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
+        tapGesture.delegate = self
+        tapGesture.delaysTouchesBegan = true
+        projectManagerCollectionView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    func handleTap(gestureRecognizer: UITapGestureRecognizer) {
+        let location = gestureRecognizer.location(in: projectManagerCollectionView)
         
-        guard let status = Status(rawValue: indexPath.section) else { return }
+        if gestureRecognizer.state == .ended {
+            if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
+                let rootViewController = AddProjectViewController()
+                rootViewController.projectManagerViewController = self
+                rootViewController.configureEditingStatus(isEditible: false)
+                
+                guard let status = Status(rawValue: indexPath.section) else { return }
+                
+                let assignedProjects = projects.list.filter { $0.status == status }
+                let project = assignedProjects[indexPath.item]
+                rootViewController.configureProject(assignedProject: project)
+                let navigationController = UINavigationController(rootViewController: rootViewController)
+                navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
+                
+                self.present(navigationController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    private func configureLongGestureRecognizer() {
+        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        longPressedGesture.minimumPressDuration = 1
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        projectManagerCollectionView.addGestureRecognizer(longPressedGesture)
+    }
+
+    @objc
+    func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: projectManagerCollectionView)
         
-        let assignedProjects = projects.list.filter { $0.status == status }
-        let project = assignedProjects[indexPath.item]
-        rootViewController.configureProject(assignedProject: project)
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
-        
-        self.present(navigationController, animated: true, completion: nil)
+        if gestureRecognizer.state == .ended {
+            if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
+                let moveToDoing = UIMenuItem(title: "Move to DOING", action: #selector(moveToDoing))
+                let moveToDone = UIMenuItem(title: "Move to DONE", action: #selector(moveToDone))
+                let menuController = UIMenuController.shared
+                menuController.menuItems = [moveToDoing, moveToDone]
+                let menuLocation = CGRect(x: location.x, y: location.y, width: 0, height: 0)
+                menuController.showMenu(from: self.view, rect: menuLocation)
+                
+                print("Long press at item finished at: \(indexPath.row)")
+            }
+        }
+    }
+
+    @objc
+    func moveToDoing() {
+        print("Move to Doing")
+    }
+
+    @objc
+    func moveToDone() {
+        print("Move to Done")
     }
 }
