@@ -8,7 +8,6 @@
 import UIKit
 
 class TodoListCell: UICollectionViewListCell {
-    
     private let titleLabel = {
         let label = UILabel()
         return label
