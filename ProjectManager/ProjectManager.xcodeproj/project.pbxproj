@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2612AF372A1770940002DF21 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2612AF362A1770940002DF21 /* MainViewModel.swift */; };
+		2612AF372A1770940002DF21 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2612AF362A1770940002DF21 /* ListViewModel.swift */; };
 		2616AFC42A1525F100C33BB2 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2616AFC32A1525F100C33BB2 /* ListViewController.swift */; };
 		2616AFC62A153A3600C33BB2 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */; };
 		2656763A2A1662380063FBE2 /* TodoTitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265676392A1662380063FBE2 /* TodoTitleTextField.swift */; };
@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2612AF362A1770940002DF21 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		2612AF362A1770940002DF21 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		2616AFC32A1525F100C33BB2 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		265676392A1662380063FBE2 /* TodoTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTitleTextField.swift; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 		2612AF352A1770860002DF21 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				2612AF362A1770940002DF21 /* MainViewModel.swift */,
+				2612AF362A1770940002DF21 /* ListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -232,7 +232,7 @@
 				26CE60D22A14A8DF0026203C /* TaskState.swift in Sources */,
 				2616AFC62A153A3600C33BB2 /* TaskHeaderView.swift in Sources */,
 				2616AFC42A1525F100C33BB2 /* ListViewController.swift in Sources */,
-				2612AF372A1770940002DF21 /* MainViewModel.swift in Sources */,
+				2612AF372A1770940002DF21 /* ListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

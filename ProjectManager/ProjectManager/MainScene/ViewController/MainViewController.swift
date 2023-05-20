@@ -12,8 +12,6 @@ protocol TaskDelegate: AnyObject {
 
 final class MainViewController: UIViewController {
     
-    private let viewModel = MainViewModel()
-    
     private let todoViewController = ListViewController(taskState: .todo)
     private let doingViewController = ListViewController(taskState: .doing)
     private let doneViewController = ListViewController(taskState: .done)
@@ -38,10 +36,7 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: TaskDelegate {
     func saveTask(_ task: Task) {
-        viewModel.appendTask(task)
         
-        let tasks = viewModel.filterTasks(by: .todo)
-        todoViewController.applySnapshot(by: tasks)
     }
 }
 
