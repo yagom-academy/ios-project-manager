@@ -14,6 +14,7 @@ final class ListViewController: UIViewController {
     private var datasource: UICollectionViewDiffableDataSource<TaskState, Task>?
     private var snapshot = NSDiffableDataSourceSnapshot<TaskState, Task>()
     private var taskState: TaskState
+    private let viewModel = ListViewModel()
     
     init(taskState: TaskState) {
         self.taskState = taskState
@@ -34,16 +35,17 @@ final class ListViewController: UIViewController {
         applySnapshot(by: [])
     }
 
-    func applySnapshot(by items: [Task]) {
-        deleteSnapshot()
-        snapshot.appendSections([taskState])
+    private func applySnapshot(by items: [Task]) {
+        if snapshot.sectionIdentifiers.contains(taskState) {
+            snapshot.appendSections([taskState])
+        }
         snapshot.appendItems(items)
         
         datasource?.apply(snapshot, animatingDifferences: true)
     }
     
-    private func deleteSnapshot() {
-        snapshot.deleteSections([taskState])
+    private func deleteSnapshot(by section: TaskState) {
+        snapshot.deleteSections([section])
         
         datasource?.apply(snapshot)
     }
