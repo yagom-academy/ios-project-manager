@@ -57,14 +57,15 @@ final class TodoViewController: UIViewController {
     }
     
     @objc private func didTapDoneButton() {
-        guard let title = titleTextField.text,
-              let description = descriptionTextView.text else { return }
-        let date = datePicker.date
-        let task = Task(title: title, description: description, date: date)
-        
-        taskDelegate?.saveTask(task)
-        
-        self.dismiss(animated: true)
+        do {
+            let task = try makeTask()
+            
+            taskDelegate?.saveTask(task)
+            
+            self.dismiss(animated: true)
+        } catch {
+            
+        }
     }
 }
 
@@ -83,6 +84,17 @@ extension TodoViewController: UITextViewDelegate {
 
 // MARK: UI
 extension TodoViewController {
+    private func showErrorAlert(_ error: Error) {
+        let alertController = UIAlertController(title: "확인해주세요",
+                                                message: error.localizedDescription,
+                                                preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "확인", style: .cancel)
+        
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
+    
     private func configureNavigationViewUI() {
         navigationItem.title = "TODO"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
