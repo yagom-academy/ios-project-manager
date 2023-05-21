@@ -63,8 +63,8 @@ final class TodoViewController: UIViewController {
             taskDelegate?.saveTask(task)
             
             self.dismiss(animated: true)
-        } catch {
-            
+        } catch(let error) {
+            showErrorAlert(error)
         }
     }
 }
