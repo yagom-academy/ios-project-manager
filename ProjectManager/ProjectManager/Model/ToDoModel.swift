@@ -13,5 +13,3 @@ struct ToDoModel: Hashable {
     var deadLine: Date
     var state: State
 }
-
-

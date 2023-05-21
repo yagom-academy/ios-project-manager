@@ -13,13 +13,15 @@ final class MainListViewController: UIViewController {
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
     private var dataSource: DataSource?
-    private let listviewModel = ListViewModel()
+    private let listViewModel = ListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSubviews()
         configureConstraints()
         configureNavigation()
+        configureDataSource()
+        configureSnapShot()
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -28,14 +30,15 @@ final class MainListViewController: UIViewController {
                                                                              layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection in
             
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalHeight(0.2))
+                                                  heightDimension: .estimated(30))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
+
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
-                                                   heightDimension: .absolute(44))
+                                                   heightDimension: .estimated(30))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = 8
             
             return section
         }, configuration: configuration)
@@ -44,14 +47,29 @@ final class MainListViewController: UIViewController {
     }
     
     private func configureDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<ListViewCell, ToDoModel> { cell, indexPath, item in
+            cell.configureContent(with: item)
+        }
+        
         dataSource = DataSource(collectionView: collectionView) {
             (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListViewCell.identifier, for: indexPath) as? ListViewCell else { return UICollectionViewCell() }
             
-            self.listviewModel.configureCell(to: cell, with: item)
-            
-            return cell
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                for: indexPath,
+                                                                item: item)
         }
+    }
+    
+    private func configureSnapShot() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.Todo])
+        snapshot.appendSections([.Doing])
+        snapshot.appendSections([.Done])
+        snapshot.appendItems(listViewModel.todoList.filter({ $0.state == .Todo }))
+        snapshot.appendItems(listViewModel.todoList.filter({ $0.state == .Doing }))
+        snapshot.appendItems(listViewModel.todoList.filter({ $0.state == .Done }))
+        
+        dataSource?.apply(snapshot)
     }
     
     private func configureSubviews() {
@@ -59,6 +77,7 @@ final class MainListViewController: UIViewController {
     }
     
     private func configureConstraints() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -85,7 +104,6 @@ final class MainListViewController: UIViewController {
         let modalViewWithNavigation = UINavigationController(rootViewController: addProjectViewController)
         navigationController?.present(modalViewWithNavigation, animated: true)
     }
-    
 }
 
 private enum NameSpace {
