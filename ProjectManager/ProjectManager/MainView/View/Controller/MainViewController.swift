@@ -15,15 +15,6 @@ final class MainViewController: UIViewController {
         cellReuseIdentifier: TodoCell.identifier
     )
     
-    private let stackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .equalSpacing
-        
-        return stackView
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,17 +27,23 @@ final class MainViewController: UIViewController {
     private func collectionViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .fractionalWidth(0.2))
+        
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .fractionalHeight(1.0))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3),
+                                               heightDimension: .fractionalHeight(1))
+        
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
                                                        subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
         
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        layout.configuration.scrollDirection = .horizontal
+        let layoutConfiguration = UICollectionViewCompositionalLayoutConfiguration()
+        layoutConfiguration.scrollDirection = .horizontal
+        
+        let layout = UICollectionViewCompositionalLayout(section: section,
+                                                         configuration: layoutConfiguration)
         
         return layout
     }
@@ -71,6 +68,7 @@ final class MainViewController: UIViewController {
     
     private func configureCollectionView() {
         collectionView.register(TodoCell.self, forCellWithReuseIdentifier: TodoCell.identifier)
+        collectionView.isScrollEnabled = false
         
         do {
             collectionView.dataSource = try mainCollectionViewModel.makeDataSource()

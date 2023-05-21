@@ -19,7 +19,17 @@ final class MainCollectionViewModel: NSObject {
         Todo(title: "hiThere", date: Date(), body: "body", workState: .done),
         Todo(title: "hi", date: Date(), body: "body", workState: .doing),
         Todo(title: "hibye", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hibyehi", date: Date(), body: "body", workState: .todo)
+        Todo(title: "hibyehi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "body", workState: .todo)
     ]
     
     init(collectionView: UICollectionView?, cellReuseIdentifier: String) {

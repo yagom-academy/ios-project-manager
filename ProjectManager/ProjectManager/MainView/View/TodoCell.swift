@@ -9,6 +9,7 @@ import UIKit
 
 final class TodoCell: UICollectionViewListCell {
     static let identifier = "TodoCell"
+    
     let titleLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
