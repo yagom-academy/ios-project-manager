@@ -8,6 +8,19 @@
 import UIKit
 
 final class TodoViewController: UIViewController {
+    private enum GeneratedTaskError: LocalizedError {
+        case titleEmpty
+        case descriptionEmpty
+        
+        var errorDescription: String? {
+            switch self {
+            case .titleEmpty:
+                return "제목을 입력해주세요"
+            case .descriptionEmpty:
+                return "설명을 입력해주세요"
+            }
+        }
+    }
     
     private let titleTextField = TodoTitleTextField()
     private let datePicker = UIDatePicker()
@@ -26,6 +39,17 @@ final class TodoViewController: UIViewController {
         super.viewDidAppear(animated)
         
         configureShadow()
+    }
+    
+    private func makeTask() throws -> Task {
+        guard let title = titleTextField.text,
+              title != "" else { throw GeneratedTaskError.titleEmpty }
+        guard let description = descriptionTextView.text,
+              description != "" else { throw GeneratedTaskError.descriptionEmpty }
+        
+        let date = datePicker.date
+        
+        return Task(title: title, description: description, date: date)
     }
     
     @objc private func didTapCancelButton() {
