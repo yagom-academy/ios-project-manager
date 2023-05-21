@@ -31,19 +31,22 @@ final class MainViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, _ in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalWidth(0.2))
-            
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                    heightDimension: .fractionalHeight(1))
-            
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
                                                            subitems: [item])
-
+            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil,
+                                                              top: .flexible(50),
+                                                              trailing: nil,
+                                                              bottom: nil)
+            
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .absolute(50.0))
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
+                                                    heightDimension: .absolute(50.0))
             let header = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerSize,
                 elementKind: UICollectionView.elementKindSectionHeader,

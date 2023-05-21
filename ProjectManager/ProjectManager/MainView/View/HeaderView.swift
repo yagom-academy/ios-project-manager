@@ -51,6 +51,7 @@ final class HeaderView: UICollectionReusableView {
         stackView.addArrangedSubview(badgeLabel)
         stackView.addArrangedSubview(UIView())
         self.addSubview(stackView)
+        self.backgroundColor = .systemGray5
         
         configureLayout()
     }
