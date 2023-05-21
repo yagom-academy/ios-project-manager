@@ -19,4 +19,8 @@ final class ListViewModel {
                                  ToDoModel(title: "한 일 제목4", description: "한 일 내용4", deadLine: Date(), state: .Done),
                                  ToDoModel(title: "하는 중 제목1", description: "하는 중 내용1", deadLine: Date(), state: .Doing),
                                  ToDoModel(title: "하는 중 제목2", description: "하는 중 내용2", deadLine: Date(), state: .Doing)]
+    
+    func configureCell(to cell: ListViewCell, with data: ToDoModel) {
+        cell.configureContent(with: data)
+    }
 }

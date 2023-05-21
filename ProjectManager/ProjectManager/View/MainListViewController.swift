@@ -12,7 +12,8 @@ final class MainListViewController: UIViewController {
     
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    private let ListviewModel = ListViewModel()
+    private var dataSource: DataSource?
+    private let listviewModel = ListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,17 @@ final class MainListViewController: UIViewController {
         }, configuration: configuration)
         
         return layout
+    }
+    
+    private func configureDataSource() {
+        dataSource = DataSource(collectionView: collectionView) {
+            (collectionView, indexPath, item) -> UICollectionViewCell? in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListViewCell.identifier, for: indexPath) as? ListViewCell else { return UICollectionViewCell() }
+            
+            self.listviewModel.configureCell(to: cell, with: item)
+            
+            return cell
+        }
     }
     
     private func configureSubviews() {

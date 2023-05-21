@@ -8,6 +8,8 @@
 import UIKit
 
 final class ListViewCell: UICollectionViewCell {
+    static let identifier = "cell"
+    
     private let listContentView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -16,7 +18,7 @@ final class ListViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
        let label = UILabel()
         label.numberOfLines = 1
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -24,7 +26,7 @@ final class ListViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
+    private var descriptionLabel: UILabel = {
        let label = UILabel()
         label.numberOfLines = 3
         label.textColor = .systemGray3
@@ -33,7 +35,7 @@ final class ListViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let deadLineLabel: UILabel = {
+    private var deadLineLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         
@@ -54,5 +56,11 @@ final class ListViewCell: UICollectionViewCell {
         listContentView.addArrangedSubview(titleLabel)
         listContentView.addArrangedSubview(descriptionLabel)
         listContentView.addArrangedSubview(deadLineLabel)
+    }
+    
+    func configureContent(with toDoList: ToDoModel) {
+        titleLabel.text = toDoList.title
+        descriptionLabel.text = toDoList.description
+        deadLineLabel.text = DateFormatter.shared.stringDate(from: toDoList.deadLine)
     }
 }
