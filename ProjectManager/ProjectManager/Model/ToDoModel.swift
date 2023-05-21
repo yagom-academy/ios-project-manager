@@ -7,15 +7,11 @@
 
 import Foundation
 
-struct ToDoModel {
+struct ToDoModel: Hashable {
     var title: String
     var description: String
     var deadLine: Date
     var state: State
 }
 
-enum State {
-    case Todo
-    case Doing
-    case Done
-}
+
