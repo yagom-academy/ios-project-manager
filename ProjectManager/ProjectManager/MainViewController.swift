@@ -14,8 +14,9 @@ enum Section {
 }
 
 struct TodoLabel: Hashable {
-    let titleLable: String
-    let contentLabel: String
+    let title: String
+    let content: String
+    let date: Date
 }
 
 class MainViewController: UIViewController {
@@ -28,7 +29,7 @@ class MainViewController: UIViewController {
         return collectionView
     }()
     
-    private let user = [TodoLabel(titleLable: "Hi!", contentLabel: "Andrew!")]
+    private let user = [TodoLabel(title: "Hi!", content: "Andrew!", date: Date()), TodoLabel(title: "Hello~", content: "Brody!", date: Date())]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,11 +64,12 @@ class MainViewController: UIViewController {
 extension MainViewController {
     private func setUpCollectionView() {
         // register를 따로 하지 않고 register & configure 작업을 할 수 있다
-        let registration = UICollectionView.CellRegistration<UICollectionViewListCell, TodoLabel> { cell, IndexPath, todo in
-            var content = cell.defaultContentConfiguration()
-            content.text = todo.titleLable
+        let registration = UICollectionView.CellRegistration<TodoListCell, TodoLabel> { cell, IndexPath, todo in
+//            var content = cell.defaultContentConfiguration()
+//            content.text = todo.titleLable
+//            cell.contentConfiguration = content
             
-            cell.contentConfiguration = content
+            cell.configure(title: todo.title, content: todo.content, date: todo.date)
         }
         
         dataSource = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView) {

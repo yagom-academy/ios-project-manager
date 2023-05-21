@@ -13,6 +13,22 @@ class TodoListCell: UICollectionViewListCell {
         return label
     }()
     
+    private let contentLabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    private let dateLabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    private let cellStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -23,16 +39,21 @@ class TodoListCell: UICollectionViewListCell {
     }
     
     private func configureUI() {
-        backgroundColor = .red
-        addSubview(titleLabel)
+        addSubview(cellStackView)
+        cellStackView.addArrangedSubview(titleLabel)
+        cellStackView.addArrangedSubview(contentLabel)
+        cellStackView.addArrangedSubview(dateLabel)
         
-        titleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+        cellStackView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
         }
+        
     }
     
-    func configure(text: String) {
-        titleLabel.text = text
+    func configure(title: String, content: String, date: Date) {
+        titleLabel.text = title
+        contentLabel.text = content
+        dateLabel.text = Date.dateString()
     }
     
 }
