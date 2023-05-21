@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class HeaderView: UITableViewHeaderFooterView {
-    static let identifier = "Header"
+final class HeaderView: UICollectionReusableView {
+    static let identifier = "HeaderView"
     
     let titleLabel = {
         let label = UILabel()
@@ -45,12 +45,12 @@ final class HeaderView: UITableViewHeaderFooterView {
         return stackView
     }()
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(badgeLabel)
         stackView.addArrangedSubview(UIView())
-        contentView.addSubview(stackView)
+        self.addSubview(stackView)
         
         configureLayout()
     }
@@ -61,12 +61,12 @@ final class HeaderView: UITableViewHeaderFooterView {
     
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            stackView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
+            stackView.bottomAnchor.constraint(greaterThanOrEqualTo: self.bottomAnchor),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
-            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
 }

@@ -52,6 +52,17 @@ extension MainCollectionViewModel {
         }
         
         let dataSource = DataSource(collectionView: collectionView, cellProvider: cellProvider)
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: HeaderView.identifier,
+                for: indexPath) as? HeaderView else {
+                fatalError("Could not dequeue sectionHeader:")
+            }
+
+            sectionHeader.titleLabel.text = "Section Header"
+            return sectionHeader
+        }
         self.dataSource = dataSource
         
         return dataSource
