@@ -50,8 +50,8 @@ final class ListViewController: UIViewController {
         datasource?.apply(snapshot, animatingDifferences: true)
     }
     
-    private func deleteSnapshot(by section: TaskState) {
-        snapshot.deleteSections([section])
+    private func deleteSnapshot(by task: Task) {
+        snapshot.deleteItems([task])
         
         datasource?.apply(snapshot)
     }
@@ -88,7 +88,19 @@ extension ListViewController {
     
     private func makeCollectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-            let listConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            var listConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            
+            listConfig.trailingSwipeActionsConfigurationProvider = { indexPath in
+                let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
+                    // Delete Item
+                    completion(true)
+                }
+                
+                deleteAction.backgroundColor = .systemRed
+                
+                return UISwipeActionsConfiguration(actions: [deleteAction])
+            }
+            
             let section = NSCollectionLayoutSection.list(using: listConfig, layoutEnvironment: layoutEnvironment)
             let headerViewSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                         heightDimension: .estimated(100))
