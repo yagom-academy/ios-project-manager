@@ -7,9 +7,12 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<WorkStatus, Work>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<WorkStatus, Work>
+    
     private let viewModel = WorkViewModel()
     private var collectionView: UICollectionView?
-    private var dataSource: UICollectionViewDiffableDataSource<WorkStatus, Work>?
+    private var dataSource: DataSource?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +21,7 @@ final class MainViewController: UIViewController {
         configureCollectionView()
         configureDataSource()
         applySnapshot()
+        configureSwipeGesture()
     }
     
     private func configureUIOption() {
@@ -104,7 +108,7 @@ extension MainViewController {
     private func configureDataSource() {
         guard let collectionView else { return }
         
-        dataSource = UICollectionViewDiffableDataSource<WorkStatus, Work>(collectionView: collectionView) {
+        dataSource = DataSource(collectionView: collectionView) {
             (collectionView, indexPath, item) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkCell.identifier, for: indexPath) as? WorkCell else {
                 return UICollectionViewCell()
@@ -133,7 +137,7 @@ extension MainViewController {
     }
     
     private func applySnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<WorkStatus, Work>()
+        var snapshot = Snapshot()
         
         WorkStatus.allCases.forEach { status in
             snapshot.appendSections([status])
@@ -144,3 +148,30 @@ extension MainViewController {
         dataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
+
+extension MainViewController: UIGestureRecognizerDelegate {
+    private func configureSwipeGesture() {
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
+        
+        swipeGestureRecognizer.delegate = self
+        swipeGestureRecognizer.direction = .left
+        collectionView?.addGestureRecognizer(swipeGestureRecognizer)
+    }
+    
+    @objc private func handleSwipeGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        if gestureRecognizer.state == .ended {
+            let location = gestureRecognizer.location(in: collectionView)
+            
+            guard let indexPath = collectionView?.indexPathForItem(at: location),
+                  let id = dataSource?.itemIdentifier(for: indexPath)?.id else { return }
+            
+            viewModel.removeWork(id: id)
+            applySnapshot()
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
