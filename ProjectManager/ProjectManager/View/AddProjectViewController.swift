@@ -19,8 +19,9 @@ final class AddProjectViewController: UIViewController {
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "제목을 입력하세요"
-        textField.font = UIFont.preferredFont(forTextStyle: .caption1)
+        textField.placeholder = "Title"
+        textField.font = UIFont.preferredFont(forTextStyle: .title2)
+        textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -37,6 +38,7 @@ final class AddProjectViewController: UIViewController {
     
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
@@ -53,14 +55,17 @@ final class AddProjectViewController: UIViewController {
         view.backgroundColor = .white
         title = NameSpace.title
         
-        preferredContentSize = CGSize(width: 300, height: 300)
+        self.preferredContentSize = CGSize(width: 300, height: 300)
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                               target: self,
-                                               action: #selector(doneEdit))
+                                         target: self,
+                                         action: #selector(doneEdit))
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                               target: self,
-                                               action: #selector(doneEdit))
+                                           target: self,
+                                           action: #selector(doneEdit))
+//        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
+//                                         target: self,
+//                                         action: )
         
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.leftBarButtonItem = cancelButton
