@@ -7,9 +7,10 @@
 import UIKit
 
 final class MainListViewController: UIViewController {
+    static let headerElementKind = "headrElementKind"
+    
     private typealias DataSource = UICollectionViewDiffableDataSource<State, ToDoModel>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<State, ToDoModel>
-    
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
     private var dataSource: DataSource?
@@ -19,6 +20,7 @@ final class MainListViewController: UIViewController {
         super.viewDidLoad()
         configureSubviews()
         configureConstraints()
+        configureCollectionView()
         configureNavigation()
         configureDataSource()
         configureSnapShot()
@@ -40,6 +42,13 @@ final class MainListViewController: UIViewController {
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 8
             
+//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+//                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+//                                                  heightDimension: .estimated(44)),
+//                elementKind: OrthogonalScrollBehaviorViewController.headerElementKind,
+//                alignment: .top)
+//            section.boundarySupplementaryItems = [sectionHeader]
+            
             return section
         }, configuration: configuration)
         
@@ -57,6 +66,19 @@ final class MainListViewController: UIViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                 for: indexPath,
                                                                 item: item)
+        }
+        
+        let supplementaryRegistration = UICollectionView.SupplementaryRegistration
+        <CollectionViewHeaderReusableView>(elementKind: MainListViewController.headerElementKind) {
+            (supplementaryView, string, indexPath) in
+            
+            supplementaryView.configureContent(with: self.listViewModel.todoList)
+        }
+        
+        dataSource?.supplementaryViewProvider = { (view, kind, index) in
+            return self.collectionView.dequeueConfiguredReusableSupplementary(
+                using: supplementaryRegistration,
+                for: index)
         }
     }
     
@@ -84,6 +106,10 @@ final class MainListViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    private func configureCollectionView() {
+        collectionView.backgroundColor = .systemGray3
     }
     
     private func configureNavigation() {

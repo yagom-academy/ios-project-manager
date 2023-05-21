@@ -13,6 +13,7 @@
 		4BE8F7E72A17206A00D18075 /* ListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F7E62A17206A00D18075 /* ListViewCell.swift */; };
 		4BE8F7EB2A178F9A00D18075 /* extension+DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F7EA2A178F9A00D18075 /* extension+DateFormatter.swift */; };
 		4BE8F8142A19F9E400D18075 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F8132A19F9E400D18075 /* State.swift */; };
+		4BE8F8182A1A4A0E00D18075 /* CollectionViewHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F8172A1A4A0E00D18075 /* CollectionViewHeaderReusableView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainListViewController.swift */; };
@@ -27,6 +28,7 @@
 		4BE8F7E62A17206A00D18075 /* ListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCell.swift; sourceTree = "<group>"; };
 		4BE8F7EA2A178F9A00D18075 /* extension+DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+DateFormatter.swift"; sourceTree = "<group>"; };
 		4BE8F8132A19F9E400D18075 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		4BE8F8172A1A4A0E00D18075 /* CollectionViewHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewHeaderReusableView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				C7431F0925F51E1D0094C4CF /* MainListViewController.swift */,
 				4BE8F7E22A1638AB00D18075 /* AddProjectViewController.swift */,
 				4BE8F7E62A17206A00D18075 /* ListViewCell.swift */,
+				4BE8F8172A1A4A0E00D18075 /* CollectionViewHeaderReusableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				4BE8F7EB2A178F9A00D18075 /* extension+DateFormatter.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				4BE8F8182A1A4A0E00D18075 /* CollectionViewHeaderReusableView.swift in Sources */,
 				4BE8F8142A19F9E400D18075 /* State.swift in Sources */,
 				4BE8F7E32A1638AB00D18075 /* AddProjectViewController.swift in Sources */,
 				4B00D3882A149EDD005CCB08 /* ToDoModel.swift in Sources */,
