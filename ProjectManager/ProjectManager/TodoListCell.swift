@@ -45,7 +45,7 @@ class TodoListCell: UICollectionViewListCell {
         cellStackView.addArrangedSubview(dateLabel)
         
         cellStackView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
         
     }
