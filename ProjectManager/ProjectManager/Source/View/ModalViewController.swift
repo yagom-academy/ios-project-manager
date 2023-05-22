@@ -10,7 +10,6 @@ import UIKit
 class ModalViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        
         textField.placeholder = "제목을 입력해주세요"
         textField.borderStyle = .none
         textField.backgroundColor = .systemBackground
@@ -27,7 +26,6 @@ class ModalViewController: UIViewController {
     
     private let datePickerView: UIDatePicker = {
         let pickerView = UIDatePicker()
-        
         pickerView.preferredDatePickerStyle = .wheels
         pickerView.locale = Locale(identifier: "ko_KR")
         pickerView.translatesAutoresizingMaskIntoConstraints = false

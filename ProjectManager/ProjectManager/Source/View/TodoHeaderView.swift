@@ -1,5 +1,5 @@
 //
-//  HeaderView.swift
+//  TodoHeaderView.swift
 //  ProjectManager
 //
 //  Created by songjun, vetto on 2023/05/17.
@@ -8,11 +8,11 @@
 import UIKit
 
 final class TodoHeaderView: UIView {
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "TODO"
         label.textColor = .black
+        label.font = .preferredFont(forTextStyle: .title1)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -23,9 +23,10 @@ final class TodoHeaderView: UIView {
         label.textColor = .white
         label.layer.borderWidth = 1
         label.layer.masksToBounds = true
-        label.layer.cornerRadius = 10
+        label.layer.cornerRadius = label.bounds.size.width / 2
         label.backgroundColor = .black
-        label.text = " 5 "
+        label.text = "5"
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -46,8 +47,6 @@ final class TodoHeaderView: UIView {
     }
     
     func updateCountLabel(todoCount: Int) {
-        let todoCountString = String(todoCount)
-        
         countLabel.text = "4"
     }
     
@@ -58,12 +57,12 @@ final class TodoHeaderView: UIView {
         self.addSubview(countLabel)
         
         NSLayoutConstraint.activate([
-            
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
  
             countLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 20)
+            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 20),
+            countLabel.widthAnchor.constraint(equalToConstant: 20),
         ])
     }
 }

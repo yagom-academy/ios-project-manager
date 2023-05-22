@@ -7,7 +7,6 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    
     let schedule = Schedule(title: "asd", detail: "asd", expirationDate: Date())
     let schedule2 = Schedule(title: "sdf", detail: "sdf", expirationDate: Date())
     let schedule3 = Schedule(title: "sdf", detail: "sdf", expirationDate: Date())
@@ -35,7 +34,6 @@ final class MainViewController: UIViewController {
     private let todoView = TodoView()
     private let doingView = DoingView()
     private let doneView = DoneView()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
