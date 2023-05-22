@@ -13,6 +13,8 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     func sendTodoList(data: ToDoList) {
         toDoList?.append(data)
         toDoTableView.reloadData()
+        doingTableView.reloadData()
+        doneTableView.reloadData()
     }
     
     private let toDoStackView: UIStackView = {
@@ -116,14 +118,24 @@ extension ToDoListViewContorller: UITableViewDelegate {
 
 extension ToDoListViewContorller: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return toDoList?.count ?? 0
+        if tableView == toDoTableView {
+            return toDoList?.count ?? 0
+        } else {
+            return 0
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell,
               let toDoList = self.toDoList else { return UITableViewCell() }
+        if tableView == toDoTableView {
+            toDoTableViewCell.setUpLabel(toDoList: toDoList[indexPath.row])
+        } else {
+            
+        }
         
-        toDoTableViewCell.setUpLabel(toDoList: toDoList[indexPath.row])
         return toDoTableViewCell
     }
 }
