@@ -12,7 +12,7 @@ final class HeaderView: UICollectionReusableView {
     private let contentStackView: UIStackView = {
         let stackview = UIStackView()
         stackview.alignment = .center
-        stackview.spacing = 20
+        stackview.spacing = 10
         stackview.translatesAutoresizingMaskIntoConstraints = false
         
         return stackview
@@ -29,10 +29,20 @@ final class HeaderView: UICollectionReusableView {
     private let numberLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .black
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .white
+        label.textAlignment = .center
+        label.layer.cornerRadius = 15
+        label.layer.masksToBounds = true
         
         return label
+    }()
+    
+    private let emptyView: UIView = {
+        let view = UIView()
+        view.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -66,6 +76,7 @@ final class HeaderView: UICollectionReusableView {
         self.addSubview(contentStackView)
         contentStackView.addArrangedSubview(statusLabel)
         contentStackView.addArrangedSubview(numberLabel)
+        contentStackView.addArrangedSubview(emptyView)
     }
     
     private func configureConstraint() {
@@ -73,7 +84,9 @@ final class HeaderView: UICollectionReusableView {
             contentStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             contentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            contentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+            contentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            numberLabel.heightAnchor.constraint(equalToConstant: 30),
+            numberLabel.widthAnchor.constraint(equalTo: numberLabel.heightAnchor)
         ])
     }
 }

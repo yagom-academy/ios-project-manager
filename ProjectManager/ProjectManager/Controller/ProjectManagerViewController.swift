@@ -151,25 +151,25 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
         tapGesture.delegate = self
         projectManagerCollectionView.addGestureRecognizer(tapGesture)
     }
-
+    
     @objc
     func handleTap(gestureRecognizer: UITapGestureRecognizer) {
         let location = gestureRecognizer.location(in: projectManagerCollectionView)
-
+        
         if gestureRecognizer.state == .ended {
             if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
                 let rootViewController = AddProjectViewController()
                 rootViewController.projectManagerViewController = self
                 rootViewController.configureEditingStatus(isEditible: false)
-
+                
                 guard let status = Status(rawValue: indexPath.section) else { return }
-
+                
                 let assignedProjects = projects.list.filter { $0.status == status }
                 let project = assignedProjects[indexPath.item]
                 rootViewController.configureProject(assignedProject: project)
                 let navigationController = UINavigationController(rootViewController: rootViewController)
                 navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
-
+                
                 self.present(navigationController, animated: true, completion: nil)
             }
         }
@@ -182,7 +182,7 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
         longPressedGesture.delaysTouchesBegan = true
         projectManagerCollectionView.addGestureRecognizer(longPressedGesture)
     }
-
+    
     @objc
     func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: projectManagerCollectionView)
@@ -198,12 +198,12 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
             }
         }
     }
-
+    
     @objc
     func moveToDoing() {
         print("Move to Doing")
     }
-
+    
     @objc
     func moveToDone() {
         print("Move to Done")
