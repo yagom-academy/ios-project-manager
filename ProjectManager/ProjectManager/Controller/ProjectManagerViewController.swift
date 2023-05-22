@@ -22,6 +22,7 @@ final class ProjectManagerViewController: UIViewController {
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                    heightDimension: .fractionalHeight(1.0))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                     heightDimension: .fractionalHeight(1/8))
