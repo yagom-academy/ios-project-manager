@@ -7,8 +7,7 @@
 
 import UIKit
 
-final class TodoHeaderView: UICollectionReusableView {
-    static let reuseIdentifier = "headerView"
+final class TodoHeaderView: UIView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -19,11 +18,14 @@ final class TodoHeaderView: UICollectionReusableView {
         return label
     }()
     
-    private lazy var countLabel: UILabel = {
+    private let countLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.layer.borderWidth = 1
+        label.layer.masksToBounds = true
         label.layer.cornerRadius = 10
         label.backgroundColor = .black
+        label.text = " 5 "
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -38,6 +40,11 @@ final class TodoHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        countLabel.layer.cornerRadius = 10
+    }
+    
     func updateCountLabel(todoCount: Int) {
         let todoCountString = String(todoCount)
         
@@ -45,14 +52,16 @@ final class TodoHeaderView: UICollectionReusableView {
     }
     
     private func configureUI() {
-        self.backgroundColor = .lightGray
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = .white
         self.addSubview(titleLabel)
         self.addSubview(countLabel)
         
         NSLayoutConstraint.activate([
+            
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            
+ 
             countLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 20)
         ])

@@ -46,12 +46,15 @@ final class MainViewController: UIViewController {
         todoView.configureUI()
         todoView.configureDataSource(schedule: schedule)
         todoView.applySnapshot(schedules: schedules)
+        todoView.configureStackView()
         doingView.configureUI()
         doingView.configureDataSource(schedule: schedule2)
         doingView.applySnapshot(schedules: schedules2)
+        doingView.configureStackView()
         doneView.configureUI()
         doneView.configureDataSource(schedule: schedule3)
         doneView.applySnapshot(schedules: schedules3)
+        doneView.configureStackView()
         configureNavigationBar()
     }
     

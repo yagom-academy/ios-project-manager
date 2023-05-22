@@ -13,12 +13,14 @@ class DoingView: DoListView {}
 
 class DoneView: DoListView {}
 
-class DoListView: UIView {
+class DoListView: UIStackView {
     enum Section: CaseIterable {
         case main
     }
     
     var dataSource: UICollectionViewDiffableDataSource<Section, Schedule>?
+    
+    private let headerView = TodoHeaderView()
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero,
@@ -46,8 +48,6 @@ class DoListView: UIView {
             
             return cell
         }
-        
-        collectionView.register(TodoHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView")
     }
     
     func applySnapshot(schedules: [Schedule]) {
@@ -59,14 +59,23 @@ class DoListView: UIView {
     
     func configureUI() {
         collectionView.backgroundColor = .lightGray
-        self.addSubview(collectionView)
+        self.addArrangedSubview(headerView)
+        self.addArrangedSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 50),
+            headerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+    }
+    
+    func configureStackView() {
+        self.axis = .vertical
+        self.distribution = .fill
     }
     
     private func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
@@ -95,7 +104,7 @@ class DoListView: UIView {
     }
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
-        guard let indexPath = indexPath, let id = dataSource?.itemIdentifier(for: indexPath) else { return nil }
+        guard let indexPath = indexPath, let _ = dataSource?.itemIdentifier(for: indexPath) else { return nil }
         let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
             
