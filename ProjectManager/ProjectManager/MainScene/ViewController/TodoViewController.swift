@@ -22,6 +22,7 @@ final class TodoViewController: UIViewController {
         }
     }
     
+    private let parentTextView = UIView()
     private let titleTextField = TodoTitleTextField()
     private let datePicker = UIDatePicker()
     private let descriptionTextView = UITextView()
@@ -112,7 +113,7 @@ extension TodoViewController {
         configureDatePickerUI()
         configureTextViewUI()
         
-        let mainStackView = UIStackView(arrangedSubviews: [titleTextField, datePicker, descriptionTextView])
+        let mainStackView = UIStackView(arrangedSubviews: [titleTextField, datePicker, parentTextView])
         
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.axis = .vertical
@@ -152,21 +153,35 @@ extension TodoViewController {
         descriptionTextView.font = .preferredFont(forTextStyle: .title2)
         descriptionTextView.layer.borderColor = UIColor.label.cgColor
         descriptionTextView.layer.borderWidth = 0.3
+        
+        parentTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        parentTextView.addSubview(descriptionTextView)
+        
+        NSLayoutConstraint.activate([
+            descriptionTextView.topAnchor.constraint(equalTo: parentTextView.topAnchor),
+            descriptionTextView.leadingAnchor.constraint(equalTo: parentTextView.leadingAnchor),
+            descriptionTextView.trailingAnchor.constraint(equalTo: parentTextView.trailingAnchor),
+            descriptionTextView.bottomAnchor.constraint(equalTo: parentTextView.bottomAnchor)
+        ])
     }
     
     private func configureShadow() {
-        let contactShadowSize: CGFloat = 5
-        
         titleTextField.layer.shadowColor = UIColor.label.cgColor
         titleTextField.layer.shadowOpacity = 0.3
         titleTextField.layer.shadowOffset = CGSize(width: 0, height: 3)
         
-        let textFieldShadowPath = CGPath(rect: CGRect(x: contactShadowSize,
-                                             y: titleTextField.frame.height - contactShadowSize,
-                                             width: titleTextField.frame.width - contactShadowSize * 2,
-                                             height: contactShadowSize),
-                                transform: nil)
+        let textFieldShadowPath = CGPath(rect: titleTextField.bounds, transform: nil)
 
         titleTextField.layer.shadowPath = textFieldShadowPath
+        
+        parentTextView.layer.masksToBounds = false
+        parentTextView.layer.shadowColor = UIColor.label.cgColor
+        parentTextView.layer.shadowOpacity = 0.3
+        parentTextView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        
+        let textViewShadowPath = CGPath(rect: parentTextView.bounds, transform: nil)
+        
+        parentTextView.layer.shadowPath = textViewShadowPath
     }
 }
