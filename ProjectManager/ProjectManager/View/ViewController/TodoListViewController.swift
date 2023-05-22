@@ -165,13 +165,8 @@ extension TodoListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? TodoTableViewCell else { return UITableViewCell() }
-        
         let item = todoListViewModel.item(at: indexPath.row)
-        let convertDate = todoListViewModel.convertDate(of: item.date)
-        let color = todoListViewModel.changeColor(at: indexPath.row)
-        
-        cell.configureCell(with: item, and: convertDate)
-        cell.changeColor(by: color)
+        cell.configureCell(with: item)
         
         return cell
     }

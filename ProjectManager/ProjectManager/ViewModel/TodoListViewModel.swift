@@ -8,8 +8,8 @@
 import UIKit
 import Combine
 
-final class TodoListViewModel: ObservableObject {
-    @Published var todoItems: [TodoItem] = []
+final class TodoListViewModel {
+    @Published private(set) var todoItems: [TodoItem] = []
     
     var numberOfItems: Int {
         return todoItems.count
@@ -25,22 +25,6 @@ final class TodoListViewModel: ObservableObject {
     
     func updateItem(at index: Int, newItem: TodoItem) {
         todoItems[index] = newItem
-    }
-    
-    func convertDate(of date: Date) -> String {
-        return DateFormatManager.shared.convertToFormattedDate(of: date)
-    }
-    
-    func changeColor(at index: Int) -> UIColor {
-        let item = todoItems[index]
-        let result = DateFormatManager.shared.compareDate(from: item.date)
-        
-        switch result {
-        case .past:
-            return UIColor.red
-        default:
-            return UIColor.black
-        }
     }
     
     func delete(at index: Int) {

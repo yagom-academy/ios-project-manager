@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 final class TodoTableViewCell: UITableViewCell {
+    
+    private var todoTableCellViewModel: TodoTableCellViewModel?
+    private var cancellables: Set<AnyCancellable> = []
 
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -65,13 +69,32 @@ final class TodoTableViewCell: UITableViewCell {
         ])
     }
     
-    func configureCell(with item: TodoItem, and convertDate: String) {
-        title.text = item.title
-        body.text = item.body
-        date.text = convertDate
+    private func setUpBinding() {
+        todoTableCellViewModel?.$item
+            .map { item in
+                item.title
+            }.sink {
+                self.title.text = $0
+            }.store(in: &cancellables)
+        
+        todoTableCellViewModel?.$item
+            .map { item in
+                item.body
+            }.sink {
+                self.body.text = $0
+            }.store(in: &cancellables)
+        
+        todoTableCellViewModel?.$item
+            .map { item in
+                item.date
+            }.sink {
+                self.date.textColor = self.todoTableCellViewModel?.selectColor($0)
+                self.date.text = self.todoTableCellViewModel?.convertDate(of: $0)
+            }.store(in: &cancellables)
     }
     
-    func changeColor(by color: UIColor) {
-        date.textColor = color
+    func configureCell(with item: TodoItem) {
+        self.todoTableCellViewModel = TodoTableCellViewModel(item: item)
+        setUpBinding()
     }
 }

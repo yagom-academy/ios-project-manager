@@ -23,6 +23,8 @@
 		FBF0629C2A16FCAB0088A9E3 /* DoingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */; };
 		FBF0629E2A17100E0088A9E3 /* Tense.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629D2A17100E0088A9E3 /* Tense.swift */; };
 		FBF062A02A1B391B0088A9E3 /* PlusTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */; };
+		FBF062A42A1B65480088A9E3 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A32A1B65470088A9E3 /* PopoverViewController.swift */; };
+		FBF062A62A1B8E580088A9E3 /* TodoTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A52A1B8E580088A9E3 /* TodoTableCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingListViewModel.swift; sourceTree = "<group>"; };
 		FBF0629D2A17100E0088A9E3 /* Tense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tense.swift; sourceTree = "<group>"; };
 		FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTodoViewModel.swift; sourceTree = "<group>"; };
+		FBF062A32A1B65470088A9E3 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		FBF062A52A1B8E580088A9E3 /* TodoTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 				FBF062892A14B9720088A9E3 /* TodoListViewModel.swift */,
 				FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */,
 				FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */,
+				FBF062A52A1B8E580088A9E3 /* TodoTableCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -135,6 +140,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */,
 				FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */,
+				FBF062A32A1B65470088A9E3 /* PopoverViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -232,12 +238,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBF0629C2A16FCAB0088A9E3 /* DoingListViewModel.swift in Sources */,
+				FBF062A62A1B8E580088A9E3 /* TodoTableCellViewModel.swift in Sources */,
 				FBF0628A2A14B9720088A9E3 /* TodoListViewModel.swift in Sources */,
 				FBF062882A14B8A00088A9E3 /* TodoTableViewCell.swift in Sources */,
 				FBF0628D2A14BA780088A9E3 /* TodoItem.swift in Sources */,
 				FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */,
+				FBF062A42A1B65480088A9E3 /* PopoverViewController.swift in Sources */,
 				FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FBF062952A165F040088A9E3 /* HeaderStackView.swift in Sources */,
