@@ -28,6 +28,8 @@ final class MainListViewController: UIViewController {
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.scrollDirection = .horizontal
+        
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex: Int,
                                                                              layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection in
             
@@ -41,13 +43,14 @@ final class MainListViewController: UIViewController {
             
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 8
+            section.orthogonalScrollingBehavior = .continuous
             
-//            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-//                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-//                                                  heightDimension: .estimated(44)),
-//                elementKind: OrthogonalScrollBehaviorViewController.headerElementKind,
-//                alignment: .top)
-//            section.boundarySupplementaryItems = [sectionHeader]
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
+                                                  heightDimension: .absolute(30)),
+                elementKind: MainListViewController.headerElementKind,
+                alignment: .top)
+            section.boundarySupplementaryItems = [sectionHeader]
             
             return section
         }, configuration: configuration)
@@ -77,18 +80,17 @@ final class MainListViewController: UIViewController {
         
         dataSource?.supplementaryViewProvider = { (view, kind, index) in
             return self.collectionView.dequeueConfiguredReusableSupplementary(
-                using: supplementaryRegistration,
-                for: index)
+                using: supplementaryRegistration, for: index)
         }
     }
     
     private func configureSnapShot() {
         var snapshot = Snapshot()
         snapshot.appendSections([.Todo])
-        snapshot.appendSections([.Doing])
-        snapshot.appendSections([.Done])
         snapshot.appendItems(listViewModel.todoList.filter({ $0.state == .Todo }))
+        snapshot.appendSections([.Doing])
         snapshot.appendItems(listViewModel.todoList.filter({ $0.state == .Doing }))
+        snapshot.appendSections([.Done])
         snapshot.appendItems(listViewModel.todoList.filter({ $0.state == .Done }))
         
         dataSource?.apply(snapshot)
@@ -100,6 +102,7 @@ final class MainListViewController: UIViewController {
     
     private func configureConstraints() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isScrollEnabled = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

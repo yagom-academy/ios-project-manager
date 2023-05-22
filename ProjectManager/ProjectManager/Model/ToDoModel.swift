@@ -8,6 +8,7 @@
 import Foundation
 
 struct ToDoModel: Hashable {
+    let id = UUID()
     var title: String
     var description: String
     var deadLine: Date

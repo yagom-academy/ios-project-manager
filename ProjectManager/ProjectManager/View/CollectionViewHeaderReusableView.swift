@@ -12,12 +12,12 @@ class CollectionViewHeaderReusableView: UICollectionReusableView {
         let stackView = UIStackView()
         stackView.alignment = .leading
         stackView.spacing = 5
-        
         return stackView
     }()
     
-    private var titlelabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .black
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         
         return label
@@ -45,12 +45,12 @@ class CollectionViewHeaderReusableView: UICollectionReusableView {
     }
     
     func configureContent(with data: [ToDoModel]) {
-
+        titleLabel.text = "됐냐?"
     }
     
     private func configureSubviews() {
         addSubview(labelStackView)
-        labelStackView.addArrangedSubview(titlelabel)
+        labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(numberLabel)
     }
     
