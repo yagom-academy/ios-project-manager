@@ -7,21 +7,27 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<WorkStatus, Work>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<WorkStatus, Work>
-    
     private let viewModel = WorkViewModel()
-    private var collectionView: UICollectionView?
-    private var dataSource: DataSource?
+    private let todoCollectionView: WorkCollectionView
+    private let doingCollectionView: WorkCollectionView
+    private let doneCollectionView: WorkCollectionView
+    
+    init() {
+        self.todoCollectionView = WorkCollectionView(status: WorkStatus.todo.title, viewModel: viewModel)
+        self.doingCollectionView = WorkCollectionView(status: WorkStatus.doing.title, viewModel: viewModel)
+        self.doneCollectionView = WorkCollectionView(status: WorkStatus.done.title, viewModel: viewModel)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUIOption()
-        configureCollectionView()
-        configureDataSource()
-        applySnapshot()
-        configureSwipeGesture()
+        configureCollectionListView()
     }
     
     private func configureUIOption() {
@@ -43,142 +49,28 @@ final class MainViewController: UIViewController {
 
 // MARK: - Collection View Setting
 extension MainViewController {
-    private func createCollectionView() -> UICollectionView {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    private func configureCollectionListView() {
+        let stackView = createStackView()
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .systemGray6
-        collectionView.isScrollEnabled = false
-        collectionView.register(WorkCell.self,
-                                forCellWithReuseIdentifier: WorkCell.identifier)
-        collectionView.register(HeaderReusableView.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: HeaderReusableView.identifier)
-        
-        return collectionView
-    }
-    
-    private func createLayout() -> UICollectionViewLayout {
-        let config = UICollectionViewCompositionalLayoutConfiguration()
-        config.scrollDirection = .horizontal
-        
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, environment in
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .estimated(20))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0/3.0),
-                                                   heightDimension: .estimated(20))
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            
-            let section = NSCollectionLayoutSection(group: group)
-            
-            section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-            section.interGroupSpacing = 8
-            
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0/3.0),
-                                                    heightDimension: .absolute(50))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                     elementKind: UICollectionView.elementKindSectionHeader,
-                                                                     alignment: .top)
-            section.boundarySupplementaryItems = [header]
-            
-            return section
-        }, configuration: config)
-        
-        return layout
-    }
-    
-    private func configureCollectionView() {
-        collectionView = createCollectionView()
-        
-        guard let collectionView else { return }
-        
-        view.addSubview(collectionView)
+        view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
-    private func configureDataSource() {
-        guard let collectionView else { return }
+    private func createStackView() -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: [todoCollectionView, doingCollectionView, doneCollectionView])
         
-        dataSource = DataSource(collectionView: collectionView) {
-            (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkCell.identifier, for: indexPath) as? WorkCell else {
-                return UICollectionViewCell()
-            }
-            
-            cell.configure(title: item.title, body: item.body, deadline: "\(item.deadline)")
-            
-            return cell
-        }
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 8
+        stackView.backgroundColor = .systemGray5
         
-        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            if kind == UICollectionView.elementKindSectionHeader {
-                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderReusableView.identifier, for: indexPath) as? HeaderReusableView else {
-                    return UICollectionReusableView()
-                }
-                
-                let section = WorkStatus.allCases[indexPath.section]
-                
-                headerView.configure(title: section.title, count: "3")
-                
-                return headerView
-            } else {
-                return nil
-            }
-        }
-    }
-    
-    private func applySnapshot() {
-        var snapshot = Snapshot()
-        
-        WorkStatus.allCases.forEach { status in
-            snapshot.appendSections([status])
-            let works = viewModel.works.filter { $0.status == status.title }
-            snapshot.appendItems(works, toSection: status)
-        }
-        
-        dataSource?.apply(snapshot, animatingDifferences: false)
-    }
-}
-
-// MARK: - Gesture Recognizer (cell swipe)
-extension MainViewController: UIGestureRecognizerDelegate {
-    private func configureSwipeGesture() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
-        
-        panGestureRecognizer.delegate = self
-        collectionView?.addGestureRecognizer(panGestureRecognizer)
-    }
-    
-    @objc private func handleSwipeGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
-        if gestureRecognizer.state == .ended {
-            let location = gestureRecognizer.location(in: collectionView)
-            let translation = gestureRecognizer.translation(in: collectionView)
-            
-            guard let indexPath = collectionView?.indexPathForItem(at: location),
-                  let id = dataSource?.itemIdentifier(for: indexPath)?.id else { return }
-            
-            if translation.x <= -200 {
-                print("왼쪽으로 길게 스와이프한 경우")
-                
-                viewModel.removeWork(id: id)
-                applySnapshot()
-            } else if translation.x < -50 {
-                print("왼쪽으로 짧게 스와이프한 경우")
-            }
-        }
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return stackView
     }
 }
