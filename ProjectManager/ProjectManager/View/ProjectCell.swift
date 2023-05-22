@@ -10,9 +10,8 @@ final class ProjectCell: UICollectionViewCell {
     let identifier = "ProjectCell"
     var deleteRow : (() -> ()) = {}
     
-    private let cellScrollView: UIScrollView = {
+    let cellScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -98,7 +97,7 @@ final class ProjectCell: UICollectionViewCell {
         cellScrollView.contentInset.left = 70
     }
     
-    private func scrollToZero() {
+    func scrollToZero() {
         cellScrollView.setContentOffset(CGPoint(x: -70, y: 0), animated: false)
     }
     
@@ -138,6 +137,14 @@ final class ProjectCell: UICollectionViewCell {
 }
 
 extension ProjectCell: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        scrollView.isPagingEnabled = true
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        scrollView.isPagingEnabled = false
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x >= scrollView.frame.width - 70 {
             deleteRow()

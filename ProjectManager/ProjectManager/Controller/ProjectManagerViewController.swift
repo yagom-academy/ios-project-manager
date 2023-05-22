@@ -15,7 +15,7 @@ final class ProjectManagerViewController: UIViewController {
         
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .estimated(1/7))
+                                                  heightDimension: .estimated(100))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
             
@@ -31,7 +31,6 @@ final class ProjectManagerViewController: UIViewController {
             
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [header]
-            section.interGroupSpacing = -168
             section.orthogonalScrollingBehavior = .continuous
             
             return section
@@ -148,32 +147,30 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
 }
 
 extension ProjectManagerViewController: UIGestureRecognizerDelegate {
-    
     private func configureTapGestureRecognizer() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
         tapGesture.delegate = self
-        tapGesture.delaysTouchesBegan = true
         projectManagerCollectionView.addGestureRecognizer(tapGesture)
     }
-    
+
     @objc
     func handleTap(gestureRecognizer: UITapGestureRecognizer) {
         let location = gestureRecognizer.location(in: projectManagerCollectionView)
-        
+
         if gestureRecognizer.state == .ended {
             if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
                 let rootViewController = AddProjectViewController()
                 rootViewController.projectManagerViewController = self
                 rootViewController.configureEditingStatus(isEditible: false)
-                
+
                 guard let status = Status(rawValue: indexPath.section) else { return }
-                
+
                 let assignedProjects = projects.list.filter { $0.status == status }
                 let project = assignedProjects[indexPath.item]
                 rootViewController.configureProject(assignedProject: project)
                 let navigationController = UINavigationController(rootViewController: rootViewController)
                 navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
-                
+
                 self.present(navigationController, animated: true, completion: nil)
             }
         }
@@ -199,8 +196,6 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
                 menuController.menuItems = [moveToDoing, moveToDone]
                 let menuLocation = CGRect(x: location.x, y: location.y, width: 0, height: 0)
                 menuController.showMenu(from: self.view, rect: menuLocation)
-                
-                print("Long press at item finished at: \(indexPath.row)")
             }
         }
     }
