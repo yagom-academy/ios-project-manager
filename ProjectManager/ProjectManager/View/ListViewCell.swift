@@ -15,6 +15,8 @@ final class ListViewCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.spacing = 5
         stackView.backgroundColor = .white
+        stackView.layoutMargins = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -23,7 +25,7 @@ final class ListViewCell: UICollectionViewCell {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -32,7 +34,7 @@ final class ListViewCell: UICollectionViewCell {
     private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
-        label.textColor = .systemGray3
+        label.textColor = .systemGray
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -41,7 +43,7 @@ final class ListViewCell: UICollectionViewCell {
     
     private var deadLineLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
