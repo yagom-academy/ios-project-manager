@@ -8,28 +8,28 @@
 import UIKit
 
 final class MainCollectionViewModel: NSObject {
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Todo.ID>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Task.ID>
     
     private weak var collectionView: UICollectionView?
     private var dataSource: DataSource?
     private var cellIdentifier: String
     
-    var items: [Todo] = [
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hiThere", date: Date(), body: "body", workState: .done),
-        Todo(title: "hi", date: Date(), body: "body", workState: .doing),
-        Todo(title: "hibye", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hibyehi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "bodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybody", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo)
+    var items: [Task] = [
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hiThere", date: Date(), body: "body", workState: .done),
+        Task(title: "hi", date: Date(), body: "body", workState: .doing),
+        Task(title: "hibye", date: Date(), body: "body", workState: .todo),
+        Task(title: "hibyehi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "bodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybody", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo)
     ]
     
     init(collectionView: UICollectionView?, cellReuseIdentifier: String) {
@@ -68,36 +68,36 @@ extension MainCollectionViewModel {
         return dataSource
     }
     
-    func add(_ item: Todo) {
+    func add(_ item: Task) {
         self.items.append(item)
     
         update()
     }
     
-    func remove(_ item: Todo) {
+    func remove(_ item: Task) {
         self.items.removeAll { $0.id == item.id }
         
         update()
     }
     
-    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Todo.ID) -> UICollectionViewCell? {
+    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: cellIdentifier,
             for: indexPath
-        ) as? TodoCell else {
+        ) as? TaskCell else {
             return nil
         }
         
-        let todo = items.filter { $0.id == identifier }[0]
-        let todoViewModel = TodoViewModel(todo: todo)
+        let task = items.filter { $0.id == identifier }[0]
+        let taskViewModel = TaskViewModel(task: task)
         
-        cell.provide(todoViewModel)
+        cell.provide(taskViewModel)
         
         return cell
     }
     
     func update() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Todo.ID>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Task.ID>()
         snapshot.appendSections([.todo, .doing, .done])
         
         let todoList = items.filter { $0.workState == .todo }.map { $0.id }

@@ -7,12 +7,11 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    private var toDoListViewModel: TodoListViewModel = TodoListViewModel()
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
     private lazy var mainCollectionViewModel = MainCollectionViewModel(
         collectionView: collectionView,
-        cellReuseIdentifier: TodoCell.identifier
+        cellReuseIdentifier: TaskCell.identifier
     )
     
     override func viewDidLoad() {
@@ -93,7 +92,7 @@ final class MainViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        collectionView.register(TodoCell.self, forCellWithReuseIdentifier: TodoCell.identifier)
+        collectionView.register(TaskCell.self, forCellWithReuseIdentifier: TaskCell.identifier)
         collectionView.isScrollEnabled = false
         
         do {

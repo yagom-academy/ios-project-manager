@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class TodoCell: UICollectionViewListCell {
-    static let identifier = "TodoCell"
+final class TaskCell: UICollectionViewListCell {
+    static let identifier = "TaskCell"
     
     let titleLabel = {
         let label = UILabel()
@@ -73,7 +73,7 @@ final class TodoCell: UICollectionViewListCell {
         ])
     }
     
-    func provide(_ item: TodoViewModel) {
+    func provide(_ item: TaskViewModel) {
         titleLabel.text = item.title
         bodyLabel.text = item.body
         dateLabel.text = item.date
