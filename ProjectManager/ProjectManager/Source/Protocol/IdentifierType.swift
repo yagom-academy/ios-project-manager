@@ -19,3 +19,8 @@ extension IdentifierType {
 
 extension UICollectionViewCell: IdentifierType {}
 extension UIViewController: IdentifierType {}
+
+// 모달 만들기
+// 헤더뷰 만들기
+// 데이터 포맷 사용하기
+

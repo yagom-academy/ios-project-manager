@@ -7,7 +7,7 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-
+    
     let schedule = Schedule(title: "asd", detail: "asd", expirationDate: "asd")
     let schedule2 = Schedule(title: "sdf", detail: "sdf", expirationDate: "sdf")
     let schedule3 = Schedule(title: "sdf", detail: "sdf", expirationDate: "sdf")
@@ -36,11 +36,11 @@ final class MainViewController: UIViewController {
     private let doingView = DoingView()
     private let doneView = DoneView()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
+        
         createSchedules()
         configureUI()
         todoView.configureUI()
@@ -52,13 +52,33 @@ final class MainViewController: UIViewController {
         doneView.configureUI()
         doneView.configureDataSource(schedule: schedule3)
         doneView.applySnapshot(schedules: schedules3)
-        
         configureNavigationBar()
     }
     
     private func configureNavigationBar() {
-        self.title = "ProjectManager"
+        let buttonItem: UIBarButtonItem = {
+            let button = UIBarButtonItem(barButtonSystemItem: .add,
+                                         target: self,
+                                         action: #selector(tabPlusButton))
+            
+            return button
+        }()
         
+        navigationItem.rightBarButtonItem = buttonItem
+        self.title = "ProjectManager"
+    }
+    
+    @objc func tabPlusButton() {
+        presentEditModal()
+    }
+    
+    private func presentEditModal() {
+        let modalViewController = ModalViewController()
+        let modalNavigationController = UINavigationController(rootViewController: modalViewController)
+        modalViewController.modalPresentationStyle = .formSheet
+        modalViewController.preferredContentSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.7)
+        
+        present(modalNavigationController, animated: true, completion: nil)
     }
     
     private func configureUI() {
@@ -75,7 +95,4 @@ final class MainViewController: UIViewController {
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
-    
-
 }
-
