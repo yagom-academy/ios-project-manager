@@ -8,6 +8,8 @@
 import UIKit
 
 class TaskListHeaderView: UIView {
+    private let viewModel: TaskListHeaderViewModel
+    
     private let titleLabel = {
         let label = UILabel()
         
@@ -42,8 +44,10 @@ class TaskListHeaderView: UIView {
         return stackView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(state: State) {
+        self.viewModel = TaskListHeaderViewModel(state: state)
+        
+        super.init(frame: .zero)
         
         self.backgroundColor = .systemGray6
         setupStackView()
