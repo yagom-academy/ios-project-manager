@@ -86,8 +86,8 @@ extension TodoViewController: UITextViewDelegate {
 // MARK: UI
 extension TodoViewController {
     private func showErrorAlert(_ error: Error) {
-        let alertController = UIAlertController(title: "확인해주세요",
-                                                message: error.localizedDescription,
+        let alertController = UIAlertController(title: error.localizedDescription,
+                                                message: nil,
                                                 preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "확인", style: .cancel)
         
