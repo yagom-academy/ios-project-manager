@@ -67,6 +67,10 @@ final class DetailViewController: UIViewController {
         configureRootView()
     }
     
+    
+    private func bind(to viewModel: DetailViewModel) {
+    }
+    
     private func configureNavigationBar() {
         let naviBar = UINavigationBar(frame: .init(x: 0, y: 0, width: view.frame.width / 2 + 20, height: 50))
         
