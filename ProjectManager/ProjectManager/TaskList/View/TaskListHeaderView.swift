@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 class TaskListHeaderView: UIView {
     private let viewModel: TaskListHeaderViewModel
+    private var subscriptions = Set<AnyCancellable>()
     
     private let titleLabel = {
         let label = UILabel()
@@ -52,18 +54,24 @@ class TaskListHeaderView: UIView {
         self.backgroundColor = .systemGray6
         setupStackView()
         setupConstraints()
+        setupTitle()
+        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupTitle(_ title: String) {
-        titleLabel.text = title
+    private func bind() {
+        viewModel.$count
+            .sink { [weak self] count in
+                self?.countLabel.text = count
+            }
+            .store(in: &subscriptions)
     }
     
-    func updateCount(_ count: Int) {
-        countLabel.text = String(count)
+    private func setupTitle() {
+        titleLabel.text = viewModel.title
     }
     
     private func setupStackView() {

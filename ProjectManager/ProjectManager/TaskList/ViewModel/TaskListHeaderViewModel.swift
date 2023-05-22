@@ -12,7 +12,7 @@ final class TaskListHeaderViewModel {
     private let taskManager = TaskManager.shared
     private var subscriptions = Set<AnyCancellable>()
     
-    @Published var title: String = ""
+    var title: String = ""
     @Published var count: String = ""
     
     init(state: State) {
@@ -32,8 +32,9 @@ final class TaskListHeaderViewModel {
                     $0.state == state
                 }
             }
-            .count()
-            .map { String($0) }
+            .map {
+                String($0.count)
+            }
             .assign(to: \.count, on: self)
             .store(in: &subscriptions)
     }

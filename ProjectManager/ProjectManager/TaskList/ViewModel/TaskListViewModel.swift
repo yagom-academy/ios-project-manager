@@ -19,8 +19,8 @@ final class TaskListViewModel {
     func filteredTaskPublisher() -> AnyPublisher<[Task], Never> {
         return taskManager.taskListPublisher()
             .map {
-                $0.filter { task in
-                    task.state == self.state
+                $0.filter { [weak self] task in
+                    task.state == self?.state
                 }
             }
             .eraseToAnyPublisher()

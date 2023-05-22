@@ -14,7 +14,7 @@ final class TaskListViewController: UIViewController {
     private let state: State
     private let viewModel: TaskListViewModel
     private var dataSource: DataSource?
-    private let headerView = TaskListHeaderView()
+    private let headerView: TaskListHeaderView
     private var subscriptions = Set<AnyCancellable>()
     
     private lazy var collectionView = {
@@ -42,8 +42,7 @@ final class TaskListViewController: UIViewController {
     init(state: State) {
         self.state = state
         viewModel = TaskListViewModel(state: state)
-        headerView.setupTitle(state.description)
-        headerView.updateCount(133)
+        headerView = TaskListHeaderView(state: state)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -109,7 +108,6 @@ final class TaskListViewController: UIViewController {
             ) as? TaskListCell else { return UICollectionViewCell() }
             
             cell.configure(task)
-            cell.bind()
             
             return cell
         }
