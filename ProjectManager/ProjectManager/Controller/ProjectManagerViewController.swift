@@ -23,6 +23,7 @@ final class ProjectManagerViewController: UIViewController {
                                                    heightDimension: .fractionalHeight(1.0))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
+            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .flexible(130), trailing: nil, bottom: nil)
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                     heightDimension: .fractionalHeight(1/8))
@@ -30,6 +31,7 @@ final class ProjectManagerViewController: UIViewController {
             
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [header]
+            section.interGroupSpacing = -168
             section.orthogonalScrollingBehavior = .continuous
             
             return section

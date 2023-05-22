@@ -29,8 +29,10 @@ final class ProjectCell: UICollectionViewCell {
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .center
+        stackView.alignment = .leading
         stackView.spacing = 5
+        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -38,7 +40,7 @@ final class ProjectCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
+        label.font = .preferredFont(forTextStyle: .title3)
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         return label
@@ -55,7 +57,7 @@ final class ProjectCell: UICollectionViewCell {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.font = .preferredFont(forTextStyle: .caption1)
         
         return label
     }()
@@ -129,12 +131,6 @@ final class ProjectCell: UICollectionViewCell {
             cellStackView.topAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.topAnchor),
             cellStackView.bottomAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.bottomAnchor),
             contentStackView.widthAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.widthAnchor),
-            titleLabel.topAnchor.constraint(equalTo: contentStackView.topAnchor, constant: 10),
-            titleLabel.widthAnchor.constraint(equalTo: contentStackView.widthAnchor, constant: -20),
-            bodyLabel.bottomAnchor.constraint(greaterThanOrEqualTo: dateLabel.topAnchor, constant: 5),
-            bodyLabel.widthAnchor.constraint(equalTo: contentStackView.widthAnchor, constant: -20),
-            dateLabel.bottomAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: -10),
-            dateLabel.widthAnchor.constraint(equalTo: contentStackView.widthAnchor, constant: -20),
             deleteButton.widthAnchor.constraint(equalToConstant: 70),
             deleteView.widthAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.widthAnchor, constant: -70)
         ])
