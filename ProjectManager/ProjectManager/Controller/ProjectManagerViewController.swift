@@ -15,15 +15,13 @@ final class ProjectManagerViewController: UIViewController {
         
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .estimated(100))
+                                                  heightDimension: .estimated(self.projectManagerCollectionView.frame.height/8))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
             
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
-                                                   heightDimension: .fractionalHeight(1.0))
+                                                   heightDimension: .estimated(self.projectManagerCollectionView.frame.height/8))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
-            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .flexible(130), trailing: nil, bottom: nil)
+            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(self.projectManagerCollectionView.frame.height/8), trailing: nil, bottom: nil)
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                     heightDimension: .fractionalHeight(1/8))
@@ -32,6 +30,7 @@ final class ProjectManagerViewController: UIViewController {
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = [header]
             section.orthogonalScrollingBehavior = .continuous
+            section.interGroupSpacing = (-self.projectManagerCollectionView.frame.height / 4) + 8
             
             return section
         }, configuration: configuration)
