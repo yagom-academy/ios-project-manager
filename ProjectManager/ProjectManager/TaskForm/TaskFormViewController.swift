@@ -39,6 +39,7 @@ class TaskFormViewController: UIViewController {
         let datePicker = UIDatePicker()
         
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
         
         return datePicker
     }()
@@ -46,6 +47,13 @@ class TaskFormViewController: UIViewController {
     private let textView = {
         let textView = UITextView()
         
+        textView.font = .preferredFont(forTextStyle: .body)
+        textView.clipsToBounds = false
+        textView.layer.shadowColor = UIColor.black.cgColor
+        textView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        textView.layer.shadowOpacity = 0.3
+        textView.layer.shadowRadius = 5.0
+        textView.textContainerInset = .init(top: 5, left: 5, bottom: 5, right: 5)
         
         return textView
     }()
