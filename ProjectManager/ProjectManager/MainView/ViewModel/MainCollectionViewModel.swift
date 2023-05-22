@@ -25,7 +25,7 @@ final class MainCollectionViewModel: NSObject {
         Todo(title: "hi", date: Date(), body: "body", workState: .todo),
         Todo(title: "hi", date: Date(), body: "body", workState: .todo),
         Todo(title: "hi", date: Date(), body: "body", workState: .todo),
-        Todo(title: "hi", date: Date(), body: "body", workState: .todo),
+        Todo(title: "hi", date: Date(), body: "bodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybody", workState: .todo),
         Todo(title: "hi", date: Date(), body: "body", workState: .todo),
         Todo(title: "hi", date: Date(), body: "body", workState: .todo),
         Todo(title: "hi", date: Date(), body: "body", workState: .todo),

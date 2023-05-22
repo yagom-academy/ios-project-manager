@@ -17,7 +17,7 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureNavigationBar()
         configureRootView()
         configureCollectionViewLayout()
         configureCollectionView()
@@ -30,13 +30,14 @@ final class MainViewController: UIViewController {
         
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, _ in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalWidth(0.2))
+                                                  heightDimension: .estimated(100))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
-                                                   heightDimension: .fractionalHeight(1))
+                                                   heightDimension: .fractionalHeight(2))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
                                                            subitems: [item])
+            
             group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil,
                                                               top: .flexible(50),
                                                               trailing: nil,
@@ -58,6 +59,14 @@ final class MainViewController: UIViewController {
         }, configuration: layoutConfiguration)
         
         return layout
+    }
+    
+    private func configureNavigationBar() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(presentDetailView)
+        )
     }
     
     private func configureRootView() {
@@ -94,6 +103,11 @@ final class MainViewController: UIViewController {
         }
         
         collectionView.delegate = self
+    }
+    
+    @objc func presentDetailView() {
+        let detailViewController = DetailViewController()
+        self.present(detailViewController, animated: true)
     }
 }
 
