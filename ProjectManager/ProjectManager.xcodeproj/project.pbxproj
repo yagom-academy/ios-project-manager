@@ -21,6 +21,7 @@
 		AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD450BE92A150E4A00A9C693 /* HeaderView.swift */; };
 		AD4BDE7C2A179EAF0022F3D6 /* MainCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4BDE7B2A179EAF0022F3D6 /* MainCollectionViewModel.swift */; };
 		AD5FFB8C2A14B64E00CF6A39 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5FFB8B2A14B64E00CF6A39 /* TaskViewModel.swift */; };
+		AD8A5EBF2A1B6D7B00D66627 /* UIContorl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EBE2A1B6D7B00D66627 /* UIContorl+Combine.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -45,6 +46,7 @@
 		AD450BE92A150E4A00A9C693 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		AD4BDE7B2A179EAF0022F3D6 /* MainCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewModel.swift; sourceTree = "<group>"; };
 		AD5FFB8B2A14B64E00CF6A39 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		AD8A5EBE2A1B6D7B00D66627 /* UIContorl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIContorl+Combine.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		AD8A5EBD2A1B6D0900D66627 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				AD8A5EBE2A1B6D7B00D66627 /* UIContorl+Combine.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -203,14 +213,15 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				620335702A14AC9700DDF23E /* Model */,
-				62F8A1C02A1B331C005F6BF7 /* DetailView */,
-				6203356F2A14AB0500DDF23E /* MainView */,
-				62D600312A14C24B00AD7490 /* Extension */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				62D15BAD2A13572800057824 /* GoogleService-Info.plist */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				6203356F2A14AB0500DDF23E /* MainView */,
+				62F8A1C02A1B331C005F6BF7 /* DetailView */,
+				620335702A14AC9700DDF23E /* Model */,
+				62D600312A14C24B00AD7490 /* Extension */,
+				AD8A5EBD2A1B6D0900D66627 /* Utility */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -338,6 +349,7 @@
 				62D600582A1778DE00AD7490 /* TaskCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				62D600332A14C25D00AD7490 /* ArrayExtension.swift in Sources */,
+				AD8A5EBF2A1B6D7B00D66627 /* UIContorl+Combine.swift in Sources */,
 				62F8A1C82A1B5651005F6BF7 /* DetailService.swift in Sources */,
 				62F8A1C52A1B3356005F6BF7 /* DetailViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
