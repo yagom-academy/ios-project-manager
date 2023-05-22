@@ -25,7 +25,7 @@ final class TaskListViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var stackView = {
+    private let stackView = {
         let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,10 +33,6 @@ final class TaskListViewController: UIViewController {
         stackView.distribution = .fill
         stackView.backgroundColor = .systemGray3
         stackView.spacing = 2
-        stackView.addArrangedSubview(headerView)
-        stackView.addArrangedSubview(collectionView)
-        
-        view.addSubview(stackView)
         
         return stackView
     }()
@@ -57,11 +53,19 @@ final class TaskListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        setupCollectionViewConstraints()
+        addSubViews()
+        setupStackViewConstraints()
         setupCollectionView()
     }
+    
+    private func addSubViews() {
+        view.addSubview(stackView)
+        
+        stackView.addArrangedSubview(headerView)
+        stackView.addArrangedSubview(collectionView)
+    }
 
-    private func setupCollectionViewConstraints() {
+    private func setupStackViewConstraints() {
         let safe = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([

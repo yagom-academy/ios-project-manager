@@ -50,7 +50,10 @@ class MainViewController: UIViewController {
     }
     
     @objc private func addTask() {
-        print("addTask")
+        let addTastViewController = TaskFormViewController()
+        let navigationController = UINavigationController(rootViewController: addTastViewController)
+        
+        present(navigationController, animated: true)
     }
     
     private func addChildViews() {
