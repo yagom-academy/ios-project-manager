@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class TodoListViewModel {
+final class TodoListViewModel: ObservableObject {
     @Published var todoItems: [TodoItem] = []
     
     var numberOfItems: Int {
@@ -33,5 +33,9 @@ final class TodoListViewModel {
         default:
             return UIColor.black
         }
+    }
+    
+    func delete(at index: Int) {
+        todoItems.remove(at: index)
     }
 }

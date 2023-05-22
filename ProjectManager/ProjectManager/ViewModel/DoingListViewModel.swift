@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class DoingListViewModel {
+final class DoingListViewModel: ObservableObject {
     @Published var doingItems: [TodoItem] = []
     
     var numberOfItems: Int {

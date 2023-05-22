@@ -50,6 +50,7 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
     
     private func setUpTodoTableView() {
         todoTableView.dataSource = self
+        todoTableView.delegate = self
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "Cell")
         todoTableView.tableHeaderView = todoHeaderStackView
         
@@ -167,5 +168,18 @@ extension TodoListViewController: UITableViewDataSource {
         cell.changeColor(by: color)
         
         return cell
+    }
+}
+
+extension TodoListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "delete") { [weak self] (_, _, completionHandler) in
+            self?.todoListViewModel.delete(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            completionHandler(true)
+        }
+        deleteAction.backgroundColor = .red
+        
+        return  UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
