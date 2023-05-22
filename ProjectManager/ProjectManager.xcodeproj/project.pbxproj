@@ -22,6 +22,7 @@
 		FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062992A16F6930088A9E3 /* DateFormatManager.swift */; };
 		FBF0629C2A16FCAB0088A9E3 /* DoingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */; };
 		FBF0629E2A17100E0088A9E3 /* Tense.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629D2A17100E0088A9E3 /* Tense.swift */; };
+		FBF062A02A1B391B0088A9E3 /* PlusTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		FBF062992A16F6930088A9E3 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingListViewModel.swift; sourceTree = "<group>"; };
 		FBF0629D2A17100E0088A9E3 /* Tense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tense.swift; sourceTree = "<group>"; };
+		FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTodoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 			children = (
 				FBF062892A14B9720088A9E3 /* TodoListViewModel.swift */,
 				FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */,
+				FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FBF062952A165F040088A9E3 /* HeaderStackView.swift in Sources */,
+				FBF062A02A1B391B0088A9E3 /* PlusTodoViewModel.swift in Sources */,
 				FBF0629E2A17100E0088A9E3 /* Tense.swift in Sources */,
 				FBF0628F2A1607570088A9E3 /* CircleLabel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

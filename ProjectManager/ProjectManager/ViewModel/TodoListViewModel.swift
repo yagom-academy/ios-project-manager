@@ -19,6 +19,14 @@ final class TodoListViewModel: ObservableObject {
         return todoItems[index]
     }
     
+    func addItem(_ item: TodoItem) {
+        todoItems.append(item)
+    }
+    
+    func updateItem(at index: Int, newItem: TodoItem) {
+        todoItems[index] = newItem
+    }
+    
     func convertDate(of date: Date) -> String {
         return DateFormatManager.shared.convertToFormattedDate(of: date)
     }

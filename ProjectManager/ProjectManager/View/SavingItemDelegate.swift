@@ -9,4 +9,5 @@ import Foundation
 
 protocol SavingItemDelegate: AnyObject {
     func addItem(_ item: TodoItem)
+    func updateItem(at indexPath: IndexPath, by item: TodoItem)
 }

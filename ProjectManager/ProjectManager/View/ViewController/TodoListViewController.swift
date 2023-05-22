@@ -115,9 +115,12 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
     }
     
     @objc func plusButtonTapped() {
-        let plusTodoViewController = PlusTodoViewController()
+        let plusTodoViewModel = PlusTodoViewModel()
+        plusTodoViewModel.mode = .create
+        
+        let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, selectedIndexPath: nil)
         plusTodoViewController.delegate = self
-
+        
         present(plusTodoViewController, animated: false)
     }
     
@@ -143,9 +146,12 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
     }
     
     func addItem(_ item: TodoItem) {
-        todoListViewModel.todoItems.append(item)
+        todoListViewModel.addItem(item)
     }
     
+    func updateItem(at indexPath: IndexPath, by item: TodoItem) {
+        todoListViewModel.updateItem(at: indexPath.row, newItem: item)
+    }
 }
 
 extension TodoListViewController: UITableViewDataSource {
@@ -172,6 +178,19 @@ extension TodoListViewController: UITableViewDataSource {
 }
 
 extension TodoListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = todoListViewModel.item(at: indexPath.row)
+        
+        let plusTodoViewModel = PlusTodoViewModel()
+        plusTodoViewModel.todoItem = item
+        plusTodoViewModel.mode = .edit
+        
+        let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, selectedIndexPath: indexPath)
+        plusTodoViewController.delegate = self
+        
+        present(plusTodoViewController, animated: false)
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "delete") { [weak self] (_, _, completionHandler) in
             self?.todoListViewModel.delete(at: indexPath.row)
