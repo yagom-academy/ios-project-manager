@@ -18,15 +18,32 @@ import Combine
     // DetailService는 Repository도 갖고있어야함.
  */
 
+import Foundation
+
 final class DetailViewModel {
+    var title: String = ""
+    var date: Date = Date()
+    var body: String = ""
+    
+    var cancellables = Set<AnyCancellable>()
+    
     struct Input {
         let title: AnyPublisher<String, Never>
-        let date: AnyPublisher<String, Never>
+        let date: AnyPublisher<Date, Never>
         let body: AnyPublisher<String, Never>
     }
-    
     
     let detailService = DetailService()
     
     
+    func transform(input: Input) {
+        input.title
+            .assign(to: \.title, on: self)
+            .store(in: &cancellables)
+            
+        
+        input.body
+            .assign(to: \.body, on: self)
+            .store(in: &cancellables)
+    }
 }

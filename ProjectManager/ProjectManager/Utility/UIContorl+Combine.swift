@@ -28,5 +28,31 @@ final class UIControlSubscription<SubscriberType: Subscriber, Control: UIControl
     private func eventHandler() {
         _ = subscriber?.receive(control)
     }
+}
+
+struct UIControlPublisher: Publisher {
+
+    typealias Output = UIControl
+    typealias Failure = Never
+
+    let control: UIControl
+    let controlEvents: UIControl.Event
+
+    init(control: UIControl, events: UIControl.Event) {
+        self.control = control
+        self.controlEvents = events
+    }
     
+    func receive<S>(subscriber: S) where S : Subscriber, S.Failure == UIControlPublisher.Failure, S.Input == UIControlPublisher.Output {
+        let subscription = UIControlSubscription(subscriber: subscriber, control: control, event: controlEvents)
+        subscriber.receive(subscription: subscription)
+    }
+}
+
+protocol CombineCompatible { }
+extension UIControl: CombineCompatible { }
+extension CombineCompatible where Self: UIControl {
+    func publisher(for events: UIControl.Event) -> UIControlPublisher {
+        return UIControlPublisher(control: self, events: events)
+    }
 }

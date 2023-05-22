@@ -60,15 +60,30 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
     
+    private let detailViewModel = DetailViewModel()
+    
     override func viewDidLoad() {
+        bind(to: detailViewModel)
         configureNavigationBar()
         configureShadowView()
         configureStackView()
         configureRootView()
     }
-    
-    
+
     private func bind(to viewModel: DetailViewModel) {
+        let input = DetailViewModel.Input(
+            title: titleTextfield.publisher(for: .valueChanged)
+                .compactMap { ($0 as? UITextField)?.text }
+                .print()
+                .eraseToAnyPublisher(),
+            date: datePicker.publisher(for: .valueChanged)
+                .compactMap { ($0 as? UIDatePicker)?.date }
+                .eraseToAnyPublisher(),
+            body: bodyTextView.textPublisher
+        )
+        
+        detailViewModel.transform(input: input)
+        
     }
     
     private func configureNavigationBar() {
