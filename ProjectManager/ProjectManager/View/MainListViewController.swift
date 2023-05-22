@@ -36,7 +36,7 @@ final class MainListViewController: UIViewController {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .estimated(30))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                    heightDimension: .estimated(30))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
@@ -47,7 +47,7 @@ final class MainListViewController: UIViewController {
             
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
-                                                  heightDimension: .absolute(30)),
+                                                  heightDimension: .absolute(60)),
                 elementKind: MainListViewController.headerElementKind,
                 alignment: .top)
             section.boundarySupplementaryItems = [sectionHeader]
@@ -74,8 +74,10 @@ final class MainListViewController: UIViewController {
         let supplementaryRegistration = UICollectionView.SupplementaryRegistration
         <CollectionViewHeaderReusableView>(elementKind: MainListViewController.headerElementKind) {
             (supplementaryView, string, indexPath) in
+            let section = State.allCases[indexPath.section]
+            let count = self.listViewModel.todoList.filter({ $0.state == section }).count
             
-            supplementaryView.configureContent(with: self.listViewModel.todoList)
+            supplementaryView.configureContent(title: section.title, count: count)
         }
         
         dataSource?.supplementaryViewProvider = { (view, kind, index) in
@@ -101,8 +103,6 @@ final class MainListViewController: UIViewController {
     }
     
     private func configureConstraints() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.isScrollEnabled = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -112,11 +112,13 @@ final class MainListViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        collectionView.backgroundColor = .systemGray3
+        view.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .systemGray6
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isScrollEnabled = false
     }
     
     private func configureNavigation() {
-        view.backgroundColor = .white
         title = NameSpace.projectName
         
         let addProjectButton = UIBarButtonItem(barButtonSystemItem: .add,

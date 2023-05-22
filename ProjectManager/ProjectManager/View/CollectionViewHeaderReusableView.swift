@@ -12,6 +12,12 @@ class CollectionViewHeaderReusableView: UICollectionReusableView {
         let stackView = UIStackView()
         stackView.alignment = .leading
         stackView.spacing = 5
+        stackView.backgroundColor = .systemGray6
+        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fill
+        
         return stackView
     }()
     
@@ -19,17 +25,22 @@ class CollectionViewHeaderReusableView: UICollectionReusableView {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
-    private var numberLabel: UILabel = {
+    private var countLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .black
+        label.textAlignment = .center
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.textColor = .systemBackground
-        label.layer.borderWidth = 1
-        label.layer.cornerRadius =  label.layer.frame.size.width / 2
+        label.layer.borderWidth = 5
+        label.layer.cornerRadius = 17
+        label.layer.borderColor = UIColor.black.cgColor
         label.layer.masksToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -44,14 +55,15 @@ class CollectionViewHeaderReusableView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureContent(with data: [ToDoModel]) {
-        titleLabel.text = "됐냐?"
+    func configureContent(title: String, count: Int) {
+        titleLabel.text = title
+        countLabel.text = count.description
     }
     
     private func configureSubviews() {
         addSubview(labelStackView)
         labelStackView.addArrangedSubview(titleLabel)
-        labelStackView.addArrangedSubview(numberLabel)
+        labelStackView.addArrangedSubview(countLabel)
     }
     
     private func configureConstraints() {
@@ -59,7 +71,9 @@ class CollectionViewHeaderReusableView: UICollectionReusableView {
             labelStackView.topAnchor.constraint(equalTo: topAnchor),
             labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            countLabel.widthAnchor.constraint(equalTo: titleLabel.heightAnchor),
+            countLabel.heightAnchor.constraint(equalTo: countLabel.widthAnchor)
         ])
     }
 }
