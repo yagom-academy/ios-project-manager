@@ -8,5 +8,14 @@
 import Foundation
 
 final class TodoViewModel {
-    
+    func restrictNumberOfText(range: NSRange, text: String) -> Bool {
+        guard let convertedText = text.cString(using: .utf8) else { return false }
+        
+        let backspaceValue = strcmp(convertedText, "\\b")
+        
+        guard range.upperBound < 999 ||
+              backspaceValue == -92 else { return false }
+        
+        return true
+    }
 }
