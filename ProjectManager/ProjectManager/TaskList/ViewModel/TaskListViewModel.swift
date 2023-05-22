@@ -6,22 +6,23 @@
 //
 
 import Foundation
+import Combine
 
 final class TaskListViewModel {
-    var taskList = [Task]()
+    private let state: State
+    private let taskManager = TaskManager.shared
     
-    init() {
-        taskList.append(Task(state: .todo,
-                             title: "임시 데이터",
-                             body: "내용 없음",
-                             deadline: Date()))
-        taskList.append(Task(state: .todo,
-                             title: "투두1테스트투두1테스트투두1테스트투두1테스트투두1테스트투두1테스트투두1테스트투두1테스트투두1테스트",
-                             body: "투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두",
-                             deadline: Date()))
-        taskList.append(Task(state: .todo,
-                             title: "투두222222222테스트투두1테스트투두1테스트투두1테스트투두1테스트투두1테스트투두1테스트투두1테스트투두1테스트",
-                             body: "투두투두11투두투두투두투두투두투두투두투두투두투두투 두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두투두",
-                             deadline: Date()))
+    init(state: State) {
+        self.state = state
+    }
+    
+    func filteredTaskPublisher() -> AnyPublisher<[Task], Never> {
+        return taskManager.taskListPublisher()
+            .map {
+                $0.filter { task in
+                    task.state == self.state
+                }
+            }
+            .eraseToAnyPublisher()
     }
 }

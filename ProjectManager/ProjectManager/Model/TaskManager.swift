@@ -6,21 +6,26 @@
 //
 
 import Foundation
+import Combine
 
 final class TaskManager {
     static let shared = TaskManager()
     
-    @Published private var todoList: [Task]
-    @Published private var doingList: [Task]
-    @Published private var doneList: [Task]
+    @Published private var taskList: [Task]
     
     private init() {
-        todoList = []
-        doingList = []
-        doneList = []
+        taskList = [Task(state: .done, title: "test", body: "test", deadline: Date())]
+    }
+    
+    func taskListPublisher() -> AnyPublisher<[Task], Never> {
+        return $taskList.eraseToAnyPublisher()
     }
     
     func create(task: Task) {
-        todoList.append(task)
+        taskList.append(task)
+    }
+    
+    func fetch() -> [Task] {
+        return taskList
     }
 }

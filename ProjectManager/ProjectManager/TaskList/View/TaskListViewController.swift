@@ -6,14 +6,16 @@
 //
 
 import UIKit
+import Combine
 
 final class TaskListViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<State, Task>
-    
-    private var dataSource: DataSource?
-    private let viewModel = TaskListViewModel()
-    private let headerView = TaskListHeaderView()
+
     private let state: State
+    private let viewModel: TaskListViewModel
+    private var dataSource: DataSource?
+    private let headerView = TaskListHeaderView()
+    private var subscriptions = Set<AnyCancellable>()
     
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
@@ -39,6 +41,7 @@ final class TaskListViewController: UIViewController {
     
     init(state: State) {
         self.state = state
+        viewModel = TaskListViewModel(state: state)
         headerView.setupTitle(state.description)
         headerView.updateCount(133)
         
@@ -56,6 +59,7 @@ final class TaskListViewController: UIViewController {
         addSubViews()
         setupStackViewConstraints()
         setupCollectionView()
+        bind()
     }
     
     private func addSubViews() {
@@ -95,7 +99,6 @@ final class TaskListViewController: UIViewController {
     
     private func setupCollectionView() {
         setupDataSource()
-        setupInitailSnapshot()
     }
     
     private func setupDataSource() {
@@ -111,12 +114,16 @@ final class TaskListViewController: UIViewController {
         }
     }
     
-    private func setupInitailSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<State, Task>()
-        
-        snapshot.appendSections([state])
-        snapshot.appendItems(viewModel.taskList)
-        
-        dataSource?.apply(snapshot, animatingDifferences: false)
+    private func bind() {
+        viewModel.filteredTaskPublisher()
+            .sink { taskList in
+                var snapshot = NSDiffableDataSourceSnapshot<State, Task>()
+                
+                snapshot.appendSections([self.state])
+                snapshot.appendItems(taskList)
+                
+                self.dataSource?.apply(snapshot, animatingDifferences: true)
+            }
+            .store(in: &subscriptions)
     }
 }
