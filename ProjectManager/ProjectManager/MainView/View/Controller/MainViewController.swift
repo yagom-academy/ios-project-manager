@@ -105,7 +105,8 @@ final class MainViewController: UIViewController {
         collectionView.delegate = self
     }
     
-    @objc func presentDetailView() {
+    @objc
+    private func presentDetailView() {
         let detailViewController = DetailViewController()
         self.present(detailViewController, animated: true)
     }
