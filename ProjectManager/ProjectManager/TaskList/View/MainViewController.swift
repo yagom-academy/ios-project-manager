@@ -34,9 +34,23 @@ class MainViewController: UIViewController {
         view.addSubview(mainStackView)
         view.backgroundColor = .systemGray5
         
+        setupNavigationBar()
         addChildViews()
         addSubViews()
         setupMainStackViewConstraints()
+    }
+    
+    private func setupNavigationBar() {
+        let plusBarbutton = UIBarButtonItem(barButtonSystemItem: .add,
+                                            target: self,
+                                            action: #selector(addTask))
+        
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = plusBarbutton
+    }
+    
+    @objc private func addTask() {
+        print("addTask")
     }
     
     private func addChildViews() {
