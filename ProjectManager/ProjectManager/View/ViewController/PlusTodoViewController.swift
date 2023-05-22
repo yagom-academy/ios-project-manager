@@ -53,6 +53,8 @@ final class PlusTodoViewController: UIViewController {
         textField.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         textField.textColor = UIColor.black
         textField.backgroundColor = UIColor.white
+        textField.attributedPlaceholder = NSAttributedString(string: "Title",
+                                                             attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .title3)])
         
         textField.layer.shadowColor = UIColor.black.cgColor
         textField.layer.shadowOffset = CGSize(width: 0, height: 3)
@@ -76,6 +78,7 @@ final class PlusTodoViewController: UIViewController {
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.textColor = UIColor.black
         textView.backgroundColor = UIColor.white
+        textView.text = "여기는 할 일 내용을 입력하는 곳입니다. 입력 가능한 글자수는 1000자로 제한합니다."
         
         textView.layer.masksToBounds = false
         textView.layer.shadowColor = UIColor.black.cgColor
@@ -93,6 +96,7 @@ final class PlusTodoViewController: UIViewController {
         configureNavigationBar()
         configureStackView()
         editTodoItem()
+        textView.delegate = self
     }
     
     private func setUpTodoView() {
@@ -189,5 +193,11 @@ final class PlusTodoViewController: UIViewController {
             self.textView.text = item.body
             self.datePicker.date = item.date
         }
+    }
+}
+
+extension PlusTodoViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = nil
     }
 }
