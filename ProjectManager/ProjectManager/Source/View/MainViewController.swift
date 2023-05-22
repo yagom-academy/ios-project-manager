@@ -8,14 +8,14 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    let schedule = Schedule(title: "asd", detail: "asd", expirationDate: "asd")
-    let schedule2 = Schedule(title: "sdf", detail: "sdf", expirationDate: "sdf")
-    let schedule3 = Schedule(title: "sdf", detail: "sdf", expirationDate: "sdf")
+    let schedule = Schedule(title: "asd", detail: "asd", expirationDate: Date())
+    let schedule2 = Schedule(title: "sdf", detail: "sdf", expirationDate: Date())
+    let schedule3 = Schedule(title: "sdf", detail: "sdf", expirationDate: Date())
     
     var schedules: [Schedule] = []
     func createSchedules() {
         for i in 0..<10 {
-            schedules.append(Schedule(title: "\(i)", detail: "hi", expirationDate: "오늘"))
+            schedules.append(Schedule(title: "\(i)", detail: "hi", expirationDate: Date()))
         }
     }
     lazy var schedules2 = [schedule2]

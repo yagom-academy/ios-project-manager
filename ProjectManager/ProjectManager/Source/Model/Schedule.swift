@@ -11,5 +11,5 @@ struct Schedule: Hashable {
     let id = UUID()
     let title: String
     let detail: String
-    let expirationDate: String
+    let expirationDate: Date
 }

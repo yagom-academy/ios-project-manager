@@ -13,6 +13,7 @@
 		1CC9D3E02A160D1E00654A5D /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3DF2A160D1E00654A5D /* TodoView.swift */; };
 		1CC9D3F82A1B415000654A5D /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3F72A1B415000654A5D /* ModalViewController.swift */; };
 		982DF0862A17ADEA0024BEB1 /* IdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */; };
+		983C04362A1B4BDA000E4702 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -27,6 +28,7 @@
 		1CC9D3DF2A160D1E00654A5D /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		1CC9D3F72A1B415000654A5D /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierType.swift; sourceTree = "<group>"; };
+		983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 		982DF07F2A17AD260024BEB1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				983C04342A1B4B77000E4702 /* Utility */,
 				982DF0842A17AD8A0024BEB1 /* Application */,
 				982DF0832A17AD740024BEB1 /* Protocol */,
 				982DF0822A17AD6E0024BEB1 /* ViewModel */,
@@ -111,6 +114,14 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		983C04342A1B4B77000E4702 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -213,6 +224,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				982DF0862A17ADEA0024BEB1 /* IdentifierType.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				983C04362A1B4BDA000E4702 /* DateFormatterManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				1CC9D3F82A1B415000654A5D /* ModalViewController.swift in Sources */,
 				1C16A86F2A14AC84001640E2 /* HeaderView.swift in Sources */,

@@ -40,7 +40,6 @@ final class ScheduleCell: UICollectionViewCell {
     }()
     
     func configureUI() {
-
         contentView.backgroundColor = .white
         
         contentView.addSubview(stackView)
@@ -49,7 +48,6 @@ final class ScheduleCell: UICollectionViewCell {
         stackView.addArrangedSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
@@ -60,7 +58,7 @@ final class ScheduleCell: UICollectionViewCell {
     func configureLabel(schedule: Schedule) {
         titleLabel.text = schedule.title
         contentLabel.text = schedule.detail
-        dateLabel.text = schedule.expirationDate
+        dateLabel.text = DateFormatterManager.shared.convertToDate(from: schedule.expirationDate)
     }
 }
 

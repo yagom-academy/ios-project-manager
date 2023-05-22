@@ -10,7 +10,16 @@ import UIKit
 class ModalViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
+        
         textField.placeholder = "제목을 입력해주세요"
+        textField.borderStyle = .none
+        textField.backgroundColor = .systemBackground
+        textField.layer.shadowColor = UIColor.systemGray2.cgColor
+        textField.layer.shadowOffset = CGSize(width: 0, height: 5)
+        textField.layer.shadowOpacity = 1
+        textField.layer.shadowRadius = 5.0
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
+        textField.leftViewMode = .always
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -18,6 +27,7 @@ class ModalViewController: UIViewController {
     
     private let datePickerView: UIDatePicker = {
         let pickerView = UIDatePicker()
+        
         pickerView.preferredDatePickerStyle = .wheels
         pickerView.locale = Locale(identifier: "ko_KR")
         pickerView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,6 +37,14 @@ class ModalViewController: UIViewController {
     
     private let contentTextView: UITextView = {
         let contentTextView = UITextView()
+        
+        contentTextView.textColor = .black
+        contentTextView.backgroundColor = .systemBackground
+        contentTextView.layer.masksToBounds = false
+        contentTextView.layer.shadowColor = UIColor.systemGray2.cgColor
+        contentTextView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        contentTextView.layer.shadowOpacity = 1
+        contentTextView.layer.shadowRadius = 5.0
         contentTextView.translatesAutoresizingMaskIntoConstraints = false
         
         return contentTextView
@@ -37,6 +55,7 @@ class ModalViewController: UIViewController {
         view.backgroundColor = .white
         self.title = "TODO"
         configureUI()
+        configureBarButton()
     }
     
     private func configureUI() {
@@ -62,6 +81,35 @@ class ModalViewController: UIViewController {
             contentTextView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             contentTextView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20),
         ])
+    }
+    
+    private func configureBarButton() {
+        let rightButton = UIBarButtonItem(title: "Done",
+                                          style: .done,
+                                          target: self,
+                                          action: #selector(tapEditButton))
         
+        let leftButton = UIBarButtonItem(title: "Cancel",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(tapCancelButton))
+        
+        self.navigationItem.rightBarButtonItem = rightButton
+        self.navigationItem.leftBarButtonItem = leftButton
+    }
+    
+    @objc
+    private func tapEditButton() {
+        
+    }
+    
+    @objc
+    private func tapDoneButton() {
+        
+    }
+    
+    @objc
+    private func tapCancelButton() {
+        dismiss(animated: true)
     }
 }
