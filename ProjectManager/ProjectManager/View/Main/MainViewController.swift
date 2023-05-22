@@ -48,6 +48,7 @@ extension MainViewController {
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray6
+        collectionView.isScrollEnabled = false
         collectionView.register(WorkCell.self,
                                 forCellWithReuseIdentifier: WorkCell.identifier)
         collectionView.register(HeaderReusableView.self,
@@ -66,7 +67,7 @@ extension MainViewController {
                                                   heightDimension: .estimated(20))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
-            item.contentInsets = NSDirectionalEdgeInsets(top: 50, leading: 4, bottom: 0, trailing: 4)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4)
             
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0/3.0),
                                                    heightDimension: .estimated(20))
@@ -149,24 +150,31 @@ extension MainViewController {
     }
 }
 
+// MARK: - Gesture Recognizer (cell swipe)
 extension MainViewController: UIGestureRecognizerDelegate {
     private func configureSwipeGesture() {
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
         
-        swipeGestureRecognizer.delegate = self
-        swipeGestureRecognizer.direction = .left
-        collectionView?.addGestureRecognizer(swipeGestureRecognizer)
+        panGestureRecognizer.delegate = self
+        collectionView?.addGestureRecognizer(panGestureRecognizer)
     }
     
-    @objc private func handleSwipeGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
+    @objc private func handleSwipeGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
         if gestureRecognizer.state == .ended {
             let location = gestureRecognizer.location(in: collectionView)
+            let translation = gestureRecognizer.translation(in: collectionView)
             
             guard let indexPath = collectionView?.indexPathForItem(at: location),
                   let id = dataSource?.itemIdentifier(for: indexPath)?.id else { return }
             
-            viewModel.removeWork(id: id)
-            applySnapshot()
+            if translation.x <= -200 {
+                print("왼쪽으로 길게 스와이프한 경우")
+                
+                viewModel.removeWork(id: id)
+                applySnapshot()
+            } else if translation.x < -50 {
+                print("왼쪽으로 짧게 스와이프한 경우")
+            }
         }
     }
     
@@ -174,4 +182,3 @@ extension MainViewController: UIGestureRecognizerDelegate {
         return true
     }
 }
-
