@@ -10,8 +10,15 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     
     private var toDoList: [ToDoList]?
     
-    func sendTodoList(data: ToDoList) {
-        toDoList?.append(data)
+    func sendTodoList(data: ToDoList, isCreatMode: Bool) {
+        if isCreatMode == true {
+            toDoList?.append(data)
+        } else {
+            if let index = toDoList?.firstIndex(where: { $0.title == data.title}) {
+                toDoList?[index] = data
+            }
+        }
+        
         toDoTableView.reloadData()
         doingTableView.reloadData()
         doneTableView.reloadData()
@@ -64,7 +71,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     }
     
     @objc private func plusButtonTapped() {
-        let toDoWriteViewController = ToDoWriteViewController()
+        let toDoWriteViewController = ToDoWriteViewController(mode: .create)
         toDoWriteViewController.modalPresentationStyle = .formSheet
         
         toDoWriteViewController.delegate = self
@@ -114,6 +121,17 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
 }
 
 extension ToDoListViewContorller: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell,
+              let toDoList = self.toDoList else { return }
+        toDoTableViewCell.setUpLabel(toDoList: toDoList[indexPath.row])
+        
+        let toDoWriteViewController = ToDoWriteViewController(mode: .edit, fetchedTodoList: toDoList[indexPath.row])
+        toDoWriteViewController.modalPresentationStyle = .formSheet
+        toDoWriteViewController.delegate = self
+        
+        self.present(toDoWriteViewController, animated: true)
+    }
 }
 
 extension ToDoListViewContorller: UITableViewDataSource {
@@ -123,8 +141,6 @@ extension ToDoListViewContorller: UITableViewDataSource {
         } else {
             return 0
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -135,7 +151,6 @@ extension ToDoListViewContorller: UITableViewDataSource {
         } else {
             
         }
-        
         return toDoTableViewCell
     }
 }

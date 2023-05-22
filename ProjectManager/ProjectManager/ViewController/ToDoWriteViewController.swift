@@ -8,12 +8,19 @@
 import UIKit
 
 protocol sendToDoListProtocol {
-    func sendTodoList(data: ToDoList)
+    func sendTodoList(data: ToDoList, isCreatMode: Bool)
 }
 
-class ToDoWriteViewController: UIViewController {
+final class ToDoWriteViewController: UIViewController {
+    
+    enum Mode {
+        case edit
+        case create
+    }
     
     var delegate: sendToDoListProtocol?
+    private var mode: Mode
+    private var fetchedTodoList: ToDoList?
     
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
@@ -27,12 +34,31 @@ class ToDoWriteViewController: UIViewController {
         return stackView
     }()
     
-    private let titleTextField: UITextField = {
+    private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .bezel
         textField.font = .preferredFont(forTextStyle: .title3)
-        textField.placeholder = "내용을 입력하세요"
+        switch mode {
+        case .create:
+            textField.placeholder = "내용을 입력하세요"
+        case .edit:
+            textField.text = self.fetchedTodoList?.title
+        }
         return textField
+    }()
+    
+    private lazy var descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.font = .preferredFont(forTextStyle: .body)
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        switch mode {
+        case .create:
+            textView.text = ""
+        case .edit:
+            textView.text = self.fetchedTodoList?.description
+        }
+        return textView
     }()
     
     private let datePicker: UIDatePicker = {
@@ -43,13 +69,15 @@ class ToDoWriteViewController: UIViewController {
         return datePicker
     }()
     
-    private let descriptionTextView: UITextView = {
-        let textView = UITextView()
-        textView.font = .preferredFont(forTextStyle: .body)
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.lightGray.cgColor
-        return textView
-    }()
+    init(mode: Mode, fetchedTodoList: ToDoList? = nil) {
+        self.mode = mode
+        self.fetchedTodoList = fetchedTodoList
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,29 +92,45 @@ class ToDoWriteViewController: UIViewController {
     // MARK: NavigationBar
     private func configureNavigationBar() {
         navigationItem.title = "TODO"
-        let cancelButton = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
-        let doneButton = UIBarButtonItem(title: "done" , style: .plain, target: self, action: #selector(doneButtonTapped))
         
-        navigationItem.leftBarButtonItem = cancelButton
-        navigationItem.rightBarButtonItem = doneButton
+        switch mode {
+        case .create:
+            let rightButton = UIBarButtonItem(title: "done" , style: .plain, target: self, action: #selector(saveButtonTapped))
+            navigationItem.rightBarButtonItem = rightButton
+        case .edit:
+            let rightButton = UIBarButtonItem(title: "edit" , style: .plain, target: self, action: #selector(saveButtonTapped))
+            navigationItem.rightBarButtonItem = rightButton
+        }
+        
+        let leftButton = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancelButtonTapped))
+        
+        navigationItem.leftBarButtonItem = leftButton
         
         navigationBar.setItems([navigationItem], animated: true)
     }
     
-    @objc private func doneButtonTapped() {
-        guard let title = titleTextField.text,
-              let description = descriptionTextView.text,
-              let formattedDate = DateFormatterManager.shared.convertDateToString(date: datePicker.date)else { return }
-        
-        let toDoList = ToDoList(title: title, description: description, date: formattedDate)
-        print(toDoList)
-        delegate?.sendTodoList(data: toDoList)
-        
+    @objc private func saveButtonTapped() {
+        saveToDoList()
         self.dismiss(animated: true)
     }
     
     @objc private func cancelButtonTapped() {
         self.dismiss(animated: true)
+    }
+        
+    private func saveToDoList() {
+        guard let title = titleTextField.text,
+              let description = descriptionTextView.text,
+              let formattedDate = DateFormatterManager.shared.convertDateToString(date: datePicker.date) else { return }
+        
+        let toDoList = ToDoList(title: title, description: description, date: formattedDate)
+        print(toDoList)
+        switch mode {
+        case .create:
+            delegate?.sendTodoList(data: toDoList, isCreatMode: true)
+        case .edit:
+            delegate?.sendTodoList(data: toDoList, isCreatMode: false)
+        }
     }
     
     // MARK: Autolayout
@@ -105,7 +149,6 @@ class ToDoWriteViewController: UIViewController {
         fullStackView.translatesAutoresizingMaskIntoConstraints = false
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        
         
         NSLayoutConstraint.activate([
             
