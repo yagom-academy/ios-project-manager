@@ -8,19 +8,8 @@
 import UIKit
 
 final class TodoViewController: UIViewController {
-    private enum GeneratedTaskError: LocalizedError {
-        case titleEmpty
-        case descriptionEmpty
-        
-        var errorDescription: String? {
-            switch self {
-            case .titleEmpty:
-                return "제목을 입력해주세요"
-            case .descriptionEmpty:
-                return "설명을 입력해주세요"
-            }
-        }
-    }
+    
+    private var viewModel = TodoViewModel()
     
     private let parentTextView = UIView()
     private let titleTextField = TodoTitleTextField()
@@ -42,24 +31,15 @@ final class TodoViewController: UIViewController {
         configureShadow()
     }
     
-    private func makeTask() throws -> Task {
-        guard let title = titleTextField.text,
-              title != "" else { throw GeneratedTaskError.titleEmpty }
-        guard let description = descriptionTextView.text,
-              description != "" else { throw GeneratedTaskError.descriptionEmpty }
-        
-        let date = datePicker.date
-        
-        return Task(title: title, description: description, date: date)
-    }
-    
     @objc private func didTapCancelButton() {
         self.dismiss(animated: true)
     }
     
     @objc private func didTapDoneButton() {
         do {
-            let task = try makeTask()
+            let task = try viewModel.makeTask(title: titleTextField.text,
+                                              description: descriptionTextView.text,
+                                              date: datePicker.date)
             
             taskDelegate?.saveTask(task)
             
@@ -72,14 +52,7 @@ final class TodoViewController: UIViewController {
 
 extension TodoViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard let convertedText = text.cString(using: .utf8) else { return false }
-        
-        let backspaceValue = strcmp(convertedText, "\\b")
-        
-        guard range.upperBound < 999 ||
-              backspaceValue == -92 else { return false }
-        
-        return true
+        return viewModel.restrictNumberOfText(range: range, text: text)
     }
 }
 
