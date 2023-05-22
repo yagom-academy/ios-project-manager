@@ -8,6 +8,8 @@
 import UIKit
 
 class TaskFormViewController: UIViewController {
+    private let viewModel = TaskFormViewModel()
+    
     private let stackView = {
         let stackView = UIStackView()
         
@@ -71,7 +73,7 @@ class TaskFormViewController: UIViewController {
     private func setupNavigationBar() {
         let doneBarbutton = UIBarButtonItem(barButtonSystemItem: .done,
                                             target: self,
-                                            action: nil)
+                                            action: #selector(addTask))
         let editBarbutton = UIBarButtonItem(barButtonSystemItem: .edit,
                                             target: self,
                                             action: nil)
@@ -79,6 +81,14 @@ class TaskFormViewController: UIViewController {
         navigationItem.title = "TODO"
         navigationItem.rightBarButtonItem = doneBarbutton
         navigationItem.leftBarButtonItem = editBarbutton
+    }
+    
+    @objc private func addTask() {
+        viewModel.addTask(title: textField.text ?? "",
+                          date: datePicker.date,
+                          body: textView.text ?? "")
+        
+        dismiss(animated: true)
     }
     
     private func setupStackViewConstraints() {
