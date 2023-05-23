@@ -24,13 +24,17 @@ final class MainViewController: UIViewController {
         configureChildViewControllerUI()
     }
     
-    @objc private func didTapAddButton() {
+    func presentTodoViewController() {
         let todoViewController = TodoViewController()
         let navigationController = UINavigationController(rootViewController: todoViewController)
         
         todoViewController.taskDelegate = self
         
         self.present(navigationController, animated: true)
+    }
+    
+    @objc private func didTapAddButton() {
+        presentTodoViewController()
     }
 }
 

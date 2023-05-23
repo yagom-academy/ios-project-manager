@@ -72,6 +72,12 @@ extension ListViewController: UICollectionViewDelegate {
             return UIMenu(options: [.displayInline, .destructive], children: [todoAction, doingAction, doneAction])
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let parentVC = self.parent as? MainViewController else { return }
+        
+        parentVC.presentTodoViewController()
+    }
 }
 
 // MARK: Datasource
