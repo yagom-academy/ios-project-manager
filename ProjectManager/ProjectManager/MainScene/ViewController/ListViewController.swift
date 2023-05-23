@@ -31,6 +31,7 @@ final class ListViewController: UIViewController {
         
         configureViewUI()
         configureCollectionViewUI()
+        configureGesture()
         configureDatasource()
         applySnapshot(by: [])
     }
@@ -55,37 +56,10 @@ final class ListViewController: UIViewController {
         
         datasource?.apply(snapshot)
     }
-    
-    private func makeActions() -> [UIAction] {
-        let todoAction = UIAction(title: "Move to Todo") { action in
-        }
-        let doingAction = UIAction(title: "Move to Doing") { action in
-        }
-        let doneAction = UIAction(title: "Move to Done") { action in
-        }
-        
-        switch taskState {
-        case .todo:
-            return [doingAction, doneAction]
-        case .doing:
-            return [todoAction, doneAction]
-        case .done:
-            return [todoAction, doingAction]
-        }
-    }
 }
 
 // MARK: CollectionViewDelegate
 extension ListViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
-        
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions in
-            let actions = self.makeActions()
-            
-            return UIMenu(options: [.displayInline, .destructive], children: actions)
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         guard let parentVC = self.parent as? MainViewController else { return }
@@ -177,5 +151,15 @@ extension ListViewController {
         
         todoCollectionView = collectionView
         todoCollectionView?.delegate = self
+    }
+    
+    private func configureGesture() {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didTapLongPress))
+        
+        gesture.minimumPressDuration = 0.5
+        gesture.delaysTouchesBegan = true
+        gesture.delegate = self
+        
+        self.todoCollectionView?.addGestureRecognizer(gesture)
     }
 }
