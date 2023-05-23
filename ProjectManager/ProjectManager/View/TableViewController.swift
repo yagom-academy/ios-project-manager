@@ -21,24 +21,30 @@ class TableViewController: UIViewController {
     }()
     
     private let todoTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
+        tableView.register(CustomTableViewHeader.self,
+                           forHeaderFooterViewReuseIdentifier: CustomTableViewHeader.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+        tableView.separatorStyle = .none
         return tableView
     }()
     
     private let doingTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
+        tableView.register(CustomTableViewHeader.self,
+                           forHeaderFooterViewReuseIdentifier: CustomTableViewHeader.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
     }()
     
     private let doneTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
+        tableView.register(CustomTableViewHeader.self,
+                           forHeaderFooterViewReuseIdentifier: CustomTableViewHeader.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
@@ -73,6 +79,9 @@ class TableViewController: UIViewController {
         todoTableView.dataSource = self
         doingTableView.dataSource = self
         doneTableView.dataSource = self
+        todoTableView.delegate = self
+        doingTableView.delegate = self
+        doneTableView.delegate = self
     }
     
     private func configureNavigation() {
@@ -141,6 +150,30 @@ extension TableViewController: UITableViewDataSource {
             return cell
         default:
             return TableViewCell()
+        }
+    }
+}
+
+extension TableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch tableView {
+        case todoTableView:
+            let header = todoTableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader
+            header?.configureContent(state: State.Todo, data: listViewModel.todoList)
+            
+            return header
+        case doingTableView:
+            let header = doingTableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader
+            header?.configureContent(state: State.Doing, data: listViewModel.todoList)
+            
+            return header
+        case doneTableView:
+            let header = doneTableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader
+            header?.configureContent(state: State.Done, data: listViewModel.todoList)
+            
+            return header
+        default:
+            return CustomTableViewHeader()
         }
     }
 }

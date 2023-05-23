@@ -77,7 +77,7 @@ class TableViewCell: UITableViewCell {
             listContentView.topAnchor.constraint(equalTo: contentView.topAnchor),
             listContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             listContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            listContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            listContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 }

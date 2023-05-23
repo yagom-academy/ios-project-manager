@@ -73,19 +73,19 @@ final class MainListViewController: UIViewController {
                                                                 item: item)
         }
         
-        let supplementaryRegistration = UICollectionView.SupplementaryRegistration
-        <CollectionViewHeaderReusableView>(elementKind: MainListViewController.headerElementKind) {
-            (supplementaryView, string, indexPath) in
-            let section = State.allCases[indexPath.section]
-            let count = self.listViewModel.todoList.filter({ $0.state == section }).count
-            
-            supplementaryView.configureContent(title: section.title, count: count)
-        }
-        
-        dataSource?.supplementaryViewProvider = { (view, kind, index) in
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
-                using: supplementaryRegistration, for: index)
-        }
+//        let supplementaryRegistration = UICollectionView.SupplementaryRegistration
+//        <CollectionViewHeaderReusableView>(elementKind: MainListViewController.headerElementKind) {
+//            (supplementaryView, string, indexPath) in
+//            let section = State.allCases[indexPath.section]
+//            let count = self.listViewModel.todoList.filter({ $0.state == section }).count
+//            
+//            supplementaryView.configureContent(title: section.title, count: count)
+//        }
+//        
+//        dataSource?.supplementaryViewProvider = { (view, kind, index) in
+//            return self.collectionView.dequeueConfiguredReusableSupplementary(
+//                using: supplementaryRegistration, for: index)
+//        }
     }
     
     private func configureSnapShot() {

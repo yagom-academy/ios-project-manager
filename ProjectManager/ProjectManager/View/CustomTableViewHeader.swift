@@ -1,5 +1,5 @@
 //
-//  CollectionViewHeaderReusableView.swift
+//  CustomTableViewHeader.swift
 //  ProjectManager
 //
 //  Created by 무리 on 2023/05/21.
@@ -7,7 +7,9 @@
 
 import UIKit
 
-class CollectionViewHeaderReusableView: UICollectionReusableView {
+class CustomTableViewHeader: UITableViewHeaderFooterView {
+    static let identifier = "headerCell"
+    
     private let labelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .leading
@@ -46,19 +48,19 @@ class CollectionViewHeaderReusableView: UICollectionReusableView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         configureSubviews()
         configureConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureContent(title: String, count: Int) {
-        titleLabel.text = title
-        countLabel.text = count.description
+    func configureContent(state: State, data: [ToDoModel]) {
+        titleLabel.text = state.title
+        countLabel.text = data.filter({ $0.state == state }).count.description
     }
     
     private func configureSubviews() {
