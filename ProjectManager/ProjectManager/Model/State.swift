@@ -24,7 +24,7 @@ enum State: CaseIterable {
 
 extension State {
     var others: (first: State, second: State) {
-        var stateList = State.allCases.filter { $0 != self }
+        let stateList = State.allCases.filter { $0 != self }
         
         return (stateList[0], stateList[1])
     }

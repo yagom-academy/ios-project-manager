@@ -11,11 +11,9 @@ import Combine
 final class TaskManager {
     static let shared = TaskManager()
     
-    @Published private var taskList: [Task]
+    @Published private var taskList: [Task] = []
     
-    private init() {
-        taskList = [Task(state: .done, title: "test", body: "test", deadline: Date())]
-    }
+    private init() { }
     
     func taskListPublisher() -> AnyPublisher<[Task], Never> {
         return $taskList.eraseToAnyPublisher()
