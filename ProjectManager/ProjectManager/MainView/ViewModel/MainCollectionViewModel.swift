@@ -125,7 +125,18 @@ extension MainCollectionViewModel {
         let taskViewModel = TaskCellViewModel(task: task)
         
         cell.provide(taskViewModel)
+        cell.delegate = self
         
         return cell
+    }
+}
+
+extension MainCollectionViewModel: SwipeableCollectionViewCellDelegate {
+    func tapVisibleContainerView(inCell cell: UICollectionViewCell) {
+        print("visible Action")
+    }
+    
+    func tapHiddenContainerView(inCell cell: UICollectionViewCell) {
+        print("delete Action")
     }
 }
