@@ -13,6 +13,8 @@
 		62D600352A15062D00AD7490 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D600342A15062D00AD7490 /* WorkState.swift */; };
 		62D600582A1778DE00AD7490 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D600572A1778DE00AD7490 /* TaskCell.swift */; };
 		62D6005F2A17A58800AD7490 /* DataSourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D6005E2A17A58800AD7490 /* DataSourceError.swift */; };
+		62E8F9C72A1C9DBE0011B195 /* MainCollectionViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E8F9C62A1C9DBE0011B195 /* MainCollectionViewService.swift */; };
+		62E8F9CA2A1CA3310011B195 /* TaskFetchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E8F9C92A1CA3310011B195 /* TaskFetchDelegate.swift */; };
 		62F8A1BF2A1B32EA005F6BF7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1BE2A1B32EA005F6BF7 /* DetailViewController.swift */; };
 		62F8A1C52A1B3356005F6BF7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1C42A1B3356005F6BF7 /* DetailViewModel.swift */; };
 		62F8A1C82A1B5651005F6BF7 /* DetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1C72A1B5651005F6BF7 /* DetailService.swift */; };
@@ -40,6 +42,8 @@
 		62D600342A15062D00AD7490 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
 		62D600572A1778DE00AD7490 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		62D6005E2A17A58800AD7490 /* DataSourceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceError.swift; sourceTree = "<group>"; };
+		62E8F9C62A1C9DBE0011B195 /* MainCollectionViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewService.swift; sourceTree = "<group>"; };
+		62E8F9C92A1CA3310011B195 /* TaskFetchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFetchDelegate.swift; sourceTree = "<group>"; };
 		62F8A1BE2A1B32EA005F6BF7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		62F8A1C42A1B3356005F6BF7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		62F8A1C72A1B5651005F6BF7 /* DetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailService.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 		6203356F2A14AB0500DDF23E /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				62E8F9C52A1C9D430011B195 /* Service */,
 				62D600342A15062D00AD7490 /* WorkState.swift */,
 				62D600522A1750EB00AD7490 /* ViewModel */,
 				62D600512A1750E100AD7490 /* View */,
@@ -144,6 +149,22 @@
 				AD4BDE7B2A179EAF0022F3D6 /* MainCollectionViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		62E8F9C52A1C9D430011B195 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				62E8F9C62A1C9DBE0011B195 /* MainCollectionViewService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		62E8F9C82A1CA2CA0011B195 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				62E8F9C92A1CA3310011B195 /* TaskFetchDelegate.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		62F8A1C02A1B331C005F6BF7 /* DetailView */ = {
@@ -237,6 +258,7 @@
 				6203356F2A14AB0500DDF23E /* MainView */,
 				62F8A1C02A1B331C005F6BF7 /* DetailView */,
 				620335702A14AC9700DDF23E /* Model */,
+				62E8F9C82A1CA2CA0011B195 /* Protocol */,
 				AD8A5EC52A1C8EAE00D66627 /* Repository */,
 				62D600312A14C24B00AD7490 /* Extension */,
 			);
@@ -372,9 +394,11 @@
 				62F8A1C52A1B3356005F6BF7 /* DetailViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				AD8A5EC72A1C8EC300D66627 /* TaskRepository.swift in Sources */,
+				62E8F9C72A1C9DBE0011B195 /* MainCollectionViewService.swift in Sources */,
 				AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */,
 				620335722A14ACAF00DDF23E /* Task.swift in Sources */,
 				AD8A5EC12A1C50AF00D66627 /* UITextField+Combine.swift in Sources */,
+				62E8F9CA2A1CA3310011B195 /* TaskFetchDelegate.swift in Sources */,
 				AD5FFB8C2A14B64E00CF6A39 /* TaskViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

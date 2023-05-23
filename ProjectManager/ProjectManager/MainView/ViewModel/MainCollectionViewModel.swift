@@ -13,35 +13,27 @@ final class MainCollectionViewModel: NSObject {
     private weak var collectionView: UICollectionView?
     private var dataSource: DataSource?
     private var cellIdentifier: String
+    private let mainCollectionViewService = MainCollectionViewService()
     
-    var items: [Task] = [
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hiThere", date: Date(), body: "body", workState: .done),
-        Task(title: "hi", date: Date(), body: "body", workState: .doing),
-        Task(title: "hibye", date: Date(), body: "body", workState: .todo),
-        Task(title: "hibyehi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "bodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybody", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo)
-    ]
+    var items: [Task] = []
     
     init(collectionView: UICollectionView?, cellReuseIdentifier: String) {
         self.collectionView = collectionView
         self.cellIdentifier = cellReuseIdentifier
+        
         super.init()
+        fetchTaskList()
     }
     
     enum Section {
         case todo
         case doing
         case done
+    }
+    
+    func fetchTaskList() {
+        items = mainCollectionViewService.fetchTaskList()
+        update()
     }
 }
 

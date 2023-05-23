@@ -11,7 +11,11 @@ final class TaskRepository {
     static let shared = TaskRepository()
     private init() { }
     
-    private var storage: [Task] = []
+    private var storage: [Task] =  [
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hiThere", date: Date(), body: "body", workState: .done),
+        Task(title: "hi", date: Date(), body: "body", workState: .doing),
+    ]
     
     func append(_ task: Task) {
         storage.append(task)

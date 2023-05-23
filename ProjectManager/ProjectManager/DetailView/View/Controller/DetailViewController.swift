@@ -67,6 +67,8 @@ final class DetailViewController: UIViewController {
     
     var cancellables = Set<AnyCancellable>()
     
+    weak var delegate: TaskFetchDelegate?
+    
     override func viewDidLoad() {
         bind(to: detailViewModel)
         configureNavigationBar()
@@ -141,7 +143,9 @@ final class DetailViewController: UIViewController {
     
     @objc
     private func tapDoneButton() {
-        
+        detailViewModel.createTask()
+        delegate?.fetchTaskList()
+        self.dismiss(animated: true)
     }
                                       
     private func configureStackView() {
