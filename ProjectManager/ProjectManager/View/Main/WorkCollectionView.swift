@@ -109,7 +109,8 @@ final class WorkCollectionView: UICollectionView {
                 return UICollectionViewCell()
             }
             
-            cell.configure(title: work.title, body: work.body, deadline: "\(work.deadline)")
+            let deadline = work.deadline.applyDateFormatter()
+            cell.configure(title: work.title, body: work.body, deadline: deadline)
             
             return cell
         }

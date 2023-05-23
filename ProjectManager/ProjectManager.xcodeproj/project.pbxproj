@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BF508FCF2A1CAD00004CBB1E /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF508FCE2A1CAD00004CBB1E /* AlertManager.swift */; };
 		BF508FD12A1CB578004CBB1E /* NotificationName+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF508FD02A1CB578004CBB1E /* NotificationName+.swift */; };
+		BF508FD72A1D4126004CBB1E /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF508FD62A1D4126004CBB1E /* Date+.swift */; };
 		BF715FDE2A14CD8700C3D081 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF715FDD2A14CD8700C3D081 /* GoogleService-Info.plist */; };
 		BF715FE12A14CDCA00C3D081 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = BF715FE02A14CDCA00C3D081 /* FirebaseAnalytics */; };
 		BF851EAC2A15F62E0028FCDA /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EAB2A15F62E0028FCDA /* Work.swift */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		BF508FCE2A1CAD00004CBB1E /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		BF508FD02A1CB578004CBB1E /* NotificationName+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+.swift"; sourceTree = "<group>"; };
+		BF508FD62A1D4126004CBB1E /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		BF715FDD2A14CD8700C3D081 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF851EAB2A15F62E0028FCDA /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		BF851EAE2A15F7550028FCDA /* WorkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkStatus.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			children = (
 				BFFF1A622A177A5F006F34B3 /* CALayer+.swift */,
 				BF508FD02A1CB578004CBB1E /* NotificationName+.swift */,
+				BF508FD62A1D4126004CBB1E /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				BF851EAC2A15F62E0028FCDA /* Work.swift in Sources */,
 				BF508FCF2A1CAD00004CBB1E /* AlertManager.swift in Sources */,
 				BF851EB42A15FFAE0028FCDA /* WorkViewModel.swift in Sources */,
+				BF508FD72A1D4126004CBB1E /* Date+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
