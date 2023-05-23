@@ -73,7 +73,7 @@ final class TaskCell: UICollectionViewListCell {
         ])
     }
     
-    func provide(_ item: TaskViewModel) {
+    func provide(_ item: TaskCellViewModel) {
         titleLabel.text = item.title
         bodyLabel.text = item.body
         dateLabel.text = item.date

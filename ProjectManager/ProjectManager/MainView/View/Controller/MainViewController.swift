@@ -106,7 +106,7 @@ final class MainViewController: UIViewController {
     
     @objc
     private func presentDetailView() {
-        let detailViewController = DetailViewController()
+        let detailViewController = DetailViewController(task: nil, mode: .create)
         detailViewController.delegate = self
         self.present(detailViewController, animated: true)
     }
@@ -114,7 +114,11 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("move DetailView")
+        let task = mainCollectionViewModel.task(at: indexPath)
+        let detailViewController = DetailViewController(task: task, mode: .update)
+        detailViewController.delegate = self
+        
+        self.present(detailViewController, animated: true)
     }
 }
 

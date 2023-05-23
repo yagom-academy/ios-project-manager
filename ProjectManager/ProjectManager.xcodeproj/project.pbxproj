@@ -22,7 +22,7 @@
 		68448711764F42CFB8F8BC4A /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C88C513389408278BC4CDE4 /* Pods_ProjectManager.framework */; };
 		AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD450BE92A150E4A00A9C693 /* HeaderView.swift */; };
 		AD4BDE7C2A179EAF0022F3D6 /* MainCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4BDE7B2A179EAF0022F3D6 /* MainCollectionViewModel.swift */; };
-		AD5FFB8C2A14B64E00CF6A39 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5FFB8B2A14B64E00CF6A39 /* TaskViewModel.swift */; };
+		AD5FFB8C2A14B64E00CF6A39 /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */; };
 		AD8A5EBF2A1B6D7B00D66627 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EBE2A1B6D7B00D66627 /* UIControl+Combine.swift */; };
 		AD8A5EC12A1C50AF00D66627 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EC02A1C50AF00D66627 /* UITextField+Combine.swift */; };
 		AD8A5EC32A1C512100D66627 /* UIDatePicker+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EC22A1C512100D66627 /* UIDatePicker+Combine.swift */; };
@@ -52,7 +52,7 @@
 		8C88C513389408278BC4CDE4 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD450BE92A150E4A00A9C693 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		AD4BDE7B2A179EAF0022F3D6 /* MainCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewModel.swift; sourceTree = "<group>"; };
-		AD5FFB8B2A14B64E00CF6A39 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
 		AD8A5EBE2A1B6D7B00D66627 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
 		AD8A5EC02A1C50AF00D66627 /* UITextField+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Combine.swift"; sourceTree = "<group>"; };
 		AD8A5EC22A1C512100D66627 /* UIDatePicker+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Combine.swift"; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 		62D600522A1750EB00AD7490 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				AD5FFB8B2A14B64E00CF6A39 /* TaskViewModel.swift */,
+				AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */,
 				AD4BDE7B2A179EAF0022F3D6 /* MainCollectionViewModel.swift */,
 			);
 			path = ViewModel;
@@ -399,7 +399,7 @@
 				620335722A14ACAF00DDF23E /* Task.swift in Sources */,
 				AD8A5EC12A1C50AF00D66627 /* UITextField+Combine.swift in Sources */,
 				62E8F9CA2A1CA3310011B195 /* TaskFetchDelegate.swift in Sources */,
-				AD5FFB8C2A14B64E00CF6A39 /* TaskViewModel.swift in Sources */,
+				AD5FFB8C2A14B64E00CF6A39 /* TaskCellViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

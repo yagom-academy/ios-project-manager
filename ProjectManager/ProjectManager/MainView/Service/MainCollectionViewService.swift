@@ -8,7 +8,6 @@
 import Foundation
 
 final class MainCollectionViewService {
-    
     func fetchTaskList() -> [Task] {
         return TaskRepository.shared.readAll()
     }

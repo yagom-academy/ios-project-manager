@@ -35,6 +35,23 @@ final class MainCollectionViewModel: NSObject {
         items = mainCollectionViewService.fetchTaskList()
         update()
     }
+    
+    func task(at indexPath: IndexPath) -> Task? {
+        var targetList = [Task]()
+        
+        switch indexPath.section {
+        case 0:
+            targetList = items.filter { $0.workState == .todo }
+        case 1:
+            targetList = items.filter { $0.workState == .doing }
+        case 2:
+            targetList = items.filter { $0.workState == .done }
+        default:
+            break
+        }
+        
+        return targetList[safe: indexPath.row]
+    }
 }
 
 extension MainCollectionViewModel {
@@ -60,12 +77,6 @@ extension MainCollectionViewModel {
         return dataSource
     }
     
-    func add(_ item: Task) {
-        self.items.append(item)
-    
-        update()
-    }
-    
     func remove(_ item: Task) {
         self.items.removeAll { $0.id == item.id }
         
@@ -81,7 +92,7 @@ extension MainCollectionViewModel {
         }
         
         let task = items.filter { $0.id == identifier }[0]
-        let taskViewModel = TaskViewModel(task: task)
+        let taskViewModel = TaskCellViewModel(task: task)
         
         cell.provide(taskViewModel)
         

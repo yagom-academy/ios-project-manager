@@ -1,5 +1,5 @@
 //
-//  TaskViewModel.swift
+//  TaskCellViewModel.swift
 //  ProjectManager
 //
 //  Created by Brody, Rowan on 2023/05/17.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TaskViewModel {
+final class TaskCellViewModel {
     private let task: Task
     private let dateFormatter = {
         let formatter = DateFormatter()

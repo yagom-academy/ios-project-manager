@@ -9,6 +9,11 @@ import UIKit
 import Combine
 
 final class DetailViewController: UIViewController {
+    enum Mode {
+        case create
+        case update
+    }
+    
     private var navigationBar: UINavigationBar?
     
     private let titleTextfield = {
@@ -63,18 +68,29 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
     
-    private let detailViewModel = DetailViewModel()
+    private let detailViewModel: DetailViewModel
     
+    let mode: Mode
     var cancellables = Set<AnyCancellable>()
-    
     weak var delegate: TaskFetchDelegate?
     
+    init(task: Task?, mode: Mode) {
+        self.detailViewModel = DetailViewModel(task: task)
+        self.mode = mode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
-        bind(to: detailViewModel)
         configureNavigationBar()
         configureShadowView()
         configureStackView()
         configureRootView()
+        configureLabelText()
+        bind(to: detailViewModel)
     }
 
     private func bind(to viewModel: DetailViewModel) {
@@ -91,14 +107,19 @@ final class DetailViewController: UIViewController {
             .store(in: &cancellables)
     }
     
-    private func assign<Value>(publisher: AnyPublisher<Value ,Never>, keyPath: ReferenceWritableKeyPath<DetailViewModel, Value>) {
+    private func assign<Value>(
+        publisher: AnyPublisher<Value, Never>,
+        keyPath: ReferenceWritableKeyPath<DetailViewModel, Value>
+    ) {
         publisher
             .assign(to: keyPath, on: detailViewModel)
             .store(in: &cancellables)
     }
     
     private func configureNavigationBar() {
-        navigationBar = UINavigationBar(frame: .init(x: 0, y: 0, width: view.frame.width / 2 + 20, height: 50))
+        navigationBar = UINavigationBar(
+            frame: .init(x: 0, y: 0, width: view.frame.width / 2 + 20, height: 50)
+        )
         
         guard let navigationBar else {
             return
@@ -123,7 +144,7 @@ final class DetailViewController: UIViewController {
             title: "Cancel",
             style: .plain,
             target: self,
-            action: #selector(tapDoneButton)
+            action: #selector(tapCancelButton)
         )
         navigationBar.items = [navigationItem]
         
@@ -143,8 +164,19 @@ final class DetailViewController: UIViewController {
     
     @objc
     private func tapDoneButton() {
-        detailViewModel.createTask()
+        switch mode {
+        case .create:
+            detailViewModel.createTask()
+        case .update:
+            detailViewModel.updateTask()
+        }
+        
         delegate?.fetchTaskList()
+        self.dismiss(animated: true)
+    }
+    
+    @objc
+    private func tapCancelButton() {
         self.dismiss(animated: true)
     }
                                       
@@ -166,5 +198,11 @@ final class DetailViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 60),
             stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -20),
         ])
+    }
+    
+    private func configureLabelText() {
+        self.titleTextfield.text = detailViewModel.title
+        self.datePicker.date = detailViewModel.date
+        self.bodyTextView.text = detailViewModel.body
     }
 }

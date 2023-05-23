@@ -12,7 +12,8 @@ final class DetailService {
         TaskRepository.shared.append(task)
     }
     
-    func update() {
-        
+    func updateTask(id: UUID, title: String, date: Date, body: String, workState: WorkState) {
+        let task = Task(title: title, date: date, body: body, workState: workState, id: id)
+        TaskRepository.shared.update(task: task)
     }
 }
