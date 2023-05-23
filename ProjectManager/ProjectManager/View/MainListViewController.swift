@@ -11,7 +11,7 @@ final class MainListViewController: UIViewController {
     
     private typealias DataSource = UICollectionViewDiffableDataSource<State, ToDoModel>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<State, ToDoModel>
-    private lazy var collectionView = UICollectionView(frame: .zero,
+    lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
     private var dataSource: DataSource?
     private let listViewModel = ListViewModel()
@@ -29,9 +29,9 @@ final class MainListViewController: UIViewController {
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.scrollDirection = .horizontal
-        
+
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex: Int,
-                                                                             layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection in
+                                                                             layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection in 
             
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .estimated(30))
@@ -40,16 +40,18 @@ final class MainListViewController: UIViewController {
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                    heightDimension: .estimated(30))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            
+//            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top:
+//                    .fixed(60), trailing: nil, bottom: nil)
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 8
             section.orthogonalScrollingBehavior = .continuous
-            
+//            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
-                                                  heightDimension: .absolute(60)),
+                                                   heightDimension: .estimated(60)),
                 elementKind: MainListViewController.headerElementKind,
                 alignment: .top)
+//            section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1/3), heightDimension: .absolute(50)), elementKind: catgoryHeaderId, alignment: .topLeading)]
             section.boundarySupplementaryItems = [sectionHeader]
             
             return section

@@ -8,6 +8,8 @@
 import UIKit
 
 final class AddProjectViewController: UIViewController {
+    private let listViewModel = ListViewModel()
+    
     private let contentView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -43,7 +45,7 @@ final class AddProjectViewController: UIViewController {
         
         return textView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -62,7 +64,7 @@ final class AddProjectViewController: UIViewController {
                                          action: #selector(doneEdit))
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                            target: self,
-                                           action: #selector(doneEdit))
+                                           action: #selector(cancelEdit))
 //        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
 //                                         target: self,
 //                                         action: )
@@ -89,6 +91,11 @@ final class AddProjectViewController: UIViewController {
     
     @objc
     private func doneEdit() {
+        guard let title = titleTextField.text,
+              let description = descriptionTextView.text else { return }
+        
+        let todoList = ToDoModel(title: title, description: description, deadLine: Date(), state: .Doing)
+        listViewModel.todoList.append(todoList)
         self.dismiss(animated: true)
     }
     

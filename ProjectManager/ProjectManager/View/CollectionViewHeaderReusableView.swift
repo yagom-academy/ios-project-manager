@@ -13,10 +13,11 @@ class CollectionViewHeaderReusableView: UICollectionReusableView {
         stackView.alignment = .leading
         stackView.spacing = 5
         stackView.backgroundColor = .systemGray6
-        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        stackView.layoutMargins = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fill
+//        stackView.layer.borderColor = UIColor.gray.cgColor
+//        stackView.layer.borderWidth = 1
         
         return stackView
     }()
@@ -37,7 +38,7 @@ class CollectionViewHeaderReusableView: UICollectionReusableView {
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.textColor = .systemBackground
         label.layer.borderWidth = 5
-        label.layer.cornerRadius = 17
+        label.layer.cornerRadius = 16
         label.layer.borderColor = UIColor.black.cgColor
         label.layer.masksToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
