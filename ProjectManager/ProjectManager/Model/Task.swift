@@ -9,8 +9,8 @@ import Foundation
 
 struct Task: Hashable {
     let id = UUID()
-    let state: State
-    let title: String
-    let body: String
-    let deadline: Date
+    var state: State
+    var title: String
+    var body: String
+    var deadline: Date
 }

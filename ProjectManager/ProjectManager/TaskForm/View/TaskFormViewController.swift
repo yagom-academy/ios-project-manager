@@ -79,27 +79,40 @@ class TaskFormViewController: UIViewController {
         setupStackView()
         setupStackViewConstraints()
         setupContents()
+        setupContentsEditable()
     }
     
     private func setupNavigationBar() {
-        let doneBarbutton = UIBarButtonItem(title: "Done",
+        let leftBarbutton = UIBarButtonItem(title: viewModel.leftBarButtonTitle,
                                             style: .plain,
                                             target: self,
-                                            action: #selector(addTask))
-        let editBarbutton = UIBarButtonItem(title: "Edit",
+                                            action: #selector(leftBarButtonAction))
+        let rightBarbutton = UIBarButtonItem(title: viewModel.rightBarButtonTitle,
                                             style: .plain,
                                             target: self,
-                                            action: nil)
-        
-        navigationItem.title = "TODO"
-        navigationItem.rightBarButtonItem = doneBarbutton
-        navigationItem.leftBarButtonItem = editBarbutton
+                                            action: #selector(rightBarButtonAction))
+
+        navigationItem.title = viewModel.navigationTitle
+        navigationItem.leftBarButtonItem = leftBarbutton
+        navigationItem.rightBarButtonItem = rightBarbutton
     }
     
-    @objc private func addTask() {
-        viewModel.addTask(title: textField.text ?? "",
-                          date: datePicker.date,
-                          body: textView.text ?? "")
+    @objc private func leftBarButtonAction() {
+        if viewModel.isEditable {
+            dismiss(animated: true)
+            
+            return
+        }
+        
+        textField.isEnabled = !viewModel.isEditable
+        datePicker.isEnabled = !viewModel.isEditable
+        textView.isEditable = !viewModel.isEditable
+    }
+    
+    @objc private func rightBarButtonAction() {
+        viewModel.doneAction(title: textField.text ?? "",
+                             date: datePicker.date,
+                             body: textView.text ?? "")
         
         dismiss(animated: true)
     }
@@ -129,5 +142,11 @@ class TaskFormViewController: UIViewController {
         textField.text = viewModel.title
         datePicker.setDate(viewModel.deadline, animated: false)
         textView.text = viewModel.body
+    }
+    
+    private func setupContentsEditable() {
+        textField.isEnabled = viewModel.isEditable
+        datePicker.isEnabled = viewModel.isEditable
+        textView.isEditable = viewModel.isEditable
     }
 }

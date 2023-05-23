@@ -25,6 +25,13 @@ final class TaskManager {
         taskList.append(task)
     }
     
+    func update(task: Task) {
+        let index = taskList.firstIndex { $0.id == task.id }
+        guard let index else { return }
+        
+        taskList[index] = task
+    }
+    
     func delete(by id: UUID) {
         taskList.removeAll { $0.id == id }
     }
