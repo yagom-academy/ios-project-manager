@@ -9,7 +9,7 @@ import UIKit
 
 final class TodoViewController: UIViewController {
     
-    private var viewModel = TodoViewModel()
+    let viewModel = TodoViewModel()
     
     private let parentTextView = UIView()
     private let titleTextField = TodoTitleTextField()
@@ -71,7 +71,7 @@ extension TodoViewController {
     
     private func configureNavigationViewUI() {
         navigationItem.title = "TODO"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: viewModel.leftBarButtonItem,
                                                            target: self,
                                                            action: #selector(didTapCancelButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,

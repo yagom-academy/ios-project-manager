@@ -76,7 +76,7 @@ extension ListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let parentVC = self.parent as? MainViewController else { return }
         
-        parentVC.presentTodoViewController()
+        parentVC.presentTodoViewController(.edit, viewModel.tasks[indexPath.row])
     }
 }
 

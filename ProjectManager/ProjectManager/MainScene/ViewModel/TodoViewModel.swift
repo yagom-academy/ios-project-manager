@@ -5,9 +5,26 @@
 //  Created by 레옹아범 on 2023/05/22.
 //
 
-import Foundation
+import UIKit
+
+enum TodoState {
+    case create
+    case edit
+}
 
 final class TodoViewModel {
+    var state: TodoState = .create
+    var task: Task?
+    
+    var leftBarButtonItem: UIBarButtonItem.SystemItem {
+        switch state {
+        case .create:
+            return .cancel
+        case .edit:
+            return .edit
+        }
+    }
+    
     func restrictNumberOfText(range: NSRange, text: String) -> Bool {
         guard let convertedText = text.cString(using: .utf8) else { return false }
         

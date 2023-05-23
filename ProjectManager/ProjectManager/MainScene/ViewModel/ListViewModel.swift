@@ -6,7 +6,7 @@
 //
 
 final class ListViewModel {
-    private var tasks: [Task] = []
+    var tasks: [Task] = []
     
     func appendTask(_ task: Task) {
         tasks.append(task)
