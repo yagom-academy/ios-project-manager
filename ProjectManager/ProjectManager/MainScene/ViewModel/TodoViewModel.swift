@@ -7,11 +7,6 @@
 
 import UIKit
 
-enum TodoState {
-    case create
-    case edit
-}
-
 final class TodoViewModel {
     var state: TodoState = .create
     var task: Task?
