@@ -35,10 +35,10 @@ final class ListViewController: UIViewController {
         applySnapshot(by: [])
     }
     
-    func appendTask(_ task: Task) {
-        viewModel.appendTask(task)
+    func appendTask(_ task: [Task]) {
+        viewModel.tasks = task
         
-        applySnapshot(by: [task])
+        applySnapshot(by: viewModel.tasks)
     }
 
     private func applySnapshot(by items: [Task]) {
@@ -117,6 +117,11 @@ extension ListViewController {
             listConfig.trailingSwipeActionsConfigurationProvider = { indexPath in
                 let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
                     // Delete Item
+                    let task = self.viewModel.tasks[indexPath.row]
+                    self.deleteSnapshot(by: task)
+                    NotificationCenter.default.post(name: .deleteTask,
+                                                    object: nil,
+                                                    userInfo: ["task": task])
                     completion(true)
                 }
                 

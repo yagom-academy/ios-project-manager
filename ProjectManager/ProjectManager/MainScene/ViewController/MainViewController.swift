@@ -25,6 +25,11 @@ final class MainViewController: UIViewController {
         configureNavigationViewUI()
         configureViewUI()
         configureChildViewControllerUI()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateCollectionView),
+                                               name: .changedTasks,
+                                               object: nil)
     }
     
     func presentTodoViewController(_ state: TodoState, _ task: Task?) {
@@ -36,6 +41,16 @@ final class MainViewController: UIViewController {
         todoViewController.viewModel.task = task
         
         self.present(navigationController, animated: true)
+    }
+    
+    @objc private func updateCollectionView() {
+        let todoTasks = viewModel.filterTasks(by: .todo)
+        let doingTasks = viewModel.filterTasks(by: .doing)
+        let doneTasks = viewModel.filterTasks(by: .done)
+        
+        todoViewController.appendTask(todoTasks)
+        doingViewController.appendTask(doingTasks)
+        doneViewController.appendTask(doneTasks)
     }
     
     @objc private func didTapAddButton() {
@@ -50,7 +65,6 @@ extension MainViewController: TaskDelegate {
 
     func saveTask(_ task: Task) {
         viewModel.appendTask(task)
-        todoViewController.appendTask(task)
     }
 }
 
