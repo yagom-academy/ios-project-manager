@@ -21,31 +21,14 @@ import Combine
 import Foundation
 
 final class DetailViewModel {
-    var title: String = ""
-    var date: Date = Date()
-    var body: String = ""
+    @Published var title: String = ""
+    @Published var body: String = ""
     
-    var cancellables = Set<AnyCancellable>()
-    
-    struct Input {
-        let title: AnyPublisher<String, Never>
-        let date: AnyPublisher<Date, Never>
-        let body: AnyPublisher<String, Never>
-    }
+    lazy var isEditingDone: AnyPublisher<Bool, Never> = Publishers.CombineLatest($title, $body)
+        .map { title, body in
+            return !title.isEmpty || !body.isEmpty
+        }
+        .eraseToAnyPublisher()
     
     let detailService = DetailService()
-    
-    func transform(input: Input) {
-        input.title
-            .assign(to: \.title, on: self)
-            .store(in: &cancellables)
-        
-        input.date
-            .assign(to: \.date, on: self)
-            .store(in: &cancellables)
-        
-        input.body
-            .assign(to: \.body, on: self)
-            .store(in: &cancellables)
-    }
 }

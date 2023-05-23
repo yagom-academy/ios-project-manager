@@ -186,13 +186,6 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		AD8A5EBD2A1B6D0900D66627 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utility;
-			sourceTree = "<group>";
-		};
 		AD8A5EC42A1C51C500D66627 /* Combine */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,7 +228,6 @@
 				62F8A1C02A1B331C005F6BF7 /* DetailView */,
 				620335702A14AC9700DDF23E /* Model */,
 				62D600312A14C24B00AD7490 /* Extension */,
-				AD8A5EBD2A1B6D0900D66627 /* Utility */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";

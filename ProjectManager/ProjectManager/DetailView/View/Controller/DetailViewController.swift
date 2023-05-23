@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 final class DetailViewController: UIViewController {
+    private var navigationBar: UINavigationBar?
+    
     private let titleTextfield = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title3)
@@ -62,6 +65,8 @@ final class DetailViewController: UIViewController {
     
     private let detailViewModel = DetailViewModel()
     
+    var cancellables = Set<AnyCancellable>()
+    
     override func viewDidLoad() {
         bind(to: detailViewModel)
         configureNavigationBar()
@@ -71,38 +76,55 @@ final class DetailViewController: UIViewController {
     }
 
     private func bind(to viewModel: DetailViewModel) {
-        let input = DetailViewModel.Input(
-            title: titleTextfield.textPublisher,
-            date: datePicker.datePublisher,
-            body: bodyTextView.textPublisher
-        )
-        
-        detailViewModel.transform(input: input)
-        
+        assign(publisher: titleTextfield.textPublisher, keyPath: \.title)
+        assign(publisher: bodyTextView.textPublisher, keyPath: \.body)
+         
+        detailViewModel
+            .isEditingDone
+            .sink { isEditingDone in
+                let rightBarButtonItem = self.navigationBar?.items?.last?.rightBarButtonItem
+                rightBarButtonItem?.isEnabled = isEditingDone ? true : false
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func assign(publisher: AnyPublisher<String ,Never>, keyPath: ReferenceWritableKeyPath<DetailViewModel, String>) {
+        publisher
+            .assign(to: keyPath, on: detailViewModel)
+            .store(in: &cancellables)
     }
     
     private func configureNavigationBar() {
-        let naviBar = UINavigationBar(frame: .init(x: 0, y: 0, width: view.frame.width / 2 + 20, height: 50))
+        navigationBar = UINavigationBar(frame: .init(x: 0, y: 0, width: view.frame.width / 2 + 20, height: 50))
         
-        naviBar.isTranslucent = false
-        naviBar.standardAppearance.backgroundColor = .systemGray6
+        guard let navigationBar else {
+            return
+        }
         
-        let naviItem = UINavigationItem(title: "Todo")
-        naviItem.rightBarButtonItem = UIBarButtonItem(
+        navigationBar.isTranslucent = false
+        navigationBar.standardAppearance.backgroundColor = .systemGray6
+        
+        let navigationItem = UINavigationItem(title: "Todo")
+        let rightNavigationButton = UIBarButtonItem(
             title: "Done",
             style: .plain,
             target: self,
             action: #selector(tapDoneButton)
         )
-        naviItem.leftBarButtonItem = UIBarButtonItem(
+        
+        rightNavigationButton.isEnabled = false
+        
+        navigationItem.rightBarButtonItem = rightNavigationButton
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: "Cancel",
             style: .plain,
             target: self,
             action: #selector(tapDoneButton)
         )
-        naviBar.items = [naviItem]
+        navigationBar.items = [navigationItem]
         
-        view.addSubview(naviBar)
+        view.addSubview(navigationBar)
     }
     
     private func configureShadowView() {
