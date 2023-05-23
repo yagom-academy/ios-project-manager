@@ -14,8 +14,9 @@
 		08E8323E2A138F6B00517880 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 08E8323D2A138F6B00517880 /* FirebaseFirestore */; };
 		08E832402A138FAD00517880 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E8323F2A138FAD00517880 /* AppDelegate.swift */; };
 		1607FCCF2A14A2BB0042FE8B /* CustomFormRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1607FCCE2A14A2BB0042FE8B /* CustomFormRow.swift */; };
-		1607FCD12A14A3CD0042FE8B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1607FCD02A14A3CD0042FE8B /* Model.swift */; };
+		1607FCD12A14A3CD0042FE8B /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1607FCD02A14A3CD0042FE8B /* Todo.swift */; };
 		1607FCD32A14A6900042FE8B /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1607FCD22A14A6900042FE8B /* Case.swift */; };
+		166CDE1D2A1C94AF0015FA4F /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166CDE1C2A1C94AF0015FA4F /* TodoViewModel.swift */; };
 		16F11C652A138B4500F1A08C /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F11C642A138B4500F1A08C /* ProjectManagerApp.swift */; };
 		16F11C672A138B4500F1A08C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F11C662A138B4500F1A08C /* ContentView.swift */; };
 		16F11C692A138B4600F1A08C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F11C682A138B4600F1A08C /* Assets.xcassets */; };
@@ -30,8 +31,9 @@
 		08E832382A138E1700517880 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		08E8323F2A138FAD00517880 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1607FCCE2A14A2BB0042FE8B /* CustomFormRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFormRow.swift; sourceTree = "<group>"; };
-		1607FCD02A14A3CD0042FE8B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		1607FCD02A14A3CD0042FE8B /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		1607FCD22A14A6900042FE8B /* Case.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Case.swift; sourceTree = "<group>"; };
+		166CDE1C2A1C94AF0015FA4F /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		16F11C612A138B4500F1A08C /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F11C642A138B4500F1A08C /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		16F11C662A138B4500F1A08C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +56,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		166CDE192A1C94650015FA4F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				16F11C662A138B4500F1A08C /* ContentView.swift */,
+				08C8CF4D2A14703C00173DEE /* SwiftUIList.swift */,
+				08CB37D72A15BEBF00F11F9E /* ModalView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		166CDE1A2A1C946D0015FA4F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				166CDE1C2A1C94AF0015FA4F /* TodoViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		166CDE1B2A1C94700015FA4F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1607FCD02A14A3CD0042FE8B /* Todo.swift */,
+				1607FCD22A14A6900042FE8B /* Case.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		16F11C582A138B4500F1A08C = {
 			isa = PBXGroup;
 			children = (
@@ -73,17 +102,15 @@
 		16F11C632A138B4500F1A08C /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				166CDE1B2A1C94700015FA4F /* Model */,
+				166CDE192A1C94650015FA4F /* View */,
+				166CDE1A2A1C946D0015FA4F /* ViewModel */,
 				16F11C642A138B4500F1A08C /* ProjectManagerApp.swift */,
-				16F11C662A138B4500F1A08C /* ContentView.swift */,
-				08C8CF4D2A14703C00173DEE /* SwiftUIList.swift */,
-				08CB37D72A15BEBF00F11F9E /* ModalView.swift */,
 				1607FCCE2A14A2BB0042FE8B /* CustomFormRow.swift */,
 				16F11C682A138B4600F1A08C /* Assets.xcassets */,
 				08E832382A138E1700517880 /* GoogleService-Info.plist */,
 				16F11C6A2A138B4600F1A08C /* Preview Content */,
 				08E8323F2A138FAD00517880 /* AppDelegate.swift */,
-				1607FCD02A14A3CD0042FE8B /* Model.swift */,
-				1607FCD22A14A6900042FE8B /* Case.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -181,7 +208,8 @@
 				16F11C672A138B4500F1A08C /* ContentView.swift in Sources */,
 				08CB37D82A15BEBF00F11F9E /* ModalView.swift in Sources */,
 				1607FCCF2A14A2BB0042FE8B /* CustomFormRow.swift in Sources */,
-				1607FCD12A14A3CD0042FE8B /* Model.swift in Sources */,
+				1607FCD12A14A3CD0042FE8B /* Todo.swift in Sources */,
+				166CDE1D2A1C94AF0015FA4F /* TodoViewModel.swift in Sources */,
 				16F11C652A138B4500F1A08C /* ProjectManagerApp.swift in Sources */,
 				1607FCD32A14A6900042FE8B /* Case.swift in Sources */,
 				08C8CF4E2A14703C00173DEE /* SwiftUIList.swift in Sources */,
