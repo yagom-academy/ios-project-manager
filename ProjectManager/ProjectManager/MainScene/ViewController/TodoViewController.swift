@@ -32,7 +32,7 @@ final class TodoViewController: UIViewController {
         configureShadow()
     }
     
-    @objc private func didTapCancelButton() {
+    @objc private func didTapLeftBarButton() {
         self.dismiss(animated: true)
     }
     
@@ -80,7 +80,7 @@ extension TodoViewController {
         navigationItem.title = "TODO"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: viewModel.leftBarButtonItem,
                                                            target: self,
-                                                           action: #selector(didTapCancelButton))
+                                                           action: #selector(didTapLeftBarButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self,
                                                             action: #selector(didTapDoneButton))

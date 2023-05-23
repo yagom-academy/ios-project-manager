@@ -8,6 +8,7 @@ import UIKit
 
 protocol TaskDelegate: AnyObject {
     func saveTask(_ task: Task)
+    func editTask(_ task: Task)
 }
 
 final class MainViewController: UIViewController {
@@ -41,6 +42,10 @@ final class MainViewController: UIViewController {
 }
 
 extension MainViewController: TaskDelegate {
+    func editTask(_ task: Task) {
+        
+    }
+
     func saveTask(_ task: Task) {
         todoViewController.appendTask(task)
     }

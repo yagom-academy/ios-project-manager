@@ -53,7 +53,7 @@ final class TaskListCell: UICollectionViewListCell {
     func updateText(by task: Task) {
         titleLabel.text = task.title
         descriptionLabel.text = task.description
-        dateLabel.text = task.date.description
+        dateLabel.text = task.date.formattedText
     }
 }
 
