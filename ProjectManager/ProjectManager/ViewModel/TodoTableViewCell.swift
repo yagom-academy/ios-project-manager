@@ -16,6 +16,8 @@ final class TodoTableViewCell: UITableViewCell {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.spacing = 5
+        stackView.alignment = .fill
         
         return stackView
     }()
@@ -62,10 +64,10 @@ final class TodoTableViewCell: UITableViewCell {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
     }
     

@@ -12,13 +12,27 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
     private let todoListViewModel = TodoListViewModel()
     private var cancellables: Set<AnyCancellable> = []
     
-    private let todoTableView = UITableView()
-    private let doingTableView = UITableView()
-    private let doneTableView = UITableView()
+    private let todoTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .systemGroupedBackground
+        return tableView
+    }()
+    
+    private let doingTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .systemGroupedBackground
+        return tableView
+    }()
+    
+    private let doneTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .systemGroupedBackground
+        return tableView
+    }()
     
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.backgroundColor = .systemGray6
+        stackView.backgroundColor = .systemGray4
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
@@ -26,9 +40,9 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
         return stackView
     }()
     
-    private lazy var todoHeader = HeaderView(text: "TODO", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 50))
-    private lazy var doingHeader = HeaderView(text: "DOING", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 50))
-    private lazy var doneHeader = HeaderView(text: "DONE", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 50))
+    private lazy var todoHeader = HeaderView(text: "TODO", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 60))
+    private lazy var doingHeader = HeaderView(text: "DOING", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 60))
+    private lazy var doneHeader = HeaderView(text: "DONE", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 60))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,17 +90,20 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            tableStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
+            tableStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             tableStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20),
-            tableStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10)
+            tableStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
     }
     
     private func configureNavigationBar() {
-        let title = "Project Manager"
+        let title = UILabel()
+        title.text = "Project Manager"
+        title.font = UIFont.preferredFont(forTextStyle: .title2)
+        
         let plusButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonTapped))
         
-        navigationItem.title = title
+        navigationItem.titleView = title
         navigationItem.rightBarButtonItem = plusButton
     }
     
@@ -149,6 +166,7 @@ extension TodoListViewController: UITableViewDataSource {
 }
 
 extension TodoListViewController: UITableViewDelegate, UIGestureRecognizerDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = todoListViewModel.item(at: indexPath.row)
         let plusTodoViewModel = PlusTodoViewModel()
@@ -166,6 +184,7 @@ extension TodoListViewController: UITableViewDelegate, UIGestureRecognizerDelega
         longPressGesture.delegate = self
         cell?.isUserInteractionEnabled = true
         cell?.addGestureRecognizer(longPressGesture)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     @objc private func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {

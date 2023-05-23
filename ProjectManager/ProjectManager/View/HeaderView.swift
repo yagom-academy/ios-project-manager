@@ -10,12 +10,14 @@ import UIKit
 final class HeaderView: UIView {
     private let title = UILabel()
     private let countLabel = CircleLabel()
-
+    private var seperatorView = UIView()
+   
     init(text: String, frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .systemGray5
         self.addSubview(title)
         self.addSubview(countLabel)
+        self.addSubview(seperatorView)
+        
         title.text = text
         title.font = UIFont.preferredFont(forTextStyle: .largeTitle)
     }
@@ -28,11 +30,14 @@ final class HeaderView: UIView {
         super.layoutSubviews()
         let titleY = (bounds.height - title.frame.height) / 2
         
-        let countLabelX = title.frame.size.width + 10
+        let countLabelX = title.frame.size.width + 20
         let countLabelY = (bounds.height - countLabel.frame.height) / 2
-        let width = bounds.height * 0.7
+        let width = bounds.height * 0.5
         
-        title.frame = CGRect(x: 0, y: titleY, width: bounds.width, height: title.frame.height)
+        seperatorView.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 1)
+        seperatorView.backgroundColor = .placeholderText
+        
+        title.frame = CGRect(x: 10, y: titleY, width: bounds.width, height: title.frame.height)
         title.sizeToFit()
         
         countLabel.frame = CGRect(x: countLabelX, y: countLabelY, width: width, height: width)
