@@ -110,7 +110,13 @@ final class AddProjectViewController: UIViewController {
     private func doneEditingProject() {
         guard let title = titleTextField.text else { return }
         guard let body = bodyTextView.text else { return }
+        
         let date = datePicker.date
+        
+        guard title != "" && body != "" else {
+            displayEmptyAlert()
+            return
+        }
         
         if project == nil {
             let project = Project(title: title, body: body, date: date, status: .todo)
@@ -121,6 +127,7 @@ final class AddProjectViewController: UIViewController {
             projects.list[editIndex].date = date
             projects.list[editIndex].body = body
         }
+        
         projectManagerViewController?.projectManagerCollectionView.reloadData()
         self.dismiss(animated: true)
     }
@@ -135,6 +142,14 @@ final class AddProjectViewController: UIViewController {
         titleTextField.isEnabled.toggle()
         datePicker.isEnabled.toggle()
         bodyTextView.isEditable.toggle()
+    }
+    
+    private func displayEmptyAlert() {
+        let alert = UIAlertController(title: nil, message: "project의 제목과 내용을 입력하세요.", preferredStyle: UIAlertController.Style.alert)
+        let okayAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(okayAction)
+        
+        self.present(alert, animated: false)
     }
     
     private func configureContentStackView() {
