@@ -8,6 +8,7 @@ import UIKit
 
 final class ProjectCell: UICollectionViewCell {
     let identifier = "ProjectCell"
+    var projectDate: Date?
     var deleteRow : (() -> ()) = {}
     
     let cellScrollView: UIScrollView = {
@@ -88,10 +89,14 @@ final class ProjectCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureContent(title: String, body: String, date: String) {
+    func configureContent(title: String, body: String, date: Date) {
+        projectDate = date
+        
+        guard let projectDate else { return }
+        
         titleLabel.text = title
         bodyLabel.text = body
-        dateLabel.text = date
+        dateLabel.text = projectDate.formatDate()
         
         scrollToZero()
         cellScrollView.contentInset.left = 70
@@ -104,6 +109,14 @@ final class ProjectCell: UICollectionViewCell {
     @objc
     func deleteCell() {
         deleteRow()
+    }
+    
+    func changeDateColor() {
+        guard let projectDate else { return }
+        
+        if projectDate.formatDate() < Date().formatDate() {
+            dateLabel.textColor = .systemRed
+        }
     }
     
     private func configureContentStackView() {

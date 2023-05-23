@@ -110,9 +110,11 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         
         
         let assignedProjects = projects.list.filter { $0.status == status }
-        let project = assignedProjects[indexPath.item]
+        let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
+        let project = sortedAssignedProjects[indexPath.item]
         
-        cell.configureContent(title: project.title, body: project.body, date: "\(project.date)")
+        cell.configureContent(title: project.title, body: project.body, date: project.date)
+        cell.changeDateColor()
         cell.deleteRow = {
             guard let removeIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
             self.projects.list.remove(at: removeIndex)
