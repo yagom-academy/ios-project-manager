@@ -62,16 +62,13 @@ class TaskListHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func bind() {
-        viewModel.$count
-            .sink { [weak self] count in
-                self?.countLabel.text = count
-            }
-            .store(in: &subscriptions)
-    }
-    
-    private func setupTitle() {
-        titleLabel.text = viewModel.title
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowOpacity = 0.3
+        layer.shadowRadius = 5.0
     }
     
     private func setupStackView() {
@@ -89,5 +86,17 @@ class TaskListHeaderView: UIView {
             stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
+    }
+    
+    private func setupTitle() {
+        titleLabel.text = viewModel.title
+    }
+    
+    private func bind() {
+        viewModel.$count
+            .sink { [weak self] count in
+                self?.countLabel.text = count
+            }
+            .store(in: &subscriptions)
     }
 }

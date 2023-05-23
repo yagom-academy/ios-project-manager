@@ -33,8 +33,7 @@ final class TaskListViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.backgroundColor = .systemGray3
-        stackView.spacing = 2
+        stackView.spacing = 8
         
         return stackView
     }()
@@ -87,12 +86,12 @@ final class TaskListViewController: UIViewController {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                heightDimension: .estimated(40))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-
+        
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
 
         let layout = UICollectionViewCompositionalLayout(section: section)
-
+        
         return layout
     }
     

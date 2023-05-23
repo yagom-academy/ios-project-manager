@@ -71,10 +71,12 @@ class TaskFormViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let doneBarbutton = UIBarButtonItem(barButtonSystemItem: .done,
+        let doneBarbutton = UIBarButtonItem(title: "Done",
+                                            style: .plain,
                                             target: self,
                                             action: #selector(addTask))
-        let editBarbutton = UIBarButtonItem(barButtonSystemItem: .edit,
+        let editBarbutton = UIBarButtonItem(title: "Edit",
+                                            style: .plain,
                                             target: self,
                                             action: nil)
         
@@ -98,7 +100,9 @@ class TaskFormViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: safe.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor),
+            
+            textField.heightAnchor.constraint(equalTo: datePicker.heightAnchor, multiplier: 0.25)
         ])
     }
     

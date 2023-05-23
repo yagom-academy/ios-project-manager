@@ -8,7 +8,7 @@
 import UIKit
 
 class TaskListCell: UICollectionViewCell {    
-    let titleLabel = {
+    private let titleLabel = {
         let label = UILabel()
         
         label.font = .preferredFont(forTextStyle: .title2)

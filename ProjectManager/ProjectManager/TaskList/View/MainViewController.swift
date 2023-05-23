@@ -75,7 +75,7 @@ class MainViewController: UIViewController {
             mainStackView.topAnchor.constraint(equalTo: safe.topAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
+            mainStackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -safe.layoutFrame.height * 0.05)
         ])
     }
 }
