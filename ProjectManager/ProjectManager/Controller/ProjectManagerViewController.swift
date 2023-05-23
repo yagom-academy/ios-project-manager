@@ -182,7 +182,8 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
                 guard let status = Status(rawValue: indexPath.section) else { return }
                 
                 let assignedProjects = projects.list.filter { $0.status == status }
-                let project = assignedProjects[indexPath.item]
+                let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
+                let project = sortedAssignedProjects[indexPath.item]
                 rootViewController.configureProject(assignedProject: project)
                 let navigationController = UINavigationController(rootViewController: rootViewController)
                 navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
@@ -209,7 +210,8 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
             guard let status = Status(rawValue: indexPath.section) else { return }
             
             let assignedProjects = projects.list.filter { $0.status == status }
-            let project = assignedProjects[indexPath.item]
+            let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
+            let project = sortedAssignedProjects[indexPath.item]
             let moveToViewController = MoveToViewController(projectManagerViewController: self, project: project)
             moveToViewController.modalPresentationStyle = UIModalPresentationStyle.popover
             moveToViewController.preferredContentSize = CGSize(width: 300, height: 150)

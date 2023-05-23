@@ -22,6 +22,7 @@ final class AddProjectViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
+        textField.font = UIFont.preferredFont(forTextStyle: .title3)
         textField.layer.borderWidth = 0.5
         textField.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
         
@@ -31,12 +32,14 @@ final class AddProjectViewController: UIViewController {
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.locale = Locale(identifier: "ko_KR")
         
         return datePicker
     }()
     
     private let bodyTextView: UITextView = {
         let textView = UITextView()
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.layer.borderWidth = 0.5
         textView.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
         
@@ -143,10 +146,11 @@ final class AddProjectViewController: UIViewController {
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            contentStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            contentStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            contentStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            contentStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            contentStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            contentStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            contentStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            
             bodyTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
             bodyTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             bodyTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
