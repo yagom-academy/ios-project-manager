@@ -23,8 +23,16 @@ final class AddProjectViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.font = UIFont.preferredFont(forTextStyle: .title3)
+        textField.backgroundColor = .white
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        textField.leftViewMode = .always
         textField.layer.borderWidth = 0.5
-        textField.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
+        textField.layer.borderColor = CGColor(gray: 0.5, alpha: 0)
+        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.layer.shadowOpacity = 0.5
+        textField.layer.shadowRadius = 1
+        textField.layer.shadowOffset = CGSize(width: 0, height: 1)
+        textField.layer.cornerRadius = 5
         
         return textField
     }()
@@ -40,8 +48,15 @@ final class AddProjectViewController: UIViewController {
     private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.backgroundColor = .white
+        textView.setContentOffset(CGPoint(x: 10, y: 10), animated: false)
         textView.layer.borderWidth = 0.5
-        textView.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
+        textView.layer.borderColor = CGColor(gray: 0.5, alpha: 1)
+        textView.layer.shadowColor = UIColor.black.cgColor
+        textView.layer.shadowOpacity = 0.5
+        textView.layer.shadowRadius = 2
+        textView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        textView.layer.cornerRadius = 5
         
         return textView
     }()
@@ -165,11 +180,11 @@ final class AddProjectViewController: UIViewController {
             contentStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             contentStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             contentStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            
+            titleTextField.heightAnchor.constraint(equalToConstant: 40),
             bodyTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
-            bodyTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            bodyTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            bodyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bodyTextView.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor),
+            bodyTextView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
+            bodyTextView.bottomAnchor.constraint(equalTo: contentStackView.bottomAnchor),
         ])
     }
     
