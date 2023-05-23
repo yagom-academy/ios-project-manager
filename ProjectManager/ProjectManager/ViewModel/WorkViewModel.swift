@@ -27,6 +27,16 @@ final class WorkViewModel {
     
     func addWork(title: String, body: String, deadline: Date) {
         works.append(Work(title: title, body: body, deadline: deadline))
+        NotificationCenter.default.post(name: .updateSnapShot, object: nil)
+    }
+    
+    func updateWork(id: UUID, newTitle: String, newBody: String, newDeadline: Date) {
+        guard let index = works.firstIndex(where: { $0.id == id }) else { return }
+        
+        works[index].title = newTitle
+        works[index].body = newBody
+        works[index].deadline = newDeadline
+        NotificationCenter.default.post(name: .updateSnapShot, object: nil)
     }
     
     func removeWork(id: UUID) {

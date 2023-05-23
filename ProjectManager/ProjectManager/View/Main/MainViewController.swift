@@ -43,6 +43,7 @@ final class MainViewController: UIViewController {
         let detailViewController = DetailViewController()
         detailViewController.configureAddMode()
         detailViewController.viewModel = viewModel
+        
         let navigationController = UINavigationController(rootViewController: detailViewController)
         
         self.present(navigationController, animated: true)
@@ -80,6 +81,8 @@ extension MainViewController {
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+        
+        configureDelegate()
     }
     
     private func createStackView() -> UIStackView {
@@ -92,5 +95,28 @@ extension MainViewController {
         stackView.backgroundColor = .systemGray5
         
         return stackView
+    }
+}
+
+extension MainViewController: UICollectionViewDelegate, WorkCollectionViewDelegate {
+    private func configureDelegate() {
+        todoCollectionView.delegate = todoCollectionView
+        doingCollectionView.delegate = doingCollectionView
+        doneCollectionView.delegate = doneCollectionView
+        
+        todoCollectionView.workDelegate = self
+        doingCollectionView.workDelegate = self
+        doneCollectionView.workDelegate = self
+    }
+    
+    func workCollectionView(_ collectionView: WorkCollectionView, id: UUID) {
+        let detailViewController = DetailViewController()
+        detailViewController.configureEditMode()
+        detailViewController.viewModel = viewModel
+        detailViewController.id = id
+        
+        let navigationController = UINavigationController(rootViewController: detailViewController)
+        
+        self.present(navigationController, animated: true)
     }
 }

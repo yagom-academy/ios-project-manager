@@ -9,4 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let requestingAlert = Notification.Name("requestingAlert")
+    static let updateSnapShot = Notification.Name("updateSnapShot")
 }

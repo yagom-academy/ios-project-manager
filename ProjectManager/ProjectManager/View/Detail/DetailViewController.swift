@@ -13,6 +13,7 @@ final class DetailViewController: UIViewController {
         case edit
     }
     
+    var id: UUID?
     var viewModel: WorkViewModel?
     private var viewMode: ViewMode?
     private let workInputView = WorkInputView()
@@ -61,6 +62,19 @@ final class DetailViewController: UIViewController {
         viewModel?.addWork(title: contents.title,
                            body: contents.body,
                            deadline: contents.deadline)
+        
+        self.dismiss(animated: true)
+    }
+    
+    @objc private func updateWork() {
+        guard let id else { return }
+        
+        let contents = workInputView.checkContents()
+        
+        viewModel?.updateWork(id: id,
+                              newTitle: contents.title,
+                              newBody: contents.body,
+                              newDeadline: contents.deadline)
         
         self.dismiss(animated: true)
     }

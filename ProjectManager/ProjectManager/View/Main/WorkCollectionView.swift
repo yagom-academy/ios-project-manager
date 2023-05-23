@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol WorkCollectionViewDelegate: AnyObject {
+    func workCollectionView(_ collectionView: WorkCollectionView, id: UUID)
+}
+
 final class WorkCollectionView: UICollectionView {
     typealias DataSource = UICollectionViewDiffableDataSource<WorkStatus, Work>
     typealias Snapshot = NSDiffableDataSourceSnapshot<WorkStatus, Work>
     
+    weak var workDelegate: WorkCollectionViewDelegate?
     let status: WorkStatus
     let viewModel: WorkViewModel
     private var workDataSource: DataSource?
@@ -24,6 +29,7 @@ final class WorkCollectionView: UICollectionView {
         configureCollectionView()
         configureDataSource()
         applySnapshot()
+        addObserver()
         
         let layout = createLayout()
         collectionViewLayout = layout
@@ -64,6 +70,15 @@ final class WorkCollectionView: UICollectionView {
         }
         
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+    }
+    
+    private func addObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applySnapshot),
+            name: .updateSnapShot,
+            object: nil
+        )
     }
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
@@ -119,7 +134,7 @@ final class WorkCollectionView: UICollectionView {
         headerView.configure(title: status.title, count: "\(cellCount)")
     }
     
-    private func applySnapshot() {
+    @objc private func applySnapshot() {
         var snapshot = Snapshot()
         
         if let currentStatus = WorkStatus.allCases.first(where: { $0.title == status.title }) {
@@ -133,5 +148,13 @@ final class WorkCollectionView: UICollectionView {
         guard let headerView = visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? HeaderReusableView else { return }
         
         configureHeaderView(headerView)
+    }
+}
+
+extension WorkCollectionView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let id = workDataSource?.itemIdentifier(for: indexPath)?.id else { return }
+
+        workDelegate?.workCollectionView(self, id: id)
     }
 }
