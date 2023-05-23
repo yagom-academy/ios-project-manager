@@ -58,10 +58,18 @@ final class ListViewController: UIViewController {
     }
     
     private func makeAlertAction(_ task: Task) -> [UIAlertAction] {
-        let todoAction = UIAlertAction(title: "Move To Todo", style: .default) { action in
+        let todoAction = UIAlertAction(title: "Move To Todo", style: .default) { _ in
+            self.deleteSnapshot(by: task)
+            NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": TaskState.todo])
         }
-        let doingAction = UIAlertAction(title: "Move To Doing", style: .default)
-        let doneAction = UIAlertAction(title: "Move To Done", style: .default)
+        let doingAction = UIAlertAction(title: "Move To Doing", style: .default) { _ in
+            self.deleteSnapshot(by: task)
+            NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": TaskState.doing])
+        }
+        let doneAction = UIAlertAction(title: "Move To Done", style: .default) { _ in
+            self.deleteSnapshot(by: task)
+            NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": TaskState.done])
+        }
         
         switch taskState {
         case .todo:
@@ -145,7 +153,6 @@ extension ListViewController {
             
             listConfig.trailingSwipeActionsConfigurationProvider = { indexPath in
                 let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
-                    // Delete Item
                     let task = self.viewModel.tasks[indexPath.row]
                     self.deleteSnapshot(by: task)
                     NotificationCenter.default.post(name: .deleteTask,

@@ -10,6 +10,7 @@ import Foundation
 extension Notification.Name {
     static var changedTasks = Notification.Name("changedTasks")
     static var deleteTask = Notification.Name("deleteTask")
+    static var changedTaskState = Notification.Name("changedTaskState")
 }
 
 class MainViewModel {
@@ -23,8 +24,12 @@ class MainViewModel {
     
     init() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(deleteTask(_:)),
+                                               selector: #selector(deleteTask),
                                                name: .deleteTask,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changeTask),
+                                               name: .changedTaskState,
                                                object: nil)
     }
     
@@ -33,6 +38,14 @@ class MainViewModel {
               let targetIndex = tasks.firstIndex(of: task) else { return }
         
         tasks.remove(at: targetIndex)
+    }
+    
+    @objc private func changeTask(_ noti: Notification) {
+        guard let task = noti.userInfo?["task"] as? Task,
+              let state = noti.userInfo?["state"] as? TaskState,
+              let targetIndex = tasks.firstIndex(of: task) else { return }
+        
+        tasks[targetIndex].state = state
     }
     
     func replaceTask(_ task: Task) {
