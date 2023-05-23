@@ -80,9 +80,10 @@ final class TaskListViewController: UIViewController {
     }
     
     private func createListLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout() { sectionIndex, layoutEnvironment in
+        let layout = UICollectionViewCompositionalLayout() { [weak self] sectionIndex, layoutEnvironment in
             var config = UICollectionLayoutListConfiguration(appearance: .grouped)
             config.showsSeparators = false
+            config.trailingSwipeActionsConfigurationProvider = self?.makeSwipeAction
             
             let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
             section.interGroupSpacing = 10
@@ -111,7 +112,7 @@ final class TaskListViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.filteredTaskPublisher()
+        viewModel.$taskList
             .sink { taskList in
                 var snapshot = NSDiffableDataSourceSnapshot<State, Task>()
                 
@@ -121,5 +122,15 @@ final class TaskListViewController: UIViewController {
                 self.dataSource?.apply(snapshot, animatingDifferences: true)
             }
             .store(in: &subscriptions)
+    }
+    
+    private func makeSwipeAction(_ indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive,
+                                              title: "Delete") { [weak self] _, _, handler in
+            self?.viewModel.delete(indexPath: indexPath)
+            handler(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }

@@ -25,7 +25,7 @@ final class TaskManager {
         taskList.append(task)
     }
     
-    func fetch() -> [Task] {
-        return taskList
+    func delete(by id: UUID) {
+        taskList.removeAll { $0.id == id }
     }
 }
