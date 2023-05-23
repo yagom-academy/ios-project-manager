@@ -6,5 +6,5 @@
 //
 
 final class DetailService {
-    
+    private let repository
 }
