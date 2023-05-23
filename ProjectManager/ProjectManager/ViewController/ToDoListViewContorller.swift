@@ -9,6 +9,8 @@ import UIKit
 class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     
     private var toDoList: [ToDoList]?
+    private var doingList: [ToDoList]?
+    private var doneList: [ToDoList]?
     
     func sendTodoList(data: ToDoList, isCreatMode: Bool) {
         if isCreatMode == true {
@@ -18,10 +20,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
                 toDoList?[index] = data
             }
         }
-        
-        toDoTableView.reloadData()
-        doingTableView.reloadData()
-        doneTableView.reloadData()
+        reloadTableView()
     }
     
     private let toDoStackView: UIStackView = {
@@ -34,6 +33,12 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     lazy var toDoTableView = createTableView(title: "TODO")
     lazy var doingTableView = createTableView(title: "DOING")
     lazy var doneTableView = createTableView(title: "DONE")
+    
+    private func reloadTableView() {
+        toDoTableView.reloadData()
+        doingTableView.reloadData()
+        doneTableView.reloadData()
+    }
     
     private func createTableView(title: String) -> UITableView {
         let tableview = UITableView()
@@ -58,9 +63,79 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         toDoList = []
+        doingList = []
+        doneList = []
+        
+        setUpLongPressGesture()
         configureNavigationBar()
         setUpTableView()
         configureViewUI()
+    }
+    
+    // MARK: LongTouchPress, Popover
+    private func setUpLongPressGesture() {
+        let tableViews: [UITableView] = [toDoTableView, doingTableView, doneTableView]
+        for tableView in tableViews {
+            let longTouchGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTouchPressed))
+            longTouchGesture.minimumPressDuration = 0.3
+            tableView.addGestureRecognizer(longTouchGesture)
+        }
+    }
+    
+    @objc private func longTouchPressed(_ recognizer: UILongPressGestureRecognizer) {
+        guard let tableView = recognizer.view as? UITableView else { return }
+        
+        if recognizer.state == .began {
+            
+            if tableView == toDoTableView {
+                showPopover(firstTitle: "MOVE TO DOING",
+                            secondTitle: "MOVE TO DONE",
+                            firstHandler: { _ in self.moveToDoing() },
+                            secondHandler: { _ in self.moveToDone() })
+            } else if tableView == doingTableView {
+                showPopover(firstTitle: "MOVE TO TODO",
+                            secondTitle: "MOVE TO DONE",
+                            firstHandler: { _ in self.moveToTodo() },
+                            secondHandler: { _ in self.moveToDone() }
+                )
+            } else if tableView == doneTableView {
+                showPopover(firstTitle: "MOVE TO TODO",
+                            secondTitle: "MOVE TO DOING",
+                            firstHandler: { _ in self.moveToTodo() },
+                            secondHandler: { _ in self.moveToDoing() }
+                )
+            }
+        }
+    }
+    
+    private func showPopover(firstTitle: String, secondTitle: String, firstHandler:((UIAlertAction) -> Void)?, secondHandler:((UIAlertAction) -> Void)?) {
+        let alertController = UIAlertController(title: "이동", message: "", preferredStyle: .actionSheet)
+        
+        let firstAction = UIAlertAction(title: "Move To DOING", style: .default, handler: firstHandler)
+        let secondeAction = UIAlertAction(title: "Move To DONE", style: .default, handler: secondHandler)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alertController.addAction(firstAction)
+        alertController.addAction(secondeAction)
+        alertController.addAction(cancelAction)
+        
+        guard let popoverController = alertController.popoverPresentationController else { return }
+        popoverController.sourceView = self.view
+        popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        popoverController.permittedArrowDirections = []
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func moveToDoing() {
+  
+    }
+    
+    private func moveToDone() {
+        
+    }
+    
+    private func moveToTodo() {
+        
     }
     
     // MARK: NavigationBar
@@ -95,46 +170,6 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         doneTableView.dataSource = self
     }
     
-    // MARK: moveToVCActionSheet
-    private func setUpLongTouchAction() {
-        let longTouchGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTouchAction))
-        // Long Press Gesture - 적용
-        view.addGestureRecognizer(longTouchGesture)
-    }
-    
-    @objc private func longTouchAction(_ recognizer: UILongPressGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            print("began")
-        case .ended:
-            print("end")
-            showPopover(recognizer)
-        case .changed:
-            print("changed")
-        default:
-            break
-        }
-    }
-    
-    private func showPopover(_ recognizer: UILongPressGestureRecognizer) {
-        let alertController = UIAlertController(title: "이동", message: "", preferredStyle: .actionSheet)
-        
-        let firstAction = UIAlertAction(title: "Move To DOING", style: .default, handler: { _ in
-        })
-        let secondeAction = UIAlertAction(title: "Move To DONE", style: .default, handler: { _ in
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alertController.addAction(firstAction)
-        alertController.addAction(secondeAction)
-        alertController.addAction(cancelAction)
-        
-        guard let popoverController = alertController.popoverPresentationController else { return }
-        popoverController.sourceView = self.view
-        popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-        popoverController.permittedArrowDirections = []
-        present(alertController, animated: true, completion: nil)
-    }
     // MARK: Autolayout
     private func configureViewUI() {
         view.backgroundColor = .white
@@ -171,7 +206,6 @@ extension ToDoListViewContorller: UITableViewDelegate {
         toDoWriteViewController.delegate = self
         
         self.present(toDoWriteViewController, animated: true)
-        setUpLongTouchAction()
     }
 }
 
@@ -179,18 +213,28 @@ extension ToDoListViewContorller: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == toDoTableView {
             return toDoList?.count ?? 0
+        } else if tableView == doingTableView {
+            return doingList?.count ?? 0
+        } else if tableView == doneTableView {
+            return doneList?.count ?? 0
         } else {
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell,
-              let toDoList = self.toDoList else { return UITableViewCell() }
+              let toDoList = self.toDoList,
+              let doingList = self.doingList,
+              let doneList = self.doneList else { return UITableViewCell() }
+        
         if tableView == toDoTableView {
             toDoTableViewCell.setUpLabel(toDoList: toDoList[indexPath.row])
-        } else {
-            
+        } else if tableView == doingTableView {
+            toDoTableViewCell.setUpLabel(toDoList: doingList[indexPath.row])
+        } else if tableView == doneTableView {
+            toDoTableViewCell.setUpLabel(toDoList: doneList[indexPath.row])
         }
         return toDoTableViewCell
     }
