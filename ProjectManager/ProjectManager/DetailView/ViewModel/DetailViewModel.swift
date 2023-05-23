@@ -35,12 +35,14 @@ final class DetailViewModel {
     
     let detailService = DetailService()
     
-    
     func transform(input: Input) {
         input.title
             .assign(to: \.title, on: self)
             .store(in: &cancellables)
-            
+        
+        input.date
+            .assign(to: \.date, on: self)
+            .store(in: &cancellables)
         
         input.body
             .assign(to: \.body, on: self)

@@ -72,13 +72,8 @@ final class DetailViewController: UIViewController {
 
     private func bind(to viewModel: DetailViewModel) {
         let input = DetailViewModel.Input(
-            title: titleTextfield.publisher(for: .valueChanged)
-                .compactMap { ($0 as? UITextField)?.text }
-                .print()
-                .eraseToAnyPublisher(),
-            date: datePicker.publisher(for: .valueChanged)
-                .compactMap { ($0 as? UIDatePicker)?.date }
-                .eraseToAnyPublisher(),
+            title: titleTextfield.textPublisher,
+            date: datePicker.datePublisher,
             body: bodyTextView.textPublisher
         )
         
