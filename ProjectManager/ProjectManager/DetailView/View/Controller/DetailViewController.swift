@@ -78,7 +78,8 @@ final class DetailViewController: UIViewController {
     private func bind(to viewModel: DetailViewModel) {
         assign(publisher: titleTextfield.textPublisher, keyPath: \.title)
         assign(publisher: bodyTextView.textPublisher, keyPath: \.body)
-         
+        assign(publisher: datePicker.datePublisher, keyPath: \.date)
+        
         detailViewModel
             .isEditingDone
             .sink { isEditingDone in
@@ -88,7 +89,7 @@ final class DetailViewController: UIViewController {
             .store(in: &cancellables)
     }
     
-    private func assign(publisher: AnyPublisher<String ,Never>, keyPath: ReferenceWritableKeyPath<DetailViewModel, String>) {
+    private func assign<Value>(publisher: AnyPublisher<Value ,Never>, keyPath: ReferenceWritableKeyPath<DetailViewModel, Value>) {
         publisher
             .assign(to: keyPath, on: detailViewModel)
             .store(in: &cancellables)
