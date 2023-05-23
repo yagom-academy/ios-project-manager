@@ -8,7 +8,7 @@
 import UIKit
 
 class TaskFormViewController: UIViewController {
-    private let viewModel = TaskFormViewModel()
+    private let viewModel: TaskFormViewModel
     
     private let stackView = {
         let stackView = UIStackView()
@@ -59,7 +59,17 @@ class TaskFormViewController: UIViewController {
         
         return textView
     }()
-
+    
+    init(task: Task? = nil) {
+        self.viewModel = TaskFormViewModel(task: task)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +78,7 @@ class TaskFormViewController: UIViewController {
         setupNavigationBar()
         setupStackView()
         setupStackViewConstraints()
+        setupContents()
     }
     
     private func setupNavigationBar() {
@@ -112,5 +123,11 @@ class TaskFormViewController: UIViewController {
         stackView.addArrangedSubview(textField)
         stackView.addArrangedSubview(datePicker)
         stackView.addArrangedSubview(textView)
+    }
+    
+    private func setupContents() {
+        textField.text = viewModel.title
+        datePicker.setDate(viewModel.deadline, animated: false)
+        textView.text = viewModel.body
     }
 }

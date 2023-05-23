@@ -95,6 +95,8 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupCollectionView() {
+        collectionView.delegate = self
+        
         setupDataSource()
     }
     
@@ -132,5 +134,15 @@ final class TaskListViewController: UIViewController {
         }
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+
+extension TaskListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let task = viewModel.taskList[indexPath.row]
+        let taskFormViewController = TaskFormViewController(task: task)
+        let navigationController = UINavigationController(rootViewController: taskFormViewController)
+        
+        present(navigationController, animated: true)
     }
 }

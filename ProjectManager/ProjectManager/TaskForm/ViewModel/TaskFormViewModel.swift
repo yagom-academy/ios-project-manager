@@ -12,6 +12,22 @@ final class TaskFormViewModel {
     private let taskManager = TaskManager.shared
     private var task: Task?
     
+    var title: String {
+        return task?.title ?? ""
+    }
+    
+    var body: String {
+        return task?.body ?? ""
+    }
+    
+    var deadline: Date {
+        return task?.deadline ?? Date()
+    }
+    
+    init(task: Task? = nil) {
+        self.task = task
+    }
+    
     func addTask(title: String, date: Date, body: String) {
         let task = Task(state: state, title: title, body: body, deadline: date)
         
