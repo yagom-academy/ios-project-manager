@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 class TaskFormViewController: UIViewController {
     private let viewModel: TaskFormViewModel
-    
+    private var subscriptions = Set<AnyCancellable>()
+
     private let stackView = {
         let stackView = UIStackView()
         
@@ -79,7 +81,7 @@ class TaskFormViewController: UIViewController {
         setupStackView()
         setupStackViewConstraints()
         setupContents()
-        setupContentsEditable()
+        bindContentsEditable()
     }
     
     private func setupNavigationBar() {
@@ -98,15 +100,11 @@ class TaskFormViewController: UIViewController {
     }
     
     @objc private func leftBarButtonAction() {
-        if viewModel.isEditable {
-            dismiss(animated: true)
-            
-            return
+        let action: (() -> Void)? = { [weak self] in
+            self?.dismiss(animated: true)
         }
         
-        textField.isEnabled = !viewModel.isEditable
-        datePicker.isEnabled = !viewModel.isEditable
-        textView.isEditable = !viewModel.isEditable
+        viewModel.dismissOrEditableIfNeeded(action: action)
     }
     
     @objc private func rightBarButtonAction() {
@@ -144,9 +142,13 @@ class TaskFormViewController: UIViewController {
         textView.text = viewModel.body
     }
     
-    private func setupContentsEditable() {
-        textField.isEnabled = viewModel.isEditable
-        datePicker.isEnabled = viewModel.isEditable
-        textView.isEditable = viewModel.isEditable
+    private func bindContentsEditable() {
+        viewModel.$isEditable
+            .sink { [weak self] in
+                self?.textField.isEnabled = $0
+                self?.datePicker.isEnabled = $0
+                self?.textView.isEditable = $0
+            }
+            .store(in: &subscriptions)
     }
 }

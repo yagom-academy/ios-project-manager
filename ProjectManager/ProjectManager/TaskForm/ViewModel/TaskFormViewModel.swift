@@ -11,6 +11,7 @@ import Combine
 final class TaskFormViewModel {
     private let taskManager = TaskManager.shared
     private var task: Task?
+    @Published var isEditable: Bool
     
     var title: String {
         return task?.title ?? ""
@@ -36,12 +37,19 @@ final class TaskFormViewModel {
         return task != nil ? task?.state.description : State.todo.description
     }
     
-    var isEditable: Bool {
-        return task == nil
-    }
-    
     init(task: Task? = nil) {
         self.task = task
+        self.isEditable = (task == nil)
+    }
+
+    func dismissOrEditableIfNeeded(action: (() -> Void)?) {
+        if task == nil {
+            action?()
+            
+            return
+        }
+        
+        self.isEditable = true
     }
     
     func doneAction(title: String, date: Date, body: String) {
@@ -51,7 +59,9 @@ final class TaskFormViewModel {
             return
         }
         
-        addTask(title: title, date: date, body: body)
+        if title != "" && body != "" {
+            addTask(title: title, date: date, body: body)
+        }
     }
     
     private func addTask(title: String, date: Date, body: String) {
