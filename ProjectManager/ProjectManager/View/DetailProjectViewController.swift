@@ -7,13 +7,16 @@
 
 import UIKit
 
-final class AddProjectViewController: UIViewController {
+final class DetailProjectViewController: UIViewController {
     private let listViewModel = ListViewModel()
+    private var isNewList: Bool
     
     private let contentView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
+        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -41,11 +44,21 @@ final class AddProjectViewController: UIViewController {
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.isEditable = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
     }()
 
+    init(isNewList: Bool) {
+        self.isNewList = isNewList
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -61,16 +74,21 @@ final class AddProjectViewController: UIViewController {
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                          target: self,
-                                         action: #selector(doneEdit))
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                           target: self,
-                                           action: #selector(cancelEdit))
-//        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
-//                                         target: self,
-//                                         action: )
+                                         action: #selector(doneButton))
+        if isNewList {
+            let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                               target: self,
+                                               action: #selector(cancelButton))
+            navigationItem.leftBarButtonItem = cancelButton
+        } else {
+            let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
+                                             target: self,
+                                             action: #selector(editButton))
+            navigationItem.leftBarButtonItem = editButton
+        }
         
         navigationItem.rightBarButtonItem = doneButton
-        navigationItem.leftBarButtonItem = cancelButton
+
     }
     
     private func configureAddSubviews() {
@@ -89,8 +107,13 @@ final class AddProjectViewController: UIViewController {
         ])
     }
     
+    func configureContent(with list: ToDoModel) {
+        titleTextField.text = list.title
+        descriptionTextView.text = list.description
+    }
+    
     @objc
-    private func doneEdit() {
+    private func doneButton() {
         guard let title = titleTextField.text,
               let description = descriptionTextView.text else { return }
         
@@ -100,8 +123,13 @@ final class AddProjectViewController: UIViewController {
     }
     
     @objc
-    private func cancelEdit() {
+    private func cancelButton() {
         self.dismiss(animated: true)
+    }
+    
+    @objc
+    private func editButton() {
+        descriptionTextView.isEditable = true
     }
 }
 

@@ -20,13 +20,13 @@ class TableViewController: UIViewController {
         return stackView
     }()
     
-    private let todoTableView: UITableView = {
+    let todoTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
         tableView.register(CustomTableViewHeader.self,
                            forHeaderFooterViewReuseIdentifier: CustomTableViewHeader.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
+
         return tableView
     }()
     
@@ -96,9 +96,9 @@ class TableViewController: UIViewController {
     
     @objc
     private func addProject() {
-        let addProjectViewController = AddProjectViewController()
-        addProjectViewController.modalPresentationStyle = .formSheet
-        let modalViewWithNavigation = UINavigationController(rootViewController: addProjectViewController)
+        let detailProjectViewController = DetailProjectViewController(isNewList: true)
+        detailProjectViewController.modalPresentationStyle = .formSheet
+        let modalViewWithNavigation = UINavigationController(rootViewController: detailProjectViewController)
         navigationController?.present(modalViewWithNavigation, animated: true)
     }
 }
@@ -176,8 +176,30 @@ extension TableViewController: UITableViewDelegate {
             return CustomTableViewHeader()
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let detailProjectViewController = DetailProjectViewController(isNewList: false)
+        detailProjectViewController.modalPresentationStyle = .formSheet
+        let modalViewWithNavigation = UINavigationController(rootViewController: detailProjectViewController)
+        navigationController?.present(modalViewWithNavigation, animated: true)
+        
+        detailProjectViewController.configureContent(with: listViewModel.todoList[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive,
+                                        title: NameSpace.delete) { action, view, handler in
+            //            let targetList = listViewModel.todoList[indexPath.row]
+            self.listViewModel.delete(at: indexPath.row)
+        }
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
 
 private enum NameSpace {
     static let projectName = "Project Manager"
+    static let delete = "Delete"
 }
