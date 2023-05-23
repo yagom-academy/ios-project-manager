@@ -17,7 +17,6 @@
 		FBF0628A2A14B9720088A9E3 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062892A14B9720088A9E3 /* TodoListViewModel.swift */; };
 		FBF0628D2A14BA780088A9E3 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0628C2A14BA780088A9E3 /* TodoItem.swift */; };
 		FBF0628F2A1607570088A9E3 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0628E2A1607570088A9E3 /* CircleLabel.swift */; };
-		FBF062952A165F040088A9E3 /* HeaderStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062942A165F040088A9E3 /* HeaderStackView.swift */; };
 		FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062962A166AD90088A9E3 /* SavingItemDelegate.swift */; };
 		FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062992A16F6930088A9E3 /* DateFormatManager.swift */; };
 		FBF0629C2A16FCAB0088A9E3 /* DoingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */; };
@@ -25,6 +24,7 @@
 		FBF062A02A1B391B0088A9E3 /* PlusTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */; };
 		FBF062A42A1B65480088A9E3 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A32A1B65470088A9E3 /* PopoverViewController.swift */; };
 		FBF062A62A1B8E580088A9E3 /* TodoTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A52A1B8E580088A9E3 /* TodoTableCellViewModel.swift */; };
+		FBF062A82A1C5E230088A9E3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A72A1C5E230088A9E3 /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +41,6 @@
 		FBF062892A14B9720088A9E3 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		FBF0628C2A14BA780088A9E3 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		FBF0628E2A1607570088A9E3 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
-		FBF062942A165F040088A9E3 /* HeaderStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderStackView.swift; sourceTree = "<group>"; };
 		FBF062962A166AD90088A9E3 /* SavingItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingItemDelegate.swift; sourceTree = "<group>"; };
 		FBF062992A16F6930088A9E3 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingListViewModel.swift; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTodoViewModel.swift; sourceTree = "<group>"; };
 		FBF062A32A1B65470088A9E3 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		FBF062A52A1B8E580088A9E3 /* TodoTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableCellViewModel.swift; sourceTree = "<group>"; };
+		FBF062A72A1C5E230088A9E3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +99,7 @@
 			children = (
 				FBF062962A166AD90088A9E3 /* SavingItemDelegate.swift */,
 				FBF0628E2A1607570088A9E3 /* CircleLabel.swift */,
-				FBF062942A165F040088A9E3 /* HeaderStackView.swift */,
+				FBF062A72A1C5E230088A9E3 /* HeaderView.swift */,
 				FBF062862A14B87C0088A9E3 /* TableViewCell */,
 				FBF062982A166B4D0088A9E3 /* ViewController */,
 			);
@@ -243,12 +243,12 @@
 				FBF062882A14B8A00088A9E3 /* TodoTableViewCell.swift in Sources */,
 				FBF0628D2A14BA780088A9E3 /* TodoItem.swift in Sources */,
 				FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */,
+				FBF062A82A1C5E230088A9E3 /* HeaderView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */,
 				FBF062A42A1B65480088A9E3 /* PopoverViewController.swift in Sources */,
 				FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				FBF062952A165F040088A9E3 /* HeaderStackView.swift in Sources */,
 				FBF062A02A1B391B0088A9E3 /* PlusTodoViewModel.swift in Sources */,
 				FBF0629E2A17100E0088A9E3 /* Tense.swift in Sources */,
 				FBF0628F2A1607570088A9E3 /* CircleLabel.swift in Sources */,

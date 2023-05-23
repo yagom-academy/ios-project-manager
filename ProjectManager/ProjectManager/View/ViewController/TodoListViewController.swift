@@ -26,9 +26,9 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
         return stackView
     }()
     
-    private let todoHeaderStackView = HeaderStackView(text: "TODO")
-    private let doingHeaderStackView = HeaderStackView(text: "DOING")
-    private let doneHeaderStackView = HeaderStackView(text: "DONE")
+    private lazy var todoHeader = HeaderView(text: "TODO", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 50))
+    private lazy var doingHeader = HeaderView(text: "DOING", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 50))
+    private lazy var doneHeader = HeaderView(text: "DONE", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 50))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,43 +52,19 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
         todoTableView.dataSource = self
         todoTableView.delegate = self
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "Cell")
-        todoTableView.tableHeaderView = todoHeaderStackView
-        
-        todoHeaderStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            todoHeaderStackView.centerXAnchor.constraint(equalTo: todoTableView.centerXAnchor),
-            todoHeaderStackView.topAnchor.constraint(equalTo: todoTableView.topAnchor),
-            todoHeaderStackView.widthAnchor.constraint(equalTo: todoTableView.widthAnchor)
-        ])
-        todoHeaderStackView.sizeToFit()
+        todoTableView.tableHeaderView = todoHeader
     }
     
     private func setUpDoingTableView() {
         doingTableView.dataSource = self
         doingTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "Cell")
-        doingTableView.tableHeaderView = doingHeaderStackView
-        
-        doingHeaderStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            doingHeaderStackView.centerXAnchor.constraint(equalTo: doingTableView.centerXAnchor),
-            doingHeaderStackView.topAnchor.constraint(equalTo: doingTableView.topAnchor),
-            doingHeaderStackView.widthAnchor.constraint(equalTo: doingTableView.widthAnchor)
-        ])
-        doingHeaderStackView.sizeToFit()
+        doingTableView.tableHeaderView = doingHeader
     }
     
     private func setUpDoneTableView() {
         doneTableView.dataSource = self
         doneTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "Cell")
-        doneTableView.tableHeaderView = doneHeaderStackView
-        
-        doneHeaderStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            doneHeaderStackView.centerXAnchor.constraint(equalTo: doneTableView.centerXAnchor),
-            doneHeaderStackView.topAnchor.constraint(equalTo: doneTableView.topAnchor),
-            doneHeaderStackView.widthAnchor.constraint(equalTo: doneTableView.widthAnchor)
-        ])
-        doneHeaderStackView.sizeToFit()
+        doneTableView.tableHeaderView = doneHeader
     }
     
     private func setUpStackView() {
@@ -140,7 +116,7 @@ final class TodoListViewController: UIViewController, SavingItemDelegate {
                 String(item.count)
             }
             .sink { count in
-                self.todoHeaderStackView.changeCount(count)
+                self.todoHeader.changeCount(count)
             }
             .store(in: &cancellables)
     }

@@ -8,8 +8,6 @@
 import UIKit
 
 final class CircleLabel: UILabel {
-    
-    private let padding = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
   
     init() {
         super.init(frame: .zero)
@@ -19,14 +17,10 @@ final class CircleLabel: UILabel {
         self.textAlignment = .center
     }
     
-    override func drawText(in rect: CGRect) {
-        super.drawText(in: rect.inset(by: padding))
-    }
-    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         layer.masksToBounds = true
-        layer.cornerRadius = rect.height * 0.5
+        layer.cornerRadius = bounds.height / 2
     }
     
     required init?(coder: NSCoder) {
