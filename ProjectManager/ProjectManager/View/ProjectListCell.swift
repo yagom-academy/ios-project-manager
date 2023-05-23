@@ -1,5 +1,5 @@
 //
-//  CustomCell.swift
+//  ProjectListCell.swift
 //  ProjectManager
 //
 //  Created by kaki, 릴라 on 2023/05/17.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct CustomFormRow: View {
-    let model: Todo
+struct ProjectListCell: View {
+    let model: Project
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
@@ -24,8 +24,8 @@ struct CustomFormRow: View {
     }
 }
 
-struct CustomCell_Previews: PreviewProvider {
+struct ProjectListCell_Previews: PreviewProvider {
     static var previews: some View {
-        CustomFormRow(model: Todo(title: "라자냐 재료사러 가기", body: "프로젝트 회고를 작성하면 내가 이번 프로젝트에서 무엇을 놓쳤는지 명확히 알 수 있어요.", date: "2019. 1. 5."))
+        ProjectListCell(model: Project(title: "라자냐 재료사러 가기", body: "프로젝트 회고를 작성하면 내가 이번 프로젝트에서 무엇을 놓쳤는지 명확히 알 수 있어요.", date: "2019. 1. 5."))
     }
 }

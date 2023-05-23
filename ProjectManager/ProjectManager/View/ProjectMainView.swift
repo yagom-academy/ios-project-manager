@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ProjectMainView.swift
 //  ProjectManager
 //
 //  Created by kaki, 릴라 on 2023/05/16.
@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @StateObject var viewModel = TodoViewModel()
+struct ProjectMainView: View {
+    @StateObject var viewModel = ProjectViewModel()
     @State private var showModal = false
     
     var body: some View {
         NavigationStack{
             HStack{
-                SwiftUIList(viewModel: viewModel, formCase: .TODO)
-                SwiftUIList(viewModel: viewModel, formCase: .DOING)
-                SwiftUIList(viewModel: viewModel, formCase: .DONE)
+                ProjectListView(viewModel: viewModel, formCase: .todo)
+                ProjectListView(viewModel: viewModel, formCase: .doing)
+                ProjectListView(viewModel: viewModel, formCase: .done)
             }
             .background(Color(UIColor.systemGray4))
             .navigationTitle("Project Manager")
@@ -38,9 +38,9 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ProjectMainView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ProjectMainView()
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }
