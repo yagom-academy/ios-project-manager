@@ -172,10 +172,9 @@ extension TodoListViewController: UITableViewDataSource {
     }
 }
 
-extension TodoListViewController: UITableViewDelegate {
+extension TodoListViewController: UITableViewDelegate, UIGestureRecognizerDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = todoListViewModel.item(at: indexPath.row)
-        
         let plusTodoViewModel = PlusTodoViewModel()
         plusTodoViewModel.todoItem = item
         plusTodoViewModel.mode = .edit
@@ -184,8 +183,32 @@ extension TodoListViewController: UITableViewDelegate {
         plusTodoViewController.delegate = self
         
         present(plusTodoViewController, animated: false)
+        
+        let cell = tableView.cellForRow(at: indexPath)
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+
+        longPressGesture.delegate = self
+        cell?.isUserInteractionEnabled = true
+        cell?.addGestureRecognizer(longPressGesture)
     }
     
+    @objc private func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            self.becomeFirstResponder()
+            guard let cell = gestureRecognizer.view as? TodoTableViewCell else { return }
+            
+            let popoverContentController = PopoverViewController()
+            popoverContentController.modalPresentationStyle = .popover
+            
+            guard let popoverPresentationController = popoverContentController.popoverPresentationController else { return }
+            popoverPresentationController.sourceView = cell
+            popoverPresentationController.sourceRect = cell.bounds
+            popoverPresentationController.permittedArrowDirections = .up
+            
+            present(popoverContentController, animated: true, completion: nil)
+        }
+    }
+
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "delete") { [weak self] (_, _, completionHandler) in
             self?.todoListViewModel.delete(at: indexPath.row)
