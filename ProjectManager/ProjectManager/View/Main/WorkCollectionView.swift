@@ -90,7 +90,8 @@ final class WorkCollectionView: UICollectionView {
             [weak self] _, _, completion in
             
             let handler = {
-                self?.viewModel.removeWork(id: id)
+                self?.viewModel.currentID = id
+                self?.viewModel.removeWork()
                 self?.applySnapshot()
             }
             

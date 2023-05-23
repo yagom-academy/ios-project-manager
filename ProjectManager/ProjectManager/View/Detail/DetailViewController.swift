@@ -13,7 +13,6 @@ final class DetailViewController: UIViewController {
         case edit
     }
     
-    var id: UUID?
     var viewModel: WorkViewModel?
     private var viewMode: ViewMode?
     private let workInputView = WorkInputView()
@@ -30,6 +29,10 @@ final class DetailViewController: UIViewController {
     
     func configureEditMode() {
         viewMode = .edit
+        
+        guard let work = viewModel?.fetchWork() else { return }
+
+        workInputView.configure(title: work.title, body: work.body, deadline: work.deadline)
     }
     
     private func configureUIOption() {
@@ -48,7 +51,7 @@ final class DetailViewController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit",
                                                                 style: .done,
                                                                 target: self,
-                                                                action: nil)
+                                                                action: #selector(updateWork))
         case .none:
             AlertManager().showErrorAlert(target: self, title: "오류", message: "잘못된 접근입니다.") { [weak self] in
                 self?.dismiss(animated: true)
@@ -67,14 +70,12 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func updateWork() {
-        guard let id else { return }
-        
         let contents = workInputView.checkContents()
         
-        viewModel?.updateWork(id: id,
-                              newTitle: contents.title,
-                              newBody: contents.body,
-                              newDeadline: contents.deadline)
+        viewModel?.updateWork(
+                              title: contents.title,
+                              body: contents.body,
+                              deadline: contents.deadline)
         
         self.dismiss(animated: true)
     }

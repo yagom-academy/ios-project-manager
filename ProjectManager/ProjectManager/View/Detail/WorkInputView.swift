@@ -50,6 +50,12 @@ final class WorkInputView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(title: String, body: String, deadline: Date) {
+        titleTextField.text = title
+        bodyTextView.text = body
+        deadlinePicker.date = deadline
+    }
+    
     private func configureLayout() {
         let stackView = createStackView()
         

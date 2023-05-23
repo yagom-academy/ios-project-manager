@@ -9,6 +9,7 @@ import Foundation
 
 final class WorkViewModel {
     var works: [Work] = []
+    var currentID: UUID?
     
     init() {
         works = [
@@ -25,22 +26,28 @@ final class WorkViewModel {
         ]
     }
     
+    func fetchWorkIndex() -> Int? {
+        guard let index = works.firstIndex(where: { $0.id == currentID }) else { return nil }
+        
+        return index
+    }
+    
     func addWork(title: String, body: String, deadline: Date) {
         works.append(Work(title: title, body: body, deadline: deadline))
         NotificationCenter.default.post(name: .updateSnapShot, object: nil)
     }
     
-    func updateWork(id: UUID, newTitle: String, newBody: String, newDeadline: Date) {
-        guard let index = works.firstIndex(where: { $0.id == id }) else { return }
+    func updateWork(title: String, body: String, deadline: Date) {
+        guard let index = fetchWorkIndex() else { return }
         
-        works[index].title = newTitle
-        works[index].body = newBody
-        works[index].deadline = newDeadline
+        works[index].title = title
+        works[index].body = body
+        works[index].deadline = deadline
         NotificationCenter.default.post(name: .updateSnapShot, object: nil)
     }
     
-    func removeWork(id: UUID) {
-        guard let index = works.firstIndex(where: { $0.id == id }) else { return }
+    func removeWork() {
+        guard let index = fetchWorkIndex() else { return }
         
         works.remove(at: index)
     }
@@ -49,5 +56,11 @@ final class WorkViewModel {
         let filteredWorks = works.filter { $0.status == status.title }
         
         return filteredWorks.count
+    }
+    
+    func fetchWork() -> Work? {
+        guard let index = fetchWorkIndex() else { return nil }
+        
+        return works[index]
     }
 }

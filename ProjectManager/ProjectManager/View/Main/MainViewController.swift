@@ -110,10 +110,11 @@ extension MainViewController: UICollectionViewDelegate, WorkCollectionViewDelega
     }
     
     func workCollectionView(_ collectionView: WorkCollectionView, id: UUID) {
+        viewModel.currentID = id
+        
         let detailViewController = DetailViewController()
-        detailViewController.configureEditMode()
         detailViewController.viewModel = viewModel
-        detailViewController.id = id
+        detailViewController.configureEditMode()
         
         let navigationController = UINavigationController(rootViewController: detailViewController)
         
