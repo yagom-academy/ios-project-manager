@@ -59,6 +59,7 @@ final class TaskListViewController: UIViewController {
         setupStackViewConstraints()
         setupCollectionView()
         bind()
+        setupLongGestureRecognizerOnCollection()
     }
     
     private func addSubViews() {
@@ -144,5 +145,57 @@ extension TaskListViewController: UICollectionViewDelegate {
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
         
         present(navigationController, animated: true)
+    }
+}
+
+extension TaskListViewController: UIGestureRecognizerDelegate {
+    private func setupLongGestureRecognizerOnCollection() {
+        let longPressedGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(handleLongPress(gestureRecognizer:))
+        )
+        
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        
+        collectionView.addGestureRecognizer(longPressedGesture)
+    }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: collectionView)
+        
+        guard gestureRecognizer.state == .ended else { return }
+        
+        guard let indexPath = collectionView.indexPathForItem(at: location),
+              let cell = collectionView.cellForItem(at: indexPath) as? TaskListCell else { return }
+        
+        let alertController = makeMovingSheet(cell: cell, indexPath: indexPath)
+        
+        present(alertController, animated: true)
+    }
+    
+    private func makeMovingSheet(cell: TaskListCell, indexPath: IndexPath) -> UIAlertController {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let states = state.others
+        
+        let firstAction = UIAlertAction(title: viewModel.firstPopoverActionTitle, style: .default) { [weak self] _ in
+            self?.viewModel.changeState(indexPath: indexPath, state: states.first)
+        }
+        
+        let secondAction = UIAlertAction(title: viewModel.secondPopoverActionTitle, style: .default) { [weak self] _ in
+            self?.viewModel.changeState(indexPath: indexPath, state: states.second)
+        }
+        
+        alertController.addAction(firstAction)
+        alertController.addAction(secondAction)
+        
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = cell
+            popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = [.up, .down]
+        }
+        
+        return alertController
     }
 }

@@ -14,6 +14,14 @@ final class TaskListViewModel {
     @Published var taskList: [Task] = []
     private var subscribes = Set<AnyCancellable>()
     
+    var firstPopoverActionTitle: String {
+        return "Move to \(state.others.first.description)"
+    }
+    
+    var secondPopoverActionTitle: String {
+        return "Move to \(state.others.second.description)"
+    }
+    
     init(state: State) {
         self.state = state
         
@@ -35,5 +43,12 @@ final class TaskListViewModel {
         let task = taskList[indexPath.row]
         
         taskManager.delete(by: task.id)
+    }
+    
+    func changeState(indexPath: IndexPath, state: State) {
+        var task = taskList[indexPath.row]
+        task.state = state
+        
+        taskManager.update(task: task)
     }
 }
