@@ -203,24 +203,16 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
         let location = gestureRecognizer.location(in: projectManagerCollectionView)
         
         if gestureRecognizer.state == .ended {
-            if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
-                let moveToDoing = UIMenuItem(title: "Move to DOING", action: #selector(moveToDoing))
-                let moveToDone = UIMenuItem(title: "Move to DONE", action: #selector(moveToDone))
-                let menuController = UIMenuController.shared
-                menuController.menuItems = [moveToDoing, moveToDone]
-                let menuLocation = CGRect(x: location.x, y: location.y, width: 0, height: 0)
-                menuController.showMenu(from: self.view, rect: menuLocation)
-            }
+            guard let indexPath = projectManagerCollectionView.indexPathForItem(at: location) else { return }
+            guard let status = Status(rawValue: indexPath.section) else { return }
+            
+            let moveToViewController = MoveToViewController(projectManagerViewController: self, status: status)
+            moveToViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+            moveToViewController.preferredContentSize = CGSize(width: 300, height: 150)
+            moveToViewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+            moveToViewController.popoverPresentationController?.sourceView = projectManagerCollectionView.cellForItem(at: indexPath)
+            
+            self.present(moveToViewController, animated: true, completion: nil)
         }
-    }
-    
-    @objc
-    func moveToDoing() {
-        print("Move to Doing")
-    }
-    
-    @objc
-    func moveToDone() {
-        print("Move to Done")
     }
 }
