@@ -1,12 +1,12 @@
 //
-//  ProjectManager - AddProjectViewController.swift
+//  ProjectManager - detailProjectViewController.swift
 //  Created by Rhode.
 //  Copyright © yagom. All rights reserved.
 //
 
 import UIKit
 
-final class AddProjectViewController: UIViewController {
+final class detailProjectViewController: UIViewController {
     var projectManagerViewController: ProjectManagerViewController?
     private var projects = Projects.shared
     private var project: Project?
