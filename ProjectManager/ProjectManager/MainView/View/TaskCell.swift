@@ -36,7 +36,7 @@ final class TaskCell: UICollectionViewListCell {
         return label
     }()
     
-    let stackView = {
+    let visibleStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 5
@@ -44,6 +44,32 @@ final class TaskCell: UICollectionViewListCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
+    }()
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: .zero)
+        scrollView.isPagingEnabled = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return scrollView
+    }()
+    
+    let scrollContentView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
+    let hiddenContainerView = {
+        let view = UIView()
+        view.backgroundColor = .systemRed
+        
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -60,16 +86,27 @@ final class TaskCell: UICollectionViewListCell {
     }
     
     private func configureContentLayout() {
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(bodyLabel)
-        stackView.addArrangedSubview(dateLabel)
-        contentView.addSubview(stackView)
+        visibleStackView.addArrangedSubview(titleLabel)
+        visibleStackView.addArrangedSubview(bodyLabel)
+        visibleStackView.addArrangedSubview(dateLabel)
+        
+        scrollContentView.addArrangedSubview(visibleStackView)
+        scrollContentView.addArrangedSubview(hiddenContainerView)
+        
+        scrollView.addSubview(scrollContentView)
+        
+        contentView.addSubview(visibleStackView)
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            scrollContentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollContentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollContentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollContentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
     }
     
