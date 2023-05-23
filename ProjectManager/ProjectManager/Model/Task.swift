@@ -9,9 +9,9 @@ import Foundation
 
 struct Task: Hashable {
     let id = UUID().uuidString
-    let title: String
-    let description: String
-    let date: Date
+    var title: String
+    var description: String
+    var date: Date
     var state = TaskState.todo
 }
 
