@@ -20,6 +20,7 @@ final class TaskListViewController: UIViewController {
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
         
+        collectionView.contentInset = UIEdgeInsets(top: -35, left: 0, bottom: 0, right: 0)
         collectionView.backgroundColor = .systemGray6
         collectionView.register(TaskListCell.self,
                                 forCellWithReuseIdentifier: TaskListCell.identifier)
@@ -33,7 +34,7 @@ final class TaskListViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 8
+        stackView.spacing = 0
         
         return stackView
     }()
@@ -79,18 +80,15 @@ final class TaskListViewController: UIViewController {
     }
     
     private func createListLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .estimated(40))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .estimated(40))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 10
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewCompositionalLayout() { sectionIndex, layoutEnvironment in
+            var config = UICollectionLayoutListConfiguration(appearance: .grouped)
+            config.showsSeparators = false
+            
+            let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
+            section.interGroupSpacing = 10
+            
+            return section
+        }
         
         return layout
     }
