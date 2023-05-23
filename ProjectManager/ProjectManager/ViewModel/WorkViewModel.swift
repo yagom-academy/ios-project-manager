@@ -30,4 +30,10 @@ final class WorkViewModel {
         
         works.remove(at: index)
     }
+    
+    func fetchWorkCount(of status: WorkStatus) -> Int {
+        let filteredWorks = works.filter { $0.status == status.title }
+        
+        return filteredWorks.count
+    }
 }

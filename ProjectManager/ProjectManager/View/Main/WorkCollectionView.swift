@@ -11,11 +11,11 @@ final class WorkCollectionView: UICollectionView {
     typealias DataSource = UICollectionViewDiffableDataSource<WorkStatus, Work>
     typealias Snapshot = NSDiffableDataSourceSnapshot<WorkStatus, Work>
     
-    let status: String
+    let status: WorkStatus
     let viewModel: WorkViewModel
     private var workDataSource: DataSource?
     
-    init(status: String, viewModel: WorkViewModel) {
+    init(status: WorkStatus, viewModel: WorkViewModel) {
         self.status = status
         self.viewModel = viewModel
         
@@ -104,7 +104,7 @@ final class WorkCollectionView: UICollectionView {
                     return UICollectionReusableView()
                 }
                 
-                headerView.configure(title: self?.status ?? "", count: "3")
+                self?.configureHeaderView(headerView)
                 
                 return headerView
             } else {
@@ -113,15 +113,25 @@ final class WorkCollectionView: UICollectionView {
         }
     }
     
+    private func configureHeaderView(_ headerView: HeaderReusableView) {
+        let cellCount = viewModel.fetchWorkCount(of: status)
+
+        headerView.configure(title: status.title, count: "\(cellCount)")
+    }
+    
     private func applySnapshot() {
         var snapshot = Snapshot()
         
-        if let currentStatus = WorkStatus.allCases.first(where: { $0.title == status }) {
+        if let currentStatus = WorkStatus.allCases.first(where: { $0.title == status.title }) {
             snapshot.appendSections([currentStatus])
-            let works = viewModel.works.filter { $0.status == status }
+            let works = viewModel.works.filter { $0.status == status.title }
             snapshot.appendItems(works, toSection: currentStatus)
         }
         
         workDataSource?.apply(snapshot, animatingDifferences: false)
+        
+        guard let headerView = visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? HeaderReusableView else { return }
+        
+        configureHeaderView(headerView)
     }
 }

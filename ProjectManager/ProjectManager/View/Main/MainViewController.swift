@@ -13,9 +13,9 @@ final class MainViewController: UIViewController {
     private let doneCollectionView: WorkCollectionView
     
     init() {
-        self.todoCollectionView = WorkCollectionView(status: WorkStatus.todo.title, viewModel: viewModel)
-        self.doingCollectionView = WorkCollectionView(status: WorkStatus.doing.title, viewModel: viewModel)
-        self.doneCollectionView = WorkCollectionView(status: WorkStatus.done.title, viewModel: viewModel)
+        self.todoCollectionView = WorkCollectionView(status: WorkStatus.todo, viewModel: viewModel)
+        self.doingCollectionView = WorkCollectionView(status: WorkStatus.doing, viewModel: viewModel)
+        self.doneCollectionView = WorkCollectionView(status: WorkStatus.done, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
