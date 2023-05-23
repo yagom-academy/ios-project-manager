@@ -14,9 +14,9 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             HStack{
-                SwiftUIList(formCase: .TODO, models: viewModel.todoList)
-                SwiftUIList(formCase: .DOING, models: viewModel.doingList)
-                SwiftUIList(formCase: .DONE, models: viewModel.doneList)
+                SwiftUIList(viewModel: viewModel, formCase: .TODO)
+                SwiftUIList(viewModel: viewModel, formCase: .DOING)
+                SwiftUIList(viewModel: viewModel, formCase: .DONE)
             }
             .background(Color(UIColor.systemGray4))
             .navigationTitle("Project Manager")

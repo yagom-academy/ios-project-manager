@@ -61,6 +61,7 @@
 			children = (
 				16F11C662A138B4500F1A08C /* ContentView.swift */,
 				08C8CF4D2A14703C00173DEE /* SwiftUIList.swift */,
+				1607FCCE2A14A2BB0042FE8B /* CustomFormRow.swift */,
 				08CB37D72A15BEBF00F11F9E /* ModalView.swift */,
 			);
 			path = View;
@@ -106,7 +107,6 @@
 				166CDE192A1C94650015FA4F /* View */,
 				166CDE1A2A1C946D0015FA4F /* ViewModel */,
 				16F11C642A138B4500F1A08C /* ProjectManagerApp.swift */,
-				1607FCCE2A14A2BB0042FE8B /* CustomFormRow.swift */,
 				16F11C682A138B4600F1A08C /* Assets.xcassets */,
 				08E832382A138E1700517880 /* GoogleService-Info.plist */,
 				16F11C6A2A138B4600F1A08C /* Preview Content */,

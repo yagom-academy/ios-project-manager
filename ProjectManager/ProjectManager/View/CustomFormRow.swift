@@ -18,6 +18,8 @@ struct CustomFormRow: View {
                 .lineLimit(3)
                 .foregroundColor(.secondary)
             Text(model.date)
+        }.onTapGesture {
+            
         }
     }
 }
