@@ -32,21 +32,57 @@ final class TodoViewController: UIViewController {
         configureShadow()
     }
     
-    @objc private func didTapLeftBarButton() {
+    private func endEditing() {
         self.dismiss(animated: true)
     }
     
-    @objc private func didTapDoneButton() {
+    private func createTask() {
         do {
-            let task = try viewModel.makeTask(title: titleTextField.text,
-                                              description: descriptionTextView.text,
-                                              date: datePicker.date)
+            try viewModel.makeTask(title: titleTextField.text,
+                                   description: descriptionTextView.text,
+                                   date: datePicker.date)
+            
+            guard let task = viewModel.task else { return }
             
             taskDelegate?.saveTask(task)
             
-            self.dismiss(animated: true)
+            endEditing()
         } catch(let error) {
             showErrorAlert(error)
+        }
+    }
+    
+    private func editTask() {
+        do {
+            try viewModel.editTask(title: titleTextField.text,
+                                   description: descriptionTextView.text,
+                                   date: datePicker.date)
+            
+            guard let task = viewModel.task else { return }
+            
+            taskDelegate?.editTask(task)
+            
+            endEditing()
+        } catch(let error) {
+            showErrorAlert(error)
+        }
+    }
+    
+    @objc private func didTapLeftBarButton() {
+        switch viewModel.state {
+        case .create:
+            endEditing()
+        case .edit:
+            editTask()
+        }
+    }
+    
+    @objc private func didTapDoneButton() {
+        switch viewModel.state {
+        case .create:
+            createTask()
+        case .edit:
+            editTask()
         }
     }
 }

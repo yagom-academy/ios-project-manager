@@ -43,12 +43,23 @@ final class TodoViewModel {
         return true
     }
     
-    func makeTask(title: String?, description: String?, date: Date) throws -> Task {
+    func makeTask(title: String?, description: String?, date: Date) throws {
         guard let title = title,
               title != "" else { throw GeneratedTaskError.titleEmpty }
         guard let description = description,
               description != "" else { throw GeneratedTaskError.descriptionEmpty }
         
-        return Task(title: title, description: description, date: date)
+        self.task = Task(title: title, description: description, date: date)
+    }
+    
+    func editTask(title: String?, description: String?, date: Date) throws {
+        guard let title = title,
+              title != "" else { throw GeneratedTaskError.titleEmpty }
+        guard let description = description,
+              description != "" else { throw GeneratedTaskError.descriptionEmpty }
+        
+        self.task?.title = title
+        self.task?.description = description
+        self.task?.date = date
     }
 }
