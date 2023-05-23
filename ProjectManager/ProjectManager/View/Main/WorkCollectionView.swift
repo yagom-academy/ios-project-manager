@@ -51,7 +51,7 @@ final class WorkCollectionView: UICollectionView {
             
             section = NSCollectionLayoutSection.list(using: configuration,
                                                      layoutEnvironment: environment)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0)
             section.interGroupSpacing = 8
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
@@ -59,7 +59,6 @@ final class WorkCollectionView: UICollectionView {
             
             headerSupplementary.pinToVisibleBounds = true
             section.boundarySupplementaryItems = [headerSupplementary]
-//            section.orthogonalScrollingBehavior = .none
             
             return section
         }
@@ -74,10 +73,16 @@ final class WorkCollectionView: UICollectionView {
         let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) {
             [weak self] _, _, completion in
-            self?.viewModel.removeWork(id: id)
-            self?.applySnapshot()
+            
+            let handler = {
+                self?.viewModel.removeWork(id: id)
+                self?.applySnapshot()
+            }
+            
+            NotificationCenter.default.post(name: .requestingAlert, object: handler)
             completion(false)
         }
+        
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF508FCF2A1CAD00004CBB1E /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF508FCE2A1CAD00004CBB1E /* AlertManager.swift */; };
+		BF508FD12A1CB578004CBB1E /* NotificationName+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF508FD02A1CB578004CBB1E /* NotificationName+.swift */; };
 		BF715FDE2A14CD8700C3D081 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF715FDD2A14CD8700C3D081 /* GoogleService-Info.plist */; };
 		BF715FE12A14CDCA00C3D081 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = BF715FE02A14CDCA00C3D081 /* FirebaseAnalytics */; };
 		BF851EAC2A15F62E0028FCDA /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EAB2A15F62E0028FCDA /* Work.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF508FCE2A1CAD00004CBB1E /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		BF508FD02A1CB578004CBB1E /* NotificationName+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+.swift"; sourceTree = "<group>"; };
 		BF715FDD2A14CD8700C3D081 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF851EAB2A15F62E0028FCDA /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		BF851EAE2A15F7550028FCDA /* WorkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkStatus.swift; sourceTree = "<group>"; };
@@ -59,6 +63,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF508FCD2A1CACB5004CBB1E /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				BF508FCE2A1CAD00004CBB1E /* AlertManager.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		BF851EAA2A15F6130028FCDA /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				BFFF1A622A177A5F006F34B3 /* CALayer+.swift */,
+				BF508FD02A1CB578004CBB1E /* NotificationName+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -160,6 +173,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				BF508FCD2A1CACB5004CBB1E /* Utility */,
 				BFFF1A612A177A46006F34B3 /* Extension */,
 				BF851EBC2A1611E90028FCDA /* Protocol */,
 				BFB627D12A1366D10068A6DA /* Application */,
@@ -256,9 +270,11 @@
 				BFE40A672A1BC74F00423D31 /* WorkCollectionView.swift in Sources */,
 				BF851EBE2A1612100028FCDA /* IdentifierType.swift in Sources */,
 				BF851EC12A164D180028FCDA /* HeaderReusableView.swift in Sources */,
+				BF508FD12A1CB578004CBB1E /* NotificationName+.swift in Sources */,
 				BF851EAF2A15F7550028FCDA /* WorkStatus.swift in Sources */,
 				BFFDFABF2A1944540045402C /* WorkInputView.swift in Sources */,
 				BF851EAC2A15F62E0028FCDA /* Work.swift in Sources */,
+				BF508FCF2A1CAD00004CBB1E /* AlertManager.swift in Sources */,
 				BF851EB42A15FFAE0028FCDA /* WorkViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

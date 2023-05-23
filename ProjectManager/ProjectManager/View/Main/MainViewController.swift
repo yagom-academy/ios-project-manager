@@ -28,6 +28,7 @@ final class MainViewController: UIViewController {
         
         configureUIOption()
         configureCollectionListView()
+        addObserver()
     }
     
     private func configureUIOption() {
@@ -44,6 +45,24 @@ final class MainViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: detailViewController)
         
         self.present(navigationController, animated: true)
+    }
+    
+    private func addObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showAlert),
+            name: .requestingAlert,
+            object: nil
+        )
+    }
+    
+    @objc private func showAlert(_ noti: Notification) {
+        guard let handler = noti.object as? () -> () else { return }
+        
+        AlertManager().showAlert(target: self,
+                                 title: "할 일 삭제",
+                                 message: "정말로 삭제하시겠습니까?",
+                                 handler: handler)
     }
 }
 

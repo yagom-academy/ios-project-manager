@@ -49,18 +49,6 @@ final class WorkCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        drawBottomBorder()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        removeBottomBorder()
-    }
-    
     func configure(title: String, body: String, deadline: String) {
         titleLabel.text = title
         bodyLabel.text = body
@@ -93,17 +81,5 @@ final class WorkCell: UICollectionViewCell {
             deadlineLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12),
             deadlineLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
-    }
-    
-    private func drawBottomBorder() {
-        layer.drawBorder(color: .systemGray4, width: 1.0)
-    }
-    
-    private func removeBottomBorder() {
-        layer.sublayers?.forEach { layer in
-            if layer.name == "BottomBorder" {
-                layer.removeFromSuperlayer()
-            }
-        }
     }
 }
