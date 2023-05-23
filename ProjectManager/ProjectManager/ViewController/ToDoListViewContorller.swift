@@ -59,7 +59,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         super.viewDidLoad()
         toDoList = []
         configureNavigationBar()
-        setTableView()
+        setUpTableView()
         configureViewUI()
     }
     
@@ -80,7 +80,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     }
     
     // MARK: TableView Setting
-    private func setTableView() {
+    private func setUpTableView() {
         toDoTableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.identifier)
         doingTableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.identifier)
         doneTableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.identifier)
@@ -95,6 +95,46 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         doneTableView.dataSource = self
     }
     
+    // MARK: moveToVCActionSheet
+    private func setUpLongTouchAction() {
+        let longTouchGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTouchAction))
+        // Long Press Gesture - 적용
+        view.addGestureRecognizer(longTouchGesture)
+    }
+    
+    @objc private func longTouchAction(_ recognizer: UILongPressGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            print("began")
+        case .ended:
+            print("end")
+            showPopover(recognizer)
+        case .changed:
+            print("changed")
+        default:
+            break
+        }
+    }
+    
+    private func showPopover(_ recognizer: UILongPressGestureRecognizer) {
+        let alertController = UIAlertController(title: "이동", message: "", preferredStyle: .actionSheet)
+        
+        let firstAction = UIAlertAction(title: "Move To DOING", style: .default, handler: { _ in
+        })
+        let secondeAction = UIAlertAction(title: "Move To DONE", style: .default, handler: { _ in
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alertController.addAction(firstAction)
+        alertController.addAction(secondeAction)
+        alertController.addAction(cancelAction)
+        
+        guard let popoverController = alertController.popoverPresentationController else { return }
+        popoverController.sourceView = self.view
+        popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        popoverController.permittedArrowDirections = []
+        present(alertController, animated: true, completion: nil)
+    }
     // MARK: Autolayout
     private func configureViewUI() {
         view.backgroundColor = .white
@@ -131,6 +171,7 @@ extension ToDoListViewContorller: UITableViewDelegate {
         toDoWriteViewController.delegate = self
         
         self.present(toDoWriteViewController, animated: true)
+        setUpLongTouchAction()
     }
 }
 

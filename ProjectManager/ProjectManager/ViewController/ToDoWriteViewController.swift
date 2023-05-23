@@ -12,7 +12,7 @@ protocol sendToDoListProtocol {
 }
 
 final class ToDoWriteViewController: UIViewController {
-    
+ 
     enum Mode {
         case edit
         case create
