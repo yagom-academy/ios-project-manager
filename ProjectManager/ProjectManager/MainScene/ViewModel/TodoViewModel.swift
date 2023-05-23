@@ -25,6 +25,18 @@ final class TodoViewModel {
         }
     }
     
+    var title: String? {
+        return task?.title
+    }
+    
+    var description: String? {
+        return task?.description
+    }
+    
+    var date: Date? {
+        return task?.date
+    }
+    
     func restrictNumberOfText(range: NSRange, text: String) -> Bool {
         guard let convertedText = text.cString(using: .utf8) else { return false }
         

@@ -23,6 +23,7 @@ final class TodoViewController: UIViewController {
         
         configureNavigationViewUI()
         configureViewUI()
+        configureInitialView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,6 +68,12 @@ extension TodoViewController {
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true)
+    }
+    
+    private func configureInitialView() {
+        titleTextField.text = viewModel.title
+        datePicker.date = viewModel.date ?? Date()
+        descriptionTextView.text = viewModel.description
     }
     
     private func configureNavigationViewUI() {
