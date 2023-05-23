@@ -57,6 +57,24 @@ final class ListViewController: UIViewController {
     }
 }
 
+// MARK: CollectionViewDelegate
+extension ListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions in
+            let todoAction = UIAction(title: "Move to Todo") { action in
+            }
+            let doingAction = UIAction(title: "Move to Doing") { action in
+            }
+            let doneAction = UIAction(title: "Move to Done") { action in
+            }
+            
+            return UIMenu(options: [.displayInline, .destructive], children: [todoAction, doingAction, doneAction])
+        }
+    }
+}
+
+// MARK: Datasource
 extension ListViewController {
     private func configureDatasource() {
         guard let collectionView = todoCollectionView else { return }
@@ -132,5 +150,6 @@ extension ListViewController {
         ])
         
         todoCollectionView = collectionView
+        todoCollectionView?.delegate = self
     }
 }

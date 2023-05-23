@@ -44,6 +44,9 @@ final class TaskListCell: UICollectionViewListCell {
         super.init(frame: frame)
         
         configureUI()
+        
+//        let interaction = UIContextMenuInteraction(delegate: self)
+//        self.addInteraction(interaction)
     }
     
     required init?(coder: NSCoder) {

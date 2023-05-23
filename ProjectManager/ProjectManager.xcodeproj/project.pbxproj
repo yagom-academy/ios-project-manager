@@ -79,8 +79,8 @@
 		26CE60CC2A148F830026203C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				2616AFC32A1525F100C33BB2 /* ListViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				26741E962A162720000B2459 /* TodoViewController.swift */,
 			);
 			path = ViewController;
