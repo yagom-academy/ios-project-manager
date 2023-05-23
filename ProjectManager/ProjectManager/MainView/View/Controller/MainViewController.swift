@@ -20,7 +20,6 @@ final class MainViewController: UIViewController {
         configureRootView()
         configureCollectionViewLayout()
         configureCollectionView()
-        mainCollectionViewModel.update()
     }
     
     private func collectionViewLayout() -> UICollectionViewLayout {
@@ -97,6 +96,7 @@ final class MainViewController: UIViewController {
         
         do {
             collectionView.dataSource = try mainCollectionViewModel.makeDataSource()
+            mainCollectionViewModel.applySnapshot()
         } catch {
             print(error.localizedDescription)
         }
@@ -124,6 +124,12 @@ extension MainViewController: UICollectionViewDelegate {
 
 extension MainViewController: TaskFetchDelegate {
     func fetchTaskList() {
-        self.mainCollectionViewModel.fetchTaskList()
+        self.mainCollectionViewModel.updateSnapshot()
+        self.mainCollectionViewModel.applySnapshot()
+    }
+    
+    func updateTaskCell(id: UUID?) {
+        guard let id else { return }
+        self.mainCollectionViewModel.updateTask(id: id)
     }
 }

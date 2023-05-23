@@ -167,11 +167,13 @@ final class DetailViewController: UIViewController {
         switch mode {
         case .create:
             detailViewModel.createTask()
+            delegate?.fetchTaskList()
         case .update:
             detailViewModel.updateTask()
+            delegate?.fetchTaskList()
+            delegate?.updateTaskCell(id: detailViewModel.id)
         }
         
-        delegate?.fetchTaskList()
         self.dismiss(animated: true)
     }
     

@@ -8,10 +8,19 @@
 import UIKit
 
 final class MainCollectionViewModel: NSObject {
+    enum Section {
+        case todo
+        case doing
+        case done
+    }
+    
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Task.ID>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Task.ID>
     
     private weak var collectionView: UICollectionView?
     private var dataSource: DataSource?
+    private var snapshot = Snapshot()
+    
     private var cellIdentifier: String
     private let mainCollectionViewService = MainCollectionViewService()
     
@@ -23,38 +32,10 @@ final class MainCollectionViewModel: NSObject {
         
         super.init()
         fetchTaskList()
+        configureSnapshotSection()
+        configureSnapshotItems()
     }
     
-    enum Section {
-        case todo
-        case doing
-        case done
-    }
-    
-    func fetchTaskList() {
-        items = mainCollectionViewService.fetchTaskList()
-        update()
-    }
-    
-    func task(at indexPath: IndexPath) -> Task? {
-        var targetList = [Task]()
-        
-        switch indexPath.section {
-        case 0:
-            targetList = items.filter { $0.workState == .todo }
-        case 1:
-            targetList = items.filter { $0.workState == .doing }
-        case 2:
-            targetList = items.filter { $0.workState == .done }
-        default:
-            break
-        }
-        
-        return targetList[safe: indexPath.row]
-    }
-}
-
-extension MainCollectionViewModel {
     func makeDataSource() throws -> DataSource {
         guard let collectionView = collectionView else {
             throw DataSourceError.noneCollectionView
@@ -77,10 +58,59 @@ extension MainCollectionViewModel {
         return dataSource
     }
     
+    func updateSnapshot() {
+        fetchTaskList()
+        configureSnapshotItems()
+    }
+    
+    func applySnapshot() {
+        dataSource?.apply(snapshot)
+    }
+    
+    func updateTask(id: UUID) {
+        snapshot.reloadItems([id])
+        applySnapshot()
+    }
+    
     func remove(_ item: Task) {
         self.items.removeAll { $0.id == item.id }
+    }
+    
+    func task(at indexPath: IndexPath) -> Task? {
+        var targetList = [Task]()
         
-        update()
+        switch indexPath.section {
+        case 0:
+            targetList = items.filter { $0.workState == .todo }
+        case 1:
+            targetList = items.filter { $0.workState == .doing }
+        case 2:
+            targetList = items.filter { $0.workState == .done }
+        default:
+            break
+        }
+        
+        return targetList[safe: indexPath.row]
+    }
+}
+
+extension MainCollectionViewModel {
+    private func fetchTaskList() {
+        items = mainCollectionViewService.fetchTaskList()
+    }
+    
+    private func configureSnapshotSection() {
+        snapshot.appendSections([.todo, .doing, .done])
+    }
+    
+    private func configureSnapshotItems() {
+        let todoList = items.filter { $0.workState == .todo }.map { $0.id }
+        let doingList = items.filter { $0.workState == .doing }.map { $0.id }
+        let doneList = items.filter { $0.workState == .done }.map { $0.id }
+        
+        snapshot.appendItems(todoList, toSection: .todo)
+        snapshot.appendItems(doingList, toSection: .doing)
+        snapshot.appendItems(doneList, toSection: .done)
     }
     
     private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
@@ -97,19 +127,5 @@ extension MainCollectionViewModel {
         cell.provide(taskViewModel)
         
         return cell
-    }
-    
-    func update() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Task.ID>()
-        snapshot.appendSections([.todo, .doing, .done])
-        
-        let todoList = items.filter { $0.workState == .todo }.map { $0.id }
-        let doingList = items.filter { $0.workState == .doing }.map { $0.id }
-        let doneList = items.filter { $0.workState == .done }.map { $0.id }
-        
-        snapshot.appendItems(todoList, toSection: .todo)
-        snapshot.appendItems(doingList, toSection: .doing)
-        snapshot.appendItems(doneList, toSection: .done)
-        dataSource?.apply(snapshot)
     }
 }
