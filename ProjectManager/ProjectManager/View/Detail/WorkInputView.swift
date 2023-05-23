@@ -8,6 +8,8 @@
 import UIKit
 
 final class WorkInputView: UIView {
+    typealias Contents = (title: String, body: String, deadline: Date)
+    
     private let titleTextField: UITextField = {
         let textField = UITextField()
         
@@ -71,6 +73,10 @@ final class WorkInputView: UIView {
         stackView.spacing = 8
         
         return stackView
+    }
+    
+    func checkContents() -> Contents {
+        return (titleTextField.text ?? "", bodyTextView.text ?? "", deadlinePicker.date)
     }
 }
 

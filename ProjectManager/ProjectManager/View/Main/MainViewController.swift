@@ -42,6 +42,7 @@ final class MainViewController: UIViewController {
     @objc private func moveToAppendWork() {
         let detailViewController = DetailViewController()
         detailViewController.configureAddMode()
+        detailViewController.viewModel = viewModel
         let navigationController = UINavigationController(rootViewController: detailViewController)
         
         self.present(navigationController, animated: true)

@@ -25,6 +25,10 @@ final class WorkViewModel {
         ]
     }
     
+    func addWork(title: String, body: String, deadline: Date) {
+        works.append(Work(title: title, body: body, deadline: deadline))
+    }
+    
     func removeWork(id: UUID) {
         guard let index = works.firstIndex(where: { $0.id == id }) else { return }
         
