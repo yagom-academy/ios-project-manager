@@ -165,7 +165,7 @@ extension TaskListViewController: UIGestureRecognizerDelegate {
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: collectionView)
         
-        guard gestureRecognizer.state == .ended else { return }
+        guard gestureRecognizer.state == .began else { return }
         
         guard let indexPath = collectionView.indexPathForItem(at: location),
               let cell = collectionView.cellForItem(at: indexPath) as? TaskListCell else { return }

@@ -82,57 +82,88 @@
 		AA2F17D72A14A7BA00664807 /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
-				AA2F17D92A14A80600664807 /* ViewModel */,
-				AA2F17D82A14A7FA00664807 /* View */,
+				AA54D9192A1D024200702F06 /* Component */,
+				AA54D9182A1D021500702F06 /* Header */,
+				AA54D9172A1D020300702F06 /* Cell */,
+				AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */,
+				C7431F0925F51E1D0094C4CF /* TaskListViewController.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
 		};
-		AA2F17D82A14A7FA00664807 /* View */ = {
+		AA54D9122A1D019A00702F06 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				AA99804C2A14B3B3005D98D7 /* Extension */,
+				4AC4526D2A14A26F00ADAC45 /* Model */,
+				AA54D9152A1D01E300702F06 /* Main */,
+				AA2F17D72A14A7BA00664807 /* TaskList */,
+				AA8AE3BE2A1B3FDA00B662F2 /* TaskForm */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		AA54D9132A1D01A200702F06 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		AA54D9142A1D01B100702F06 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				AA54D9132A1D01A200702F06 /* Resource */,
+				AA54D9122A1D019A00702F06 /* Source */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AA54D9152A1D01E300702F06 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				AA7FC09C2A1503A20057FCD4 /* MainViewController.swift */,
-				C7431F0925F51E1D0094C4CF /* TaskListViewController.swift */,
-				AA2F17DC2A14AB3700664807 /* TaskListCell.swift */,
-				AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */,
-				AA32F2472A16538800DB3E1A /* CountLabel.swift */,
 			);
-			path = View;
+			path = Main;
 			sourceTree = "<group>";
 		};
-		AA2F17D92A14A80600664807 /* ViewModel */ = {
+		AA54D9172A1D020300702F06 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */,
-				4AE1DDFD2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift */,
 				AAACDCFB2A1C5877005BFD03 /* TaskListCellViewModel.swift */,
+				AA2F17DC2A14AB3700664807 /* TaskListCell.swift */,
 			);
-			path = ViewModel;
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		AA54D9182A1D021500702F06 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				4AE1DDFD2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift */,
+				AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		AA54D9192A1D024200702F06 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				AA32F2472A16538800DB3E1A /* CountLabel.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		AA8AE3BE2A1B3FDA00B662F2 /* TaskForm */ = {
 			isa = PBXGroup;
 			children = (
-				AA8AE3C42A1B67AE00B662F2 /* ViewModel */,
-				AA8AE3C32A1B671E00B662F2 /* View */,
-			);
-			path = TaskForm;
-			sourceTree = "<group>";
-		};
-		AA8AE3C32A1B671E00B662F2 /* View */ = {
-			isa = PBXGroup;
-			children = (
+				AA8AE3C52A1B67D400B662F2 /* TaskFormViewModel.swift */,
 				AA8AE3BF2A1B3FF500B662F2 /* TaskFormViewController.swift */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		AA8AE3C42A1B67AE00B662F2 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				AA8AE3C52A1B67D400B662F2 /* TaskFormViewModel.swift */,
-			);
-			path = ViewModel;
+			path = TaskForm;
 			sourceTree = "<group>";
 		};
 		AA99804C2A14B3B3005D98D7 /* Extension */ = {
@@ -163,14 +194,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				AA99804C2A14B3B3005D98D7 /* Extension */,
-				4AC4526D2A14A26F00ADAC45 /* Model */,
-				AA2F17D72A14A7BA00664807 /* TaskList */,
-				AA8AE3BE2A1B3FDA00B662F2 /* TaskForm */,
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				AA54D9142A1D01B100702F06 /* App */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;
