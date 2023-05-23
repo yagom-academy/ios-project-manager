@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class TaskListHeaderView: UIView {
+final class TaskListHeaderView: UIView {
     private let viewModel: TaskListHeaderViewModel
     private var subscriptions = Set<AnyCancellable>()
     

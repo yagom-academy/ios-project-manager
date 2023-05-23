@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class TaskFormViewController: UIViewController {
+final class TaskFormViewController: UIViewController {
     private let viewModel: TaskFormViewModel
     private var subscriptions = Set<AnyCancellable>()
 

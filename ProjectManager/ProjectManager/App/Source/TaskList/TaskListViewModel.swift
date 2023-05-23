@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 final class TaskListViewModel {
+    @Published var taskList: [Task] = []
     private let state: State
     private let taskManager = TaskManager.shared
-    @Published var taskList: [Task] = []
     private var subscribes = Set<AnyCancellable>()
     
     var firstPopoverActionTitle: String {
@@ -28,17 +28,6 @@ final class TaskListViewModel {
         requestFilteredTaskList()
     }
     
-    private func requestFilteredTaskList() {
-        taskManager.taskListPublisher()
-            .map {
-                $0.filter { [weak self] task in
-                    task.state == self?.state
-                }
-            }
-            .assign(to: \.taskList, on: self)
-            .store(in: &subscribes)
-    }
-    
     func delete(indexPath: IndexPath) {
         let task = taskList[indexPath.row]
         
@@ -50,5 +39,16 @@ final class TaskListViewModel {
         task.state = state
         
         taskManager.update(task: task)
+    }
+    
+    private func requestFilteredTaskList() {
+        taskManager.taskListPublisher()
+            .map {
+                $0.filter { [weak self] task in
+                    task.state == self?.state
+                }
+            }
+            .assign(to: \.taskList, on: self)
+            .store(in: &subscribes)
     }
 }

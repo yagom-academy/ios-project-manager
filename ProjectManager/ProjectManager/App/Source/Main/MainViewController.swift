@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
     private let todoViewController = TaskListViewController(state: .todo)
     private let doingViewController = TaskListViewController(state: .doing)
     private let doneViewController = TaskListViewController(state: .done)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CountLabel: UILabel {
+final class CountLabel: UILabel {
     private let padding: CGFloat = 4
 
     override var intrinsicContentSize: CGSize {

@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class TaskListCell: UICollectionViewCell {
+final class TaskListCell: UICollectionViewCell {
     private let viewModel = TaskListCellViewModel()
     private var subscriptions = Set<AnyCancellable>()
     
