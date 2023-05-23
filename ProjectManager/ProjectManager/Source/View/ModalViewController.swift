@@ -9,8 +9,7 @@ import UIKit
 
 class ModalViewController: UIViewController {
     let mainViewModel: MainViewModel?
-    
-    
+
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "제목을 입력해주세요"
@@ -62,17 +61,14 @@ class ModalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        self.title = "TODO"
         configureUI()
-        configureBarButton()
+        configureNavigationBar()
     }
     
     private func configureUI() {
         let safeArea = view.safeAreaLayoutGuide
         
-        view.layer.cornerRadius = 20
-        
+        view.backgroundColor = .systemBackground
         view.addSubview(titleTextField)
         view.addSubview(datePickerView)
         view.addSubview(contentTextView)
@@ -93,7 +89,9 @@ class ModalViewController: UIViewController {
         ])
     }
     
-    private func configureBarButton() {
+    private func configureNavigationBar() {
+        self.title = "TODO"
+        
         let rightButton = UIBarButtonItem(title: "Done",
                                           style: .done,
                                           target: self,
@@ -121,8 +119,6 @@ class ModalViewController: UIViewController {
         mainViewModel?.addTodoSchedule(schedule)
         
         dismiss(animated: true)
-        print(mainViewModel?.todoSchedules)
-        
     }
     
     @objc

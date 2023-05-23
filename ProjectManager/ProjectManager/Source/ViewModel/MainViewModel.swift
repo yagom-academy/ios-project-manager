@@ -12,11 +12,11 @@ final class MainViewModel {
     @Published var todoSchedules = [Schedule]()
     @Published var doingSchedules = [Schedule]()
     @Published var doneSchedules = [Schedule]()
+    private var cancellables: Set<AnyCancellable> = []
 
     func addTodoSchedule(_ schedule: Schedule) {
         todoSchedules.append(schedule)
     }
-    
     
     func createSchedule(titleText: String?, contentText: String?, expirationDate: Date) -> Schedule {
         guard let validTitleText = titleText, let validContentText = contentText else {
@@ -27,6 +27,10 @@ final class MainViewModel {
 
         return schedule
     }
+    
+    func bindViewModel(completion: @escaping () -> Void) {
+        self.$todoSchedules.sink { _ in
+            completion()
+        }.store(in: &cancellables)
+    }
 }
-
-

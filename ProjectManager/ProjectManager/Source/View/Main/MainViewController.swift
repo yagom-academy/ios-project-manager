@@ -7,20 +7,7 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    var mainViewModel = MainViewModel()
-    
-    let schedule = Schedule(title: "asd", content: "asd", expirationDate: Date())
-    let schedule2 = Schedule(title: "sdf", content: "sdf", expirationDate: Date())
-    let schedule3 = Schedule(title: "sdf", content: "sdf", expirationDate: Date())
-    
-    var schedules: [Schedule] = []
-    func createSchedules() {
-        for i in 0..<10 {
-            schedules.append(Schedule(title: "\(i)", content: "hi", expirationDate: Date()))
-        }
-    }
-    lazy var schedules2 = [schedule2]
-    lazy var schedules3 = [schedule3]
+    private let mainViewModel = MainViewModel()
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -33,27 +20,23 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private let todoView = TodoView()
-    private let doingView = DoingView()
-    private let doneView = DoneView()
+    private lazy var todoView = TodoView(viewModel: mainViewModel)
+    private lazy var doingView = DoingView(viewModel: mainViewModel)
+    private lazy var doneView = DoneView(viewModel: mainViewModel)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        createSchedules()
         configureUI()
         todoView.configureUI()
-        todoView.configureDataSource(schedule: schedule)
-        todoView.applySnapshot(schedules: schedules)
+        todoView.configureDataSource()
         todoView.configureStackView()
         doingView.configureUI()
-        doingView.configureDataSource(schedule: schedule2)
-        doingView.applySnapshot(schedules: schedules2)
+        doingView.configureDataSource()
         doingView.configureStackView()
         doneView.configureUI()
-        doneView.configureDataSource(schedule: schedule3)
-        doneView.applySnapshot(schedules: schedules3)
+        doneView.configureDataSource()
         doneView.configureStackView()
         configureNavigationBar()
     }
