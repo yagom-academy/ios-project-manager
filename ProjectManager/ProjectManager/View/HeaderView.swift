@@ -26,13 +26,13 @@ final class HeaderView: UICollectionReusableView {
         return label
     }()
     
-    private let numberLabel: UILabel = {
+    let numberLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .black
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .white
         label.textAlignment = .center
-        label.layer.cornerRadius = 15
+        label.layer.cornerRadius = 12
         label.layer.masksToBounds = true
         
         return label
@@ -56,7 +56,7 @@ final class HeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureContent(status: Status, number: Int) {
+    func configureContent(status: Status, number: String) {
         switch status {
         case .todo:
             statusLabel.text = "TODO"
@@ -65,7 +65,8 @@ final class HeaderView: UICollectionReusableView {
         case .done:
             statusLabel.text = "DONE"
         }
-        numberLabel.text = "\(number)"
+        
+        numberLabel.text = number
     }
     
     private func configureUI() {
@@ -85,8 +86,7 @@ final class HeaderView: UICollectionReusableView {
             contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             contentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             contentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            numberLabel.heightAnchor.constraint(equalToConstant: 30),
-            numberLabel.widthAnchor.constraint(equalTo: numberLabel.heightAnchor)
+            numberLabel.heightAnchor.constraint(equalToConstant: 24),
         ])
     }
 }
