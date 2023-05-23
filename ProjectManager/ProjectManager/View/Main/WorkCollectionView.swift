@@ -103,14 +103,16 @@ final class WorkCollectionView: UICollectionView {
     }
     
     private func configureDataSource() {
-        workDataSource = DataSource(collectionView: self) {
+        workDataSource = DataSource(collectionView: self) { [weak self]
             (collectionView, indexPath, work) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkCell.identifier, for: indexPath) as? WorkCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkCell.identifier, for: indexPath) as? WorkCell,
+                  let isExceededDeadline = self?.viewModel.checkExceededDeadline(work.deadline) else {
                 return UICollectionViewCell()
             }
             
             let deadline = work.deadline.applyDateFormatter()
-            cell.configure(title: work.title, body: work.body, deadline: deadline)
+            
+            cell.configure(title: work.title, body: work.body, deadline: deadline, isExceededDeadline: isExceededDeadline)
             
             return cell
         }

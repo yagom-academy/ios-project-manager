@@ -8,6 +8,17 @@
 import UIKit
 
 final class WorkCell: UICollectionViewCell {
+    private var isExceededDeadline: Bool = false {
+        didSet {
+            switch isExceededDeadline {
+            case true:
+                deadlineLabel.textColor = .red
+            case false:
+                deadlineLabel.textColor = .black
+            }
+        }
+    }
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         
@@ -49,10 +60,11 @@ final class WorkCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String, body: String, deadline: String) {
+    func configure(title: String, body: String, deadline: String, isExceededDeadline: Bool) {
         titleLabel.text = title
         bodyLabel.text = body
         deadlineLabel.text = deadline
+        self.isExceededDeadline = isExceededDeadline
     }
     
     private func createStackView() -> UIStackView {

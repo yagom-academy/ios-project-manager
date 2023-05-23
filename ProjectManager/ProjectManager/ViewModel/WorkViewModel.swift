@@ -32,6 +32,12 @@ final class WorkViewModel {
         return index
     }
     
+    func fetchWork() -> Work? {
+        guard let index = fetchWorkIndex() else { return nil }
+        
+        return works[index]
+    }
+    
     func addWork(title: String, body: String, deadline: Date) {
         works.append(Work(title: title, body: body, deadline: deadline))
         NotificationCenter.default.post(name: .updateSnapShot, object: nil)
@@ -58,9 +64,11 @@ final class WorkViewModel {
         return filteredWorks.count
     }
     
-    func fetchWork() -> Work? {
-        guard let index = fetchWorkIndex() else { return nil }
-        
-        return works[index]
+    func checkExceededDeadline(_ targetDate: Date) -> Bool {
+        if targetDate < Date() {
+            return true
+        } else {
+            return false
+        }
     }
 }
