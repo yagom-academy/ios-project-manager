@@ -116,6 +116,8 @@ final class ProjectCell: UICollectionViewCell {
         
         if projectDate.formatDate() < Date().formatDate() {
             dateLabel.textColor = .systemRed
+        } else {
+            dateLabel.textColor = .black
         }
     }
     
