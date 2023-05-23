@@ -7,14 +7,16 @@
 import UIKit
 
 final class MoveToViewController: UIViewController {
+    private var projects = Projects.shared
     var projectManagerViewController: ProjectManagerViewController?
-    let status: Status?
+    let project: Project?
+    lazy var status = project?.status
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 15
+        stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -25,13 +27,8 @@ final class MoveToViewController: UIViewController {
         button.setTitle("Move to TODO", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.backgroundColor = .white
-        button.layer.masksToBounds = false
         button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
-        button.layer.borderColor = CGColor(gray: 0, alpha: 0)
-        button.layer.shadowOffset = .init(width: 10, height: 10)
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowRadius = 5
+        button.addTarget(self, action: #selector(moveToTodo), for: .touchUpInside)
         
         return button
     }()
@@ -41,6 +38,8 @@ final class MoveToViewController: UIViewController {
         button.setTitle("Move to DOING", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.backgroundColor = .white
+        button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(moveToDoing), for: .touchUpInside)
         
         return button
     }()
@@ -50,13 +49,15 @@ final class MoveToViewController: UIViewController {
         button.setTitle("Move to DONE", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.backgroundColor = .white
+        button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(moveToDone), for: .touchUpInside)
         
         return button
     }()
     
-    init(projectManagerViewController: ProjectManagerViewController? = nil, status: Status? = nil) {
+    init(projectManagerViewController: ProjectManagerViewController? = nil, project: Project) {
         self.projectManagerViewController = projectManagerViewController
-        self.status = status
+        self.project = project
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -73,7 +74,49 @@ final class MoveToViewController: UIViewController {
         configureConstraint()
     }
     
-    func configureContentStackView(status: Status) {
+    @objc
+    private func moveToTodo() {
+        guard let project else { return }
+        
+        for index in 0...projects.list.count-1 {
+            if projects.list[index].id == project.id {
+                projects.list[index].status = .todo
+            }
+        }
+        
+        projectManagerViewController?.projectManagerCollectionView.reloadData()
+        self.dismiss(animated: false)
+    }
+    
+    @objc
+    private func moveToDoing() {
+        guard let project else { return }
+        
+        for index in 0...projects.list.count-1 {
+            if projects.list[index].id == project.id {
+                projects.list[index].status = .doing
+            }
+        }
+        
+        projectManagerViewController?.projectManagerCollectionView.reloadData()
+        self.dismiss(animated: false)
+    }
+    
+    @objc
+    private func moveToDone() {
+        guard let project else { return }
+        
+        for index in 0...projects.list.count-1 {
+            if projects.list[index].id == project.id {
+                projects.list[index].status = .done
+            }
+        }
+        
+        projectManagerViewController?.projectManagerCollectionView.reloadData()
+        self.dismiss(animated: false)
+    }
+    
+    private func configureContentStackView(status: Status) {
         view.addSubview(contentStackView)
         
         switch status {
@@ -97,6 +140,4 @@ final class MoveToViewController: UIViewController {
             contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
     }
-    
-    
 }

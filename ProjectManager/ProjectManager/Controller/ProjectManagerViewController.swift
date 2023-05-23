@@ -206,7 +206,9 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
             guard let indexPath = projectManagerCollectionView.indexPathForItem(at: location) else { return }
             guard let status = Status(rawValue: indexPath.section) else { return }
             
-            let moveToViewController = MoveToViewController(projectManagerViewController: self, status: status)
+            let assignedProjects = projects.list.filter { $0.status == status }
+            let project = assignedProjects[indexPath.item]
+            let moveToViewController = MoveToViewController(projectManagerViewController: self, project: project)
             moveToViewController.modalPresentationStyle = UIModalPresentationStyle.popover
             moveToViewController.preferredContentSize = CGSize(width: 300, height: 150)
             moveToViewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
