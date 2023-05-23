@@ -17,44 +17,17 @@ struct ProjectListView: View {
             Section {
                 switch formCase {
                 case .todo:
-                    ForEach(viewModel.doingList) { model in
-                        ProjectListCell(model: model)
-                    }
-                    .onDelete { indexSet in
+                    createListItems(for: viewModel.todoList, onDelete: { indexSet in
                         viewModel.delete(cases: .todo, at: indexSet)
-                    }
-                    .listRowInsets(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
-                    .listRowBackground(
-                        Rectangle()
-                            .fill(.white)
-                            .padding(.top, 10)
-                    )
+                    })
                 case .doing:
-                    ForEach(viewModel.doingList) { model in
-                        ProjectListCell(model: model)
-                    }
-                    .onDelete { indexSet in
+                    createListItems(for: viewModel.doingList, onDelete: { indexSet in
                         viewModel.delete(cases: .doing, at: indexSet)
-                    }
-                    .listRowInsets(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
-                    .listRowBackground(
-                        Rectangle()
-                            .fill(.white)
-                            .padding(.top, 10)
-                    )
+                    })
                 case .done:
-                    ForEach(viewModel.doingList) { model in
-                        ProjectListCell(model: model)
-                    }
-                    .onDelete { indexSet in
+                    createListItems(for: viewModel.doneList, onDelete: { indexSet in
                         viewModel.delete(cases: .done, at: indexSet)
-                    }
-                    .listRowInsets(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
-                    .listRowBackground(
-                        Rectangle()
-                            .fill(.white)
-                            .padding(.top, 10)
-                    )
+                    })
                 }
                 
             } header: {
@@ -66,6 +39,19 @@ struct ProjectListView: View {
         }
         
         .listStyle(.grouped)
+    }
+    
+    func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
+        ForEach(models) { model in
+            ProjectListCell(model: model)
+        }
+        .onDelete(perform: onDelete)
+        .listRowInsets(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
+        .listRowBackground(
+            Rectangle()
+                .fill(.white)
+                .padding(.top, 10)
+        )
     }
 }
 
