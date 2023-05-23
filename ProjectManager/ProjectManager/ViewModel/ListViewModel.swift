@@ -30,7 +30,11 @@ final class ListViewModel {
                                  ToDoModel(title: "하는 중 제목1", description: "하는 중 내용1", deadLine: Date(), state: .Doing),
                                  ToDoModel(title: "하는 중 제목2", description: "하는 중 내용2", deadLine: Date(), state: .Doing)]
     
-    func configureCell(to cell: ListViewCell, with data: ToDoModel) {
+    func configureCell(to cell: TableViewCell, with data: ToDoModel) {
         cell.configureContent(with: data)
+    }
+    
+    func append(newList: ToDoModel) {
+        todoList.append(newList)
     }
 }
