@@ -40,6 +40,7 @@ final class AddProjectViewController: UIViewController {
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: "ko_KR")
         
         return datePicker
