@@ -56,6 +56,46 @@ final class ListViewController: UIViewController {
         
         datasource?.apply(snapshot)
     }
+    
+    private func makeAlertAction(_ task: Task) -> [UIAlertAction] {
+        let todoAction = UIAlertAction(title: "Move To Todo", style: .default) { action in
+        }
+        let doingAction = UIAlertAction(title: "Move To Doing", style: .default)
+        let doneAction = UIAlertAction(title: "Move To Done", style: .default)
+        
+        switch taskState {
+        case .todo:
+            return [doingAction, doneAction]
+        case .doing:
+            return [todoAction, doneAction]
+        case .done:
+            return [doingAction, doneAction]
+        }
+    }
+    
+    @objc func didTapLongPress(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state != .began else { return }
+        
+        let point = gesture.location(in: self.view)
+        let indexPath = todoCollectionView?.indexPathForItem(at: point)
+
+        guard let index = indexPath?.row else { return }
+        
+        let task = viewModel.tasks[index]
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let actions = makeAlertAction(task)
+        let popOverVC = alert.popoverPresentationController
+        
+        popOverVC?.sourceView = self.view
+        popOverVC?.sourceRect = CGRect(origin: point, size: CGSize.zero)
+        popOverVC?.permittedArrowDirections = .up
+        
+        actions.forEach { action in
+            alert.addAction(action)
+        }
+        
+        self.present(alert, animated: true)
+    }
 }
 
 // MARK: CollectionViewDelegate
@@ -158,7 +198,6 @@ extension ListViewController {
         
         gesture.minimumPressDuration = 0.5
         gesture.delaysTouchesBegan = true
-        gesture.delegate = self
         
         self.todoCollectionView?.addGestureRecognizer(gesture)
     }
