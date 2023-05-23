@@ -57,7 +57,7 @@ final class ScheduleCell: UICollectionViewCell {
     
     func configureLabel(schedule: Schedule) {
         titleLabel.text = schedule.title
-        contentLabel.text = schedule.detail
+        contentLabel.text = schedule.content
         dateLabel.text = DateFormatterManager.shared.convertToDate(from: schedule.expirationDate)
     }
 }

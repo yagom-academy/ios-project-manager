@@ -23,7 +23,7 @@ final class TodoHeaderView: UIView {
         label.textColor = .white
         label.layer.borderWidth = 1
         label.layer.masksToBounds = true
-        label.layer.cornerRadius = label.bounds.size.width / 2
+        label.layer.cornerRadius = 10
         label.backgroundColor = .black
         label.text = "5"
         label.textAlignment = .center
@@ -41,18 +41,13 @@ final class TodoHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        countLabel.layer.cornerRadius = 10
-    }
-    
     func updateCountLabel(todoCount: Int) {
         countLabel.text = "4"
     }
     
     private func configureUI() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = .white
+        self.backgroundColor = .systemGray6
         self.addSubview(titleLabel)
         self.addSubview(countLabel)
         

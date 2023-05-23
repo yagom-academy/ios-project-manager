@@ -8,6 +8,9 @@
 import UIKit
 
 class ModalViewController: UIViewController {
+    let mainViewModel: MainViewModel?
+    
+    
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "제목을 입력해주세요"
@@ -48,6 +51,15 @@ class ModalViewController: UIViewController {
         return contentTextView
     }()
     
+    init(viewModel: MainViewModel) {
+        self.mainViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -85,7 +97,7 @@ class ModalViewController: UIViewController {
         let rightButton = UIBarButtonItem(title: "Done",
                                           style: .done,
                                           target: self,
-                                          action: #selector(tapEditButton))
+                                          action: #selector(tapDoneButton))
         
         let leftButton = UIBarButtonItem(title: "Cancel",
                                          style: .done,
@@ -103,6 +115,13 @@ class ModalViewController: UIViewController {
     
     @objc
     private func tapDoneButton() {
+        guard let schedule = mainViewModel?.createSchedule(titleText: titleTextField.text,
+                                                contentText: contentTextView.text,
+                                                expirationDate: Date()) else { return }
+        mainViewModel?.addTodoSchedule(schedule)
+        
+        dismiss(animated: true)
+        print(mainViewModel?.todoSchedules)
         
     }
     

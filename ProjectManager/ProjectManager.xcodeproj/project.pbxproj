@@ -12,6 +12,7 @@
 		1C16A8732A14B705001640E2 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16A8722A14B705001640E2 /* Schedule.swift */; };
 		1CC9D3E02A160D1E00654A5D /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3DF2A160D1E00654A5D /* TodoView.swift */; };
 		1CC9D3F82A1B415000654A5D /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3F72A1B415000654A5D /* ModalViewController.swift */; };
+		1CC9D3FC2A1C4CD300654A5D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */; };
 		982DF0862A17ADEA0024BEB1 /* IdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */; };
 		983C04362A1B4BDA000E4702 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -27,6 +28,7 @@
 		1C16A8722A14B705001640E2 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		1CC9D3DF2A160D1E00654A5D /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		1CC9D3F72A1B415000654A5D /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierType.swift; sourceTree = "<group>"; };
 		983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +51,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1CC9D3F92A1C4C5100654A5D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				1C16A8702A14B484001640E2 /* ScheduleCell.swift */,
+				1CC9D3DF2A160D1E00654A5D /* TodoView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		982DF07E2A17ACBA0024BEB1 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,10 +87,8 @@
 		982DF0802A17AD610024BEB1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1CC9D3DF2A160D1E00654A5D /* TodoView.swift */,
-				1C16A8702A14B484001640E2 /* ScheduleCell.swift */,
+				1CC9D3F92A1C4C5100654A5D /* Main */,
 				1C16A86E2A14AC83001640E2 /* TodoHeaderView.swift */,
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				1CC9D3F72A1B415000654A5D /* ModalViewController.swift */,
 			);
 			path = View;
@@ -95,6 +105,7 @@
 		982DF0822A17AD6E0024BEB1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -228,6 +239,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				1CC9D3F82A1B415000654A5D /* ModalViewController.swift in Sources */,
 				1C16A86F2A14AC84001640E2 /* TodoHeaderView.swift in Sources */,
+				1CC9D3FC2A1C4CD300654A5D /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

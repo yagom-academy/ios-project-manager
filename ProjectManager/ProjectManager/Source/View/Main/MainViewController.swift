@@ -7,14 +7,16 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    let schedule = Schedule(title: "asd", detail: "asd", expirationDate: Date())
-    let schedule2 = Schedule(title: "sdf", detail: "sdf", expirationDate: Date())
-    let schedule3 = Schedule(title: "sdf", detail: "sdf", expirationDate: Date())
+    var mainViewModel = MainViewModel()
+    
+    let schedule = Schedule(title: "asd", content: "asd", expirationDate: Date())
+    let schedule2 = Schedule(title: "sdf", content: "sdf", expirationDate: Date())
+    let schedule3 = Schedule(title: "sdf", content: "sdf", expirationDate: Date())
     
     var schedules: [Schedule] = []
     func createSchedules() {
         for i in 0..<10 {
-            schedules.append(Schedule(title: "\(i)", detail: "hi", expirationDate: Date()))
+            schedules.append(Schedule(title: "\(i)", content: "hi", expirationDate: Date()))
         }
     }
     lazy var schedules2 = [schedule2]
@@ -74,7 +76,7 @@ final class MainViewController: UIViewController {
     }
     
     private func presentEditModal() {
-        let modalViewController = ModalViewController()
+        let modalViewController = ModalViewController(viewModel: mainViewModel)
         let modalNavigationController = UINavigationController(rootViewController: modalViewController)
         modalViewController.modalPresentationStyle = .formSheet
         modalViewController.preferredContentSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.7)

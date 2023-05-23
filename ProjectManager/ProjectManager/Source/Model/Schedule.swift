@@ -10,6 +10,12 @@ import Foundation
 struct Schedule: Hashable {
     let id = UUID()
     let title: String
-    let detail: String
+    let content: String
     let expirationDate: Date
+    
+    init(title: String = "", content: String = "", expirationDate: Date = Date()) {
+        self.title = title
+        self.content = content
+        self.expirationDate = expirationDate
+    }
 }
