@@ -22,6 +22,8 @@
 		AA8AE3C22A1B560600B662F2 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8AE3C12A1B560600B662F2 /* TaskManager.swift */; };
 		AA8AE3C62A1B67D400B662F2 /* TaskFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8AE3C52A1B67D400B662F2 /* TaskFormViewModel.swift */; };
 		AA99804E2A14B412005D98D7 /* UICollectionViewCell+IdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA99804D2A14B412005D98D7 /* UICollectionViewCell+IdentifierType.swift */; };
+		AAACDCFC2A1C5877005BFD03 /* TaskListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAACDCFB2A1C5877005BFD03 /* TaskListCellViewModel.swift */; };
+		AAACDCFE2A1C6297005BFD03 /* DateFormatter+Deadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAACDCFD2A1C6297005BFD03 /* DateFormatter+Deadline.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TaskListViewController.swift */; };
@@ -42,6 +44,8 @@
 		AA8AE3C12A1B560600B662F2 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		AA8AE3C52A1B67D400B662F2 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
 		AA99804D2A14B412005D98D7 /* UICollectionViewCell+IdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+IdentifierType.swift"; sourceTree = "<group>"; };
+		AAACDCFB2A1C5877005BFD03 /* TaskListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCellViewModel.swift; sourceTree = "<group>"; };
+		AAACDCFD2A1C6297005BFD03 /* DateFormatter+Deadline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Deadline.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 			children = (
 				AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */,
 				4AE1DDFD2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift */,
+				AAACDCFB2A1C5877005BFD03 /* TaskListCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				AA99804D2A14B412005D98D7 /* UICollectionViewCell+IdentifierType.swift */,
+				AAACDCFD2A1C6297005BFD03 /* DateFormatter+Deadline.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -249,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AC4526F2A14A2A600ADAC45 /* Task.swift in Sources */,
+				AAACDCFC2A1C5877005BFD03 /* TaskListCellViewModel.swift in Sources */,
 				AA8AE3C62A1B67D400B662F2 /* TaskFormViewModel.swift in Sources */,
 				AA8AE3C02A1B3FF500B662F2 /* TaskFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */,
@@ -259,6 +266,7 @@
 				AA32F2442A16026600DB3E1A /* TaskListHeaderView.swift in Sources */,
 				AA99804E2A14B412005D98D7 /* UICollectionViewCell+IdentifierType.swift in Sources */,
 				4AE1DDFE2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift in Sources */,
+				AAACDCFE2A1C6297005BFD03 /* DateFormatter+Deadline.swift in Sources */,
 				AA2F17DD2A14AB3700664807 /* TaskListCell.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				AA32F2482A16538800DB3E1A /* CountLabel.swift in Sources */,

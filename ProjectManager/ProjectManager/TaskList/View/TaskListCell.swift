@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Combine
 
-class TaskListCell: UICollectionViewCell {    
+class TaskListCell: UICollectionViewCell {
+    private let viewModel = TaskListCellViewModel()
+    private var subscriptions = Set<AnyCancellable>()
+    
     private let titleLabel = {
         let label = UILabel()
         
@@ -20,7 +24,8 @@ class TaskListCell: UICollectionViewCell {
     private let bodyLabel = {
         let label = UILabel()
         
-        label.font = .preferredFont(forTextStyle: .caption1)
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .systemGray
         label.numberOfLines = 3
         
         return label
@@ -75,9 +80,31 @@ class TaskListCell: UICollectionViewCell {
         ])
     }
     
-    func configure(_ task: Task) {
-        titleLabel.text = task.title
-        bodyLabel.text = task.body
-        deadlineLabel.text = DateFormatter().string(from: task.deadline)        
+    func bind(_ task: Task) {
+        viewModel.updateContents(by: task)
+        
+        viewModel.$title
+            .sink { [weak self] in
+                self?.titleLabel.text = $0
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$body
+            .sink { [weak self] in
+                self?.bodyLabel.text = $0
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$deadlineText
+            .sink { [weak self] in
+                self?.deadlineLabel.text = $0
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$deadlineColor
+            .sink { [weak self] in
+                self?.deadlineLabel.textColor = $0
+            }
+            .store(in: &subscriptions)
     }
 }
