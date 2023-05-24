@@ -50,8 +50,6 @@ struct ModalView: View {
                 }
                 
             }
-            
-
         }
     }
 }
