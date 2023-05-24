@@ -41,6 +41,7 @@ final class WorkViewModel {
         guard let index = fetchWorkIndex() else { return }
         
         works.remove(at: index)
+        NotificationCenter.default.post(name: .updateSnapShot, object: nil)
     }
     
     func moveStatus(to status: WorkStatus) {

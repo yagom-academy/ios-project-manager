@@ -59,8 +59,13 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func showAlert(_ noti: Notification) {
-        guard let handler = noti.object as? () -> () else { return }
+        guard let id = noti.object as? UUID else { return }
         
+        let handler = { [weak self] in
+            self?.viewModel.currentID = id
+            self?.viewModel.removeWork()
+        }
+            
         AlertManager().showAlert(target: self,
                                  title: "할 일 삭제",
                                  message: "정말로 삭제하시겠습니까?",

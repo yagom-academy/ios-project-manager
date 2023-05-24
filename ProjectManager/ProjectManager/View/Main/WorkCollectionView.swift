@@ -79,16 +79,8 @@ final class WorkCollectionView: UICollectionView {
               let id = workDataSource?.itemIdentifier(for: indexPath)?.id else { return nil }
         
         let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
-        let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) {
-            [weak self] _, _, completion in
-            
-            let handler = {
-                self?.viewModel.currentID = id
-                self?.viewModel.removeWork()
-                self?.applySnapshot()
-            }
-            
-            NotificationCenter.default.post(name: .requestingAlert, object: handler)
+        let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { _, _, completion in
+            NotificationCenter.default.post(name: .requestingAlert, object: id)
             completion(false)
         }
         
