@@ -8,10 +8,10 @@ import UIKit
 
 final class ProjectCell: UICollectionViewCell {
     let identifier = "ProjectCell"
-    var projectDate: Date?
     var deleteRow : (() -> ()) = {}
+    private var projectDate: Date?
     
-    let cellScrollView: UIScrollView = {
+    private let cellScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
