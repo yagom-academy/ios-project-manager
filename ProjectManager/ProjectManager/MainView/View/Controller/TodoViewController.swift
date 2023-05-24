@@ -6,15 +6,6 @@
 
 import UIKit
 
-protocol TaskCollectionViewController {
-    var mode: WorkState { get }
-    var viewModel: CollectionViewModel { get set }
-}
-
-protocol CollectionViewModel {
-    
-}
-
 final class TodoViewController: UIViewController, TaskCollectionViewController {
     let mode: WorkState = .todo
     private lazy var collectionView = UICollectionView(frame: .zero,
@@ -120,3 +111,4 @@ extension TodoViewController: TaskFetchDelegate {
         self.viewModel.updateTask(id: id)
     }
 }
+

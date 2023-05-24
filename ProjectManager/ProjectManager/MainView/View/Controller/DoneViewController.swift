@@ -7,10 +7,11 @@
 
 import UIKit
 
-final class DoneViewController: UIViewController {
+final class DoneViewController: UIViewController, TaskCollectionViewController {
+    let mode: WorkState = .done
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    private lazy var viewModel = TodoCollectionViewModel(
+    lazy var viewModel: CollectionViewModel = DoneCollectionViewModel(
         collectionView: collectionView,
         cellReuseIdentifier: TaskCell.identifier
     )

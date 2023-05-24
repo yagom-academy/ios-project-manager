@@ -26,9 +26,9 @@ final class MainViewModel {
     }
     
     private func distributeTask() {
-        guard let todoCollectionViewModel,
-              let doingCollectionViewModel,
-              let doneCollectionViewModel else {
+        guard let todoCollectionViewModel = viewModelDictionary[.todo],
+              let doingCollectionViewModel = viewModelDictionary[.doing],
+              let doneCollectionViewModel = viewModelDictionary[.doing] else {
             return
         }
         

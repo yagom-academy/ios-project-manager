@@ -129,3 +129,5 @@ extension DoneCollectionViewModel {
         return cell
     }
 }
+
+extension DoneCollectionViewModel: CollectionViewModel { }

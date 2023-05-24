@@ -12,6 +12,8 @@
 		62A63EAC2A1DB27800AF928F /* DoingCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EAB2A1DB27800AF928F /* DoingCollectionViewModel.swift */; };
 		62A63EAE2A1DB2E800AF928F /* DoneCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EAD2A1DB2E800AF928F /* DoneCollectionViewModel.swift */; };
 		62A63EB02A1DB33400AF928F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EAF2A1DB33400AF928F /* MainViewModel.swift */; };
+		62A63EB32A1DDBAF00AF928F /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EB22A1DDBAF00AF928F /* CollectionViewModel.swift */; };
+		62A63EB52A1DDBE400AF928F /* TaskCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EB42A1DDBE400AF928F /* TaskCollectionViewController.swift */; };
 		62D15BAE2A13572800057824 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62D15BAD2A13572800057824 /* GoogleService-Info.plist */; };
 		62D600332A14C25D00AD7490 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D600322A14C25D00AD7490 /* Array.swift */; };
 		62D600352A15062D00AD7490 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D600342A15062D00AD7490 /* WorkState.swift */; };
@@ -47,6 +49,8 @@
 		62A63EAB2A1DB27800AF928F /* DoingCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingCollectionViewModel.swift; sourceTree = "<group>"; };
 		62A63EAD2A1DB2E800AF928F /* DoneCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneCollectionViewModel.swift; sourceTree = "<group>"; };
 		62A63EAF2A1DB33400AF928F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		62A63EB22A1DDBAF00AF928F /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
+		62A63EB42A1DDBE400AF928F /* TaskCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionViewController.swift; sourceTree = "<group>"; };
 		62D15BAD2A13572800057824 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		62D600322A14C25D00AD7490 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		62D600342A15062D00AD7490 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 		6203356F2A14AB0500DDF23E /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				62A63EB12A1DDB9A00AF928F /* Protocol */,
 				62E8F9C52A1C9D430011B195 /* Service */,
 				62D600342A15062D00AD7490 /* WorkState.swift */,
 				62D600522A1750EB00AD7490 /* ViewModel */,
@@ -125,6 +130,15 @@
 				620335712A14ACAF00DDF23E /* Task.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		62A63EB12A1DDB9A00AF928F /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				62A63EB22A1DDBAF00AF928F /* CollectionViewModel.swift */,
+				62A63EB42A1DDBE400AF928F /* TaskCollectionViewController.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		62D600312A14C24B00AD7490 /* Extension */ = {
@@ -406,6 +420,7 @@
 				62A63EAE2A1DB2E800AF928F /* DoneCollectionViewModel.swift in Sources */,
 				62F8A1CA2A1B62CD005F6BF7 /* TextView+Combine.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoViewController.swift in Sources */,
+				62A63EB52A1DDBE400AF928F /* TaskCollectionViewController.swift in Sources */,
 				62D6005F2A17A58800AD7490 /* DataSourceError.swift in Sources */,
 				62D600582A1778DE00AD7490 /* TaskCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
@@ -413,6 +428,7 @@
 				AD8A5EBF2A1B6D7B00D66627 /* UIControl+Combine.swift in Sources */,
 				62F8A1C82A1B5651005F6BF7 /* DetailService.swift in Sources */,
 				62F8A1C52A1B3356005F6BF7 /* DetailViewModel.swift in Sources */,
+				62A63EB32A1DDBAF00AF928F /* CollectionViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				62A63EB02A1DB33400AF928F /* MainViewModel.swift in Sources */,
 				AD1E2C992A1DAFE100251226 /* DoneViewController.swift in Sources */,
