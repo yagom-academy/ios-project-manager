@@ -72,7 +72,7 @@ final class DetailViewController: UIViewController {
     
     let mode: Mode
     var cancellables = Set<AnyCancellable>()
-    weak var delegate: TaskFetchDelegate?
+    weak var delegate: DetailViewControllerDelegate?
     
     init(task: Task?, mode: Mode) {
         self.detailViewModel = DetailViewModel(task: task)
@@ -167,14 +167,11 @@ final class DetailViewController: UIViewController {
         switch mode {
         case .create:
             detailViewModel.createTask()
-            delegate?.fetchTaskList()
+            delegate?.configureDataSource()
         case .update:
             detailViewModel.updateTask()
-            delegate?.fetchTaskList()
-            delegate?.updateTaskCell(
-                workState: detailViewModel.workState,
-                itemID: detailViewModel.id
-            )
+            delegate?.configureDataSource()
+            delegate?.updateDataSource(for: detailViewModel.workState, itemID: detailViewModel.id)
         }
         
         self.dismiss(animated: true)

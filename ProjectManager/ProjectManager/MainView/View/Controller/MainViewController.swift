@@ -20,7 +20,7 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private let mainViewModel = MainViewModel()
+    let mainViewModel = MainViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +29,11 @@ final class MainViewController: UIViewController {
         addChildren()
         setupViewModelReference()
         configureStackView()
-        mainViewModel.configureCollectionViewModels()
+        mainViewModel.configureDataSource()
     }
     
     private func configureNavigationBar() {
+        self.navigationItem.title = "Project Manager"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
@@ -43,7 +44,7 @@ final class MainViewController: UIViewController {
     @objc
     private func presentDetailView() {
         let detailViewController = DetailViewController(task: nil, mode: .create)
-        detailViewController.delegate = self
+        detailViewController.delegate = self.mainViewModel
         self.present(detailViewController, animated: true)
     }
     
@@ -72,15 +73,5 @@ final class MainViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
-    }
-}
-
-extension MainViewController: TaskFetchDelegate {
-    func fetchTaskList() {
-        self.mainViewModel.configureCollectionViewModels()
-    }
-    
-    func updateTaskCell(workState: WorkState, itemID: UUID?) {
-        self.mainViewModel.updateCollectionViewModel(workState: workState, itemID: itemID)
     }
 }

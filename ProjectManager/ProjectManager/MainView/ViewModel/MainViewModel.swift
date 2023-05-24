@@ -21,12 +21,12 @@ final class MainViewModel {
         }
     }
     
-    func configureCollectionViewModels() {
+    func configureDataSource() {
         fetchTaskList()
         distributeTask()
     }
     
-    func updateCollectionViewModel(workState: WorkState, itemID: UUID?) {
+    func updateDataSource(for workState: WorkState, itemID: UUID?) {
         guard let itemID else { return }
         
         let viewModel = viewModelDictionary[workState]
@@ -44,3 +44,5 @@ final class MainViewModel {
         }
     }
 }
+
+extension MainViewModel: DetailViewControllerDelegate { }
