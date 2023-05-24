@@ -25,11 +25,7 @@ final class MainViewController: UIViewController {
         configureNavigationViewUI()
         configureViewUI()
         configureChildViewControllerUI()
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateCollectionView),
-                                               name: .changedTasks,
-                                               object: nil)
+        configureObserver()
     }
     
     func presentTodoViewController(_ state: TodoState, _ task: Task?) {
@@ -55,6 +51,13 @@ final class MainViewController: UIViewController {
     
     @objc private func didTapAddButton() {
         presentTodoViewController(.create, nil)
+    }
+    
+    private func configureObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateCollectionView),
+                                               name: .changedTasks,
+                                               object: nil)
     }
 }
 

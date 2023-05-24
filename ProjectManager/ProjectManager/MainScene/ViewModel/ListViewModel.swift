@@ -17,6 +17,6 @@ final class ListViewModel {
     }
     
     func postChangedTaskState(by task: Task, _ state: TaskState) {
-        NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": taskState])
+        NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": state])
     }
 }

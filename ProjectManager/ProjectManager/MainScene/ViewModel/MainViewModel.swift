@@ -22,7 +22,7 @@ class MainViewModel {
                                                name: .deleteTask,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(changeTask),
+                                               selector: #selector(changeTaskState),
                                                name: .changedTaskState,
                                                object: nil)
     }
@@ -34,7 +34,7 @@ class MainViewModel {
         tasks.remove(at: targetIndex)
     }
     
-    @objc private func changeTask(_ noti: Notification) {
+    @objc private func changeTaskState(_ noti: Notification) {
         guard let task = noti.userInfo?["task"] as? Task,
               let state = noti.userInfo?["state"] as? TaskState,
               let targetIndex = tasks.firstIndex(of: task) else { return }
