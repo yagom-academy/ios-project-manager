@@ -30,7 +30,6 @@ final class ListViewController: UIViewController {
         
         configureViewUI()
         configureCollectionViewUI()
-        configureGesture()
         configureDatasource()
         applySnapshot(by: [])
     }
@@ -62,16 +61,16 @@ final class ListViewController: UIViewController {
         datasource?.apply(snapshot, animatingDifferences: false)
     }
     
-    private func makeAlertAction(_ task: Task) -> [UIAlertAction] {
-        let todoAction = UIAlertAction(title: "Move To Todo", style: .default) { _ in
+    private func makeAction(_ task: Task) -> [UIAction] {
+        let todoAction = UIAction(title: "Move To Todo") { _ in
             self.deleteSnapshot(by: task)
             self.viewModel.postChangedTaskState(by: task, .todo)
         }
-        let doingAction = UIAlertAction(title: "Move To Doing", style: .default) { _ in
+        let doingAction = UIAction(title: "Move To Doing") { _ in
             self.deleteSnapshot(by: task)
             self.viewModel.postChangedTaskState(by: task, .doing)
         }
-        let doneAction = UIAlertAction(title: "Move To Done", style: .default) { _ in
+        let doneAction = UIAction(title: "Move To Done") { _ in
             self.deleteSnapshot(by: task)
             self.viewModel.postChangedTaskState(by: task, .done)
         }
@@ -85,34 +84,22 @@ final class ListViewController: UIViewController {
             return [doingAction, doneAction]
         }
     }
-    
-    @objc func didTapLongPress(gesture: UILongPressGestureRecognizer) {
-        guard gesture.state != .began else { return }
-        
-        let point = gesture.location(in: self.view)
-        let indexPath = todoCollectionView?.indexPathForItem(at: point)
-
-        guard let index = indexPath?.row else { return }
-        
-        let task = viewModel.tasks[index]
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let actions = makeAlertAction(task)
-        let popOverVC = alert.popoverPresentationController
-        
-        popOverVC?.sourceView = self.view
-        popOverVC?.sourceRect = CGRect(origin: point, size: CGSize.zero)
-        popOverVC?.permittedArrowDirections = .up
-        
-        actions.forEach { action in
-            alert.addAction(action)
-        }
-        
-        self.present(alert, animated: true)
-    }
 }
 
 // MARK: CollectionViewDelegate
 extension ListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let indexPath = indexPaths.first else { return nil }
+        
+        let task = viewModel.tasks[indexPath.row]
+        let actions = makeAction(task)
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            
+            return UIMenu(options: .displayInline, children: actions)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let parentVC = self.parent as? MainViewController else { return }
         let task = viewModel.tasks[indexPath.row]
@@ -204,14 +191,5 @@ extension ListViewController {
         
         todoCollectionView = collectionView
         todoCollectionView?.delegate = self
-    }
-    
-    private func configureGesture() {
-        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didTapLongPress))
-        
-        gesture.minimumPressDuration = 0.5
-        gesture.delaysTouchesBegan = true
-        
-        self.todoCollectionView?.addGestureRecognizer(gesture)
     }
 }
