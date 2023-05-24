@@ -55,23 +55,14 @@ final class ListViewController: UIViewController {
         datasource?.apply(snapshot, animatingDifferences: false)
     }
     
-    private func deleteSnapshot(by task: Task) {
-        snapshot.deleteItems([task])
-        
-        datasource?.apply(snapshot, animatingDifferences: false)
-    }
-    
     private func makeAction(_ task: Task) -> [UIAction] {
         let todoAction = UIAction(title: "Move To Todo") { _ in
-            self.deleteSnapshot(by: task)
             self.viewModel.postChangedTaskState(by: task, .todo)
         }
         let doingAction = UIAction(title: "Move To Doing") { _ in
-            self.deleteSnapshot(by: task)
             self.viewModel.postChangedTaskState(by: task, .doing)
         }
         let doneAction = UIAction(title: "Move To Done") { _ in
-            self.deleteSnapshot(by: task)
             self.viewModel.postChangedTaskState(by: task, .done)
         }
         
@@ -86,7 +77,7 @@ final class ListViewController: UIViewController {
     }
 }
 
-// MARK: CollectionViewDelegate
+// MARK: Delegate
 extension ListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
         guard let indexPath = indexPaths.first else { return nil }
@@ -95,7 +86,6 @@ extension ListViewController: UICollectionViewDelegate {
         let actions = makeAction(task)
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            
             return UIMenu(options: .displayInline, children: actions)
         }
     }
@@ -103,8 +93,6 @@ extension ListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let parentVC = self.parent as? MainViewController else { return }
         let task = viewModel.tasks[indexPath.row]
-
-        deleteSnapshot(by: task)
         
         parentVC.presentTodoViewController(.edit, task)
     }
@@ -147,10 +135,7 @@ extension ListViewController {
             listConfig.trailingSwipeActionsConfigurationProvider = { indexPath in
                 let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
                     let task = self.viewModel.tasks[indexPath.row]
-                    self.deleteSnapshot(by: task)
-                    NotificationCenter.default.post(name: .deleteTask,
-                                                    object: nil,
-                                                    userInfo: ["task": task])
+                    self.viewModel.postDeleteTask(by: task)
                     completion(true)
                 }
                 
