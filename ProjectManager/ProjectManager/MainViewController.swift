@@ -20,10 +20,19 @@ struct TodoLabel: Hashable {
 }
 
 class MainViewController: UIViewController {
-    private var dataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
+    private var dataSource1: UICollectionViewDiffableDataSource<Section, TodoLabel>?
+    private var dataSource2: UICollectionViewDiffableDataSource<Section, TodoLabel>?
+    private var dataSource3: UICollectionViewDiffableDataSource<Section, TodoLabel>?
     private let collectionView1 = CustomCollectionView()
     private let collectionView2 = CustomCollectionView()
     private let collectionView3 = CustomCollectionView()
+    private lazy var mainStackView = {
+        let stackView = UIStackView(arrangedSubviews: [collectionView1, collectionView2, collectionView3])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        return stackView
+    }()
     
     private let user = [TodoLabel(title: "Hi!", content: "Andrew!", date: Date()), TodoLabel(title: "Hello~", content: "Brody!", date: Date())]
 
@@ -35,30 +44,30 @@ class MainViewController: UIViewController {
     }
     
     private func configureUI() {
-        view.backgroundColor = .systemBackground
-        view.addSubview(collectionView1)
-        view.addSubview(collectionView2)
-        view.addSubview(collectionView3)
-    
-        collectionView1.snp.makeConstraints {
+        view.backgroundColor = .systemGray5
+        view.addSubview(mainStackView)
+        
+        mainStackView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.width.equalToSuperview().multipliedBy(0.33)
-            $0.bottom.equalTo(-100)
+            $0.leading.equalTo(view.safeAreaLayoutGuide)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(-50)
         }
         
-        collectionView2.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.equalTo(collectionView1.snp.trailing)
-            $0.trailing.equalTo(collectionView3.snp.leading)
-            $0.bottom.equalTo(-100)
-        }
-        
-        collectionView3.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.width.equalToSuperview().multipliedBy(0.33)
-            $0.bottom.equalTo(-100)
-        }
-        
+//        collectionView1.snp.makeConstraints {
+//            $0.width.equalToSuperview().multipliedBy(0.333)
+//            $0.height.equalToSuperview()
+//        }
+//
+//        collectionView2.snp.makeConstraints {
+//            $0.width.equalToSuperview().multipliedBy(0.333)
+//            $0.height.equalToSuperview()
+//        }
+//
+//        collectionView3.snp.makeConstraints {
+//            $0.width.equalToSuperview().multipliedBy(0.333)
+//            $0.height.equalToSuperview()
+//        }
     }
     
     private func configureNavigation() {
@@ -79,17 +88,17 @@ extension MainViewController {
             cell.configure(title: todo.title, content: todo.content, date: todo.date)
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView1) {
+        dataSource1 = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView1) {
             (collectionView, indexPath, todo) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: todo)
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView2) {
+        dataSource2 = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView2) {
             (collectionView, indexPath, todo) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: todo)
         }
-        
-        dataSource = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView3) {
+
+        dataSource3 = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView3) {
             (collectionView, indexPath, todo) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: todo)
         }
@@ -99,6 +108,8 @@ extension MainViewController {
         snapshot.appendItems(user, toSection: .todo)
         snapshot.appendItems(user, toSection: .doing)
         snapshot.appendItems(user, toSection: .done)
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource1?.apply(snapshot, animatingDifferences: true)
+        dataSource2?.apply(snapshot, animatingDifferences: true)
+        dataSource3?.apply(snapshot, animatingDifferences: true)
     }
 }
