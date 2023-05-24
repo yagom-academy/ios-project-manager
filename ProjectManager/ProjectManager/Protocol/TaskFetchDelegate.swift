@@ -8,5 +8,5 @@ import Foundation
 
 protocol TaskFetchDelegate: AnyObject {
     func fetchTaskList()
-    func updateTaskCell(id: UUID?) 
+    func updateTaskCell(workState: WorkState, itemID: UUID?) 
 }

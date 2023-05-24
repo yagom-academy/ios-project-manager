@@ -80,7 +80,7 @@ extension MainViewController: TaskFetchDelegate {
         self.mainViewModel.configureCollectionViewModels()
     }
     
-    func updateTaskCell(id: UUID?) {
-        
+    func updateTaskCell(workState: WorkState, itemID: UUID?) {
+        self.mainViewModel.updateCollectionViewModel(workState: workState, itemID: itemID)
     }
 }

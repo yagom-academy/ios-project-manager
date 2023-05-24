@@ -171,7 +171,10 @@ final class DetailViewController: UIViewController {
         case .update:
             detailViewModel.updateTask()
             delegate?.fetchTaskList()
-            delegate?.updateTaskCell(id: detailViewModel.id)
+            delegate?.updateTaskCell(
+                workState: detailViewModel.workState,
+                itemID: detailViewModel.id
+            )
         }
         
         self.dismiss(animated: true)

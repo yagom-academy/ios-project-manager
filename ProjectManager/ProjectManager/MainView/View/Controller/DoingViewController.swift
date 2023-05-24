@@ -18,7 +18,6 @@ final class DoingViewController: UIViewController, TaskCollectionViewController 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
         configureRootView()
         configureCollectionViewLayout()
         configureCollectionView()
@@ -36,14 +35,6 @@ final class DoingViewController: UIViewController, TaskCollectionViewController 
         }
 
         return layout
-    }
-    
-    private func configureNavigationBar() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(presentDetailView)
-        )
     }
     
     private func configureRootView() {
@@ -80,32 +71,15 @@ final class DoingViewController: UIViewController, TaskCollectionViewController 
         
         collectionView.delegate = self
     }
-    
-    @objc
-    private func presentDetailView() {
-        let detailViewController = DetailViewController(task: nil, mode: .create)
-        detailViewController.delegate = self
-        self.present(detailViewController, animated: true)
-    }
 }
 
 extension DoingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task = viewModel.task(at: indexPath)
         let detailViewController = DetailViewController(task: task, mode: .update)
-        detailViewController.delegate = self
+        detailViewController.delegate = self.parent as? MainViewController
         
         self.present(detailViewController, animated: true)
     }
 }
 
-extension DoingViewController: TaskFetchDelegate {
-    func fetchTaskList() {
-
-    }
-    
-    func updateTaskCell(id: UUID?) {
-        guard let id else { return }
-        self.viewModel.updateTask(id: id)
-    }
-}

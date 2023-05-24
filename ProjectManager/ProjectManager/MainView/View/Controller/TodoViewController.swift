@@ -76,20 +76,9 @@ extension TodoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task = viewModel.task(at: indexPath)
         let detailViewController = DetailViewController(task: task, mode: .update)
-        detailViewController.delegate = self
+        detailViewController.delegate = self.parent as? MainViewController
         
         self.present(detailViewController, animated: true)
-    }
-}
-
-extension TodoViewController: TaskFetchDelegate {
-    func fetchTaskList() {
-        
-    }
-    
-    func updateTaskCell(id: UUID?) {
-        guard let id else { return }
-        self.viewModel.updateTask(id: id)
     }
 }
 

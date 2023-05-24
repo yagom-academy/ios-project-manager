@@ -26,6 +26,13 @@ final class MainViewModel {
         distributeTask()
     }
     
+    func updateCollectionViewModel(workState: WorkState, itemID: UUID?) {
+        guard let itemID else { return }
+        
+        let viewModel = viewModelDictionary[workState]
+        viewModel?.updateTask(id: itemID)
+    }
+    
     private func fetchTaskList() {
         taskList = mainCollectionViewService.fetchTaskList()
     }
