@@ -9,13 +9,12 @@ import Foundation
 import Combine
 
 final class MainViewModel {
-    @Published var todoSchedules = [Schedule]()
-    @Published var doingSchedules = [Schedule]()
-    @Published var doneSchedules = [Schedule]()
-    private var cancellables: Set<AnyCancellable> = []
+    let todoSchedules: Observable<[Schedule]> = Observable([])
+    let doingSchedules: Observable<[Schedule]> = Observable([])
+    let doneSchedules: Observable<[Schedule]> = Observable([])
 
     func addTodoSchedule(_ schedule: Schedule) {
-        todoSchedules.append(schedule)
+        todoSchedules.value.append(schedule)
     }
     
     func createSchedule(titleText: String?, contentText: String?, expirationDate: Date) -> Schedule {
@@ -28,9 +27,7 @@ final class MainViewModel {
         return schedule
     }
     
-    func bindViewModel(completion: @escaping () -> Void) {
-        self.$todoSchedules.sink { _ in
-            completion()
-        }.store(in: &cancellables)
+    func schedule() -> [Schedule] {
+        return self.todoSchedules.value
     }
 }

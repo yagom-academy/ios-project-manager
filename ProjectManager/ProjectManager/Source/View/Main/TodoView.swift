@@ -37,25 +37,20 @@ class DoListView: UIStackView {
         self.mainViewModel = viewModel
         super.init(frame: .zero)
         
-        binding()
+        mainViewModel?.todoSchedules.bind(listener: { schedule in
+            self.applySnapshot()
+        })
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func binding() {
-        mainViewModel?.bindViewModel { [weak self] in
-            guard let self else { return }
-            self.applySnapshot()
-        }
-    }
-    
     func configureDataSource() {
         self.collectionView.register(ScheduleCell.self, forCellWithReuseIdentifier: ScheduleCell.identifier)
         self.dataSource = UICollectionViewDiffableDataSource<Section, Schedule> (collectionView: self.collectionView) { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScheduleCell.identifier, for: indexPath) as? ScheduleCell,
-                  let schedule = self.mainViewModel?.todoSchedules[indexPath.row] else { return nil }
+                  let schedule = self.mainViewModel?.todoSchedules.value[indexPath.row] else { return nil }
             
             cell.configureUI()
             cell.configureLabel(schedule: schedule)
@@ -65,8 +60,8 @@ class DoListView: UIStackView {
     }
     
     func applySnapshot() {
+        guard let schedules = mainViewModel?.schedule() else { return }
         var  snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
-        guard let schedules = mainViewModel?.todoSchedules else { return }
         snapshot.appendSections([.main])
         snapshot.appendItems(schedules)
         self.dataSource?.apply(snapshot, animatingDifferences: true)
