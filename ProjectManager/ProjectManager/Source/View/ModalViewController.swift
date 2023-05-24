@@ -30,6 +30,8 @@ class ModalViewController: UIViewController {
         let pickerView = UIDatePicker()
         pickerView.preferredDatePickerStyle = .wheels
         pickerView.locale = Locale(identifier: "ko_KR")
+        pickerView.datePickerMode = .date
+        pickerView.minimumDate = Date()
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         
         return pickerView
@@ -115,7 +117,7 @@ class ModalViewController: UIViewController {
     private func tapDoneButton() {
         guard let schedule = mainViewModel?.createSchedule(titleText: titleTextField.text,
                                                 contentText: contentTextView.text,
-                                                expirationDate: Date()) else { return }
+                                                           expirationDate: datePickerView.date) else { return }
         mainViewModel?.addTodoSchedule(schedule)
         
         dismiss(animated: true)

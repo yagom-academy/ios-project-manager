@@ -22,12 +22,16 @@ final class MainViewModel {
             return Schedule()
         }
         
-        let schedule = Schedule(title: validTitleText, content: validContentText, expirationDate: Date())
+        let schedule = Schedule(title: validTitleText, content: validContentText, expirationDate: expirationDate)
 
         return schedule
     }
     
     func schedule() -> [Schedule] {
         return self.todoSchedules.value
+    }
+    
+    func deleteSchedule(indexPath: IndexPath) {
+        todoSchedules.value.remove(at: indexPath.row)
     }
 }
