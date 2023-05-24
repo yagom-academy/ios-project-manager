@@ -40,8 +40,6 @@ final class MainViewModel {
         case .done:
             doneSchedules.value.remove(at: index)
         }
-        
-        
     }
     
     func fetchSchedule(scheduleType: ScheduleType) -> [Schedule] {
@@ -59,12 +57,21 @@ final class MainViewModel {
         switch scheduleType {
         case .todo:
             todoSchedules.value[index] = schedule
-            
         case .doing:
             doingSchedules.value[index] = schedule
-            
         case .done:
             doneSchedules.value[index] = schedule
+        }
+    }
+    
+    func count(scheduleType: ScheduleType) -> Int {
+        switch scheduleType {
+        case .todo:
+            return todoSchedules.value.count
+        case .doing:
+            return doingSchedules.value.count
+        case .done:
+            return doneSchedules.value.count
         }
     }
 }

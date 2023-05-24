@@ -108,13 +108,12 @@ final class ModalViewController: UIViewController {
     private func configureNavigationBar() {
         self.title = "TODO"
         
+        let rightButton = UIBarButtonItem(title: "Done",
+                                          style: .done,
+                                          target: self,
+                                          action: #selector(tapDoneButton))
         switch modalType {
         case .add:
-            let rightButton = UIBarButtonItem(title: "Done",
-                                              style: .done,
-                                              target: self,
-                                              action: #selector(tapDoneButton))
-            
             let leftButton = UIBarButtonItem(title: "Cancel",
                                              style: .done,
                                              target: self,
@@ -122,11 +121,6 @@ final class ModalViewController: UIViewController {
             self.navigationItem.rightBarButtonItem = rightButton
             self.navigationItem.leftBarButtonItem = leftButton
         case .edit:
-            let rightButton = UIBarButtonItem(title: "Done",
-                                              style: .done,
-                                              target: self,
-                                              action: #selector(tapDoneButton))
-            
             let leftButton = UIBarButtonItem(title: "Edit",
                                              style: .done,
                                              target: self,
@@ -151,18 +145,17 @@ final class ModalViewController: UIViewController {
 
         switch modalType {
         case .add:
-            let schedule = mainViewModel.createSchedule(titleText: titleTextField.text,
-                                                        contentText: contentTextView.text,
-                                                        expirationDate: datePickerView.date)
             mainViewModel.addTodoSchedule(schedule)
             
             dismiss(animated: true)
         case .edit:
-            mainViewModel.updateSchedule(scheduleType: scheduleType, schedule: <#T##Schedule#>, index: <#T##Int#>)
+            guard let scheduleType, let index else { return }
+            mainViewModel.updateSchedule(scheduleType: scheduleType,
+                                         schedule: schedule,
+                                         index: index)
             
             dismiss(animated: true)
         }
-        
     }
     
     @objc
@@ -185,7 +178,6 @@ final class ModalViewController: UIViewController {
     
     private func configureSchedule() {
         if modalType == .edit {
-            
             guard let scheduleType, let index else { return }
             let schedules = mainViewModel.fetchSchedule(scheduleType: scheduleType)
             titleTextField.text = schedules[index].title

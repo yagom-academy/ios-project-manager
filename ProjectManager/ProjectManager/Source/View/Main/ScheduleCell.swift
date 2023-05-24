@@ -63,6 +63,10 @@ final class ScheduleCell: UICollectionViewCell {
         titleLabel.text = schedule.title
         contentLabel.text = schedule.content
         dateLabel.text = DateFormatterManager.shared.convertToDate(from: schedule.expirationDate)
+        
+        if schedule.expirationDate < Date(timeIntervalSinceNow: -86400) {
+            dateLabel.textColor = .systemRed
+        }
     }
 }
 

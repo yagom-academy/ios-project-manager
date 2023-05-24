@@ -95,14 +95,8 @@ class DoListViewController: UIViewController {
     }
     
     private func configureHeaderViewCountLabel() {
-        switch scheduleType {
-        case .todo:
-            headerView.configureCountLabel(count: mainViewModel.todoSchedules.value.count)
-        case .doing:
-            headerView.configureCountLabel(count: mainViewModel.doingSchedules.value.count)
-        case .done:
-            headerView.configureCountLabel(count: mainViewModel.doneSchedules.value.count)
-        }
+        let count = mainViewModel.count(scheduleType: scheduleType)
+        headerView.configureCountLabel(count: count)
     }
     
     private func setupViewModelBind() {
@@ -146,7 +140,6 @@ class DoListViewController: UIViewController {
             
             return section
         }
-        
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
         
         return layout
@@ -156,7 +149,8 @@ class DoListViewController: UIViewController {
         guard let indexPath = indexPath, let _ = dataSource?.itemIdentifier(for: indexPath) else { return nil }
         let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
-            self?.mainViewModel.deleteSchedule(indexPath: indexPath.row)
+            guard let self else { return }
+            self.mainViewModel.deleteSchedule(scheduleType: self.scheduleType, index: indexPath.row)
             completion(false)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
