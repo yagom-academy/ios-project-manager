@@ -68,7 +68,7 @@ final class ProjectManagerViewController: UIViewController {
     
     @objc
     private func addProject() {
-        let rootViewController = detailProjectViewController()
+        let rootViewController = DetailProjectViewController()
         rootViewController.projectManagerViewController = self
         rootViewController.configureEditingStatus(isEditible: true)
         let navigationController = UINavigationController(rootViewController: rootViewController)
@@ -175,7 +175,7 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
         
         if gestureRecognizer.state == .ended {
             if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
-                let rootViewController = detailProjectViewController()
+                let rootViewController = DetailProjectViewController()
                 rootViewController.projectManagerViewController = self
                 rootViewController.configureEditingStatus(isEditible: false)
                 

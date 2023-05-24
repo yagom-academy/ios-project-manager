@@ -12,7 +12,7 @@
 		C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
-		D0DC84792A14A0DC0045C157 /* detailProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC84782A14A0DC0045C157 /* detailProjectViewController.swift */; };
+		D0DC84792A14A0DC0045C157 /* DetailProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC84782A14A0DC0045C157 /* DetailProjectViewController.swift */; };
 		D0DC847E2A14EEB30045C157 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC847D2A14EEB30045C157 /* Project.swift */; };
 		D0DC84802A14F17C0045C157 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC847F2A14F17C0045C157 /* ProjectCell.swift */; };
 		D0DC84822A15AE4E0045C157 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC84812A15AE4E0045C157 /* Status.swift */; };
@@ -30,7 +30,7 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D0DC84782A14A0DC0045C157 /* detailProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailProjectViewController.swift; sourceTree = "<group>"; };
+		D0DC84782A14A0DC0045C157 /* DetailProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProjectViewController.swift; sourceTree = "<group>"; };
 		D0DC847D2A14EEB30045C157 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		D0DC847F2A14F17C0045C157 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		D0DC84812A15AE4E0045C157 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
-				D0DC84782A14A0DC0045C157 /* detailProjectViewController.swift */,
+				D0DC84782A14A0DC0045C157 /* DetailProjectViewController.swift */,
 				D0F0DC582A1C8A52007670C5 /* MoveToViewController.swift */,
 			);
 			path = Controller;
@@ -206,7 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F0DC5C2A1CAF9F007670C5 /* Date+.swift in Sources */,
-				D0DC84792A14A0DC0045C157 /* detailProjectViewController.swift in Sources */,
+				D0DC84792A14A0DC0045C157 /* DetailProjectViewController.swift in Sources */,
 				D0DC84802A14F17C0045C157 /* ProjectCell.swift in Sources */,
 				D0DC84822A15AE4E0045C157 /* Status.swift in Sources */,
 				D0DC84842A15B4150045C157 /* Projects.swift in Sources */,
