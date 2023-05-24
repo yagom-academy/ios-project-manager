@@ -21,6 +21,7 @@ final class ScheduleCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
+        label.font = .preferredFont(forTextStyle: .headline)
         
         return label
     }()
@@ -28,6 +29,8 @@ final class ScheduleCell: UICollectionViewCell {
     private let contentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textColor = .systemGray
         
         return label
     }()
@@ -35,6 +38,7 @@ final class ScheduleCell: UICollectionViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
+        label.font = .preferredFont(forTextStyle: .caption1)
         
         return label
     }()

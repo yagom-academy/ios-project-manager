@@ -20,24 +20,14 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var todoView = TodoView(viewModel: mainViewModel)
-    private lazy var doingView = DoingView(viewModel: mainViewModel)
-    private lazy var doneView = DoneView(viewModel: mainViewModel)
+    private lazy var todoView = DoListView(viewModel: mainViewModel, type: .todo)
+    private lazy var doingView = DoListView(viewModel: mainViewModel, type: .doing)
+    private lazy var doneView = DoListView(viewModel: mainViewModel, type: .done)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         configureUI()
-        todoView.configureUI()
-        todoView.configureDataSource()
-        todoView.configureStackView()
-        doingView.configureUI()
-        doingView.configureDataSource()
-        doingView.configureStackView()
-        doneView.configureUI()
-        doneView.configureDataSource()
-        doneView.configureStackView()
         configureNavigationBar()
     }
     
@@ -69,6 +59,7 @@ final class MainViewController: UIViewController {
     
     private func configureUI() {
         let safeArea = view.safeAreaLayoutGuide
+        view.backgroundColor = .systemBackground
         view.addSubview(stackView)
         stackView.addArrangedSubview(todoView)
         stackView.addArrangedSubview(doingView)

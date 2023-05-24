@@ -8,13 +8,14 @@
 import UIKit
 
 class ModalViewController: UIViewController {
-    let mainViewModel: MainViewModel?
+    let mainViewModel: MainViewModel
 
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "제목을 입력해주세요"
         textField.borderStyle = .none
         textField.backgroundColor = .systemBackground
+        textField.font = .preferredFont(forTextStyle: .title1)
         textField.layer.shadowColor = UIColor.systemGray2.cgColor
         textField.layer.shadowOffset = CGSize(width: 0, height: 5)
         textField.layer.shadowOpacity = 1
@@ -42,6 +43,7 @@ class ModalViewController: UIViewController {
         
         contentTextView.textColor = .black
         contentTextView.backgroundColor = .systemBackground
+        contentTextView.font = .preferredFont(forTextStyle: .body)
         contentTextView.layer.masksToBounds = false
         contentTextView.layer.shadowColor = UIColor.systemGray2.cgColor
         contentTextView.layer.shadowOffset = CGSize(width: 0, height: 5)
@@ -115,10 +117,10 @@ class ModalViewController: UIViewController {
     
     @objc
     private func tapDoneButton() {
-        guard let schedule = mainViewModel?.createSchedule(titleText: titleTextField.text,
-                                                contentText: contentTextView.text,
-                                                           expirationDate: datePickerView.date) else { return }
-        mainViewModel?.addTodoSchedule(schedule)
+        let schedule = mainViewModel.createSchedule(titleText: titleTextField.text,
+                                                    contentText: contentTextView.text,
+                                                    expirationDate: datePickerView.date)
+        mainViewModel.addTodoSchedule(schedule)
         
         dismiss(animated: true)
     }

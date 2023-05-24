@@ -7,21 +7,15 @@
 
 import UIKit
 
-class TodoView: DoListView {}
-
-class DoingView: DoListView {}
-
-class DoneView: DoListView {}
-
 class DoListView: UIStackView {
     enum Section {
         case main
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Schedule>?
-    private let headerView = TodoHeaderView()
-    private var mainViewModel: MainViewModel?
-    
+    private let mainViewModel: MainViewModel
+    private let scheduleType: ScheduleType
+    private lazy var headerView = TodoHeaderView()
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: configureCompositionalLayout())
@@ -32,42 +26,25 @@ class DoListView: UIStackView {
     }()
     
     init(dataSource: UICollectionViewDiffableDataSource<Section, Schedule>? = nil,
-         viewModel: MainViewModel) {
+         viewModel: MainViewModel,
+         type: ScheduleType) {
         self.dataSource = dataSource
         self.mainViewModel = viewModel
+        self.scheduleType = type
         super.init(frame: .zero)
         
-        mainViewModel?.todoSchedules.bind(listener: { schedule in
-            self.applySnapshot()
-        })
+        configureUI()
+        configureStackView()
+        configureDataSource()
+        configureHeaderViewTitle()
+        setupViewModelBind()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureDataSource() {
-        self.collectionView.register(ScheduleCell.self, forCellWithReuseIdentifier: ScheduleCell.identifier)
-        self.dataSource = UICollectionViewDiffableDataSource<Section, Schedule> (collectionView: self.collectionView) { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScheduleCell.identifier, for: indexPath) as? ScheduleCell,
-                  let schedule = self.mainViewModel?.todoSchedules.value[indexPath.row] else { return nil }
-            
-            cell.configureUI()
-            cell.configureLabel(schedule: schedule)
-            
-            return cell
-        }
-    }
-    
-    func applySnapshot() {
-        guard let schedules = mainViewModel?.schedule() else { return }
-        var  snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(schedules)
-        self.dataSource?.apply(snapshot, animatingDifferences: true)
-    }
-    
-    func configureUI() {
+    private func configureUI() {
         collectionView.backgroundColor = .lightGray
         self.addArrangedSubview(headerView)
         self.addArrangedSubview(collectionView)
@@ -83,9 +60,64 @@ class DoListView: UIStackView {
         ])
     }
     
-    func configureStackView() {
+    private func configureStackView() {
         self.axis = .vertical
         self.distribution = .fill
+    }
+    
+    private func configureDataSource() {
+        self.collectionView.register(ScheduleCell.self, forCellWithReuseIdentifier: ScheduleCell.identifier)
+        self.dataSource = UICollectionViewDiffableDataSource<Section, Schedule> (collectionView: self.collectionView) { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScheduleCell.identifier, for: indexPath) as? ScheduleCell else { return nil
+            }
+            let schedule = self.mainViewModel.todoSchedules.value[indexPath.row]
+            cell.configureUI()
+            cell.configureLabel(schedule: schedule)
+            
+            return cell
+        }
+    }
+    
+    private func applySnapshot() {
+        var  snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(mainViewModel.schedule())
+        self.dataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func configureHeaderViewCountLabel() {
+        switch scheduleType {
+        case .todo:
+            headerView.configureCountLabel(count: mainViewModel.todoSchedules.value.count)
+        case .doing:
+            headerView.configureCountLabel(count: mainViewModel.doingSchedules.value.count)
+        case .done:
+            headerView.configureCountLabel(count: mainViewModel.doneSchedules.value.count)
+        }
+    }
+    
+    private func setupViewModelBind() {
+        switch scheduleType {
+        case .todo:
+            mainViewModel.todoSchedules.bind { schedule in
+                self.applySnapshot()
+                self.configureHeaderViewCountLabel()
+            }
+        case .doing:
+            mainViewModel.doingSchedules.bind { schedule in
+                self.applySnapshot()
+                self.configureHeaderViewCountLabel()
+            }
+        case .done:
+            mainViewModel.doneSchedules.bind { schedule in
+                self.applySnapshot()
+                self.configureHeaderViewCountLabel()
+            }
+        }
+    }
+    
+    private func configureHeaderViewTitle() {
+        headerView.configureTitle(title: scheduleType.title)
     }
     
     private func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
@@ -115,7 +147,7 @@ class DoListView: UIStackView {
         guard let indexPath = indexPath, let _ = dataSource?.itemIdentifier(for: indexPath) else { return nil }
         let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
-            self?.mainViewModel?.deleteSchedule(indexPath: indexPath)
+            self?.mainViewModel.deleteSchedule(indexPath: indexPath)
             completion(false)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])

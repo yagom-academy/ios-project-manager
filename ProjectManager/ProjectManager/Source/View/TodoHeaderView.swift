@@ -8,9 +8,8 @@
 import UIKit
 
 final class TodoHeaderView: UIView {
-    private lazy var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "TODO"
         label.textColor = .black
         label.font = .preferredFont(forTextStyle: .title1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +24,6 @@ final class TodoHeaderView: UIView {
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 10
         label.backgroundColor = .black
-        label.text = "5"
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -41,8 +39,12 @@ final class TodoHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateCountLabel(todoCount: Int) {
-        countLabel.text = "4"
+    func configureTitle(title: String) {
+        titleLabel.text = title
+    }
+    
+    func configureCountLabel(count: Int) {
+        countLabel.text = "\(count)"
     }
     
     private func configureUI() {
