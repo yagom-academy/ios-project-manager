@@ -39,7 +39,7 @@ final class MainViewController: UIViewController {
         self.present(navigationController, animated: true)
     }
     
-    @objc private func updateCollectionView() {
+    @objc private func bindCollectionView() {
         let todoTasks = viewModel.filterTasks(by: .todo)
         let doingTasks = viewModel.filterTasks(by: .doing)
         let doneTasks = viewModel.filterTasks(by: .done)
@@ -55,7 +55,7 @@ final class MainViewController: UIViewController {
     
     private func configureObserver() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateCollectionView),
+                                               selector: #selector(bindCollectionView),
                                                name: .changedTasks,
                                                object: nil)
     }
