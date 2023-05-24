@@ -116,7 +116,9 @@ extension ListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let parentVC = self.parent as? MainViewController else { return }
         let task = viewModel.tasks[indexPath.row]
+
         deleteSnapshot(by: task)
+        
         parentVC.presentTodoViewController(.edit, task)
     }
 }

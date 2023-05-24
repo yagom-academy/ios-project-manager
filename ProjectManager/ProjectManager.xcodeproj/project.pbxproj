@@ -78,9 +78,9 @@
 		26CE60CB2A148F5B0026203C /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
-				2612AF352A1770860002DF21 /* ViewModel */,
-				26CE60CD2A148F8E0026203C /* View */,
 				26CE60CC2A148F830026203C /* ViewController */,
+				26CE60CD2A148F8E0026203C /* View */,
+				2612AF352A1770860002DF21 /* ViewModel */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";

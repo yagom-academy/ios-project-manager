@@ -68,12 +68,12 @@ final class TaskListCell: UICollectionViewListCell {
     private func calculateDateLabelText(_ task: Task) -> UIColor {
         guard task.state != .done else { return .label }
         
-        let nowDate = Date()
+        let nowDate = Date().formattedText
         
-        if task.date < nowDate {
-            return .systemRed
-        } else {
+        if task.date.formattedText >= nowDate {
             return .label
+        } else {
+            return .systemRed
         }
     }
 }
