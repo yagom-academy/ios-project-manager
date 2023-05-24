@@ -72,15 +72,6 @@ final class WorkCollectionView: UICollectionView {
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
     
-    private func addObserver() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(applySnapshot),
-            name: .updateSnapShot,
-            object: nil
-        )
-    }
-    
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         guard let indexPath = indexPath,
               let id = workDataSource?.itemIdentifier(for: indexPath)?.id else { return nil }
@@ -152,6 +143,15 @@ final class WorkCollectionView: UICollectionView {
         guard let headerView = visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? HeaderReusableView else { return }
         
         configureHeaderView(headerView)
+    }
+
+    private func addObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applySnapshot),
+            name: .updateSnapShot,
+            object: nil
+        )
     }
 }
 
