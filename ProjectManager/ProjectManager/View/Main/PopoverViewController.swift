@@ -42,6 +42,7 @@ final class PopoverViewController: UIViewController {
         
         configureLayout()
         configureUIOption()
+        configureButtonAction()
     }
     
     private func configureUIOption() {
@@ -49,10 +50,6 @@ final class PopoverViewController: UIViewController {
         topButton.setTitle(status.movedButtonName.top, for: .normal)
         buttomButton.setTitle(status.movedButtonName.bottom, for: .normal)
         preferredContentSize = calculatePopoverSize()
-    }
-
-    private func configureButtonTitle() {
-        
     }
     
     private func createStackView() -> UIStackView {
@@ -86,5 +83,36 @@ final class PopoverViewController: UIViewController {
         buttomButton.sizeToFit()
         
         return CGSize(width: 250, height: 100)
+    }
+    
+    private func configureButtonAction() {
+        topButton.addTarget(self, action: #selector(didTapTopButton), for: .touchUpInside)
+        buttomButton.addTarget(self, action: #selector(didTapBottomButton), for: .touchUpInside)
+    }
+    
+    @objc private func didTapTopButton() {
+        switch status {
+        case .todo:
+            viewModel.moveStatus(to: .doing)
+        case .doing:
+            viewModel.moveStatus(to: .todo)
+        case .done:
+            viewModel.moveStatus(to: .todo)
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func didTapBottomButton() {
+        switch status {
+        case .todo:
+            viewModel.moveStatus(to: .done)
+        case .doing:
+            viewModel.moveStatus(to: .done)
+        case .done:
+            viewModel.moveStatus(to: .doing)
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -185,7 +185,7 @@ extension WorkCollectionView: UIGestureRecognizerDelegate {
             
             let rect = convert(cell.frame, to: window)
 
-            workDelegate?.workCollectionView(self, moveWork: id, toStatus: .done, rect: rect)
+            workDelegate?.workCollectionView(self, moveWork: id, toStatus: status, rect: rect)
         }
     }
 }
