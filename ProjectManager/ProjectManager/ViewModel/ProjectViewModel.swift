@@ -37,4 +37,50 @@ final class ProjectViewModel: ObservableObject {
             doneList.remove(atOffsets: indexSet)
         }
     }
+    
+    func move(index: Int, state: ProjectState, to toState: ProjectState) {
+        
+        if(state == .todo && toState == .doing) {
+            let item = todoList.remove(at: index)
+            doingList.append(item)
+            
+            return
+        }
+        
+        if(state == .todo && toState == .done) {
+            let item = todoList.remove(at: index)
+            doneList.append(item)
+            
+            return
+        }
+        
+        if(state == .doing && toState == .todo) {
+            let item = doingList.remove(at: index)
+            todoList.append(item)
+            
+            return
+        }
+        
+        if(state == .doing && toState == .done) {
+            let item = doingList.remove(at: index)
+            doneList.append(item)
+            
+            return
+        }
+        
+        if(state == .done && toState == .todo) {
+            let item = doneList.remove(at: index)
+            todoList.append(item)
+            
+            return
+        }
+        
+        if(state == .done && toState == .doing) {
+            let item = doneList.remove(at: index)
+            doingList.append(item)
+            
+            return
+        }
+
+    }
 }

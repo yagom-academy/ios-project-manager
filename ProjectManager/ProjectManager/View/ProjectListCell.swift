@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct ProjectListCell: View {
-    let model: Project
+    //let model: Project
+    let viewModel: ProjectViewModel
+    let state: ProjectState
+    let index: Int
+    @State private var isShowingPopOver = false
     
     var body: some View {
+        let model = viewModel.selectList(cases: state)[index]
         VStack(alignment: .leading, spacing: 8.0) {
             Text(model.title)
                 .lineLimit(1)
@@ -18,7 +23,39 @@ struct ProjectListCell: View {
                 .lineLimit(3)
                 .foregroundColor(.secondary)
             Text(model.date)
-        }.onTapGesture {
+        }
+        .onLongPressGesture(minimumDuration: 1.0) {
+            isShowingPopOver = true
+        }
+        .popover(isPresented: $isShowingPopOver,
+                 attachmentAnchor: .point(.bottom)
+        ){
+            switch state {
+            case .todo:
+                Button("Move to DOING") {
+                    viewModel.move(index: index, state: state, to: .doing)
+                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+       
+                Button("Move to DONE") {
+                    viewModel.move(index: index, state: state, to: .done)
+                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+            case .doing:
+                Button("Move to TODO") {
+                    viewModel.move(index: index, state: state, to: .todo)
+                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+       
+                Button("Move to DONE") {
+                    viewModel.move(index: index, state: state, to: .done)
+                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+            case .done:
+                Button("Move to TODO") {
+                    viewModel.move(index: index, state: state, to: .todo)
+                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+       
+                Button("Move to DOING") {
+                    viewModel.move(index: index, state: state, to: .doing)
+                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+            }
             
         }
     }
@@ -26,6 +63,7 @@ struct ProjectListCell: View {
 
 struct ProjectListCell_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectListCell(model: Project(title: "라자냐 재료사러 가기", body: "프로젝트 회고를 작성하면 내가 이번 프로젝트에서 무엇을 놓쳤는지 명확히 알 수 있어요.", date: "2019. 1. 5."))
+
+        ProjectListCell(viewModel: ProjectViewModel(), state: .doing, index: 1)
     }
 }

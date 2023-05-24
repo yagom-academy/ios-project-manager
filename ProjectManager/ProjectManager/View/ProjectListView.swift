@@ -40,8 +40,8 @@ struct ProjectListView: View {
 
 private extension ProjectListView {
     func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
-        ForEach(models) { model in
-            ProjectListCell(model: model)
+        ForEach(models.indices, id: \.self) { index in
+            ProjectListCell(viewModel: viewModel, state: formCase, index: index)
         }
         .onDelete(perform: onDelete)
         .listRowInsets(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
