@@ -34,4 +34,15 @@ final class MainViewModel {
     func deleteSchedule(indexPath: IndexPath) {
         todoSchedules.value.remove(at: indexPath.row)
     }
+    
+    func fetchSchedule(scheduleType: ScheduleType) -> [Schedule] {
+        switch scheduleType {
+        case .todo:
+            return todoSchedules.value
+        case .doing:
+            return doingSchedules.value
+        case .done:
+            return doneSchedules.value
+        }
+    }
 }

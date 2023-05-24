@@ -2,13 +2,16 @@
 //  ModalViewController.swift
 //  ProjectManager
 //
-//  Created by kimseongjun on 2023/05/22.
+//  Created by songjun, vetto on 2023/05/22.
 //
 
 import UIKit
 
-class ModalViewController: UIViewController {
-    let mainViewModel: MainViewModel
+
+final class ModalViewController: UIViewController {
+    private let mainViewModel: MainViewModel
+    private let modalType: ModalType
+    private let indexPathRow: Int?
 
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -54,8 +57,10 @@ class ModalViewController: UIViewController {
         return contentTextView
     }()
     
-    init(viewModel: MainViewModel) {
+    init(viewModel: MainViewModel, modalType: ModalType, indexPathRow: Int) {
         self.mainViewModel = viewModel
+        self.modalType = modalType
+        self.indexPathRow = indexPathRow
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -67,6 +72,7 @@ class ModalViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureNavigationBar()
+        configureUserInteraction()
     }
     
     private func configureUI() {
@@ -96,37 +102,75 @@ class ModalViewController: UIViewController {
     private func configureNavigationBar() {
         self.title = "TODO"
         
-        let rightButton = UIBarButtonItem(title: "Done",
-                                          style: .done,
-                                          target: self,
-                                          action: #selector(tapDoneButton))
-        
-        let leftButton = UIBarButtonItem(title: "Cancel",
-                                         style: .done,
-                                         target: self,
-                                         action: #selector(tapCancelButton))
-        
-        self.navigationItem.rightBarButtonItem = rightButton
-        self.navigationItem.leftBarButtonItem = leftButton
+        switch modalType {
+        case .add:
+            let rightButton = UIBarButtonItem(title: "Done",
+                                              style: .done,
+                                              target: self,
+                                              action: #selector(tapDoneButton))
+            
+            let leftButton = UIBarButtonItem(title: "Cancel",
+                                             style: .done,
+                                             target: self,
+                                             action: #selector(tapCancelButton))
+            self.navigationItem.rightBarButtonItem = rightButton
+            self.navigationItem.leftBarButtonItem = leftButton
+        case .edit:
+            let rightButton = UIBarButtonItem(title: "Done",
+                                              style: .done,
+                                              target: self,
+                                              action: #selector(tapDoneButton))
+            
+            let leftButton = UIBarButtonItem(title: "Edit",
+                                             style: .done,
+                                             target: self,
+                                             action: #selector(tapEditButton))
+            self.navigationItem.rightBarButtonItem = rightButton
+            self.navigationItem.leftBarButtonItem = leftButton
+        }
     }
     
     @objc
     private func tapEditButton() {
-        
+        titleTextField.isUserInteractionEnabled = true
+        datePickerView.isUserInteractionEnabled = true
+        contentTextView.isUserInteractionEnabled = true
     }
     
     @objc
     private func tapDoneButton() {
-        let schedule = mainViewModel.createSchedule(titleText: titleTextField.text,
-                                                    contentText: contentTextView.text,
-                                                    expirationDate: datePickerView.date)
-        mainViewModel.addTodoSchedule(schedule)
         
-        dismiss(animated: true)
+        switch modalType {
+        case .add:
+            let schedule = mainViewModel.createSchedule(titleText: titleTextField.text,
+                                                        contentText: contentTextView.text,
+                                                        expirationDate: datePickerView.date)
+            mainViewModel.addTodoSchedule(schedule)
+            
+            dismiss(animated: true)
+        case .edit:
+            mainViewModel.fetchSchedule(scheduleType: <#T##ScheduleType#>)
+        }
+        
     }
     
     @objc
     private func tapCancelButton() {
         dismiss(animated: true)
     }
+    
+    private func configureUserInteraction() {
+        switch modalType {
+        case .add:
+            titleTextField.isUserInteractionEnabled = true
+            datePickerView.isUserInteractionEnabled = true
+            contentTextView.isUserInteractionEnabled = true
+        case .edit:
+            titleTextField.isUserInteractionEnabled = false
+            datePickerView.isUserInteractionEnabled = false
+            contentTextView.isUserInteractionEnabled = false
+        }
+    }
+    
+    
 }

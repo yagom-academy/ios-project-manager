@@ -26,7 +26,9 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        todoView.collectionView.delegate = self
+        doingView.collectionView.delegate = self
+        doneView.collectionView.delegate = self
         configureUI()
         configureNavigationBar()
     }
@@ -45,11 +47,11 @@ final class MainViewController: UIViewController {
     }
     
     @objc func tabPlusButton() {
-        presentEditModal()
+        presentAddModal()
     }
     
-    private func presentEditModal() {
-        let modalViewController = ModalViewController(viewModel: mainViewModel)
+    private func presentAddModal() {
+        let modalViewController = ModalViewController(viewModel: mainViewModel, modalType: .add)
         let modalNavigationController = UINavigationController(rootViewController: modalViewController)
         modalViewController.modalPresentationStyle = .formSheet
         modalViewController.preferredContentSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.7)
@@ -71,5 +73,16 @@ final class MainViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+    }
+}
+
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let modalViewController = ModalViewController(viewModel: mainViewModel, modalType: .edit, indexPathRow: indexPath.row)
+        let modalNavigationController = UINavigationController(rootViewController: modalViewController)
+        modalViewController.modalPresentationStyle = .formSheet
+        modalViewController.preferredContentSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.7)
+        
+        present(modalNavigationController, animated: true, completion: nil)
     }
 }

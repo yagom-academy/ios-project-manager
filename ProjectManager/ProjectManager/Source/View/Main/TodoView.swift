@@ -16,7 +16,7 @@ class DoListView: UIStackView {
     private let mainViewModel: MainViewModel
     private let scheduleType: ScheduleType
     private lazy var headerView = TodoHeaderView()
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: configureCompositionalLayout())
         collectionView.showsVerticalScrollIndicator = false
@@ -153,3 +153,5 @@ class DoListView: UIStackView {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
+
+
