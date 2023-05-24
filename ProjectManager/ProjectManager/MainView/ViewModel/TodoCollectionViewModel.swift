@@ -1,5 +1,5 @@
 //
-//  CollectionViewModel.swift
+//  TodoCollectionViewModel.swift
 //  ProjectManager
 //
 //  Created by Brody, Rowan on 2023/05/19.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MainCollectionViewModel: NSObject {
+final class TodoCollectionViewModel: NSObject {
     enum Section {
         case todo
         case doing
@@ -94,7 +94,7 @@ final class MainCollectionViewModel: NSObject {
     }
 }
 
-extension MainCollectionViewModel {
+extension TodoCollectionViewModel {
     private func fetchTaskList() {
         items = mainCollectionViewService.fetchTaskList()
     }

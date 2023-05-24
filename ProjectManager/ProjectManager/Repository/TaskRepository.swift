@@ -13,6 +13,8 @@ final class TaskRepository {
     
     private var storage: [Task] =  [
         Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        Task(title: "hi", date: Date(), body: "body", workState: .todo),
         Task(title: "hiThere", date: Date(), body: "body", workState: .done),
         Task(title: "hi", date: Date(), body: "body", workState: .doing),
     ]
