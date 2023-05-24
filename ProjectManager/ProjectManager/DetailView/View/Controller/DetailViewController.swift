@@ -12,6 +12,16 @@ final class DetailViewController: UIViewController {
     enum Mode {
         case create
         case update
+        
+        var leftButtonTitle: String {
+            switch self {
+            case .create:
+                return "Cancel"
+            case .update:
+                return "Edit"
+            }
+        }
+        
     }
     
     private var navigationBar: UINavigationBar?
@@ -90,6 +100,7 @@ final class DetailViewController: UIViewController {
         configureStackView()
         configureRootView()
         configureLabelText()
+        configureUIEditability()
         bind(to: detailViewModel)
     }
 
@@ -141,7 +152,7 @@ final class DetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightNavigationButton
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "Cancel",
+            title: mode.leftButtonTitle,
             style: .plain,
             target: self,
             action: #selector(tapCancelButton)
@@ -162,6 +173,18 @@ final class DetailViewController: UIViewController {
         ])
     }
     
+    private func configureUIEditability() {
+        if mode == .update {
+            UIUserInteraction(isEnable: false)
+        }
+    }
+    
+    private func UIUserInteraction(isEnable: Bool) {
+        titleTextfield.isUserInteractionEnabled = isEnable
+        datePicker.isUserInteractionEnabled = isEnable
+        bodyTextView.isUserInteractionEnabled = isEnable
+    }
+    
     @objc
     private func tapDoneButton() {
         switch mode {
@@ -179,7 +202,12 @@ final class DetailViewController: UIViewController {
     
     @objc
     private func tapCancelButton() {
-        self.dismiss(animated: true)
+        if mode == .create {
+            self.dismiss(animated: true)
+            return
+        }
+        
+        UIUserInteraction(isEnable: true)
     }
                                       
     private func configureStackView() {

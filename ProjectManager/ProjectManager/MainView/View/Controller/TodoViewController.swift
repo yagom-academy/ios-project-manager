@@ -74,6 +74,7 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
 
 extension TodoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         let task = viewModel.task(at: indexPath)
         let detailViewController = DetailViewController(task: task, mode: .update)
         let mainViewController = self.parent as? MainViewController
