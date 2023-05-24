@@ -11,7 +11,7 @@ final class DoingViewController: UIViewController, TaskCollectionViewController 
     let mode: WorkState = .doing
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    lazy var viewModel: CollectionViewModel = DoingCollectionViewModel(
+    lazy var viewModel: any CollectionViewModel = DoingCollectionViewModel(
         collectionView: collectionView,
         cellReuseIdentifier: TaskCell.identifier
     )
@@ -74,7 +74,7 @@ final class DoingViewController: UIViewController, TaskCollectionViewController 
         collectionView.isScrollEnabled = false
         
         do {
-            collectionView.dataSource = try viewModel.makeDataSource()
+            collectionView.dataSource = try viewModel.makeDataSource() as? UICollectionViewDataSource
             viewModel.applySnapshot()
         } catch {
             print(error.localizedDescription)

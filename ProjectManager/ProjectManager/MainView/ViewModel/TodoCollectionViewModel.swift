@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TodoCollectionViewModel: NSObject {
+final class TodoCollectionViewModel: NSObject, CollectionViewModel {
     enum Section {
         case todo
         case doing
@@ -123,5 +123,3 @@ extension TodoCollectionViewModel {
         return cell
     }
 }
-
-extension TodoCollectionViewModel: CollectionViewModel { }

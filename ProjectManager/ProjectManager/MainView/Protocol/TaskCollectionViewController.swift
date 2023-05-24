@@ -7,5 +7,5 @@
 
 protocol TaskCollectionViewController {
     var mode: WorkState { get }
-    var viewModel: CollectionViewModel { get set }
+    var viewModel: any CollectionViewModel { get set }
 }

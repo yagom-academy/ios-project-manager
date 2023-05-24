@@ -10,7 +10,7 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
     let mode: WorkState = .todo
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    lazy var viewModel: CollectionViewModel = TodoCollectionViewModel(
+    lazy var viewModel: any CollectionViewModel = TodoCollectionViewModel(
         collectionView: collectionView,
         cellReuseIdentifier: TaskCell.identifier
     )
@@ -73,7 +73,7 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
         collectionView.isScrollEnabled = false
         
         do {
-            collectionView.dataSource = try viewModel.makeDataSource()
+            collectionView.dataSource = try viewModel.makeDataSource() as? UICollectionViewDataSource
             viewModel.applySnapshot()
         } catch {
             print(error.localizedDescription)

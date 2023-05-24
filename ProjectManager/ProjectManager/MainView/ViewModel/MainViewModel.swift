@@ -11,7 +11,7 @@ final class MainViewModel {
     private let mainCollectionViewService = MainCollectionViewService()
     
     var taskList: [Task] = []
-    var viewModelDictionary = [WorkState: CollectionViewModel]()
+    var viewModelDictionary = [WorkState: any CollectionViewModel]()
     
     func assignChildViewModel(of children: [UIViewController]) {
         children.forEach {
