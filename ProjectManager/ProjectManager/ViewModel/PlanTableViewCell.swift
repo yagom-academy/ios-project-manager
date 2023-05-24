@@ -98,4 +98,9 @@ final class PlanTableViewCell: UITableViewCell {
         self.planTableCellViewModel = PlanTableCellViewModel(item: item)
         setUpBinding()
     }
+    
+    func fetchCellItem() -> TodoItem? {
+        guard let item = self.planTableCellViewModel?.fetchItem() else { return nil }
+        return item
+    }
 }

@@ -11,4 +11,5 @@ struct TodoItem {
     let title: String
     let body: String
     let date: Date
+    var state: State?
 }

@@ -167,7 +167,7 @@ final class PlusTodoViewController: UIViewController {
               let body = self.textView.text else { return nil }
         
         let date = self.datePicker.date
-        let item = TodoItem(title: title, body: body, date: date)
+        let item = TodoItem(title: title, body: body, date: date, state: .todo)
         
         return item
     }

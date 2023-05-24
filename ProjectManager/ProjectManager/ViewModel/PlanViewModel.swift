@@ -12,11 +12,11 @@ final class PlanViewModel {
     @Published private(set) var todoItems: [TodoItem] = []
     @Published private(set) var doingItems: [TodoItem] = []
     @Published private(set) var doneItems: [TodoItem] = []
-    private(set) var state: State?
+    private(set) var itemState: State?
     private(set) var currentLongPressedCell: PlanTableViewCell?
-    
+ 
     var numberOfItems: Int {
-        switch state {
+        switch itemState {
         case .todo:
             return todoItems.count
         case .doing:
@@ -27,7 +27,7 @@ final class PlanViewModel {
     }
     
     func item(at index: Int) -> TodoItem {
-        switch state {
+        switch itemState {
         case .todo:
             return todoItems[index]
         case .doing:
@@ -38,7 +38,8 @@ final class PlanViewModel {
     }
     
     func addItem(_ item: TodoItem) {
-        switch state {
+        itemState = item.state
+        switch itemState {
         case .todo:
             todoItems.append(item)
         case .doing:
@@ -53,7 +54,7 @@ final class PlanViewModel {
     }
     
     func delete(at index: Int) {
-        switch state {
+        switch itemState {
         case .todo:
             todoItems.remove(at: index)
         case .doing:
@@ -63,8 +64,19 @@ final class PlanViewModel {
         }
     }
     
-    func updateState(_ newState: State) {
-        state = newState
+    func updateItemState(at index: Int, _ newState: State) {
+        switch itemState {
+        case .todo:
+            todoItems[index].state = newState
+        case .doing:
+            doingItems[index].state = newState
+        default:
+            doneItems[index].state = newState
+        }
+    }
+    
+    func setUpState(_ new: State) {
+        itemState = new
     }
     
     func updateCurrentCell(_ cell: PlanTableViewCell) {

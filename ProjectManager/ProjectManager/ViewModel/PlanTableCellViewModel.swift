@@ -29,4 +29,8 @@ final class PlanTableCellViewModel {
             return UIColor.black
         }
     }
+    
+    func fetchItem() -> TodoItem {
+        return item
+    }
 }

@@ -111,7 +111,7 @@ final class PlanViewController: UIViewController, SavingItemDelegate {
     @objc func plusButtonTapped() {
         let plusTodoViewModel = PlusTodoViewModel()
         plusTodoViewModel.changeMode(.create)
-        updateState(.todo)
+        setUpState(.todo)
         
         let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, selectedIndexPath: nil)
         plusTodoViewController.delegate = self
@@ -176,16 +176,20 @@ final class PlanViewController: UIViewController, SavingItemDelegate {
         planViewModel.delete(at: indexPath.row)
     }
     
+    private func updateItemState(at indexPath: IndexPath, _ newState: State) {
+        planViewModel.updateItemState(at: indexPath.row, newState)
+    }
+    
+    private func setUpState(_ new: State) {
+        planViewModel.setUpState(new)
+    }
+    
     func addItem(_ item: TodoItem) {
         planViewModel.addItem(item)
     }
     
     func updateItem(at indexPath: IndexPath, by item: TodoItem) {
         planViewModel.updateItem(at: indexPath.row, newItem: item)
-    }
-    
-    func updateState(_ new: State) {
-        planViewModel.updateState(new)
     }
 }
 
@@ -225,15 +229,7 @@ extension PlanViewController: UITableViewDelegate {
         let plusTodoViewModel = PlusTodoViewModel()
         plusTodoViewModel.addItem(item)
         plusTodoViewModel.changeMode(.edit)
-        
-        if tableView == todoTableView {
-            updateState(.todo)
-        } else if tableView == doingTableView {
-            updateState(.doing)
-        } else if tableView == doneTableView {
-            updateState(.done)
-        }
-        
+
         let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, selectedIndexPath: indexPath)
         plusTodoViewController.delegate = self
         
@@ -281,7 +277,8 @@ extension PlanViewController: UIGestureRecognizerDelegate {
     }
     
     private func manageAction(_ cell: PlanTableViewCell, _ indexPath: IndexPath, _ tableView: UITableView) {
-        switch planViewModel.state {
+        guard let item = cell.fetchCellItem() else { return }
+        switch item.state {
         case .todo:
             let firstActionTitle = "Move To DOING"
             let secondActionTitle = "Move To DONE"
@@ -291,7 +288,6 @@ extension PlanViewController: UIGestureRecognizerDelegate {
             let firstActionTitle = "Move To TODO"
             let secondActionTitle = "Move To DONE"
             showActionSheet(firstActionTitle, .todo, secondActionTitle, .done, cell, indexPath, tableView)
-            
         default:
             let firstActionTitle = "Move To TODO"
             let secondActionTitle = "Move To DOING"
@@ -330,12 +326,20 @@ extension PlanViewController: UIGestureRecognizerDelegate {
     private func buttonTapped(by new: State, _ indexPath: IndexPath, _ tableView: UITableView) {
         let item = planViewModel.item(at: indexPath.row)
         
-        tableView.performBatchUpdates({
-            delete(indexPath)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }, completion: { [weak self] _ in
-            self?.updateState(new)
-            self?.addItem(item)
+        var updateItem = item
+        if tableView == todoTableView {
+            updateItem.state = .todo
+        } else if tableView == doingTableView {
+            updateItem.state = .doing
+        } else if tableView == doneTableView {
+            updateItem.state = .done
+        }
+        
+        delete(indexPath)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        tableView.performBatchUpdates(nil, completion: { [weak self] _ in
+            updateItem.state = new
+            self?.addItem(updateItem)
         })
     }
     
