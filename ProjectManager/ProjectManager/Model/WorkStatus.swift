@@ -20,4 +20,15 @@ enum WorkStatus: CaseIterable {
             return "DONE"
         }
     }
+    
+    var movedButtonName: (top: String, bottom: String) {
+        switch self {
+        case .todo:
+            return (top: "Move to DOING", bottom: "Move to DONE")
+        case .doing:
+            return (top: "Move to TODO", bottom: "Move to DONE")
+        case .done:
+            return (top: "Move to TODO", bottom: "Move to DOING")
+        }
+    }
 }

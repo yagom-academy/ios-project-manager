@@ -121,8 +121,18 @@ extension MainViewController: UICollectionViewDelegate, WorkCollectionViewDelega
         self.present(navigationController, animated: true)
     }
     
-    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkStatus) {
+    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkStatus, rect: CGRect) {
         viewModel.currentID = id
-        viewModel.move(status: status)
+        showPopoverViewController(status: status, rect: rect)
+    }
+    
+    private func showPopoverViewController(status: WorkStatus, rect: CGRect) {
+        let popoverViewController = PopoverViewController(status: status, viewModel: viewModel)
+        
+        popoverViewController.modalPresentationStyle = .popover
+        popoverViewController.popoverPresentationController?.sourceView = view
+        popoverViewController.popoverPresentationController?.sourceRect = rect
+        
+        self.present(popoverViewController, animated: true)
     }
 }

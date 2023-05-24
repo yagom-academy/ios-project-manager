@@ -41,6 +41,18 @@ final class PopoverViewController: UIViewController {
         super.viewDidLoad()
         
         configureLayout()
+        configureUIOption()
+    }
+    
+    private func configureUIOption() {
+        view.backgroundColor = .systemGray5
+        topButton.setTitle(status.movedButtonName.top, for: .normal)
+        buttomButton.setTitle(status.movedButtonName.bottom, for: .normal)
+        preferredContentSize = calculatePopoverSize()
+    }
+
+    private func configureButtonTitle() {
+        
     }
     
     private func createStackView() -> UIStackView {
@@ -49,6 +61,9 @@ final class PopoverViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 4
+        stackView.distribution = .fillEqually
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
         return stackView
     }
@@ -61,8 +76,15 @@ final class PopoverViewController: UIViewController {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            stackView.topAnchor.constraint(equalTo: view.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    private func calculatePopoverSize() -> CGSize {
+        topButton.sizeToFit()
+        buttomButton.sizeToFit()
+        
+        return CGSize(width: 250, height: 100)
     }
 }

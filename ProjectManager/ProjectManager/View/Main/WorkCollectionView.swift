@@ -9,7 +9,7 @@ import UIKit
 
 protocol WorkCollectionViewDelegate: AnyObject {
     func workCollectionView(_ collectionView: WorkCollectionView, id: UUID)
-    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkStatus)
+    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkStatus, rect: CGRect)
 }
 
 final class WorkCollectionView: UICollectionView {
@@ -178,9 +178,14 @@ extension WorkCollectionView: UIGestureRecognizerDelegate {
 
         if gestureRecognizer.state == .began {
             guard let indexPath = self.indexPathForItem(at: location),
-                  let id = workDataSource?.itemIdentifier(for: indexPath)?.id else { return }
+                  let cell = cellForItem(at: indexPath),
+                  let id = workDataSource?.itemIdentifier(for: indexPath)?.id,
+                  let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = windowScene.windows.first else { return }
+            
+            let rect = convert(cell.frame, to: window)
 
-            workDelegate?.workCollectionView(self, moveWork: id, toStatus: .done)
+            workDelegate?.workCollectionView(self, moveWork: id, toStatus: .done, rect: rect)
         }
     }
 }
