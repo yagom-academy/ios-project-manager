@@ -56,6 +56,12 @@ final class WorkInputView: UIView {
         deadlinePicker.date = deadline
     }
     
+    func setEditing(_ isEditing: Bool) {
+        titleTextField.isEnabled = isEditing
+        bodyTextView.isEditable = isEditing
+        deadlinePicker.isUserInteractionEnabled = isEditing
+    }
+    
     private func configureLayout() {
         let stackView = createStackView()
         

@@ -16,6 +16,7 @@ final class DetailViewController: UIViewController {
     var viewModel: WorkViewModel?
     private var viewMode: ViewMode?
     private let workInputView = WorkInputView()
+    private var isEditable = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,7 @@ final class DetailViewController: UIViewController {
         view = workInputView
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationItem.title = viewModel?.works.first?.title
+        navigationItem.title = "TODO"
         
         switch viewMode {
         case .add:
@@ -47,11 +48,21 @@ final class DetailViewController: UIViewController {
                                                                 style: .done,
                                                                 target: self,
                                                                 action: #selector(addWork))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
+                                                               style: .done,
+                                                               target: self,
+                                                               action: #selector(cancel))
         case .edit:
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit",
+            workInputView.setEditing(isEditable)
+            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
                                                                 style: .done,
                                                                 target: self,
                                                                 action: #selector(updateWork))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit",
+                                                               style: .done,
+                                                               target: self,
+                                                               action: #selector(toggleEditing))
         case .none:
             AlertManager().showErrorAlert(target: self, title: "오류", message: "잘못된 접근입니다.") { [weak self] in
                 self?.dismiss(animated: true)
@@ -69,6 +80,10 @@ final class DetailViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @objc private func cancel() {
+        self.dismiss(animated: true)
+    }
+    
     @objc private func updateWork() {
         let contents = workInputView.checkContents()
         
@@ -78,5 +93,10 @@ final class DetailViewController: UIViewController {
                               deadline: contents.deadline)
         
         self.dismiss(animated: true)
+    }
+    
+    @objc private func toggleEditing() {
+        isEditable.toggle()
+        workInputView.setEditing(isEditable)
     }
 }
