@@ -119,7 +119,7 @@ final class DetailProjectViewController: UIViewController {
                                            action: #selector(cancelEditingProject))
         navigationItem.leftBarButtonItem = cancelButton
         
-        enableView()
+        toggleEditMode()
     }
     
     @objc
@@ -151,10 +151,10 @@ final class DetailProjectViewController: UIViewController {
     @objc
     private func cancelEditingProject() {
         self.dismiss(animated: true)
-        enableView()
+        toggleEditMode()
     }
     
-    private func enableView() {
+    private func toggleEditMode() {
         titleTextField.isEnabled.toggle()
         datePicker.isEnabled.toggle()
         bodyTextView.isEditable.toggle()
