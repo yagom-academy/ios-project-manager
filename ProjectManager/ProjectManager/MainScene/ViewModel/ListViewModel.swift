@@ -8,6 +8,11 @@
 final class ListViewModel {
     
     var tasks: [Task] = []
+    var taskState: TaskState
+    
+    init(taskState: TaskState) {
+        self.taskState = taskState
+    }
     
     func appendTask(_ task: Task) {
         tasks.append(task)

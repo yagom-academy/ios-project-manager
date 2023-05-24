@@ -13,11 +13,10 @@ final class ListViewController: UIViewController {
     
     private var datasource: UICollectionViewDiffableDataSource<TaskState, Task>?
     private var snapshot = NSDiffableDataSourceSnapshot<TaskState, Task>()
-    private var taskState: TaskState
-    private let viewModel = ListViewModel()
+    private let viewModel: ListViewModel
     
     init(taskState: TaskState) {
-        self.taskState = taskState
+        self.viewModel = ListViewModel(taskState: taskState)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -43,8 +42,8 @@ final class ListViewController: UIViewController {
     }
 
     private func applySnapshot(by items: [Task]) {
-        if !snapshot.sectionIdentifiers.contains(taskState) {
-            snapshot.appendSections([taskState])
+        if !snapshot.sectionIdentifiers.contains(viewModel.taskState) {
+            snapshot.appendSections([viewModel.taskState])
         }
         snapshot.appendItems(items)
         
@@ -71,7 +70,7 @@ final class ListViewController: UIViewController {
             NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": TaskState.done])
         }
         
-        switch taskState {
+        switch viewModel.taskState {
         case .todo:
             return [doingAction, doneAction]
         case .doing:
@@ -126,7 +125,7 @@ extension ListViewController {
             cell.updateText(by: itemIdentifier)
         }
         let headerRegistration = UICollectionView.SupplementaryRegistration<TaskHeaderView>(elementKind: TaskHeaderView.identifier) { supplementaryView, elementKind, indexPath in
-            supplementaryView.updateText(by: self.taskState, number: self.snapshot.numberOfItems)
+            supplementaryView.updateText(by: self.viewModel.taskState, number: self.snapshot.numberOfItems)
         }
         
         datasource = UICollectionViewDiffableDataSource(collectionView: collectionView,
