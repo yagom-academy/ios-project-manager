@@ -42,10 +42,12 @@ final class ListViewController: UIViewController {
     }
 
     private func applySnapshot(by items: [Task]) {
-        if !snapshot.sectionIdentifiers.contains(viewModel.taskState) {
-            snapshot.appendSections([viewModel.taskState])
-        }
+        var snapshot = NSDiffableDataSourceSnapshot<TaskState, Task>()
+        
+        snapshot.appendSections([viewModel.taskState])
         snapshot.appendItems(items)
+        
+        self.snapshot = snapshot
         
         datasource?.apply(snapshot, animatingDifferences: true)
     }
