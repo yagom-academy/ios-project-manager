@@ -1,5 +1,5 @@
 //
-//  TodoTableCellViewModel.swift
+//  PlanTableCellViewModel.swift
 //  ProjectManager
 //
 //  Created by 리지 on 2023/05/22.
@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class TodoTableCellViewModel: ObservableObject {
+final class PlanTableCellViewModel {
     @Published private(set) var item: TodoItem
     
     init(item: TodoItem) {

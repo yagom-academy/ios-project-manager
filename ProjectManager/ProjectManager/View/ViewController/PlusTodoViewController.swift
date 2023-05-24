@@ -9,7 +9,6 @@ import UIKit
 import Combine
 
 final class PlusTodoViewController: UIViewController {
-    
     weak var delegate: SavingItemDelegate?
     private let plusTodoViewModel: PlusTodoViewModel?
     private let selectedIndexPath: IndexPath?
@@ -78,7 +77,7 @@ final class PlusTodoViewController: UIViewController {
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.textColor = UIColor.black
         textView.backgroundColor = UIColor.white
-        textView.text = "여기는 할 일 내용을 입력하는 곳입니다. 입력 가능한 글자수는 1000자로 제한합니다."
+        textView.text = "여기는 할 일 내용을 입력하는 곳입니다. \n입력 가능한 글자수는 1000자로 제한합니다."
         
         textView.layer.masksToBounds = false
         textView.layer.shadowColor = UIColor.black.cgColor

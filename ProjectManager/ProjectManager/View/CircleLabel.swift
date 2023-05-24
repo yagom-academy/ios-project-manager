@@ -8,7 +8,6 @@
 import UIKit
 
 final class CircleLabel: UILabel {
-  
     init() {
         super.init(frame: .zero)
         self.textColor = .white

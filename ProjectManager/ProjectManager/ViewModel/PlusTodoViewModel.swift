@@ -9,10 +9,18 @@ import Foundation
 import Combine
 
 final class PlusTodoViewModel: ObservableObject {
-    @Published var todoItem: TodoItem?
-    @Published var mode: Mode = .create
+    @Published private(set) var todoItem: TodoItem?
+    private(set) var mode: Mode = .create
     
     enum Mode {
         case create, edit
+    }
+    
+    func changeMode(_ new: Mode) {
+        mode = new
+    }
+    
+    func addItem(_ item: TodoItem) {
+        todoItem = item
     }
 }

@@ -1,5 +1,5 @@
 //
-//  TodoTableViewCell.swift
+//  PlanTableViewCell.swift
 //  ProjectManager
 //
 //  Created by 리지 on 2023/05/17.
@@ -8,9 +8,8 @@
 import UIKit
 import Combine
 
-final class TodoTableViewCell: UITableViewCell {
-    
-    private var todoTableCellViewModel: TodoTableCellViewModel?
+final class PlanTableViewCell: UITableViewCell {
+    private var planTableCellViewModel: PlanTableCellViewModel?
     private var cancellables: Set<AnyCancellable> = []
 
     private let stackView: UIStackView = {
@@ -72,31 +71,31 @@ final class TodoTableViewCell: UITableViewCell {
     }
     
     private func setUpBinding() {
-        todoTableCellViewModel?.$item
+        planTableCellViewModel?.$item
             .map { item in
                 item.title
             }.sink {
                 self.title.text = $0
             }.store(in: &cancellables)
         
-        todoTableCellViewModel?.$item
+        planTableCellViewModel?.$item
             .map { item in
                 item.body
             }.sink {
                 self.body.text = $0
             }.store(in: &cancellables)
         
-        todoTableCellViewModel?.$item
+        planTableCellViewModel?.$item
             .map { item in
                 item.date
             }.sink {
-                self.date.textColor = self.todoTableCellViewModel?.selectColor($0)
-                self.date.text = self.todoTableCellViewModel?.convertDate(of: $0)
+                self.date.textColor = self.planTableCellViewModel?.selectColor($0)
+                self.date.text = self.planTableCellViewModel?.convertDate(of: $0)
             }.store(in: &cancellables)
     }
     
     func configureCell(with item: TodoItem) {
-        self.todoTableCellViewModel = TodoTableCellViewModel(item: item)
+        self.planTableCellViewModel = PlanTableCellViewModel(item: item)
         setUpBinding()
     }
 }

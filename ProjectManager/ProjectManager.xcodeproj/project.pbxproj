@@ -9,46 +9,44 @@
 /* Begin PBXBuildFile section */
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* PlanViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */; };
-		FBF062882A14B8A00088A9E3 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062872A14B8A00088A9E3 /* TodoTableViewCell.swift */; };
-		FBF0628A2A14B9720088A9E3 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062892A14B9720088A9E3 /* TodoListViewModel.swift */; };
+		FBF062882A14B8A00088A9E3 /* PlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062872A14B8A00088A9E3 /* PlanTableViewCell.swift */; };
+		FBF0628A2A14B9720088A9E3 /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062892A14B9720088A9E3 /* PlanViewModel.swift */; };
 		FBF0628D2A14BA780088A9E3 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0628C2A14BA780088A9E3 /* TodoItem.swift */; };
 		FBF0628F2A1607570088A9E3 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0628E2A1607570088A9E3 /* CircleLabel.swift */; };
 		FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062962A166AD90088A9E3 /* SavingItemDelegate.swift */; };
 		FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062992A16F6930088A9E3 /* DateFormatManager.swift */; };
-		FBF0629C2A16FCAB0088A9E3 /* DoingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */; };
 		FBF0629E2A17100E0088A9E3 /* Tense.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629D2A17100E0088A9E3 /* Tense.swift */; };
 		FBF062A02A1B391B0088A9E3 /* PlusTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */; };
-		FBF062A42A1B65480088A9E3 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A32A1B65470088A9E3 /* PopoverViewController.swift */; };
-		FBF062A62A1B8E580088A9E3 /* TodoTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A52A1B8E580088A9E3 /* TodoTableCellViewModel.swift */; };
+		FBF062A62A1B8E580088A9E3 /* PlanTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A52A1B8E580088A9E3 /* PlanTableCellViewModel.swift */; };
 		FBF062A82A1C5E230088A9E3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A72A1C5E230088A9E3 /* HeaderView.swift */; };
+		FBF062AA2A1D11B90088A9E3 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A92A1D11B90088A9E3 /* State.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBF0627B2A132F820088A9E3 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTodoViewController.swift; sourceTree = "<group>"; };
-		FBF062872A14B8A00088A9E3 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TodoTableViewCell.swift; path = ProjectManager/ViewModel/TodoTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-		FBF062892A14B9720088A9E3 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
+		FBF062872A14B8A00088A9E3 /* PlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlanTableViewCell.swift; path = ProjectManager/ViewModel/PlanTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		FBF062892A14B9720088A9E3 /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
 		FBF0628C2A14BA780088A9E3 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		FBF0628E2A1607570088A9E3 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		FBF062962A166AD90088A9E3 /* SavingItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingItemDelegate.swift; sourceTree = "<group>"; };
 		FBF062992A16F6930088A9E3 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
-		FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingListViewModel.swift; sourceTree = "<group>"; };
 		FBF0629D2A17100E0088A9E3 /* Tense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tense.swift; sourceTree = "<group>"; };
 		FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTodoViewModel.swift; sourceTree = "<group>"; };
-		FBF062A32A1B65470088A9E3 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
-		FBF062A52A1B8E580088A9E3 /* TodoTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableCellViewModel.swift; sourceTree = "<group>"; };
+		FBF062A52A1B8E580088A9E3 /* PlanTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableCellViewModel.swift; sourceTree = "<group>"; };
 		FBF062A72A1C5E230088A9E3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		FBF062A92A1D11B90088A9E3 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +95,11 @@
 		FBF062812A1488E00088A9E3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FBF062862A14B87C0088A9E3 /* TableViewCell */,
+				FBF062982A166B4D0088A9E3 /* ViewController */,
 				FBF062962A166AD90088A9E3 /* SavingItemDelegate.swift */,
 				FBF0628E2A1607570088A9E3 /* CircleLabel.swift */,
 				FBF062A72A1C5E230088A9E3 /* HeaderView.swift */,
-				FBF062862A14B87C0088A9E3 /* TableViewCell */,
-				FBF062982A166B4D0088A9E3 /* ViewController */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -109,10 +107,10 @@
 		FBF062832A14ACA20088A9E3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				FBF062892A14B9720088A9E3 /* TodoListViewModel.swift */,
-				FBF0629B2A16FCAB0088A9E3 /* DoingListViewModel.swift */,
+				FBF062A92A1D11B90088A9E3 /* State.swift */,
+				FBF062892A14B9720088A9E3 /* PlanViewModel.swift */,
 				FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */,
-				FBF062A52A1B8E580088A9E3 /* TodoTableCellViewModel.swift */,
+				FBF062A52A1B8E580088A9E3 /* PlanTableCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -120,7 +118,7 @@
 		FBF062862A14B87C0088A9E3 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				FBF062872A14B8A00088A9E3 /* TodoTableViewCell.swift */,
+				FBF062872A14B8A00088A9E3 /* PlanTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -138,9 +136,8 @@
 		FBF062982A166B4D0088A9E3 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* PlanViewController.swift */,
 				FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */,
-				FBF062A32A1B65470088A9E3 /* PopoverViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -237,16 +234,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBF0629C2A16FCAB0088A9E3 /* DoingListViewModel.swift in Sources */,
-				FBF062A62A1B8E580088A9E3 /* TodoTableCellViewModel.swift in Sources */,
-				FBF0628A2A14B9720088A9E3 /* TodoListViewModel.swift in Sources */,
-				FBF062882A14B8A00088A9E3 /* TodoTableViewCell.swift in Sources */,
+				FBF062A62A1B8E580088A9E3 /* PlanTableCellViewModel.swift in Sources */,
+				FBF0628A2A14B9720088A9E3 /* PlanViewModel.swift in Sources */,
+				FBF062882A14B8A00088A9E3 /* PlanTableViewCell.swift in Sources */,
 				FBF0628D2A14BA780088A9E3 /* TodoItem.swift in Sources */,
 				FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */,
 				FBF062A82A1C5E230088A9E3 /* HeaderView.swift in Sources */,
-				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* PlanViewController.swift in Sources */,
 				FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */,
-				FBF062A42A1B65480088A9E3 /* PopoverViewController.swift in Sources */,
+				FBF062AA2A1D11B90088A9E3 /* State.swift in Sources */,
 				FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FBF062A02A1B391B0088A9E3 /* PlusTodoViewModel.swift in Sources */,
