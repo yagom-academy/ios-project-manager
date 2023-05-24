@@ -49,6 +49,7 @@ final class PlanViewController: UIViewController, SavingItemDelegate {
         setUpView()
         configureNavigationBar()
         setUpBindings()
+        setUpLongPressGesture()
     }
     
     private func setUpView() {
@@ -206,7 +207,7 @@ extension PlanViewController: UITableViewDataSource {
     }
 }
 
-extension PlanViewController: UITableViewDelegate, UIGestureRecognizerDelegate {
+extension PlanViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "delete") { [weak self] (_, _, completionHandler) in
             self?.delete(indexPath)
@@ -236,43 +237,65 @@ extension PlanViewController: UITableViewDelegate, UIGestureRecognizerDelegate {
         let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, selectedIndexPath: indexPath)
         plusTodoViewController.delegate = self
         
+        tableView.deselectRow(at: indexPath, animated: false)
         present(plusTodoViewController, animated: false)
+    }
+}
+
+extension PlanViewController: UIGestureRecognizerDelegate {
+    private func setUpLongPressGesture() {
+        let todoLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        todoLongPressGesture.minimumPressDuration = 0.5
+        todoLongPressGesture.delegate = self
+        todoLongPressGesture.delaysTouchesBegan = true
         
-        let cell = tableView.cellForRow(at: indexPath)
-        let longPressGesture = CustomLongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-        longPressGesture.minimumPressDuration = 0.5
-        longPressGesture.delegate = self
-        longPressGesture.delaysTouchesBegan = true
-        longPressGesture.cancelsTouchesInView = false
-        longPressGesture.indexPath = indexPath
-        longPressGesture.tableView = tableView
+        let doingLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        doingLongPressGesture.minimumPressDuration = 0.5
+        doingLongPressGesture.delegate = self
+        doingLongPressGesture.delaysTouchesBegan = true
         
-        cell?.addGestureRecognizer(longPressGesture)
-        tableView.deselectRow(at: indexPath, animated: true)
+        let doneLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        doneLongPressGesture.minimumPressDuration = 0.5
+        doneLongPressGesture.delegate = self
+        doneLongPressGesture.delaysTouchesBegan = true
+        
+        todoTableView.addGestureRecognizer(todoLongPressGesture)
+        doingTableView.addGestureRecognizer(doingLongPressGesture)
+        doneTableView.addGestureRecognizer(doneLongPressGesture)
     }
     
-    @objc private func handleLongPress(_ gestureRecognizer: CustomLongPressGestureRecognizer) {
-        guard let tableView = gestureRecognizer.tableView,
-              let indexPath = gestureRecognizer.indexPath,
-              let cell = tableView.cellForRow(at: indexPath) as? PlanTableViewCell else { return }
+    @objc private func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: gestureRecognizer.view)
+        guard let tableView = gestureRecognizer.view as? UITableView else { return }
         
         if gestureRecognizer.state == .began {
-            switch planViewModel.state {
-            case .todo:
-                let firstActionTitle = "Move To DOING"
-                let secondActionTitle = "Move To DONE"
-                showActionSheet(firstActionTitle, .doing, secondActionTitle, .done, cell, indexPath, tableView)
-                
-            case .doing:
-                let firstActionTitle = "Move To TODO"
-                let secondActionTitle = "Move To DONE"
-                showActionSheet(firstActionTitle, .todo, secondActionTitle, .done, cell, indexPath, tableView)
-                
-            default:
-                let firstActionTitle = "Move To TODO"
-                let secondActionTitle = "Move To DOING"
-                showActionSheet(firstActionTitle, .todo, secondActionTitle, .doing, cell, indexPath, tableView)
+            guard let indexPath = tableView.indexPathForRow(at: location) else { return }
+            
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                if let cell = tableView.cellForRow(at: indexPath) as? PlanTableViewCell {
+                    self?.planViewModel.updateCurrentCell(cell)
+                    self?.manageAction(cell, indexPath, tableView)
+                }
             }
+        }
+    }
+    
+    private func manageAction(_ cell: PlanTableViewCell, _ indexPath: IndexPath, _ tableView: UITableView) {
+        switch planViewModel.state {
+        case .todo:
+            let firstActionTitle = "Move To DOING"
+            let secondActionTitle = "Move To DONE"
+            showActionSheet(firstActionTitle, .doing, secondActionTitle, .done, cell, indexPath, tableView)
+            
+        case .doing:
+            let firstActionTitle = "Move To TODO"
+            let secondActionTitle = "Move To DONE"
+            showActionSheet(firstActionTitle, .todo, secondActionTitle, .done, cell, indexPath, tableView)
+            
+        default:
+            let firstActionTitle = "Move To TODO"
+            let secondActionTitle = "Move To DOING"
+            showActionSheet(firstActionTitle, .todo, secondActionTitle, .doing, cell, indexPath, tableView)
         }
     }
     
@@ -318,10 +341,5 @@ extension PlanViewController: UITableViewDelegate, UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
-    }
-    
-    class CustomLongPressGestureRecognizer: UILongPressGestureRecognizer {
-        var tableView: UITableView?
-        var indexPath: IndexPath?
     }
 }

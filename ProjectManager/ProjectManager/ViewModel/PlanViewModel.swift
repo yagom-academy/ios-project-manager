@@ -13,6 +13,7 @@ final class PlanViewModel {
     @Published private(set) var doingItems: [TodoItem] = []
     @Published private(set) var doneItems: [TodoItem] = []
     private(set) var state: State?
+    private(set) var currentLongPressedCell: PlanTableViewCell?
     
     var numberOfItems: Int {
         switch state {
@@ -64,5 +65,9 @@ final class PlanViewModel {
     
     func updateState(_ newState: State) {
         state = newState
+    }
+    
+    func updateCurrentCell(_ cell: PlanTableViewCell) {
+        currentLongPressedCell = cell
     }
 }
