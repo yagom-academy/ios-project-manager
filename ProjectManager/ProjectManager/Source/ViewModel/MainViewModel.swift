@@ -12,7 +12,7 @@ final class MainViewModel {
     let todoSchedules: Observable<[Schedule]> = Observable([])
     let doingSchedules: Observable<[Schedule]> = Observable([])
     let doneSchedules: Observable<[Schedule]> = Observable([])
-
+    
     func addTodoSchedule(_ schedule: Schedule) {
         todoSchedules.value.append(schedule)
     }
@@ -23,7 +23,7 @@ final class MainViewModel {
         }
         
         let schedule = Schedule(title: validTitleText, content: validContentText, expirationDate: expirationDate)
-
+        
         return schedule
     }
     
@@ -31,8 +31,17 @@ final class MainViewModel {
         return self.todoSchedules.value
     }
     
-    func deleteSchedule(indexPath: IndexPath) {
-        todoSchedules.value.remove(at: indexPath.row)
+    func deleteSchedule(scheduleType: ScheduleType, index: Int) {
+        switch scheduleType {
+        case .todo:
+            todoSchedules.value.remove(at: index)
+        case .doing:
+            doingSchedules.value.remove(at: index)
+        case .done:
+            doneSchedules.value.remove(at: index)
+        }
+        
+        
     }
     
     func fetchSchedule(scheduleType: ScheduleType) -> [Schedule] {
@@ -43,6 +52,19 @@ final class MainViewModel {
             return doingSchedules.value
         case .done:
             return doneSchedules.value
+        }
+    }
+    
+    func updateSchedule(scheduleType: ScheduleType, schedule: Schedule, index: Int) {
+        switch scheduleType {
+        case .todo:
+            todoSchedules.value[index] = schedule
+            
+        case .doing:
+            doingSchedules.value[index] = schedule
+            
+        case .done:
+            doneSchedules.value[index] = schedule
         }
     }
 }

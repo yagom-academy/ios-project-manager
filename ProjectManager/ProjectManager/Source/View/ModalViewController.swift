@@ -12,7 +12,7 @@ final class ModalViewController: UIViewController {
     private let mainViewModel: MainViewModel
     private let modalType: ModalType
     private let scheduleType: ScheduleType?
-    private let indexPathRow: Int?
+    private let index: Int?
 
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -61,11 +61,11 @@ final class ModalViewController: UIViewController {
     init(viewModel: MainViewModel,
          modalType: ModalType,
          scheduleType: ScheduleType? = nil,
-         indexPathRow: Int? = nil) {
+         index: Int? = nil) {
         self.mainViewModel = viewModel
         self.modalType = modalType
         self.scheduleType = scheduleType
-        self.indexPathRow = indexPathRow
+        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -78,6 +78,7 @@ final class ModalViewController: UIViewController {
         configureUI()
         configureNavigationBar()
         configureUserInteraction()
+        configureSchedule()
     }
     
     private func configureUI() {
@@ -157,7 +158,9 @@ final class ModalViewController: UIViewController {
             
             dismiss(animated: true)
         case .edit:
-            print("")
+            mainViewModel.updateSchedule(scheduleType: scheduleType, schedule: <#T##Schedule#>, index: <#T##Int#>)
+            
+            dismiss(animated: true)
         }
         
     }
@@ -180,5 +183,14 @@ final class ModalViewController: UIViewController {
         }
     }
     
-    
+    private func configureSchedule() {
+        if modalType == .edit {
+            
+            guard let scheduleType, let index else { return }
+            let schedules = mainViewModel.fetchSchedule(scheduleType: scheduleType)
+            titleTextField.text = schedules[index].title
+            datePickerView.date = schedules[index].expirationDate
+            contentTextView.text = schedules[index].content
+        }
+    }
 }

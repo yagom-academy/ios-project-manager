@@ -17,6 +17,7 @@ class DoListViewController: UIViewController {
     private let scheduleType: ScheduleType
     private let listStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -61,7 +62,15 @@ class DoListViewController: UIViewController {
             listStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             listStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             listStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             headerView.heightAnchor.constraint(equalToConstant: 50),
+            headerView.leadingAnchor.constraint(equalTo: listStackView.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: listStackView.trailingAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: listStackView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: listStackView.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: listStackView.bottomAnchor)
         ])
     }
     
@@ -147,7 +156,7 @@ class DoListViewController: UIViewController {
         guard let indexPath = indexPath, let _ = dataSource?.itemIdentifier(for: indexPath) else { return nil }
         let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
-            self?.mainViewModel.deleteSchedule(indexPath: indexPath)
+            self?.mainViewModel.deleteSchedule(indexPath: indexPath.row)
             completion(false)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -159,7 +168,7 @@ extension DoListViewController: UICollectionViewDelegate {
         let modalViewController = ModalViewController(viewModel: mainViewModel,
                                                       modalType: .edit,
                                                       scheduleType: scheduleType,
-                                                      indexPathRow: indexPath.row)
+                                                      index: indexPath.row)
         let modalNavigationController = UINavigationController(rootViewController: modalViewController)
         modalViewController.modalPresentationStyle = .formSheet
         modalViewController.preferredContentSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.7)
