@@ -5,6 +5,8 @@
 //  Created by 레옹아범 on 2023/05/19.
 //
 
+import Foundation
+
 final class ListViewModel {
     
     var tasks: [Task] = []
@@ -14,7 +16,7 @@ final class ListViewModel {
         self.taskState = taskState
     }
     
-    func appendTask(_ task: Task) {
-        tasks.append(task)
+    func postChangedTaskState(by task: Task, _ state: TaskState) {
+        NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": TaskState.todo])
     }
 }

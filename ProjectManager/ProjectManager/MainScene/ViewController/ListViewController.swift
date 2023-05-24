@@ -35,8 +35,8 @@ final class ListViewController: UIViewController {
         applySnapshot(by: [])
     }
     
-    func appendTask(_ task: [Task]) {
-        viewModel.tasks = task
+    func appendTasks(_ tasks: [Task]) {
+        viewModel.tasks = tasks
         
         applySnapshot(by: viewModel.tasks)
     }
@@ -65,15 +65,15 @@ final class ListViewController: UIViewController {
     private func makeAlertAction(_ task: Task) -> [UIAlertAction] {
         let todoAction = UIAlertAction(title: "Move To Todo", style: .default) { _ in
             self.deleteSnapshot(by: task)
-            NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": TaskState.todo])
+            self.viewModel.postChangedTaskState(by: task, .todo)
         }
         let doingAction = UIAlertAction(title: "Move To Doing", style: .default) { _ in
             self.deleteSnapshot(by: task)
-            NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": TaskState.doing])
+            self.viewModel.postChangedTaskState(by: task, .doing)
         }
         let doneAction = UIAlertAction(title: "Move To Done", style: .default) { _ in
             self.deleteSnapshot(by: task)
-            NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": TaskState.done])
+            self.viewModel.postChangedTaskState(by: task, .done)
         }
         
         switch viewModel.taskState {
@@ -114,7 +114,6 @@ final class ListViewController: UIViewController {
 // MARK: CollectionViewDelegate
 extension ListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
         guard let parentVC = self.parent as? MainViewController else { return }
         let task = viewModel.tasks[indexPath.row]
         deleteSnapshot(by: task)

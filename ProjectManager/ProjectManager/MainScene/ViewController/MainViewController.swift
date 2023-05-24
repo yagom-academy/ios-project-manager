@@ -48,9 +48,9 @@ final class MainViewController: UIViewController {
         let doingTasks = viewModel.filterTasks(by: .doing)
         let doneTasks = viewModel.filterTasks(by: .done)
         
-        todoViewController.appendTask(todoTasks)
-        doingViewController.appendTask(doingTasks)
-        doneViewController.appendTask(doneTasks)
+        todoViewController.appendTasks(todoTasks)
+        doingViewController.appendTasks(doingTasks)
+        doneViewController.appendTasks(doneTasks)
     }
     
     @objc private func didTapAddButton() {
