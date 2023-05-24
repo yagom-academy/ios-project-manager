@@ -21,6 +21,8 @@
 		62F8A1C82A1B5651005F6BF7 /* DetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1C72A1B5651005F6BF7 /* DetailService.swift */; };
 		62F8A1CA2A1B62CD005F6BF7 /* TextView+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1C92A1B62CD005F6BF7 /* TextView+Combine.swift */; };
 		68448711764F42CFB8F8BC4A /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C88C513389408278BC4CDE4 /* Pods_ProjectManager.framework */; };
+		AD1E2C972A1DAF4D00251226 /* DoingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1E2C962A1DAF4D00251226 /* DoingViewController.swift */; };
+		AD1E2C992A1DAFE100251226 /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1E2C982A1DAFE100251226 /* DoneViewController.swift */; };
 		AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD450BE92A150E4A00A9C693 /* HeaderView.swift */; };
 		AD4BDE7C2A179EAF0022F3D6 /* TodoCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4BDE7B2A179EAF0022F3D6 /* TodoCollectionViewModel.swift */; };
 		AD5FFB8C2A14B64E00CF6A39 /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */; };
@@ -52,6 +54,8 @@
 		62F8A1C92A1B62CD005F6BF7 /* TextView+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+Combine.swift"; sourceTree = "<group>"; };
 		66B23B6C1353C0D9A1AA755D /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		8C88C513389408278BC4CDE4 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD1E2C962A1DAF4D00251226 /* DoingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingViewController.swift; sourceTree = "<group>"; };
+		AD1E2C982A1DAFE100251226 /* DoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
 		AD450BE92A150E4A00A9C693 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		AD4BDE7B2A179EAF0022F3D6 /* TodoCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCollectionViewModel.swift; sourceTree = "<group>"; };
 		AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
@@ -129,8 +133,10 @@
 		62D600502A1750B900AD7490 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* TodoViewController.swift */,
 				62A63EA92A1DA18600AF928F /* MainViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* TodoViewController.swift */,
+				AD1E2C962A1DAF4D00251226 /* DoingViewController.swift */,
+				AD1E2C982A1DAFE100251226 /* DoneViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -387,6 +393,7 @@
 				AD4BDE7C2A179EAF0022F3D6 /* TodoCollectionViewModel.swift in Sources */,
 				62D600352A15062D00AD7490 /* WorkState.swift in Sources */,
 				AD8A5EC32A1C512100D66627 /* UIDatePicker+Combine.swift in Sources */,
+				AD1E2C972A1DAF4D00251226 /* DoingViewController.swift in Sources */,
 				62F8A1CA2A1B62CD005F6BF7 /* TextView+Combine.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoViewController.swift in Sources */,
 				62D6005F2A17A58800AD7490 /* DataSourceError.swift in Sources */,
@@ -397,6 +404,7 @@
 				62F8A1C82A1B5651005F6BF7 /* DetailService.swift in Sources */,
 				62F8A1C52A1B3356005F6BF7 /* DetailViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				AD1E2C992A1DAFE100251226 /* DoneViewController.swift in Sources */,
 				AD8A5EC72A1C8EC300D66627 /* TaskRepository.swift in Sources */,
 				62E8F9C72A1C9DBE0011B195 /* MainCollectionViewService.swift in Sources */,
 				AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */,

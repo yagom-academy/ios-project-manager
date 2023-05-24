@@ -1,12 +1,13 @@
 //
-//  ProjectManager - TodoViewController.swift
-//  Created by yagom. 
-//  Copyright © yagom. All rights reserved.
-// 
+//  DoneViewController.swift
+//  ProjectManager
+//
+//  Created by Brody, Rowan on 2023/05/24.
+//
 
 import UIKit
 
-final class TodoViewController: UIViewController {
+final class DoneViewController: UIViewController {
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
     private lazy var viewModel = TodoCollectionViewModel(
@@ -89,7 +90,7 @@ final class TodoViewController: UIViewController {
     }
 }
 
-extension TodoViewController: UICollectionViewDelegate {
+extension DoneViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task = viewModel.task(at: indexPath)
         let detailViewController = DetailViewController(task: task, mode: .update)
@@ -99,7 +100,7 @@ extension TodoViewController: UICollectionViewDelegate {
     }
 }
 
-extension TodoViewController: TaskFetchDelegate {
+extension DoneViewController: TaskFetchDelegate {
     func fetchTaskList() {
         self.viewModel.updateSnapshot()
         self.viewModel.applySnapshot()
