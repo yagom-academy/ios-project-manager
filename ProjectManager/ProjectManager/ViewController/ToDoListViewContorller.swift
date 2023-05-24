@@ -8,16 +8,22 @@ import UIKit
 
 class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     
-    private var toDoList: [ToDoList]?
-    private var doingList: [ToDoList]?
-    private var doneList: [ToDoList]?
+    enum TableViewCategory {
+        case todoTableView
+        case doingTableView
+        case doneTableView
+    }
+
+    private var toDoList: [ToDoList] = []
+    private var doingList: [ToDoList] = []
+    private var doneList: [ToDoList] = []
     
     func sendTodoList(data: ToDoList, isCreatMode: Bool) {
         if isCreatMode == true {
-            toDoList?.append(data)
+            toDoList.append(data)
         } else {
-            if let index = toDoList?.firstIndex(where: { $0.title == data.title}) {
-                toDoList?[index] = data
+            if let index = toDoList.firstIndex(where: { $0.title == data.title}) {
+                toDoList[index] = data
             }
         }
         reloadTableView()
@@ -62,10 +68,6 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        toDoList = []
-        doingList = []
-        doneList = []
-        
         setUpLongPressGesture()
         configureNavigationBar()
         setUpTableView()
@@ -83,36 +85,52 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     }
     
     @objc private func longTouchPressed(_ recognizer: UILongPressGestureRecognizer) {
-        guard let tableView = recognizer.view as? UITableView else { return }
+        guard let selectedTableView = recognizer.view as? UITableView else { return }
+        let touchPoint = recognizer.location(in: selectedTableView)
+        guard let selectedIndexPathRow = selectedTableView.indexPathForRow(at: touchPoint) else { return }
         
         if recognizer.state == .began {
-            
-            if tableView == toDoTableView {
+            switch selectedTableView {
+            case toDoTableView:
                 showPopover(firstTitle: "MOVE TO DOING",
                             secondTitle: "MOVE TO DONE",
-                            firstHandler: { _ in self.moveToDoing() },
-                            secondHandler: { _ in self.moveToDone() })
-            } else if tableView == doingTableView {
+                            firstHandler: { _ in self.convertCellInTableView(indextPath: selectedIndexPathRow,
+                                                                             firstChoiceTableView: .todoTableView,
+                                                                             targetTableView: .doingTableView) },
+                            secondHandler: { _ in self.convertCellInTableView(indextPath: selectedIndexPathRow,
+                                                                              firstChoiceTableView: .todoTableView,
+                                                                              targetTableView: .doneTableView) })
+            case doingTableView:
                 showPopover(firstTitle: "MOVE TO TODO",
                             secondTitle: "MOVE TO DONE",
-                            firstHandler: { _ in self.moveToTodo() },
-                            secondHandler: { _ in self.moveToDone() }
+                            firstHandler: { _ in self.convertCellInTableView(indextPath: selectedIndexPathRow,
+                                                                             firstChoiceTableView: .doingTableView,
+                                                                             targetTableView: .todoTableView)},
+                            secondHandler: { _ in self.convertCellInTableView(indextPath: selectedIndexPathRow,
+                                                                              firstChoiceTableView: .doingTableView,
+                                                                              targetTableView: .doneTableView) }
                 )
-            } else if tableView == doneTableView {
+            case doneTableView:
                 showPopover(firstTitle: "MOVE TO TODO",
                             secondTitle: "MOVE TO DOING",
-                            firstHandler: { _ in self.moveToTodo() },
-                            secondHandler: { _ in self.moveToDoing() }
+                            firstHandler: { _ in self.convertCellInTableView(indextPath: selectedIndexPathRow,
+                                                                             firstChoiceTableView: .doneTableView,
+                                                                             targetTableView: .todoTableView) },
+                            secondHandler: { _ in self.convertCellInTableView(indextPath: selectedIndexPathRow,
+                                                                              firstChoiceTableView: .doneTableView,
+                                                                              targetTableView: .doingTableView) }
                 )
+            default:
+                return
             }
         }
     }
     
     private func showPopover(firstTitle: String, secondTitle: String, firstHandler:((UIAlertAction) -> Void)?, secondHandler:((UIAlertAction) -> Void)?) {
-        let alertController = UIAlertController(title: "이동", message: "", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "이동하고싶은 ", message: "", preferredStyle: .actionSheet)
         
-        let firstAction = UIAlertAction(title: "Move To DOING", style: .default, handler: firstHandler)
-        let secondeAction = UIAlertAction(title: "Move To DONE", style: .default, handler: secondHandler)
+        let firstAction = UIAlertAction(title: firstTitle, style: .default, handler: firstHandler)
+        let secondeAction = UIAlertAction(title: secondTitle, style: .default, handler: secondHandler)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         alertController.addAction(firstAction)
@@ -126,16 +144,43 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         present(alertController, animated: true, completion: nil)
     }
     
-    private func moveToDoing() {
-  
-    }
-    
-    private func moveToDone() {
+    private func convertCellInTableView(indextPath: IndexPath, firstChoiceTableView: TableViewCategory, targetTableView: TableViewCategory) {
         
-    }
-    
-    private func moveToTodo() {
-        
+        switch firstChoiceTableView {
+        case .todoTableView:
+            let selectedData = toDoList[indextPath.row]
+            guard let todoListIndex = toDoList.firstIndex(where: { $0.title == selectedData.title }) else { return }
+            let removedItem = toDoList.remove(at: todoListIndex)
+            ㅔ끔
+            if targetTableView == .doingTableView {
+                    doingList.append(removedItem)
+            } else if targetTableView == .doneTableView {
+                doneList.append(removedItem)
+            }
+        case .doingTableView:
+            let selectedData = doingList[indextPath.row]
+            guard let doingListIndex = doingList.firstIndex(where: { $0.title == selectedData.title }) else { return }
+            let removedItem = doingList.remove(at: doingListIndex)
+            
+            if targetTableView == .todoTableView {
+                    toDoList.append(removedItem)
+            } else if targetTableView == .doneTableView {
+                doneList.append(removedItem)
+            }
+        case .doneTableView:
+            let selectedData = doneList[indextPath.row]
+            guard let doneListIndex = doneList.firstIndex(where: { $0.title == selectedData.title }) else { return }
+            let removedItem = doneList.remove(at: doneListIndex)
+            
+            if targetTableView == .todoTableView {
+                    toDoList.append(removedItem)
+            } else if targetTableView == .doingTableView {
+                doingList.append(removedItem)
+            }
+        }
+        DispatchQueue.main.async {
+            self.reloadTableView()
+        }
     }
     
     // MARK: NavigationBar
@@ -197,8 +242,9 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
 
 extension ToDoListViewContorller: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell,
-              let toDoList = self.toDoList else { return }
+        guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell else { return }
+        let toDoList = self.toDoList
+        
         toDoTableViewCell.setUpLabel(toDoList: toDoList[indexPath.row])
         
         let toDoWriteViewController = ToDoWriteViewController(mode: .edit, fetchedTodoList: toDoList[indexPath.row])
@@ -212,11 +258,11 @@ extension ToDoListViewContorller: UITableViewDelegate {
 extension ToDoListViewContorller: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == toDoTableView {
-            return toDoList?.count ?? 0
+            return toDoList.count
         } else if tableView == doingTableView {
-            return doingList?.count ?? 0
+            return doingList.count
         } else if tableView == doneTableView {
-            return doneList?.count ?? 0
+            return doneList.count
         } else {
             return 0
         }
@@ -224,10 +270,7 @@ extension ToDoListViewContorller: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell,
-              let toDoList = self.toDoList,
-              let doingList = self.doingList,
-              let doneList = self.doneList else { return UITableViewCell() }
+        guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell else { return UITableViewCell() }
         
         if tableView == toDoTableView {
             toDoTableViewCell.setUpLabel(toDoList: toDoList[indexPath.row])
