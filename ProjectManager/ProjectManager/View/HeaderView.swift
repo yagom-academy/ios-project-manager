@@ -6,9 +6,7 @@
 
 import UIKit
 
-final class HeaderView: UICollectionReusableView {
-    let identifier = "HeaderView"
-    
+final class HeaderView: UICollectionReusableView {    
     private let contentStackView: UIStackView = {
         let stackview = UIStackView()
         stackview.alignment = .center
