@@ -151,7 +151,6 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
             let selectedData = toDoList[indextPath.row]
             guard let todoListIndex = toDoList.firstIndex(where: { $0.title == selectedData.title }) else { return }
             let removedItem = toDoList.remove(at: todoListIndex)
-            ㅔ끔
             if targetTableView == .doingTableView {
                     doingList.append(removedItem)
             } else if targetTableView == .doneTableView {
