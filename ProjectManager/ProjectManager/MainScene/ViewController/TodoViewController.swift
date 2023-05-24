@@ -9,7 +9,7 @@ import UIKit
 
 final class TodoViewController: UIViewController {
     
-    let viewModel = TodoViewModel()
+    private let viewModel: TodoViewModel
     
     private let parentTextView = UIView()
     private let titleTextField = TodoTitleTextField()
@@ -17,7 +17,18 @@ final class TodoViewController: UIViewController {
     private let descriptionTextView = UITextView()
     
     weak var taskDelegate: TaskDelegate?
-
+    
+    init(taskDelegate: TaskDelegate?, state: TodoState, task: Task?) {
+        self.taskDelegate = taskDelegate
+        self.viewModel = TodoViewModel(state: state, task: task)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

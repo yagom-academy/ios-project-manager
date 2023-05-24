@@ -29,12 +29,8 @@ final class MainViewController: UIViewController {
     }
     
     func presentTodoViewController(_ state: TodoState, _ task: Task?) {
-        let todoViewController = TodoViewController()
+        let todoViewController = TodoViewController(taskDelegate: self, state: state, task: task)
         let navigationController = UINavigationController(rootViewController: todoViewController)
-        
-        todoViewController.taskDelegate = self
-        todoViewController.viewModel.state = state
-        todoViewController.viewModel.task = task
         
         self.present(navigationController, animated: true)
     }

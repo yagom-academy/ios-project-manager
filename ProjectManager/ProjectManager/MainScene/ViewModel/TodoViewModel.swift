@@ -8,7 +8,7 @@
 import UIKit
 
 final class TodoViewModel {
-    var state: TodoState = .create
+    var state: TodoState
     var task: Task?
     
     var leftBarButtonItem: UIBarButtonItem.SystemItem {
@@ -30,6 +30,11 @@ final class TodoViewModel {
     
     var date: Date? {
         return task?.date
+    }
+    
+    init(state: TodoState, task: Task? = nil) {
+        self.state = state
+        self.task = task
     }
     
     func restrictNumberOfText(range: NSRange, text: String) -> Bool {
