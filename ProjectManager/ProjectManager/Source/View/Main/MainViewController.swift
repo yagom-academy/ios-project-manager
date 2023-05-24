@@ -20,15 +20,12 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var todoView = DoListView(viewModel: mainViewModel, type: .todo)
-    private lazy var doingView = DoListView(viewModel: mainViewModel, type: .doing)
-    private lazy var doneView = DoListView(viewModel: mainViewModel, type: .done)
+    private lazy var todoViewController = DoListViewController(viewModel: mainViewModel, type: .todo)
+    private lazy var doingViewController = DoListViewController(viewModel: mainViewModel, type: .doing)
+    private lazy var doneViewController = DoListViewController(viewModel: mainViewModel, type: .done)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        todoView.collectionView.delegate = self
-        doingView.collectionView.delegate = self
-        doneView.collectionView.delegate = self
         configureUI()
         configureNavigationBar()
     }
@@ -51,7 +48,8 @@ final class MainViewController: UIViewController {
     }
     
     private func presentAddModal() {
-        let modalViewController = ModalViewController(viewModel: mainViewModel, modalType: .add)
+        let modalViewController = ModalViewController(viewModel: mainViewModel,
+                                                      modalType: .add)
         let modalNavigationController = UINavigationController(rootViewController: modalViewController)
         modalViewController.modalPresentationStyle = .formSheet
         modalViewController.preferredContentSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.7)
@@ -63,9 +61,9 @@ final class MainViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         view.backgroundColor = .systemBackground
         view.addSubview(stackView)
-        stackView.addArrangedSubview(todoView)
-        stackView.addArrangedSubview(doingView)
-        stackView.addArrangedSubview(doneView)
+        stackView.addArrangedSubview(todoViewController.view)
+        stackView.addArrangedSubview(doingViewController.view)
+        stackView.addArrangedSubview(doneViewController.view)
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
@@ -76,13 +74,4 @@ final class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let modalViewController = ModalViewController(viewModel: mainViewModel, modalType: .edit, indexPathRow: indexPath.row)
-        let modalNavigationController = UINavigationController(rootViewController: modalViewController)
-        modalViewController.modalPresentationStyle = .formSheet
-        modalViewController.preferredContentSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.7)
-        
-        present(modalNavigationController, animated: true, completion: nil)
-    }
-}
+

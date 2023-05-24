@@ -1,5 +1,5 @@
 //
-//  TodoView.swift
+//  DoListViewController.swift
 //  ProjectManager
 //
 //  Created by songjun, vetto on 2023/05/18.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DoListView: UIStackView {
+class DoListViewController: UIViewController {
     enum Section {
         case main
     }
@@ -15,8 +15,14 @@ class DoListView: UIStackView {
     private var dataSource: UICollectionViewDiffableDataSource<Section, Schedule>?
     private let mainViewModel: MainViewModel
     private let scheduleType: ScheduleType
+    private let listStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
     private lazy var headerView = TodoHeaderView()
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: configureCompositionalLayout())
         collectionView.showsVerticalScrollIndicator = false
@@ -31,13 +37,13 @@ class DoListView: UIStackView {
         self.dataSource = dataSource
         self.mainViewModel = viewModel
         self.scheduleType = type
-        super.init(frame: .zero)
+        super.init(nibName: nil, bundle: nil)
         
         configureUI()
-        configureStackView()
         configureDataSource()
         configureHeaderViewTitle()
         setupViewModelBind()
+        collectionView.delegate = self
     }
     
     required init(coder: NSCoder) {
@@ -46,23 +52,17 @@ class DoListView: UIStackView {
     
     private func configureUI() {
         collectionView.backgroundColor = .lightGray
-        self.addArrangedSubview(headerView)
-        self.addArrangedSubview(collectionView)
+        self.view.addSubview(listStackView)
+        self.listStackView.addArrangedSubview(headerView)
+        self.listStackView.addArrangedSubview(collectionView)
         
         NSLayoutConstraint.activate([
+            listStackView.topAnchor.constraint(equalTo: view.topAnchor),
+            listStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            listStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            listStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 50),
-            headerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
-    }
-    
-    private func configureStackView() {
-        self.axis = .vertical
-        self.distribution = .fill
     }
     
     private func configureDataSource() {
@@ -154,4 +154,16 @@ class DoListView: UIStackView {
     }
 }
 
-
+extension DoListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let modalViewController = ModalViewController(viewModel: mainViewModel,
+                                                      modalType: .edit,
+                                                      scheduleType: scheduleType,
+                                                      indexPathRow: indexPath.row)
+        let modalNavigationController = UINavigationController(rootViewController: modalViewController)
+        modalViewController.modalPresentationStyle = .formSheet
+        modalViewController.preferredContentSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.7)
+        
+        present(modalNavigationController, animated: true, completion: nil)
+    }
+}

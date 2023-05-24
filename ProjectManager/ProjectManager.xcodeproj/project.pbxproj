@@ -11,7 +11,7 @@
 		1C16A8712A14B484001640E2 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16A8702A14B484001640E2 /* ScheduleCell.swift */; };
 		1C16A8732A14B705001640E2 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16A8722A14B705001640E2 /* Schedule.swift */; };
 		1C38D0632A1DE14400835A95 /* ModalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C38D0622A1DE14400835A95 /* ModalType.swift */; };
-		1CC9D3E02A160D1E00654A5D /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3DF2A160D1E00654A5D /* TodoView.swift */; };
+		1CC9D3E02A160D1E00654A5D /* DoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3DF2A160D1E00654A5D /* DoListViewController.swift */; };
 		1CC9D3F82A1B415000654A5D /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3F72A1B415000654A5D /* ModalViewController.swift */; };
 		1CC9D3FC2A1C4CD300654A5D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */; };
 		982DF0862A17ADEA0024BEB1 /* IdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */; };
@@ -30,7 +30,7 @@
 		1C16A8702A14B484001640E2 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		1C16A8722A14B705001640E2 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		1C38D0622A1DE14400835A95 /* ModalType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalType.swift; sourceTree = "<group>"; };
-		1CC9D3DF2A160D1E00654A5D /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
+		1CC9D3DF2A160D1E00654A5D /* DoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoListViewController.swift; sourceTree = "<group>"; };
 		1CC9D3F72A1B415000654A5D /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierType.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				1C16A8702A14B484001640E2 /* ScheduleCell.swift */,
-				1CC9D3DF2A160D1E00654A5D /* TodoView.swift */,
+				1CC9D3DF2A160D1E00654A5D /* DoListViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -241,7 +241,7 @@
 				1C16A8732A14B705001640E2 /* Schedule.swift in Sources */,
 				1C38D0632A1DE14400835A95 /* ModalType.swift in Sources */,
 				1C16A8712A14B484001640E2 /* ScheduleCell.swift in Sources */,
-				1CC9D3E02A160D1E00654A5D /* TodoView.swift in Sources */,
+				1CC9D3E02A160D1E00654A5D /* DoListViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				983C043C2A1D9BB3000E4702 /* Observable.swift in Sources */,
 				982DF0862A17ADEA0024BEB1 /* IdentifierType.swift in Sources */,

@@ -11,6 +11,7 @@ import UIKit
 final class ModalViewController: UIViewController {
     private let mainViewModel: MainViewModel
     private let modalType: ModalType
+    private let scheduleType: ScheduleType?
     private let indexPathRow: Int?
 
     private let titleTextField: UITextField = {
@@ -57,9 +58,13 @@ final class ModalViewController: UIViewController {
         return contentTextView
     }()
     
-    init(viewModel: MainViewModel, modalType: ModalType, indexPathRow: Int) {
+    init(viewModel: MainViewModel,
+         modalType: ModalType,
+         scheduleType: ScheduleType? = nil,
+         indexPathRow: Int? = nil) {
         self.mainViewModel = viewModel
         self.modalType = modalType
+        self.scheduleType = scheduleType
         self.indexPathRow = indexPathRow
         super.init(nibName: nil, bundle: nil)
     }
@@ -139,7 +144,10 @@ final class ModalViewController: UIViewController {
     
     @objc
     private func tapDoneButton() {
-        
+        let schedule = mainViewModel.createSchedule(titleText: titleTextField.text,
+                                                    contentText: contentTextView.text,
+                                                    expirationDate: datePickerView.date)
+
         switch modalType {
         case .add:
             let schedule = mainViewModel.createSchedule(titleText: titleTextField.text,
@@ -149,7 +157,7 @@ final class ModalViewController: UIViewController {
             
             dismiss(animated: true)
         case .edit:
-            mainViewModel.fetchSchedule(scheduleType: <#T##ScheduleType#>)
+            print("")
         }
         
     }
