@@ -20,6 +20,8 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
+    private let mainViewModel = MainViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

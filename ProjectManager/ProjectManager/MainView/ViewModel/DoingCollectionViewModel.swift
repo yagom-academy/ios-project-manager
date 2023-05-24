@@ -1,5 +1,5 @@
 //
-//  TodoCollectionViewModel.swift
+//  DoingCollectionViewModel.swift
 //  ProjectManager
 //
 //  Created by Brody, Rowan on 2023/05/19.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TodoCollectionViewModel: NSObject {
+final class DoingCollectionViewModel: NSObject {
     enum Section {
         case todo
         case doing
@@ -22,6 +22,7 @@ final class TodoCollectionViewModel: NSObject {
     private var snapshot = Snapshot()
     
     private var cellIdentifier: String
+    private let mainCollectionViewService = MainCollectionViewService()
     
     var items: [Task] = []
     
@@ -30,6 +31,7 @@ final class TodoCollectionViewModel: NSObject {
         self.cellIdentifier = cellReuseIdentifier
         
         super.init()
+        fetchTaskList()
         configureSnapshotSection()
         configureSnapshotItems()
     }
@@ -57,6 +59,7 @@ final class TodoCollectionViewModel: NSObject {
     }
     
     func updateSnapshot() {
+        fetchTaskList()
         configureSnapshotItems()
     }
     
@@ -91,7 +94,10 @@ final class TodoCollectionViewModel: NSObject {
     }
 }
 
-extension TodoCollectionViewModel {
+extension DoingCollectionViewModel {
+    private func fetchTaskList() {
+        items = mainCollectionViewService.fetchTaskList()
+    }
     
     private func configureSnapshotSection() {
         snapshot.appendSections([.todo, .doing, .done])
