@@ -21,7 +21,11 @@ final class DoingCollectionViewModel: NSObject, CollectionViewModel {
     
     private var cellIdentifier: String
     
-    var items: [Task] = []
+    var items: [Task] = [] {
+        didSet {
+            snapshot.numberOfSections == 1 ? updateDataSource() : configureDataSource()
+        }
+    }
     
     init(collectionView: UICollectionView?, cellReuseIdentifier: String) {
         self.collectionView = collectionView
@@ -52,20 +56,6 @@ final class DoingCollectionViewModel: NSObject, CollectionViewModel {
         return dataSource
     }
     
-    func updateDataSource() {
-        configureSnapshotItems()
-    }
-    
-    func configureDataSource() {
-        configureSnapshotSection()
-        configureSnapshotItems()
-        applySnapshot()
-    }
-    
-    func applySnapshot() {
-        dataSource?.apply(snapshot)
-    }
-    
     func updateTask(id: UUID) {
         snapshot.reloadItems([id])
         applySnapshot()
@@ -81,6 +71,17 @@ final class DoingCollectionViewModel: NSObject, CollectionViewModel {
 }
 
 extension DoingCollectionViewModel {
+    private func configureDataSource() {
+        configureSnapshotSection()
+        configureSnapshotItems()
+        applySnapshot()
+    }
+    
+    private func updateDataSource() {
+        configureSnapshotItems()
+        applySnapshot()
+    }
+    
     private func configureSnapshotSection() {
         snapshot.appendSections([.doing])
     }
@@ -90,7 +91,11 @@ extension DoingCollectionViewModel {
         snapshot.appendItems(taskList, toSection: .doing)
     }
     
-    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell {
+    private func applySnapshot() {
+        dataSource?.apply(snapshot)
+    }
+    
+    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: cellIdentifier,
             for: indexPath

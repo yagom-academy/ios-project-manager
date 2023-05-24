@@ -21,7 +21,11 @@ final class DoneCollectionViewModel: NSObject, CollectionViewModel {
     
     private var cellIdentifier: String
     
-    var items: [Task] = []
+    var items: [Task] = [] {
+        didSet {
+            snapshot.numberOfSections == 1 ? updateDataSource() : configureDataSource()
+        }
+    }
     
     init(collectionView: UICollectionView?, cellReuseIdentifier: String) {
         self.collectionView = collectionView
@@ -52,20 +56,6 @@ final class DoneCollectionViewModel: NSObject, CollectionViewModel {
         return dataSource
     }
     
-    func updateDataSource() {
-        configureSnapshotItems()
-    }
-    
-    func configureDataSource() {
-        configureSnapshotSection()
-        configureSnapshotItems()
-        applySnapshot()
-    }
-    
-    func applySnapshot() {
-        dataSource?.apply(snapshot)
-    }
-    
     func updateTask(id: UUID) {
         snapshot.reloadItems([id])
         applySnapshot()
@@ -81,6 +71,17 @@ final class DoneCollectionViewModel: NSObject, CollectionViewModel {
 }
 
 extension DoneCollectionViewModel {
+    private func configureDataSource() {
+        configureSnapshotSection()
+        configureSnapshotItems()
+        applySnapshot()
+    }
+    
+    private func updateDataSource() {
+        configureSnapshotItems()
+        applySnapshot()
+    }
+    
     private func configureSnapshotSection() {
         snapshot.appendSections([.done])
     }
@@ -88,6 +89,10 @@ extension DoneCollectionViewModel {
     private func configureSnapshotItems() {
         let taskList = items.map { $0.id }
         snapshot.appendItems(taskList, toSection: .done)
+    }
+    
+    private func applySnapshot() {
+        dataSource?.apply(snapshot)
     }
     
     private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
@@ -102,9 +107,8 @@ extension DoneCollectionViewModel {
             return UICollectionViewCell()
         }
         
-        let taskViewModel = TaskCellViewModel(task: task)
-        
-        cell.provide(taskViewModel)
+        let taskCellViewModel = TaskCellViewModel(task: task)
+        cell.provide(taskCellViewModel)
         
         return cell
     }

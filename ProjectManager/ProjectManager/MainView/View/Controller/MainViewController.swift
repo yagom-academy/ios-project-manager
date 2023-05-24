@@ -77,7 +77,6 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: TaskFetchDelegate {
     func fetchTaskList() {
-        print(#function, "called")
         self.mainViewModel.configureCollectionViewModels()
     }
     
