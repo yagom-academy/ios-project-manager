@@ -123,3 +123,5 @@ extension TodoCollectionViewModel {
         return cell
     }
 }
+
+extension TodoCollectionViewModel: CollectionViewModel { }

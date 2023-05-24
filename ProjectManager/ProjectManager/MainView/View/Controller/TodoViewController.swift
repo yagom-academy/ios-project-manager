@@ -6,10 +6,20 @@
 
 import UIKit
 
-final class TodoViewController: UIViewController {
+protocol TaskCollectionViewController {
+    var mode: WorkState { get }
+    var viewModel: CollectionViewModel { get set }
+}
+
+protocol CollectionViewModel {
+    
+}
+
+final class TodoViewController: UIViewController, TaskCollectionViewController {
+    let mode: WorkState = .todo
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    private lazy var viewModel = TodoCollectionViewModel(
+    lazy var viewModel: CollectionViewModel = TodoCollectionViewModel(
         collectionView: collectionView,
         cellReuseIdentifier: TaskCell.identifier
     )

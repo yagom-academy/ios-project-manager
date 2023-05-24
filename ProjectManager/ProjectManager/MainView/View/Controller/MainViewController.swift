@@ -41,6 +41,11 @@ final class MainViewController: UIViewController {
         self.addChild(DoneViewController())
     }
     
+    private func setupViewModelReference() {
+        self.mainViewModel.assignChildViewModel(of: self.children)
+        
+    }
+    
     private func configureStackView() {
         self.children.forEach {
             stackView.addArrangedSubview($0.view)

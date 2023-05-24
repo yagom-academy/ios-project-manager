@@ -5,14 +5,21 @@
 //  Created by Brody, Rowan on 2023/05/24.
 //
 
+import UIKit
+
 final class MainViewModel {
-    
     private let mainCollectionViewService = MainCollectionViewService()
     
     var taskList: [Task] = []
-    var todoCollectionViewModel: TodoCollectionViewModel?
-    var doingCollectionViewModel: DoingCollectionViewModel?
-    var doneCollectionViewModel: DoneCollectionViewModel?
+    var viewModelDictionary = [WorkState: CollectionViewModel]()
+    
+    func assignChildViewModel(of children: [UIViewController]) {
+        children.forEach {
+            if let collectionViewController = $0 as? TaskCollectionViewController {
+                self.viewModelDictionary[collectionViewController.mode] = collectionViewController.viewModel
+            }
+        }
+    }
     
     private func fetchTaskList() {
         taskList = mainCollectionViewService.fetchTaskList()
