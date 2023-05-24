@@ -39,8 +39,8 @@ final class MainViewController: UIViewController {
     
     private func addChildren() {
         self.addChild(TodoViewController())
-//        self.addChild(DoingViewController())
-//        self.addChild(DoneViewController())
+        self.addChild(DoingViewController())
+        self.addChild(DoneViewController())
     }
     
     private func setupViewModelReference() {

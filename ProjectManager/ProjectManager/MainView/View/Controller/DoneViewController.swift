@@ -71,7 +71,6 @@ final class DoneViewController: UIViewController, TaskCollectionViewController {
     
     private func configureCollectionView() {
         collectionView.register(TaskCell.self, forCellWithReuseIdentifier: TaskCell.identifier)
-        collectionView.isScrollEnabled = false
         
         do {
             collectionView.dataSource = try viewModel.makeDataSource() as? UICollectionViewDataSource
