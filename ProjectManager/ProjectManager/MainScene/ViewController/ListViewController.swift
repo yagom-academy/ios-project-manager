@@ -47,7 +47,7 @@ final class ListViewController: UIViewController {
         snapshot.appendSections([viewModel.taskState])
         snapshot.appendItems(items)
         
-        datasource?.apply(snapshot, animatingDifferences: true)
+        datasource?.apply(snapshot, animatingDifferences: false)
     }
     
     private func deleteSnapshotBySection() {
@@ -59,7 +59,7 @@ final class ListViewController: UIViewController {
     private func deleteSnapshot(by task: Task) {
         snapshot.deleteItems([task])
         
-        datasource?.apply(snapshot)
+        datasource?.apply(snapshot, animatingDifferences: false)
     }
     
     private func makeAlertAction(_ task: Task) -> [UIAlertAction] {
