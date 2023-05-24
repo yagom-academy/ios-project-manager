@@ -252,6 +252,29 @@ extension ToDoListViewContorller: UITableViewDelegate {
         
         self.present(toDoWriteViewController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: "Delete", handler: { action, view, completionHaldler in
+            switch tableView {
+            case self.toDoTableView:
+                self.toDoList.remove(at: indexPath.row)
+                self.toDoTableView.deleteRows(at: [indexPath], with: .fade)
+            case self.doingTableView:
+                self.doingList.remove(at: indexPath.row)
+                self.doingTableView.deleteRows(at: [indexPath], with: .fade)
+            case self.doneTableView:
+                self.doneList.remove(at: indexPath.row)
+                self.doneTableView.deleteRows(at: [indexPath], with: .fade)
+            default:
+                return
+            }
+            completionHaldler(true)
+        })
+        
+        delete.backgroundColor = .systemRed
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
 
 extension ToDoListViewContorller: UITableViewDataSource {
@@ -268,7 +291,6 @@ extension ToDoListViewContorller: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell else { return UITableViewCell() }
         
         if tableView == toDoTableView {
