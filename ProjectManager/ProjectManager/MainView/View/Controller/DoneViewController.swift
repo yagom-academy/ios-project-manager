@@ -74,7 +74,6 @@ final class DoneViewController: UIViewController, TaskCollectionViewController {
         
         do {
             collectionView.dataSource = try viewModel.makeDataSource() as? UICollectionViewDataSource
-            viewModel.applySnapshot()
         } catch {
             print(error.localizedDescription)
         }
@@ -102,8 +101,7 @@ extension DoneViewController: UICollectionViewDelegate {
 
 extension DoneViewController: TaskFetchDelegate {
     func fetchTaskList() {
-        self.viewModel.updateSnapshot()
-        self.viewModel.applySnapshot()
+        
     }
     
     func updateTaskCell(id: UUID?) {

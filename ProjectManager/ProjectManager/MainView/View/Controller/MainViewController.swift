@@ -24,12 +24,27 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureNavigationBar()
         configureRootView()
         addChildren()
         setupViewModelReference()
         configureStackView()
-        mainViewModel.fetchTaskList()
+        mainViewModel.configureCollectionViewModels()
+    }
+    
+    private func configureNavigationBar() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(presentDetailView)
+        )
+    }
+    
+    @objc
+    private func presentDetailView() {
+        let detailViewController = DetailViewController(task: nil, mode: .create)
+        detailViewController.delegate = self
+        self.present(detailViewController, animated: true)
     }
     
     private func configureRootView() {
@@ -57,5 +72,16 @@ final class MainViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
+    }
+}
+
+extension MainViewController: TaskFetchDelegate {
+    func fetchTaskList() {
+        print(#function, "called")
+        self.mainViewModel.configureCollectionViewModels()
+    }
+    
+    func updateTaskCell(id: UUID?) {
+        
     }
 }

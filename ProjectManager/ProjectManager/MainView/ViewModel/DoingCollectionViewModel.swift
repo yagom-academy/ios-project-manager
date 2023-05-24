@@ -52,11 +52,11 @@ final class DoingCollectionViewModel: NSObject, CollectionViewModel {
         return dataSource
     }
     
-    func updateSnapshot() {
+    func updateDataSource() {
         configureSnapshotItems()
     }
     
-    func applyInitialSnapshot() {
+    func configureDataSource() {
         configureSnapshotSection()
         configureSnapshotItems()
         applySnapshot()

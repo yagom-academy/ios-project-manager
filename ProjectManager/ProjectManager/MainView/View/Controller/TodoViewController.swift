@@ -17,7 +17,6 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
         configureRootView()
         configureCollectionViewLayout()
         configureCollectionView()
@@ -35,14 +34,6 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
         }
 
         return layout
-    }
-    
-    private func configureNavigationBar() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(presentDetailView)
-        )
     }
     
     private func configureRootView() {
@@ -79,13 +70,6 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
         
         collectionView.delegate = self
     }
-    
-    @objc
-    private func presentDetailView() {
-        let detailViewController = DetailViewController(task: nil, mode: .create)
-        detailViewController.delegate = self
-        self.present(detailViewController, animated: true)
-    }
 }
 
 extension TodoViewController: UICollectionViewDelegate {
@@ -100,8 +84,7 @@ extension TodoViewController: UICollectionViewDelegate {
 
 extension TodoViewController: TaskFetchDelegate {
     func fetchTaskList() {
-        self.viewModel.updateSnapshot()
-        self.viewModel.applySnapshot()
+        
     }
     
     func updateTaskCell(id: UUID?) {

@@ -21,22 +21,19 @@ final class MainViewModel {
         }
     }
     
-    func fetchTaskList() {
-        taskList = mainCollectionViewService.fetchTaskList()
+    func configureCollectionViewModels() {
+        fetchTaskList()
         distributeTask()
-        applyTask()
+    }
+    
+    private func fetchTaskList() {
+        taskList = mainCollectionViewService.fetchTaskList()
     }
     
     private func distributeTask() {
         viewModelDictionary.forEach { workState, viewModel in
             let taskList = taskList.filter { $0.workState == workState }
             viewModel.items = taskList
-        }
-    }
-    
-    private func applyTask() {
-        viewModelDictionary.forEach { _, viewModel in
-            viewModel.applyInitialSnapshot()
         }
     }
 }

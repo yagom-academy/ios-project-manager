@@ -174,11 +174,11 @@
 		62D600522A1750EB00AD7490 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */,
+				62A63EAF2A1DB33400AF928F /* MainViewModel.swift */,
 				AD4BDE7B2A179EAF0022F3D6 /* TodoCollectionViewModel.swift */,
 				62A63EAB2A1DB27800AF928F /* DoingCollectionViewModel.swift */,
 				62A63EAD2A1DB2E800AF928F /* DoneCollectionViewModel.swift */,
-				62A63EAF2A1DB33400AF928F /* MainViewModel.swift */,
+				AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

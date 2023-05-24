@@ -21,7 +21,11 @@ final class TodoCollectionViewModel: NSObject, CollectionViewModel {
     
     private var cellIdentifier: String
     
-    var items: [Task] = []
+    var items: [Task] = [] {
+        didSet {
+            snapshot.numberOfSections == 1 ? updateDataSource() : configureDataSource()
+        }
+    }
     
     init(collectionView: UICollectionView?, cellReuseIdentifier: String) {
         self.collectionView = collectionView
@@ -52,20 +56,6 @@ final class TodoCollectionViewModel: NSObject, CollectionViewModel {
         return dataSource
     }
     
-    func updateSnapshot() {
-        configureSnapshotItems()
-    }
-    
-    func applyInitialSnapshot() {
-        configureSnapshotSection()
-        configureSnapshotItems()
-        applySnapshot()
-    }
-    
-    func applySnapshot() {
-        dataSource?.apply(snapshot)
-    }
-    
     func updateTask(id: UUID) {
         snapshot.reloadItems([id])
         applySnapshot()
@@ -81,6 +71,17 @@ final class TodoCollectionViewModel: NSObject, CollectionViewModel {
 }
 
 extension TodoCollectionViewModel {
+    private func configureDataSource() {
+        configureSnapshotSection()
+        configureSnapshotItems()
+        applySnapshot()
+    }
+    
+    private func updateDataSource() {
+        configureSnapshotItems()
+        applySnapshot()
+    }
+    
     private func configureSnapshotSection() {
         snapshot.appendSections([.todo])
     }
@@ -88,6 +89,10 @@ extension TodoCollectionViewModel {
     private func configureSnapshotItems() {
         let taskList = items.map { $0.id }
         snapshot.appendItems(taskList, toSection: .todo)
+    }
+    
+    private func applySnapshot() {
+        dataSource?.apply(snapshot)
     }
     
     private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {

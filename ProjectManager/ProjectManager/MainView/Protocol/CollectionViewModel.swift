@@ -14,13 +14,7 @@ protocol CollectionViewModel: AnyObject {
     
     func makeDataSource() throws -> DataSource
     
-    func applySnapshot()
-    
-    func applyInitialSnapshot()
-    
     func task(at: IndexPath) -> Task?
-    
-    func updateSnapshot()
-    
+
     func updateTask(id: UUID)
 }
