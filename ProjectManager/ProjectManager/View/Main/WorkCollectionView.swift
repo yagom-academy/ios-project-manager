@@ -30,6 +30,7 @@ final class WorkCollectionView: UICollectionView {
         configureDataSource()
         applySnapshot()
         addObserver()
+        configureLongPressGesture()
         
         let layout = createLayout()
         collectionViewLayout = layout
@@ -160,5 +161,22 @@ extension WorkCollectionView: UICollectionViewDelegate {
         guard let id = workDataSource?.itemIdentifier(for: indexPath)?.id else { return }
 
         workDelegate?.workCollectionView(self, id: id)
+    }
+}
+
+extension WorkCollectionView: UIGestureRecognizerDelegate {
+    private func configureLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+        
+        longPressGesture.delegate = self
+        addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: self)
+        
+        if gestureRecognizer.state == .began {
+            print(location)
+        }
     }
 }
