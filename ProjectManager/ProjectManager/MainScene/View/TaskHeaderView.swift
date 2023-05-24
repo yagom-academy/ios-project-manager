@@ -10,7 +10,6 @@ import UIKit
 final class TaskHeaderView: UICollectionReusableView {
     
     static let identifier = "TaskHeaderView"
-    
     private let contentsInfoLabelWidth: CGFloat = 30
     private let titleLabel = {
         let label = UILabel()
@@ -45,6 +44,13 @@ final class TaskHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        contentsInfoLabel.text = nil
+    }
+    
     func updateText(by section: TaskState, number: Int) {
         titleLabel.text = section.titleText
         contentsInfoLabel.text = "\(number)"
@@ -67,9 +73,10 @@ extension TaskHeaderView {
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
             
             contentsInfoLabel.widthAnchor.constraint(equalTo: contentsInfoLabel.heightAnchor),
-            contentsInfoLabel.widthAnchor.constraint(equalToConstant: contentsInfoLabelWidth)
+            contentsInfoLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: contentsInfoLabelWidth)
         ])
         
+        contentsInfoLabel.layer.masksToBounds = true
         contentsInfoLabel.layer.cornerRadius = contentsInfoLabelWidth / 2
     }
 }

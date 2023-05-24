@@ -50,6 +50,14 @@ final class TaskListCell: UICollectionViewListCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        descriptionLabel.text = nil
+        dateLabel.text = nil
+    }
+    
     func updateText(by task: Task) {
         titleLabel.text = task.title
         descriptionLabel.text = task.description
