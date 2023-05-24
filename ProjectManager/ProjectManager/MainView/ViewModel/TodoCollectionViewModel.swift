@@ -102,8 +102,8 @@ extension TodoCollectionViewModel {
             return UICollectionViewCell()
         }
         
-        let taskViewModel = TaskCellViewModel(task: task)
-        cell.provide(taskViewModel)
+        let taskCellViewModel = TaskCellViewModel(task: task)
+        cell.provide(taskCellViewModel)
         
         return cell
     }
