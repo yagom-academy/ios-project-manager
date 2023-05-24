@@ -21,13 +21,9 @@ struct TodoLabel: Hashable {
 
 class MainViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
-    private let collectionView = {
-        let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .systemBackground
-        return collectionView
-    }()
+    private let collectionView1 = CustomCollectionView()
+    private let collectionView2 = CustomCollectionView()
+    private let collectionView3 = CustomCollectionView()
     
     private let user = [TodoLabel(title: "Hi!", content: "Andrew!", date: Date()), TodoLabel(title: "Hello~", content: "Brody!", date: Date())]
 
@@ -40,9 +36,29 @@ class MainViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addSubview(collectionView)
+        view.addSubview(collectionView1)
+        view.addSubview(collectionView2)
+        view.addSubview(collectionView3)
     
-        collectionView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        collectionView1.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.width.equalToSuperview().multipliedBy(0.33)
+            $0.bottom.equalTo(-100)
+        }
+        
+        collectionView2.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.equalTo(collectionView1.snp.trailing)
+            $0.trailing.equalTo(collectionView3.snp.leading)
+            $0.bottom.equalTo(-100)
+        }
+        
+        collectionView3.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.width.equalToSuperview().multipliedBy(0.33)
+            $0.bottom.equalTo(-100)
+        }
+        
     }
     
     private func configureNavigation() {
@@ -63,7 +79,17 @@ extension MainViewController {
             cell.configure(title: todo.title, content: todo.content, date: todo.date)
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView1) {
+            (collectionView, indexPath, todo) -> UICollectionViewCell? in
+            return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: todo)
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView2) {
+            (collectionView, indexPath, todo) -> UICollectionViewCell? in
+            return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: todo)
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView3) {
             (collectionView, indexPath, todo) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: todo)
         }
@@ -75,59 +101,4 @@ extension MainViewController {
         snapshot.appendItems(user, toSection: .done)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
-    
-    private func createLayout() -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                             heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .absolute(44))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                         subitems: [item])
-
-        let section = NSCollectionLayoutSection(group: group)
-        
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
-        return layout
-    }
-    
-//    private func createLayout() -> UICollectionViewCompositionalLayout {
-//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-//                                             heightDimension: .fractionalHeight(1.0))
-//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//
-//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-//                                              heightDimension: .absolute(44))
-//        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-//                                                       subitems: [item])
-//
-//        let sectionSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-//                                                 heightDimension: .estimated(200)) // Set an estimated height for the section
-//
-//        let section = NSCollectionLayoutSection(group: group)
-//        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10) // Adjust insets if needed
-//
-//
-//        let numberOfSections = 3
-//
-//        // Create a nested group to achieve multiple sections horizontally
-//        let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-//                                                     heightDimension: .estimated(200)) // Set an estimated height for the nested group
-//
-//        let nestedGroup = NSCollectionLayoutGroup.vertical(layoutSize: nestedGroupSize, subitem: group, count: numberOfSections)
-//
-//        // Add the nested group to the section
-//        section.boundarySupplementaryItems = [
-//            NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-//        ]
-//
-//        // Layout
-//        let layout = UICollectionViewCompositionalLayout(section: section)
-//        return layout
-//    }
-    
-    
 }
