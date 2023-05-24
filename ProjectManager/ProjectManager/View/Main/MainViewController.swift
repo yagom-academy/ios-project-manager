@@ -120,4 +120,9 @@ extension MainViewController: UICollectionViewDelegate, WorkCollectionViewDelega
         
         self.present(navigationController, animated: true)
     }
+    
+    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkStatus) {
+        viewModel.currentID = id
+        viewModel.move(status: status)
+    }
 }

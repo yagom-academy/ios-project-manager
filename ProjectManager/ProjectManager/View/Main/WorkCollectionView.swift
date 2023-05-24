@@ -9,6 +9,7 @@ import UIKit
 
 protocol WorkCollectionViewDelegate: AnyObject {
     func workCollectionView(_ collectionView: WorkCollectionView, id: UUID)
+    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkStatus)
 }
 
 final class WorkCollectionView: UICollectionView {
@@ -167,16 +168,19 @@ extension WorkCollectionView: UICollectionViewDelegate {
 extension WorkCollectionView: UIGestureRecognizerDelegate {
     private func configureLongPressGesture() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
-        
+
         longPressGesture.delegate = self
         addGestureRecognizer(longPressGesture)
     }
-    
+
     @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: self)
-        
+
         if gestureRecognizer.state == .began {
-            print(location)
+            guard let indexPath = self.indexPathForItem(at: location),
+                  let id = workDataSource?.itemIdentifier(for: indexPath)?.id else { return }
+
+            workDelegate?.workCollectionView(self, moveWork: id, toStatus: .done)
         }
     }
 }

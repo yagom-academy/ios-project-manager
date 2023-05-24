@@ -58,6 +58,13 @@ final class WorkViewModel {
         works.remove(at: index)
     }
     
+    func move(status: WorkStatus) {
+        guard let index = fetchWorkIndex() else { return }
+        
+        works[index].status = status.title
+        NotificationCenter.default.post(name: .updateSnapShot, object: nil)
+    }
+    
     func fetchWorkCount(of status: WorkStatus) -> Int {
         let filteredWorks = works.filter { $0.status == status.title }
         
