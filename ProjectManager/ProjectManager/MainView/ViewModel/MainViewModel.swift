@@ -21,23 +21,22 @@ final class MainViewModel {
         }
     }
     
-    private func fetchTaskList() {
+    func fetchTaskList() {
         taskList = mainCollectionViewService.fetchTaskList()
+        distributeTask()
+        applyTask()
     }
     
     private func distributeTask() {
-        guard let todoCollectionViewModel = viewModelDictionary[.todo],
-              let doingCollectionViewModel = viewModelDictionary[.doing],
-              let doneCollectionViewModel = viewModelDictionary[.doing] else {
-            return
+        viewModelDictionary.forEach { workState, viewModel in
+            let taskList = taskList.filter { $0.workState == workState }
+            viewModel.items = taskList
         }
-        
-        let todoTaskList = taskList.filter { $0.workState == .todo }
-        let doingTaskList = taskList.filter { $0.workState == .doing }
-        let doneTaskList = taskList.filter { $0.workState == .done }
-        
-        todoCollectionViewModel.items = todoTaskList
-        doingCollectionViewModel.items = doingTaskList
-        doneCollectionViewModel.items = doneTaskList
+    }
+    
+    private func applyTask() {
+        viewModelDictionary.forEach { _, viewModel in
+            viewModel.applyInitialSnapshot()
+        }
     }
 }

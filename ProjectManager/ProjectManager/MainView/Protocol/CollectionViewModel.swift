@@ -16,6 +16,8 @@ protocol CollectionViewModel: AnyObject {
     
     func applySnapshot()
     
+    func applyInitialSnapshot()
+    
     func task(at: IndexPath) -> Task?
     
     func updateSnapshot()

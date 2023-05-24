@@ -113,15 +113,17 @@ extension DoingCollectionViewModel {
         snapshot.appendItems(doneList, toSection: .done)
     }
     
-    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
+    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: cellIdentifier,
             for: indexPath
         ) as? TaskCell else {
-            return nil
+            return UICollectionViewCell()
         }
         
-        let task = items.filter { $0.id == identifier }[0]
+        guard let task = items.filter { $0.id == identifier }[safe: 0] else {
+            return UICollectionViewCell()
+        }
         let taskViewModel = TaskCellViewModel(task: task)
         
         cell.provide(taskViewModel)
@@ -130,4 +132,8 @@ extension DoingCollectionViewModel {
     }
 }
 
-extension DoingCollectionViewModel: CollectionViewModel { }
+extension DoingCollectionViewModel: CollectionViewModel {
+    func applyInitialSnapshot() {
+        
+    }
+}

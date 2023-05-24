@@ -70,11 +70,9 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
     
     private func configureCollectionView() {
         collectionView.register(TaskCell.self, forCellWithReuseIdentifier: TaskCell.identifier)
-        collectionView.isScrollEnabled = false
         
         do {
             collectionView.dataSource = try viewModel.makeDataSource() as? UICollectionViewDataSource
-            viewModel.applySnapshot()
         } catch {
             print(error.localizedDescription)
         }

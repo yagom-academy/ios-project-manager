@@ -118,10 +118,12 @@ extension DoneCollectionViewModel {
             withReuseIdentifier: cellIdentifier,
             for: indexPath
         ) as? TaskCell else {
-            return nil
+            return UICollectionViewCell()
         }
         
-        let task = items.filter { $0.id == identifier }[0]
+        guard let task = items.filter { $0.id == identifier }[safe: 0] else {
+            return UICollectionViewCell()
+        }
         let taskViewModel = TaskCellViewModel(task: task)
         
         cell.provide(taskViewModel)
@@ -130,4 +132,8 @@ extension DoneCollectionViewModel {
     }
 }
 
-extension DoneCollectionViewModel: CollectionViewModel { }
+extension DoneCollectionViewModel: CollectionViewModel {
+    func applyInitialSnapshot() {
+        
+    }
+}

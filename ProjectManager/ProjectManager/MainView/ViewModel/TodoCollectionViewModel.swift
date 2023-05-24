@@ -10,8 +10,6 @@ import UIKit
 final class TodoCollectionViewModel: NSObject, CollectionViewModel {
     enum Section {
         case todo
-        case doing
-        case done
     }
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Task.ID>
@@ -30,8 +28,6 @@ final class TodoCollectionViewModel: NSObject, CollectionViewModel {
         self.cellIdentifier = cellReuseIdentifier
         
         super.init()
-        configureSnapshotSection()
-        configureSnapshotItems()
     }
     
     func makeDataSource() throws -> DataSource {
@@ -60,6 +56,12 @@ final class TodoCollectionViewModel: NSObject, CollectionViewModel {
         configureSnapshotItems()
     }
     
+    func applyInitialSnapshot() {
+        configureSnapshotSection()
+        configureSnapshotItems()
+        applySnapshot()
+    }
+    
     func applySnapshot() {
         dataSource?.apply(snapshot)
     }
@@ -74,37 +76,18 @@ final class TodoCollectionViewModel: NSObject, CollectionViewModel {
     }
     
     func task(at indexPath: IndexPath) -> Task? {
-        var targetList = [Task]()
-        
-        switch indexPath.section {
-        case 0:
-            targetList = items.filter { $0.workState == .todo }
-        case 1:
-            targetList = items.filter { $0.workState == .doing }
-        case 2:
-            targetList = items.filter { $0.workState == .done }
-        default:
-            break
-        }
-        
-        return targetList[safe: indexPath.row]
+        return items[safe: indexPath.row]
     }
 }
 
 extension TodoCollectionViewModel {
-    
     private func configureSnapshotSection() {
-        snapshot.appendSections([.todo, .doing, .done])
+        snapshot.appendSections([.todo])
     }
     
     private func configureSnapshotItems() {
-        let todoList = items.filter { $0.workState == .todo }.map { $0.id }
-        let doingList = items.filter { $0.workState == .doing }.map { $0.id }
-        let doneList = items.filter { $0.workState == .done }.map { $0.id }
-        
-        snapshot.appendItems(todoList, toSection: .todo)
-        snapshot.appendItems(doingList, toSection: .doing)
-        snapshot.appendItems(doneList, toSection: .done)
+        let taskList = items.map { $0.id }
+        snapshot.appendItems(taskList, toSection: .todo)
     }
     
     private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
@@ -112,12 +95,14 @@ extension TodoCollectionViewModel {
             withReuseIdentifier: cellIdentifier,
             for: indexPath
         ) as? TaskCell else {
-            return nil
+            return UICollectionViewCell()
         }
         
-        let task = items.filter { $0.id == identifier }[0]
-        let taskViewModel = TaskCellViewModel(task: task)
+        guard let task = items.filter({ $0.id == identifier }).first else {
+            return UICollectionViewCell()
+        }
         
+        let taskViewModel = TaskCellViewModel(task: task)
         cell.provide(taskViewModel)
         
         return cell

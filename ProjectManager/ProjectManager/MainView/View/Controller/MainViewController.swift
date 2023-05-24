@@ -27,7 +27,9 @@ final class MainViewController: UIViewController {
         
         configureRootView()
         addChildren()
+        setupViewModelReference()
         configureStackView()
+        mainViewModel.fetchTaskList()
     }
     
     private func configureRootView() {
@@ -37,13 +39,12 @@ final class MainViewController: UIViewController {
     
     private func addChildren() {
         self.addChild(TodoViewController())
-        self.addChild(DoingViewController())
-        self.addChild(DoneViewController())
+//        self.addChild(DoingViewController())
+//        self.addChild(DoneViewController())
     }
     
     private func setupViewModelReference() {
         self.mainViewModel.assignChildViewModel(of: self.children)
-        
     }
     
     private func configureStackView() {
