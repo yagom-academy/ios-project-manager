@@ -108,13 +108,19 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         
         guard let cell = projectManagerCollectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as? ProjectCell else { return ProjectCell() }
         
-        
         let assignedProjects = projects.list.filter { $0.status == status }
         let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
         let project = sortedAssignedProjects[indexPath.item]
+        let date = project.date.formatDate()
         
-        cell.configureContent(title: project.title, body: project.body, date: project.date)
-        cell.changeDateColor()
+        cell.configureContent(title: project.title, body: project.body, date: date)
+        
+        if date < Date().formatDate() {
+            cell.changeDateColor(isOverdue: true)
+        } else {
+            cell.changeDateColor(isOverdue: false)
+        }
+        
         cell.deleteRow = {
             guard let removeIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
             self.projects.list.remove(at: removeIndex)
