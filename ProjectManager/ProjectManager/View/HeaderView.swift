@@ -55,15 +55,7 @@ final class HeaderView: UICollectionReusableView {
     }
     
     func configureContent(status: Status, number: String) {
-        switch status {
-        case .todo:
-            statusLabel.text = "TODO"
-        case .doing:
-            statusLabel.text = "DOING"
-        case .done:
-            statusLabel.text = "DONE"
-        }
-        
+        statusLabel.text = status.title
         numberLabel.text = number
     }
     
