@@ -71,7 +71,8 @@ final class ProjectManagerViewController: UIViewController {
         let rootViewController = DetailProjectViewController()
         rootViewController.configureEditingStatus(isEditible: true)
         
-        rootViewController.dismissHandler = {
+        rootViewController.dismissHandler = { project in
+            self.projects.list.append(project)
             self.projectManagerCollectionView.reloadData()
         }
         
@@ -173,7 +174,12 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
                 let rootViewController = DetailProjectViewController()
                 rootViewController.configureEditingStatus(isEditible: false)
                 
-                rootViewController.dismissHandler = {
+                rootViewController.dismissHandler = { project in
+                    guard let projectIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
+                    
+                    self.projects.list[projectIndex].title = project.title
+                    self.projects.list[projectIndex].body = project.body
+                    self.projects.list[projectIndex].date = project.date
                     self.projectManagerCollectionView.reloadData()
                 }
                 

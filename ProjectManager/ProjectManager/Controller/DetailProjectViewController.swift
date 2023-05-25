@@ -7,10 +7,8 @@
 import UIKit
 
 final class DetailProjectViewController: UIViewController {
-    private var projects = Projects.shared
     private var project: Project?
-    var dismissHandler: (() -> ())?
-    
+    var dismissHandler: ((Project) -> ())?
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -136,16 +134,17 @@ final class DetailProjectViewController: UIViewController {
         }
         
         if project == nil {
-            let project = Project(title: title, body: body, date: date, status: .todo)
-            projects.list.append(project)
+            project = Project(title: title, body: body, date: date, status: .todo)
         } else {
-            guard let editIndex = self.projects.list.firstIndex(where: { $0.id == project?.id }) else { return }
-            projects.list[editIndex].title = title
-            projects.list[editIndex].date = date
-            projects.list[editIndex].body = body
+            project?.title = title
+            project?.body = body
+            project?.date = date
         }
         
-        dismissHandler?()
+        guard let project else { return }
+        
+        dismissHandler?(project)
+        
         self.dismiss(animated: true)
     }
     
