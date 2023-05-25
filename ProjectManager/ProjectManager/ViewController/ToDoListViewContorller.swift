@@ -13,10 +13,6 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         case doingTableView
         case doneTableView
     }
-
-    private var toDoList: [ToDoList] = []
-    private var doingList: [ToDoList] = []
-    private var doneList: [ToDoList] = []
     
     func sendTodoList(data: ToDoList, isCreatMode: Bool) {
         if isCreatMode == true {
@@ -29,6 +25,110 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         reloadTableView()
     }
     
+    // MARK: tableView, cellCountCircleView
+    private var todoCellCount: Int = 0
+    private var doingCellCount: Int = 0
+    private var doneCellCount: Int = 0
+    
+    lazy var toDoCircleView = createCellCountCircleView(cellCount: todoCellCount)
+    lazy var doingCircleView = createCellCountCircleView(cellCount: doingCellCount)
+    lazy var doneCircleView = createCellCountCircleView(cellCount: doneCellCount)
+    
+    private var toDoList: [ToDoList] = [] {
+        didSet {
+            todoCellCount = toDoList.count
+            updateCircleView(cellCount: todoCellCount, circleView: toDoCircleView)
+            reloadTableView()
+        }
+    }
+    private var doingList: [ToDoList] = [] {
+        didSet {
+            doingCellCount = doingList.count
+            updateCircleView(cellCount: doingCellCount, circleView: toDoCircleView)
+            reloadTableView()
+        }
+    }
+    private var doneList: [ToDoList] = [] {
+        didSet {
+            doneCellCount = doneList.count
+            updateCircleView(cellCount: doneCellCount, circleView: toDoCircleView)
+            reloadTableView()
+        }
+    }
+    
+    lazy var toDoTableView = createTableView(title: "TODO",
+                                             cellCount: todoCellCount,
+                                             circleView: toDoCircleView)
+    lazy var doingTableView = createTableView(title: "DOING",
+                                              cellCount: doingCellCount,
+                                              circleView: doingCircleView)
+    lazy var doneTableView = createTableView(title: "DONE",
+                                             cellCount: doneCellCount,
+                                             circleView: doneCircleView)
+    
+    private func createTableView(title: String, cellCount: Int, circleView: UIView) -> UITableView {
+        let tableview = UITableView()
+        tableview.backgroundColor = .systemGray6
+        let headerView = UIView()
+        
+        let headerLabel = UILabel()
+        headerLabel.text = title
+        headerLabel.font = .systemFont(ofSize: 32, weight: .medium)
+        headerLabel.textAlignment = .natural
+        
+        let circleView = circleView
+        
+        headerView.addSubview(headerLabel)
+        headerView.addSubview(circleView)
+        
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        circleView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
+            headerLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            circleView.leadingAnchor.constraint(equalTo: headerLabel.trailingAnchor, constant: 16),
+            circleView.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
+            circleView.widthAnchor.constraint(equalToConstant: 32),
+            circleView.heightAnchor.constraint(equalToConstant: 32)
+        ])
+        
+        headerView.frame = CGRect(x: 0, y: 0, width: tableview.frame.size.width, height: 60)
+        tableview.tableHeaderView = headerView
+        
+        return tableview
+    }
+    
+    private func createCellCountCircleView(cellCount: Int) -> UIView {
+        let circleView = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+        circleView.layer.cornerRadius = circleView.frame.width / 2
+        circleView.backgroundColor = .black
+        
+        let cellCountLabel = UILabel()
+        cellCountLabel.text = String(cellCount)
+        cellCountLabel.textColor = .white
+        cellCountLabel.font = .systemFont(ofSize: 16)
+        
+        circleView.addSubview(cellCountLabel)
+        cellCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cellCountLabel.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
+            cellCountLabel.centerYAnchor.constraint(equalTo: circleView.centerYAnchor) ])
+        
+        return circleView
+    }
+    
+    private func updateCircleView(cellCount: Int, circleView: UIView) {
+        let circleView = circleView
+        guard let cellCountLabel = circleView.subviews.compactMap({ $0 as? UILabel }).first else { return }
+        
+        if cellCount > 99 {
+            cellCountLabel.text = "99+"
+        } else if cellCount > 0 {
+            cellCountLabel.text = String(cellCount)
+        }
+    }
+    
     private let toDoStackView: UIStackView = {
         let stackview = UIStackView()
         stackview.axis = .horizontal
@@ -36,34 +136,10 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         return stackview
     }()
     
-    lazy var toDoTableView = createTableView(title: "TODO")
-    lazy var doingTableView = createTableView(title: "DOING")
-    lazy var doneTableView = createTableView(title: "DONE")
-    
     private func reloadTableView() {
         toDoTableView.reloadData()
         doingTableView.reloadData()
         doneTableView.reloadData()
-    }
-    
-    private func createTableView(title: String) -> UITableView {
-        let tableview = UITableView()
-        tableview.backgroundColor = .systemGray6
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 60))
-        
-        let headerLabel = UILabel(frame: headerView.bounds)
-        headerLabel.text = title
-        headerLabel.font = .systemFont(ofSize: 32,weight: .medium)
-        headerLabel.textAlignment = .natural
-        headerView.addSubview(headerLabel)
-        
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20)
-        ])
-        tableview.tableHeaderView = headerView
-        
-        return tableview
     }
     
     override func viewDidLoad() {
@@ -72,6 +148,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         configureNavigationBar()
         setUpTableView()
         configureViewUI()
+        
     }
     
     // MARK: LongTouchPress, Popover
@@ -152,7 +229,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
             guard let todoListIndex = toDoList.firstIndex(where: { $0.title == selectedData.title }) else { return }
             let removedItem = toDoList.remove(at: todoListIndex)
             if targetTableView == .doingTableView {
-                    doingList.append(removedItem)
+                doingList.append(removedItem)
             } else if targetTableView == .doneTableView {
                 doneList.append(removedItem)
             }
@@ -162,7 +239,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
             let removedItem = doingList.remove(at: doingListIndex)
             
             if targetTableView == .todoTableView {
-                    toDoList.append(removedItem)
+                toDoList.append(removedItem)
             } else if targetTableView == .doneTableView {
                 doneList.append(removedItem)
             }
@@ -172,7 +249,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
             let removedItem = doneList.remove(at: doneListIndex)
             
             if targetTableView == .todoTableView {
-                    toDoList.append(removedItem)
+                toDoList.append(removedItem)
             } else if targetTableView == .doingTableView {
                 doingList.append(removedItem)
             }
@@ -272,7 +349,6 @@ extension ToDoListViewContorller: UITableViewDelegate {
         })
         
         delete.backgroundColor = .systemRed
-        
         return UISwipeActionsConfiguration(actions: [delete])
     }
 }
