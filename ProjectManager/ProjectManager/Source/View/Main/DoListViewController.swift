@@ -39,16 +39,20 @@ class DoListViewController: UIViewController {
         self.mainViewModel = viewModel
         self.scheduleType = type
         super.init(nibName: nil, bundle: nil)
-        
-        configureUI()
-        configureDataSource()
-        configureHeaderViewTitle()
-        setupViewModelBind()
-        collectionView.delegate = self
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+         super.viewDidLoad()
+        configureUI()
+        configureDataSource()
+        configureHeaderViewTitle()
+        setupViewModelBind()
+        configureLongPressGesture()
+        configureCollectionViewDelegate()
     }
     
     private func configureUI() {
@@ -81,6 +85,7 @@ class DoListViewController: UIViewController {
             }
             let schedule = self.mainViewModel.todoSchedules.value[indexPath.row]
             cell.configureUI()
+
             cell.configureLabel(schedule: schedule)
             
             return cell
@@ -155,6 +160,27 @@ class DoListViewController: UIViewController {
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+    
+    private func configureCollectionViewDelegate() {
+        collectionView.delegate = self
+    }
+    
+    private func presentPopover(touchedLocation: CGPoint) {
+        let locationX = touchedLocation.x
+        let locationY = touchedLocation.y
+
+        let alertController = UIAlertController(title: "Move", message: nil, preferredStyle: .actionSheet)
+        let popover = alertController.popoverPresentationController
+        alertController.addAction(UIAlertAction(title: "Todo", style: .default) {_ in
+            print("zxczxc")
+        })
+        alertController.addAction(UIAlertAction(title: "Doing", style: .default) {_ in
+            print("zxczxc")
+        })
+        popover?.sourceView = view
+        popover?.sourceRect = CGRect(x: locationX, y: locationY, width: 64, height: 64)
+        present(alertController, animated: true)
+    }
 }
 
 extension DoListViewController: UICollectionViewDelegate {
@@ -168,5 +194,32 @@ extension DoListViewController: UICollectionViewDelegate {
         modalViewController.preferredContentSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.7)
         
         present(modalNavigationController, animated: true, completion: nil)
+    }
+}
+
+extension DoListViewController: UIGestureRecognizerDelegate {
+    private func configureLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self,
+                                                            action: #selector(pushLongPress(gestureRecognizer:)))
+        longPressGesture.minimumPressDuration = 0.5
+        longPressGesture.delaysTouchesBegan = true
+        longPressGesture.delegate = self
+        collectionView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc
+    private func pushLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        
+        let location = gestureRecognizer.location(in: collectionView)
+        
+        guard gestureRecognizer.state == .began else { return }
+        
+        guard let indexPath = collectionView.indexPathForItem(at: location),
+              
+                let cell = collectionView.cellForItem(at: indexPath) as? ScheduleCell else { return }
+        
+        presentPopover(touchedLocation: location)
+        
+        print("success")
     }
 }
