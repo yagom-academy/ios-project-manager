@@ -8,7 +8,8 @@ import UIKit
 
 class CustomCollectionView: UICollectionView {
     init() {
-        let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
+        configuration.headerMode = .supplementary
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         super.init(frame: .zero, collectionViewLayout: layout)
         backgroundColor = .systemBackground

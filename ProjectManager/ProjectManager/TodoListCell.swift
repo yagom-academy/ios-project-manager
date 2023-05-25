@@ -20,6 +20,8 @@ class TodoListCell: UICollectionViewListCell {
     
     private let dateLabel = {
         let label = UILabel()
+        label.numberOfLines = 3
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
@@ -43,7 +45,7 @@ class TodoListCell: UICollectionViewListCell {
         cellStackView.addArrangedSubview(titleLabel)
         cellStackView.addArrangedSubview(contentLabel)
         cellStackView.addArrangedSubview(dateLabel)
-        
+    
         cellStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

@@ -8,9 +8,7 @@ import UIKit
 import SnapKit
 
 enum Section {
-    case todo
-    case doing
-    case done
+    case main
 }
 
 struct TodoLabel: Hashable {
@@ -34,8 +32,8 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
-    private let user = [TodoLabel(title: "Hi!", content: "Andrew!", date: Date()), TodoLabel(title: "Hello~", content: "Brody!", date: Date())]
-
+    private let user = [TodoLabel(title: "Hi!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!", content: "Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!", date: Date()), TodoLabel(title: "Hello~", content: "Brody!", date: Date())]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigation()
@@ -53,21 +51,6 @@ class MainViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(-50)
         }
-        
-//        collectionView1.snp.makeConstraints {
-//            $0.width.equalToSuperview().multipliedBy(0.333)
-//            $0.height.equalToSuperview()
-//        }
-//
-//        collectionView2.snp.makeConstraints {
-//            $0.width.equalToSuperview().multipliedBy(0.333)
-//            $0.height.equalToSuperview()
-//        }
-//
-//        collectionView3.snp.makeConstraints {
-//            $0.width.equalToSuperview().multipliedBy(0.333)
-//            $0.height.equalToSuperview()
-//        }
     }
     
     private func configureNavigation() {
@@ -87,27 +70,59 @@ extension MainViewController {
         let registration = UICollectionView.CellRegistration<TodoListCell, TodoLabel> { cell, IndexPath, todo in
             cell.configure(title: todo.title, content: todo.content, date: todo.date)
         }
+        let headerRegistration = UICollectionView.SupplementaryRegistration
+        <CollectionViewHeader>(elementKind: UICollectionView.elementKindSectionHeader) {
+            (headerView, elementKind, indexPath) in
+            let headerItem = self.dataSource1?.snapshot().sectionIdentifiers[indexPath.section]
+//            let headerItem = self.dataSource1?.snapshot().sectionIdentifiers[indexPath.section]
+            headerView.headerLabel.text = "TODO"
+            headerView.cellCountLabel.text = "1"
+        }
+        
+        let headerRegistration1 = UICollectionView.SupplementaryRegistration
+        <CollectionViewHeader>(elementKind: UICollectionView.elementKindSectionHeader) {
+            (headerView, elementKind, indexPath) in
+//            let headerItem = self.dataSource1?.snapshot().sectionIdentifiers[indexPath.section]
+            headerView.headerLabel.text = "DOING"
+            headerView.cellCountLabel.text = "2"
+        }
         
         dataSource1 = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView1) {
             (collectionView, indexPath, todo) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: todo)
         }
         
+        dataSource1?.supplementaryViewProvider = {
+            (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
+            return self.collectionView1.dequeueConfiguredReusableSupplementary(
+                using: headerRegistration, for: indexPath)
+        }
+        
         dataSource2 = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView2) {
             (collectionView, indexPath, todo) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: todo)
         }
-
+        
+        dataSource2?.supplementaryViewProvider = {
+            (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
+            return self.collectionView2.dequeueConfiguredReusableSupplementary(
+                using: headerRegistration1, for: indexPath)
+        }
+        
         dataSource3 = UICollectionViewDiffableDataSource<Section, TodoLabel>(collectionView: collectionView3) {
             (collectionView, indexPath, todo) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: todo)
         }
-
+        
+        dataSource3?.supplementaryViewProvider = {
+            (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
+            return self.collectionView3.dequeueConfiguredReusableSupplementary(
+                using: headerRegistration, for: indexPath)
+        }
+        
         var snapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
-        snapshot.appendSections([.todo, .doing, .done])
-        snapshot.appendItems(user, toSection: .todo)
-        snapshot.appendItems(user, toSection: .doing)
-        snapshot.appendItems(user, toSection: .done)
+        snapshot.appendSections([.main])
+        snapshot.appendItems(user, toSection: .main)
         dataSource1?.apply(snapshot, animatingDifferences: true)
         dataSource2?.apply(snapshot, animatingDifferences: true)
         dataSource3?.apply(snapshot, animatingDifferences: true)
