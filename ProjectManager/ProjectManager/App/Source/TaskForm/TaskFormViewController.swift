@@ -105,7 +105,7 @@ final class TaskFormViewController: UIViewController {
             self?.dismiss(animated: true)
         }
         
-        viewModel.dismissOrEditableIfNeeded(action: action)
+        viewModel.cancelOrEditAction(action: action)
     }
     
     @objc private func rightBarButtonAction() {

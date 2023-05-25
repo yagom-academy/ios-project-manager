@@ -42,7 +42,7 @@ final class TaskFormViewModel {
         isEditable = (task == nil)
     }
 
-    func dismissOrEditableIfNeeded(action: (() -> Void)?) {
+    func cancelOrEditAction(action: (() -> Void)?) {
         if task == nil {
             action?()
             
