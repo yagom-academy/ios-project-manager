@@ -44,8 +44,9 @@ final class MainViewController: UIViewController {
         let plusBarbutton = UIBarButtonItem(barButtonSystemItem: .add,
                                             target: self,
                                             action: #selector(addTask))
+        let title = "Project Manager"
         
-        navigationItem.title = "Project Manager"
+        navigationItem.title = title
         navigationItem.rightBarButtonItem = plusBarbutton
     }
     

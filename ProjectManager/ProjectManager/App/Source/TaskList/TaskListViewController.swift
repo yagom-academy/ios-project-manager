@@ -128,8 +128,10 @@ final class TaskListViewController: UIViewController {
     }
     
     private func makeSwipeAction(_ indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteActionTitle = "Delete"
         let deleteAction = UIContextualAction(style: .destructive,
-                                              title: "Delete") { [weak self] _, _, handler in
+                                              title: deleteActionTitle) {
+            [weak self] _, _, handler in
             self?.viewModel.delete(indexPath: indexPath)
             handler(true)
         }

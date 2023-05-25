@@ -27,9 +27,10 @@ final class TaskFormViewController: UIViewController {
     
     private let textField = {
         let textField = UITextField()
+        let placeholderText = "Title"
         
         textField.backgroundColor = .white
-        textField.placeholder = "Title"
+        textField.placeholder = placeholderText
         textField.font = .preferredFont(forTextStyle: .title1)
         textField.layer.shadowColor = UIColor.black.cgColor
         textField.layer.shadowOffset = CGSize(width: 0, height: 3)
