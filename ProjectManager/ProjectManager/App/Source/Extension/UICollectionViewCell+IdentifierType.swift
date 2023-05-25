@@ -1,5 +1,5 @@
 //
-//  UICollectionViewCell+IdentifierType.swift
+//  UICollectionViewCell+ReuseIdentifying.swift
 //  ProjectManager
 //
 //  Created by Harry, KokkiLE on 2023/05/17.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-public protocol IdentifierType {}
+public protocol ReuseIdentifying {}
 
-extension IdentifierType {
-    public static var identifier: String {
+extension ReuseIdentifying {
+    public static var reuseIdentifier: String {
         return String(describing: self)
     }
 }
 
-extension UICollectionViewCell: IdentifierType {}
+extension UICollectionViewCell: ReuseIdentifying {}

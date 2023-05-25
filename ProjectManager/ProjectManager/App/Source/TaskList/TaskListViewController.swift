@@ -23,7 +23,7 @@ final class TaskListViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: -35, left: 0, bottom: 0, right: 0)
         collectionView.backgroundColor = .systemGray6
         collectionView.register(TaskListCell.self,
-                                forCellWithReuseIdentifier: TaskListCell.identifier)
+                                forCellWithReuseIdentifier: TaskListCell.reuseIdentifier)
         
         return collectionView
     }()
@@ -104,7 +104,7 @@ final class TaskListViewController: UIViewController {
     private func setupDataSource() {
         dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, task in
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: TaskListCell.identifier,
+                withReuseIdentifier: TaskListCell.reuseIdentifier,
                 for: indexPath
             ) as? TaskListCell else { return UICollectionViewCell() }
             
