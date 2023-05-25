@@ -108,7 +108,7 @@ final class TaskListViewController: UIViewController {
                 for: indexPath
             ) as? TaskListCell else { return UICollectionViewCell() }
             
-            cell.bind(task)
+            cell.configure(task)
             
             return cell
         }

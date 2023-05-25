@@ -69,6 +69,14 @@ final class TaskListCell: UICollectionViewCell {
         layer.shadowRadius = 1
     }
     
+    func configure(_ task: MyTask) {
+        titleLabel.text = task.title
+        bodyLabel.text = task.body
+        deadlineLabel.text = DateFormatter.deadlineText(date: task.deadline)
+        deadlineLabel.textColor = viewModel.decideDeadlineColor(state: task.state,
+                                                                date: task.deadline)
+    }
+    
     private func setupView() {
         backgroundColor = .systemBackground
         
@@ -92,33 +100,5 @@ final class TaskListCell: UICollectionViewCell {
             stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
-    }
-    
-    func bind(_ task: MyTask) {
-        viewModel.updateContents(by: task)
-        
-        viewModel.$title
-            .sink { [weak self] in
-                self?.titleLabel.text = $0
-            }
-            .store(in: &subscriptions)
-        
-        viewModel.$body
-            .sink { [weak self] in
-                self?.bodyLabel.text = $0
-            }
-            .store(in: &subscriptions)
-        
-        viewModel.$deadlineText
-            .sink { [weak self] in
-                self?.deadlineLabel.text = $0
-            }
-            .store(in: &subscriptions)
-        
-        viewModel.$deadlineColor
-            .sink { [weak self] in
-                self?.deadlineLabel.textColor = $0
-            }
-            .store(in: &subscriptions)
     }
 }
