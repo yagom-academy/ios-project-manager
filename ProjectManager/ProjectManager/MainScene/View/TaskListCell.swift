@@ -29,7 +29,7 @@ final class TaskListCell: UICollectionViewListCell {
         
         return label
     }()
-    private let dateLabel = {
+    private let deadlineDateLabel = {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,14 +55,14 @@ final class TaskListCell: UICollectionViewListCell {
         
         titleLabel.text = nil
         descriptionLabel.text = nil
-        dateLabel.text = nil
+        deadlineDateLabel.text = nil
     }
     
     func updateText(by task: Task) {
         titleLabel.text = task.title
         descriptionLabel.text = task.description
-        dateLabel.text = task.date.formattedText
-        dateLabel.textColor = calculateDateLabelText(task)
+        deadlineDateLabel.text = task.date.formattedText
+        deadlineDateLabel.textColor = calculateDateLabelText(task)
     }
     
     private func calculateDateLabelText(_ task: Task) -> UIColor {
@@ -81,7 +81,7 @@ final class TaskListCell: UICollectionViewListCell {
 // MARK: UI
 extension TaskListCell {
     private func configureUI() {
-        let mainStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, dateLabel])
+        let mainStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, deadlineDateLabel])
         
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.axis = .vertical
