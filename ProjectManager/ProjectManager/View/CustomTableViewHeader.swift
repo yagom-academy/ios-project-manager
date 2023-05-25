@@ -18,8 +18,6 @@ class CustomTableViewHeader: UITableViewHeaderFooterView {
         stackView.layoutMargins = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.layer.borderColor = UIColor.gray.cgColor
-//        stackView.layer.borderWidth = 1
         
         return stackView
     }()
@@ -58,7 +56,7 @@ class CustomTableViewHeader: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureContent(state: State, data: [ToDoModel]) {
+    func configureContent(state: State, data: [ProjectModel]) {
         titleLabel.text = state.title
         countLabel.text = data.filter({ $0.state == state }).count.description
     }

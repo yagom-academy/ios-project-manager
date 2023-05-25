@@ -8,29 +8,59 @@
 import Foundation
 
 final class ListViewModel {
-    var todoList: [ToDoModel] = [ToDoModel(title: "할 일 제목1할 일 제목1할 일 제목1할 일 제목1할 일 제목1할 일 제목1할 일 제목1할 일 제목1", description: "할 일 내용1", deadLine: Date(), state: .Todo),
-                                 ToDoModel(title: "할 일 제목2", description: "할 일 내용2", deadLine: Date(), state: .Todo),
-                                 ToDoModel(title: "할 일 제목3", description: "할 일 내용3", deadLine: Date(), state: .Todo),
-                                 ToDoModel(title: "할 일 제목4", description: "할 일 내용4", deadLine: Date(), state: .Todo),
-                                 ToDoModel(title: "할 일 제목5", description: "할 일 내용5\n할 일 내용5\n할 일 내용5", deadLine: Date(), state: .Todo),
-                                 ToDoModel(title: "할 일 제목11", description: "할 일 내용1", deadLine: Date(), state: .Todo),
-                                 ToDoModel(title: "할 일 제목21", description: "할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2", deadLine: Date(), state: .Todo),
-                                 ToDoModel(title: "한 일 제목1", description: "한 일 내용1\n한 일 내용1\n한 일 내용1\n한 일 내용1", deadLine: Date(), state: .Done),
-                                 ToDoModel(title: "한 일 제목2", description: "한 일 내용2", deadLine: Date(), state: .Done),
-                                 ToDoModel(title: "한 일 제목3", description: "한 일 내용3", deadLine: Date(), state: .Done),
-                                 ToDoModel(title: "한 일 제목4", description: "한 일 내용4", deadLine: Date(), state: .Done),
-                                 ToDoModel(title: "하는 중 제목1", description: "하는 중 내용1", deadLine: Date(), state: .Doing),
-                                 ToDoModel(title: "하는 중 제목2", description: "하는 중 내용2", deadLine: Date(), state: .Doing)]
+    var listArray: [ProjectModel] = [ProjectModel(title: "할 일 제목1할 일 제목1할 일 제목1할 일 제목1할 일 제목1할 일 제목1할 일 제목1할 일 제목1", description: "할 일 내용1", deadLine: Date(), state: .Todo),
+                                 ProjectModel(title: "할 일 제목2", description: "할 일 내용2", deadLine: Date(), state: .Todo),
+                                 ProjectModel(title: "할 일 제목3", description: "할 일 내용3", deadLine: Date(), state: .Todo),
+                                 ProjectModel(title: "할 일 제목4", description: "할 일 내용4", deadLine: Date(), state: .Todo),
+                                 ProjectModel(title: "할 일 제목21", description: "할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2할 일 내용2", deadLine: Date(), state: .Todo),
+                                 ProjectModel(title: "한 일 제목1", description: "한 일 내용1\n한 일 내용1\n한 일 내용1\n한 일 내용1", deadLine: Date(), state: .Done),
+                                 ProjectModel(title: "하는 중 제목1", description: "하는 중 내용1", deadLine: Date(), state: .Doing),
+                                 ProjectModel(title: "하는 중 제목2", description: "하는 중 내용2", deadLine: Date(), state: .Doing)]
     
-    func configureCell(to cell: TableViewCell, with data: ToDoModel) {
+    var todoList: [ProjectModel]?
+    
+    var doingList: [ProjectModel]?
+    
+    var doneList: [ProjectModel]?
+    
+    var didChangedData: (([ProjectModel]) -> Void)?
+    
+    func bindList(handler: @escaping ([ProjectModel]) -> Void) {
+        didChangedData = handler
+    }
+
+    func lineUpList(with state: State) -> [ProjectModel] {
+        switch state {
+        case .Todo:
+            return listArray.filter({ $0.state == .Todo })
+        case .Doing:
+            return listArray.filter({ $0.state == .Doing })
+        case .Done:
+            return listArray.filter({ $0.state == .Done })
+        }
+    }
+    
+    func countProject(in state: State) -> Int {
+        switch state {
+        case .Todo:
+            return listArray.filter({ $0.state == .Todo }).count
+        case .Doing:
+            return listArray.filter({ $0.state == .Doing }).count
+        case .Done:
+            return listArray.filter({ $0.state == .Done }).count
+        }
+    }
+
+    func configureCell(to cell: TableViewCell, with data: ProjectModel) {
         cell.configureContent(with: data)
     }
     
-    func append(newList: ToDoModel) {
-        todoList.append(newList)
+    func append(newList: ProjectModel) {
+        listArray.append(newList)
     }
     
     func delete(at index: Int) {
-        todoList.remove(at: index)
+        listArray.remove(at: index)
     }
 }
+

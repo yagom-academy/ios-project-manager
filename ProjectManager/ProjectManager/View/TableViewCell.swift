@@ -59,7 +59,7 @@ class TableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureContent(with toDoList: ToDoModel) {
+    func configureContent(with toDoList: ProjectModel) {
         titleLabel.text = toDoList.title
         descriptionLabel.text = toDoList.description
         deadLineLabel.text = DateFormatter.shared.stringDate(from: toDoList.deadLine)

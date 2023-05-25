@@ -56,6 +56,7 @@ class TableViewController: UIViewController {
         configureSubviews()
         configureConstraints()
         configureNavigation()
+        addNotificationObserver()
     }
     
     private func configureSubviews() {
@@ -76,12 +77,12 @@ class TableViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        todoTableView.dataSource = self
-        doingTableView.dataSource = self
-        doneTableView.dataSource = self
-        todoTableView.delegate = self
-        doingTableView.delegate = self
-        doneTableView.delegate = self
+        
+        let tables = [todoTableView, doingTableView, doneTableView]
+        tables.forEach({
+            $0.dataSource = self
+            $0.delegate = self
+        })
     }
     
     private func configureNavigation() {
@@ -92,6 +93,19 @@ class TableViewController: UIViewController {
                                                action: #selector(addProject))
         
         navigationItem.rightBarButtonItem = addProjectButton
+    }
+    
+    private func configureBinding() {
+
+    }
+    
+    private func addNotificationObserver() {
+        let tableviews = [todoTableView, doingTableView, doneTableView]
+        NotificationCenter.default.addObserver(forName: .init("reload"),
+                                               object: nil,
+                                               queue: .main) { _ in
+            tableviews.forEach({ $0.reloadData() })
+        }
     }
     
     @objc
@@ -107,17 +121,11 @@ extension TableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case todoTableView:
-            let count = listViewModel.todoList.filter({ $0.state == .Todo }).count
-            
-            return count
+            return listViewModel.countProject(in: .Todo)
         case doingTableView:
-            let count = listViewModel.todoList.filter({ $0.state == .Doing }).count
-            
-            return count
+            return listViewModel.countProject(in: .Doing)
         case doneTableView:
-            let count = listViewModel.todoList.filter({ $0.state == .Done }).count
-            
-            return count
+            return listViewModel.countProject(in: .Done)
         default:
             return 0
         }
@@ -129,7 +137,7 @@ extension TableViewController: UITableViewDataSource {
             guard let cell = todoTableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier) as? TableViewCell else {
                 return TableViewCell()
             }
-            listViewModel.configureCell(to: cell, with: listViewModel.todoList.filter({ $0.state == .Todo })[indexPath.row])
+            listViewModel.configureCell(to: cell, with: listViewModel.listArray.filter({ $0.state == .Todo })[indexPath.row])
             
             return cell
             
@@ -137,7 +145,7 @@ extension TableViewController: UITableViewDataSource {
             guard let cell = doingTableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier) as? TableViewCell else {
                 return TableViewCell()
             }
-            listViewModel.configureCell(to: cell, with: listViewModel.todoList.filter({ $0.state == .Doing })[indexPath.row])
+            listViewModel.configureCell(to: cell, with: listViewModel.listArray.filter({ $0.state == .Doing })[indexPath.row])
             
             return cell
             
@@ -145,13 +153,13 @@ extension TableViewController: UITableViewDataSource {
             guard let cell = doneTableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier) as? TableViewCell else {
                 return TableViewCell()
             }
-            listViewModel.configureCell(to: cell, with: listViewModel.todoList.filter({ $0.state == .Done })[indexPath.row])
+            listViewModel.configureCell(to: cell, with: listViewModel.listArray.filter({ $0.state == .Done })[indexPath.row])
             
             return cell
         default:
             return TableViewCell()
         }
-    }
+     }
 }
 
 extension TableViewController: UITableViewDelegate {
@@ -159,17 +167,17 @@ extension TableViewController: UITableViewDelegate {
         switch tableView {
         case todoTableView:
             let header = todoTableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader
-            header?.configureContent(state: State.Todo, data: listViewModel.todoList)
+            header?.configureContent(state: State.Todo, data: listViewModel.listArray)
             
             return header
         case doingTableView:
             let header = doingTableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader
-            header?.configureContent(state: State.Doing, data: listViewModel.todoList)
+            header?.configureContent(state: State.Doing, data: listViewModel.listArray)
             
             return header
         case doneTableView:
             let header = doneTableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader
-            header?.configureContent(state: State.Done, data: listViewModel.todoList)
+            header?.configureContent(state: State.Done, data: listViewModel.listArray)
             
             return header
         default:
@@ -178,22 +186,35 @@ extension TableViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         let detailProjectViewController = DetailProjectViewController(isNewList: false)
         detailProjectViewController.modalPresentationStyle = .formSheet
         let modalViewWithNavigation = UINavigationController(rootViewController: detailProjectViewController)
         navigationController?.present(modalViewWithNavigation, animated: true)
         
-        detailProjectViewController.configureContent(with: listViewModel.todoList[indexPath.row])
+        switch tableView {
+        case todoTableView:
+            tableView.deselectRow(at: indexPath, animated: true)
+            detailProjectViewController.configureContent(with: listViewModel.listArray.filter({$0.state == .Todo })[indexPath.row])
+
+        case doingTableView:
+            tableView.deselectRow(at: indexPath, animated: true)
+            detailProjectViewController.configureContent(with: listViewModel.listArray.filter({$0.state == .Doing })[indexPath.row])
+
+        case doneTableView:
+            tableView.deselectRow(at: indexPath, animated: true)
+            detailProjectViewController.configureContent(with: listViewModel.listArray.filter({$0.state == .Done })[indexPath.row])
+
+        default:
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive,
                                         title: NameSpace.delete) { action, view, handler in
-            //            let targetList = listViewModel.todoList[indexPath.row]
             self.listViewModel.delete(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        tableView.deleteRows(at: [indexPath], with: .fade)
         
         return UISwipeActionsConfiguration(actions: [delete])
     }

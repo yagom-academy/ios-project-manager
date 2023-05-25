@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ToDoModel: Hashable {
+struct ProjectModel: Hashable {
     let id = UUID()
     var title: String
     var description: String

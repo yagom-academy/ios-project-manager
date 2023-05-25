@@ -10,7 +10,7 @@ import UIKit
 final class DetailProjectViewController: UIViewController {
     private let listViewModel = ListViewModel()
     private var isNewList: Bool
-    
+
     private let contentView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -44,7 +44,7 @@ final class DetailProjectViewController: UIViewController {
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.preferredFont(forTextStyle: .body)
-        textView.isEditable = false
+//        textView.isEditable = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
@@ -107,7 +107,11 @@ final class DetailProjectViewController: UIViewController {
         ])
     }
     
-    func configureContent(with list: ToDoModel) {
+    private func postNotificationObserver() {
+        NotificationCenter.default.post(name: .init("reload"), object: nil)
+    }
+    
+    func configureContent(with list: ProjectModel) {
         titleTextField.text = list.title
         descriptionTextView.text = list.description
     }
@@ -117,8 +121,10 @@ final class DetailProjectViewController: UIViewController {
         guard let title = titleTextField.text,
               let description = descriptionTextView.text else { return }
         
-        let todoList = ToDoModel(title: title, description: description, deadLine: Date(), state: .Doing)
-        listViewModel.todoList.append(todoList)
+        let todoList = ProjectModel(title: title, description: description, deadLine: Date(), state: .Doing)
+        listViewModel.listArray.append(todoList)
+        postNotificationObserver()
+
         self.dismiss(animated: true)
     }
     

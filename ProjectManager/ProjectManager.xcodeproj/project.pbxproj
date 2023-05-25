@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B00D3882A149EDD005CCB08 /* ToDoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B00D3872A149EDD005CCB08 /* ToDoModel.swift */; };
+		4B00D3882A149EDD005CCB08 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B00D3872A149EDD005CCB08 /* ProjectModel.swift */; };
 		4BE8F7E32A1638AB00D18075 /* DetailProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F7E22A1638AB00D18075 /* DetailProjectViewController.swift */; };
 		4BE8F7E52A171EFD00D18075 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F7E42A171EFD00D18075 /* ListViewModel.swift */; };
 		4BE8F7EB2A178F9A00D18075 /* extension+DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F7EA2A178F9A00D18075 /* extension+DateFormatter.swift */; };
@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4B00D3872A149EDD005CCB08 /* ToDoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoModel.swift; sourceTree = "<group>"; };
+		4B00D3872A149EDD005CCB08 /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 		4BE8F7E22A1638AB00D18075 /* DetailProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProjectViewController.swift; sourceTree = "<group>"; };
 		4BE8F7E42A171EFD00D18075 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		4BE8F7EA2A178F9A00D18075 /* extension+DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+DateFormatter.swift"; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		4B00D3862A149ED1005CCB08 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4B00D3872A149EDD005CCB08 /* ToDoModel.swift */,
+				4B00D3872A149EDD005CCB08 /* ProjectModel.swift */,
 				4BE8F8132A19F9E400D18075 /* State.swift */,
 			);
 			path = Model;
@@ -124,8 +124,8 @@
 				4B00D3862A149ED1005CCB08 /* Model */,
 				4B00D3852A149EBD005CCB08 /* View */,
 				4B00D3842A149EB5005CCB08 /* ViewModel */,
-				4B00D37C2A1362D4005CCB08 /* App */,
 				4BE8F7E82A178F3000D18075 /* Extension */,
+				4B00D37C2A1362D4005CCB08 /* App */,
 				4B00D37D2A136309005CCB08 /* Resource */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -211,7 +211,7 @@
 				4BE8F8142A19F9E400D18075 /* State.swift in Sources */,
 				4BE8F7E32A1638AB00D18075 /* DetailProjectViewController.swift in Sources */,
 				4BE8F81C2A1C9D9600D18075 /* TableViewCell.swift in Sources */,
-				4B00D3882A149EDD005CCB08 /* ToDoModel.swift in Sources */,
+				4B00D3882A149EDD005CCB08 /* ProjectModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
