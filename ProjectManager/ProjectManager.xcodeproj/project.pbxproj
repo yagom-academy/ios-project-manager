@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* PlanViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */; };
@@ -24,13 +24,14 @@
 		FBF062A62A1B8E580088A9E3 /* PlanTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A52A1B8E580088A9E3 /* PlanTableCellViewModel.swift */; };
 		FBF062A82A1C5E230088A9E3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A72A1C5E230088A9E3 /* HeaderView.swift */; };
 		FBF062AA2A1D11B90088A9E3 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062A92A1D11B90088A9E3 /* State.swift */; };
+		FBF062B02A1F16010088A9E3 /* PlanTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062AF2A1F16010088A9E3 /* PlanTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		FBF062A52A1B8E580088A9E3 /* PlanTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableCellViewModel.swift; sourceTree = "<group>"; };
 		FBF062A72A1C5E230088A9E3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		FBF062A92A1D11B90088A9E3 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		FBF062AF2A1F16010088A9E3 /* PlanTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +97,7 @@
 		FBF062812A1488E00088A9E3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FBF062862A14B87C0088A9E3 /* TableViewCell */,
+				FBF062862A14B87C0088A9E3 /* TableView */,
 				FBF062982A166B4D0088A9E3 /* ViewController */,
 				FBF062962A166AD90088A9E3 /* SavingItemDelegate.swift */,
 				FBF0628E2A1607570088A9E3 /* CircleLabel.swift */,
@@ -115,12 +117,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		FBF062862A14B87C0088A9E3 /* TableViewCell */ = {
+		FBF062862A14B87C0088A9E3 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				FBF062AF2A1F16010088A9E3 /* PlanTableView.swift */,
 				FBF062872A14B8A00088A9E3 /* PlanTableViewCell.swift */,
 			);
-			path = TableViewCell;
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		FBF0628B2A14B9BF0088A9E3 /* Model */ = {
@@ -136,7 +139,7 @@
 		FBF062982A166B4D0088A9E3 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* PlanViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */,
 			);
 			path = ViewController;
@@ -240,12 +243,13 @@
 				FBF0628D2A14BA780088A9E3 /* TodoItem.swift in Sources */,
 				FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */,
 				FBF062A82A1C5E230088A9E3 /* HeaderView.swift in Sources */,
-				C7431F0A25F51E1D0094C4CF /* PlanViewController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */,
 				FBF062AA2A1D11B90088A9E3 /* State.swift in Sources */,
 				FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FBF062A02A1B391B0088A9E3 /* PlusTodoViewModel.swift in Sources */,
+				FBF062B02A1F16010088A9E3 /* PlanTableView.swift in Sources */,
 				FBF0629E2A17100E0088A9E3 /* Tense.swift in Sources */,
 				FBF0628F2A1607570088A9E3 /* CircleLabel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

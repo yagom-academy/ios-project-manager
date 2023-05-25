@@ -1,5 +1,5 @@
 //
-//  ProjectManager - PlanViewController.swift
+//  ProjectManager - MainViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
@@ -7,28 +7,14 @@
 import UIKit
 import Combine
 
-final class PlanViewController: UIViewController, SavingItemDelegate {
+final class MainViewController: UIViewController, SavingItemDelegate {
     private let planViewModel = PlanViewModel()
     private var cancellables: Set<AnyCancellable> = []
     
-    private let todoTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGroupedBackground
-        return tableView
-    }()
-    
-    private let doingTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGroupedBackground
-        return tableView
-    }()
-    
-    private let doneTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGroupedBackground
-        return tableView
-    }()
-    
+    private let todoTableView = PlanTableView(headerName: State.todo.description)
+    private let doingTableView = PlanTableView(headerName: State.doing.description)
+    private let doneTableView = PlanTableView(headerName: State.done.description)
+
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.backgroundColor = .systemGray4
@@ -38,10 +24,6 @@ final class PlanViewController: UIViewController, SavingItemDelegate {
         
         return stackView
     }()
-    
-    private lazy var todoHeader = HeaderView(text: "TODO", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 60))
-    private lazy var doingHeader = HeaderView(text: "DOING", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 60))
-    private lazy var doneHeader = HeaderView(text: "DONE", frame: CGRect(x: 0, y: 0, width: todoTableView.frame.size.width, height: 60))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,31 +37,21 @@ final class PlanViewController: UIViewController, SavingItemDelegate {
     private func setUpView() {
         view.addSubview(tableStackView)
         view.backgroundColor = .white
-        setUpTodoTableView()
-        setUpDoingTableView()
-        setUpDoneTableView()
+        setUpTableViewDataSource()
+        setUpTableViewDelegate()
         setUpStackView()
     }
     
-    private func setUpTodoTableView() {
+    private func setUpTableViewDataSource() {
         todoTableView.dataSource = self
-        todoTableView.delegate = self
-        todoTableView.register(PlanTableViewCell.self, forCellReuseIdentifier: "Cell")
-        todoTableView.tableHeaderView = todoHeader
-    }
-    
-    private func setUpDoingTableView() {
         doingTableView.dataSource = self
-        doingTableView.delegate = self
-        doingTableView.register(PlanTableViewCell.self, forCellReuseIdentifier: "Cell")
-        doingTableView.tableHeaderView = doingHeader
+        doneTableView.dataSource = self
     }
     
-    private func setUpDoneTableView() {
-        doneTableView.dataSource = self
+    private func setUpTableViewDelegate() {
+        todoTableView.delegate = self
+        doingTableView.delegate = self
         doneTableView.delegate = self
-        doneTableView.register(PlanTableViewCell.self, forCellReuseIdentifier: "Cell")
-        doneTableView.tableHeaderView = doneHeader
     }
     
     private func setUpStackView() {
@@ -151,7 +123,7 @@ final class PlanViewController: UIViewController, SavingItemDelegate {
                 String(item.count)
             }
             .sink { [weak self] count in
-                self?.todoHeader.changeCount(count)
+                self?.todoTableView.updateItemCount(count)
             }
             .store(in: &cancellables)
         planViewModel.$doingItems
@@ -159,7 +131,7 @@ final class PlanViewController: UIViewController, SavingItemDelegate {
                 String(item.count)
             }
             .sink { [weak self] count in
-                self?.doingHeader.changeCount(count)
+                self?.doingTableView.updateItemCount(count)
             }
             .store(in: &cancellables)
         planViewModel.$doneItems
@@ -167,7 +139,7 @@ final class PlanViewController: UIViewController, SavingItemDelegate {
                 String(item.count)
             }
             .sink { [weak self] count in
-                self?.doneHeader.changeCount(count)
+                self?.doneTableView.updateItemCount(count)
             }
             .store(in: &cancellables)
     }
@@ -193,7 +165,7 @@ final class PlanViewController: UIViewController, SavingItemDelegate {
     }
 }
 
-extension PlanViewController: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -211,7 +183,7 @@ extension PlanViewController: UITableViewDataSource {
     }
 }
 
-extension PlanViewController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "delete") { [weak self] (_, _, completionHandler) in
             self?.delete(indexPath)
@@ -238,7 +210,7 @@ extension PlanViewController: UITableViewDelegate {
     }
 }
 
-extension PlanViewController: UIGestureRecognizerDelegate {
+extension MainViewController: UIGestureRecognizerDelegate {
     private func setUpLongPressGesture() {
         let todoLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         todoLongPressGesture.minimumPressDuration = 0.5
