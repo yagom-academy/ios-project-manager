@@ -7,9 +7,8 @@
 import UIKit
 
 final class MoveToViewController: UIViewController {
-    private var projects = Projects.shared
     let project: Project?
-    var dismissHandler: (() -> ())?
+    var dismissHandler: ((Project, Status) -> ())?
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -77,13 +76,7 @@ final class MoveToViewController: UIViewController {
     private func moveToTodo() {
         guard let project else { return }
         
-        for index in 0...projects.list.count-1 {
-            if projects.list[index].id == project.id {
-                projects.list[index].status = .todo
-            }
-        }
-        
-        dismissHandler?()
+        dismissHandler?(project, .todo)
         self.dismiss(animated: false)
     }
     
@@ -91,13 +84,7 @@ final class MoveToViewController: UIViewController {
     private func moveToDoing() {
         guard let project else { return }
         
-        for index in 0...projects.list.count-1 {
-            if projects.list[index].id == project.id {
-                projects.list[index].status = .doing
-            }
-        }
-        
-        dismissHandler?()
+        dismissHandler?(project, .doing)
         self.dismiss(animated: false)
     }
     
@@ -105,13 +92,7 @@ final class MoveToViewController: UIViewController {
     private func moveToDone() {
         guard let project else { return }
         
-        for index in 0...projects.list.count-1 {
-            if projects.list[index].id == project.id {
-                projects.list[index].status = .done
-            }
-        }
-        
-        dismissHandler?()
+        dismissHandler?(project, .done)
         self.dismiss(animated: false)
     }
     

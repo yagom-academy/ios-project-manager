@@ -222,7 +222,13 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
             moveToViewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
             moveToViewController.popoverPresentationController?.sourceView = projectManagerCollectionView.cellForItem(at: indexPath)
             
-            moveToViewController.dismissHandler = {
+            moveToViewController.dismissHandler = { project, status in
+                for index in 0...self.projects.list.count-1 {
+                    if self.projects.list[index].id == project.id {
+                        self.projects.list[index].status = status
+                    }
+                }
+                
                 self.projectManagerCollectionView.reloadData()
             }
             
