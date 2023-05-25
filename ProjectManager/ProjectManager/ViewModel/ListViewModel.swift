@@ -8,7 +8,6 @@
 import Foundation
 
 final class ListViewModel {
-    var listArray: [ProjectModel] = []
     var todoList: Observable<[ProjectModel]> = Observable([])
     var doingList: Observable<[ProjectModel]> = Observable([])
     var doneList: Observable<[ProjectModel]> = Observable([])
