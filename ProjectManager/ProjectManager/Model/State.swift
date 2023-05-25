@@ -6,17 +6,17 @@
 //
 
 enum State: CaseIterable {
-    case Todo
-    case Doing
-    case Done
+    case todo
+    case doing
+    case done
     
     var title: String {
         switch self {
-        case .Todo:
+        case .todo:
             return "TODO"
-        case .Doing:
+        case .doing:
             return "DOING"
-        case .Done:
+        case .done:
             return "DONE"
         }
     }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4B00D3882A149EDD005CCB08 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B00D3872A149EDD005CCB08 /* ProjectModel.swift */; };
+		4B2B64052A1FBC8A00851153 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B64042A1FBC8A00851153 /* Observable.swift */; };
 		4BE8F7E32A1638AB00D18075 /* DetailProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F7E22A1638AB00D18075 /* DetailProjectViewController.swift */; };
 		4BE8F7E52A171EFD00D18075 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F7E42A171EFD00D18075 /* ListViewModel.swift */; };
 		4BE8F7EB2A178F9A00D18075 /* extension+DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F7EA2A178F9A00D18075 /* extension+DateFormatter.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		4B00D3872A149EDD005CCB08 /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
+		4B2B64042A1FBC8A00851153 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		4BE8F7E22A1638AB00D18075 /* DetailProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProjectViewController.swift; sourceTree = "<group>"; };
 		4BE8F7E42A171EFD00D18075 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		4BE8F7EA2A178F9A00D18075 /* extension+DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+DateFormatter.swift"; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				4BE8F7E42A171EFD00D18075 /* ListViewModel.swift */,
+				4B2B64042A1FBC8A00851153 /* Observable.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B2B64052A1FBC8A00851153 /* Observable.swift in Sources */,
 				4BE8F7E52A171EFD00D18075 /* ListViewModel.swift in Sources */,
 				4BE8F7EB2A178F9A00D18075 /* extension+DateFormatter.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
