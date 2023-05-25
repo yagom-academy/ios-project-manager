@@ -32,7 +32,9 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
-    private let user = [TodoLabel(title: "Hi!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!", content: "Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!", date: Date()), TodoLabel(title: "Hello~", content: "Brody!", date: Date())]
+    private let todoList = [TodoLabel(title: "책상정리", content: "집중이 안될때 역시나 책상정리", date: Date()), TodoLabel(title: "일기정리", content: "난 가끔 일기를 쓴다", date: Date()), TodoLabel(title: "빨래하기", content: "그만 쌓아두고 싶다....", date: Date())]
+    private let doingList = [TodoLabel(title: "Hi!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!", content: "Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!", date: Date()), TodoLabel(title: "Hello~", content: "Brody!", date: Date())]
+    private let doneList = [TodoLabel(title: "방정리", content: "눈감고 그댈 그려요 맘속 그댈 찾았죠", date: Date())]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,10 +74,10 @@ extension MainViewController {
         }
     }
 
-    private func configureHeaderRegistration(headerText: String) -> UICollectionView.SupplementaryRegistration<Header> {
+    private func configureHeaderRegistration(headerText: String, listCount: Int) -> UICollectionView.SupplementaryRegistration<Header> {
         return UICollectionView.SupplementaryRegistration<Header>(elementKind: UICollectionView.elementKindSectionHeader) { (headerView, _, _) in
             headerView.headerLabel.text = headerText
-            headerView.cellCountLabel.text = "1"
+            headerView.cellCountLabel.text = String(listCount)
         }
     }
     
@@ -93,20 +95,29 @@ extension MainViewController {
 
     private func setUpDataSource() {
         let registration = configureCellRegistration()
-        let headerRegistration1 = configureHeaderRegistration(headerText: "TODO")
-        let headerRegistration2 = configureHeaderRegistration(headerText: "DOING")
-        let headerRegistration3 = configureHeaderRegistration(headerText: "DONE")
+        let headerRegistration1 = configureHeaderRegistration(headerText: "TODO", listCount: todoList.count)
+        let headerRegistration2 = configureHeaderRegistration(headerText: "DOING", listCount: doingList.count)
+        let headerRegistration3 = configureHeaderRegistration(headerText: "DONE", listCount: doneList.count)
 
         dataSource1 = configureDataSource(collectionView: collectionView1, registration: registration, headerRegistration: headerRegistration1)
         dataSource2 = configureDataSource(collectionView: collectionView2, registration: registration, headerRegistration: headerRegistration2)
         dataSource3 = configureDataSource(collectionView: collectionView3, registration: registration, headerRegistration: headerRegistration3)
 
-        var snapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(user, toSection: .main)
+        var snapshot1 = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
+        snapshot1.appendSections([.main])
+        snapshot1.appendItems(todoList, toSection: .main)
+        
+        var snapshot2 = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
+        snapshot2.appendSections([.main])
+        snapshot2.appendItems(doingList, toSection: .main)
+        
+        var snapshot3 = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
+        snapshot3.appendSections([.main])
+        snapshot3.appendItems(doneList, toSection: .main)
+        
 
-        dataSource1?.apply(snapshot, animatingDifferences: true)
-        dataSource2?.apply(snapshot, animatingDifferences: true)
-        dataSource3?.apply(snapshot, animatingDifferences: true)
+        dataSource1?.apply(snapshot1, animatingDifferences: true)
+        dataSource2?.apply(snapshot2, animatingDifferences: true)
+        dataSource3?.apply(snapshot3, animatingDifferences: true)
     }
 }
