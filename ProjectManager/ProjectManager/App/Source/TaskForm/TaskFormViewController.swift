@@ -82,7 +82,7 @@ final class TaskFormViewController: UIViewController {
         setupStackView()
         setupStackViewConstraints()
         setupContents()
-        bindContentsEditable()
+        bind()
     }
     
     private func setupNavigationBar() {
@@ -143,6 +143,13 @@ final class TaskFormViewController: UIViewController {
         textView.text = viewModel.body
     }
     
+    private func bind() {
+        bindContentsEditable()
+        bindDoneButtonEnable()
+        assignToTitle()
+        assignToBody()
+    }
+    
     private func bindContentsEditable() {
         viewModel.$isEditable
             .sink { [weak self] in
@@ -150,6 +157,26 @@ final class TaskFormViewController: UIViewController {
                 self?.datePicker.isEnabled = $0
                 self?.textView.isEditable = $0
             }
+            .store(in: &subscriptions)
+    }
+    
+    private func bindDoneButtonEnable() {
+        viewModel.$isDone
+            .sink { [weak self] in
+                self?.navigationItem.rightBarButtonItem?.isEnabled = $0
+            }
+            .store(in: &subscriptions)
+    }
+    
+    private func assignToTitle() {
+        textField.textPublisher
+            .assign(to: \.title, on: viewModel)
+            .store(in: &subscriptions)
+    }
+    
+    private func assignToBody() {
+        textView.textPublisher
+            .assign(to: \.body, on: viewModel)
             .store(in: &subscriptions)
     }
 }

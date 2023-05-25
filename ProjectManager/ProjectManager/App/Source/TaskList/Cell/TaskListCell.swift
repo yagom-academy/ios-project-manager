@@ -39,9 +39,18 @@ final class TaskListCell: UICollectionViewCell {
         return label
     }()
     
-    private let stackView = {
+    private let contentsStackView = {
         let stackView = UIStackView()
         
+        stackView.axis = .vertical
+        
+        return stackView
+    }()
+    
+    private let mainStackView = {
+        let stackView = UIStackView()
+        
+        stackView.spacing = 6
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -85,20 +94,21 @@ final class TaskListCell: UICollectionViewCell {
     }
     
     private func addSubviews() {
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(bodyLabel)
-        stackView.addArrangedSubview(deadlineLabel)
-        contentView.addSubview(stackView)
+        contentsStackView.addArrangedSubview(titleLabel)
+        contentsStackView.addArrangedSubview(bodyLabel)
+        mainStackView.addArrangedSubview(contentsStackView)
+        mainStackView.addArrangedSubview(deadlineLabel)
+        contentView.addSubview(mainStackView)
     }
     
     private func setupConstraints() {
         let safe = contentView.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safe.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
+            mainStackView.topAnchor.constraint(equalTo: safe.topAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
     }
 }

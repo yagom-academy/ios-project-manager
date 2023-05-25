@@ -16,6 +16,8 @@
 		AA32F2462A1643C500DB3E1A /* TaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F2452A1643C500DB3E1A /* TaskState.swift */; };
 		AA32F2482A16538800DB3E1A /* CountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F2472A16538800DB3E1A /* CountLabel.swift */; };
 		AA48F31A2A1F3A16003B965E /* Array+subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F3192A1F3A16003B965E /* Array+subscript.swift */; };
+		AA48F31D2A1F7543003B965E /* UITextField+publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F31C2A1F7543003B965E /* UITextField+publisher.swift */; };
+		AA48F31F2A1F754F003B965E /* UITextView+publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F31E2A1F754F003B965E /* UITextView+publisher.swift */; };
 		AA61F2512A1326C200C7C290 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = AA61F2502A1326C200C7C290 /* Realm */; };
 		AA61F2532A1326C200C7C290 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA61F2522A1326C200C7C290 /* RealmSwift */; };
 		AA7FC09D2A1503A20057FCD4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FC09C2A1503A20057FCD4 /* MainViewController.swift */; };
@@ -41,6 +43,8 @@
 		AA32F2452A1643C500DB3E1A /* TaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskState.swift; sourceTree = "<group>"; };
 		AA32F2472A16538800DB3E1A /* CountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLabel.swift; sourceTree = "<group>"; };
 		AA48F3192A1F3A16003B965E /* Array+subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+subscript.swift"; sourceTree = "<group>"; };
+		AA48F31C2A1F7543003B965E /* UITextField+publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+publisher.swift"; sourceTree = "<group>"; };
+		AA48F31E2A1F754F003B965E /* UITextView+publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+publisher.swift"; sourceTree = "<group>"; };
 		AA7FC09C2A1503A20057FCD4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AA8AE3BF2A1B3FF500B662F2 /* TaskFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewController.swift; sourceTree = "<group>"; };
 		AA8AE3C12A1B560600B662F2 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -99,6 +103,15 @@
 				AA99804C2A14B3B3005D98D7 /* Extension */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		AA48F31B2A1F7526003B965E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				AA48F31C2A1F7543003B965E /* UITextField+publisher.swift */,
+				AA48F31E2A1F754F003B965E /* UITextView+publisher.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		AA54D9122A1D019A00702F06 /* Source */ = {
@@ -170,6 +183,7 @@
 		AA8AE3BE2A1B3FDA00B662F2 /* TaskForm */ = {
 			isa = PBXGroup;
 			children = (
+				AA48F31B2A1F7526003B965E /* Extension */,
 				AA8AE3C52A1B67D400B662F2 /* TaskFormViewModel.swift */,
 				AA8AE3BF2A1B3FF500B662F2 /* TaskFormViewController.swift */,
 			);
@@ -294,8 +308,10 @@
 				AA8AE3C62A1B67D400B662F2 /* TaskFormViewModel.swift in Sources */,
 				AA8AE3C02A1B3FF500B662F2 /* TaskFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */,
+				AA48F31D2A1F7543003B965E /* UITextField+publisher.swift in Sources */,
 				AA8AE3C22A1B560600B662F2 /* TaskManager.swift in Sources */,
 				AA2F17DB2A14A82200664807 /* TaskListViewModel.swift in Sources */,
+				AA48F31F2A1F754F003B965E /* UITextView+publisher.swift in Sources */,
 				AA32F2462A1643C500DB3E1A /* TaskState.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				AA32F2442A16026600DB3E1A /* TaskListHeaderView.swift in Sources */,
