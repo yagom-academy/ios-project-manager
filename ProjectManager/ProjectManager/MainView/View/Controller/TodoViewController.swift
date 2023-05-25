@@ -26,6 +26,26 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
         let layout = UICollectionViewCompositionalLayout { _, layoutEnvironment in
             var config = UICollectionLayoutListConfiguration(appearance: .grouped)
             config.headerMode = .supplementary
+            config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
+                guard let self,
+                      let task = self.viewModel.task(at: indexPath) else {
+                    return UISwipeActionsConfiguration()
+                }
+                
+                let actionHandler: UIContextualAction.Handler = { action, view, completion in
+                    self.viewModel.remove(task)
+                    completion(true)
+                    self.viewModel.updateTask(id: task.id)
+                }
+                
+                let action = UIContextualAction(
+                    style: .destructive,
+                    title: "Delete",
+                    handler: actionHandler
+                )
+                
+                return UISwipeActionsConfiguration(actions: [action])
+            }
             
             let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
             section.interGroupSpacing = 10
