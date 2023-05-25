@@ -11,4 +11,8 @@ final class MainTaskService {
     func fetchTaskList() -> [Task] {
         return TaskRepository.shared.readAll()
     }
+    
+    func fetchTaskList(for workState: WorkState) -> [Task] {
+        return TaskRepository.shared.readTaskList(for: workState)
+    }
 }

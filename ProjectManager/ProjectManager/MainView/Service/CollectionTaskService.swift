@@ -9,6 +9,10 @@ import Foundation
 
 final class CollectionTaskService {
     func fetchTaskList(for workState: WorkState) -> [Task] {
-        return TaskRepository.shared.readAll()
+        return TaskRepository.shared.readTaskList(for: workState)
+    }
+    
+    func removeTask(id: UUID) {
+        TaskRepository.shared.remove(id: id)
     }
 }

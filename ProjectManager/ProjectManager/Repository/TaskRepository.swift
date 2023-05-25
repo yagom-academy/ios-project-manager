@@ -27,6 +27,10 @@ final class TaskRepository {
         return storage
     }
     
+    func readTaskList(for workState: WorkState) -> [Task] {
+        return storage.filter { $0.workState == workState }
+    }
+    
     func update(task: Task) {
         let targetIndex = storage.firstIndex { $0.id == task.id }
         guard let targetIndex else { return }
@@ -34,8 +38,8 @@ final class TaskRepository {
         storage[targetIndex] = task
     }
     
-    func delete(task: Task) {
-        let targetIndex = storage.firstIndex { $0.id == task.id }
+    func remove(id: UUID) {
+        let targetIndex = storage.firstIndex { $0.id == id }
         guard let targetIndex else { return }
         
         storage.remove(at: targetIndex)
