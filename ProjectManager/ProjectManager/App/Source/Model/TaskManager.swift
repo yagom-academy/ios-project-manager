@@ -24,8 +24,7 @@ final class TaskManager {
     }
     
     func update(task: MyTask) {
-        let index = taskList.firstIndex { $0.id == task.id }
-        guard let index else { return }
+        guard let index = taskList.firstIndex(where: { $0.id == task.id }) else { return }
         
         taskList[safe: index] = task
     }
