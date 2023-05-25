@@ -27,6 +27,17 @@ final class ListViewModel {
         }
     }
     
+    func fetchProject(with state: State, index: Int) -> ProjectModel {
+        switch state {
+        case .todo:
+            return todoList.value[index]
+        case .doing:
+            return doingList.value[index]
+        case .done:
+            return doneList.value[index]
+        }
+    }
+    
     func countProject(in state: State) -> Int {
         return fetchList(with: state).count
     }
