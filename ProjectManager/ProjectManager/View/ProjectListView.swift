@@ -8,37 +8,39 @@
 import SwiftUI
 
 struct ProjectListView: View {
-    @ObservedObject var viewModel: ProjectViewModel
+    let viewModel: ProjectViewModel
     let formCase: ProjectState
     
     var body: some View {
+    
         List {
             Section {
-                createListItems(for: viewModel.selectList(cases: formCase)) { indexSet in
-                    viewModel.delete(cases: formCase, at: indexSet)
+                switch formCase {
+                case .todo:
+                    createListItems(for: viewModel.todoList, onDelete: { indexSet in
+                        viewModel.delete(cases: .todo, at: indexSet)
+                    })
+                case .doing:
+                    createListItems(for: viewModel.doingList, onDelete: { indexSet in
+                        viewModel.delete(cases: .doing, at: indexSet)
+                    })
+                case .done:
+                    createListItems(for: viewModel.doneList, onDelete: { indexSet in
+                        viewModel.delete(cases: .done, at: indexSet)
+                    })
                 }
+                
             } header: {
-                HStack {
-                    Text(formCase.rawValue)
-                        .font(.title)
-                        .foregroundColor(.black)
-                        .fontWeight(.light)
-                    ZStack {
-                        Circle()
-                            .fill(.black)
-                            .frame(width: 25)
-                        Text(String(viewModel.selectList(cases: formCase).count))
-                            .font(.title3)
-                            .foregroundColor(.white)
-                    }
-                }
+                Text(formCase.rawValue)
+                    .font(.title)
+                    .foregroundColor(.black)
+                    .fontWeight(.light)
             }
         }
+        
         .listStyle(.grouped)
     }
-}
-
-private extension ProjectListView {
+    
     func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
         ForEach(models.indices, id: \.self) { index in
             ProjectListCell(viewModel: viewModel, state: formCase, index: index)
