@@ -10,7 +10,6 @@ final class MoveToViewController: UIViewController {
     private var projects = Projects.shared
     var projectManagerViewController: ProjectManagerViewController?
     let project: Project?
-    lazy var status = project?.status
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -69,7 +68,8 @@ final class MoveToViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGray6
         
-        guard let status else { return }
+        guard let status = project?.status else { return }
+        
         configureContentStackView(status: status)
         configureConstraint()
     }
