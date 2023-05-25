@@ -9,14 +9,15 @@ import UIKit
 
 protocol CollectionViewModel: AnyObject {
     associatedtype DataSource
+    associatedtype Item
     
-    var items: [Task] { get set }
+    var items: [Item] { get set }
     
     func makeDataSource() throws -> DataSource
     
-    func task(at: IndexPath) -> Task?
+    func task(at: IndexPath) -> Item?
 
     func updateTask(id: UUID)
     
-    func remove(_ item: Task)
+    func remove(_ item: Item)
 }

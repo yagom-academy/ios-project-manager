@@ -10,7 +10,7 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
     let mode: WorkState = .todo
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    lazy var viewModel: any CollectionViewModel = TodoCollectionViewModel(
+    lazy var viewModel: any CollectionViewModel = TaskCollectionViewModel(
         collectionView: collectionView,
         cellReuseIdentifier: TaskCell.identifier
     )
@@ -28,12 +28,13 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
             config.headerMode = .supplementary
             config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
                 guard let self,
-                      let task = self.viewModel.task(at: indexPath) else {
+                      let task = self.viewModel.task(at: indexPath) as? Task else {
                     return UISwipeActionsConfiguration()
                 }
                 
                 let actionHandler: UIContextualAction.Handler = { action, view, completion in
-                    self.viewModel.remove(task)
+                    guard let viewModel = self.viewModel as? TaskCollectionViewModel else { return }
+                    viewModel.remove(task)
                     completion(true)
                 }
                 

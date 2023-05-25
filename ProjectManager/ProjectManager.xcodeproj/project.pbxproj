@@ -30,7 +30,7 @@
 		AD1E2C992A1DAFE100251226 /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1E2C982A1DAFE100251226 /* DoneViewController.swift */; };
 		AD2735A42A1F2A8E00E2A637 /* CollectionTaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2735A32A1F2A8E00E2A637 /* CollectionTaskService.swift */; };
 		AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD450BE92A150E4A00A9C693 /* HeaderView.swift */; };
-		AD4BDE7C2A179EAF0022F3D6 /* TodoCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4BDE7B2A179EAF0022F3D6 /* TodoCollectionViewModel.swift */; };
+		AD4BDE7C2A179EAF0022F3D6 /* TaskCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4BDE7B2A179EAF0022F3D6 /* TaskCollectionViewModel.swift */; };
 		AD5FFB8C2A14B64E00CF6A39 /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */; };
 		AD8A5EBF2A1B6D7B00D66627 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EBE2A1B6D7B00D66627 /* UIControl+Combine.swift */; };
 		AD8A5EC12A1C50AF00D66627 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EC02A1C50AF00D66627 /* UITextField+Combine.swift */; };
@@ -69,7 +69,7 @@
 		AD1E2C982A1DAFE100251226 /* DoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
 		AD2735A32A1F2A8E00E2A637 /* CollectionTaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTaskService.swift; sourceTree = "<group>"; };
 		AD450BE92A150E4A00A9C693 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		AD4BDE7B2A179EAF0022F3D6 /* TodoCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCollectionViewModel.swift; sourceTree = "<group>"; };
+		AD4BDE7B2A179EAF0022F3D6 /* TaskCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionViewModel.swift; sourceTree = "<group>"; };
 		AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
 		AD8A5EBE2A1B6D7B00D66627 /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
 		AD8A5EC02A1C50AF00D66627 /* UITextField+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Combine.swift"; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				62A63EAF2A1DB33400AF928F /* MainViewModel.swift */,
-				AD4BDE7B2A179EAF0022F3D6 /* TodoCollectionViewModel.swift */,
+				AD4BDE7B2A179EAF0022F3D6 /* TaskCollectionViewModel.swift */,
 				62A63EAB2A1DB27800AF928F /* DoingCollectionViewModel.swift */,
 				62A63EAD2A1DB2E800AF928F /* DoneCollectionViewModel.swift */,
 				AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */,
@@ -416,7 +416,7 @@
 			files = (
 				62F8A1BF2A1B32EA005F6BF7 /* DetailViewController.swift in Sources */,
 				62A63EAA2A1DA18600AF928F /* MainViewController.swift in Sources */,
-				AD4BDE7C2A179EAF0022F3D6 /* TodoCollectionViewModel.swift in Sources */,
+				AD4BDE7C2A179EAF0022F3D6 /* TaskCollectionViewModel.swift in Sources */,
 				62D600352A15062D00AD7490 /* WorkState.swift in Sources */,
 				AD8A5EC32A1C512100D66627 /* UIDatePicker+Combine.swift in Sources */,
 				AD1E2C972A1DAF4D00251226 /* DoingViewController.swift in Sources */,
