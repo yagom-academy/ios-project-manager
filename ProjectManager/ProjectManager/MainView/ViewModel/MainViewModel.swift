@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainViewModel {
-    private let mainCollectionViewService = MainCollectionViewService()
+    private let mainCollectionViewService = MainTaskService()
     
     var taskList: [Task] = []
     var viewModelDictionary = [WorkState: any CollectionViewModel]()

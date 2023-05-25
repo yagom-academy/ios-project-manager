@@ -21,7 +21,6 @@ final class DetailViewController: UIViewController {
                 return "Edit"
             }
         }
-        
     }
     
     private var navigationBar: UINavigationBar?

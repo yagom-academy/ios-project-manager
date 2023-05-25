@@ -17,4 +17,6 @@ protocol CollectionViewModel: AnyObject {
     func task(at: IndexPath) -> Task?
 
     func updateTask(id: UUID)
+    
+    func remove(_ item: Task)
 }
