@@ -146,23 +146,8 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         guard let status = Status(rawValue: indexPath.section) else { return UICollectionReusableView() }
         
         let assignedProjects = projects.list.filter { $0.status == status }
-        
-        var countText = "\(assignedProjects.count)"
-        
-        if countText.count > 2 {
-            countText = "99+"
-        }
-        
+        let countText = assignedProjects.count > 99 ? "99+" : "\(assignedProjects.count)"
         header.configureContent(status: status, number: countText)
-        
-        switch countText.count {
-        case 2:
-            header.numberLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        case 3:
-            header.numberLabel.widthAnchor.constraint(equalToConstant: 36).isActive = true
-        default:
-            header.numberLabel.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        }
         
         return header
     }

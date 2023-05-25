@@ -6,7 +6,14 @@
 
 import UIKit
 
-final class HeaderView: UICollectionReusableView {    
+final class HeaderView: UICollectionReusableView {
+    private lazy var numberLabelWidthAnchor = numberLabel.widthAnchor.constraint(equalToConstant: 24) {
+        didSet(currentWidthAnchor) {
+            currentWidthAnchor.isActive = false
+            numberLabelWidthAnchor.isActive = true
+        }
+    }
+    
     private let contentStackView: UIStackView = {
         let stackview = UIStackView()
         stackview.alignment = .center
@@ -57,6 +64,8 @@ final class HeaderView: UICollectionReusableView {
     func configureContent(status: Status, number: String) {
         statusLabel.text = status.title
         numberLabel.text = number
+        
+        configureWidthAnchorConstraint(text: number)
     }
     
     private func configureUI() {
@@ -78,5 +87,16 @@ final class HeaderView: UICollectionReusableView {
             contentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             numberLabel.heightAnchor.constraint(equalToConstant: 24),
         ])
+    }
+    
+    private func configureWidthAnchorConstraint(text: String) {
+        switch text.count {
+        case 2:
+            numberLabelWidthAnchor = numberLabel.widthAnchor.constraint(equalToConstant: 30)
+        case 3:
+            numberLabelWidthAnchor = numberLabel.widthAnchor.constraint(equalToConstant: 36)
+        default:
+            numberLabelWidthAnchor = numberLabel.widthAnchor.constraint(equalToConstant: 24)
+        }
     }
 }
