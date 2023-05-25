@@ -4,8 +4,6 @@
 //  Copyright © yagom. All rights reserved.
 //
 
-import Foundation
-
 final class Projects {
     static let shared = Projects()
     
