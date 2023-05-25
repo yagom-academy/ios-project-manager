@@ -11,7 +11,7 @@ class CustomTableViewController: UIViewController {
     let listViewModel: ListViewModel
     let state: State
     
-    private let projectTableView: UITableView = {
+    let projectTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
         tableView.register(CustomTableViewHeader.self,
@@ -35,6 +35,8 @@ class CustomTableViewController: UIViewController {
         super.viewDidLoad()
         configureSubviews()
         configureConstraints()
+        configureTableView()
+        configureViewModel()
     }
     
     private func configureSubviews() {
@@ -50,7 +52,7 @@ class CustomTableViewController: UIViewController {
         ])
     }
     
-    private func configureDelegate() {
+    private func configureTableView() {
         projectTableView.delegate = self
         projectTableView.dataSource = self
     }
@@ -59,14 +61,17 @@ class CustomTableViewController: UIViewController {
         switch state {
         case .todo:
             listViewModel.todoList.bind { viewModel in
+                self.listViewModel.todoList.value = viewModel
                 self.projectTableView.reloadData()
             }
         case .doing:
             listViewModel.doingList.bind { viewModel in
+                self.listViewModel.doingList.value = viewModel
                 self.projectTableView.reloadData()
             }
         case .done:
             listViewModel.doneList.bind { viewModel in
+                self.listViewModel.doneList.value = viewModel
                 self.projectTableView.reloadData()
             }
         }
@@ -77,6 +82,7 @@ extension CustomTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch state {
         case .todo:
+            print(listViewModel.countProject(in: .todo))
             return listViewModel.countProject(in: .todo)
         case .doing:
             return listViewModel.countProject(in: .doing)

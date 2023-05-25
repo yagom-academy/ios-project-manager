@@ -121,8 +121,9 @@ final class DetailProjectViewController: UIViewController {
         guard let title = titleTextField.text,
               let description = descriptionTextView.text else { return }
         
-        let todoList = ProjectModel(title: title, description: description, deadLine: Date(), state: .doing)
+        let todoList = ProjectModel(title: title, description: description, deadLine: Date(), state: .todo)
         listViewModel.addProject(new: todoList)
+        print(listViewModel.todoList.value)
         postNotificationObserver()
 
         self.dismiss(animated: true)
