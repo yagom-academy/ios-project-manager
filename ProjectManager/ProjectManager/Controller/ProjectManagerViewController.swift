@@ -68,15 +68,15 @@ final class ProjectManagerViewController: UIViewController {
     
     @objc
     private func addProject() {
-        let rootViewController = DetailProjectViewController()
-        rootViewController.configureEditingStatus(isEditible: true)
+        let detailProjectViewController = DetailProjectViewController()
+        detailProjectViewController.configureEditingStatus(isEditible: true)
         
-        rootViewController.dismissHandler = { project in
+        detailProjectViewController.dismissHandler = { project in
             self.projects.list.append(project)
             self.projectManagerCollectionView.reloadData()
         }
         
-        let navigationController = UINavigationController(rootViewController: rootViewController)
+        let navigationController = UINavigationController(rootViewController: detailProjectViewController)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
         self.present(navigationController, animated: true, completion: nil)
@@ -171,10 +171,10 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
         
         if gestureRecognizer.state == .ended {
             if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
-                let rootViewController = DetailProjectViewController()
-                rootViewController.configureEditingStatus(isEditible: false)
+                let detailProjectViewController = DetailProjectViewController()
+                detailProjectViewController.configureEditingStatus(isEditible: false)
                 
-                rootViewController.dismissHandler = { project in
+                detailProjectViewController.dismissHandler = { project in
                     guard let projectIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
                     
                     self.projects.list[projectIndex].title = project.title
@@ -188,8 +188,8 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
                 let assignedProjects = projects.list.filter { $0.status == status }
                 let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
                 let project = sortedAssignedProjects[indexPath.item]
-                rootViewController.configureProject(assignedProject: project)
-                let navigationController = UINavigationController(rootViewController: rootViewController)
+                detailProjectViewController.configureProject(assignedProject: project)
+                let navigationController = UINavigationController(rootViewController: detailProjectViewController)
                 navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
                 
                 self.present(navigationController, animated: true, completion: nil)
