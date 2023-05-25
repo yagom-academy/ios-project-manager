@@ -7,9 +7,10 @@
 import UIKit
 
 final class DetailProjectViewController: UIViewController {
-    var projectManagerViewController: ProjectManagerViewController?
     private var projects = Projects.shared
     private var project: Project?
+    var dismissHandler: (() -> ())?
+    
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -144,7 +145,7 @@ final class DetailProjectViewController: UIViewController {
             projects.list[editIndex].body = body
         }
         
-        projectManagerViewController?.projectManagerCollectionView.reloadData()
+        dismissHandler?()
         self.dismiss(animated: true)
     }
     

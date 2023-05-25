@@ -8,7 +8,7 @@ import UIKit
 
 final class ProjectCell: UICollectionViewCell {
     let identifier = "ProjectCell"
-    var deleteRow : (() -> ()) = {}
+    var deleteRow: (() -> ())?
     
     private let cellScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -103,7 +103,7 @@ final class ProjectCell: UICollectionViewCell {
     
     @objc
     func deleteCell() {
-        deleteRow()
+        deleteRow?()
     }
     
     func changeDateColor(isOverdue: Bool) {
@@ -155,7 +155,7 @@ extension ProjectCell: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x >= scrollView.frame.width - 70 {
-            deleteRow()
+            deleteRow?()
         }
     }
 }

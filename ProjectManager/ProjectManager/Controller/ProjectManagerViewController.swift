@@ -69,8 +69,12 @@ final class ProjectManagerViewController: UIViewController {
     @objc
     private func addProject() {
         let rootViewController = DetailProjectViewController()
-        rootViewController.projectManagerViewController = self
         rootViewController.configureEditingStatus(isEditible: true)
+        
+        rootViewController.dismissHandler = {
+            self.projectManagerCollectionView.reloadData()
+        }
+        
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
@@ -167,8 +171,11 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
         if gestureRecognizer.state == .ended {
             if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
                 let rootViewController = DetailProjectViewController()
-                rootViewController.projectManagerViewController = self
                 rootViewController.configureEditingStatus(isEditible: false)
+                
+                rootViewController.dismissHandler = {
+                    self.projectManagerCollectionView.reloadData()
+                }
                 
                 guard let status = Status(rawValue: indexPath.section) else { return }
                 
