@@ -10,6 +10,13 @@ class CustomCollectionView: UICollectionView {
     init() {
         var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
         configuration.headerMode = .supplementary
+        configuration.trailingSwipeActionsConfigurationProvider = { (indexPath) in
+            let delete = UIContextualAction(style: .normal, title: "Delete") { (action, view, completion) in
+                completion(true)
+            }
+            delete.backgroundColor = .systemRed
+            return UISwipeActionsConfiguration(actions: [delete])
+        }
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         super.init(frame: .zero, collectionViewLayout: layout)
         backgroundColor = .systemBackground
