@@ -54,9 +54,9 @@ final class MainViewController: UIViewController {
     }
     
     private func addChildren() {
-        self.addChild(TodoViewController())
-        self.addChild(DoingViewController())
-        self.addChild(DoneViewController())
+        self.addChild(TaskCollectionViewController(mode: .todo))
+        self.addChild(TaskCollectionViewController(mode: .doing))
+        self.addChild(TaskCollectionViewController(mode: .done))
     }
     
     private func setupViewModelReference() {
