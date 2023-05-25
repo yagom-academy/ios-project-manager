@@ -12,5 +12,3 @@ protocol ToDoProtocl {
     var description: String { get set }
     var date: Date { get set }
 }
-
-

@@ -85,10 +85,6 @@ final class ToDoWriteViewController: UIViewController {
         configureViewUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
-    }
-    
     // MARK: NavigationBar
     private func configureNavigationBar() {
         navigationItem.title = "TODO"

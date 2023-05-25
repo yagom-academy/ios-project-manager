@@ -14,6 +14,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         case doneTableView
     }
     
+    // MARK: Delegate - ToDoWriteViewController
     func sendTodoList(data: ToDoList, isCreatMode: Bool) {
         if isCreatMode == true {
             toDoList.append(data)
@@ -44,14 +45,14 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     private var doingList: [ToDoList] = [] {
         didSet {
             doingCellCount = doingList.count
-            updateCircleView(cellCount: doingCellCount, circleView: toDoCircleView)
+            updateCircleView(cellCount: doingCellCount, circleView: doingCircleView)
             reloadTableView()
         }
     }
     private var doneList: [ToDoList] = [] {
         didSet {
             doneCellCount = doneList.count
-            updateCircleView(cellCount: doneCellCount, circleView: toDoCircleView)
+            updateCircleView(cellCount: doneCellCount, circleView: doneCircleView)
             reloadTableView()
         }
     }
@@ -119,14 +120,19 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     }
     
     private func updateCircleView(cellCount: Int, circleView: UIView) {
-        let circleView = circleView
         guard let cellCountLabel = circleView.subviews.compactMap({ $0 as? UILabel }).first else { return }
         
         if cellCount > 99 {
             cellCountLabel.text = "99+"
-        } else if cellCount > 0 {
+        } else if cellCount >= 0 {
             cellCountLabel.text = String(cellCount)
         }
+    }
+    
+    private func reloadTableView() {
+        toDoTableView.reloadData()
+        doingTableView.reloadData()
+        doneTableView.reloadData()
     }
     
     private let toDoStackView: UIStackView = {
@@ -135,20 +141,13 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         stackview.distribution = .fillEqually
         return stackview
     }()
-    
-    private func reloadTableView() {
-        toDoTableView.reloadData()
-        doingTableView.reloadData()
-        doneTableView.reloadData()
-    }
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpLongPressGesture()
         configureNavigationBar()
         setUpTableView()
         configureViewUI()
-        
     }
     
     // MARK: LongTouchPress, Popover
@@ -316,6 +315,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     }
 }
 
+// MARK: UITableViewDelegate
 extension ToDoListViewContorller: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell else { return }
@@ -353,6 +353,7 @@ extension ToDoListViewContorller: UITableViewDelegate {
     }
 }
 
+// MARK: UITableViewDataSource
 extension ToDoListViewContorller: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == toDoTableView {
