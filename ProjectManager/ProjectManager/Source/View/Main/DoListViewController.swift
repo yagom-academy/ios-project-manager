@@ -83,9 +83,8 @@ class DoListViewController: UIViewController {
         self.dataSource = UICollectionViewDiffableDataSource<Section, Schedule> (collectionView: self.collectionView) { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScheduleCell.identifier, for: indexPath) as? ScheduleCell else { return nil
             }
-            let schedule = self.mainViewModel.todoSchedules.value[indexPath.row]
+            let schedule = self.mainViewModel.fetchSchedule(index: indexPath.row, scheduleType: self.scheduleType)
             cell.configureUI()
-
             cell.configureLabel(schedule: schedule)
             
             return cell
@@ -95,7 +94,7 @@ class DoListViewController: UIViewController {
     private func applySnapshot() {
         var  snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(mainViewModel.schedule())
+        snapshot.appendItems(mainViewModel.roadSchedules(scheduleType: scheduleType))
         self.dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
@@ -165,21 +164,49 @@ class DoListViewController: UIViewController {
         collectionView.delegate = self
     }
     
-    private func presentPopover(touchedLocation: CGPoint) {
+    private func presentPopover(touchedLocation: CGPoint, index: Int) {
         let locationX = touchedLocation.x
         let locationY = touchedLocation.y
-
-        let alertController = UIAlertController(title: "Move", message: nil, preferredStyle: .actionSheet)
+        let alertController = createAlertController(index: index)
         let popover = alertController.popoverPresentationController
-        alertController.addAction(UIAlertAction(title: "Todo", style: .default) {_ in
-            print("zxczxc")
-        })
-        alertController.addAction(UIAlertAction(title: "Doing", style: .default) {_ in
-            print("zxczxc")
-        })
         popover?.sourceView = view
         popover?.sourceRect = CGRect(x: locationX, y: locationY, width: 64, height: 64)
         present(alertController, animated: true)
+    }
+    
+    private func createAlertController(index: Int) -> UIAlertController {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        switch scheduleType {
+        case .todo:
+            alertController.addAction(UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
+                guard let self else { return }
+                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .doing)
+            })
+            alertController.addAction(UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
+                guard let self else { return }
+                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .done)
+            })
+        case .doing:
+            alertController.addAction(UIAlertAction(title: "Move to TODO", style: .default) { [weak self] _ in
+                guard let self else { return }
+                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .todo)
+            })
+            alertController.addAction(UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
+                guard let self else { return }
+                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .done)
+            })
+        case .done:
+            alertController.addAction(UIAlertAction(title: "Move to TODO", style: .default) { [weak self] _ in
+                guard let self else { return }
+                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .todo)
+            })
+            alertController.addAction(UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
+                guard let self else { return }
+                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .doing)
+            })
+        }
+        
+        return alertController
     }
 }
 
@@ -209,17 +236,10 @@ extension DoListViewController: UIGestureRecognizerDelegate {
     
     @objc
     private func pushLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        
         let location = gestureRecognizer.location(in: collectionView)
-        
         guard gestureRecognizer.state == .began else { return }
+        guard let indexPath = collectionView.indexPathForItem(at: location) else { return }
         
-        guard let indexPath = collectionView.indexPathForItem(at: location),
-              
-                let cell = collectionView.cellForItem(at: indexPath) as? ScheduleCell else { return }
-        
-        presentPopover(touchedLocation: location)
-        
-        print("success")
+        presentPopover(touchedLocation: location, index: indexPath.row)
     }
 }

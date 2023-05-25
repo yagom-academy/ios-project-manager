@@ -27,8 +27,26 @@ final class MainViewModel {
         return schedule
     }
     
-    func schedule() -> [Schedule] {
-        return self.todoSchedules.value
+    func fetchSchedule(index: Int, scheduleType: ScheduleType) -> Schedule {
+        switch scheduleType {
+        case .todo:
+            return todoSchedules.value[index]
+        case .doing:
+            return doingSchedules.value[index]
+        case .done:
+            return doneSchedules.value[index]
+        }
+    }
+    
+    func roadSchedules(scheduleType: ScheduleType) -> [Schedule] {
+        switch scheduleType {
+        case .todo:
+            return todoSchedules.value
+        case .doing:
+            return doingSchedules.value
+        case .done:
+            return doneSchedules.value
+        }
     }
     
     func deleteSchedule(scheduleType: ScheduleType, index: Int) {
@@ -73,5 +91,29 @@ final class MainViewModel {
         case .done:
             return doneSchedules.value.count
         }
+    }
+    
+    func move(fromIndex: Int, from: ScheduleType, to: ScheduleType) {
+        var schedule: Schedule
+        var target: Observable<[Schedule]>
+        switch from {
+        case .todo:
+            schedule = todoSchedules.value.remove(at: fromIndex)
+        case .doing:
+            schedule = doingSchedules.value.remove(at: fromIndex)
+        case .done:
+            schedule = doneSchedules.value.remove(at: fromIndex)
+        }
+        
+        switch to {
+        case .todo:
+            target = todoSchedules
+        case .doing:
+            target = doingSchedules
+        case .done:
+            target = doneSchedules
+        }
+        
+        target.value.append(schedule)
     }
 }
