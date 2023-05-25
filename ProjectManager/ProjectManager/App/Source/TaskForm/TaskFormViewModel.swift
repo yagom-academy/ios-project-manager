@@ -61,9 +61,7 @@ final class TaskFormViewModel {
             return
         }
         
-        if title != "" && body != "" {
-            addTask(title: title, date: date, body: body)
-        }
+        addTask(title: title, date: date, body: body)
     }
     
     private func assignToIsDone() {
