@@ -116,7 +116,9 @@ final class TaskListViewController: UIViewController {
     
     private func bind() {
         viewModel.$taskList
-            .sink { taskList in
+            .sink { [weak self] taskList in
+                guard let self else { return }
+                
                 var snapshot = NSDiffableDataSourceSnapshot<State, Task>()
                 
                 snapshot.appendSections([self.state])

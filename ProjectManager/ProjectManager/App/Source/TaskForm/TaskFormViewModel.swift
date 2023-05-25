@@ -39,7 +39,7 @@ final class TaskFormViewModel {
     
     init(task: Task? = nil) {
         self.task = task
-        self.isEditable = (task == nil)
+        isEditable = (task == nil)
     }
 
     func dismissOrEditableIfNeeded(action: (() -> Void)?) {
@@ -49,7 +49,7 @@ final class TaskFormViewModel {
             return
         }
         
-        self.isEditable = true
+        isEditable = true
     }
     
     func doneAction(title: String, date: Date, body: String) {

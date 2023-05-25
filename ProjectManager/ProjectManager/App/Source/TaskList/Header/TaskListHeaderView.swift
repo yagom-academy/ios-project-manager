@@ -47,11 +47,11 @@ final class TaskListHeaderView: UIView {
     }()
     
     init(state: State) {
-        self.viewModel = TaskListHeaderViewModel(state: state)
+        viewModel = TaskListHeaderViewModel(state: state)
         
         super.init(frame: .zero)
         
-        self.backgroundColor = .systemGray6
+        backgroundColor = .systemGray6
         setupStackView()
         setupConstraints()
         setupTitle()

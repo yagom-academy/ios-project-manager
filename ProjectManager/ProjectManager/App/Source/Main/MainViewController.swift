@@ -58,9 +58,9 @@ final class MainViewController: UIViewController {
     }
     
     private func addChildViews() {
-        self.addChild(todoViewController)
-        self.addChild(doingViewController)
-        self.addChild(doneViewController)
+        addChild(todoViewController)
+        addChild(doingViewController)
+        addChild(doneViewController)
     }
     
     private func addSubViews() {
