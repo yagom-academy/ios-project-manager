@@ -14,9 +14,9 @@ struct ProjectMainView: View {
     var body: some View {
         NavigationStack{
             HStack{
-                ProjectListView(viewModel: viewModel, formCase: .todo)
-                ProjectListView(viewModel: viewModel, formCase: .doing)
-                ProjectListView(viewModel: viewModel, formCase: .done)
+                ProjectListView(viewModel: viewModel, currentState: .todo)
+                ProjectListView(viewModel: viewModel, currentState: .doing)
+                ProjectListView(viewModel: viewModel, currentState: .done)
             }
             .background(Color(UIColor.systemGray4))
             .navigationTitle("Project Manager")

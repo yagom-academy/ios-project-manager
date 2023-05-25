@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ProjectListView: View {
     let viewModel: ProjectViewModel
-    let formCase: ProjectState
+    let currentState: ProjectState
     
     var body: some View {
     
         List {
             Section {
-                switch formCase {
+                switch currentState {
                 case .todo:
                     createListItems(for: viewModel.todoList, onDelete: { indexSet in
                         viewModel.delete(cases: .todo, at: indexSet)
@@ -31,7 +31,7 @@ struct ProjectListView: View {
                 }
                 
             } header: {
-                Text(formCase.rawValue)
+                Text(currentState.rawValue)
                     .font(.title)
                     .foregroundColor(.black)
                     .fontWeight(.light)
@@ -42,8 +42,11 @@ struct ProjectListView: View {
     }
     
     func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
-        ForEach(models.indices, id: \.self) { index in
-            ProjectListCell(viewModel: viewModel, state: formCase, index: index)
+        ForEach(models) { model in
+            ProjectListCell(viewModel: viewModel, model: model, state: currentState)
+                .contextMenu {
+                    createPopoverItem(items: currentState.popoverItem)
+                }
         }
         .onDelete(perform: onDelete)
         .listRowInsets(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
@@ -53,12 +56,24 @@ struct ProjectListView: View {
                 .padding(.top, 10)
         )
     }
+    
+    func createPopoverItem(items: (first: ProjectState, second: ProjectState)) -> some View {
+        VStack{
+            Button(items.first.popoverText) {
+                
+            } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+            
+            Button(items.second.popoverText) {
+                
+            } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+        }
+    }
 }
 
 struct ProjectListView_Previews: PreviewProvider {
 
     static var previews: some View {
-        ProjectListView(viewModel: ProjectViewModel(), formCase: .doing)
+        ProjectListView(viewModel: ProjectViewModel(), currentState: .doing)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

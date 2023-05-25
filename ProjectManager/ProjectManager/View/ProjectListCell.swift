@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct ProjectListCell: View {
-    //let model: Project
     let viewModel: ProjectViewModel
+    let model: Project
     let state: ProjectState
-    let index: Int
     @State private var isShowingPopOver = false
     
     var body: some View {
-        let model = viewModel.selectList(cases: state)[index]
+        
         VStack(alignment: .leading, spacing: 8.0) {
             Text(model.title)
                 .lineLimit(1)
@@ -23,40 +22,21 @@ struct ProjectListCell: View {
                 .lineLimit(3)
                 .foregroundColor(.secondary)
             Text(model.date)
+        }.contextMenu {
+            createPopoverItem(items: state.popoverItem)
         }
-        .onLongPressGesture(minimumDuration: 1.0) {
-            isShowingPopOver = true
-        }
-        .popover(isPresented: $isShowingPopOver,
-                 attachmentAnchor: .point(.bottom)
-        ){
-            switch state {
-            case .todo:
-                Button("Move to DOING") {
-                    viewModel.move(index: index, state: state, to: .doing)
-                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
-       
-                Button("Move to DONE") {
-                    viewModel.move(index: index, state: state, to: .done)
-                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
-            case .doing:
-                Button("Move to TODO") {
-                    viewModel.move(index: index, state: state, to: .todo)
-                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
-       
-                Button("Move to DONE") {
-                    viewModel.move(index: index, state: state, to: .done)
-                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
-            case .done:
-                Button("Move to TODO") {
-                    viewModel.move(index: index, state: state, to: .todo)
-                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
-       
-                Button("Move to DOING") {
-                    viewModel.move(index: index, state: state, to: .doing)
-                } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
-            }
+
+    }
+    
+    func createPopoverItem(items: (first: ProjectState, second: ProjectState)) -> some View {
+        VStack{
+            Button(items.first.popoverText) {
+                viewModel.move(model: model, from: state, to: items.first)
+            } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
             
+            Button(items.second.popoverText) {
+                viewModel.move(model: model, from: state, to: items.second)
+            } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
         }
     }
 }
@@ -64,6 +44,9 @@ struct ProjectListCell: View {
 struct ProjectListCell_Previews: PreviewProvider {
     static var previews: some View {
 
-        ProjectListCell(viewModel: ProjectViewModel(), state: .doing, index: 1)
+        ProjectListCell(
+            viewModel: ProjectViewModel(),
+            model: Project(title: "안녕", body: "하세요", date: "2022.12.03"),
+            state: .doing)
     }
 }

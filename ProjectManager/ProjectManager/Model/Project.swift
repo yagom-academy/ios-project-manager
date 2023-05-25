@@ -7,9 +7,17 @@
 
 import Foundation
 
-struct Project: Identifiable {
+struct Project: Identifiable, Equatable {
     var id = UUID()
     var title: String
     var body: String
     var date: String
+    
+    public static func ==(lhs: Project, rhs: Project) -> Bool {
+        if lhs.id == rhs.id {
+            return true
+        } else {
+            return false
+        }
+     }
 }
