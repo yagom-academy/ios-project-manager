@@ -199,7 +199,7 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
     
     private func configureLongGestureRecognizer() {
         let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
-        longPressedGesture.minimumPressDuration = 1
+        longPressedGesture.minimumPressDuration = 0.7
         longPressedGesture.delegate = self
         longPressedGesture.delaysTouchesBegan = true
         projectManagerCollectionView.addGestureRecognizer(longPressedGesture)
@@ -216,11 +216,15 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
             let assignedProjects = projects.list.filter { $0.status == status }
             let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
             let project = sortedAssignedProjects[indexPath.item]
-            let moveToViewController = MoveToViewController(projectManagerViewController: self, project: project)
+            let moveToViewController = MoveToViewController(project: project)
             moveToViewController.modalPresentationStyle = UIModalPresentationStyle.popover
             moveToViewController.preferredContentSize = CGSize(width: 300, height: 150)
             moveToViewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
             moveToViewController.popoverPresentationController?.sourceView = projectManagerCollectionView.cellForItem(at: indexPath)
+            
+            moveToViewController.dismissHandler = {
+                self.projectManagerCollectionView.reloadData()
+            }
             
             self.present(moveToViewController, animated: true, completion: nil)
         }

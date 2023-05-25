@@ -8,8 +8,8 @@ import UIKit
 
 final class MoveToViewController: UIViewController {
     private var projects = Projects.shared
-    var projectManagerViewController: ProjectManagerViewController?
     let project: Project?
+    var dismissHandler: (() -> ())?
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -54,8 +54,7 @@ final class MoveToViewController: UIViewController {
         return button
     }()
     
-    init(projectManagerViewController: ProjectManagerViewController? = nil, project: Project) {
-        self.projectManagerViewController = projectManagerViewController
+    init(project: Project) {
         self.project = project
         super.init(nibName: nil, bundle: nil)
     }
@@ -84,7 +83,7 @@ final class MoveToViewController: UIViewController {
             }
         }
         
-        projectManagerViewController?.projectManagerCollectionView.reloadData()
+        dismissHandler?()
         self.dismiss(animated: false)
     }
     
@@ -98,7 +97,7 @@ final class MoveToViewController: UIViewController {
             }
         }
         
-        projectManagerViewController?.projectManagerCollectionView.reloadData()
+        dismissHandler?()
         self.dismiss(animated: false)
     }
     
@@ -112,7 +111,7 @@ final class MoveToViewController: UIViewController {
             }
         }
         
-        projectManagerViewController?.projectManagerCollectionView.reloadData()
+        dismissHandler?()
         self.dismiss(animated: false)
     }
     
