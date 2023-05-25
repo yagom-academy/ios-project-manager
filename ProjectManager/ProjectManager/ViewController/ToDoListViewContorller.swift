@@ -168,7 +168,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         if recognizer.state == .began {
             switch selectedTableView {
             case toDoTableView:
-                showPopover(firstTitle: "MOVE TO DOING",
+                showPopover(point: touchPoint, firstTitle: "MOVE TO DOING",
                             secondTitle: "MOVE TO DONE",
                             firstHandler: { _ in self.convertCellInTableView(indextPath: selectedIndexPathRow,
                                                                              firstChoiceTableView: .todoTableView,
@@ -177,7 +177,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
                                                                               firstChoiceTableView: .todoTableView,
                                                                               targetTableView: .doneTableView) })
             case doingTableView:
-                showPopover(firstTitle: "MOVE TO TODO",
+                showPopover(point: touchPoint, firstTitle: "MOVE TO TODO",
                             secondTitle: "MOVE TO DONE",
                             firstHandler: { _ in self.convertCellInTableView(indextPath: selectedIndexPathRow,
                                                                              firstChoiceTableView: .doingTableView,
@@ -187,7 +187,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
                                                                               targetTableView: .doneTableView) }
                 )
             case doneTableView:
-                showPopover(firstTitle: "MOVE TO TODO",
+                showPopover(point: touchPoint, firstTitle: "MOVE TO TODO",
                             secondTitle: "MOVE TO DOING",
                             firstHandler: { _ in self.convertCellInTableView(indextPath: selectedIndexPathRow,
                                                                              firstChoiceTableView: .doneTableView,
@@ -202,7 +202,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         }
     }
     
-    private func showPopover(firstTitle: String, secondTitle: String, firstHandler:((UIAlertAction) -> Void)?, secondHandler:((UIAlertAction) -> Void)?) {
+    private func showPopover(point: CGPoint, firstTitle: String, secondTitle: String, firstHandler:((UIAlertAction) -> Void)?, secondHandler:((UIAlertAction) -> Void)?) {
         let alertController = UIAlertController(title: "이동하고싶은 ", message: "", preferredStyle: .actionSheet)
         
         let firstAction = UIAlertAction(title: firstTitle, style: .default, handler: firstHandler)
@@ -215,8 +215,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         
         guard let popoverController = alertController.popoverPresentationController else { return }
         popoverController.sourceView = self.view
-        popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-        popoverController.permittedArrowDirections = []
+        popoverController.sourceRect = CGRect(x: point.x + 50, y: point.y + 50, width: 0, height: 0)
         present(alertController, animated: true, completion: nil)
     }
     
