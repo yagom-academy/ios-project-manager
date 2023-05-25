@@ -23,9 +23,9 @@ enum TaskState: CaseIterable {
 }
 
 extension TaskState {
-    var others: (first: TaskState, second: TaskState) {
+    var others: (first: TaskState?, second: TaskState?) {
         let stateList = TaskState.allCases.filter { $0 != self }
         
-        return (stateList[0], stateList[1])
+        return (stateList.first, stateList.last)
     }
 }

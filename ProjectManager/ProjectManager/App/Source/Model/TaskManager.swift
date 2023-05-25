@@ -27,7 +27,7 @@ final class TaskManager {
         let index = taskList.firstIndex { $0.id == task.id }
         guard let index else { return }
         
-        taskList[index] = task
+        taskList[safe: index] = task
     }
     
     func delete(by id: UUID) {

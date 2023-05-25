@@ -144,7 +144,7 @@ final class TaskListViewController: UIViewController {
 
 extension TaskListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let task = viewModel.taskList[indexPath.row]
+        let task = viewModel.taskList[safe: indexPath.row]
         let taskFormViewController = TaskFormViewController(task: task)
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
         

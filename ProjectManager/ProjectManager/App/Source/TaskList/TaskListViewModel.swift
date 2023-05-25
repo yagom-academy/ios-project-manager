@@ -14,12 +14,16 @@ final class TaskListViewModel {
     private let taskManager = TaskManager.shared
     private var subscribes = Set<AnyCancellable>()
     
-    var firstPopoverActionTitle: String {
-        return "Move to \(state.others.first.description)"
+    var firstPopoverActionTitle: String? {
+        guard let actionTitle = state.others.first?.description else { return nil }
+        
+        return "Move to \(actionTitle)"
     }
     
-    var secondPopoverActionTitle: String {
-        return "Move to \(state.others.second.description)"
+    var secondPopoverActionTitle: String? {
+        guard let actionTitle = state.others.second?.description else { return nil }
+        
+        return "Move to \(actionTitle)"
     }
     
     init(state: TaskState) {
@@ -29,13 +33,15 @@ final class TaskListViewModel {
     }
     
     func delete(indexPath: IndexPath) {
-        let task = taskList[indexPath.row]
+        guard let task = taskList[safe: indexPath.row] else { return }
         
         taskManager.delete(by: task.id)
     }
     
-    func changeState(indexPath: IndexPath, state: TaskState) {
-        var task = taskList[indexPath.row]
+    func changeState(indexPath: IndexPath, state: TaskState?) {
+        guard var task = taskList[safe: indexPath.row],
+              let state else { return }
+        
         task.state = state
         
         taskManager.update(task: task)
