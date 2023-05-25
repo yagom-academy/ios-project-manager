@@ -53,9 +53,7 @@ final class TaskListCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubviews()
-        setupConstraints()
-        backgroundColor = .white
+        setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -69,6 +67,13 @@ final class TaskListCell: UICollectionViewCell {
         layer.shadowOffset = CGSize(width: 0, height: 0.5)
         layer.shadowOpacity = 0.3
         layer.shadowRadius = 1
+    }
+    
+    private func setupView() {
+        backgroundColor = .systemBackground
+        
+        addSubviews()
+        setupConstraints()
     }
     
     private func addSubviews() {

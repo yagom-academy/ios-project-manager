@@ -18,7 +18,7 @@ final class TaskFormViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 8
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = .systemBackground
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         
@@ -29,7 +29,7 @@ final class TaskFormViewController: UIViewController {
         let textField = UITextField()
         let placeholderText = "Title"
         
-        textField.backgroundColor = .white
+        textField.backgroundColor = .systemBackground
         textField.placeholder = placeholderText
         textField.font = .preferredFont(forTextStyle: .title1)
         textField.layer.shadowColor = UIColor.black.cgColor
