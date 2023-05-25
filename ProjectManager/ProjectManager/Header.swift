@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CollectionViewHeader: UICollectionReusableView {
+class Header: UICollectionReusableView {
     
     let headerLabel = {
         let label = UILabel()
@@ -17,6 +17,11 @@ class CollectionViewHeader: UICollectionReusableView {
     
     let cellCountLabel = {
         let label = UILabel()
+        label.backgroundColor = .black
+        label.textColor = .white
+        label.clipsToBounds = true
+        label.textAlignment = .center
+        label.layer.cornerRadius = 10
         return label
     }()
     
@@ -39,6 +44,10 @@ class CollectionViewHeader: UICollectionReusableView {
         addSubview(headerStackView)
         headerStackView.addArrangedSubview(headerLabel)
         headerStackView.addArrangedSubview(cellCountLabel)
+        
+        cellCountLabel.snp.makeConstraints {
+            $0.width.equalTo(20)
+        }
         
         headerStackView.snp.makeConstraints {
             $0.top.equalTo(10)

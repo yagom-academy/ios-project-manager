@@ -41,11 +41,15 @@ class TodoListCell: UICollectionViewListCell {
     }
     
     private func configureUI() {
+        let view = UIView()
+        view.backgroundColor = .clear
+        selectedBackgroundView = view
+        
         addSubview(cellStackView)
         cellStackView.addArrangedSubview(titleLabel)
         cellStackView.addArrangedSubview(contentLabel)
         cellStackView.addArrangedSubview(dateLabel)
-    
+
         cellStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

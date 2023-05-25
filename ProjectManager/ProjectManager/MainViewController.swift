@@ -71,7 +71,7 @@ extension MainViewController {
             cell.configure(title: todo.title, content: todo.content, date: todo.date)
         }
         let headerRegistration = UICollectionView.SupplementaryRegistration
-        <CollectionViewHeader>(elementKind: UICollectionView.elementKindSectionHeader) {
+        <Header>(elementKind: UICollectionView.elementKindSectionHeader) {
             (headerView, elementKind, indexPath) in
             let headerItem = self.dataSource1?.snapshot().sectionIdentifiers[indexPath.section]
 //            let headerItem = self.dataSource1?.snapshot().sectionIdentifiers[indexPath.section]
@@ -80,7 +80,7 @@ extension MainViewController {
         }
         
         let headerRegistration1 = UICollectionView.SupplementaryRegistration
-        <CollectionViewHeader>(elementKind: UICollectionView.elementKindSectionHeader) {
+        <Header>(elementKind: UICollectionView.elementKindSectionHeader) {
             (headerView, elementKind, indexPath) in
 //            let headerItem = self.dataSource1?.snapshot().sectionIdentifiers[indexPath.section]
             headerView.headerLabel.text = "DOING"
