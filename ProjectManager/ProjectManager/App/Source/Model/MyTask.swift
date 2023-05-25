@@ -1,5 +1,5 @@
 //
-//  Task.swift
+//  MyTask.swift
 //  ProjectManager
 //
 //  Created by Harry, KokkiLE on 2023/05/17.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Task: Hashable {
+struct MyTask: Hashable {
     let id = UUID()
-    var state: State
+    var state: TaskState
     var title: String
     var body: String
     var deadline: Date

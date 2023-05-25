@@ -63,7 +63,7 @@ final class TaskFormViewController: UIViewController {
         return textView
     }()
     
-    init(task: Task? = nil) {
+    init(task: MyTask? = nil) {
         viewModel = TaskFormViewModel(task: task)
         
         super.init(nibName: nil, bundle: nil)

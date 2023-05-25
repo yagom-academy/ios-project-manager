@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 final class TaskListViewModel {
-    @Published var taskList: [Task] = []
-    private let state: State
+    @Published var taskList: [MyTask] = []
+    private let state: TaskState
     private let taskManager = TaskManager.shared
     private var subscribes = Set<AnyCancellable>()
     
@@ -22,7 +22,7 @@ final class TaskListViewModel {
         return "Move to \(state.others.second.description)"
     }
     
-    init(state: State) {
+    init(state: TaskState) {
         self.state = state
         
         requestFilteredTaskList()
@@ -34,7 +34,7 @@ final class TaskListViewModel {
         taskManager.delete(by: task.id)
     }
     
-    func changeState(indexPath: IndexPath, state: State) {
+    func changeState(indexPath: IndexPath, state: TaskState) {
         var task = taskList[indexPath.row]
         task.state = state
         

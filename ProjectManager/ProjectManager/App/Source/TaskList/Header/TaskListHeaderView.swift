@@ -46,7 +46,7 @@ final class TaskListHeaderView: UIView {
         return stackView
     }()
     
-    init(state: State) {
+    init(state: TaskState) {
         viewModel = TaskListHeaderViewModel(state: state)
         
         super.init(frame: .zero)

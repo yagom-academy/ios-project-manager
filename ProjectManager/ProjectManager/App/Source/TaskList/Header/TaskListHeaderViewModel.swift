@@ -15,16 +15,16 @@ final class TaskListHeaderViewModel {
     var title: String = ""
     @Published var count: String = ""
     
-    init(state: State) {
+    init(state: TaskState) {
         setTitle(state: state)
         requestTaskCount(state: state)
     }
     
-    private func setTitle(state: State) {
+    private func setTitle(state: TaskState) {
         title = state.description
     }
     
-    private func requestTaskCount(state: State) {
+    private func requestTaskCount(state: TaskState) {
         taskManager
             .taskListPublisher()
             .map {

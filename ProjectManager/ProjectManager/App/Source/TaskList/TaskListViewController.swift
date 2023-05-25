@@ -9,9 +9,9 @@ import UIKit
 import Combine
 
 final class TaskListViewController: UIViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<State, Task>
+    typealias DataSource = UICollectionViewDiffableDataSource<TaskState, MyTask>
 
-    private let state: State
+    private let state: TaskState
     private let viewModel: TaskListViewModel
     private var dataSource: DataSource?
     private let headerView: TaskListHeaderView
@@ -39,7 +39,7 @@ final class TaskListViewController: UIViewController {
         return stackView
     }()
     
-    init(state: State) {
+    init(state: TaskState) {
         self.state = state
         viewModel = TaskListViewModel(state: state)
         headerView = TaskListHeaderView(state: state)
@@ -119,7 +119,7 @@ final class TaskListViewController: UIViewController {
             .sink { [weak self] taskList in
                 guard let self else { return }
                 
-                var snapshot = NSDiffableDataSourceSnapshot<State, Task>()
+                var snapshot = NSDiffableDataSourceSnapshot<TaskState, MyTask>()
                 
                 snapshot.appendSections([self.state])
                 snapshot.appendItems(taskList)

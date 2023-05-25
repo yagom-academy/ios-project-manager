@@ -1,11 +1,11 @@
 //
-//  State.swift
+//  TaskState.swift
 //  ProjectManager
 //
 //  Created by Harry, KokkiLE on 2023/05/18.
 //
 
-enum State: CaseIterable {
+enum TaskState: CaseIterable {
     case todo
     case doing
     case done
@@ -22,9 +22,9 @@ enum State: CaseIterable {
     }
 }
 
-extension State {
-    var others: (first: State, second: State) {
-        let stateList = State.allCases.filter { $0 != self }
+extension TaskState {
+    var others: (first: TaskState, second: TaskState) {
+        let stateList = TaskState.allCases.filter { $0 != self }
         
         return (stateList[0], stateList[1])
     }

@@ -14,7 +14,7 @@ final class TaskListCellViewModel {
     @Published var deadlineText: String = ""
     @Published var deadlineColor: UIColor = .label
     
-    func updateContents(by task: Task) {
+    func updateContents(by task: MyTask) {
         title = task.title
         body = task.body
         deadlineText = DateFormatter.deadlineText(date: task.deadline)

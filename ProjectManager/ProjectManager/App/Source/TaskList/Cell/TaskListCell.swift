@@ -89,7 +89,7 @@ final class TaskListCell: UICollectionViewCell {
         ])
     }
     
-    func bind(_ task: Task) {
+    func bind(_ task: MyTask) {
         viewModel.updateContents(by: task)
         
         viewModel.$title

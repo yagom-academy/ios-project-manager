@@ -10,7 +10,7 @@ import Combine
 
 final class TaskFormViewModel {
     private let taskManager = TaskManager.shared
-    private var task: Task?
+    private var task: MyTask?
     @Published var isEditable: Bool
     
     var title: String {
@@ -34,10 +34,10 @@ final class TaskFormViewModel {
     }
     
     var navigationTitle: String? {
-        return task != nil ? task?.state.description : State.todo.description
+        return task != nil ? task?.state.description : TaskState.todo.description
     }
     
-    init(task: Task? = nil) {
+    init(task: MyTask? = nil) {
         self.task = task
         isEditable = (task == nil)
     }
@@ -65,7 +65,7 @@ final class TaskFormViewModel {
     }
     
     private func addTask(title: String, date: Date, body: String) {
-        let task = Task(state: .todo, title: title, body: body, deadline: date)
+        let task = MyTask(state: .todo, title: title, body: body, deadline: date)
         
         taskManager.create(task: task)
     }
