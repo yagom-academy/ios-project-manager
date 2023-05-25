@@ -120,11 +120,11 @@ final class ToDoWriteViewController: UIViewController {
         
     private func saveToDoList() {
         guard let title = titleTextField.text,
-              let description = descriptionTextView.text,
-              let formattedDate = DateFormatterManager.shared.convertDateToString(date: datePicker.date) else { return }
+              let description = descriptionTextView.text else { return }
         
-        let toDoList = ToDoList(title: title, description: description, date: formattedDate)
-        print(toDoList)
+        let date = datePicker.date
+        let toDoList = ToDoList(title: title, description: description, date: date)
+        
         switch mode {
         case .create:
             delegate?.sendTodoList(data: toDoList, isCreatMode: true)

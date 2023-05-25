@@ -70,9 +70,17 @@ class ToDoTableViewCell: UITableViewCell {
     
     func setUpLabel(toDoList: ToDoList) {
         self.toDoList = toDoList
-        
+    
         titleLabel.text = toDoList.title
         descriptionLabel.text = toDoList.description
-        dateLabel.text = toDoList.date
+        
+        let formattedDate = DateFormatterManager.shared.convertDateToString(date: toDoList.date)
+        
+        if toDoList.date > Date() {
+            dateLabel.text = formattedDate
+        } else {
+            dateLabel.text = formattedDate
+            dateLabel.textColor = .red
+        }
     }
 }
