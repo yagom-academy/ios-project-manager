@@ -2,7 +2,7 @@
 //  TableViewCell.swift
 //  ProjectManager
 //
-//  Created by 박소연 on 2023/05/23.
+//  Created by 무리 on 2023/05/23.
 //
 
 import UIKit

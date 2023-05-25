@@ -122,7 +122,7 @@ final class DetailProjectViewController: UIViewController {
               let description = descriptionTextView.text else { return }
         
         let todoList = ProjectModel(title: title, description: description, deadLine: Date(), state: .doing)
-        listViewModel.listArray.append(todoList)
+        listViewModel.addProject(new: todoList)
         postNotificationObserver()
 
         self.dismiss(animated: true)
