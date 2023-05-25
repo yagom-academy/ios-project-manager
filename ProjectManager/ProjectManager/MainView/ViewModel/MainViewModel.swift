@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainViewModel {
-    private let mainCollectionViewService = MainTaskService()
+    private let mainTaskService = MainTaskService()
     
     var taskList: [Task] = []
     var viewModelDictionary = [WorkState: any CollectionViewModel]()
@@ -26,6 +26,12 @@ final class MainViewModel {
         distributeTask()
     }
     
+    func updateTaskList(for workState: WorkState) {
+        let taskList = mainTaskService.fetchTaskList(for: workState)
+        let collectionViewModel = viewModelDictionary[workState]
+        collectionViewModel?.items = taskList
+    }
+    
     func updateDataSource(for workState: WorkState, itemID: UUID?) {
         guard let itemID else { return }
         
@@ -34,7 +40,7 @@ final class MainViewModel {
     }
     
     private func fetchTaskList() {
-        taskList = mainCollectionViewService.fetchTaskList()
+        taskList = mainTaskService.fetchTaskList()
     }
     
     private func distributeTask() {

@@ -35,7 +35,6 @@ final class TodoViewController: UIViewController, TaskCollectionViewController {
                 let actionHandler: UIContextualAction.Handler = { action, view, completion in
                     self.viewModel.remove(task)
                     completion(true)
-                    self.viewModel.updateTask(id: task.id)
                 }
                 
                 let action = UIContextualAction(

@@ -189,10 +189,10 @@ final class DetailViewController: UIViewController {
         switch mode {
         case .create:
             detailViewModel.createTask()
-            delegate?.configureDataSource()
+            delegate?.updateTaskList(for: .todo)
         case .update:
             detailViewModel.updateTask()
-            delegate?.configureDataSource()
+            delegate?.updateTaskList(for: detailViewModel.workState)
             delegate?.updateDataSource(for: detailViewModel.workState, itemID: detailViewModel.id)
         }
         

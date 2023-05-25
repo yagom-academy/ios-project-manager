@@ -14,16 +14,15 @@ final class TodoCollectionViewModel: NSObject, CollectionViewModel {
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Task.ID>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Task.ID>
-    
+    private let service = CollectionTaskService()
     private weak var collectionView: UICollectionView?
     private var dataSource: DataSource?
-    private var snapshot = Snapshot()
     
     private var cellIdentifier: String
     
     var items: [Task] = [] {
         didSet {
-            snapshot.numberOfSections == 1 ? updateDataSource() : configureDataSource()
+            updateDataSource()
         }
     }
     
@@ -57,12 +56,20 @@ final class TodoCollectionViewModel: NSObject, CollectionViewModel {
     }
     
     func updateTask(id: UUID) {
+        guard let dataSource else { return }
+        
+        var snapshot = dataSource.snapshot()
         snapshot.reloadItems([id])
-        applySnapshot()
+        dataSource.apply(snapshot)
     }
     
     func remove(_ item: Task) {
-        self.items.removeAll { $0.id == item.id }
+        guard let dataSource else { return }
+        
+        service.removeTask(id: item.id)
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteItems([item.id])
+        dataSource.apply(snapshot)
     }
     
     func task(at indexPath: IndexPath) -> Task? {
@@ -71,27 +78,12 @@ final class TodoCollectionViewModel: NSObject, CollectionViewModel {
 }
 
 extension TodoCollectionViewModel {
-    private func configureDataSource() {
-        configureSnapshotSection()
-        configureSnapshotItems()
-        applySnapshot()
-    }
-    
     private func updateDataSource() {
-        configureSnapshotItems()
-        applySnapshot()
-    }
-    
-    private func configureSnapshotSection() {
+        let taskIDList = items.map { $0.id }
+        
+        var snapshot = Snapshot()
         snapshot.appendSections([.todo])
-    }
-    
-    private func configureSnapshotItems() {
-        let taskList = items.map { $0.id }
-        snapshot.appendItems(taskList, toSection: .todo)
-    }
-    
-    private func applySnapshot() {
+        snapshot.appendItems(taskIDList)
         dataSource?.apply(snapshot)
     }
     
