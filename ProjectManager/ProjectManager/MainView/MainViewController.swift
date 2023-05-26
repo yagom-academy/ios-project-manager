@@ -26,12 +26,12 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureRootView()
+        configureStackView()
         addChildren()
         setupViewModelReference()
-        configureStackView()
-        mainViewModel.configureDataSource()
+        fetchInitialTaskList()
     }
-    
+
     private func configureNavigationBar() {
         self.navigationItem.title = "Project Manager"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -43,9 +43,11 @@ final class MainViewController: UIViewController {
     
     @objc
     private func presentDetailView() {
+        let detailViewModelDelegate = mainViewModel.todoViewModel() as? DetailViewModelDelegate
         let detailViewController = DetailViewController(task: nil, mode: .create)
         detailViewController.modalPresentationStyle = .formSheet
-        detailViewController.delegate = self.mainViewModel
+        detailViewController.configureViewModelDelegate(with: detailViewModelDelegate)
+        
         self.present(detailViewController, animated: true)
     }
     
@@ -55,9 +57,9 @@ final class MainViewController: UIViewController {
     }
     
     private func addChildren() {
-        self.addChild(TaskCollectionViewController(mode: .todo))
-        self.addChild(TaskCollectionViewController(mode: .doing))
-        self.addChild(TaskCollectionViewController(mode: .done))
+        self.addChild(TaskCollectionViewController(viewModel: TodoViewModel()))
+        self.addChild(TaskCollectionViewController(viewModel: DoingViewModel()))
+        self.addChild(TaskCollectionViewController(viewModel: DoneViewModel()))
     }
     
     private func setupViewModelReference() {
@@ -68,11 +70,17 @@ final class MainViewController: UIViewController {
         self.children.forEach {
             stackView.addArrangedSubview($0.view)
         }
+        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
+    }
+    
+    private func fetchInitialTaskList() {
+        mainViewModel.fetchTaskList()
+        mainViewModel.distributeTask()
     }
 }

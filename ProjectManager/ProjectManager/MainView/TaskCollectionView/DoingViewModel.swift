@@ -8,16 +8,10 @@
 import UIKit
 
 final class DoingViewModel: TaskListViewModel {
-    
     @Published var taskList: [Task] = []
     
-    var taskWorkState: WorkState
+    var taskWorkState: WorkState = .doing
     var delegate: TaskListViewModelDelegate?
-    
-    init(taskWorkState: WorkState, delegate: TaskListViewModelDelegate? = nil) {
-        self.taskWorkState = taskWorkState
-        self.delegate = delegate
-    }
 }
 
 extension DoingViewModel: DetailViewModelDelegate {

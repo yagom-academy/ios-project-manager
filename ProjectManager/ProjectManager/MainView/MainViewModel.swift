@@ -33,6 +33,10 @@ final class MainViewModel {
             viewModel.taskList = filteredTaskList
         }
     }
+    
+    func todoViewModel() -> TaskListViewModel? {
+        return viewModelDictionary[.todo]
+    }
 }
 
 extension MainViewModel: TaskListViewModelDelegate {

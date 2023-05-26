@@ -8,16 +8,10 @@
 import UIKit
 
 final class TodoViewModel: TaskListViewModel {
-    
     @Published var taskList: [Task] = []
     
-    var taskWorkState: WorkState
+    let taskWorkState: WorkState = .todo
     var delegate: TaskListViewModelDelegate?
-    
-    init(taskWorkState: WorkState, delegate: TaskListViewModelDelegate? = nil) {
-        self.taskWorkState = taskWorkState
-        self.delegate = delegate
-    }
 }
 
 extension TodoViewModel: DetailViewModelDelegate {
