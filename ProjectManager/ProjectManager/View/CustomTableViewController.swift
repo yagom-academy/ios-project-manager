@@ -36,6 +36,7 @@ class CustomTableViewController: UIViewController {
         configureConstraints()
         configureTableView()
         configureViewModel()
+        configureGesture()
     }
     
     func configureViewModel() {
@@ -71,6 +72,44 @@ class CustomTableViewController: UIViewController {
     private func configureTableView() {
         projectTableView.delegate = self
         projectTableView.dataSource = self
+    }
+    
+    private func configureGesture() {
+        var longPress = UILongPressGestureRecognizer(target: self, action: #selector(showActionSheet))
+        
+        view.addGestureRecognizer(longPress)
+    }
+    
+    private func longPressGesture(sender: UILongPressGestureRecognizer) {
+        let point = sender.location(in: self.projectTableView)
+        if let indexPath = self.projectTableView.indexPathForRow(at: point) {
+            if let cell = self.projectTableView.cellForRow(at: indexPath) {
+                
+            }
+        }
+    }
+    
+    @objc
+    func showActionSheet() {
+        let alert = UIAlertController(title: "알림", message: "프로젝트 이동", preferredStyle: .actionSheet)
+        let moveToTodo = UIAlertAction(title: "TODO로 이동", style: .default)
+        let moveToDoing = UIAlertAction(title: "DOING으로 이동", style: .default)
+        let moveToDone = UIAlertAction(title: "DONE으로 이동", style: .default)
+        alert.addAction(moveToTodo)
+        alert.addAction(moveToDoing)
+        alert.addAction(moveToDone)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad { //디바이스 타입이 iPad일때
+          if let popoverController = alert.popoverPresentationController {
+              // ActionSheet가 표현되는 위치를 저장해줍니다.
+              popoverController.sourceView = self.view
+              popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+              popoverController.permittedArrowDirections = []
+              self.present(alert, animated: true)
+          }
+        } else {
+          self.present(alert, animated: true)
+        }
     }
 }
 
