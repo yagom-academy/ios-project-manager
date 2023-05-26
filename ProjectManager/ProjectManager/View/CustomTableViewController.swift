@@ -112,6 +112,43 @@ extension CustomTableViewController: UITableViewDataSource {
 }
 
 extension CustomTableViewController: UITableViewDelegate {
- 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        var project: ProjectModel
+        
+        switch state {
+        case .todo:
+            project = listViewModel.fetchProject(with: .todo, index: indexPath.row)
+        case .doing:
+            project = listViewModel.fetchProject(with: .doing, index: indexPath.row)
+        case .done:
+            project = listViewModel.fetchProject(with: .done, index: indexPath.row)
+        }
+        
+        let detailProjectViewController = DetailProjectViewController(isNewList: false)
+        navigationController?.pushViewController(detailProjectViewController, animated: true)
+        
+        listViewModel.configureProject(in: detailProjectViewController, with: project)
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: NameSpace.delete) { action, view, completionHandler in
+            switch self.state {
+            case .todo:
+                self.listViewModel.deleteProject(in: .todo, at: indexPath.row)
+            case .doing:
+                self.listViewModel.deleteProject(in: .doing, at: indexPath.row)
+            case .done:
+                self.listViewModel.deleteProject(in: .done, at: indexPath.row)
+            }
+        }
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+}
+
+private enum NameSpace {
+    static let delete = "Delete"
 }
 

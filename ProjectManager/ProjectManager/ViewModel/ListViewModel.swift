@@ -5,7 +5,7 @@
 //  Created by 무리 on 2023/05/19.
 //
 
-import Foundation
+import UIKit
 
 final class ListViewModel {
     static var shared = ListViewModel()
@@ -16,6 +16,10 @@ final class ListViewModel {
 
     func configureCell(to cell: TableViewCell, with data: ProjectModel) {
         cell.configureContent(with: data)
+    }
+    
+    func configureProject(in viewContorller: DetailProjectViewController, with data: ProjectModel) {
+        viewContorller.configureContent(with: data)
     }
     
     func fetchList(with state: State) -> [ProjectModel] {
