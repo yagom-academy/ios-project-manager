@@ -44,6 +44,7 @@ final class MainViewController: UIViewController {
     @objc
     private func presentDetailView() {
         let detailViewController = DetailViewController(task: nil, mode: .create)
+        detailViewController.modalPresentationStyle = .formSheet
         detailViewController.delegate = self.mainViewModel
         self.present(detailViewController, animated: true)
     }

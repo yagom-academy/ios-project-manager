@@ -99,6 +99,7 @@ final class TaskCollectionViewController: UIViewController  {
         
         collectionView.delegate = self
     }
+    
 }
 
 extension TaskCollectionViewController: UICollectionViewDelegate {
@@ -108,8 +109,11 @@ extension TaskCollectionViewController: UICollectionViewDelegate {
         let detailViewController = DetailViewController(task: task, mode: .update)
         let mainViewController = self.parent as? MainViewController
         detailViewController.delegate = mainViewController?.mainViewModel
-        
+        detailViewController.modalPresentationStyle = .formSheet
         self.present(detailViewController, animated: true)
     }
 }
 
+extension TaskCollectionViewController: UIGestureRecognizerDelegate {
+    
+}

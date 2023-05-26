@@ -106,11 +106,11 @@
 		6203356F2A14AB0500DDF23E /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				62A63EB12A1DDB9A00AF928F /* Protocol */,
-				62E8F9C52A1C9D430011B195 /* Service */,
-				62D600342A15062D00AD7490 /* WorkState.swift */,
-				62D600522A1750EB00AD7490 /* ViewModel */,
-				62D600512A1750E100AD7490 /* View */,
+				62A63EAF2A1DB33400AF928F /* MainViewModel.swift */,
+				62A63EA92A1DA18600AF928F /* MainViewController.swift */,
+				62D600522A1750EB00AD7490 /* TaskCollectionView */,
+				ADB54CEC2A2078DF00A6409C /* TaskCell */,
+				ADB54CEB2A2078D000A6409C /* HeaderView */,
 				62D6005E2A17A58800AD7490 /* DataSourceError.swift */,
 			);
 			path = MainView;
@@ -120,113 +120,56 @@
 			isa = PBXGroup;
 			children = (
 				620335712A14ACAF00DDF23E /* Task.swift */,
+				62D600342A15062D00AD7490 /* WorkState.swift */,
+				62E8F9C52A1C9D430011B195 /* Service */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		62A63EB12A1DDB9A00AF928F /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				62A63EB22A1DDBAF00AF928F /* CollectionViewModel.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		62D600312A14C24B00AD7490 /* Extension */ = {
+		62D600312A14C24B00AD7490 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				AD8A5EC42A1C51C500D66627 /* Combine */,
 				62D600322A14C25D00AD7490 /* Array.swift */,
 			);
-			path = Extension;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
-		62D600502A1750B900AD7490 /* Controller */ = {
+		62D600522A1750EB00AD7490 /* TaskCollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				62A63EA92A1DA18600AF928F /* MainViewController.swift */,
+				AD4BDE7B2A179EAF0022F3D6 /* TaskCollectionViewModel.swift */,
 				62F7EA5D2A1F5319003DC5D7 /* TaskCollectionViewController.swift */,
 			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		62D600512A1750E100AD7490 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				62D600502A1750B900AD7490 /* Controller */,
-				AD450BE92A150E4A00A9C693 /* HeaderView.swift */,
-				62D600572A1778DE00AD7490 /* TaskCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		62D600522A1750EB00AD7490 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				62A63EAF2A1DB33400AF928F /* MainViewModel.swift */,
-				AD4BDE7B2A179EAF0022F3D6 /* TaskCollectionViewModel.swift */,
-				AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */,
-			);
-			path = ViewModel;
+			path = TaskCollectionView;
 			sourceTree = "<group>";
 		};
 		62E8F9C52A1C9D430011B195 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				62F8A1C72A1B5651005F6BF7 /* DetailService.swift */,
 				62E8F9C62A1C9DBE0011B195 /* MainTaskService.swift */,
 				AD2735A32A1F2A8E00E2A637 /* CollectionTaskService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
 		};
-		62E8F9C82A1CA2CA0011B195 /* Protocol */ = {
+		62E8F9C82A1CA2CA0011B195 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				62A63EB22A1DDBAF00AF928F /* CollectionViewModel.swift */,
 				62E8F9C92A1CA3310011B195 /* DetailViewControllerDelegate.swift */,
 			);
-			path = Protocol;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		62F8A1C02A1B331C005F6BF7 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
-				62F8A1C62A1B5642005F6BF7 /* Service */,
-				62F8A1C32A1B334B005F6BF7 /* ViewModel */,
-				62F8A1C12A1B3330005F6BF7 /* View */,
-			);
-			path = DetailView;
-			sourceTree = "<group>";
-		};
-		62F8A1C12A1B3330005F6BF7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				62F8A1C22A1B3335005F6BF7 /* Controller */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		62F8A1C22A1B3335005F6BF7 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
 				62F8A1BE2A1B32EA005F6BF7 /* DetailViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		62F8A1C32A1B334B005F6BF7 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
 				62F8A1C42A1B3356005F6BF7 /* DetailViewModel.swift */,
 			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		62F8A1C62A1B5642005F6BF7 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				62F8A1C72A1B5651005F6BF7 /* DetailService.swift */,
-			);
-			path = Service;
+			path = DetailView;
 			sourceTree = "<group>";
 		};
 		AD8A5EC42A1C51C500D66627 /* Combine */ = {
@@ -246,6 +189,23 @@
 				AD8A5EC62A1C8EC300D66627 /* TaskRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		ADB54CEB2A2078D000A6409C /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				AD450BE92A150E4A00A9C693 /* HeaderView.swift */,
+			);
+			path = HeaderView;
+			sourceTree = "<group>";
+		};
+		ADB54CEC2A2078DF00A6409C /* TaskCell */ = {
+			isa = PBXGroup;
+			children = (
+				62D600572A1778DE00AD7490 /* TaskCell.swift */,
+				AD5FFB8B2A14B64E00CF6A39 /* TaskCellViewModel.swift */,
+			);
+			path = TaskCell;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -275,12 +235,12 @@
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				620335702A14AC9700DDF23E /* Model */,
 				6203356F2A14AB0500DDF23E /* MainView */,
 				62F8A1C02A1B331C005F6BF7 /* DetailView */,
-				620335702A14AC9700DDF23E /* Model */,
-				62E8F9C82A1CA2CA0011B195 /* Protocol */,
+				62E8F9C82A1CA2CA0011B195 /* Protocols */,
 				AD8A5EC52A1C8EAE00D66627 /* Repository */,
-				62D600312A14C24B00AD7490 /* Extension */,
+				62D600312A14C24B00AD7490 /* Extensions */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
