@@ -43,7 +43,6 @@ final class TodoViewModel {
         let backspaceValue = strcmp(convertedText, "\\b")
         
         guard range.upperBound < 999 || backspaceValue == -92 else { return false }
-        
         return true
     }
     

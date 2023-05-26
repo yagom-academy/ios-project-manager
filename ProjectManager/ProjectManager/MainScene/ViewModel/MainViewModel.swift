@@ -43,11 +43,13 @@ class MainViewModel {
     }
     
     func replaceTask(_ task: Task) {
-        guard let index = tasks.firstIndex(where: { $0.id == task.id }) else {
-            return
+        let firstIndex = tasks.firstIndex { targetTask in
+            return targetTask.id == task.id
         }
         
-        tasks[index] = task
+        guard let targetIndex = firstIndex else { return }
+        
+        tasks[targetIndex] = task
     }
     
     func appendTask(_ task: Task) {
