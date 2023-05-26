@@ -331,6 +331,7 @@ extension ToDoListViewContorller: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "Delete", handler: { action, view, completionHaldler in
+            tableView.beginUpdates()
             switch tableView {
             case self.toDoTableView:
                 self.toDoList.remove(at: indexPath.row)
@@ -344,6 +345,7 @@ extension ToDoListViewContorller: UITableViewDelegate {
             default:
                 return
             }
+            tableView.endUpdates()
             completionHaldler(true)
         })
         
