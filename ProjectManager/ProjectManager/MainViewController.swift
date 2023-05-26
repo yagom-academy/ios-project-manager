@@ -18,14 +18,14 @@ struct TodoLabel: Hashable {
 }
 
 class MainViewController: UIViewController {
-    private var dataSource1: UICollectionViewDiffableDataSource<Section, TodoLabel>?
-    private var dataSource2: UICollectionViewDiffableDataSource<Section, TodoLabel>?
-    private var dataSource3: UICollectionViewDiffableDataSource<Section, TodoLabel>?
-    private let collectionView1 = CustomCollectionView()
-    private let collectionView2 = CustomCollectionView()
-    private let collectionView3 = CustomCollectionView()
+    private var todoDataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
+    private var doingDataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
+    private var doneDataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
+    private let todoCollectionView = CustomCollectionView()
+    private let doingCollectionView = CustomCollectionView()
+    private let doneCollectionView = CustomCollectionView()
     private lazy var mainStackView = {
-        let stackView = UIStackView(arrangedSubviews: [collectionView1, collectionView2, collectionView3])
+        let stackView = UIStackView(arrangedSubviews: [todoCollectionView, doingCollectionView, doneCollectionView])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
@@ -33,7 +33,7 @@ class MainViewController: UIViewController {
     }()
     
     private let todoList = [TodoLabel(title: "책상정리", content: "집중이 안될때 역시나 책상정리", date: Date()), TodoLabel(title: "일기정리", content: "난 가끔 일기를 쓴다", date: Date()), TodoLabel(title: "빨래하기", content: "그만 쌓아두고 싶다....", date: Date())]
-    private let doingList = [TodoLabel(title: "Hi!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!", content: "Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!", date: Date()), TodoLabel(title: "Hello~", content: "Brody!", date: Date())]
+    private let doingList = [TodoLabel(title: "Hi!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!Andrew!", content: "is a peninsular region in East Asia. Since 1945, it has been divided at or near the 38th parallel, with North Korea (Democratic People's Republic of Korea) comprising its northern half and South Korea (Republic of Korea) comprising its southern half. Korea consists of the Korean Peninsula, Jeju Island, and several minor islands near the peninsula. The peninsula is bordered by China (Manchuria) to the north and Russia to the northeast, across the Amrok and Duman rivers. It is separated from Japan to the southeast by the Korea Strait.", date: Date()), TodoLabel(title: "Hello~", content: "Brody!", date: Date())]
     private let doneList = [TodoLabel(title: "방정리", content: "눈감고 그댈 그려요 맘속 그댈 찾았죠", date: Date())]
     
     override func viewDidLoad() {
@@ -95,29 +95,28 @@ extension MainViewController {
 
     private func setUpDataSource() {
         let registration = configureCellRegistration()
-        let headerRegistration1 = configureHeaderRegistration(headerText: "TODO", listCount: todoList.count)
-        let headerRegistration2 = configureHeaderRegistration(headerText: "DOING", listCount: doingList.count)
-        let headerRegistration3 = configureHeaderRegistration(headerText: "DONE", listCount: doneList.count)
+        let todoHeader = configureHeaderRegistration(headerText: "TODO", listCount: todoList.count)
+        let doingHeader = configureHeaderRegistration(headerText: "DOING", listCount: doingList.count)
+        let doneHeader = configureHeaderRegistration(headerText: "DONE", listCount: doneList.count)
 
-        dataSource1 = configureDataSource(collectionView: collectionView1, registration: registration, headerRegistration: headerRegistration1)
-        dataSource2 = configureDataSource(collectionView: collectionView2, registration: registration, headerRegistration: headerRegistration2)
-        dataSource3 = configureDataSource(collectionView: collectionView3, registration: registration, headerRegistration: headerRegistration3)
+        todoDataSource = configureDataSource(collectionView: todoCollectionView, registration: registration, headerRegistration: todoHeader)
+        doingDataSource = configureDataSource(collectionView: doingCollectionView, registration: registration, headerRegistration: doingHeader)
+        doneDataSource = configureDataSource(collectionView: doneCollectionView, registration: registration, headerRegistration: doneHeader)
 
-        var snapshot1 = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
-        snapshot1.appendSections([.main])
-        snapshot1.appendItems(todoList, toSection: .main)
+        var todoSnapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
+        todoSnapshot.appendSections([.main])
+        todoSnapshot.appendItems(todoList, toSection: .main)
         
-        var snapshot2 = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
-        snapshot2.appendSections([.main])
-        snapshot2.appendItems(doingList, toSection: .main)
+        var doingSnapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
+        doingSnapshot.appendSections([.main])
+        doingSnapshot.appendItems(doingList, toSection: .main)
         
-        var snapshot3 = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
-        snapshot3.appendSections([.main])
-        snapshot3.appendItems(doneList, toSection: .main)
-        
+        var doneSnapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
+        doneSnapshot.appendSections([.main])
+        doneSnapshot.appendItems(doneList, toSection: .main)
 
-        dataSource1?.apply(snapshot1, animatingDifferences: true)
-        dataSource2?.apply(snapshot2, animatingDifferences: true)
-        dataSource3?.apply(snapshot3, animatingDifferences: true)
+        todoDataSource?.apply(todoSnapshot, animatingDifferences: true)
+        doingDataSource?.apply(doingSnapshot, animatingDifferences: true)
+        doneDataSource?.apply(doneSnapshot, animatingDifferences: true)
     }
 }
