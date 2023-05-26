@@ -8,7 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    private let listViewModel = ListViewModel()
+    private let listViewModel = ListViewModel.shared
     
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
@@ -21,19 +21,19 @@ class MainViewController: UIViewController {
     }()
     
     private lazy var todoListView: CustomTableViewController = {
-        let tableView = CustomTableViewController(listViewModel: listViewModel, state: .todo)
+        let tableView = CustomTableViewController(state: .todo)
         
         return tableView
     }()
     
     private lazy var doingListView: CustomTableViewController = {
-        let tableView = CustomTableViewController(listViewModel: listViewModel, state: .doing)
+        let tableView = CustomTableViewController(state: .doing)
         
         return tableView
     }()
     
     private lazy var doneListView: CustomTableViewController = {
-        let tableView = CustomTableViewController(listViewModel: listViewModel, state: .done)
+        let tableView = CustomTableViewController(state: .done)
         
         return tableView
     }()
@@ -44,7 +44,6 @@ class MainViewController: UIViewController {
         configureSubviews()
         configureConstraints()
         configureNavigation()
-//        addNotificationObserver()
     }
     
     private func configureSubviews() {
@@ -76,15 +75,6 @@ class MainViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = addProjectButton
     }
-    
-//    private func addNotificationObserver() {
-//        let tableviews = [todoTableView, doingTableView, doneTableView]
-//        NotificationCenter.default.addObserver(forName: .init("reload"),
-//                                               object: nil,
-//                                               queue: .main) { _ in
-//            tableviews.forEach({ $0.reloadData() })
-//        }
-//    }
     
     @objc
     private func addProject() {

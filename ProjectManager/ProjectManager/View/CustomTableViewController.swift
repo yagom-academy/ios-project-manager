@@ -8,10 +8,11 @@
 import UIKit
 
 class CustomTableViewController: UIViewController {
-    let listViewModel: ListViewModel
+    private let listViewModel = ListViewModel.shared
+
     let state: State
     
-    let projectTableView: UITableView = {
+    private let projectTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
         tableView.register(CustomTableViewHeader.self,
@@ -20,10 +21,9 @@ class CustomTableViewController: UIViewController {
 
         return tableView
     }()
-   
-    init(listViewModel: ListViewModel, state: State) {
-        self.listViewModel = listViewModel
-        self.state = state
+    
+    init(state: State) {
+         self.state = state
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -57,21 +57,18 @@ class CustomTableViewController: UIViewController {
         projectTableView.dataSource = self
     }
     
-    private func configureViewModel() {
+    func configureViewModel() {
         switch state {
         case .todo:
             listViewModel.todoList.bind { viewModel in
-                self.listViewModel.todoList.value = viewModel
                 self.projectTableView.reloadData()
             }
         case .doing:
             listViewModel.doingList.bind { viewModel in
-                self.listViewModel.doingList.value = viewModel
                 self.projectTableView.reloadData()
             }
         case .done:
             listViewModel.doneList.bind { viewModel in
-                self.listViewModel.doneList.value = viewModel
                 self.projectTableView.reloadData()
             }
         }
