@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 class PopupViewController: UIViewController {
+    private var navigationBar = UINavigationBar()
     
     private let containerView = {
         let view = UIView()
@@ -37,12 +38,13 @@ class PopupViewController: UIViewController {
     private let popupStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
+//        stackView.distribution = .equalSpacing
         return stackView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigation()
         configureUI()
     }
     
@@ -50,21 +52,34 @@ class PopupViewController: UIViewController {
         view.backgroundColor = .black.withAlphaComponent(0.2)
         view.addSubview(containerView)
         containerView.addSubview(popupStackView)
-        
+    
+        popupStackView.addArrangedSubview(navigationBar)
         popupStackView.addArrangedSubview(titleTextField)
         popupStackView.addArrangedSubview(datePicker)
         popupStackView.addArrangedSubview(contentTextView)
         
         containerView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
+        
         popupStackView.snp.makeConstraints {
-            $0.top.equalTo(10)
-            $0.left.equalTo(10)
-            $0.right.equalTo(10)
-            $0.bottom.equalTo(10)
+            $0.edges.equalToSuperview()
         }
+    }
+    
+    private func configureNavigation() {
+        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: containerView.frame.width, height: 44))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDoneButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTapCancelButton))
+        navigationBar.setItems([UINavigationItem(title: "TODO")] , animated: false)
+    }
+    
+    @objc private func didTapDoneButton() {
+    
+    }
+    
+    @objc private func didTapCancelButton() {
+        dismiss(animated: true)
     }
     
 }
@@ -88,3 +103,4 @@ class PopupViewController: UIViewController {
 //        self?.containerView.isHidden = true
 //    }
 //}
+

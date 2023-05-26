@@ -60,9 +60,11 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
     }
     
-    @objc private func didTapAddButton() {
+    @objc private func didTapAddButton(sender: UIBarButtonItem) {
         modalPresentationStyle = .fullScreen
-        present(PopupViewController(), animated: true)
+        let vc = PopupViewController()
+        let nvc = UINavigationController(rootViewController: vc)
+        present(nvc, animated: true, completion:nil)
     }
 }
 
