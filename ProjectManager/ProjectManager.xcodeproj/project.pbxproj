@@ -13,6 +13,7 @@
 		08E8323C2A138F6B00517880 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 08E8323B2A138F6B00517880 /* FirebaseAnalytics */; };
 		08E8323E2A138F6B00517880 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 08E8323D2A138F6B00517880 /* FirebaseFirestore */; };
 		08E832402A138FAD00517880 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E8323F2A138FAD00517880 /* AppDelegate.swift */; };
+		08F9B24C2A20863A00D22B8D /* ProjectDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F9B24B2A20863A00D22B8D /* ProjectDateFormatter.swift */; };
 		1607FCCF2A14A2BB0042FE8B /* ProjectListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1607FCCE2A14A2BB0042FE8B /* ProjectListCell.swift */; };
 		1607FCD12A14A3CD0042FE8B /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1607FCD02A14A3CD0042FE8B /* Project.swift */; };
 		1607FCD32A14A6900042FE8B /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1607FCD22A14A6900042FE8B /* ProjectState.swift */; };
@@ -30,6 +31,7 @@
 		08CB37D72A15BEBF00F11F9E /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		08E832382A138E1700517880 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		08E8323F2A138FAD00517880 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		08F9B24B2A20863A00D22B8D /* ProjectDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDateFormatter.swift; sourceTree = "<group>"; };
 		1607FCCE2A14A2BB0042FE8B /* ProjectListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListCell.swift; sourceTree = "<group>"; };
 		1607FCD02A14A3CD0042FE8B /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		1607FCD22A14A6900042FE8B /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
@@ -56,6 +58,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08F9B24D2A20864600D22B8D /* App */ = {
+			isa = PBXGroup;
+			children = (
+				16F11C642A138B4500F1A08C /* ProjectManagerApp.swift */,
+				08E8323F2A138FAD00517880 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		08F9B24E2A20865F00D22B8D /* Utill */ = {
+			isa = PBXGroup;
+			children = (
+				08F9B24B2A20863A00D22B8D /* ProjectDateFormatter.swift */,
+			);
+			path = Utill;
+			sourceTree = "<group>";
+		};
 		166CDE192A1C94650015FA4F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,14 +122,14 @@
 		16F11C632A138B4500F1A08C /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				08F9B24D2A20864600D22B8D /* App */,
 				166CDE1B2A1C94700015FA4F /* Model */,
 				166CDE192A1C94650015FA4F /* View */,
 				166CDE1A2A1C946D0015FA4F /* ViewModel */,
-				16F11C642A138B4500F1A08C /* ProjectManagerApp.swift */,
+				08F9B24E2A20865F00D22B8D /* Utill */,
 				16F11C682A138B4600F1A08C /* Assets.xcassets */,
 				08E832382A138E1700517880 /* GoogleService-Info.plist */,
 				16F11C6A2A138B4600F1A08C /* Preview Content */,
-				08E8323F2A138FAD00517880 /* AppDelegate.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -207,6 +226,7 @@
 				08E832402A138FAD00517880 /* AppDelegate.swift in Sources */,
 				16F11C672A138B4500F1A08C /* ProjectMainView.swift in Sources */,
 				08CB37D82A15BEBF00F11F9E /* ModalView.swift in Sources */,
+				08F9B24C2A20863A00D22B8D /* ProjectDateFormatter.swift in Sources */,
 				1607FCCF2A14A2BB0042FE8B /* ProjectListCell.swift in Sources */,
 				1607FCD12A14A3CD0042FE8B /* Project.swift in Sources */,
 				166CDE1D2A1C94AF0015FA4F /* ProjectViewModel.swift in Sources */,

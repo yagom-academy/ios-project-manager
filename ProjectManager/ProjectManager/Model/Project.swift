@@ -11,7 +11,7 @@ struct Project: Identifiable, Equatable {
     var id = UUID()
     var title: String
     var body: String
-    var date: String
+    var date: Date
     
     public static func ==(lhs: Project, rhs: Project) -> Bool {
         if lhs.id == rhs.id {

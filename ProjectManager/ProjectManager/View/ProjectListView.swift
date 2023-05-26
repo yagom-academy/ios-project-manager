@@ -30,15 +30,28 @@ struct ProjectListView: View {
                 }
                 
             } header: {
-                Text(currentState.rawValue)
-                    .font(.title)
-                    .foregroundColor(.black)
-                    .fontWeight(.light)
+                HStack {
+                    Text(currentState.rawValue)
+                        .font(.title)
+                        .foregroundColor(.black)
+                        .fontWeight(.light)
+                    ZStack {
+                        Circle()
+                            .fill(.black)
+                            .frame(width: 25)
+                        Text(String(viewModel.selectList(cases: currentState).count))
+                            .font(.title3)
+                            .foregroundColor(.white)
+                    }
+                }
             }
         }
         .listStyle(.grouped)
     }
-    
+ 
+}
+
+private extension ProjectListView {
     func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
         ForEach(Array(models.enumerated()), id: \.offset) { index, model in
             ProjectListCell(model: model, state: currentState)

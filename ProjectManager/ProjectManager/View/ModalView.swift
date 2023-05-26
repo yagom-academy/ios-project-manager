@@ -8,22 +8,24 @@
 import SwiftUI
 
 struct ModalView: View {
-    @State var title: String = ""
-    @State var date: Date = .init()
-    @State var text: String = ""
+    @State var project: Project
+    let dateFormatter = ProjectDateFormatter.shared
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         NavigationStack{
             VStack{
-                TextField("Enter your Title", text: $title)
+                TextField("Enter your Title", text: $project.title)
                     .padding(14)
                     .border(Color(UIColor.systemGray5))
                 
-                DatePicker("ddd", selection: $date)
-                    .datePickerStyle(.wheel).labelsHidden()
+                DatePicker("Date", selection: $project.date, displayedComponents: .date)
+                                   .datePickerStyle(.wheel)
+                                   .labelsHidden()
+                    
                 
-                TextEditor(text: $text)
+                TextEditor(text: $project.body)
                     .padding()
                     .font(.body)
                     .border(Color(UIColor.systemGray5))
@@ -54,6 +56,6 @@ struct ModalView: View {
 
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
-        ModalView()
+        ModalView(project: .init(title: "", body: "", date: Date()))
     }
 }

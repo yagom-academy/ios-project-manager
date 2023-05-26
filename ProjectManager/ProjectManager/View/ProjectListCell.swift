@@ -10,6 +10,7 @@ import SwiftUI
 struct ProjectListCell: View {
     let model: Project
     let state: ProjectState
+    @State var isModalViewShow: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
@@ -18,7 +19,11 @@ struct ProjectListCell: View {
             Text(model.body)
                 .lineLimit(3)
                 .foregroundColor(.secondary)
-            Text(model.date)
+            Text(model.date.description)
+        }.onTapGesture {
+            isModalViewShow.toggle()
+        }.sheet(isPresented: $isModalViewShow) {
+            ModalView(project: model)
         }
     }
 }
@@ -26,7 +31,7 @@ struct ProjectListCell: View {
 struct ProjectListCell_Previews: PreviewProvider {
     static var previews: some View {
         ProjectListCell(
-            model: Project(title: "안녕", body: "하세요", date: "2022.12.03"),
+            model: Project(title: "안녕", body: "하세요", date: Date()),
             state: .doing)
     }
 }
