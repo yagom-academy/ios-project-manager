@@ -20,7 +20,7 @@ final class MoveToViewController: UIViewController {
         return stackView
     }()
     
-    private let moveToTodoButton: UIButton = {
+    private lazy var moveToTodoButton: UIButton = {
         let button = UIButton()
         button.setTitle("Move to TODO", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
@@ -31,7 +31,7 @@ final class MoveToViewController: UIViewController {
         return button
     }()
     
-    private let moveToDoingButton: UIButton = {
+    private lazy var moveToDoingButton: UIButton = {
         let button = UIButton()
         button.setTitle("Move to DOING", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
@@ -42,7 +42,7 @@ final class MoveToViewController: UIViewController {
         return button
     }()
     
-    private let moveToDoneButton: UIButton = {
+    private lazy var moveToDoneButton: UIButton = {
         let button = UIButton()
         button.setTitle("Move to DONE", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)

@@ -61,7 +61,7 @@ final class ProjectCell: UICollectionViewCell {
         return label
     }()
     
-    private let deleteButton: UIButton = {
+    private lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.setTitle("Delete", for: .normal)
         button.backgroundColor = .systemRed
