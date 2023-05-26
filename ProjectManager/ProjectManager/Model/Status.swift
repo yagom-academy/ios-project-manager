@@ -4,7 +4,7 @@
 //  Copyright © yagom. All rights reserved.
 //
 
-enum Status: Int {
+enum Status: Int, CaseIterable {
     case todo
     case doing
     case done

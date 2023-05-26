@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class ProjectCell: UICollectionViewCell {
+final class ProjectCell: UITableViewCell {
     let identifier = "ProjectCell"
     var deleteRow: (() -> ())?
     
@@ -46,8 +46,8 @@ final class ProjectCell: UICollectionViewCell {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureContentStackView()
         configureConstraint()
     }

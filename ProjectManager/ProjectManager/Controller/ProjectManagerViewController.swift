@@ -9,40 +9,42 @@ import UIKit
 final class ProjectManagerViewController: UIViewController {
     private var projects = Projects.shared
     
-    lazy var projectManagerCollectionView: UICollectionView = {
-        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.scrollDirection = .horizontal
+    private let projectManagerStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fillEqually
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .estimated(self.projectManagerCollectionView.frame.height/8))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
-                                                   heightDimension: .estimated(self.projectManagerCollectionView.frame.height/8))
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(self.projectManagerCollectionView.frame.height/10), trailing: nil, bottom: .fixed(-self.projectManagerCollectionView.frame.height/20))
-            
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
-                                                    heightDimension: .estimated(self.projectManagerCollectionView.frame.height/10))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.boundarySupplementaryItems = [header]
-            section.orthogonalScrollingBehavior = .continuous
-            section.interGroupSpacing = (-self.projectManagerCollectionView.frame.height/10) + 8
-            
-            return section
-        }, configuration: configuration)
+        return stackView
+    }()
+    
+    let todoTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(ProjectCell.self, forCellReuseIdentifier: "ProjectCell")
+        tableView.backgroundColor = .systemGray5
+        tableView.showsVerticalScrollIndicator = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderView")
-        collectionView.register(ProjectCell.self, forCellWithReuseIdentifier: "ProjectCell")
-        collectionView.isScrollEnabled = false
-        collectionView.backgroundColor = .systemGray5
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    let doingTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(ProjectCell.self, forCellReuseIdentifier: "ProjectCell")
+        tableView.backgroundColor = .systemGray5
+        tableView.showsVerticalScrollIndicator = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        return collectionView
+        return tableView
+    }()
+    
+    let doneTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(ProjectCell.self, forCellReuseIdentifier: "ProjectCell")
+        tableView.backgroundColor = .systemGray5
+        tableView.showsVerticalScrollIndicator = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
     }()
     
     override func viewDidLoad() {
@@ -50,8 +52,6 @@ final class ProjectManagerViewController: UIViewController {
         configureUI()
         configureProjectManagerCollectionView()
         configureConstraint()
-        configureTapGestureRecognizer()
-        configureLongGestureRecognizer()
     }
     
     private func configureUI() {
@@ -63,7 +63,9 @@ final class ProjectManagerViewController: UIViewController {
                                                action: #selector(addProject))
         navigationItem.rightBarButtonItem = addProjectButton
         
-        projectManagerCollectionView.dataSource = self
+        todoTableView.dataSource = self
+        doingTableView.dataSource = self
+        doneTableView.dataSource = self
     }
     
     @objc
@@ -73,7 +75,9 @@ final class ProjectManagerViewController: UIViewController {
         
         detailProjectViewController.dismissHandler = { project in
             self.projects.list.append(project)
-            self.projectManagerCollectionView.reloadData()
+            self.todoTableView.reloadData()
+            self.doingTableView.reloadData()
+            self.doneTableView.reloadData()
         }
         
         let navigationController = UINavigationController(rootViewController: detailProjectViewController)
@@ -83,39 +87,38 @@ final class ProjectManagerViewController: UIViewController {
     }
     
     private func configureProjectManagerCollectionView() {
-        view.addSubview(projectManagerCollectionView)
+        view.addSubview(projectManagerStackView)
+        projectManagerStackView.addArrangedSubview(todoTableView)
+        projectManagerStackView.addArrangedSubview(doingTableView)
+        projectManagerStackView.addArrangedSubview(doneTableView)
     }
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            projectManagerCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            projectManagerCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            projectManagerCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            projectManagerCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            projectManagerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            projectManagerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            projectManagerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            projectManagerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 }
 
-extension ProjectManagerViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let status = Status(rawValue: section)
-        
+extension ProjectManagerViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let index = projectManagerStackView.arrangedSubviews.firstIndex(of: tableView),
+              let status = Status(rawValue: index) else { return 0 }
         return projects.list.filter { $0.status == status }.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell") as? ProjectCell else { return ProjectCell() }
         
-        guard let status = Status(rawValue: indexPath.section) else { return ProjectCell() }
-        
-        guard let cell = projectManagerCollectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as? ProjectCell else { return ProjectCell() }
+        guard let index = projectManagerStackView.arrangedSubviews.firstIndex(of: tableView),
+              let status = Status(rawValue: index) else { return ProjectCell() }
         
         let assignedProjects = projects.list.filter { $0.status == status }
         let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
-        let project = sortedAssignedProjects[indexPath.item]
+        let project = sortedAssignedProjects[indexPath.row]
         let date = project.date.formatDate()
         
         cell.configureContent(title: project.title, body: project.body, date: date)
@@ -126,113 +129,10 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             cell.changeDateColor(isOverdue: false)
         }
         
-        cell.deleteRow = {
-            guard let removeIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
-            self.projects.list.remove(at: removeIndex)
-            self.projectManagerCollectionView.reloadData()
-        }
-        
         cell.backgroundColor = .white
         cell.layer.borderWidth = 1
         cell.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        guard kind == UICollectionView.elementKindSectionHeader,
-              let header = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: "HeaderView",
-                for: indexPath
-              ) as? HeaderView else { return UICollectionReusableView() }
-        
-        guard let status = Status(rawValue: indexPath.section) else { return UICollectionReusableView() }
-        
-        let assignedProjects = projects.list.filter { $0.status == status }
-        let countText = assignedProjects.count > 99 ? "99+" : "\(assignedProjects.count)"
-        header.configureContent(status: status, number: countText)
-        
-        return header
-    }
-}
-
-extension ProjectManagerViewController: UIGestureRecognizerDelegate {
-    private func configureTapGestureRecognizer() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
-        tapGesture.delegate = self
-        projectManagerCollectionView.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc
-    private func handleTap(gestureRecognizer: UITapGestureRecognizer) {
-        let location = gestureRecognizer.location(in: projectManagerCollectionView)
-        
-        if gestureRecognizer.state == .ended {
-            if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
-                let detailProjectViewController = DetailProjectViewController()
-                detailProjectViewController.configureEditingStatus(isEditible: false)
-                
-                detailProjectViewController.dismissHandler = { project in
-                    guard let projectIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
-                    
-                    self.projects.list[projectIndex].title = project.title
-                    self.projects.list[projectIndex].body = project.body
-                    self.projects.list[projectIndex].date = project.date
-                    self.projectManagerCollectionView.reloadData()
-                }
-                
-                guard let status = Status(rawValue: indexPath.section) else { return }
-                
-                let assignedProjects = projects.list.filter { $0.status == status }
-                let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
-                let project = sortedAssignedProjects[indexPath.item]
-                detailProjectViewController.configureProject(assignedProject: project)
-                let navigationController = UINavigationController(rootViewController: detailProjectViewController)
-                navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
-                
-                present(navigationController, animated: true, completion: nil)
-            }
-        }
-    }
-    
-    private func configureLongGestureRecognizer() {
-        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
-        longPressedGesture.minimumPressDuration = 0.7
-        longPressedGesture.delegate = self
-        longPressedGesture.delaysTouchesBegan = true
-        projectManagerCollectionView.addGestureRecognizer(longPressedGesture)
-    }
-    
-    @objc
-    private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let location = gestureRecognizer.location(in: projectManagerCollectionView)
-        
-        if gestureRecognizer.state == .ended {
-            guard let indexPath = projectManagerCollectionView.indexPathForItem(at: location) else { return }
-            guard let status = Status(rawValue: indexPath.section) else { return }
-            
-            let assignedProjects = projects.list.filter { $0.status == status }
-            let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
-            let project = sortedAssignedProjects[indexPath.item]
-            let moveToViewController = MoveToViewController(project: project)
-            moveToViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-            moveToViewController.preferredContentSize = CGSize(width: 300, height: 150)
-            moveToViewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
-            moveToViewController.popoverPresentationController?.sourceView = projectManagerCollectionView.cellForItem(at: indexPath)
-            
-            moveToViewController.dismissHandler = { project, status in
-                for index in 0...self.projects.list.count-1 {
-                    if self.projects.list[index].id == project.id {
-                        self.projects.list[index].status = status
-                    }
-                }
-                
-                self.projectManagerCollectionView.reloadData()
-            }
-            
-            present(moveToViewController, animated: true, completion: nil)
-        }
     }
 }
