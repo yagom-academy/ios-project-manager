@@ -8,47 +8,47 @@
 import UIKit
 
 final class MainViewModel {
-    private let mainTaskService = MainTaskService()
-    
     var taskList: [Task] = []
-    var viewModelDictionary = [WorkState: TaskListViewModel]()
+    var viewModelDictionary: [WorkState: TaskListViewModel] = [:]
+    private let service: TaskStorageService
+    
+    init(service: TaskStorageService = TaskStorageService()) {
+        self.service = service
+    }
     
     func assignChildViewModel(of children: [UIViewController]) {
-        children.forEach {
-            if let collectionViewController = $0 as? TaskCollectionViewController {
-                self.viewModelDictionary[collectionViewController.mode] = collectionViewController.viewModel
-            }
-        }
+        children
+            .compactMap { $0 as? TaskCollectionViewController }
+            .map { $0.viewModel }
+            .forEach { viewModelDictionary[$0.taskWorkState] = $0 }
     }
     
-    func configureDataSource() {
-        fetchTaskList()
-        distributeTask()
+    func fetchTaskList() {
+        taskList = service.fetchTaskList()
     }
     
-    func updateTaskList(for workState: WorkState) {
-        let taskList = mainTaskService.fetchTaskList(for: workState)
-        let collectionViewModel = viewModelDictionary[workState]
-        collectionViewModel?.items = taskList
-    }
-    
-    func updateDataSource(for workState: WorkState, itemID: UUID?) {
-        guard let itemID else { return }
-        
-        let viewModel = viewModelDictionary[workState]
-        viewModel?.updateTask(id: itemID)
-    }
-    
-    private func fetchTaskList() {
-        taskList = mainTaskService.fetchTaskList()
-    }
-    
-    private func distributeTask() {
+    func distributeTask() {
         viewModelDictionary.forEach { workState, viewModel in
-            let taskList = taskList.filter { $0.workState == workState }
-            viewModel.items = taskList
+            let filteredTaskList = taskList.filter { $0.workState == workState }
+            viewModel.taskList = filteredTaskList
         }
     }
 }
 
-extension MainViewModel: DetailViewModelDelegate { }
+extension MainViewModel: TaskListViewModelDelegate {
+    func createTask(_ task: Task) {
+        service.createTask(task)
+    }
+    
+    func updateTask(_ task: Task) {
+        service.updateTask(task)
+    }
+    
+    func deleteTask(id: UUID) {
+        service.deleteTask(id: id)
+    }
+    
+    func changeTaskWorkState(id: UUID, with: WorkState) {
+        
+    }
+}
