@@ -20,6 +20,7 @@ final class ProjectManagerViewController: UIViewController {
     let todoTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(ProjectCell.self, forCellReuseIdentifier: "ProjectCell")
+        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
         tableView.backgroundColor = .systemGray5
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +31,7 @@ final class ProjectManagerViewController: UIViewController {
     let doingTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(ProjectCell.self, forCellReuseIdentifier: "ProjectCell")
+        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
         tableView.backgroundColor = .systemGray5
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,6 +42,7 @@ final class ProjectManagerViewController: UIViewController {
     let doneTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(ProjectCell.self, forCellReuseIdentifier: "ProjectCell")
+        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
         tableView.backgroundColor = .systemGray5
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +69,10 @@ final class ProjectManagerViewController: UIViewController {
         todoTableView.dataSource = self
         doingTableView.dataSource = self
         doneTableView.dataSource = self
+        
+        todoTableView.delegate = self
+        doingTableView.delegate = self
+        doneTableView.delegate = self
     }
     
     @objc
@@ -134,5 +141,24 @@ extension ProjectManagerViewController: UITableViewDataSource {
         cell.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
         
         return cell
+    }
+}
+
+extension ProjectManagerViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as? HeaderView else { return HeaderView() }
+        
+        guard let index = projectManagerStackView.arrangedSubviews.firstIndex(of: tableView),
+              let status = Status(rawValue: index) else { return HeaderView() }
+        
+        let assignedProjects = projects.list.filter { $0.status == status }
+        let countText = assignedProjects.count > 99 ? "99+" : "\(assignedProjects.count)"
+        headerView.configureContent(status: status, number: countText)
+        
+        return headerView
     }
 }

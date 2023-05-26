@@ -6,7 +6,9 @@
 
 import UIKit
 
-final class HeaderView: UICollectionReusableView {
+final class HeaderView: UITableViewHeaderFooterView {
+    let identifier = "HeaderView"
+    
     private lazy var numberLabelWidthAnchor = numberLabel.widthAnchor.constraint(equalToConstant: 24) {
         didSet(currentWidthAnchor) {
             currentWidthAnchor.isActive = false
@@ -36,8 +38,8 @@ final class HeaderView: UICollectionReusableView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         configureUI()
         configureView()
         configureConstraint()
