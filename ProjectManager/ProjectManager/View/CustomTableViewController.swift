@@ -111,7 +111,7 @@ extension CustomTableViewController: UITableViewDataSource {
 extension CustomTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader else { return CustomTableViewHeader() }
-        var count = listViewModel.countProject(in: state)
+        let count = listViewModel.countProject(in: state)
 
         switch state {
         case .todo:
@@ -141,7 +141,7 @@ extension CustomTableViewController: UITableViewDelegate {
             project = listViewModel.fetchProject(with: .done, index: indexPath.row)
         }
         
-        let detailProjectViewController = DetailProjectViewController(isNewList: false)
+        let detailProjectViewController = DetailProjectViewController(isNewProject: false)
         let navigationController = UINavigationController(rootViewController: MainViewController())
         navigationController.pushViewController(detailProjectViewController, animated: true)
 //        navigationController.present(detailProjectViewController, animated: true)

@@ -78,7 +78,7 @@ class MainViewController: UIViewController {
     
     @objc
     private func addProject() {
-        let detailProjectViewController = DetailProjectViewController(isNewList: true)
+        let detailProjectViewController = DetailProjectViewController(isNewProject: true)
         detailProjectViewController.modalPresentationStyle = .formSheet
         let modalViewWithNavigation = UINavigationController(rootViewController: detailProjectViewController)
         navigationController?.present(modalViewWithNavigation, animated: true)

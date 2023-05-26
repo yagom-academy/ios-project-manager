@@ -9,7 +9,7 @@ import UIKit
 
 final class DetailProjectViewController: UIViewController {
     private let listViewModel = ListViewModel.shared
-    private var isNewList: Bool
+    private var isNewProject: Bool
 
     private let contentView: UIStackView = {
         let stackView = UIStackView()
@@ -50,8 +50,8 @@ final class DetailProjectViewController: UIViewController {
         return textView
     }()
 
-    init(isNewList: Bool) {
-        self.isNewList = isNewList
+    init(isNewProject: Bool) {
+        self.isNewProject = isNewProject
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -80,7 +80,7 @@ final class DetailProjectViewController: UIViewController {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                          target: self,
                                          action: #selector(doneButton))
-        if isNewList {
+        if isNewProject {
             let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                target: self,
                                                action: #selector(cancelButton))
