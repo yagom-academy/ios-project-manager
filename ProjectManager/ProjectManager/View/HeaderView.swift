@@ -14,19 +14,11 @@ final class HeaderView: UICollectionReusableView {
         }
     }
     
-    private let contentStackView: UIStackView = {
-        let stackview = UIStackView()
-        stackview.alignment = .center
-        stackview.spacing = 10
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackview
-    }()
-    
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -39,21 +31,15 @@ final class HeaderView: UICollectionReusableView {
         label.textAlignment = .center
         label.layer.cornerRadius = 12
         label.layer.masksToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
-    }()
-    
-    private let emptyView: UIView = {
-        let view = UIView()
-        view.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        
-        return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
-        configureContentStackView()
+        configureView()
         configureConstraint()
     }
     
@@ -72,20 +58,18 @@ final class HeaderView: UICollectionReusableView {
         backgroundColor = .systemGray6
     }
     
-    private func configureContentStackView() {
-        self.addSubview(contentStackView)
-        contentStackView.addArrangedSubview(statusLabel)
-        contentStackView.addArrangedSubview(numberLabel)
-        contentStackView.addArrangedSubview(emptyView)
+    private func configureView() {
+        self.addSubview(statusLabel)
+        self.addSubview(numberLabel)
     }
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            contentStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            contentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            contentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            numberLabel.heightAnchor.constraint(equalToConstant: 24),
+            statusLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            statusLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            numberLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            numberLabel.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: 8),
+            numberLabel.heightAnchor.constraint(equalToConstant: 24)
         ])
     }
     
