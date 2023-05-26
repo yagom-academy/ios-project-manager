@@ -56,9 +56,9 @@ class CustomTableViewHeader: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureContent(state: State, data: [ProjectModel]) {
+    func configureContent(state: State, count: Int) {
         titleLabel.text = state.title
-        countLabel.text = data.filter({ $0.state == state }).count.description
+        countLabel.text = count.description
     }
     
     private func configureSubviews() {

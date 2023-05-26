@@ -112,8 +112,27 @@ extension CustomTableViewController: UITableViewDataSource {
 }
 
 extension CustomTableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader else { return CustomTableViewHeader() }
+        var count = listViewModel.countProject(in: state)
+
+        switch state {
+        case .todo:
+            header.configureContent(state: .todo, count: count)
+            
+            return header
+        case .doing:
+            header.configureContent(state: .doing, count: count)
+            
+            return header
+        case .done:
+            header.configureContent(state: .done, count: count)
+            
+            return header
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         var project: ProjectModel
         
         switch state {
@@ -126,9 +145,11 @@ extension CustomTableViewController: UITableViewDelegate {
         }
         
         let detailProjectViewController = DetailProjectViewController(isNewList: false)
-        navigationController?.pushViewController(detailProjectViewController, animated: true)
-        
+        let navigationController = UINavigationController(rootViewController: MainViewController())
+        navigationController.pushViewController(detailProjectViewController, animated: true)
+//        navigationController.present(detailProjectViewController, animated: true)
         listViewModel.configureProject(in: detailProjectViewController, with: project)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView,
