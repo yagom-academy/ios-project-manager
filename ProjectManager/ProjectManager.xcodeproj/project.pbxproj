@@ -75,6 +75,24 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		261DA0662A20772D005DEC88 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		261DA0672A207808005DEC88 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		26CE60CB2A148F5B0026203C /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,13 +163,11 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				261DA0672A207808005DEC88 /* Application */,
+				261DA0662A20772D005DEC88 /* Resources */,
 				26E20EAB2A1C875500F7FBDC /* Extension */,
 				26CE60D02A14A8B40026203C /* Model */,
 				26CE60CB2A148F5B0026203C /* MainScene */,
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;
