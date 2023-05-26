@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 final class ModalViewController: UIViewController {
     private let mainViewModel: MainViewModel
     private let modalType: ModalType
@@ -132,9 +131,9 @@ final class ModalViewController: UIViewController {
     
     @objc
     private func tapEditButton() {
-        titleTextField.isUserInteractionEnabled = true
-        datePickerView.isUserInteractionEnabled = true
-        contentTextView.isUserInteractionEnabled = true
+        view.isUserInteractionEnabled = true
+        titleTextField.textColor = .black
+        contentTextView.textColor = .black
     }
     
     @objc
@@ -166,13 +165,11 @@ final class ModalViewController: UIViewController {
     private func configureUserInteraction() {
         switch modalType {
         case .add:
-            titleTextField.isUserInteractionEnabled = true
-            datePickerView.isUserInteractionEnabled = true
-            contentTextView.isUserInteractionEnabled = true
+            view.isUserInteractionEnabled = true
         case .edit:
-            titleTextField.isUserInteractionEnabled = false
-            datePickerView.isUserInteractionEnabled = false
-            contentTextView.isUserInteractionEnabled = false
+            view.isUserInteractionEnabled = false
+            titleTextField.textColor = .lightGray
+            contentTextView.textColor = .lightGray
         }
     }
     

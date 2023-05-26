@@ -2,7 +2,7 @@
 //  MainViewModel.swift
 //  ProjectManager
 //
-//  Created by kimseongjun on 2023/05/23.
+//  Created by songjun, vetto on 2023/05/23.
 //
 
 import Foundation
@@ -38,7 +38,7 @@ final class MainViewModel {
         }
     }
     
-    func roadSchedules(scheduleType: ScheduleType) -> [Schedule] {
+    func fetchScheduleList(scheduleType: ScheduleType) -> [Schedule] {
         switch scheduleType {
         case .todo:
             return todoSchedules.value

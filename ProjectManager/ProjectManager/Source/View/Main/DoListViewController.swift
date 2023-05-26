@@ -94,7 +94,7 @@ class DoListViewController: UIViewController {
     private func applySnapshot() {
         var  snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(mainViewModel.roadSchedules(scheduleType: scheduleType))
+        snapshot.appendItems(mainViewModel.fetchScheduleList(scheduleType: scheduleType))
         self.dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
@@ -165,12 +165,11 @@ class DoListViewController: UIViewController {
     }
     
     private func presentPopover(touchedLocation: CGPoint, index: Int) {
-        let locationX = touchedLocation.x
-        let locationY = touchedLocation.y
         let alertController = createAlertController(index: index)
         let popover = alertController.popoverPresentationController
+        
         popover?.sourceView = view
-        popover?.sourceRect = CGRect(x: locationX, y: locationY, width: 64, height: 64)
+        popover?.sourceRect = CGRect(origin: touchedLocation, size: CGSize(width: 64, height: 64))
         present(alertController, animated: true)
     }
     
@@ -178,35 +177,24 @@ class DoListViewController: UIViewController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         switch scheduleType {
         case .todo:
-            alertController.addAction(UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
-                guard let self else { return }
-                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .doing)
-            })
-            alertController.addAction(UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
-                guard let self else { return }
-                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .done)
-            })
+            alertController.addAction(makeAlertAction(title: "Move to DOING", index: index, toScheduleType: .doing))
+            alertController.addAction(makeAlertAction(title: "Move to DONE", index: index, toScheduleType: .done))
         case .doing:
-            alertController.addAction(UIAlertAction(title: "Move to TODO", style: .default) { [weak self] _ in
-                guard let self else { return }
-                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .todo)
-            })
-            alertController.addAction(UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
-                guard let self else { return }
-                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .done)
-            })
+            alertController.addAction(makeAlertAction(title: "Move to TODO", index: index, toScheduleType: .todo))
+            alertController.addAction(makeAlertAction(title: "Move to DONE", index: index, toScheduleType: .done))
         case .done:
-            alertController.addAction(UIAlertAction(title: "Move to TODO", style: .default) { [weak self] _ in
-                guard let self else { return }
-                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .todo)
-            })
-            alertController.addAction(UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
-                guard let self else { return }
-                self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: .doing)
-            })
+            alertController.addAction(makeAlertAction(title: "Move to TODO", index: index, toScheduleType: .todo))
+            alertController.addAction(makeAlertAction(title: "Move to DOING", index: index, toScheduleType: .doing))
         }
         
         return alertController
+    }
+    
+    private func makeAlertAction(title: String, index: Int, toScheduleType: ScheduleType) -> UIAlertAction {
+        UIAlertAction(title: title, style: .default) { [weak self] _ in
+            guard let self else { return }
+            self.mainViewModel.move(fromIndex: index, from: self.scheduleType, to: toScheduleType)
+        }
     }
 }
 

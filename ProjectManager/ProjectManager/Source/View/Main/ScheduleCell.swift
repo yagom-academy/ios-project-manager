@@ -1,5 +1,5 @@
 //
-//  CollectionViewCell.swift
+//  ScheduleCell.swift
 //  ProjectManager
 //
 //  Created by songjun, vetto on 2023/05/17.
@@ -69,5 +69,3 @@ final class ScheduleCell: UICollectionViewCell {
         }
     }
 }
-
-

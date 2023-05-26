@@ -59,7 +59,7 @@ final class TodoHeaderView: UIView {
  
             countLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 20),
-            countLabel.widthAnchor.constraint(equalToConstant: 20),
+            countLabel.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
 }
