@@ -10,21 +10,6 @@ final class ProjectCell: UICollectionViewCell {
     let identifier = "ProjectCell"
     var deleteRow: (() -> ())?
     
-    private let cellScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return scrollView
-    }()
-    
-    private let cellStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
-    
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -61,27 +46,10 @@ final class ProjectCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var deleteButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Delete", for: .normal)
-        button.backgroundColor = .systemRed
-        button.addTarget(self, action: #selector(deleteCell), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    private let deleteView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemRed
-        
-        return view
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureContentStackView()
         configureConstraint()
-        cellScrollView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -92,13 +60,6 @@ final class ProjectCell: UICollectionViewCell {
         titleLabel.text = title
         bodyLabel.text = body
         dateLabel.text = date
-        
-        scrollToZero()
-        cellScrollView.contentInset.left = 70
-    }
-    
-    private func scrollToZero() {
-        cellScrollView.setContentOffset(CGPoint(x: -70, y: 0), animated: false)
     }
     
     @objc
@@ -115,11 +76,7 @@ final class ProjectCell: UICollectionViewCell {
     }
     
     private func configureContentStackView() {
-        addSubview(cellScrollView)
-        cellScrollView.addSubview(cellStackView)
-        cellStackView.addArrangedSubview(contentStackView)
-        cellStackView.addArrangedSubview(deleteButton)
-        cellStackView.addArrangedSubview(deleteView)
+        addSubview(contentStackView)
         contentStackView.addArrangedSubview(titleLabel)
         contentStackView.addArrangedSubview(bodyLabel)
         contentStackView.addArrangedSubview(dateLabel)
@@ -127,35 +84,10 @@ final class ProjectCell: UICollectionViewCell {
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            cellScrollView.topAnchor.constraint(equalTo: topAnchor),
-            cellScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            cellScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            cellScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            cellStackView.topAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.topAnchor),
-            cellStackView.leadingAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.leadingAnchor, constant: -70),
-            cellStackView.trailingAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.trailingAnchor),
-            cellStackView.bottomAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.bottomAnchor),
-            cellStackView.topAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.topAnchor),
-            cellStackView.bottomAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.bottomAnchor),
-            contentStackView.widthAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.widthAnchor),
-            deleteButton.widthAnchor.constraint(equalToConstant: 70),
-            deleteView.widthAnchor.constraint(equalTo: cellScrollView.frameLayoutGuide.widthAnchor, constant: -70)
+            contentStackView.topAnchor.constraint(equalTo: topAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
-    }
-}
-
-extension ProjectCell: UIScrollViewDelegate {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        scrollView.isPagingEnabled = true
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        scrollView.isPagingEnabled = false
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.x >= scrollView.frame.width - 70 {
-            deleteRow?()
-        }
     }
 }
