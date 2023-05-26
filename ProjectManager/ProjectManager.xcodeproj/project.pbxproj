@@ -60,6 +60,7 @@
 			children = (
 				58DC93322A171BA40096A103 /* ToDoProtocol.swift */,
 				58DC93302A17193A0096A103 /* ToDoList.swift */,
+				58DC93372A171FEC0096A103 /* Manager */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -119,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				58DC933A2A1749CB0096A103 /* Application */,
-				58DC93372A171FEC0096A103 /* Manager */,
 				58DC932F2A1718D40096A103 /* Model */,
 				58DC93342A171C200096A103 /* View */,
 				58DC93352A171C3C0096A103 /* ViewController */,
