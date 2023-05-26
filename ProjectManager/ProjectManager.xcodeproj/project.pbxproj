@@ -18,6 +18,7 @@
 		983C04362A1B4BDA000E4702 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */; };
 		983C043C2A1D9BB3000E4702 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C043B2A1D9BB3000E4702 /* Observable.swift */; };
 		983C043E2A1DAB0D000E4702 /* ScheduleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C043D2A1DAB0D000E4702 /* ScheduleType.swift */; };
+		983C04442A2084DD000E4702 /* Namespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C04432A2084DD000E4702 /* Namespace.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -37,6 +38,7 @@
 		983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		983C043B2A1D9BB3000E4702 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		983C043D2A1DAB0D000E4702 /* ScheduleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleType.swift; sourceTree = "<group>"; };
+		983C04432A2084DD000E4702 /* Namespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Namespace.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */,
+				983C04432A2084DD000E4702 /* Namespace.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				983C043E2A1DAB0D000E4702 /* ScheduleType.swift in Sources */,
 				1CC9D3F82A1B415000654A5D /* ModalViewController.swift in Sources */,
 				1C16A86F2A14AC84001640E2 /* TodoHeaderView.swift in Sources */,
+				983C04442A2084DD000E4702 /* Namespace.swift in Sources */,
 				1CC9D3FC2A1C4CD300654A5D /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

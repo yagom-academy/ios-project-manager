@@ -15,7 +15,7 @@ final class ModalViewController: UIViewController {
 
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "제목을 입력해주세요"
+        textField.placeholder = Namespace.titlePlaceHolder
         textField.borderStyle = .none
         textField.backgroundColor = .systemBackground
         textField.font = .preferredFont(forTextStyle: .title1)
@@ -105,22 +105,22 @@ final class ModalViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        self.title = "TODO"
+        self.title = Namespace.modalTitle
         
-        let rightButton = UIBarButtonItem(title: "Done",
+        let rightButton = UIBarButtonItem(title: Namespace.doneButtonTitle,
                                           style: .done,
                                           target: self,
                                           action: #selector(tapDoneButton))
         switch modalType {
         case .add:
-            let leftButton = UIBarButtonItem(title: "Cancel",
+            let leftButton = UIBarButtonItem(title: Namespace.cancelButtonTitle,
                                              style: .done,
                                              target: self,
                                              action: #selector(tapCancelButton))
             self.navigationItem.rightBarButtonItem = rightButton
             self.navigationItem.leftBarButtonItem = leftButton
         case .edit:
-            let leftButton = UIBarButtonItem(title: "Edit",
+            let leftButton = UIBarButtonItem(title: Namespace.editButtonTitle,
                                              style: .done,
                                              target: self,
                                              action: #selector(tapEditButton))
@@ -145,14 +145,12 @@ final class ModalViewController: UIViewController {
         switch modalType {
         case .add:
             mainViewModel.addTodoSchedule(schedule)
-            
             dismiss(animated: true)
         case .edit:
             guard let scheduleType, let index else { return }
             mainViewModel.updateSchedule(scheduleType: scheduleType,
                                          schedule: schedule,
                                          index: index)
-            
             dismiss(animated: true)
         }
     }

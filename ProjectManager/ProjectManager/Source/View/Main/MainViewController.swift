@@ -28,6 +28,13 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureNavigationBar()
+        setupChildren()
+    }
+    
+    private func setupChildren() {
+        self.addChild(todoViewController)
+        self.addChild(doingViewController)
+        self.addChild(doneViewController)
     }
     
     private func configureNavigationBar() {
@@ -40,7 +47,7 @@ final class MainViewController: UIViewController {
         }()
         
         navigationItem.rightBarButtonItem = buttonItem
-        self.title = "ProjectManager"
+        self.title = Namespace.mainTitle
     }
     
     @objc func tabPlusButton() {

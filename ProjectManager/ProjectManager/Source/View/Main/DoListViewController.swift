@@ -151,8 +151,7 @@ class DoListViewController: UIViewController {
     
     private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         guard let indexPath = indexPath, let _ = dataSource?.itemIdentifier(for: indexPath) else { return nil }
-        let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
-        let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
+        let deleteAction = UIContextualAction(style: .destructive, title: Namespace.delete) { [weak self] _, _, completion in
             guard let self else { return }
             self.mainViewModel.deleteSchedule(scheduleType: self.scheduleType, index: indexPath.row)
             completion(false)
@@ -177,14 +176,14 @@ class DoListViewController: UIViewController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         switch scheduleType {
         case .todo:
-            alertController.addAction(makeAlertAction(title: "Move to DOING", index: index, toScheduleType: .doing))
-            alertController.addAction(makeAlertAction(title: "Move to DONE", index: index, toScheduleType: .done))
+            alertController.addAction(makeAlertAction(title: Namespace.moveToDOING, index: index, toScheduleType: .doing))
+            alertController.addAction(makeAlertAction(title: Namespace.moveToDONE, index: index, toScheduleType: .done))
         case .doing:
-            alertController.addAction(makeAlertAction(title: "Move to TODO", index: index, toScheduleType: .todo))
-            alertController.addAction(makeAlertAction(title: "Move to DONE", index: index, toScheduleType: .done))
+            alertController.addAction(makeAlertAction(title: Namespace.moveToTODO, index: index, toScheduleType: .todo))
+            alertController.addAction(makeAlertAction(title: Namespace.moveToDONE, index: index, toScheduleType: .done))
         case .done:
-            alertController.addAction(makeAlertAction(title: "Move to TODO", index: index, toScheduleType: .todo))
-            alertController.addAction(makeAlertAction(title: "Move to DOING", index: index, toScheduleType: .doing))
+            alertController.addAction(makeAlertAction(title: Namespace.moveToTODO, index: index, toScheduleType: .todo))
+            alertController.addAction(makeAlertAction(title: Namespace.moveToDOING, index: index, toScheduleType: .doing))
         }
         
         return alertController
