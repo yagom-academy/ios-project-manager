@@ -9,7 +9,6 @@ import UIKit
 
 class CustomTableViewController: UIViewController {
     private let listViewModel = ListViewModel.shared
-
     let state: State
     
     private let projectTableView: UITableView = {
@@ -39,6 +38,23 @@ class CustomTableViewController: UIViewController {
         configureViewModel()
     }
     
+    func configureViewModel() {
+        switch state {
+        case .todo:
+            listViewModel.todoList.bind { viewModel in
+                self.projectTableView.reloadData()
+            }
+        case .doing:
+            listViewModel.doingList.bind { viewModel in
+                self.projectTableView.reloadData()
+            }
+        case .done:
+            listViewModel.doneList.bind { viewModel in
+                self.projectTableView.reloadData()
+            }
+        }
+    }
+    
     private func configureSubviews() {
         view.addSubview(projectTableView)
     }
@@ -56,30 +72,12 @@ class CustomTableViewController: UIViewController {
         projectTableView.delegate = self
         projectTableView.dataSource = self
     }
-    
-    func configureViewModel() {
-        switch state {
-        case .todo:
-            listViewModel.todoList.bind { viewModel in
-                self.projectTableView.reloadData()
-            }
-        case .doing:
-            listViewModel.doingList.bind { viewModel in
-                self.projectTableView.reloadData()
-            }
-        case .done:
-            listViewModel.doneList.bind { viewModel in
-                self.projectTableView.reloadData()
-            }
-        }
-    }
 }
 
 extension CustomTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch state {
         case .todo:
-            print(listViewModel.countProject(in: .todo))
             return listViewModel.countProject(in: .todo)
         case .doing:
             return listViewModel.countProject(in: .doing)
@@ -106,7 +104,6 @@ extension CustomTableViewController: UITableViewDataSource {
             listViewModel.configureCell(to: cell, with: project)
             
             return cell
-            
         }
     }
 }

@@ -66,6 +66,11 @@ final class DetailProjectViewController: UIViewController {
         configureConstraints()
     }
     
+    func configureContent(with list: ProjectModel) {
+        titleTextField.text = list.title
+        descriptionTextView.text = list.description
+    }
+    
     private func configureUI() {
         view.backgroundColor = .white
         title = NameSpace.title
@@ -107,11 +112,6 @@ final class DetailProjectViewController: UIViewController {
         ])
     }
     
-    func configureContent(with list: ProjectModel) {
-        titleTextField.text = list.title
-        descriptionTextView.text = list.description
-    }
-    
     @objc
     private func doneButton() {
         guard let title = titleTextField.text,
@@ -119,7 +119,6 @@ final class DetailProjectViewController: UIViewController {
         
         let todoList = ProjectModel(title: title, description: description, deadLine: Date(), state: .todo)
         listViewModel.addProject(new: todoList)
-        print(listViewModel.todoList.value)
 
         self.dismiss(animated: true)
     }
