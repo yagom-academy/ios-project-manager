@@ -6,7 +6,7 @@
 //
 import Foundation
 
-protocol DetailViewControllerDelegate: AnyObject {
+protocol DetailViewModelDelegate: AnyObject {
     func updateTaskList(for workState: WorkState)
     func updateDataSource(for workState: WorkState, itemID: UUID?)
 }

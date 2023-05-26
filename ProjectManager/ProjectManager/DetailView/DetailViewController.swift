@@ -81,7 +81,7 @@ final class DetailViewController: UIViewController {
     
     let mode: Mode
     var cancellables = Set<AnyCancellable>()
-    weak var delegate: DetailViewControllerDelegate?
+    weak var delegate: DetailViewModelDelegate?
     
     init(task: Task?, mode: Mode) {
         self.detailViewModel = DetailViewModel(task: task)
@@ -101,6 +101,10 @@ final class DetailViewController: UIViewController {
         configureLabelText()
         configureUIEditability()
         bind(to: detailViewModel)
+    }
+    
+    func configureViewModelDelegate(with delegate: DetailViewModelDelegate?) {
+        
     }
 
     private func bind(to viewModel: DetailViewModel) {

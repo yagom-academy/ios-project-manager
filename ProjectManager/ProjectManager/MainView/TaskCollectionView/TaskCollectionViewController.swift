@@ -8,13 +8,14 @@
 import UIKit
 
 final class TaskCollectionViewController: UIViewController  {
-    let mode: WorkState
+    typealias DataSource = UICollectionViewDiffableDataSource<WorkState, Task.ID>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<WorkState, Task.ID>
+    
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
-    lazy var viewModel = TaskCollectionViewModel(
-        collectionView: collectionView,
-        cellReuseIdentifier: TaskCell.identifier
-    )
+    
+    
+    var viewModel: TaskListViewModel
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +24,8 @@ final class TaskCollectionViewController: UIViewController  {
         configureCollectionView()
     }
     
-    init(mode: WorkState) {
-        self.mode = mode
+    init(viewModel: TaskListViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -37,13 +38,12 @@ final class TaskCollectionViewController: UIViewController  {
             var config = UICollectionLayoutListConfiguration(appearance: .grouped)
             config.headerMode = .supplementary
             config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
-                guard let self,
-                      let task = self.viewModel.task(at: indexPath) else {
+                guard let self else {
                     return UISwipeActionsConfiguration()
                 }
                 
                 let actionHandler: UIContextualAction.Handler = { action, view, completion in
-                    self.viewModel.remove(task)
+                    self.viewModel.deleteTask(at: indexPath.row)
                     completion(true)
                 }
                 
@@ -90,26 +90,58 @@ final class TaskCollectionViewController: UIViewController  {
     
     private func configureCollectionView() {
         collectionView.register(TaskCell.self, forCellWithReuseIdentifier: TaskCell.identifier)
-        
-        do {
-            collectionView.dataSource = try viewModel.makeDataSource()
-        } catch {
-            print(error.localizedDescription)
-        }
-        
+        collectionView.dataSource = makeDataSource()
         collectionView.delegate = self
     }
     
+    private func makeDataSource() -> DataSource {
+        let dataSource = DataSource(collectionView: collectionView, cellProvider: cellProvider)
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: HeaderView.identifier,
+                for: indexPath) as? HeaderView else {
+                fatalError("Could not dequeue sectionHeader:")
+            }
+
+            sectionHeader.titleLabel.text = "Section Header"
+
+            return sectionHeader
+        }
+
+        return dataSource
+    }
+    
+    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: TaskCell.identifier,
+            for: indexPath
+        ) as? TaskCell else {
+            return UICollectionViewCell()
+        }
+
+        guard let task = viewModel.taskList.filter({ $0.id == identifier }).first else {
+            return UICollectionViewCell()
+        }
+
+        let taskCellViewModel = TaskCellViewModel(task: task)
+        cell.provide(taskCellViewModel)
+
+        return cell
+    }
 }
 
 extension TaskCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let task = viewModel.task(at: indexPath)
+        let task = viewModel.task(at: indexPath.row)
+        
         let detailViewController = DetailViewController(task: task, mode: .update)
-        let mainViewController = self.parent as? MainViewController
-        detailViewController.delegate = mainViewController?.mainViewModel
+        
+        detailViewController.configureViewModelDelegate(with: viewModel as? DetailViewModelDelegate)
+        
         detailViewController.modalPresentationStyle = .formSheet
+        
         self.present(detailViewController, animated: true)
     }
 }

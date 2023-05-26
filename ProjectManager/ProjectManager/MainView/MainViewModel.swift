@@ -11,7 +11,7 @@ final class MainViewModel {
     private let mainTaskService = MainTaskService()
     
     var taskList: [Task] = []
-    var viewModelDictionary = [WorkState: TaskCollectionViewModel]()
+    var viewModelDictionary = [WorkState: TaskListViewModel]()
     
     func assignChildViewModel(of children: [UIViewController]) {
         children.forEach {
@@ -51,4 +51,4 @@ final class MainViewModel {
     }
 }
 
-extension MainViewModel: DetailViewControllerDelegate { }
+extension MainViewModel: DetailViewModelDelegate { }
