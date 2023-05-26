@@ -17,6 +17,7 @@ class CustomCollectionView: UICollectionView {
             delete.backgroundColor = .systemRed
             return UISwipeActionsConfiguration(actions: [delete])
         }
+        
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         super.init(frame: .zero, collectionViewLayout: layout)
         backgroundColor = .systemBackground

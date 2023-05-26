@@ -10,24 +10,27 @@ import UIKit
 class TodoListCell: UICollectionViewListCell {
     private let titleLabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
     private let contentLabel = {
         let label = UILabel()
+        label.numberOfLines = 3
+        label.textColor = .gray
         return label
     }()
     
     private let dateLabel = {
         let label = UILabel()
-        label.numberOfLines = 3
-        label.lineBreakMode = .byTruncatingTail
+        label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     
     private let cellStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.spacing = 5
         return stackView
     }()
     
@@ -49,11 +52,10 @@ class TodoListCell: UICollectionViewListCell {
         cellStackView.addArrangedSubview(titleLabel)
         cellStackView.addArrangedSubview(contentLabel)
         cellStackView.addArrangedSubview(dateLabel)
-
-        cellStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
         
+        cellStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(10)
+        }
     }
     
     func configure(title: String, content: String, date: Date) {
@@ -61,5 +63,4 @@ class TodoListCell: UICollectionViewListCell {
         contentLabel.text = content
         dateLabel.text = Date.dateString()
     }
-    
 }
