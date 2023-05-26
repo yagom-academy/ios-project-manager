@@ -84,7 +84,7 @@
 
 |할 일 삭제|할 일 수정|할 일 이동|할 일 추가|
 |----------|----------|----------|----------|
-|<img src="https://github.com/fatherLeon/ios-project-manager/blob/step2/Images/할%20일%20삭제.gif?raw=true" width=900 height=686>|<img src="https://github.com/fatherLeon/ios-project-manager/blob/step2/Images/할%20일%20이동.gif?raw=true" width=900 height=686>|<img src="https://github.com/fatherLeon/ios-project-manager/blob/step2/Images/할%20일%20이동.gif?raw=true" width=900 height=686>|<img src="https://github.com/fatherLeon/ios-project-manager/blob/step2/Images/할%20일%20추가.gif?raw=true" width=900 height=686>|
+|<img src="https://github.com/fatherLeon/ios-project-manager/blob/step2/Images/할%20일%20삭제.gif?raw=true" width=450 height=343>|<img src="https://github.com/fatherLeon/ios-project-manager/blob/step2/Images/할%20일%20이동.gif?raw=true" width=450 height=343>|<img src="https://github.com/fatherLeon/ios-project-manager/blob/step2/Images/할%20일%20이동.gif?raw=true" width=450 height=343>|<img src="https://github.com/fatherLeon/ios-project-manager/blob/step2/Images/할%20일%20추가.gif?raw=true" width=450 height=343>|
 
 ## 5. 트러블 슈팅
 
