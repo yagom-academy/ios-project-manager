@@ -144,13 +144,12 @@ final class DetailProjectViewController: UIViewController {
         guard let project else { return }
         
         dismissHandler?(project)
-        
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     @objc
     private func cancelEditingProject() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
         toggleEditMode()
     }
     
@@ -165,7 +164,7 @@ final class DetailProjectViewController: UIViewController {
         let okayAction = UIAlertAction(title: "확인", style: .default)
         alert.addAction(okayAction)
         
-        self.present(alert, animated: false)
+        present(alert, animated: false)
     }
     
     private func configureContentStackView() {

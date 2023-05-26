@@ -59,15 +59,15 @@ final class HeaderView: UICollectionReusableView {
     }
     
     private func configureView() {
-        self.addSubview(statusLabel)
-        self.addSubview(numberLabel)
+        addSubview(statusLabel)
+        addSubview(numberLabel)
     }
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            statusLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            statusLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            numberLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            statusLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            statusLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            numberLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             numberLabel.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: 8),
             numberLabel.heightAnchor.constraint(equalToConstant: 24)
         ])

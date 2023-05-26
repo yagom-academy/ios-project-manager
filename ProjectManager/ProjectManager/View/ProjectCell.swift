@@ -115,7 +115,7 @@ final class ProjectCell: UICollectionViewCell {
     }
     
     private func configureContentStackView() {
-        self.addSubview(cellScrollView)
+        addSubview(cellScrollView)
         cellScrollView.addSubview(cellStackView)
         cellStackView.addArrangedSubview(contentStackView)
         cellStackView.addArrangedSubview(deleteButton)
@@ -127,10 +127,10 @@ final class ProjectCell: UICollectionViewCell {
     
     private func configureConstraint() {
         NSLayoutConstraint.activate([
-            cellScrollView.topAnchor.constraint(equalTo: self.topAnchor),
-            cellScrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            cellScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            cellScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            cellScrollView.topAnchor.constraint(equalTo: topAnchor),
+            cellScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            cellScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            cellScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             cellStackView.topAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.topAnchor),
             cellStackView.leadingAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.leadingAnchor, constant: -70),
             cellStackView.trailingAnchor.constraint(equalTo: cellScrollView.contentLayoutGuide.trailingAnchor),

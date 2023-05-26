@@ -77,7 +77,7 @@ final class MoveToViewController: UIViewController {
         guard let project else { return }
         
         dismissHandler?(project, .todo)
-        self.dismiss(animated: false)
+        dismiss(animated: false)
     }
     
     @objc
@@ -85,7 +85,7 @@ final class MoveToViewController: UIViewController {
         guard let project else { return }
         
         dismissHandler?(project, .doing)
-        self.dismiss(animated: false)
+        dismiss(animated: false)
     }
     
     @objc
@@ -93,7 +93,7 @@ final class MoveToViewController: UIViewController {
         guard let project else { return }
         
         dismissHandler?(project, .done)
-        self.dismiss(animated: false)
+        dismiss(animated: false)
     }
     
     private func configureContentStackView(status: Status) {

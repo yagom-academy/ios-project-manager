@@ -79,7 +79,7 @@ final class ProjectManagerViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: detailProjectViewController)
         navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
         
-        self.present(navigationController, animated: true, completion: nil)
+        present(navigationController, animated: true, completion: nil)
     }
     
     private func configureProjectManagerCollectionView() {
@@ -192,7 +192,7 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
                 let navigationController = UINavigationController(rootViewController: detailProjectViewController)
                 navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
                 
-                self.present(navigationController, animated: true, completion: nil)
+                present(navigationController, animated: true, completion: nil)
             }
         }
     }
@@ -232,7 +232,7 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
                 self.projectManagerCollectionView.reloadData()
             }
             
-            self.present(moveToViewController, animated: true, completion: nil)
+            present(moveToViewController, animated: true, completion: nil)
         }
     }
 }
