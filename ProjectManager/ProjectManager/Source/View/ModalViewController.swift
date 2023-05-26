@@ -33,7 +33,7 @@ final class ModalViewController: UIViewController {
     private let datePickerView: UIDatePicker = {
         let pickerView = UIDatePicker()
         pickerView.preferredDatePickerStyle = .wheels
-        pickerView.locale = Locale(identifier: "ko_KR")
+        pickerView.locale = Locale(identifier: Locale.current.identifier)
         pickerView.datePickerMode = .date
         pickerView.minimumDate = Date()
         pickerView.translatesAutoresizingMaskIntoConstraints = false
