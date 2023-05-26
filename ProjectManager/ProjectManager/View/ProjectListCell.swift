@@ -19,11 +19,11 @@ struct ProjectListCell: View {
             Text(model.body)
                 .lineLimit(3)
                 .foregroundColor(.secondary)
-            Text(model.date.description)
+            Text(ProjectDateFormatter.shared.formatDateText(date: model.date))
         }.onTapGesture {
             isModalViewShow.toggle()
         }.sheet(isPresented: $isModalViewShow) {
-            ModalView(project: model)
+            ModalView(project: model, disableEdit: true, state: self.state, isEdit: true)
         }
     }
 }

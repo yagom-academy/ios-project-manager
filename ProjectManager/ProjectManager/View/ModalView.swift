@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ModalView: View {
     @State var project: Project
-    let dateFormatter = ProjectDateFormatter.shared
-    
+    @State var disableEdit: Bool
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    let state: ProjectState
+    let isEdit: Bool
     
     var body: some View {
         NavigationStack{
@@ -23,15 +24,15 @@ struct ModalView: View {
                 DatePicker("Date", selection: $project.date, displayedComponents: .date)
                                    .datePickerStyle(.wheel)
                                    .labelsHidden()
-                    
                 
                 TextEditor(text: $project.body)
                     .padding()
                     .font(.body)
                     .border(Color(UIColor.systemGray5))
             }
+            .disabled(disableEdit)
             .padding(.init(top: 5, leading: 10, bottom: 20, trailing: 10))
-            .navigationTitle("TODO")
+            .navigationTitle(state.rawValue.uppercased())
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
@@ -44,9 +45,9 @@ struct ModalView: View {
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        self.presentationMode.wrappedValue.dismiss()
+                        isEdit ? disableEdit.toggle() : presentationMode.wrappedValue.dismiss()
                     } label: {
-                        Text("Cancel")
+                        isEdit ? Text("Edit") : Text("Cancel")
                     }
                 }
             }
@@ -56,6 +57,6 @@ struct ModalView: View {
 
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
-        ModalView(project: .init(title: "", body: "", date: Date()))
+        ModalView(project: .init(title: "", body: "", date: Date()), disableEdit: true, state: .done, isEdit: true)
     }
 }

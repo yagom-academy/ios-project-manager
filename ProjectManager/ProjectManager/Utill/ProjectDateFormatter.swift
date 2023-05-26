@@ -10,7 +10,7 @@ import Foundation
 final class ProjectDateFormatter {
     private let dateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
+        dateFormatter.dateFormat = "yyyy. M. d."
         
         return dateFormatter
     }()
@@ -19,21 +19,7 @@ final class ProjectDateFormatter {
     
     private init() { }
     
-    lazy var nowDate = {
-        return self.formatDate(date: Date())
-    }()
-    
-    
-    func formatDate(date: Date) -> Date? {
-        let formattedDate = dateFormatter.string(from: date)
-        
-        return dateFormatter.date(from: formattedDate)
-    }
-    
-    func convertToDate(text: String) -> Date? {
-        let date = dateFormatter.date(from: text)
-        
-        return date
-        
+    func formatDateText(date: Date) -> String {
+        return dateFormatter.string(from: date)
     }
 }

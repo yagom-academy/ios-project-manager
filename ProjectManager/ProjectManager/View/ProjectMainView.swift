@@ -36,7 +36,7 @@ struct ProjectMainView: View {
             }
             .sheet(isPresented: $showModal) {
                 
-                ModalView(project: Project(title: "", body: "", date: Date()))
+                ModalView(project: Project(title: "", body: "", date: Date()), disableEdit: false, state: .todo, isEdit: false)
             }
         }
     }
