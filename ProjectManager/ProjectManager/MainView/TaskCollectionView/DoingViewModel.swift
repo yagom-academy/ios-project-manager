@@ -1,5 +1,5 @@
 //
-//  TaskCollectionViewModel.swift
+//  DoingViewModel.swift
 //  ProjectManager
 //
 //  Created by Brody, Rowan on 2023/05/19.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TodoViewModel: TaskListViewModel {
+final class DoingViewModel: TaskListViewModel {
     
     @Published var taskList: [Task] = []
     
@@ -20,7 +20,7 @@ final class TodoViewModel: TaskListViewModel {
     }
 }
 
-extension TodoViewModel: DetailViewModelDelegate {
+extension DoingViewModel: DetailViewModelDelegate {
     func updateTaskList(for workState: WorkState) {
         
     }
@@ -29,4 +29,3 @@ extension TodoViewModel: DetailViewModelDelegate {
         
     }
 }
-

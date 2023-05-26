@@ -14,14 +14,16 @@ final class TaskCollectionViewController: UIViewController  {
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
     
-    
+    var dataSource: DataSource?
     var viewModel: TaskListViewModel
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureRootView()
         configureCollectionViewLayout()
+        configureDataSource()
         configureCollectionView()
+        updateDataSource()
     }
     
     init(viewModel: TaskListViewModel) {
@@ -31,6 +33,11 @@ final class TaskCollectionViewController: UIViewController  {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureRootView() {
+        view.backgroundColor = .systemGray4
+        view.addSubview(collectionView)
     }
     
     private func collectionViewLayout() -> UICollectionViewLayout {
@@ -65,11 +72,6 @@ final class TaskCollectionViewController: UIViewController  {
         return layout
     }
     
-    private func configureRootView() {
-        view.backgroundColor = .systemGray4
-        view.addSubview(collectionView)
-    }
-    
     private func configureCollectionViewLayout() {
         collectionView.register(
             HeaderView.self,
@@ -88,28 +90,20 @@ final class TaskCollectionViewController: UIViewController  {
         ])
     }
     
-    private func configureCollectionView() {
-        collectionView.register(TaskCell.self, forCellWithReuseIdentifier: TaskCell.identifier)
-        collectionView.dataSource = makeDataSource()
-        collectionView.delegate = self
-    }
-    
-    private func makeDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: collectionView, cellProvider: cellProvider)
-        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+    private func configureDataSource() {
+        dataSource = DataSource(collectionView: collectionView, cellProvider: cellProvider)
+        dataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: HeaderView.identifier,
                 for: indexPath) as? HeaderView else {
                 fatalError("Could not dequeue sectionHeader:")
             }
-
+            
             sectionHeader.titleLabel.text = "Section Header"
-
+            
             return sectionHeader
         }
-
-        return dataSource
     }
     
     private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
@@ -129,6 +123,20 @@ final class TaskCollectionViewController: UIViewController  {
 
         return cell
     }
+    
+    private func configureCollectionView() {
+        collectionView.register(TaskCell.self, forCellWithReuseIdentifier: TaskCell.identifier)
+        collectionView.dataSource = dataSource
+        collectionView.delegate = self
+    }
+    
+    private func updateDataSource() {
+        let taskIDList = viewModel.taskList.map { $0.id }
+        var snapshot = Snapshot()
+        snapshot.appendSections([viewModel.taskWorkState])
+        snapshot.appendItems(taskIDList)
+        dataSource?.apply(snapshot)
+    }
 }
 
 extension TaskCollectionViewController: UICollectionViewDelegate {
@@ -137,9 +145,7 @@ extension TaskCollectionViewController: UICollectionViewDelegate {
         let task = viewModel.task(at: indexPath.row)
         
         let detailViewController = DetailViewController(task: task, mode: .update)
-        
         detailViewController.configureViewModelDelegate(with: viewModel as? DetailViewModelDelegate)
-        
         detailViewController.modalPresentationStyle = .formSheet
         
         self.present(detailViewController, animated: true)
