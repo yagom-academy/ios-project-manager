@@ -11,7 +11,6 @@ struct ModalView: View {
     @State var title: String = ""
     @State var date: Date = .init()
     @State var text: String = ""
-    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -48,10 +47,7 @@ struct ModalView: View {
                         Text("Cancel")
                     }
                 }
-                
             }
-            
-
         }
     }
 }

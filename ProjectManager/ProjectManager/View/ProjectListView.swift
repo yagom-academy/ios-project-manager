@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct ProjectListView: View {
-    let viewModel: ProjectViewModel
+    @EnvironmentObject var viewModel: ProjectViewModel
     let currentState: ProjectState
     
     var body: some View {
-    
         List {
             Section {
                 switch currentState {
@@ -37,15 +36,19 @@ struct ProjectListView: View {
                     .fontWeight(.light)
             }
         }
-        
         .listStyle(.grouped)
     }
     
     func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
-        ForEach(models) { model in
-            ProjectListCell(viewModel: viewModel, model: model, state: currentState)
+        ForEach(Array(models.enumerated()), id: \.offset) { index, model in
+            ProjectListCell(model: model, state: currentState)
                 .contextMenu {
-                    createPopoverItem(items: currentState.popoverItem)
+                    Button(currentState.popoverItem.0.popoverText) {
+                        viewModel.move(index: index, state: currentState, to: currentState.popoverItem.0)
+                    }
+                    Button(currentState.popoverItem.1.popoverText) {
+                        viewModel.move(index: index, state: currentState, to: currentState.popoverItem.1)
+                    }
                 }
         }
         .onDelete(perform: onDelete)
@@ -56,24 +59,12 @@ struct ProjectListView: View {
                 .padding(.top, 10)
         )
     }
-    
-    func createPopoverItem(items: (first: ProjectState, second: ProjectState)) -> some View {
-        VStack{
-            Button(items.first.popoverText) {
-                
-            } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
-            
-            Button(items.second.popoverText) {
-                
-            } .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
-        }
-    }
 }
 
 struct ProjectListView_Previews: PreviewProvider {
-
     static var previews: some View {
-        ProjectListView(viewModel: ProjectViewModel(), currentState: .doing)
+        ProjectListView(currentState: .doing)
+            .environmentObject(ProjectViewModel())
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

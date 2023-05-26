@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		08C8CF4E2A14703C00173DEE /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C8CF4D2A14703C00173DEE /* ProjectListView.swift */; };
 		08CB37D82A15BEBF00F11F9E /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB37D72A15BEBF00F11F9E /* ModalView.swift */; };
-		08D899882A1FA45700D151C3 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D899872A1FA45700D151C3 /* ProjectListViewModel.swift */; };
 		08E832392A138E1700517880 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08E832382A138E1700517880 /* GoogleService-Info.plist */; };
 		08E8323C2A138F6B00517880 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 08E8323B2A138F6B00517880 /* FirebaseAnalytics */; };
 		08E8323E2A138F6B00517880 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 08E8323D2A138F6B00517880 /* FirebaseFirestore */; };
@@ -29,7 +28,6 @@
 /* Begin PBXFileReference section */
 		08C8CF4D2A14703C00173DEE /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		08CB37D72A15BEBF00F11F9E /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
-		08D899872A1FA45700D151C3 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
 		08E832382A138E1700517880 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		08E8323F2A138FAD00517880 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1607FCCE2A14A2BB0042FE8B /* ProjectListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListCell.swift; sourceTree = "<group>"; };
@@ -73,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				166CDE1C2A1C94AF0015FA4F /* ProjectViewModel.swift */,
-				08D899872A1FA45700D151C3 /* ProjectListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -211,7 +208,6 @@
 				16F11C672A138B4500F1A08C /* ProjectMainView.swift in Sources */,
 				08CB37D82A15BEBF00F11F9E /* ModalView.swift in Sources */,
 				1607FCCF2A14A2BB0042FE8B /* ProjectListCell.swift in Sources */,
-				08D899882A1FA45700D151C3 /* ProjectListViewModel.swift in Sources */,
 				1607FCD12A14A3CD0042FE8B /* Project.swift in Sources */,
 				166CDE1D2A1C94AF0015FA4F /* ProjectViewModel.swift in Sources */,
 				16F11C652A138B4500F1A08C /* ProjectManagerApp.swift in Sources */,
