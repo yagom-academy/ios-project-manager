@@ -11,7 +11,7 @@
 | kokkilE | Harry |
 | :--------: |  :--------: |
 | <Img src = "https://hackmd.io/_uploads/rJIFycpBh.jpg"  height="200"/> |<img height="200" src="https://i.imgur.com/8pKgxIk.jpg">
-| [Github Profile](https://github.com/Kyeongjun2) |[Github Profile](https://github.com/HarryHyeon) | 
+| [Github Profile](https://github.com/kokkilE) |[Github Profile](https://github.com/HarryHyeon) | 
 
 </br>
 
