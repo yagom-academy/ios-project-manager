@@ -18,6 +18,7 @@
 		AA48F31A2A1F3A16003B965E /* Array+subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F3192A1F3A16003B965E /* Array+subscript.swift */; };
 		AA48F31D2A1F7543003B965E /* UITextField+publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F31C2A1F7543003B965E /* UITextField+publisher.swift */; };
 		AA48F31F2A1F754F003B965E /* UITextView+publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F31E2A1F754F003B965E /* UITextView+publisher.swift */; };
+		AA48F3212A2093A4003B965E /* RealmTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F3202A2093A4003B965E /* RealmTask.swift */; };
 		AA61F2512A1326C200C7C290 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = AA61F2502A1326C200C7C290 /* Realm */; };
 		AA61F2532A1326C200C7C290 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AA61F2522A1326C200C7C290 /* RealmSwift */; };
 		AA7FC09D2A1503A20057FCD4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FC09C2A1503A20057FCD4 /* MainViewController.swift */; };
@@ -45,6 +46,7 @@
 		AA48F3192A1F3A16003B965E /* Array+subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+subscript.swift"; sourceTree = "<group>"; };
 		AA48F31C2A1F7543003B965E /* UITextField+publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+publisher.swift"; sourceTree = "<group>"; };
 		AA48F31E2A1F754F003B965E /* UITextView+publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+publisher.swift"; sourceTree = "<group>"; };
+		AA48F3202A2093A4003B965E /* RealmTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTask.swift; sourceTree = "<group>"; };
 		AA7FC09C2A1503A20057FCD4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AA8AE3BF2A1B3FF500B662F2 /* TaskFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewController.swift; sourceTree = "<group>"; };
 		AA8AE3C12A1B560600B662F2 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -114,9 +116,26 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		AA48F3222A2096F0003B965E /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				AA48F3232A209707003B965E /* Local */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		AA48F3232A209707003B965E /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				AA48F3202A2093A4003B965E /* RealmTask.swift */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
 		AA54D9122A1D019A00702F06 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				AA48F3222A2096F0003B965E /* Database */,
 				AA48F3182A1F3998003B965E /* Util */,
 				4AC4526D2A14A26F00ADAC45 /* Model */,
 				AA54D9152A1D01E300702F06 /* Main */,
@@ -320,6 +339,7 @@
 				4AE1DDFE2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift in Sources */,
 				AAACDCFE2A1C6297005BFD03 /* DateFormatter+Deadline.swift in Sources */,
 				AA2F17DD2A14AB3700664807 /* TaskListCell.swift in Sources */,
+				AA48F3212A2093A4003B965E /* RealmTask.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				AA32F2482A16538800DB3E1A /* CountLabel.swift in Sources */,
 				AA7FC09D2A1503A20057FCD4 /* MainViewController.swift in Sources */,

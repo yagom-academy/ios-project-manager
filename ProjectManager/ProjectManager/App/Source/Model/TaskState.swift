@@ -5,7 +5,9 @@
 //  Created by Harry, KokkiLE on 2023/05/18.
 //
 
-enum TaskState: CaseIterable {
+import RealmSwift
+
+enum TaskState: String, CaseIterable {
     case todo
     case doing
     case done
@@ -29,3 +31,5 @@ extension TaskState {
         return (stateList.first, stateList.last)
     }
 }
+
+extension TaskState: PersistableEnum {}
