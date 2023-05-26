@@ -23,7 +23,7 @@ final class HeaderView: UICollectionReusableView {
         return label
     }()
     
-    let numberLabel: UILabel = {
+    private let numberLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .black
         label.font = UIFont.preferredFont(forTextStyle: .body)

@@ -7,7 +7,6 @@
 import Foundation
 
 extension Date {
-    
     func formatDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")

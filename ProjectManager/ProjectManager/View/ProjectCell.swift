@@ -97,12 +97,12 @@ final class ProjectCell: UICollectionViewCell {
         cellScrollView.contentInset.left = 70
     }
     
-    func scrollToZero() {
+    private func scrollToZero() {
         cellScrollView.setContentOffset(CGPoint(x: -70, y: 0), animated: false)
     }
     
     @objc
-    func deleteCell() {
+    private func deleteCell() {
         deleteRow?()
     }
     

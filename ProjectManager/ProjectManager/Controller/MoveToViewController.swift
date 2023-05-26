@@ -7,7 +7,7 @@
 import UIKit
 
 final class MoveToViewController: UIViewController {
-    let project: Project?
+    private let project: Project?
     var dismissHandler: ((Project, Status) -> ())?
     
     private let contentStackView: UIStackView = {

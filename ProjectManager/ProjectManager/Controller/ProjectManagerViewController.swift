@@ -166,7 +166,7 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
     }
     
     @objc
-    func handleTap(gestureRecognizer: UITapGestureRecognizer) {
+    private func handleTap(gestureRecognizer: UITapGestureRecognizer) {
         let location = gestureRecognizer.location(in: projectManagerCollectionView)
         
         if gestureRecognizer.state == .ended {
@@ -206,7 +206,7 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
     }
     
     @objc
-    func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+    private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: projectManagerCollectionView)
         
         if gestureRecognizer.state == .ended {
