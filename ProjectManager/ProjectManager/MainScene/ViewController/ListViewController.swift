@@ -31,7 +31,7 @@ final class ListViewController: UIViewController {
         configureViewUI()
         configureCollectionViewUI()
         configureDatasource()
-        applySnapshot(by: [])
+        applySnapshot(by: viewModel.tasks)
     }
     
     func appendTasks(_ tasks: [Task]) {

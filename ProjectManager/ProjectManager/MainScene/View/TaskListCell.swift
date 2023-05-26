@@ -62,10 +62,10 @@ final class TaskListCell: UICollectionViewListCell {
         titleLabel.text = task.title
         descriptionLabel.text = task.description
         deadlineDateLabel.text = task.date.formattedText
-        deadlineDateLabel.textColor = calculateDateLabelText(task)
+        deadlineDateLabel.textColor = calculateDateLabelTextColor(task)
     }
     
-    private func calculateDateLabelText(_ task: Task) -> UIColor {
+    private func calculateDateLabelTextColor(_ task: Task) -> UIColor {
         guard task.state != .done else { return .label }
         
         let nowDate = Date().formattedText
