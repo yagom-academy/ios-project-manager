@@ -9,7 +9,7 @@ import UIKit
 
 final class TodoViewModel: TaskListViewModel {
     @Published var taskList: [Task] = []
-    
+    var taskListPublisher: Published<[Task]>.Publisher { $taskList }
     let taskWorkState: WorkState = .todo
     var delegate: TaskListViewModelDelegate?
 }

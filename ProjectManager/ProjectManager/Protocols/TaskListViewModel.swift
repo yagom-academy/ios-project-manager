@@ -5,9 +5,11 @@
 //  Created by Brody, Rowan on 2023/05/24.
 //
 import Foundation
+import Combine
 
 protocol TaskListViewModel: AnyObject {
     var taskList: [Task] { get set }
+    var taskListPublisher: Published<[Task]>.Publisher { get }
     var taskWorkState: WorkState { get }
     var delegate: TaskListViewModelDelegate? { get set }
     

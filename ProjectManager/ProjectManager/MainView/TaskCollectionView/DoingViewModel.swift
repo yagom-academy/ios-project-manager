@@ -9,7 +9,7 @@ import UIKit
 
 final class DoingViewModel: TaskListViewModel {
     @Published var taskList: [Task] = []
-    
+    var taskListPublisher: Published<[Task]>.Publisher { $taskList }
     var taskWorkState: WorkState = .doing
     var delegate: TaskListViewModelDelegate?
 }

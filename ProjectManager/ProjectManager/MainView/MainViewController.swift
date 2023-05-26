@@ -24,10 +24,10 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addChildren()
         configureNavigationBar()
         configureRootView()
         configureStackView()
-        addChildren()
         setupViewModelReference()
         fetchInitialTaskList()
     }

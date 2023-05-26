@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class TaskCollectionViewController: UIViewController  {
     typealias DataSource = UICollectionViewDiffableDataSource<WorkState, Task.ID>
@@ -16,6 +17,7 @@ final class TaskCollectionViewController: UIViewController  {
     
     var dataSource: DataSource?
     var viewModel: TaskListViewModel
+    var bindings = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,7 @@ final class TaskCollectionViewController: UIViewController  {
         configureCollectionViewLayout()
         configureDataSource()
         configureCollectionView()
-        updateDataSource()
+        bindViewModelToView()
     }
     
     init(viewModel: TaskListViewModel) {
@@ -130,8 +132,16 @@ final class TaskCollectionViewController: UIViewController  {
         collectionView.delegate = self
     }
     
-    private func updateDataSource() {
-        let taskIDList = viewModel.taskList.map { $0.id }
+    private func bindViewModelToView() {
+        viewModel.taskListPublisher
+            .sink { taskList in
+                self.updateDataSource(taskList)
+            }
+            .store(in: &bindings)
+    }
+    
+    private func updateDataSource(_ taskList: [Task]) {
+        let taskIDList = taskList.map { $0.id }
         var snapshot = Snapshot()
         snapshot.appendSections([viewModel.taskWorkState])
         snapshot.appendItems(taskIDList)
