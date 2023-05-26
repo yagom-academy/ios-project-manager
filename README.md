@@ -7,7 +7,7 @@
 ### 💻 개발환경 및 라이브러리
 <img src = "https://img.shields.io/badge/swift-5.8-orange"> <img src = "https://img.shields.io/badge/Minimum%20Diployment%20Target-13.0-blue"> <img src = "https://img.shields.io/badge/CocoaPods-1.11.3-brightgreen"> 
 
-<img src = "https://img.shields.io/badge/Firebase-10.9.0-red"> <img src = "">
+<img src = "https://img.shields.io/badge/Firebase-10.9.0-red">
 
 ## ⭐️ 팀원
 | Rowan | Brody |
