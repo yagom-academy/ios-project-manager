@@ -38,7 +38,9 @@ final class TodoViewModel {
     }
     
     func restrictNumberOfText(range: NSRange, text: String) -> Bool {
-        guard let convertedText = text.cString(using: .utf8) else { return false }
+        guard let convertedText = text.cString(using: .utf8) else {
+            return false
+        }
         
         let backspaceValue = strcmp(convertedText, "\\b")
         
@@ -49,19 +51,23 @@ final class TodoViewModel {
     }
     
     func makeTask(title: String?, description: String?, date: Date) throws {
-        guard let title = title,
-              title != "" else { throw GeneratedTaskError.titleEmpty }
-        guard let description = description,
-              description != "" else { throw GeneratedTaskError.descriptionEmpty }
+        guard let title = title, title != "" else {
+            throw GeneratedTaskError.titleEmpty
+        }
+        guard let description = description, description != "" else {
+            throw GeneratedTaskError.descriptionEmpty
+        }
         
         self.task = Task(title: title, description: description, date: date)
     }
     
     func editTask(title: String?, description: String?, date: Date) throws {
-        guard let title = title,
-              title != "" else { throw GeneratedTaskError.titleEmpty }
-        guard let description = description,
-              description != "" else { throw GeneratedTaskError.descriptionEmpty }
+        guard let title = title, title != "" else {
+            throw GeneratedTaskError.titleEmpty
+        }
+        guard let description = description, description != "" else {
+            throw GeneratedTaskError.descriptionEmpty
+        }
         
         self.task?.title = title
         self.task?.description = description
