@@ -75,28 +75,49 @@ class CustomTableViewController: UIViewController {
     }
     
     private func configureGesture() {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(showActionSheet))
-        view.addGestureRecognizer(longPress)
-    }
-    
-    private func longPressGesture(sender: UILongPressGestureRecognizer) {
-        let point = sender.location(in: self.projectTableView)
-        if let indexPath = self.projectTableView.indexPathForRow(at: point) {
-            if let cell = self.projectTableView.cellForRow(at: indexPath) {
-
-            }
-        }
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        projectTableView.addGestureRecognizer(longPress)
     }
     
     @objc
-    func showActionSheet() {
+    func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            let touchPoint = gestureRecognizer.location(in: projectTableView)
+            if let indexPath = projectTableView.indexPathForRow(at: touchPoint) {
+                showActionSheet(index: indexPath)
+            }
+        }
+    }
+
+    func showActionSheet(index: IndexPath) {
         let alert = UIAlertController(title: "알림", message: "프로젝트 이동", preferredStyle: .actionSheet)
-        let moveToTodo = UIAlertAction(title: "TODO로 이동", style: .default)
-        let moveToDoing = UIAlertAction(title: "DOING으로 이동", style: .default)
-        let moveToDone = UIAlertAction(title: "DONE으로 이동", style: .default)
-        alert.addAction(moveToTodo)
-        alert.addAction(moveToDoing)
-        alert.addAction(moveToDone)
+        let moveToTodo = UIAlertAction(title: "TODO로 이동", style: .default) { _ in
+            print("TODO")
+            self.listViewModel.moveProject(state: self.state, to: .todo, at: index.row)
+        }
+        
+        let moveToDoing = UIAlertAction(title: "DOING으로 이동", style: .default) { _ in
+            print("두잉")
+            self.listViewModel.moveProject(state: self.state, to: .doing, at: index.row)
+        }
+        
+        let moveToDone = UIAlertAction(title: "DONE으로 이동", style: .default) { _ in
+            print("던")
+            self.listViewModel.moveProject(state: self.state, to: .done, at: index.row)
+        }
+        
+        switch state {
+        case .todo:
+            alert.addAction(moveToDoing)
+            alert.addAction(moveToDone)
+        case .doing:
+            alert.addAction(moveToTodo)
+            alert.addAction(moveToDone)
+        case .done:
+            alert.addAction(moveToTodo)
+            alert.addAction(moveToDoing)
+        }
+
 
         if UIDevice.current.userInterfaceIdiom == .pad {
           if let popoverController = alert.popoverPresentationController {
@@ -117,7 +138,10 @@ extension CustomTableViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier) as? TableViewCell else { return TableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier)
+                as? TableViewCell else {
+            return TableViewCell()
+        }
 
         let project = listViewModel.fetchProject(with: state, index: indexPath.row)
         listViewModel.configureCell(to: cell, with: project)
@@ -128,7 +152,10 @@ extension CustomTableViewController: UITableViewDataSource {
 
 extension CustomTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader else { return CustomTableViewHeader() }
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier)
+                as? CustomTableViewHeader else {
+            return CustomTableViewHeader()
+        }
         
         let count = listViewModel.countProject(in: state)
         header.configureContent(state: state, count: count)
@@ -156,6 +183,7 @@ extension CustomTableViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [delete])
     }
+    
 }
 
 private enum NameSpace {
