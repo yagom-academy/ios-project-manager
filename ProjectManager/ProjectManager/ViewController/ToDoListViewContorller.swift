@@ -19,9 +19,9 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     private var doingCellCount: Int = 0
     private var doneCellCount: Int = 0
     
-    lazy var toDoCircleView = createCellCountCircleView(cellCount: todoCellCount)
-    lazy var doingCircleView = createCellCountCircleView(cellCount: doingCellCount)
-    lazy var doneCircleView = createCellCountCircleView(cellCount: doneCellCount)
+    private lazy var toDoCircleView = createCellCountCircleView(cellCount: todoCellCount)
+    private lazy var doingCircleView = createCellCountCircleView(cellCount: doingCellCount)
+    private lazy var doneCircleView = createCellCountCircleView(cellCount: doneCellCount)
     
     private var toDoList: [ToDoList] = [] {
         didSet {
@@ -45,13 +45,13 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         }
     }
     
-    lazy var toDoTableView = createTableView(title: "TODO",
+    private lazy var toDoTableView = createTableView(title: "TODO",
                                              cellCount: todoCellCount,
                                              circleView: toDoCircleView)
-    lazy var doingTableView = createTableView(title: "DOING",
+    private lazy var doingTableView = createTableView(title: "DOING",
                                               cellCount: doingCellCount,
                                               circleView: doingCircleView)
-    lazy var doneTableView = createTableView(title: "DONE",
+    private lazy var doneTableView = createTableView(title: "DONE",
                                              cellCount: doneCellCount,
                                              circleView: doneCircleView)
     
