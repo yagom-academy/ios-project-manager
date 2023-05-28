@@ -1,13 +1,14 @@
 //
-//  ProjectManager - AppDelegate.swift
-//  Created by yagom. 
-//  Copyright © yagom. All rights reserved.
-// 
+//  AppDelegate.swift
+//  ProjectManager
+//
+//  Created by Harry, KokkiLE on 2023/05/16.
+//
 
 import UIKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         return true
