@@ -180,7 +180,6 @@ extension CustomTableViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [delete])
     }
-    
 }
 
 private enum NameSpace {

@@ -24,7 +24,7 @@ final class DetailProjectViewController: UIViewController {
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Title"
+        textField.placeholder = NameSpace.titlePlaceholder
         textField.font = UIFont.preferredFont(forTextStyle: .title2)
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +44,9 @@ final class DetailProjectViewController: UIViewController {
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.preferredFont(forTextStyle: .body)
-//        textView.isEditable = false
+        textView.layer.borderWidth = 1
+        textView.layer.cornerRadius = 3
+        textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
@@ -73,27 +75,26 @@ final class DetailProjectViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .white
-        title = NameSpace.title
-        
-        self.preferredContentSize = CGSize(width: 300, height: 300)
+        title = NameSpace.navigationTitle
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                          target: self,
                                          action: #selector(doneButton))
+        
         if isNewProject {
             let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                target: self,
                                                action: #selector(cancelButton))
+            
             navigationItem.leftBarButtonItem = cancelButton
         } else {
             let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
                                              target: self,
                                              action: #selector(editButton))
+            
             navigationItem.leftBarButtonItem = editButton
         }
-        
         navigationItem.rightBarButtonItem = doneButton
-
     }
     
     private func configureAddSubviews() {
@@ -136,5 +137,6 @@ final class DetailProjectViewController: UIViewController {
 }
 
 private enum NameSpace {
-    static let title = "TODO"
+    static let navigationTitle = "TODO"
+    static let titlePlaceholder = "Title"
 }
