@@ -117,7 +117,8 @@ final class DetailProjectViewController: UIViewController {
         guard let title = titleTextField.text,
               let description = descriptionTextView.text else { return }
         
-        let todoList = ProjectModel(title: title, description: description, deadLine: Date(), state: .todo)
+        let date = datePicker.date
+        let todoList = ProjectModel(title: title, description: description, deadLine: date, state: .todo)
         listViewModel.addProject(new: todoList)
 
         self.dismiss(animated: true)
