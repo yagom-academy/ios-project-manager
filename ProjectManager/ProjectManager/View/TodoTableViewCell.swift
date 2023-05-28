@@ -7,9 +7,14 @@
 
 import UIKit
 
-class ToDoTableViewCell: UITableViewCell {
+final class ToDoTableViewCell: UITableViewCell, IdentifierProtocol {
     
-    static let identifier = "ToDoTableViewCell"
+    func setUpIdentifier() -> String {
+        let identifier = String(describing: type(of: self))
+        return identifier
+    }
+    
+    lazy var identifier = setUpIdentifier()
     
     private var toDoList: ToDoList?
     

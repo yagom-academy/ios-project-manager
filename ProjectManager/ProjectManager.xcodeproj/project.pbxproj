@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58179D822A21DD3500F00A7D /* IdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58179D812A21DD3500F00A7D /* IdentifierProtocol.swift */; };
 		58DA4F432A13678F00A0203C /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 58DA4F422A13678F00A0203C /* Realm */; };
 		58DA4F452A13678F00A0203C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 58DA4F442A13678F00A0203C /* RealmSwift */; };
 		58DA4F482A136DCA00A0203C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 58DA4F472A136DCA00A0203C /* FirebaseAnalytics */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		58179D812A21DD3500F00A7D /* IdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierProtocol.swift; sourceTree = "<group>"; };
 		58DA4F492A136F9700A0203C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		58DA4F4D2A14BE9700A0203C /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		58DC93302A17193A0096A103 /* ToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 		58DC932F2A1718D40096A103 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				58179D812A21DD3500F00A7D /* IdentifierProtocol.swift */,
 				58DC93322A171BA40096A103 /* ToDoProtocol.swift */,
 				58DC93302A17193A0096A103 /* ToDoList.swift */,
 				58DC93372A171FEC0096A103 /* Manager */,
@@ -216,6 +219,7 @@
 				58DC93392A1720070096A103 /* DateFormatterManager.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				58179D822A21DD3500F00A7D /* IdentifierProtocol.swift in Sources */,
 				58DA4F4E2A14BE9700A0203C /* TodoTableViewCell.swift in Sources */,
 				58DC93332A171BA40096A103 /* ToDoProtocol.swift in Sources */,
 				58DC93312A17193A0096A103 /* ToDoList.swift in Sources */,

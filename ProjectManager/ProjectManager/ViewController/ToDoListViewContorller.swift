@@ -6,8 +6,8 @@
 
 import UIKit
 
-class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
-    
+final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
+
     enum TableViewCategory {
         case todoTableView
         case doingTableView
@@ -215,7 +215,7 @@ class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         
         guard let popoverController = alertController.popoverPresentationController else { return }
         popoverController.sourceView = self.view
-        popoverController.sourceRect = CGRect(x: point.x + 50, y: point.y + 50, width: 0, height: 0)
+        popoverController.sourceRect = CGRect(x: point.x, y: point.y + 70, width: 0, height: 0)
         present(alertController, animated: true, completion: nil)
     }
     
