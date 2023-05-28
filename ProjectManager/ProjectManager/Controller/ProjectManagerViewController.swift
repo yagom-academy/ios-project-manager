@@ -165,45 +165,9 @@ extension ProjectManagerViewController: UITableViewDelegate {
 }
 
 extension ProjectManagerViewController: UIGestureRecognizerDelegate {
-//    private func configureTapGestureRecognizer() {
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
-//        tapGesture.delegate = self
-//        todoTableView.addGestureRecognizer(tapGesture)
-//        doingTableView.addGestureRecognizer(tapGesture)
-//        doneTableView.addGestureRecognizer(tapGesture)
-//    }
-//
-//    @objc
-//    private func handleTap(gestureRecognizer: UITapGestureRecognizer) {
-//        let location = gestureRecognizer.location(in: projectManagerCollectionView)
-//
-//        if gestureRecognizer.state == .ended {
-//            if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
-//                let detailProjectViewController = DetailProjectViewController()
-//                detailProjectViewController.configureEditingStatus(isEditible: false)
-//
-//                detailProjectViewController.dismissHandler = { project in
-//                    guard let projectIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
-//
-//                    self.projects.list[projectIndex].title = project.title
-//                    self.projects.list[projectIndex].body = project.body
-//                    self.projects.list[projectIndex].date = project.date
-//                    self.projectManagerCollectionView.reloadData()
-//                }
-//
-//                guard let status = Status(rawValue: indexPath.section) else { return }
-//
-//                let assignedProjects = projects.list.filter { $0.status == status }
-//                let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
-//                let project = sortedAssignedProjects[indexPath.item]
-//                detailProjectViewController.configureProject(assignedProject: project)
-//                let navigationController = UINavigationController(rootViewController: detailProjectViewController)
-//                navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
-//
-//                present(navigationController, animated: true, completion: nil)
-//            }
-//        }
-//    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
     
     private func configureLongGestureRecognizer() {
         [todoTableView, doingTableView, doneTableView].forEach { tableView in
@@ -217,12 +181,13 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
     
     @objc
     private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let location = gestureRecognizer.location(in: projectManagerStackView)
         
-        if gestureRecognizer.state == .ended {
+        if gestureRecognizer.state == .began {
             var indexPathList = [IndexPath?]()
             
             for tableView in projectManagerStackView.arrangedSubviews {
+                let location = gestureRecognizer.location(in: tableView)
+                
                 guard let selectedTableView = tableView as? UITableView else { return }
                 
                 if let indexPath = selectedTableView.indexPathForRow(at: location) {
