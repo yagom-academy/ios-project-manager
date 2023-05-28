@@ -75,8 +75,7 @@ class CustomTableViewController: UIViewController {
     }
     
     private func configureGesture() {
-        var longPress = UILongPressGestureRecognizer(target: self, action: #selector(showActionSheet))
-        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(showActionSheet))
         view.addGestureRecognizer(longPress)
     }
     
@@ -84,7 +83,7 @@ class CustomTableViewController: UIViewController {
         let point = sender.location(in: self.projectTableView)
         if let indexPath = self.projectTableView.indexPathForRow(at: point) {
             if let cell = self.projectTableView.cellForRow(at: indexPath) {
-                
+
             }
         }
     }
@@ -98,10 +97,9 @@ class CustomTableViewController: UIViewController {
         alert.addAction(moveToTodo)
         alert.addAction(moveToDoing)
         alert.addAction(moveToDone)
-        
-        if UIDevice.current.userInterfaceIdiom == .pad { //디바이스 타입이 iPad일때
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
           if let popoverController = alert.popoverPresentationController {
-              // ActionSheet가 표현되는 위치를 저장해줍니다.
               popoverController.sourceView = self.view
               popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
               popoverController.permittedArrowDirections = []
@@ -115,74 +113,36 @@ class CustomTableViewController: UIViewController {
 
 extension CustomTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch state {
-        case .todo:
-            return listViewModel.countProject(in: .todo)
-        case .doing:
-            return listViewModel.countProject(in: .doing)
-        case .done:
-            return listViewModel.countProject(in: .done)
-        }
+        return listViewModel.countProject(in: state)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier) as? TableViewCell else { return TableViewCell() }
 
-        switch state {
-        case .todo:
-            let project = listViewModel.fetchProject(with: .todo, index: indexPath.row)
-            listViewModel.configureCell(to: cell, with: project)
-            
-            return cell
-        case .doing:
-            let project = listViewModel.fetchProject(with: .doing, index: indexPath.row)
-            listViewModel.configureCell(to: cell, with: project)
-            return cell
-        case .done:
-            let project = listViewModel.fetchProject(with: .done, index: indexPath.row)
-            listViewModel.configureCell(to: cell, with: project)
-            
-            return cell
-        }
+        let project = listViewModel.fetchProject(with: state, index: indexPath.row)
+        listViewModel.configureCell(to: cell, with: project)
+      
+        return cell
     }
 }
 
 extension CustomTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CustomTableViewHeader.identifier) as? CustomTableViewHeader else { return CustomTableViewHeader() }
+        
         let count = listViewModel.countProject(in: state)
-
-        switch state {
-        case .todo:
-            header.configureContent(state: .todo, count: count)
-            
-            return header
-        case .doing:
-            header.configureContent(state: .doing, count: count)
-            
-            return header
-        case .done:
-            header.configureContent(state: .done, count: count)
-            
-            return header
-        }
+        header.configureContent(state: state, count: count)
+        
+        return header
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var project: ProjectModel
-        
-        switch state {
-        case .todo:
-            project = listViewModel.fetchProject(with: .todo, index: indexPath.row)
-        case .doing:
-            project = listViewModel.fetchProject(with: .doing, index: indexPath.row)
-        case .done:
-            project = listViewModel.fetchProject(with: .done, index: indexPath.row)
-        }
-        
+        let project = listViewModel.fetchProject(with: state, index: indexPath.row)
         let detailProjectViewController = DetailProjectViewController(isNewProject: false)
-        let navigationController = UINavigationController(rootViewController: MainViewController())
-        navigationController.pushViewController(detailProjectViewController, animated: true)
+        
+        // 오류... 하 내비게이션 컨트롤러가 다른 뷰컨 인스턴스를 두번이상 호출
+        // 아니면 내비게이션이 없음.. 이거 해결하기
+//        navigationController.pushViewController(detailProjectViewController, animated: true)
 //        navigationController.present(detailProjectViewController, animated: true)
         listViewModel.configureProject(in: detailProjectViewController, with: project)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -191,14 +151,7 @@ extension CustomTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: NameSpace.delete) { action, view, completionHandler in
-            switch self.state {
-            case .todo:
-                self.listViewModel.deleteProject(in: .todo, at: indexPath.row)
-            case .doing:
-                self.listViewModel.deleteProject(in: .doing, at: indexPath.row)
-            case .done:
-                self.listViewModel.deleteProject(in: .done, at: indexPath.row)
-            }
+            self.listViewModel.deleteProject(in: self.state, at: indexPath.row)
         }
         
         return UISwipeActionsConfiguration(actions: [delete])

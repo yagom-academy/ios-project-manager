@@ -68,7 +68,7 @@ class MainViewController: UIViewController {
     
     private func configureNavigation() {
         title = NameSpace.projectName
-        
+
         let addProjectButton = UIBarButtonItem(barButtonSystemItem: .add,
                                                target: self,
                                                action: #selector(addProject))
@@ -83,6 +83,7 @@ class MainViewController: UIViewController {
         let modalViewWithNavigation = UINavigationController(rootViewController: detailProjectViewController)
         navigationController?.present(modalViewWithNavigation, animated: true)
     }
+
 }
 
 private enum NameSpace {
