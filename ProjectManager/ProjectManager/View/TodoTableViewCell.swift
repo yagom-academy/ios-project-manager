@@ -18,14 +18,14 @@ final class ToDoTableViewCell: UITableViewCell, IdentifierProtocol {
     
     private var toDoList: ToDoList?
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.numberOfLines = 1
         return label
     }()
     
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = .lightGray
@@ -33,7 +33,7 @@ final class ToDoTableViewCell: UITableViewCell, IdentifierProtocol {
         return label
     }()
     
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         
@@ -50,7 +50,7 @@ final class ToDoTableViewCell: UITableViewCell, IdentifierProtocol {
     }
     
     
-    func configureCellUI() {
+    private func configureCellUI() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false

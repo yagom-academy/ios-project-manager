@@ -8,24 +8,12 @@ import UIKit
 
 final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
 
-    enum TableViewCategory {
+    private enum TableViewCategory {
         case todoTableView
         case doingTableView
         case doneTableView
     }
-    
-    // MARK: Delegate - ToDoWriteViewController
-    func sendTodoList(data: ToDoList, isCreatMode: Bool) {
-        if isCreatMode == true {
-            toDoList.append(data)
-        } else {
-            if let index = toDoList.firstIndex(where: { $0.title == data.title}) {
-                toDoList[index] = data
-            }
-        }
-        reloadTableView()
-    }
-    
+
     // MARK: tableView, cellCountCircleView
     private var todoCellCount: Int = 0
     private var doingCellCount: Int = 0
@@ -311,6 +299,20 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
             toDoStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             toDoStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
+    }
+}
+
+// MARK: Delegate - ToDoWriteViewController
+extension ToDoListViewContorller {
+    func sendTodoList(data: ToDoList, isCreatMode: Bool) {
+        if isCreatMode == true {
+            toDoList.append(data)
+        } else {
+            if let index = toDoList.firstIndex(where: { $0.title == data.title}) {
+                toDoList[index] = data
+            }
+        }
+        reloadTableView()
     }
 }
 
