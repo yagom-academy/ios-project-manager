@@ -66,16 +66,18 @@ final class ListViewModel {
         
     }
     
-    func moveProject(state: State, to changeState: State, at index: Int) {
-        switch state {
+    func moveProject(project: ProjectModel, to changeState: State, at index: Int) {
+        var movedProject = project
+        movedProject.state = changeState
+        deleteProject(in: project.state, at: index)
+        
+        switch changeState {
         case .todo:
-            todoList.value[index].state = changeState
-            print(todoList.value[index].state)
-            
+            todoList.value.append(movedProject)
         case .doing:
-            doingList.value[index].state = changeState
+            doingList.value.append(movedProject)
         case .done:
-            doneList.value[index].state = changeState
+            doneList.value.append(movedProject)
         }
     }
 }

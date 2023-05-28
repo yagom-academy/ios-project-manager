@@ -90,20 +90,18 @@ class CustomTableViewController: UIViewController {
     }
 
     func showActionSheet(index: IndexPath) {
-        let alert = UIAlertController(title: "알림", message: "프로젝트 이동", preferredStyle: .actionSheet)
-        let moveToTodo = UIAlertAction(title: "TODO로 이동", style: .default) { _ in
-            print("TODO")
-            self.listViewModel.moveProject(state: self.state, to: .todo, at: index.row)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let project = listViewModel.fetchProject(with: state, index: index.row)
+        let moveToTodo = UIAlertAction(title: NameSpace.moveTodo, style: .default) { _ in
+            self.listViewModel.moveProject(project: project, to: .todo, at: index.row)
         }
         
-        let moveToDoing = UIAlertAction(title: "DOING으로 이동", style: .default) { _ in
-            print("두잉")
-            self.listViewModel.moveProject(state: self.state, to: .doing, at: index.row)
+        let moveToDoing = UIAlertAction(title: NameSpace.moveDoing, style: .default) { _ in
+            self.listViewModel.moveProject(project: project, to: .doing, at: index.row)
         }
         
-        let moveToDone = UIAlertAction(title: "DONE으로 이동", style: .default) { _ in
-            print("던")
-            self.listViewModel.moveProject(state: self.state, to: .done, at: index.row)
+        let moveToDone = UIAlertAction(title: NameSpace.moveDone, style: .default) { _ in
+            self.listViewModel.moveProject(project: project, to: .done, at: index.row)
         }
         
         switch state {
@@ -117,7 +115,6 @@ class CustomTableViewController: UIViewController {
             alert.addAction(moveToTodo)
             alert.addAction(moveToDoing)
         }
-
 
         if UIDevice.current.userInterfaceIdiom == .pad {
           if let popoverController = alert.popoverPresentationController {
@@ -188,5 +185,7 @@ extension CustomTableViewController: UITableViewDelegate {
 
 private enum NameSpace {
     static let delete = "Delete"
+    static let moveTodo = "Move To TODO"
+    static let moveDoing = "Move To DOING"
+    static let moveDone = "Move To DONE"
 }
-

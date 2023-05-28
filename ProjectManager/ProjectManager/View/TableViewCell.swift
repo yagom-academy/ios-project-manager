@@ -49,6 +49,11 @@ class TableViewCell: UITableViewCell {
         return label
     }()
     
+    override func prepareForReuse() {
+        deadLineLabel.textColor = .black
+        super.prepareForReuse()
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureAddSubviews()
