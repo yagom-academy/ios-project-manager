@@ -16,16 +16,16 @@ struct ProjectListView: View {
             Section {
                 switch currentState {
                 case .todo:
-                    createListItems(for: viewModel.todoList, onDelete: { indexSet in
-                        viewModel.delete(cases: .todo, at: indexSet)
+                    createListItems(for: viewModel.search(state: .todo), onDelete: { indexSet in
+                        viewModel.delete(state: .todo, at: indexSet)
                     })
                 case .doing:
-                    createListItems(for: viewModel.doingList, onDelete: { indexSet in
-                        viewModel.delete(cases: .doing, at: indexSet)
+                    createListItems(for: viewModel.search(state: .doing), onDelete: { indexSet in
+                        viewModel.delete(state: .doing, at: indexSet)
                     })
                 case .done:
-                    createListItems(for: viewModel.doneList, onDelete: { indexSet in
-                        viewModel.delete(cases: .done, at: indexSet)
+                    createListItems(for: viewModel.search(state: .done), onDelete: { indexSet in
+                        viewModel.delete(state: .done, at: indexSet)
                     })
                 }
                 
@@ -39,7 +39,7 @@ struct ProjectListView: View {
                         Circle()
                             .fill(.black)
                             .frame(width: 25)
-                        Text(String(viewModel.selectList(cases: currentState).count))
+                        Text(String(viewModel.search(state: currentState).count))
                             .font(.title3)
                             .foregroundColor(.white)
                     }
@@ -76,7 +76,7 @@ private extension ProjectListView {
 
 struct ProjectListView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectListView(currentState: .doing)
+        ProjectListView(currentState: .todo)
             .environmentObject(ProjectViewModel())
             .previewInterfaceOrientation(.landscapeLeft)
     }

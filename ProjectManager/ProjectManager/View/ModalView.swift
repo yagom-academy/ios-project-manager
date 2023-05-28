@@ -11,7 +11,6 @@ struct ModalView: View {
     @State var project: Project
     @State var disableEdit: Bool
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    let state: ProjectState
     let isEdit: Bool
     
     var body: some View {
@@ -32,7 +31,7 @@ struct ModalView: View {
             }
             .disabled(disableEdit)
             .padding(.init(top: 5, leading: 10, bottom: 20, trailing: 10))
-            .navigationTitle(state.rawValue.uppercased())
+            .navigationTitle(project.state.rawValue.uppercased())
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
@@ -57,6 +56,10 @@ struct ModalView: View {
 
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
-        ModalView(project: .init(title: "", body: "", date: Date()), disableEdit: true, state: .done, isEdit: true)
+        ModalView(
+            project: .init(title: "", body: "", date: Date()),
+            disableEdit: true,
+            isEdit: true
+        )
     }
 }

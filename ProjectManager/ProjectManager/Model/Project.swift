@@ -8,7 +8,8 @@
 import Foundation
 
 struct Project: Identifiable, Equatable {
-    var id = UUID()
+    let id = UUID()
+    var state = ProjectState.todo
     var title: String
     var body: String
     var date: Date

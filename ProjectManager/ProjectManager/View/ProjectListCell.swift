@@ -23,7 +23,7 @@ struct ProjectListCell: View {
         }.onTapGesture {
             isModalViewShow.toggle()
         }.sheet(isPresented: $isModalViewShow) {
-            ModalView(project: model, disableEdit: true, state: self.state, isEdit: true)
+            ModalView(project: model, disableEdit: true, isEdit: true)
         }
     }
 }
