@@ -11,7 +11,9 @@ final class ProjectManagerViewController: UIViewController {
     
     private let projectManagerStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.backgroundColor = .systemGray4
         stackView.distribution = .fillEqually
+        stackView.spacing = 4
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -23,7 +25,6 @@ final class ProjectManagerViewController: UIViewController {
         tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
         tableView.backgroundColor = .systemGray5
         tableView.showsVerticalScrollIndicator = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
     }()
@@ -34,7 +35,6 @@ final class ProjectManagerViewController: UIViewController {
         tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
         tableView.backgroundColor = .systemGray5
         tableView.showsVerticalScrollIndicator = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
     }()
@@ -45,7 +45,6 @@ final class ProjectManagerViewController: UIViewController {
         tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")
         tableView.backgroundColor = .systemGray5
         tableView.showsVerticalScrollIndicator = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
     }()
@@ -106,7 +105,7 @@ final class ProjectManagerViewController: UIViewController {
             projectManagerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             projectManagerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             projectManagerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            projectManagerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            projectManagerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
@@ -136,10 +135,6 @@ extension ProjectManagerViewController: UITableViewDataSource {
         } else {
             cell.changeDateColor(isOverdue: false)
         }
-        
-        cell.backgroundColor = .white
-        cell.layer.borderWidth = 1
-        cell.layer.borderColor = CGColor(gray: 0.5, alpha: 0.5)
         
         return cell
     }
