@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ProjectListCell: View {
     @EnvironmentObject var viewModel: ProjectViewModel
+    @State var isModalViewShow: Bool = false
     let model: Project
     let state: ProjectState
-    @State var isModalViewShow: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {

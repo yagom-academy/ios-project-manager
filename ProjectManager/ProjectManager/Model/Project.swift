@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Project: Identifiable, Equatable {
+class Project: Identifiable, Equatable {
     let id = UUID()
     var state = ProjectState.todo
     var title: String
@@ -21,4 +21,11 @@ struct Project: Identifiable, Equatable {
             return false
         }
      }
+    
+    init(state: ProjectState = ProjectState.todo, title: String, body: String, date: Date) {
+        self.state = state
+        self.title = title
+        self.body = body
+        self.date = date
+    }
 }

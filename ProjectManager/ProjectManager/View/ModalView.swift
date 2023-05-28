@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ModalView: View {
     @EnvironmentObject var viewModel: ProjectViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var project: Project
     @State var disableEdit: Bool
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let isEdit: Bool
     
     var body: some View {
