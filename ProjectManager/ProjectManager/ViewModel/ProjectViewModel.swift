@@ -41,44 +41,56 @@ final class ProjectViewModel: ObservableObject {
         }
     }
     
-    func move(index: Int, state: ProjectState, to toState: ProjectState) {
+    func move(project: Project, state: ProjectState, to toState: ProjectState) {
         if(state == .todo && toState == .doing) {
-            let item = todoList.remove(at: index)
+            guard let firstIndex = todoList.firstIndex(where: { $0.id == project.id }) else { return }
+            
+            let item = todoList.remove(at: firstIndex)
             doingList.append(item)
             
             return
         }
         
         if(state == .todo && toState == .done) {
-            let item = todoList.remove(at: index)
+            guard let firstIndex = todoList.firstIndex(where: { $0.id == project.id }) else { return }
+            
+            let item = todoList.remove(at: firstIndex)
             doneList.append(item)
             
             return
         }
         
         if(state == .doing && toState == .todo) {
-            let item = doingList.remove(at: index)
+            guard let firstIndex = doingList.firstIndex(where: { $0.id == project.id }) else { return }
+            
+            let item = doingList.remove(at: firstIndex)
             todoList.append(item)
             
             return
         }
         
         if(state == .doing && toState == .done) {
-            let item = doingList.remove(at: index)
+            guard let firstIndex = doingList.firstIndex(where: { $0.id == project.id }) else { return }
+            
+            let item = doingList.remove(at: firstIndex)
             doneList.append(item)
             
             return
         }
         
         if(state == .done && toState == .todo) {
-            let item = doneList.remove(at: index)
+            guard let firstIndex = doneList.firstIndex(where: { $0.id == project.id }) else { return }
+            
+            let item = doneList.remove(at: firstIndex)
             todoList.append(item)
             
             return
         }
         
         if(state == .done && toState == .doing) {
-            let item = doneList.remove(at: index)
+            guard let firstIndex = doneList.firstIndex(where: { $0.id == project.id }) else { return }
+            
+            let item = doneList.remove(at: firstIndex)
             doingList.append(item)
             
             return

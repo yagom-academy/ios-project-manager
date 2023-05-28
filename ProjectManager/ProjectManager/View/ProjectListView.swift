@@ -53,14 +53,14 @@ struct ProjectListView: View {
 
 private extension ProjectListView {
     func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
-        ForEach(Array(models.enumerated()), id: \.offset) { index, model in
+        ForEach(models) { model in
             ProjectListCell(model: model, state: currentState)
                 .contextMenu {
                     Button(currentState.popoverItem.0.popoverText) {
-                        viewModel.move(index: index, state: currentState, to: currentState.popoverItem.0)
+                        viewModel.move(project: model, state: currentState, to: currentState.popoverItem.0)
                     }
                     Button(currentState.popoverItem.1.popoverText) {
-                        viewModel.move(index: index, state: currentState, to: currentState.popoverItem.1)
+                        viewModel.move(project: model, state: currentState, to: currentState.popoverItem.1)
                     }
                 }
         }
