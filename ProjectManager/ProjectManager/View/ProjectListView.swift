@@ -45,6 +45,7 @@ private extension ProjectListView {
     func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
         ForEach(models) { model in
             ProjectListCell(model: model, state: currentState)
+                .environmentObject(viewModel)
                 .contextMenu {
                     Button(currentState.popoverItem.0.popoverText) {
                         viewModel.move(project: model, to: currentState.popoverItem.0)

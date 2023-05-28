@@ -16,26 +16,33 @@ final class ProjectViewModel: ObservableObject {
         return list
     }
     
-    func createTodo() {
-     
+    func create(project: Project) {
+        projectList.append(project)
     }
+    
+    func update(project: Project) {
+        guard let firstIndex = projectList.firstIndex(where: { $0.id == project.id }) else { return }
+        
+        projectList[firstIndex] = project
+    }
+    
+    
     
     func delete(state: ProjectState, at indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
         
         let list = search(state: state)
-        let targetId = list[index].id
-        
-        guard let firstIndex = projectList.firstIndex(where: { $0.id == targetId }) else { return }
-        
+        guard let target = list[safe:index],
+              let firstIndex = projectList.firstIndex(where: { $0.id == target.id }) else { return }
+   
         projectList.remove(at: firstIndex)
     }
     
-    func move(project: Project, to toState: ProjectState) {
+    func move(project: Project, to state: ProjectState) {
         guard let firstIndex = projectList.firstIndex(where: { $0.id == project.id }) else { return }
         
         var item = projectList.remove(at: firstIndex)
-        item.state = toState
+        item.state = state
         projectList.append(item)
     }
 }

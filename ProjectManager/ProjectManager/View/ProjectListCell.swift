@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProjectListCell: View {
+    @EnvironmentObject var viewModel: ProjectViewModel
     let model: Project
     let state: ProjectState
     @State var isModalViewShow: Bool = false
@@ -24,7 +25,9 @@ struct ProjectListCell: View {
             isModalViewShow.toggle()
         }.sheet(isPresented: $isModalViewShow) {
             ModalView(project: model, disableEdit: true, isEdit: true)
+                .environmentObject(viewModel)
         }
+        
     }
 }
 
@@ -33,5 +36,6 @@ struct ProjectListCell_Previews: PreviewProvider {
         ProjectListCell(
             model: Project(title: "안녕", body: "하세요", date: Date()),
             state: .doing)
+        .environmentObject(ProjectViewModel())
     }
 }

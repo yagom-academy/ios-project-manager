@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ModalView: View {
+    @EnvironmentObject var viewModel: ProjectViewModel
     @State var project: Project
     @State var disableEdit: Bool
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -37,6 +38,7 @@ struct ModalView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
+                        isEdit ? viewModel.update(project: project) : viewModel.create(project: project)
                         self.presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Done")
@@ -61,5 +63,6 @@ struct ModalView_Previews: PreviewProvider {
             disableEdit: true,
             isEdit: true
         )
+        .environmentObject(ProjectViewModel())
     }
 }
