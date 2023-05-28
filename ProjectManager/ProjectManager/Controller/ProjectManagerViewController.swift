@@ -195,6 +195,26 @@ extension ProjectManagerViewController: UITableViewDelegate {
         
         present(navigationController, animated: true, completion: nil)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "delete") { action, view, completionHandler in
+            
+            guard let index = self.projectManagerStackView.arrangedSubviews.firstIndex(of: tableView) else { return }
+            
+            guard let status = Status(rawValue: index) else { return }
+            
+            let assignedProjects = self.projects.list.filter { $0.status == status }
+            let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
+            let projectToDelete = sortedAssignedProjects[indexPath.row]
+            
+            guard let removeIndex = self.projects.list.firstIndex(where: { $0.id == projectToDelete.id }) else { return }
+            self.projects.list.remove(at: removeIndex)
+            self.todoTableView.reloadData()
+            self.doingTableView.reloadData()
+            self.doneTableView.reloadData()
+        }
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
 
 extension ProjectManagerViewController: UIGestureRecognizerDelegate {

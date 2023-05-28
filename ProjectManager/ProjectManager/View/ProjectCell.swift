@@ -8,7 +8,6 @@ import UIKit
 
 final class ProjectCell: UITableViewCell {
     let identifier = "ProjectCell"
-    var deleteRow: (() -> ())?
     
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
@@ -60,11 +59,6 @@ final class ProjectCell: UITableViewCell {
         titleLabel.text = title
         bodyLabel.text = body
         dateLabel.text = date
-    }
-    
-    @objc
-    private func deleteCell() {
-        deleteRow?()
     }
     
     func changeDateColor(isOverdue: Bool) {
