@@ -162,6 +162,39 @@ extension ProjectManagerViewController: UITableViewDelegate {
         
         return headerView
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let index = projectManagerStackView.arrangedSubviews.firstIndex(of: tableView) else { return }
+        
+        guard let status = Status(rawValue: index) else { return }
+        
+        let assignedProjects = projects.list.filter { $0.status == status }
+        let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
+        let project = sortedAssignedProjects[indexPath.row]
+        
+        let detailProjectViewController = DetailProjectViewController()
+        detailProjectViewController.configureEditingStatus(isEditible: false)
+        detailProjectViewController.configureProject(assignedProject: project)
+        
+        detailProjectViewController.dismissHandler = { project in
+            guard let projectIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
+            
+            self.projects.list[projectIndex].title = project.title
+            self.projects.list[projectIndex].body = project.body
+            self.projects.list[projectIndex].date = project.date
+            
+            self.todoTableView.reloadData()
+            self.doingTableView.reloadData()
+            self.doneTableView.reloadData()
+        }
+        
+        let navigationController = UINavigationController(rootViewController: detailProjectViewController)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
+        
+        present(navigationController, animated: true, completion: nil)
+    }
 }
 
 extension ProjectManagerViewController: UIGestureRecognizerDelegate {
