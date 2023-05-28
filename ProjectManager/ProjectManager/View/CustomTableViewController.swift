@@ -10,6 +10,7 @@ import UIKit
 class CustomTableViewController: UIViewController {
     private let listViewModel = ListViewModel.shared
     let state: State
+    let mainViewController: UIViewController
     
     private let projectTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -21,8 +22,9 @@ class CustomTableViewController: UIViewController {
         return tableView
     }()
     
-    init(state: State) {
-         self.state = state
+    init(state: State, mainViewController: UIViewController) {
+        self.state = state
+        self.mainViewController = mainViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -162,13 +164,14 @@ extension CustomTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let project = listViewModel.fetchProject(with: state, index: indexPath.row)
+        let navigationController = mainViewController.navigationController
         let detailProjectViewController = DetailProjectViewController(isNewProject: false)
+        detailProjectViewController.modalPresentationStyle = .formSheet
+        let modalViewWithNavigation = UINavigationController(rootViewController: detailProjectViewController)
+        navigationController?.present(modalViewWithNavigation, animated: true)
         
-        // 오류... 하 내비게이션 컨트롤러가 다른 뷰컨 인스턴스를 두번이상 호출
-        // 아니면 내비게이션이 없음.. 이거 해결하기
-//        navigationController.pushViewController(detailProjectViewController, animated: true)
-//        navigationController.present(detailProjectViewController, animated: true)
         listViewModel.configureProject(in: detailProjectViewController, with: project)
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

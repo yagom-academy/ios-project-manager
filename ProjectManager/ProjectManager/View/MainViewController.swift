@@ -21,19 +21,19 @@ class MainViewController: UIViewController {
     }()
     
     private lazy var todoListView: CustomTableViewController = {
-        let tableView = CustomTableViewController(state: .todo)
+        let tableView = CustomTableViewController(state: .todo, mainViewController: self)
         
         return tableView
     }()
     
     private lazy var doingListView: CustomTableViewController = {
-        let tableView = CustomTableViewController(state: .doing)
+        let tableView = CustomTableViewController(state: .doing, mainViewController: self)
         
         return tableView
     }()
     
     private lazy var doneListView: CustomTableViewController = {
-        let tableView = CustomTableViewController(state: .done)
+        let tableView = CustomTableViewController(state: .done, mainViewController: self)
         
         return tableView
     }()
@@ -83,7 +83,6 @@ class MainViewController: UIViewController {
         let modalViewWithNavigation = UINavigationController(rootViewController: detailProjectViewController)
         navigationController?.present(modalViewWithNavigation, animated: true)
     }
-
 }
 
 private enum NameSpace {
