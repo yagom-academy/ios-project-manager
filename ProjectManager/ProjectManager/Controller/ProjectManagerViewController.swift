@@ -55,6 +55,7 @@ final class ProjectManagerViewController: UIViewController {
         configureUI()
         configureProjectManagerCollectionView()
         configureConstraint()
+        configureLongGestureRecognizer()
     }
     
     private func configureUI() {
@@ -160,5 +161,109 @@ extension ProjectManagerViewController: UITableViewDelegate {
         headerView.configureContent(status: status, number: countText)
         
         return headerView
+    }
+}
+
+extension ProjectManagerViewController: UIGestureRecognizerDelegate {
+//    private func configureTapGestureRecognizer() {
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
+//        tapGesture.delegate = self
+//        todoTableView.addGestureRecognizer(tapGesture)
+//        doingTableView.addGestureRecognizer(tapGesture)
+//        doneTableView.addGestureRecognizer(tapGesture)
+//    }
+//
+//    @objc
+//    private func handleTap(gestureRecognizer: UITapGestureRecognizer) {
+//        let location = gestureRecognizer.location(in: projectManagerCollectionView)
+//
+//        if gestureRecognizer.state == .ended {
+//            if let indexPath = projectManagerCollectionView.indexPathForItem(at: location) {
+//                let detailProjectViewController = DetailProjectViewController()
+//                detailProjectViewController.configureEditingStatus(isEditible: false)
+//
+//                detailProjectViewController.dismissHandler = { project in
+//                    guard let projectIndex = self.projects.list.firstIndex(where: { $0.id == project.id }) else { return }
+//
+//                    self.projects.list[projectIndex].title = project.title
+//                    self.projects.list[projectIndex].body = project.body
+//                    self.projects.list[projectIndex].date = project.date
+//                    self.projectManagerCollectionView.reloadData()
+//                }
+//
+//                guard let status = Status(rawValue: indexPath.section) else { return }
+//
+//                let assignedProjects = projects.list.filter { $0.status == status }
+//                let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
+//                let project = sortedAssignedProjects[indexPath.item]
+//                detailProjectViewController.configureProject(assignedProject: project)
+//                let navigationController = UINavigationController(rootViewController: detailProjectViewController)
+//                navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet
+//
+//                present(navigationController, animated: true, completion: nil)
+//            }
+//        }
+//    }
+    
+    private func configureLongGestureRecognizer() {
+        [todoTableView, doingTableView, doneTableView].forEach { tableView in
+            let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+            longPressedGesture.minimumPressDuration = 0.7
+            longPressedGesture.delegate = self
+            longPressedGesture.delaysTouchesBegan = true
+            tableView.addGestureRecognizer(longPressedGesture)
+        }
+    }
+    
+    @objc
+    private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: projectManagerStackView)
+        
+        if gestureRecognizer.state == .ended {
+            var indexPathList = [IndexPath?]()
+            
+            for tableView in projectManagerStackView.arrangedSubviews {
+                guard let selectedTableView = tableView as? UITableView else { return }
+                
+                if let indexPath = selectedTableView.indexPathForRow(at: location) {
+                    indexPathList.append(indexPath)
+                } else {
+                    indexPathList.append(nil)
+                }
+            }
+            
+            guard let indexPath = indexPathList.first(where: { $0 != nil }) else { return }
+            
+            guard let indexPath else { return }
+            
+            guard let index = indexPathList.firstIndex(where: { $0 == indexPath }) else { return }
+            
+            guard let tableView = projectManagerStackView.arrangedSubviews[index] as? UITableView else { return }
+            
+            guard let status = Status(rawValue: index) else { return }
+            
+            let assignedProjects = projects.list.filter { $0.status == status }
+            let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
+            let project = sortedAssignedProjects[indexPath.row]
+            let moveToViewController = MoveToViewController(project: project)
+            moveToViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+            moveToViewController.preferredContentSize = CGSize(width: 300, height: 150)
+            moveToViewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+            moveToViewController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+            
+            moveToViewController.dismissHandler = { project, status in
+                for index in 0...self.projects.list.count-1 {
+                    if self.projects.list[index].id == project.id {
+                        self.projects.list[index].status = status
+                    }
+                }
+                
+                self.todoTableView.reloadData()
+                self.doingTableView.reloadData()
+                self.doneTableView.reloadData()
+            }
+            
+            present(moveToViewController, animated: true, completion: nil)
+        }
     }
 }
