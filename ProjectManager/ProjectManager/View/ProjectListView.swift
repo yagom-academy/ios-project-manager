@@ -14,21 +14,11 @@ struct ProjectListView: View {
     var body: some View {
         List {
             Section {
-                switch currentState {
-                case .todo:
-                    createListItems(for: viewModel.search(state: .todo), onDelete: { indexSet in
-                        viewModel.delete(state: .todo, at: indexSet)
-                    })
-                case .doing:
-                    createListItems(for: viewModel.search(state: .doing), onDelete: { indexSet in
-                        viewModel.delete(state: .doing, at: indexSet)
-                    })
-                case .done:
-                    createListItems(for: viewModel.search(state: .done), onDelete: { indexSet in
-                        viewModel.delete(state: .done, at: indexSet)
-                    })
-                }
+                let list = viewModel.search(state: currentState)
                 
+                createListItems(for: list) { indexSet in
+                    viewModel.delete(state: currentState, at: indexSet)
+                }
             } header: {
                 HStack {
                     Text(currentState.rawValue)
@@ -57,10 +47,10 @@ private extension ProjectListView {
             ProjectListCell(model: model, state: currentState)
                 .contextMenu {
                     Button(currentState.popoverItem.0.popoverText) {
-                        viewModel.move(project: model, state: currentState, to: currentState.popoverItem.0)
+                        viewModel.move(project: model, to: currentState.popoverItem.0)
                     }
                     Button(currentState.popoverItem.1.popoverText) {
-                        viewModel.move(project: model, state: currentState, to: currentState.popoverItem.1)
+                        viewModel.move(project: model, to: currentState.popoverItem.1)
                     }
                 }
         }
