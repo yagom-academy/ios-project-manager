@@ -181,54 +181,37 @@ extension ProjectManagerViewController: UIGestureRecognizerDelegate {
     
     @objc
     private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        guard let selectedTableView = gestureRecognizer.view as? UITableView else { return }
         
-        if gestureRecognizer.state == .began {
-            var indexPathList = [IndexPath?]()
-            
-            for tableView in projectManagerStackView.arrangedSubviews {
-                let location = gestureRecognizer.location(in: tableView)
-                
-                guard let selectedTableView = tableView as? UITableView else { return }
-                
-                if let indexPath = selectedTableView.indexPathForRow(at: location) {
-                    indexPathList.append(indexPath)
-                } else {
-                    indexPathList.append(nil)
+        let location = gestureRecognizer.location(in: selectedTableView)
+        
+        guard let indexPath = selectedTableView.indexPathForRow(at: location) else { return }
+        
+        guard let index = projectManagerStackView.arrangedSubviews.firstIndex(of: selectedTableView) else { return }
+        
+        guard let status = Status(rawValue: index) else { return }
+        
+        let assignedProjects = projects.list.filter { $0.status == status }
+        let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
+        let project = sortedAssignedProjects[indexPath.row]
+        let moveToViewController = MoveToViewController(project: project)
+        moveToViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+        moveToViewController.preferredContentSize = CGSize(width: 300, height: 150)
+        moveToViewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+        moveToViewController.popoverPresentationController?.sourceView = selectedTableView.cellForRow(at: indexPath)
+        
+        moveToViewController.dismissHandler = { project, status in
+            for index in 0...self.projects.list.count-1 {
+                if self.projects.list[index].id == project.id {
+                    self.projects.list[index].status = status
                 }
             }
             
-            guard let indexPath = indexPathList.first(where: { $0 != nil }) else { return }
-            
-            guard let indexPath else { return }
-            
-            guard let index = indexPathList.firstIndex(where: { $0 == indexPath }) else { return }
-            
-            guard let tableView = projectManagerStackView.arrangedSubviews[index] as? UITableView else { return }
-            
-            guard let status = Status(rawValue: index) else { return }
-            
-            let assignedProjects = projects.list.filter { $0.status == status }
-            let sortedAssignedProjects = assignedProjects.sorted { $0.date > $1.date }
-            let project = sortedAssignedProjects[indexPath.row]
-            let moveToViewController = MoveToViewController(project: project)
-            moveToViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-            moveToViewController.preferredContentSize = CGSize(width: 300, height: 150)
-            moveToViewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
-            moveToViewController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
-            
-            moveToViewController.dismissHandler = { project, status in
-                for index in 0...self.projects.list.count-1 {
-                    if self.projects.list[index].id == project.id {
-                        self.projects.list[index].status = status
-                    }
-                }
-                
-                self.todoTableView.reloadData()
-                self.doingTableView.reloadData()
-                self.doneTableView.reloadData()
-            }
-            
-            present(moveToViewController, animated: true, completion: nil)
+            self.todoTableView.reloadData()
+            self.doingTableView.reloadData()
+            self.doneTableView.reloadData()
         }
+        
+        present(moveToViewController, animated: true, completion: nil)
     }
 }
