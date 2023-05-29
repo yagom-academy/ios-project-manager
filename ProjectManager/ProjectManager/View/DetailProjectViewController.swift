@@ -140,9 +140,11 @@ final class DetailProjectViewController: UIViewController {
         
         let date = datePicker.date
         let todoList = ProjectModel(title: title, description: description, deadLine: date, state: .todo)
-        listViewModel.addProject(new: todoList)
-
-        self.dismiss(animated: true)
+        
+        if checkInputValues() {
+            listViewModel.addProject(new: todoList)
+            self.dismiss(animated: true)
+        }
     }
     
     @objc
@@ -163,18 +165,40 @@ final class DetailProjectViewController: UIViewController {
               let description = descriptionTextView.text else { return }
         
         let date = datePicker.date
-        print("바뀌기 전 uuid : \(project.id)")
-        listViewModel.updateProject(state: project.state,
-                                    id: project.id,
-                                    title: title,
-                                    description: description,
-                                    deadLine: date)
+        
+        if checkInputValues() {
+            listViewModel.updateProject(state: project.state,
+                                        id: project.id,
+                                        title: title,
+                                        description: description,
+                                        deadLine: date)
+            self.dismiss(animated: true)
+        }
+    }
     
-        self.dismiss(animated: true)
+    private func checkInputValues() -> Bool {
+        guard let title = titleTextField.text,
+              let description = descriptionTextView.text else { return false }
+        
+        if title.count == 0 || description.count == 0 {
+            let alert = UIAlertController(title: nil,
+                                          message: NameSpace.alertMessage,
+                                          preferredStyle: .alert)
+            
+            let ok = UIAlertAction(title: NameSpace.ok, style: .cancel)
+            alert.addAction(ok)
+            present(alert, animated: true)
+            
+            return false
+        }
+        
+        return true
     }
 }
 
 private enum NameSpace {
     static let navigationTitle = "TODO"
     static let titlePlaceholder = "Title"
+    static let alertMessage = "제목 혹은 내용을 입력해주세요"
+    static let ok = "확인"
 }
