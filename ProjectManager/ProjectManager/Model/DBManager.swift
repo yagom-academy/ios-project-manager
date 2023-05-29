@@ -7,7 +7,6 @@
 
 import Foundation
 import RealmSwift
-import Realm
 
 class TaskObject: Object {
     dynamic var id: UUID = UUID()
@@ -61,11 +60,26 @@ class DBManager {
         })
     }
     
-    func searchAllTask() {
+    func searchAllTask() -> [Task] {
         let taskObjects = realm.objects(TaskObject.self)
         
         let tasks = taskObjects.map { taskObject in
             return self.changeToTask(taskObject)
+        }
+        
+        return Array(tasks)
+    }
+    
+    func updateTask(_ task: Task) {
+        guard let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: task.id) else {
+            return
+        }
+        
+        try? realm.write {
+            taskObject.setValue(task.title, forKey: "title")
+            taskObject.setValue(task.description, forKey: "desc")
+            taskObject.setValue(task.date, forKey: "date")
+            taskObject.setValue(task.state, forKey: "state")
         }
     }
 }
