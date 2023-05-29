@@ -6,11 +6,9 @@
 //
 
 import UIKit
-import Combine
 
 final class TaskListCell: UICollectionViewCell {
     private let viewModel = TaskListCellViewModel()
-    private var subscriptions = Set<AnyCancellable>()
     
     private let titleLabel = {
         let label = UILabel()

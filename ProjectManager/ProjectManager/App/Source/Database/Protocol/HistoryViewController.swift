@@ -2,12 +2,12 @@
 //  HistoryViewController.swift
 //  ProjectManager
 //
-//  Created by Harry on 2023/05/29.
+//  Created by Harry, KokkiLE on 2023/05/29.
 //
 
 import UIKit
 
-class HistoryViewController: UIViewController {
+final class HistoryViewController: UIViewController {
     enum Section {
         case main
     }
@@ -19,8 +19,8 @@ class HistoryViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
         
         collectionView.backgroundColor = .systemGray6
-        collectionView.register(UICollectionViewCell.self,
-                                forCellWithReuseIdentifier: UICollectionViewCell.reuseIdentifier)
+        collectionView.register(HistoryCell.self,
+                                forCellWithReuseIdentifier: HistoryCell.reuseIdentifier)
         
         return collectionView
     }()
@@ -65,11 +65,13 @@ class HistoryViewController: UIViewController {
     }
     
     private func setupDataSource() {
-        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, task in
+        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, history in
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: UICollectionViewCell.reuseIdentifier,
+                withReuseIdentifier: HistoryCell.reuseIdentifier,
                 for: indexPath
-            ) as? UICollectionViewCell else { return UICollectionViewCell() }
+            ) as? HistoryCell else { return UICollectionViewCell() }
+            
+            cell.configure(history)
             
             return cell
         }
