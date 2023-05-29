@@ -9,7 +9,11 @@ import Foundation
 
 final class ListViewModel {
     
-    var tasks: [Task] = []
+    var tasks: [Task] = [] {
+        didSet {
+            NotificationCenter.default.post(name: .updatedTask, object: nil)
+        }
+    }
     var taskState: TaskState
     
     init(taskState: TaskState) {
@@ -21,7 +25,7 @@ final class ListViewModel {
     }
     
     func postDeleteTask(by task: Task) {
-        NotificationCenter.default.post(name: .deleteTask,
+        NotificationCenter.default.post(name: .deletedTask,
                                         object: nil,
                                         userInfo: ["task": task])
     }

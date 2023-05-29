@@ -31,20 +31,26 @@ final class ListViewController: UIViewController {
         configureViewUI()
         configureCollectionViewUI()
         configureDatasource()
-        applySnapshot(by: viewModel.tasks)
+        applySnapshot()
+        configureObserver()
     }
     
     func appendTasks(_ tasks: [Task]) {
         viewModel.tasks = tasks
-        
-        applySnapshot(by: viewModel.tasks)
+    }
+    
+    private func configureObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(applySnapshot),
+                                               name: .updatedTask,
+                                               object: nil)
     }
 
-    private func applySnapshot(by items: [Task]) {
+    @objc private func applySnapshot() {
         deleteSnapshotBySection()
         
         snapshot.appendSections([viewModel.taskState])
-        snapshot.appendItems(items)
+        snapshot.appendItems(viewModel.tasks)
         
         datasource?.apply(snapshot, animatingDifferences: false)
     }

@@ -19,7 +19,7 @@ class MainViewModel {
     init() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(deleteTask),
-                                               name: .deleteTask,
+                                               name: .deletedTask,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(changeTaskState),
