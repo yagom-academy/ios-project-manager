@@ -39,15 +39,13 @@ final class TaskManager {
         guard let index = taskList.firstIndex(where: { $0.id == task.id }) else { return }
         
         taskList[safe: index] = task
-        
-        let realmTask = RealmTask(task)
-        realmManager.update(realmTask)
+
+        realmManager.update(task, type: RealmTask.self)
     }
     
     func delete(_ task: MyTask) {
         taskList.removeAll { $0.id == task.id }
         
-        let realmTask = RealmTask(task)
-        realmManager.delete(realmTask)
+        realmManager.delete(type: RealmTask.self, id: task.id)
     }
 }

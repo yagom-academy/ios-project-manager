@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class RealmTask: Object, Identifying {
+final class RealmTask: Object, DataAcessObject {
     @Persisted(primaryKey: true) var id: UUID
     @Persisted var state: TaskState
     @Persisted var title: String
@@ -24,8 +24,11 @@ final class RealmTask: Object, Identifying {
         self.body = task.body
         self.deadline = task.deadline
     }
-}
-
-protocol Identifying {
-    var id: UUID { get set }
+    
+    func updateValue(task: MyTask) {
+        self.state = task.state
+        self.title = task.title
+        self.body = task.body
+        self.deadline = task.deadline
+    }
 }

@@ -11,6 +11,8 @@
 		4AC4526F2A14A2A600ADAC45 /* MyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC4526E2A14A2A600ADAC45 /* MyTask.swift */; };
 		4AE1DDFE2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DDFD2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift */; };
 		4AE1DE192A209B2500EDE95C /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE182A209B2500EDE95C /* RealmManager.swift */; };
+		4AE1DE1C2A24887D00EDE95C /* DataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE1B2A24887D00EDE95C /* DataTransferObject.swift */; };
+		4AE1DE1E2A24889E00EDE95C /* DataAccessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE1D2A24889E00EDE95C /* DataAccessObject.swift */; };
 		AA2F17DB2A14A82200664807 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */; };
 		AA2F17DD2A14AB3700664807 /* TaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F17DC2A14AB3700664807 /* TaskListCell.swift */; };
 		AA32F2442A16026600DB3E1A /* TaskListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */; };
@@ -40,6 +42,8 @@
 		4AC4526E2A14A2A600ADAC45 /* MyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTask.swift; sourceTree = "<group>"; };
 		4AE1DDFD2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeaderViewModel.swift; sourceTree = "<group>"; };
 		4AE1DE182A209B2500EDE95C /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		4AE1DE1B2A24887D00EDE95C /* DataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferObject.swift; sourceTree = "<group>"; };
+		4AE1DE1D2A24889E00EDE95C /* DataAccessObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessObject.swift; sourceTree = "<group>"; };
 		AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		AA2F17DC2A14AB3700664807 /* TaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCell.swift; sourceTree = "<group>"; };
 		AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeaderView.swift; sourceTree = "<group>"; };
@@ -89,6 +93,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4AE1DE1A2A24885E00EDE95C /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				4AE1DE1B2A24887D00EDE95C /* DataTransferObject.swift */,
+				4AE1DE1D2A24889E00EDE95C /* DataAccessObject.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		AA2F17D72A14A7BA00664807 /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +134,7 @@
 		AA48F3222A2096F0003B965E /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				4AE1DE1A2A24885E00EDE95C /* Protocol */,
 				AA48F3232A209707003B965E /* Local */,
 			);
 			path = Database;
@@ -330,6 +344,7 @@
 				AA8AE3C62A1B67D400B662F2 /* TaskFormViewModel.swift in Sources */,
 				AA8AE3C02A1B3FF500B662F2 /* TaskFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */,
+				4AE1DE1C2A24887D00EDE95C /* DataTransferObject.swift in Sources */,
 				AA48F31D2A1F7543003B965E /* UITextField+publisher.swift in Sources */,
 				AA8AE3C22A1B560600B662F2 /* TaskManager.swift in Sources */,
 				AA2F17DB2A14A82200664807 /* TaskListViewModel.swift in Sources */,
@@ -344,6 +359,7 @@
 				AAACDCFE2A1C6297005BFD03 /* DateFormatter+Deadline.swift in Sources */,
 				AA2F17DD2A14AB3700664807 /* TaskListCell.swift in Sources */,
 				AA48F3212A2093A4003B965E /* RealmTask.swift in Sources */,
+				4AE1DE1E2A24889E00EDE95C /* DataAccessObject.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				AA32F2482A16538800DB3E1A /* CountLabel.swift in Sources */,
 				AA7FC09D2A1503A20057FCD4 /* MainViewController.swift in Sources */,

@@ -11,9 +11,9 @@ import RealmSwift
 final class RealmManager {
     private let realm = try? Realm()
     
-    func create<T: Object & Identifying>(_ data: T) {
+    func create<DAO: Object>(_ data: DAO) {
         guard let realm = realm else { return }
-
+        
         do {
             try realm.write {
                 realm.add(data)
@@ -23,7 +23,7 @@ final class RealmManager {
         }
     }
     
-    func read<T: Object & Identifying>(type: T.Type, id: UUID) -> T? {
+    func read<DAO: Object>(type: DAO.Type, id: UUID) -> DAO? {
         guard let realm = realm else { return nil }
         
         let object = realm.object(ofType: type, forPrimaryKey: id)
@@ -31,27 +31,30 @@ final class RealmManager {
         return object
     }
     
-    func readAll<T: Object & Identifying>(type: T.Type) -> [T]? {
+    func readAll<DAO: Object>(type: DAO.Type) -> [DAO]? {
         guard let realm = realm else { return nil }
         
         return Array(realm.objects(type))
     }
     
-    func update<T: Object & Identifying>(_ data: T) {
+    func update<DTO: DataTransferObject, DAO: Object & DataAcessObject>(_ data: DTO, type: DAO.Type) {
         guard let realm = realm else { return }
         
         do {
             try realm.write {
-                realm.add(data, update: .modified)
+                guard let object = read(type: type, id: data.id),
+                      let data = data as? DAO.TaskType  else { return }
+                
+                object.updateValue(task: data)
             }
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    func delete<T: Object & Identifying>(_ data: T) {
+    func delete<DAO: Object>(type: DAO.Type, id: UUID) {
         guard let realm = realm,
-              let object = read(type: T.self, id: data.id) else { return }
+              let object = read(type: type, id: id) else { return }
         
         do {
             try realm.write {
