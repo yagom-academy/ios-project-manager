@@ -72,7 +72,18 @@ final class TaskCollectionViewController: UIViewController  {
                 return UISwipeActionsConfiguration(actions: [action])
             }
             
+            let headerFooterSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(70)
+            )
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerFooterSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+            
             let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
+            section.boundarySupplementaryItems = [sectionHeader]
             section.interGroupSpacing = 10
 
             return section

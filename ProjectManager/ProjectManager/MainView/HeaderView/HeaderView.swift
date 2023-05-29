@@ -13,7 +13,7 @@ final class HeaderView: UICollectionReusableView {
     
     let titleLabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title2)
+        label.font = .preferredFont(forTextStyle: .largeTitle)
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -23,8 +23,9 @@ final class HeaderView: UICollectionReusableView {
     
     let badgeLabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .title3)
         label.textColor = .white
+        label.textAlignment = .center
         label.backgroundColor = .black
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
@@ -86,12 +87,13 @@ final class HeaderView: UICollectionReusableView {
         stackView.addArrangedSubview(UIView())
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             stackView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
             stackView.bottomAnchor.constraint(greaterThanOrEqualTo: self.bottomAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
-            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            badgeLabel.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
 }

@@ -9,11 +9,29 @@ import Foundation
 import Combine
 
 final class DetailViewModel {
+    enum Mode {
+        case create
+        case update
+        
+        var leftButtonTitle: String {
+            switch self {
+            case .create:
+                return "Cancel"
+            case .update:
+                return "Edit"
+            }
+        }
+    }
+    
     @Published var title: String = ""
     @Published var body: String = ""
+    
     var date: Date = Date()
     var workState: WorkState = .todo
     var id: UUID?
+    
+    let mode: Mode
+    
     weak var delegate: DetailViewModelDelegate?
     
     lazy var isEditingDone: AnyPublisher<Bool, Never> = Publishers.CombineLatest($title, $body)
@@ -22,7 +40,8 @@ final class DetailViewModel {
         }
         .eraseToAnyPublisher()
     
-    init(from task: Task? = nil) {
+    init(from task: Task? = nil, mode: DetailViewModel.Mode) {
+        self.mode = mode
         configureContents(with: task)
     }
     

@@ -9,20 +9,6 @@ import UIKit
 import Combine
 
 final class DetailViewController: UIViewController {
-    enum Mode {
-        case create
-        case update
-        
-        var leftButtonTitle: String {
-            switch self {
-            case .create:
-                return "Cancel"
-            case .update:
-                return "Edit"
-            }
-        }
-    }
-    
     private let titleTextfield = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title3)
@@ -75,15 +61,13 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
     
-    private let detailViewModel: DetailViewModel
+    private let viewModel: DetailViewModel
     
-    let mode: Mode
     var cancellables = Set<AnyCancellable>()
     weak var delegate: DetailViewModelDelegate?
     
-    init(task: Task?, mode: Mode) {
-        self.detailViewModel = DetailViewModel(from: task)
-        self.mode = mode
+    init(viewModel: DetailViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -98,25 +82,19 @@ final class DetailViewController: UIViewController {
         configureRootView()
         configureLabelText()
         configureUIEditability()
-        bind(to: detailViewModel)
+        
+        bindViewToViewModel()
+        bindViewModelToView()
     }
     
     func configureViewModelDelegate(with delegate: DetailViewModelDelegate?) {
-        detailViewModel.delegate = delegate
+        viewModel.delegate = delegate
     }
     
-    private func bind(to viewModel: DetailViewModel) {
+    private func bindViewToViewModel() {
         assign(publisher: titleTextfield.textPublisher, keyPath: \.title)
         assign(publisher: bodyTextView.textPublisher, keyPath: \.body)
         assign(publisher: datePicker.datePublisher, keyPath: \.date)
-        
-        detailViewModel
-            .isEditingDone
-            .sink { isEditingDone in
-                let rightBarButtonItem = self.navigationItem.rightBarButtonItem
-                rightBarButtonItem?.isEnabled = isEditingDone ? true : false
-            }
-            .store(in: &cancellables)
     }
     
     private func assign<Value>(
@@ -124,7 +102,17 @@ final class DetailViewController: UIViewController {
         keyPath: ReferenceWritableKeyPath<DetailViewModel, Value>
     ) {
         publisher
-            .assign(to: keyPath, on: detailViewModel)
+            .assign(to: keyPath, on: viewModel)
+            .store(in: &cancellables)
+    }
+    
+    private func bindViewModelToView() {
+        viewModel
+            .isEditingDone
+            .sink { isEditingDone in
+                let rightBarButtonItem = self.navigationItem.rightBarButtonItem
+                rightBarButtonItem?.isEnabled = isEditingDone ? true : false
+            }
             .store(in: &cancellables)
     }
     
@@ -141,7 +129,7 @@ final class DetailViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = rightNavigationButton
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: mode.leftButtonTitle,
+            title: viewModel.mode.leftButtonTitle,
             style: .plain,
             target: self,
             action: #selector(tapCancelButton)
@@ -160,7 +148,7 @@ final class DetailViewController: UIViewController {
     }
     
     private func configureUIEditability() {
-        if mode == .update {
+        if viewModel.mode == .update {
             UIUserInteraction(isEnable: false)
         }
     }
@@ -173,11 +161,11 @@ final class DetailViewController: UIViewController {
     
     @objc
     private func tapDoneButton() {
-        switch mode {
+        switch viewModel.mode {
         case .create:
-            detailViewModel.createTask()
+            viewModel.createTask()
         case .update:
-            detailViewModel.updateTask()
+            viewModel.updateTask()
         }
         
         self.dismiss(animated: true)
@@ -185,7 +173,7 @@ final class DetailViewController: UIViewController {
     
     @objc
     private func tapCancelButton() {
-        if mode == .create {
+        if viewModel.mode == .create {
             self.dismiss(animated: true)
             return
         }
@@ -214,8 +202,8 @@ final class DetailViewController: UIViewController {
     }
     
     private func configureLabelText() {
-        self.titleTextfield.text = detailViewModel.title
-        self.datePicker.date = detailViewModel.date
-        self.bodyTextView.text = detailViewModel.body
+        self.titleTextfield.text = viewModel.title
+        self.datePicker.date = viewModel.date
+        self.bodyTextView.text = viewModel.body
     }
 }
