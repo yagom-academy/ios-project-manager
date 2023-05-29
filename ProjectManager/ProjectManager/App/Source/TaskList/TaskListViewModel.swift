@@ -38,13 +38,14 @@ final class TaskListViewModel {
         taskManager.delete(task)
     }
     
-    func changeState(indexPath: IndexPath, state: TaskState?) {
+    func changeState(indexPath: IndexPath, targetState: TaskState?) {
         guard var task = taskList[safe: indexPath.row],
-              let state else { return }
+              let targetState else { return }
         
-        task.state = state
+        let currentState = task.state
+        task.state = targetState
         
-        taskManager.update(task)
+        taskManager.update(task, from: currentState, to: targetState)
     }
     
     private func requestFilteredTaskList() {

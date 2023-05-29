@@ -184,11 +184,11 @@ extension TaskListViewController: UIGestureRecognizerDelegate {
         let states = state.others
         
         let firstAction = UIAlertAction(title: viewModel.firstPopoverActionTitle, style: .default) { [weak self] _ in
-            self?.viewModel.changeState(indexPath: indexPath, state: states.first)
+            self?.viewModel.changeState(indexPath: indexPath, targetState: states.first)
         }
         
         let secondAction = UIAlertAction(title: viewModel.secondPopoverActionTitle, style: .default) { [weak self] _ in
-            self?.viewModel.changeState(indexPath: indexPath, state: states.second)
+            self?.viewModel.changeState(indexPath: indexPath, targetState: states.second)
         }
         
         alertController.addAction(firstAction)
