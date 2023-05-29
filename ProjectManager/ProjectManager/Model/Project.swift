@@ -7,20 +7,12 @@
 
 import Foundation
 
-class Project: Identifiable, Equatable {
+final class Project: Identifiable {
     let id = UUID()
     var state = ProjectState.todo
     var title: String
     var body: String
     var date: Date
-    
-    public static func ==(lhs: Project, rhs: Project) -> Bool {
-        if lhs.id == rhs.id {
-            return true
-        } else {
-            return false
-        }
-     }
     
     init(state: ProjectState = ProjectState.todo, title: String, body: String, date: Date) {
         self.state = state

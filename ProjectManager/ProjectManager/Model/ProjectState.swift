@@ -10,7 +10,7 @@ enum ProjectState: String {
     case doing
     case done
     
-    var popoverItem: (ProjectState, ProjectState) {
+    var contextItem: (first: ProjectState, second: ProjectState) {
         switch self {
         case .todo:
             return (.doing, .done)
@@ -21,7 +21,7 @@ enum ProjectState: String {
         }
     }
     
-    var popoverText: String {
+    var contextText: String {
         switch self {
         case .todo:
             return "Move to TODO"

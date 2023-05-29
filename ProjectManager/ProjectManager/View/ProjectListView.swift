@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectListView: View {
-    @EnvironmentObject var viewModel: ProjectViewModel
+    @EnvironmentObject private var viewModel: ProjectViewModel
     let currentState: ProjectState
     
     var body: some View {
@@ -47,11 +47,11 @@ private extension ProjectListView {
             ProjectListCell(model: model)
                 .environmentObject(viewModel)
                 .contextMenu {
-                    Button(currentState.popoverItem.0.popoverText) {
-                        viewModel.move(project: model, to: currentState.popoverItem.0)
+                    Button(currentState.contextItem.first.contextText) {
+                        viewModel.move(project: model, to: currentState.contextItem.first)
                     }
-                    Button(currentState.popoverItem.1.popoverText) {
-                        viewModel.move(project: model, to: currentState.popoverItem.1)
+                    Button(currentState.contextItem.second.contextText) {
+                        viewModel.move(project: model, to: currentState.contextItem.second)
                     }
                 }
         }

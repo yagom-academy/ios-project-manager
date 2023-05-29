@@ -8,14 +8,14 @@
 import Foundation
 
 final class DateManager {
+    static let shared = DateManager()
+    
     private let dateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. M. d."
         
         return dateFormatter
     }()
-    
-    static let shared = DateManager()
     
     private init() { }
     

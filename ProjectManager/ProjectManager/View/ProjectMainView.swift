@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectMainView: View {
-    @EnvironmentObject var viewModel: ProjectViewModel
+    @EnvironmentObject private var viewModel: ProjectViewModel
     @State private var showModal = false
     
     var body: some View {

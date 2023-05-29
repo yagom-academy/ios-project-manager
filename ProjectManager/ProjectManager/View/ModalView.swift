@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ModalView: View {
-    @EnvironmentObject var viewModel: ProjectViewModel
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject private var viewModel: ProjectViewModel
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @State var project: Project
     @State var disableEdit: Bool
     let isEditMode: Bool
@@ -39,7 +39,7 @@ struct ModalView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         isEditMode ? viewModel.update(project: project) : viewModel.create(project: project)
-                        self.presentationMode.wrappedValue.dismiss()
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Done")
                     }

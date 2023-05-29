@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ProjectListCell: View {
-    @EnvironmentObject var viewModel: ProjectViewModel
-    @State var isModalViewShow: Bool = false
+    @EnvironmentObject private var viewModel: ProjectViewModel
+    @State private var isModalViewShow: Bool = false
+    private let dateManager = DateManager.shared
     let model: Project
-    let dateManager = DateManager.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
