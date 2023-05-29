@@ -98,11 +98,13 @@ final class ChangeWorkStateViewController: UIViewController {
     
     @objc
     private func firstButtonTapped() {
-        viewModel.changeWorkState(.first)
+        viewModel.changeWorkState(buttonIndex: .first)
+        self.dismiss(animated: true)
     }
     
     @objc
     private func secondButtonTapped() {
-        viewModel.changeWorkState(.second)
+        viewModel.changeWorkState(buttonIndex: .second)
+        self.dismiss(animated: true)
     }
 }

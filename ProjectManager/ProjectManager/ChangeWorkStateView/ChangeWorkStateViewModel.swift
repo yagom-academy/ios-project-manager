@@ -16,24 +16,25 @@ final class ChangeWorkStateViewModel {
     
     @Published var firstText: String?
     @Published var secondText: String?
+    
     let taskID: UUID
-    weak var delegate: ChangeWorkStateViewModelDelegate?
     var filteredStates: [WorkState]
+    weak var delegate: ChangeWorkStateViewModelDelegate?
     
     init(from task: Task) {
-         filteredStates = WorkState.allCases
+        self.taskID = task.id
+        self.filteredStates = WorkState.allCases
             .filter { $0 != task.workState }
         
-        firstText = filteredStates[safe: 0]?.buttonTitle
-        secondText = filteredStates[safe: 1]?.buttonTitle
-        taskID = task.id
+        self.firstText = filteredStates[safe: 0]?.buttonTitle
+        self.secondText = filteredStates[safe: 1]?.buttonTitle
     }
     
-    func changeWorkState(_ index: ButtonIndex) {
-        guard let state = filteredStates[safe: index.rawValue] else {
+    func changeWorkState(buttonIndex: ButtonIndex) {
+        guard let state = filteredStates[safe: buttonIndex.rawValue] else {
             return
         }
         
-        delegate?.changeTaskWorkState(id: taskID, with: state)
+        delegate?.changeWorkState(taskID: taskID, with: state)
     }
 }

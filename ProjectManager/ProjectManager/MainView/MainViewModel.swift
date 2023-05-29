@@ -54,7 +54,9 @@ extension MainViewModel: TaskListViewModelDelegate {
 }
 
 extension MainViewModel: ChangeWorkStateViewModelDelegate {
-    func changeTaskWorkState(id: UUID, with: WorkState) {
-        
+    func changeWorkState(taskID: UUID, with workState: WorkState) {
+        service.changeWorkState(taskID: taskID, with: workState)
+        fetchTaskList()
+        distributeTask()
     }
 }

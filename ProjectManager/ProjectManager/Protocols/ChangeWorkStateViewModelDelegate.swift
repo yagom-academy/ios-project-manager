@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ChangeWorkStateViewModelDelegate: AnyObject {
-    func changeTaskWorkState(id: UUID, with: WorkState)
+    func changeWorkState(taskID: UUID, with workState: WorkState)
 }

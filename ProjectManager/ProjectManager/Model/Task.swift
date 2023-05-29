@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Task: Identifiable, Hashable {
+struct Task: Identifiable {
     let id: UUID
     let title: String
     let date: Date
     let body: String
-    let workState: WorkState
+    var workState: WorkState
     
     init(title: String, date: Date, body: String, workState: WorkState, id: UUID = UUID()) {
         self.title = title

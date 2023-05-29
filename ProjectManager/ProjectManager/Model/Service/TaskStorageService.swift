@@ -8,7 +8,7 @@
 import Foundation
 
 final class TaskStorageService {
-    private let taskStore: [Task] = [
+    private var taskStore: [Task] = [
         Task(title: "hi", date: Date(), body: "body", workState: .todo),
         Task(title: "hi", date: Date(), body: "body", workState: .todo),
         Task(title: "hi", date: Date(), body: "body", workState: .todo),
@@ -36,5 +36,11 @@ final class TaskStorageService {
     
     func deleteTask(id: UUID) {
         
+    }
+    
+    func changeWorkState(taskID: UUID, with workState: WorkState) {
+        guard let index = taskStore.firstIndex(where: { $0.id == taskID }) else { return }
+        
+        taskStore[safe: index]?.workState = workState
     }
 }
