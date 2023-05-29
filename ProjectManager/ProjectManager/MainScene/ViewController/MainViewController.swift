@@ -33,6 +33,8 @@ final class MainViewController: UIViewController {
         let todoViewController = TodoViewController(taskDelegate: self, state: state, task: task)
         let navigationController = UINavigationController(rootViewController: todoViewController)
         
+        navigationController.modalPresentationStyle = .formSheet
+        
         self.present(navigationController, animated: true)
     }
     
