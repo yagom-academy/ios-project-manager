@@ -67,7 +67,7 @@ final class WorkCell: UICollectionViewCell {
         self.isExceededDeadline = isExceededDeadline
     }
     
-    private func createStackView() -> UIStackView {
+    private func createContentsStackView() -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, bodyLabel])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +78,7 @@ final class WorkCell: UICollectionViewCell {
     }
     
     private func configureLayout() {
-        let stackView = createStackView()
+        let stackView = createContentsStackView()
         
         contentView.addSubview(stackView)
         contentView.addSubview(deadlineLabel)
@@ -91,7 +91,7 @@ final class WorkCell: UICollectionViewCell {
             deadlineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             deadlineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             deadlineLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12),
-            deadlineLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            deadlineLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 }

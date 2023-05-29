@@ -77,11 +77,11 @@ final class DetailViewController: UIViewController {
                            body: contents.body,
                            deadline: contents.deadline)
         
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     @objc private func cancel() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     @objc private func updateWork() {
@@ -92,7 +92,7 @@ final class DetailViewController: UIViewController {
                               body: contents.body,
                               deadline: contents.deadline)
         
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     @objc private func toggleEditing() {

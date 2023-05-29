@@ -28,7 +28,7 @@ final class MainViewController: UIViewController {
         
         configureUIOption()
         configureCollectionListView()
-        addObserver()
+        addAlertObserver()
     }
     
     private func configureUIOption() {
@@ -36,20 +36,21 @@ final class MainViewController: UIViewController {
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
-                                                            action: #selector(moveToAppendWork))
+                                                            action: #selector(presentAppendWork))
     }
     
-    @objc private func moveToAppendWork() {
+    @objc private func presentAppendWork() {
         let detailViewController = DetailViewController()
         detailViewController.configureAddMode()
         detailViewController.viewModel = viewModel
         
         let navigationController = UINavigationController(rootViewController: detailViewController)
+        navigationController.modalPresentationStyle = .formSheet
         
-        self.present(navigationController, animated: true)
+        present(navigationController, animated: true)
     }
     
-    private func addObserver() {
+    private func addAlertObserver() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(showAlert),
@@ -76,7 +77,7 @@ final class MainViewController: UIViewController {
 // MARK: - Collection View Setting
 extension MainViewController {
     private func configureCollectionListView() {
-        let stackView = createStackView()
+        let stackView = createWorksCollectionStackView()
         
         view.addSubview(stackView)
         
@@ -84,14 +85,16 @@ extension MainViewController {
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
         configureDelegate()
     }
     
-    private func createStackView() -> UIStackView {
-        let stackView = UIStackView(arrangedSubviews: [todoCollectionView, doingCollectionView, doneCollectionView])
+    private func createWorksCollectionStackView() -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: [todoCollectionView,
+                                                       doingCollectionView,
+                                                       doneCollectionView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -123,7 +126,7 @@ extension MainViewController: UICollectionViewDelegate, WorkCollectionViewDelega
         
         let navigationController = UINavigationController(rootViewController: detailViewController)
         
-        self.present(navigationController, animated: true)
+        present(navigationController, animated: true)
     }
     
     func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkStatus, rect: CGRect) {
@@ -138,6 +141,6 @@ extension MainViewController: UICollectionViewDelegate, WorkCollectionViewDelega
         popoverViewController.popoverPresentationController?.sourceView = view
         popoverViewController.popoverPresentationController?.sourceRect = rect
         
-        self.present(popoverViewController, animated: true)
+        present(popoverViewController, animated: true)
     }
 }

@@ -60,7 +60,7 @@ final class HeaderReusableView: UICollectionReusableView {
             countImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             
             countImageView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor),
-            countImageView.widthAnchor.constraint(equalTo: countImageView.heightAnchor),
+            countImageView.widthAnchor.constraint(equalTo: countImageView.heightAnchor)
         ])
     }
     

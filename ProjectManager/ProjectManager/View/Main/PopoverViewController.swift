@@ -52,7 +52,7 @@ final class PopoverViewController: UIViewController {
         preferredContentSize = calculatePopoverSize()
     }
     
-    private func createStackView() -> UIStackView {
+    private func createPopoverButtonStackView() -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: [topButton, buttomButton])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +66,7 @@ final class PopoverViewController: UIViewController {
     }
     
     private func configureLayout() {
-        let stackView = createStackView()
+        let stackView = createPopoverButtonStackView()
         
         view.addSubview(stackView)
         
@@ -74,7 +74,7 @@ final class PopoverViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: view.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     

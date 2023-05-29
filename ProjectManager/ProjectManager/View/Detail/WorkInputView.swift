@@ -63,7 +63,7 @@ final class WorkInputView: UIView {
     }
     
     private func configureLayout() {
-        let stackView = createStackView()
+        let stackView = createContentsStackView()
         
         self.addSubview(stackView)
         
@@ -77,7 +77,7 @@ final class WorkInputView: UIView {
         ])
     }
     
-    private func createStackView() -> UIStackView {
+    private func createContentsStackView() -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: [titleTextField, deadlinePicker, bodyTextView])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false

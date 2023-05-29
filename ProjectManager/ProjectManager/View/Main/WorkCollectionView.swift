@@ -30,7 +30,7 @@ final class WorkCollectionView: UICollectionView {
         configureCollectionView()
         configureDataSource()
         applySnapshot()
-        addObserver()
+        addUpdateSnapshotObserver()
         configureLongPressGesture()
         
         let layout = createLayout()
@@ -139,7 +139,7 @@ final class WorkCollectionView: UICollectionView {
         configureHeaderView(headerView)
     }
 
-    private func addObserver() {
+    private func addUpdateSnapshotObserver() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(applySnapshot),
