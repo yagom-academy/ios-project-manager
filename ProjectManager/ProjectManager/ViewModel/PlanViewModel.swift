@@ -5,78 +5,62 @@
 //  Created by 리지 on 2023/05/17.
 //
 
-import UIKit
+import Foundation
 import Combine
 
 final class PlanViewModel {
-    @Published private(set) var todoItems: [TodoItem] = []
-    @Published private(set) var doingItems: [TodoItem] = []
-    @Published private(set) var doneItems: [TodoItem] = []
-    private(set) var itemState: State?
+    @Published var plan: [Plan] = []
+    let updatePublisher = PassthroughSubject<Plan, Never>()
+    let deletePublisher = PassthroughSubject<Plan, Never>()
+    let changePublisher = PassthroughSubject<(Plan, State), Never>()
+    
+    private let state: State
+    private var cancellables = Set<AnyCancellable>()
+
     private(set) var currentLongPressedCell: PlanTableViewCell?
- 
+    
+    init(state: State) {
+        self.state = state
+    }
+    
+    var firstActionTitle: String {
+        let (first, _) = state.checkOrder()
+        return "Move to \(first)"
+    }
+    
+    var secondActionTitle: String {
+        let (_, second) = state.checkOrder()
+        return "Move to \(second)"
+    }
+    
+    var moveToFirst: State {
+        let (first, _) = state.moveByState()
+        return first
+    }
+    
+    var moveToSecond: State {
+        let (_, second) = state.moveByState()
+        return second
+    }
+    
     var numberOfItems: Int {
-        switch itemState {
-        case .todo:
-            return todoItems.count
-        case .doing:
-            return doingItems.count
-        default:
-            return doneItems.count
-        }
+        return plan.count
     }
     
-    func item(at index: Int) -> TodoItem {
-        switch itemState {
-        case .todo:
-            return todoItems[index]
-        case .doing:
-            return doingItems[index]
-        default:
-            return doneItems[index]
-        }
+    func read(at indexPath: IndexPath) -> Plan {
+        return plan[indexPath.row]
     }
     
-    func addItem(_ item: TodoItem) {
-        itemState = item.state
-        switch itemState {
-        case .todo:
-            todoItems.append(item)
-        case .doing:
-            doingItems.append(item)
-        default:
-            doneItems.append(item)
-        }
+    func delete(_ plan: Plan) {
+        deletePublisher.send(plan)
+    }
+
+    func update(by plan: Plan) {
+        updatePublisher.send(plan)
     }
     
-    func updateItem(at index: Int, newItem: TodoItem) {
-        todoItems[index] = newItem
-    }
-    
-    func delete(at index: Int) {
-        switch itemState {
-        case .todo:
-            todoItems.remove(at: index)
-        case .doing:
-            doingItems.remove(at: index)
-        default:
-            doneItems.remove(at: index)
-        }
-    }
-    
-    func updateItemState(at index: Int, _ newState: State) {
-        switch itemState {
-        case .todo:
-            todoItems[index].state = newState
-        case .doing:
-            doingItems[index].state = newState
-        default:
-            doneItems[index].state = newState
-        }
-    }
-    
-    func setUpState(_ new: State) {
-        itemState = new
+    func changeState(plan: Plan, state: State) {
+        changePublisher.send((plan, state))
     }
     
     func updateCurrentCell(_ cell: PlanTableViewCell) {

@@ -9,10 +9,10 @@ import UIKit
 import Combine
 
 final class PlanTableCellViewModel {
-    @Published private(set) var item: TodoItem
+    @Published private(set) var plan: Plan
     
-    init(item: TodoItem) {
-        self.item = item
+    init(plan: Plan) {
+        self.plan = plan
     }
     
     func convertDate(of date: Date) -> String {
@@ -30,7 +30,7 @@ final class PlanTableCellViewModel {
         }
     }
     
-    func fetchItem() -> TodoItem {
-        return item
+    func fetchPlan() -> Plan {
+        return plan
     }
 }

@@ -71,36 +71,36 @@ final class PlanTableViewCell: UITableViewCell {
     }
     
     private func setUpBinding() {
-        planTableCellViewModel?.$item
-            .map { item in
-                item.title
+        planTableCellViewModel?.$plan
+            .map { plan in
+                plan.title
             }.sink {
                 self.title.text = $0
             }.store(in: &cancellables)
         
-        planTableCellViewModel?.$item
-            .map { item in
-                item.body
+        planTableCellViewModel?.$plan
+            .map { plan in
+                plan.body
             }.sink {
                 self.body.text = $0
             }.store(in: &cancellables)
         
-        planTableCellViewModel?.$item
-            .map { item in
-                item.date
+        planTableCellViewModel?.$plan
+            .map { plan in
+                plan.date
             }.sink {
                 self.date.textColor = self.planTableCellViewModel?.selectColor($0)
                 self.date.text = self.planTableCellViewModel?.convertDate(of: $0)
             }.store(in: &cancellables)
     }
     
-    func configureCell(with item: TodoItem) {
-        self.planTableCellViewModel = PlanTableCellViewModel(item: item)
+    func configureCell(with plan: Plan) {
+        self.planTableCellViewModel = PlanTableCellViewModel(plan: plan)
         setUpBinding()
     }
     
-    func fetchCellItem() -> TodoItem? {
-        guard let item = self.planTableCellViewModel?.fetchItem() else { return nil }
-        return item
+    func fetchCellPlan() -> Plan? {
+        guard let plan = self.planTableCellViewModel?.fetchPlan() else { return nil }
+        return plan
     }
 }

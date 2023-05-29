@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class PlusTodoViewModel: ObservableObject {
-    @Published private(set) var todoItem: TodoItem?
+    @Published private(set) var todoItem: Plan?
     private(set) var mode: Mode = .create
     
     enum Mode {
@@ -20,7 +20,7 @@ final class PlusTodoViewModel: ObservableObject {
         mode = new
     }
     
-    func addItem(_ item: TodoItem) {
-        todoItem = item
+    func addItem(_ plan: Plan) {
+        todoItem = plan
     }
 }

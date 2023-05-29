@@ -19,3 +19,27 @@ enum State: CustomStringConvertible {
         }
     }
 }
+
+extension State {
+    func checkOrder() -> (first: String, second: String) {
+        switch self {
+        case .todo:
+            return (State.doing.description, State.done.description)
+        case .doing:
+            return (State.todo.description, State.done.description)
+        case .done:
+            return (State.todo.description, State.doing.description)
+        }
+    }
+    
+    func moveByState() -> (first: State, second: State) {
+        switch self {
+        case .todo:
+            return (State.doing, State.done)
+        case .doing:
+            return (State.todo, State.done)
+        case .done:
+            return (State.todo, State.doing)
+        }
+    }
+}

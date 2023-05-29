@@ -143,8 +143,8 @@ final class PlusTodoViewController: UIViewController {
     @objc private func doneButtonTapped() {
         switch plusTodoViewModel?.mode {
         case .create:
-            guard let item = setUpItem() else { return }
-            self.delegate?.addItem(item)
+            guard let item = configurePlan() else { return }
+            self.delegate?.create(item)
             self.dismiss(animated: false)
         default:
             self.dismiss(animated: false)
@@ -156,18 +156,17 @@ final class PlusTodoViewController: UIViewController {
         case .create:
             self.dismiss(animated: false)
         default:
-            guard let item = setUpItem() else { return }
-            guard let selectedIndexPath = self.selectedIndexPath else { return }
-            self.delegate?.updateItem(at: selectedIndexPath, by: item)
+            guard let item = configurePlan() else { return }
+            self.delegate?.update(by: item)
         }
     }
     
-    private func setUpItem() -> TodoItem? {
+    private func configurePlan() -> Plan? {
         guard let title = self.titleField.text,
               let body = self.textView.text else { return nil }
         
         let date = self.datePicker.date
-        let item = TodoItem(title: title, body: body, date: date, state: .todo)
+        let item = Plan(title: title, body: body, date: date, state: .todo)
         
         return item
     }
