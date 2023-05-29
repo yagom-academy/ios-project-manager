@@ -5,18 +5,23 @@
 //  Created by Brody, Rowan on 2023/05/19.
 //
 
-import UIKit
 import Combine
 
 final class DoingViewModel: TaskListViewModel {
     var taskList: [Task] = [] {
         didSet {
-            currentTaskSubject.send(taskList)
+            currentTaskSubject.send((taskList, isUpdating))
         }
     }
-    let currentTaskSubject = CurrentValueSubject<[Task], Never>([])
+    let currentTaskSubject = PassthroughSubject<([Task], Bool), Never>()
     var taskWorkState: WorkState = .doing
     var delegate: TaskListViewModelDelegate?
+    
+    private var isUpdating: Bool = false
 }
 
-extension DoingViewModel: DetailViewModelDelegate { }
+extension DoingViewModel: DetailViewModelDelegate {
+    func setState(isUpdating: Bool) {
+        self.isUpdating = isUpdating
+    }
+}

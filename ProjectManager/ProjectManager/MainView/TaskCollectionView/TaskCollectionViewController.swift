@@ -133,19 +133,27 @@ final class TaskCollectionViewController: UIViewController  {
     }
     
     private func bindViewModelToView() {
-        viewModel.currentTaskSubject
-            .sink { taskList in
-                self.updateDataSource(taskList)
+        viewModel
+            .currentTaskSubject
+            .sink { taskList, isUpdating in
+                isUpdating ? self.reloadDataSourceItems() : self.applyLatestSnapshot(taskList)
             }
             .store(in: &bindings)
     }
     
-    private func updateDataSource(_ taskList: [Task]) {
+    private func applyLatestSnapshot(_ taskList: [Task]) {
         let taskIDList = taskList.map { $0.id }
         
         var snapshot = Snapshot()
         snapshot.appendSections([viewModel.taskWorkState])
         snapshot.appendItems(taskIDList, toSection: viewModel.taskWorkState)
+        dataSource?.apply(snapshot)
+    }
+    
+    private func reloadDataSourceItems() {
+        guard var snapshot = dataSource?.snapshot() else { return }
+        
+        snapshot.reloadSections([viewModel.taskWorkState])
         dataSource?.apply(snapshot)
     }
 }

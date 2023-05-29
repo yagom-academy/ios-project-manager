@@ -9,4 +9,5 @@ import Foundation
 protocol DetailViewModelDelegate: AnyObject {
     func createTask(_ task: Task)
     func updateTask(_ task: Task)
+    func setState(isUpdating: Bool)
 }

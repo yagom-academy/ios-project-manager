@@ -28,12 +28,14 @@ final class DetailViewModel {
     
     func createTask() {
         let task = Task(title: title, date: date, body: body, workState: workState)
+        delegate?.setState(isUpdating: false)
         delegate?.createTask(task)
     }
     
     func updateTask() {
         guard let id else { return }
         let task = Task(title: title, date: date, body: body, workState: workState, id: id)
+        delegate?.setState(isUpdating: true)
         delegate?.updateTask(task)
     }
     

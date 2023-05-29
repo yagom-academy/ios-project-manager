@@ -175,8 +175,8 @@
 		62F8A1C02A1B331C005F6BF7 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
-				62F8A1BE2A1B32EA005F6BF7 /* DetailViewController.swift */,
 				62F8A1C42A1B3356005F6BF7 /* DetailViewModel.swift */,
+				62F8A1BE2A1B32EA005F6BF7 /* DetailViewController.swift */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";

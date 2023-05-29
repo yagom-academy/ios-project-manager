@@ -5,19 +5,24 @@
 //  Created by Brody, Rowan on 2023/05/19.
 //
 
-import UIKit
 import Combine
 
 final class TodoViewModel: TaskListViewModel {
     var taskList: [Task] = [] {
         didSet {
-            currentTaskSubject.send(taskList)
+            currentTaskSubject.send((taskList, isUpdating))
         }
     }
-    let currentTaskSubject = CurrentValueSubject<[Task], Never>([])
+    let currentTaskSubject = PassthroughSubject<([Task], Bool), Never>()
     let taskWorkState: WorkState = .todo
     var delegate: TaskListViewModelDelegate?
+    
+    private var isUpdating: Bool = false
 }
 
-extension TodoViewModel: DetailViewModelDelegate { }
+extension TodoViewModel: DetailViewModelDelegate {
+    func setState(isUpdating: Bool) {
+        self.isUpdating = isUpdating
+    }
+}
 
