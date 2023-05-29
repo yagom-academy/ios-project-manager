@@ -33,6 +33,7 @@
 		AD8A5EC12A1C50AF00D66627 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EC02A1C50AF00D66627 /* UITextField+Combine.swift */; };
 		AD8A5EC32A1C512100D66627 /* UIDatePicker+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EC22A1C512100D66627 /* UIDatePicker+Combine.swift */; };
 		AD8A5EC72A1C8EC300D66627 /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EC62A1C8EC300D66627 /* TaskRepository.swift */; };
+		ADA30B1A2A248AA500321DA5 /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA30B192A248AA500321DA5 /* HeaderViewModel.swift */; };
 		ADB54CEE2A20AE3A00A6409C /* DoingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB54CED2A20AE3A00A6409C /* DoingViewModel.swift */; };
 		ADB54CF02A20AE4400A6409C /* DoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB54CEF2A20AE4400A6409C /* DoneViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -70,6 +71,7 @@
 		AD8A5EC02A1C50AF00D66627 /* UITextField+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Combine.swift"; sourceTree = "<group>"; };
 		AD8A5EC22A1C512100D66627 /* UIDatePicker+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Combine.swift"; sourceTree = "<group>"; };
 		AD8A5EC62A1C8EC300D66627 /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
+		ADA30B192A248AA500321DA5 /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
 		ADB54CED2A20AE3A00A6409C /* DoingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingViewModel.swift; sourceTree = "<group>"; };
 		ADB54CEF2A20AE4400A6409C /* DoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +205,7 @@
 		ADB54CEB2A2078D000A6409C /* HeaderView */ = {
 			isa = PBXGroup;
 			children = (
+				ADA30B192A248AA500321DA5 /* HeaderViewModel.swift */,
 				AD450BE92A150E4A00A9C693 /* HeaderView.swift */,
 			);
 			path = HeaderView;
@@ -391,6 +394,7 @@
 				AD8A5EC72A1C8EC300D66627 /* TaskRepository.swift in Sources */,
 				62E8F9C72A1C9DBE0011B195 /* TaskStorageService.swift in Sources */,
 				AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */,
+				ADA30B1A2A248AA500321DA5 /* HeaderViewModel.swift in Sources */,
 				620335722A14ACAF00DDF23E /* Task.swift in Sources */,
 				62F7EA5E2A1F5319003DC5D7 /* TaskCollectionViewController.swift in Sources */,
 				AD8A5EC12A1C50AF00D66627 /* UITextField+Combine.swift in Sources */,

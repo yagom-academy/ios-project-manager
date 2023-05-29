@@ -102,7 +102,11 @@ final class TaskCollectionViewController: UIViewController  {
                 fatalError("Could not dequeue sectionHeader:")
             }
             
-            sectionHeader.titleLabel.text = "Section Header"
+            let viewModel = HeaderViewModel(
+                titleText: self.viewModel.taskWorkState.text,
+                badgeCount: self.viewModel.taskList.count
+            )
+            sectionHeader.provide(viewModel: viewModel)
             
             return sectionHeader
         }

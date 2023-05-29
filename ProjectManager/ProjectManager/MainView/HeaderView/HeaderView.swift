@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class HeaderView: UICollectionReusableView {
     static let identifier = "HeaderView"
@@ -45,13 +46,11 @@ final class HeaderView: UICollectionReusableView {
         return stackView
     }()
     
+    var viewModel: HeaderViewModel?
+    var bindings: [AnyCancellable] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(badgeLabel)
-        stackView.addArrangedSubview(UIView())
-        self.addSubview(stackView)
-        self.backgroundColor = .systemGray5
         
         configureLayout()
     }
@@ -60,7 +59,33 @@ final class HeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func provide(viewModel: HeaderViewModel) {
+        self.viewModel = viewModel
+        bindViewModelToView()
+    }
+    
+    private func bindViewModelToView() {
+        viewModel?.$titleText
+            .sink { title in
+                self.titleLabel.text = title
+            }
+            .store(in: &bindings)
+        
+        viewModel?.$badgeText
+            .sink { badgeText in
+                self.badgeLabel.text = badgeText
+            }
+            .store(in: &bindings)
+    }
+    
     private func configureLayout() {
+        self.backgroundColor = .systemGray5
+        self.addSubview(stackView)
+        
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(badgeLabel)
+        stackView.addArrangedSubview(UIView())
+        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             stackView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
