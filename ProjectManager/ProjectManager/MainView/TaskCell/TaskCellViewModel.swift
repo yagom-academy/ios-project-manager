@@ -6,25 +6,16 @@
 //
 
 import Foundation
+import Combine
 
 final class TaskCellViewModel {
-    private let task: Task
-    private let dateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy. MM. dd"
-
-        return formatter
-    }()
+    @Published var title: String
+    @Published var body: String
+    @Published var date: String
     
-    init(task: Task) {
-        self.task = task
+    init(task: Task, dateFormatter: DateFormatter) {
+        title = task.title
+        body = task.body
+        date = dateFormatter.string(from: task.date)
     }
-    
-    var title: String { return task.title }
-    
-    var body: String { return task.body }
-    
-    var date: String { return dateFormatter.string(from: task.date) }
-    
-    var workState: WorkState { return task.workState }
 }

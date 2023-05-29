@@ -18,6 +18,13 @@ final class TaskCollectionViewController: UIViewController  {
     var dataSource: DataSource?
     var viewModel: TaskListViewModel
     var bindings = Set<AnyCancellable>()
+    private let dateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        
+        return formatter
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,8 +131,8 @@ final class TaskCollectionViewController: UIViewController  {
             return UICollectionViewCell()
         }
 
-        let taskCellViewModel = TaskCellViewModel(task: task)
-        cell.provide(taskCellViewModel)
+        let taskCellViewModel = TaskCellViewModel(task: task, dateFormatter: dateFormatter)
+        cell.provide(viewModel: taskCellViewModel)
 
         return cell
     }

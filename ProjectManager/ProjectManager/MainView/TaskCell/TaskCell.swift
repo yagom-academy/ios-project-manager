@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class TaskCell: UICollectionViewListCell {
     static let identifier = "TaskCell"
@@ -46,6 +47,9 @@ final class TaskCell: UICollectionViewListCell {
         return stackView
     }()
     
+    private var viewModel: TaskCellViewModel?
+    private var bindings: [AnyCancellable] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureContentLayout()
@@ -55,8 +59,29 @@ final class TaskCell: UICollectionViewListCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    func provide(viewModel: TaskCellViewModel) {
+        self.viewModel = viewModel
+        bindViewModelToView()
+    }
+    
+    private func bindViewModelToView() {
+        viewModel?.$title
+            .sink { title in
+                self.titleLabel.text = title
+            }
+            .store(in: &bindings)
+        
+        viewModel?.$body
+            .sink { body in
+                self.bodyLabel.text = body
+            }
+            .store(in: &bindings)
+        
+        viewModel?.$date
+            .sink { date in
+                self.dateLabel.text = date
+            }
+            .store(in: &bindings)
     }
     
     private func configureContentLayout() {
@@ -71,11 +96,5 @@ final class TaskCell: UICollectionViewListCell {
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-    }
-    
-    func provide(_ item: TaskCellViewModel) {
-        titleLabel.text = item.title
-        bodyLabel.text = item.body
-        dateLabel.text = item.date
     }
 }

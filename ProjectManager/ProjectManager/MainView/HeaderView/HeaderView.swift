@@ -46,12 +46,11 @@ final class HeaderView: UICollectionReusableView {
         return stackView
     }()
     
-    var viewModel: HeaderViewModel?
-    var bindings: [AnyCancellable] = []
+    private var viewModel: HeaderViewModel?
+    private var bindings: [AnyCancellable] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configureLayout()
     }
     
