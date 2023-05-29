@@ -116,7 +116,7 @@ final class TaskCollectionViewController: UIViewController  {
             return UICollectionViewCell()
         }
 
-        guard let task = viewModel.taskList.filter({ $0.id == identifier }).first else {
+        guard let task = self.viewModel.taskList.filter({ $0.id == identifier }).first else {
             return UICollectionViewCell()
         }
 
@@ -133,7 +133,7 @@ final class TaskCollectionViewController: UIViewController  {
     }
     
     private func bindViewModelToView() {
-        viewModel.taskListPublisher
+        viewModel.currentTaskSubject
             .sink { taskList in
                 self.updateDataSource(taskList)
             }
@@ -142,9 +142,10 @@ final class TaskCollectionViewController: UIViewController  {
     
     private func updateDataSource(_ taskList: [Task]) {
         let taskIDList = taskList.map { $0.id }
+        
         var snapshot = Snapshot()
         snapshot.appendSections([viewModel.taskWorkState])
-        snapshot.appendItems(taskIDList)
+        snapshot.appendItems(taskIDList, toSection: viewModel.taskWorkState)
         dataSource?.apply(snapshot)
     }
 }

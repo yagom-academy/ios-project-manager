@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 final class TodoViewModel: TaskListViewModel {
-    @Published var taskList: [Task] = []
-    var taskListPublisher: Published<[Task]>.Publisher { $taskList }
+    var taskList: [Task] = [] {
+        didSet {
+            currentTaskSubject.send(taskList)
+        }
+    }
+    let currentTaskSubject = CurrentValueSubject<[Task], Never>([])
     let taskWorkState: WorkState = .todo
     var delegate: TaskListViewModelDelegate?
 }

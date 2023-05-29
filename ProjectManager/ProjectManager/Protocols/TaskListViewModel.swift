@@ -9,7 +9,7 @@ import Combine
 
 protocol TaskListViewModel: AnyObject {
     var taskList: [Task] { get set }
-    var taskListPublisher: Published<[Task]>.Publisher { get }
+    var currentTaskSubject: CurrentValueSubject<[Task], Never> { get }
     var taskWorkState: WorkState { get }
     var delegate: TaskListViewModelDelegate? { get set }
     
