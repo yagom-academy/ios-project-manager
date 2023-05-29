@@ -69,4 +69,14 @@ final class DBManager {
             taskObject.setValue(task.state, forKey: "state")
         }
     }
+    
+    func deleteTask(_ task: Task) {
+        guard let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: task.id) else {
+            return
+        }
+        
+        try? realm.write({
+            realm.delete(taskObject)
+        })
+    }
 }
