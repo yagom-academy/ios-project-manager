@@ -44,7 +44,8 @@ final class MainViewController: UIViewController {
     @objc
     private func presentDetailView() {
         let detailViewModelDelegate = mainViewModel.todoViewModel() as? DetailViewModelDelegate
-        let detailViewController = DetailViewController(task: nil, mode: .create)
+        let detailViewModel = DetailViewModel(mode: .create)
+        let detailViewController = DetailViewController(viewModel: detailViewModel)
         detailViewController.configureViewModelDelegate(with: detailViewModelDelegate)
         
         let navigationController = UINavigationController(rootViewController: detailViewController)
