@@ -165,9 +165,11 @@ extension TaskCollectionViewController: UICollectionViewDelegate {
         
         let detailViewController = DetailViewController(task: task, mode: .update)
         detailViewController.configureViewModelDelegate(with: viewModel as? DetailViewModelDelegate)
-        detailViewController.modalPresentationStyle = .formSheet
         
-        self.present(detailViewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: detailViewController)
+        navigationController.modalPresentationStyle = .formSheet
+        
+        self.present(navigationController, animated: true)
     }
 }
 

@@ -23,8 +23,6 @@ final class DetailViewController: UIViewController {
         }
     }
     
-    private var navigationBar: UINavigationBar?
-    
     private let titleTextfield = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title3)
@@ -106,7 +104,7 @@ final class DetailViewController: UIViewController {
     func configureViewModelDelegate(with delegate: DetailViewModelDelegate?) {
         detailViewModel.delegate = delegate
     }
-
+    
     private func bind(to viewModel: DetailViewModel) {
         assign(publisher: titleTextfield.textPublisher, keyPath: \.title)
         assign(publisher: bodyTextView.textPublisher, keyPath: \.body)
@@ -115,7 +113,7 @@ final class DetailViewController: UIViewController {
         detailViewModel
             .isEditingDone
             .sink { isEditingDone in
-                let rightBarButtonItem = self.navigationBar?.items?.last?.rightBarButtonItem
+                let rightBarButtonItem = self.navigationItem.rightBarButtonItem
                 rightBarButtonItem?.isEnabled = isEditingDone ? true : false
             }
             .store(in: &cancellables)
@@ -131,18 +129,7 @@ final class DetailViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationBar = UINavigationBar(
-            frame: .init(x: 0, y: 0, width: 250, height: 50)
-        )
-        
-        guard let navigationBar else {
-            return
-        }
-        
-        navigationBar.isTranslucent = false
-        navigationBar.standardAppearance.backgroundColor = .systemGray6
-        
-        let navigationItem = UINavigationItem(title: "Todo")
+        self.navigationItem.title = "TODO"
         let rightNavigationButton = UIBarButtonItem(
             title: "Done",
             style: .plain,
@@ -151,18 +138,14 @@ final class DetailViewController: UIViewController {
         )
         
         rightNavigationButton.isEnabled = false
+        self.navigationItem.rightBarButtonItem = rightNavigationButton
         
-        navigationItem.rightBarButtonItem = rightNavigationButton
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: mode.leftButtonTitle,
             style: .plain,
             target: self,
             action: #selector(tapCancelButton)
         )
-        navigationBar.items = [navigationItem]
-        
-        view.addSubview(navigationBar)
     }
     
     private func configureShadowView() {
@@ -209,7 +192,7 @@ final class DetailViewController: UIViewController {
         
         UIUserInteraction(isEnable: true)
     }
-                                      
+    
     private func configureStackView() {
         stackView.addArrangedSubview(titleTextfield)
         stackView.addArrangedSubview(datePicker)
@@ -225,7 +208,7 @@ final class DetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -10),
-            stackView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 60),
+            stackView.topAnchor.constraint(equalTo: safe.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -20),
         ])
     }

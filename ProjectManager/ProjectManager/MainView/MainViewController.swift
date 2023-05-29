@@ -45,10 +45,11 @@ final class MainViewController: UIViewController {
     private func presentDetailView() {
         let detailViewModelDelegate = mainViewModel.todoViewModel() as? DetailViewModelDelegate
         let detailViewController = DetailViewController(task: nil, mode: .create)
-        detailViewController.modalPresentationStyle = .formSheet
         detailViewController.configureViewModelDelegate(with: detailViewModelDelegate)
         
-        self.present(detailViewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: detailViewController)
+        navigationController.modalPresentationStyle = .formSheet
+        self.present(navigationController, animated: true)
     }
     
     private func configureRootView() {
