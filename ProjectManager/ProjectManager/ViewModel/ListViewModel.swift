@@ -62,11 +62,39 @@ final class ListViewModel {
         }
     }
     
-    func updateProject(id: UUID, to project: ProjectModel) {
+    func updateProject(state: State, id: UUID, title: String, description: String, deadLine: Date) {
+        var project: ProjectModel
         
+        switch state {
+        case .todo:
+            if let index = todoList.value.firstIndex(where: { $0.id == id }) {
+                project = todoList.value[index]
+                project.title = title
+                project.description = description
+                project.deadLine = deadLine
+                todoList.value[index] = project
+                print("바뀌고나서 id : \(project.id)")
+            }
+        case .doing:
+            if let index = doingList.value.firstIndex(where: { $0.id == id }) {
+                project = doingList.value[index]
+                project.title = title
+                project.description = description
+                project.deadLine = deadLine
+                doingList.value[index] = project
+            }
+        case .done:
+            if let index = doneList.value.firstIndex(where: { $0.id == id }) {
+                project = doneList.value[index]
+                project.title = title
+                project.description = description
+                project.deadLine = deadLine
+                doneList.value[index] = project
+            }
+        }
     }
     
-    func moveProject(project: ProjectModel, to changeState: State, at index: Int) {
+    func move(project: ProjectModel, to changeState: State, at index: Int) {
         var movedProject = project
         movedProject.state = changeState
         deleteProject(in: project.state, at: index)
@@ -81,4 +109,3 @@ final class ListViewModel {
         }
     }
 }
-

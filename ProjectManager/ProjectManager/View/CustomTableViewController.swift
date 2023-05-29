@@ -95,15 +95,15 @@ class CustomTableViewController: UIViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let project = listViewModel.fetchProject(with: state, index: index.row)
         let moveToTodo = UIAlertAction(title: NameSpace.moveTodo, style: .default) { _ in
-            self.listViewModel.moveProject(project: project, to: .todo, at: index.row)
+            self.listViewModel.move(project: project, to: .todo, at: index.row)
         }
         
         let moveToDoing = UIAlertAction(title: NameSpace.moveDoing, style: .default) { _ in
-            self.listViewModel.moveProject(project: project, to: .doing, at: index.row)
+            self.listViewModel.move(project: project, to: .doing, at: index.row)
         }
         
         let moveToDone = UIAlertAction(title: NameSpace.moveDone, style: .default) { _ in
-            self.listViewModel.moveProject(project: project, to: .done, at: index.row)
+            self.listViewModel.move(project: project, to: .done, at: index.row)
         }
         
         switch state {
