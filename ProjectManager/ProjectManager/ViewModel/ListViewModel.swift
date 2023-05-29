@@ -73,7 +73,6 @@ final class ListViewModel {
                 project.description = description
                 project.deadLine = deadLine
                 todoList.value[index] = project
-                print("바뀌고나서 id : \(project.id)")
             }
         case .doing:
             if let index = doingList.value.firstIndex(where: { $0.id == id }) {
