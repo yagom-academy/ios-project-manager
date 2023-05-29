@@ -5,6 +5,7 @@
 // 
 
 import UIKit
+import Combine
 import SnapKit
 
 enum Section {
@@ -12,9 +13,13 @@ enum Section {
 }
 
 class MainViewController: UIViewController {
+    private let todoListDataManager = TodoListDataManager()
+    private var cancellables = Set<AnyCancellable>()
+    
     private var todoDataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
     private var doingDataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
     private var doneDataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
+    
     private let todoCollectionView = CustomCollectionView()
     private let doingCollectionView = CustomCollectionView()
     private let doneCollectionView = CustomCollectionView()
@@ -31,7 +36,8 @@ class MainViewController: UIViewController {
         configureNavigation()
         configureUI()
         setUpDataSource()
-//        showPopup(MainViewController(), sourceView: UIView())
+        
+        observeListChanges()
     }
     
     private func configureUI() {
@@ -51,21 +57,18 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
     }
     
-//    private func showPopup(_ controller: UIViewController, sourceView: UIView) {
-//        controller.modalPresentationStyle = .popover
-//        controller.preferredContentSize = CGSize(width: 200, height: 100)
-//
-//        let presentationController = Popover.configurePresentation(controller: controller)
-//        presentationController?.sourceView = sourceView
-//        presentationController?.sourceRect = sourceView.bounds
-//        presentationController?.permittedArrowDirections = .up
-//        self.present(controller, animated: true)
-//    }
-    
     @objc private func didTapAddButton(sender: UIBarButtonItem) {
         modalPresentationStyle = .fullScreen
         let vc = PopupViewController()
         let nvc = UINavigationController(rootViewController: vc)
+        
+        vc.updateSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] updatedList in
+                self?.updateListSnapshot(updatedList, section: .main, dataSource: self?.todoDataSource)
+            }
+            .store(in: &cancellables)
+        
         present(nvc, animated: true, completion:nil)
     }
 }
@@ -77,7 +80,7 @@ extension MainViewController {
             cell.configure(title: todo.title, content: todo.content, date: todo.date)
         }
     }
-
+    
     private func configureHeaderRegistration(headerText: String, listCount: Int) -> UICollectionView.SupplementaryRegistration<Header> {
         return UICollectionView.SupplementaryRegistration<Header>(elementKind: UICollectionView.elementKindSectionHeader) { (headerView, _, _) in
             headerView.headerLabel.text = headerText
@@ -96,31 +99,46 @@ extension MainViewController {
         
         return dataSource
     }
-
+    
+    private func observeListChanges(for listPublisher: AnyPublisher<[TodoLabel], Never>, snapshotUpdater: @escaping ([TodoLabel]) -> Void) {
+        listPublisher
+            .sink { list in
+                snapshotUpdater(list)
+            }
+            .store(in: &cancellables)
+    }
+    
     private func setUpDataSource() {
+        let dataManager = TodoListDataManager()
         let registration = configureCellRegistration()
-        let todoHeader = configureHeaderRegistration(headerText: "TODO", listCount: todoList.count)
-        let doingHeader = configureHeaderRegistration(headerText: "DOING", listCount: doingList.count)
-        let doneHeader = configureHeaderRegistration(headerText: "DONE", listCount: doneList.count)
-
+        let todoHeader = configureHeaderRegistration(headerText: "TODO", listCount: dataManager.listCount().todo)
+        let doingHeader = configureHeaderRegistration(headerText: "DOING", listCount: dataManager.listCount().doing)
+        let doneHeader = configureHeaderRegistration(headerText: "DONE", listCount: dataManager.listCount().done)
+        
         todoDataSource = configureDataSource(collectionView: todoCollectionView, registration: registration, headerRegistration: todoHeader)
         doingDataSource = configureDataSource(collectionView: doingCollectionView, registration: registration, headerRegistration: doingHeader)
         doneDataSource = configureDataSource(collectionView: doneCollectionView, registration: registration, headerRegistration: doneHeader)
+    }
+    
+    private func updateListSnapshot(_ list: [TodoLabel], section: Section, dataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(list, toSection: .main)
 
-        var todoSnapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
-        todoSnapshot.appendSections([.main])
-        todoSnapshot.appendItems(todoList, toSection: .main)
+        dataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func observeListChanges() {
+        observeListChanges(for: todoListDataManager.todoListPublisher) { [weak self] todoList in
+            self?.updateListSnapshot(todoList, section: .main, dataSource: self?.todoDataSource)
+        }
         
-        var doingSnapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
-        doingSnapshot.appendSections([.main])
-        doingSnapshot.appendItems(doingList, toSection: .main)
+        observeListChanges(for: todoListDataManager.doingListPublisher) { [weak self] doingList in
+            self?.updateListSnapshot(doingList, section: .main, dataSource: self?.doingDataSource)
+        }
         
-        var doneSnapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
-        doneSnapshot.appendSections([.main])
-        doneSnapshot.appendItems(doneList, toSection: .main)
-
-        todoDataSource?.apply(todoSnapshot, animatingDifferences: true)
-        doingDataSource?.apply(doingSnapshot, animatingDifferences: true)
-        doneDataSource?.apply(doneSnapshot, animatingDifferences: true)
+        observeListChanges(for: todoListDataManager.doneListPublisher) { [weak self] doneList in
+            self?.updateListSnapshot(doneList, section: .main, dataSource: self?.doneDataSource)
+        }
     }
 }
