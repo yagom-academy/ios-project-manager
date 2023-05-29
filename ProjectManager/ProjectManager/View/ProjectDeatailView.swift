@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ModalView: View {
+struct ProjectDeatailView: View {
     @EnvironmentObject private var viewModel: ProjectViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @State var project: Project
@@ -58,7 +58,7 @@ struct ModalView: View {
 
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
-        ModalView(
+        ProjectDeatailView(
             project: .init(title: "", body: "", date: Date()),
             disableEdit: true,
             isEditMode: true

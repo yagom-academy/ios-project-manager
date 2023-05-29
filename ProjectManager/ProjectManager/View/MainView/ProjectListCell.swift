@@ -25,7 +25,7 @@ struct ProjectListCell: View {
         }.onTapGesture {
             isModalViewShow.toggle()
         }.sheet(isPresented: $isModalViewShow) {
-            ModalView(project: model, disableEdit: true, isEditMode: true)
+            ProjectDeatailView(project: model, disableEdit: true, isEditMode: true)
                 .environmentObject(viewModel)
         }
         
