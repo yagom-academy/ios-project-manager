@@ -213,9 +213,11 @@ final class TaskCollectionViewController: UIViewController  {
             }
             
             if cell == collectionView.cellForItem(at: indexPath) {
-                let changeWorkStateViewModel = ChangeWorkStateViewModel(
-                    workState: viewModel.taskWorkState
-                )
+                guard let task = viewModel.task(at: indexPath.row) else {
+                    return
+                }
+                
+                let changeWorkStateViewModel = ChangeWorkStateViewModel(from: task)
                 
                 let changeWorkStateViewController = ChangeWorkStateViewController(
                     viewModel: changeWorkStateViewModel

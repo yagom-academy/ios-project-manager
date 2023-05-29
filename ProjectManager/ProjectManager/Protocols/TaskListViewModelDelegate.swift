@@ -11,5 +11,4 @@ protocol TaskListViewModelDelegate {
     func createTask(_ task: Task)
     func updateTask(_ task: Task)
     func deleteTask(id: UUID)
-    func changeTaskWorkState(id: UUID, with: WorkState)
 }

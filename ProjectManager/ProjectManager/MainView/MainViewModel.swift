@@ -51,7 +51,9 @@ extension MainViewModel: TaskListViewModelDelegate {
     func deleteTask(id: UUID) {
         service.deleteTask(id: id)
     }
-    
+}
+
+extension MainViewModel: ChangeWorkStateViewModelDelegate {
     func changeTaskWorkState(id: UUID, with: WorkState) {
         
     }

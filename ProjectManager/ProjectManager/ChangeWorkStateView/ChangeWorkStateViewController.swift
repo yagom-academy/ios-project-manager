@@ -50,6 +50,7 @@ final class ChangeWorkStateViewController: UIViewController {
     override func viewDidLoad() {
         configureLayout()
         bindViewModelToView()
+        configureButtonAction()
     }
     
     private func configureLayout() {
@@ -68,7 +69,17 @@ final class ChangeWorkStateViewController: UIViewController {
     }
     
     private func configureButtonAction() {
+        firstButton.addTarget(
+            self,
+            action: #selector(firstButtonTapped),
+            for: .touchUpInside
+        )
         
+        secondButton.addTarget(
+            self,
+            action: #selector(secondButtonTapped),
+            for: .touchUpInside
+        )
     }
     
     private func bindViewModelToView() {
@@ -83,5 +94,15 @@ final class ChangeWorkStateViewController: UIViewController {
                 self.secondButton.setTitle(secondText, for: .normal)
             }
             .store(in: &bindings)
+    }
+    
+    @objc
+    private func firstButtonTapped() {
+        viewModel.changeWorkState(.first)
+    }
+    
+    @objc
+    private func secondButtonTapped() {
+        viewModel.changeWorkState(.second)
     }
 }
