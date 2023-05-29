@@ -16,8 +16,6 @@ final class PlanViewModel {
     
     private let state: State
     private var cancellables = Set<AnyCancellable>()
-
-    private(set) var currentLongPressedCell: PlanTableViewCell?
     
     init(state: State) {
         self.state = state
@@ -61,9 +59,5 @@ final class PlanViewModel {
     
     func changeState(plan: Plan, state: State) {
         changePublisher.send((plan, state))
-    }
-    
-    func updateCurrentCell(_ cell: PlanTableViewCell) {
-        currentLongPressedCell = cell
     }
 }

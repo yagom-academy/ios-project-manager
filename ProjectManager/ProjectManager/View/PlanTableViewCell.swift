@@ -39,7 +39,7 @@ final class PlanTableViewCell: UITableViewCell {
         return title
     }()
     
-    private lazy var date: UILabel = {
+    private let date: UILabel = {
         let title = UILabel()
         
         return title
@@ -100,7 +100,6 @@ final class PlanTableViewCell: UITableViewCell {
     }
     
     func fetchCellPlan() -> Plan? {
-        guard let plan = self.planTableCellViewModel?.fetchPlan() else { return nil }
-        return plan
+        return planTableCellViewModel?.fetchPlan()
     }
 }

@@ -8,39 +8,48 @@
 import UIKit
 
 final class HeaderView: UIView {
-    private let title = UILabel()
+    private let titleLabel = UILabel()
     private let countLabel = CircleLabel()
-    private var seperatorView = UIView()
+    private let seperatorView = UIView()
    
     init(text: String, frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(title)
+        self.addSubview(titleLabel)
         self.addSubview(countLabel)
         self.addSubview(seperatorView)
         
-        title.text = text
-        title.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        titleLabel.text = text
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        setUpHeaderView()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let titleY = (bounds.height - title.frame.height) / 2
+    func setUpHeaderView() {
+        let titleLabelLeadingConstant: CGFloat = 10
+        let countLabelLeadingConstant: CGFloat = 20
         
-        let countLabelX = title.frame.size.width + 20
-        let countLabelY = (bounds.height - countLabel.frame.height) / 2
-        let width = bounds.height * 0.5
-        
-        seperatorView.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 1)
+        seperatorView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            seperatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            seperatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            seperatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            seperatorView.heightAnchor.constraint(equalToConstant: 1),
+            
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: titleLabelLeadingConstant),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: countLabelLeadingConstant),
+            countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
+        ])
+
+        titleLabel.sizeToFit()
         seperatorView.backgroundColor = .placeholderText
-        
-        title.frame = CGRect(x: 10, y: titleY, width: bounds.width, height: title.frame.height)
-        title.sizeToFit()
-        
-        countLabel.frame = CGRect(x: countLabelX, y: countLabelY, width: width, height: width)
     }
 
     func changeCount(_ count: String) {

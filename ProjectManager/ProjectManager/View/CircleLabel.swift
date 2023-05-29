@@ -12,12 +12,12 @@ final class CircleLabel: UILabel {
         super.init(frame: .zero)
         self.textColor = .white
         self.backgroundColor = .black
-        self.font = UIFont.preferredFont(forTextStyle: .headline)
+        self.font = UIFont.preferredFont(forTextStyle: .title2)
         self.textAlignment = .center
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
+    override func layoutSubviews() {
+        super.layoutSubviews()
         layer.masksToBounds = true
         layer.cornerRadius = bounds.height / 2
     }
