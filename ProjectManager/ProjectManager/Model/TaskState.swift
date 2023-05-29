@@ -20,4 +20,17 @@ enum TaskState {
             return "DONE"
         }
     }
+    
+    static func checkTodoState(by text: String) -> Self? {
+        switch text {
+        case "TODO":
+            return .todo
+        case "DOING":
+            return .doing
+        case "DONE":
+            return .done
+        default:
+            return nil
+        }
+    }
 }
