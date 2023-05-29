@@ -80,6 +80,7 @@ final class DetailProjectViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .white
         title = NameSpace.navigationTitle
+        descriptionTextView.delegate = self
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                          target: self,
@@ -192,6 +193,20 @@ final class DetailProjectViewController: UIViewController {
             return false
         }
         
+        return true
+    }
+}
+
+extension DetailProjectViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if let char = text.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        
+        guard descriptionTextView.text.count < 1000 else { return false }
         return true
     }
 }
