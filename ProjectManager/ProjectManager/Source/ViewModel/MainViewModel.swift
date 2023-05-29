@@ -27,28 +27,6 @@ final class MainViewModel {
         return schedule
     }
     
-    func fetchSchedule(index: Int, scheduleType: ScheduleType) -> Schedule {
-        switch scheduleType {
-        case .todo:
-            return todoSchedules[index]
-        case .doing:
-            return doingSchedules[index]
-        case .done:
-            return doneSchedules[index]
-        }
-    }
-    
-    func fetchScheduleList(scheduleType: ScheduleType) -> [Schedule] {
-        switch scheduleType {
-        case .todo:
-            return todoSchedules
-        case .doing:
-            return doingSchedules
-        case .done:
-            return doneSchedules
-        }
-    }
-    
     func deleteSchedule(scheduleType: ScheduleType, index: Int) {
         switch scheduleType {
         case .todo:
@@ -95,7 +73,7 @@ final class MainViewModel {
     
     func move(fromIndex: Int, from: ScheduleType, to: ScheduleType) {
         var schedule: Schedule
-        var target: [Schedule]
+        
         switch from {
         case .todo:
             schedule = todoSchedules.remove(at: fromIndex)

@@ -16,7 +16,6 @@
 		1CC9D3FC2A1C4CD300654A5D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */; };
 		982DF0862A17ADEA0024BEB1 /* IdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */; };
 		983C04362A1B4BDA000E4702 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */; };
-		983C043C2A1D9BB3000E4702 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C043B2A1D9BB3000E4702 /* Observable.swift */; };
 		983C043E2A1DAB0D000E4702 /* ScheduleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C043D2A1DAB0D000E4702 /* ScheduleType.swift */; };
 		983C04442A2084DD000E4702 /* Namespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C04432A2084DD000E4702 /* Namespace.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -36,7 +35,6 @@
 		1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierType.swift; sourceTree = "<group>"; };
 		983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
-		983C043B2A1D9BB3000E4702 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		983C043D2A1DAB0D000E4702 /* ScheduleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleType.swift; sourceTree = "<group>"; };
 		983C04432A2084DD000E4702 /* Namespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Namespace.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */,
-				983C043B2A1D9BB3000E4702 /* Observable.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -246,7 +243,6 @@
 				1C16A8712A14B484001640E2 /* ScheduleCell.swift in Sources */,
 				1CC9D3E02A160D1E00654A5D /* DoListViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
-				983C043C2A1D9BB3000E4702 /* Observable.swift in Sources */,
 				982DF0862A17ADEA0024BEB1 /* IdentifierType.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				983C04362A1B4BDA000E4702 /* DateFormatterManager.swift in Sources */,

@@ -85,8 +85,7 @@ class DoListViewController: UIViewController {
         self.dataSource = UICollectionViewDiffableDataSource<Section, Schedule> (collectionView: self.collectionView) { (collectionView, indexPath, schedule) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScheduleCell.identifier, for: indexPath) as? ScheduleCell else { return nil
             }
-
-            cell.configureUI()
+            
             cell.configureLabel(schedule: schedule)
             
             return cell
