@@ -11,12 +11,6 @@ enum Section {
     case main
 }
 
-struct TodoLabel: Hashable {
-    let title: String
-    let content: String
-    let date: Date
-}
-
 class MainViewController: UIViewController {
     private var todoDataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
     private var doingDataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
