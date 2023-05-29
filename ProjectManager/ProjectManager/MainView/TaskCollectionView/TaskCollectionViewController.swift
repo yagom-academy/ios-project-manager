@@ -209,7 +209,23 @@ final class TaskCollectionViewController: UIViewController  {
             }
             
             if cell == collectionView.cellForItem(at: indexPath) {
-                print("long press button tapped")
+                let changeWorkStateViewModel = ChangeWorkStateViewModel(
+                    workState: viewModel.taskWorkState
+                )
+                
+                let changeWorkStateViewController = ChangeWorkStateViewController(
+                    viewModel: changeWorkStateViewModel
+                )
+                changeWorkStateViewController.modalPresentationStyle = .popover
+                changeWorkStateViewController.popoverPresentationController?.sourceView = cell
+                changeWorkStateViewController.preferredContentSize = CGSize(width: 300, height: 120)
+                changeWorkStateViewController.popoverPresentationController?.sourceRect = CGRect(
+                    origin: CGPoint(x: cell.bounds.midX, y: cell.bounds.midY),
+                    size: .zero
+                )
+                changeWorkStateViewController.popoverPresentationController?.permittedArrowDirections = .down
+                
+                self.present(changeWorkStateViewController, animated: true)
             }
         }
     }

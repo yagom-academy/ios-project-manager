@@ -5,7 +5,7 @@
 //  Created by Brody, Rowan on 2023/05/17.
 //
 
-enum WorkState {
+enum WorkState: CaseIterable {
     case todo
     case doing
     case done
@@ -18,6 +18,17 @@ enum WorkState {
             return "DOING"
         case .done:
             return "DONE"
+        }
+    }
+    
+    var buttonTitle: String {
+        switch self {
+        case .todo:
+            return "Move to TODO"
+        case .doing:
+            return "Move to DOING"
+        case .done:
+            return "Move to DONE"
         }
     }
 }

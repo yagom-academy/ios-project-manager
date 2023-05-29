@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		620335722A14ACAF00DDF23E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620335712A14ACAF00DDF23E /* Task.swift */; };
+		624D52872A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624D52862A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift */; };
 		62A63EAA2A1DA18600AF928F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EA92A1DA18600AF928F /* MainViewController.swift */; };
 		62A63EB02A1DB33400AF928F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EAF2A1DB33400AF928F /* MainViewModel.swift */; };
 		62A63EB32A1DDBAF00AF928F /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EB22A1DDBAF00AF928F /* TaskListViewModel.swift */; };
@@ -30,7 +31,7 @@
 		AD8A5EC12A1C50AF00D66627 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EC02A1C50AF00D66627 /* UITextField+Combine.swift */; };
 		AD8A5EC32A1C512100D66627 /* UIDatePicker+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A5EC22A1C512100D66627 /* UIDatePicker+Combine.swift */; };
 		ADA30B1A2A248AA500321DA5 /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA30B192A248AA500321DA5 /* HeaderViewModel.swift */; };
-		ADA30B202A24B0A500321DA5 /* MovePopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA30B1F2A24B0A500321DA5 /* MovePopoverViewController.swift */; };
+		ADA30B202A24B0A500321DA5 /* ChangeWorkStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA30B1F2A24B0A500321DA5 /* ChangeWorkStateViewController.swift */; };
 		ADB54CEE2A20AE3A00A6409C /* DoingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB54CED2A20AE3A00A6409C /* DoingViewModel.swift */; };
 		ADB54CF02A20AE4400A6409C /* DoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB54CEF2A20AE4400A6409C /* DoneViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		54B19838FDB3578D71BD6685 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		620335712A14ACAF00DDF23E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		624D52862A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeWorkStateViewModel.swift; sourceTree = "<group>"; };
 		62A63EA92A1DA18600AF928F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		62A63EAF2A1DB33400AF928F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		62A63EB22A1DDBAF00AF928F /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
@@ -65,7 +67,7 @@
 		AD8A5EC02A1C50AF00D66627 /* UITextField+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Combine.swift"; sourceTree = "<group>"; };
 		AD8A5EC22A1C512100D66627 /* UIDatePicker+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Combine.swift"; sourceTree = "<group>"; };
 		ADA30B192A248AA500321DA5 /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
-		ADA30B1F2A24B0A500321DA5 /* MovePopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovePopoverViewController.swift; sourceTree = "<group>"; };
+		ADA30B1F2A24B0A500321DA5 /* ChangeWorkStateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeWorkStateViewController.swift; sourceTree = "<group>"; };
 		ADB54CED2A20AE3A00A6409C /* DoingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingViewModel.swift; sourceTree = "<group>"; };
 		ADB54CEF2A20AE4400A6409C /* DoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,12 +187,13 @@
 			path = Combine;
 			sourceTree = "<group>";
 		};
-		ADA30B1E2A24B08400321DA5 /* MovePopoverView */ = {
+		ADA30B1E2A24B08400321DA5 /* ChangeWorkStateView */ = {
 			isa = PBXGroup;
 			children = (
-				ADA30B1F2A24B0A500321DA5 /* MovePopoverViewController.swift */,
+				ADA30B1F2A24B0A500321DA5 /* ChangeWorkStateViewController.swift */,
+				624D52862A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift */,
 			);
-			path = MovePopoverView;
+			path = ChangeWorkStateView;
 			sourceTree = "<group>";
 		};
 		ADB54CEB2A2078D000A6409C /* HeaderView */ = {
@@ -241,7 +244,7 @@
 				620335702A14AC9700DDF23E /* Model */,
 				6203356F2A14AB0500DDF23E /* MainView */,
 				62F8A1C02A1B331C005F6BF7 /* DetailView */,
-				ADA30B1E2A24B08400321DA5 /* MovePopoverView */,
+				ADA30B1E2A24B08400321DA5 /* ChangeWorkStateView */,
 				62E8F9C82A1CA2CA0011B195 /* Protocols */,
 				62D600312A14C24B00AD7490 /* Extensions */,
 			);
@@ -370,7 +373,7 @@
 				62F8A1CA2A1B62CD005F6BF7 /* TextView+Combine.swift in Sources */,
 				62D600582A1778DE00AD7490 /* TaskCell.swift in Sources */,
 				ADB54CEE2A20AE3A00A6409C /* DoingViewModel.swift in Sources */,
-				ADA30B202A24B0A500321DA5 /* MovePopoverViewController.swift in Sources */,
+				ADA30B202A24B0A500321DA5 /* ChangeWorkStateViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				62D600332A14C25D00AD7490 /* Array.swift in Sources */,
 				AD8A5EBF2A1B6D7B00D66627 /* UIControl+Combine.swift in Sources */,
@@ -380,6 +383,7 @@
 				62A63EB32A1DDBAF00AF928F /* TaskListViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				62A63EB02A1DB33400AF928F /* MainViewModel.swift in Sources */,
+				624D52872A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift in Sources */,
 				62E8F9C72A1C9DBE0011B195 /* TaskStorageService.swift in Sources */,
 				AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */,
 				ADA30B1A2A248AA500321DA5 /* HeaderViewModel.swift in Sources */,
