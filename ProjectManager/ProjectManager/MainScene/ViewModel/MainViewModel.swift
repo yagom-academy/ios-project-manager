@@ -17,8 +17,8 @@ class MainViewModel {
     }
     
     init() {
-        self.tasks = dbManager.searchAllTask()
-        postChangedTasksNoti()
+        guard let tasks = dbManager?.searchAllTask() else { return }
+        self.tasks = tasks
     }
     
     func deleteTask(_ task: Task) {
@@ -26,7 +26,7 @@ class MainViewModel {
         
         tasks.remove(at: targetIndex)
         
-        dbManager.removeTask(task)
+        dbManager?.removeTask(task)
     }
     
     func changeTaskState(by task: Task, _ state: TaskState) {
@@ -34,7 +34,7 @@ class MainViewModel {
         
         tasks[targetIndex].state = state
         
-        dbManager.updateTask(tasks[targetIndex])
+        dbManager?.updateTask(tasks[targetIndex])
     }
     
     func replaceTask(_ task: Task) {
@@ -46,13 +46,13 @@ class MainViewModel {
         
         tasks[targetIndex] = task
         
-        dbManager.updateTask(task)
+        dbManager?.updateTask(task)
     }
     
     func appendTask(_ task: Task) {
         tasks.append(task)
         
-        dbManager.addTask(by: task)
+        dbManager?.addTask(by: task)
     }
     
     func filterTasks(by state: TaskState) -> [Task] {

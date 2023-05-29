@@ -10,11 +10,11 @@ import RealmSwift
 final class DBManager {
     private let realm: Realm
     
-    init() {
+    init?() {
         do {
             self.realm = try Realm()
         } catch {
-            fatalError("Error Realm")
+            return nil
         }
     }
     
@@ -66,7 +66,7 @@ final class DBManager {
             taskObject.setValue(task.title, forKey: "title")
             taskObject.setValue(task.description, forKey: "desc")
             taskObject.setValue(task.date, forKey: "date")
-            taskObject.setValue(task.state, forKey: "state")
+            taskObject.setValue(task.state?.titleText, forKey: "state")
         }
     }
     
