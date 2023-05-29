@@ -9,11 +9,7 @@ import UIKit
 
 class Header: UICollectionReusableView {
     
-    let headerLabel = {
-        let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        return label
-    }()
+    let headerLabel = UILabel()
     
     let cellCountLabel = {
         let label = UILabel()
@@ -50,8 +46,7 @@ class Header: UICollectionReusableView {
         }
         
         headerStackView.snp.makeConstraints {
-            $0.top.equalTo(10)
-            $0.bottom.equalTo(-10)
+            $0.edges.equalToSuperview().inset(20)
         }
         
     }

@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		710711402A19C76C0068D744 /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7107113F2A19C76B0068D744 /* Date+extension.swift */; };
+		7114EFA82A227C0000EF5BB9 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7114EFA72A227C0000EF5BB9 /* Popover.swift */; };
 		7131678D2A1375AB00D54F58 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7131678C2A1375AB00D54F58 /* SnapKit */; };
 		717F0F0D2A17BB0900F15E1D /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717F0F0C2A17BB0800F15E1D /* PopupViewController.swift */; };
 		717F0F0F2A17BDCA00F15E1D /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717F0F0E2A17BDCA00F15E1D /* TodoListCell.swift */; };
 		71D5C2352A1E6101007F1B8F /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D5C2342A1E6101007F1B8F /* CustomCollectionView.swift */; };
 		71F8B5072A1F667C006D24E6 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F8B5062A1F667C006D24E6 /* Header.swift */; };
+		71FC30072A24B4EA00901CBD /* TodoListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FC30062A24B4EA00901CBD /* TodoListData.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -22,10 +24,12 @@
 
 /* Begin PBXFileReference section */
 		7107113F2A19C76B0068D744 /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
+		7114EFA72A227C0000EF5BB9 /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
 		717F0F0C2A17BB0800F15E1D /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		717F0F0E2A17BDCA00F15E1D /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
 		71D5C2342A1E6101007F1B8F /* CustomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionView.swift; sourceTree = "<group>"; };
 		71F8B5062A1F667C006D24E6 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		71FC30062A24B4EA00901CBD /* TodoListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListData.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				7107113F2A19C76B0068D744 /* Date+extension.swift */,
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				71FC30062A24B4EA00901CBD /* TodoListData.swift */,
+				7114EFA72A227C0000EF5BB9 /* Popover.swift */,
 				71F8B5062A1F667C006D24E6 /* Header.swift */,
 				71D5C2342A1E6101007F1B8F /* CustomCollectionView.swift */,
 				717F0F0E2A17BDCA00F15E1D /* TodoListCell.swift */,
@@ -181,7 +187,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				7114EFA82A227C0000EF5BB9 /* Popover.swift in Sources */,
 				710711402A19C76C0068D744 /* Date+extension.swift in Sources */,
+				71FC30072A24B4EA00901CBD /* TodoListData.swift in Sources */,
 				717F0F0F2A17BDCA00F15E1D /* TodoListCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
