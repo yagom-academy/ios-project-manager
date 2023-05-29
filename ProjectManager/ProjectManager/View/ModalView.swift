@@ -12,7 +12,7 @@ struct ModalView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var project: Project
     @State var disableEdit: Bool
-    let isEdit: Bool
+    let isEditMode: Bool
     
     var body: some View {
         NavigationStack{
@@ -38,7 +38,7 @@ struct ModalView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isEdit ? viewModel.update(project: project) : viewModel.create(project: project)
+                        isEditMode ? viewModel.update(project: project) : viewModel.create(project: project)
                         self.presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Done")
@@ -46,9 +46,9 @@ struct ModalView: View {
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        isEdit ? disableEdit.toggle() : presentationMode.wrappedValue.dismiss()
+                        isEditMode ? disableEdit.toggle() : presentationMode.wrappedValue.dismiss()
                     } label: {
-                        isEdit ? Text("Edit") : Text("Cancel")
+                        isEditMode ? Text("Edit") : Text("Cancel")
                     }
                 }
             }
@@ -61,7 +61,7 @@ struct ModalView_Previews: PreviewProvider {
         ModalView(
             project: .init(title: "", body: "", date: Date()),
             disableEdit: true,
-            isEdit: true
+            isEditMode: true
         )
         .environmentObject(ProjectViewModel())
     }

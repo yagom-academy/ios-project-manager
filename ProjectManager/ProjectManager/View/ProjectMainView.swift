@@ -38,7 +38,7 @@ struct ProjectMainView: View {
                 ModalView(
                     project: Project(title: "", body: "", date: Date()),
                     disableEdit: false,
-                    isEdit: false)
+                    isEditMode: false)
                 .environmentObject(viewModel)
             }
         }

@@ -11,7 +11,7 @@ struct ProjectListCell: View {
     @EnvironmentObject var viewModel: ProjectViewModel
     @State var isModalViewShow: Bool = false
     let model: Project
-    let state: ProjectState
+    let dateManager = DateManager.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {
@@ -20,11 +20,12 @@ struct ProjectListCell: View {
             Text(model.body)
                 .lineLimit(3)
                 .foregroundColor(.secondary)
-            Text(ProjectDateFormatter.shared.formatDateText(date: model.date))
+            Text(dateManager.formatDateText(date: model.date))
+                .foregroundColor(dateManager.checkDeadline(date: model.date) ? .black : .red)
         }.onTapGesture {
             isModalViewShow.toggle()
         }.sheet(isPresented: $isModalViewShow) {
-            ModalView(project: model, disableEdit: true, isEdit: true)
+            ModalView(project: model, disableEdit: true, isEditMode: true)
                 .environmentObject(viewModel)
         }
         
@@ -34,8 +35,7 @@ struct ProjectListCell: View {
 struct ProjectListCell_Previews: PreviewProvider {
     static var previews: some View {
         ProjectListCell(
-            model: Project(title: "안녕", body: "하세요", date: Date()),
-            state: .doing)
+            model: Project(title: "안녕", body: "하세요", date: Date()))
         .environmentObject(ProjectViewModel())
     }
 }
