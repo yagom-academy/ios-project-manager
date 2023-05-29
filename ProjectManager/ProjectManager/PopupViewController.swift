@@ -93,11 +93,10 @@ class PopupViewController: UIViewController {
     }
     
     @objc private func didTapDoneButton() {
-        let todoListDataManager = TodoListDataManager()
         let todoLabel = TodoLabel(title: titleTextField.text ?? "", content: contentTextView.text ?? "", date: datePicker.date)
         
-        todoListDataManager.addTodoLabelToTodoList(todoLabel)
-        updateSubject.send(todoListDataManager.todoListSubject.value)
+        TodoListDataManager.shared.addTodoLabelToTodoList(todoLabel)
+        updateSubject.send(TodoListDataManager.shared.todoListSubject.value)
         
         dismiss(animated: true)
     }

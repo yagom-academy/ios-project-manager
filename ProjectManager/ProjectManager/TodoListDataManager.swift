@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 class TodoListDataManager {
+    static let shared = TodoListDataManager()
+    
     private(set) var todoListSubject = CurrentValueSubject<[TodoLabel], Never>([])
     private var doingListSubject = CurrentValueSubject<[TodoLabel], Never>([])
     private var doneListSubject = CurrentValueSubject<[TodoLabel], Never>([])
@@ -36,12 +38,12 @@ class TodoListDataManager {
         
         doneListSubject.value = [TodoLabel(title: "방정리", content: "눈감고 그댈 그려요 맘속 그댈 찾았죠", date: Date())]
     }
-
+    
     func addTodoLabelToTodoList(_ todoLabel: TodoLabel) {
         todoListSubject.value.append(todoLabel)
         todoListSubject.send(todoListSubject.value)
     }
-    
+
     func listCount() -> (todo: Int, doing: Int, done: Int) {
         return (todoListSubject.value.count, doingListSubject.value.count, doneListSubject.value.count)
     }

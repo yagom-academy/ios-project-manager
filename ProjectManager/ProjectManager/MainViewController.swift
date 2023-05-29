@@ -13,7 +13,6 @@ enum Section {
 }
 
 class MainViewController: UIViewController {
-    private let todoListDataManager = TodoListDataManager()
     private var cancellables = Set<AnyCancellable>()
     
     private var todoDataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?
@@ -111,9 +110,9 @@ extension MainViewController {
     private func setUpDataSource() {
         let dataManager = TodoListDataManager()
         let registration = configureCellRegistration()
-        let todoHeader = configureHeaderRegistration(headerText: "TODO", listCount: dataManager.listCount().todo)
-        let doingHeader = configureHeaderRegistration(headerText: "DOING", listCount: dataManager.listCount().doing)
-        let doneHeader = configureHeaderRegistration(headerText: "DONE", listCount: dataManager.listCount().done)
+        let todoHeader = configureHeaderRegistration(headerText: "TODO", listCount: TodoListDataManager.shared.listCount().todo)
+        let doingHeader = configureHeaderRegistration(headerText: "DOING", listCount: TodoListDataManager.shared.listCount().doing)
+        let doneHeader = configureHeaderRegistration(headerText: "DONE", listCount: TodoListDataManager.shared.listCount().done)
         
         todoDataSource = configureDataSource(collectionView: todoCollectionView, registration: registration, headerRegistration: todoHeader)
         doingDataSource = configureDataSource(collectionView: doingCollectionView, registration: registration, headerRegistration: doingHeader)
@@ -129,15 +128,15 @@ extension MainViewController {
     }
     
     private func observeListChanges() {
-        observeListChanges(for: todoListDataManager.todoListPublisher) { [weak self] todoList in
+        observeListChanges(for: TodoListDataManager.shared.todoListPublisher) { [weak self] todoList in
             self?.updateListSnapshot(todoList, section: .main, dataSource: self?.todoDataSource)
         }
-        
-        observeListChanges(for: todoListDataManager.doingListPublisher) { [weak self] doingList in
+
+        observeListChanges(for: TodoListDataManager.shared.doingListPublisher) { [weak self] doingList in
             self?.updateListSnapshot(doingList, section: .main, dataSource: self?.doingDataSource)
         }
-        
-        observeListChanges(for: todoListDataManager.doneListPublisher) { [weak self] doneList in
+
+        observeListChanges(for: TodoListDataManager.shared.doneListPublisher) { [weak self] doneList in
             self?.updateListSnapshot(doneList, section: .main, dataSource: self?.doneDataSource)
         }
     }
