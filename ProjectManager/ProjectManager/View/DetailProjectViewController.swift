@@ -10,6 +10,7 @@ import UIKit
 final class DetailProjectViewController: UIViewController {
     private let listViewModel = ListViewModel.shared
     private var isNewProject: Bool
+    private var project: ProjectModel?
 
     private let contentView: UIStackView = {
         let stackView = UIStackView()
@@ -66,11 +67,14 @@ final class DetailProjectViewController: UIViewController {
         configureUI()
         configureAddSubviews()
         configureConstraints()
+        checktextEditable()
     }
     
-    func configureContent(with list: ProjectModel) {
-        titleTextField.text = list.title
-        descriptionTextView.text = list.description
+    func configureContent(with project: ProjectModel) {
+        self.project = project
+        titleTextField.text = project.title
+        descriptionTextView.text = project.description
+        datePicker.date = project.deadLine
     }
     
     private func configureUI() {
@@ -81,20 +85,26 @@ final class DetailProjectViewController: UIViewController {
                                          target: self,
                                          action: #selector(doneButton))
         
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                           target: self,
+                                           action: #selector(cancelButton))
+        
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
+                                         target: self,
+                                         action: #selector(editButton))
+        
+        let updateButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                         target: self,
+                                         action: #selector(updateButton))
+    
         if isNewProject {
-            let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                               target: self,
-                                               action: #selector(cancelButton))
-            
             navigationItem.leftBarButtonItem = cancelButton
+            navigationItem.rightBarButtonItem = doneButton
         } else {
-            let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
-                                             target: self,
-                                             action: #selector(editButton))
-            
             navigationItem.leftBarButtonItem = editButton
+            navigationItem.rightBarButtonItem = updateButton
         }
-        navigationItem.rightBarButtonItem = doneButton
+        
     }
     
     private func configureAddSubviews() {
@@ -111,6 +121,16 @@ final class DetailProjectViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    private func checktextEditable() {
+        if isNewProject {
+            titleTextField.isEnabled = true
+            descriptionTextView.isEditable = true
+        } else {
+            titleTextField.isEnabled = false
+            descriptionTextView.isEditable = false
+        }
     }
     
     @objc
@@ -132,7 +152,25 @@ final class DetailProjectViewController: UIViewController {
     
     @objc
     private func editButton() {
+        titleTextField.isEnabled = true
         descriptionTextView.isEditable = true
+    }
+    
+    @objc
+    private func updateButton() {
+        guard let project,
+              let title = titleTextField.text,
+              let description = descriptionTextView.text else { return }
+        
+        let date = datePicker.date
+        print("바뀌기 전 uuid : \(project.id)")
+        listViewModel.updateProject(state: project.state,
+                                    id: project.id,
+                                    title: title,
+                                    description: description,
+                                    deadLine: date)
+    
+        self.dismiss(animated: true)
     }
 }
 
