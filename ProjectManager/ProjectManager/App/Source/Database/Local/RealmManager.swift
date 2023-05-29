@@ -9,9 +9,9 @@ import Foundation
 import RealmSwift
 
 final class RealmManager {
-    let realm = try? Realm()
+    private let realm = try? Realm()
     
-    func create<T: Object>(_ data: T) {
+    func create<T: Object & Identifying>(_ data: T) {
         guard let realm = realm else { return }
 
         do {
@@ -23,7 +23,7 @@ final class RealmManager {
         }
     }
     
-    func read<T: Object>(type: T.Type, id: UUID) -> T? {
+    func read<T: Object & Identifying>(type: T.Type, id: UUID) -> T? {
         guard let realm = realm else { return nil }
         
         let object = realm.object(ofType: type, forPrimaryKey: id)
@@ -31,13 +31,13 @@ final class RealmManager {
         return object
     }
     
-    func readAll<T: Object>(type: T.Type) -> Results<T>? {
+    func readAll<T: Object & Identifying>(type: T.Type) -> [T]? {
         guard let realm = realm else { return nil }
         
-        return realm.objects(type)
+        return Array(realm.objects(type))
     }
     
-    func update<T: Object>(_ data: T) {
+    func update<T: Object & Identifying>(_ data: T) {
         guard let realm = realm else { return }
         
         do {
@@ -49,12 +49,25 @@ final class RealmManager {
         }
     }
     
-    func delete<T: Object>(_ data: T) {
+    func delete<T: Object & Identifying>(_ data: T) {
+        guard let realm = realm,
+              let object = read(type: T.self, id: data.id) else { return }
+        
+        do {
+            try realm.write {
+                realm.delete(object)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func deleteAll() {
         guard let realm = realm else { return }
         
         do {
             try realm.write {
-                realm.delete(data)
+                realm.deleteAll()
             }
         } catch {
             print(error.localizedDescription)

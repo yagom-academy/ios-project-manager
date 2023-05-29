@@ -35,7 +35,7 @@ final class TaskListViewModel {
     func delete(indexPath: IndexPath) {
         guard let task = taskList[safe: indexPath.row] else { return }
         
-        taskManager.delete(by: task.id)
+        taskManager.delete(task)
     }
     
     func changeState(indexPath: IndexPath, state: TaskState?) {
@@ -44,7 +44,7 @@ final class TaskListViewModel {
         
         task.state = state
         
-        taskManager.update(task: task)
+        taskManager.update(task)
     }
     
     private func requestFilteredTaskList() {

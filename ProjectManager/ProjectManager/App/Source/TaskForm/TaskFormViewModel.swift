@@ -77,7 +77,7 @@ final class TaskFormViewModel {
     private func addTask(title: String, date: Date, body: String) {
         let task = MyTask(state: .todo, title: title, body: body, deadline: date)
         
-        taskManager.create(task: task)
+        taskManager.create(task)
     }
     
     private func updateTask(title: String, date: Date, body: String) {
@@ -87,6 +87,6 @@ final class TaskFormViewModel {
         
         guard let task else { return }
         
-        taskManager.update(task: task)
+        taskManager.update(task)
     }
 }

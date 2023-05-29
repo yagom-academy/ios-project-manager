@@ -8,9 +8,25 @@
 import Foundation
 
 struct MyTask: Hashable {
-    let id = UUID()
+    let id: UUID
     var state: TaskState
     var title: String
     var body: String
     var deadline: Date
+    
+    init(id: UUID = UUID(), state: TaskState, title: String, body: String, deadline: Date) {
+        self.id = id
+        self.state = state
+        self.title = title
+        self.body = body
+        self.deadline = deadline
+    }
+    
+    init(_ realmTask: RealmTask) {
+        self.id = realmTask.id
+        self.state = realmTask.state
+        self.title = realmTask.title
+        self.body = realmTask.body
+        self.deadline = realmTask.deadline
+    }
 }
