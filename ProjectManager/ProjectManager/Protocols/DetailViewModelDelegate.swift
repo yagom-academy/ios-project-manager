@@ -7,6 +7,6 @@
 import Foundation
 
 protocol DetailViewModelDelegate: AnyObject {
-    func updateTaskList(for workState: WorkState)
-    func updateDataSource(for workState: WorkState, itemID: UUID?)
+    func createTask(_ task: Task)
+    func updateTask(_ task: Task)
 }

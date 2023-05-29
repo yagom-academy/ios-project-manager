@@ -84,7 +84,7 @@ final class DetailViewController: UIViewController {
     weak var delegate: DetailViewModelDelegate?
     
     init(task: Task?, mode: Mode) {
-        self.detailViewModel = DetailViewModel(task: task)
+        self.detailViewModel = DetailViewModel(from: task)
         self.mode = mode
         super.init(nibName: nil, bundle: nil)
     }
@@ -104,7 +104,7 @@ final class DetailViewController: UIViewController {
     }
     
     func configureViewModelDelegate(with delegate: DetailViewModelDelegate?) {
-        
+        detailViewModel.delegate = delegate
     }
 
     private func bind(to viewModel: DetailViewModel) {
@@ -132,7 +132,7 @@ final class DetailViewController: UIViewController {
     
     private func configureNavigationBar() {
         navigationBar = UINavigationBar(
-            frame: .init(x: 0, y: 0, width: view.frame.width / 2 + 20, height: 50)
+            frame: .init(x: 0, y: 0, width: 250, height: 50)
         )
         
         guard let navigationBar else {
@@ -193,11 +193,8 @@ final class DetailViewController: UIViewController {
         switch mode {
         case .create:
             detailViewModel.createTask()
-            delegate?.updateTaskList(for: .todo)
         case .update:
             detailViewModel.updateTask()
-            delegate?.updateTaskList(for: detailViewModel.workState)
-            delegate?.updateDataSource(for: detailViewModel.workState, itemID: detailViewModel.id)
         }
         
         self.dismiss(animated: true)

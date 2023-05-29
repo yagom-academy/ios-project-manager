@@ -14,12 +14,4 @@ final class DoingViewModel: TaskListViewModel {
     var delegate: TaskListViewModelDelegate?
 }
 
-extension DoingViewModel: DetailViewModelDelegate {
-    func updateTaskList(for workState: WorkState) {
-        
-    }
-    
-    func updateDataSource(for workState: WorkState, itemID: UUID?) {
-        
-    }
-}
+extension DoingViewModel: DetailViewModelDelegate { }

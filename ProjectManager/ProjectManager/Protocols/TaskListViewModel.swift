@@ -13,14 +13,20 @@ protocol TaskListViewModel: AnyObject {
     var taskWorkState: WorkState { get }
     var delegate: TaskListViewModelDelegate? { get set }
     
-    func updateTask(task: Task)
+    func createTask(_ task: Task)
+    func updateTask(_ task: Task)
     func deleteTask(at index: Int)
     func changeTaskWorkState(id: UUID, with: WorkState)
     func task(at index: Int) -> Task?
 }
 
 extension TaskListViewModel {
-    func updateTask(task: Task) {
+    func createTask(_ task: Task) {
+        taskList.append(task)
+        delegate?.createTask(task)
+    }
+    
+    func updateTask(_ task: Task) {
         guard let targetIndex = taskList.firstIndex(where: { $0.id == task.id }) else {
             return
         }

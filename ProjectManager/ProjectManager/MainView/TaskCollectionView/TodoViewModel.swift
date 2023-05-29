@@ -14,13 +14,5 @@ final class TodoViewModel: TaskListViewModel {
     var delegate: TaskListViewModelDelegate?
 }
 
-extension TodoViewModel: DetailViewModelDelegate {
-    func updateTaskList(for workState: WorkState) {
-        
-    }
-    
-    func updateDataSource(for workState: WorkState, itemID: UUID?) {
-        
-    }
-}
+extension TodoViewModel: DetailViewModelDelegate { }
 
