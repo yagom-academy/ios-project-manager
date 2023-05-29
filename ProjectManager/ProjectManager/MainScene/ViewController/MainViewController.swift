@@ -26,6 +26,7 @@ final class MainViewController: UIViewController {
         configureViewUI()
         configureChildViewControllerUI()
         configureObserver()
+        bindCollectionView()
     }
     
     func presentTodoViewController(_ state: TodoState, _ task: Task?) {

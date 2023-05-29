@@ -9,11 +9,11 @@ import Foundation
 import RealmSwift
 
 final class TaskObject: Object {
-    dynamic var id: UUID = UUID()
-    dynamic var title: String = ""
-    dynamic var desc: String = ""
-    dynamic var date: Date = Date()
-    dynamic var state: String?
+    @objc dynamic var id: UUID = UUID()
+    @objc dynamic var title: String = ""
+    @objc dynamic var desc: String = ""
+    @objc dynamic var date: Date = Date()
+    @objc dynamic var state: String?
     
     override class func primaryKey() -> String? {
         return "id"

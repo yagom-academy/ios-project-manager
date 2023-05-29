@@ -70,7 +70,7 @@ final class DBManager {
         }
     }
     
-    func deleteTask(_ task: Task) {
+    func removeTask(_ task: Task) {
         guard let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: task.id) else {
             return
         }
