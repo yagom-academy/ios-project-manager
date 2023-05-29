@@ -39,7 +39,7 @@ final class HeaderView: UIView {
             seperatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
             seperatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
             seperatorView.heightAnchor.constraint(equalToConstant: 1),
-            
+        
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: titleLabelLeadingConstant),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
@@ -48,7 +48,7 @@ final class HeaderView: UIView {
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
         ])
 
-        titleLabel.sizeToFit()
+//        titleLabel.sizeToFit()
         seperatorView.backgroundColor = .placeholderText
     }
 

@@ -27,6 +27,7 @@ final class PlanViewController: UIViewController {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
+        self.header.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 60)
     }
     
     required init?(coder: NSCoder) {
@@ -105,15 +106,6 @@ extension PlanViewController: UITableViewDataSource {
 }
 
 extension PlanViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.header
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
-    }
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "delete") { [weak self] (_, _, _) in
             guard let plan = self?.viewModel.read(at: indexPath) else { return }
