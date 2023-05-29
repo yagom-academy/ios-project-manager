@@ -15,7 +15,7 @@ struct ModalView: View {
     let isEditMode: Bool
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             VStack{
                 TextField("Enter your Title", text: $project.title)
                     .padding(14)

@@ -20,20 +20,8 @@ struct ProjectListView: View {
                     viewModel.delete(state: currentState, at: indexSet)
                 }
             } header: {
-                HStack {
-                    Text(currentState.rawValue)
-                        .font(.title)
-                        .foregroundColor(.black)
-                        .fontWeight(.light)
-                    ZStack {
-                        Circle()
-                            .fill(.black)
-                            .frame(width: 25)
-                        Text(String(viewModel.search(state: currentState).count))
-                            .font(.title3)
-                            .foregroundColor(.white)
-                    }
-                }
+                ProjectListHeaderView(state: currentState)
+                    .environmentObject(viewModel)
             }
         }
         .listStyle(.grouped)
@@ -47,12 +35,8 @@ private extension ProjectListView {
             ProjectListCell(model: model)
                 .environmentObject(viewModel)
                 .contextMenu {
-                    Button(currentState.contextItem.first.contextText) {
-                        viewModel.move(project: model, to: currentState.contextItem.first)
-                    }
-                    Button(currentState.contextItem.second.contextText) {
-                        viewModel.move(project: model, to: currentState.contextItem.second)
-                    }
+                    ProjectListContextMenuView(state: currentState, project: model)
+                        .environmentObject(viewModel)
                 }
         }
         .onDelete(perform: onDelete)
