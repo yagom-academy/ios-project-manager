@@ -8,10 +8,10 @@
 import Foundation
 
 struct Task: Hashable {
-    let id = UUID().uuidString
+    let id: UUID
     var title: String
     var description: String
     var date: Date
-    var state = TaskState.todo
+    var state: TaskState? = TaskState.todo
 }
 
