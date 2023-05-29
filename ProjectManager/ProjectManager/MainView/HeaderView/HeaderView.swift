@@ -93,7 +93,7 @@ final class HeaderView: UICollectionReusableView {
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
-            badgeLabel.widthAnchor.constraint(equalToConstant: 20)
+            badgeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20)
         ])
     }
 }

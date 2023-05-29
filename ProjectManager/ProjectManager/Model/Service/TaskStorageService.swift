@@ -19,8 +19,7 @@ final class TaskStorageService {
         Task(title: "hi", date: Date(), body: "body", workState: .todo),
         Task(title: "hi", date: Date(), body: "body", workState: .todo),
         Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        
+        Task(title: "hi", date: Date(), body: "body", workState: .todo)
     ]
     
     func createTask(_ task: Task) {

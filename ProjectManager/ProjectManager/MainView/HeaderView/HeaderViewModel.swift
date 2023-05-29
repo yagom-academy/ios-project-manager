@@ -5,7 +5,7 @@
 //  Created by Brody, Rowan on 2023/05/29.
 //
 
-import Foundation
+import Combine
 
 final class HeaderViewModel {
     @Published var titleText: String

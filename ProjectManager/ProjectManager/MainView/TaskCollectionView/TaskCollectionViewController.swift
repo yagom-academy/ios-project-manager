@@ -160,7 +160,11 @@ final class TaskCollectionViewController: UIViewController  {
         viewModel
             .currentTaskSubject
             .sink { taskList, isUpdating in
-                isUpdating ? self.reloadDataSourceItems() : self.applyLatestSnapshot(taskList)
+                if isUpdating == false {
+                    self.applyLatestSnapshot(taskList)
+                }
+                
+                self.reloadDataSourceItems()
             }
             .store(in: &bindings)
     }

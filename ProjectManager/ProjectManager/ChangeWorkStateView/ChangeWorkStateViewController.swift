@@ -67,8 +67,11 @@ final class ChangeWorkStateViewController: UIViewController {
         ])
     }
     
-    private func bindViewModelToView() {
+    private func configureButtonAction() {
         
+    }
+    
+    private func bindViewModelToView() {
         viewModel.$firstText
             .sink { firstText in
                 self.firstButton.setTitle(firstText, for: .normal)
