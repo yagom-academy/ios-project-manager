@@ -7,6 +7,13 @@
 
 extension Array {
     subscript (safe index: Int) -> Element? {
-        return indices ~= index ? self[index] : nil
+        get {
+            return indices ~= index ? self[index] : nil
+        }
+        set(newValue) {
+            if let value = newValue, self.indices ~= index {
+                self[index] = value
+            }
+        }
     }
 }
