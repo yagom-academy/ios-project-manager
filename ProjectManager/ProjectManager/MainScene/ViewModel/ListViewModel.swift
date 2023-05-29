@@ -20,13 +20,11 @@ final class ListViewModel {
         self.taskState = taskState
     }
     
-    func postChangedTaskState(by task: Task, _ state: TaskState) {
-        NotificationCenter.default.post(name: .changedTaskState, object: nil, userInfo: ["task": task, "state": state])
+    func postChangedTaskState(by vc: MainViewController?, task: Task, state: TaskState) {
+        vc?.viewModel.changeTaskState(by: task, state)
     }
     
-    func postDeleteTask(by task: Task) {
-        NotificationCenter.default.post(name: .deletedTask,
-                                        object: nil,
-                                        userInfo: ["task": task])
+    func postDeleteTask(by vc: MainViewController?, task: Task) {
+        vc?.viewModel.deleteTask(task)
     }
 }

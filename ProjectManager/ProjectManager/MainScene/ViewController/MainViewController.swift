@@ -13,7 +13,7 @@ protocol TaskDelegate: AnyObject {
 
 final class MainViewController: UIViewController {
     
-    private let viewModel = MainViewModel()
+    let viewModel = MainViewModel()
     
     private let todoViewController = ListViewController(taskState: .todo)
     private let doingViewController = ListViewController(taskState: .doing)

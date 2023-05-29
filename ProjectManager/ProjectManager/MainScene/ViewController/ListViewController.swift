@@ -39,6 +39,12 @@ final class ListViewController: UIViewController {
         viewModel.tasks = tasks
     }
     
+    private func makeParentViewController() -> MainViewController? {
+        guard let parentVC = self.parent as? MainViewController else { return nil }
+        
+        return parentVC
+    }
+    
     private func configureObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(applySnapshot),
@@ -62,14 +68,15 @@ final class ListViewController: UIViewController {
     }
     
     private func makeAction(_ task: Task) -> [UIAction] {
+        let parentVC = makeParentViewController()
         let todoAction = UIAction(title: "Move To Todo") { _ in
-            self.viewModel.postChangedTaskState(by: task, .todo)
+            self.viewModel.postChangedTaskState(by: parentVC, task: task, state: .todo)
         }
         let doingAction = UIAction(title: "Move To Doing") { _ in
-            self.viewModel.postChangedTaskState(by: task, .doing)
+            self.viewModel.postChangedTaskState(by: parentVC, task: task, state: .doing)
         }
         let doneAction = UIAction(title: "Move To Done") { _ in
-            self.viewModel.postChangedTaskState(by: task, .done)
+            self.viewModel.postChangedTaskState(by: parentVC, task: task, state: .done)
         }
         
         switch viewModel.taskState {
@@ -97,10 +104,10 @@ extension ListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let parentVC = self.parent as? MainViewController else { return }
+        let parentVC = makeParentViewController()
         let task = viewModel.tasks[indexPath.row]
         
-        parentVC.presentTodoViewController(.edit, task)
+        parentVC?.presentTodoViewController(.edit, task)
     }
 }
 
@@ -141,7 +148,10 @@ extension ListViewController {
             listConfig.trailingSwipeActionsConfigurationProvider = { indexPath in
                 let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
                     let task = self.viewModel.tasks[indexPath.row]
-                    self.viewModel.postDeleteTask(by: task)
+                    let parentVC = self.makeParentViewController()
+                    
+                    self.viewModel.postDeleteTask(by: parentVC, task: task)
+                    
                     completion(true)
                 }
                 

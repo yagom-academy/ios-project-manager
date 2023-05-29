@@ -16,28 +16,14 @@ class MainViewModel {
         }
     }
     
-    init() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(deleteTask),
-                                               name: .deletedTask,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(changeTaskState),
-                                               name: .changedTaskState,
-                                               object: nil)
-    }
-    
-    @objc private func deleteTask(_ noti: Notification) {
-        guard let task = noti.userInfo?["task"] as? Task,
-              let targetIndex = tasks.firstIndex(of: task) else { return }
+    func deleteTask(_ task: Task) {
+        guard let targetIndex = tasks.firstIndex(of: task) else { return }
         
         tasks.remove(at: targetIndex)
     }
     
-    @objc private func changeTaskState(_ noti: Notification) {
-        guard let task = noti.userInfo?["task"] as? Task,
-              let state = noti.userInfo?["state"] as? TaskState,
-              let targetIndex = tasks.firstIndex(of: task) else { return }
+    func changeTaskState(by task: Task, _ state: TaskState) {
+        guard let targetIndex = tasks.firstIndex(of: task) else { return }
         
         tasks[targetIndex].state = state
     }
