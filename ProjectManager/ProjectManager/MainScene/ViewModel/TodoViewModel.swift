@@ -54,7 +54,7 @@ final class TodoViewModel {
             throw GeneratedTaskError.descriptionEmpty
         }
         
-        self.task = Task(title: title, description: description, date: date)
+        self.task = Task(id: UUID(), title: title, description: description, date: date)
     }
     
     func editTask(title: String?, description: String?, date: Date) throws {
