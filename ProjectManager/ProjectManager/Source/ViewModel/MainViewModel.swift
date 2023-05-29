@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import Combine
 
 final class MainViewModel {
-    let todoSchedules: Observable<[Schedule]> = Observable([])
-    let doingSchedules: Observable<[Schedule]> = Observable([])
-    let doneSchedules: Observable<[Schedule]> = Observable([])
+    @Published var todoSchedules: [Schedule] = []
+    @Published var doingSchedules: [Schedule] = []
+    @Published var doneSchedules: [Schedule] = []
     
     func addTodoSchedule(_ schedule: Schedule) {
-        todoSchedules.value.append(schedule)
+        todoSchedules.append(schedule)
     }
     
     func createSchedule(titleText: String?, contentText: String?, expirationDate: Date) -> Schedule {
@@ -29,90 +30,88 @@ final class MainViewModel {
     func fetchSchedule(index: Int, scheduleType: ScheduleType) -> Schedule {
         switch scheduleType {
         case .todo:
-            return todoSchedules.value[index]
+            return todoSchedules[index]
         case .doing:
-            return doingSchedules.value[index]
+            return doingSchedules[index]
         case .done:
-            return doneSchedules.value[index]
+            return doneSchedules[index]
         }
     }
     
     func fetchScheduleList(scheduleType: ScheduleType) -> [Schedule] {
         switch scheduleType {
         case .todo:
-            return todoSchedules.value
+            return todoSchedules
         case .doing:
-            return doingSchedules.value
+            return doingSchedules
         case .done:
-            return doneSchedules.value
+            return doneSchedules
         }
     }
     
     func deleteSchedule(scheduleType: ScheduleType, index: Int) {
         switch scheduleType {
         case .todo:
-            todoSchedules.value.remove(at: index)
+            todoSchedules.remove(at: index)
         case .doing:
-            doingSchedules.value.remove(at: index)
+            doingSchedules.remove(at: index)
         case .done:
-            doneSchedules.value.remove(at: index)
+            doneSchedules.remove(at: index)
         }
     }
     
     func fetchSchedule(scheduleType: ScheduleType) -> [Schedule] {
         switch scheduleType {
         case .todo:
-            return todoSchedules.value
+            return todoSchedules
         case .doing:
-            return doingSchedules.value
+            return doingSchedules
         case .done:
-            return doneSchedules.value
+            return doneSchedules
         }
     }
     
     func updateSchedule(scheduleType: ScheduleType, schedule: Schedule, index: Int) {
         switch scheduleType {
         case .todo:
-            todoSchedules.value[index] = schedule
+            todoSchedules[index] = schedule
         case .doing:
-            doingSchedules.value[index] = schedule
+            doingSchedules[index] = schedule
         case .done:
-            doneSchedules.value[index] = schedule
+            doneSchedules[index] = schedule
         }
     }
     
     func count(scheduleType: ScheduleType) -> Int {
         switch scheduleType {
         case .todo:
-            return todoSchedules.value.count
+            return todoSchedules.count
         case .doing:
-            return doingSchedules.value.count
+            return doingSchedules.count
         case .done:
-            return doneSchedules.value.count
+            return doneSchedules.count
         }
     }
     
     func move(fromIndex: Int, from: ScheduleType, to: ScheduleType) {
         var schedule: Schedule
-        var target: Observable<[Schedule]>
+        var target: [Schedule]
         switch from {
         case .todo:
-            schedule = todoSchedules.value.remove(at: fromIndex)
+            schedule = todoSchedules.remove(at: fromIndex)
         case .doing:
-            schedule = doingSchedules.value.remove(at: fromIndex)
+            schedule = doingSchedules.remove(at: fromIndex)
         case .done:
-            schedule = doneSchedules.value.remove(at: fromIndex)
+            schedule = doneSchedules.remove(at: fromIndex)
         }
         
         switch to {
         case .todo:
-            target = todoSchedules
+            todoSchedules.append(schedule)
         case .doing:
-            target = doingSchedules
+            doingSchedules.append(schedule)
         case .done:
-            target = doneSchedules
+            doneSchedules.append(schedule)
         }
-        
-        target.value.append(schedule)
     }
 }

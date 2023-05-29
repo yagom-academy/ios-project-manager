@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class DoListViewController: UIViewController {
     enum Section {
         case main
     }
-    
+
+    private var cancellables: Set<AnyCancellable> = []
     private var dataSource: UICollectionViewDiffableDataSource<Section, Schedule>?
     private let mainViewModel: MainViewModel
     private let scheduleType: ScheduleType
@@ -27,6 +29,7 @@ class DoListViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: configureCompositionalLayout())
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.register(ScheduleCell.self, forCellWithReuseIdentifier: ScheduleCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -48,8 +51,8 @@ class DoListViewController: UIViewController {
     override func viewDidLoad() {
          super.viewDidLoad()
         configureUI()
-        configureDataSource()
         configureHeaderViewTitle()
+        configureDataSource()
         setupViewModelBind()
         configureLongPressGesture()
         configureCollectionViewDelegate()
@@ -79,11 +82,10 @@ class DoListViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        self.collectionView.register(ScheduleCell.self, forCellWithReuseIdentifier: ScheduleCell.identifier)
-        self.dataSource = UICollectionViewDiffableDataSource<Section, Schedule> (collectionView: self.collectionView) { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
+        self.dataSource = UICollectionViewDiffableDataSource<Section, Schedule> (collectionView: self.collectionView) { (collectionView, indexPath, schedule) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScheduleCell.identifier, for: indexPath) as? ScheduleCell else { return nil
             }
-            let schedule = self.mainViewModel.fetchSchedule(index: indexPath.row, scheduleType: self.scheduleType)
+
             cell.configureUI()
             cell.configureLabel(schedule: schedule)
             
@@ -91,35 +93,35 @@ class DoListViewController: UIViewController {
         }
     }
     
-    private func applySnapshot() {
+    private func applySnapshot(schedules: [Schedule]) {
         var  snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(mainViewModel.fetchScheduleList(scheduleType: scheduleType))
+        snapshot.appendItems(schedules)
         self.dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
-    private func configureHeaderViewCountLabel() {
-        let count = mainViewModel.count(scheduleType: scheduleType)
+    private func configureHeaderViewCountLabel(schedules: [Schedule]) {
+        let count = schedules.count
         headerView.configureCountLabel(count: count)
     }
     
     private func setupViewModelBind() {
         switch scheduleType {
         case .todo:
-            mainViewModel.todoSchedules.bind { schedule in
-                self.applySnapshot()
-                self.configureHeaderViewCountLabel()
-            }
+            mainViewModel.$todoSchedules.sink {
+                self.applySnapshot(schedules: $0)
+                self.configureHeaderViewCountLabel(schedules: $0)
+            }.store(in: &cancellables)
         case .doing:
-            mainViewModel.doingSchedules.bind { schedule in
-                self.applySnapshot()
-                self.configureHeaderViewCountLabel()
-            }
+            mainViewModel.$doingSchedules.sink {
+                self.applySnapshot(schedules: $0)
+                self.configureHeaderViewCountLabel(schedules: $0)
+            }.store(in: &cancellables)
         case .done:
-            mainViewModel.doneSchedules.bind { schedule in
-                self.applySnapshot()
-                self.configureHeaderViewCountLabel()
-            }
+            mainViewModel.$doneSchedules.sink {
+                self.applySnapshot(schedules: $0)
+                self.configureHeaderViewCountLabel(schedules: $0)
+            }.store(in: &cancellables)
         }
     }
     
