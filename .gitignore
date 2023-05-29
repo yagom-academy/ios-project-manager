@@ -147,3 +147,6 @@ GitHub.sublime-settings
 
 # SwiftLint
 .swiftlint.yml
+
+# Firebase
+ProjectManager/ProjectManager/GoogleService-Info.plist
