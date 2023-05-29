@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct History {
+struct History: Hashable {
     let title: String
     let date: Date
     
