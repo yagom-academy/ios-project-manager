@@ -23,7 +23,7 @@ final class TaskStorageService {
     ]
     
     func createTask(_ task: Task) {
-        
+        taskStore.append(task)
     }
     
     func fetchTaskList() -> [Task] {
@@ -31,11 +31,15 @@ final class TaskStorageService {
     }
     
     func updateTask(_ task: Task) {
+        guard let index = taskStore.firstIndex(where: { $0.id == task.id }) else { return }
         
+        taskStore[safe: index] = task
     }
     
     func deleteTask(id: UUID) {
+        guard let index = taskStore.firstIndex(where: { $0.id == id }) else { return }
         
+        taskStore.remove(at: index)
     }
     
     func changeWorkState(taskID: UUID, with workState: WorkState) {

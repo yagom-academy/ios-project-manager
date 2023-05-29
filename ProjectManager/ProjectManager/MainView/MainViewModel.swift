@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainViewModel {
-    var taskList: [Task] = []
+    @Published var taskList: [Task] = []
     var viewModelDictionary: [WorkState: TaskListViewModel] = [:]
     private let service: TaskStorageService
     

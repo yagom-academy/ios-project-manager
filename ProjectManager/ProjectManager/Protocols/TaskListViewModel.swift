@@ -17,7 +17,6 @@ protocol TaskListViewModel: AnyObject {
     func createTask(_ task: Task)
     func updateTask(_ task: Task)
     func deleteTask(at index: Int)
-    func changeTaskWorkState(id: UUID, with: WorkState)
     func task(at index: Int) -> Task?
 }
 
@@ -39,10 +38,6 @@ extension TaskListViewModel {
     func deleteTask(at index: Int) {
         let task = taskList.remove(at: index)
         delegate?.deleteTask(id: task.id)
-    }
-    
-    func changeTaskWorkState(id: UUID, with: WorkState) {
-        
     }
     
     func task(at index: Int) -> Task? {

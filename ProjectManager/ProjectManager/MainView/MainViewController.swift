@@ -62,6 +62,10 @@ final class MainViewController: UIViewController {
         self.addChild(TaskCollectionViewController(viewModel: TodoViewModel()))
         self.addChild(TaskCollectionViewController(viewModel: DoingViewModel()))
         self.addChild(TaskCollectionViewController(viewModel: DoneViewModel()))
+        
+        self.children
+            .compactMap { ($0 as? TaskCollectionViewController)?.viewModel }
+            .forEach { $0.delegate = self.mainViewModel }
     }
     
     private func setupViewModelReference() {
