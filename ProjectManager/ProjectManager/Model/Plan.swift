@@ -9,8 +9,8 @@ import Foundation
 
 struct Plan {
     let id: UUID = UUID()
-    let title: String
-    let body: String
-    let date: Date
+    var title: String
+    var body: String
+    var date: Date
     var state: State
 }

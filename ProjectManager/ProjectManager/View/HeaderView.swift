@@ -28,8 +28,8 @@ final class HeaderView: UIView {
     }
     
     func setUpHeaderView() {
-        let titleLabelLeadingConstant: CGFloat = 10
-        let countLabelLeadingConstant: CGFloat = 20
+        let titleLabelLeading: CGFloat = 10
+        let countLabelLeading: CGFloat = 20
         
         seperatorView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -40,15 +40,15 @@ final class HeaderView: UIView {
             seperatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
             seperatorView.heightAnchor.constraint(equalToConstant: 1),
         
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: titleLabelLeadingConstant),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: titleLabelLeading),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: countLabelLeadingConstant),
+            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: countLabelLeading),
             countLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
         ])
 
-//        titleLabel.sizeToFit()
+        titleLabel.sizeToFit()
         seperatorView.backgroundColor = .placeholderText
     }
 

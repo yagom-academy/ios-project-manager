@@ -71,12 +71,12 @@ final class PlanManagerViewController: UIViewController, SavingItemDelegate {
         tableStackView.addArrangedSubview(donePlanViewController.view)
         
         let safeArea = view.safeAreaLayoutGuide
-        let bottomConstant: CGFloat = -20
+        let bottom: CGFloat = -20
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             tableStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            tableStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: bottomConstant),
+            tableStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: bottom),
             tableStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
     }
@@ -92,11 +92,9 @@ final class PlanManagerViewController: UIViewController, SavingItemDelegate {
         navigationItem.rightBarButtonItem = plusButton
     }
     
-    @objc func plusButtonTapped() {
+    @objc private func plusButtonTapped() {
         let plusTodoViewModel = PlusTodoViewModel()
-        plusTodoViewModel.changeMode(.create)
-        
-        let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, selectedIndexPath: nil)
+        let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, mode: .create)
         plusTodoViewController.delegate = self
         
         present(plusTodoViewController, animated: false)

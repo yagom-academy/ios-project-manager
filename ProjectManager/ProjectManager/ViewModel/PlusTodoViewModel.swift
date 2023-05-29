@@ -8,19 +8,36 @@
 import Foundation
 import Combine
 
-final class PlusTodoViewModel: ObservableObject {
-    @Published private(set) var todoItem: Plan?
-    private(set) var mode: Mode = .create
-    
-    enum Mode {
-        case create, edit
+final class PlusTodoViewModel {
+    private(set) var currentPlan: Plan?
+    private(set) var isEdit: Bool?
+
+    func addPlan(_ plan: Plan) {
+        currentPlan = plan
     }
     
-    func changeMode(_ new: Mode) {
-        mode = new
+    func configureInitialPlan(title: String, body: String, date: Date) -> Plan {
+        let item = Plan(title: title, body: body, date: date, state: .todo)
+        return item
     }
     
-    func addItem(_ plan: Plan) {
-        todoItem = plan
+    func updateCurrentPlan(title: String, body: String, date: Date) -> Plan? {
+        guard var plan = currentPlan else { return nil }
+       
+        if isEdit == true {
+            plan.title = title
+            plan.body = body
+            plan.date = date
+        }
+        return plan
+    }
+    
+    func fetchCurrentPlan() -> Plan? {
+        guard let plan = currentPlan else { return nil }
+        return plan
+    }
+    
+    func changEditMode() {
+        isEdit = true
     }
 }

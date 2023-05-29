@@ -27,7 +27,8 @@ final class PlanViewController: UIViewController {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
-        self.header.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 60)
+        let height: CGFloat = 60
+        self.header.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: height)
     }
     
     required init?(coder: NSCoder) {
@@ -123,10 +124,9 @@ extension PlanViewController: UITableViewDelegate {
         let plan = viewModel.read(at: indexPath)
 
         let plusTodoViewModel = PlusTodoViewModel()
-        plusTodoViewModel.addItem(plan)
-        plusTodoViewModel.changeMode(.edit)
+        plusTodoViewModel.addPlan(plan)
         
-        let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, selectedIndexPath: indexPath)
+        let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, mode: .edit)
         plusTodoViewController.delegate = planManagerViewController
 
         tableView.deselectRow(at: indexPath, animated: false)
