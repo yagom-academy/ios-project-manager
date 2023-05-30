@@ -8,12 +8,9 @@
 import Foundation
 
 extension DateFormatter {
-    static let shared = DateFormatter()
-    
     func stringDate(from date: Date) -> String {
-        DateFormatter.shared.dateFormat = "yyyy. MM. dd."
-        
-        let convertedDate = DateFormatter.shared.string(from: date)
+        dateFormat = "yyyy. MM. dd."
+        let convertedDate = string(from: date)
         
         return convertedDate
     }
