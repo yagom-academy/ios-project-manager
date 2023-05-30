@@ -8,6 +8,42 @@
 import Foundation
 
 final class WorkViewModel {
+    struct Work: Hashable {
+        let id: UUID = UUID()
+        var status: String = WorkStatus.todo.title
+        var title: String
+        var body: String
+        var deadline: Date
+    }
+    
+    enum WorkStatus: CaseIterable {
+        case todo
+        case doing
+        case done
+        
+        var title: String {
+            switch self {
+            case .todo:
+                return "TODO"
+            case .doing:
+                return "DOING"
+            case .done:
+                return "DONE"
+            }
+        }
+        
+        var movedButtonName: (top: String, bottom: String) {
+            switch self {
+            case .todo:
+                return (top: "Move to DOING", bottom: "Move to DONE")
+            case .doing:
+                return (top: "Move to TODO", bottom: "Move to DONE")
+            case .done:
+                return (top: "Move to TODO", bottom: "Move to DOING")
+            }
+        }
+    }
+
     enum ViewMode {
         case add
         case edit

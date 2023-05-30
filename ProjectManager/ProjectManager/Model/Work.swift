@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Work: Hashable {
-    let id: UUID = UUID()
-    var status: String = WorkStatus.todo.title
-    var title: String
-    var body: String
-    var deadline: Date
-}
+//struct Work: Hashable {
+//    let id: UUID = UUID()
+//    var status: String = WorkStatus.todo.title
+//    var title: String
+//    var body: String
+//    var deadline: Date
+//}

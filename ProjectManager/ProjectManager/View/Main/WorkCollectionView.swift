@@ -9,19 +9,19 @@ import UIKit
 
 protocol WorkCollectionViewDelegate: AnyObject {
     func workCollectionView(_ collectionView: WorkCollectionView, id: UUID)
-    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkStatus, rect: CGRect)
+    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkViewModel.WorkStatus, rect: CGRect)
 }
 
 final class WorkCollectionView: UICollectionView {
-    typealias DataSource = UICollectionViewDiffableDataSource<WorkStatus, Work>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<WorkStatus, Work>
+    typealias DataSource = UICollectionViewDiffableDataSource<WorkViewModel.WorkStatus, WorkViewModel.Work>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<WorkViewModel.WorkStatus, WorkViewModel.Work>
     
     weak var workDelegate: WorkCollectionViewDelegate?
-    let status: WorkStatus
+    let status: WorkViewModel.WorkStatus
     let viewModel: WorkViewModel
     private var workDataSource: DataSource?
     
-    init(status: WorkStatus, viewModel: WorkViewModel) {
+    init(status: WorkViewModel.WorkStatus, viewModel: WorkViewModel) {
         self.status = status
         self.viewModel = viewModel
         
@@ -126,7 +126,7 @@ final class WorkCollectionView: UICollectionView {
     @objc private func applySnapshot() {
         var snapshot = Snapshot()
         
-        if let currentStatus = WorkStatus.allCases.first(where: { $0.title == status.title }) {
+        if let currentStatus = WorkViewModel.WorkStatus.allCases.first(where: { $0.title == status.title }) {
             snapshot.appendSections([currentStatus])
             let works = viewModel.works.filter { $0.status == status.title }
             snapshot.appendItems(works, toSection: currentStatus)

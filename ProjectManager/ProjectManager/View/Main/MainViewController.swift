@@ -13,9 +13,9 @@ final class MainViewController: UIViewController {
     private let doneCollectionView: WorkCollectionView
     
     init() {
-        self.todoCollectionView = WorkCollectionView(status: WorkStatus.todo, viewModel: viewModel)
-        self.doingCollectionView = WorkCollectionView(status: WorkStatus.doing, viewModel: viewModel)
-        self.doneCollectionView = WorkCollectionView(status: WorkStatus.done, viewModel: viewModel)
+        self.todoCollectionView = WorkCollectionView(status: WorkViewModel.WorkStatus.todo, viewModel: viewModel)
+        self.doingCollectionView = WorkCollectionView(status: WorkViewModel.WorkStatus.doing, viewModel: viewModel)
+        self.doneCollectionView = WorkCollectionView(status: WorkViewModel.WorkStatus.done, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -124,12 +124,12 @@ extension MainViewController: UICollectionViewDelegate, WorkCollectionViewDelega
         present(navigationController, animated: true)
     }
     
-    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkStatus, rect: CGRect) {
+    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkViewModel.WorkStatus, rect: CGRect) {
         viewModel.currentID = id
         showPopoverViewController(status: status, rect: rect)
     }
     
-    private func showPopoverViewController(status: WorkStatus, rect: CGRect) {
+    private func showPopoverViewController(status: WorkViewModel.WorkStatus, rect: CGRect) {
         let popoverViewController = PopoverViewController(status: status, viewModel: viewModel)
         
         popoverViewController.modalPresentationStyle = .popover

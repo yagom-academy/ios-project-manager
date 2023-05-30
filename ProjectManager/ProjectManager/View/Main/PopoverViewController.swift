@@ -8,7 +8,7 @@
 import UIKit
 
 final class PopoverViewController: UIViewController {
-    let status: WorkStatus
+    let status: WorkViewModel.WorkStatus
     let viewModel: WorkViewModel
     
     private let topButton: UIButton = {
@@ -27,7 +27,7 @@ final class PopoverViewController: UIViewController {
         return button
     }()
     
-    init(status: WorkStatus, viewModel: WorkViewModel) {
+    init(status: WorkViewModel.WorkStatus, viewModel: WorkViewModel) {
         self.status = status
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
