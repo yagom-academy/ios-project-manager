@@ -8,14 +8,33 @@
 import FirebaseDatabase
 
 final class RemoteDBManager {
-    let ref = Database.database().reference()
+    var ref: DatabaseReference?
     
-    func updateDatas(_ tasks: [Task]) {
-        tasks.forEach { task in
-            ref.child("Task").child("\(task.id.uuidString)").setValue(task.title, forKey: "title")
-            ref.child("Task").child("\(task.id.uuidString)").setValue(task.description, forKey: "desc")
-            ref.child("Task").child("\(task.id.uuidString)").setValue(task.state?.titleText, forKey: "state")
-            ref.child("Task").child("\(task.id.uuidString)").setValue(task.date, forKey: "date")
+    init() {
+        ref = Database.database().reference()
+    }
+    
+    private func convertToNSDictonary(_ task: Task) -> NSDictionary {
+        var dict: [String: Any] = [:]
+        
+        dict["title"] = NSString(string: task.title)
+        dict["description"] = NSString(string: task.description)
+        dict["id"] = NSString(string: task.id.uuidString)
+        dict["state"] = NSString(string: task.state?.titleText ?? "")
+        dict["date"] = NSNumber(value: task.date.timeIntervalSince1970)
+        
+        return NSDictionary(dictionary: dict)
+    }
+    
+    func createTask(_ task: Task) {
+        ref?.child("Task").child("\(task.id.uuidString)").setValue(convertToNSDictonary(task))
+    }
+    
+    func fetchTasks() async {
+        do {
+            try await ref?.child("Task").getData()
+        } catch {
+            
         }
     }
 }

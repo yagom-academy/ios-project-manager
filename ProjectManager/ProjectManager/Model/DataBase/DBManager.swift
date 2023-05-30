@@ -9,6 +9,7 @@ import RealmSwift
 
 final class DBManager {
     private let realm: Realm
+    private lazy var remoteManager = RemoteDBManager()
     
     init?() {
         do {
@@ -44,6 +45,7 @@ final class DBManager {
         
         try? realm.write({
             realm.add(taskObject, update: .all)
+            remoteManager.createTask(task)
         })
     }
     
