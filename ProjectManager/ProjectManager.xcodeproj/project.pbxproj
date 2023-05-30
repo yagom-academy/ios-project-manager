@@ -12,6 +12,7 @@
 		2616AFC62A153A3600C33BB2 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */; };
 		2632DEF02A25DC4400D24197 /* DatabaseManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632DEEF2A25DC4400D24197 /* DatabaseManagable.swift */; };
 		2632DEF22A25E52200D24197 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632DEF12A25E52200D24197 /* NetworkMonitor.swift */; };
+		2632DEF42A25F30900D24197 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632DEF32A25F30900D24197 /* DBManager.swift */; };
 		2656763A2A1662380063FBE2 /* TodoTitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265676392A1662380063FBE2 /* TodoTitleTextField.swift */; };
 		266ADEB02A2452A2003B5CEF /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 266ADEAF2A2452A2003B5CEF /* Realm */; };
 		266ADEB22A2452A2003B5CEF /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 266ADEB12A2452A2003B5CEF /* RealmSwift */; };
@@ -70,6 +71,7 @@
 		2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		2632DEEF2A25DC4400D24197 /* DatabaseManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagable.swift; sourceTree = "<group>"; };
 		2632DEF12A25E52200D24197 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		2632DEF32A25F30900D24197 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		265676392A1662380063FBE2 /* TodoTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTitleTextField.swift; sourceTree = "<group>"; };
 		266ADEB32A245C3B003B5CEF /* LocalDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBManager.swift; sourceTree = "<group>"; };
 		266ADEB62A248F36003B5CEF /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				266ADEB32A245C3B003B5CEF /* LocalDBManager.swift */,
 				266ADEB62A248F36003B5CEF /* TaskObject.swift */,
 				2632DEEF2A25DC4400D24197 /* DatabaseManagable.swift */,
+				2632DEF32A25F30900D24197 /* DBManager.swift */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				266ADEB42A245C3B003B5CEF /* LocalDBManager.swift in Sources */,
 				26E20EAD2A1C876700F7FBDC /* Date+Extension.swift in Sources */,
 				2612AF372A1770940002DF21 /* ListViewModel.swift in Sources */,
+				2632DEF42A25F30900D24197 /* DBManager.swift in Sources */,
 				26E20EAA2A1BB11C00F7FBDC /* GeneratedTaskError.swift in Sources */,
 				26E20EB12A1C8A1F00F7FBDC /* MainViewModel.swift in Sources */,
 				266ADEB72A248F36003B5CEF /* TaskObject.swift in Sources */,

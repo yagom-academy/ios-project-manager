@@ -10,7 +10,6 @@ import Foundation
 class MainViewModel {
     
     private let dbManager = LocalDBManager()
-    private let networkManager = NetworkMonitor()
     private var tasks: [Task] = [] {
         didSet {
             postChangedTasksNoti()
@@ -26,8 +25,6 @@ class MainViewModel {
                 print(error)
             }
         })
-        
-        networkManager.checkNetworkState()
     }
     
     func deleteTask(_ task: Task) {
