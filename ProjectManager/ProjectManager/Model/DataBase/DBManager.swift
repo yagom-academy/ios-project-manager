@@ -8,7 +8,15 @@
 import Foundation
 
 final class DBManager: DatabaseManagable {
-    private var database: DatabaseManagable?
+    private var database: DatabaseManagable? = LocalDBManager()
+    
+    func changeDatabase(isConnect: Bool) {
+        if isConnect {
+            database = RemoteDBManager()
+        } else {
+            database = LocalDBManager()
+        }
+    }
     
     func createTask(_ task: Task) {
         database?.createTask(task)

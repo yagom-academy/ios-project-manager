@@ -9,7 +9,7 @@ import Foundation
 
 class MainViewModel {
     
-    private let dbManager = LocalDBManager()
+    private let dbManager = DBManager()
     private var tasks: [Task] = [] {
         didSet {
             postChangedTasksNoti()
@@ -17,7 +17,7 @@ class MainViewModel {
     }
     
     init() {
-        dbManager?.fetchTasks({ [weak self] result in
+        dbManager.fetchTasks({ [weak self] result in
             switch result {
             case .success(let tasks):
                 self?.tasks = tasks
@@ -32,7 +32,7 @@ class MainViewModel {
         
         tasks.remove(at: targetIndex)
         
-        dbManager?.deleteTask(task)
+        dbManager.deleteTask(task)
     }
     
     func changeTaskState(by task: Task, _ state: TaskState) {
@@ -40,7 +40,7 @@ class MainViewModel {
         
         tasks[targetIndex].state = state
         
-        dbManager?.updateTask(tasks[targetIndex])
+        dbManager.updateTask(tasks[targetIndex])
     }
     
     func replaceTask(_ task: Task) {
@@ -52,13 +52,13 @@ class MainViewModel {
         
         tasks[targetIndex] = task
         
-        dbManager?.updateTask(task)
+        dbManager.updateTask(task)
     }
     
     func appendTask(_ task: Task) {
         tasks.append(task)
         
-        dbManager?.createTask(task)
+        dbManager.createTask(task)
     }
     
     func filterTasks(by state: TaskState) -> [Task] {
