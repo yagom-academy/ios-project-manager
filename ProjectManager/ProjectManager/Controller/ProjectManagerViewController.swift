@@ -52,7 +52,7 @@ final class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        configureProjectManagerCollectionView()
+        configureSubview()
         configureConstraint()
         configureLongGestureRecognizer()
     }
@@ -91,7 +91,7 @@ final class ProjectManagerViewController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
-    private func configureProjectManagerCollectionView() {
+    private func configureSubview() {
         view.addSubview(projectManagerStackView)
         projectManagerStackView.addArrangedSubview(todoTableView)
         projectManagerStackView.addArrangedSubview(doingTableView)
