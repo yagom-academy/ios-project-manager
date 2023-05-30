@@ -12,11 +12,11 @@ final class PlanManagerViewModel {
     @Published var planList: [Plan] = []
     private var cancellables = Set<AnyCancellable>()
     
-    private let todoViewModel: PlanViewModel
-    private let doingViewModel: PlanViewModel
-    private let doneViewModel: PlanViewModel
+    private let todoViewModel: PlanSubscriber
+    private let doingViewModel: PlanSubscriber
+    private let doneViewModel: PlanSubscriber
     
-    init(todoViewModel: PlanViewModel, doingViewModel: PlanViewModel, doneViewModel: PlanViewModel) {
+    init(todoViewModel: PlanSubscriber, doingViewModel: PlanSubscriber, doneViewModel: PlanSubscriber) {
         self.todoViewModel = todoViewModel
         self.doingViewModel = doingViewModel
         self.doneViewModel = doneViewModel
@@ -31,16 +31,22 @@ final class PlanManagerViewModel {
     
     private func bindPlan() {
         $planList
-            .map { $0.filter { $0.state == .todo } }
-            .assign(to: \.plan, on: todoViewModel)
+            .filter { $0.contains { $0.state == .todo }}
+            .sink { [weak self] in
+                self?.todoViewModel.updatePlan($0)
+            }
             .store(in: &cancellables)
         $planList
-            .map { $0.filter { $0.state == .doing } }
-            .assign(to: \.plan, on: doingViewModel)
+            .filter { $0.contains { $0.state == .doing }}
+            .sink { [weak self] in
+                self?.doingViewModel.updatePlan($0)
+            }
             .store(in: &cancellables)
         $planList
-            .map { $0.filter { $0.state == .done } }
-            .assign(to: \.plan, on: doneViewModel)
+            .filter { $0.contains { $0.state == .done }}
+            .sink { [weak self] in
+                self?.doneViewModel.updatePlan($0)
+            }
             .store(in: &cancellables)
     }
     

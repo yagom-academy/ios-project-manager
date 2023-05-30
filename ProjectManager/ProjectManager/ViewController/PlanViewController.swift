@@ -9,7 +9,12 @@ import UIKit
 import Combine
 
 final class PlanViewController: UIViewController {
+    enum Section {
+        case main
+    }
+    
     private var cancellables = Set<AnyCancellable>()
+    private var dataSource: UITableViewDiffableDataSource<Section, Plan>?
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -38,10 +43,10 @@ final class PlanViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableHeaderView = header
-        tableView.dataSource = self
         tableView.delegate = self
         
         setUpTableView()
+        configureTableView()
         setUpBindings()
         setUpLongPressGesture()
     }
@@ -59,6 +64,25 @@ final class PlanViewController: UIViewController {
         ])
     }
     
+    private func configureTableView() {
+        dataSource = UITableViewDiffableDataSource<Section, Plan>(tableView: tableView) { [unowned self] _, indexPath, _ in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? PlanTableViewCell else { return UITableViewCell() }
+            
+            let plan = viewModel.read(at: indexPath)
+            cell.configureCell(with: plan)
+            
+            return cell
+        }
+    }
+    
+    private func createSnapshot(_ plans: [Plan]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Plan>()
+        
+        snapshot.appendSections([.main])
+        snapshot.appendItems(plans)
+        dataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
     private func setUpBindings() {
         bindPlan()
         bindListCount()
@@ -67,8 +91,8 @@ final class PlanViewController: UIViewController {
     private func bindPlan() {
         viewModel.$plan
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.tableView.reloadData()
+            .sink { [weak self] plans in
+                self?.createSnapshot(plans)
             }
             .store(in: &cancellables)
     }
@@ -87,32 +111,12 @@ final class PlanViewController: UIViewController {
     }
 }
 
-extension PlanViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItems
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? PlanTableViewCell else { return UITableViewCell() }
-        
-        let plan = viewModel.read(at: indexPath)
-        cell.configureCell(with: plan)
-        
-        return cell
-    }
-}
-
 extension PlanViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "delete") { [weak self] (_, _, _) in
             guard let plan = self?.viewModel.read(at: indexPath) else { return }
             
             self?.viewModel.delete(plan)
-            tableView.deleteRows(at: [indexPath], with: .fade)
         }
         deleteAction.backgroundColor = .red
 
@@ -128,8 +132,6 @@ extension PlanViewController: UITableViewDelegate {
         
         let plusTodoViewController = PlusTodoViewController(plusTodoViewModel: plusTodoViewModel, mode: .edit)
         plusTodoViewController.delegate = planManagerViewController
-
-        tableView.deselectRow(at: indexPath, animated: false)
         present(plusTodoViewController, animated: false)
     }
 }

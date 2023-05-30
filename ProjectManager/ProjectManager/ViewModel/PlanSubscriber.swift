@@ -8,6 +8,7 @@
 import Combine
 
 protocol PlanSubscriber {
+    func updatePlan(_ plans: [Plan])
     var deletePublisher: PassthroughSubject<Plan, Never> { get set }
     var changePublisher: PassthroughSubject<(Plan, State), Never> { get set }
 }

@@ -44,6 +44,10 @@ final class PlanViewModel: PlanSubscriber {
         return plan.count
     }
     
+    func updatePlan(_ plans: [Plan]) {
+        self.plan = plans
+    }
+    
     func read(at indexPath: IndexPath) -> Plan {
         return plan[indexPath.row]
     }
