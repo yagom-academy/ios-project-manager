@@ -1,13 +1,20 @@
 //
-//  DBManager.swift
+//  LocalDBManager.swift
 //  ProjectManager
 //
 //  Created by 레옹아범 on 2023/05/29.
 //
 
+protocol DatabaseManagable {
+    func createTask(_ task: Task)
+    func fetchTasks(_ completion: @escaping (Result<[Task], Error>) -> Void)
+    func deleteTask(_ task: Task)
+    func updateTask(_ task: Task)
+}
+
 import RealmSwift
 
-final class DBManager {
+final class LocalDBManager: DatabaseManagable {
     private let realm: Realm
     private lazy var remoteManager = RemoteDBManager()
     
@@ -40,7 +47,7 @@ final class DBManager {
         return task
     }
     
-    func addTask(by task: Task) {
+    func createTask(_ task: Task) {
         let taskObject = changeToTaskObject(task)
         
         try? realm.write({
@@ -49,14 +56,14 @@ final class DBManager {
         })
     }
     
-    func searchAllTask() -> [Task] {
+    func fetchTasks(_ completion: @escaping (Result<[Task], Error>) -> Void) {
         let taskObjects = realm.objects(TaskObject.self)
         
         let tasks = taskObjects.map { taskObject in
             return self.changeToTask(taskObject)
         }
         
-        return Array(tasks)
+        completion(.success(Array(tasks)))
     }
     
     func updateTask(_ task: Task) {
@@ -72,7 +79,7 @@ final class DBManager {
         }
     }
     
-    func removeTask(_ task: Task) {
+    func deleteTask(_ task: Task) {
         guard let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: task.id) else {
             return
         }
