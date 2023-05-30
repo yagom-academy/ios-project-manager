@@ -50,7 +50,8 @@ final class MainViewController: UIViewController {
         self.title = Namespace.mainTitle
     }
     
-    @objc func tabPlusButton() {
+    @objc
+    private func tabPlusButton() {
         presentAddModal()
     }
     
