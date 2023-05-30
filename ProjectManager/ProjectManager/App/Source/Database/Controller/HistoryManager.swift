@@ -11,7 +11,13 @@ import Combine
 final class HistoryManager {
     static let shared = HistoryManager()
     
-    @Published var historyList: [History] = []
+    var historyList: [History] = [] {
+        didSet {
+            if historyList.count > 7 {
+                historyList.removeFirst()
+            }
+        }
+    }
     
     private init() {}
     

@@ -29,3 +29,18 @@ extension DateFormatter {
         return deadlineDate(text: date)
     }
 }
+
+extension DateFormatter {
+    static let historyFormatter = {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .short
+        
+        return dateFormatter
+    }()
+    
+    static func historyText(date: Date) -> String {
+        return historyFormatter.string(from: date)
+    }
+}

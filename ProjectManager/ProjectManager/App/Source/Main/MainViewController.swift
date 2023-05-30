@@ -66,12 +66,20 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func showHistory(sender: UIBarButtonItem) {
-        let historyViewController = HistoryViewController()
+        guard let barButton = sender.value(forKey: "view") as? UIView else { return }
         
+        let historyViewController = HistoryViewController()
         historyViewController.modalPresentationStyle = .popover
-        historyViewController.popoverPresentationController?.sourceView = view
-        historyViewController.popoverPresentationController?.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
-        historyViewController.popoverPresentationController?.permittedArrowDirections = .up
+        historyViewController.preferredContentSize = CGSize(width: view.frame.width * 0.4,
+                                                            height: view.frame.height * 0.53)
+        
+        let popoverController = historyViewController.popoverPresentationController
+        popoverController?.sourceView = view
+        popoverController?.sourceRect = CGRect(x: barButton.frame.midX,
+                                               y: barButton.frame.midY,
+                                               width: barButton.frame.width,
+                                               height: barButton.frame.height)
+        popoverController?.permittedArrowDirections = .up
         
         present(historyViewController, animated: true)
     }

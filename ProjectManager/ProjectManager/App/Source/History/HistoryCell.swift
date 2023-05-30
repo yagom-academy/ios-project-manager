@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class HistoryCell: UICollectionViewCell {
+final class HistoryCell: UICollectionViewListCell {
     private let titleLabel = {
         let label = UILabel()
         
-        label.font = .preferredFont(forTextStyle: .title1)
+        label.font = .preferredFont(forTextStyle: .title3)
         label.numberOfLines = 1
         
         return label
@@ -51,7 +51,7 @@ final class HistoryCell: UICollectionViewCell {
     
     func configure(_ history: History) {
         titleLabel.text = history.title
-        dateLabel.text = DateFormatter.deadlineText(date: history.date)
+        dateLabel.text = DateFormatter.historyText(date: history.date)
     }
     
     private func setupView() {
@@ -73,7 +73,9 @@ final class HistoryCell: UICollectionViewCell {
             stackView.topAnchor.constraint(equalTo: safe.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor),
+            
+            separatorLayoutGuide.leadingAnchor.constraint(equalTo: safe.leadingAnchor)
         ])
     }
 }

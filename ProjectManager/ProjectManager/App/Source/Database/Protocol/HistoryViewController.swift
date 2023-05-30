@@ -20,8 +20,9 @@ final class HistoryViewController: UIViewController {
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
         
+        collectionView.isScrollEnabled = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .systemGray6
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(HistoryCell.self,
                                 forCellWithReuseIdentifier: HistoryCell.reuseIdentifier)
         
@@ -47,7 +48,7 @@ final class HistoryViewController: UIViewController {
     
     private func setupView() {
         view.addSubview(collectionView)
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGray5
         
         setupCollectionView()
     }
@@ -62,10 +63,10 @@ final class HistoryViewController: UIViewController {
         let safe = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safe.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 15),
+            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 15),
+            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -15),
+            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -15)
         ])
     }
     
