@@ -58,9 +58,9 @@ class TodoListCell: UICollectionViewListCell {
         }
     }
     
-    func configure(title: String, content: String, date: Date) {
+    func configure(title: String, content: String, date: String) {
         titleLabel.text = title
         contentLabel.text = content
-        dateLabel.text = Date.dateString()
+        dateLabel.text = date
     }
 }
