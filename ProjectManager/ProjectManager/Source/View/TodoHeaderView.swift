@@ -22,7 +22,6 @@ final class TodoHeaderView: UIView {
         label.textColor = .white
         label.layer.borderWidth = 1
         label.layer.masksToBounds = true
-        label.layer.cornerRadius = 10
         label.backgroundColor = .black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +36,11 @@ final class TodoHeaderView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        countLabel.layer.cornerRadius = countLabel.bounds.size.width / 2
     }
     
     func configureTitle(title: String) {
