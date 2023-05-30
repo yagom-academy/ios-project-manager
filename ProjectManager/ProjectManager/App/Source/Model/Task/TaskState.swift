@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-enum TaskState: String, CaseIterable {
+enum TaskState: String, Codable, CaseIterable {
     case todo
     case doing
     case done

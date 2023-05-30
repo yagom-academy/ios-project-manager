@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MyTask: Hashable, DataTransferObject {
+struct MyTask: Hashable, Codable, DataTransferObject {
     let id: UUID
     var state: TaskState
     var title: String

@@ -1,5 +1,5 @@
 //
-//  Array+subscript.swift
+//  Array+Subscript.swift
 //  ProjectManager
 //
 //  Created by Harry, KokkiLE on 2023/05/25.

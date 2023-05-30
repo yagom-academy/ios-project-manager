@@ -44,6 +44,7 @@ final class TaskManager {
         taskList[safe: index] = task
 
         realmManager.update(task, type: RealmTask.self)
+        upload()
     }
     
     func update(_ task: MyTask, from currentState: TaskState, to targetState: TaskState) {
@@ -62,5 +63,11 @@ final class TaskManager {
         
         historyManager.createRemovedHistory(title: task.title, from: task.state)
         realmManager.delete(type: RealmTask.self, id: task.id)
+    }
+    
+    func upload() {
+        let firebaseManager = FirebaseManager(collectionName: .entity, documentName: .myTask)
+        
+        firebaseManager.upload(taskList)
     }
 }

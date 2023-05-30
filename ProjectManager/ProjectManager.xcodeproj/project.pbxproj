@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4AC452442A1323CC00ADAC45 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4AC452432A1323CC00ADAC45 /* FirebaseFirestore */; };
 		4AC4526F2A14A2A600ADAC45 /* MyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC4526E2A14A2A600ADAC45 /* MyTask.swift */; };
 		4AE1DDFE2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DDFD2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift */; };
 		4AE1DE192A209B2500EDE95C /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE182A209B2500EDE95C /* RealmManager.swift */; };
@@ -16,6 +15,8 @@
 		4AE1DE202A24991A00EDE95C /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE1F2A24991A00EDE95C /* HistoryViewController.swift */; };
 		4AE1DE222A249F3600EDE95C /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE212A249F3600EDE95C /* HistoryViewModel.swift */; };
 		4AE1DE252A259FD400EDE95C /* RealmHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE242A259FD400EDE95C /* RealmHistory.swift */; };
+		4AE1DE2A2A25EC6C00EDE95C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4AE1DE292A25EC6C00EDE95C /* FirebaseFirestore */; };
+		4AE1DE2C2A25EC6C00EDE95C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4AE1DE2B2A25EC6C00EDE95C /* FirebaseFirestoreSwift */; };
 		AA0E21532A25D3240066202E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA0E21522A25D3240066202E /* GoogleService-Info.plist */; };
 		AA0E21562A25D71C0066202E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0E21552A25D71C0066202E /* FirebaseManager.swift */; };
 		AA2F17DB2A14A82200664807 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */; };
@@ -23,7 +24,7 @@
 		AA32F2442A16026600DB3E1A /* TaskListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */; };
 		AA32F2462A1643C500DB3E1A /* TaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F2452A1643C500DB3E1A /* TaskState.swift */; };
 		AA32F2482A16538800DB3E1A /* CountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F2472A16538800DB3E1A /* CountLabel.swift */; };
-		AA48F31A2A1F3A16003B965E /* Array+subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F3192A1F3A16003B965E /* Array+subscript.swift */; };
+		AA48F31A2A1F3A16003B965E /* Array+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F3192A1F3A16003B965E /* Array+Subscript.swift */; };
 		AA48F31D2A1F7543003B965E /* UITextField+publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F31C2A1F7543003B965E /* UITextField+publisher.swift */; };
 		AA48F31F2A1F754F003B965E /* UITextView+publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F31E2A1F754F003B965E /* UITextView+publisher.swift */; };
 		AA48F3212A2093A4003B965E /* RealmTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F3202A2093A4003B965E /* RealmTask.swift */; };
@@ -62,7 +63,7 @@
 		AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeaderView.swift; sourceTree = "<group>"; };
 		AA32F2452A1643C500DB3E1A /* TaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskState.swift; sourceTree = "<group>"; };
 		AA32F2472A16538800DB3E1A /* CountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLabel.swift; sourceTree = "<group>"; };
-		AA48F3192A1F3A16003B965E /* Array+subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+subscript.swift"; sourceTree = "<group>"; };
+		AA48F3192A1F3A16003B965E /* Array+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Subscript.swift"; sourceTree = "<group>"; };
 		AA48F31C2A1F7543003B965E /* UITextField+publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+publisher.swift"; sourceTree = "<group>"; };
 		AA48F31E2A1F754F003B965E /* UITextView+publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+publisher.swift"; sourceTree = "<group>"; };
 		AA48F3202A2093A4003B965E /* RealmTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTask.swift; sourceTree = "<group>"; };
@@ -92,7 +93,8 @@
 			files = (
 				AA61F2532A1326C200C7C290 /* RealmSwift in Frameworks */,
 				AA61F2512A1326C200C7C290 /* Realm in Frameworks */,
-				4AC452442A1323CC00ADAC45 /* FirebaseFirestore in Frameworks */,
+				4AE1DE2A2A25EC6C00EDE95C /* FirebaseFirestore in Frameworks */,
+				4AE1DE2C2A25EC6C00EDE95C /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,7 +304,7 @@
 			children = (
 				AA99804D2A14B412005D98D7 /* UICollectionViewCell+IdentifierType.swift */,
 				AAACDCFD2A1C6297005BFD03 /* DateFormatter+Deadline.swift */,
-				AA48F3192A1F3A16003B965E /* Array+subscript.swift */,
+				AA48F3192A1F3A16003B965E /* Array+Subscript.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -350,9 +352,10 @@
 			);
 			name = ProjectManager;
 			packageProductDependencies = (
-				4AC452432A1323CC00ADAC45 /* FirebaseFirestore */,
 				AA61F2502A1326C200C7C290 /* Realm */,
 				AA61F2522A1326C200C7C290 /* RealmSwift */,
+				4AE1DE292A25EC6C00EDE95C /* FirebaseFirestore */,
+				4AE1DE2B2A25EC6C00EDE95C /* FirebaseFirestoreSwift */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -382,8 +385,8 @@
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
-				4AC452422A1323CC00ADAC45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				AA61F24F2A1326C200C7C290 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				4AE1DE282A25EC6C00EDE95C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -431,7 +434,7 @@
 				AA648D742A248E3D00602F40 /* Histroy.swift in Sources */,
 				AA99804E2A14B412005D98D7 /* UICollectionViewCell+IdentifierType.swift in Sources */,
 				4AE1DE192A209B2500EDE95C /* RealmManager.swift in Sources */,
-				AA48F31A2A1F3A16003B965E /* Array+subscript.swift in Sources */,
+				AA48F31A2A1F3A16003B965E /* Array+Subscript.swift in Sources */,
 				4AE1DDFE2A1B8D3A00EDE95C /* TaskListHeaderViewModel.swift in Sources */,
 				AAACDCFE2A1C6297005BFD03 /* DateFormatter+Deadline.swift in Sources */,
 				AA2F17DD2A14AB3700664807 /* TaskListCell.swift in Sources */,
@@ -638,12 +641,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4AC452422A1323CC00ADAC45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		4AE1DE282A25EC6C00EDE95C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 		AA61F24F2A1326C200C7C290 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
@@ -657,10 +660,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4AC452432A1323CC00ADAC45 /* FirebaseFirestore */ = {
+		4AE1DE292A25EC6C00EDE95C /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4AC452422A1323CC00ADAC45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 4AE1DE282A25EC6C00EDE95C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		4AE1DE2B2A25EC6C00EDE95C /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4AE1DE282A25EC6C00EDE95C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 		AA61F2502A1326C200C7C290 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
