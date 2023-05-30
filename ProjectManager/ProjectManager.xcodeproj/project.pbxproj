@@ -16,6 +16,8 @@
 		4AE1DE202A24991A00EDE95C /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE1F2A24991A00EDE95C /* HistoryViewController.swift */; };
 		4AE1DE222A249F3600EDE95C /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE212A249F3600EDE95C /* HistoryViewModel.swift */; };
 		4AE1DE252A259FD400EDE95C /* RealmHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE242A259FD400EDE95C /* RealmHistory.swift */; };
+		AA0E21532A25D3240066202E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA0E21522A25D3240066202E /* GoogleService-Info.plist */; };
+		AA0E21562A25D71C0066202E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0E21552A25D71C0066202E /* FirebaseManager.swift */; };
 		AA2F17DB2A14A82200664807 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */; };
 		AA2F17DD2A14AB3700664807 /* TaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F17DC2A14AB3700664807 /* TaskListCell.swift */; };
 		AA32F2442A16026600DB3E1A /* TaskListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */; };
@@ -53,6 +55,8 @@
 		4AE1DE1F2A24991A00EDE95C /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryViewController.swift; path = ProjectManager/App/Source/Database/Protocol/HistoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		4AE1DE212A249F3600EDE95C /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		4AE1DE242A259FD400EDE95C /* RealmHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHistory.swift; sourceTree = "<group>"; };
+		AA0E21522A25D3240066202E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AA0E21552A25D71C0066202E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		AA2F17DC2A14AB3700664807 /* TaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCell.swift; sourceTree = "<group>"; };
 		AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeaderView.swift; sourceTree = "<group>"; };
@@ -122,6 +126,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AA0E21542A25D6C50066202E /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				AA0E21552A25D71C0066202E /* FirebaseManager.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
 		AA2F17D72A14A7BA00664807 /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +168,7 @@
 			children = (
 				4AE1DE1A2A24885E00EDE95C /* Protocol */,
 				AA48F3232A209707003B965E /* Local */,
+				AA0E21542A25D6C50066202E /* Remote */,
 				AA648D7B2A24906300602F40 /* Controller */,
 			);
 			path = Database;
@@ -315,6 +328,7 @@
 			children = (
 				AA54D9142A1D01B100702F06 /* App */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				AA0E21522A25D3240066202E /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -387,6 +401,7 @@
 			files = (
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
+				AA0E21532A25D3240066202E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +421,7 @@
 				4AE1DE202A24991A00EDE95C /* HistoryViewController.swift in Sources */,
 				4AE1DE222A249F3600EDE95C /* HistoryViewModel.swift in Sources */,
 				AA48F31D2A1F7543003B965E /* UITextField+publisher.swift in Sources */,
+				AA0E21562A25D71C0066202E /* FirebaseManager.swift in Sources */,
 				AA8AE3C22A1B560600B662F2 /* TaskManager.swift in Sources */,
 				AA2F17DB2A14A82200664807 /* TaskListViewModel.swift in Sources */,
 				AA48F31F2A1F754F003B965E /* UITextView+publisher.swift in Sources */,
@@ -572,7 +588,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager.harry.kokkilE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -591,7 +607,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager.harry.kokkilE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
