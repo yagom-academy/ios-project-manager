@@ -127,12 +127,7 @@ extension ProjectManagerViewController: UITableViewDataSource {
         let date = project.date.formatDate()
         
         cell.configureContent(title: project.title, body: project.body, date: date)
-        
-        if date < Date().formatDate() {
-            cell.changeDateColor(isOverdue: true)
-        } else {
-            cell.changeDateColor(isOverdue: false)
-        }
+        cell.changeDateColor(isOverdue: date < Date().formatDate())
         
         return cell
     }
