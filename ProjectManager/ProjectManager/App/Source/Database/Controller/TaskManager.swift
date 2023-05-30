@@ -54,7 +54,6 @@ final class TaskManager {
         historyManager.createMovedHistory(title: task.title,
                                           from: currentState,
                                           to: targetState)
-
         realmManager.update(task, type: RealmTask.self)
     }
     
@@ -62,7 +61,6 @@ final class TaskManager {
         taskList.removeAll { $0.id == task.id }
         
         historyManager.createRemovedHistory(title: task.title, from: task.state)
-        
         realmManager.delete(type: RealmTask.self, id: task.id)
     }
 }
