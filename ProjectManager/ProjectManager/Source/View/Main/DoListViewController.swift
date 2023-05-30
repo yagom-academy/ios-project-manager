@@ -45,7 +45,7 @@ class DoListViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-         super.viewDidLoad()
+        super.viewDidLoad()
         configureUI()
         configureHeaderViewTitle()
         configureDataSource()
@@ -89,7 +89,7 @@ class DoListViewController: UIViewController {
     }
     
     private func applySnapshot(schedules: [Schedule]) {
-        var  snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Schedule>()
         snapshot.appendSections([.main])
         snapshot.appendItems(schedules)
         self.dataSource?.apply(snapshot, animatingDifferences: true)
