@@ -9,9 +9,9 @@ import Foundation
 import RealmSwift
 
 protocol Storable {
-    var convertedDictonary: [String: Any] { get set }
-    var changedToDatabaseObject: Object { get set }
+    var convertedDictonary: [String: Any] { get }
+    var changedToDatabaseObject: Object { get }
     
-    func convertToStorable(_ dict: NSDictionary?) -> Storable
-    func convertToStorable(_ object: Object) -> Storable
+    func convertToStorable(_ dict: NSDictionary?) -> Storable?
+    func convertToStorable(_ object: Object) -> Storable?
 }

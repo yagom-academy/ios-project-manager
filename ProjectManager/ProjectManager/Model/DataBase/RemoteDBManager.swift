@@ -15,34 +15,6 @@ final class RemoteDBManager: DatabaseManagable {
         ref = Database.database().reference()
     }
     
-    private func convertToDictonary(_ task: Task) -> [String: Any] {
-        var dict: [String: Any] = [:]
-        
-        dict["title"] = NSString(string: task.title)
-        dict["description"] = NSString(string: task.description)
-        dict["id"] = NSString(string: task.id.uuidString)
-        dict["state"] = NSString(string: task.state?.titleText ?? "")
-        dict["date"] = NSNumber(value: task.date.timeIntervalSince1970)
-        
-        return dict
-    }
-    
-    private func convertToTask(_ dictValue: Any) -> Task? {
-        let dict = dictValue as? NSDictionary
-        
-        guard let idValue = dict?.value(forKey: "id") as? String,
-              let id = UUID(uuidString: idValue),
-              let title = dict?.value(forKey: "title") as? String,
-              let description = dict?.value(forKey: "description") as? String,
-              let stateValue = dict?.value(forKey: "state") as? String,
-              let dateValue = dict?.value(forKey: "date") as? Double else { return nil}
-        
-        let state = TaskState.checkTodoState(by: stateValue)
-        let date = Date(timeIntervalSince1970: dateValue)
-        
-        return Task(id: id, title: title, description: description, date: date, state: state)
-    }
-    
     func createTask(_ task: Task) {
         let dict = convertToDictonary(task)
         

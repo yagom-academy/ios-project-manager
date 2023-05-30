@@ -19,27 +19,6 @@ final class LocalDBManager: DatabaseManagable {
         }
     }
     
-    private func changeToTaskObject(_ task: Task) -> TaskObject {
-        let taskObject = TaskObject()
-        taskObject.id = task.id
-        taskObject.title = task.title
-        taskObject.desc = task.description
-        taskObject.date = task.date
-        taskObject.state = task.state?.titleText
-        
-        return taskObject
-    }
-    
-    private func changeToTask(_ taskObject: TaskObject) -> Task {
-        let task = Task(id: taskObject.id,
-                        title: taskObject.title,
-                        description: taskObject.desc,
-                        date: taskObject.date,
-                        state: TaskState.checkTodoState(by: taskObject.state ?? ""))
-        
-        return task
-    }
-    
     func createTask(_ task: Task) {
         let taskObject = changeToTaskObject(task)
         
