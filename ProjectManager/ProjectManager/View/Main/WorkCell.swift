@@ -8,17 +8,6 @@
 import UIKit
 
 final class WorkCell: UICollectionViewCell {
-    private var isExceededDeadline: Bool = false {
-        didSet {
-            switch isExceededDeadline {
-            case true:
-                deadlineLabel.textColor = .red
-            case false:
-                deadlineLabel.textColor = .black
-            }
-        }
-    }
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         
@@ -49,6 +38,17 @@ final class WorkCell: UICollectionViewCell {
         return label
     }()
     
+    private var isExceededDeadline: Bool = false {
+        didSet {
+            switch isExceededDeadline {
+            case true:
+                deadlineLabel.textColor = .red
+            case false:
+                deadlineLabel.textColor = .black
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -72,6 +72,8 @@ final class WorkCell: UICollectionViewCell {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
         stackView.spacing = 4
         
         return stackView

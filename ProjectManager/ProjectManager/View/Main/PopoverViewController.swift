@@ -57,8 +57,9 @@ final class PopoverViewController: UIViewController {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 4
         stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 4
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         

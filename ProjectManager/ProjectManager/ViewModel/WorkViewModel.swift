@@ -99,10 +99,6 @@ final class WorkViewModel {
     }
     
     func checkExceededDeadline(_ targetDate: Date) -> Bool {
-        if targetDate < Date() {
-            return true
-        } else {
-            return false
-        }
+        return targetDate < Date() ? true : false
     }
 }

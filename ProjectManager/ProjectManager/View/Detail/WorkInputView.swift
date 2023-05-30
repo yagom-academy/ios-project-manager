@@ -97,6 +97,8 @@ final class WorkInputView: UIView {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
         stackView.spacing = 8
         
         return stackView

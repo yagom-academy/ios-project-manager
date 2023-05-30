@@ -60,8 +60,10 @@ final class MainViewController: UIViewController {
         guard let id = noti.object as? UUID else { return }
         
         let handler = { [weak self] in
-            self?.viewModel.currentID = id
-            self?.viewModel.removeWork()
+            guard let self else { return }
+            
+            self.viewModel.currentID = id
+            self.viewModel.removeWork()
         }
             
         AlertManager().showAlert(target: self,
@@ -96,6 +98,7 @@ extension MainViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
+        stackView.alignment = .fill
         stackView.spacing = 8
         stackView.backgroundColor = .systemGray5
         
@@ -103,7 +106,7 @@ extension MainViewController {
     }
 }
 
-extension MainViewController: UICollectionViewDelegate, WorkCollectionViewDelegate {
+extension MainViewController: WorkCollectionViewDelegate {
     private func configureDelegate() {
         todoCollectionView.delegate = todoCollectionView
         doingCollectionView.delegate = doingCollectionView
