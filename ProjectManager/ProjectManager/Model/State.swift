@@ -5,7 +5,7 @@
 //  Created by 무리 on 2023/05/21.
 //
 
-enum State: CaseIterable {
+enum State {
     case todo
     case doing
     case done
