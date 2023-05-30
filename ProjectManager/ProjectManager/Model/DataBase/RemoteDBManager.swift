@@ -69,6 +69,7 @@ final class RemoteDBManager: DatabaseManagable {
     }
     
     func deleteTask(_ task: Task) {
+        ref?.child("Task").child("\(task.id.uuidString)").removeValue()
     }
     
     func updateTask(_ task: Task) {
