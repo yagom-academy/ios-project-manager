@@ -7,10 +7,10 @@
 
 import UIKit
 
-class CustomTableViewController: UIViewController {
+final class CustomTableViewController: UIViewController {
     private let listViewModel = ListViewModel.shared
-    let state: State
-    let mainViewController: UIViewController
+    private let state: State
+    private let mainViewController: UIViewController
     
     private let projectTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
