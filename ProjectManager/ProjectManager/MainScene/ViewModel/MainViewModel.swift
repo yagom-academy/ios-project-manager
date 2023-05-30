@@ -18,14 +18,15 @@ class MainViewModel {
     }
     
     init() {
-        dbManager.fetchTasks({ [weak self] result in
+        dbManager.fetch { [weak self] result in
             switch result {
             case .success(let tasks):
+                guard let tasks = tasks as? [Task] else { return }
                 self?.tasks = tasks
             case .failure(let error):
                 print(error)
             }
-        })
+        }
     }
     
     func deleteTask(_ task: Task) {
@@ -33,7 +34,7 @@ class MainViewModel {
         
         tasks.remove(at: targetIndex)
         
-        dbManager.deleteTask(task)
+        dbManager.delete(object: task)
     }
     
     func changeTaskState(by task: Task, _ state: TaskState) {
@@ -41,7 +42,7 @@ class MainViewModel {
         
         tasks[targetIndex].state = state
         
-        dbManager.updateTask(tasks[targetIndex])
+        dbManager.update(object: tasks[targetIndex])
     }
     
     func replaceTask(_ task: Task) {
@@ -53,13 +54,13 @@ class MainViewModel {
         
         tasks[targetIndex] = task
         
-        dbManager.updateTask(task)
+        dbManager.update(object: task)
     }
     
     func appendTask(_ task: Task) {
         tasks.append(task)
         
-        dbManager.createTask(task)
+        dbManager.create(object: task)
     }
     
     func filterTasks(by state: TaskState) -> [Task] {

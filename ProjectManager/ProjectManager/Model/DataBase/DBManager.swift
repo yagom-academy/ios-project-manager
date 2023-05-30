@@ -9,13 +9,13 @@ import Foundation
 
 final class DBManager: DatabaseManagable {
     
-    private var database: DatabaseManagable? = LocalDBManager()
+    private var database: DatabaseManagable? = LocalDBManager(type: TaskObject.self)
     
     func changeDatabase(isConnect: Bool) {
         if isConnect {
             database = RemoteDBManager()
         } else {
-            database = LocalDBManager()
+            database = LocalDBManager(type: TaskObject.self)
         }
     }
     
