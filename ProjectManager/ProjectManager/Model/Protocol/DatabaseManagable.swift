@@ -6,8 +6,8 @@
 //
 
 protocol DatabaseManagable {
-    func createTask(_ task: Task)
-    func fetchTasks(_ completion: @escaping (Result<[Task], Error>) -> Void)
-    func deleteTask(_ task: Task)
-    func updateTask(_ task: Task)
+    func create(object: Storable)
+    func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void)
+    func delete(object: Storable)
+    func update(object: Storable)
 }

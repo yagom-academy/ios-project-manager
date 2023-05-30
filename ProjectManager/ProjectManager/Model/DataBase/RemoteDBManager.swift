@@ -7,21 +7,20 @@
 
 import FirebaseDatabase
 
-final class RemoteDBManager: DatabaseManagable {
-    
+final class RemoteDBManager<T: Storable>: DatabaseManagable {
     var ref: DatabaseReference?
     
     init() {
         ref = Database.database().reference()
     }
     
-    func createTask(_ task: Task) {
-        let dict = convertToDictonary(task)
+    func create(object: Storable) {
+        let dict = object.convertedDictonary
         
-        ref?.child("Task").child("\(task.id.uuidString)").setValue(dict)
+        ref?.child("Task").child("\(object.id.uuidString)").setValue(dict)
     }
     
-    func fetchTasks(_ completion: @escaping (Result<[Task], Error>) -> Void) {
+    func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
         ref?.child("Task").getData(completion: { error, snapshot in
             guard error == nil else {
                 completion(.failure(GeneratedTaskError.descriptionEmpty))
@@ -29,24 +28,25 @@ final class RemoteDBManager: DatabaseManagable {
             }
             
             let snapshotValue = snapshot?.value as? NSDictionary
-            var tasks: [Task] = []
+            var fetchedData: [Storable] = []
             
             snapshotValue?.forEach({ key, value in
-                guard let task = self.convertToTask(value) else { return }
-                tasks.append(task)
+                let value = value as? NSDictionary
+                guard let task = Task.convertToStorable(value) else { return }
+                fetchedData.append(task)
             })
             
-            completion(.success(tasks))
+            completion(.success(fetchedData))
         })
     }
     
-    func deleteTask(_ task: Task) {
-        ref?.child("Task").child("\(task.id.uuidString)").removeValue()
+    func delete(object: Storable) {
+        ref?.child("Task").child("\(object.id.uuidString)").removeValue()
     }
     
-    func updateTask(_ task: Task) {
-        let dict = convertToDictonary(task)
+    func update(object: Storable) {
+        let dict = object.convertedDictonary
         
-        ref?.child("Task").child("\(task.id.uuidString)").updateChildValues(dict)
+        ref?.child("Task").child("\(object.id.uuidString)").updateChildValues(dict)
     }
 }

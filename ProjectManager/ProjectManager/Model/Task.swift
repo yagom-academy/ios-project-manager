@@ -32,7 +32,7 @@ struct Task: Hashable, Storable {
         return taskObject
     }
 
-    func convertToStorable(_ dict: NSDictionary?) -> Storable? {
+    static func convertToStorable(_ dict: NSDictionary?) -> Storable? {
         guard let idValue = dict?.value(forKey: "id") as? String,
               let id = UUID(uuidString: idValue),
               let title = dict?.value(forKey: "title") as? String,
@@ -46,7 +46,7 @@ struct Task: Hashable, Storable {
         return Task(id: id, title: title, description: description, date: date, state: state)
     }
 
-    func convertToStorable(_ object: Object) -> Storable? {
+    static func convertToStorable(_ object: Object) -> Storable? {
         guard let object = object as? TaskObject else {
             return nil
         }
@@ -60,7 +60,7 @@ struct Task: Hashable, Storable {
         return task
     }
 
-    let id: UUID
+    var id: UUID
     var title: String
     var description: String
     var date: Date
