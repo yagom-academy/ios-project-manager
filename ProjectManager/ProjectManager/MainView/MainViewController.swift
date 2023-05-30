@@ -38,6 +38,10 @@ final class MainViewController: UIViewController {
         configureStackView()
         fetchInitialTaskList()
     }
+    
+    override func viewDidLayoutSubviews() {
+        stackView.layer.addBorder([.bottom], color: .systemGray4, width: 2)
+    }
 
     private func configureNavigationBar() {
         self.navigationItem.title = "Project Manager"
@@ -98,6 +102,7 @@ final class MainViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50)
         ])
+    
     }
     
     private func fetchInitialTaskList() {
