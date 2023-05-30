@@ -13,6 +13,8 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         case doingTableView
         case doneTableView
     }
+    
+    private let todoTableViewCell = ToDoTableViewCell()
 
     // MARK: tableView, cellCountCircleView
     private var todoCellCount: Int = 0
@@ -263,9 +265,9 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     
     // MARK: TableView Setting
     private func setUpTableView() {
-        toDoTableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.identifier)
-        doingTableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.identifier)
-        doneTableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: ToDoTableViewCell.identifier)
+        toDoTableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: todoTableViewCell.identifier)
+        doingTableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: todoTableViewCell.identifier)
+        doneTableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: todoTableViewCell.identifier)
         
         toDoTableView.delegate = self
         toDoTableView.dataSource = self
@@ -319,7 +321,7 @@ extension ToDoListViewContorller {
 // MARK: UITableViewDelegate
 extension ToDoListViewContorller: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell", for: indexPath) as? ToDoTableViewCell else { return }
+        guard let toDoTableViewCell = tableView.dequeueReusableCell(withIdentifier: todoTableViewCell.identifier, for: indexPath) as? ToDoTableViewCell else { return }
         let toDoList = self.toDoList
         
         toDoTableViewCell.setUpLabel(toDoList: toDoList[indexPath.row])
