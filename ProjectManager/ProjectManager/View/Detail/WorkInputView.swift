@@ -15,7 +15,13 @@ final class WorkInputView: UIView {
         
         textField.font = .preferredFont(forTextStyle: .body)
         textField.placeholder = "Title"
-        textField.drawShadow()
+        textField.backgroundColor = .systemBackground
+        textField.layer.cornerRadius = 4
+        textField.layer.shadowColor = UIColor.gray.cgColor
+        textField.layer.shadowOffset = CGSize(width: 0, height: 2)
+        textField.layer.shadowOpacity = 0.4
+        textField.layer.shadowRadius = 4
+        textField.layer.masksToBounds = false
         
         return textField
     }()
@@ -34,7 +40,12 @@ final class WorkInputView: UIView {
         let textView = UITextView()
         
         textView.font = .preferredFont(forTextStyle: .body)
-        textView.drawShadow()
+        textView.layer.cornerRadius = 4
+        textView.layer.shadowColor = UIColor.gray.cgColor
+        textView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        textView.layer.shadowOpacity = 0.4
+        textView.layer.shadowRadius = 4
+        textView.layer.masksToBounds = false
         
         return textView
     }()
@@ -62,6 +73,10 @@ final class WorkInputView: UIView {
         deadlinePicker.isUserInteractionEnabled = isEditing
     }
     
+    func checkContents() -> Contents {
+        return (titleTextField.text ?? "", bodyTextView.text ?? "", deadlinePicker.date)
+    }
+    
     private func configureLayout() {
         let stackView = createContentsStackView()
         
@@ -87,13 +102,7 @@ final class WorkInputView: UIView {
         return stackView
     }
     
-    func checkContents() -> Contents {
-        return (titleTextField.text ?? "", bodyTextView.text ?? "", deadlinePicker.date)
-    }
-}
-
-private extension UIView {
-    func drawShadow() {
+    private func drawShadow() {
         self.backgroundColor = .systemBackground
         
         self.layer.cornerRadius = 4
