@@ -6,9 +6,7 @@
 
 import UIKit
 
-final class HeaderView: UITableViewHeaderFooterView {
-    let identifier = "HeaderView"
-    
+final class HeaderView: UITableViewHeaderFooterView {    
     private lazy var numberLabelWidthAnchor = numberLabel.widthAnchor.constraint(equalToConstant: 24) {
         didSet(currentWidthAnchor) {
             currentWidthAnchor.isActive = false

@@ -6,9 +6,7 @@
 
 import UIKit
 
-final class ProjectCell: UITableViewCell {
-    let identifier = "ProjectCell"
-    
+final class ProjectCell: UITableViewCell {    
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
