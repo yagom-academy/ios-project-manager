@@ -8,32 +8,25 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    private enum ViewMode {
-        case add
-        case edit
-    }
-    
-    var viewModel: WorkViewModel?
-    private var viewMode: ViewMode?
+    private var viewModel: WorkViewModel
+    private var viewMode: WorkViewModel.ViewMode
     private let workInputView = WorkInputView()
     private var isEditable = false
+    
+    init(viewModel: WorkViewModel, viewMode: WorkViewModel.ViewMode) {
+        self.viewModel = viewModel
+        self.viewMode = viewMode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUIOption()
-    }
-    
-    func configureAddMode() {
-        viewMode = .add
-    }
-    
-    func configureEditMode() {
-        viewMode = .edit
-        
-        guard let work = viewModel?.fetchWork() else { return }
-
-        workInputView.configure(title: work.title, body: work.body, deadline: work.deadline)
     }
     
     private func configureUIOption() {
@@ -53,6 +46,9 @@ final class DetailViewController: UIViewController {
                                                                target: self,
                                                                action: #selector(cancel))
         case .edit:
+            guard let work = viewModel.fetchWork() else { return }
+
+            workInputView.configure(title: work.title, body: work.body, deadline: work.deadline)
             workInputView.setEditing(isEditable)
             
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
@@ -63,17 +59,13 @@ final class DetailViewController: UIViewController {
                                                                style: .done,
                                                                target: self,
                                                                action: #selector(toggleEditing))
-        case .none:
-            AlertManager().showErrorAlert(target: self, title: "오류", message: "잘못된 접근입니다.") { [weak self] in
-                self?.dismiss(animated: true)
-            }
         }
     }
     
     @objc private func addWork() {
         let contents = workInputView.checkContents()
         
-        viewModel?.addWork(title: contents.title,
+        viewModel.addWork(title: contents.title,
                            body: contents.body,
                            deadline: contents.deadline)
         
@@ -87,7 +79,7 @@ final class DetailViewController: UIViewController {
     @objc private func updateWork() {
         let contents = workInputView.checkContents()
         
-        viewModel?.updateWork(
+        viewModel.updateWork(
                               title: contents.title,
                               body: contents.body,
                               deadline: contents.deadline)

@@ -8,6 +8,11 @@
 import Foundation
 
 final class WorkViewModel {
+    enum ViewMode {
+        case add
+        case edit
+    }
+    
     var works: [Work] = []
     var currentID: UUID?
     

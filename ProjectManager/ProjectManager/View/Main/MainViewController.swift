@@ -40,10 +40,7 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func presentAppendWork() {
-        let detailViewController = DetailViewController()
-        detailViewController.configureAddMode()
-        detailViewController.viewModel = viewModel
-        
+        let detailViewController = DetailViewController(viewModel: viewModel, viewMode: .add)
         let navigationController = UINavigationController(rootViewController: detailViewController)
         navigationController.modalPresentationStyle = .formSheet
         
@@ -120,11 +117,9 @@ extension MainViewController: UICollectionViewDelegate, WorkCollectionViewDelega
     func workCollectionView(_ collectionView: WorkCollectionView, id: UUID) {
         viewModel.currentID = id
         
-        let detailViewController = DetailViewController()
-        detailViewController.viewModel = viewModel
-        detailViewController.configureEditMode()
-        
+        let detailViewController = DetailViewController(viewModel: viewModel, viewMode: .edit)
         let navigationController = UINavigationController(rootViewController: detailViewController)
+        navigationController.modalPresentationStyle = .formSheet
         
         present(navigationController, animated: true)
     }
