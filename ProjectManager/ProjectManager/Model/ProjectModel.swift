@@ -13,7 +13,7 @@ struct ProjectModel: Hashable {
     var description: String
     var deadLine: Date
     var state: State
-    var ispastdue: Bool {
+    var isPastDue: Bool {
         return deadLine < Date() - TimeInterval(86400)
     }
 }

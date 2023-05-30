@@ -68,7 +68,7 @@ class TableViewCell: UITableViewCell {
         titleLabel.text = toDoList.title
         descriptionLabel.text = toDoList.description
         deadLineLabel.text = DateFormatter.shared.stringDate(from: toDoList.deadLine)
-        if toDoList.ispastdue == true {
+        if toDoList.isPastDue == true {
             deadLineLabel.textColor = .red
         }
     }
