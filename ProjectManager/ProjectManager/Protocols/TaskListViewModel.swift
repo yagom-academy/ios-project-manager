@@ -10,6 +10,7 @@ import Combine
 
 protocol TaskListViewModel: AnyObject {
     associatedtype Section
+    
     var sectionInfo: Section { get }
     var taskList: [Task] { get set }
     var currentTaskSubject: PassthroughSubject<([Task], Bool), Never> { get }
@@ -39,7 +40,6 @@ extension TaskListViewModel {
     }
     
     func deleteTask(at index: Int) {
-        setState(isUpdating: false)
         let task = taskList.remove(at: index)
         delegate?.deleteTask(id: task.id)
     }

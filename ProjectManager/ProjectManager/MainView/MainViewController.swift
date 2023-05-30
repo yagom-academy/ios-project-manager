@@ -13,6 +13,7 @@ final class MainViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
+        stackView.backgroundColor = .systemGray4
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -45,6 +46,12 @@ final class MainViewController: UIViewController {
             target: self,
             action: #selector(presentDetailView)
         )
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = .systemGray6
+        navigationBarAppearance.shadowColor = .clear
+
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance
     }
     
     @objc
@@ -60,7 +67,7 @@ final class MainViewController: UIViewController {
     }
     
     private func configureRootView() {
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = .systemGray6
         view.addSubview(stackView)
     }
     
@@ -89,7 +96,7 @@ final class MainViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50)
         ])
     }
     
