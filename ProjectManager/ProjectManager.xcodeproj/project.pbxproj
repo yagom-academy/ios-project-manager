@@ -43,6 +43,7 @@
 		266ADF0F2A24B21C003B5CEF /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 266ADF0E2A24B21C003B5CEF /* FirebaseStorage */; };
 		266ADF112A24B21C003B5CEF /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 266ADF102A24B21C003B5CEF /* FirebaseStorageCombine-Community */; };
 		26741E972A162720000B2459 /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26741E962A162720000B2459 /* TodoViewController.swift */; };
+		268E31602A257B8400C8B07E /* RemoteDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E315F2A257B8400C8B07E /* RemoteDBManager.swift */; };
 		26CBDC072A1DD4EE001A0801 /* Notification.Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CBDC062A1DD4EE001A0801 /* Notification.Name+Extension.swift */; };
 		26CE60C82A1483380026203C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 26CE60C72A1483380026203C /* .swiftlint.yml */; };
 		26CE60CF2A148FB90026203C /* TaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE60CE2A148FB90026203C /* TaskListCell.swift */; };
@@ -69,6 +70,7 @@
 		266ADEB32A245C3B003B5CEF /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		266ADEB62A248F36003B5CEF /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
 		26741E962A162720000B2459 /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
+		268E315F2A257B8400C8B07E /* RemoteDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDBManager.swift; sourceTree = "<group>"; };
 		26CBDC062A1DD4EE001A0801 /* Notification.Name+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extension.swift"; sourceTree = "<group>"; };
 		26CE60C72A1483380026203C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		26CE60CE2A148FB90026203C /* TaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCell.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 		266ADEB52A248F26003B5CEF /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
+				268E315F2A257B8400C8B07E /* RemoteDBManager.swift */,
 				266ADEB32A245C3B003B5CEF /* DBManager.swift */,
 				266ADEB62A248F36003B5CEF /* TaskObject.swift */,
 			);
@@ -382,6 +385,7 @@
 				26CE60CF2A148FB90026203C /* TaskListCell.swift in Sources */,
 				26741E972A162720000B2459 /* TodoViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				268E31602A257B8400C8B07E /* RemoteDBManager.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				2656763A2A1662380063FBE2 /* TodoTitleTextField.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
