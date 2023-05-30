@@ -83,8 +83,6 @@ final class ProjectManagerViewController: UIViewController {
         detailProjectViewController.dismissHandler = { project in
             self.projects.list.append(project)
             self.todoTableView.reloadData()
-            self.doingTableView.reloadData()
-            self.doneTableView.reloadData()
         }
         
         let navigationController = UINavigationController(rootViewController: detailProjectViewController)
