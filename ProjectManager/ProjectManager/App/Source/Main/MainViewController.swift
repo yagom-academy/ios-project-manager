@@ -41,13 +41,21 @@ final class MainViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let plusBarbutton = UIBarButtonItem(barButtonSystemItem: .add,
+        let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add,
                                             target: self,
                                             action: #selector(addTask))
-        let title = "Project Manager"
         
-        navigationItem.title = title
-        navigationItem.rightBarButtonItem = plusBarbutton
+        let leftBarButtonTittle = "History"
+        let leftBarButton = UIBarButtonItem(title: leftBarButtonTittle,
+                                            style: .plain,
+                                            target: self,
+                                            action: #selector(showHistory(sender:)))
+        
+        let projectTitle = "Project Manager"
+        
+        navigationItem.title = projectTitle
+        navigationItem.rightBarButtonItem = rightBarButton
+        navigationItem.leftBarButtonItem = leftBarButton
     }
     
     @objc private func addTask() {
@@ -55,6 +63,17 @@ final class MainViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
         
         present(navigationController, animated: true)
+    }
+    
+    @objc private func showHistory(sender: UIBarButtonItem) {
+        let historyViewController = HistoryViewController()
+        
+        historyViewController.modalPresentationStyle = .popover
+        historyViewController.popoverPresentationController?.sourceView = view
+        historyViewController.popoverPresentationController?.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+        historyViewController.popoverPresentationController?.permittedArrowDirections = .up
+        
+        present(historyViewController, animated: true)
     }
     
     private func addChildViews() {

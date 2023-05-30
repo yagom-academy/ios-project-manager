@@ -60,7 +60,7 @@ final class HistoryCell: UICollectionViewCell {
     }
     
     private func addSubviews() {
-        addSubview(stackView)
+        contentView.addSubview(stackView)
         
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(dateLabel)

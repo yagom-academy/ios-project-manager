@@ -14,17 +14,20 @@ final class HistoryViewController: UIViewController {
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, History>
     
+    private let viewModel = HistoryViewModel()
     private var dataSource: DataSource?
+    
     private lazy var collectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createListLayout())
         
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray6
         collectionView.register(HistoryCell.self,
                                 forCellWithReuseIdentifier: HistoryCell.reuseIdentifier)
         
         return collectionView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +47,7 @@ final class HistoryViewController: UIViewController {
     
     private func setupView() {
         view.addSubview(collectionView)
+        view.backgroundColor = .systemBackground
         
         setupCollectionView()
     }
@@ -51,6 +55,7 @@ final class HistoryViewController: UIViewController {
     private func setupCollectionView() {
         setupCollectionViewConstraints()
         setupDataSource()
+        applyCurrentSnapshot()
     }
     
     private func setupCollectionViewConstraints() {
@@ -75,5 +80,14 @@ final class HistoryViewController: UIViewController {
             
             return cell
         }
+    }
+    
+    private func applyCurrentSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, History>()
+        
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel.historyList)
+        
+        self.dataSource?.apply(snapshot, animatingDifferences: true)
     }
 }

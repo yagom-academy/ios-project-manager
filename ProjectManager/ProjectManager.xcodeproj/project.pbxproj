@@ -14,6 +14,7 @@
 		4AE1DE1C2A24887D00EDE95C /* DataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE1B2A24887D00EDE95C /* DataTransferObject.swift */; };
 		4AE1DE1E2A24889E00EDE95C /* DataAccessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE1D2A24889E00EDE95C /* DataAccessObject.swift */; };
 		4AE1DE202A24991A00EDE95C /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE1F2A24991A00EDE95C /* HistoryViewController.swift */; };
+		4AE1DE222A249F3600EDE95C /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1DE212A249F3600EDE95C /* HistoryViewModel.swift */; };
 		AA2F17DB2A14A82200664807 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */; };
 		AA2F17DD2A14AB3700664807 /* TaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F17DC2A14AB3700664807 /* TaskListCell.swift */; };
 		AA32F2442A16026600DB3E1A /* TaskListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */; };
@@ -49,6 +50,7 @@
 		4AE1DE1B2A24887D00EDE95C /* DataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferObject.swift; sourceTree = "<group>"; };
 		4AE1DE1D2A24889E00EDE95C /* DataAccessObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessObject.swift; sourceTree = "<group>"; };
 		4AE1DE1F2A24991A00EDE95C /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryViewController.swift; path = ProjectManager/App/Source/Database/Protocol/HistoryViewController.swift; sourceTree = SOURCE_ROOT; };
+		4AE1DE212A249F3600EDE95C /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		AA2F17DA2A14A82200664807 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		AA2F17DC2A14AB3700664807 /* TaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCell.swift; sourceTree = "<group>"; };
 		AA32F2432A16026600DB3E1A /* TaskListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeaderView.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			children = (
 				4AE1DE1F2A24991A00EDE95C /* HistoryViewController.swift */,
 				AA648D7C2A249C0900602F40 /* HistoryCell.swift */,
+				4AE1DE212A249F3600EDE95C /* HistoryViewModel.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */,
 				4AE1DE1C2A24887D00EDE95C /* DataTransferObject.swift in Sources */,
 				4AE1DE202A24991A00EDE95C /* HistoryViewController.swift in Sources */,
+				4AE1DE222A249F3600EDE95C /* HistoryViewModel.swift in Sources */,
 				AA48F31D2A1F7543003B965E /* UITextField+publisher.swift in Sources */,
 				AA8AE3C22A1B560600B662F2 /* TaskManager.swift in Sources */,
 				AA2F17DB2A14A82200664807 /* TaskListViewModel.swift in Sources */,
