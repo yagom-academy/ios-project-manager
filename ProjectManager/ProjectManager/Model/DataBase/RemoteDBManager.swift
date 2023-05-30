@@ -14,6 +14,12 @@ final class RemoteDBManager: DatabaseManagable {
         ref = Database.database().reference()
     }
     
+    func synchronizeObjects(_ objects: [Storable]) {
+        objects.forEach { object in
+            create(object: object)
+        }
+    }
+    
     func create(object: Storable) {
         let dict = object.convertedDictonary
         

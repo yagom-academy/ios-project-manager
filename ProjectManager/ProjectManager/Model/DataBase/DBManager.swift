@@ -9,13 +9,23 @@ import Foundation
 
 final class DBManager: DatabaseManagable {
     
-    private var database: DatabaseManagable? = LocalDBManager(type: TaskObject.self)
+    private var database: DatabaseManagable?
+    private let localDB = LocalDBManager<TaskObject>()
+    private let remoteDB = RemoteDBManager()
     
-    func changeDatabase(isConnect: Bool) {
+    init() {
+        database = localDB
+    }
+    
+    func changeDatabase(isConnect: Bool, syncedObjects: [Storable]?) {
         if isConnect {
-            database = RemoteDBManager()
+            database = localDB
+            
+            guard let objects = syncedObjects else { return }
+            
+            remoteDB.synchronizeObjects(objects)
         } else {
-            database = LocalDBManager(type: TaskObject.self)
+            database = remoteDB
         }
     }
     

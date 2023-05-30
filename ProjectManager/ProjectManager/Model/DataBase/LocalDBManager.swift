@@ -7,15 +7,13 @@
 
 import RealmSwift
 
-final class LocalDBManager: DatabaseManagable {
+final class LocalDBManager<T: Object>: DatabaseManagable {
     
     private let realm: Realm
-    private let type: Object.Type
     
-    init?(type: Object.Type) {
+    init?() {
         do {
             self.realm = try Realm()
-            self.type = type
         } catch {
             return nil
         }
@@ -30,7 +28,7 @@ final class LocalDBManager: DatabaseManagable {
     }
     
     func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
-        let dbObjects = realm.objects(type.self)
+        let dbObjects = realm.objects(T.self)
         let objects = dbObjects.map { dbObject in
             return Task.convertToStorable(dbObject)
         }
@@ -42,7 +40,7 @@ final class LocalDBManager: DatabaseManagable {
     }
     
     func delete(object: Storable) {
-        guard let dbObject = realm.object(ofType: type.self, forPrimaryKey: object.id) else {
+        guard let dbObject = realm.object(ofType: T.self, forPrimaryKey: object.id) else {
             return
         }
         
@@ -52,7 +50,7 @@ final class LocalDBManager: DatabaseManagable {
     }
     
     func update(object: Storable) {
-        guard realm.object(ofType: type.self, forPrimaryKey: object.id) != nil else {
+        guard realm.object(ofType: T.self, forPrimaryKey: object.id) != nil else {
             return
         }
         

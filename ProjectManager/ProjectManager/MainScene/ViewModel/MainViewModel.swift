@@ -27,6 +27,14 @@ class MainViewModel {
                 print(error)
             }
         }
+        
+        networkMonitor.checkNetworkState { [weak self] isConnect in
+            if isConnect {
+                self?.dbManager.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
+            } else {
+                self?.dbManager.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
+            }
+        }
     }
     
     func deleteTask(_ task: Task) {
