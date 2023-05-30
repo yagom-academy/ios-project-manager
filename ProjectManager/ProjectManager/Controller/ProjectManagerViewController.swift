@@ -178,9 +178,7 @@ extension ProjectManagerViewController: UITableViewDelegate {
             self.projects.list[projectIndex].body = project.body
             self.projects.list[projectIndex].date = project.date
             
-            self.todoTableView.reloadData()
-            self.doingTableView.reloadData()
-            self.doneTableView.reloadData()
+            tableView.reloadData()
         }
         
         let navigationController = UINavigationController(rootViewController: detailProjectViewController)
@@ -201,10 +199,10 @@ extension ProjectManagerViewController: UITableViewDelegate {
             let projectToDelete = sortedAssignedProjects[indexPath.row]
             
             guard let removeIndex = self.projects.list.firstIndex(where: { $0.id == projectToDelete.id }) else { return }
+            
             self.projects.list.remove(at: removeIndex)
-            self.todoTableView.reloadData()
-            self.doingTableView.reloadData()
-            self.doneTableView.reloadData()
+            
+            tableView.reloadData()
         }
         return UISwipeActionsConfiguration(actions: [delete])
     }
