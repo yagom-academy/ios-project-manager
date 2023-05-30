@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		260ED10F2A264AC400FD7206 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260ED10E2A264AC400FD7206 /* Storable.swift */; };
 		2612AF372A1770940002DF21 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2612AF362A1770940002DF21 /* ListViewModel.swift */; };
 		2616AFC42A1525F100C33BB2 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2616AFC32A1525F100C33BB2 /* ListViewController.swift */; };
 		2616AFC62A153A3600C33BB2 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		260ED10E2A264AC400FD7206 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		2612AF362A1770940002DF21 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		2616AFC32A1525F100C33BB2 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		260ED10D2A264A9600FD7206 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				2632DEEF2A25DC4400D24197 /* DatabaseManagable.swift */,
+				260ED10E2A264AC400FD7206 /* Storable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		2612AF352A1770860002DF21 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +182,6 @@
 				268E315F2A257B8400C8B07E /* RemoteDBManager.swift */,
 				266ADEB32A245C3B003B5CEF /* LocalDBManager.swift */,
 				266ADEB62A248F36003B5CEF /* TaskObject.swift */,
-				2632DEEF2A25DC4400D24197 /* DatabaseManagable.swift */,
 				2632DEF32A25F30900D24197 /* DBManager.swift */,
 			);
 			path = DataBase;
@@ -210,6 +220,7 @@
 		26CE60D02A14A8B40026203C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				260ED10D2A264A9600FD7206 /* Protocol */,
 				266ADEB52A248F26003B5CEF /* DataBase */,
 				26CE60D12A14A8DF0026203C /* TaskState.swift */,
 				26CE60D32A14A9230026203C /* Task.swift */,
@@ -410,6 +421,7 @@
 				2632DEF42A25F30900D24197 /* DBManager.swift in Sources */,
 				26E20EAA2A1BB11C00F7FBDC /* GeneratedTaskError.swift in Sources */,
 				26E20EB12A1C8A1F00F7FBDC /* MainViewModel.swift in Sources */,
+				260ED10F2A264AC400FD7206 /* Storable.swift in Sources */,
 				266ADEB72A248F36003B5CEF /* TaskObject.swift in Sources */,
 				2632DEF02A25DC4400D24197 /* DatabaseManagable.swift in Sources */,
 			);

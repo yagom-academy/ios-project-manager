@@ -10,6 +10,7 @@ import Foundation
 class MainViewModel {
     
     private let dbManager = DBManager()
+    private let networkMonitor = NetworkMonitor()
     private var tasks: [Task] = [] {
         didSet {
             postChangedTasksNoti()
