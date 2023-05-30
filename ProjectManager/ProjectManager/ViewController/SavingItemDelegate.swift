@@ -8,6 +8,6 @@
 import Foundation
 
 protocol SavingItemDelegate: AnyObject {
-    func create(_ item: Plan)
-    func update(by item: Plan)
+    func doneButtonTappedForSaving(_ plan: Plan)
+    func doneButtonTappedForResaving(_ plan: Plan)
 }

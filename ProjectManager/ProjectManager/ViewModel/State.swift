@@ -24,11 +24,11 @@ extension State {
     func checkOrder() -> (first: String, second: String) {
         switch self {
         case .todo:
-            return (State.doing.description, State.done.description)
+            return (String(describing: State.doing), String(describing: State.done))
         case .doing:
-            return (State.todo.description, State.done.description)
+            return (String(describing: State.todo), String(describing: State.done))
         case .done:
-            return (State.todo.description, State.doing.description)
+            return (String(describing: State.todo), String(describing: State.doing))
         }
     }
     

@@ -8,11 +8,10 @@
 import Foundation
 import Combine
 
-final class PlanViewModel {
+final class PlanViewModel: PlanSubscriber {
     @Published var plan: [Plan] = []
-    let updatePublisher = PassthroughSubject<Plan, Never>()
-    let deletePublisher = PassthroughSubject<Plan, Never>()
-    let changePublisher = PassthroughSubject<(Plan, State), Never>()
+    var deletePublisher = PassthroughSubject<Plan, Never>()
+    var changePublisher = PassthroughSubject<(Plan, State), Never>()
     
     private let state: State
     private var cancellables = Set<AnyCancellable>()
@@ -51,10 +50,6 @@ final class PlanViewModel {
     
     func delete(_ plan: Plan) {
         deletePublisher.send(plan)
-    }
-
-    func update(by plan: Plan) {
-        updatePublisher.send(plan)
     }
     
     func changeState(plan: Plan, state: State) {

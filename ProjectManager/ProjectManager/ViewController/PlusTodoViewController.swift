@@ -154,11 +154,11 @@ final class PlusTodoViewController: UIViewController {
         switch mode {
         case .create:
             guard let plan = configurePlan() else { return }
-            self.delegate?.create(plan)
+            self.delegate?.doneButtonTappedForSaving(plan)
             self.dismiss(animated: false)
         default:
             guard let plan = updatePlan() else { return }
-            self.delegate?.update(by: plan)
+            self.delegate?.doneButtonTappedForResaving(plan)
             self.dismiss(animated: false)
         }
     }

@@ -99,12 +99,14 @@ final class PlanManagerViewController: UIViewController, SavingItemDelegate {
         
         present(plusTodoViewController, animated: false)
     }
-    
-    func create(_ item: Plan) {
-        viewModel.create(item)
+}
+
+extension PlanManagerViewController {
+    func doneButtonTappedForSaving(_ plan: Plan) {
+        viewModel.create(plan)
     }
     
-    func update(by item: Plan) {
-        viewModel.update(by: item)
+    func doneButtonTappedForResaving(_ plan: Plan) {
+        viewModel.update(plan)
     }
 }

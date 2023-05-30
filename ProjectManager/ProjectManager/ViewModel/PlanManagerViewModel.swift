@@ -57,43 +57,31 @@ final class PlanManagerViewModel {
     }
     
     private func bindDelete() {
-        todoViewModel.deletePublisher
-            .sink { [weak self] plan in
-                self?.delete(by: plan.id)
-            }
-            .store(in: &cancellables)
-        doingViewModel.deletePublisher
-            .sink { [weak self] plan in
-                self?.delete(by: plan.id)
-            }
-            .store(in: &cancellables)
-        doneViewModel.deletePublisher
-            .sink { [weak self] plan in
-                self?.delete(by: plan.id)
-            }
-            .store(in: &cancellables)
+        bindDelete(subscriber: todoViewModel)
+        bindDelete(subscriber: doingViewModel)
+        bindDelete(subscriber: doneViewModel)
     }
     
     private func bindChange() {
-        todoViewModel.changePublisher
-            .sink { [weak self] (plan, state) in
-                self?.changeState(plan: plan, state: state)
-            }
-            .store(in: &cancellables)
-        doingViewModel.changePublisher
-            .sink { [weak self] (plan, state) in
-                self?.changeState(plan: plan, state: state)
-            }
-            .store(in: &cancellables)
-        doneViewModel.changePublisher
-            .sink { [weak self] (plan, state) in
-                self?.changeState(plan: plan, state: state)
+        bindChange(subscriber: todoViewModel)
+        bindChange(subscriber: doingViewModel)
+        bindChange(subscriber: doneViewModel)
+    }
+    
+    private func bindDelete(subscriber: PlanSubscriber) {
+        subscriber.deletePublisher
+            .sink { [weak self] plan in
+                self?.delete(by: plan.id)
             }
             .store(in: &cancellables)
     }
     
-    func create(_ plan: Plan) {
-        planList.append(plan)
+    private func bindChange(subscriber: PlanSubscriber) {
+        subscriber.changePublisher
+            .sink { [weak self] (plan, state) in
+                self?.changeState(plan: plan, state: state)
+            }
+            .store(in: &cancellables)
     }
     
     private func delete(by id: UUID) {
@@ -106,10 +94,16 @@ final class PlanManagerViewModel {
         var plan = planList[index]
         plan.state = state
       
-        update(by: plan)
+        update(plan)
+    }
+}
+
+extension PlanManagerViewModel {
+    func create(_ plan: Plan) {
+        planList.append(plan)
     }
     
-    func update(by plan: Plan) {
+    func update(_ plan: Plan) {
         guard let index = self.planList.firstIndex(where: { $0.id == plan.id }) else { return }
         self.planList[index] = plan
     }

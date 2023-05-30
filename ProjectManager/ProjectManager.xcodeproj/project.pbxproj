@@ -13,6 +13,7 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		FBC20AA32A1F90AB00EDB6A8 /* PlanManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC20AA22A1F90AB00EDB6A8 /* PlanManagerViewModel.swift */; };
+		FBC20AAB2A25B14900EDB6A8 /* PlanSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC20AAA2A25B14900EDB6A8 /* PlanSubscriber.swift */; };
 		FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */; };
 		FBF062882A14B8A00088A9E3 /* PlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062872A14B8A00088A9E3 /* PlanTableViewCell.swift */; };
 		FBF0628A2A14B9720088A9E3 /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062892A14B9720088A9E3 /* PlanViewModel.swift */; };
@@ -37,6 +38,7 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBC20AA22A1F90AB00EDB6A8 /* PlanManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManagerViewModel.swift; sourceTree = "<group>"; };
+		FBC20AAA2A25B14900EDB6A8 /* PlanSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSubscriber.swift; sourceTree = "<group>"; };
 		FBF0627B2A132F820088A9E3 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTodoViewController.swift; sourceTree = "<group>"; };
 		FBF062872A14B8A00088A9E3 /* PlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlanTableViewCell.swift; path = ProjectManager/View/PlanTableViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				FBF062A92A1D11B90088A9E3 /* State.swift */,
+				FBC20AAA2A25B14900EDB6A8 /* PlanSubscriber.swift */,
 				FBC20AA22A1F90AB00EDB6A8 /* PlanManagerViewModel.swift */,
 				FBF062892A14B9720088A9E3 /* PlanViewModel.swift */,
 				FBF0629F2A1B391B0088A9E3 /* PlusTodoViewModel.swift */,
@@ -238,6 +241,7 @@
 				FBF0628D2A14BA780088A9E3 /* Plan.swift in Sources */,
 				FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */,
 				FBF062A82A1C5E230088A9E3 /* HeaderView.swift in Sources */,
+				FBC20AAB2A25B14900EDB6A8 /* PlanSubscriber.swift in Sources */,
 				FBC20AA32A1F90AB00EDB6A8 /* PlanManagerViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* PlanManagerViewController.swift in Sources */,
 				FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */,
