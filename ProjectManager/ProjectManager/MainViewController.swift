@@ -108,7 +108,6 @@ extension MainViewController {
     }
     
     private func setUpDataSource() {
-        let dataManager = TodoListDataManager()
         let registration = configureCellRegistration()
         let todoHeader = configureHeaderRegistration(headerText: "TODO", listCount: TodoListDataManager.shared.listCount().todo)
         let doingHeader = configureHeaderRegistration(headerText: "DOING", listCount: TodoListDataManager.shared.listCount().doing)
@@ -120,9 +119,11 @@ extension MainViewController {
     }
     
     private func updateListSnapshot(_ list: [TodoLabel], section: Section, dataSource: UICollectionViewDiffableDataSource<Section, TodoLabel>?) {
+        let sortedList = list.sorted { $0.date < $1.date }
         var snapshot = NSDiffableDataSourceSnapshot<Section, TodoLabel>()
+        
         snapshot.appendSections([.main])
-        snapshot.appendItems(list, toSection: .main)
+        snapshot.appendItems(sortedList, toSection: .main)
 
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
