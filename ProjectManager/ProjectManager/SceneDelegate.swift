@@ -14,7 +14,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = UINavigationController(rootViewController: MainViewController())
+        
+        let taskStore = [Task(title: "hi", date: Date(), body: "body", workState: .todo),
+            Task(title: "hi", date: Date(), body: "body", workState: .todo),
+            Task(title: "hi", date: Date(), body: "body", workState: .todo),
+            Task(title: "hiThere", date: Date(), body: "body", workState: .done),
+            Task(title: "hi", date: Date(), body: "body", workState: .doing),
+            Task(title: "hi", date: Date(), body: "body", workState: .todo),
+            Task(title: "hi", date: Date(), body: "body", workState: .todo),
+            Task(title: "hi", date: Date(), body: "body", workState: .todo),
+            Task(title: "hi", date: Date(), body: "body", workState: .todo),
+            Task(title: "hi", date: Date(), body: "body", workState: .todo),
+            Task(title: "hi", date: Date(), body: "body", workState: .todo)
+        ]
+        let taskStorageService = TaskStorageService(taskStore: taskStore)
+        let mainViewModel = MainViewModel(service: taskStorageService)
+        
+        window?.rootViewController = UINavigationController(
+            rootViewController: MainViewController(mainViewModel: mainViewModel)
+        )
         window?.makeKeyAndVisible()
     }
 

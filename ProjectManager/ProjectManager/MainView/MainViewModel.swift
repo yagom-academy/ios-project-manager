@@ -12,7 +12,7 @@ final class MainViewModel {
     var viewModelDictionary: [WorkState: TaskListViewModel] = [:]
     private let service: TaskStorageService
     
-    init(service: TaskStorageService = TaskStorageService()) {
+    init(service: TaskStorageService) {
         self.service = service
     }
     

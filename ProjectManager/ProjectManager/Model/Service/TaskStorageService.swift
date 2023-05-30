@@ -8,19 +8,11 @@
 import Foundation
 
 final class TaskStorageService {
-    private var taskStore: [Task] = [
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hiThere", date: Date(), body: "body", workState: .done),
-        Task(title: "hi", date: Date(), body: "body", workState: .doing),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo),
-        Task(title: "hi", date: Date(), body: "body", workState: .todo)
-    ]
+    private var taskStore: [Task]
+    
+    init(taskStore: [Task]) {
+        self.taskStore = taskStore
+    }
     
     func createTask(_ task: Task) {
         taskStore.append(task)
