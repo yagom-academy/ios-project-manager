@@ -79,7 +79,7 @@ final class HeaderView: UICollectionReusableView {
     }
     
     private func configureLayout() {
-        self.backgroundColor = .systemGray5
+        self.backgroundColor = .systemGray6
         self.addSubview(stackView)
         
         stackView.addArrangedSubview(titleLabel)

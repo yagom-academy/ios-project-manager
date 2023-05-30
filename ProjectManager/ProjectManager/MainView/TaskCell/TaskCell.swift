@@ -82,6 +82,14 @@ final class TaskCell: UICollectionViewListCell {
                 self.dateLabel.text = date
             }
             .store(in: &bindings)
+        
+        viewModel?.$isDateExpired
+            .sink { state in
+                guard let state else { return }
+                
+                self.dateLabel.textColor = state ? .systemRed : .black
+            }
+            .store(in: &bindings)
     }
     
     private func configureContentLayout() {

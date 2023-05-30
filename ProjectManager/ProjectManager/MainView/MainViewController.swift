@@ -51,11 +51,13 @@ final class MainViewController: UIViewController {
             action: #selector(presentDetailView)
         )
         let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.backgroundColor = .systemGray6
+        navigationBarAppearance.backgroundColor = .systemGray5
         navigationBarAppearance.shadowColor = .clear
 
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
         self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance
+        self.navigationController?.navigationBar.isTranslucent = true
+        
     }
     
     @objc
