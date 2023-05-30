@@ -24,34 +24,22 @@ final class PlanManagerViewModel {
     }
     
     private func setUpBindings() {
-        bindItem()
+        bindPlan()
         bindDelete()
         bindChange()
     }
     
-    private func bindItem() {
+    private func bindPlan() {
         $planList
-            .map { plans in
-                plans.filter { plan in
-                    plan.state == .todo
-                }
-            }
+            .map { $0.filter { $0.state == .todo } }
             .assign(to: \.plan, on: todoViewModel)
             .store(in: &cancellables)
         $planList
-            .map { plans in
-                plans.filter { plan in
-                    plan.state == .doing
-                }
-            }
+            .map { $0.filter { $0.state == .doing } }
             .assign(to: \.plan, on: doingViewModel)
             .store(in: &cancellables)
         $planList
-            .map { plans in
-                plans.filter { plan in
-                    plan.state == .done
-                }
-            }
+            .map { $0.filter { $0.state == .done } }
             .assign(to: \.plan, on: doneViewModel)
             .store(in: &cancellables)
     }
