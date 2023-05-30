@@ -16,6 +16,21 @@ extension Date {
     static let dateString = {
         let dateString = dateFormatter.string(from: Date())
         return dateString
+    }()
+    
+    static func setCustomDate(year: Int, month: Int, day: Int) -> String {
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        guard let customDate = calendar.date(from: dateComponents) else {
+            return ""
+        }
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: customDate)
+        return dateString
     }
     
     func dateCompare(fromDate: Date) -> UIColor {
