@@ -9,10 +9,6 @@ import UIKit
 import Combine
 
 class DoListViewController: UIViewController {
-    enum Section {
-        case main
-    }
-
     private var cancellables: Set<AnyCancellable> = []
     private var dataSource: UICollectionViewDiffableDataSource<Section, Schedule>?
     private let mainViewModel: MainViewModel
