@@ -35,7 +35,7 @@ final class ScheduleCell: UICollectionViewCell {
         return label
     }()
     
-    private let dateLabel: UILabel = {
+    private let expirationLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .preferredFont(forTextStyle: .caption1)
@@ -59,23 +59,23 @@ final class ScheduleCell: UICollectionViewCell {
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(contentLabel)
-        stackView.addArrangedSubview(dateLabel)
+        stackView.addArrangedSubview(expirationLabel)
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: ConstantSpace.cellAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -ConstantSpace.cellAnchor),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: ConstantSpace.cellAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -ConstantSpace.cellAnchor)
         ])
     }
     
     func configureLabel(schedule: Schedule) {
         titleLabel.text = schedule.title
         contentLabel.text = schedule.content
-        dateLabel.text = DateFormatterManager.shared.convertToDate(from: schedule.expirationDate)
+        expirationLabel.text = DateFormatterManager.shared.convertToDate(from: schedule.expirationDate)
         
         if schedule.expirationDate < Date(timeIntervalSinceNow: -86400) {
-            dateLabel.textColor = .systemRed
+            expirationLabel.textColor = .systemRed
         }
     }
 }
