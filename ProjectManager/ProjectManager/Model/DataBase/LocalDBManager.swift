@@ -8,8 +8,8 @@
 import RealmSwift
 
 final class LocalDBManager: DatabaseManagable {
+    
     private let realm: Realm
-    private lazy var remoteManager = RemoteDBManager()
     
     init?() {
         do {
@@ -19,45 +19,42 @@ final class LocalDBManager: DatabaseManagable {
         }
     }
     
-    func createTask(_ task: Task) {
-        let taskObject = changeToTaskObject(task)
+    func create(object: Storable) {
+        let dbObject = object.changedToDatabaseObject
         
         try? realm.write({
-            realm.add(taskObject, update: .all)
-            remoteManager.createTask(task)
+            realm.add(dbObject, update: .all)
         })
     }
     
-    func fetchTasks(_ completion: @escaping (Result<[Task], Error>) -> Void) {
-        let taskObjects = realm.objects(TaskObject.self)
-        
-        let tasks = taskObjects.map { taskObject in
-            return self.changeToTask(taskObject)
+    func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
+        let dbObjects = realm.objects(Object.self)
+        let objects = dbObjects.map { dbObject in
+            return Task.convertToStorable(dbObject)
+        }
+        let objectList = Array(objects).compactMap { storable in
+            return storable
         }
         
-        completion(.success(Array(tasks)))
+        completion(.success(Array(objectList)))
     }
     
-    func updateTask(_ task: Task) {
-        guard let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: task.id) else {
-            return
-        }
-        
-        try? realm.write {
-            taskObject.setValue(task.title, forKey: "title")
-            taskObject.setValue(task.description, forKey: "desc")
-            taskObject.setValue(task.date, forKey: "date")
-            taskObject.setValue(task.state?.titleText, forKey: "state")
-        }
-    }
-    
-    func deleteTask(_ task: Task) {
-        guard let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: task.id) else {
+    func delete(object: Storable) {
+        guard let dbObject = realm.object(ofType: Object.self, forPrimaryKey: object.id) else {
             return
         }
         
         try? realm.write({
-            realm.delete(taskObject)
+            realm.delete(dbObject)
         })
+    }
+    
+    func update(object: Storable) {
+        guard let dbObject = realm.object(ofType: Object.self, forPrimaryKey: object.id) else {
+            return
+        }
+        
+        delete(object: object)
+        create(object: object)
     }
 }

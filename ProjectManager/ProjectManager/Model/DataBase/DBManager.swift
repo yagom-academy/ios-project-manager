@@ -8,6 +8,7 @@
 import Foundation
 
 final class DBManager: DatabaseManagable {
+    
     private var database: DatabaseManagable? = LocalDBManager()
     
     func changeDatabase(isConnect: Bool) {
@@ -18,19 +19,19 @@ final class DBManager: DatabaseManagable {
         }
     }
     
-    func createTask(_ task: Task) {
-        database?.createTask(task)
+    func create(object: Storable) {
+        database?.create(object: object)
     }
     
-    func fetchTasks(_ completion: @escaping (Result<[Task], Error>) -> Void) {
-        database?.fetchTasks(completion)
+    func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
+        database?.fetch(completion)
     }
     
-    func deleteTask(_ task: Task) {
-        database?.deleteTask(task)
+    func delete(object: Storable) {
+        database?.delete(object: object)
     }
     
-    func updateTask(_ task: Task) {
-        database?.updateTask(task)
+    func update(object: Storable) {
+        database?.update(object: object)
     }
 }

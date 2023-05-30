@@ -7,7 +7,7 @@
 
 import FirebaseDatabase
 
-final class RemoteDBManager<T: Storable>: DatabaseManagable {
+final class RemoteDBManager: DatabaseManagable {
     var ref: DatabaseReference?
     
     init() {
