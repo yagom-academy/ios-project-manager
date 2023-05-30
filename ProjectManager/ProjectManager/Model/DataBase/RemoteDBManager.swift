@@ -7,15 +7,15 @@
 
 import FirebaseDatabase
 
-final class RemoteDBManager {
+final class RemoteDBManager: DatabaseManagable {
+    
     var ref: DatabaseReference?
     
     init() {
         ref = Database.database().reference()
-        fetchTasks()
     }
     
-    private func convertToNSDictonary(_ task: Task) -> NSDictionary {
+    private func convertToDictonary(_ task: Task) -> [String: Any] {
         var dict: [String: Any] = [:]
         
         dict["title"] = NSString(string: task.title)
@@ -24,7 +24,7 @@ final class RemoteDBManager {
         dict["state"] = NSString(string: task.state?.titleText ?? "")
         dict["date"] = NSNumber(value: task.date.timeIntervalSince1970)
         
-        return NSDictionary(dictionary: dict)
+        return dict
     }
     
     private func convertToTask(_ dictValue: Any) -> Task? {
@@ -44,12 +44,15 @@ final class RemoteDBManager {
     }
     
     func createTask(_ task: Task) {
-        ref?.child("Task").child("\(task.id.uuidString)").setValue(convertToNSDictonary(task))
+        let dict = convertToDictonary(task)
+        
+        ref?.child("Task").child("\(task.id.uuidString)").setValue(dict)
     }
     
-    func fetchTasks() {
+    func fetchTasks(_ completion: @escaping (Result<[Task], Error>) -> Void) {
         ref?.child("Task").getData(completion: { error, snapshot in
             guard error == nil else {
+                completion(.failure(GeneratedTaskError.descriptionEmpty))
                 return
             }
             
@@ -60,6 +63,17 @@ final class RemoteDBManager {
                 guard let task = self.convertToTask(value) else { return }
                 tasks.append(task)
             })
+            
+            completion(.success(tasks))
         })
+    }
+    
+    func deleteTask(_ task: Task) {
+    }
+    
+    func updateTask(_ task: Task) {
+        let dict = convertToDictonary(task)
+        
+        ref?.child("Task").child("\(task.id.uuidString)").updateChildValues(dict)
     }
 }
