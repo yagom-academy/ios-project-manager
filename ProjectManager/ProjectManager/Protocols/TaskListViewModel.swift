@@ -20,6 +20,7 @@ protocol TaskListViewModel: AnyObject {
     func updateTask(_ task: Task)
     func deleteTask(at index: Int)
     func task(at index: Int) -> Task?
+    func setState(isUpdating: Bool)
 }
 
 extension TaskListViewModel {
@@ -38,6 +39,7 @@ extension TaskListViewModel {
     }
     
     func deleteTask(at index: Int) {
+        setState(isUpdating: false)
         let task = taskList.remove(at: index)
         delegate?.deleteTask(id: task.id)
     }

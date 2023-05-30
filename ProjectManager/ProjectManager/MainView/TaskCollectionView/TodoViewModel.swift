@@ -28,11 +28,10 @@ final class TodoViewModel: TaskListViewModel {
     var delegate: TaskListViewModelDelegate?
     
     private var isUpdating: Bool = false
-}
-
-extension TodoViewModel: DetailViewModelDelegate {
+    
     func setState(isUpdating: Bool) {
         self.isUpdating = isUpdating
     }
 }
 
+extension TodoViewModel: DetailViewModelDelegate { }

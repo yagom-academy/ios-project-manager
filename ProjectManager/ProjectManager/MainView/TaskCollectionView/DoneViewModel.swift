@@ -28,10 +28,10 @@ final class DoneViewModel: TaskListViewModel {
     var delegate: TaskListViewModelDelegate?
     
     private var isUpdating: Bool = false
-}
-
-extension DoneViewModel: DetailViewModelDelegate {
+    
     func setState(isUpdating: Bool) {
         self.isUpdating = isUpdating
     }
 }
+
+extension DoneViewModel: DetailViewModelDelegate { }

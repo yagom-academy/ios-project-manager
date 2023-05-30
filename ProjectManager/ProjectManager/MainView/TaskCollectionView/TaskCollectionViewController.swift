@@ -242,6 +242,7 @@ final class TaskCollectionViewController<Section: Hashable>: UIViewController, U
             }
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let task = viewModel.task(at: indexPath.row)
