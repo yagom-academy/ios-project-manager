@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 protocol TaskListViewModel: AnyObject {
+    associatedtype Section
+    var sectionInfo: Section { get }
     var taskList: [Task] { get set }
     var currentTaskSubject: PassthroughSubject<([Task], Bool), Never> { get }
     var taskWorkState: WorkState { get }

@@ -37,7 +37,6 @@ final class MainViewController: UIViewController {
         configureNavigationBar()
         configureRootView()
         configureStackView()
-        setupViewModelReference()
         fetchInitialTaskList()
     }
 
@@ -68,17 +67,19 @@ final class MainViewController: UIViewController {
     }
     
     private func addChildren() {
-        self.addChild(TaskCollectionViewController(viewModel: TodoViewModel()))
-        self.addChild(TaskCollectionViewController(viewModel: DoingViewModel()))
-        self.addChild(TaskCollectionViewController(viewModel: DoneViewModel()))
+        let todoViewModel = TodoViewModel()
+        let doingViewModel = DoingViewModel()
+        let doneViewModel = DoneViewModel()
         
-        self.children
-            .compactMap { ($0 as? TaskCollectionViewController)?.viewModel }
-            .forEach { $0.delegate = self.mainViewModel }
-    }
-    
-    private func setupViewModelReference() {
-        self.mainViewModel.assignChildViewModel(of: self.children)
+        self.addChild(TaskCollectionViewController<TodoViewModel.TodoSection>(viewModel: todoViewModel))
+        self.addChild(TaskCollectionViewController<DoingViewModel.DoingSection>(viewModel: doingViewModel))
+        self.addChild(TaskCollectionViewController<DoneViewModel.DoneSection>(viewModel: doneViewModel))
+        
+        mainViewModel.assignChildViewModel(of: [
+            todoViewModel,
+            doingViewModel,
+            doneViewModel
+        ])
     }
     
     private func configureStackView() {

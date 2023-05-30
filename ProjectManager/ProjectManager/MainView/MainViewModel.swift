@@ -5,22 +5,23 @@
 //  Created by Brody, Rowan on 2023/05/24.
 //
 
-import UIKit
+import Foundation
 
 final class MainViewModel {
-    @Published var taskList: [Task] = []
-    var viewModelDictionary: [WorkState: TaskListViewModel] = [:]
+    var taskList: [Task] = []
+    var viewModelDictionary: [WorkState: any TaskListViewModel] = [:]
     private let service: TaskStorageService
     
     init(service: TaskStorageService) {
         self.service = service
     }
     
-    func assignChildViewModel(of children: [UIViewController]) {
+    func assignChildViewModel(of children: [any TaskListViewModel]) {
         children
-            .compactMap { $0 as? TaskCollectionViewController }
-            .map { $0.viewModel }
-            .forEach { viewModelDictionary[$0.taskWorkState] = $0 }
+            .forEach {
+                $0.delegate = self
+                viewModelDictionary[$0.taskWorkState] = $0
+            }
     }
     
     func fetchTaskList() {
@@ -34,7 +35,7 @@ final class MainViewModel {
         }
     }
     
-    func todoViewModel() -> TaskListViewModel? {
+    func todoViewModel() -> (any TaskListViewModel)? {
         return viewModelDictionary[.todo]
     }
 }

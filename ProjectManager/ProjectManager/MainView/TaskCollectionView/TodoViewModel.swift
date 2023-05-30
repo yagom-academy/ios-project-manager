@@ -8,6 +8,16 @@
 import Combine
 
 final class TodoViewModel: TaskListViewModel {
+    enum TodoSection: Hashable {
+        case todo(count: Int)
+    }
+    
+    typealias Section = TodoSection
+    
+    var sectionInfo: TodoSection {
+        TodoSection.todo(count: taskList.count)
+    }
+    
     var taskList: [Task] = [] {
         didSet {
             currentTaskSubject.send((taskList, isUpdating))

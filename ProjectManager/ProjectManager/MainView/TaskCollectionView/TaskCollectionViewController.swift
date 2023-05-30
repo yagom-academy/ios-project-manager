@@ -8,15 +8,15 @@
 import UIKit
 import Combine
 
-final class TaskCollectionViewController: UIViewController  {
-    typealias DataSource = UICollectionViewDiffableDataSource<WorkState, Task.ID>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<WorkState, Task.ID>
+final class TaskCollectionViewController<Section: Hashable>: UIViewController, UICollectionViewDelegate {
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Task.ID>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Task.ID>
     
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
     
     var dataSource: DataSource?
-    var viewModel: TaskListViewModel
+    var viewModel: any TaskListViewModel
     var bindings = Set<AnyCancellable>()
     private let dateFormatter = {
         let formatter = DateFormatter()
@@ -37,7 +37,7 @@ final class TaskCollectionViewController: UIViewController  {
         setupLongTapGestureRecognizer()
     }
     
-    init(viewModel: TaskListViewModel) {
+    init(viewModel: any TaskListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -170,25 +170,29 @@ final class TaskCollectionViewController: UIViewController  {
     }
     
     private func applyLatestSnapshot(_ taskList: [Task]) {
+        guard let section = viewModel.sectionInfo as? Section else {
+            return
+        }
+        
         let taskIDList = taskList.map { $0.id }
         
         var snapshot = Snapshot()
-        snapshot.appendSections([viewModel.taskWorkState])
-        snapshot.appendItems(taskIDList, toSection: viewModel.taskWorkState)
+        snapshot.appendSections([section])
+        snapshot.appendItems(taskIDList, toSection: section)
         dataSource?.apply(snapshot)
     }
     
     private func reloadDataSourceItems() {
         guard var snapshot = dataSource?.snapshot() else { return }
+        let taskListID = viewModel.taskList.map { $0.id }
         
-        snapshot.reloadSections([viewModel.taskWorkState])
+        snapshot.reloadItems(taskListID)
         dataSource?.apply(snapshot)
     }
     
     private func setupLongTapGestureRecognizer() {
         let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
         longPressedGesture.minimumPressDuration = 0.5
-        longPressedGesture.delegate = self
         longPressedGesture.delaysTouchesBegan = true
         collectionView.addGestureRecognizer(longPressedGesture)
     }
@@ -238,9 +242,6 @@ final class TaskCollectionViewController: UIViewController  {
             }
         }
     }
-}
-
-extension TaskCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let task = viewModel.task(at: indexPath.row)
@@ -256,6 +257,3 @@ extension TaskCollectionViewController: UICollectionViewDelegate {
     }
 }
 
-extension TaskCollectionViewController: UIGestureRecognizerDelegate {
-    
-}
