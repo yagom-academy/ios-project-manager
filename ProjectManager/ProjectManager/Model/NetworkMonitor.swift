@@ -11,16 +11,15 @@ final class NetworkMonitor {
     private let backgroundQueue = DispatchQueue.global(qos: .background)
     private let monitor = NWPathMonitor()
     
-    func checkNetworkState() {
+    func checkNetworkState(_ handler: @escaping (Bool) -> Void) {
         monitor.start(queue: backgroundQueue)
         monitor.pathUpdateHandler = { path in
-            print("path: \(path)")
-            
-            if path.status == .satisfied {
-                print("연결")
-            } else {
-                print("연결 안되")
+            guard path.status == .satisfied else {
+                handler(false)
+                return
             }
+            
+            handler(true)
         }
     }
     
