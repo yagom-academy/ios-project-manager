@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class MainViewController: UIViewController {
     private let todoViewController = TaskListViewController(state: .todo)
@@ -27,7 +26,7 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(NSHomeDirectory())
         setupView()
     }
     

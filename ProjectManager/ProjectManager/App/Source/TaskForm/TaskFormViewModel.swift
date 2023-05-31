@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class TaskFormViewModel {
-    private let taskManager = TaskManager.shared
+    private let projectManagerService = ProjectManagerService.shared
     private var task: MyTask?
     private var subscriptions = Set<AnyCancellable>()
     
@@ -77,7 +77,7 @@ final class TaskFormViewModel {
     private func addTask(title: String, date: TimeInterval, body: String) {
         let task = MyTask(state: .todo, title: title, body: body, deadline: date)
         
-        taskManager.create(task)
+        projectManagerService.create(task)
     }
     
     private func updateTask(title: String, date: TimeInterval, body: String) {
@@ -87,6 +87,6 @@ final class TaskFormViewModel {
         
         guard let task else { return }
         
-        taskManager.update(task)
+        projectManagerService.update(task)
     }
 }

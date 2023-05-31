@@ -9,7 +9,6 @@ import Foundation
 import Combine
 
 final class HistoryManager {
-    static let shared = HistoryManager()
     private let realmManager = RealmManager()
     
     var historyList: [History] = [] {
@@ -18,7 +17,7 @@ final class HistoryManager {
         }
     }
     
-    private init() {
+    init() {
         fetch()
     }
     

@@ -9,21 +9,19 @@ import Foundation
 import Combine
 
 final class TaskManager {
-    static let shared = TaskManager()
-    private let historyManager = HistoryManager.shared
     private let realmManager = RealmManager()
     
     @Published private var taskList: [MyTask] = []
     
-    private init() {
+    init() {
         fetch()
     }
     
-    func taskListPublisher() -> AnyPublisher<[MyTask], Never> {
+    func requestTaskListPublisher() -> AnyPublisher<[MyTask], Never> {
         return $taskList.eraseToAnyPublisher()
     }
     
-    func fetch() {
+    private func fetch() {
         guard let realmList = realmManager.readAll(type: RealmTask.self) else { return }
         
         taskList = realmList.map { MyTask($0) }
@@ -32,7 +30,7 @@ final class TaskManager {
     func create(_ task: MyTask) {
         taskList.append(task)
         
-        historyManager.createAddedHistory(title: task.title)
+//        historyManager.createAddedHistory(title: task.title)
         
         let realmTask = RealmTask(task)
         realmManager.create(realmTask)
@@ -44,7 +42,7 @@ final class TaskManager {
         taskList[safe: index] = task
 
         realmManager.update(task, type: RealmTask.self)
-        upload()
+//        upload()
     }
     
     func update(_ task: MyTask, from currentState: TaskState, to targetState: TaskState) {
@@ -52,30 +50,30 @@ final class TaskManager {
         
         taskList[safe: index] = task
         
-        historyManager.createMovedHistory(title: task.title,
-                                          from: currentState,
-                                          to: targetState)
+//        historyManager.createMovedHistory(title: task.title,
+//                                          from: currentState,
+//                                          to: targetState)
         realmManager.update(task, type: RealmTask.self)
     }
     
     func delete(_ task: MyTask) {
         taskList.removeAll { $0.id == task.id }
         
-        historyManager.createRemovedHistory(title: task.title, from: task.state)
+//        historyManager.createRemovedHistory(title: task.title, from: task.state)
         realmManager.delete(type: RealmTask.self, id: task.id)
     }
     
-    func upload() {
-        let firebaseManager = FirebaseManager()
-        
-        firebaseManager.save(taskList)
-    }
-    
-    func download() {
-        let firebaseManager = FirebaseManager()
-        
-        firebaseManager.fetch(MyTask.self) {
-            print($0)
-        }
-    }
+//    func upload() {
+//        let firebaseManager = FirebaseManager()
+//
+//        firebaseManager.save(taskList)
+//    }
+//
+//    func download() {
+//        let firebaseManager = FirebaseManager()
+//
+//        firebaseManager.fetch(MyTask.self) {
+//            print($0)
+//        }
+//    }
 }

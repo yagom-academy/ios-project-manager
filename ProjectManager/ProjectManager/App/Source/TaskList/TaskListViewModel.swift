@@ -11,7 +11,7 @@ import Combine
 final class TaskListViewModel {
     @Published var taskList: [MyTask] = []
     private let state: TaskState
-    private let taskManager = TaskManager.shared
+    private let projectManagerService = ProjectManagerService.shared
     private var subscribes = Set<AnyCancellable>()
     
     var firstPopoverActionTitle: String? {
@@ -35,7 +35,7 @@ final class TaskListViewModel {
     func delete(indexPath: IndexPath) {
         guard let task = taskList[safe: indexPath.row] else { return }
         
-        taskManager.delete(task)
+        projectManagerService.delete(task)
     }
     
     func changeState(indexPath: IndexPath, targetState: TaskState?) {
@@ -45,11 +45,11 @@ final class TaskListViewModel {
         let currentState = task.state
         task.state = targetState
         
-        taskManager.update(task, from: currentState, to: targetState)
+        projectManagerService.move(task, from: currentState, to: targetState)
     }
     
     private func requestFilteredTaskList() {
-        taskManager.taskListPublisher()
+        projectManagerService.requestTaskListPublisher()
             .map {
                 $0.filter { [weak self] task in
                     task.state == self?.state

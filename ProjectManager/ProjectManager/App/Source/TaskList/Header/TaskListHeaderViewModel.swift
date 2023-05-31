@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class TaskListHeaderViewModel {
-    private let taskManager = TaskManager.shared
+    private let projectManagerService = ProjectManagerService.shared
     private var subscriptions = Set<AnyCancellable>()
     
     var title: String = ""
@@ -25,8 +25,8 @@ final class TaskListHeaderViewModel {
     }
     
     private func requestTaskCount(state: TaskState) {
-        taskManager
-            .taskListPublisher()
+        projectManagerService
+            .requestTaskListPublisher()
             .map {
                 $0.filter {
                     $0.state == state

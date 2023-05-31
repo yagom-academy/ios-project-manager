@@ -8,10 +8,10 @@
 import Foundation
 
 final class HistoryViewModel {
-    private let historyManager = HistoryManager.shared
+    private let projectManagerService = ProjectManagerService.shared
     let historyList: [History]
     
     init() {
-        historyList = historyManager.historyList
+        historyList = projectManagerService.requestHistoryList()
     }
 }
