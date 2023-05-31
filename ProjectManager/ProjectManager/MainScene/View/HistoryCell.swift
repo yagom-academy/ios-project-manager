@@ -24,7 +24,7 @@ class HistoryCell: UITableViewCell {
         let label = UILabel()
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 8, weight: .light)
+        label.font = .systemFont(ofSize: 12, weight: .light)
         label.numberOfLines = 1
         
         return label
@@ -53,16 +53,17 @@ class HistoryCell: UITableViewCell {
     private func configureUI() {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLabel])
         
-        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
         stackView.spacing = 4
         
         contentView.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
         ])
     }
 }

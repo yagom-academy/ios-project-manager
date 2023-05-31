@@ -23,6 +23,8 @@ class HistoryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.identifier)
     }
 
     // MARK: - Table view data source
@@ -36,9 +38,11 @@ class HistoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.identifier) as? HistoryCell else {
+            return UITableViewCell()
+        }
         
-        cell.textLabel?.text = history[indexPath.row]
+        cell.updateLabel(title: history[indexPath.row], date: Date())
 
         return cell
     }
