@@ -42,7 +42,7 @@ final class MainViewController: UIViewController {
         configureNavigationBar()
         configureRootView()
         configureStackView()
-        fetchInitialplanList()
+        fetchInitialPlanList()
     }
     
     override func viewDidLayoutSubviews() {
@@ -116,8 +116,8 @@ final class MainViewController: UIViewController {
     
     }
     
-    private func fetchInitialplanList() {
-        mainViewModel.fetchplanList()
-        mainViewModel.distributeplan()
+    private func fetchInitialPlanList() {
+        mainViewModel.fetchPlanList()
+        mainViewModel.distributePlan()
     }
 }

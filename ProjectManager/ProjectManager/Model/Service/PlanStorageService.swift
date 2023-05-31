@@ -14,21 +14,21 @@ final class PlanStorageService {
         self.planStore = planStore
     }
     
-    func createplan(_ plan: Plan) {
+    func create(plan: Plan) {
         planStore.append(plan)
     }
     
-    func fetchplanList() -> [Plan] {
+    func fetchPlanList() -> [Plan] {
         return planStore
     }
     
-    func updateplan(_ plan: Plan) {
+    func update(plan: Plan) {
         guard let index = planStore.firstIndex(where: { $0.id == plan.id }) else { return }
         
         planStore[safe: index] = plan
     }
     
-    func deleteplan(id: UUID) {
+    func deletePlan(id: UUID) {
         guard let index = planStore.firstIndex(where: { $0.id == id }) else { return }
         
         planStore.remove(at: index)

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PlanListViewModelDelegate {
-    func createplan(_ plan: Plan)
-    func updateplan(_ plan: Plan)
-    func deleteplan(id: UUID)
+    func create(plan: Plan)
+    func update(plan: Plan)
+    func deletePlan(id: UUID)
 }

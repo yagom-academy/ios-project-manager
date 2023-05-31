@@ -24,14 +24,14 @@ final class MainViewModel {
             }
     }
     
-    func fetchplanList() {
-        planList = service.fetchplanList()
+    func fetchPlanList() {
+        planList = service.fetchPlanList()
     }
     
-    func distributeplan() {
+    func distributePlan() {
         viewModelDictionary.forEach { workState, viewModel in
-            let filteredplanList = planList.filter { $0.workState == workState }
-            viewModel.planList = filteredplanList
+            let filteredPlanList = planList.filter { $0.workState == workState }
+            viewModel.planList = filteredPlanList
         }
     }
     
@@ -41,23 +41,23 @@ final class MainViewModel {
 }
 
 extension MainViewModel: PlanListViewModelDelegate {
-    func createplan(_ plan: Plan) {
-        service.createplan(plan)
+    func create(plan: Plan) {
+        service.create(plan: plan)
     }
     
-    func updateplan(_ plan: Plan) {
-        service.updateplan(plan)
+    func update(plan: Plan) {
+        service.update(plan: plan)
     }
     
-    func deleteplan(id: UUID) {
-        service.deleteplan(id: id)
+    func deletePlan(id: UUID) {
+        service.deletePlan(id: id)
     }
 }
 
 extension MainViewModel: ChangeWorkStateViewModelDelegate {
     func changeWorkState(planID: UUID, with workState: WorkState) {
         service.changeWorkState(planID: planID, with: workState)
-        fetchplanList()
-        distributeplan()
+        fetchPlanList()
+        distributePlan()
     }
 }

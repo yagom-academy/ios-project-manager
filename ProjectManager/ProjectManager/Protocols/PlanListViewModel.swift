@@ -23,7 +23,7 @@ protocol PlanListViewModel: AnyObject {
 extension PlanListViewModel {
     func create(plan: Plan) {
         planList.append(plan)
-        delegate?.createplan(plan)
+        delegate?.create(plan: plan)
     }
     
     func update(plan: Plan) {
@@ -32,12 +32,12 @@ extension PlanListViewModel {
         }
         
         planList[targetIndex] = plan
-        delegate?.updateplan(plan)
+        delegate?.update(plan: plan)
     }
     
     func deletePlan(at index: Int) {
         let plan = planList.remove(at: index)
-        delegate?.deleteplan(id: plan.id)
+        delegate?.deletePlan(id: plan.id)
     }
     
     func plan(at index: Int) -> Plan? {
