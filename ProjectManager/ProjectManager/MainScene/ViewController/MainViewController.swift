@@ -60,6 +60,10 @@ final class MainViewController: UIViewController {
         presentTodoViewController(.create, nil)
     }
     
+    @objc private func didTapHistoryButton() {
+        
+    }
+    
     private func configureObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(bindCollectionView),
@@ -87,6 +91,7 @@ extension MainViewController {
     private func configureNavigationViewUI() {
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "History", style: .plain, target: self, action: #selector(didTapHistoryButton))
     }
     
     private func configureViewUI() {
