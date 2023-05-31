@@ -11,13 +11,13 @@ import RealmSwift
 final class RealmHistory: Object {
     @Persisted(primaryKey: true) var id: UUID
     @Persisted var title: String
-    @Persisted var date: Date
+    @Persisted var date: TimeInterval
     
-    convenience init(title: String) {
+    convenience init(_ history: History) {
         self.init()
         
-        self.id = UUID()
-        self.title = title
-        self.date = Date()
+        self.id = history.id
+        self.title = history.title
+        self.date = history.date
     }
 }

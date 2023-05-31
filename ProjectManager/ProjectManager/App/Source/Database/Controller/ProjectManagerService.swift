@@ -11,8 +11,8 @@ import Combine
 final class ProjectManagerService {
     static let shared = ProjectManagerService()
     
-    let taskManager = TaskManager()
-    let historyManager = HistoryManager()
+    private let taskManager = TaskManager()
+    private let historyManager = HistoryManager()
     
     private init() { }
     

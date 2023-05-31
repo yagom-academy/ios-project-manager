@@ -10,7 +10,8 @@ import Combine
 
 final class TaskManager {
     private let realmManager = RealmManager()
-    
+    private let firebaseManager = FirebaseManager()
+        
     @Published private var taskList: [MyTask] = []
     
     init() {
@@ -30,10 +31,10 @@ final class TaskManager {
     func create(_ task: MyTask) {
         taskList.append(task)
         
-//        historyManager.createAddedHistory(title: task.title)
-        
         let realmTask = RealmTask(task)
+        
         realmManager.create(realmTask)
+        firebaseManager.save(task)
     }
     
     func update(_ task: MyTask) {
@@ -42,38 +43,13 @@ final class TaskManager {
         taskList[safe: index] = task
 
         realmManager.update(task, type: RealmTask.self)
-//        upload()
-    }
-    
-    func update(_ task: MyTask, from currentState: TaskState, to targetState: TaskState) {
-        guard let index = taskList.firstIndex(where: { $0.id == task.id }) else { return }
-        
-        taskList[safe: index] = task
-        
-//        historyManager.createMovedHistory(title: task.title,
-//                                          from: currentState,
-//                                          to: targetState)
-        realmManager.update(task, type: RealmTask.self)
+        firebaseManager.save(task)
     }
     
     func delete(_ task: MyTask) {
         taskList.removeAll { $0.id == task.id }
         
-//        historyManager.createRemovedHistory(title: task.title, from: task.state)
         realmManager.delete(type: RealmTask.self, id: task.id)
+        firebaseManager.delete(type: MyTask.self, id: task.id)
     }
-    
-//    func upload() {
-//        let firebaseManager = FirebaseManager()
-//
-//        firebaseManager.save(taskList)
-//    }
-//
-//    func download() {
-//        let firebaseManager = FirebaseManager()
-//
-//        firebaseManager.fetch(MyTask.self) {
-//            print($0)
-//        }
-//    }
 }

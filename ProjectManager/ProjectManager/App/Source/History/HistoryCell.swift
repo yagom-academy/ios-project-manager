@@ -51,7 +51,7 @@ final class HistoryCell: UICollectionViewListCell {
     
     func configure(_ history: History) {
         titleLabel.text = history.title
-        dateLabel.text = DateFormatter.historyText(date: history.date)
+        dateLabel.text = DateFormatter.historyText(history.date)
     }
     
     private func setupView() {

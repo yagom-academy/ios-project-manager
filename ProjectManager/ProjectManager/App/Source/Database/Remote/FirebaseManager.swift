@@ -61,4 +61,11 @@ final class FirebaseManager {
             }
         }
     }
+    
+    func delete<DTO: DataTransferObject>(type: DTO.Type, id: UUID) {
+        let collectionName = String(describing: type)
+        let databaseReference = database.collection(collectionName)
+        
+        databaseReference.document(id.uuidString).delete()
+    }
 }

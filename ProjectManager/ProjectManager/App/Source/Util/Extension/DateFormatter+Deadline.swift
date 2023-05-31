@@ -20,15 +20,6 @@ extension DateFormatter {
         let date = Date(timeIntervalSince1970: timeInterval)
         return deadlineFormatter.string(from: date)
     }
-    
-    static func deadlineDate(text: String) -> Date? {
-        return deadlineFormatter.date(from: text)
-    }
-    
-    static func currentDate() -> Date? {
-        let date = deadlineFormatter.string(from: Date())
-        return deadlineDate(text: date)
-    }
 }
 
 extension DateFormatter {
@@ -41,7 +32,8 @@ extension DateFormatter {
         return dateFormatter
     }()
     
-    static func historyText(date: Date) -> String {
+    static func historyText(_ timeInterval: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timeInterval)
         return historyFormatter.string(from: date)
     }
 }

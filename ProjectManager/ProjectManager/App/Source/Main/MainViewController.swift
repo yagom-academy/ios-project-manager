@@ -26,7 +26,7 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(NSHomeDirectory())
+        
         setupView()
     }
     

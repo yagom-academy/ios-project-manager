@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct History: Hashable {
+struct History: Hashable, DataTransferObject {
     let id: UUID
     let title: String
-    let date: Date
+    let date: TimeInterval
     
     init(title: String) {
         self.id = UUID()
         self.title = title
-        self.date = Date()
+        self.date = Date().timeIntervalSince1970
     }
     
     init(_ realmHistory: RealmHistory) {
