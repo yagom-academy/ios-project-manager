@@ -385,9 +385,3 @@ extension ToDoListViewContorller: UITableViewDataSource {
         return toDoTableViewCell
     }
 }
-
-extension Array {
-    subscript(index index: Int) -> Element? {
-        return indices ~= index ? self[index] : nil
-    }
-}
