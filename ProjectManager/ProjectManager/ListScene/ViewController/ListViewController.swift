@@ -53,12 +53,14 @@ final class ListViewController: UIViewController {
     }
 
     @objc private func applySnapshot() {
-        deleteSnapshotBySection()
-        
-        snapshot.appendSections([viewModel.taskState])
-        snapshot.appendItems(viewModel.tasks)
-        
-        datasource?.apply(snapshot, animatingDifferences: false)
+        DispatchQueue.main.async {
+            self.deleteSnapshotBySection()
+            
+            self.snapshot.appendSections([self.viewModel.taskState])
+            self.snapshot.appendItems(self.viewModel.tasks)
+            
+            self.datasource?.apply(self.snapshot, animatingDifferences: false)
+        }
     }
     
     private func deleteSnapshotBySection() {

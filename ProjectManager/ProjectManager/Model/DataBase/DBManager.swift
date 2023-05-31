@@ -17,6 +17,10 @@ final class DBManager: DatabaseManagable {
     func changeDatabase(isConnect: Bool, syncedObjects: [Storable]?) {
         if isConnect {
             database = remoteDB
+            
+            guard let objects = syncedObjects else { return }
+            
+            localDB.synchronizeObjects(objects)
         } else {
             database = localDB
             

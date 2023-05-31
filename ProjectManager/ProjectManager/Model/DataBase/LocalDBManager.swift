@@ -26,6 +26,17 @@ final class LocalDBManager<T: Object>: DatabaseManagable {
         self.errorHandler = errorHandler
     }
     
+    func synchronizeObjects(_ objects: [Storable]) {
+        objects.forEach { object in
+            guard realm?.object(ofType: T.self, forPrimaryKey: object.id) != nil else {
+                create(object: object)
+                return
+            }
+            
+            update(object: object)
+        }
+    }
+    
     func create(object: Storable) {
         let dbObject = object.changedToDatabaseObject
         
