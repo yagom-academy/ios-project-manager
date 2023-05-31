@@ -24,18 +24,6 @@ class MainViewModel {
         }
     }
     
-    private func fetchTasks() {
-        dbManager.fetch { [weak self] result in
-            switch result {
-            case .success(let tasks):
-                guard let tasks = tasks as? [Task] else { return }
-                self?.tasks = tasks
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
     func deleteTask(_ task: Task) {
         guard let targetIndex = tasks.firstIndex(of: task) else { return }
         
@@ -76,8 +64,23 @@ class MainViewModel {
         }
     }
     
+    private func fetchTasks() {
+        dbManager.fetch { [weak self] result in
+            switch result {
+            case .success(let tasks):
+                guard let tasks = tasks as? [Task] else { return }
+                self?.tasks = tasks
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func postDatabaseError(with error: Error) {
+        NotificationCenter.default.post(name: .errorTask, object: nil, userInfo: ["error": error])
+    }
+    
     private func postChangedTasksNoti() {
-        NotificationCenter.default.post(name: .changedTasks,
-                                        object: nil)
+        NotificationCenter.default.post(name: .changedTasks, object: nil)
     }
 }
