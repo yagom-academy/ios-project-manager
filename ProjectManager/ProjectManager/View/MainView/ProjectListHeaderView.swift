@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ProjectListHeaderView: View {
-    @Binding var viewModel: ProjectViewModel
+    @Binding var count: String
     private let state: ProjectState
     
-    init(viewModel: Binding<ProjectViewModel>, state: ProjectState) {
-        self._viewModel = viewModel
+    init(count: Binding<String>, state: ProjectState) {
+        self._count = count
         self.state = state
     }
 
@@ -26,7 +26,7 @@ struct ProjectListHeaderView: View {
                 Circle()
                     .fill(.black)
                     .frame(width: 25)
-                Text(String(viewModel.search(state: state).count))
+                Text(count)
                     .font(.title3)
                     .foregroundColor(.white)
             }
@@ -36,6 +36,6 @@ struct ProjectListHeaderView: View {
 
 struct ProjectListHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectListHeaderView(viewModel: .constant(ProjectViewModel()), state: .todo)
+        ProjectListHeaderView(count: .constant("3"), state: .todo)
     }
 }

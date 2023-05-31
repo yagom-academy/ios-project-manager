@@ -25,7 +25,9 @@ struct ProjectListView: View {
                     viewModel.delete(state: currentState, at: indexSet)
                 }
             } header: {
-                ProjectListHeaderView(viewModel: $viewModel, state: currentState)
+                let count = viewModel.search(state: currentState).count
+                let binding = Binding<String>.constant("\(count)")
+                ProjectListHeaderView(count: binding, state: currentState)
             }
         }
         .listStyle(.grouped)

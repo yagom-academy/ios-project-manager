@@ -42,5 +42,5 @@ struct ProjectViewModel {
         var item = projectList.remove(at: firstIndex)
         item.state = state
         projectList.append(item)
-    }
+    } 
 }
