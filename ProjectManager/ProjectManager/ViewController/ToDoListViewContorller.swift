@@ -193,7 +193,7 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
     }
     
     private func showPopover(point: CGPoint, firstTitle: String, secondTitle: String, firstHandler:((UIAlertAction) -> Void)?, secondHandler:((UIAlertAction) -> Void)?) {
-        let alertController = UIAlertController(title: "이동하고싶은 ", message: "", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "이동시킬 리스트 선택", message: "", preferredStyle: .actionSheet)
         
         let firstAction = UIAlertAction(title: firstTitle, style: .default, handler: firstHandler)
         let secondeAction = UIAlertAction(title: secondTitle, style: .default, handler: secondHandler)

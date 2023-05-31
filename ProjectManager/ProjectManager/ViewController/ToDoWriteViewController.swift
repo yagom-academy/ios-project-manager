@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol sendToDoListProtocol {
+protocol sendToDoListProtocol: AnyObject {
     func sendTodoList(data: ToDoList, isCreatMode: Bool)
 }
 
@@ -18,7 +18,8 @@ final class ToDoWriteViewController: UIViewController {
         case create
     }
     
-    var delegate: sendToDoListProtocol?
+    weak var delegate: sendToDoListProtocol?
+    
     private var mode: Mode
     private var fetchedTodoList: ToDoList?
     
