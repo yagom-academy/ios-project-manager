@@ -87,6 +87,7 @@ final class TaskCollectionViewController<Section: Hashable>: UIViewController, U
             let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
             section.boundarySupplementaryItems = [sectionHeader]
             section.interGroupSpacing = 10
+            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0)
 
             return section
         }
@@ -118,7 +119,8 @@ final class TaskCollectionViewController<Section: Hashable>: UIViewController, U
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: HeaderView.identifier,
-                for: indexPath) as? HeaderView else {
+                for: indexPath
+            ) as? HeaderView else {
                 fatalError("Could not dequeue sectionHeader:")
             }
             

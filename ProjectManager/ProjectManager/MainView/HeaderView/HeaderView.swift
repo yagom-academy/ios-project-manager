@@ -81,6 +81,7 @@ final class HeaderView: UICollectionReusableView {
     private func configureLayout() {
         self.backgroundColor = .systemGray6
         self.addSubview(stackView)
+        self.layer.addBorder([.bottom], color: .systemGray3, width: 0.8)
         
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(badgeLabel)
