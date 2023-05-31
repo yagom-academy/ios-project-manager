@@ -66,8 +66,16 @@ final class TaskManager {
     }
     
     func upload() {
-        let firebaseManager = FirebaseManager(collectionName: .entity, documentName: .myTask)
+        let firebaseManager = FirebaseManager()
         
-        firebaseManager.upload(taskList)
+        firebaseManager.save(taskList)
+    }
+    
+    func download() {
+        let firebaseManager = FirebaseManager()
+        
+        firebaseManager.fetch(MyTask.self) {
+            print($0)
+        }
     }
 }
