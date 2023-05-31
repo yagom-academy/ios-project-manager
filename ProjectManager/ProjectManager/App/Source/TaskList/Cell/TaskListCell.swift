@@ -79,7 +79,7 @@ final class TaskListCell: UICollectionViewCell {
     func configure(_ task: MyTask) {
         titleLabel.text = task.title
         bodyLabel.text = task.body
-        deadlineLabel.text = DateFormatter.deadlineText(date: task.deadline)
+        deadlineLabel.text = DateFormatter.deadlineText(task.deadline)
         deadlineLabel.textColor = viewModel.decideDeadlineColor(state: task.state,
                                                                 date: task.deadline)
     }

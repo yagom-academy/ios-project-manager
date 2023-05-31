@@ -12,9 +12,9 @@ struct MyTask: Hashable, Codable, DataTransferObject {
     var state: TaskState
     var title: String
     var body: String
-    var deadline: Date
+    var deadline: TimeInterval
     
-    init(id: UUID = UUID(), state: TaskState, title: String, body: String, deadline: Date) {
+    init(id: UUID = UUID(), state: TaskState, title: String, body: String, deadline: TimeInterval) {
         self.id = id
         self.state = state
         self.title = title

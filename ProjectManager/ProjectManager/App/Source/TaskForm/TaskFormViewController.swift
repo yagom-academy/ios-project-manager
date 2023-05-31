@@ -110,7 +110,7 @@ final class TaskFormViewController: UIViewController {
     
     @objc private func rightBarButtonAction() {
         viewModel.doneAction(title: textField.text ?? "",
-                             date: datePicker.date,
+                             date: datePicker.date.timeIntervalSince1970,
                              body: textView.text ?? "")
         
         dismiss(animated: true)
@@ -139,7 +139,7 @@ final class TaskFormViewController: UIViewController {
     
     private func setupContents() {
         textField.text = viewModel.title
-        datePicker.setDate(viewModel.deadline, animated: false)
+        datePicker.setDate(Date(timeIntervalSince1970: viewModel.deadline), animated: false)
         textView.text = viewModel.body
     }
     

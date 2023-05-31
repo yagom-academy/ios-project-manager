@@ -13,7 +13,7 @@ final class RealmTask: Object, DataAcessObject {
     @Persisted var state: TaskState
     @Persisted var title: String
     @Persisted var body: String
-    @Persisted var deadline: Date
+    @Persisted var deadline: TimeInterval
     
     convenience init(_ task: MyTask) {
         self.init()

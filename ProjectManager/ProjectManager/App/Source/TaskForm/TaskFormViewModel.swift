@@ -18,8 +18,8 @@ final class TaskFormViewModel {
     @Published var title: String = ""
     @Published var body: String = ""
     
-    var deadline: Date {
-        return task?.deadline ?? Date()
+    var deadline: TimeInterval {
+        return task?.deadline ?? Date().timeIntervalSince1970
     }
     
     var leftBarButtonTitle: String {
@@ -54,7 +54,7 @@ final class TaskFormViewModel {
         isEditable = true
     }
     
-    func doneAction(title: String, date: Date, body: String) {
+    func doneAction(title: String, date: TimeInterval, body: String) {
         if task != nil {
             updateTask(title: title, date: date, body: body)
             
@@ -74,13 +74,13 @@ final class TaskFormViewModel {
             .store(in: &subscriptions)
     }
     
-    private func addTask(title: String, date: Date, body: String) {
+    private func addTask(title: String, date: TimeInterval, body: String) {
         let task = MyTask(state: .todo, title: title, body: body, deadline: date)
         
         taskManager.create(task)
     }
     
-    private func updateTask(title: String, date: Date, body: String) {
+    private func updateTask(title: String, date: TimeInterval, body: String) {
         task?.title = title
         task?.deadline = date
         task?.body = body

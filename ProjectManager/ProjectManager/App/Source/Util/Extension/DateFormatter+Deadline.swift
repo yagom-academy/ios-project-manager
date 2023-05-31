@@ -16,7 +16,8 @@ extension DateFormatter {
         return dateFormatter
     }()
     
-    static func deadlineText(date: Date) -> String {
+    static func deadlineText(_ timeInterval: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timeInterval)
         return deadlineFormatter.string(from: date)
     }
     

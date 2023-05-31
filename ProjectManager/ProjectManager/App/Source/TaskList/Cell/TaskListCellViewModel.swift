@@ -9,24 +9,19 @@ import UIKit
 import Combine
 
 final class TaskListCellViewModel {
-    func decideDeadlineColor(state: TaskState, date: Date) -> UIColor {
+    func decideDeadlineColor(state: TaskState, date: TimeInterval) -> UIColor {
         guard state != .done else {
             return .label
         }
         
-        let formattedDateText = DateFormatter.deadlineText(date: date)
+        let currentDate = Date().timeIntervalSince1970
+        let secondsPerAllDay = 60 * 60 * 24
+        let currentWithoutSecond = Int(currentDate) / secondsPerAllDay
+        let targetWithoutSecond = Int(date) / secondsPerAllDay
         
-        guard let formattedDate = DateFormatter.deadlineDate(text: formattedDateText) else {
-            return .label
-        }
-        
-        let currentDate = DateFormatter.currentDate()
-        let compareResult = currentDate?.compare(formattedDate)
-        
-        switch compareResult {
-        case .orderedDescending:
+        if currentWithoutSecond > targetWithoutSecond {
             return .systemRed
-        default:
+        } else {
             return .label
         }
     }
