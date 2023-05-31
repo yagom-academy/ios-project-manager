@@ -26,7 +26,11 @@ final class ProjectManagerService {
     
     func create(_ task: MyTask) {
         taskManager.create(task)
-        historyManager.createAddedHistory(title: task.title)
+        
+        let history =  historyManager.getAddedHistory(title: task.title)
+        
+        historyManager.create(history)
+//        historyManager.createAddedHistory(title: task.title)
     }
     
     func update(_ task: MyTask) {
@@ -35,13 +39,21 @@ final class ProjectManagerService {
     
     func move(_ task: MyTask, from currentState: TaskState, to targetState: TaskState) {
         taskManager.update(task)
-        historyManager.createMovedHistory(title: task.title,
-                                          from: currentState,
-                                          to: targetState)
+        
+        let history = historyManager.getMovedHistory(title: task.title,
+                                                        from: currentState,
+                                                        to: targetState)
+        historyManager.create(history)
+//        historyManager.createMovedHistory(title: task.title,
+//                                          from: currentState,
+//                                          to: targetState)
     }
     
     func delete(_ task: MyTask) {
         taskManager.delete(task)
-        historyManager.createRemovedHistory(title: task.title, from: task.state)
+        
+        let history = historyManager.getRemovedHistory(title: task.title, from: task.state)
+        
+        historyManager.create(history)
     }
 }

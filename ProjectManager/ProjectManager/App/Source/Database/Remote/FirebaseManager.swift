@@ -13,9 +13,9 @@ final class FirebaseManager {
     private let database = Firestore.firestore()
     
     func addListener<DTO: DataTransferObject> (_ type: DTO.Type,
-                                        createCompletion: @escaping (DTO) -> (),
-                                        updateCompletion: @escaping (DTO) -> (),
-                                        deleteCompletion: @escaping (DTO) -> ()) {
+                                        createCompletion: ((DTO) -> Void)? = nil,
+                                        updateCompletion: ((DTO) -> Void)? = nil,
+                                        deleteCompletion: ((DTO) -> Void)? = nil) {
         let collectionName = String(describing: type)
         let databaseReference = database.collection(collectionName)
         
@@ -24,17 +24,17 @@ final class FirebaseManager {
                 guard let dto = try? diff.document.data(as: type) else { return }
                 
                 if diff.type == .added {
-                    createCompletion(dto)
+                    createCompletion?(dto)
                     return
                 }
                 
                 if diff.type == .modified {
-                    updateCompletion(dto)
+                    updateCompletion?(dto)
                     return
                 }
                 
                 if diff.type == .removed {
-                    deleteCompletion(dto)
+                    deleteCompletion?(dto)
                     return
                 }
             }
