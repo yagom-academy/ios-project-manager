@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		620335722A14ACAF00DDF23E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620335712A14ACAF00DDF23E /* Task.swift */; };
 		622396E52A25F40D00098A63 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622396E42A25F40D00098A63 /* CALayer.swift */; };
+		622396E72A26E88500098A63 /* ReuseableIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622396E62A26E88500098A63 /* ReuseableIdentifier.swift */; };
 		624D52872A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624D52862A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift */; };
 		624D52892A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624D52882A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift */; };
 		62A63EAA2A1DA18600AF928F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EA92A1DA18600AF928F /* MainViewController.swift */; };
@@ -46,6 +47,7 @@
 		54B19838FDB3578D71BD6685 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		620335712A14ACAF00DDF23E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		622396E42A25F40D00098A63 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		622396E62A26E88500098A63 /* ReuseableIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseableIdentifier.swift; sourceTree = "<group>"; };
 		624D52862A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeWorkStateViewModel.swift; sourceTree = "<group>"; };
 		624D52882A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeWorkStateViewModelDelegate.swift; sourceTree = "<group>"; };
 		62A63EA92A1DA18600AF928F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				62E8F9C92A1CA3310011B195 /* DetailViewModelDelegate.swift */,
 				62F7EA5F2A2097BF003DC5D7 /* TaskListViewModelDelegate.swift */,
 				624D52882A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift */,
+				622396E62A26E88500098A63 /* ReuseableIdentifier.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				62A63EB32A1DDBAF00AF928F /* TaskListViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				62A63EB02A1DB33400AF928F /* MainViewModel.swift in Sources */,
+				622396E72A26E88500098A63 /* ReuseableIdentifier.swift in Sources */,
 				624D52892A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift in Sources */,
 				624D52872A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift in Sources */,
 				62E8F9C72A1C9DBE0011B195 /* TaskStorageService.swift in Sources */,

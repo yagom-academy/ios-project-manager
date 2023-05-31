@@ -9,8 +9,6 @@ import UIKit
 import Combine
 
 final class TaskCell: UICollectionViewListCell {
-    static let identifier = "TaskCell"
-    
     private let titleLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)

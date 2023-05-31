@@ -9,8 +9,6 @@ import UIKit
 import Combine
 
 final class HeaderView: UICollectionReusableView {
-    static let identifier = "HeaderView"
-    
     private let titleLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .largeTitle)
