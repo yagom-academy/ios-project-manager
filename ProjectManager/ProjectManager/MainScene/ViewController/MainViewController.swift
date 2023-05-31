@@ -48,6 +48,14 @@ final class MainViewController: UIViewController {
         doneViewController.appendTasks(doneTasks)
     }
     
+    @objc private func bindErrorHandler(_ noti: Notification) {
+        guard let error = noti.userInfo?["error"] as? Error else {
+            return
+        }
+        
+        showErrorAlert(error)
+    }
+    
     @objc private func didTapAddButton() {
         presentTodoViewController(.create, nil)
     }
@@ -56,6 +64,10 @@ final class MainViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(bindCollectionView),
                                                name: .changedTasks,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(bindErrorHandler(_:)),
+                                               name: .errorTask,
                                                object: nil)
     }
 }
