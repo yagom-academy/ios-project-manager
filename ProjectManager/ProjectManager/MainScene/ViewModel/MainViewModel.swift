@@ -22,6 +22,10 @@ class MainViewModel {
             self?.dbManager.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
             self?.fetchTasks()
         }
+        
+        dbManager.errorHandler = { [weak self] error in
+            self?.postDatabaseError(with: error)
+        }
     }
     
     func deleteTask(_ task: Task) {

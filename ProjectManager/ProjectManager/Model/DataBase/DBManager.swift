@@ -8,6 +8,7 @@
 import Foundation
 
 final class DBManager: DatabaseManagable {
+    var errorHandler: ((Error) -> Void)?
     
     private var database: DatabaseManagable?
     private lazy var localDB = LocalDBManager<TaskObject>()

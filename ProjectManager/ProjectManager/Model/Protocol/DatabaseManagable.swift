@@ -6,6 +6,8 @@
 //
 
 protocol DatabaseManagable {
+    var errorHandler: ((Error) -> Void)? { get }
+    
     func create(object: Storable)
     func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void)
     func delete(object: Storable)
