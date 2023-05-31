@@ -13,21 +13,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let taskStore = [
-            Task(title: "hi", date: Date(), body: "body", workState: .todo),
-            Task(title: "hi", date: Date(), body: "body", workState: .todo),
-            Task(title: "hi", date: Date(), body: "body", workState: .todo),
-            Task(title: "hiThere", date: Date(), body: "body", workState: .done),
-            Task(title: "hi", date: Date(), body: "body", workState: .doing),
-            Task(title: "hi", date: Date(), body: "body", workState: .todo),
-            Task(title: "hi", date: Date(), body: "body", workState: .todo),
-            Task(title: "hi", date: Date(), body: "body", workState: .todo),
-            Task(title: "hi", date: Date(), body: "body", workState: .todo),
-            Task(title: "hi", date: Date(), body: "body", workState: .todo),
-            Task(title: "hi", date: Date(), body: "body", workState: .todo)
+        let planStore = [
+            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
+            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
+            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
+            Plan(title: "hiThere", date: Date(), body: "body", workState: .done),
+            Plan(title: "hi", date: Date(), body: "body", workState: .doing),
+            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
+            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
+            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
+            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
+            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
+            Plan(title: "hi", date: Date(), body: "body", workState: .todo)
         ]
-        let taskStorageService = TaskStorageService(taskStore: taskStore)
-        let mainViewModel = MainViewModel(service: taskStorageService)
+        let planStorageService = planStorageService(planStore: planStore)
+        let mainViewModel = MainViewModel(service: planStorageService)
         
         window?.rootViewController = UINavigationController(
             rootViewController: MainViewController(mainViewModel: mainViewModel)
@@ -44,7 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        // Use this method to restart any plans that were paused (or not yet started) when the scene was inactive.
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

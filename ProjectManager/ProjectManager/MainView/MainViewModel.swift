@@ -8,56 +8,56 @@
 import Foundation
 
 final class MainViewModel {
-    private var taskList: [Task] = []
-    private var viewModelDictionary: [WorkState: TaskListViewModel] = [:]
-    private let service: TaskStorageService
+    private var planList: [Plan] = []
+    private var viewModelDictionary: [WorkState: PlanListViewModel] = [:]
+    private let service: planStorageService
     
-    init(service: TaskStorageService) {
+    init(service: planStorageService) {
         self.service = service
     }
     
-    func assignChildViewModel(of children: [TaskListViewModel]) {
+    func assignChildViewModel(of children: [PlanListViewModel]) {
         children
             .forEach {
                 $0.delegate = self
-                viewModelDictionary[$0.taskWorkState] = $0
+                viewModelDictionary[$0.planWorkState] = $0
             }
     }
     
-    func fetchTaskList() {
-        taskList = service.fetchTaskList()
+    func fetchplanList() {
+        planList = service.fetchplanList()
     }
     
-    func distributeTask() {
+    func distributeplan() {
         viewModelDictionary.forEach { workState, viewModel in
-            let filteredTaskList = taskList.filter { $0.workState == workState }
-            viewModel.taskList = filteredTaskList
+            let filteredplanList = planList.filter { $0.workState == workState }
+            viewModel.planList = filteredplanList
         }
     }
     
-    func todoViewModel() -> TaskListViewModel? {
+    func todoViewModel() -> PlanListViewModel? {
         return viewModelDictionary[.todo]
     }
 }
 
-extension MainViewModel: TaskListViewModelDelegate {
-    func createTask(_ task: Task) {
-        service.createTask(task)
+extension MainViewModel: planListViewModelDelegate {
+    func createplan(_ plan: Plan) {
+        service.createplan(plan)
     }
     
-    func updateTask(_ task: Task) {
-        service.updateTask(task)
+    func updateplan(_ plan: Plan) {
+        service.updateplan(plan)
     }
     
-    func deleteTask(id: UUID) {
-        service.deleteTask(id: id)
+    func deleteplan(id: UUID) {
+        service.deleteplan(id: id)
     }
 }
 
 extension MainViewModel: ChangeWorkStateViewModelDelegate {
-    func changeWorkState(taskID: UUID, with workState: WorkState) {
-        service.changeWorkState(taskID: taskID, with: workState)
-        fetchTaskList()
-        distributeTask()
+    func changeWorkState(planID: UUID, with workState: WorkState) {
+        service.changeWorkState(planID: planID, with: workState)
+        fetchplanList()
+        distributeplan()
     }
 }

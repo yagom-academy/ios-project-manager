@@ -19,13 +19,13 @@ final class ChangeWorkStateViewModel {
     
     weak var delegate: ChangeWorkStateViewModelDelegate?
     
-    private let taskID: UUID
+    private let planID: UUID
     private var filteredStates: [WorkState]
 
-    init(from task: Task) {
-        self.taskID = task.id
+    init(from plan: Plan) {
+        self.planID = plan.id
         self.filteredStates = WorkState.allCases
-            .filter { $0 != task.workState }
+            .filter { $0 != plan.workState }
         
         self.firstText = filteredStates[safe: 0]?.buttonTitle
         self.secondText = filteredStates[safe: 1]?.buttonTitle
@@ -36,6 +36,6 @@ final class ChangeWorkStateViewModel {
             return
         }
         
-        delegate?.changeWorkState(taskID: taskID, with: state)
+        delegate?.changeWorkState(planID: planID, with: state)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  TaskCollectionViewModel.swift
+//  planCollectionViewModel.swift
 //  ProjectManager
 //
 //  Created by Brody, Rowan on 2023/05/19.
@@ -7,15 +7,15 @@
 
 import Combine
 
-final class TodoViewModel: TaskListViewModel {
-    var taskList: [Task] = [] {
+final class TodoViewModel: PlanListViewModel {
+    var planList: [Plan] = [] {
         didSet {
-            currentTaskSubject.send((taskList, isUpdating))
+            currentplanSubject.send((planList, isUpdating))
         }
     }
-    let currentTaskSubject = PassthroughSubject<([Task], Bool), Never>()
-    let taskWorkState: WorkState = .todo
-    var delegate: TaskListViewModelDelegate?
+    let currentplanSubject = PassthroughSubject<([Plan], Bool), Never>()
+    let planWorkState: WorkState = .todo
+    var delegate: planListViewModelDelegate?
     
     private var isUpdating: Bool = false
     

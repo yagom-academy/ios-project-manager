@@ -42,7 +42,7 @@ final class MainViewController: UIViewController {
         configureNavigationBar()
         configureRootView()
         configureStackView()
-        fetchInitialTaskList()
+        fetchInitialplanList()
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,11 +54,11 @@ final class MainViewController: UIViewController {
         let doingViewModel = DoingViewModel()
         let doneViewModel = DoneViewModel()
         
-        self.addChild(TaskCollectionViewController(viewModel: todoViewModel,
+        self.addChild(PlanCollectionViewController(viewModel: todoViewModel,
                                                    dateFormatter: dateFormatter))
-        self.addChild(TaskCollectionViewController(viewModel: doingViewModel,
+        self.addChild(PlanCollectionViewController(viewModel: doingViewModel,
                                                    dateFormatter: dateFormatter))
-        self.addChild(TaskCollectionViewController(viewModel: doneViewModel,
+        self.addChild(PlanCollectionViewController(viewModel: doneViewModel,
                                                    dateFormatter: dateFormatter))
         
         mainViewModel.assignChildViewModel(of: [
@@ -116,8 +116,8 @@ final class MainViewController: UIViewController {
     
     }
     
-    private func fetchInitialTaskList() {
-        mainViewModel.fetchTaskList()
-        mainViewModel.distributeTask()
+    private func fetchInitialplanList() {
+        mainViewModel.fetchplanList()
+        mainViewModel.distributeplan()
     }
 }

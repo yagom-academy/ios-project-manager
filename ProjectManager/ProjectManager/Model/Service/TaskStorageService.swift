@@ -7,36 +7,36 @@
 
 import Foundation
 
-final class TaskStorageService {
-    private var taskStore: [Task]
+final class planStorageService {
+    private var planStore: [Plan]
     
-    init(taskStore: [Task]) {
-        self.taskStore = taskStore
+    init(planStore: [Plan]) {
+        self.planStore = planStore
     }
     
-    func createTask(_ task: Task) {
-        taskStore.append(task)
+    func createplan(_ plan: Plan) {
+        planStore.append(plan)
     }
     
-    func fetchTaskList() -> [Task] {
-        return taskStore
+    func fetchplanList() -> [Plan] {
+        return planStore
     }
     
-    func updateTask(_ task: Task) {
-        guard let index = taskStore.firstIndex(where: { $0.id == task.id }) else { return }
+    func updateplan(_ plan: Plan) {
+        guard let index = planStore.firstIndex(where: { $0.id == plan.id }) else { return }
         
-        taskStore[safe: index] = task
+        planStore[safe: index] = plan
     }
     
-    func deleteTask(id: UUID) {
-        guard let index = taskStore.firstIndex(where: { $0.id == id }) else { return }
+    func deleteplan(id: UUID) {
+        guard let index = planStore.firstIndex(where: { $0.id == id }) else { return }
         
-        taskStore.remove(at: index)
+        planStore.remove(at: index)
     }
     
-    func changeWorkState(taskID: UUID, with workState: WorkState) {
-        guard let index = taskStore.firstIndex(where: { $0.id == taskID }) else { return }
+    func changeWorkState(planID: UUID, with workState: WorkState) {
+        guard let index = planStore.firstIndex(where: { $0.id == planID }) else { return }
         
-        taskStore[safe: index]?.workState = workState
+        planStore[safe: index]?.workState = workState
     }
 }

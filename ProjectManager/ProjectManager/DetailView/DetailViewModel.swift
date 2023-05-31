@@ -44,32 +44,32 @@ final class DetailViewModel {
     private var workState: WorkState = .todo
     private var id: UUID?
     
-    init(from task: Task? = nil, mode: DetailViewModel.Mode) {
+    init(from plan: Plan? = nil, mode: DetailViewModel.Mode) {
         self.mode = mode
-        configureContents(with: task)
+        configureContents(with: plan)
     }
     
-    func createTask() {
+    func createplan() {
         guard let title, let body else { return }
-        let task = Task(title: title, date: date, body: body, workState: workState)
+        let plan = Plan(title: title, date: date, body: body, workState: workState)
         delegate?.setState(isUpdating: false)
-        delegate?.createTask(task)
+        delegate?.createplan(plan)
     }
     
-    func updateTask() {
+    func updateplan() {
         guard let title, let id, let body else { return }
-        let task = Task(title: title, date: date, body: body, workState: workState, id: id)
+        let plan = Plan(title: title, date: date, body: body, workState: workState, id: id)
         delegate?.setState(isUpdating: true)
-        delegate?.updateTask(task)
+        delegate?.updateplan(plan)
     }
     
-    private func configureContents(with task: Task?) {
-        if let task {
-            self.title = task.title
-            self.date = task.date
-            self.body = task.body
-            self.workState = task.workState
-            self.id = task.id
+    private func configureContents(with plan: Plan?) {
+        if let plan {
+            self.title = plan.title
+            self.date = plan.date
+            self.body = plan.body
+            self.workState = plan.workState
+            self.id = plan.id
         }
     }
 }

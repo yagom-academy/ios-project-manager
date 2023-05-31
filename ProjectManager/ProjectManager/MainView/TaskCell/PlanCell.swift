@@ -1,5 +1,5 @@
 //
-//  TodoCell.swift
+//  PlanCell.swift
 //  ProjectManager
 //
 //  Created by Brody, Rowan on 2023/05/19.
@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class TaskCell: UICollectionViewListCell {
+final class PlanCell: UICollectionViewListCell {
     private let titleLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
@@ -45,7 +45,7 @@ final class TaskCell: UICollectionViewListCell {
         return stackView
     }()
     
-    private var viewModel: TaskCellViewModel?
+    private var viewModel: PlanCellViewModel?
     private var bindings = Set<AnyCancellable>()
     
     override init(frame: CGRect) {
@@ -57,7 +57,7 @@ final class TaskCell: UICollectionViewListCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func provide(viewModel: TaskCellViewModel) {
+    func provide(viewModel: PlanCellViewModel) {
         self.viewModel = viewModel
         bindViewModelToView()
     }

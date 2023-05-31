@@ -7,15 +7,15 @@
 
 import Combine
 
-final class DoneViewModel: TaskListViewModel {
-    var taskList: [Task] = [] {
+final class DoneViewModel: PlanListViewModel {
+    var planList: [Plan] = [] {
         didSet {
-            currentTaskSubject.send((taskList, isUpdating))
+            currentplanSubject.send((planList, isUpdating))
         }
     }
-    let currentTaskSubject = PassthroughSubject<([Task], Bool), Never>()
-    var taskWorkState: WorkState = .done
-    var delegate: TaskListViewModelDelegate?
+    let currentplanSubject = PassthroughSubject<([Plan], Bool), Never>()
+    var planWorkState: WorkState = .done
+    var delegate: planListViewModelDelegate?
     
     private var isUpdating: Bool = false
     

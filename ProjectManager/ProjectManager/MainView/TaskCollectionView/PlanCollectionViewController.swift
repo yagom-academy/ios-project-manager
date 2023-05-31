@@ -1,5 +1,5 @@
 //
-//  TaskCollectionViewController.swift
+//  PlanCollectionViewController.swift
 //  ProjectManager
 //
 //  Created by Brody, Rowan on 2023/05/25.
@@ -8,21 +8,21 @@
 import UIKit
 import Combine
 
-final class TaskCollectionViewController: UIViewController {
+final class PlanCollectionViewController: UIViewController {
     private enum Section: Hashable {
         case main(count: Int)
     }
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, Task.ID>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Task.ID>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, Plan.ID>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Plan.ID>
     
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
     
     private var dataSource: DataSource?
-    private var viewModel: TaskListViewModel
+    private var viewModel: PlanListViewModel
     private var bindings = Set<AnyCancellable>()
     private let dateFormatter: DateFormatter
-    private var currentLongPressedCell: TaskCell?
+    private var currentLongPressedCell: PlanCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ final class TaskCollectionViewController: UIViewController {
         setupLongTapGestureRecognizer()
     }
     
-    init(viewModel: TaskListViewModel, dateFormatter: DateFormatter) {
+    init(viewModel: PlanListViewModel, dateFormatter: DateFormatter) {
         self.viewModel = viewModel
         self.dateFormatter = dateFormatter
         super.init(nibName: nil, bundle: nil)
@@ -77,7 +77,7 @@ final class TaskCollectionViewController: UIViewController {
                 }
                 
                 let actionHandler: UIContextualAction.Handler = { action, view, completion in
-                    self.viewModel.deleteTask(at: indexPath.row)
+                    self.viewModel.deleteplan(at: indexPath.row)
                     completion(true)
                 }
                 
@@ -123,8 +123,8 @@ final class TaskCollectionViewController: UIViewController {
             }
             
             let viewModel = HeaderViewModel(
-                titleText: self.viewModel.taskWorkState.text,
-                badgeCount: self.viewModel.taskList.count
+                titleText: self.viewModel.planWorkState.text,
+                badgeCount: self.viewModel.planList.count
             )
             sectionHeader.provide(viewModel: viewModel)
             
@@ -132,65 +132,65 @@ final class TaskCollectionViewController: UIViewController {
         }
     }
     
-    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
+    private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Plan.ID) -> UICollectionViewCell? {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: TaskCell.identifier,
+            withReuseIdentifier: PlanCell.identifier,
             for: indexPath
-        ) as? TaskCell
+        ) as? PlanCell
 
-        guard let task = self.viewModel.taskList.filter({ $0.id == identifier }).first else {
+        guard let plan = self.viewModel.planList.filter({ $0.id == identifier }).first else {
             return cell
         }
 
-        let taskCellViewModel = TaskCellViewModel(task: task, dateFormatter: dateFormatter)
-        cell?.provide(viewModel: taskCellViewModel)
+        let planCellViewModel = PlanCellViewModel(plan: plan, dateFormatter: dateFormatter)
+        cell?.provide(viewModel: planCellViewModel)
 
         return cell
     }
     
     private func configureCollectionView() {
-        collectionView.register(TaskCell.self, forCellWithReuseIdentifier: TaskCell.identifier)
+        collectionView.register(PlanCell.self, forCellWithReuseIdentifier: PlanCell.identifier)
         collectionView.dataSource = dataSource
         collectionView.delegate = self
     }
     
     private func bindViewModelToView() {
         viewModel
-            .currentTaskSubject
-            .sink { taskList, isUpdating in
-                isUpdating ? self.reloadDataSourceItems() : self.applyLatestSnapshot(taskList)
+            .currentplanSubject
+            .sink { planList, isUpdating in
+                isUpdating ? self.reloadDataSourceItems() : self.applyLatestSnapshot(planList)
                 
                 self.viewModel.setState(isUpdating: false)
             }
             .store(in: &bindings)
     }
     
-    private func applyLatestSnapshot(_ taskList: [Task]) {
-        let taskIDList = taskList.map { $0.id }
+    private func applyLatestSnapshot(_ planList: [Plan]) {
+        let planIDList = planList.map { $0.id }
         
-        let section = Section.main(count: viewModel.taskList.count)
+        let section = Section.main(count: viewModel.planList.count)
         var snapshot = Snapshot()
         snapshot.appendSections([section])
-        snapshot.appendItems(taskIDList, toSection: section)
+        snapshot.appendItems(planIDList, toSection: section)
         dataSource?.apply(snapshot)
     }
     
     private func reloadDataSourceItems() {
         guard var snapshot = dataSource?.snapshot() else { return }
-        let taskListID = viewModel.taskList.map { $0.id }
+        let planListID = viewModel.planList.map { $0.id }
         
-        snapshot.reloadItems(taskListID)
+        snapshot.reloadItems(planListID)
         dataSource?.apply(snapshot)
     }
 }
 
 // MARK: - CollectionViewDelegate 기능
-extension TaskCollectionViewController: UICollectionViewDelegate {
+extension PlanCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let task = viewModel.task(at: indexPath.row)
+        let plan = viewModel.plan(at: indexPath.row)
         
-        let detailViewModel = DetailViewModel(from: task, mode: .update)
+        let detailViewModel = DetailViewModel(from: plan, mode: .update)
         let detailViewController = DetailViewController(viewModel: detailViewModel)
         detailViewController.configureViewModelDelegate(with: viewModel as? DetailViewModelDelegate)
         
@@ -202,7 +202,7 @@ extension TaskCollectionViewController: UICollectionViewDelegate {
 }
 
 // MARK: - GestureRecognizer 관련 기능
-extension TaskCollectionViewController {
+extension PlanCollectionViewController {
     private func setupLongTapGestureRecognizer() {
         let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
         longPressedGesture.minimumPressDuration = 0.5
@@ -216,7 +216,7 @@ extension TaskCollectionViewController {
         
         if gestureRecognizer.state == .began {
             guard let indexPath = collectionView.indexPathForItem(at: location),
-                  let cell = collectionView.cellForItem(at: indexPath) as? TaskCell else {
+                  let cell = collectionView.cellForItem(at: indexPath) as? PlanCell else {
                 return
             }
             
@@ -230,13 +230,13 @@ extension TaskCollectionViewController {
             }
             
             if cell == collectionView.cellForItem(at: indexPath) {
-                guard let task = viewModel.task(at: indexPath.row),
+                guard let plan = viewModel.plan(at: indexPath.row),
                       let mainViewController = self.parent as? MainViewController
                 else {
                     return
                 }
                 
-                let changeWorkStateViewModel = ChangeWorkStateViewModel(from: task)
+                let changeWorkStateViewModel = ChangeWorkStateViewModel(from: plan)
                 changeWorkStateViewModel.delegate = mainViewController.mainViewModel
                 
                 let changeWorkStateViewController = ChangeWorkStateViewController(
