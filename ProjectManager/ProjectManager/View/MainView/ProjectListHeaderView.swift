@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectListHeaderView: View {
-    @EnvironmentObject private var viewModel: ProjectViewModel
+    @Binding var viewModel: ProjectViewModel
     let state: ProjectState
     
     var body: some View {
@@ -31,7 +31,6 @@ struct ProjectListHeaderView: View {
 
 struct ProjectListHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectListHeaderView(state: .todo)
-            .environmentObject(ProjectViewModel())
+        ProjectListHeaderView(viewModel: .constant(ProjectViewModel()), state: .todo)
     }
 }

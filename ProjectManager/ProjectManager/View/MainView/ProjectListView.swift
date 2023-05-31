@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectListView: View {
-    @EnvironmentObject private var viewModel: ProjectViewModel
+    @Binding var viewModel: ProjectViewModel
     let currentState: ProjectState
     
     var body: some View {
@@ -20,8 +20,7 @@ struct ProjectListView: View {
                     viewModel.delete(state: currentState, at: indexSet)
                 }
             } header: {
-                ProjectListHeaderView(state: currentState)
-                    .environmentObject(viewModel)
+                ProjectListHeaderView(viewModel: $viewModel, state: currentState)
             }
         }
         .listStyle(.grouped)
@@ -32,11 +31,9 @@ struct ProjectListView: View {
 private extension ProjectListView {
     func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
         ForEach(models) { model in
-            ProjectListCell(model: model)
-                .environmentObject(viewModel)
+            ProjectListCell(viewModel: $viewModel, model: model)
                 .contextMenu {
-                    ProjectListContextMenuView(state: currentState, project: model)
-                        .environmentObject(viewModel)
+                    ProjectListContextMenuView(viewModel: $viewModel, state: currentState, project: model)
                 }
         }
         .onDelete(perform: onDelete)
@@ -51,8 +48,7 @@ private extension ProjectListView {
 
 struct ProjectListView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectListView(currentState: .todo)
-            .environmentObject(ProjectViewModel())
+        ProjectListView(viewModel: .constant(ProjectViewModel()), currentState: .todo)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

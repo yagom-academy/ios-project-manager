@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectListCell: View {
-    @EnvironmentObject private var viewModel: ProjectViewModel
+    @Binding var viewModel: ProjectViewModel
     @State private var isModalViewShow: Bool = false
     private let dateManager = DateManager.shared
     let model: Project
@@ -25,8 +25,7 @@ struct ProjectListCell: View {
         }.onTapGesture {
             isModalViewShow.toggle()
         }.sheet(isPresented: $isModalViewShow) {
-            ProjectDeatailView(project: model, disableEdit: true, isEditMode: true)
-                .environmentObject(viewModel)
+            ProjectDetailView(viewModel: $viewModel, project: model, disableEdit: true, isEditMode: true)
         }
         
     }
@@ -35,7 +34,7 @@ struct ProjectListCell: View {
 struct ProjectListCell_Previews: PreviewProvider {
     static var previews: some View {
         ProjectListCell(
+            viewModel: .constant(ProjectViewModel()),
             model: Project(title: "안녕", body: "하세요", date: Date()))
-        .environmentObject(ProjectViewModel())
     }
 }

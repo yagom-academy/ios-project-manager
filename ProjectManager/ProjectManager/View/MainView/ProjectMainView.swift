@@ -8,18 +8,15 @@
 import SwiftUI
 
 struct ProjectMainView: View {
-    @EnvironmentObject private var viewModel: ProjectViewModel
+    @State private var viewModel = ProjectViewModel()
     @State private var showModal = false
     
     var body: some View {
         NavigationStack{
             HStack{
-                ProjectListView(currentState: .todo)
-                    .environmentObject(viewModel)
-                ProjectListView(currentState: .doing)
-                    .environmentObject(viewModel)
-                ProjectListView(currentState: .done)
-                    .environmentObject(viewModel)
+                ProjectListView(viewModel: $viewModel, currentState: .todo)
+                ProjectListView(viewModel: $viewModel, currentState: .doing)
+                ProjectListView(viewModel: $viewModel, currentState: .done)
             }
             .background(Color(UIColor.systemGray4))
             .navigationTitle("Project Manager")
@@ -35,11 +32,11 @@ struct ProjectMainView: View {
                 }
             }
             .sheet(isPresented: $showModal) {
-                ProjectDeatailView(
+                ProjectDetailView(
+                    viewModel: $viewModel,
                     project: Project(title: "", body: "", date: Date()),
                     disableEdit: false,
                     isEditMode: false)
-                .environmentObject(viewModel)
             }
         }
     }
@@ -48,7 +45,6 @@ struct ProjectMainView: View {
 struct ProjectMainView_Previews: PreviewProvider {
     static var previews: some View {
         ProjectMainView()
-            .environmentObject(ProjectViewModel())
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

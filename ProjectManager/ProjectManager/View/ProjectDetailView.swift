@@ -1,5 +1,5 @@
 //
-//  ModalView.swift
+//  ProjectDetailView.swift
 //  ProjectManager
 //
 //  Created by kaki, 릴라 on 2023/05/18.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ProjectDeatailView: View {
-    @EnvironmentObject private var viewModel: ProjectViewModel
+struct ProjectDetailView: View {
+    @Binding var viewModel: ProjectViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @State var project: Project
     @State var disableEdit: Bool
@@ -58,11 +58,11 @@ struct ProjectDeatailView: View {
 
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectDeatailView(
+        ProjectDetailView(
+            viewModel: .constant(ProjectViewModel()),
             project: .init(title: "", body: "", date: Date()),
             disableEdit: true,
             isEditMode: true
         )
-        .environmentObject(ProjectViewModel())
     }
 }

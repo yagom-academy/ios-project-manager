@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectListContextMenuView: View {
-    @EnvironmentObject private var viewModel: ProjectViewModel
+    @Binding var viewModel: ProjectViewModel
     let state: ProjectState
     let project: Project
     
@@ -27,7 +27,6 @@ struct ProjectListContextMenuView: View {
 
 struct ProjectListContextMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectListContextMenuView(state: .todo, project: .init(title: "", body: "", date: Date()))
-            .environmentObject(ProjectViewModel())
+        ProjectListContextMenuView(viewModel: .constant(ProjectViewModel()), state: .todo, project: .init(title: "", body: "", date: Date()))
     }
 }

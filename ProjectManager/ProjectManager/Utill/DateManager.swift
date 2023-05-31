@@ -52,8 +52,8 @@ final class DateManager {
     }
     
     private func convertDateToInt(date: Date) -> Int {
-        let formattedText = formatDateText(date: date, mode: .calculate)
+        let dateText = formatDateText(date: date, mode: .calculate)
 
-        return Int(formattedText)!
+        return Int(dateText)!
     }
 }
