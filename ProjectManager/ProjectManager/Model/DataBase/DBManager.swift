@@ -11,7 +11,7 @@ final class DBManager: DatabaseManagable {
     var errorHandler: ((Error) -> Void)?
     
     private var database: DatabaseManagable?
-    private lazy var localDB = LocalDBManager<TaskObject>(errorHanlder: errorHandler)
+    private lazy var localDB = LocalDBManager<TaskObject>(errorHandler: errorHandler)
     private lazy var remoteDB = RemoteDBManager(errorHandler: errorHandler)
     
     func changeDatabase(isConnect: Bool, syncedObjects: [Storable]?) {

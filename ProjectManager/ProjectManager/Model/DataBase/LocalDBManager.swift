@@ -9,29 +9,40 @@ import RealmSwift
 
 final class LocalDBManager<T: Object>: DatabaseManagable {
     
-    private let realm: Realm
+    private lazy var realm: Realm? = {
+        do {
+            let realm = try Realm()
+            
+            return realm
+        } catch {
+            errorHandler?(DatabaseError.databaseConfigureError)
+        }
+        
+        return nil
+    }()
     var errorHandler: ((Error) -> Void)?
     
-    init?(errorHanlder: ((Error) -> Void)?) {
-        self.errorHandler = errorHanlder
-        
-        do {
-            self.realm = try Realm()
-        } catch {
-            return nil
-        }
+    init(errorHandler: ((Error) -> Void)?) {
+        self.errorHandler = errorHandler
     }
     
     func create(object: Storable) {
         let dbObject = object.changedToDatabaseObject
         
-        try? realm.write({
-            realm.add(dbObject, update: .all)
-        })
+        do {
+            try realm?.write({
+                realm?.add(dbObject, update: .all)
+            })
+        } catch {
+            errorHandler?(DatabaseError.createError)
+        }
     }
     
     func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
-        let dbObjects = realm.objects(T.self)
+        guard let dbObjects = realm?.objects(T.self) else {
+            errorHandler?(DatabaseError.fetchedError)
+            return
+        }
         let objects = dbObjects.map { dbObject in
             return Task.convertToStorable(dbObject)
         }
@@ -43,17 +54,23 @@ final class LocalDBManager<T: Object>: DatabaseManagable {
     }
     
     func delete(object: Storable) {
-        guard let dbObject = realm.object(ofType: T.self, forPrimaryKey: object.id) else {
+        guard let dbObject = realm?.object(ofType: T.self, forPrimaryKey: object.id) else {
+            errorHandler?(DatabaseError.deletedError)
             return
         }
         
-        try? realm.write({
-            realm.delete(dbObject)
-        })
+        do {
+            try realm?.write({
+                realm?.delete(dbObject)
+            })
+        } catch {
+            errorHandler?(DatabaseError.deletedError)
+        }
     }
     
     func update(object: Storable) {
-        guard realm.object(ofType: T.self, forPrimaryKey: object.id) != nil else {
+        guard realm?.object(ofType: T.self, forPrimaryKey: object.id) != nil else {
+            errorHandler?(DatabaseError.updatedError)
             return
         }
         

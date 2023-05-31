@@ -8,6 +8,7 @@
 import Foundation
 
 enum DatabaseError: LocalizedError {
+    case databaseConfigureError
     case createError
     case fetchedError
     case updatedError
@@ -15,10 +16,12 @@ enum DatabaseError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
+        case .databaseConfigureError:
+            return "데이터베이스 생성에 실패하였습니다"
         case .createError:
-            return "생성에 실패하였습니다."
+            return "생성에 실패했습니다."
         case .fetchedError:
-            return "불러오는데 실패하였습니다."
+            return "불러오는데 실패했습니다."
         case .updatedError:
             return "수정에 실패했습니다."
         case .deletedError:
