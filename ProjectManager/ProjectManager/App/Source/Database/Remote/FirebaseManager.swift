@@ -12,6 +12,35 @@ import FirebaseFirestoreSwift
 final class FirebaseManager {
     private let database = Firestore.firestore()
     
+    func addListener<DTO: DataTransferObject> (_ type: DTO.Type,
+                                        createCompletion: @escaping (DTO) -> (),
+                                        updateCompletion: @escaping (DTO) -> (),
+                                        deleteCompletion: @escaping (DTO) -> ()) {
+        let collectionName = String(describing: type)
+        let databaseReference = database.collection(collectionName)
+        
+        databaseReference.addSnapshotListener { snapshot, error in
+            snapshot?.documentChanges.forEach { diff in
+                guard let dto = try? diff.document.data(as: type) else { return }
+                
+                if diff.type == .added {
+                    createCompletion(dto)
+                    return
+                }
+                
+                if diff.type == .modified {
+                    updateCompletion(dto)
+                    return
+                }
+                
+                if diff.type == .removed {
+                    deleteCompletion(dto)
+                    return
+                }
+            }
+        }
+    }
+    
     func fetch<DTO: DataTransferObject> (_ type: DTO.Type, completion: @escaping ([DTO]) -> ()) {
         let collectionName = String(describing: type)
         let databaseReference = database.collection(collectionName)

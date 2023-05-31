@@ -15,7 +15,10 @@ final class TaskManager {
     @Published private var taskList: [MyTask] = []
     
     init() {
-        fetch()
+        firebaseManager.addListener(MyTask.self,
+                             createCompletion: create,
+                             updateCompletion: update,
+                             deleteCompletion: delete)
     }
     
     func requestTaskListPublisher() -> AnyPublisher<[MyTask], Never> {
