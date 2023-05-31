@@ -27,15 +27,15 @@ class MainViewModel {
     
     private let dbManager = DBManager()
     private let networkMonitor = NetworkMonitor()
-    var historyTasks: [String] = []
+    private var historyManager = HistoryManager()
     private var tasks: [Task] = [] {
         didSet {
             postChangedTasksNoti()
         }
     }
     
-    private func addHistory(historyState: HistoryState) {
-        historyTasks.append(historyState.text)
+    var historyTasks: [History] {
+        return historyManager.sortedHistoryList
     }
     
     init() {
@@ -92,6 +92,10 @@ class MainViewModel {
         return tasks.filter { task in
             return task.state == state
         }
+    }
+    
+    private func addHistory(historyState: HistoryState) {
+        historyManager.addHistory(text: historyState.text, date: Date())
     }
     
     private func fetchTasks() {

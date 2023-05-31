@@ -58,6 +58,7 @@
 		26CE60CF2A148FB90026203C /* TaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE60CE2A148FB90026203C /* TaskListCell.swift */; };
 		26CE60D22A14A8DF0026203C /* TaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE60D12A14A8DF0026203C /* TaskState.swift */; };
 		26CE60D42A14A9230026203C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CE60D32A14A9230026203C /* Task.swift */; };
+		26D4A1642A273D8D0000AB62 /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D4A1632A273D8D0000AB62 /* HistoryManager.swift */; };
 		26E20EA82A1BAF4800F7FBDC /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E20EA72A1BAF4800F7FBDC /* TodoViewModel.swift */; };
 		26E20EAA2A1BB11C00F7FBDC /* GeneratedTaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E20EA92A1BB11C00F7FBDC /* GeneratedTaskError.swift */; };
 		26E20EAD2A1C876700F7FBDC /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E20EAC2A1C876700F7FBDC /* Date+Extension.swift */; };
@@ -93,6 +94,7 @@
 		26CE60CE2A148FB90026203C /* TaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCell.swift; sourceTree = "<group>"; };
 		26CE60D12A14A8DF0026203C /* TaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskState.swift; sourceTree = "<group>"; };
 		26CE60D32A14A9230026203C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		26D4A1632A273D8D0000AB62 /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		26E20EA72A1BAF4800F7FBDC /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		26E20EA92A1BB11C00F7FBDC /* GeneratedTaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedTaskError.swift; sourceTree = "<group>"; };
 		26E20EAC2A1C876700F7FBDC /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				26CE60D32A14A9230026203C /* Task.swift */,
 				26E20EAE2A1C88EF00F7FBDC /* TodoState.swift */,
 				2632DEF12A25E52200D24197 /* NetworkMonitor.swift */,
+				26D4A1632A273D8D0000AB62 /* HistoryManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				26E20EA82A1BAF4800F7FBDC /* TodoViewModel.swift in Sources */,
 				26CE60CF2A148FB90026203C /* TaskListCell.swift in Sources */,
 				26741E972A162720000B2459 /* TodoViewController.swift in Sources */,
+				26D4A1642A273D8D0000AB62 /* HistoryManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				268E31602A257B8400C8B07E /* RemoteDBManager.swift in Sources */,
 				264E01312A2710DD0080D2BC /* HistoryViewController.swift in Sources */,

@@ -45,9 +45,9 @@ class HistoryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateLabel(title: String, date: Date) {
-        titleLabel.text = title
-        dateLabel.text = "\(date)"
+    func updateLabel(by history: History) {
+        titleLabel.text = history.text
+        dateLabel.text = "\(history.date)"
     }
     
     private func configureUI() {

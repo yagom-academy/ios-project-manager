@@ -9,9 +9,9 @@ import UIKit
 
 class HistoryViewController: UITableViewController {
     
-    private let history: [String]
+    private let history: [History]
     
-    init(history: [String]) {
+    init(history: [History]) {
         self.history = history
 
         super.init(nibName: nil, bundle: nil)
@@ -27,8 +27,6 @@ class HistoryViewController: UITableViewController {
         self.tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.identifier)
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -42,7 +40,7 @@ class HistoryViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        cell.updateLabel(title: history[indexPath.row], date: Date())
+        cell.updateLabel(by: history[indexPath.row])
 
         return cell
     }
