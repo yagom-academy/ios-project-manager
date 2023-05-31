@@ -7,12 +7,13 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    private let viewModel = WorkViewModel()
+    private let viewModel: WorkViewModel
     private let todoCollectionView: WorkCollectionView
     private let doingCollectionView: WorkCollectionView
     private let doneCollectionView: WorkCollectionView
     
     init() {
+        self.viewModel = WorkViewModel()
         self.todoCollectionView = WorkCollectionView(status: WorkViewModel.WorkStatus.todo, viewModel: viewModel)
         self.doingCollectionView = WorkCollectionView(status: WorkViewModel.WorkStatus.doing, viewModel: viewModel)
         self.doneCollectionView = WorkCollectionView(status: WorkViewModel.WorkStatus.done, viewModel: viewModel)
@@ -40,7 +41,7 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func presentAppendWork() {
-        let detailViewController = DetailViewController(viewModel: viewModel, viewMode: .add)
+        let detailViewController = DetailViewController(viewModel: viewModel, viewMode: .add, id: nil)
         let navigationController = UINavigationController(rootViewController: detailViewController)
         navigationController.modalPresentationStyle = .formSheet
         
@@ -62,8 +63,7 @@ final class MainViewController: UIViewController {
         let handler = { [weak self] in
             guard let self else { return }
             
-            self.viewModel.currentID = id
-            self.viewModel.removeWork()
+            self.viewModel.removeWork(id: id)
         }
             
         AlertManager().showAlert(target: self,
@@ -118,9 +118,7 @@ extension MainViewController: WorkCollectionViewDelegate {
     }
     
     func workCollectionView(_ collectionView: WorkCollectionView, id: UUID) {
-        viewModel.currentID = id
-        
-        let detailViewController = DetailViewController(viewModel: viewModel, viewMode: .edit)
+        let detailViewController = DetailViewController(viewModel: viewModel, viewMode: .edit, id: id)
         let navigationController = UINavigationController(rootViewController: detailViewController)
         navigationController.modalPresentationStyle = .formSheet
         
@@ -128,12 +126,11 @@ extension MainViewController: WorkCollectionViewDelegate {
     }
     
     func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkViewModel.WorkStatus, rect: CGRect) {
-        viewModel.currentID = id
-        showPopoverViewController(status: status, rect: rect)
+        showPopoverViewController(status: status, rect: rect, id: id)
     }
     
-    private func showPopoverViewController(status: WorkViewModel.WorkStatus, rect: CGRect) {
-        let popoverViewController = PopoverViewController(status: status, viewModel: viewModel)
+    private func showPopoverViewController(status: WorkViewModel.WorkStatus, rect: CGRect, id: UUID) {
+        let popoverViewController = PopoverViewController(status: status, viewModel: viewModel, id: id)
         
         popoverViewController.modalPresentationStyle = .popover
         popoverViewController.popoverPresentationController?.sourceView = view

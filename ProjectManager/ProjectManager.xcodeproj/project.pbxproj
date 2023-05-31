@@ -12,8 +12,6 @@
 		BF508FD72A1D4126004CBB1E /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF508FD62A1D4126004CBB1E /* Date+.swift */; };
 		BF715FDE2A14CD8700C3D081 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF715FDD2A14CD8700C3D081 /* GoogleService-Info.plist */; };
 		BF715FE12A14CDCA00C3D081 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = BF715FE02A14CDCA00C3D081 /* FirebaseAnalytics */; };
-		BF851EAC2A15F62E0028FCDA /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EAB2A15F62E0028FCDA /* Work.swift */; };
-		BF851EAF2A15F7550028FCDA /* WorkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EAE2A15F7550028FCDA /* WorkStatus.swift */; };
 		BF851EB42A15FFAE0028FCDA /* WorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EB32A15FFAE0028FCDA /* WorkViewModel.swift */; };
 		BF851EBB2A1611DB0028FCDA /* WorkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EBA2A1611DB0028FCDA /* WorkCell.swift */; };
 		BF851EBE2A1612100028FCDA /* IdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF851EBD2A1612100028FCDA /* IdentifierType.swift */; };
@@ -35,8 +33,6 @@
 		BF508FD02A1CB578004CBB1E /* NotificationName+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+.swift"; sourceTree = "<group>"; };
 		BF508FD62A1D4126004CBB1E /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		BF715FDD2A14CD8700C3D081 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BF851EAB2A15F62E0028FCDA /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
-		BF851EAE2A15F7550028FCDA /* WorkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkStatus.swift; sourceTree = "<group>"; };
 		BF851EB32A15FFAE0028FCDA /* WorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkViewModel.swift; sourceTree = "<group>"; };
 		BF851EBA2A1611DB0028FCDA /* WorkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkCell.swift; sourceTree = "<group>"; };
 		BF851EBD2A1612100028FCDA /* IdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierType.swift; sourceTree = "<group>"; };
@@ -78,8 +74,6 @@
 		BF851EAA2A15F6130028FCDA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BF851EAE2A15F7550028FCDA /* WorkStatus.swift */,
-				BF851EAB2A15F62E0028FCDA /* Work.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,9 +272,7 @@
 				BF851EC12A164D180028FCDA /* HeaderReusableView.swift in Sources */,
 				BFE3DA202A1DEDBF00F55EF5 /* PopoverViewController.swift in Sources */,
 				BF508FD12A1CB578004CBB1E /* NotificationName+.swift in Sources */,
-				BF851EAF2A15F7550028FCDA /* WorkStatus.swift in Sources */,
 				BFFDFABF2A1944540045402C /* WorkInputView.swift in Sources */,
-				BF851EAC2A15F62E0028FCDA /* Work.swift in Sources */,
 				BF508FCF2A1CAD00004CBB1E /* AlertManager.swift in Sources */,
 				BF851EB42A15FFAE0028FCDA /* WorkViewModel.swift in Sources */,
 				BF508FD72A1D4126004CBB1E /* Date+.swift in Sources */,

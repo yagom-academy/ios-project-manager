@@ -50,18 +50,13 @@ final class WorkViewModel {
     }
     
     var works: [Work] = []
-    var currentID: UUID?
     
-    func fetchWorkIndex() -> Int? {
-        guard let index = works.firstIndex(where: { $0.id == currentID }) else { return nil }
-        
-        return index
+    private func fetchWorkIndex(for id: UUID) -> Int? {
+        return works.firstIndex { $0.id == id }
     }
     
-    func fetchWork() -> Work? {
-        guard let index = fetchWorkIndex() else { return nil }
-        
-        return works[index]
+    func fetchWork(for id: UUID) -> Work? {
+        return works.first { $0.id == id }
     }
     
     func addWork(title: String, body: String, deadline: Date) {
@@ -69,8 +64,8 @@ final class WorkViewModel {
         NotificationCenter.default.post(name: .updateSnapShot, object: nil)
     }
     
-    func updateWork(title: String, body: String, deadline: Date) {
-        guard let index = fetchWorkIndex() else { return }
+    func updateWork(id: UUID, title: String, body: String, deadline: Date) {
+        guard let index = fetchWorkIndex(for: id) else { return }
         
         works[index].title = title
         works[index].body = body
@@ -78,15 +73,15 @@ final class WorkViewModel {
         NotificationCenter.default.post(name: .updateSnapShot, object: nil)
     }
     
-    func removeWork() {
-        guard let index = fetchWorkIndex() else { return }
+    func removeWork(id: UUID) {
+        guard let index = fetchWorkIndex(for: id) else { return }
         
         works.remove(at: index)
         NotificationCenter.default.post(name: .updateSnapShot, object: nil)
     }
     
-    func moveStatus(to status: WorkStatus) {
-        guard let index = fetchWorkIndex() else { return }
+    func moveStatus(id: UUID, to status: WorkStatus) {
+        guard let index = fetchWorkIndex(for: id) else { return }
         
         works[index].status = status.title
         NotificationCenter.default.post(name: .updateSnapShot, object: nil)

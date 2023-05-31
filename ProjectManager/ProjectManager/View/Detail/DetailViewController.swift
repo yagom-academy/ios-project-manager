@@ -10,12 +10,14 @@ import UIKit
 final class DetailViewController: UIViewController {
     private var viewModel: WorkViewModel
     private var viewMode: WorkViewModel.ViewMode
+    private let id: UUID?
     private let workInputView = WorkInputView()
     private var isEditable = false
     
-    init(viewModel: WorkViewModel, viewMode: WorkViewModel.ViewMode) {
+    init(viewModel: WorkViewModel, viewMode: WorkViewModel.ViewMode, id: UUID?) {
         self.viewModel = viewModel
         self.viewMode = viewMode
+        self.id = id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -46,7 +48,7 @@ final class DetailViewController: UIViewController {
                                                                target: self,
                                                                action: #selector(cancel))
         case .edit:
-            guard let work = viewModel.fetchWork() else { return }
+            guard let id, let work = viewModel.fetchWork(for: id) else { return }
 
             workInputView.configure(title: work.title, body: work.body, deadline: work.deadline)
             workInputView.setEditing(isEditable)
@@ -77,12 +79,14 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func updateWork() {
+        guard let id else { return }
+        
         let contents = workInputView.checkContents()
         
-        viewModel.updateWork(
-                              title: contents.title,
-                              body: contents.body,
-                              deadline: contents.deadline)
+        viewModel.updateWork(id: id,
+                             title: contents.title,
+                             body: contents.body,
+                             deadline: contents.deadline)
         
         dismiss(animated: true)
     }

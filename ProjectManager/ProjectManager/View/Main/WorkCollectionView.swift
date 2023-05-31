@@ -55,7 +55,7 @@ final class WorkCollectionView: UICollectionView {
             var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             
             configuration.headerMode = .supplementary
-            configuration.trailingSwipeActionsConfigurationProvider = self?.makeSwipeActions
+            configuration.trailingSwipeActionsConfigurationProvider = self?.addSwipeActions
             
             section = NSCollectionLayoutSection.list(using: configuration,
                                                      layoutEnvironment: environment)
@@ -74,7 +74,7 @@ final class WorkCollectionView: UICollectionView {
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
     
-    private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+    private func addSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         guard let indexPath = indexPath,
               let id = workDataSource?.itemIdentifier(for: indexPath)?.id else { return nil }
         

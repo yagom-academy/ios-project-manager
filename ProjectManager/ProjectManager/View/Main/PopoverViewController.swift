@@ -10,6 +10,7 @@ import UIKit
 final class PopoverViewController: UIViewController {
     let status: WorkViewModel.WorkStatus
     let viewModel: WorkViewModel
+    let id: UUID
     
     private let topButton: UIButton = {
         let button = UIButton(type: .system)
@@ -27,9 +28,10 @@ final class PopoverViewController: UIViewController {
         return button
     }()
     
-    init(status: WorkViewModel.WorkStatus, viewModel: WorkViewModel) {
+    init(status: WorkViewModel.WorkStatus, viewModel: WorkViewModel, id: UUID) {
         self.status = status
         self.viewModel = viewModel
+        self.id = id
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -94,11 +96,11 @@ final class PopoverViewController: UIViewController {
     @objc private func didTapTopButton() {
         switch status {
         case .todo:
-            viewModel.moveStatus(to: .doing)
+            viewModel.moveStatus(id: id, to: .doing)
         case .doing:
-            viewModel.moveStatus(to: .todo)
+            viewModel.moveStatus(id: id, to: .todo)
         case .done:
-            viewModel.moveStatus(to: .todo)
+            viewModel.moveStatus(id: id, to: .todo)
         }
         
         dismiss(animated: true, completion: nil)
@@ -107,11 +109,11 @@ final class PopoverViewController: UIViewController {
     @objc private func didTapBottomButton() {
         switch status {
         case .todo:
-            viewModel.moveStatus(to: .done)
+            viewModel.moveStatus(id: id, to: .done)
         case .doing:
-            viewModel.moveStatus(to: .done)
+            viewModel.moveStatus(id: id, to: .done)
         case .done:
-            viewModel.moveStatus(to: .doing)
+            viewModel.moveStatus(id: id, to: .doing)
         }
         
         dismiss(animated: true, completion: nil)
