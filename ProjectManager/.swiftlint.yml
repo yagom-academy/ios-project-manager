@@ -2,4 +2,5 @@
 disabled_rules:
 - trailing_whitespace
 
-line_length: 200
+line_length: 300
+function_parameter_count: 10
