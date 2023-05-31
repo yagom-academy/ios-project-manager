@@ -18,6 +18,13 @@ class MainViewModel {
     }
     
     init() {
+        networkMonitor.checkNetworkState { [weak self] isConnect in
+            self?.dbManager.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
+            self?.fetchTasks()
+        }
+    }
+    
+    private func fetchTasks() {
         dbManager.fetch { [weak self] result in
             switch result {
             case .success(let tasks):
@@ -25,14 +32,6 @@ class MainViewModel {
                 self?.tasks = tasks
             case .failure(let error):
                 print(error)
-            }
-        }
-        
-        networkMonitor.checkNetworkState { [weak self] isConnect in
-            if isConnect {
-                self?.dbManager.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
-            } else {
-                self?.dbManager.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
             }
         }
     }
