@@ -26,17 +26,6 @@ final class LocalDBManager<T: Object>: DatabaseManagable {
         self.errorHandler = errorHandler
     }
     
-    func synchronizeObjects(_ objects: [Storable]) {
-        objects.forEach { object in
-            guard realm?.object(ofType: T.self, forPrimaryKey: object.id) != nil else {
-                create(object: object)
-                return
-            }
-            
-            update(object: object)
-        }
-    }
-    
     func create(object: Storable) {
         let dbObject = object.changedToDatabaseObject
         
@@ -87,5 +76,15 @@ final class LocalDBManager<T: Object>: DatabaseManagable {
         
         delete(object: object)
         create(object: object)
+    }
+    
+    private func deleteAll() {
+        do {
+            try realm?.write {
+                realm?.deleteAll()
+            }
+        } catch {
+            errorHandler?(DatabaseError.deletedError)
+        }
     }
 }

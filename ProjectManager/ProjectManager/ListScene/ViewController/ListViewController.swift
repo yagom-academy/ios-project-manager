@@ -13,7 +13,7 @@ final class ListViewController: UIViewController {
     
     private var datasource: UICollectionViewDiffableDataSource<TaskState, Task>?
     private var snapshot = NSDiffableDataSourceSnapshot<TaskState, Task>()
-    private let viewModel: ListViewModel
+    let viewModel: ListViewModel
     
     init(taskState: TaskState) {
         self.viewModel = ListViewModel(taskState: taskState)
@@ -95,7 +95,9 @@ final class ListViewController: UIViewController {
 // MARK: Delegate
 extension ListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let indexPath = indexPaths.first else { return nil }
+        guard let indexPath = indexPaths.first else {
+            return nil
+        }
         
         let task = viewModel.tasks[indexPath.row]
         let actions = makeAction(task)
@@ -106,6 +108,10 @@ extension ListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard viewModel.isNetworkConnecting == true else { return }
+        
         let parentVC = makeParentViewController()
         let task = viewModel.tasks[indexPath.row]
         

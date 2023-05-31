@@ -9,6 +9,7 @@ import Foundation
 
 final class ListViewModel {
     
+    var isNetworkConnecting = true
     var tasks: [Task] = [] {
         didSet {
             NotificationCenter.default.post(name: .updatedTask, object: nil)
@@ -21,10 +22,14 @@ final class ListViewModel {
     }
     
     func postChangedTaskState(by vc: MainViewController?, task: Task, state: TaskState) {
+        guard isNetworkConnecting == true else { return }
+        
         vc?.viewModel.changeTaskState(by: task, state)
     }
     
     func postDeleteTask(by vc: MainViewController?, task: Task) {
+        guard isNetworkConnecting == true else { return }
+        
         vc?.viewModel.deleteTask(task)
     }
 }

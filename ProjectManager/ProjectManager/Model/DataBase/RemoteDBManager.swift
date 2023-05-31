@@ -17,10 +17,8 @@ final class RemoteDBManager: DatabaseManagable {
         ref = Database.database().reference()
     }
     
-    func synchronizeObjects(_ objects: [Storable]) {
-        objects.forEach { object in
-            create(object: object)
-        }
+    deinit {
+        ref?.cancelDisconnectOperations()
     }
     
     func create(object: Storable) {

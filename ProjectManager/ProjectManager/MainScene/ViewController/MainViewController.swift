@@ -28,7 +28,7 @@ final class MainViewController: UIViewController {
         configureObserver()
         bindCollectionView()
         
-        viewModel.networkStateHandler = showNetworkAlert(isConnect:)
+        viewModel.networkStateHandler = bindNetworkStateHandler(isConnect:)
         viewModel.configure()
     }
     
@@ -59,6 +59,25 @@ final class MainViewController: UIViewController {
         showErrorAlert(error)
     }
     
+    private func bindNetworkStateHandler(isConnect: Bool) {
+        navigationItem.title = isConnect == true ? "Project Manager" : "🔴 Project Manager"
+        navigationItem.rightBarButtonItem?.isEnabled = isConnect == true ? true : false
+        
+        todoViewController.viewModel.isNetworkConnecting = isConnect
+        doingViewController.viewModel.isNetworkConnecting = isConnect
+        doneViewController.viewModel.isNetworkConnecting = isConnect
+        
+        let title = "네트워크 연결 확인"
+        let message = isConnect == true ? "네트워크가 연결되었습니다." : "네트워크 상태를 확인해주세요"
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
+    }
+    
     @objc private func didTapAddButton() {
         presentTodoViewController(.create, nil)
     }
@@ -81,18 +100,6 @@ final class MainViewController: UIViewController {
                                                selector: #selector(bindErrorHandler(_:)),
                                                name: .errorTask,
                                                object: nil)
-    }
-    
-    private func showNetworkAlert(isConnect: Bool) {
-        let title = "네트워크 연결 확인"
-        let message = isConnect == true ? "네트워크가 연결되었습니다." : "네트워크를 확인해주세요"
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true)
     }
 }
 

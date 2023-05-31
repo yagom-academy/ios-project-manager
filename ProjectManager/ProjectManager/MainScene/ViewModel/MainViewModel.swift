@@ -45,16 +45,16 @@ class MainViewModel {
     }
     
     func configure() {
+        dbManager.errorHandler = { [weak self] error in
+            self?.postDatabaseError(with: error)
+        }
+        
         networkMonitor.checkNetworkState { [weak self] isConnect in
             DispatchQueue.main.async {
                 self?.networkStateHandler?(isConnect)
             }
             self?.dbManager.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
             self?.fetchTasks()
-        }
-        
-        dbManager.errorHandler = { [weak self] error in
-            self?.postDatabaseError(with: error)
         }
     }
     
@@ -98,9 +98,11 @@ class MainViewModel {
     }
     
     func filterTasks(by state: TaskState) -> [Task] {
-        return tasks.filter { task in
+        let tasks = self.tasks.filter { task in
             return task.state == state
         }
+        
+        return tasks.sorted { $0.date < $1.date }
     }
     
     private func addHistory(historyState: HistoryState) {
