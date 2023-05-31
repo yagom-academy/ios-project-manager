@@ -20,7 +20,7 @@ struct ProjectListCell: View {
             Text(model.body)
                 .lineLimit(3)
                 .foregroundColor(.secondary)
-            Text(dateManager.formatDateText(date: model.date))
+            Text(dateManager.formatDateText(date: model.date, mode: .display))
                 .foregroundColor(dateManager.checkDeadline(date: model.date) ? .black : .red)
         }.onTapGesture {
             isModalViewShow.toggle()

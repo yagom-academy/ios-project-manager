@@ -39,7 +39,7 @@ final class ProjectViewModel: ObservableObject {
     func move(project: Project, to state: ProjectState) {
         guard let firstIndex = projectList.firstIndex(where: { $0.id == project.id }) else { return }
         
-        let item = projectList.remove(at: firstIndex)
+        var item = projectList.remove(at: firstIndex)
         item.state = state
         projectList.append(item)
     }

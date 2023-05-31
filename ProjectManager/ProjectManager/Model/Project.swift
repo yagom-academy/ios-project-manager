@@ -7,17 +7,10 @@
 
 import Foundation
 
-final class Project: Identifiable {
+struct Project: Identifiable {
     let id = UUID()
     var state = ProjectState.todo
     var title: String
     var body: String
     var date: Date
-    
-    init(state: ProjectState = ProjectState.todo, title: String, body: String, date: Date) {
-        self.state = state
-        self.title = title
-        self.body = body
-        self.date = date
-    }
 }
