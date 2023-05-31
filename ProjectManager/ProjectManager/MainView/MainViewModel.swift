@@ -10,9 +10,9 @@ import Foundation
 final class MainViewModel {
     private var planList: [Plan] = []
     private var viewModelDictionary: [WorkState: PlanListViewModel] = [:]
-    private let service: planStorageService
+    private let service: PlanStorageService
     
-    init(service: planStorageService) {
+    init(service: PlanStorageService) {
         self.service = service
     }
     
@@ -40,7 +40,7 @@ final class MainViewModel {
     }
 }
 
-extension MainViewModel: planListViewModelDelegate {
+extension MainViewModel: PlanListViewModelDelegate {
     func createplan(_ plan: Plan) {
         service.createplan(plan)
     }

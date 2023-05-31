@@ -9,9 +9,9 @@ import Combine
 
 protocol PlanListViewModel: AnyObject {
     var planList: [Plan] { get set }
-    var currentplanSubject: PassthroughSubject<([Plan], Bool), Never> { get }
+    var currentPlanSubject: PassthroughSubject<([Plan], Bool), Never> { get }
     var planWorkState: WorkState { get }
-    var delegate: planListViewModelDelegate? { get set }
+    var delegate: PlanListViewModelDelegate? { get set }
     
     func createplan(_ plan: Plan)
     func updateplan(_ plan: Plan)

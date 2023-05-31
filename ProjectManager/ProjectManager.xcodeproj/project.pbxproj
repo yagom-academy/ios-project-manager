@@ -19,10 +19,10 @@
 		62D600332A14C25D00AD7490 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D600322A14C25D00AD7490 /* Array.swift */; };
 		62D600352A15062D00AD7490 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D600342A15062D00AD7490 /* WorkState.swift */; };
 		62D600582A1778DE00AD7490 /* PlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D600572A1778DE00AD7490 /* PlanCell.swift */; };
-		62E8F9C72A1C9DBE0011B195 /* TaskStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E8F9C62A1C9DBE0011B195 /* TaskStorageService.swift */; };
+		62E8F9C72A1C9DBE0011B195 /* PlanStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E8F9C62A1C9DBE0011B195 /* PlanStorageService.swift */; };
 		62E8F9CA2A1CA3310011B195 /* DetailViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E8F9C92A1CA3310011B195 /* DetailViewModelDelegate.swift */; };
 		62F7EA5E2A1F5319003DC5D7 /* PlanCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7EA5D2A1F5319003DC5D7 /* PlanCollectionViewController.swift */; };
-		62F7EA602A2097BF003DC5D7 /* TaskListViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7EA5F2A2097BF003DC5D7 /* TaskListViewModelDelegate.swift */; };
+		62F7EA602A2097BF003DC5D7 /* PlanListViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7EA5F2A2097BF003DC5D7 /* PlanListViewModelDelegate.swift */; };
 		62F8A1BF2A1B32EA005F6BF7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1BE2A1B32EA005F6BF7 /* DetailViewController.swift */; };
 		62F8A1C52A1B3356005F6BF7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1C42A1B3356005F6BF7 /* DetailViewModel.swift */; };
 		62F8A1CA2A1B62CD005F6BF7 /* TextView+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1C92A1B62CD005F6BF7 /* TextView+Combine.swift */; };
@@ -57,10 +57,10 @@
 		62D600322A14C25D00AD7490 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		62D600342A15062D00AD7490 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
 		62D600572A1778DE00AD7490 /* PlanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCell.swift; sourceTree = "<group>"; };
-		62E8F9C62A1C9DBE0011B195 /* TaskStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStorageService.swift; sourceTree = "<group>"; };
+		62E8F9C62A1C9DBE0011B195 /* PlanStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStorageService.swift; sourceTree = "<group>"; };
 		62E8F9C92A1CA3310011B195 /* DetailViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModelDelegate.swift; sourceTree = "<group>"; };
 		62F7EA5D2A1F5319003DC5D7 /* PlanCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCollectionViewController.swift; sourceTree = "<group>"; };
-		62F7EA5F2A2097BF003DC5D7 /* TaskListViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModelDelegate.swift; sourceTree = "<group>"; };
+		62F7EA5F2A2097BF003DC5D7 /* PlanListViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListViewModelDelegate.swift; sourceTree = "<group>"; };
 		62F8A1BE2A1B32EA005F6BF7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		62F8A1C42A1B3356005F6BF7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		62F8A1C92A1B62CD005F6BF7 /* TextView+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+Combine.swift"; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		62E8F9C52A1C9D430011B195 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				62E8F9C62A1C9DBE0011B195 /* TaskStorageService.swift */,
+				62E8F9C62A1C9DBE0011B195 /* PlanStorageService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -169,7 +169,7 @@
 			children = (
 				62A63EB22A1DDBAF00AF928F /* PlanListViewModel.swift */,
 				62E8F9C92A1CA3310011B195 /* DetailViewModelDelegate.swift */,
-				62F7EA5F2A2097BF003DC5D7 /* TaskListViewModelDelegate.swift */,
+				62F7EA5F2A2097BF003DC5D7 /* PlanListViewModelDelegate.swift */,
 				624D52882A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift */,
 				622396E62A26E88500098A63 /* ReuseableIdentifier.swift */,
 			);
@@ -388,7 +388,7 @@
 				62D600332A14C25D00AD7490 /* Array.swift in Sources */,
 				AD8A5EBF2A1B6D7B00D66627 /* UIControl+Combine.swift in Sources */,
 				ADB54CF02A20AE4400A6409C /* DoneViewModel.swift in Sources */,
-				62F7EA602A2097BF003DC5D7 /* TaskListViewModelDelegate.swift in Sources */,
+				62F7EA602A2097BF003DC5D7 /* PlanListViewModelDelegate.swift in Sources */,
 				62F8A1C52A1B3356005F6BF7 /* DetailViewModel.swift in Sources */,
 				62A63EB32A1DDBAF00AF928F /* PlanListViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
@@ -396,7 +396,7 @@
 				622396E72A26E88500098A63 /* ReuseableIdentifier.swift in Sources */,
 				624D52892A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift in Sources */,
 				624D52872A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift in Sources */,
-				62E8F9C72A1C9DBE0011B195 /* TaskStorageService.swift in Sources */,
+				62E8F9C72A1C9DBE0011B195 /* PlanStorageService.swift in Sources */,
 				AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */,
 				ADA30B1A2A248AA500321DA5 /* HeaderViewModel.swift in Sources */,
 				620335722A14ACAF00DDF23E /* Plan.swift in Sources */,

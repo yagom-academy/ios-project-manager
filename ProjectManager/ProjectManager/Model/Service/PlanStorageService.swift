@@ -1,5 +1,5 @@
 //
-//  MainCollectionViewService.swift
+//  PlanStorageService.swift
 //  ProjectManager
 //
 //  Created by Brody, Rowan on 2023/05/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class planStorageService {
+final class PlanStorageService {
     private var planStore: [Plan]
     
     init(planStore: [Plan]) {

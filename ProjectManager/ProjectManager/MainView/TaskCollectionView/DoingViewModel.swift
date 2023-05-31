@@ -10,12 +10,12 @@ import Combine
 final class DoingViewModel: PlanListViewModel {
     var planList: [Plan] = [] {
         didSet {
-            currentplanSubject.send((planList, isUpdating))
+            currentPlanSubject.send((planList, isUpdating))
         }
     }
-    let currentplanSubject = PassthroughSubject<([Plan], Bool), Never>()
+    let currentPlanSubject = PassthroughSubject<([Plan], Bool), Never>()
     var planWorkState: WorkState = .doing
-    var delegate: planListViewModelDelegate?
+    var delegate: PlanListViewModelDelegate?
     
     private var isUpdating: Bool = false
     

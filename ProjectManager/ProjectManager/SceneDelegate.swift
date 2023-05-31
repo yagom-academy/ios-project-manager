@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             Plan(title: "hi", date: Date(), body: "body", workState: .todo),
             Plan(title: "hi", date: Date(), body: "body", workState: .todo)
         ]
-        let planStorageService = planStorageService(planStore: planStore)
+        let planStorageService = PlanStorageService(planStore: planStore)
         let mainViewModel = MainViewModel(service: planStorageService)
         
         window?.rootViewController = UINavigationController(

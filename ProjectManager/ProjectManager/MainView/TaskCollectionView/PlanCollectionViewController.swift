@@ -156,7 +156,7 @@ final class PlanCollectionViewController: UIViewController {
     
     private func bindViewModelToView() {
         viewModel
-            .currentplanSubject
+            .currentPlanSubject
             .sink { planList, isUpdating in
                 isUpdating ? self.reloadDataSourceItems() : self.applyLatestSnapshot(planList)
                 
