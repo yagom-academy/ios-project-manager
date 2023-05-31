@@ -137,11 +137,11 @@ final class TaskCollectionViewController: UIViewController {
             withReuseIdentifier: TaskCell.identifier,
             for: indexPath
         ) as? TaskCell else {
-            fatalError("cell does not have a reuseIdentifier")
+            fatalError("Cell does not have a reuseIdentifier")
         }
 
         guard let task = self.viewModel.taskList.filter({ $0.id == identifier }).first else {
-            fatalError("cell does not have a reuseIdentifier")
+            fatalError("There is nonexistent identifier")
         }
 
         let taskCellViewModel = TaskCellViewModel(task: task, dateFormatter: dateFormatter)
