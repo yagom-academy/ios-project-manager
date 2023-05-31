@@ -8,13 +8,34 @@
 import Foundation
 
 class MainViewModel {
+    private enum HistoryState {
+        case create(_ task: Task)
+        case move(prevState: TaskState, nowState: TaskState, _ task: Task)
+        case delete(_ task: Task)
+        
+        var text: String {
+            switch self {
+            case .create(let task):
+                return "Added '\(task.title)'"
+            case .move(let prevState, let nowState, let task):
+                return "Moved '\(task.title)' from \(prevState.titleText) to \(nowState.titleText)"
+            case .delete(let task):
+                return "Delete '\(task.title)'"
+            }
+        }
+    }
     
     private let dbManager = DBManager()
     private let networkMonitor = NetworkMonitor()
+    private var historyTasks: [String] = []
     private var tasks: [Task] = [] {
         didSet {
             postChangedTasksNoti()
         }
+    }
+    
+    private func addHistory(historyState: HistoryState) {
+        historyTasks.append(historyState.text)
     }
     
     init() {
@@ -34,14 +55,18 @@ class MainViewModel {
         tasks.remove(at: targetIndex)
         
         dbManager.delete(object: task)
+        addHistory(historyState: .delete(task))
     }
     
     func changeTaskState(by task: Task, _ state: TaskState) {
-        guard let targetIndex = tasks.firstIndex(of: task) else { return }
+        guard let targetIndex = tasks.firstIndex(of: task), let prevState = task.state else {
+            return
+        }
         
         tasks[targetIndex].state = state
         
         dbManager.update(object: tasks[targetIndex])
+        addHistory(historyState: .move(prevState: prevState, nowState: state, task))
     }
     
     func replaceTask(_ task: Task) {
@@ -60,6 +85,7 @@ class MainViewModel {
         tasks.append(task)
         
         dbManager.create(object: task)
+        addHistory(historyState: .create(task))
     }
     
     func filterTasks(by state: TaskState) -> [Task] {
