@@ -8,6 +8,10 @@
 import Foundation
 import Combine
 
+protocol ChangeWorkStateViewModelDelegate: AnyObject {
+    func changeWorkState(planID: UUID, with workState: WorkState)
+}
+
 final class ChangeWorkStateViewModel {
     enum ButtonIndex: Int {
         case first

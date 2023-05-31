@@ -11,7 +11,6 @@
 		622396E52A25F40D00098A63 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622396E42A25F40D00098A63 /* CALayer.swift */; };
 		622396E72A26E88500098A63 /* ReuseableIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622396E62A26E88500098A63 /* ReuseableIdentifier.swift */; };
 		624D52872A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624D52862A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift */; };
-		624D52892A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624D52882A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift */; };
 		62A63EAA2A1DA18600AF928F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EA92A1DA18600AF928F /* MainViewController.swift */; };
 		62A63EB02A1DB33400AF928F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EAF2A1DB33400AF928F /* MainViewModel.swift */; };
 		62A63EB32A1DDBAF00AF928F /* PlanListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A63EB22A1DDBAF00AF928F /* PlanListViewModel.swift */; };
@@ -20,9 +19,7 @@
 		62D600352A15062D00AD7490 /* WorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D600342A15062D00AD7490 /* WorkState.swift */; };
 		62D600582A1778DE00AD7490 /* PlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D600572A1778DE00AD7490 /* PlanCell.swift */; };
 		62E8F9C72A1C9DBE0011B195 /* PlanStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E8F9C62A1C9DBE0011B195 /* PlanStorageService.swift */; };
-		62E8F9CA2A1CA3310011B195 /* DetailViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E8F9C92A1CA3310011B195 /* DetailViewModelDelegate.swift */; };
 		62F7EA5E2A1F5319003DC5D7 /* PlanCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7EA5D2A1F5319003DC5D7 /* PlanCollectionViewController.swift */; };
-		62F7EA602A2097BF003DC5D7 /* PlanListViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F7EA5F2A2097BF003DC5D7 /* PlanListViewModelDelegate.swift */; };
 		62F8A1BF2A1B32EA005F6BF7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1BE2A1B32EA005F6BF7 /* DetailViewController.swift */; };
 		62F8A1C52A1B3356005F6BF7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1C42A1B3356005F6BF7 /* DetailViewModel.swift */; };
 		62F8A1CA2A1B62CD005F6BF7 /* TextView+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8A1C92A1B62CD005F6BF7 /* TextView+Combine.swift */; };
@@ -49,7 +46,6 @@
 		622396E42A25F40D00098A63 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		622396E62A26E88500098A63 /* ReuseableIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseableIdentifier.swift; sourceTree = "<group>"; };
 		624D52862A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeWorkStateViewModel.swift; sourceTree = "<group>"; };
-		624D52882A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeWorkStateViewModelDelegate.swift; sourceTree = "<group>"; };
 		62A63EA92A1DA18600AF928F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		62A63EAF2A1DB33400AF928F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		62A63EB22A1DDBAF00AF928F /* PlanListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListViewModel.swift; sourceTree = "<group>"; };
@@ -58,9 +54,7 @@
 		62D600342A15062D00AD7490 /* WorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkState.swift; sourceTree = "<group>"; };
 		62D600572A1778DE00AD7490 /* PlanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCell.swift; sourceTree = "<group>"; };
 		62E8F9C62A1C9DBE0011B195 /* PlanStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStorageService.swift; sourceTree = "<group>"; };
-		62E8F9C92A1CA3310011B195 /* DetailViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModelDelegate.swift; sourceTree = "<group>"; };
 		62F7EA5D2A1F5319003DC5D7 /* PlanCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCollectionViewController.swift; sourceTree = "<group>"; };
-		62F7EA5F2A2097BF003DC5D7 /* PlanListViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListViewModelDelegate.swift; sourceTree = "<group>"; };
 		62F8A1BE2A1B32EA005F6BF7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		62F8A1C42A1B3356005F6BF7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		62F8A1C92A1B62CD005F6BF7 /* TextView+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+Combine.swift"; sourceTree = "<group>"; };
@@ -152,6 +146,7 @@
 				AD4BDE7B2A179EAF0022F3D6 /* TodoViewModel.swift */,
 				ADB54CED2A20AE3A00A6409C /* DoingViewModel.swift */,
 				ADB54CEF2A20AE4400A6409C /* DoneViewModel.swift */,
+				62A63EB22A1DDBAF00AF928F /* PlanListViewModel.swift */,
 			);
 			path = TaskCollectionView;
 			sourceTree = "<group>";
@@ -167,10 +162,6 @@
 		62E8F9C82A1CA2CA0011B195 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				62A63EB22A1DDBAF00AF928F /* PlanListViewModel.swift */,
-				62E8F9C92A1CA3310011B195 /* DetailViewModelDelegate.swift */,
-				62F7EA5F2A2097BF003DC5D7 /* PlanListViewModelDelegate.swift */,
-				624D52882A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift */,
 				622396E62A26E88500098A63 /* ReuseableIdentifier.swift */,
 			);
 			path = Protocols;
@@ -388,13 +379,11 @@
 				62D600332A14C25D00AD7490 /* Array.swift in Sources */,
 				AD8A5EBF2A1B6D7B00D66627 /* UIControl+Combine.swift in Sources */,
 				ADB54CF02A20AE4400A6409C /* DoneViewModel.swift in Sources */,
-				62F7EA602A2097BF003DC5D7 /* PlanListViewModelDelegate.swift in Sources */,
 				62F8A1C52A1B3356005F6BF7 /* DetailViewModel.swift in Sources */,
 				62A63EB32A1DDBAF00AF928F /* PlanListViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				62A63EB02A1DB33400AF928F /* MainViewModel.swift in Sources */,
 				622396E72A26E88500098A63 /* ReuseableIdentifier.swift in Sources */,
-				624D52892A24EBBC00DF6EAA /* ChangeWorkStateViewModelDelegate.swift in Sources */,
 				624D52872A24CCA400DF6EAA /* ChangeWorkStateViewModel.swift in Sources */,
 				62E8F9C72A1C9DBE0011B195 /* PlanStorageService.swift in Sources */,
 				AD450BEA2A150E4A00A9C693 /* HeaderView.swift in Sources */,
@@ -402,7 +391,6 @@
 				620335722A14ACAF00DDF23E /* Plan.swift in Sources */,
 				62F7EA5E2A1F5319003DC5D7 /* PlanCollectionViewController.swift in Sources */,
 				AD8A5EC12A1C50AF00D66627 /* UITextField+Combine.swift in Sources */,
-				62E8F9CA2A1CA3310011B195 /* DetailViewModelDelegate.swift in Sources */,
 				AD5FFB8C2A14B64E00CF6A39 /* PlanCellViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
