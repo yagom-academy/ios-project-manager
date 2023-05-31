@@ -200,10 +200,16 @@ final class DetailViewController: UIViewController {
     private func bindViewModelToView() {
         viewModel
             .isEditingDone
-            .sink { isEditingDone in
-                let rightBarButtonItem = self.navigationItem.rightBarButtonItem
-                rightBarButtonItem?.isEnabled = isEditingDone ? true : false
+            .tryCatch { error -> AnyPublisher<Bool, Error> in
+                throw error
             }
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    print(error)
+                }
+            }, receiveValue: { isEditingDone in
+                self.navigationItem.rightBarButtonItem?.isEnabled = isEditingDone ? true : false
+            })
             .store(in: &bindings)
     }
 }

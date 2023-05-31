@@ -133,19 +133,17 @@ final class TaskCollectionViewController: UIViewController {
     }
     
     private func cellProvider(_ collectionView: UICollectionView, indexPath: IndexPath, identifier: Task.ID) -> UICollectionViewCell? {
-        guard let cell = collectionView.dequeueReusableCell(
+        let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: TaskCell.identifier,
             for: indexPath
-        ) as? TaskCell else {
-            fatalError("Cell does not have a reuseIdentifier")
-        }
+        ) as? TaskCell
 
         guard let task = self.viewModel.taskList.filter({ $0.id == identifier }).first else {
-            fatalError("There is nonexistent identifier")
+            return cell
         }
 
         let taskCellViewModel = TaskCellViewModel(task: task, dateFormatter: dateFormatter)
-        cell.provide(viewModel: taskCellViewModel)
+        cell?.provide(viewModel: taskCellViewModel)
 
         return cell
     }
