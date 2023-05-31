@@ -17,6 +17,7 @@
 		264E012C2A26F7530080D2BC /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264E012B2A26F7530080D2BC /* UIViewController+Extension.swift */; };
 		264E012E2A26F7F20080D2BC /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264E012D2A26F7F20080D2BC /* DatabaseError.swift */; };
 		264E01312A2710DD0080D2BC /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264E01302A2710DD0080D2BC /* HistoryViewController.swift */; };
+		264E01332A2715EF0080D2BC /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264E01322A2715EF0080D2BC /* HistoryCell.swift */; };
 		2656763A2A1662380063FBE2 /* TodoTitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265676392A1662380063FBE2 /* TodoTitleTextField.swift */; };
 		266ADEB02A2452A2003B5CEF /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 266ADEAF2A2452A2003B5CEF /* Realm */; };
 		266ADEB22A2452A2003B5CEF /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 266ADEB12A2452A2003B5CEF /* RealmSwift */; };
@@ -80,6 +81,7 @@
 		264E012B2A26F7530080D2BC /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		264E012D2A26F7F20080D2BC /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		264E01302A2710DD0080D2BC /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		264E01322A2715EF0080D2BC /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		265676392A1662380063FBE2 /* TodoTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTitleTextField.swift; sourceTree = "<group>"; };
 		266ADEB32A245C3B003B5CEF /* LocalDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBManager.swift; sourceTree = "<group>"; };
 		266ADEB62A248F36003B5CEF /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				26CE60CE2A148FB90026203C /* TaskListCell.swift */,
 				2616AFC52A153A3600C33BB2 /* TaskHeaderView.swift */,
 				265676392A1662380063FBE2 /* TodoTitleTextField.swift */,
+				264E01322A2715EF0080D2BC /* HistoryCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				2612AF372A1770940002DF21 /* ListViewModel.swift in Sources */,
 				2632DEF42A25F30900D24197 /* DBManager.swift in Sources */,
 				26E20EAA2A1BB11C00F7FBDC /* GeneratedTaskError.swift in Sources */,
+				264E01332A2715EF0080D2BC /* HistoryCell.swift in Sources */,
 				26E20EB12A1C8A1F00F7FBDC /* MainViewModel.swift in Sources */,
 				260ED10F2A264AC400FD7206 /* Storable.swift in Sources */,
 				266ADEB72A248F36003B5CEF /* TaskObject.swift in Sources */,
