@@ -32,6 +32,8 @@ final class TaskManager {
     }
     
     func create(_ task: MyTask) {
+        guard !taskList.contains(task) else { return }
+                
         taskList.append(task)
         
         let realmTask = RealmTask(task)

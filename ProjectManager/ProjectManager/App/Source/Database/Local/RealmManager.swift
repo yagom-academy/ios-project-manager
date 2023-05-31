@@ -16,7 +16,7 @@ final class RealmManager {
         
         do {
             try realm.write {
-                realm.add(data)
+                realm.add(data, update: .modified)
             }
         } catch {
             print(error.localizedDescription)
