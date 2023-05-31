@@ -82,9 +82,9 @@ final class MainViewController: UIViewController {
         let doingViewModel = DoingViewModel()
         let doneViewModel = DoneViewModel()
         
-        self.addChild(TaskCollectionViewController<TodoViewModel.TodoSection>(viewModel: todoViewModel))
-        self.addChild(TaskCollectionViewController<DoingViewModel.DoingSection>(viewModel: doingViewModel))
-        self.addChild(TaskCollectionViewController<DoneViewModel.DoneSection>(viewModel: doneViewModel))
+        self.addChild(TaskCollectionViewController(viewModel: todoViewModel))
+        self.addChild(TaskCollectionViewController(viewModel: doingViewModel))
+        self.addChild(TaskCollectionViewController(viewModel: doneViewModel))
         
         mainViewModel.assignChildViewModel(of: [
             todoViewModel,

@@ -8,16 +8,6 @@
 import Combine
 
 final class DoingViewModel: TaskListViewModel {
-    enum DoingSection: Hashable {
-        case doing(count: Int)
-    }
-    
-    typealias Section = DoingSection
-    
-    var sectionInfo: DoingSection {
-        DoingSection.doing(count: taskList.count)
-    }
-    
     var taskList: [Task] = [] {
         didSet {
             currentTaskSubject.send((taskList, isUpdating))

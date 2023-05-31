@@ -8,7 +8,10 @@
 import UIKit
 import Combine
 
-final class TaskCollectionViewController<Section: Hashable>: UIViewController, UICollectionViewDelegate {
+final class TaskCollectionViewController: UIViewController, UICollectionViewDelegate {
+    enum Section: Hashable {
+        case main(count: Int)
+    }
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Task.ID>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Task.ID>
     
@@ -16,7 +19,7 @@ final class TaskCollectionViewController<Section: Hashable>: UIViewController, U
                                                        collectionViewLayout: collectionViewLayout())
     
     var dataSource: DataSource?
-    var viewModel: any TaskListViewModel
+    var viewModel: TaskListViewModel
     var bindings = Set<AnyCancellable>()
     private let dateFormatter = {
         let formatter = DateFormatter()
@@ -37,7 +40,7 @@ final class TaskCollectionViewController<Section: Hashable>: UIViewController, U
         setupLongTapGestureRecognizer()
     }
     
-    init(viewModel: any TaskListViewModel) {
+    init(viewModel: TaskListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -170,12 +173,9 @@ final class TaskCollectionViewController<Section: Hashable>: UIViewController, U
     }
     
     private func applyLatestSnapshot(_ taskList: [Task]) {
-        guard let section = viewModel.sectionInfo as? Section else {
-            return
-        }
-        
         let taskIDList = taskList.map { $0.id }
         
+        let section = Section.main(count: viewModel.taskList.count)
         var snapshot = Snapshot()
         snapshot.appendSections([section])
         snapshot.appendItems(taskIDList, toSection: section)

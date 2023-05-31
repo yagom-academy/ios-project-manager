@@ -9,14 +9,14 @@ import Foundation
 
 final class MainViewModel {
     var taskList: [Task] = []
-    var viewModelDictionary: [WorkState: any TaskListViewModel] = [:]
+    var viewModelDictionary: [WorkState: TaskListViewModel] = [:]
     private let service: TaskStorageService
     
     init(service: TaskStorageService) {
         self.service = service
     }
     
-    func assignChildViewModel(of children: [any TaskListViewModel]) {
+    func assignChildViewModel(of children: [TaskListViewModel]) {
         children
             .forEach {
                 $0.delegate = self
@@ -35,7 +35,7 @@ final class MainViewModel {
         }
     }
     
-    func todoViewModel() -> (any TaskListViewModel)? {
+    func todoViewModel() -> TaskListViewModel? {
         return viewModelDictionary[.todo]
     }
 }
