@@ -8,9 +8,12 @@
 import FirebaseDatabase
 
 final class RemoteDBManager: DatabaseManagable {
-    var ref: DatabaseReference?
     
-    init() {
+    var ref: DatabaseReference?
+    var errorHandler: ((Error) -> Void)?
+    
+    init(errorHandler: ((Error) -> Void)?) {
+        self.errorHandler = errorHandler
         ref = Database.database().reference()
     }
     

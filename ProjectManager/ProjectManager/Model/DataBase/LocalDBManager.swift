@@ -10,8 +10,11 @@ import RealmSwift
 final class LocalDBManager<T: Object>: DatabaseManagable {
     
     private let realm: Realm
+    var errorHandler: ((Error) -> Void)?
     
-    init?() {
+    init?(errorHanlder: ((Error) -> Void)?) {
+        self.errorHandler = errorHanlder
+        
         do {
             self.realm = try Realm()
         } catch {
