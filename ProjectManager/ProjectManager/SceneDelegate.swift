@@ -13,7 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let taskStore = [Task(title: "hi", date: Date(), body: "body", workState: .todo),
+        let taskStore = [
+            Task(title: "hi", date: Date(), body: "body", workState: .todo),
             Task(title: "hi", date: Date(), body: "body", workState: .todo),
             Task(title: "hi", date: Date(), body: "body", workState: .todo),
             Task(title: "hiThere", date: Date(), body: "body", workState: .done),

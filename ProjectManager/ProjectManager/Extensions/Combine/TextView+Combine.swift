@@ -16,7 +16,6 @@ extension UITextView {
         )
         .compactMap { $0.object as? UITextView }
         .map { $0.text ?? "" }
-        .print()
         .eraseToAnyPublisher()
     }
 }

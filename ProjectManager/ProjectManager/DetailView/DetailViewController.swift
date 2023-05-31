@@ -61,10 +61,10 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
     
-    private let viewModel: DetailViewModel
-    
-    var cancellables = Set<AnyCancellable>()
     weak var delegate: DetailViewModelDelegate?
+    
+    private let viewModel: DetailViewModel
+    private var bindings = Set<AnyCancellable>()
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
@@ -91,38 +91,13 @@ final class DetailViewController: UIViewController {
         viewModel.delegate = delegate
     }
     
-    private func bindViewToViewModel() {
-        assign(publisher: titleTextfield.textPublisher, keyPath: \.title)
-        assign(publisher: bodyTextView.textPublisher, keyPath: \.body)
-        assign(publisher: datePicker.datePublisher, keyPath: \.date)
-    }
-    
-    private func assign<Value>(
-        publisher: AnyPublisher<Value, Never>,
-        keyPath: ReferenceWritableKeyPath<DetailViewModel, Value>
-    ) {
-        publisher
-            .assign(to: keyPath, on: viewModel)
-            .store(in: &cancellables)
-    }
-    
-    private func bindViewModelToView() {
-        viewModel
-            .isEditingDone
-            .sink { isEditingDone in
-                let rightBarButtonItem = self.navigationItem.rightBarButtonItem
-                rightBarButtonItem?.isEnabled = isEditingDone ? true : false
-            }
-            .store(in: &cancellables)
-    }
-    
     private func configureNavigationBar() {
         self.navigationItem.title = "TODO"
         let rightNavigationButton = UIBarButtonItem(
             title: "Done",
             style: .plain,
             target: self,
-            action: #selector(tapDoneButton)
+            action: #selector(doneButtonTapped)
         )
         
         rightNavigationButton.isEnabled = false
@@ -132,35 +107,12 @@ final class DetailViewController: UIViewController {
             title: viewModel.mode.leftButtonTitle,
             style: .plain,
             target: self,
-            action: #selector(tapCancelButton)
+            action: #selector(cancelButtonTapped)
         )
     }
     
-    private func configureShadowView() {
-        shadowView.addSubview(bodyTextView)
-        
-        NSLayoutConstraint.activate([
-            bodyTextView.leadingAnchor.constraint(equalTo: shadowView.leadingAnchor),
-            bodyTextView.trailingAnchor.constraint(equalTo: shadowView.trailingAnchor),
-            bodyTextView.topAnchor.constraint(equalTo: shadowView.topAnchor),
-            bodyTextView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor),
-        ])
-    }
-    
-    private func configureUIEditability() {
-        if viewModel.mode == .update {
-            UIUserInteraction(isEnable: false)
-        }
-    }
-    
-    private func UIUserInteraction(isEnable: Bool) {
-        titleTextfield.isUserInteractionEnabled = isEnable
-        datePicker.isUserInteractionEnabled = isEnable
-        bodyTextView.isUserInteractionEnabled = isEnable
-    }
-    
     @objc
-    private func tapDoneButton() {
+    private func doneButtonTapped() {
         switch viewModel.mode {
         case .create:
             viewModel.createTask()
@@ -172,13 +124,24 @@ final class DetailViewController: UIViewController {
     }
     
     @objc
-    private func tapCancelButton() {
+    private func cancelButtonTapped() {
         if viewModel.mode == .create {
             self.dismiss(animated: true)
             return
         }
         
-        UIUserInteraction(isEnable: true)
+        setUIUserInteraction(isEnable: true)
+    }
+    
+    private func configureShadowView() {
+        shadowView.addSubview(bodyTextView)
+        
+        NSLayoutConstraint.activate([
+            bodyTextView.leadingAnchor.constraint(equalTo: shadowView.leadingAnchor),
+            bodyTextView.trailingAnchor.constraint(equalTo: shadowView.trailingAnchor),
+            bodyTextView.topAnchor.constraint(equalTo: shadowView.topAnchor),
+            bodyTextView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor),
+        ])
     }
     
     private func configureStackView() {
@@ -205,5 +168,42 @@ final class DetailViewController: UIViewController {
         self.titleTextfield.text = viewModel.title
         self.datePicker.date = viewModel.date
         self.bodyTextView.text = viewModel.body
+    }
+    
+    private func configureUIEditability() {
+        if viewModel.mode == .update {
+            setUIUserInteraction(isEnable: false)
+        }
+    }
+    
+    private func setUIUserInteraction(isEnable: Bool) {
+        titleTextfield.isUserInteractionEnabled = isEnable
+        datePicker.isUserInteractionEnabled = isEnable
+        bodyTextView.isUserInteractionEnabled = isEnable
+    }
+    
+    private func bindViewToViewModel() {
+        assign(publisher: titleTextfield.textPublisher, keyPath: \.title)
+        assign(publisher: bodyTextView.textPublisher, keyPath: \.body)
+        assign(publisher: datePicker.datePublisher, keyPath: \.date)
+    }
+    
+    private func assign<Value>(
+        publisher: AnyPublisher<Value, Never>,
+        keyPath: ReferenceWritableKeyPath<DetailViewModel, Value>
+    ) {
+        publisher
+            .assign(to: keyPath, on: viewModel)
+            .store(in: &bindings)
+    }
+    
+    private func bindViewModelToView() {
+        viewModel
+            .isEditingDone
+            .sink { isEditingDone in
+                let rightBarButtonItem = self.navigationItem.rightBarButtonItem
+                rightBarButtonItem?.isEnabled = isEditingDone ? true : false
+            }
+            .store(in: &bindings)
     }
 }

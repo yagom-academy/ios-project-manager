@@ -49,8 +49,8 @@ final class ChangeWorkStateViewController: UIViewController {
     
     override func viewDidLoad() {
         configureLayout()
-        bindViewModelToView()
         configureButtonAction()
+        bindViewModelToView()
     }
     
     private func configureLayout() {
@@ -82,6 +82,18 @@ final class ChangeWorkStateViewController: UIViewController {
         )
     }
     
+    @objc
+    private func firstButtonTapped() {
+        viewModel.changeWorkState(buttonIndex: .first)
+        self.dismiss(animated: true)
+    }
+    
+    @objc
+    private func secondButtonTapped() {
+        viewModel.changeWorkState(buttonIndex: .second)
+        self.dismiss(animated: true)
+    }
+    
     private func bindViewModelToView() {
         viewModel.$firstText
             .sink { firstText in
@@ -94,17 +106,5 @@ final class ChangeWorkStateViewController: UIViewController {
                 self.secondButton.setTitle(secondText, for: .normal)
             }
             .store(in: &bindings)
-    }
-    
-    @objc
-    private func firstButtonTapped() {
-        viewModel.changeWorkState(buttonIndex: .first)
-        self.dismiss(animated: true)
-    }
-    
-    @objc
-    private func secondButtonTapped() {
-        viewModel.changeWorkState(buttonIndex: .second)
-        self.dismiss(animated: true)
     }
 }

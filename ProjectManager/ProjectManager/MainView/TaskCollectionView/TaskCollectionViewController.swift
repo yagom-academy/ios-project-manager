@@ -9,25 +9,19 @@ import UIKit
 import Combine
 
 final class TaskCollectionViewController: UIViewController, UICollectionViewDelegate {
-    enum Section: Hashable {
+    private enum Section: Hashable {
         case main(count: Int)
     }
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Task.ID>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Task.ID>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, Task.ID>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Task.ID>
     
     private lazy var collectionView = UICollectionView(frame: .zero,
                                                        collectionViewLayout: collectionViewLayout())
     
-    var dataSource: DataSource?
-    var viewModel: TaskListViewModel
-    var bindings = Set<AnyCancellable>()
-    private let dateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy. MM. dd"
-        
-        return formatter
-    }()
-    
+    private var dataSource: DataSource?
+    private var viewModel: TaskListViewModel
+    private var bindings = Set<AnyCancellable>()
+    private let dateFormatter: DateFormatter
     private var currentLongPressedCell: TaskCell?
     
     override func viewDidLoad() {
@@ -40,8 +34,9 @@ final class TaskCollectionViewController: UIViewController, UICollectionViewDele
         setupLongTapGestureRecognizer()
     }
     
-    init(viewModel: TaskListViewModel) {
+    init(viewModel: TaskListViewModel, dateFormatter: DateFormatter) {
         self.viewModel = viewModel
+        self.dateFormatter = dateFormatter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,6 +47,24 @@ final class TaskCollectionViewController: UIViewController, UICollectionViewDele
     private func configureRootView() {
         view.backgroundColor = .systemGray4
         view.addSubview(collectionView)
+    }
+    
+    private func configureCollectionViewLayout() {
+        collectionView.register(
+            HeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: HeaderView.identifier
+        )
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let safe = view.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: safe.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
+        ])
     }
     
     private func collectionViewLayout() -> UICollectionViewLayout {
@@ -96,24 +109,6 @@ final class TaskCollectionViewController: UIViewController, UICollectionViewDele
         }
 
         return layout
-    }
-    
-    private func configureCollectionViewLayout() {
-        collectionView.register(
-            HeaderView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: HeaderView.identifier
-        )
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let safe = view.safeAreaLayoutGuide
-        
-        NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: safe.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
-        ])
     }
     
     private func configureDataSource() {

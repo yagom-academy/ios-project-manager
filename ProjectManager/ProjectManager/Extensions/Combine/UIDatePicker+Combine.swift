@@ -12,7 +12,6 @@ extension UIDatePicker {
     var datePublisher: AnyPublisher<Date, Never> {
         publisher(for: .valueChanged)
             .map { self.date }
-            .print()
             .eraseToAnyPublisher()
     }
 }

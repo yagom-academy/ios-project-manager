@@ -8,8 +8,8 @@
 import Foundation
 
 final class MainViewModel {
-    var taskList: [Task] = []
-    var viewModelDictionary: [WorkState: TaskListViewModel] = [:]
+    private var taskList: [Task] = []
+    private var viewModelDictionary: [WorkState: TaskListViewModel] = [:]
     private let service: TaskStorageService
     
     init(service: TaskStorageService) {

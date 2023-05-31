@@ -8,11 +8,11 @@
 import Foundation
 
 struct Task: Identifiable {
-    let id: UUID
     let title: String
     let date: Date
     let body: String
     var workState: WorkState
+    let id: UUID
     
     init(title: String, date: Date, body: String, workState: WorkState, id: UUID = UUID()) {
         self.title = title

@@ -11,7 +11,7 @@ import Combine
 final class HeaderView: UICollectionReusableView {
     static let identifier = "HeaderView"
     
-    let titleLabel = {
+    private let titleLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .largeTitle)
         label.adjustsFontForContentSizeCategory = true
@@ -21,7 +21,7 @@ final class HeaderView: UICollectionReusableView {
         return label
     }()
     
-    let badgeLabel = {
+    private let badgeLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
         label.textColor = .white
@@ -36,7 +36,7 @@ final class HeaderView: UICollectionReusableView {
         return label
     }()
     
-    let stackView = {
+    private let stackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -48,7 +48,7 @@ final class HeaderView: UICollectionReusableView {
     }()
     
     private var viewModel: HeaderViewModel?
-    private var bindings: [AnyCancellable] = []
+    private var bindings = Set<AnyCancellable>()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -11,7 +11,7 @@ import Combine
 final class TaskCell: UICollectionViewListCell {
     static let identifier = "TaskCell"
     
-    let titleLabel = {
+    private let titleLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
         label.adjustsFontForContentSizeCategory = true
@@ -19,7 +19,7 @@ final class TaskCell: UICollectionViewListCell {
         return label
     }()
     
-    let bodyLabel = {
+    private let bodyLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
@@ -29,7 +29,7 @@ final class TaskCell: UICollectionViewListCell {
         return label
     }()
     
-    let dateLabel = {
+    private let dateLabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
@@ -37,7 +37,7 @@ final class TaskCell: UICollectionViewListCell {
         return label
     }()
     
-    let stackView = {
+    private let stackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 5
@@ -48,7 +48,7 @@ final class TaskCell: UICollectionViewListCell {
     }()
     
     private var viewModel: TaskCellViewModel?
-    private var bindings: [AnyCancellable] = []
+    private var bindings = Set<AnyCancellable>()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

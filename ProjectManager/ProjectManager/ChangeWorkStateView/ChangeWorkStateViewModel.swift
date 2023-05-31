@@ -17,10 +17,11 @@ final class ChangeWorkStateViewModel {
     @Published var firstText: String?
     @Published var secondText: String?
     
-    let taskID: UUID
-    var filteredStates: [WorkState]
     weak var delegate: ChangeWorkStateViewModelDelegate?
     
+    private let taskID: UUID
+    private var filteredStates: [WorkState]
+
     init(from task: Task) {
         self.taskID = task.id
         self.filteredStates = WorkState.allCases

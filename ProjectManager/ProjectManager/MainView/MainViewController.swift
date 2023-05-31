@@ -20,6 +20,12 @@ final class MainViewController: UIViewController {
     }()
     
     let mainViewModel: MainViewModel
+    private let dateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        
+        return formatter
+    }()
     
     init(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel
@@ -41,6 +47,25 @@ final class MainViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         stackView.layer.addBorder([.bottom], color: .systemGray4, width: 2)
+    }
+    
+    private func addChildren() {
+        let todoViewModel = TodoViewModel()
+        let doingViewModel = DoingViewModel()
+        let doneViewModel = DoneViewModel()
+        
+        self.addChild(TaskCollectionViewController(viewModel: todoViewModel,
+                                                   dateFormatter: dateFormatter))
+        self.addChild(TaskCollectionViewController(viewModel: doingViewModel,
+                                                   dateFormatter: dateFormatter))
+        self.addChild(TaskCollectionViewController(viewModel: doneViewModel,
+                                                   dateFormatter: dateFormatter))
+        
+        mainViewModel.assignChildViewModel(of: [
+            todoViewModel,
+            doingViewModel,
+            doneViewModel
+        ])
     }
 
     private func configureNavigationBar() {
@@ -75,22 +100,6 @@ final class MainViewController: UIViewController {
     private func configureRootView() {
         view.backgroundColor = .systemGray6
         view.addSubview(stackView)
-    }
-    
-    private func addChildren() {
-        let todoViewModel = TodoViewModel()
-        let doingViewModel = DoingViewModel()
-        let doneViewModel = DoneViewModel()
-        
-        self.addChild(TaskCollectionViewController(viewModel: todoViewModel))
-        self.addChild(TaskCollectionViewController(viewModel: doingViewModel))
-        self.addChild(TaskCollectionViewController(viewModel: doneViewModel))
-        
-        mainViewModel.assignChildViewModel(of: [
-            todoViewModel,
-            doingViewModel,
-            doneViewModel
-        ])
     }
     
     private func configureStackView() {

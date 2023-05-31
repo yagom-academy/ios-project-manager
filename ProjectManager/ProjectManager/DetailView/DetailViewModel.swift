@@ -26,19 +26,18 @@ final class DetailViewModel {
     @Published var title: String = ""
     @Published var body: String = ""
     
-    var date: Date = Date()
-    var workState: WorkState = .todo
-    var id: UUID?
-    
-    let mode: Mode
-    
-    weak var delegate: DetailViewModelDelegate?
-    
     lazy var isEditingDone: AnyPublisher<Bool, Never> = Publishers.CombineLatest($title, $body)
         .map { title, body in
             return !title.isEmpty || !body.isEmpty
         }
         .eraseToAnyPublisher()
+    
+    let mode: Mode
+    var date: Date = Date()
+    weak var delegate: DetailViewModelDelegate?
+    
+    private var workState: WorkState = .todo
+    private var id: UUID?
     
     init(from task: Task? = nil, mode: DetailViewModel.Mode) {
         self.mode = mode
