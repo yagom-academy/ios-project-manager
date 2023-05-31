@@ -40,7 +40,7 @@ final class LocalDBManager<T: Object>: DatabaseManagable {
     
     func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
         guard let dbObjects = realm?.objects(T.self) else {
-            errorHandler?(DatabaseError.fetchedError)
+            completion(.failure(DatabaseError.fetchedError))
             return
         }
         let objects = dbObjects.map { dbObject in

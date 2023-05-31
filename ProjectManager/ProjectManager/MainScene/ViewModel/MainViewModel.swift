@@ -75,7 +75,7 @@ class MainViewModel {
                 guard let tasks = tasks as? [Task] else { return }
                 self?.tasks = tasks
             case .failure(let error):
-                print(error)
+                self?.postDatabaseError(with: error)
             }
         }
     }

@@ -24,15 +24,20 @@ final class RemoteDBManager: DatabaseManagable {
     }
     
     func create(object: Storable) {
+        guard let ref = self.ref else {
+            errorHandler?(DatabaseError.createError)
+            return
+        }
+        
         let dict = object.convertedDictonary
         
-        ref?.child("Task").child("\(object.id.uuidString)").setValue(dict)
+        ref.child("Task").child("\(object.id.uuidString)").setValue(dict)
     }
     
     func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
         ref?.child("Task").getData(completion: { error, snapshot in
             guard error == nil else {
-                completion(.failure(GeneratedTaskError.descriptionEmpty))
+                completion(.failure(DatabaseError.fetchedError))
                 return
             }
             
@@ -41,7 +46,11 @@ final class RemoteDBManager: DatabaseManagable {
             
             snapshotValue?.forEach({ key, value in
                 let value = value as? NSDictionary
-                guard let task = Task.convertToStorable(value) else { return }
+                
+                guard let task = Task.convertToStorable(value) else {
+                    return
+                }
+                
                 fetchedData.append(task)
             })
             
@@ -50,12 +59,22 @@ final class RemoteDBManager: DatabaseManagable {
     }
     
     func delete(object: Storable) {
-        ref?.child("Task").child("\(object.id.uuidString)").removeValue()
+        guard let ref = self.ref else {
+            errorHandler?(DatabaseError.createError)
+            return
+        }
+        
+        ref.child("Task").child("\(object.id.uuidString)").removeValue()
     }
     
     func update(object: Storable) {
+        guard let ref = self.ref else {
+            errorHandler?(DatabaseError.createError)
+            return
+        }
+        
         let dict = object.convertedDictonary
         
-        ref?.child("Task").child("\(object.id.uuidString)").updateChildValues(dict)
+        ref.child("Task").child("\(object.id.uuidString)").updateChildValues(dict)
     }
 }
