@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Plan: Identifiable {
+struct Plan: Identifiable, Equatable {
     let title: String
     let date: Date
     let body: String

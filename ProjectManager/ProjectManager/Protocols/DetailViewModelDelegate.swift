@@ -6,7 +6,7 @@
 //
 
 protocol DetailViewModelDelegate: AnyObject {
-    func createplan(_ plan: Plan)
-    func updateplan(_ plan: Plan)
+    func create(plan: Plan)
+    func update(plan: Plan)
     func setState(isUpdating: Bool)
 }

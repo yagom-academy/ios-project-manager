@@ -49,18 +49,18 @@ final class DetailViewModel {
         configureContents(with: plan)
     }
     
-    func createplan() {
+    func createPlan() {
         guard let title, let body else { return }
         let plan = Plan(title: title, date: date, body: body, workState: workState)
         delegate?.setState(isUpdating: false)
-        delegate?.createplan(plan)
+        delegate?.create(plan: plan)
     }
     
-    func updateplan() {
+    func updatePlan() {
         guard let title, let id, let body else { return }
         let plan = Plan(title: title, date: date, body: body, workState: workState, id: id)
         delegate?.setState(isUpdating: true)
-        delegate?.updateplan(plan)
+        delegate?.update(plan: plan)
     }
     
     private func configureContents(with plan: Plan?) {

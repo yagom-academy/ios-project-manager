@@ -77,7 +77,7 @@ final class PlanCollectionViewController: UIViewController {
                 }
                 
                 let actionHandler: UIContextualAction.Handler = { action, view, completion in
-                    self.viewModel.deleteplan(at: indexPath.row)
+                    self.viewModel.deletePlan(at: indexPath.row)
                     completion(true)
                 }
                 
