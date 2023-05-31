@@ -9,9 +9,14 @@ import SwiftUI
 
 struct ProjectListContextMenuView: View {
     @Binding var viewModel: ProjectViewModel
-    let state: ProjectState
-    let project: Project
+    private let state: ProjectState
+    private let project: Project
     
+    init(viewModel: Binding<ProjectViewModel>, state: ProjectState, project: Project) {
+        self._viewModel = viewModel
+        self.state = state
+        self.project = project
+    }
     
     var body: some View {
         VStack {
@@ -27,6 +32,11 @@ struct ProjectListContextMenuView: View {
 
 struct ProjectListContextMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectListContextMenuView(viewModel: .constant(ProjectViewModel()), state: .todo, project: .init(title: "", body: "", date: Date()))
+        ProjectListContextMenuView(
+            viewModel: .constant(ProjectViewModel()),
+            state: .todo,
+            project: .init(title: "", body: "", date: Date())
+        )
+        
     }
 }

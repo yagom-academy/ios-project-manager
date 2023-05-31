@@ -9,8 +9,13 @@ import SwiftUI
 
 struct ProjectListHeaderView: View {
     @Binding var viewModel: ProjectViewModel
-    let state: ProjectState
+    private let state: ProjectState
     
+    init(viewModel: Binding<ProjectViewModel>, state: ProjectState) {
+        self._viewModel = viewModel
+        self.state = state
+    }
+
     var body: some View {
         HStack {
             Text(state.rawValue)

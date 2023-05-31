@@ -9,9 +9,15 @@ import SwiftUI
 
 struct ProjectListCell: View {
     @Binding var viewModel: ProjectViewModel
-    @State private var isModalViewShow: Bool = false
+    @State private var isModalViewShow: Bool
+    private let model: Project
     private let dateManager = DateManager.shared
-    let model: Project
+    
+    init(viewModel: Binding<ProjectViewModel>, isModalViewShow: Bool = false, model: Project) {
+            self._viewModel = viewModel
+            self._isModalViewShow = State<Bool>(initialValue: isModalViewShow)
+            self.model = model
+        }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8.0) {

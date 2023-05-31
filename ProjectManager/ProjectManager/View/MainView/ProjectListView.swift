@@ -9,7 +9,12 @@ import SwiftUI
 
 struct ProjectListView: View {
     @Binding var viewModel: ProjectViewModel
-    let currentState: ProjectState
+    private let currentState: ProjectState
+    
+    init(viewModel: Binding<ProjectViewModel>, currentState: ProjectState) {
+        self._viewModel = viewModel
+        self.currentState = currentState
+    }
     
     var body: some View {
         List {
