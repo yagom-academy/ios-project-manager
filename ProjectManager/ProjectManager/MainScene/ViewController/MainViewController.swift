@@ -27,6 +27,9 @@ final class MainViewController: UIViewController {
         configureChildViewControllerUI()
         configureObserver()
         bindCollectionView()
+        
+        viewModel.networkStateHandler = showNetworkAlert(isConnect:)
+        viewModel.configure()
     }
     
     func presentTodoViewController(_ state: TodoState, _ task: Task?) {
@@ -78,6 +81,18 @@ final class MainViewController: UIViewController {
                                                selector: #selector(bindErrorHandler(_:)),
                                                name: .errorTask,
                                                object: nil)
+    }
+    
+    private func showNetworkAlert(isConnect: Bool) {
+        let title = "네트워크 연결 확인"
+        let message = isConnect == true ? "네트워크가 연결되었습니다." : "네트워크를 확인해주세요"
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
     }
 }
 

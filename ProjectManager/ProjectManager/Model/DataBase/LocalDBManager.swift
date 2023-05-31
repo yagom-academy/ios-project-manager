@@ -9,7 +9,7 @@ import RealmSwift
 
 final class LocalDBManager<T: Object>: DatabaseManagable {
     
-    private lazy var realm: Realm? = {
+    private var realm: Realm? {
         do {
             let realm = try Realm()
             
@@ -19,7 +19,7 @@ final class LocalDBManager<T: Object>: DatabaseManagable {
         }
         
         return nil
-    }()
+    }
     var errorHandler: ((Error) -> Void)?
     
     init(errorHandler: ((Error) -> Void)?) {

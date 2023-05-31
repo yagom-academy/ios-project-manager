@@ -34,12 +34,21 @@ class MainViewModel {
         }
     }
     
+    var networkStateHandler: ((Bool) -> Void)?
+    
     var historyTasks: [History] {
         return historyManager.sortedHistoryList
     }
     
-    init() {
+    deinit {
+        networkMonitor.stopMonitoring()
+    }
+    
+    func configure() {
         networkMonitor.checkNetworkState { [weak self] isConnect in
+            DispatchQueue.main.async {
+                self?.networkStateHandler?(isConnect)
+            }
             self?.dbManager.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
             self?.fetchTasks()
         }

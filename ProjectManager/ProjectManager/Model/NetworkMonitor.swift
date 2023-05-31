@@ -7,7 +7,7 @@
 
 import Network
 
-final class NetworkMonitor {
+struct NetworkMonitor {
     private let backgroundQueue = DispatchQueue.global(qos: .background)
     private let monitor = NWPathMonitor()
     
