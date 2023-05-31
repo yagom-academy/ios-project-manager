@@ -36,7 +36,7 @@ final class ChangeWorkStateViewController: UIViewController {
     }()
     
     private let viewModel: ChangeWorkStateViewModel
-    private var bindings: Set<AnyCancellable> = []
+    private var bindings = Set<AnyCancellable>()
     
     init(viewModel: ChangeWorkStateViewModel) {
         self.viewModel = viewModel

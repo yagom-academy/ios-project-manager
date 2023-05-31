@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class TaskCollectionViewController: UIViewController, UICollectionViewDelegate {
+final class TaskCollectionViewController: UIViewController {
     private enum Section: Hashable {
         case main(count: Int)
     }
@@ -184,7 +184,27 @@ final class TaskCollectionViewController: UIViewController, UICollectionViewDele
         snapshot.reloadItems(taskListID)
         dataSource?.apply(snapshot)
     }
-    
+}
+
+// MARK: - CollectionViewDelegate 기능
+extension TaskCollectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let task = viewModel.task(at: indexPath.row)
+        
+        let detailViewModel = DetailViewModel(from: task, mode: .update)
+        let detailViewController = DetailViewController(viewModel: detailViewModel)
+        detailViewController.configureViewModelDelegate(with: viewModel as? DetailViewModelDelegate)
+        
+        let navigationController = UINavigationController(rootViewController: detailViewController)
+        navigationController.modalPresentationStyle = .formSheet
+        
+        self.present(navigationController, animated: true)
+    }
+}
+
+// MARK: - GestureRecognizer 관련 기능
+extension TaskCollectionViewController {
     private func setupLongTapGestureRecognizer() {
         let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
         longPressedGesture.minimumPressDuration = 0.5
@@ -237,19 +257,4 @@ final class TaskCollectionViewController: UIViewController, UICollectionViewDele
             }
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        let task = viewModel.task(at: indexPath.row)
-        
-        let detailViewModel = DetailViewModel(from: task, mode: .update)
-        let detailViewController = DetailViewController(viewModel: detailViewModel)
-        detailViewController.configureViewModelDelegate(with: viewModel as? DetailViewModelDelegate)
-        
-        let navigationController = UINavigationController(rootViewController: detailViewController)
-        navigationController.modalPresentationStyle = .formSheet
-        
-        self.present(navigationController, animated: true)
-    }
 }
-
