@@ -213,8 +213,8 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         
         switch firstChoiceTableView {
         case .todoTableView:
-            let selectedData = toDoList[indextPath.row]
-            guard let todoListIndex = toDoList.firstIndex(where: { $0.title == selectedData.title }) else { return }
+            guard let selectedData = toDoList[index: indextPath.row],
+            let todoListIndex = toDoList.firstIndex(where: { $0.title == selectedData.title }) else { return }
             let removedItem = toDoList.remove(at: todoListIndex)
             if targetTableView == .doingTableView {
                 doingList.append(removedItem)
@@ -222,8 +222,8 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
                 doneList.append(removedItem)
             }
         case .doingTableView:
-            let selectedData = doingList[indextPath.row]
-            guard let doingListIndex = doingList.firstIndex(where: { $0.title == selectedData.title }) else { return }
+            guard let selectedData = doingList[index: indextPath.row],
+            let doingListIndex = doingList.firstIndex(where: { $0.title == selectedData.title }) else { return }
             let removedItem = doingList.remove(at: doingListIndex)
             
             if targetTableView == .todoTableView {
@@ -232,8 +232,8 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
                 doneList.append(removedItem)
             }
         case .doneTableView:
-            let selectedData = doneList[indextPath.row]
-            guard let doneListIndex = doneList.firstIndex(where: { $0.title == selectedData.title }) else { return }
+            guard let selectedData = doneList[index: indextPath.row],
+            let doneListIndex = doneList.firstIndex(where: { $0.title == selectedData.title }) else { return }
             let removedItem = doneList.remove(at: doneListIndex)
             
             if targetTableView == .todoTableView {
@@ -383,5 +383,11 @@ extension ToDoListViewContorller: UITableViewDataSource {
             toDoTableViewCell.setUpLabel(toDoList: doneList[indexPath.row])
         }
         return toDoTableViewCell
+    }
+}
+
+extension Array {
+    subscript(index index: Int) -> Element? {
+        return indices ~= index ? self[index] : nil
     }
 }
