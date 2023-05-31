@@ -27,12 +27,12 @@ final class DetailViewModel {
         }
     }
     
-    @Published var title: String = ""
+    @Published var title: String? = ""
     @Published var body: String? = ""
     
     lazy var isEditingDone: AnyPublisher<Bool, Error> = Publishers.CombineLatest($title, $body)
         .tryMap { title, body in
-            guard let body else { throw EditError.nilText }
+            guard let title, let body else { throw EditError.nilText }
             return !title.isEmpty || !body.isEmpty
         }
         .eraseToAnyPublisher()
@@ -50,14 +50,14 @@ final class DetailViewModel {
     }
     
     func createTask() {
-        guard let body else { return }
+        guard let title, let body else { return }
         let task = Task(title: title, date: date, body: body, workState: workState)
         delegate?.setState(isUpdating: false)
         delegate?.createTask(task)
     }
     
     func updateTask() {
-        guard let id, let body else { return }
+        guard let title, let id, let body else { return }
         let task = Task(title: title, date: date, body: body, workState: workState, id: id)
         delegate?.setState(isUpdating: true)
         delegate?.updateTask(task)
