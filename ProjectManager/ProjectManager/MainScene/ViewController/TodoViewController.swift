@@ -106,17 +106,6 @@ extension TodoViewController: UITextViewDelegate {
 
 // MARK: UI
 extension TodoViewController {
-    private func showErrorAlert(_ error: Error) {
-        let alertController = UIAlertController(title: error.localizedDescription,
-                                                message: nil,
-                                                preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "확인", style: .cancel)
-        
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true)
-    }
-    
     private func configureInitialView() {
         titleTextField.text = viewModel.title
         datePicker.date = viewModel.date ?? Date()
