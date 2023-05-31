@@ -61,7 +61,12 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func didTapHistoryButton() {
+        let historyVC = HistoryViewController(history: viewModel.historyTasks)
         
+        historyVC.modalPresentationStyle = .popover
+        historyVC.popoverPresentationController?.barButtonItem = self.navigationItem.leftBarButtonItem
+        
+        present(historyVC, animated: true)
     }
     
     private func configureObserver() {

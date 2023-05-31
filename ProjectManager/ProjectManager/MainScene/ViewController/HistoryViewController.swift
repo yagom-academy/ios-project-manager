@@ -13,7 +13,7 @@ class HistoryViewController: UITableViewController {
     
     init(history: [String]) {
         self.history = history
-        
+
         super.init(nibName: nil, bundle: nil)
     }
     

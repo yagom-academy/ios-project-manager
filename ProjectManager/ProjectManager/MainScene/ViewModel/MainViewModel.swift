@@ -27,7 +27,7 @@ class MainViewModel {
     
     private let dbManager = DBManager()
     private let networkMonitor = NetworkMonitor()
-    private var historyTasks: [String] = []
+    var historyTasks: [String] = []
     private var tasks: [Task] = [] {
         didSet {
             postChangedTasksNoti()
