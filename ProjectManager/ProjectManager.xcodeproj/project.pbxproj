@@ -7,23 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C16A86F2A14AC84001640E2 /* TodoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16A86E2A14AC83001640E2 /* TodoHeaderView.swift */; };
+		1C16A8712A14B484001640E2 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16A8702A14B484001640E2 /* ScheduleCell.swift */; };
+		1C16A8732A14B705001640E2 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16A8722A14B705001640E2 /* Schedule.swift */; };
+		1C38D0632A1DE14400835A95 /* ModalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C38D0622A1DE14400835A95 /* ModalType.swift */; };
+		1C5906CB2A258A12001F048B /* ConstantSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5906CA2A258A12001F048B /* ConstantSpace.swift */; };
+		1C5906CD2A2597F9001F048B /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5906CC2A2597F9001F048B /* Section.swift */; };
+		1CC9D3E02A160D1E00654A5D /* DoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3DF2A160D1E00654A5D /* DoListViewController.swift */; };
+		1CC9D3F82A1B415000654A5D /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3F72A1B415000654A5D /* ModalViewController.swift */; };
+		1CC9D3FC2A1C4CD300654A5D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */; };
+		982DF0862A17ADEA0024BEB1 /* IdentifierType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */; };
+		983C04362A1B4BDA000E4702 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */; };
+		983C043E2A1DAB0D000E4702 /* ScheduleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C043D2A1DAB0D000E4702 /* ScheduleType.swift */; };
+		983C04442A2084DD000E4702 /* Namespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983C04432A2084DD000E4702 /* Namespace.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
-		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
+		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C16A86E2A14AC83001640E2 /* TodoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHeaderView.swift; sourceTree = "<group>"; };
+		1C16A8702A14B484001640E2 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		1C16A8722A14B705001640E2 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		1C38D0622A1DE14400835A95 /* ModalType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalType.swift; sourceTree = "<group>"; };
+		1C5906CA2A258A12001F048B /* ConstantSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantSpace.swift; sourceTree = "<group>"; };
+		1C5906CC2A2597F9001F048B /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		1CC9D3DF2A160D1E00654A5D /* DoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoListViewController.swift; sourceTree = "<group>"; };
+		1CC9D3F72A1B415000654A5D /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierType.swift; sourceTree = "<group>"; };
+		983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		983C043D2A1DAB0D000E4702 /* ScheduleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleType.swift; sourceTree = "<group>"; };
+		983C04432A2084DD000E4702 /* Namespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Namespace.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C7431F0C25F51E1D0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ProjectManager/Resource/Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +61,95 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1CC9D3F92A1C4C5100654A5D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				1C16A8702A14B484001640E2 /* ScheduleCell.swift */,
+				1CC9D3DF2A160D1E00654A5D /* DoListViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		982DF07E2A17ACBA0024BEB1 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		982DF07F2A17AD260024BEB1 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				983C04342A1B4B77000E4702 /* Utility */,
+				982DF0842A17AD8A0024BEB1 /* Application */,
+				982DF0832A17AD740024BEB1 /* Protocol */,
+				982DF0822A17AD6E0024BEB1 /* ViewModel */,
+				982DF0812A17AD670024BEB1 /* Model */,
+				982DF0802A17AD610024BEB1 /* View */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		982DF0802A17AD610024BEB1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1CC9D3F92A1C4C5100654A5D /* Main */,
+				1C16A86E2A14AC83001640E2 /* TodoHeaderView.swift */,
+				1CC9D3F72A1B415000654A5D /* ModalViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		982DF0812A17AD670024BEB1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1C16A8722A14B705001640E2 /* Schedule.swift */,
+				983C043D2A1DAB0D000E4702 /* ScheduleType.swift */,
+				1C38D0622A1DE14400835A95 /* ModalType.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		982DF0822A17AD6E0024BEB1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1CC9D3FB2A1C4CD300654A5D /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		982DF0832A17AD740024BEB1 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				982DF0852A17ADEA0024BEB1 /* IdentifierType.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		982DF0842A17AD8A0024BEB1 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		983C04342A1B4B77000E4702 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				983C04352A1B4BDA000E4702 /* DateFormatterManager.swift */,
+				983C04432A2084DD000E4702 /* Namespace.swift */,
+				1C5906CA2A258A12001F048B /* ConstantSpace.swift */,
+				1C5906CC2A2597F9001F048B /* Section.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +169,8 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				982DF07F2A17AD260024BEB1 /* Source */,
+				982DF07E2A17ACBA0024BEB1 /* Resource */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -126,7 +234,6 @@
 			files = (
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
-				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,23 +244,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				1C5906CB2A258A12001F048B /* ConstantSpace.swift in Sources */,
+				1C16A8732A14B705001640E2 /* Schedule.swift in Sources */,
+				1C38D0632A1DE14400835A95 /* ModalType.swift in Sources */,
+				1C16A8712A14B484001640E2 /* ScheduleCell.swift in Sources */,
+				1CC9D3E02A160D1E00654A5D /* DoListViewController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				982DF0862A17ADEA0024BEB1 /* IdentifierType.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				983C04362A1B4BDA000E4702 /* DateFormatterManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				983C043E2A1DAB0D000E4702 /* ScheduleType.swift in Sources */,
+				1CC9D3F82A1B415000654A5D /* ModalViewController.swift in Sources */,
+				1C16A86F2A14AC84001640E2 /* TodoHeaderView.swift in Sources */,
+				1C5906CD2A2597F9001F048B /* Section.swift in Sources */,
+				983C04442A2084DD000E4702 /* Namespace.swift in Sources */,
+				1CC9D3FC2A1C4CD300654A5D /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C7431F0B25F51E1D0094C4CF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C7431F0C25F51E1D0094C4CF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -216,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -271,7 +383,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -287,8 +399,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,8 +418,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				INFOPLIST_FILE = ProjectManager/Resource/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
