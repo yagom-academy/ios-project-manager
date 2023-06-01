@@ -45,11 +45,14 @@ class MainViewModel {
     }
     
     func configure() {
-        let localDB = LocalDBManager<TaskObject>(errorHandler: { [weak self] error in
+        let errorHandler: (Error) -> Void = { [weak self] error in
             self?.postDatabaseError(with: error)
-        })
+        }
+        
+        let localDB = LocalDBManager<TaskObject>(errorHandler: errorHandler)
         
         dbManager = DBManager(basicDB: localDB)
+        dbManager?.errorHandler = errorHandler
         
         networkMonitor.checkNetworkState { [weak self] isConnect in
             DispatchQueue.main.async {
