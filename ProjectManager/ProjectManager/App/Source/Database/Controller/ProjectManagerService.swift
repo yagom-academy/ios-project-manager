@@ -13,8 +13,13 @@ final class ProjectManagerService {
     
     private let taskManager = TaskManager()
     private let historyManager = HistoryManager()
+    private let networkMonitor = NetworkMonitor.shared
     
     private init() { }
+    
+    func isNetworkConnectedPublisher() -> AnyPublisher<Bool, Never> {
+        return networkMonitor.$isConnected.eraseToAnyPublisher()
+    }
     
     func requestTaskListPublisher() -> AnyPublisher<[MyTask], Never> {
         return taskManager.requestTaskListPublisher()

@@ -22,6 +22,12 @@ final class NetworkMonitor {
         
         monitor.pathUpdateHandler = { [weak self] path in
             self?.isConnected = (path.status == .satisfied)
+            
+            if path.status == .satisfied {
+                print("연결잘됨!!")
+            } else {
+                print("연결안됨")
+            }
         }
     }
     

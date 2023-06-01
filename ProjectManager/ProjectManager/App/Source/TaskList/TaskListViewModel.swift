@@ -26,10 +26,16 @@ final class TaskListViewModel {
         return "Move to \(actionTitle)"
     }
     
+    var allowSwipeAction: Bool = false
+    
     init(state: TaskState) {
         self.state = state
         
         requestFilteredTaskList()
+    }
+    
+    func isNetworkConnectedPublisher() -> AnyPublisher<Bool, Never> {
+        return projectManagerService.isNetworkConnectedPublisher()
     }
     
     func delete(indexPath: IndexPath) {

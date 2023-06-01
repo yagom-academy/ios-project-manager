@@ -127,9 +127,33 @@ final class TaskListViewController: UIViewController {
                 self.dataSource?.apply(snapshot, animatingDifferences: true)
             }
             .store(in: &subscriptions)
+        
+        viewModel.isNetworkConnectedPublisher()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isConnected in
+                self?.blockLongPressGesturesIfNeeded(isConnected)
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.isNetworkConnectedPublisher()
+            .assign(to: \.allowSwipeAction, on: viewModel)
+            .store(in: &subscriptions)
+    }
+    
+    
+    private func blockLongPressGesturesIfNeeded(_ isConneted: Bool) {
+        collectionView.gestureRecognizers?.forEach { gesture in
+            if let longPressGestureRecognizer = gesture as? UILongPressGestureRecognizer {
+                longPressGestureRecognizer.isEnabled = isConneted
+            }
+        }
     }
     
     private func makeSwipeAction(_ indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard viewModel.allowSwipeAction else {
+            return nil
+        }
+        
         let deleteActionTitle = "Delete"
         let deleteAction = UIContextualAction(style: .destructive,
                                               title: deleteActionTitle) {
