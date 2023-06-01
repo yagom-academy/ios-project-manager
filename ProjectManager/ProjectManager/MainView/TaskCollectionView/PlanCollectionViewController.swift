@@ -20,7 +20,7 @@ final class PlanCollectionViewController: UIViewController {
     
     private var dataSource: DataSource?
     private var viewModel: PlanListViewModel
-    private var cancellables = Set<AnyCancellable>()
+    private var bindings = Set<AnyCancellable>()
     private let dateFormatter: DateFormatter
     private var currentLongPressedCell: PlanCell?
     
@@ -162,7 +162,7 @@ final class PlanCollectionViewController: UIViewController {
                 
                 self.viewModel.setState(isUpdating: false)
             }
-            .store(in: &cancellables)
+            .store(in: &bindings)
     }
     
     private func applyLatestSnapshot(_ planList: [Plan]) {

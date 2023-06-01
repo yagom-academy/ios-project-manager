@@ -96,14 +96,14 @@ final class ChangeWorkStateViewController: UIViewController {
     
     private func bindViewModelToView() {
         viewModel.$firstText
-            .sink { firstText in
-                self.firstButton.setTitle(firstText, for: .normal)
+            .sink { [weak self] firstText in
+                self?.firstButton.setTitle(firstText, for: .normal)
             }
             .store(in: &cancellables)
         
         viewModel.$secondText
-            .sink { secondText in
-                self.secondButton.setTitle(secondText, for: .normal)
+            .sink { [weak self] secondText in
+                self?.secondButton.setTitle(secondText, for: .normal)
             }
             .store(in: &cancellables)
     }

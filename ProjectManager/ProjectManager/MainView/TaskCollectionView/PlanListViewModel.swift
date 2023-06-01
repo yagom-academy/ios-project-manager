@@ -28,6 +28,7 @@ protocol PlanListViewModel: AnyObject {
 extension PlanListViewModel {
     func create(plan: Plan) {
         planList.append(plan)
+        
         delegate?.create(plan: plan)
     }
     

@@ -8,7 +8,10 @@
 import Foundation
 
 final class MainViewModel {
-    private var planList: [Plan] = []
+    private var todoList: [Plan] = []
+    private var doingList: [Plan] = []
+    private var doneList: [Plan] = []
+    
     private var viewModelDictionary: [WorkState: PlanListViewModel] = [:]
     private let service: PlanStorageService
     
@@ -25,14 +28,22 @@ final class MainViewModel {
     }
     
     func fetchPlanList() {
-        planList = service.fetchPlanList()
+        service.fetchPlanList().forEach { plan in
+            switch plan.workState {
+            case .todo:
+                todoList.append(plan)
+            case .doing:
+                doingList.append(plan)
+            case .done:
+                doneList.append(plan)
+            }
+        }
     }
     
     func distributePlan() {
-        viewModelDictionary.forEach { workState, viewModel in
-            let filteredPlanList = planList.filter { $0.workState == workState }
-            viewModel.planList = filteredPlanList
-        }
+        viewModelDictionary[.todo]?.planList = todoList
+        viewModelDictionary[.doing]?.planList = doingList
+        viewModelDictionary[.done]?.planList = doneList
     }
     
     func todoViewModel() -> PlanListViewModel? {

@@ -183,6 +183,7 @@ final class DetailViewController: UIViewController {
     }
     
     private func bindAction() {
+        
         titleTextfield.textPublisher
             .sink { [weak self] title in
                 guard let self else { return }

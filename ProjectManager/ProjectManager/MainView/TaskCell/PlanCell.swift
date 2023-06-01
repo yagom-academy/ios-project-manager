@@ -64,28 +64,28 @@ final class PlanCell: UICollectionViewListCell {
     
     private func bindViewModelToView() {
         viewModel?.$title
-            .sink { title in
-                self.titleLabel.text = title
+            .sink { [weak self] title in
+                self?.titleLabel.text = title
             }
             .store(in: &cancellables)
         
         viewModel?.$body
-            .sink { body in
-                self.bodyLabel.text = body
+            .sink { [weak self] body in
+                self?.bodyLabel.text = body
             }
             .store(in: &cancellables)
         
         viewModel?.$date
-            .sink { date in
-                self.dateLabel.text = date
+            .sink { [weak self] date in
+                self?.dateLabel.text = date
             }
             .store(in: &cancellables)
         
         viewModel?.$isDateExpired
-            .sink { state in
+            .sink { [weak self] state in
                 guard let state else { return }
                 
-                self.dateLabel.textColor = state ? .systemRed : .black
+                self?.dateLabel.textColor = state ? .systemRed : .black
             }
             .store(in: &cancellables)
     }
