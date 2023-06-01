@@ -20,7 +20,7 @@ final class PlanCollectionViewController: UIViewController {
     
     private var dataSource: DataSource?
     private var viewModel: PlanListViewModel
-    private var bindings = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     private let dateFormatter: DateFormatter
     private var currentLongPressedCell: PlanCell?
     
@@ -30,7 +30,7 @@ final class PlanCollectionViewController: UIViewController {
         configureCollectionViewLayout()
         configureDataSource()
         configureCollectionView()
-        bindViewModelToView()
+        bindState()
         setupLongTapGestureRecognizer()
     }
     
@@ -76,8 +76,12 @@ final class PlanCollectionViewController: UIViewController {
                     return UISwipeActionsConfiguration()
                 }
                 
-                let actionHandler: UIContextualAction.Handler = { action, view, completion in
-                    self.viewModel.deletePlan(at: indexPath.row)
+                let actionHandler: UIContextualAction.Handler = { [weak self] action, view, completion in
+                    guard let plan = self?.viewModel.plan(at: indexPath.row) else {
+                        return
+                    }
+                    
+                    self?.viewModel.delete(planID: plan.id)
                     completion(true)
                 }
                 
@@ -154,19 +158,28 @@ final class PlanCollectionViewController: UIViewController {
         collectionView.delegate = self
     }
     
-    private func bindViewModelToView() {
-        viewModel
-            .currentPlanSubject
-            .sink { planList, isUpdating in
-                isUpdating ? self.reloadDataSourceItems() : self.applyLatestSnapshot(planList)
-                
-                self.viewModel.setState(isUpdating: false)
+    private func bindState() {
+        viewModel.planCreated
+            .sink { [weak self] in
+                self?.applyLatestSnapshot()
             }
-            .store(in: &bindings)
+            .store(in: &cancellables)
+        
+        viewModel.planUpdated
+            .sink { [weak self] planID in
+                self?.reloadItems(id: planID)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.planDeleted
+            .sink { [weak self] planID in
+                self?.deleteItems(id: planID)
+            }
+            .store(in: &cancellables)
     }
     
-    private func applyLatestSnapshot(_ planList: [Plan]) {
-        let planIDList = planList.map { $0.id }
+    private func applyLatestSnapshot() {
+        let planIDList = viewModel.planList.map { $0.id }
         
         let section = Section.main(count: viewModel.planList.count)
         var snapshot = Snapshot()
@@ -175,11 +188,17 @@ final class PlanCollectionViewController: UIViewController {
         dataSource?.apply(snapshot)
     }
     
-    private func reloadDataSourceItems() {
+    private func reloadItems(id: UUID) {
         guard var snapshot = dataSource?.snapshot() else { return }
-        let planListID = viewModel.planList.map { $0.id }
         
-        snapshot.reloadItems(planListID)
+        snapshot.reloadItems([id])
+        dataSource?.apply(snapshot)
+    }
+    
+    private func deleteItems(id: UUID) {
+        guard var snapshot = dataSource?.snapshot() else { return }
+        
+        snapshot.deleteItems([id])
         dataSource?.apply(snapshot)
     }
 }
