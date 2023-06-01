@@ -35,7 +35,11 @@ final class DBManager: DatabaseManagable {
     }
     
     func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
-        basicDB?.fetch(completion)
+        guard let database = database else {
+            basicDB?.fetch(completion)
+            return
+        }
+        database.fetch(completion)
     }
     
     func delete(object: Storable) {
