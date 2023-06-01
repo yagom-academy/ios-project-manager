@@ -93,8 +93,9 @@ final class PlanTableViewCell: UITableViewCell {
         planTableCellViewModel?.$plan
             .map { plan in
                 plan.date
-            }.sink {
-                self.date.textColor = self.planTableCellViewModel?.selectColor($0)
+            }
+            .sink {
+                self.date.textColor = self.planTableCellViewModel?.selectColor($0).color
                 self.date.text = self.planTableCellViewModel?.convertDate(of: $0)
             }.store(in: &cancellables)
     }

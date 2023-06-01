@@ -5,7 +5,7 @@
 //  Created by 리지 on 2023/05/22.
 //
 
-import UIKit
+import Foundation
 import Combine
 
 final class PlanTableCellViewModel {
@@ -19,14 +19,14 @@ final class PlanTableCellViewModel {
         return DateFormatManager.shared.convertToFormattedDate(of: date)
     }
     
-    func selectColor(_ date: Date) -> UIColor {
+    func selectColor(_ date: Date) -> TextColor {
         let result = DateFormatManager.shared.compareDate(from: date)
         
         switch result {
         case .past:
-            return UIColor.red
+            return .red
         default:
-            return UIColor.black
+            return .black
         }
     }
     
