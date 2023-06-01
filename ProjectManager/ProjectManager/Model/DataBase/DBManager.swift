@@ -18,9 +18,7 @@ final class DBManager: DatabaseManagable {
         self.basicDB = basicDB
     }
     
-    func changeDatabase(isConnect: Bool, syncedObjects: [Storable]?) {
-        guard let objects = syncedObjects else { return }
-        
+    func changeDatabase(isConnect: Bool) {
         if isConnect {
             database = RemoteDBManager(errorHandler: errorHandler)
         } else {

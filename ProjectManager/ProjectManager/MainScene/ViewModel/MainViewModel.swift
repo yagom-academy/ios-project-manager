@@ -58,7 +58,7 @@ class MainViewModel {
             DispatchQueue.main.async {
                 self?.networkStateHandler?(isConnect)
             }
-            self?.dbManager?.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
+            self?.dbManager?.changeDatabase(isConnect: isConnect)
             self?.fetchTasks()
         }
     }
