@@ -13,14 +13,6 @@ protocol ChangeWorkStateViewModelDelegate: AnyObject {
 }
 
 final class ChangeWorkStateViewModel {
-    enum ButtonIndex: Int {
-        case first
-        case second
-    }
-    
-    @Published var firstText: String?
-    @Published var secondText: String?
-    
     weak var delegate: ChangeWorkStateViewModelDelegate?
     
     private let plan: Plan
@@ -30,16 +22,13 @@ final class ChangeWorkStateViewModel {
         self.plan = plan
         self.filteredStates = WorkState.allCases
             .filter { $0 != plan.workState }
-        
-        self.firstText = filteredStates[safe: 0]?.buttonTitle
-        self.secondText = filteredStates[safe: 1]?.buttonTitle
     }
     
-    func changeWorkState(buttonIndex: ButtonIndex) {
-        guard let state = filteredStates[safe: buttonIndex.rawValue] else {
-            return
-        }
-        
-        delegate?.changeWorkState(of: plan, to: state)
+    func transform(input: Input) -> Output {
+//        guard let state = filteredStates[safe: buttonIndex.rawValue] else {
+//            return
+//        }
+//
+//        delegate?.changeWorkState(of: plan, to: state)
     }
 }

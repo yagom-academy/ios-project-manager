@@ -29,8 +29,11 @@ final class DetailViewModel {
         }
     }
     
-    @Published var title: String? = ""
-    @Published var body: String? = ""
+    let mode: Mode
+    
+    var title: String? = ""
+    var body: String? = ""
+    var date: Date = Date()
     
     lazy var isEditingDone: AnyPublisher<Bool, Error> = Publishers.CombineLatest($title, $body)
         .tryMap { title, body in
@@ -39,8 +42,6 @@ final class DetailViewModel {
         }
         .eraseToAnyPublisher()
     
-    let mode: Mode
-    var date: Date = Date()
     weak var delegate: DetailViewModelDelegate?
     
     private var workState: WorkState = .todo
