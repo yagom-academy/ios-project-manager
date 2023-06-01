@@ -30,6 +30,7 @@ final class PlanCollectionViewController: UIViewController {
         configureCollectionViewLayout()
         configureDataSource()
         configureCollectionView()
+        applyLatestSnapshot()
         bindState()
         setupLongTapGestureRecognizer()
     }

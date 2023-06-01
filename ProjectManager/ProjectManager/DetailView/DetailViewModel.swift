@@ -29,23 +29,26 @@ final class DetailViewModel {
         }
     }
     
+    struct Input {
+        let titleTextEvent: AnyPublisher<String?, Never>
+        let bodyTextEvent: AnyPublisher<String?, Never>
+    }
+    
+    struct Output {
+        let isEditingDone = PassthroughSubject<Bool, Error>()
+    }
+    
     let mode: Mode
     
     var title: String? = ""
     var body: String? = ""
     var date: Date = Date()
     
-    lazy var isEditingDone: AnyPublisher<Bool, Error> = Publishers.CombineLatest($title, $body)
-        .tryMap { title, body in
-            guard let title, let body else { throw EditError.nilText }
-            return !title.isEmpty || !body.isEmpty
-        }
-        .eraseToAnyPublisher()
-    
     weak var delegate: DetailViewModelDelegate?
     
     private var workState: WorkState = .todo
     private var id: UUID?
+    private var cancellables = Set<AnyCancellable>()
     
     init(from plan: Plan? = nil, mode: DetailViewModel.Mode) {
         self.mode = mode
@@ -62,6 +65,30 @@ final class DetailViewModel {
         guard let title, let id, let body else { return }
         let plan = Plan(title: title, date: date, body: body, workState: workState, id: id)
         delegate?.update(plan: plan)
+    }
+    
+    func transform(input: Input) -> Output {
+        let output = Output()
+        
+        input.titleTextEvent
+            .sink(receiveValue: { [weak self] title in
+                guard let self else { return }
+                
+                self.title = title
+                output.isEditingDone.send(true)
+            })
+            .store(in: &cancellables)
+        
+        input.bodyTextEvent
+            .sink(receiveValue: { [weak self] body in
+                guard let self else { return }
+                
+                self.body = body
+                output.isEditingDone.send(true)
+            })
+            .store(in: &cancellables)
+       
+        return output
     }
     
     private func configureContents(with plan: Plan?) {

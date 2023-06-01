@@ -83,8 +83,7 @@ final class DetailViewController: UIViewController {
         configureLabelText()
         configureUIEditability()
         
-        bindAction()
-        bindState()
+        bind()
     }
     
     func configureViewModelDelegate(with delegate: DetailViewModelDelegate?) {
@@ -182,35 +181,14 @@ final class DetailViewController: UIViewController {
         bodyTextView.isUserInteractionEnabled = isEnable
     }
     
-    private func bindAction() {
+    private func bind() {
+        let input = DetailViewModel.Input(
+            titleTextEvent: titleTextfield.textPublisher,
+            bodyTextEvent: bodyTextView.textPublisher
+        )
         
-        titleTextfield.textPublisher
-            .sink { [weak self] title in
-                guard let self else { return }
-                
-                self.viewModel.title = title
-            }
-            .store(in: &cancellables)
-        
-        bodyTextView.textPublisher
-            .sink { [weak self] body in
-                guard let self else { return }
-                
-                self.viewModel.body = body
-            }
-            .store(in: &cancellables)
-        
-        datePicker.datePublisher
-            .sink { [weak self] date in
-                guard let self else { return }
-                
-                self.viewModel.date = date
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func bindState() {
-        viewModel
+        let output = viewModel.transform(input: input)
+        output
             .isEditingDone
             .tryCatch { error -> AnyPublisher<Bool, Error> in
                 throw error
@@ -219,7 +197,9 @@ final class DetailViewController: UIViewController {
                 if case .failure(let error) = completion {
                     print(error)
                 }
-            }, receiveValue: { isEditingDone in
+            }, receiveValue: { [weak self] isEditingDone in
+                guard let self else { return }
+                
                 self.navigationItem.rightBarButtonItem?.isEnabled = isEditingDone ? true : false
             })
             .store(in: &cancellables)
