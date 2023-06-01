@@ -25,8 +25,8 @@ class MainViewModel {
         }
     }
     
-    private let dbManager = DBManager()
     private let networkMonitor = NetworkMonitor()
+    private var dbManager: DBManager?
     private var historyManager = HistoryManager()
     private var tasks: [Task] = [] {
         didSet {
@@ -45,15 +45,17 @@ class MainViewModel {
     }
     
     func configure() {
-        dbManager.errorHandler = { [weak self] error in
+        let localDB = LocalDBManager<TaskObject>(errorHandler: { [weak self] error in
             self?.postDatabaseError(with: error)
-        }
+        })
+        
+        dbManager = DBManager(basicDB: localDB)
         
         networkMonitor.checkNetworkState { [weak self] isConnect in
             DispatchQueue.main.async {
                 self?.networkStateHandler?(isConnect)
             }
-            self?.dbManager.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
+            self?.dbManager?.changeDatabase(isConnect: isConnect, syncedObjects: self?.tasks)
             self?.fetchTasks()
         }
     }
@@ -63,7 +65,7 @@ class MainViewModel {
         
         tasks.remove(at: targetIndex)
         
-        dbManager.delete(object: task)
+        dbManager?.delete(object: task)
         addHistory(historyState: .delete(task))
     }
     
@@ -74,7 +76,7 @@ class MainViewModel {
         
         tasks[targetIndex].state = state
         
-        dbManager.update(object: tasks[targetIndex])
+        dbManager?.update(object: tasks[targetIndex])
         addHistory(historyState: .move(prevState: prevState, nowState: state, task))
     }
     
@@ -87,13 +89,13 @@ class MainViewModel {
         
         tasks[targetIndex] = task
         
-        dbManager.update(object: task)
+        dbManager?.update(object: task)
     }
     
     func appendTask(_ task: Task) {
         tasks.append(task)
         
-        dbManager.create(object: task)
+        dbManager?.create(object: task)
         addHistory(historyState: .create(task))
     }
     
@@ -110,7 +112,7 @@ class MainViewModel {
     }
     
     private func fetchTasks() {
-        dbManager.fetch { [weak self] result in
+        dbManager?.fetch { [weak self] result in
             switch result {
             case .success(let tasks):
                 guard let tasks = tasks as? [Task] else { return }

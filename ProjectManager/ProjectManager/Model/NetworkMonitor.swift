@@ -8,7 +8,7 @@
 import Network
 
 struct NetworkMonitor {
-    private let backgroundQueue = DispatchQueue.global(qos: .background)
+    private let backgroundQueue = DispatchQueue.global(qos: .utility)
     private let monitor = NWPathMonitor()
     
     func checkNetworkState(_ handler: @escaping (Bool) -> Void) {
