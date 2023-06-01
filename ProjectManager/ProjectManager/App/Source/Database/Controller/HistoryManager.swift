@@ -18,13 +18,7 @@ final class HistoryManager {
         }
     }
     
-    init() {
-//        firebaseManager.addListener(History.self,
-//                                    createCompletion: create,
-//                                    deleteCompletion: delete)
-    }
-    
-    private func fetch() {
+    func fetch() {
         guard let realmList = realmManager.readAll(type: RealmHistory.self) else { return }
         
         historyList = realmList.map { History($0) }

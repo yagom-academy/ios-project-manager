@@ -14,18 +14,11 @@ final class TaskManager {
         
     @Published private var taskList: [MyTask] = []
     
-    init() {
-//        firebaseManager.addListener(MyTask.self,
-//                             createCompletion: create,
-//                             updateCompletion: update,
-//                             deleteCompletion: delete)
-    }
-    
     func requestTaskListPublisher() -> AnyPublisher<[MyTask], Never> {
         return $taskList.eraseToAnyPublisher()
     }
     
-    private func fetch() {
+    func fetch() {
         guard let realmList = realmManager.readAll(type: RealmTask.self) else { return }
         
         taskList = realmList.map { MyTask($0) }

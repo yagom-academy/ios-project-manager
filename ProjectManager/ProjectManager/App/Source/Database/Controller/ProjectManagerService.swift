@@ -19,6 +19,7 @@ final class ProjectManagerService {
     
     private init() {
         bindNeteworkConnectable()
+        fetchFromLocalDatabase()
     }
     
     func isNetworkConnectedPublisher() -> AnyPublisher<Bool, Never> {
@@ -62,12 +63,19 @@ final class ProjectManagerService {
         historyManager.create(history)
     }
     
-    func bindNeteworkConnectable() {
+    private func bindNeteworkConnectable() {
         isNetworkConnectedPublisher()
             .sink { [weak self] in
                 self?.taskManager.addListenerIfNetworkConnected($0)
                 self?.historyManager.addListenerIfNetworkConnected($0)
             }
             .store(in: &subscriptions)
+    }
+    
+    private func fetchFromLocalDatabase() {
+        guard !networkMonitor.isConnected else { return }
+        
+        taskManager.fetch()
+        historyManager.fetch()
     }
 }

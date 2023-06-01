@@ -60,6 +60,7 @@ final class TaskListViewModel {
                 $0.filter { [weak self] task in
                     task.state == self?.state
                 }
+                .sorted { $0.deadline < $1.deadline }
             }
             .assign(to: \.taskList, on: self)
             .store(in: &subscribes)
