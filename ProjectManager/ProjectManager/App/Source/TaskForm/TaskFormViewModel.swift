@@ -44,6 +44,10 @@ final class TaskFormViewModel {
         assignToIsDone()
     }
 
+    func isNetworkConnectedPublisher() -> AnyPublisher<Bool, Never> {
+        return projectManagerService.isNetworkConnectedPublisher()
+    }
+    
     func cancelOrEditAction(action: (() -> Void)?) {
         if task == nil {
             action?()

@@ -145,6 +145,7 @@ final class TaskFormViewController: UIViewController {
     
     private func bind() {
         bindContentsEditable()
+        bindLeftBarButtonEnable()
         bindDoneButtonEnable()
         assignToTitle()
         assignToBody()
@@ -160,8 +161,18 @@ final class TaskFormViewController: UIViewController {
             .store(in: &subscriptions)
     }
     
+    private func bindLeftBarButtonEnable() {
+        viewModel.isNetworkConnectedPublisher()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.navigationItem.leftBarButtonItem?.isEnabled = $0
+            }
+            .store(in: &subscriptions)
+    }
+    
     private func bindDoneButtonEnable() {
         viewModel.$isDone
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.navigationItem.rightBarButtonItem?.isEnabled = $0
             }

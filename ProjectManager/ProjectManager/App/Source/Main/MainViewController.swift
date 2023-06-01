@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 final class MainViewController: UIViewController {
     private let todoViewController = TaskListViewController(state: .todo)
     private let doingViewController = TaskListViewController(state: .doing)
     private let doneViewController = TaskListViewController(state: .done)
+    
+    private let viewModel = MainViewModel()
+    private var subscriptions = Set<AnyCancellable>()
     
     private let mainStackView = {
         let stackView = UIStackView()
@@ -28,6 +32,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
+        bindAddButton()
     }
     
     private func setupView() {
@@ -82,6 +87,15 @@ final class MainViewController: UIViewController {
         popoverController?.permittedArrowDirections = .up
         
         present(historyViewController, animated: true)
+    }
+    
+    private func bindAddButton() {
+        viewModel.isNetworkConnectedPublisher()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.navigationItem.rightBarButtonItem?.isEnabled = $0
+            }
+            .store(in: &subscriptions)
     }
     
     private func addChildViews() {
