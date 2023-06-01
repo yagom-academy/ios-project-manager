@@ -25,6 +25,7 @@
 		266ADEB72A248F36003B5CEF /* TaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266ADEB62A248F36003B5CEF /* TaskObject.swift */; };
 		266B81002A28772E00A5DDDD /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 266B80FF2A28772E00A5DDDD /* FirebaseDatabase */; };
 		266B81022A28772E00A5DDDD /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 266B81012A28772E00A5DDDD /* FirebaseDatabaseSwift */; };
+		266B81042A28792B00A5DDDD /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266B81032A28792B00A5DDDD /* History.swift */; };
 		26741E972A162720000B2459 /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26741E962A162720000B2459 /* TodoViewController.swift */; };
 		268E31602A257B8400C8B07E /* RemoteDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E315F2A257B8400C8B07E /* RemoteDBManager.swift */; };
 		268E31622A25837500C8B07E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 268E31612A25837500C8B07E /* GoogleService-Info.plist */; };
@@ -61,6 +62,7 @@
 		265676392A1662380063FBE2 /* TodoTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTitleTextField.swift; sourceTree = "<group>"; };
 		266ADEB32A245C3B003B5CEF /* LocalDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDBManager.swift; sourceTree = "<group>"; };
 		266ADEB62A248F36003B5CEF /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
+		266B81032A28792B00A5DDDD /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		26741E962A162720000B2459 /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		268E315F2A257B8400C8B07E /* RemoteDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDBManager.swift; sourceTree = "<group>"; };
 		268E31612A25837500C8B07E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				26E20EAE2A1C88EF00F7FBDC /* TodoState.swift */,
 				2632DEF12A25E52200D24197 /* NetworkMonitor.swift */,
 				26D4A1632A273D8D0000AB62 /* HistoryManager.swift */,
+				266B81032A28792B00A5DDDD /* History.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				2632DEF42A25F30900D24197 /* DBManager.swift in Sources */,
 				26E20EAA2A1BB11C00F7FBDC /* GeneratedTaskError.swift in Sources */,
 				264E01332A2715EF0080D2BC /* HistoryCell.swift in Sources */,
+				266B81042A28792B00A5DDDD /* History.swift in Sources */,
 				26E20EB12A1C8A1F00F7FBDC /* MainViewModel.swift in Sources */,
 				260ED10F2A264AC400FD7206 /* Storable.swift in Sources */,
 				266ADEB72A248F36003B5CEF /* TaskObject.swift in Sources */,

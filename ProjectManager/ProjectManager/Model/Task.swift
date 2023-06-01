@@ -9,6 +9,12 @@ import Foundation
 import RealmSwift
 
 struct Task: Hashable, Storable {
+    var id: UUID
+    var title: String
+    var description: String
+    var date: Date
+    var state: TaskState? = TaskState.todo
+    
     var convertedDictonary: [String : Any] {
         var dict: [String: Any] = [:]
         
@@ -59,10 +65,4 @@ struct Task: Hashable, Storable {
         
         return task
     }
-
-    var id: UUID
-    var title: String
-    var description: String
-    var date: Date
-    var state: TaskState? = TaskState.todo
 }

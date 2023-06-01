@@ -7,11 +7,6 @@
 
 import Foundation
 
-struct History {
-    let text: String
-    let date: Date
-}
-
 struct HistoryManager {
     private var historyList: [History] = []
     
