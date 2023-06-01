@@ -83,8 +83,8 @@ final class DetailViewController: UIViewController {
         configureLabelText()
         configureUIEditability()
         
-        bindViewToViewModel()
-        bindViewModelToView()
+        bindAction()
+        bindState()
     }
     
     func configureViewModelDelegate(with delegate: DetailViewModelDelegate?) {
@@ -182,7 +182,7 @@ final class DetailViewController: UIViewController {
         bodyTextView.isUserInteractionEnabled = isEnable
     }
     
-    private func bindViewToViewModel() {
+    private func bindAction() {
         titleTextfield.textPublisher
             .sink { [weak self] title in
                 guard let self else { return }
@@ -208,7 +208,7 @@ final class DetailViewController: UIViewController {
             .store(in: &cancellables)
     }
     
-    private func bindViewModelToView() {
+    private func bindState() {
         viewModel
             .isEditingDone
             .tryCatch { error -> AnyPublisher<Bool, Error> in
